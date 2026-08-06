@@ -8,7 +8,7 @@ path-stable: "routing home for the SVA prereg header enforced by ave-prereg >= v
 
 # Standard Vacuum Analysis (SVA) — the engineering process for substrate problems
 
-**Status: PILOT (v0.1, 2026-08-04) — NOT canonical.** Grant GO 2026-08-04 (core session, following
+**Status: PILOT (v0.2, 2026-08-05) — NOT canonical.** Grant GO 2026-08-04 (core session, following
 the sign-relativity ruling). Pilot case 1 = the axial RHO-B lane return; canonize only after ≥2
 pilot passes and Grant ratification. This leaf is PROCESS, not physics: it mints no `clm-`/`def-`,
 adjudicates nothing, and every physics statement in it is a POINTER to its canonical home.
@@ -33,17 +33,18 @@ is not ready to freeze.
 ## §0 — The SVA header (copy into every prereg, fill every row)
 
 ```markdown
-## §0 — Standard Vacuum Analysis header (SVA v0.1-pilot)
+## §0 — Standard Vacuum Analysis header (SVA v0.2-pilot)
  1. SECTOR / OWNERSHIP:      <which channel owns each observable; cross-wiring check done>
  2. REGIME / PHASE-STATE:    <MODE + REGIME + PHASE-STATE; small- vs large-signal; DC bias point>
  3. CIRCUIT STATEMENT:       <the observable in circuit terms BEFORE any framework word; total-vs-slot>
- 4. PLANE & PROJECTION:      <reference plane + series/shunt projection for every Γ or Z claim>
- 5. CONSTITUTIVE PROVENANCE: <each grading law: DERIVED | IMPORTED | FORKED(fork-id) | ENG-CHOICE>
+ 4. PLANE & PROJECTION:      <reference plane + series/shunt projection for every Γ or Z claim; for spectral lanes, the branch-selection projection>
+ 5. CONSTITUTIVE PROVENANCE: <each grading law: DERIVED | IMPORTED | FORKED(fork-id) | ENG-CHOICE | BRACKETED(pending-ruling)>
  6. ENERGY LEDGER:           <rim (within-system reactive) vs port (boundary-crossing); no loss word without a port>
  7. CALIBRATABILITY:         <is the target a dimensionless ratio or a port phase difference?>
  8. DISCRIMINATION CLASS:    <pure-AC | DC→AC coupling | DC-internal; tautology filter run; SM counterfactual>
  9. CERTIFICATION PLAN:      <gates frozen before numbers; unrun ≠ passed; negative controls named>
 10. ADJUDICATION ROUTING:    <which run settles which fork; what propagates on which outcome>
+11. NUMERICAL CONDITIONING:  <named cancellations, dynamic range, working precision; for iterated maps, the error-propagation model AND the metric it contracts in>
 ```
 
 ---
@@ -130,3 +131,23 @@ Apply the §0 header retroactively to the axial RHO-B lane's frozen prereg at it
 case 1): score each row FILLED / FILLABLE-BUT-MISSING / NOT-APPLICABLE, and log gaps here as dated
 amendments. Second pilot on the next fresh dispatch. Canonization decision (Grant) only after both
 pilots; until then this leaf binds only lanes the core orchestrator dispatches.
+
+---
+
+## §4 — Amendment log (v0.2, 2026-08-05 — Grant sheet ratification, six pilot-earned amendments)
+
+From pilots 2–5, each with a receipt: **Row 11 (NUMERICAL CONDITIONING) is now official** (pilot 2's
+proposal; pilot 3 receipts: it selected the Möbius/Schur solver at design time and bounded the
+accumulated phase) — with the pilot-3 refinement folded in: *for any iterated map or long
+accumulation, name the error-propagation model TOGETHER WITH THE METRIC IT CONTRACTS IN* (the
+G-UNIT failure: hyperbolic vs Euclidean non-expansiveness), and *name the regex engine in any
+scan* (FLAG-UNIWB: `\b` diverges between PCRE-ASCII and Python-Unicode). **Row 4 gains the
+spectral-lane gloss** (branch-selection projection — pilot 4: character-computed, not
+sort-index). **Row 5 gains BRACKETED(pending-ruling)** (pilot 3: it localized the band-top
+bracket's blast radius to one integer). **Row 9 sub-clauses:** derived gate constants get a
+pre-freeze second-method check (three consecutive lanes not-certified on freeze-sizing, mechanism
+identified: novel-quantity tolerances from wrong-in-kind error models); an instrument whose scan
+surface includes its own output directory is self-referential and must exclude its own artifacts
+by construction (pilot 5's G-SCAN). **Fork-id convention:** a fork a lane SWEEPS carries a
+`fork-` id, not a flag name. **Still owed:** the pilot-1 retro-score against the axial-RHO-B
+prereg (§3); the ave-prereg skill-body mirror of this amendment set (Grant-gated batch).

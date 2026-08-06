@@ -29,9 +29,9 @@ def topo_ring3() -> tuple[str, str, str]:
             f"\\node[small alpha] (n{i}) at ({{CX + 2.0*cos({angle})}}, {{CY + 2.0*sin({angle})}}) {{$\\alpha$}};\n"
         )
     edges = (
-        "\\draw[neongreen, thick] (n0) -- (n1);\n"
-        "\\draw[neongreen, thick] (n1) -- (n2);\n"
-        "\\draw[neongreen, thick] (n2) -- (n0);\n"
+        "\\draw[aveaccent, thick] (n0) -- (n1);\n"
+        "\\draw[aveaccent, thick] (n1) -- (n2);\n"
+        "\\draw[aveaccent, thick] (n2) -- (n0);\n"
     )
     legend = "3 ring edges\\\\\\textbf{3 junctions total}"
     return nodes, edges, legend
@@ -46,9 +46,9 @@ def topo_tet4() -> tuple[str, str, str]:
         "\\node[small alpha] (n3) at (CX, CY+0.3) {$\\alpha$};\n"
     )
     edges = (
-        "\\draw[neongreen, thick] (n0) -- (n1);\n\\draw[neongreen, thick] (n0) -- (n2);\n"
-        "\\draw[neongreen, thick] (n0) -- (n3);\n\\draw[neongreen, thick] (n1) -- (n2);\n"
-        "\\draw[neongreen, thick] (n1) -- (n3);\n\\draw[neongreen, thick] (n2) -- (n3);\n"
+        "\\draw[aveaccent, thick] (n0) -- (n1);\n\\draw[aveaccent, thick] (n0) -- (n2);\n"
+        "\\draw[aveaccent, thick] (n0) -- (n3);\n\\draw[aveaccent, thick] (n1) -- (n2);\n"
+        "\\draw[aveaccent, thick] (n1) -- (n3);\n\\draw[aveaccent, thick] (n2) -- (n3);\n"
     )
     legend = "6 tetrahedral edges\\\\\\textbf{6 junctions total}"
     return nodes, edges, legend
@@ -62,14 +62,14 @@ def topo_bipyr5() -> tuple[str, str, str]:
             f"\\node[small alpha] (e{i}) at ({{CX + 2.0*cos({angle})}}, {{CY + 2.0*sin({angle})}}) {{$\\alpha$}};\n"
         )
     nodes += (
-        "\\node[small alpha, draw=neonpurple, fill=darkbg!80!neonpurple] (p1) at (CX, CY+2.5) {$\\alpha_N$};\n"
-        "\\node[small alpha, draw=neonpurple, fill=darkbg!80!neonpurple] (p2) at (CX, CY-2.5) {$\\alpha_S$};\n"
+        "\\node[small alpha, draw=aveink, fill=white!85!aveink] (p1) at (CX, CY+2.5) {$\\alpha_N$};\n"
+        "\\node[small alpha, draw=aveink, fill=white!85!aveink] (p2) at (CX, CY-2.5) {$\\alpha_S$};\n"
     )
     edges = (
-        "\\draw[neongreen, thick] (e0) -- (e1); \\draw[neongreen, thick] (e1) -- (e2);"
-        " \\draw[neongreen, thick] (e2) -- (e0);\n"
-        "\\foreach \\e in {e0,e1,e2} { \\draw[neongreen] (p1) -- (\\e); \\draw[neongreen] (p2) -- (\\e); }\n"
-        "\\draw[neonpurple, thick] (p1) -- (p2);\n"
+        "\\draw[aveaccent, thick] (e0) -- (e1); \\draw[aveaccent, thick] (e1) -- (e2);"
+        " \\draw[aveaccent, thick] (e2) -- (e0);\n"
+        "\\foreach \\e in {e0,e1,e2} { \\draw[aveaccent] (p1) -- (\\e); \\draw[aveaccent] (p2) -- (\\e); }\n"
+        "\\draw[aveink, thick] (p1) -- (p2);\n"
     )
     legend = "3 ring + 6 pole-eq\\\\1 pole-pole\\\\\\textbf{10 junctions}"
     return nodes, edges, legend
@@ -83,15 +83,15 @@ def topo_oct6() -> tuple[str, str, str]:
             f"\\node[small alpha] (e{i}) at ({{CX + 2.0*cos({angle})}}, {{CY + 2.0*sin({angle})}}) {{$\\alpha$}};\n"
         )
     nodes += (
-        "\\node[small alpha, draw=neonpurple, fill=darkbg!80!neonpurple] (p1) at (CX+0.3, CY+2.5) {$\\alpha_N$};\n"
-        "\\node[small alpha, draw=neonpurple, fill=darkbg!80!neonpurple] (p2) at (CX-0.3, CY-2.5) {$\\alpha_S$};\n"
+        "\\node[small alpha, draw=aveink, fill=white!85!aveink] (p1) at (CX+0.3, CY+2.5) {$\\alpha_N$};\n"
+        "\\node[small alpha, draw=aveink, fill=white!85!aveink] (p2) at (CX-0.3, CY-2.5) {$\\alpha_S$};\n"
     )
     edges = (
-        "\\draw[neongreen, thick] (e0) -- (e1); \\draw[neongreen, thick] (e1) -- (e2);\n"
-        "\\draw[neongreen, thick] (e2) -- (e3); \\draw[neongreen, thick] (e3) -- (e0);\n"
-        "\\foreach \\e in {e0,e1,e2,e3} { \\draw[neongreen] (p1) -- (\\e); \\draw[neongreen] (p2) -- (\\e); }\n"
-        "\\draw[neonpurple, thin] (e0) -- (e2); \\draw[neonpurple, thin] (e1) -- (e3);\n"
-        "\\draw[neonpurple, thick] (p1) -- (p2);\n"
+        "\\draw[aveaccent, thick] (e0) -- (e1); \\draw[aveaccent, thick] (e1) -- (e2);\n"
+        "\\draw[aveaccent, thick] (e2) -- (e3); \\draw[aveaccent, thick] (e3) -- (e0);\n"
+        "\\foreach \\e in {e0,e1,e2,e3} { \\draw[aveaccent] (p1) -- (\\e); \\draw[aveaccent] (p2) -- (\\e); }\n"
+        "\\draw[aveink, thin] (e0) -- (e2); \\draw[aveink, thin] (e1) -- (e3);\n"
+        "\\draw[aveink, thick] (p1) -- (p2);\n"
     )
     legend = "4 ring + 8 pole-eq\\\\2 diagonal + 1 pp\\\\\\textbf{15 junctions}"
     return nodes, edges, legend
@@ -106,18 +106,18 @@ def topo_pbipyr7() -> tuple[str, str, str]:
             f"\\node[small alpha] (e{i}) at ({{CX + 2.0*cos({angle})}}, {{CY + 2.0*sin({angle})}}) {{$\\alpha$}};\n"
         )
     nodes += (
-        "\\node[small alpha, draw=neonpurple, fill=darkbg!80!neonpurple] (p1) at (CX, CY+2.7) {$\\alpha_N$};\n"
-        "\\node[small alpha, draw=neonpurple, fill=darkbg!80!neonpurple] (p2) at (CX, CY-2.7) {$\\alpha_S$};\n"
+        "\\node[small alpha, draw=aveink, fill=white!85!aveink] (p1) at (CX, CY+2.7) {$\\alpha_N$};\n"
+        "\\node[small alpha, draw=aveink, fill=white!85!aveink] (p2) at (CX, CY-2.7) {$\\alpha_S$};\n"
     )
     edges = (
-        "\\draw[neongreen, thick] (e0)--(e1); \\draw[neongreen, thick] (e1)--(e2);\n"
-        "\\draw[neongreen, thick] (e2)--(e3); \\draw[neongreen, thick] (e3)--(e4);"
-        " \\draw[neongreen, thick] (e4)--(e0);\n"
-        "\\foreach \\e in {e0,e1,e2,e3,e4} { \\draw[neongreen] (p1) -- (\\e); \\draw[neongreen] (p2) -- (\\e); }\n"
-        "\\draw[neonpurple, thick] (p1) -- (p2);\n"
-        "\\draw[neonpurple, thin] (e0)--(e2); \\draw[neonpurple, thin] (e1)--(e3);\n"
-        "\\draw[neonpurple, thin] (e2)--(e4); \\draw[neonpurple, thin] (e3)--(e0);"
-        " \\draw[neonpurple, thin] (e4)--(e1);\n"
+        "\\draw[aveaccent, thick] (e0)--(e1); \\draw[aveaccent, thick] (e1)--(e2);\n"
+        "\\draw[aveaccent, thick] (e2)--(e3); \\draw[aveaccent, thick] (e3)--(e4);"
+        " \\draw[aveaccent, thick] (e4)--(e0);\n"
+        "\\foreach \\e in {e0,e1,e2,e3,e4} { \\draw[aveaccent] (p1) -- (\\e); \\draw[aveaccent] (p2) -- (\\e); }\n"
+        "\\draw[aveink, thick] (p1) -- (p2);\n"
+        "\\draw[aveink, thin] (e0)--(e2); \\draw[aveink, thin] (e1)--(e3);\n"
+        "\\draw[aveink, thin] (e2)--(e4); \\draw[aveink, thin] (e3)--(e0);"
+        " \\draw[aveink, thin] (e4)--(e1);\n"
     )
     legend = "5 ring + 10 pole-eq\\\\5 cross + 1 pp\\\\\\textbf{21 junctions}"
     return nodes, edges, legend
@@ -130,14 +130,14 @@ def topo_cube8() -> tuple[str, str, str]:
         nodes += f"\\node[small alpha] (f{i}) at ({{CX+{x}}}, {{CY+{y}}}) {{$\\alpha$}};\n"
     for i, (x, y) in enumerate([(-2.2, 2.2), (2.2, 2.2), (2.2, -2.2), (-2.2, -2.2)]):
         nodes += (
-            f"\\node[small alpha, draw=neonorange, fill=darkbg!80!neonorange]"
+            f"\\node[small alpha, draw=avevermillion, fill=white!85!avevermillion]"
             f" (b{i}) at ({{CX+{x}}}, {{CY+{y}}}) {{$\\alpha$}};\n"
         )
     edges = (
-        "\\draw[neongreen, thick] (f0)--(f1)--(f2)--(f3)--cycle;\n"
-        "\\draw[neongreen, thick] (b0)--(b1)--(b2)--(b3)--cycle;\n"
-        "\\draw[neongreen] (f0)--(b0); \\draw[neongreen] (f1)--(b1);"
-        " \\draw[neongreen] (f2)--(b2); \\draw[neongreen] (f3)--(b3);\n"
+        "\\draw[aveaccent, thick] (f0)--(f1)--(f2)--(f3)--cycle;\n"
+        "\\draw[aveaccent, thick] (b0)--(b1)--(b2)--(b3)--cycle;\n"
+        "\\draw[aveaccent] (f0)--(b0); \\draw[aveaccent] (f1)--(b1);"
+        " \\draw[aveaccent] (f2)--(b2); \\draw[aveaccent] (f3)--(b3);\n"
     )
     legend = "12 cube edges\\\\+16 face/body diag.\\\\\\textbf{28 junctions}"
     return nodes, edges, legend
@@ -159,15 +159,15 @@ def topo_bcap10() -> tuple[str, str, str]:
             f" ({{CX + 1.5*cos({angle})}}, {{CY + 1.5*sin({angle}) + 0.5}}) {{$\\alpha$}};\n"
         )
     nodes += (
-        "\\node[small alpha, draw=neonpurple, fill=darkbg!80!neonpurple] (p1) at (CX, CY+2.5) {$\\alpha_N$};\n"
-        "\\node[small alpha, draw=neonpurple, fill=darkbg!80!neonpurple] (p2) at (CX, CY-2.5) {$\\alpha_S$};\n"
+        "\\node[small alpha, draw=aveink, fill=white!85!aveink] (p1) at (CX, CY+2.5) {$\\alpha_N$};\n"
+        "\\node[small alpha, draw=aveink, fill=white!85!aveink] (p2) at (CX, CY-2.5) {$\\alpha_S$};\n"
     )
     edges = (
-        "\\draw[neongreen, thick] (l0)--(l1)--(l2)--(l3)--cycle;\n"
-        "\\draw[neongreen, thick] (u0)--(u1)--(u2)--(u3)--cycle;\n"
-        "\\draw[neongreen] (p1)--(l0); \\draw[neongreen] (p1)--(u0); \\draw[neongreen] (p1)--(u1);\n"
-        "\\draw[neongreen] (p2)--(l2); \\draw[neongreen] (p2)--(l3); \\draw[neongreen] (p2)--(u2);\n"
-        "\\draw[neonpurple, thick] (p1) -- (p2);\n"
+        "\\draw[aveaccent, thick] (l0)--(l1)--(l2)--(l3)--cycle;\n"
+        "\\draw[aveaccent, thick] (u0)--(u1)--(u2)--(u3)--cycle;\n"
+        "\\draw[aveaccent] (p1)--(l0); \\draw[aveaccent] (p1)--(u0); \\draw[aveaccent] (p1)--(u1);\n"
+        "\\draw[aveaccent] (p2)--(l2); \\draw[aveaccent] (p2)--(l3); \\draw[aveaccent] (p2)--(u2);\n"
+        "\\draw[aveink, thick] (p1) -- (p2);\n"
     )
     legend = "8 ring + 6 cap\\\\+31 cross-links\\\\\\textbf{45 junctions}"
     return nodes, edges, legend
@@ -184,22 +184,22 @@ def topo_cuboct12() -> tuple[str, str, str]:
     for i in range(4):
         angle = 90 * i + 45
         nodes += (
-            f"\\node[small alpha, draw=neonpurple, fill=darkbg!80!neonpurple] (u{i}) at"
+            f"\\node[small alpha, draw=aveink, fill=white!85!aveink] (u{i}) at"
             f" ({{CX + 1.3*cos({angle})}}, {{CY + 1.3*sin({angle}) + 1.2}}) {{$\\alpha$}};\n"
         )
     for i in range(4):
         angle = 90 * i + 45
         nodes += (
-            f"\\node[small alpha, draw=neonorange, fill=darkbg!80!neonorange] (l{i}) at"
+            f"\\node[small alpha, draw=avevermillion, fill=white!85!avevermillion] (l{i}) at"
             f" ({{CX + 1.3*cos({angle})}}, {{CY + 1.3*sin({angle}) - 1.2}}) {{$\\alpha$}};\n"
         )
     edges = (
-        "\\draw[neongreen, thick] (e0)--(e1)--(e2)--(e3)--cycle;\n"
-        "\\draw[neonpurple] (u0)--(u1)--(u2)--(u3)--cycle;\n"
-        "\\draw[neonorange] (l0)--(l1)--(l2)--(l3)--cycle;\n"
-        "\\draw[neongreen] (e0)--(u0); \\draw[neongreen] (e1)--(u1);"
-        " \\draw[neongreen] (e2)--(u2); \\draw[neongreen] (e3)--(u3);\n"
-        "\\draw[neongreen] (e0)--(l0); \\draw[neongreen] (e1)--(l1);\n"
+        "\\draw[aveaccent, thick] (e0)--(e1)--(e2)--(e3)--cycle;\n"
+        "\\draw[aveink] (u0)--(u1)--(u2)--(u3)--cycle;\n"
+        "\\draw[avevermillion] (l0)--(l1)--(l2)--(l3)--cycle;\n"
+        "\\draw[aveaccent] (e0)--(u0); \\draw[aveaccent] (e1)--(u1);"
+        " \\draw[aveaccent] (e2)--(u2); \\draw[aveaccent] (e3)--(u3);\n"
+        "\\draw[aveaccent] (e0)--(l0); \\draw[aveaccent] (e1)--(l1);\n"
     )
     legend = "12 ring + 8 cross\\\\+46 non-adjacent\\\\\\textbf{66 junctions}"
     return nodes, edges, legend
@@ -208,7 +208,7 @@ def topo_cuboct12() -> tuple[str, str, str]:
 def topo_icosa13() -> tuple[str, str, str]:
     """Cr-52: centered icosahedron (center + 2 pentagons + 2 poles)."""
     nodes = (
-        "\\node[small alpha, draw=neonorange, fill=darkbg!80!neonorange, minimum size=0.7cm]"
+        "\\node[small alpha, draw=avevermillion, fill=white!85!avevermillion, minimum size=0.7cm]"
         " (c0) at (CX, CY) {$\\alpha_0$};\n"
     )
     for i in range(5):
@@ -219,16 +219,16 @@ def topo_icosa13() -> tuple[str, str, str]:
     for i in range(5):
         angle = 90 + 72 * i + 36
         nodes += (
-            f"\\node[small alpha, draw=neonpurple, fill=darkbg!80!neonpurple] (i{i}) at"
+            f"\\node[small alpha, draw=aveink, fill=white!85!aveink] (i{i}) at"
             f" ({{CX + 1.3*cos({angle})}}, {{CY + 1.3*sin({angle})}}) {{$\\alpha$}};\n"
         )
     nodes += (
-        "\\node[small alpha, draw=neonorange, fill=darkbg!80!neonorange] (pN) at (CX+2.8, CY) {$\\alpha_p$};\n"
-        "\\node[small alpha, draw=neonorange, fill=darkbg!80!neonorange] (pS) at (CX-2.8, CY) {$\\alpha_p$};\n"
+        "\\node[small alpha, draw=avevermillion, fill=white!85!avevermillion] (pN) at (CX+2.8, CY) {$\\alpha_p$};\n"
+        "\\node[small alpha, draw=avevermillion, fill=white!85!avevermillion] (pS) at (CX-2.8, CY) {$\\alpha_p$};\n"
     )
     edges = (
-        "\\draw[neongreen, thick] (o0)--(o1)--(o2)--(o3)--(o4)--cycle;\n"
-        "\\foreach \\i in {0,...,4} { \\draw[neonorange] (c0) -- (o\\i); }\n"
+        "\\draw[aveaccent, thick] (o0)--(o1)--(o2)--(o3)--(o4)--cycle;\n"
+        "\\foreach \\i in {0,...,4} { \\draw[avevermillion] (c0) -- (o\\i); }\n"
     )
     legend = "5 ring + 12 center\\\\+61 cross-links\\\\\\textbf{78 junctions}"
     return nodes, edges, legend
@@ -243,13 +243,13 @@ def topo_fcc14() -> tuple[str, str, str]:
         nodes += f"\\node[small alpha] (c{i+4}) at ({{CX+{x}}}, {{CY+{y}}}) {{$\\alpha_c$}};\n"
     for i, (x, y) in enumerate([(0, 1.5), (0, -1.5), (-1.5, 0), (1.5, 0), (0, 0.3), (0, -0.3)]):
         nodes += (
-            f"\\node[small alpha, draw=neonorange, fill=darkbg!80!neonorange]"
+            f"\\node[small alpha, draw=avevermillion, fill=white!85!avevermillion]"
             f" (f{i}) at ({{CX+{x}}}, {{CY+{y}}}) {{$\\alpha_f$}};\n"
         )
     edges = (
-        "\\draw[neongreen, thick] (c0)--(c1)--(c2)--(c3)--cycle;\n"
-        "\\draw[neonorange] (f0)--(c0); \\draw[neonorange] (f0)--(c1);\n"
-        "\\draw[neonorange] (f1)--(c2); \\draw[neonorange] (f1)--(c3);\n"
+        "\\draw[aveaccent, thick] (c0)--(c1)--(c2)--(c3)--cycle;\n"
+        "\\draw[avevermillion] (f0)--(c0); \\draw[avevermillion] (f0)--(c1);\n"
+        "\\draw[avevermillion] (f1)--(c2); \\draw[avevermillion] (f1)--(c3);\n"
     )
     legend = "12 cube + 24 face\\\\+55 non-adjacent\\\\\\textbf{91 junctions}"
     return nodes, edges, legend
@@ -283,16 +283,27 @@ PREAMBLE = r"""\documentclass[tikz,border=12pt]{standalone}
 \begin{document}
 \begin{tikzpicture}[>=latex, font=\small]
 
-\definecolor{darkbg}{RGB}{15, 15, 15}
-\definecolor{neonblue}{RGB}{0, 200, 255}
-\definecolor{neongreen}{RGB}{0, 255, 128}
-\definecolor{neonorange}{RGB}{255, 165, 0}
-\definecolor{neonred}{RGB}{255, 60, 60}
-\definecolor{neonpurple}{RGB}{180, 100, 255}
-\definecolor{dimwhite}{RGB}{180, 180, 180}
+% --- AVE house figure style: WHITE print profile, Okabe-Ito colourblind-safe palette.
+%     Single source of truth: src/ave/viz/README.md + src/ave/viz/style.py. `ave.viz` is
+%     matplotlib-only (it has no TikZ mechanism), so the hex values below are copied BY HAND
+%     from style.py -- COLORS (the semantic dict) and _PROP_CYCLE (the extended Okabe-Ito set).
+%     Re-derive from style.py, do not re-tune here. Every colour below clears 3:1 contrast on
+%     white; the retired neon set was defined against a 15/15/15 base and measures 1.3-2.0:1
+%     on white (i.e. it would ship as mud, not as colour).
+\definecolor{aveblue}{HTML}{0072B2}       % COLORS["ave"]        -- alpha-cluster LC tanks
+\definecolor{aveaccent}{HTML}{009E73}     % COLORS["accent"]     -- mutual-inductance bus (strong/attractive)
+\definecolor{avevermillion}{HTML}{D55E00} % COLORS["comparison"] -- Miller avalanche / halo channel
+\definecolor{avepurple}{HTML}{CC79A7}     % _PROP_CYCLE reddish-purple -- Coulomb repulsion
+\definecolor{aveink}{HTML}{000000}        % COLORS["data"]       -- polar alpha caps + body text
+\definecolor{avemuted}{HTML}{7F7F7F}      % COLORS["muted"]      -- annotations, dashed frames
 
-% Background
-\fill[darkbg] (-10,-13.5) rectangle (10,9);
+% Background: WHITE (house print profile). The prior `\fill[darkbg] (-10,-13.5) rectangle
+% (10,9)` canvas is REMOVED rather than recoloured, per the ratified circuit_h3_decay restyle.
+% It is replaced by an unpainted `\path` over the SAME rectangle so the standalone bounding
+% box -- and therefore every figure's page size and aspect ratio in the manuscript -- is
+% preserved exactly. Dropping the rectangle outright would shrink-wrap the bbox and silently
+% re-scale every \includegraphics that carries these figures.
+\path (-10,-13.5) rectangle (10,9);
 """
 
 POSTAMBLE = r"""
@@ -308,77 +319,77 @@ def make_section_a() -> str:
 % SECTION A: INTER-ALPHA JUNCTION (UNIT CELL)
 % =====================================================================
 
-\node[text=neonblue, font=\bfseries, anchor=west] at (-9.5, 6.8) {A: Inter-Alpha Junction (Unit Cell)};
+\node[text=aveblue, font=\bfseries, anchor=west] at (-9.5, 6.8) {A: Inter-Alpha Junction (Unit Cell)};
 
 % --- LEFT ALPHA ---
-\draw[neonblue, thick, rounded corners=6pt] (-9.2, 1.5) rectangle (-5.2, 6.2);
-\node[text=neonblue, font=\bfseries\small, anchor=south] at (-7.2, 6.2) {$\alpha_i$};
+\draw[aveblue, thick, rounded corners=6pt] (-9.2, 1.5) rectangle (-5.2, 6.2);
+\node[text=aveblue, font=\bfseries\small, anchor=south] at (-7.2, 6.2) {$\alpha_i$};
 
-\draw[neonblue] (-8.8, 5.5) to[L, *-*] (-8.8, 4.4);
-\draw[neonblue] (-8.0, 5.5) to[C, *-*] (-8.0, 4.4);
-\draw[neonblue] (-8.8, 5.5) -- (-8.0, 5.5); \draw[neonblue] (-8.8, 4.4) -- (-8.0, 4.4);
-\node[text=dimwhite, font=\tiny] at (-8.4, 4.1) {$p_1$};
+\draw[aveblue] (-8.8, 5.5) to[L, *-*] (-8.8, 4.4);
+\draw[aveblue] (-8.0, 5.5) to[C, *-*] (-8.0, 4.4);
+\draw[aveblue] (-8.8, 5.5) -- (-8.0, 5.5); \draw[aveblue] (-8.8, 4.4) -- (-8.0, 4.4);
+\node[text=avemuted, font=\tiny] at (-8.4, 4.1) {$p_1$};
 
-\draw[neonblue] (-7.0, 5.5) to[L, *-*] (-7.0, 4.4);
-\draw[neonblue] (-6.2, 5.5) to[C, *-*] (-6.2, 4.4);
-\draw[neonblue] (-7.0, 5.5) -- (-6.2, 5.5); \draw[neonblue] (-7.0, 4.4) -- (-6.2, 4.4);
-\node[text=dimwhite, font=\tiny] at (-6.6, 4.1) {$p_2$};
+\draw[aveblue] (-7.0, 5.5) to[L, *-*] (-7.0, 4.4);
+\draw[aveblue] (-6.2, 5.5) to[C, *-*] (-6.2, 4.4);
+\draw[aveblue] (-7.0, 5.5) -- (-6.2, 5.5); \draw[aveblue] (-7.0, 4.4) -- (-6.2, 4.4);
+\node[text=avemuted, font=\tiny] at (-6.6, 4.1) {$p_2$};
 
-\draw[neonblue] (-8.8, 3.4) to[L, *-*] (-8.8, 2.3);
-\draw[neonblue] (-8.0, 3.4) to[C, *-*] (-8.0, 2.3);
-\draw[neonblue] (-8.8, 3.4) -- (-8.0, 3.4); \draw[neonblue] (-8.8, 2.3) -- (-8.0, 2.3);
-\node[text=dimwhite, font=\tiny] at (-8.4, 2.0) {$n_1$};
+\draw[aveblue] (-8.8, 3.4) to[L, *-*] (-8.8, 2.3);
+\draw[aveblue] (-8.0, 3.4) to[C, *-*] (-8.0, 2.3);
+\draw[aveblue] (-8.8, 3.4) -- (-8.0, 3.4); \draw[aveblue] (-8.8, 2.3) -- (-8.0, 2.3);
+\node[text=avemuted, font=\tiny] at (-8.4, 2.0) {$n_1$};
 
-\draw[neonblue] (-7.0, 3.4) to[L, *-*] (-7.0, 2.3);
-\draw[neonblue] (-6.2, 3.4) to[C, *-*] (-6.2, 2.3);
-\draw[neonblue] (-7.0, 3.4) -- (-6.2, 3.4); \draw[neonblue] (-7.0, 2.3) -- (-6.2, 2.3);
-\node[text=dimwhite, font=\tiny] at (-6.6, 2.0) {$n_2$};
+\draw[aveblue] (-7.0, 3.4) to[L, *-*] (-7.0, 2.3);
+\draw[aveblue] (-6.2, 3.4) to[C, *-*] (-6.2, 2.3);
+\draw[aveblue] (-7.0, 3.4) -- (-6.2, 3.4); \draw[aveblue] (-7.0, 2.3) -- (-6.2, 2.3);
+\node[text=avemuted, font=\tiny] at (-6.6, 2.0) {$n_2$};
 
 % --- RIGHT ALPHA ---
-\draw[neonblue, thick, rounded corners=6pt] (5.2, 1.5) rectangle (9.2, 6.2);
-\node[text=neonblue, font=\bfseries\small, anchor=south] at (7.2, 6.2) {$\alpha_j$};
+\draw[aveblue, thick, rounded corners=6pt] (5.2, 1.5) rectangle (9.2, 6.2);
+\node[text=aveblue, font=\bfseries\small, anchor=south] at (7.2, 6.2) {$\alpha_j$};
 
-\draw[neonblue] (5.6, 5.5) to[L, *-*] (5.6, 4.4);
-\draw[neonblue] (6.4, 5.5) to[C, *-*] (6.4, 4.4);
-\draw[neonblue] (5.6, 5.5) -- (6.4, 5.5); \draw[neonblue] (5.6, 4.4) -- (6.4, 4.4);
-\node[text=dimwhite, font=\tiny] at (6.0, 4.1) {$p_1$};
+\draw[aveblue] (5.6, 5.5) to[L, *-*] (5.6, 4.4);
+\draw[aveblue] (6.4, 5.5) to[C, *-*] (6.4, 4.4);
+\draw[aveblue] (5.6, 5.5) -- (6.4, 5.5); \draw[aveblue] (5.6, 4.4) -- (6.4, 4.4);
+\node[text=avemuted, font=\tiny] at (6.0, 4.1) {$p_1$};
 
-\draw[neonblue] (7.4, 5.5) to[L, *-*] (7.4, 4.4);
-\draw[neonblue] (8.2, 5.5) to[C, *-*] (8.2, 4.4);
-\draw[neonblue] (7.4, 5.5) -- (8.2, 5.5); \draw[neonblue] (7.4, 4.4) -- (8.2, 4.4);
-\node[text=dimwhite, font=\tiny] at (7.8, 4.1) {$p_2$};
+\draw[aveblue] (7.4, 5.5) to[L, *-*] (7.4, 4.4);
+\draw[aveblue] (8.2, 5.5) to[C, *-*] (8.2, 4.4);
+\draw[aveblue] (7.4, 5.5) -- (8.2, 5.5); \draw[aveblue] (7.4, 4.4) -- (8.2, 4.4);
+\node[text=avemuted, font=\tiny] at (7.8, 4.1) {$p_2$};
 
-\draw[neonblue] (5.6, 3.4) to[L, *-*] (5.6, 2.3);
-\draw[neonblue] (6.4, 3.4) to[C, *-*] (6.4, 2.3);
-\draw[neonblue] (5.6, 3.4) -- (6.4, 3.4); \draw[neonblue] (5.6, 2.3) -- (6.4, 2.3);
-\node[text=dimwhite, font=\tiny] at (6.0, 2.0) {$n_1$};
+\draw[aveblue] (5.6, 3.4) to[L, *-*] (5.6, 2.3);
+\draw[aveblue] (6.4, 3.4) to[C, *-*] (6.4, 2.3);
+\draw[aveblue] (5.6, 3.4) -- (6.4, 3.4); \draw[aveblue] (5.6, 2.3) -- (6.4, 2.3);
+\node[text=avemuted, font=\tiny] at (6.0, 2.0) {$n_1$};
 
-\draw[neonblue] (7.4, 3.4) to[L, *-*] (7.4, 2.3);
-\draw[neonblue] (8.2, 3.4) to[C, *-*] (8.2, 2.3);
-\draw[neonblue] (7.4, 3.4) -- (8.2, 3.4); \draw[neonblue] (7.4, 2.3) -- (8.2, 2.3);
-\node[text=dimwhite, font=\tiny] at (7.8, 2.0) {$n_2$};
+\draw[aveblue] (7.4, 3.4) to[L, *-*] (7.4, 2.3);
+\draw[aveblue] (8.2, 3.4) to[C, *-*] (8.2, 2.3);
+\draw[aveblue] (7.4, 3.4) -- (8.2, 3.4); \draw[aveblue] (7.4, 2.3) -- (8.2, 2.3);
+\node[text=avemuted, font=\tiny] at (7.8, 2.0) {$n_2$};
 
 % --- JUNCTION ---
-\draw[neongreen, thick, rounded corners=6pt, dashed] (-4.8, 1.2) rectangle (4.8, 6.5);
-\node[text=neongreen, font=\bfseries\small, anchor=south] at (0, 6.5) {Junction at $R_{ij}$};
+\draw[aveaccent, thick, rounded corners=6pt, dashed] (-4.8, 1.2) rectangle (4.8, 6.5);
+\node[text=aveaccent, font=\bfseries\small, anchor=south] at (0, 6.5) {Junction at $R_{ij}$};
 
-\draw[neongreen, thick] (-5.2, 5.0) -- (-4.8, 5.0);
-\draw[neongreen, thick] (4.8, 5.0) -- (5.2, 5.0);
-\draw[neongreen, thick] (-4.8, 5.0) -- (-2.5, 5.0);
-\draw[neongreen, thick] (-2.5, 5.0) to[L, l^=\color{white}\small$M_{ij}$] (2.5, 5.0);
-\draw[neongreen, thick] (2.5, 5.0) -- (4.8, 5.0);
-\node[text=neongreen, font=\small, anchor=south] at (0, 5.8) {$16 \times K / R_{ij}$ (attractive)};
+\draw[aveaccent, thick] (-5.2, 5.0) -- (-4.8, 5.0);
+\draw[aveaccent, thick] (4.8, 5.0) -- (5.2, 5.0);
+\draw[aveaccent, thick] (-4.8, 5.0) -- (-2.5, 5.0);
+\draw[aveaccent, thick] (-2.5, 5.0) to[L, l^=\color{aveink}\small$M_{ij}$] (2.5, 5.0);
+\draw[aveaccent, thick] (2.5, 5.0) -- (4.8, 5.0);
+\node[text=aveaccent, font=\small, anchor=south] at (0, 5.8) {$16 \times K / R_{ij}$ (attractive)};
 
-\draw[neonred, thick] (-5.2, 2.8) -- (-4.8, 2.8);
-\draw[neonred, thick] (4.8, 2.8) -- (5.2, 2.8);
-\draw[neonred, thick] (-4.8, 2.8) -- (-2.0, 2.8);
-\draw[neonred, thick] (-2.0, 2.8) to[C, l_=\color{white}\small$C_{\text{Coul}}$] (2.0, 2.8);
-\draw[neonred, thick] (2.0, 2.8) -- (4.8, 2.8);
-\node[text=neonred, font=\small, anchor=north] at (0, 2.0) {$f_{pp} \cdot \alpha\hbar c / R_{ij}$ (repulsive)};
+\draw[avepurple, thick] (-5.2, 2.8) -- (-4.8, 2.8);
+\draw[avepurple, thick] (4.8, 2.8) -- (5.2, 2.8);
+\draw[avepurple, thick] (-4.8, 2.8) -- (-2.0, 2.8);
+\draw[avepurple, thick] (-2.0, 2.8) to[C, l_=\color{aveink}\small$C_{\text{Coul}}$] (2.0, 2.8);
+\draw[avepurple, thick] (2.0, 2.8) -- (4.8, 2.8);
+\node[text=avepurple, font=\small, anchor=north] at (0, 2.0) {$f_{pp} \cdot \alpha\hbar c / R_{ij}$ (repulsive)};
 
-\node[text=dimwhite, font=\tiny, text width=3cm, align=center] at (-7.2, 1.1)
+\node[text=avemuted, font=\tiny, text width=3cm, align=center] at (-7.2, 1.1)
     {6 internal $M_{ij}$ at $D_{\text{intra}} = d\sqrt{8}$\\$BE_\alpha = 28.29$ MeV};
-\node[text=dimwhite, font=\tiny, text width=3cm, align=center] at (7.2, 1.1)
+\node[text=avemuted, font=\tiny, text width=3cm, align=center] at (7.2, 1.1)
     {6 internal $M_{ij}$ at $D_{\text{intra}} = d\sqrt{8}$\\$BE_\alpha = 28.29$ MeV};
 """
 
@@ -389,10 +400,10 @@ def make_section_b(elem: dict) -> str:
     M_str = f"{elem['M_val']:.1f}" if isinstance(elem["M_val"], (int, float)) else str(elem["M_val"])
 
     if elem["regime"] == "Large Signal":
-        op_color = "neonorange"
+        op_color = "avevermillion"
         op_text = f"{elem['name']}: $V_R/V_{{BR}} = {vr_str} \\implies M = {M_str}$ \\quad (\\textbf{{AVALANCHE}})"
     elif elem["regime"] == "Core+Halo":
-        op_color = "neonpurple"
+        op_color = "aveink"
         if isinstance(elem["vr"], (int, float)):
             op_text = (
                 f"{elem['name']}: Core $V_R/V_{{BR}} = {vr_str} \\implies M = {M_str}$"
@@ -401,11 +412,11 @@ def make_section_b(elem: dict) -> str:
         else:
             op_text = f"{elem['name']}: Below model threshold \\quad (Core+Halo, no avalanche)"
     else:
-        op_color = "white"
+        op_color = "avemuted"
         op_text = f"{elem['name']}: $V_R/V_{{BR}} = {vr_str} \\implies M = {M_str}$ \\quad (Deep Small Signal)"
 
     vbr_node = (
-        "\\node[text=neonred, font=\\small, anchor=north] at (0, -2.2)"
+        "\\node[text=avepurple, font=\\small, anchor=north] at (0, -2.2)"
         " {$V_{BR} = 6\\alpha\\hbar c / D_{\\text{intra}} = 3.594$ MeV};"
     )
     return f"""
@@ -413,20 +424,20 @@ def make_section_b(elem: dict) -> str:
 % SECTION B: MILLER AVALANCHE STAGE
 % =====================================================================
 
-\\node[text=neonorange, font=\\bfseries, anchor=west] at (-9.5, 0.0) {{B: Miller Avalanche Stage}};
+\\node[text=avevermillion, font=\\bfseries, anchor=west] at (-9.5, 0.0) {{B: Miller Avalanche Stage}};
 
-\\draw[white, thick] (-5, -1.2) -- (-2, -1.2);
-\\draw[neonorange, thick] (-2, -1.2) to[D*, l^=\\color{{white}}$\\text{{APD}}$] (2, -1.2);
-\\draw[white, thick] (2, -1.2) -- (5, -1.2);
+\\draw[aveink, thick] (-5, -1.2) -- (-2, -1.2);
+\\draw[avevermillion, thick] (-2, -1.2) to[D*, l^=\\color{{aveink}}$\\text{{APD}}$] (2, -1.2);
+\\draw[aveink, thick] (2, -1.2) -- (5, -1.2);
 
-\\draw[neonred, dashed, thick] (0, -0.4) -- (0, -2.0);
+\\draw[avepurple, dashed, thick] (0, -0.4) -- (0, -2.0);
 {vbr_node}
 
-\\node[text=neonorange, font=\\large, draw=neonorange, thick, rounded corners=4pt,
-      fill=darkbg, inner sep=6pt] at (0, -3.8)
+\\node[text=avevermillion, font=\\large, draw=avevermillion, thick, rounded corners=4pt,
+      fill=white, inner sep=6pt] at (0, -3.8)
     {{$M = \\dfrac{{1}}{{1 - \\left(\\dfrac{{V_R}}{{V_{{BR}}}}\\right)^5}}$}};
 
-\\node[text={op_color}, font=\\small, draw=white, dashed, rounded corners=3pt, inner sep=5pt]
+\\node[text={op_color}, font=\\small, draw=avemuted, dashed, rounded corners=3pt, inner sep=5pt]
     at (0, -5.6) {{{op_text}}};
 """
 
@@ -450,34 +461,34 @@ def make_section_cd(elem: dict) -> str:
         if "halo_1a" in topo_key:
             nodes = f"\\node[small alpha] (c0) at ({CX}, {CY}) {{$\\alpha$}};\n"
             nodes += (
-                f"\\node[small alpha, draw=neonorange, fill=darkbg!80!neonorange]"
+                f"\\node[small alpha, draw=avevermillion, fill=white!85!avevermillion]"
                 f" (h0) at ({CX+3}, {CY}) {{$^3\\text{{H}}$}};\n"
             )
             edges = (
-                "\\draw[neonorange, thick, dashed] (c0) -- (h0)"
-                " node[midway, above, text=white, font=\\tiny] {{$M_{{\\text{{halo}}}}$}};\n"
+                "\\draw[avevermillion, thick, dashed] (c0) -- (h0)"
+                " node[midway, above, text=aveink, font=\\tiny] {{$M_{{\\text{{halo}}}}$}};\n"
             )
             legend = "1 core-halo link\\\\\\textbf{1 junction}"
         elif "halo_2a" in topo_key:
             nodes = f"\\node[small alpha] (c0) at ({CX-1.5}, {CY}) {{$\\alpha$}};\n"
             nodes += f"\\node[small alpha] (c1) at ({CX+1.5}, {CY}) {{$\\alpha$}};\n"
             nodes += (
-                f"\\node[small alpha, draw=neonorange, fill=darkbg!80!neonorange] (h0) at ({CX}, {CY-1.5}) {{$n$}};\n"
+                f"\\node[small alpha, draw=avevermillion, fill=white!85!avevermillion] (h0) at ({CX}, {CY-1.5}) {{$n$}};\n"
             )
-            edges = "\\draw[neongreen, thick] (c0) -- (c1);\n"
-            edges += "\\draw[neonorange, thick, dashed] (c0) -- (h0); \\draw[neonorange, thick, dashed] (c1) -- (h0);\n"
+            edges = "\\draw[aveaccent, thick] (c0) -- (c1);\n"
+            edges += "\\draw[avevermillion, thick, dashed] (c0) -- (h0); \\draw[avevermillion, thick, dashed] (c1) -- (h0);\n"
             legend = "1 inter-$\\alpha$ + 2 bridge\\\\\\textbf{3 junctions}"
         else:
             # Generic core+halo — use parent geometry label
             n_core = n_alpha
             nodes = f"\\node[small alpha, minimum size=1.5cm] (core) at ({CX}, {CY}) {{${n_core}\\alpha$\\\\core}};\n"
             nodes += (
-                f"\\node[small alpha, draw=neonorange, fill=darkbg!80!neonorange]"
+                f"\\node[small alpha, draw=avevermillion, fill=white!85!avevermillion]"
                 f" (halo) at ({CX+3.5}, {CY}) {{$^3\\text{{H}}$}};\n"
             )
             edges = (
-                "\\draw[neonorange, thick, dashed] (core) -- (halo)"
-                " node[midway, above, text=white, font=\\tiny] {{$M_{{\\text{{halo}}}}$}};\n"
+                "\\draw[avevermillion, thick, dashed] (core) -- (halo)"
+                " node[midway, above, text=aveink, font=\\tiny] {{$M_{{\\text{{halo}}}}$}};\n"
             )
             r_halo = elem.get("R_halo", "?")
             legend = f"Core + halo at ${r_halo}d$\\\\\\textbf{{{elem['n_pairs']}+ junctions}}"
@@ -492,39 +503,39 @@ def make_section_cd(elem: dict) -> str:
 % SECTION C: TOPOLOGY MAP
 % =====================================================================
 
-\\node[text=neonpurple, font=\\bfseries, anchor=west] at (-9.5, -6.8)
+\\node[text=aveink, font=\\bfseries, anchor=west] at (-9.5, -6.8)
     {{C: {elem['name']} Topology ({elem['n_pairs']} junctions)}};
 
 \\tikzset{{
     small alpha/.style={{
-        circle, draw=neonblue, thick, fill=darkbg!80!neonblue,
-        minimum size=0.6cm, text=white, font=\\tiny\\bfseries, inner sep=0pt
+        circle, draw=aveblue, thick, fill=white!85!aveblue,
+        minimum size=0.6cm, text=aveink, font=\\tiny\\bfseries, inner sep=0pt
     }}
 }}
 
 {nodes}
 {edges}
 
-\\node[text=dimwhite, font=\\tiny, text width=2.6cm, align=left, anchor=west] at (-1.5, -9.5)
+\\node[text=avemuted, font=\\tiny, text width=2.6cm, align=left, anchor=west] at (-1.5, -9.5)
     {{{legend}}};
 
 % =====================================================================
 % SECTION D: ENERGY BALANCE
 % =====================================================================
 
-\\node[text=white, font=\\bfseries, anchor=west] at (2.5, -7.0) {{D: Energy Balance}};
+\\node[text=aveink, font=\\bfseries, anchor=west] at (2.5, -7.0) {{D: Energy Balance}};
 
-\\node[text=white, font=\\small, text width=7cm, align=left,
-      draw=white, dashed, rounded corners=5pt, inner sep=8pt, anchor=north west]
+\\node[text=aveink, font=\\small, text width=7cm, align=left,
+      draw=avemuted, dashed, rounded corners=5pt, inner sep=8pt, anchor=north west]
       at (2.5, -7.6) {{
     $M_{{\\text{{nuc}}}} = {n_alpha}\\, M_\\alpha - BE_{{\\text{{net}}}}$\\\\[6pt]
     $BE_{{\\text{{net}}}} = \\underbrace{{\\displaystyle\\sum_{{i<j}}^{{{elem['n_pairs']}}}
     16 \\cdot \\frac{{K}}{{R_{{ij}}}}}}_{{\\ text{{Strong (attractive)}}}}
                      - \\underbrace{{M \\cdot \\displaystyle\\sum f_{{pp}}\\,
     \\frac{{\\alpha\\hbar c}}{{R_{{ij}}}}}}_{{\\text{{Coulomb (repulsive)}}}}$\\\\[10pt]
-    \\textcolor{{neongreen}}{{Strong:}} $\\sum K/R$ = engine-derived\\\\
-    \\textcolor{{neonred}}{{Coulomb:}} $\\sum \\alpha\\hbar c/R \\times f_{{pp}}$\\\\
-    \\textcolor{{neonorange}}{{Miller:}} $M = {M_str}$ ($V_R/V_{{BR}} = {vr_str}$)\\\\[4pt]
+    \\textcolor{{aveaccent}}{{Strong:}} $\\sum K/R$ = engine-derived\\\\
+    \\textcolor{{avepurple}}{{Coulomb:}} $\\sum \\alpha\\hbar c/R \\times f_{{pp}}$\\\\
+    \\textcolor{{avevermillion}}{{Miller:}} $M = {M_str}$ ($V_R/V_{{BR}} = {vr_str}$)\\\\[4pt]
     \\textbf{{Result:}} ${elem['mass']:,.3f}$ MeV (${elem['error']:.4f}\\%$ error)
 }};
 
@@ -532,7 +543,7 @@ def make_section_cd(elem: dict) -> str:
 % LEGEND
 % =====================================================================
 
-\\node[text=dimwhite, font=\\tiny, text width=16cm, align=center, anchor=south]
+\\node[text=avemuted, font=\\tiny, text width=16cm, align=center, anchor=south]
     at (0, -13.2) {{
     Each $\\alpha$ = 2$p$ + 2$n$ LC tanks at tetrahedron vertices
     ($D_{{\\text{{intra}}}} = d\\sqrt{{8}} \\approx 2.38$ fm).
@@ -551,9 +562,9 @@ def generate_circuit(elem: dict) -> str:
 
     title = f"""
 % TITLE
-\\node[text=white, font=\\bfseries\\Large] at (0, 8.2)
+\\node[text=aveink, font=\\bfseries\\Large] at (0, 8.2)
     {{{elem['name']} \\quad Semiconductor Equivalent Circuit}};
-\\node[text=dimwhite, font=\\small] at (0, 7.5)
+\\node[text=avemuted, font=\\small] at (0, 7.5)
     {{{elem['geo']} \\quad|\\quad $V_R/V_{{BR}} = {vr_str}$ \\quad|\\quad $M = {M_str}$ ({elem['regime']})}};
 """
 
@@ -921,9 +932,21 @@ def _build_element_data() -> list[dict]:
 
 
 if __name__ == "__main__":
-    OUTDIR = os.path.join(os.path.dirname(__file__), "..", "..", "periodic_table", "figures")
-    OUTDIR = os.path.abspath(OUTDIR)
-    os.makedirs(OUTDIR, exist_ok=True)
+    # [2026-08-05 PATH DEFECT FIXED] This was
+    #   os.path.join(os.path.dirname(__file__), "..", "..", "periodic_table", "figures")
+    # which resolves to src/scripts/periodic_table/figures -- a directory that does NOT
+    # exist in the tree. Because the next line called os.makedirs(..., exist_ok=True), a
+    # run would silently CREATE that stray directory and write all 19 .tex + .pdf into it,
+    # leaving the tracked figures untouched: "regenerate" was a no-op on the corpus and
+    # reported success. The generated .tex are tracked at src/scripts/vol_6_periodic_table/
+    # figures/, i.e. one level up from this script, so that is the correct target.
+    OUTDIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "figures"))
+    if not os.path.isdir(OUTDIR):
+        raise SystemExit(
+            f"OUTDIR does not exist: {OUTDIR}\n"
+            "Refusing to create it. This generator writes over TRACKED figure sources; a "
+            "missing target means the path is wrong again, not that a new directory is needed."
+        )
 
     all_elements = _build_element_data()
 

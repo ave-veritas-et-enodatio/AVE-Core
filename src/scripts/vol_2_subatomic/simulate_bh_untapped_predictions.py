@@ -14,6 +14,29 @@ without free parameters:
   5. GW Memory Strain (residual lattice deformation)
 
 All constants from ave.core.constants — zero free parameters.
+
+★ RETRACTED-CONTENT WARNING (2026-08-05, ringdown wave). TWO of the panels this
+script plots are RETRACTED content, and re-running it as-is will silently re-ship
+them:
+
+  * Panel 1 — the spinning-remnant ringdown-vs-LIGO comparison is a frame-mixed
+    compensating-error artifact (Grant Ruling B1, 2026-07-21; PR #774/#780). The
+    only surviving zero-free-parameter ringdown content is the cold Schwarzschild
+    a* = 0 eigenvalue. NO replacement per-event number exists, by ruling.
+  * Panel 5 — the GW-memory law "residual lattice deformation above
+    h_yield = sqrt(alpha)" is retracted on parity, anhysteresis and magnitude
+    (Ruling R1, 2026-08-03). The substrate LATCH contribution is a null; the
+    source-side FLUX channel is an OPEN derivation. NO replacement law exists.
+
+The shipped raster (manuscript/vol_2_subatomic/chapters/bh_untapped_predictions.png,
+used by vol_3 ch15) was therefore deliberately NOT re-plotted in that wave: the
+retractions carry no replacement numbers, so regenerating would require minting
+content no receipt supplies. The ch15 caption states the retraction instead.
+
+Also note for any future regeneration: this script calls plt.style.use
+("dark_background"), which is against the house figure style (ave.viz.style.apply,
+print profile / white). Whitening it is a separate, non-physics change — do not
+bundle it with a silent re-ship of panels 1 and 5.
 """
 
 import matplotlib.gridspec as gridspec

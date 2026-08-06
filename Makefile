@@ -55,7 +55,7 @@ VOLUMES = vol_0_engineering_compendium vol_1_foundations vol_2_subatomic vol_3_m
 PAPER_DIR = papers/2026_birefringence_letter
 PAPER_JOB = sve_vacuum_birefringence_letter
 
-.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-coldq-v2-number-check verify-coldq-v22-number-check refresh-provenance-baseline framing-audit gamma-census verify-anchor-content test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup verify-coldq-v24-number-check verify-coldq-polar-number-check verify-echo-delay-number-check verify-coldq-axial-rhob-number-check verify-two-band-kp-number-check verify-echo-delay-v2-number-check verify-last-bond-number-check
+.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-coldq-v2-number-check verify-coldq-v22-number-check refresh-provenance-baseline framing-audit verify-anchor-content test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup verify-coldq-v24-number-check verify-coldq-polar-number-check verify-echo-delay-number-check verify-coldq-axial-rhob-number-check verify-two-band-kp-number-check verify-echo-delay-v2-number-check verify-last-bond-number-check verify-srs-twist-number-check gamma-census
 
 help:
 	@echo "Applied Vacuum Engineering (AVE-Core) Build System"
@@ -77,6 +77,7 @@ help:
 	@echo "  make verify-echo-delay-number-check : Check the ECHO-DELAY regulated-sum result-doc numerals + mutation receipt (gating)"
 	@echo "  make verify-coldq-axial-rhob-number-check : Check the cold-Q axial RHO-B result-doc numerals against its shipped JSON (gating)"
 	@echo "  make verify-echo-delay-v2-number-check : Check the ECHO-DELAY v2 rerun + Y8 reach-through result-doc numerals + mutation receipt (gating)"
+	@echo "  make verify-srs-twist-number-check : Check the srs compression-twist result-doc numerals + mutation receipt (gating)"
 	@echo "  make refresh-provenance-baseline : Regenerate the grandfather baseline from the live scan (allowed to shrink)"
 	@echo "  make framing-audit        : Scan corpus for reviewer-misread framing anti-patterns (advisory)"
 	@echo "  make verify-anchor-content : Check cited path:NN vs adjacent backtick excerpt drift (WARN-CLASS advisory)"
@@ -107,7 +108,7 @@ setup:
 # =============================================================================
 # 1. Physics Verification (The "Simulate to Verify" Protocol)
 # =============================================================================
-verify: $(KB_VERIFY) verify-md-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-coldq-v2-number-check verify-coldq-v22-number-check verify-coldq-v24-number-check verify-coldq-polar-number-check verify-echo-delay-number-check verify-coldq-axial-rhob-number-check verify-two-band-kp-number-check verify-echo-delay-v2-number-check verify-last-bond-number-check
+verify: $(KB_VERIFY) verify-md-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-coldq-v2-number-check verify-coldq-v22-number-check verify-coldq-v24-number-check verify-coldq-polar-number-check verify-echo-delay-number-check verify-coldq-axial-rhob-number-check verify-two-band-kp-number-check verify-echo-delay-v2-number-check verify-last-bond-number-check verify-srs-twist-number-check
 	@echo "\n[Verify] Running categorization guards (ledger / wave-speed / theorem keepers)..."
 	$(PYTHON) $(SCRIPT_DIR)/verify/categorization_smoke.py
 	@echo "\n[Verify] Running DAG Anti-Cheat Scan..."
@@ -251,6 +252,18 @@ verify-last-bond-number-check:
 	$(PYTHON) research/drivers/last_bond_kernel_collapse_number_check.py
 	@echo "Mutation receipt: the numeral checker must FAIL on perturbed sources..."
 	$(PYTHON) research/drivers/last_bond_kernel_collapse_number_check.py --mutation-receipt
+# SRS COMPRESSION-TWIST lane number-check.  Its OWN target with its OWN recipe
+# body -- no recipe line is shared with any other lane.  The mutation receipt runs
+# on EVERY invocation, so the gate cannot silently degrade into a no-op.
+# DISCLOSED UNION-CONFLICT CLASS: the `.PHONY` line and the `verify:` prerequisite
+# line ARE shared with every other lane's number-check target.  Any concurrently
+# open lane adding a number-check edits those same two lines, and the correct
+# resolution is the UNION of all lanes' targets -- never a pick-one.
+verify-srs-twist-number-check:
+	@echo "Checking the srs compression-twist result-doc numerals against its shipped JSON (gating)..."
+	$(PYTHON) research/drivers/srs_twist_coefficient_number_check.py
+	@echo "Mutation receipt: the numeral checker must FAIL on perturbed sources..."
+	$(PYTHON) research/drivers/srs_twist_coefficient_number_check.py --mutation-receipt
 
 verify-md-links:
 	@echo "Checking Markdown link integrity + cited-id validity (inter-repo: warn)..."

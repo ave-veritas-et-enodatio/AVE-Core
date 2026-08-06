@@ -13,6 +13,7 @@ Reference: src/scripts/predictions_manifest_validator.py,
 import re
 
 from scripts.predictions_manifest_validator import (
+    ALL_CHECKS,
     ALLOWED_CALIBRATION_ROLES,
     ALLOWED_TYPES,
     MANIFEST_PATH,
@@ -721,6 +722,31 @@ class TestCalibrationRole:
         criticals = [f for f in check_calibration_role(m) if f.severity == "critical"]
         assert criticals == [], "Live manifest declares a calibration_role outside the taxonomy:\n" + "\n".join(
             f"  P={f.entry_id} {f.message}" for f in criticals
+        )
+
+    def test_registered_check_gates_at_critical(self) -> None:
+        # The 2026-08-05 flip lives at the ALL_CHECKS registration, NOT at the
+        # function's default (which stays "warn" for ad-hoc callers). Pin the
+        # registration, or the flip can be reverted by a keyword edit that no
+        # test notices.
+        registered = ALL_CHECKS["calibration_role"]
+        assert getattr(registered, "keywords", {}).get("severity") == "critical", (
+            "calibration_role must be REGISTERED at severity='critical' "
+            "(flip condition discharged 2026-08-05: P04 + P42 both ruled and landed)"
+        )
+        cards = self._cards(aaaaaa="- Mapping-conditional, disclosed-phenomenological match.")
+        m = _manifest([{"id": "P01", "clm": "clm-aaaaaa", "calibration_role": "chord"}])
+        assert check_calibration_role(m, cards=cards, severity="critical")[0].severity == "critical"
+
+    def test_live_manifest_has_no_contradicted_roles(self) -> None:
+        # The flip's precondition, asserted as a standing gate rather than a
+        # one-off census: a CONTRADICTED row would now red-gate `make verify`.
+        m = load_manifest(MANIFEST_PATH)
+        contradicted = [
+            f for f in check_calibration_role(m) if f.details.get("verdict") == "CONTRADICTED"
+        ]
+        assert contradicted == [], "Live manifest has contradicted calibration_role rows:\n" + "\n".join(
+            f"  P={f.entry_id} {f.message}" for f in contradicted
         )
 
 
