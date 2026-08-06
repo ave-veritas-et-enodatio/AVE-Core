@@ -2,12 +2,23 @@
 """
 Generate TikZ circuit schematics for heavy elements (S-32 through Fe-56).
 
-Each circuit uses the same visual style as the existing periodic table circuits:
-- Dark background (RGB 15,15,15)
-- Neon blue alpha blocks
-- Neon green bus coupling lines
-- Purple blocks for polar/halo/special nodes
-- White text and legends
+Each circuit uses the AVE house figure style (WHITE print profile, Okabe-Ito
+colourblind-safe palette; single source of truth src/ave/viz/README.md +
+src/ave/viz/style.py):
+- White background (no canvas fill)
+- COLORS["ave"] alpha blocks
+- COLORS["accent"] bus coupling lines
+- COLORS["data"] (black) blocks for polar/halo/special nodes
+- Black text, COLORS["muted"] legend frames
+
+[2026-08-05 STATUS: SUPERSEDED-BUT-MAINTAINED. Every tracked circuit_*.tex in
+ src/scripts/vol_6_periodic_table/figures/ -- including all six this script names
+ (s32, ar40, ca40, ti48, cr52, fe56) -- carries the 21-line preamble emitted by
+ generate_all_semiconductor_circuits.py, NOT the preamble below (verified by
+ md5 of the first 21 lines against a sandbox run of both generators, 2026-08-05:
+ 19/19 match generate_all, 0/6 match this file). So this script is not the
+ producer of any shipped figure. It is whitened here anyway so that it cannot
+ re-introduce a dark canvas if anyone runs it.]
 
 Geometries are taken directly from the semiconductor_binding_engine.py:
   S-32:  8α  Cube
@@ -21,7 +32,11 @@ Geometries are taken directly from the semiconductor_binding_engine.py:
 import os
 import subprocess
 
-OUTDIR = os.path.join(os.path.dirname(__file__), "..", "..", "periodic_table", "figures")
+# [2026-08-05 PATH DEFECT FIXED] Was ("..", "..", "periodic_table", "figures"), which
+# resolves to src/scripts/periodic_table/figures -- a directory that does not exist. Paired
+# with the os.makedirs(exist_ok=True) further down, a run silently created that stray
+# directory and wrote there, so "regenerate" never touched the tracked sources.
+OUTDIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "figures"))
 
 # ============================================================================
 # Common preamble and styles
@@ -36,24 +51,29 @@ PREAMBLE = r"""\documentclass[tikz,border=10pt]{standalone}
 \begin{document}
 \begin{tikzpicture}[>=latex']
 
-\definecolor{neonblue}{RGB}{0, 255, 255}
-\definecolor{neongreen}{RGB}{0, 255, 128}
-\definecolor{darkbg}{RGB}{15, 15, 15}
-\definecolor{neonpurple}{RGB}{200, 0, 255}
-\definecolor{neonorange}{RGB}{255, 165, 0}
+% --- AVE house figure style: WHITE print profile, Okabe-Ito colourblind-safe palette.
+%     Hex values copied by hand from src/ave/viz/style.py COLORS + _PROP_CYCLE
+%     (`ave.viz` is matplotlib-only and has no TikZ mechanism). All clear 3:1 on white.
+\definecolor{aveblue}{HTML}{0072B2}       % COLORS["ave"]        -- alpha blocks
+\definecolor{aveaccent}{HTML}{009E73}     % COLORS["accent"]     -- bus coupling
+\definecolor{avevermillion}{HTML}{D55E00} % COLORS["comparison"] -- halo / avalanche
+\definecolor{aveink}{HTML}{000000}        % COLORS["data"]       -- polar / special nodes, text
+\definecolor{avemuted}{HTML}{7F7F7F}      % COLORS["muted"]      -- annotations, frames
 
-% Fill background
-\fill[darkbg] (-7,-8) rectangle (7,7);
+% Background: WHITE. The prior `\fill[darkbg] (-7,-8) rectangle (7,7)` canvas is REMOVED,
+% replaced by an unpainted `\path` over the SAME rectangle so the standalone bounding box
+% (page size / aspect ratio) is preserved exactly.
+\path (-7,-8) rectangle (7,7);
 
 \tikzset{
     alpha block/.style={
-        draw=#1, thick, fill=darkbg!80!#1,
+        draw=#1, thick, fill=white!85!#1,
         rectangle, rounded corners=3pt,
         minimum width=2.0cm, minimum height=1.2cm,
-        text=white, font=\bfseries, align=center
+        text=aveink, font=\bfseries, align=center
     },
     bus/.style={
-        draw=neongreen, ultra thick, dashed
+        draw=aveaccent, ultra thick, dashed
     }
 }
 """
@@ -71,20 +91,20 @@ tex_s32 = (
     PREAMBLE
     + r"""
 % Title
-\node[text=white, font=\bfseries\Large] at (0, 6) {Sulfur-32 ($8\alpha$ Cube Architecture)};
+\node[text=aveink, font=\bfseries\Large] at (0, 6) {Sulfur-32 ($8\alpha$ Cube Architecture)};
 
 % 8 Alphas at cube vertices (projected as two squares)
 % Front face (inner square)
-\node[alpha block=neonblue] (F1) at (-2.0, 2.5) {$\alpha_1$};
-\node[alpha block=neonblue] (F2) at (2.0, 2.5) {$\alpha_2$};
-\node[alpha block=neonblue] (F3) at (2.0, -0.5) {$\alpha_3$};
-\node[alpha block=neonblue] (F4) at (-2.0, -0.5) {$\alpha_4$};
+\node[alpha block=aveblue] (F1) at (-2.0, 2.5) {$\alpha_1$};
+\node[alpha block=aveblue] (F2) at (2.0, 2.5) {$\alpha_2$};
+\node[alpha block=aveblue] (F3) at (2.0, -0.5) {$\alpha_3$};
+\node[alpha block=aveblue] (F4) at (-2.0, -0.5) {$\alpha_4$};
 
 % Back face (outer square)
-\node[alpha block=neonpurple] (B1) at (-4.0, 4.0) {$\alpha_5$};
-\node[alpha block=neonpurple] (B2) at (4.0, 4.0) {$\alpha_6$};
-\node[alpha block=neonpurple] (B3) at (4.0, -2.0) {$\alpha_7$};
-\node[alpha block=neonpurple] (B4) at (-4.0, -2.0) {$\alpha_8$};
+\node[alpha block=aveink] (B1) at (-4.0, 4.0) {$\alpha_5$};
+\node[alpha block=aveink] (B2) at (4.0, 4.0) {$\alpha_6$};
+\node[alpha block=aveink] (B3) at (4.0, -2.0) {$\alpha_7$};
+\node[alpha block=aveink] (B4) at (-4.0, -2.0) {$\alpha_8$};
 
 % Front face edges
 \draw[bus] (F1) -- (F2);
@@ -105,7 +125,7 @@ tex_s32 = (
 \draw[bus] (F4) -- (B4);
 
 % Legend
-\node[text=white, text width=9cm, align=center, draw=white, dashed, inner sep=8pt] at (0, -5.5) {
+\node[text=aveink, text width=9cm, align=center, draw=avemuted, dashed, inner sep=8pt] at (0, -5.5) {
     \textbf{Large Signal Regime ($M = 32.8$, $V_R/V_{BR} = 0.994$)}\\
     First element requiring avalanche multiplication correction.\\
     Each $\alpha$ encapsulates a 4-nucleon LC mesh.\\
@@ -123,22 +143,22 @@ tex_ar40 = (
     PREAMBLE
     + r"""
 % Title
-\node[text=white, font=\bfseries\Large] at (0, 6) {Argon-40 ($10\alpha$ Bicapped Antiprism)};
+\node[text=aveink, font=\bfseries\Large] at (0, 6) {Argon-40 ($10\alpha$ Bicapped Antiprism)};
 
 % 8 in antiprism ring (two staggered squares)
-\node[alpha block=neonblue] (T1) at (90:3.0) {$\alpha_1$};
-\node[alpha block=neonblue] (T2) at (0:3.0) {$\alpha_2$};
-\node[alpha block=neonblue] (T3) at (-90:3.0) {$\alpha_3$};
-\node[alpha block=neonblue] (T4) at (180:3.0) {$\alpha_4$};
+\node[alpha block=aveblue] (T1) at (90:3.0) {$\alpha_1$};
+\node[alpha block=aveblue] (T2) at (0:3.0) {$\alpha_2$};
+\node[alpha block=aveblue] (T3) at (-90:3.0) {$\alpha_3$};
+\node[alpha block=aveblue] (T4) at (180:3.0) {$\alpha_4$};
 
-\node[alpha block=neonblue] (B1) at (45:2.0) {$\alpha_5$};
-\node[alpha block=neonblue] (B2) at (-45:2.0) {$\alpha_6$};
-\node[alpha block=neonblue] (B3) at (-135:2.0) {$\alpha_7$};
-\node[alpha block=neonblue] (B4) at (135:2.0) {$\alpha_8$};
+\node[alpha block=aveblue] (B1) at (45:2.0) {$\alpha_5$};
+\node[alpha block=aveblue] (B2) at (-45:2.0) {$\alpha_6$};
+\node[alpha block=aveblue] (B3) at (-135:2.0) {$\alpha_7$};
+\node[alpha block=aveblue] (B4) at (135:2.0) {$\alpha_8$};
 
 % 2 Polar Caps
-\node[alpha block=neonpurple] (P1) at (0, 4.5) {$\alpha_{cap}$};
-\node[alpha block=neonpurple] (P2) at (0, -4.5) {$\alpha_{cap}$};
+\node[alpha block=aveink] (P1) at (0, 4.5) {$\alpha_{cap}$};
+\node[alpha block=aveink] (P2) at (0, -4.5) {$\alpha_{cap}$};
 
 % Outer square ring
 \draw[bus] (T1) -- (T2);
@@ -161,7 +181,7 @@ tex_ar40 = (
 \draw[bus] (P2) -- (T4);
 
 % Legend
-\node[text=white, text width=9cm, align=center, draw=white, dashed, inner sep=8pt] at (0, -7) {
+\node[text=aveink, text width=9cm, align=center, draw=avemuted, dashed, inner sep=8pt] at (0, -7) {
     \textbf{Noble Gas Configuration}\\
     Bicapped square antiprism: complete $n=3$ closure.\\
     45 inter-alpha coupling pairs.\\
@@ -179,21 +199,21 @@ tex_ca40 = (
     PREAMBLE
     + r"""
 % Title
-\node[text=white, font=\bfseries\Large] at (0, 6) {Calcium-40 ($10\alpha$ Large Signal)};
+\node[text=aveink, font=\bfseries\Large] at (0, 6) {Calcium-40 ($10\alpha$ Large Signal)};
 
 % Same geometry as Ar-40 but in Large Signal regime
-\node[alpha block=neonorange] (T1) at (90:3.0) {$\alpha_1$};
-\node[alpha block=neonorange] (T2) at (0:3.0) {$\alpha_2$};
-\node[alpha block=neonorange] (T3) at (-90:3.0) {$\alpha_3$};
-\node[alpha block=neonorange] (T4) at (180:3.0) {$\alpha_4$};
+\node[alpha block=avevermillion] (T1) at (90:3.0) {$\alpha_1$};
+\node[alpha block=avevermillion] (T2) at (0:3.0) {$\alpha_2$};
+\node[alpha block=avevermillion] (T3) at (-90:3.0) {$\alpha_3$};
+\node[alpha block=avevermillion] (T4) at (180:3.0) {$\alpha_4$};
 
-\node[alpha block=neonorange] (B1) at (45:2.0) {$\alpha_5$};
-\node[alpha block=neonorange] (B2) at (-45:2.0) {$\alpha_6$};
-\node[alpha block=neonorange] (B3) at (-135:2.0) {$\alpha_7$};
-\node[alpha block=neonorange] (B4) at (135:2.0) {$\alpha_8$};
+\node[alpha block=avevermillion] (B1) at (45:2.0) {$\alpha_5$};
+\node[alpha block=avevermillion] (B2) at (-45:2.0) {$\alpha_6$};
+\node[alpha block=avevermillion] (B3) at (-135:2.0) {$\alpha_7$};
+\node[alpha block=avevermillion] (B4) at (135:2.0) {$\alpha_8$};
 
-\node[alpha block=neonorange] (P1) at (0, 4.5) {$\alpha_{cap}$};
-\node[alpha block=neonorange] (P2) at (0, -4.5) {$\alpha_{cap}$};
+\node[alpha block=avevermillion] (P1) at (0, 4.5) {$\alpha_{cap}$};
+\node[alpha block=avevermillion] (P2) at (0, -4.5) {$\alpha_{cap}$};
 
 % Outer ring
 \draw[bus, draw=red] (T1) -- (T2);
@@ -216,7 +236,7 @@ tex_ca40 = (
 \draw[bus, draw=red] (P2) -- (T4);
 
 % Legend
-\node[text=white, text width=9cm, align=center, draw=white, dashed, inner sep=8pt] at (0, -7) {
+\node[text=aveink, text width=9cm, align=center, draw=avemuted, dashed, inner sep=8pt] at (0, -7) {
     \textbf{Large Signal Regime ($M = 32.9$, $V_R/V_{BR} = 0.994$)}\\
     Same topology as Ar-40 but with 2 extra protons.\\
     Avalanche multiplication required for mass closure.\\
@@ -234,26 +254,26 @@ tex_ti48 = (
     PREAMBLE
     + r"""
 % Title
-\node[text=white, font=\bfseries\Large] at (0, 6) {Titanium-48 ($12\alpha$ Cuboctahedron)};
+\node[text=aveink, font=\bfseries\Large] at (0, 6) {Titanium-48 ($12\alpha$ Cuboctahedron)};
 
 % 12 alphas at cuboctahedron vertices (projected)
 % Equatorial ring (4)
-\node[alpha block=neonblue] (E1) at (3.5, 0) {$\alpha_{eq}$};
-\node[alpha block=neonblue] (E2) at (0, 2.5) {$\alpha_{eq}$};
-\node[alpha block=neonblue] (E3) at (-3.5, 0) {$\alpha_{eq}$};
-\node[alpha block=neonblue] (E4) at (0, -2.5) {$\alpha_{eq}$};
+\node[alpha block=aveblue] (E1) at (3.5, 0) {$\alpha_{eq}$};
+\node[alpha block=aveblue] (E2) at (0, 2.5) {$\alpha_{eq}$};
+\node[alpha block=aveblue] (E3) at (-3.5, 0) {$\alpha_{eq}$};
+\node[alpha block=aveblue] (E4) at (0, -2.5) {$\alpha_{eq}$};
 
 % Upper ring (4)
-\node[alpha block=neonpurple] (U1) at (2.5, 3.5) {$\alpha_{up}$};
-\node[alpha block=neonpurple] (U2) at (-2.5, 3.5) {$\alpha_{up}$};
-\node[alpha block=neonpurple] (U3) at (-2.5, 1.0) {$\alpha_{up}$};
-\node[alpha block=neonpurple] (U4) at (2.5, 1.0) {$\alpha_{up}$};
+\node[alpha block=aveink] (U1) at (2.5, 3.5) {$\alpha_{up}$};
+\node[alpha block=aveink] (U2) at (-2.5, 3.5) {$\alpha_{up}$};
+\node[alpha block=aveink] (U3) at (-2.5, 1.0) {$\alpha_{up}$};
+\node[alpha block=aveink] (U4) at (2.5, 1.0) {$\alpha_{up}$};
 
 % Lower ring (4)
-\node[alpha block=neonorange] (L1) at (2.5, -1.0) {$\alpha_{lo}$};
-\node[alpha block=neonorange] (L2) at (-2.5, -1.0) {$\alpha_{lo}$};
-\node[alpha block=neonorange] (L3) at (-2.5, -3.5) {$\alpha_{lo}$};
-\node[alpha block=neonorange] (L4) at (2.5, -3.5) {$\alpha_{lo}$};
+\node[alpha block=avevermillion] (L1) at (2.5, -1.0) {$\alpha_{lo}$};
+\node[alpha block=avevermillion] (L2) at (-2.5, -1.0) {$\alpha_{lo}$};
+\node[alpha block=avevermillion] (L3) at (-2.5, -3.5) {$\alpha_{lo}$};
+\node[alpha block=avevermillion] (L4) at (2.5, -3.5) {$\alpha_{lo}$};
 
 % Equatorial ring
 \draw[bus] (E1) -- (E2);
@@ -262,16 +282,16 @@ tex_ti48 = (
 \draw[bus] (E4) -- (E1);
 
 % Upper ring
-\draw[bus, draw=neonpurple] (U1) -- (U2);
-\draw[bus, draw=neonpurple] (U2) -- (U3);
-\draw[bus, draw=neonpurple] (U3) -- (U4);
-\draw[bus, draw=neonpurple] (U4) -- (U1);
+\draw[bus, draw=aveink] (U1) -- (U2);
+\draw[bus, draw=aveink] (U2) -- (U3);
+\draw[bus, draw=aveink] (U3) -- (U4);
+\draw[bus, draw=aveink] (U4) -- (U1);
 
 % Lower ring
-\draw[bus, draw=neonorange] (L1) -- (L2);
-\draw[bus, draw=neonorange] (L2) -- (L3);
-\draw[bus, draw=neonorange] (L3) -- (L4);
-\draw[bus, draw=neonorange] (L4) -- (L1);
+\draw[bus, draw=avevermillion] (L1) -- (L2);
+\draw[bus, draw=avevermillion] (L2) -- (L3);
+\draw[bus, draw=avevermillion] (L3) -- (L4);
+\draw[bus, draw=avevermillion] (L4) -- (L1);
 
 % Cross connections
 \draw[bus] (E1) -- (U4);
@@ -284,7 +304,7 @@ tex_ti48 = (
 \draw[bus] (E4) -- (L4);
 
 % Legend
-\node[text=white, text width=9cm, align=center, draw=white, dashed, inner sep=8pt] at (0, -6.5) {
+\node[text=aveink, text width=9cm, align=center, draw=avemuted, dashed, inner sep=8pt] at (0, -6.5) {
     \textbf{First Transition Metal ($3d^2\,4s^2$)}\\
     Cuboctahedral alpha packing: 66 inter-alpha pairs.\\
     Each $\alpha$ encapsulates a 4-nucleon LC mesh.\\
@@ -302,29 +322,29 @@ tex_cr52 = (
     PREAMBLE
     + r"""
 % Title
-\node[text=white, font=\bfseries\Large] at (0, 6) {Chromium-52 ($13\alpha$ Centered Icosahedron)};
+\node[text=aveink, font=\bfseries\Large] at (0, 6) {Chromium-52 ($13\alpha$ Centered Icosahedron)};
 
 % Central alpha
-\node[alpha block=neonorange, minimum width=2.5cm] (CENTER) at (0, 0) {$\alpha_0$\\center};
+\node[alpha block=avevermillion, minimum width=2.5cm] (CENTER) at (0, 0) {$\alpha_0$\\center};
 
 % 12 icosahedral vertices (projected as two pentagons + 2 poles)
 % Outer pentagon (upper)
-\node[alpha block=neonblue] (I1) at (90:4.0) {$\alpha$};
-\node[alpha block=neonblue] (I2) at (162:4.0) {$\alpha$};
-\node[alpha block=neonblue] (I3) at (234:4.0) {$\alpha$};
-\node[alpha block=neonblue] (I4) at (306:4.0) {$\alpha$};
-\node[alpha block=neonblue] (I5) at (18:4.0) {$\alpha$};
+\node[alpha block=aveblue] (I1) at (90:4.0) {$\alpha$};
+\node[alpha block=aveblue] (I2) at (162:4.0) {$\alpha$};
+\node[alpha block=aveblue] (I3) at (234:4.0) {$\alpha$};
+\node[alpha block=aveblue] (I4) at (306:4.0) {$\alpha$};
+\node[alpha block=aveblue] (I5) at (18:4.0) {$\alpha$};
 
 % Inner pentagon (rotated 36°)
-\node[alpha block=neonpurple] (I6) at (126:2.5) {$\alpha$};
-\node[alpha block=neonpurple] (I7) at (198:2.5) {$\alpha$};
-\node[alpha block=neonpurple] (I8) at (270:2.5) {$\alpha$};
-\node[alpha block=neonpurple] (I9) at (342:2.5) {$\alpha$};
-\node[alpha block=neonpurple] (I10) at (54:2.5) {$\alpha$};
+\node[alpha block=aveink] (I6) at (126:2.5) {$\alpha$};
+\node[alpha block=aveink] (I7) at (198:2.5) {$\alpha$};
+\node[alpha block=aveink] (I8) at (270:2.5) {$\alpha$};
+\node[alpha block=aveink] (I9) at (342:2.5) {$\alpha$};
+\node[alpha block=aveink] (I10) at (54:2.5) {$\alpha$};
 
 % Poles (projected to sides)
-\node[alpha block=neonorange] (P1) at (-5.5, 0) {$\alpha_N$};
-\node[alpha block=neonorange] (P2) at (5.5, 0) {$\alpha_S$};
+\node[alpha block=avevermillion] (P1) at (-5.5, 0) {$\alpha_N$};
+\node[alpha block=avevermillion] (P2) at (5.5, 0) {$\alpha_S$};
 
 % Outer pentagon
 \draw[bus] (I1) -- (I2);
@@ -334,14 +354,14 @@ tex_cr52 = (
 \draw[bus] (I5) -- (I1);
 
 % Center to all
-\draw[bus, draw=neonorange] (CENTER) -- (I1);
-\draw[bus, draw=neonorange] (CENTER) -- (I2);
-\draw[bus, draw=neonorange] (CENTER) -- (I3);
-\draw[bus, draw=neonorange] (CENTER) -- (I4);
-\draw[bus, draw=neonorange] (CENTER) -- (I5);
+\draw[bus, draw=avevermillion] (CENTER) -- (I1);
+\draw[bus, draw=avevermillion] (CENTER) -- (I2);
+\draw[bus, draw=avevermillion] (CENTER) -- (I3);
+\draw[bus, draw=avevermillion] (CENTER) -- (I4);
+\draw[bus, draw=avevermillion] (CENTER) -- (I5);
 
 % Legend
-\node[text=white, text width=9cm, align=center, draw=white, dashed, inner sep=8pt] at (0, -7) {
+\node[text=aveink, text width=9cm, align=center, draw=avemuted, dashed, inner sep=8pt] at (0, -7) {
     \textbf{Anomalous Half-Fill ($3d^5\,4s^1$)}\\
     Central $\alpha$ coupled to 12-vertex icosahedral shell.\\
     78 inter-alpha coupling pairs.\\
@@ -359,26 +379,26 @@ tex_fe56 = (
     PREAMBLE
     + r"""
 % Title
-\node[text=white, font=\bfseries\Large] at (0, 6) {Iron-56 ($14\alpha$ FCC Architecture)};
+\node[text=aveink, font=\bfseries\Large] at (0, 6) {Iron-56 ($14\alpha$ FCC Architecture)};
 
 % FCC unit cell: 8 corner alphas + 6 face-center alphas
 % Corners (projected cube)
-\node[alpha block=neonblue] (C1) at (-3, 3.5) {$\alpha_c$};
-\node[alpha block=neonblue] (C2) at (3, 3.5) {$\alpha_c$};
-\node[alpha block=neonblue] (C3) at (3, 0.5) {$\alpha_c$};
-\node[alpha block=neonblue] (C4) at (-3, 0.5) {$\alpha_c$};
-\node[alpha block=neonblue] (C5) at (-4.5, 2.0) {$\alpha_c$};
-\node[alpha block=neonblue] (C6) at (4.5, 2.0) {$\alpha_c$};
-\node[alpha block=neonblue] (C7) at (4.5, -1.0) {$\alpha_c$};
-\node[alpha block=neonblue] (C8) at (-4.5, -1.0) {$\alpha_c$};
+\node[alpha block=aveblue] (C1) at (-3, 3.5) {$\alpha_c$};
+\node[alpha block=aveblue] (C2) at (3, 3.5) {$\alpha_c$};
+\node[alpha block=aveblue] (C3) at (3, 0.5) {$\alpha_c$};
+\node[alpha block=aveblue] (C4) at (-3, 0.5) {$\alpha_c$};
+\node[alpha block=aveblue] (C5) at (-4.5, 2.0) {$\alpha_c$};
+\node[alpha block=aveblue] (C6) at (4.5, 2.0) {$\alpha_c$};
+\node[alpha block=aveblue] (C7) at (4.5, -1.0) {$\alpha_c$};
+\node[alpha block=aveblue] (C8) at (-4.5, -1.0) {$\alpha_c$};
 
 % Face centers
-\node[alpha block=neonorange] (F1) at (0, 3.5) {$\alpha_f$};
-\node[alpha block=neonorange] (F2) at (0, 0.5) {$\alpha_f$};
-\node[alpha block=neonorange] (F3) at (-3.75, 0.5) {$\alpha_f$};
-\node[alpha block=neonorange] (F4) at (3.75, 0.5) {$\alpha_f$};
-\node[alpha block=neonorange] (F5) at (0, 2.0) {$\alpha_f$};
-\node[alpha block=neonorange] (F6) at (0, -1.0) {$\alpha_f$};
+\node[alpha block=avevermillion] (F1) at (0, 3.5) {$\alpha_f$};
+\node[alpha block=avevermillion] (F2) at (0, 0.5) {$\alpha_f$};
+\node[alpha block=avevermillion] (F3) at (-3.75, 0.5) {$\alpha_f$};
+\node[alpha block=avevermillion] (F4) at (3.75, 0.5) {$\alpha_f$};
+\node[alpha block=avevermillion] (F5) at (0, 2.0) {$\alpha_f$};
+\node[alpha block=avevermillion] (F6) at (0, -1.0) {$\alpha_f$};
 
 % Corner edges (cube projection)
 \draw[bus] (C1) -- (C2);
@@ -387,13 +407,13 @@ tex_fe56 = (
 \draw[bus] (C4) -- (C1);
 
 % Face-to-corner links
-\draw[bus, draw=neonorange] (F1) -- (C1);
-\draw[bus, draw=neonorange] (F1) -- (C2);
-\draw[bus, draw=neonorange] (F2) -- (C3);
-\draw[bus, draw=neonorange] (F2) -- (C4);
+\draw[bus, draw=avevermillion] (F1) -- (C1);
+\draw[bus, draw=avevermillion] (F1) -- (C2);
+\draw[bus, draw=avevermillion] (F2) -- (C3);
+\draw[bus, draw=avevermillion] (F2) -- (C4);
 
 % Legend
-\node[text=white, text width=9cm, align=center, draw=white, dashed, inner sep=8pt] at (0, -5) {
+\node[text=aveink, text width=9cm, align=center, draw=avemuted, dashed, inner sep=8pt] at (0, -5) {
     \textbf{Minimum Mass per Nucleon (Fusion Endpoint)}\\
     FCC-14: 8 corner + 6 face-center alpha clusters.\\
     91 inter-alpha coupling pairs.\\
@@ -417,7 +437,11 @@ circuits = {
     "circuit_fe56": tex_fe56,
 }
 
-os.makedirs(OUTDIR, exist_ok=True)
+if not os.path.isdir(OUTDIR):
+    raise SystemExit(
+        f"OUTDIR does not exist: {OUTDIR}\nRefusing to create it -- this generator writes "
+        "over TRACKED figure sources, so a missing target means the path is wrong."
+    )
 
 for name, tex in circuits.items():
     tex_path = os.path.join(OUTDIR, f"{name}.tex")

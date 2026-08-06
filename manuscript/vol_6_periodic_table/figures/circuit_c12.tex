@@ -1,3 +1,29 @@
+% [2026-08-05 RETIRED -- NOT THE BUILD SOURCE OF ANY PRINTED FIGURE. Strike-don't-delete.
+%
+%  RULING: R5 of _orchestration/2026-08-04_doc-lane-reconciliation-handoff.md:49-52 --
+%  "circuit_c12: circuits/circuit_c12.tex (builds printed p.92) = CANONICAL. Retire
+%  figures/circuit_c12.* strike-don't-delete with a dated Rule-12 header."
+%
+%  EVIDENCE (re-derived 2026-08-05, method cited per R8 -- md5, actually run):
+%  chapters/08_carbon.tex:52 carries \includegraphics{figures/circuit_c12.pdf}, and
+%  \graphicspath (main.tex:8) has no circuits/ entry, so figures/circuit_c12.pdf IS the
+%  printed artifact. But that PDF was byte-identical (md5 f33cf7be9356ea890790f6b48754fe6b)
+%  to the PDFs sitting beside manuscript/vol_6_periodic_table/circuits/circuit_c12.tex and
+%  src/scripts/vol_6_periodic_table/circuits/circuit_c12.tex -- i.e. it was BUILT FROM THOSE,
+%  not from this file. This file is a same-named generator emission
+%  (src/scripts/vol_6_periodic_table/circuits/generate_all_semiconductor_circuits.py) whose
+%  own output has never been the printed C-12 figure; its 21-line preamble byte-matches that
+%  generator, which the canonical source's does not.
+%
+%  CONSEQUENCE: this file is NOT restyled in the 2026-08-05 dark-TikZ sweep -- deliberately.
+%  Restyling a retired non-source would imply it is live. The dark palette below is preserved
+%  as the historical record of what the generator emitted. The CANONICAL C-12 source was
+%  hand-ported to the white house style in the same sweep; see the dated header on
+%  manuscript/vol_6_periodic_table/circuits/circuit_c12.tex.
+%
+%  DO NOT rebuild figures/circuit_c12.pdf from this file -- doing so would replace the printed
+%  p.92 Carbon-12 artwork with an entirely different (semiconductor-equivalent-circuit) figure.
+%  Regenerating the generator family intentionally SKIPS deployment of this name.]
 \documentclass[tikz,border=12pt]{standalone}
 \usepackage{circuitikz}
 \usepackage{xcolor}

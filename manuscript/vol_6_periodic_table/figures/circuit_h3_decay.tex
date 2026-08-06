@@ -34,12 +34,46 @@
 %  identical nodes, identical coordinates, identical edges, identical labels, identical decay
 %  physics. Colour is not load-bearing here (every node carries a text label), per the
 %  ave-figure-discipline "never rely on colour alone" rule.
-%  SCOPE: this file only. 23 of the volume's 29 hand-authored TikZ standalones
-%  (22 figures/*.tex + 7 circuits/*.tex) still carry darkbg -- surfaced, not swept, since only
-%  this file is in the ratified vol6 set.
+%  SCOPE: this file only -- correct at the time, and now superseded; see the 2026-08-05 note
+%  below for the sweep that followed and for a correction to the two counts once stated here.
 %  NOTE: this standalone is currently an ORPHAN -- no chapter \includegraphics its PDF
 %  (`grep -rn circuit_h3_decay manuscript/` returns only this file), so the restyle produces no
 %  page or Overfull delta in `make vol6`. The tracked companion PDF is regenerated alongside.]
+%
+% [2026-08-05 COUNT CORRECTION + SWEEP STATUS. The scope sentence above originally read
+%  "23 of the volume's 29 hand-authored TikZ standalones (22 figures/*.tex + 7 circuits/*.tex)
+%  still carry darkbg". BOTH load-bearing numbers were wrong, and the parenthetical was
+%  ambiguous. Re-derived 2026-08-05 against the pre-sweep tree, two methods:
+%
+%  (1) 22, NOT 23. The true pre-sweep count was 22 of 29 -- 21 of the 22 figures/*.tex and 1
+%      of the 7 circuits/*.tex (that one being circuits/circuit_c12.tex). The "23" came from a
+%      BARE SUBSTRING grep, which counts THIS FILE: the 2026-08-02 restyle note above quotes
+%      the string \definecolor{darkbg}{RGB}{15,15,15} inside a comment while describing its own
+%      removal, so the file reports itself as dark. The grep was self-confirming. Any recount
+%      MUST strip LaTeX comments first (drop from the first unescaped %); a bare
+%      `grep -l darkbg` and even `grep -l 'definecolor{darkbg}'` both return 23 and are both
+%      wrong. Comment-stripped: 22. The parenthetical "(22 figures + 7 circuits)" was the
+%      breakdown of the 29 TOTAL, not of the darkbg subset, but sat where it read as the latter.
+%
+%  (2) NOT "hand-authored" -- overwhelmingly MACHINE-GENERATED. Of the 22 dark standalones, 19
+%      are emitted by src/scripts/vol_6_periodic_table/circuits/generate_all_semiconductor_circuits.py
+%      and only 3 are not (circuits/circuit_c12.tex, figures/circuit_be8_decay.tex,
+%      figures/circuit_dt_fusion.tex). Method: md5 of each file's first 21 lines against the
+%      generator's emitted PREAMBLE, from a sandbox run of the generator -- 19/19 match. Within
+%      figures/*.tex specifically the split is 19 machine-generated of 21 dark. This mattered
+%      operationally: restyling the .tex without the generator would have been reverted by the
+%      next regenerate, so the 2026-08-05 sweep went generator-first.
+%
+%  SWEEP OUTCOME (2026-08-05). The generator was whitened and its output regenerated; the 13
+%  print-visible generator-emitted figures and the canonical circuits/circuit_c12.tex were
+%  restyled to the white house style. 8 of the 29 standalones still carry darkbg in code, and
+%  every one is deliberate: 2 are the standing R6 carve-outs (circuit_be8_decay = PLACE-NEW,
+%  circuit_dt_fusion = KEEP, per research/2026-06-07_figure-audit-ledger.md); 1 is
+%  figures/circuit_c12.tex, retired strike-don't-delete under R5 and intentionally left dark
+%  because it is not a build source; and 5 (b11, be9, he4, li7, n14) are STOPPED pending a
+%  provenance ruling -- their shipped PDFs are LIGHT and are builds of the circuits/ tree, so
+%  rebuilding them from these dark figures/ sources would swap the printed artwork for a
+%  different figure entirely, not recolour it.]
 \begin{document}
 \begin{tikzpicture}[>=latex']
 
