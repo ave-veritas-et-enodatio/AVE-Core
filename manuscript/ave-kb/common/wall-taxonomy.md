@@ -154,7 +154,7 @@ Three walk-level observations, each with its canon-side hook:
 
 **This is the single most abusable line in the taxonomy, so it is stated first and loudly.** A row's wall belongs to **one channel**. The other channels are entitled to walk straight through it, and in canon they demonstrably do:
 
-- **At $r_{sat}$, the same physical surface is FOUR different things at once** *(three until 2026-08-05; row 4 added by the upgrade wave — the count is live, not decorative)*. [`bulk-impedance-at-saturation-boundary.md`](../vol3/cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md):48–55 tabulates it: $\Gamma_{shear} = -1$ and $\Gamma_{bulk} = -1$, but $\Gamma_{EM} = 0$ — **the EM channel is matched, not reflecting** — and **row 4, the Cosserat micro-rotation channel, has NO WALL HERE AT ALL**: its transport survives at full cold value ($S_\kappa$(wall) measured `1` **to every digit double precision carries** at physical gradients — the ceiling is reached only at the unphysical one-node gradient `qℓ_node = 1`, where it is `0.999979916516139` at `ρ_bond = 1` and `0.998449148919932` at `ρ* = 9.7734`, a `77×` larger deficit and the honest ceiling to quote — [`research/2026-08-05_srs-twist-coefficient_result.md`](../../../research/2026-08-05_srs-twist-coefficient_result.md):318,:319,:320–323,:325) and its own wall is a $\kappa$-*amplitude* surface (§10.2). That leaf's own conclusion, verbatim (`:55` — was `:54` before the 2026-08-05 row-4 insert): *"**BH-echo yes/no is therefore a channel question.** … Statements that 'the horizon is a perfect absorber' (EM) and 'the horizon reflects shear/GW modes' are **not contradictory** once channel subscripts are explicit."* **⚑ §10: the $\Gamma_{bulk}=-1$ entry there is the RHO-A/shunt-projection/load-plane value — sign-relativity ruling 2026-08-04 (§10).** **⚑ CROSS-GRADE FENCE — this row-4 sentence is the most abusable line in the most abusable section, so its condition rides with it.** *"Row 4 has no wall here"* holds on the **separate-kernel (L∞-across-grades)** member of an **open** fork; canon records the **cross-grade combine rule as underdetermined at $O(\alpha)$** ([`axiom-register.md`](axiom-register.md):190,:232), and on the **normalized-L2-across-grades** member every grade rides ONE kernel and the carve-out does **NOT** stand. Neither receipt lane chooses the member. **This fence is NOT in the #897 ruled text; it is added by the doc lane 2026-08-05 and routed to Grant — full statement and receipts at §10.2.**
+- **At $r_{sat}$, the same physical surface is FOUR different things at once** *(three until 2026-08-05; row 4 added by the upgrade wave — the count is live, not decorative)*. [`bulk-impedance-at-saturation-boundary.md`](../vol3/cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md):48–55 tabulates it: $\Gamma_{shear} = -1$ and $\Gamma_{bulk} = -1$, but $\Gamma_{EM} = 0$ — **the EM channel is matched, not reflecting** — and **row 4, the Cosserat micro-rotation channel, has NO WALL HERE AT ALL**: its transport survives at full cold value ($S_\kappa$(wall) measured `1` **to every digit double precision carries** at physical gradients — the ceiling is reached only at the unphysical one-node gradient `qℓ_node = 1`, where it is `0.999979916516139` at `ρ_bond = 1` and `0.998449148919932` at `ρ* = 9.7734`, a `77×` larger deficit and the honest ceiling to quote — [`research/2026-08-05_srs-twist-coefficient_result.md`](../../../research/2026-08-05_srs-twist-coefficient_result.md):318,:319,:320–323,:325) and its own wall is a $\kappa$-*amplitude* surface (§10.2). That leaf's own conclusion, verbatim (`:55` — was `:54` before the 2026-08-05 row-4 insert): *"**BH-echo yes/no is therefore a channel question.** … Statements that 'the horizon is a perfect absorber' (EM) and 'the horizon reflects shear/GW modes' are **not contradictory** once channel subscripts are explicit."* **⚑ §10: the $\Gamma_{bulk}=-1$ entry there is the RHO-A/shunt-projection/load-plane value — sign-relativity ruling 2026-08-04 (§10).** **⚑ CROSS-GRADE FENCE — this row-4 sentence is the most abusable line in the most abusable section, so its condition rides with it.** *"Row 4 has no wall here"* holds on the **separate-kernel (L∞-across-grades)** member of an **open** fork; canon records the **cross-grade combine rule as underdetermined at $O(\alpha)$** ([`axiom-register.md`](axiom-register.md):190,:232), and on the **normalized-L2-across-grades** member every grade rides ONE kernel and the carve-out does **NOT** stand. Neither receipt lane chooses the member. **This fence is NOT in the ruled text — checked against the LANDED record, [`2026-08-05-ruling-kernel-collapse-rescope.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-kernel-collapse-rescope.md)`:10`–`:21` (PR #897); it is added by the doc lane 2026-08-05 and routed to Grant — full statement and receipts at §10.2.**
 - **The $\mu$-grade is keyed on circulation, so a static $\mathbf{B}$ sees no wall at all.** Route C: *"$\Delta n = 0$ under static B ($\mu$ = ideal relativistic inductor, circulation-keyed; static B has no $dB/dt \to S_\mu = 1$)"* ([`cosmological-constant-closure.md`](../vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md):124; verdict leaf [`pvlas-static-b-verdict.md`](../vol4/falsification/ch11-experimental-bench-falsification/pvlas-static-b-verdict.md)). A field that would saturate the rotational grade if it were *circulating* does nothing to it when it is *static* — same field magnitude, no wall, because the wall's coordinate is the wrong one for that excitation.
 
 **Operational rule.** Before asserting a wall anywhere: name (i) the **channel**, (ii) the **axis** it lives on, and (iii) the **phase-state** (cold/sub-yield vs saturated). A claim missing any of the three is not yet a claim about a wall.
@@ -458,37 +458,38 @@ Four places where the walk's recollection did not survive the grep. In every cas
 > three declarations; it supplies one channel-family's row under them. **Anchor:** cite this block as
 > `wall-taxonomy.md` **§10.2**. Ruling records dated 2026-08-05 that route kernel-collapse content to
 > "§10" (written before the #886 §9→§10 renumber) resolve **here**; those documents keep their wording,
-> and the **upgrade-wave-five ruling record (PR #896)** is their dated redirect.
+> and the **upgrade-wave-five ruling record** — [`2026-08-05-rulings-upgrade-wave-five.md`](../../../_orchestration/docket-entries/2026-08-05-rulings-upgrade-wave-five.md)`:6`–`:13`, PR #896, **landed** — is their dated redirect.
 >
 > **Provenance, with merge state stated rather than assumed (re-derived at this commit, two-method:
 > `gh pr list` + `git cat-file -e origin/main:<path>`).**
 >
 > | record | how it is cited here | state at this commit |
 > |---|---|---|
-> | **the kernel-collapse re-scope ruling — PR #897** — the source of the ruled text below | **by NAME + PR number only** (see the currency note) | **MERGED 2026-08-06T06:28:13Z**; its docket file is **PRESENT on `origin/main`** |
-> | **the upgrade-wave-five rulings — PR #896** (`[REVIEW: CLEARED]`) — the §10.2 anchor decision (**Q1, RULED**), the dated §10 redirect (**Q1**), and the print-certification rule (**Q2, *forced, adopted* — NOT ruled**; the record's own words, origin *"the orchestrator's own two-grade promotion, owned on the record"*) | **by NAME + PR number only** (see the currency note) | **MERGED 2026-08-06T06:28:01Z**; its docket file is **PRESENT on `origin/main`** |
+> | **the kernel-collapse re-scope ruling** — the source of the ruled text below | [`2026-08-05-ruling-kernel-collapse-rescope.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-kernel-collapse-rescope.md):8–21 (the ruled text), `:1` (its own header word, *FINAL FORM*) | **LANDED** — PR #897 **MERGED 2026-08-06T06:28:13Z**; in this branch's tree since the base-currency merge |
+> | **the upgrade-wave-five rulings** (`[REVIEW: CLEARED]`) — the §10.2 anchor decision (**Q1, RULED**), the dated §10 redirect (**Q1**), and the print-certification rule (**Q2, *forced, adopted* — NOT ruled**; the record's own words, origin *"the orchestrator's own two-grade promotion, owned on the record"*) | [`2026-08-05-rulings-upgrade-wave-five.md`](../../../_orchestration/docket-entries/2026-08-05-rulings-upgrade-wave-five.md):6–13 (Q1), `:14`–`:18` (Q2) | **LANDED** — PR #896 **MERGED 2026-08-06T06:28:01Z**; in this branch's tree since the base-currency merge |
 > | the FLAG-CAUSAL kernel-collapse ruling (+ addendum) — the *universal* form this one supersedes per its own kill condition | [`2026-08-05-ruling-flag-causal-kernel-collapse.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-flag-causal-kernel-collapse.md) | **merged** (PR #887) |
 > | the re-scope receipts — the measured exception arm | [`2026-08-05-ruling-flag-causal-rescope-receipts.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-flag-causal-rescope-receipts.md) | **merged (PR #894)** |
 > | the squeeze-twist retraction — NO-TWIST, `S_κ(wall)` | [`2026-08-05-ruling-squeeze-twist-correction.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-squeeze-twist-correction.md) | **merged** (PR #894) |
 >
-> ⚑ **CURRENCY NOTE, 2026-08-06 — the debt above is now PAYABLE, and this branch cannot pay it yet.**
-> When this section was written both governing rulings were CLEARED-but-OPEN, their docket files were
-> absent from `origin/main`, and they were therefore cited **by ruling NAME plus PR number** because a
-> path cite to an unlanded record is a dead cite at HEAD. **That is no longer the state.** Re-derived at
-> this commit, two-method: `gh pr view` returns **PR #896 MERGED `2026-08-06T06:28:01Z`** and **PR #897
-> MERGED `2026-08-06T06:28:13Z`**, and `git cat-file -e origin/main:<path>` now **succeeds** for both
-> `_orchestration/docket-entries/2026-08-05-rulings-upgrade-wave-five.md` and
-> `.../2026-08-05-ruling-kernel-collapse-rescope.md` (merge commits `e1051ba4` and `4e872025`).
-> **The name-plus-number citation is retained here for one reason only, and it is a mechanical one:**
-> those files exist on `origin/main` but **not in this branch's tree**, so writing the path cites now
-> would create two dead links *in this branch* and fail the link check. **The path cites are converted
-> in the same pass that merges `origin/main` into this branch** — that merge is NOT taken here (it
-> conflicts with PR #898's freshly-landed coldQ clause re-issue in this same leaf and in
-> `existing-experimental-signatures.md`, which is another lane's text and not this repair pass's to
-> resolve). **Routed to the orchestrator / Grant: base-currency merge + path-cite conversion.**
+> ⚑ **CURRENCY NOTE, 2026-08-06 — the debt above is PAID; this records what it was and how it closed.**
+> When this section was first written both governing rulings were CLEARED-but-OPEN, their docket files
+> were absent from `origin/main`, and they were therefore cited **by ruling NAME plus PR number** —
+> because a path cite to an unlanded record is a dead cite at HEAD, and a dead cite is worse than a
+> name. A follow-on pass then found the rulings **merged** but the files still outside this branch's
+> tree, so the name-plus-number form was held one more commit for the same mechanical reason.
+> **Both conditions are now discharged.** Re-derived at this commit, two-method: `gh pr view` returns
+> **PR #896 MERGED `2026-08-06T06:28:01Z`** and **PR #897 MERGED `2026-08-06T06:28:13Z`**;
+> `git cat-file -e origin/main:<path>` **succeeds** for both docket files; and the base-currency merge
+> of `origin/main` into this branch has been taken, so both files are **in this tree**. The two rows
+> above are therefore **converted to real path cites with line ranges**, each range verified two-method
+> (explicit line read + independent `grep` anchor). The conflict that blocked the merge — PR #898's
+> re-issued coldQ clause in this leaf and in `existing-experimental-signatures.md` — was resolved as a
+> **union**: #898's clause and this wave's channel-scoped carve-out both stand, neither was dropped.
+> **Nothing about the ruled content changed in this conversion; only the citation form did.**
 >
-> **The ruled text — quoted verbatim from the kernel-collapse re-scope ruling (PR #897) as written and
-> ratified. Do not paraphrase: the scope lives in the wording.**
+> **The ruled text — quoted verbatim from the kernel-collapse re-scope ruling
+> ([`2026-08-05-ruling-kernel-collapse-rescope.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-kernel-collapse-rescope.md):10–21)
+> as written and ratified. Do not paraphrase: the scope lives in the wording.**
 >
 > > **Kernel-collapse self-termination, channel-scoped (2026-08-05):** at any strain-saturation
 > > wall, every transport coupling riding the strain kernel — G, K (both fork branches), and the
@@ -504,7 +505,9 @@ Four places where the walk's recollection did not survive the grep. In every cas
 > > certified-timing statement with the mirror scoped to strain-kernel channels.
 >
 > **★★ THE CROSS-GRADE FENCE — the one the carve-out needs, and the ruled text above does NOT carry it.**
-> **This fence is added by the doc lane, 2026-08-05. It is not a paraphrase of #897 and it is not in #897.**
+> **This fence is added by the doc lane, 2026-08-05. It is not a paraphrase of the re-scope ruling and
+> it is not in it** — checkable now against the LANDED record,
+> [`2026-08-05-ruling-kernel-collapse-rescope.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-kernel-collapse-rescope.md)`:10`–`:21`.
 > Two-method absence receipt against the ruled text quoted above (`grep -c` and an independent Python
 > `re` count over the same block): the strings `combine`, `aggregat`, `underdetermined`, `L∞` and
 > `normalized-L2` occur **ZERO** times in it. **The omission is at the RULING, and it is routed to Grant
@@ -543,7 +546,7 @@ Four places where the walk's recollection did not survive the grep. In every cas
 > This fence adjudicates nothing, prefers no member, and promotes the engine's coded choice to nothing.
 >
 > **★ CERTIFICATION STATUS — stated first, per the standing print-certification rule (ADOPTED 2026-08-05, not ruled).**
-> The grading is the record's own: PR #896 grades **Q1 RULED** (§10.2) and **Q4 RULED**, but Q2 —
+> The grading is the record's own — [`2026-08-05-rulings-upgrade-wave-five.md`](../../../_orchestration/docket-entries/2026-08-05-rulings-upgrade-wave-five.md) (PR #896) grades **Q1 RULED** (`:6`, §10.2) and **Q4 RULED** (`:23`), but Q2 (`:14`) —
 > this rule — reads *"**the print-certification rule (forced, adopted)**"*, with its origin stated as
 > *"the orchestrator's own two-grade promotion, owned on the record."* It is followed here because it is
 > right, not because Grant ruled it; **adopted** is the honest word and the leaf uses it.
