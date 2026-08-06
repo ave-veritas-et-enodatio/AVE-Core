@@ -21,6 +21,12 @@ Two jobs, and the second is a STRICT SUPERSET of a target it replaces.
     prereg section-3.2 wrapper (which is what the v2 driver's G-NC-REPRO /
     G-DET-V1-WRAPPED gates already do and this checker re-confirms).
 
+(3) AMENDMENT-NCBYTES-2026-08-06, ADDED: the amendment's mandated receipt --
+    "the only leaves that moved are the `NC-BYTES` block, `_digest` and
+    `_runtime_sec`" -- is recomputed HERE from the pre-amendment JSON blob read
+    out of git, on every run, and a physics leaf moving anywhere is a hard FAIL.
+    The receipt is a GATE, not a sentence in a result doc.
+
 `--mutation-receipt` re-runs the checker against deliberately perturbed sources
 and requires every perturbation to be CAUGHT, so the gate cannot silently
 degrade into a no-op.  Runtimes are deliberately NOT registered.
@@ -63,13 +69,67 @@ ALLOWED_LITERAL = {
     "59", "50", "149", "104", "118", "761", "767", "343-346", "353", "71-73",
     "172-189", "524-527", "16-18", "1e-9", "60",
     # commit hashes and the base HEAD, cited as provenance
-    "5e2694c0", "ebd1f4c7", "c4fdced0", "903",
+    "5e2694c0", "ebd1f4c7", "c4fdced0", "903", "904",
     # the predecessor's own shipped numerals, quoted as reproduction TARGETS
     "6.0238983090250982e-19", "6.023898309025099e-19", "2af8acfe23aabb96",
     "973458b3a1648c2a", "4419", "520", "32", "59", "73",
 }
 
 NUM_RE = re.compile(r"`([^`]+)`")
+
+# ---------------------------------------------------------------------------
+# AMENDMENT-NCBYTES-2026-08-06 -- the mandated v2.1-vs-v2 leaf receipt, MACHINE-
+# CHECKED rather than asserted in prose.  The pre-amendment (shipped v2) JSON is
+# read from git BY BLOB HASH, so the receipt re-derives on every `make verify`
+# and cannot rot with a branch tip.
+# ---------------------------------------------------------------------------
+PRE_AMENDMENT_JSON_BLOB = "25b02dfc1f963caeee0f307694ef4887af15ac90"
+
+# The ONLY places the amendment is permitted to have moved a leaf.  Anything
+# outside these is a PHYSICS leaf by construction, and one is a hard FAIL.
+AMENDMENT_ALLOWED_PREFIXES = ("/gates/NC-BYTES/", "/_digest", "/_runtime_sec")
+
+
+def _classify_leaf_delta(old: dict, new: dict) -> dict:
+    """Leaf-level delta of two v2 JSONs, bucketed by the amendment's permission
+    set.  Uses the v2 DRIVER's own `flatten`, so the receipt and the gate it
+    receipts share one definition of 'leaf'."""
+    sys.path.insert(0, str(HERE))
+    import approach_leak_v2 as drv                                # noqa: E402
+    fa, fb = drv.flatten(old), drv.flatten(new)
+    changed = [k for k in fa if k in fb and str(fa[k]) != str(fb[k])]
+    added = [k for k in fb if k not in fa]
+    removed = [k for k in fa if k not in fb]
+    other = [k for k in changed + added + removed
+             if not any(k.startswith(p) or k == p for p in AMENDMENT_ALLOWED_PREFIXES)]
+    return {"n_old": len(fa), "n_new": len(fb), "changed": sorted(changed),
+            "added": sorted(added), "removed": sorted(removed), "other": sorted(other)}
+
+
+def amendment_registry(d: dict) -> dict[str, str]:
+    """Recompute the amendment receipt from git and register its counts.
+
+    HARD CRITERION: `other` must be EMPTY -- the amendment may move the
+    `NC-BYTES` block, the `_digest` and `_runtime_sec`, and NOTHING else.  Every
+    physics leaf must be byte-identical to the pre-amendment ship."""
+    raw = subprocess.run(["git", "cat-file", "blob", PRE_AMENDMENT_JSON_BLOB],
+                         cwd=REPO, capture_output=True, text=True)
+    if raw.returncode != 0:
+        FAILURES.append("AMENDMENT receipt: pre-amendment v2 JSON blob "
+                        f"{PRE_AMENDMENT_JSON_BLOB[:12]} is unreachable from this tree")
+        return {}
+    delta = _classify_leaf_delta(json.loads(raw.stdout), d)
+    if delta["other"]:
+        FAILURES.append("AMENDMENT receipt: leaves changed OUTSIDE the NC-BYTES block / _digest / "
+                        "_runtime_sec -- a physics leaf moved: " + ", ".join(delta["other"][:10]))
+    return {
+        "amend_leaves_pre": str(delta["n_old"]),
+        "amend_leaves_post": str(delta["n_new"]),
+        "amend_changed": str(len(delta["changed"])),
+        "amend_added": str(len(delta["added"])),
+        "amend_removed": str(len(delta["removed"])),
+        "amend_other": str(len(delta["other"])),
+    }
 
 
 def check(label: str, doc_value: str, ref_value: str) -> None:
@@ -109,6 +169,12 @@ def registry(d: dict) -> dict[str, str]:
         "n_ft": str(g["NC-FT"]["n_self_tests_firing"]),
         "n_files": str(g["NC-SCAN"]["n_files_scanned"]),
         "n_artifacts": str(g["NC-BYTES"]["n_artifacts"]),
+        # AMENDMENT-NCBYTES-2026-08-06: the re-pin split, taken from the COMPUTED
+        # delta the gate itself reconciles -- never from the declared roster.
+        "n_moved_between_pins": str(len(g["NC-BYTES"]["artifacts_moved_between_pins_COMPUTED"])),
+        "n_unmoved_between_pins": str(
+            g["NC-BYTES"]["n_artifacts"]
+            - len(g["NC-BYTES"]["artifacts_moved_between_pins_COMPUTED"])),
     }
     for pid in ("P1", "P2", "P3", "P4", "P5"):
         reg[f"scan_{pid}_A"] = str(g["NC-SCAN"]["per_pattern"][pid]["A"])
@@ -227,6 +293,7 @@ def main(mutation_receipt: bool = False) -> int:
 
     d = json.loads(RESULTS.read_text(encoding="utf-8"))
     reg = registry(d)
+    reg.update(amendment_registry(d))
     known = set(reg.values()) | ALLOWED_LITERAL
 
     unregistered = scan_doc(DOC.read_text(encoding="utf-8"), known)
@@ -307,6 +374,7 @@ def mutation() -> int:
     d = json.loads(RESULTS.read_text(encoding="utf-8"))
     text = DOC.read_text(encoding="utf-8")
     reg = registry(d)
+    reg.update(amendment_registry(d))
     known = set(reg.values()) | ALLOWED_LITERAL
     results: list[tuple[str, bool]] = []
 
@@ -344,6 +412,19 @@ def mutation() -> int:
     computed = "GAP-CLOSED" if mm["N_open_distinct_values"] == [0] else "CHANNEL-OPENS"
     results.append(("M5 bin label contradicts computed N_open",
                     mm["bin_by_v1_frozen_definition"] != computed))
+
+    # M6 -- AMENDMENT-NCBYTES-2026-08-06's own receipt.  Move ONE physics leaf in
+    #       the post-amendment JSON; the leaf receipt must place it in the
+    #       `other` bucket, i.e. must REFUSE to certify "NC-BYTES / digest /
+    #       runtime only".  Without this the receipt is a claim, not a gate.
+    m6 = json.loads(json.dumps(d))
+    m6["adjudication"]["members"][0]["zeta_max_over_sweep"] = "9.99999e-99"
+    raw6 = subprocess.run(["git", "cat-file", "blob", PRE_AMENDMENT_JSON_BLOB],
+                          cwd=REPO, capture_output=True, text=True)
+    caught6 = False
+    if raw6.returncode == 0:
+        caught6 = bool(_classify_leaf_delta(json.loads(raw6.stdout), m6)["other"])
+    results.append(("M6 physics leaf moved under the amendment receipt", caught6))
 
     ok = all(caught for _, caught in results)
     print("APPROACH-LEAK v2 mutation receipt: "

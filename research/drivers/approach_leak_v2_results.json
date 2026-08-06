@@ -1,5 +1,5 @@
 {
- "_digest": "b38c6c269b5dd301",
+ "_digest": "4da48b39074d9fbc",
  "_frozen_reanchor_constants": {
   "bound_leg_A": "5e-30",
   "bound_leg_Bs": "2.5e-16",
@@ -22,7 +22,7 @@
  "_non_claim": "DERIVATION result. Mints no clm-/def-/exp-/sup-/ilk-; propagates to no KB or manuscript leaf; moves no solidity. Engine src/ave byte-untouched and never imported. Every predecessor artifact byte-untouched (NC-BYTES).",
  "_predecessor": "research/2026-08-05_approach-leak_prereg-FROZEN.md + _result.md (branch research/approach-leak, PR #903, CLEARED, UNMERGED)",
  "_prereg": "research/2026-08-06_approach-leak-v2_prereg-FROZEN.md (commit ebd1f4c7, pushed with no code)",
- "_runtime_sec": 20.77,
+ "_runtime_sec": 21.74,
  "adjudication": {
   "CHANNEL-OPENS_members": [
    "2.0",
@@ -250,71 +250,128 @@
    "v1_frozen_tolerance_superseded": "1e-40 rel (single leg, mass-derived)"
   },
   "NC-BYTES": {
+   "amendment": "AMENDMENT-NCBYTES-2026-08-06",
+   "amendment_disclosure": "research/2026-08-06_approach-leak-v2_result.md section 9; _orchestration/docket-entries/2026-08-06-approach-leak-v2-correction.md",
    "artifacts": [
     {
+     "blob_at_v1_pin": "42f5c9630b73",
      "blob_at_v1_ship": "42f5c9630b73",
      "blob_live": "42f5c9630b73",
      "byte_identical": true,
+     "declaration_reconciles": true,
+     "moved_by_disclosed_repair_COMPUTED": false,
+     "moved_by_disclosed_repair_DECLARED": false,
      "path": "research/2026-08-05_approach-leak_prereg-FROZEN.md"
     },
     {
+     "blob_at_v1_pin": "1671d36dac69",
      "blob_at_v1_ship": "efa13ef999c7",
-     "blob_live": "efa13ef999c7",
+     "blob_live": "1671d36dac69",
      "byte_identical": true,
+     "declaration_reconciles": true,
+     "moved_by_disclosed_repair_COMPUTED": true,
+     "moved_by_disclosed_repair_DECLARED": true,
      "path": "research/2026-08-05_approach-leak_result.md"
     },
     {
+     "blob_at_v1_pin": "2fd15ea7387b",
      "blob_at_v1_ship": "ac3068174e20",
-     "blob_live": "ac3068174e20",
+     "blob_live": "2fd15ea7387b",
      "byte_identical": true,
+     "declaration_reconciles": true,
+     "moved_by_disclosed_repair_COMPUTED": true,
+     "moved_by_disclosed_repair_DECLARED": true,
      "path": "research/drivers/approach_leak.py"
     },
     {
+     "blob_at_v1_pin": "35415d29d317",
      "blob_at_v1_ship": "35415d29d317",
      "blob_live": "35415d29d317",
      "byte_identical": true,
+     "declaration_reconciles": true,
+     "moved_by_disclosed_repair_COMPUTED": false,
+     "moved_by_disclosed_repair_DECLARED": false,
      "path": "research/drivers/approach_leak_results.json"
     },
     {
+     "blob_at_v1_pin": "4dc4f9929492",
      "blob_at_v1_ship": "4dc4f9929492",
      "blob_live": "4dc4f9929492",
      "byte_identical": true,
+     "declaration_reconciles": true,
+     "moved_by_disclosed_repair_COMPUTED": false,
+     "moved_by_disclosed_repair_DECLARED": false,
      "path": "research/drivers/approach_leak_number_check.py"
     },
     {
+     "blob_at_v1_pin": "49b2e236e79b",
      "blob_at_v1_ship": "49b2e236e79b",
      "blob_live": "49b2e236e79b",
      "byte_identical": true,
+     "declaration_reconciles": true,
+     "moved_by_disclosed_repair_COMPUTED": false,
+     "moved_by_disclosed_repair_DECLARED": false,
      "path": "_orchestration/docket-entries/2026-08-05-approach-leak.md"
     },
     {
+     "blob_at_v1_pin": "7406c8f793b7",
      "blob_at_v1_ship": "7406c8f793b7",
      "blob_live": "7406c8f793b7",
      "byte_identical": true,
+     "declaration_reconciles": true,
+     "moved_by_disclosed_repair_COMPUTED": false,
+     "moved_by_disclosed_repair_DECLARED": false,
      "path": "research/drivers/last_bond_kernel_collapse.py"
     },
     {
+     "blob_at_v1_pin": "14b8e909421f",
      "blob_at_v1_ship": "14b8e909421f",
      "blob_live": "14b8e909421f",
      "byte_identical": true,
+     "declaration_reconciles": true,
+     "moved_by_disclosed_repair_COMPUTED": false,
+     "moved_by_disclosed_repair_DECLARED": false,
      "path": "research/drivers/last_bond_kernel_collapse_results.json"
     },
     {
+     "blob_at_v1_pin": "bee3d3884f6b",
      "blob_at_v1_ship": "bee3d3884f6b",
      "blob_live": "bee3d3884f6b",
      "byte_identical": true,
+     "declaration_reconciles": true,
+     "moved_by_disclosed_repair_COMPUTED": false,
+     "moved_by_disclosed_repair_DECLARED": false,
      "path": "research/drivers/last_bond_kernel_collapse_number_check.py"
     },
     {
+     "blob_at_v1_pin": "a9da71b525bc",
      "blob_at_v1_ship": "a9da71b525bc",
      "blob_live": "a9da71b525bc",
      "byte_identical": true,
+     "declaration_reconciles": true,
+     "moved_by_disclosed_repair_COMPUTED": false,
+     "moved_by_disclosed_repair_DECLARED": false,
      "path": "research/2026-08-05_last-bond-kernel-collapse_result.md"
     }
    ],
-   "frozen": "every read-only predecessor artifact hashes to its blob at the v1 ship commit 5e2694c0 -- this lane wrote none of them",
+   "artifacts_moved_between_pins_COMPUTED": [
+    "research/2026-08-05_approach-leak_result.md",
+    "research/drivers/approach_leak.py"
+   ],
+   "artifacts_moved_between_pins_DECLARED": [
+    "research/2026-08-05_approach-leak_result.md",
+    "research/drivers/approach_leak.py"
+   ],
+   "delta_declaration_reconciles": true,
+   "frozen": "every read-only predecessor artifact hashes to its blob at the pinned v1 commit -- this lane wrote none of them. AMENDED 2026-08-06: the pin is the REPAIRED v1 tip f3607be8, not the pre-repair ship 5e2694c0; two of the ten were rewritten between them by the ORCHESTRATOR's disclosed SCANFRAG repair, an event extrinsic to this lane. Purpose preserved, no conjunct dropped, two conjuncts ADDED that gate the re-pin itself.",
    "n_artifacts": 10,
-   "pass": true
+   "pass": true,
+   "pin_choice": "ALL TEN re-pinned at the repaired v1 tip (not a split pin)",
+   "pin_choice_rationale": "one pin, one truth-source: f3607be8 is a descendant of 5e2694c0 whose diff touches exactly two of the ten, so for the other eight the pin is a COMPUTED no-op (see unmoved_artifacts_identical_at_both_commits); and the repaired tip is the predecessor state that will actually merge to main, so the gate tracks the mergeable predecessor rather than a superseded intermediate. A split pin would carry two commit references for one roster with no gain in strength and a standing drift hazard.",
+   "pin_commit": "f3607be8",
+   "superseded_pin_commit": "5e2694c0",
+   "superseded_pin_retained_per_artifact": true,
+   "unmoved_artifacts_identical_at_both_commits": true
   },
   "NC-FT": {
    "frozen": "all 6 v1 self-test blocks reproduce, every field, every fires flag true",

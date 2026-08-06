@@ -6,7 +6,7 @@ Prereg-file: research/2026-08-06_approach-leak-v2_prereg-FROZEN.md
 **Driver:** [`research/drivers/approach_leak_v2.py`](drivers/approach_leak_v2.py) → [`research/drivers/approach_leak_v2_results.json`](drivers/approach_leak_v2_results.json) (driver committed **before any v2 result JSON existed**).
 **Number check:** [`research/drivers/approach_leak_v2_number_check.py`](drivers/approach_leak_v2_number_check.py) — gating via `make verify`, with a mutation receipt, and it **machine-gates `G-DET-V2`**.
 **Class:** DERIVATION result — a **VERSIONED SUPERSEDE of ONE GATE**. **Mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-`; propagates to no KB/manuscript leaf; changes no solidity; edits no falsification ledger.** Engine `src/ave` **byte-untouched and never imported**.
-**Predecessor:** [`research/2026-08-05_approach-leak_result.md`](2026-08-05_approach-leak_result.md) (branch `research/approach-leak`, PR #903, `[REVIEW: CLEARED]`, UNMERGED) — **byte-untouched by this lane, and gated as such.**
+**Predecessor:** [`research/2026-08-05_approach-leak_result.md`](2026-08-05_approach-leak_result.md) (branch `research/approach-leak`, PR #903, `[REVIEW: CLEARED]`, UNMERGED) — **byte-untouched by this lane, and gated as such.** *(AMENDED 2026-08-06 — §9.1: the predecessor branch was merged in at its REPAIRED tip `f3607be8`; two predecessor files moved, by the ORCHESTRATOR and not by this lane, and the `NC-BYTES` pin was amended onto them.)*
 **SVA pilot case 9.** Per-row pilot notes in §7. **Written against `origin/main` = `c4fdced0`.**
 
 ---
@@ -106,8 +106,8 @@ measured `2.04408e-17` as **no input at all**.
 | **`NC-GATES`** | every v1 gate block reproduces, incl. v1's FAILING `G-NC-SLAST` at v1's own `1e-40` siting | exact strings | `9` pass:true, `1` pass:false, `2` pass:null | **PASS** |
 | **`NC-FT`** | all v1 self-test blocks reproduce, every `fires` flag | exact strings | `6` of `6` firing | **PASS** |
 | **`NC-SCAN`** | `n_files_scanned` and every `P1`–`P5` count/agreement/union reproduce | exact | `4418` files; `5` of `5` agree | **PASS** |
-| **`NC-BYTES`** | every read-only predecessor artifact hashes to its blob at the v1 ship commit `5e2694c0` | byte-identical | `10` of `10` | **PASS** |
-| **`G-DET-V2`** ★ | two full v2 runs, identical digest, byte-identical apart from `_runtime_sec` | identical digest | `b38c6c269b5dd301` twice; bodies identical | **PASS** (machine-gated) |
+| **`NC-BYTES`** | every read-only predecessor artifact hashes to its blob at the pinned v1 commit — **AMENDED 2026-08-06 (§9.1): the pin is the REPAIRED v1 tip `f3607be8`, not the pre-repair ship `5e2694c0`** | byte-identical | `10` of `10`; `2` re-pinned, `8` unmoved | **PASS** |
+| **`G-DET-V2`** ★ | two full v2 runs, identical digest, byte-identical apart from `_runtime_sec` | identical digest | `4da48b39074d9fbc` twice; bodies identical | **PASS** (machine-gated) |
 
 ### §1.2 The fireability self-test (a gate that cannot fail is not a gate)
 
@@ -206,7 +206,7 @@ it passes at `7.74183e-31` — a place the seen number could not have suggested.
 | **`NC-FT`** | v1 self-tests shipped `fires: true` | **`6`** | **`0`** |
 | **`NC-SCAN`** | tracked files scanned | **`4418`** | **`0`** |
 | | patterns with both engines agreeing | **`5`** of `5` | **`0`** |
-| **`NC-BYTES`** | read-only predecessor artifacts vs their blobs at `5e2694c0` | **`10`** | **`0`** |
+| **`NC-BYTES`** | read-only predecessor artifacts vs their blobs at the pinned v1 commit `f3607be8` (AMENDED — §9.1) | **`10`** | **`0`** |
 
 > **THE ZERO-MISMATCH STATEMENT, PLAINLY.** **Across every comparison this lane makes against the v1
 > record — `1431` JSON leaves at exact string equality, `9` passing gate verdicts, `1` failing gate
@@ -494,6 +494,87 @@ riding `G`, `M`, the GR-imported `ν_vac` in `r_sat = 7GM/c²`, and the definiti
 5. **Any AVE-vs-competitor discrimination claim.** The ECO free-reflectivity degeneracy carried at
    `2026-08-05_echo-delay-v2-reach-through_result.md`'s headline applies unchanged.
 6. **Any KB, manuscript, ruling-docket or `src/ave` edit; any predecessor-artifact edit.** All ten
-   read-only artifacts are byte-identical to their blobs at `5e2694c0`, and that is **gated**.
+   read-only artifacts are byte-identical to their blobs at the pinned v1 commit `f3607be8`, and
+   that is **gated**. **AMENDED 2026-08-06 (§9.1):** `2` of the ten are not byte-identical to their
+   `5e2694c0` blobs, because the ORCHESTRATOR rewrote them in its disclosed post-ship SCANFRAG
+   repair. **This lane still wrote none of the ten** — which is the sentence this item makes and
+   the purpose `NC-BYTES` exists to enforce.
 7. **No claim minted.** No `clm-`/`def-`/`exp-`/`sup-`/`ilk-`. No solidity moved.
 8. **No SVA amendment drafted.** Routed, as v1 routed its own.
+
+---
+
+## §9 — AMENDMENTS (dated 2026-08-06, PRE-MERGE, FULLY DISCLOSED)
+
+**Everything in §9 was written and landed BEFORE PR #904 merged, on this branch, with receipts.**
+Nothing here moves a physics number, drops a criterion, or converts a ❌ to a ✅. Docket:
+[`_orchestration/docket-entries/2026-08-06-approach-leak-v2-correction.md`](../_orchestration/docket-entries/2026-08-06-approach-leak-v2-correction.md).
+
+### §9.1 `AMENDMENT-NCBYTES-2026-08-06` — the read-only pin, re-sited onto the repaired v1 tip
+
+**WHAT HAPPENED, AND IT IS NOT SOMETHING THIS LANE DID.** This branch was cut from the PRE-repair v1
+ship commit `5e2694c0`. After that cut, the ORCHESTRATOR executed and disclosed the SCANFRAG repair
+on the v1 branch — the repair this lane's own `FLAG-SCANFRAG` (§6.4) routed to it — landing v1 at
+`f3607be8`. That repair rewrote exactly **`2`** of `NC-BYTES`'s **`10`** read-only artifacts:
+`research/2026-08-05_approach-leak_result.md` (a dated note appended) and
+`research/drivers/approach_leak.py` (the scan surface pinned to a commit). The merge that carries
+`f3607be8` into this branch therefore turned `NC-BYTES` false — and because certification is a
+conjunction, the whole v2 record collapsed to its `NOT ADJUDICATED` placeholder.
+
+**WHY THAT IS A GATE DEFECT AND NOT A FINDING.** `NC-BYTES`'s frozen PURPOSE, in its own words, is
+*"this lane wrote none of them"*. That proposition is **still true**. The un-amended gate could not
+express it, because it encoded the purpose as *equality against one particular commit* — and so it
+misreported an **extrinsic, disclosed, orchestrator-authored** event as a lane-authored write. The
+amendment restores the purpose.
+
+**THE RE-PIN, AND THE CHOICE MADE.** **ALL TEN artifacts are re-pinned at the repaired v1 tip
+`f3607be8`** — a single pin, not a split pin. The reason is that the split is **not needed**:
+`f3607be8` is a descendant of `5e2694c0` whose diff touches exactly `2` of the ten, so for the other
+**`8`** the blob object is *the same object* at both commits and the re-pin is a **no-op in value**.
+That no-op is **COMPUTED by the gate**, not asserted (`unmoved_artifacts_identical_at_both_commits`).
+One pin means one truth-source and no standing two-commit bookkeeping to drift; and the repaired tip
+is the predecessor state that will actually reach `main`, so the gate now tracks the mergeable
+predecessor rather than a superseded intermediate. The superseded `5e2694c0` hash is **retained per
+artifact** in the shipped JSON, so the delta stays readable forever.
+
+**NOTHING WAS DROPPED — TWO CONJUNCTS WERE ADDED, AND BOTH GATE THE RE-PIN ITSELF.**
+
+| conjunct | status | what it forbids |
+|---|---|---|
+| live blob == pinned blob, `10` of `10` | **RETAINED**, target re-sited | any lane-authored write to a predecessor |
+| COMPUTED moved-set == DECLARED moved-set | **NEW** | an *undisclosed* extra rewrite hiding inside the re-pin |
+| every unmoved artifact identical at BOTH commits | **NEW** | the "`8`-fold no-op" being a claim rather than a measurement |
+
+**★ THE RECEIPT — AND IT IS A GATE, NOT A SENTENCE.** The v2 instrument was re-run post-amendment
+(v2.1). Leaf-level diff against the shipped v2 JSON, taken with the driver's own `flatten`:
+
+| bucket | leaves |
+|---|---|
+| pre-amendment (shipped v2) leaves total | **`297`** |
+| post-amendment (v2.1) leaves total | **`350`** |
+| CHANGED | **`5`** — `_digest`, `_runtime_sec`, `NC-BYTES/frozen`, and the two repaired artifacts' `blob_live` |
+| ADDED | **`53`** — every one inside the `NC-BYTES` block |
+| REMOVED | **`0`** |
+| **changed/added/removed OUTSIDE `NC-BYTES` ∪ `_digest` ∪ `_runtime_sec`** | **`0`** |
+
+**Every physics leaf is byte-identical to the shipped v2 record.** The `1431`-leaf v1 reproduction,
+the three `G-NC-SLAST` legs, both `FT-SLAST` parts, the `NC-SCAN` counts and the entire §4
+adjudication are **unchanged strings**. The digest moved `b38c6c269b5dd301` → `4da48b39074d9fbc`,
+which is the digest doing its job.
+
+**This receipt is RE-DERIVED ON EVERY `make verify`,** not quoted from a one-off run: the number
+check reads the pre-amendment JSON **out of git by blob hash** and recomputes the bucketed delta,
+failing hard if a single leaf outside the permitted set moves. Mutation `M6` moves one physics leaf
+and requires the receipt to catch it, so the receipt cannot degrade into a no-op. Reproduce by hand:
+
+```
+git cat-file blob 25b02dfc1f963caeee0f307694ef4887af15ac90   # the shipped v2 JSON
+# vs research/drivers/approach_leak_v2_results.json          # v2.1
+python3 research/drivers/approach_leak_v2_number_check.py     # recomputes the receipt, gating
+```
+
+**What did NOT change:** the frozen prereg is **not edited** — `2026-08-06_approach-leak-v2_prereg-FROZEN.md`
+§3.3 still reads `5e2694c0`, and it is left frozen deliberately. The amendment is disclosed **here**
+and in the docket correction, which is where an amendment to a frozen instrument belongs; rewriting a
+frozen pre-registration to match a later measurement is the exact move the freeze rule exists to
+prevent.

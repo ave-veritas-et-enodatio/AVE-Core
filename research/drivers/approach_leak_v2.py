@@ -60,8 +60,28 @@ OUT = Path(os.environ.get("APPROACH_LEAK_V2_OUT", str(HERE / "approach_leak_v2_r
 V1_JSON = HERE / "approach_leak_results.json"
 LASTBOND_JSON = HERE / "last_bond_kernel_collapse_results.json"
 
-# The v1 ship commit; NC-BYTES compares against the blob hashes recorded there.
+# The v1 ship commit, as originally frozen (prereg section 3.3).  RETAINED as the
+# audit anchor; since AMENDMENT-NCBYTES-2026-08-06 it is no longer the comparison
+# target -- it is recorded per artifact so the delta stays visible.
 V1_SHIP_COMMIT = "5e2694c0"
+
+# AMENDMENT-NCBYTES-2026-08-06 (disclosed pre-merge; result doc section 9 and
+# _orchestration/docket-entries/2026-08-06-approach-leak-v2-correction.md).
+# NC-BYTES now pins ALL TEN read-only artifacts at the REPAIRED v1 tip.  Rationale,
+# in one sentence: the gate's PURPOSE is "this lane wrote none of the
+# predecessors", and two of the ten were rewritten between the two commits by the
+# ORCHESTRATOR's disclosed post-ship SCANFRAG repair -- an event extrinsic to this
+# lane, which the un-amended pin cannot express and therefore misreports as a
+# lane-authored write.
+V1_PIN_COMMIT = "f3607be8"
+
+# The artifacts that moved between V1_SHIP_COMMIT and V1_PIN_COMMIT.  DECLARED
+# here and RECONCILED against the computed delta inside nc_bytes(): a gate that
+# consumes its own declaration is a checklist, not a gate.
+REPAIRED_BY_DISCLOSED_ORCHESTRATOR_REPAIR = {
+    "research/2026-08-05_approach-leak_result.md",
+    "research/drivers/approach_leak.py",
+}
 
 # ---------------------------------------------------------------------------
 # Frozen constants of the re-anchor (prereg section 2).  DERIVED FROM DIGIT
@@ -184,25 +204,92 @@ def compare_trees(shipped: dict, recomputed: dict, ignore: set[str]) -> dict:
 # NC-BYTES: every read-only artifact still hashes to its v1-ship-commit blob.
 # ---------------------------------------------------------------------------
 
+def _blob(commit: str, rel: str) -> str:
+    return subprocess.run(["git", "rev-parse", f"{commit}:{rel}"],
+                          cwd=REPO, capture_output=True, text=True).stdout.strip()
+
+
 def nc_bytes() -> dict:
+    """AMENDED 2026-08-06 (AMENDMENT-NCBYTES-2026-08-06), pre-merge and disclosed.
+
+    PURPOSE, unchanged and restated verbatim from the freeze: *this lane wrote
+    none of the ten read-only predecessor artifacts.*
+
+    WHAT MOVED: the comparison target for all ten, from V1_SHIP_COMMIT
+    (5e2694c0, the PRE-repair v1 ship) to V1_PIN_COMMIT (f3607be8, the REPAIRED
+    v1 tip carried in by this branch's 2026-08-06 merge).  For EIGHT of the ten
+    that is a no-op in value -- the blob object is the same at both commits --
+    and that no-op is COMPUTED here, not asserted.  For the TWO the orchestrator's
+    disclosed post-ship SCANFRAG repair rewrote, the target moves onto the
+    repaired state.
+
+    NOTHING IS DROPPED.  The original conjunct (live == pinned blob, ten of ten)
+    is retained; two NEW conjuncts are added, and both of them gate the re-pin
+    itself:
+      (i)  the COMPUTED set of artifacts that differ between the two commits must
+           equal the DECLARED set REPAIRED_BY_DISCLOSED_ORCHESTRATOR_REPAIR --
+           so an undisclosed extra rewrite fails the gate;
+      (ii) every artifact NOT in that set must be byte-identical at BOTH commits
+           -- so the eight-fold no-op is proved, not claimed.
+    """
     rows = []
     ok = True
+    computed_moved: list[str] = []
+    unmoved_stable = True
     for rel in READ_ONLY_ARTIFACTS:
-        blob = subprocess.run(["git", "rev-parse", f"{V1_SHIP_COMMIT}:{rel}"],
-                              cwd=REPO, capture_output=True, text=True)
-        live = subprocess.run(["git", "hash-object", rel],
-                              cwd=REPO, capture_output=True, text=True)
-        b = blob.stdout.strip()
-        l = live.stdout.strip()
-        same = bool(b) and b == l
+        b_ship = _blob(V1_SHIP_COMMIT, rel)
+        b_pin = _blob(V1_PIN_COMMIT, rel)
+        l = subprocess.run(["git", "hash-object", rel],
+                           cwd=REPO, capture_output=True, text=True).stdout.strip()
+        same = bool(b_pin) and b_pin == l
         ok = ok and same
-        rows.append({"path": rel, "blob_at_v1_ship": b[:12], "blob_live": l[:12],
-                     "byte_identical": same})
-    return {"frozen": (f"every read-only predecessor artifact hashes to its blob at the v1 ship "
-                       f"commit {V1_SHIP_COMMIT} -- this lane wrote none of them"),
+        moved = bool(b_ship) and bool(b_pin) and b_ship != b_pin
+        declared = rel in REPAIRED_BY_DISCLOSED_ORCHESTRATOR_REPAIR
+        if moved:
+            computed_moved.append(rel)
+        else:
+            unmoved_stable = unmoved_stable and (b_ship == b_pin)
+        rows.append({"path": rel,
+                     "blob_at_v1_ship": b_ship[:12],
+                     "blob_at_v1_pin": b_pin[:12],
+                     "blob_live": l[:12],
+                     "byte_identical": same,
+                     "moved_by_disclosed_repair_COMPUTED": moved,
+                     "moved_by_disclosed_repair_DECLARED": declared,
+                     "declaration_reconciles": moved == declared})
+    delta_reconciles = sorted(computed_moved) == sorted(REPAIRED_BY_DISCLOSED_ORCHESTRATOR_REPAIR)
+    return {"frozen": (f"every read-only predecessor artifact hashes to its blob at the pinned v1 "
+                       f"commit -- this lane wrote none of them. AMENDED 2026-08-06: the pin is "
+                       f"the REPAIRED v1 tip {V1_PIN_COMMIT}, not the pre-repair ship "
+                       f"{V1_SHIP_COMMIT}; two of the ten were rewritten between them by the "
+                       f"ORCHESTRATOR's disclosed SCANFRAG repair, an event extrinsic to this "
+                       f"lane. Purpose preserved, no conjunct dropped, two conjuncts ADDED that "
+                       f"gate the re-pin itself."),
+            "amendment": "AMENDMENT-NCBYTES-2026-08-06",
+            "amendment_disclosure": ("research/2026-08-06_approach-leak-v2_result.md section 9; "
+                                     "_orchestration/docket-entries/"
+                                     "2026-08-06-approach-leak-v2-correction.md"),
+            "pin_commit": V1_PIN_COMMIT,
+            "pin_choice": "ALL TEN re-pinned at the repaired v1 tip (not a split pin)",
+            "pin_choice_rationale": ("one pin, one truth-source: f3607be8 is a descendant of "
+                                     "5e2694c0 whose diff touches exactly two of the ten, so for "
+                                     "the other eight the pin is a COMPUTED no-op (see "
+                                     "unmoved_artifacts_identical_at_both_commits); and the "
+                                     "repaired tip is the predecessor state that will actually "
+                                     "merge to main, so the gate tracks the mergeable predecessor "
+                                     "rather than a superseded intermediate. A split pin would "
+                                     "carry two commit references for one roster with no gain in "
+                                     "strength and a standing drift hazard."),
+            "superseded_pin_commit": V1_SHIP_COMMIT,
+            "superseded_pin_retained_per_artifact": True,
             "n_artifacts": len(READ_ONLY_ARTIFACTS),
             "artifacts": rows,
-            "pass": ok}
+            "artifacts_moved_between_pins_COMPUTED": sorted(computed_moved),
+            "artifacts_moved_between_pins_DECLARED": sorted(
+                REPAIRED_BY_DISCLOSED_ORCHESTRATOR_REPAIR),
+            "delta_declaration_reconciles": bool(delta_reconciles),
+            "unmoved_artifacts_identical_at_both_commits": bool(unmoved_stable),
+            "pass": bool(ok and delta_reconciles and unmoved_stable)}
 
 
 # ---------------------------------------------------------------------------
