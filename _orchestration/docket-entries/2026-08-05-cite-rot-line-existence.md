@@ -84,7 +84,28 @@ Sample of the `blank line cite` class, checked by hand: `master-equation.md:78` 
 
 #### 5. SHA-pinned and frozen cites
 
-**SHA-pinned: the corpus has NO machine-readable marker.** Searched at HEAD: the convention is free prose — *"as shipped on"*, *"at commit"*, *"frozen at"*, *"was correct at"* — always adjacent to a **backticked short hex SHA**. That backticked SHA is therefore the only reliable signal, and the pass uses it: any line carrying one has its line-cites skipped. **Measured coverage cost: 96 of 2,650 KB line-cites (3.6%) sit on a SHA-bearing line and go unchecked** — accepted, and recorded here rather than buried. The named example from the brief — `wall-taxonomy.md` §9 *(as shipped on `c4a546dc`)* in `research/2026-08-05_last-bond-kernel-collapse_prereg-FROZEN.md` — is a **§-section** cite carrying no `:NN`, so it was never in reach of this check regardless.
+**SHA-pinned: the corpus has NO machine-readable marker.** Searched at HEAD: the convention is free prose — *"as shipped on"*, *"at commit"*, *"frozen at"*, *"was correct at"* — always adjacent to a **backticked short hex SHA**. That backticked SHA is therefore the only reliable signal, and the pass uses it: any line carrying one has its line-cites skipped. **Measured coverage cost: 96 of the KB's 2,681 `:NN` line-cites (3.6%) sit on a SHA-bearing line** — accepted, and recorded here rather than buried. The named example from the brief — `wall-taxonomy.md` §9 *(as shipped on `c4a546dc`)* in `research/2026-08-05_last-bond-kernel-collapse_prereg-FROZEN.md` — is a **§-section** cite carrying no `:NN`, so it was never in reach of this check regardless.
+
+**PRECISION of that exemption — added 2026-08-05 after the independent verify, because the coverage COST was disclosed and the PRECISION was not.** The exemption is **line-scoped**, and KB lines are not sentences: it skips *every* line-cite on any line carrying a SHA anywhere, while the KB's ledger rows routinely mix one provenance SHA with several **live** derivation cites. Re-measured on a pristine checkout of `d5a1b06b` (identical at branch HEAD):
+
+| quantity | measured |
+|---|---|
+| KB `:NN` cites on a SHA-bearing line | **96** (3.6% of 2,681) |
+| — of those, actually exempted by this rule | **85** (the other 11 are skipped anyway: 3 by shape, 8 unresolvable path) |
+| distinct source lines carrying those 96 | **55** |
+| — cites sitting on a line of 500+ characters | **89 of 96** (median line 1,655 chars, max 6,112) |
+| — cites sharing their line with ≥1 other line-cite | **66 of 96** |
+| corroborated by one of the four free-prose phrases the rule is modelled on | **7 of 96 (7%)** — residue **89** |
+| corroborated by *any* historical-ish phrasing (deliberately generous superset, built by reading all 55 lines) | **65 of 96 (68%)** — residue **31** |
+| **dead cites the exemption hides today** | **0** (re-ran the line check over the 85 with the exemption disabled: 0 dead, 9 blank-line advisory) |
+
+The corroboration rate is **vocabulary-dependent by an order of magnitude**, which is itself the finding: the SHA is a *row-level* token, not a per-cite marker, so no regex over the line can tell which cite (if any) the SHA is pinning. Worked instances, each a live cite riding a SHA's exemption — all three re-verified this session:
+
+1. `manuscript/ave-kb/claim-quality-closure-roadmap.md:76` — a 625-char table row whose provenance column is `[`57b36e5`](…/commit/57b36e5)`, and which also carries **three live derivation cites** (`electron-bh-isomorphism.md:20,39`, `regime-eigenvalue-method.md:43`, `ave-merger-ringdown-eigenvalue.md:29`). All three are exempted by a SHA that pins none of them.
+2. `manuscript/ave-kb/CLAUDE.md:75` — 3,941 chars. Here the historical prose is **genuine** (*"byte-identical at `:439` from 2026-05-18 (`b0b9d4ea`) through 2026-05-31 (`367669ef`)"*) — and it exempts the live `operators.md:54` sitting on the same line. A correct pin and an unrelated live cite are indistinguishable to a line-scoped rule.
+3. `manuscript/ave-kb/claim-quality-closure-roadmap.md:32` — 2,731 chars, five SHAs, live `q_g47_path_b_k4_eigenmode.py:54` among the exempted.
+
+**Forward risk, stated plainly:** a dead cite that lands on a ledger row which happens to mention a commit passes the gate silently — and ledger rows are exactly where cite-rot concentrates. Today that risk is **realised zero times** (row above), so this is a precision disclosure, not a defect. **Do not "fix" it by widening the SHA regex** — that lowers precision further. The fix, if the residue ever bites, is an explicit per-cite historical marker convention, which is a corpus-convention decision, not an implementer's.
 
 **Frozen documents are never forced to change.** `research/*_prereg-FROZEN.md`, dated result docs, and `_orchestration/docket-entries/*` are all **outside** the error-source set, so their findings are warn-only under the pre-existing source-gating rule — no new carveout was written, and this fragment's four warn-class hits (§2) prove the path. A regression test asserts it directly. If a byte-frozen document ever lands *inside* the KB tree, `WAIVED_LINE_CITE` is the escape hatch, and it carries the same anti-rot property as `WAIVED_KBLEAF`: a waiver that outlives its subject is itself a gating failure.
 

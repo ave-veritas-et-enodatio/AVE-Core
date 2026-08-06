@@ -452,8 +452,40 @@ _LINK_EXT_CITE_RE = re.compile(
 # "at commit", "frozen at", "was correct at" — always adjacent to a BACKTICKED
 # short hex SHA. That backticked SHA is therefore the only reliable signal, and
 # this pass uses it: any line carrying one has its line-cites skipped.
-# Measured cost of the rule at the time it was written: 96 of 2,650 KB
-# line-cites (3.6%) sit on a SHA-bearing line and go unchecked.
+#
+# PRECISION DISCLOSURE — the exemption is LINE-SCOPED, and the KB's lines are
+# not sentences. It skips EVERY line-cite on any line carrying a SHA anywhere,
+# and the KB's ledger rows run hundreds to thousands of characters, routinely
+# mixing one provenance SHA with several LIVE derivation cites. So the SHA is a
+# row-level token, not a per-cite marker, and the rule's coverage is coarse.
+#
+# Measured 2026-08-05 on a pristine checkout of `d5a1b06b` (a dated snapshot,
+# not a live census — see the NO CENSUS note in the module docstring; the
+# itemisation lives in §5 of the docket fragment):
+#   - 96 KB line-cites sit on a SHA-bearing line (3.6% of the KB's 2,681),
+#     of which 85 are actually exempted here (the other 11 are skipped anyway,
+#     by shape or unresolvable path);
+#   - those 96 sit on just 55 distinct lines — 89 of them on lines of 500+
+#     characters (median 1,655, max 6,112), and 66 share their line with at
+#     least one other line-cite;
+#   - only 7 of the 96 (7%) sit on a line that also carries one of the four
+#     free-prose phrases this rule is modelled on; widening to every
+#     historical-ish phrasing found by reading all 55 lines reaches 65 (68%).
+#     Either way most exempted cites have no marker tying the SHA to the cite.
+#   - it hides ZERO dead cites today: re-running the line check over the 85
+#     with the exemption disabled yields 0 dead (9 blank-line advisory).
+# Worked instances, each a live cite riding a SHA's exemption:
+# `claim-quality-closure-roadmap.md:76` (a `57b36e5` provenance link plus THREE
+# live derivation cites on one 625-char row), `manuscript/ave-kb/CLAUDE.md:75`
+# (3,941 chars; a genuine historical pin on `:439` exempts the live
+# `operators.md:54` beside it), `claim-quality-closure-roadmap.md:32`
+# (2,731 chars, five SHAs, live `q_g47_path_b_k4_eigenmode.py:54`).
+#
+# FORWARD RISK, stated plainly: a dead cite that lands on a ledger row which
+# happens to mention a commit passes this gate silently — and ledger rows are
+# exactly where cite-rot concentrates. This is a precision disclosure, not a
+# defect report (today's hidden-dead count is zero); the fix, if the residue
+# ever bites, is an explicit per-cite historical marker, not a wider SHA regex.
 _HISTORICAL_PIN_RE = re.compile(r"`[0-9a-f]{7,40}`")
 
 # Sibling-repo cite target (`AVE-Foo/...`, `Applied-Vacuum-Engineering/...`).
