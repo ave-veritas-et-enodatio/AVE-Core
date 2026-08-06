@@ -55,7 +55,7 @@ VOLUMES = vol_0_engineering_compendium vol_1_foundations vol_2_subatomic vol_3_m
 PAPER_DIR = papers/2026_birefringence_letter
 PAPER_JOB = sve_vacuum_birefringence_letter
 
-.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-coldq-v2-number-check verify-coldq-v22-number-check refresh-provenance-baseline framing-audit verify-anchor-content test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup verify-coldq-v24-number-check verify-coldq-polar-number-check verify-echo-delay-number-check verify-coldq-axial-rhob-number-check verify-two-band-kp-number-check verify-echo-delay-v2-number-check verify-last-bond-number-check verify-srs-twist-number-check verify-approach-leak-number-check verify-approach-leak-v2-number-check gamma-census
+.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-coldq-v2-number-check verify-coldq-v22-number-check refresh-provenance-baseline framing-audit verify-anchor-content verify-new-cite-excerpts test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup verify-coldq-v24-number-check verify-coldq-polar-number-check verify-echo-delay-number-check verify-coldq-axial-rhob-number-check verify-two-band-kp-number-check verify-echo-delay-v2-number-check verify-last-bond-number-check verify-srs-twist-number-check gamma-census verify-approach-leak-number-check verify-approach-leak-v2-number-check
 
 help:
 	@echo "Applied Vacuum Engineering (AVE-Core) Build System"
@@ -83,6 +83,7 @@ help:
 	@echo "  make refresh-provenance-baseline : Regenerate the grandfather baseline from the live scan (allowed to shrink)"
 	@echo "  make framing-audit        : Scan corpus for reviewer-misread framing anti-patterns (advisory)"
 	@echo "  make verify-anchor-content : Check cited path:NN vs adjacent backtick excerpt drift (WARN-CLASS advisory)"
+	@echo "  make verify-new-cite-excerpts : Require a verbatim excerpt beside every line-cite this branch ADDS to the KB (gating; CITE_BASE=<ref>)"
 	@echo "  make gamma-census         : Signed-Gamma corpus census + reconciliation of the prior sweeps (SURVEY; never gates)"
 	@echo "  make test                 : Run unit tests, bedrock keepers (src/tests + kb tools; engine-sims excluded)"
 	@echo "  make test-engine          : Run slow engine-simulation tests (opt-in; -m engine_sim)"
@@ -141,7 +142,7 @@ verify: $(KB_VERIFY) verify-md-links verify-provenance-stamps verify-frozen-prov
 	@echo "\n[Verify] Running Macroscopic Mutual Inductance bounds..."
 	$(PYTHON) $(SCRIPT_DIR)/vol_4_engineering/simulate_mutual_inductance.py
 	@echo "\n[Verify] Running Topological Borromean geometric limits..."
-	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/visualize_topological_bounds.py
+	AVE_VERIFY_NO_WRITE=1 $(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/visualize_topological_bounds.py
 	@echo "\n[Verify] Running Ch 8 α closure: Clifford half-cover rigor..."
 	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/verify_clifford_half_cover.py
 	@echo "\n[Verify] Running Ch 8 α closure: λ_line rigor..."
@@ -377,6 +378,17 @@ framing-audit:
 gamma-census:
 	@echo "[Census] Signed-Gamma corpus census + reconciliation (survey; never gates)..."
 	$(PYTHON) $(SCRIPT_DIR)/signed_gamma_census.py --reconcile
+
+# Cite-rot option (3): the NEW-cite excerpt ratchet. Deliberately NOT a
+# `verify:` prerequisite -- it needs a base ref, which a detached or offline
+# local run does not have, and `verify` must stay runnable anywhere. It IS a
+# real gate: nonzero exit on any line-cite this branch ADDS to the
+# canonical-authority surface without an adjacent verbatim excerpt. Override
+# the base with `make verify-new-cite-excerpts CITE_BASE=<ref>`.
+CITE_BASE ?= origin/main
+verify-new-cite-excerpts:
+	@echo "Checking every line-cite added vs $(CITE_BASE) carries an adjacent verbatim excerpt (gating)..."
+	$(PYTHON) $(KB_TOOLS_DIR)/verify-anchor-content.py --new-cites $(CITE_BASE)
 
 verify-anchor-content:
 	@echo "[Anchor] Cited-line vs quoted-excerpt drift check (WARN-CLASS advisory; always exit 0)..."

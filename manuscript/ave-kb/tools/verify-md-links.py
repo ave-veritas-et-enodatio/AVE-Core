@@ -39,6 +39,59 @@ False-positive avoidance:
   - a trailing `#anchor` fragment and a trailing `:linenum` suffix are stripped
     before resolving (the codebase cites locations as `path/file.md:42`).
 
+Line-cite (`path.ext:NN`) pass — added 2026-08-05, cite-rot options (2)+(3):
+  The corpus's load-bearing provenance form is a LOCATION cite, and until this
+  pass NONE of the line numbers were validated (`strip_target` deletes the
+  `:NN` by construction) and the MOST COMMON written form — backticked-bare
+  `` `path.md:NN` `` — was invisible end-to-end, because `strip_code` blanks
+  inline spans before the link regex runs. A cite could name a file that does
+  not exist, at a line that does not exist, and gating stayed green.
+
+  `iter_line_cites` reads the fences-blanked / inline-spans-KEPT view and
+  parses all three written forms (backticked-bare, `[t](path:NN)`,
+  `[t](path):NN`). Findings:
+
+    - `dead line cite` — GATING per `is_error_source`, same as broken-intra.
+      No resolvable candidate file HAS the cited line. Zero-false-positive by
+      construction: candidates are the UNION of direct resolution and
+      suffix-index resolution, and the verdict fires only when EVERY candidate
+      is too short. It asserts existence ONLY — content drift stays with the
+      advisory `verify-anchor-content.py`, and the two do not overlap
+      (that tool skips unresolvable targets as "verify-md-links territory";
+      this one never inspects excerpt text).
+    - `blank line cite` — ADVISORY, never gating. The line exists but is empty
+      or pure decoration.
+    - `broken backtick path` — ADVISORY, never gating. A backticked-bare cite
+      whose path resolves nowhere.
+    - `stale line-cite waiver` — GATING, like its kbleaf twin.
+
+  POSTURE (measured, not assumed). `dead line cite` gates from day one
+  because its error-source population measured ZERO — and that zero does not
+  go stale, because the gate itself re-asserts it on every `make verify`. The
+  two advisory kinds do NOT gate because their error-source populations are a
+  real pre-existing backlog, and a gate that red-lights merge on day one gets
+  bypassed rather than obeyed.
+
+  NO CENSUS IS BAKED INTO THIS DOCSTRING. The single source of truth for every
+  count — populations, flip conditions, measurement basis — is the docket
+  fragment `_orchestration/docket-entries/2026-08-05-cite-rot-line-existence.md`.
+  The live numbers are printed by every run (`make verify-md-links`, and
+  `--advisory-cites report` for the itemised queue). Three separate stale
+  figures shipped in this file's first draft; a comment that carries a census
+  is a comment that lies within the month, so it now carries a pointer.
+  N.B. the counts are CHECKOUT-SENSITIVE (this pass walks the filesystem, so
+  untracked local files resolve paths a fresh clone cannot) — measure in a
+  pristine `git worktree`, per the docket fragment's §2 measurement basis.
+
+  Deliberately-historical cites ("§9 as shipped on `c4a546dc`") are skipped by
+  a backticked-SHA-on-the-line heuristic — the corpus has no machine-readable
+  marker for them, which is itself recorded as a finding at
+  `_HISTORICAL_PIN_RE`. Byte-frozen documents (`research/*_prereg-FROZEN.md`,
+  dated result docs, `_orchestration/docket-entries/*`) are never forced to
+  change: they are all outside the error-source set, so their findings are
+  warn-only by the pre-existing source-gating rule; `WAIVED_LINE_CITE` is the
+  escape hatch if a frozen document ever lands inside the KB tree.
+
 kbleaf (.tex) citation pass:
   The rendered manuscript cites canonical KB leaves / repo files inline via
   `\\kbleaf{<path>}` (defined in manuscript/structure/commands.tex). This pass
@@ -68,6 +121,7 @@ import json
 import logging
 import re
 import sys
+from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -159,8 +213,9 @@ _ID_PLACEHOLDERS = {"clm-xxxxxx", "exp-xxxxxx", "sup-xxxxxx", "def-xxxxxx"}
 class Finding:
     file: Path  # absolute path of the markdown file
     line: int
-    kind: str  # "broken intra" | "broken inter" | "unknown id"
+    kind: str  # "broken intra" | "broken inter" | "unknown id" | ...
     target: str
+    detail: str = ""  # optional diagnostic appended to the printed line
 
 
 def find_repo_root(start: Path) -> Path:
@@ -208,6 +263,40 @@ def strip_code(text: str) -> str:
             out_lines.append(re.sub(r"`[^`]*`", lambda m: " " * len(m.group(0)), raw))
         else:
             # Inside a fence: blank everything until the closing fence.
+            out_lines.append("")
+            if stripped.startswith(fence):
+                fence = None
+    return "\n".join(out_lines)
+
+
+def strip_fences(text: str) -> str:
+    """Blank fenced code blocks ONLY; inline code spans are PRESERVED.
+
+    The complement of `strip_code`, and the view the line-cite pass reads.
+    `strip_code` blanks inline spans because the *link* regex must not see
+    doc/example links; but the corpus's most common location-cite form IS an
+    inline span (`` `path.md:42` ``), so blanking those made ~11k cites
+    invisible end-to-end. Fences stay blanked: cites inside a fenced snippet
+    are illustrative.
+
+    Newlines are preserved so reported line numbers stay accurate.
+
+    (Coverage split, deliberate: `verify-anchor-content.py` carries its own
+    `strip_fenced` with the same semantics. The two tools stay independent —
+    they run from different make targets and coupling them would make an
+    advisory tool's failure able to take down a gating one.)
+    """
+    out_lines: list[str] = []
+    fence: str | None = None
+    for raw in text.splitlines():
+        stripped = raw.lstrip()
+        if fence is None:
+            if stripped.startswith("```") or stripped.startswith("~~~"):
+                fence = stripped[:3]
+                out_lines.append("")
+                continue
+            out_lines.append(raw)
+        else:
             out_lines.append("")
             if stripped.startswith(fence):
                 fence = None
@@ -312,6 +401,356 @@ def check_ids(md_file: Path, body: str, known_ids: set[str]) -> list[Finding]:
             if cited not in known_ids:
                 findings.append(Finding(md_file, lineno, "unknown id", cited))
     return findings
+
+
+# --- line-cite parsing (`path.ext:NN`) --------------------------------------
+#
+# The corpus's load-bearing provenance form is a LOCATION cite `path.ext:NN`,
+# written in three shapes. Before this pass the checker saw none of the line
+# numbers and only one of the three paths:
+#
+#   form         written as                     path checked before / now
+#   backticked   `path.ext:NN`                  NO  / yes (advisory)
+#   link-in      [text](path.ext:NN)            yes / yes   (`strip_target`)
+#   link-ext     [text](path.ext):NN            yes / yes   (KB house style)
+#
+# `strip_code` blanks inline spans before `_LINK_RE` runs, which is why the
+# backticked form — the most common one — was invisible end-to-end.
+
+# Extensions a `path.EXT:NN` location cite may name. Same family
+# verify-anchor-content.py recognises, plus the typesetting/build extensions
+# that appear in KB provenance cites.
+_CITE_EXTS = (
+    "md", "py", "tex", "sty", "cls", "json", "jsonl", "csv", "txt",
+    "yaml", "yml", "toml", "cfg", "ini", "sh", "bib", "mk", "stl",
+)
+_CITE_PATH = r"(?:[\w.+@-]+/)*[\w.+@-]+\.(?:" + "|".join(_CITE_EXTS) + r")"
+# `:42`, `:8-24`, `:133--147`. The trailing (?!\d) stops `:12` swallowing the
+# leading digit of a following range half.
+_CITE_LINE = r":(?P<start>\d+)(?:-{1,2}(?P<end>\d+))?(?!\d)"
+
+# One inline code span (no nested backticks).
+_INLINE_SPAN_RE = re.compile(r"`([^`\n]+)`")
+# A span is a cite only when its ENTIRE stripped body is a path (+ optional
+# line suffix). Anything else in the backticks — prose, a formula, a shell
+# snippet — is not a location cite, and requiring a whole-body match is what
+# keeps the backticked form's false-positive rate at zero-by-construction.
+_BARE_CITE_RE = re.compile(r"^(?P<path>" + _CITE_PATH + r")(?:" + _CITE_LINE + r")?$")
+_LINK_IN_CITE_RE = re.compile(
+    r"\[[^\]]*\]\(\s*(?P<path>" + _CITE_PATH + r")" + _CITE_LINE + r"\s*\)"
+)
+_LINK_EXT_CITE_RE = re.compile(
+    r"\[[^\]]*\]\(\s*(?P<path>" + _CITE_PATH + r")\s*\)" + _CITE_LINE
+)
+
+# A cite deliberately pinned to a PAST repo state is correct as written even
+# when it does not resolve at HEAD (e.g. a frozen prereg's
+# "§9 (as shipped on `c4a546dc`)", where the SHA predates a renumber).
+#
+# FINDING, recorded rather than papered over: the corpus has NO machine-readable
+# marker for a historical cite. The convention is free prose — "as shipped on",
+# "at commit", "frozen at", "was correct at" — always adjacent to a BACKTICKED
+# short hex SHA. That backticked SHA is therefore the only reliable signal, and
+# this pass uses it: any line carrying one has its line-cites skipped.
+#
+# PRECISION DISCLOSURE — the exemption is LINE-SCOPED, and the KB's lines are
+# not sentences. It skips EVERY line-cite on any line carrying a SHA anywhere,
+# and the KB's ledger rows run hundreds to thousands of characters, routinely
+# mixing one provenance SHA with several LIVE derivation cites. So the SHA is a
+# row-level token, not a per-cite marker, and the rule's coverage is coarse.
+#
+# Measured 2026-08-05 on a pristine checkout of `d5a1b06b` (a dated snapshot,
+# not a live census — see the NO CENSUS note in the module docstring; the
+# itemisation lives in §5 of the docket fragment):
+#   - 96 KB line-cites sit on a SHA-bearing line (3.6% of the KB's 2,681),
+#     of which 85 are actually exempted here (the other 11 are skipped anyway,
+#     by shape or unresolvable path);
+#   - those 96 sit on just 55 distinct lines — 89 of them on lines of 500+
+#     characters (median 1,655, max 6,112), and 66 share their line with at
+#     least one other line-cite;
+#   - only 7 of the 96 (7%) sit on a line that also carries one of the four
+#     free-prose phrases this rule is modelled on; widening to every
+#     historical-ish phrasing found by reading all 55 lines reaches 65 (68%).
+#     Either way most exempted cites have no marker tying the SHA to the cite.
+#   - it hides ZERO dead cites today: re-running the line check over the 85
+#     with the exemption disabled yields 0 dead (9 blank-line advisory).
+# Worked instances, each a live cite riding a SHA's exemption:
+# `claim-quality-closure-roadmap.md:76` (a `57b36e5` provenance link plus THREE
+# live derivation cites on one 625-char row), `manuscript/ave-kb/CLAUDE.md:75`
+# (3,941 chars; a genuine historical pin on `:439` exempts the live
+# `operators.md:54` beside it), `claim-quality-closure-roadmap.md:32`
+# (2,731 chars, five SHAs, live `q_g47_path_b_k4_eigenmode.py:54`).
+#
+# FORWARD RISK, stated plainly: a dead cite that lands on a ledger row which
+# happens to mention a commit passes this gate silently — and ledger rows are
+# exactly where cite-rot concentrates. This is a precision disclosure, not a
+# defect report (today's hidden-dead count is zero); the fix, if the residue
+# ever bites, is an explicit per-cite historical marker, not a wider SHA regex.
+_HISTORICAL_PIN_RE = re.compile(r"`[0-9a-f]{7,40}`")
+
+# Sibling-repo cite target (`AVE-Foo/...`, `Applied-Vacuum-Engineering/...`).
+# Sibling checkouts are legitimately absent on a fresh CI checkout, so their
+# lines can never be resolved — skipped, exactly as md inter-repo links are.
+_CITE_SIBLING_RE = re.compile(r"(?:^|/)(?:AVE-[A-Za-z0-9-]+|Applied-Vacuum-Engineering)/")
+
+# Target shapes that are PATTERNS, not paths: `vol3/.../leaf.md` elision,
+# `chiral_lattice_v9..v17.py` ranges, globs. The kbleaf pass resolves these as
+# globs; a location cite into one has no single line to check, so it is skipped.
+#
+# A bare `..` SEGMENT is NOT a pattern — it is an ordinary parent-dir hop, and
+# `../vol1/.../leaf.md`-style relative cites are the KB house style: 639 of the
+# KB's 2,650 line-cites (24%) carry one. An earlier `\.{2,}` form of this regex
+# swallowed all of them; the mutation test in
+# tools/tests/test_verify_md_links.py is what surfaced it (the planted
+# link-ext cite silently never fired). Hence: 3+ dots anywhere, or 2 dots
+# inside a segment that is not exactly `..`.
+_CITE_GLOB_RE = re.compile(r"\.{3,}|[*\[\]]")
+
+
+def _is_pattern_segment(segment: str) -> bool:
+    """True if a path segment is a glob / elision rather than a real name."""
+    return bool(_CITE_GLOB_RE.search(segment)) or (".." in segment and segment != "..")
+
+# Repo-relative dirs whose contents are gitignored ephemera — a cite into one
+# can never resolve on a fresh checkout. Kept SEPARATE from `IGNORED_PATHS`
+# (used by the link pass) so this pass's carveout cannot silently widen the
+# existing link check's blind spot.
+_CITE_EPHEMERAL_DIRS = (".agents", ".claude/worktrees", "build")
+
+
+@dataclass(frozen=True)
+class LineCite:
+    """One `path.ext:NN` location cite, as written."""
+
+    lineno: int  # line in the CITING file
+    form: str  # "backticked" | "link-in" | "link-ext"
+    path: str  # target path as written
+    start: int | None  # cited line, or None when the cite carries no :NN
+    end: int | None  # range end for `:NN-MM`, else == start
+    pinned: bool  # the citing line carries a backticked SHA (historical pin)
+
+    @property
+    def as_written(self) -> str:
+        if self.start is None:
+            return self.path
+        if self.end is not None and self.end != self.start:
+            return f"{self.path}:{self.start}-{self.end}"
+        return f"{self.path}:{self.start}"
+
+
+def iter_line_cites(text: str):
+    """Yield every `LineCite` in `text` (fences blanked, inline spans kept)."""
+    for lineno, line in enumerate(strip_fences(text).splitlines(), 1):
+        pinned = bool(_HISTORICAL_PIN_RE.search(line))
+        for regex, form in ((_LINK_EXT_CITE_RE, "link-ext"), (_LINK_IN_CITE_RE, "link-in")):
+            for match in regex.finditer(line):
+                start = int(match.group("start"))
+                end = int(match.group("end")) if match.group("end") else start
+                yield LineCite(lineno, form, match.group("path"), start, end, pinned)
+        for span in _INLINE_SPAN_RE.finditer(line):
+            match = _BARE_CITE_RE.match(span.group(1).strip())
+            if not match:
+                continue
+            start = int(match.group("start")) if match.group("start") else None
+            end = int(match.group("end")) if match.group("end") else start
+            yield LineCite(lineno, "backticked", match.group("path"), start, end, pinned)
+
+
+def cite_target_uncheckable(target: str) -> bool:
+    """True if a cite target cannot be resolved to one repo file, by shape.
+
+    Home-dir paths, sibling-repo paths, glob/elision patterns, and gitignored
+    ephemeral trees. These are skipped by BOTH new passes — they are not
+    findings, they are out of scope.
+    """
+    if target.startswith(("~", "/")):
+        return True
+    if _CITE_SIBLING_RE.search(target):
+        return True
+    parts = tuple(p for p in target.split("/") if p and p != ".")
+    if any(_is_pattern_segment(p) for p in parts):
+        return True
+    if any(p in _CITE_EPHEMERAL_DIRS for p in parts):
+        return True
+    if any(
+        parts[i : i + len(ignored.parts)] == ignored.parts
+        for ignored in IGNORED_PATHS
+        for i in range(len(parts))
+    ):
+        return True
+    return False
+
+
+def resolve_cite_candidates(
+    target: str,
+    md_file: Path,
+    repo_root: Path,
+    file_index: dict[str, list[tuple[str, ...]]],
+) -> list[Path]:
+    """Every repo file a cite target could name — UNION of two resolutions.
+
+    (a) DIRECT: relative to the citing file's directory, then to the repo root.
+    (b) SUFFIX-INDEX: any indexed file whose path TAIL matches the cited
+        segments — the same resolution the kbleaf pass uses (Rule 14: one
+        resolution model for the repo, not two), and what makes the corpus's
+        bare-basename shorthand (`` `master-equation.md:78` ``) resolvable.
+
+    The union is deliberate and is what makes the line check zero-FP: a bare
+    `CLAUDE.md:182` names SOME `CLAUDE.md`, and it is only a real dead cite if
+    NO candidate is that long. Direct-only resolution would pick the repo-root
+    one (125 lines) and fire falsely against the KB one (353).
+    """
+    found: set[Path] = set()
+    for base in (md_file.parent, repo_root):
+        candidate = (base / target).resolve()
+        if candidate.is_file():
+            found.add(candidate)
+    parts = tuple(p for p in target.split("/") if p and p != ".")
+    if parts:
+        for indexed in file_index.get(parts[-1], ()):
+            if indexed[-len(parts):] == parts:
+                found.add(repo_root / Path(*indexed))
+    return sorted(found)
+
+
+class TargetLineCache:
+    """Split cite-target files into lines once each."""
+
+    def __init__(self) -> None:
+        self._lines: dict[Path, list[str]] = {}
+
+    def lines(self, path: Path) -> list[str]:
+        if path not in self._lines:
+            try:
+                text = path.read_text(encoding="utf-8", errors="replace")
+            except OSError:
+                self._lines[path] = []
+            else:
+                self._lines[path] = text.splitlines()
+        return self._lines[path]
+
+    def count(self, path: Path) -> int:
+        return len(self.lines(path))
+
+
+# A cited line that exists but carries nothing to cite: empty, or pure
+# structural decoration (blockquote marker, list bullet, table rule, hr).
+_CONTENTLESS_LINE_RE = re.compile(r"^[\s>*+\-|#=_~`]*$")
+
+# (source repo-relative path, cite as written) pairs adjudicated
+# report-don't-fix — a `dead line cite` that is KNOWN and deliberately left, e.g.
+# inside a byte-frozen document. Mirrors WAIVED_KBLEAF, including its
+# anti-rot property: a waiver matching no live dead cite is itself a GATING
+# `stale line-cite waiver` failure, so the list can only shrink truthfully.
+#
+# EMPTY at landing: the gating (error-source) dead-line-cite set measured ZERO
+# at this HEAD, so no waiver is needed yet. See the posture note in the docket
+# fragment 2026-08-05-cite-rot-line-existence.md.
+WAIVED_LINE_CITE: frozenset[tuple[str, str]] = frozenset()
+
+
+def check_line_cites(
+    md_file: Path,
+    text: str,
+    repo_root: Path,
+    file_index: dict[str, list[tuple[str, ...]]],
+    line_cache: TargetLineCache,
+    waived: frozenset[tuple[str, str]] = WAIVED_LINE_CITE,
+) -> tuple[list[Finding], Counter, set[tuple[str, str]]]:
+    """Check every `path.ext:NN` location cite in one markdown file.
+
+    Emits three finding kinds:
+
+    `dead line cite` — GATING (per `is_error_source`, like broken-intra).
+      NO resolvable candidate file has the cited line. Zero-false-positive by
+      construction: the check is "does line N exist", the candidate set is the
+      UNION of every resolution the cite could mean, and the verdict fires only
+      when EVERY candidate is too short. It does not attempt content drift —
+      that stays with the advisory `verify-anchor-content.py`.
+
+    `blank line cite` — ADVISORY, never gating. The cited line exists but is
+      empty or pure decoration, so the cite anchors nothing. Almost always
+      one-line drift (the content sits at N+1). Advisory because its
+      error-source population is a real pre-existing backlog and a gate that
+      red-lights merge on day one gets bypassed, not obeyed.
+
+    `broken backtick path` — ADVISORY, never gating. A backticked-bare cite
+      whose path resolves nowhere. This form was never path-checked before, so
+      turning it on surfaces a pre-existing backlog, heavy with
+      pattern/placeholder strings like `volN/claim-quality.md`. Reported and
+      counted; not gated. Link-form cites are NOT re-reported here — the
+      existing link pass already owns their paths.
+
+    Counts for both advisory kinds live in the docket fragment named in the
+    module docstring, not here — see the NO CENSUS IS BAKED note there. Every
+    run prints the live populations.
+
+    Returns (findings, stats, matched_waiver_keys).
+    """
+    findings: list[Finding] = []
+    stats: Counter = Counter()
+    matched: set[tuple[str, str]] = set()
+    try:
+        rel_source = str(md_file.resolve().relative_to(repo_root))
+    except ValueError:
+        rel_source = str(md_file)
+
+    for cite in iter_line_cites(text):
+        if cite_target_uncheckable(cite.path):
+            stats["skipped_shape"] += 1
+            continue
+        candidates = resolve_cite_candidates(cite.path, md_file, repo_root, file_index)
+        if not candidates:
+            if cite.form == "backticked":
+                stats["unresolved_backtick_path"] += 1
+                findings.append(
+                    Finding(md_file, cite.lineno, "broken backtick path", cite.as_written)
+                )
+            else:
+                stats["unresolved_link_path"] += 1  # the link pass owns this one
+            continue
+        if cite.start is None:
+            stats["path_only"] += 1  # `path.md` with no :NN — path checked, no line
+            continue
+        if cite.pinned:
+            stats["skipped_historical_pin"] += 1
+            continue
+
+        stats["checked"] += 1
+        cited_last = max(cite.start, cite.end or cite.start)
+        longest = max(line_cache.count(c) for c in candidates)
+        if longest < cited_last:
+            key = (rel_source, cite.as_written)
+            detail = f"longest of {len(candidates)} candidate(s): {longest} lines"
+            if key in waived:
+                matched.add(key)
+                findings.append(
+                    Finding(md_file, cite.lineno, "waived line cite", cite.as_written, detail)
+                )
+                stats["dead_waived"] += 1
+            else:
+                findings.append(
+                    Finding(md_file, cite.lineno, "dead line cite", cite.as_written, detail)
+                )
+                stats["dead"] += 1
+            continue
+
+        # Blank-line advisory. Only meaningful when the cite resolves to exactly
+        # one file — with several candidates there is no single line to inspect.
+        if len(candidates) == 1:
+            lines = line_cache.lines(candidates[0])
+            if cite.start <= len(lines) and _CONTENTLESS_LINE_RE.match(lines[cite.start - 1]):
+                stats["blank"] += 1
+                findings.append(
+                    Finding(
+                        md_file,
+                        cite.lineno,
+                        "blank line cite",
+                        cite.as_written,
+                        "cited line is empty / decoration-only",
+                    )
+                )
+    return findings, stats, matched
 
 
 # --- \kbleaf{...} citation checking (manuscript .tex) -----------------------
@@ -535,14 +974,16 @@ def check_kbleaf(
 def scan_kbleaf(
     repo_root: Path,
     waived: frozenset[tuple[str, str]] = WAIVED_KBLEAF,
+    indexes: tuple[dict[str, list[tuple[str, ...]]], dict[str, list[tuple[str, ...]]]] | None = None,
 ) -> tuple[list[Finding], int, int]:
     """Run the kbleaf pass over manuscript/**/*.tex.
 
     Returns (findings, checked_count, skipped_count). Stale waivers (entries
     in `waived` that matched no live dead cite) are appended as gating
-    `stale kbleaf waiver` findings.
+    `stale kbleaf waiver` findings. `indexes` lets a caller share the
+    (file, dir) target index with the line-cite pass instead of rebuilding it.
     """
-    file_index, dir_index = build_kbleaf_target_index(repo_root)
+    file_index, dir_index = indexes if indexes is not None else build_kbleaf_target_index(repo_root)
     findings: list[Finding] = []
     checked = 0
     skipped = 0
@@ -564,9 +1005,22 @@ def scan_kbleaf(
     return findings, checked, skipped
 
 
-def scan(repo_root: Path, check_ids_enabled: bool) -> list[Finding]:
+def scan(
+    repo_root: Path,
+    check_ids_enabled: bool,
+    file_index: dict[str, list[tuple[str, ...]]] | None = None,
+    waived_line_cites: frozenset[tuple[str, str]] = WAIVED_LINE_CITE,
+) -> tuple[list[Finding], Counter]:
+    """Crawl every markdown file once, running all md-side passes on it.
+
+    `file_index` enables the line-cite pass (None disables it). Returns
+    (findings, line-cite stats).
+    """
     known_ids = load_known_ids(repo_root) if check_ids_enabled else None
     findings: list[Finding] = []
+    stats: Counter = Counter()
+    matched_waivers: set[tuple[str, str]] = set()
+    line_cache = TargetLineCache()
     for md_file in iter_markdown_files(repo_root):
         try:
             text = md_file.read_text(encoding="utf-8")
@@ -577,28 +1031,51 @@ def scan(repo_root: Path, check_ids_enabled: bool) -> list[Finding]:
         findings.extend(check_links(md_file, body, repo_root))
         if known_ids is not None:
             findings.extend(check_ids(md_file, body, known_ids))
-    return findings
+        if file_index is not None:
+            cite_findings, cite_stats, matched = check_line_cites(
+                md_file, text, repo_root, file_index, line_cache, waived_line_cites
+            )
+            findings.extend(cite_findings)
+            stats.update(cite_stats)
+            matched_waivers |= matched
+    if file_index is not None:
+        for rel_source, as_written in sorted(waived_line_cites - matched_waivers):
+            findings.append(
+                Finding(repo_root / rel_source, 0, "stale line-cite waiver", as_written)
+            )
+    return findings, stats
 
 
 # kbleaf finding kinds that always gate: every manuscript/**/*.tex source is
 # the rendered manuscript — canonical-authority surface, like the KB tree.
 _KBLEAF_GATING_KINDS = {"dead kbleaf", "split kbleaf", "stale kbleaf waiver"}
 
+# Line-cite kinds that NEVER gate, whatever their source. Each names a
+# pre-existing corpus backlog that a day-one gate would only teach lanes to
+# bypass; the flip conditions are named in the docket fragment
+# 2026-08-05-cite-rot-line-existence.md.
+_ADVISORY_CITE_KINDS = {"broken backtick path", "blank line cite", "waived line cite"}
+
+# Line-cite kinds that ALWAYS gate (a waiver outliving its subject is a lie in
+# the tool's own bookkeeping, exactly as for `stale kbleaf waiver`).
+_LINE_CITE_GATING_KINDS = {"stale line-cite waiver"}
+
 
 def is_gating(finding: Finding, repo_root: Path) -> bool:
     """True if `finding` flips the exit code.
 
     Broken-inter findings are handled separately by --inter-repo and are never
-    gating here. Broken-intra and unknown-id findings gate iff their source is
-    an error source (see `is_error_source`). kbleaf findings gate
-    unconditionally (their source is always the rendered manuscript), except
-    `waived kbleaf` (adjudicated report-don't-fix, warn-only).
+    gating here. Broken-intra, unknown-id, and `dead line cite` findings gate
+    iff their source is an error source (see `is_error_source`). kbleaf
+    findings gate unconditionally (their source is always the rendered
+    manuscript), except `waived kbleaf` (adjudicated report-don't-fix,
+    warn-only). Advisory cite kinds never gate.
     """
     if finding.kind == "broken inter":
         return False
-    if finding.kind in _KBLEAF_GATING_KINDS:
+    if finding.kind in _KBLEAF_GATING_KINDS or finding.kind in _LINE_CITE_GATING_KINDS:
         return True
-    if finding.kind == "waived kbleaf":
+    if finding.kind == "waived kbleaf" or finding.kind in _ADVISORY_CITE_KINDS:
         return False
     return is_error_source(finding.file, repo_root)
 
@@ -617,7 +1094,40 @@ def report(findings: list[Finding], repo_root: Path) -> None:
             rel = finding.file
         warn = finding.kind != "broken inter" and not is_gating(finding, repo_root)
         tag = f"{finding.kind} · warn" if warn else finding.kind
-        print(f"{rel}:{finding.line}  [{tag}]  ->  {finding.target}")
+        suffix = f"   ({finding.detail})" if finding.detail else ""
+        print(f"{rel}:{finding.line}  [{tag}]  ->  {finding.target}{suffix}")
+
+
+def report_advisory_cites(
+    findings: list[Finding], repo_root: Path, mode: str, sample: int = 8
+) -> None:
+    """Print the advisory cite block: counts always, findings per `mode`.
+
+    `report` prints every advisory finding; `summary` prints per-kind counts
+    (split error-source / warn-source) plus a capped sample of the
+    error-source ones. Advisory volume is in the thousands — printing it
+    unconditionally would drown the gating report.
+    """
+    advisory = [f for f in findings if f.kind in _ADVISORY_CITE_KINDS]
+    if not advisory:
+        return
+    print("\n[verify-md-links][advisory] cite findings (NEVER gating):")
+    for kind in sorted(_ADVISORY_CITE_KINDS):
+        of_kind = [f for f in advisory if f.kind == kind]
+        if not of_kind:
+            continue
+        err = [f for f in of_kind if is_error_source(f.file, repo_root)]
+        print(f"  {kind:22s} {len(of_kind):5d}  (error-source: {len(err)})")
+        shown = of_kind if mode == "report" else err[:sample]
+        for finding in sorted(shown, key=lambda f: (str(f.file), f.line)):
+            try:
+                rel = finding.file.relative_to(repo_root)
+            except ValueError:
+                rel = finding.file
+            suffix = f"   ({finding.detail})" if finding.detail else ""
+            print(f"     · {rel}:{finding.line}  ->  {finding.target}{suffix}")
+        if mode != "report" and len(err) > sample:
+            print(f"     … {len(err) - sample} more error-source; --advisory-cites report for all")
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -644,6 +1154,20 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help=r"disable the manuscript \kbleaf{} tex-citation existence check",
     )
+    parser.add_argument(
+        "--no-line-check",
+        action="store_true",
+        help="disable the `path.ext:NN` cited-line existence check",
+    )
+    parser.add_argument(
+        "--advisory-cites",
+        choices=("summary", "report", "off"),
+        default="summary",
+        help=(
+            "advisory (never-gating) cite findings: counts + a capped sample "
+            "(summary, default), every finding (report), or nothing (off)"
+        ),
+    )
     parser.add_argument("-v", "--verbose", action="store_true", help="enable info-level logging")
     args = parser.parse_args(argv)
 
@@ -655,17 +1179,28 @@ def main(argv: list[str] | None = None) -> int:
     repo_root = (args.root or find_repo_root(Path(__file__).resolve())).resolve()
     logger.info("scanning repo root: %s", repo_root)
 
-    findings = scan(repo_root, check_ids_enabled=not args.no_id_check)
+    # One target index, shared by the line-cite pass and the kbleaf pass.
+    indexes = None
+    if not (args.no_line_check and args.no_kbleaf_check):
+        indexes = build_kbleaf_target_index(repo_root)
+
+    findings, cite_stats = scan(
+        repo_root,
+        check_ids_enabled=not args.no_id_check,
+        file_index=None if args.no_line_check or indexes is None else indexes[0],
+    )
 
     kbleaf_checked = kbleaf_skipped = 0
     if not args.no_kbleaf_check:
-        kbleaf_findings, kbleaf_checked, kbleaf_skipped = scan_kbleaf(repo_root)
+        kbleaf_findings, kbleaf_checked, kbleaf_skipped = scan_kbleaf(repo_root, indexes=indexes)
         findings.extend(kbleaf_findings)
 
     if args.inter_repo == "dont-check":
         findings = [f for f in findings if f.kind != "broken inter"]
 
-    report(findings, repo_root)
+    report([f for f in findings if f.kind not in _ADVISORY_CITE_KINDS], repo_root)
+    if args.advisory_cites != "off":
+        report_advisory_cites(findings, repo_root, args.advisory_cites)
 
     broken_inter = sum(1 for f in findings if f.kind == "broken inter")
 
@@ -687,6 +1222,21 @@ def main(argv: list[str] | None = None) -> int:
             f"[verify-md-links] kbleaf: {kbleaf_checked} cites checked  "
             f"{kbleaf_skipped} non-path args skipped  "
             f"gating: {kb_dead}  waived: {kb_waived}",
+            file=sys.stderr,
+        )
+    if not args.no_line_check:
+        dead_gating = sum(
+            1 for f in findings if f.kind == "dead line cite" and is_gating(f, repo_root)
+        )
+        print(
+            f"[verify-md-links] line-cites: {cite_stats['checked']} lines checked  "
+            f"dead: {cite_stats['dead']} (gating: {dead_gating})  "
+            f"waived: {cite_stats['dead_waived']}  "
+            f"| advisory — blank: {cite_stats['blank']}  "
+            f"broken backtick path: {cite_stats['unresolved_backtick_path']}  "
+            f"| skipped — shape: {cite_stats['skipped_shape']}  "
+            f"historical-pin: {cite_stats['skipped_historical_pin']}  "
+            f"path-only: {cite_stats['path_only']}",
             file=sys.stderr,
         )
 
