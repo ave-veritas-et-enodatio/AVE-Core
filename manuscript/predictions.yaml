@@ -237,7 +237,7 @@ predictions:
     clm: clm-5zuo7g
     name: "sin²θ_W (weak mixing angle)"
     type: derived_prediction
-    calibration_role: chord
+    calibration_role: mixed
     derivation_label: "ch:electroweak_higgs"
     predicted_value: 0.2222
     observed_value: 0.2230
@@ -254,6 +254,50 @@ predictions:
       this derivation. ν_vac = 2/7 is an interlink between Axiom 1 (K4
       lattice geometry) and Axiom 2 (Cosserat TKI); both are load-bearing
       for the Poisson ratio used in the PAT stiffness projection.
+
+      RULED 2026-08-05 (Grant): calibration_role chord → mixed. The FORM is
+      derived and the VALUE is imported — the exact shape `mixed` is defined
+      for at line 32 of this file. FORM: sin²θ_W = ν_vac/(1+ν_vac) is the
+      two-channel diagonalization fraction — a divider ratio — where ν_vac is
+      the lattice's cross-channel elastic coupling. VALUE: ν_vac =
+      (3K−2G)/(2(3K+G)) evaluates to 2/7 only under K = 2G, which the corpus
+      grades GR-IMPORTED (the trace-reversal identity), so 2/9 is import-capped
+      at that provenance. Corpus receipt for the contradiction, verbatim from
+      manuscript/ave-kb/vol2/claim-quality.md:120 (quoted as written — the
+      source carries no bold): "the vacuum Poisson ratio $2/7$ is the
+      GR-imported trace-reversal value, NOT a free framework input; so the FORM
+      $\sin^2\theta_W = 1-1/(1+\nu_{vac})$ is derived but the VALUE $2/9$ is
+      import-capped at $K=2G$'s solidity". ν_vac is the framework's
+      most-cascaded number — manuscript/ave-kb/common/form-deriving-value-importing.md:87
+      (the K = 2G row: "GR-IMPORTED (echo for the value)") and :440 (the
+      cascade caveat: "the most-cascaded number in the framework").
+
+      RIDER (a) — the K = 2G dependency and its standing upgrade path. This
+      row's value rides K = 2G end to end. K = 2G is NOT a fourth calibration
+      input: it is a separately-tagged constitutive-FORM import edge, and the
+      ruled aspiration is to make it forced — form-deriving-value-importing.md:98-103,
+      the verbatim ruling at :100-101 (Grant 2026-08-03, [sic]): "1. Agree, and I
+      think we should at some point find it's a forced form". The lane is R11,
+      the K = 2G forced-form lane, whose named attack is the clm-satnec
+      static-existence test — impose the (2,3) winding as a boundary condition,
+      relax, ask whether the core rails S → 0 — which IS the #261
+      eigenmode-existence open item. Lane's current record:
+      _orchestration/docket-entries/2026-08-03-rulings-vocab-exercise-thirteen.md:63-64,
+      verbatim at :63 — "R11 — K=2G forced-form lane: attack = the clm-satnec
+      static eigenmode-existence question" — and at :64 — "Phase-2 step 5, not
+      yet dispatched". clm-satnec itself is OPEN, confidence and solidity *pending*
+      (manuscript/ave-kb/common/claim-quality.md:1616). If K = 2G is ever derived
+      as substrate-forced, this row's value upgrades through the same chain that
+      currently caps it, and this `mixed` label is the one to revisit.
+
+      RIDER (b) — scheme declaration. The 2/9 is the tree-level pole-mass
+      value and is compared against the ON-SHELL scheme, which is what this row's
+      observed_value / observed_source fields carry (observed_source: "PDG
+      on-shell"). It is NOT the MS-bar value, and the framework does not produce
+      the one-loop radiative running that converts on-shell to MS-bar. Receipt:
+      manuscript/ave-kb/vol2/claim-quality.md:110 — "This is the **on-shell
+      (tree-level pole-mass)** scheme, NOT $\overline{MS}$ … Any summary that
+      does not specify the scheme is silently wrong."
 
   - id: P07
     clm: clm-mnb3lt
@@ -452,7 +496,43 @@ predictions:
       Black-hole ring-down quasi-normal-mode (QNM) eigenvalue derived from
       saturation cavity at r_sat = 7 M_g: ω_R M_g = 18/49 = 0.3673,
       versus GR exact 0.3737 — 1.7% deviation with zero free parameters.
-      Validated against three LIGO merger events at 10-18% frequency error.
+
+      🔴 Rule 12 (2026-08-05) — the prior validation line, which asserted a
+      10–18% frequency error against three LIGO merger events, is RETRACTED
+      and REPLACED by the paragraph below. The retracted wording is not
+      restated here; git carries the history. Per Ruling B1
+      (2026-07-21) that figure is a FRAME-MIXED PRE-CORRECTION ARTIFACT
+      (#774: v1 frequency evaluated at source-frame mass and compared against
+      detector-frame f_obs on a corrupt Kerr table), not a frequency error
+      against true Kerr. Corpus, verbatim from
+      manuscript/ave-kb/vol3/claim-quality.md:217 — "the disclosed weak edge
+      is now the τ near-miss + the phenomenological photon-sphere-shift
+      provenance, NOT a 10–18% frequency error."
+
+      WHAT THIS ROW IS COMPARED AGAINST (the empirical anchor, preserved).
+      Two distinct comparisons ride this row, and only the first is its
+      predicted_value/observed_value pair:
+        1. ZERO-FREE-PARAMETER content — the COLD Schwarzschild ℓ=2
+           eigenvalue ω_R M_g = 18/49 against GR exact. That is the numeric
+           pair carried in the fields above, and it is the only
+           zero-parameter content on this row.
+        2. SPINNING-REMNANT comparison — the same three LIGO merger events
+           named in observed_source (GW150914, GW170104, GW151226), re-run
+           under Ruling B1 on the frame-independent C-1 dimensionless
+           comparator. The standing ω_R spin mapping is v1 (re-selected over
+           v2 by the ruling); on the primary catalog it lands +2.63% mean,
+           INSIDE the frozen |D̄| < 3% MATCH band, with τ an OPEN near-miss
+           tension outside it. The class is CONSISTENCY, MAPPING-CONDITIONAL
+           and DISCLOSED-PHENOMENOLOGICAL — NOT a zero-free-parameter
+           benchmark, and NOT a claim of sub-percent spinning agreement.
+           Per-event ladder, secondary catalog, and both τ variants live at
+           the leaf and are deliberately not duplicated here (R7):
+           manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md:60-97
+           (§GRANT RULING B1) and manuscript/ave-kb/vol3/claim-quality.md:202,
+           :217. Provenance:
+           research/2026-07-20_kerr-table-correction_result.md and
+           research/2026-07-20_v1-spin-mapping-adjudication_result.md.
+
       Same kernel S(A) = √(1-A²) as BCS (P43), solar flares
       (P_A034_solar_flare), and cosmic K4 crystallization.
       Vol 3 Ch 15 §"Electron–Black Hole Isomorphism" + Backmatter Ch 7.
@@ -808,20 +888,178 @@ predictions:
     clm: clm-3zz0f6
     name: "α invariance under gravity"
     type: derived_prediction
-    calibration_role: forward-prediction
+    calibration_role: consistency
     derivation_label: "sec:galactic_saturation"
     axioms_used: [1, 3, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
       Substrate-level prediction: ε_local and c_local carry the same n·S factor
-      which cancels in α = e²/(4πε₀ℏc). Not a null equivalence-principle restatement.
+      which cancels in α = e²/(4πε₀ℏc).
 
       R-1 audit (2026-04-19): axioms_used corrected [2, 3] → [1, 2, 3, 4].
       α itself is TKI-defined (Ax 2 golden torus), hosted on the LC
       substrate (Ax 1), with gravity contributing the refractive index n(r)
       (Ax 3) and saturation contributing the S factor (Ax 4). Both n and
       S are explicit in the cancellation argument per the manifest notes.
+
+      RULED 2026-08-05 (Grant): calibration_role forward-prediction →
+      consistency. calibration_role is the VALUE-PROVENANCE axis and is
+      "orthogonal to `type`" by this file's own header at line 29; `type`
+      already owns the mechanism class, and it is unchanged. The prior label
+      read "untested, divergent-from-SM, AVE-distinct" (the definition at line
+      35 of this file) and was wrong on all three axes. Both branches of the
+      α-vs-loading question are recorded below, because the row is only honest
+      with both.
+
+      RETRACTED 2026-08-05 (same ruling): the sentence "Not a null
+      equivalence-principle restatement.", which was the tail of the first
+      paragraph of these notes. RETRACTED, not narrowed — its documented
+      purpose is exactly what the ruling overturns. Provenance:
+      docs/framing_and_presentation.md:176 records that the sentence was minted
+      as the REBUTTAL to a 2026-04 KB-audit charge, verbatim there —
+      "[phase-6-gravity.md] flagged α-invariance as a null equivalence-principle
+      restatement; it is actually a substrate-level prediction of exact
+      cancellation." The 2026-08-05 ruling sides with the charge, so the
+      rebuttal falls with it. What the retraction does NOT touch is the
+      MECHANISM statement in the first paragraph above: AVE derives the n·S
+      cancellation from a specific constitutive structure (ε → ε₀·nS,
+      c → c₀/(nS)) rather than postulating position invariance. That is a
+      difference in PROVENANCE. Provenance is not the observable, and only the
+      observable decides whether a row discriminates — which is why the
+      mechanism survives a retraction that lands on the discrimination claim.
+
+      ROUTED, NOT FIXED HERE: docs/framing_and_presentation.md:176 still
+      carries the now-overturned rebuttal in a live tracked file and is
+      UN-RECONCILED with this ruling. Two further defects on that same line,
+      found while re-deriving it: (i) its LIVING_REFERENCE.md:31-32 anchor has
+      DRIFTED — LIVING_REFERENCE.md:30-33 is now the Project Identity metadata
+      table, not the α claim; (ii) the source it cites,
+      .agents/kb_audit/phase-6-gravity.md, is UNTRACKED — .gitignore:255
+      ignores .agents/, and the path has no git history — so the charge is
+      reachable only through the tracked rebuttal that quotes it. For the
+      record, the untracked source's row 42 reads: "If the claim is 'α does not
+      vary in gravitational fields,' that is the equivalence principle — not a
+      novel AVE prediction, and already tested (Webb et al. 2011 found
+      $\|\Delta\alpha/\alpha\| < 10^{-5}$ at cosmological distances)."
+
+      BRANCH 1 — SYM (gravitational) loading: α is EXACTLY INVARIANT, and the
+      null COINCIDES WITH THE STANDARD EXPECTATION rather than diverging from
+      it. Under symmetric saturation ε and c carry compensating n·S factors
+      that cancel, giving Δα/α = 0 exactly (clm-3zz0f6, confidence 0.85;
+      solidity 0.85, whose build band is the parenthetical on that same
+      solidity line — "(ok to build on)" — at
+      manuscript/ave-kb/claim-quality.md:160). Card at :141, "Under Symmetric
+      Gravity, $\alpha$ is **exactly invariant**"; :142, "Multi-species
+      $\Delta\alpha/\alpha = 0$ across gravitational potentials." The card's own
+      non-claim, :145: "Does NOT claim the framework predicts $\Delta\alpha
+      \neq 0$ in any gravitational regime."
+
+      That non-claim is what forbids forward-prediction, and the inference is
+      stated in-repo rather than imported: the DEVIATION_DISCLAIMED marker's
+      rationale at src/scripts/predictions_manifest_validator.py:1046-1053,
+      verbatim at :1049-1050 — "a card that refuses to predict a departure is
+      stating a null that matches the standard expectation, so it cannot be
+      divergent-from-SM." P42 is that marker's sole live site. So this row is
+      not a discriminator, and each axis of the old label fails:
+        - NOT untested — multi-species clock comparisons across gravitational
+          potentials exist and the leaf states the prediction is "consistent
+          with all current experimental bounds"
+          (manuscript/ave-kb/vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md:24).
+        - NOT divergent-from-SM — see the marker rationale above; and
+          LIVING_REFERENCE.md:164 Pitfall #5 rules the opposite reading wrong
+          outright: "α is exactly invariant under Symmetric Gravity (ε and 1/c
+          cancel). Δα/α = 0 always."
+        - NOT AVE-distinct at the observable — the number is the same number.
+
+      BRANCH 2 — the thermal ASYM branch (δ_strain, clm-hp7nlm): SIGN-ONLY,
+      magnitude a SPECIFICATION residual, distinctness closed negative.
+      Invariance holds only under SYMMETRIC saturation; asymmetric saturation
+      breaks the n·S cancellation (clm-3zz0f6 card :146). The thermal δ_strain
+      running is a SEPARATE effect, and the card at :147 is the ruling against
+      conflating the two, in its own words: the thermal-running prediction "is
+      a **separate** effect — CMB-induced spatial metric expansion, not a
+      gravitational effect. Any summary conflating gravitational
+      $\Delta\alpha$ with thermal $\Delta\alpha$ is wrong."
+
+      On that branch the Cosserat-rotation-sector mass-gap
+      thermal-mode-population ASYM mechanism (clm-hp7nlm, confidence 0.55;
+      solidity 0.55, build band "(use as input only, don't build deeper)" at
+      manuscript/ave-kb/vol3/claim-quality.md:1242) predicts the SIGN of the
+      running. The MAGNITUDE is not a derived thermal observable. The canonical
+      framing is the ratified 2026-06-25 Open-C reframe at
+      manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md:17,
+      which SUPERSEDES the earlier 2026-06-04 reading: the 2.22e-6 residual is
+      the "loaded-vs-cold *specification* gap, reproduced exactly by any route
+      that uses both the cold and the CODATA α (a tautology in that pair),
+      **NOT** a bulk Bose-Einstein occupancy at $T_{CMB}$." Tautology-in-that-
+      pair is a stronger statement than "fitted": the number was not tuned to
+      match, it is reproduced by construction by any route through both α's.
+      The genuine equilibrium thermal α-drift the mechanism does predict is
+      ~10⁻³⁸ — "unobservable" (same leaf, :135).
+
+      The quantitative derivation (Q-DELTA-MAP-1-quant) was ATTEMPTED and
+      CLOSED NEGATIVE by FT-1, 2026-05-31 —
+      research/2026-05-31_FT-1_delta-strain-eta-epsilon_result.md, OUTCOME C:
+      the E-mode Bose-Einstein occupation undershoots η_ε by ~31 OOM. FT-1's
+      mandatory SM-counterfactual closed the DISTINCTNESS question
+      independently of the magnitude, in full at §5, :114 of that file: "even
+      if the magnitude had matched (it does not, by 31 OOM), a match at the
+      generic-thermal scale would NOT have been AVE-distinct evidence — it
+      would have been a generic Debye-suppression number any lattice framework
+      shares. The AVE-distinct handle is the *direction* + the *forward
+      prediction* of α-running with cosmic T (clm-hp7nlm §6.1), not the η_ε
+      magnitude." The AVE-distinct content on this branch is therefore the
+      sign/direction only.
+
+      TENSION RECORDED, NOT ADJUDICATED (this row records it; it is not this
+      row's to settle): FT-1:114 names the *forward prediction* of α-running
+      with cosmic T as an AVE-distinct handle, and clm-hp7nlm still carries
+      that forward prediction live — manuscript/ave-kb/vol3/claim-quality.md:1226,
+      "substrate α drifts roughly linearly with cosmic temperature $T$ … quasar
+      absorption-line $\Delta\alpha/\alpha$ at higher redshift tests the
+      substrate TCC mechanism", and :1246, the strengthen-by that would "lift
+      the observable axis to Class E new prediction" if derived "to a precision
+      testable against current quasar absorption-line $\Delta\alpha/\alpha$
+      bounds ($\sim 10^{-5}$)". A ~10⁻³⁸ drift sits ~33 orders below a ~10⁻⁵
+      bound, so a live forward prediction and the unobservability statement are
+      not obviously co-tenable. The tension lives on BRANCH 2 (thermal), not on
+      the branch this row's calibration_role labels.
+
+      NET: SYM branch = an exact null coinciding with the standard expectation,
+      reached by a derived rather than a postulated mechanism. ASYM branch =
+      sign-only, magnitude a specification residual, distinctness closed
+      negative. Neither branch is a live SM-discriminator. That is what
+      consistency records — "reproduces a known result". forward-prediction
+      denied nothing; it ASSERTED the opposite of all three of its own axes.
+
+      OUT-OF-RULED-SCOPE — three channels through which the retracted claim
+      could re-inflate. Routed, not fixed here:
+        (a) The `type` axis was not ruled. This row keeps type:
+            derived_prediction, defined at line 20 of this file as "genuine
+            forward prediction (Class D)", while consistency_check (line 23,
+            "reproduces a known result (Class C)") is the closer fit to what
+            these notes establish. MITIGATING: this is a manifest-wide pattern,
+            not a P42 defect — all three other `consistency` rows (P47, P20_21,
+            P44_45) likewise carry type: derived_prediction. Re-typing is its
+            own ruling across four rows, not a rider on this one.
+        (b) The public tables still print an unqualified tick. README.md:247
+            reads "| 42 | α invariance (gravity) | Exact | ✅ |";
+            LIVING_REFERENCE.md:319 reads "| 42 | α invariance (gravity) |
+            Exact | ✅ Δα/α = 0 under Symmetric Gravity (derived: Ax 1 + Ax
+            4)". Neither tells a reader the ✅ is a null that coincides with
+            the standard expectation. No gate will ever catch this: the parity
+            checks map by id and never read the claim text —
+            src/scripts/predictions_manifest_validator.py:1446, "Mapping is by
+            id", and :1516-1518, "Matches via (a) exact ID, (b) zero-padded ID,
+            or (c) range-inclusion".
+        (c) The R-1 audit prose above is stale against the field it describes.
+            It says axioms_used was corrected to [1, 2, 3, 4]; the field reads
+            [1, 3, 4]. predictions_manifest_refresh.py --dry-run reports "0
+            bridged entries would change axioms_used", so the DAG-derived cone
+            agrees with the FIELD and the PROSE is the stale side. Left in
+            place: the ruling scoped a value-provenance relabel, not an
+            axiom-lineage edit.
 
   - id: P44_45
     clm: clm-d9ivj1
