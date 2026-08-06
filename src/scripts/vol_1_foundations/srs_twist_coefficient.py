@@ -694,14 +694,16 @@ def main():
         roll.append({"A_wall": A, "S": float(S), "rho_eff": float(rho_eff),
                      "tau_iso": rA[0]["tau_net_twist_per_strain"],
                      "tau_uni001": rA[1]["tau_net_twist_per_strain"],
-                     "c_twist_001": rB["abs_c_twist"]})
+                     "c_twist_001": rB["abs_c_twist"],
+                     "c2_signed_001": rB["c2_signed"],
+                     "abs_c2_001": abs(rB["c2_signed"])})
     out["roll_off"] = roll
 
     # ---- the leak ratio -----------------------------------------------------
     c001 = abs(out["load_path_B"]["rho_bond=1 (Ax-3 match point)"]["[001]"]["c2_signed_right"])
     leak = []
     for R_m, label in ((1e-3, "1 mm"), (1.0, "1 m"), (6.371e6, "Earth radius"),
-                       (6.957e8, "solar radius"), (1.48e3, "solar r_sat = 7GM/c^2")):
+                       (6.957e8, "solar radius"), (1.034e4, "solar r_sat = 7GM/c^2")):
         qell = float(L_NODE / R_m)
         leak.append({"gradient_scale": label, "R_m": R_m,
                      "q_ell_node": qell,
