@@ -33,7 +33,7 @@ is not ready to freeze.
 ## §0 — The SVA header (copy into every prereg, fill every row)
 
 ```markdown
-## §0 — Standard Vacuum Analysis header (SVA v0.1-pilot)
+## §0 — Standard Vacuum Analysis header (SVA v0.2-pilot)
  1. SECTOR / OWNERSHIP:      <which channel owns each observable; cross-wiring check done>
  2. REGIME / PHASE-STATE:    <MODE + REGIME + PHASE-STATE; small- vs large-signal; DC bias point>
  3. CIRCUIT STATEMENT:       <the observable in circuit terms BEFORE any framework word; total-vs-slot>
