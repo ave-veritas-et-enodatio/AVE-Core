@@ -214,6 +214,40 @@ def strip_code(text: str) -> str:
     return "\n".join(out_lines)
 
 
+def strip_fences(text: str) -> str:
+    """Blank fenced code blocks ONLY; inline code spans are PRESERVED.
+
+    The complement of `strip_code`, and the view the line-cite pass reads.
+    `strip_code` blanks inline spans because the *link* regex must not see
+    doc/example links; but the corpus's most common location-cite form IS an
+    inline span (`` `path.md:42` ``), so blanking those made ~11k cites
+    invisible end-to-end. Fences stay blanked: cites inside a fenced snippet
+    are illustrative.
+
+    Newlines are preserved so reported line numbers stay accurate.
+
+    (Coverage split, deliberate: `verify-anchor-content.py` carries its own
+    `strip_fenced` with the same semantics. The two tools stay independent —
+    they run from different make targets and coupling them would make an
+    advisory tool's failure able to take down a gating one.)
+    """
+    out_lines: list[str] = []
+    fence: str | None = None
+    for raw in text.splitlines():
+        stripped = raw.lstrip()
+        if fence is None:
+            if stripped.startswith("```") or stripped.startswith("~~~"):
+                fence = stripped[:3]
+                out_lines.append("")
+                continue
+            out_lines.append(raw)
+        else:
+            out_lines.append("")
+            if stripped.startswith(fence):
+                fence = None
+    return "\n".join(out_lines)
+
+
 def strip_target(target: str) -> str:
     """Strip a trailing #anchor and a trailing :linenum suffix from a target."""
     target = target.split("#", 1)[0]
@@ -312,6 +346,188 @@ def check_ids(md_file: Path, body: str, known_ids: set[str]) -> list[Finding]:
             if cited not in known_ids:
                 findings.append(Finding(md_file, lineno, "unknown id", cited))
     return findings
+
+
+# --- line-cite parsing (`path.ext:NN`) --------------------------------------
+#
+# The corpus's load-bearing provenance form is a LOCATION cite `path.ext:NN`,
+# written in three shapes. Before this pass the checker saw none of the line
+# numbers and only one of the three paths:
+#
+#   form         written as                     path checked before / now
+#   backticked   `path.ext:NN`                  NO  / yes (advisory)
+#   link-in      [text](path.ext:NN)            yes / yes   (`strip_target`)
+#   link-ext     [text](path.ext):NN            yes / yes   (KB house style)
+#
+# `strip_code` blanks inline spans before `_LINK_RE` runs, which is why the
+# backticked form — the most common one — was invisible end-to-end.
+
+# Extensions a `path.EXT:NN` location cite may name. Same family
+# verify-anchor-content.py recognises, plus the typesetting/build extensions
+# that appear in KB provenance cites.
+_CITE_EXTS = (
+    "md", "py", "tex", "sty", "cls", "json", "jsonl", "csv", "txt",
+    "yaml", "yml", "toml", "cfg", "ini", "sh", "bib", "mk", "stl",
+)
+_CITE_PATH = r"(?:[\w.+@-]+/)*[\w.+@-]+\.(?:" + "|".join(_CITE_EXTS) + r")"
+# `:42`, `:8-24`, `:133--147`. The trailing (?!\d) stops `:12` swallowing the
+# leading digit of a following range half.
+_CITE_LINE = r":(?P<start>\d+)(?:-{1,2}(?P<end>\d+))?(?!\d)"
+
+# One inline code span (no nested backticks).
+_INLINE_SPAN_RE = re.compile(r"`([^`\n]+)`")
+# A span is a cite only when its ENTIRE stripped body is a path (+ optional
+# line suffix). Anything else in the backticks — prose, a formula, a shell
+# snippet — is not a location cite, and requiring a whole-body match is what
+# keeps the backticked form's false-positive rate at zero-by-construction.
+_BARE_CITE_RE = re.compile(r"^(?P<path>" + _CITE_PATH + r")(?:" + _CITE_LINE + r")?$")
+_LINK_IN_CITE_RE = re.compile(
+    r"\[[^\]]*\]\(\s*(?P<path>" + _CITE_PATH + r")" + _CITE_LINE + r"\s*\)"
+)
+_LINK_EXT_CITE_RE = re.compile(
+    r"\[[^\]]*\]\(\s*(?P<path>" + _CITE_PATH + r")\s*\)" + _CITE_LINE
+)
+
+# A cite deliberately pinned to a PAST repo state is correct as written even
+# when it does not resolve at HEAD (e.g. a frozen prereg's
+# "§9 (as shipped on `c4a546dc`)", where the SHA predates a renumber).
+#
+# FINDING, recorded rather than papered over: the corpus has NO machine-readable
+# marker for a historical cite. The convention is free prose — "as shipped on",
+# "at commit", "frozen at", "was correct at" — always adjacent to a BACKTICKED
+# short hex SHA. That backticked SHA is therefore the only reliable signal, and
+# this pass uses it: any line carrying one has its line-cites skipped.
+# Measured cost of the rule at the time it was written: 96 of 2,650 KB
+# line-cites (3.6%) sit on a SHA-bearing line and go unchecked.
+_HISTORICAL_PIN_RE = re.compile(r"`[0-9a-f]{7,40}`")
+
+# Sibling-repo cite target (`AVE-Foo/...`, `Applied-Vacuum-Engineering/...`).
+# Sibling checkouts are legitimately absent on a fresh CI checkout, so their
+# lines can never be resolved — skipped, exactly as md inter-repo links are.
+_CITE_SIBLING_RE = re.compile(r"(?:^|/)(?:AVE-[A-Za-z0-9-]+|Applied-Vacuum-Engineering)/")
+
+# Target shapes that are PATTERNS, not paths: `vol3/.../leaf.md` elision,
+# `chiral_lattice_v9..v17.py` ranges, globs. The kbleaf pass resolves these as
+# globs; a location cite into one has no single line to check, so it is skipped.
+_CITE_PATTERN_RE = re.compile(r"\.{2,}|[*\[\]]")
+
+# Repo-relative dirs whose contents are gitignored ephemera — a cite into one
+# can never resolve on a fresh checkout. Kept SEPARATE from `IGNORED_PATHS`
+# (used by the link pass) so this pass's carveout cannot silently widen the
+# existing link check's blind spot.
+_CITE_EPHEMERAL_DIRS = (".agents", ".claude/worktrees", "build")
+
+
+@dataclass(frozen=True)
+class LineCite:
+    """One `path.ext:NN` location cite, as written."""
+
+    lineno: int  # line in the CITING file
+    form: str  # "backticked" | "link-in" | "link-ext"
+    path: str  # target path as written
+    start: int | None  # cited line, or None when the cite carries no :NN
+    end: int | None  # range end for `:NN-MM`, else == start
+    pinned: bool  # the citing line carries a backticked SHA (historical pin)
+
+    @property
+    def as_written(self) -> str:
+        if self.start is None:
+            return self.path
+        if self.end is not None and self.end != self.start:
+            return f"{self.path}:{self.start}-{self.end}"
+        return f"{self.path}:{self.start}"
+
+
+def iter_line_cites(text: str):
+    """Yield every `LineCite` in `text` (fences blanked, inline spans kept)."""
+    for lineno, line in enumerate(strip_fences(text).splitlines(), 1):
+        pinned = bool(_HISTORICAL_PIN_RE.search(line))
+        for regex, form in ((_LINK_EXT_CITE_RE, "link-ext"), (_LINK_IN_CITE_RE, "link-in")):
+            for match in regex.finditer(line):
+                start = int(match.group("start"))
+                end = int(match.group("end")) if match.group("end") else start
+                yield LineCite(lineno, form, match.group("path"), start, end, pinned)
+        for span in _INLINE_SPAN_RE.finditer(line):
+            match = _BARE_CITE_RE.match(span.group(1).strip())
+            if not match:
+                continue
+            start = int(match.group("start")) if match.group("start") else None
+            end = int(match.group("end")) if match.group("end") else start
+            yield LineCite(lineno, "backticked", match.group("path"), start, end, pinned)
+
+
+def cite_target_uncheckable(target: str) -> bool:
+    """True if a cite target cannot be resolved to one repo file, by shape.
+
+    Home-dir paths, sibling-repo paths, glob/elision patterns, and gitignored
+    ephemeral trees. These are skipped by BOTH new passes — they are not
+    findings, they are out of scope.
+    """
+    if target.startswith(("~", "/")):
+        return True
+    if _CITE_SIBLING_RE.search(target):
+        return True
+    if _CITE_PATTERN_RE.search(target):
+        return True
+    parts = tuple(p for p in target.split("/") if p and p != ".")
+    if any(p in _CITE_EPHEMERAL_DIRS for p in parts):
+        return True
+    if any(
+        parts[i : i + len(ignored.parts)] == ignored.parts
+        for ignored in IGNORED_PATHS
+        for i in range(len(parts))
+    ):
+        return True
+    return False
+
+
+def resolve_cite_candidates(
+    target: str,
+    md_file: Path,
+    repo_root: Path,
+    file_index: dict[str, list[tuple[str, ...]]],
+) -> list[Path]:
+    """Every repo file a cite target could name — UNION of two resolutions.
+
+    (a) DIRECT: relative to the citing file's directory, then to the repo root.
+    (b) SUFFIX-INDEX: any indexed file whose path TAIL matches the cited
+        segments — the same resolution the kbleaf pass uses (Rule 14: one
+        resolution model for the repo, not two), and what makes the corpus's
+        bare-basename shorthand (`` `master-equation.md:78` ``) resolvable.
+
+    The union is deliberate and is what makes the line check zero-FP: a bare
+    `CLAUDE.md:182` names SOME `CLAUDE.md`, and it is only a real dead cite if
+    NO candidate is that long. Direct-only resolution would pick the repo-root
+    one (125 lines) and fire falsely against the KB one (353).
+    """
+    found: set[Path] = set()
+    for base in (md_file.parent, repo_root):
+        candidate = (base / target).resolve()
+        if candidate.is_file():
+            found.add(candidate)
+    parts = tuple(p for p in target.split("/") if p and p != ".")
+    if parts:
+        for indexed in file_index.get(parts[-1], ()):
+            if indexed[-len(parts):] == parts:
+                found.add(repo_root / Path(*indexed))
+    return sorted(found)
+
+
+class LineCountCache:
+    """Line counts of cite targets, read once each."""
+
+    def __init__(self) -> None:
+        self._counts: dict[Path, int] = {}
+
+    def __call__(self, path: Path) -> int:
+        if path not in self._counts:
+            try:
+                text = path.read_text(encoding="utf-8", errors="replace")
+            except OSError:
+                self._counts[path] = 0
+            else:
+                self._counts[path] = len(text.splitlines())
+        return self._counts[path]
 
 
 # --- \kbleaf{...} citation checking (manuscript .tex) -----------------------
