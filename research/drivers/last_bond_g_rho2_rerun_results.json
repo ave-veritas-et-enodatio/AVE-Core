@@ -1,0 +1,258 @@
+{
+ "_digest": "a69cf1c2e710a473",
+ "_frozen_numerics": {
+  "d_pred_tolerance": "1e-11",
+  "dps": 60,
+  "eps_v1_siting": [
+   "1e-10",
+   "1e-12",
+   "1e-14"
+  ],
+  "eps_v2_gate": [
+   "1e-6",
+   "1e-8",
+   "1e-10"
+  ],
+  "eps_v2_plateau": [
+   "1e+6",
+   "1e+8",
+   "1e+10"
+  ],
+  "rho2_tolerance": [
+   "1.9",
+   "2.1"
+  ]
+ },
+ "_method": "The v1 instrument is IMPORTED UNMODIFIED and reused; only the G-RHO2 injection siting moves, from k_0 = eps*k_cold (v1, ABOVE the crossover) to k_0 = eps*om*Z_1 (v2, 6-10 decades BELOW it).  The crossover delta = k_0/(om*Z_1) = 1 is derived in prereg section 2 from the shipped v1 parameters alone.",
+ "_non_claim": "DERIVATION result.  Mints no clm-/def-; propagates to no KB/manuscript leaf; changes no solidity; edits no falsification ledger; src/ave byte-untouched and not imported.  Certifies TASK 2 of the predecessor and NOTHING ELSE.  TASK 1 remains SCAN-NOT-CERTIFIED and is not touched; TASK 3 is not touched; BIN-C-DISJOINT is not revisited.  The print-language consequence is RECORDED for the propagation pass, NOT executed here.",
+ "_predecessor": "research/2026-08-05_last-bond-kernel-collapse_result.md",
+ "_prereg": "research/2026-08-05_last-bond-g-rho2-rerun_prereg-FROZEN.md",
+ "_prereg_commit": "503579b0",
+ "_runtime_sec": 0.42,
+ "certification": {
+  "task1": "SCAN-NOT-CERTIFIED (unchanged; not touched by this lane)",
+  "task2": "ROW-CERTIFIED",
+  "task3": "CERTIFIED (unchanged; not touched by this lane)"
+ },
+ "diagnostics": {
+  "D-RHO2-PRED": {
+   "_class": "DIAGNOSTIC, NOT A GATE -- certification does not ride on this",
+   "agrees": true,
+   "derived_expected_exponent": "2",
+   "derived_predicted_deviation": "3.39333930000000000000000000000e-13",
+   "frozen": "the measured G-RHO2 mean exponent equals 2 to within 1e-11 (prereg section 3.2)",
+   "measured_deviation_from_2": "3.39292560593418140000000000000e-13"
+  }
+ },
+ "gates": {
+  "G-RHO2": {
+   "eps_values": [
+    "1e-6",
+    "1e-8",
+    "1e-10"
+   ],
+   "frozen": "fitted exponent of |dGamma/dZ_beyond| vs k_0 in [1.9, 2.1]",
+   "injected_k0": [
+    "5.24955352488372143529667589330e-12",
+    "5.24955352488372143529667589330e-14",
+    "5.24955352488372143529667589330e-16"
+   ],
+   "measured_abs_delta_resid": [
+    "9.99999999996875000000010148437e-13",
+    "9.99999999999999687500000000000e-17",
+    "9.99999999999999999968750000000e-21"
+   ],
+   "measured_exponent": "1.99999999999966070743940658186",
+   "min_decades_below_crossover": 6,
+   "pass": true,
+   "per_pair": [
+    "1.99999999999932148273054010982",
+    "1.99999999999999993214827305390"
+   ],
+   "probe_coordinate_delta": [
+    "0.00000100000000000000000000000000000",
+    "0.0000000100000000000000000000000000000",
+    "1.00000000000000000000000000000e-10"
+   ],
+   "siting": "k_0 = eps * om * Z_1 (v2, SUB-crossover)"
+  }
+ },
+ "negative_controls": {
+  "NC-BYTES": {
+   "artifacts": [
+    {
+     "blob_at_pin": "7406c8f793b71e4d1f7521aea0ef58401cd41bee",
+     "blob_local": "7406c8f793b71e4d1f7521aea0ef58401cd41bee",
+     "identical": true,
+     "path": "research/drivers/last_bond_kernel_collapse.py"
+    },
+    {
+     "blob_at_pin": "14b8e909421f3dbe39df0d4662200ce2caf2fb5b",
+     "blob_local": "14b8e909421f3dbe39df0d4662200ce2caf2fb5b",
+     "identical": true,
+     "path": "research/drivers/last_bond_kernel_collapse_results.json"
+    },
+    {
+     "blob_at_pin": "bee3d3884f6b8231ec934bae24bf824048706792",
+     "blob_local": "bee3d3884f6b8231ec934bae24bf824048706792",
+     "identical": true,
+     "path": "research/drivers/last_bond_kernel_collapse_number_check.py"
+    },
+    {
+     "blob_at_pin": "a9da71b525bc6c39232add63f10d7b313e7329a1",
+     "blob_local": "a9da71b525bc6c39232add63f10d7b313e7329a1",
+     "identical": true,
+     "path": "research/2026-08-05_last-bond-kernel-collapse_result.md"
+    }
+   ],
+   "frozen": "each predecessor artifact's blob id equals its blob id at c4fdced0 -- this lane touched none of them",
+   "modified": [],
+   "n_modified": 0,
+   "pass": true,
+   "pin_commit": "c4fdced0"
+  },
+  "NC-GATES+NC-FT": {
+   "frozen": "every field of every v1 gate and self-test reproduces the shipped rendering with EXACT STRING EQUALITY, and every pass/fires flag reproduces",
+   "mismatches": [],
+   "n_blocks_compared": 20,
+   "n_fields_compared": 80,
+   "n_mismatches": 0,
+   "pass": true,
+   "replayed_not_reproduced": [
+    "G-SCAN",
+    "FT-SCAN"
+   ],
+   "reproduction_class": {
+    "FT-ARITH": "RECOMPUTED",
+    "FT-BOND": "RECOMPUTED",
+    "FT-COND": "RECOMPUTED",
+    "FT-PLANE": "RECOMPUTED",
+    "FT-RHO": "RECOMPUTED",
+    "FT-ROW": "RECOMPUTED",
+    "FT-SCAN": "REPLAYED",
+    "G-BOND": "RECOMPUTED",
+    "G-COLD": "RECOMPUTED",
+    "G-COND": "RECOMPUTED",
+    "G-NC-ARITH": "RECOMPUTED",
+    "G-NC-ECHO": "FILE-READ",
+    "G-NC-SIGN": "FILE-READ",
+    "G-PLANE": "RECOMPUTED",
+    "G-PREC": "RECOMPUTED",
+    "G-RHO": "RECOMPUTED",
+    "G-ROW": "RECOMPUTED",
+    "G-SCAN": "REPLAYED",
+    "G-UNIT": "RECOMPUTED"
+   }
+  },
+  "NC-RHO2-V1": {
+   "eps_values": [
+    "1e-10",
+    "1e-12",
+    "1e-14"
+   ],
+   "frozen": "re-running the v1 siting (eps*k_cold) through the v2 code path must reproduce the shipped failing exponent AND both shipped per-pair values, byte-exact",
+   "injected_k0": [
+    "0.166005458375979627083141716449",
+    "0.00166005458375979627083141716449",
+    "0.0000166005458375979627083141716449"
+   ],
+   "measured_abs_delta_resid": [
+    "0.333333333217592592634355709861",
+    "0.333332175930102222059298499190",
+    "0.322161872240140242536423590313"
+   ],
+   "measured_exponent": "0.00370115115631918737071374823881",
+   "mismatches": [],
+   "n_mismatches": 0,
+   "pass": true,
+   "per_pair": [
+    "0.000000753906665558065022906244826996",
+    "0.00740154840597281667640459023280"
+   ],
+   "probe_coordinate_delta": [
+    "31622.7766016837933199889354443",
+    "316.227766016837933199889354443",
+    "3.16227766016837933199889354443"
+   ],
+   "v1_shipped_exponent": "0.00370115115631918737071374823881",
+   "v1_shipped_per_pair": [
+    "0.000000753906665558065022906244826996",
+    "0.00740154840597281667640459023280"
+   ]
+  },
+  "NC-ROWS": {
+   "frozen": "run_task2() returns the shipped n_rows",
+   "measured_n_rows": 3360,
+   "pass": true,
+   "v1_shipped_n_rows": 3360
+  }
+ },
+ "operating_point": {
+  "S": "0.00000000100000000000000000000000000000",
+  "Z_1": "0.0000316227766016837933199889354443",
+  "ell_over_rsat": "6.0238983090250982e-19",
+  "eps_crossover_in_v1_parametrization": "3.16227766016837933199889354443e-15",
+  "k0_crossover_om_Z1": "0.00000524955352488372143529667589330",
+  "k_cold": "1660054583.75979627083141716449",
+  "om": "0.166005458375979627083141716449",
+  "om_over_omC": "1e-19",
+  "p_RHO_A": "0.5"
+ },
+ "self_tests": {
+  "FT-RHO2": {
+   "eps_values": [
+    "1e+6",
+    "1e+8",
+    "1e+10"
+   ],
+   "fires": true,
+   "frozen": "re-siting into the plateau (eps in {1e+6,1e+8,1e+10}, 6-10 decades ABOVE the crossover) must drive the fitted exponent OUTSIDE [1.9, 2.1], i.e. G-RHO2 must FAIL",
+   "injected_k0": [
+    "5.24955352488372143529667589330",
+    "524.955352488372143529667589330",
+    "52495.5352488372143529667589330"
+   ],
+   "measured_abs_delta_resid": [
+    "0.333333333333217592592592634356",
+    "0.333333333333333321759259259259",
+    "0.333333333333333333332175925926"
+   ],
+   "measured_exponent": "3.76991733993251474861640528204e-14",
+   "min_decades_above_crossover": 6,
+   "per_pair": [
+    "7.53908077178785057102736367851e-14",
+    "7.53908077178926205446885568154e-18"
+   ],
+   "probe_coordinate_delta": [
+    "1000000.00000000000000000000000",
+    "100000000.000000000000000000000",
+    "10000000000.0000000000000000000"
+   ],
+   "siting": "k_0 = eps * om * Z_1 (PLATEAU, above crossover)"
+  }
+ },
+ "v1_reproduced_fire_flags": {
+  "FT-ARITH": true,
+  "FT-BOND": true,
+  "FT-COND": true,
+  "FT-PLANE": true,
+  "FT-RHO": true,
+  "FT-ROW": true,
+  "FT-SCAN": false
+ },
+ "v1_reproduced_pass_flags": {
+  "G-BOND": true,
+  "G-COLD": true,
+  "G-COND": true,
+  "G-NC-ARITH": true,
+  "G-NC-ECHO": true,
+  "G-NC-SIGN": true,
+  "G-PLANE": true,
+  "G-PREC": true,
+  "G-RHO": true,
+  "G-RHO2": false,
+  "G-ROW": true,
+  "G-SCAN": false,
+  "G-UNIT": true
+ }
+}
