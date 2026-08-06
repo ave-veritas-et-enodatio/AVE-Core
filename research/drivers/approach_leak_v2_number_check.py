@@ -554,6 +554,16 @@ def mutation() -> int:
     #        the blob pin still matches, the verdict probes are still present, and the
     #        ONLY conjunct that can catch it is additive-only.  That isolation is the
     #        point -- a mutation that trips three conjuncts at once proves none of them.
+    # NEGATIVE CONTROL, executed rather than asserted in prose: before perturbing,
+    # the gate must be GREEN and additive-only must be TRUE.  Without this the
+    # "CAUGHT" below is consistent with a conjunct that is false for some unrelated
+    # standing reason, which would make M11 a no-op that looks like a gate.
+    nc11_pre = drv.nc_bytes()
+    row11_pre = next(r for r in nc11_pre["artifacts"]
+                     if r.get("effective_pin_source") == "AMENDMENT-NCBYTES-2026-08-06-B")
+    control11 = (nc11_pre["pass"] is True
+                 and row11_pre["supersession_additive_only_COMPUTED"] is True)
+
     saved_blob_text = drv._blob_text
     try:
         def _blob_text_with_extra_pinned_line(sha: str) -> str:
@@ -563,10 +573,11 @@ def mutation() -> int:
         nc11 = drv.nc_bytes()
         row11 = next(r for r in nc11["artifacts"]
                      if r.get("effective_pin_source") == "AMENDMENT-NCBYTES-2026-08-06-B")
-        caught11 = (nc11["pass"] is False
+        caught11 = (control11                      # NEGATIVE control: green before
+                    and nc11["pass"] is False      # and red after
                     and row11["supersession_additive_only_COMPUTED"] is False
-                    # isolation: the other two amendment-B conjuncts are UNDISTURBED,
-                    # so the catch is attributable to additive-only alone.
+                    # ISOLATION control: the other two amendment-B conjuncts are
+                    # UNDISTURBED, so the catch is attributable to additive-only alone.
                     and row11["byte_identical"] is True
                     and row11["supersession_frozen_verdicts_preserved_COMPUTED"] is True)
     finally:

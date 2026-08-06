@@ -606,14 +606,18 @@ Four places where the walk's recollection did not survive the grep. In every cas
 > **⚑ This surface-note is NOT payload, on the same fence the note below already sets.** It quotes
 > `G-RHO2` while describing the search; the payload counts the refresh pass needs are the ones the
 > note below states, and these lines are excluded from them exactly as that note's own lines are.
-> **And the note below's own naive-recount diagnostic has drifted, so it is re-derived here rather
-> than left to mislead:** that note records a naive re-run returning **18** and **26**; at this
-> commit the same naive re-run returns **18** and **30**, so the self-referential extra is now
-> **2** and **12**, not **2** and **8** — these lines added four `G-RHO2` mentions and no
-> `ROW-NOT-CERTIFIED` one. **The payload counts are UNCHANGED at 16 / 18**, which is the only pair a
-> refresh pass should act on. Two-method, both engines agreeing (ugrep `-rc -i -E` and an
-> independent CPython `re` walk over `manuscript/**/*.{md,tex}`); base `dcc11323` still returns
-> 18 / 26.
+> **And the note below's naive-recount figures are STRUCTURALLY UNCARRYABLE — do not quote them, and
+> do not "correct" them either.** A naive re-run counts the describing lines along with the payload,
+> and **this surface-note and that one are both describing lines**, so the naive pair moves every
+> time either note is edited — including by the edit that would record a new value. A figure that
+> falsifies itself on being written down is not a measurement to refresh; it is a quantity that
+> should never have been carried. **The first draft of this very clause proved the point: it printed
+> a freshly measured naive pair and was stale before it shipped, because writing it changed what it
+> was counting.** No replacement figure is minted here.
+>
+> **The only actionable number is the payload pair, 16 / 18** — payload excludes every describing
+> line by construction, so it does not move when these notes are edited, and it is unchanged by this
+> commit. A refresh pass should act on that pair and ignore the naive one entirely.
 >
 > **What a refresh pass must do when #902 lands, scoped by measurement rather than by estimate.** The
 > certification sentence is mirrored across the corpus, and the print-certification rule makes every

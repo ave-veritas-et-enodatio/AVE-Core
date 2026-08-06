@@ -84,6 +84,21 @@ under receipt B; the blob pin perturbed; a frozen-verdict probe made unsatisfiab
 moved-set over-declared; and the **ADDITIVE-ONLY** conjunct violated by deleting a line from the
 PINNED side. **All eleven mutations are CAUGHT.**
 
+`M11` carries **two** controls, and they answer different objections — both are now **executed in
+code**, not asserted here:
+
+- a **NEGATIVE control** — `nc_bytes()` is called **before** perturbing and must return `pass` =
+  `True` with `ADDITIVE-ONLY` = `True`. Without it, "CAUGHT" is consistent with a conjunct that was
+  already false for some unrelated standing reason, i.e. a no-op that looks like a gate;
+- an **ISOLATION control** — under perturbation the blob pin still matches and the verdict probes
+  still pass, so `ADDITIVE-ONLY` is the **only** conjunct that flipped, and the catch is attributable
+  to it alone.
+
+**🔴 CORRECTED, 2026-08-06 (residual R2).** An earlier version of this fragment, and the commit
+message of `c7f9426f`, claimed a *"negative control recorded (unperturbed `pass=True`)"* when the
+code called `nc_bytes()` **only under perturbation** — what actually shipped was the isolation
+control. The negative control has since been added in code, and both are named separately above.
+
 **⚑ CORRECTED, 2026-08-06, at Tier-2 (finding B2).** As first written this paragraph said `M7`–`M10`
 and claimed each new conjunct was provably fireable. **It was one short.** `ADDITIVE-ONLY` sat in
 `nc_bytes()`'s `pass` conjunction with **no mutation of its own**, so the claim over-stated the
@@ -233,7 +248,7 @@ restored balanced pairing for fences and left doubled inline spans unhandled.
 - `last_bond_kernel_collapse_number_check.py` + `--mutation-receipt` — both green (the v1 `G-RHO2`
   FAIL flag assertion still holds; the additive prose registers no new numerals).
 - `approach_leak_number_check.py` (v1) + `--mutation-receipt` — green.
-- `approach_leak_v2_number_check.py` + `--mutation-receipt` — green, `M1`–`M10` all CAUGHT,
+- `approach_leak_v2_number_check.py` + `--mutation-receipt` — green, `M1`–`M11` all CAUGHT,
   `G-DET-V2` re-run matched.
 - `last_bond_g_rho2_rerun_number_check.py` + `--mutation-receipt` — green.
 - Two-method absence receipts for the absence claims asserted above are recorded in the PR body.
