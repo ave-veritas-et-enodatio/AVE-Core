@@ -444,3 +444,83 @@ Four places where the walk's recollection did not survive the grep. In every cas
 > **This row adjudicates nothing.** The $\Gamma_{shear}$ **sign is NOT resolved**, neither density branch is preferred, no leaf is repaired, no `clm-`/`def-` is minted and no solidity moves. Per §10 item 3 the authority for a shear wall's $\Gamma$ phase is a **certified instrument's branch-derived shear wall row**, and no such instrument has adjudicated a physics bin on the RHO-B branch — the axial RHO-B run is `ROOT-NOT-CERTIFIED` and the polar family is `SOLVER-NOT-CERTIFIED`.
 >
 > **⚑ ROUTED, not taken here — the residual after this row.** Two print sites still fence the *bulk* step only while asserting the shear step unfenced in the same breath: `manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:68` (*"That **bulk** step is profile-conditional"*, in a sentence whose preceding clause asserts $Z_{shear} = \rho\,c_{shear} \to 0 \Rightarrow \Gamma_{shear} = -1$) and `.../21_*.tex:194–203` (asserts $\Gamma_{shear} = \Gamma_{bulk} = -1$, then declares for $\Gamma_{bulk}$ alone). Both already carry a *"canonical: wall-taxonomy §10"* pointer, so this row reaches them **by reference**; neither is rewritten here, because writing new signed-$\Gamma_{shear}$ print text on an open fork is exactly the import this ruling forbids. → **auditor / Grant.**
+
+### §10.2 — Kernel-collapse self-termination at a strain-saturation wall, CHANNEL-SCOPED (Grant ruling 2026-08-05)
+
+> **⚑ Why this sits under §10 and not beside it.** This ruling is an **instance of §10 item 3** — a
+> branch-derived wall row with its plane declared, *computed, not chosen*. It does not replace the
+> three declarations; it supplies one channel-family's row under them. **Anchor:** cite this block as
+> `wall-taxonomy.md` **§10.2**. Ruling records dated 2026-08-05 that route kernel-collapse content to
+> "§10" (written before the #886 §9→§10 renumber) resolve **here**; those documents keep their wording,
+> and the **upgrade-wave-five ruling record (PR #896)** is their dated redirect.
+>
+> **Provenance, with merge state stated rather than assumed (re-derived at this commit, two-method:
+> `gh pr list` + `git cat-file -e origin/main:<path>`).**
+>
+> | record | how it is cited here | state at this commit |
+> |---|---|---|
+> | **the kernel-collapse re-scope ruling — PR #897** (`[REVIEW: CLEARED]`) — the source of the ruled text below | **by NAME + PR number only** | **OPEN**; its docket file is **absent from `origin/main`** |
+> | **the upgrade-wave-five rulings — PR #896** (`[REVIEW: CLEARED]`) — the §10.2 anchor decision, the print-certification rule, the dated §10 redirect | **by NAME + PR number only** | **OPEN**; its docket file is **absent from `origin/main`** |
+> | the FLAG-CAUSAL kernel-collapse ruling (+ addendum) — the *universal* form this one supersedes per its own kill condition | [`2026-08-05-ruling-flag-causal-kernel-collapse.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-flag-causal-kernel-collapse.md) | **merged** (PR #887) |
+> | the re-scope receipts — the measured exception arm | [`2026-08-05-ruling-flag-causal-rescope-receipts.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-flag-causal-rescope-receipts.md) | **merged** |
+> | the squeeze-twist retraction — NO-TWIST, `S_κ(wall)` | [`2026-08-05-ruling-squeeze-twist-correction.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-squeeze-twist-correction.md) | **merged** (PR #894) |
+>
+> ⚑ **Why the first two carry no path.** A file-path cite to a record that does not exist on `origin/main`
+> is a dead cite at HEAD. The two governing rulings are **real and CLEARED**; they are simply not landed.
+> **They are therefore cited by ruling NAME plus PR number, and the path cites are OWED** — a follow-up
+> pass converts them to links once PRs #896/#897 merge. This note is the receipt for that debt.
+>
+> **The ruled text — quoted verbatim from the kernel-collapse re-scope ruling (PR #897) as written and
+> ratified. Do not paraphrase: the scope lives in the wording.**
+>
+> > **Kernel-collapse self-termination, channel-scoped (2026-08-05):** at any strain-saturation
+> > wall, every transport coupling riding the strain kernel — G, K (both fork branches), and the
+> > u↔φ coupling G_c — disconnects at the last bond: total reflection, phase computed from the
+> > branch-derived row at the declared plane, density-profile-independent (receipts: PR #888,
+> > #890, both Tier-2-verified). The rotational channel's transport (γ·S_κ) is carved out:
+> > unwalled at r_sat, its own wall being a κ-amplitude surface. Shear→rotation conversion cannot
+> > occur at the wall (the door closes with the strain kernel) and is confined to the graded
+> > approach where G_c·S_ε is finite — the leak is one computable number (a coupled two-channel
+> > scattering computation, routed as the approach-leak lane). Regime IV stays fenced out for
+> > every mirrored channel. The certified shear-echo physics — the delay laws, BIN-DISC's fork
+> > discriminability — is unaffected; the print form of the echo claim is the two-branch
+> > certified-timing statement with the mirror scoped to strain-kernel channels.
+>
+> **★ CERTIFICATION STATUS — stated first, per the standing print-certification rule (ruled 2026-08-05).**
+> Read at this commit from [`research/2026-08-05_last-bond-kernel-collapse_result.md`](../../../research/2026-08-05_last-bond-kernel-collapse_result.md):
+>
+> | what | state | receipt |
+> |---|---|---|
+> | the three load-bearing theorems | **MEASURED EXACT** — last-bond stiffness `0.0`; residual $\lvert\Gamma_{LB}+1\rvert$ `0.0` over `1680` harmonic points; spread over the whole beyond-wall grid (`48` groups, `1e-30`…`1e+30`, loads including `0` and $\infty$) `0.0`; RHO-A−RHO-B separation `0.0`. *"Not a tolerance. Zero."* | `:27`; gates `G-BOND`/`G-ROW`/`G-RHO`/`G-COLD` at `:49`–`:53` |
+> | the discrete **row** | **`ROW-NOT-CERTIFIED`** — `G-RHO2` FAILS (fitted exponent `0.0037…` against a frozen `[1.9, 2.1]`) on an injection point sized wrong at freeze; **the named repair is `k_0 = ε·ω·Z_1`, not `ε·k_cold`**, and the tolerance was not moved nor the injections re-sited | `:24`, `:52`, `:78` |
+> | what `G-RHO2` gates | **Theorem 3(b) only** — the *off-limit* sensitivity. Theorem 3(a), the exact independence **at** the limit, is `G-RHO` and it **passes at exactly zero** | `:78` |
+> | the mirror's **magnitude** | plane-**invariant** — `G-UNIT` $= 0.0$ at both planes (Axiom 3; nothing crosses a port) | `:33`, `:54` |
+> | the mirror's **sign** | plane-**dependent by the full inversion** — `G-PLANE` measures $\lvert\Gamma_{N0}-\Gamma_{LB}\rvert = 2.0$; at physical parameters the inversion does **not** fire (it sits `3.47` decades-of-`S` away), but **a sign without its plane is not a claim** | `:33`, `:55` |
+>
+> **This section therefore states the mirror with its certification carried, not compressed.** A
+> `ROW-NOT-CERTIFIED` verdict does not un-measure the theorems, and the theorems do not certify the row.
+>
+> **★ THE ROTATIONAL CARVE-OUT — stated, not glossed.** The mirror above is scoped to the
+> **strain-kernel** channels. It does **not** reach the Cosserat micro-rotation channel: `γ·S_κ` is
+> **unwalled at $r_{sat}$**, and the rotational channel's own wall is a **κ-amplitude surface** that
+> this DC strain bias does not reach. The measured receipt is
+> [`research/2026-08-05_srs-twist-coefficient_result.md`](../../../research/2026-08-05_srs-twist-coefficient_result.md):`325`,
+> verbatim: *"**`S_κ` at the wall — the leak number the kernel-collapse ruling needs — is `1`.**"* — with
+> `S_κ(wall) = 1.000000000000000` at every physical gradient in that leaf's table (`:320`–`:323`) and
+> `0.999979916516139` only at an unphysical one-node ceiling (`:318`). The same lane returned
+> **`NO-TWIST` by symmetry theorem** (Tier-2 verified), which is why the earlier squeeze-twist
+> consequents were retracted rather than propagated (PR #894).
+>
+> **What closes and what stays open at the wall.** The `u↔φ` door rides the strain kernel and therefore
+> **closes with it**: shear→rotation conversion cannot happen *at* the wall. Conversion is an **approach**
+> question — confined to the graded taper where $G_c\!\cdot\!S_\varepsilon$ is finite — and its size is
+> **one computable number** that no lane has computed. It is routed as the approach-leak lane and is
+> **not** estimated here.
+>
+> **What this section does NOT do.** It mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-` id, moves no
+> solidity, and adjudicates neither FORK-3(b) nor the $\Gamma_{shear}$ **sign** — §10.1's register row
+> stands, and the sign still travels only with its plane. It does **not** carry the frontier question the
+> ruling routes with the approach-leak lane: that reading is **walk-level and routed, not ruled**, and is
+> deliberately absent from this leaf. **Regime IV stays fenced out for every mirrored channel** — the
+> $A \ge 1$ region enters only as an arbitrary passive load, never as a solved domain
+> ([`research/2026-08-05_last-bond-kernel-collapse_result.md`](../../../research/2026-08-05_last-bond-kernel-collapse_result.md):`16`).
