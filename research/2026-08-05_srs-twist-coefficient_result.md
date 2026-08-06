@@ -455,3 +455,36 @@ criterion was dropped post-hoc to convert a ❌ to a ✅.**
 - Canonized sibling object: `manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/chiral-mechanical-gyrotropy.md` (`clm-acgyr1`)
 - Kernel budgets + `Γ_EM`: `src/ave/topological/cosserat_field_3d.py`:586-587,618-619
 - Sector ownership: `manuscript/ave-kb/common/translation-tables/translation-circuit.md`:35
+
+---
+
+> **⚑ ORCHESTRATOR REVIEW BLOCK (Tier-2 verify processed, 2026-08-05; body above preserved per
+> Rule 12).** The audit CONFIRMED all eight verification targets, independently: the 432 point
+> group established by direct group action on the motif (24/24 proper, 0/24 improper, both
+> enantiomorphs); the piezoelectricity exclusion re-derived as a THEOREM (det R = +1 makes the
+> axial rank-3 law identical to the polar one); a strengthening the lane did not claim (D3 site
+> symmetry ⇒ φ = 0 at EVERY site under hydrostatic load); the α = k_s/(2√2) derivation by hand;
+> the lockstep arithmetic to the digit; and — supplied by the audit — the missing POSITIVE
+> CONTROL: breaking 432 by a 1e-3 single-bond tilt produces τ = 1.06e-7 scaling exactly
+> linearly. **The null is a symmetry null; the instrument detects twist when the group permits
+> one.** Corrections, none load-bearing on NO-TWIST:
+>
+> 1. **D2 (the one to fix first): the headline law as printed is dimensionally inverted** —
+>    the verdict box and docket print κ/ε = ĉ₂q²/ℓ_node; the lane's own §6.3 forces
+>    **κ/ε = ĉ₂·ℓ_node·q²**. §7's downstream form was correct, so no number moves.
+> 2. **D1**: the G5 row's "max τ = 0.0 — exact" overstates; the shipped JSON says 9.5e-34
+>    (diamond, one load). ĉ₂ and κ/ε are the exactly-zero quantities.
+> 3. **D4**: commit 3 corrected the solar row (R_m 1480 → 10340, toward the frozen spec) without
+>    disclosing that commit 2's shipped run was superseded. Legitimate fix, disclosure owed —
+>    provided here.
+> 4. **D5/D6**: the FLAG-1 excerpt elides the lines where canon already states the rigid-motion
+>    point (the flag stands; the excerpt under-credits the source), and the clm-acgyr1
+>    comparison quote dropped the canonical value's minus sign (the "band-consistent, not
+>    identical" hedge survives; the quoted value did not match :33 as written). D3: the A²_ε
+>    cite is partial (the V²/V_SNAP² term omitted; harmless at V = 0).
+> 5. **Undisclosed feature, routed not explained: the signed ĉ₂ flips sign at fixed handedness
+>    across the wall sweep** (+6.3e-3 at A=0 → −1.0e-1 at A=0.99). Under this lane's own parity
+>    logic the sign is the chirality-discriminating quantity; fit-window artifact vs real
+>    crossover is an open follow-on, quarantined from the verdict (60+ orders of margin).
+>    Likewise "robust by 57 orders" is stated without its derivation — the reconstructible
+>    figures are 35 (ω_yield) and 70 (the squared ratio).
