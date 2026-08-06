@@ -4,51 +4,89 @@
 \usepackage{amsmath}
 \usetikzlibrary{arrows}
 
+% [2026-08-05 HOUSE-STYLE RESTYLE, dark -> WHITE, under the standing ratified figure-style
+%  ruling. Single source of truth: src/ave/viz/README.md + src/ave/viz/style.py. `ave.viz` is
+%  matplotlib-only (no TikZ mechanism), so the palette is copied by hand into \definecolor,
+%  following the ratified circuit_h3_decay restyle.
+%
+%  THIS FILE IS THE CANONICAL SOURCE for the Carbon-12 circuit printed via
+%  chapters/08_carbon.tex:52 (`\includegraphics{figures/circuit_c12.pdf}`). Provenance verified
+%  2026-08-05 by md5: the shipped manuscript/vol_6_periodic_table/figures/circuit_c12.pdf was
+%  byte-identical to the PDF built from THIS file, and NOT to a build of the same-named
+%  generator-emitted figures/circuit_c12.tex. That sibling is therefore retired (see the dated
+%  header on figures/circuit_c12.tex). This is one of the 3 dark vol6 standalones that are NOT
+%  generator-emitted, so it needed a hand port rather than a regenerate.
+%
+%  WHAT CHANGED -- COLOUR ONLY. Identical nodes, coordinates, edges, labels, couplings and
+%  connection counts; every numeric literal is unchanged.
+%    - Canvas: `\fill[darkbg] (-6,-6) rectangle (6,5.5)` REMOVED, not recoloured. It is
+%      replaced by an unpainted `\path` over the SAME rectangle so the standalone bounding box
+%      is preserved and the printed figure does not silently re-scale.
+%    - neonblue  (0,255,255) -> aveblue       #0072B2  COLORS["ave"]        alpha macro-blocks
+%    - neongreen (0,255,128) -> aveaccent     #009E73  COLORS["accent"]     inductive bus lines
+%    - `orange`  (built-in)  -> avevermillion #D55E00  COLORS["comparison"] orbital shell
+%    - `red`     (built-in)  -> avepurple     #CC79A7  _PROP_CYCLE          M_orbit coupling
+%    - text=white -> text=aveink (#000000, COLORS["data"]); draw=white -> draw=avemuted.
+%    - fill=darkbg!80!#1 -> fill=white!85!#1. That blend idiom is defined against a DARK base
+%      (80% near-black + 20% hue); reused on white it produces mud, so it is RE-DERIVED as a
+%      pale tint of the same hue on a light base.
+%    - \definecolor{neonpurple} DROPPED: it was declared but never referenced in this file.
+%  Contrast measured, not assumed: every colour above clears the 3:1 WCAG graphics threshold on
+%  white (aveblue 5.19, avemuted 4.00, avevermillion 3.87, aveaccent 3.42, avepurple 3.06,
+%  aveink 21.0). The retired set measures 1.34-2.07:1 on white -- xcolor `orange` in particular
+%  was 1.97:1, i.e. it would have shipped as mud had it been left alone as a "already not neon"
+%  colour. Colour is not load-bearing here: every block and bus carries a text label.]
 \begin{document}
 \begin{tikzpicture}[>=latex']
 
-\definecolor{neonblue}{RGB}{0, 255, 255}
-\definecolor{neongreen}{RGB}{0, 255, 128}
-\definecolor{darkbg}{RGB}{15, 15, 15}
-\definecolor{neonpurple}{RGB}{200, 0, 255}
+% --- AVE house figure style: WHITE print profile, Okabe-Ito colourblind-safe palette.
+%     Hex values are copied from src/ave/viz/style.py -- COLORS (:54-60) and _PROP_CYCLE
+%     (:158-167). Re-derive from style.py; do not re-tune here.
+\definecolor{aveblue}{HTML}{0072B2}       % COLORS["ave"]        -- alpha macro-blocks
+\definecolor{aveaccent}{HTML}{009E73}     % COLORS["accent"]     -- inductive bus lines
+\definecolor{avevermillion}{HTML}{D55E00} % COLORS["comparison"] -- orbital displacement shell
+\definecolor{avepurple}{HTML}{CC79A7}     % _PROP_CYCLE reddish-purple -- M_orbit coupling
+\definecolor{aveink}{HTML}{000000}        % COLORS["data"]       -- body text
+\definecolor{avemuted}{HTML}{7F7F7F}      % COLORS["muted"]      -- legend frame
 
-% Fill background
-\fill[darkbg] (-6,-6) rectangle (6,5.5);
+% Background: WHITE. The prior `\fill[darkbg] (-6,-6) rectangle (6,5.5)` canvas is REMOVED and
+% replaced by an unpainted `\path` over the SAME rectangle, preserving the bounding box.
+\path (-6,-6) rectangle (6,5.5);
 
 % Title
-\node[text=white, font=\bfseries\Large] at (0, 4.5) {Carbon-12 ($3\alpha$ Subcircuit Architecture)};
+\node[text=aveink, font=\bfseries\Large] at (0, 4.5) {Carbon-12 ($3\alpha$ Subcircuit Architecture)};
 
 \tikzset{
     alpha block/.style={
-        draw=#1, thick, fill=darkbg!80!#1,
+        draw=#1, thick, fill=white!85!#1,
         rectangle, rounded corners=3pt,
         minimum width=2.4cm, minimum height=1.4cm,
-        text=white, font=\bfseries, align=center
+        text=aveink, font=\bfseries, align=center
     },
     bus/.style={
-        draw=neongreen, ultra thick, dashed
+        draw=aveaccent, ultra thick, dashed
     }
 }
 
 % 3 ALPHAS (Equilateral Triangle planar projection)
-\node[alpha block=neonblue] (Top) at (0, 2) {$\alpha_{1}$\\$(^4\text{He})$};
-\node[alpha block=neonblue] (BL) at (-3, -2) {$\alpha_{2}$\\$(^4\text{He})$};
-\node[alpha block=neonblue] (BR) at (3, -2) {$\alpha_{3}$\\$(^4\text{He})$};
+\node[alpha block=aveblue] (Top) at (0, 2) {$\alpha_{1}$\\$(^4\text{He})$};
+\node[alpha block=aveblue] (BL) at (-3, -2) {$\alpha_{2}$\\$(^4\text{He})$};
+\node[alpha block=aveblue] (BR) at (3, -2) {$\alpha_{3}$\\$(^4\text{He})$};
 
 % --- MACRO-COUPLINGS (BUS LINES) ---
-\draw[bus] (Top) -- (BL) node[midway, sloped, above, text=white, font=\small] {$16 M_{ij}$};
-\draw[bus] (BL) -- (BR) node[midway, sloped, below, text=white, font=\small] {$16 M_{ij}$};
-\draw[bus] (BR) -- (Top) node[midway, sloped, above, text=white, font=\small] {$16 M_{ij}$};
+\draw[bus] (Top) -- (BL) node[midway, sloped, above, text=aveink, font=\small] {$16 M_{ij}$};
+\draw[bus] (BL) -- (BR) node[midway, sloped, below, text=aveink, font=\small] {$16 M_{ij}$};
+\draw[bus] (BR) -- (Top) node[midway, sloped, above, text=aveink, font=\small] {$16 M_{ij}$};
 
 % Orbital Displacement current representation
-\draw[color=orange, dashed, thick] (0,-4) ellipse (4.5cm and 0.5cm);
-\node[color=orange, align=center, font=\bfseries] at (0, -4.8) {Orbital Shell ($6e^-$ Displacement Currents)};
+\draw[color=avevermillion, dashed, thick] (0,-4) ellipse (4.5cm and 0.5cm);
+\node[color=avevermillion, align=center, font=\bfseries] at (0, -4.8) {Orbital Shell ($6e^-$ Displacement Currents)};
 
-\draw[<->, dashed, red, thick] (BL) -- (-3, -4) node[midway, left] {$M_{orbit}$};
-\draw[<->, dashed, red, thick] (BR) -- (3, -4) node[midway, right] {$M_{orbit}$};
+\draw[<->, dashed, avepurple, thick] (BL) -- (-3, -4) node[midway, left, text=aveink] {$M_{orbit}$};
+\draw[<->, dashed, avepurple, thick] (BR) -- (3, -4) node[midway, right, text=aveink] {$M_{orbit}$};
 
 % Legend
-\node[text=white, text width=9cm, align=center, draw=white, dashed, inner sep=8pt] at (0, -7.5) {
+\node[text=aveink, text width=9cm, align=center, draw=avemuted, dashed, inner sep=8pt] at (0, -7.5) {
     \textbf{IC-Equivalent Topology Level}\\
     Each $\alpha$ macro-block encapsulates a synchronized 4-nucleon LC mesh.\\
     Bus lines represent 16 cross-coupled inductive pairs between blocks.\\
