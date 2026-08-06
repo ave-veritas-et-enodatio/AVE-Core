@@ -36,3 +36,9 @@ pending-orchestrator]`.
    note) stays open — do not adjudicate. The un-audited framing note
    (`research/2026-08-06_rotation-substance-ontology_framing-note.md`) licenses NOTHING
    in print.
+
+---
+**DATED UPDATE 2026-08-06 PM (ruling record `2026-08-06-rulings-go-prebond-hawking.md`
+R9):** item 7 is upgraded PROPOSAL-ONLY → **EXECUTE** (Grant GO, verbatim in the record).
+Census-then-execute order stands; the rename is vocabulary-only — any site whose sentence
+stops being true under the new word is a finding to surface, not fix.
