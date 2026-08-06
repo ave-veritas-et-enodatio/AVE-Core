@@ -343,12 +343,24 @@ resolves, and now names the wrong content.
 
 **Every NEW location cite in the KB tree (or in `README.md` /
 `LIVING_REFERENCE.md` / `AGENTS.md`) must carry a verbatim excerpt of the cited
-content in backticks, on the same line or the line immediately above/below.**
+content, on the same line or the line immediately above/below.**
+
+Two excerpt styles are accepted, because the corpus already writes both, and
+the checker recognises both:
 
 ```markdown
 per [`some-leaf.md:42`](../volN/domain/chNN-topic/some-leaf.md)
 — `the verbatim sentence that line 42 actually carries`
+
+per [`some-leaf.md:42`](../volN/domain/chNN-topic/some-leaf.md)
+— *"the verbatim sentence that line 42 actually carries"*
 ```
+
+Use **backticks** for symbols, identifiers, and code; use the
+**emphasised quote** (`*"…"*`, `**"…"**`, `_"…"_`) for running prose, which is
+the register most KB rulings quote in. An emphasised-quote excerpt is
+recognised even when it straddles a hard line-wrap. Neither style is preferred
+by the gate; a cite with **no** excerpt in either style is what it blocks.
 
 (The path above is deliberately synthetic. Do not copy a real-looking cite out
 of an example — an illustrative cite that names a real file is the seed of the

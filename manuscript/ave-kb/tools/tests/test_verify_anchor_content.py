@@ -240,6 +240,94 @@ def test_new_cite_ratchet_scope_predicate() -> None:
         assert not vac.is_load_bearing_source(Path(out_of_scope)), out_of_scope
 
 
+def test_emphasis_quote_excerpts_satisfy_the_ratchet() -> None:
+    """The corpus's OTHER excerpt house style — *"…"* — must satisfy the gate.
+
+    Back-tested when this was added: 6 of 21 blocked cites over the last-25-merge
+    window (29%) carried a real excerpt written this way and were flagged anyway.
+    A gate that rejects a convention the corpus actually uses trains lanes to
+    work around it.
+    """
+    vac = _load_module()
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td)
+        _ratchet_repo(root)
+        kb = root / "manuscript" / "ave-kb" / "common"
+        (kb / "leaf.md").write_text(
+            "# Leaf\n\n"
+            "pre-existing bare cite: `target.md:10`\n"
+            f'added, italic-quote excerpt: `target.md:10` (*"{_ANCHOR}"*)\n'
+            f'added, bold-quote excerpt: `target.md:10` (**"{_ANCHOR}"**)\n'
+            f'added, underscore-quote excerpt: `target.md:10` (_"{_ANCHOR}"_)\n'
+        )
+        _git(root, "add", "-A")
+        _git(root, "commit", "-q", "-m", "branch work")
+
+        assert vac.check_new_cites("base", root) == []
+        assert vac.main(["--root", str(root), "--new-cites", "base"]) == 0
+
+
+def test_emphasis_quote_excerpt_across_a_hard_line_wrap_is_seen() -> None:
+    """A prose excerpt that straddles a hard wrap still anchors its cite.
+
+    The KB hard-wraps prose, so the opening `*"` and the closing `"*` routinely
+    land on different lines and a per-line regex sees neither half. Both halves
+    of the wrap are asserted: cite on the CLOSING line, and cite on the OPENING
+    line. The verbatim corpus instances are `transfer-cost-theorem.md:86` and
+    `:117` as they stood at PR #878's head `1e74b38d`.
+    """
+    vac = _load_module()
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td)
+        _ratchet_repo(root)
+        kb = root / "manuscript" / "ave-kb" / "common"
+        head, tail = _ANCHOR[:18], _ANCHOR[18:]
+        (kb / "leaf.md").write_text(
+            "# Leaf\n\n"
+            "pre-existing bare cite: `target.md:10`\n"
+            f'wrap, cite on the closing line — *"{head}\n'
+            f'{tail}"* (`target.md:10`)\n'
+            f'wrap, cite on the opening line — `target.md:10` *"{head}\n'
+            f'{tail}"*\n'
+        )
+        _git(root, "add", "-A")
+        _git(root, "commit", "-q", "-m", "branch work")
+
+        assert vac.check_new_cites("base", root) == []
+        assert vac.main(["--root", str(root), "--new-cites", "base"]) == 0
+
+
+def test_emphasis_quote_recognizer_does_not_swallow_non_excerpts() -> None:
+    """Widening the recognizer must not turn decoration into an anchor.
+
+    A bullet/emphasis marker followed by a SPACE and a quote is ordinary prose,
+    not the excerpt style; a quoted path-cite is a cite, not content; and a
+    quoted fragment under MIN_QUOTE_LEN stays trivial. Each must still leave the
+    cite unanchored, or the ratchet degrades into a checklist.
+    """
+    vac = _load_module()
+    assert vac.EMPHASIS_QUOTE_RE.search('* "a bulleted quoted sentence"') is None
+    assert vac.EMPHASIS_QUOTE_RE.search('the word *"cage"* here') is not None
+    assert not vac.is_checkable_quote("abc")  # under MIN_QUOTE_LEN
+    assert not vac.is_checkable_quote("some/path/leaf.md:42")  # a cite, not content
+
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td)
+        _ratchet_repo(root)
+        kb = root / "manuscript" / "ave-kb" / "common"
+        (kb / "leaf.md").write_text(
+            "# Leaf\n\n"
+            "pre-existing bare cite: `target.md:10`\n"
+            '* "a bulleted quoted sentence" then `target.md:10`\n'
+        )
+        _git(root, "add", "-A")
+        _git(root, "commit", "-q", "-m", "branch work")
+
+        violations = vac.check_new_cites("base", root)
+        assert len(violations) == 1, violations
+        assert violations[0][2] == "target.md:10", violations
+
+
 def test_fixture_trees_are_pruned_from_the_advisory_crawl() -> None:
     """tests/fixtures holds deliberately broken cites — never scanned as corpus."""
     vac = _load_module()
@@ -263,5 +351,8 @@ if __name__ == "__main__":
     test_new_cite_ratchet_flags_only_added_unexcerpted_kb_cites()
     test_new_cite_ratchet_passes_when_every_added_cite_is_excerpted()
     test_new_cite_ratchet_scope_predicate()
+    test_emphasis_quote_excerpts_satisfy_the_ratchet()
+    test_emphasis_quote_excerpt_across_a_hard_line_wrap_is_seen()
+    test_emphasis_quote_recognizer_does_not_swallow_non_excerpts()
     test_fixture_trees_are_pruned_from_the_advisory_crawl()
     print("test_verify_anchor_content: PASSED")

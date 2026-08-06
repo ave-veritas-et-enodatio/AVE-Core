@@ -113,9 +113,27 @@ The corroboration rate is **vocabulary-dependent by an order of magnitude**, whi
 
 #### 6. Option (3) — the NEW-cite excerpt ratchet
 
-`make verify-new-cite-excerpts` (`CITE_BASE=<ref>`, default `origin/main`) requires a verbatim backtick excerpt beside every line-cite a branch **ADDS** to the canonical-authority surface. Backlog-free by construction; the ~13k existing cites are untouched. Convention documented in `manuscript/ave-kb/CONVENTIONS.md` (new "Location cites" section, incl. a gate-coverage table).
+`make verify-new-cite-excerpts` (`CITE_BASE=<ref>`, default `origin/main`) requires a verbatim excerpt beside every line-cite a branch **ADDS** to the canonical-authority surface. Backlog-free by construction; the ~13k existing cites are untouched. Convention documented in `manuscript/ave-kb/CONVENTIONS.md` (new "Location cites" section, incl. a gate-coverage table).
 
-**Back-tested over the last 25 merges to `main` (20 PR merges + 5 integration merges): 4 of the 20 PR merges would have been blocked**, each adding 1–8 excerpt-less KB cites (`wall-taxonomy.md`, `translation-circuit.md`, `common/claim-quality.md`). That is the intended behaviour, not a defect — but it is a workflow change with blast radius past the checker, so it lands as a **SEPARATE, NON-REQUIRED CI job**, matching the repo's existing `engine-sims` posture. **Flipping it to required in branch protection is the orchestrator's call, not the implementer's** — it is a one-line branch-protection change, no code edit.
+**Back-tested over the last 25 merges to `main`: 4 of the PR merges would have been blocked**, each adding 1–8 excerpt-less KB cites (`wall-taxonomy.md`, `translation-circuit.md`, `common/claim-quality.md`). That is the intended behaviour, not a defect — but it is a workflow change with blast radius past the checker, so it lands as a **SEPARATE, NON-REQUIRED CI job**, matching the repo's existing `engine-sims` posture. **Flipping it to required in branch protection is the orchestrator's call, not the implementer's** — it is a one-line branch-protection change, no code edit. (The window slides: re-running the back-test today reads 21 PR merges among the last 25, same 4 blocked. The finding is the shape, not the integer. Those 4 are the **backtick-only** figure; after the recognizer widening recorded below it is **3**.)
+
+**RECOGNIZER WIDENED 2026-08-05 after the independent verify — the ratchet was rejecting a convention the corpus actually uses.** The first version recognized excerpts in **backticks only**. The corpus also writes verbatim excerpts as **emphasised quotes** — `*"…"*`, `**"…"**`, `_"…"_` — which is the register most KB rulings quote prose in. Measured over the same back-test window, with the blocked cites classified by hand:
+
+| back-test finding | count |
+|---|---|
+| blocked cites, backtick-only recognizer | **21** (across **4** PR merges) |
+| — that DO carry an excerpt, written as an emphasised quote | **6 (29%)** — style false positives |
+| — genuinely excerpt-less | **15** |
+| blocked cites, widened recognizer | **15** (across **3** PR merges) |
+| PR #878's blocked cites | **5 of 5** were style false positives — 3 on the cite's own line, 2 straddling a hard line-wrap; it now passes clean |
+
+Two verbatim instances, at PR #878's head `1e74b38d`: `manuscript/ave-kb/common/claim-quality.md:1678` cites `src/ave/core/k4_tlm.py:396-398` next to *"Conserves total power"* on the same line; `manuscript/ave-kb/common/transfer-cost-theorem.md:86` closes *"…mode-count or a click, never a valve"* that OPENED on line 85, with the cite on 86. (The first line number is PR-#878-relative: that content sits at `common/claim-quality.md:1735` on today's `main` — a 57-line drift in one day, and a small demonstration of why the excerpt requirement exists. The `transfer-cost-theorem.md:86` wrap is unmoved and verifiable at HEAD as written.)
+
+**Fix taken: option (a) — widen the recognizer**, not option (b) (document that backticks specifically satisfy the gate). Reasoning: a gate that rejects a live convention does not teach the convention, it teaches the workaround, and the workaround here is to reword correct provenance into a form the tool likes. The widening is applied to the **shared** `associate_quote`, so the ratchet and the advisory drift check agree on what an excerpt is — accepting a style the drift checker could not then re-anchor would make the cite "self-verifying" in name only, which is the whole rationale of the requirement.
+
+Measured effect on the advisory pass (same tree, tool before vs after): cites gaining an excerpt association **+626**; checked 2,050 → **2,308**; anchored-OK 525 → **640**; drift 1,525 → **1,668**, i.e. the drift RATE falls 74.4% → **72.3%**. Runtime +7%. Nothing moves in the gating class — `verify-anchor-content` is advisory and the ratchet is a non-required job. PR #878 back-tested against the widened recognizer now reports **OK — every added load-bearing line-cite carries an adjacent excerpt**.
+
+Guard against the obvious failure mode of a wider recognizer: three regression tests assert it does **not** swallow decoration (a `* "bulleted quote"` bullet-plus-space is not the excerpt style, a quoted path-cite is a cite not content, and sub-`MIN_QUOTE_LEN` fragments stay trivial). **This must be settled before anyone considers flipping the ratchet to required** — it now is.
 
 ---
 
