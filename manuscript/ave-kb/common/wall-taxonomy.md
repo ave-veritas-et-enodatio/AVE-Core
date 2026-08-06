@@ -464,7 +464,7 @@ Four places where the walk's recollection did not survive the grep. In every cas
 > | **the kernel-collapse re-scope ruling — PR #897** (`[REVIEW: CLEARED]`) — the source of the ruled text below | **by NAME + PR number only** | **OPEN**; its docket file is **absent from `origin/main`** |
 > | **the upgrade-wave-five rulings — PR #896** (`[REVIEW: CLEARED]`) — the §10.2 anchor decision (**Q1, RULED**), the dated §10 redirect (**Q1**), and the print-certification rule (**Q2, *forced, adopted* — NOT ruled**; the record's own words, origin *"the orchestrator's own two-grade promotion, owned on the record"*) | **by NAME + PR number only** | **OPEN**; its docket file is **absent from `origin/main`** |
 > | the FLAG-CAUSAL kernel-collapse ruling (+ addendum) — the *universal* form this one supersedes per its own kill condition | [`2026-08-05-ruling-flag-causal-kernel-collapse.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-flag-causal-kernel-collapse.md) | **merged** (PR #887) |
-> | the re-scope receipts — the measured exception arm | [`2026-08-05-ruling-flag-causal-rescope-receipts.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-flag-causal-rescope-receipts.md) | **merged** |
+> | the re-scope receipts — the measured exception arm | [`2026-08-05-ruling-flag-causal-rescope-receipts.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-flag-causal-rescope-receipts.md) | **merged (PR #894)** |
 > | the squeeze-twist retraction — NO-TWIST, `S_κ(wall)` | [`2026-08-05-ruling-squeeze-twist-correction.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-squeeze-twist-correction.md) | **merged** (PR #894) |
 >
 > ⚑ **Why the first two carry no path.** A file-path cite to a record that does not exist on `origin/main`
