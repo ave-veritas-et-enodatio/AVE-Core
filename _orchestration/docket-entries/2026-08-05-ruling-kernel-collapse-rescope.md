@@ -31,3 +31,9 @@ question, to be scoped with or after the approach-leak lane.
 **Unlocked by this record:** the doc lane's wall-row text (last external gate), the FLAG-CANON
 (`vol3/claim-quality.md:122-124`) repair final form, the wall-taxonomy §10.2 landing, the ch15
 fourth-channel row (inverted content per PR #890), and the approach-leak lane on dispatch.
+
+---
+**⚑ SUPERSEDED AS THE CITABLE RULED TEXT, 2026-08-06** — re-issued with the cross-grade
+combine-member fence and the corrected engine-receipt statement as
+`2026-08-06-ruling-kernel-collapse-rescope-v2.md` (Grant GO, decision-batch R5). This
+record is preserved unedited above per Rule 12; cite the v2.
