@@ -334,6 +334,12 @@ class Site:
     sign: str
     rendered: bool
     file_class: str
+    #: The matched substring itself, and a window centred on it. The window is
+    #: centred rather than taken from the start of the line because manuscript
+    #: prose lines routinely run past 400 characters with the Γ token near the
+    #: end — a head-truncated excerpt would show unrelated text and make the
+    #: artifact look like it was full of false positives when it is not.
+    matched: str
     excerpt: str
 
     def sort_key(self) -> tuple[str, int, int]:
@@ -398,6 +404,13 @@ _SUBSCRIPT_RE = re.compile(
 _VALUE_RE = re.compile(
     r"(?:=|\\to|\\rightarrow|→|->|\\equiv|\\approx|\\simeq)[ \t$\\!~]*([-−+]?)[ \t]*([0-9]+(?:\.[0-9]+)?)"
 )
+
+
+def _window(line: str, start: int, end: int, pad: int = 70) -> str:
+    """A context window centred on the match, with explicit elision markers."""
+    left, right = max(0, start - pad), min(len(line), end + pad)
+    body = line[left:right].strip()
+    return ("…" if left > 0 else "") + body + ("…" if right < len(line) else "")
 
 
 def strip_gamma_token(text_from_match: str) -> str:
@@ -514,7 +527,8 @@ def scan_python(repo: Path, universe: Universe) -> tuple[list[Site], set[tuple[s
                         sign=sign,
                         rendered=not comment,
                         file_class=classify_file(rel),
-                        excerpt=line.strip()[:200],
+                        matched=match.group(0),
+                        excerpt=_window(line, match.start(), match.end()),
                     )
                 )
     return sorted(sites, key=Site.sort_key), raw
