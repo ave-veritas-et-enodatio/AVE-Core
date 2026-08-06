@@ -69,6 +69,8 @@ $V_{\mathrm{op}}$ & $\approx 20.9$~kV & $48\%$ of $V_{\mathrm{yield}}$ \\
 \subsection{Three-Channel Boundary Port}
 \label{sec:vol9_three_channel_circuit}
 
+\noindent\textbf{Count scope (2026-08-05): this port renders three channels, and the saturation boundary has four.} The three rows here are the \emph{three-impedance law}'s channels, and that law is not re-counted: nothing in this pass touches Ch.~\ref{ch:vol9_dc_electrical_characteristics}~\S``Three-channel impedances''. What changed is the \emph{boundary}. The canonical $r_{\mathrm{sat}}$ channel table now carries a \textbf{fourth row} --- the \textbf{Cosserat micro-rotation / wryness} channel --- and at that boundary the fourth channel is \textbf{unwalled}: its transport survives at full cold value ($S_\kappa$ at the wall measured $1$ to every digit double precision carries at physical gradient scales, $0.99998$ only at an unphysical one-node ceiling; PR~\#890, Tier-2 verified), while the $u \leftrightarrow \phi$ door rides the strain kernel and closes. \textbf{The device-design consequence is about the count, not the law:} a boundary characterization that tags only EM, shear and bulk is incomplete by one channel, and the missing one is the channel that does \emph{not} reflect. Canonical: \kbleaf{ave-kb/common/wall-taxonomy.md} \S10.2 and \kbleaf{ave-kb/vol3/cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md}. \emph{The subsection title, its label and the figure filename are identifiers rather than claims, and are left unchanged.}
+
 \input{figures/circuit_three_channel_boundary.tex}
 
 \subsection{Graded Vacuum Impedance Network}
