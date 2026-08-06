@@ -563,6 +563,40 @@ Four places where the walk's recollection did not survive the grep. In every cas
 > **This section therefore states the mirror with its certification carried, not compressed.** A
 > `ROW-NOT-CERTIFIED` verdict does not un-measure the theorems, and the theorems do not certify the row.
 >
+> **⚑ PENDING-REFRESH NOTE, 2026-08-06 — a rerun that may retire the `ROW-NOT-CERTIFIED` state is
+> CLEARED and OPEN, and this leaf deliberately does NOT pre-write its outcome.** Read at this commit,
+> not from any brief: `gh pr view 902` returns **`state: OPEN`, `mergedAt: null`**, title
+> *"[REVIEW: CLEARED] research: G-RHO2 rerun — TASK 2 ROW-CERTIFIED …"*; and
+> `git cat-file -e origin/main:research/2026-08-05_last-bond-g-rho2-rerun_result.md` **fails** — the
+> result document is **not on `origin/main`** and not in this tree. **So the certification wording
+> above and at every mirror site stays exactly as it is.** The upgrade-wave-five record anticipated
+> this in advance ([`2026-08-05-rulings-upgrade-wave-five.md`](../../../_orchestration/docket-entries/2026-08-05-rulings-upgrade-wave-five.md)`:18`,
+> verbatim: *"The `G-RHO2` certification rerun is queued core-side and **may moot the caveat** before
+> the wave fires"*) — it did not moot it before this commit, so the caveat prints.
+>
+> **What a refresh pass must do when #902 lands, scoped by measurement rather than by estimate.** The
+> certification sentence is mirrored across the corpus, and the print-certification rule makes every
+> one of them load-bearing, so a state change is a **lockstep edit that must ship in ONE commit**.
+> Re-derived at this commit, two-method (`grep -rni` + an independent Python walk over
+> `manuscript/**/*.{md,tex}`): `ROW-NOT-CERTIFIED` appears on **16 lines across 10 files**; widening
+> the pattern to also catch bare `G-RHO2` gives **18 lines across the same 10 files**. The refresh
+> must (i) read the certification state **from the landed result document itself**, not from the PR
+> title and not from this note; (ii) preserve the distinction this leaf already draws — a certified
+> *row* does not retroactively certify the *premise scan*, which is separately `SCAN-NOT-CERTIFIED`
+> with no bin adjudicated; and (iii) keep compressed *"confirmed"* language docket-only.
+>
+> **⚑ CROSS-LANE DEPENDENCY, surfaced and NOT touched here.**
+> [`research/drivers/last_bond_kernel_collapse_number_check.py`](../../../research/drivers/last_bond_kernel_collapse_number_check.py)`:170`–`:171`
+> hard-asserts that `G-RHO2` is **recorded FAIL**, and it is wired into `make verify` as a **gating**
+> prerequisite (`Makefile`:111, target at `:250`). That checker is the **core lane's** file and this
+> documentation lane does not edit it. Checked at this commit rather than assumed: #902 adds a
+> *separate* target (`verify-last-bond-g-rho2-rerun-number-check`) reading its own driver and its own
+> JSON, and touches **neither** this checker nor the frozen kernel-collapse JSON it reads — so
+> `make verify` does **not** break when #902 lands, and the old assertion stays true of the *original*
+> run's frozen record. The live item is not a build break but a **corpus-state divergence**: after
+> #902 the corpus will hold a `ROW-CERTIFIED` rerun beside a gate that permanently records the first
+> run's failure, and the refresh must say which run each sentence is quoting. → **core lane / Grant.**
+>
 > **★ THE ROTATIONAL CARVE-OUT — stated, not glossed, and CONDITIONAL ON THE SEPARATE-KERNEL MEMBER
 > (see the cross-grade fence above; do not quote this paragraph without it).** The mirror above is scoped to the
 > **strain-kernel** channels. It does **not** reach the Cosserat micro-rotation channel: `γ·S_κ` is
