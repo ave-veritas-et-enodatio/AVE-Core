@@ -579,7 +579,14 @@ Four places where the walk's recollection did not survive the grep. In every cas
 > one of them load-bearing, so a state change is a **lockstep edit that must ship in ONE commit**.
 > Re-derived at this commit, two-method (`grep -rni` + an independent Python walk over
 > `manuscript/**/*.{md,tex}`): `ROW-NOT-CERTIFIED` appears on **16 lines across 10 files**; widening
-> the pattern to also catch bare `G-RHO2` gives **18 lines across the same 10 files**. The refresh
+> the pattern to also catch bare `G-RHO2` gives **18 lines across the same 10 files**. **⚑ Read that
+> count with its exclusion, or it will not reproduce: it EXCLUDES this note itself.** This note
+> quotes both strings while describing them, so a naive re-run of the same grep at HEAD returns
+> **18** and **26** — the extra `2` and `8` are these lines. The count that matters to a refresh pass
+> is the **payload** count, `16` / `18`, and the note is not payload: **do not "refresh" this
+> paragraph's own occurrences into a certified state — they are describing the search, not asserting
+> the verdict.** (Self-referential counts going stale on contact is the same failure class this
+> wave's own audit caught in print; it is fenced here rather than repeated.) The refresh
 > must (i) read the certification state **from the landed result document itself**, not from the PR
 > title and not from this note; (ii) preserve the distinction this leaf already draws — a certified
 > *row* does not retroactively certify the *premise scan*, which is separately `SCAN-NOT-CERTIFIED`
