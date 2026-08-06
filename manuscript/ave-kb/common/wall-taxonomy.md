@@ -154,7 +154,7 @@ Three walk-level observations, each with its canon-side hook:
 
 **This is the single most abusable line in the taxonomy, so it is stated first and loudly.** A row's wall belongs to **one channel**. The other channels are entitled to walk straight through it, and in canon they demonstrably do:
 
-- **At $r_{sat}$, the same physical surface is FOUR different things at once** *(three until 2026-08-05; row 4 added by the upgrade wave — the count is live, not decorative)*. [`bulk-impedance-at-saturation-boundary.md`](../vol3/cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md):48–55 tabulates it: $\Gamma_{shear} = -1$ and $\Gamma_{bulk} = -1$, but $\Gamma_{EM} = 0$ — **the EM channel is matched, not reflecting** — and **row 4, the Cosserat micro-rotation channel, has NO WALL HERE AT ALL**: its transport survives at full cold value ($S_\kappa$(wall) measured `1` at physical gradients) and its own wall is a $\kappa$-*amplitude* surface (§10.2). That leaf's own conclusion, verbatim (`:55` — was `:54` before the 2026-08-05 row-4 insert): *"**BH-echo yes/no is therefore a channel question.** … Statements that 'the horizon is a perfect absorber' (EM) and 'the horizon reflects shear/GW modes' are **not contradictory** once channel subscripts are explicit."* **⚑ §10: the $\Gamma_{bulk}=-1$ entry there is the RHO-A/shunt-projection/load-plane value — sign-relativity ruling 2026-08-04 (§10).**
+- **At $r_{sat}$, the same physical surface is FOUR different things at once** *(three until 2026-08-05; row 4 added by the upgrade wave — the count is live, not decorative)*. [`bulk-impedance-at-saturation-boundary.md`](../vol3/cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md):48–55 tabulates it: $\Gamma_{shear} = -1$ and $\Gamma_{bulk} = -1$, but $\Gamma_{EM} = 0$ — **the EM channel is matched, not reflecting** — and **row 4, the Cosserat micro-rotation channel, has NO WALL HERE AT ALL**: its transport survives at full cold value ($S_\kappa$(wall) measured `1` at physical gradients) and its own wall is a $\kappa$-*amplitude* surface (§10.2). That leaf's own conclusion, verbatim (`:55` — was `:54` before the 2026-08-05 row-4 insert): *"**BH-echo yes/no is therefore a channel question.** … Statements that 'the horizon is a perfect absorber' (EM) and 'the horizon reflects shear/GW modes' are **not contradictory** once channel subscripts are explicit."* **⚑ §10: the $\Gamma_{bulk}=-1$ entry there is the RHO-A/shunt-projection/load-plane value — sign-relativity ruling 2026-08-04 (§10).** **⚑ CROSS-GRADE FENCE — this row-4 sentence is the most abusable line in the most abusable section, so its condition rides with it.** *"Row 4 has no wall here"* holds on the **separate-kernel (L∞-across-grades)** member of an **open** fork; canon records the **cross-grade combine rule as underdetermined at $O(\alpha)$** ([`axiom-register.md`](axiom-register.md):190,:232), and on the **normalized-L2-across-grades** member every grade rides ONE kernel and the carve-out does **NOT** stand. Neither receipt lane chooses the member. **This fence is NOT in the #897 ruled text; it is added by the doc lane 2026-08-05 and routed to Grant — full statement and receipts at §10.2.**
 - **The $\mu$-grade is keyed on circulation, so a static $\mathbf{B}$ sees no wall at all.** Route C: *"$\Delta n = 0$ under static B ($\mu$ = ideal relativistic inductor, circulation-keyed; static B has no $dB/dt \to S_\mu = 1$)"* ([`cosmological-constant-closure.md`](../vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md):124; verdict leaf [`pvlas-static-b-verdict.md`](../vol4/falsification/ch11-experimental-bench-falsification/pvlas-static-b-verdict.md)). A field that would saturate the rotational grade if it were *circulating* does nothing to it when it is *static* — same field magnitude, no wall, because the wall's coordinate is the wrong one for that excitation.
 
 **Operational rule.** Before asserting a wall anywhere: name (i) the **channel**, (ii) the **axis** it lives on, and (iii) the **phase-state** (cold/sub-yield vs saturated). A claim missing any of the three is not yet a claim about a wall.
@@ -488,6 +488,42 @@ Four places where the walk's recollection did not survive the grep. In every cas
 > > discriminability — is unaffected; the print form of the echo claim is the two-branch
 > > certified-timing statement with the mirror scoped to strain-kernel channels.
 >
+> **★★ THE CROSS-GRADE FENCE — the one the carve-out needs, and the ruled text above does NOT carry it.**
+> **This fence is added by the doc lane, 2026-08-05. It is not a paraphrase of #897 and it is not in #897.**
+> Two-method absence receipt against the ruled text quoted above (`grep -c` and an independent Python
+> `re` count over the same block): the strings `combine`, `aggregat`, `underdetermined`, `L∞` and
+> `normalized-L2` occur **ZERO** times in it. **The omission is at the RULING, and it is routed to Grant
+> for a possible re-issue** — this leaf fences the claim rather than restating it unfenced, and says so
+> instead of papering over it.
+>
+> **The carve-out rides ONE member of an OPEN fork.** Canon records the rule that would decide it as
+> **underdetermined**: [`axiom-register.md`](axiom-register.md):190, verbatim *"the combine is
+> per-yield-normalized (single-radius-L2 falsified), **cross-grade aggregation underdetermined at
+> $O(\alpha)$**"*, carried into that register's Axiom-4 `residual_content` row at `:232` as
+> *"**cross-grade combine rule** underdetermined at $O(\alpha)$ (**PR #457**)"*.
+>
+> | member of the open fork | what happens at $r_{sat}$ | does the carve-out stand? |
+> |---|---|---|
+> | **L∞-across-grades** — *"the wall is whichever grade reaches `S→0` first"*; **the member the engine actually codes**, read at this commit: [`cosserat_field_3d.py`](../../../src/ave/topological/cosserat_field_3d.py):761–762 builds **two separate kernels** (`S_eps_sq`, `S_kappa_sq`) and `:767`–`:768` sums `(W_cauchy·G + W_micropolar·G_c)·S_eps_sq + W_kappa·γ·S_kappa_sq` — $G$ and $G_c$ ride the strain kernel, $\gamma$ rides its own | the **strain** grade sets the wall; the curvature grade's $S_\kappa$ is **untouched** there; $\gamma\,S_\kappa$ does **not** collapse | **YES** |
+> | **normalized-L2-across-grades** | **every grade rides ONE kernel**; the single kernel goes to zero at the wall | **NO** — $\gamma\,S_\kappa$ collapses with the rest and there is no fourth-channel exception |
+>
+> **Neither receipt lane closes the fork, and both say so.** The primary receipt states it in the same
+> breath as the exception —
+> [`research/2026-08-05_last-bond-kernel-collapse_result.md`](../../../research/2026-08-05_last-bond-kernel-collapse_result.md):29,
+> verbatim: *"This lane **does not choose the member**, does not invent a grading law, and does not
+> promote the engine's coded choice to canon."* The twist lane leaves it where it found it —
+> [`research/2026-08-05_srs-twist-coefficient_result.md`](../../../research/2026-08-05_srs-twist-coefficient_result.md):372,
+> verbatim: *"**the cross-grade combine rule stays open on its existing terms**"*, while recording at
+> `:373` that the engine's `L∞` reading is *"if anything, **reinforced**"* — because under a pure squeeze
+> the $\kappa$ budget is loaded $60{+}$ orders lighter, so the first grade to reach $S\to0$ is
+> unambiguously $\varepsilon$. **Reinforced is not closed.** A numerically unambiguous *wall location*
+> under both members does not settle whether the OTHER grade's kernel survives that wall, and that
+> survival is the entire content of the carve-out.
+>
+> **Operational rule for anyone quoting the carve-out.** *"Row 4 is unwalled at $r_{sat}$"* is a
+> claim **conditional on the separate-kernel member**. Quote it with that condition or do not quote it.
+> This fence adjudicates nothing, prefers no member, and promotes the engine's coded choice to nothing.
+>
 > **★ CERTIFICATION STATUS — stated first, per the standing print-certification rule (ruled 2026-08-05).**
 > Read at this commit from [`research/2026-08-05_last-bond-kernel-collapse_result.md`](../../../research/2026-08-05_last-bond-kernel-collapse_result.md):
 >
@@ -502,7 +538,8 @@ Four places where the walk's recollection did not survive the grep. In every cas
 > **This section therefore states the mirror with its certification carried, not compressed.** A
 > `ROW-NOT-CERTIFIED` verdict does not un-measure the theorems, and the theorems do not certify the row.
 >
-> **★ THE ROTATIONAL CARVE-OUT — stated, not glossed.** The mirror above is scoped to the
+> **★ THE ROTATIONAL CARVE-OUT — stated, not glossed, and CONDITIONAL ON THE SEPARATE-KERNEL MEMBER
+> (see the cross-grade fence above; do not quote this paragraph without it).** The mirror above is scoped to the
 > **strain-kernel** channels. It does **not** reach the Cosserat micro-rotation channel: `γ·S_κ` is
 > **unwalled at $r_{sat}$**, and the rotational channel's own wall is a **κ-amplitude surface** that
 > this DC strain bias does not reach. The measured receipt is
