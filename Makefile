@@ -119,7 +119,7 @@ verify: $(KB_VERIFY) verify-md-links verify-provenance-stamps verify-frozen-prov
 	@echo "\n[Verify] Running Macroscopic Mutual Inductance bounds..."
 	$(PYTHON) $(SCRIPT_DIR)/vol_4_engineering/simulate_mutual_inductance.py
 	@echo "\n[Verify] Running Topological Borromean geometric limits..."
-	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/visualize_topological_bounds.py
+	AVE_VERIFY_NO_WRITE=1 $(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/visualize_topological_bounds.py
 	@echo "\n[Verify] Running Ch 8 α closure: Clifford half-cover rigor..."
 	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/verify_clifford_half_cover.py
 	@echo "\n[Verify] Running Ch 8 α closure: λ_line rigor..."
