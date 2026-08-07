@@ -23,37 +23,53 @@ receipted profile). **PHASE-STATE** — cold-reactive far field (radiation is a 
 
 ## HEADLINE
 
-> **VERDICT: `RADIATIVE(2)` — and the coupling normalization the standing Q1 exclusion ASSUMED
-> at O(1) is here replaced by a SHEAR-ANCHORED LOWER BOUND that is Green's-function-forced within
-> receipted structure.** The lowest non-vanishing multipole order of bulk-channel emission for a
-> binary A1 configuration is **n = 2 (quadrupole)**: the monopole is killed by total-mass
-> conservation (`Ṁ = 0`), the dipole by momentum conservation (`Ẍ_cm = 0`), and the quadrupole
-> coupling integral does **not** vanish — no receipted structure kills it, and the one candidate
-> family that could modulate it (the constituent-cage fork, #770 REOPENED) is shown to modulate
-> only a **non-negative add-on** to a floor it cannot touch (§3, the angular-orthogonality
-> lemma).
+> **VERDICT: `RADIATIVE(2)` — the multipole ORDER is settled on receipted structure; the FLUX
+> floor is a SHEAR-ANCHORED bound whose anchor is canon's own BANKED Peters–Mathews shear rate,
+> and it is CAGE-FORK-CONDITIONAL** *(★review-repaired 2026-08-07, PR #919 Tier-2 — R10/R11; the
+> original headline's "Green's-function-forced … cannot touch" fork-immunity claim and its
+> "OBSERVED shear flux" anchor wording are WITHDRAWN; see the addendum)*. The lowest
+> non-vanishing multipole order of bulk-channel emission for a binary A1 configuration is
+> **n = 2 (quadrupole)**: the monopole is killed by total-mass conservation (`Ṁ = 0`), the
+> dipole by momentum conservation (`Ẍ_cm = 0`), and the quadrupole coupling integral does
+> **not** vanish by any receipted structure. The order result is fork-independent: any surviving
+> coupling starts at n = 2.
 >
-> **The load-bearing new derivation (§3):** given three receipted facts — (R1) the observed GW is
-> the substrate's T2 elastic shear channel (canon), (R2) the A1 dilatation is *"the longitudinal
-> polarization of the vector displacement field — NOT a separate scalar DOF"* (#761 §1.1,
-> verbatim `[sic]`), and (R3) the far-field Green structure is the two-eigenspeed Christoffel
-> spectrum (LC-1, gates PASS) — **any source configuration whose radiated shear flux is
-> `F_shear` necessarily radiates longitudinal flux**
+> **The load-bearing new derivation (§3):** given three receipted facts — (R1) canon's sector
+> assignment: the observed GW is the substrate's T2 elastic shear channel radiating at the
+> BANKED Peters–Mathews rate (a consistency-import, canon's own commitment), (R2) the A1
+> dilatation is *"the longitudinal polarization of the vector displacement field — NOT a
+> separate scalar DOF"* (#761 §1.1, verbatim `[sic]`), and (R3) the far-field Green structure is
+> the two-eigenspeed Christoffel spectrum (LC-1, gates PASS) — **any UNCAGED source
+> configuration radiating shear flux `F_shear` through a symmetric moment tensor necessarily
+> radiates longitudinal flux**
 > $$F_{bulk} \;\geq\; \mathcal{A}_{ang}\left(\frac{c_S}{c_P}\right)^{5} F_{shear},\qquad
 > \mathcal{A}_{ang} = \tfrac{2}{3},$$
-> with equality iff the radiative isotropic (trace) moment is exactly zero — the caged-compression
-> add-on is non-negative by the orthogonality of the l=0 and l=2 angular channels. **The
-> normalization is the OBSERVED shear flux** (the pulsar's GR-matched `Ṗ_b`), so the bound needs
-> NO microscopic pluck operator, NO O(1) coupling assumption, and NO resolution of the cage fork.
-> The `κ_L/κ_T ∈ [0.5,2]²` bracket q1 carried dissolves: within canon (GW = elastic T2 shear;
-> one displacement field), there is no independent `κ_L` — both channels are projections of one
-> Green's function.
+> with equality iff BOTH the radiative isotropic (trace) moment AND the antisymmetric moment
+> are zero (★R1-repair: an antisymmetric fraction `f_W` of the shear flux degrades the floor to
+> `(1−f_W)·(2/3)(c_S/c_P)⁵`; that route is closed as ABSENT-unreceipted + observationally
+> pinned, §4a — not by the rotational-branch theorem the original text miscited). The bound
+> consumes canon's banked shear rate, the angular-integral theorems, and the receipted speed
+> ratio — no microscopic pluck operator. **What it does NOT do (★R11):** `Ṗ_b` is a TOTAL
+> (prereg SVA row 3 froze exactly this); no observation resolves the channel split. The split is
+> supplied by canon's banked import, so the exclusion below is an **INTERNAL-INCONSISTENCY
+> kill**: the framework's banked shear-rate commitment PLUS the derived floor jointly overshoot
+> the observed total. Escaping requires un-banking the corpus's own Hulse-Taylor consistency
+> reproduction (a universal `F_shear → F_obs/(1+r)` rescale no canon derivation supports).
+> **And it is CAGE-FORK-CONDITIONAL (★R10):** the #770-REOPENED fork is CHANNEL-indexed
+> (`c_P,eff → 0` with shear finite) — if it resolves to image-cancelled cores, the composite
+> source is compression-opaque/shear-transparent and the anchored floor does NOT apply; the
+> surviving fork-independent leg is the exterior-texture floor (Branch X, restored in §5).
 >
-> **The flux, against the comparator frozen in the prereg BEFORE any flux number (§5):** across
-> every receipted speed reading, `F_bulk/F_shear ∈ [0.0152, 0.0455]` —
-> **9.5–28.5σ (Hulse-Taylor `δ_HT = 0.0016`) and 117–350× the double-pulsar bound
-> (`δ_DP = 1.3×10⁻⁴`)**, as a LOWER-BOUND family (add-on non-negative). No corner survives. The
-> kill-arm of the LC arc is CONFIRMED at sourcing level; this feeds Grant's arc-scope ruling.
+> **The flux, against the comparator frozen in the prereg BEFORE any flux number (§5):** on the
+> UNCAGED receipted structure, across every receipted speed reading,
+> `F_bulk/F_shear ∈ [0.0152, 0.0455]` — self-inconsistent with the banked shear rate + observed
+> total at **9.5–28.5σ (Hulse-Taylor `δ_HT = 0.0016`) and 117–350× the double-pulsar bound
+> (`δ_DP = 1.3×10⁻⁴`)**, as a lower-bound family on that branch. If the cage fork resolves to
+> image-cancellation, the exclusion falls to the Branch-X exterior-texture floor
+> (`~0.2–3σ` HT / `~2.5–40×` DP — still DP-excluded, no longer HT-kill-grade). The kill-arm
+> input to Grant's arc-scope ruling is therefore: **kill-grade on the uncaged branch; the cage
+> fork (#770, OPEN, routed to Grant) is the one live suppression route; the double pulsar
+> excludes even the fork-live floor at ≥2.5× on this lane's numbers.**
 >
 > **FLAG-LC1-B resolves as a FOSSIL CONFLATION (routed, not edited):**
 > `physics-lineage-map.md:63`'s *"the A1 grade is non-radiative in free space"* is TRUE for the
@@ -66,11 +82,17 @@ receipted profile). **PHASE-STATE** — cold-reactive far field (radiation is a 
 >
 > **Fence check (the brief's STOP condition): NOT TRIGGERED.** The outbound coupling does NOT run
 > through the rotational channel — the derivation routes through the T2-shear anchor and the
-> displacement field's longitudinal projection. The one loophole that WOULD route through
-> rotation (an antisymmetric-moment source, §4a) is receipted-CLOSED sub-MeV by canon's own
-> theorem-with-measured-input (`approach-leak_result.md:77-82`: the rotational branch *"supplies
-> no radiation resistance"*, `⟨P⟩_period = 0` **exactly**), so no derivation step proceeds
-> through the #897-fenced frontier line. Documented in §4a; no STOP required.
+> displacement field's longitudinal projection. **★R1-repair:** the antisymmetric-moment
+> loophole (§4a) is closed by (i) ABSENT-unreceipted — no torque-like matter→substrate coupling
+> exists anywhere in the §1 enumeration (every receipted coupling is a symmetric/gradient
+> structure) — and (ii) the observational pin (`Ṗ_b` matches the SYMMETRIC-quadrupole functional
+> form from independently-measured masses at 0.16%; evading the floor needs `f_W ≥ 0.90–0.97`
+> torque-sourced GW, a fine-tuned conspiracy). The original text's citation of the
+> `approach-leak` zero-radiation-resistance theorem for this closure is WITHDRAWN from that role
+> — that theorem governs the gapped micro-rotation DOF branch, while an antisymmetric moment
+> drives the ordinary displacement S-branch via a solenoidal body force (Tier-2 re-derivation).
+> Either way, no derivation step proceeds through the #897-fenced frontier line; no STOP
+> required.
 >
 > **Subsidiary (NOT the verdict): the missing-piece inventory stands.** The microscopic
 > matter→substrate source operator (the pluck, `axiom-register.md:193`) is ABSENT in canon
@@ -159,45 +181,87 @@ u^S_i \propto \frac{(\delta_{ip}-\gamma_i\gamma_p)\,\gamma_q}{\rho c_S^{3}}\,\do
 at value level by the q1 §6 external anchor `E_S/E_P = (3/2)(√3)^5 ≈ 23.4`). Decompose
 `M = M^{TL} + \tfrac13(\mathrm{tr}M)\,\delta` (traceless + isotropic):
 
-- The **S-channel** reads ONLY `M^{TL}`: `(δ−γγ)·(γ·δ) = γ − γ = 0` — the isotropic part
-  radiates zero shear, identically, for every direction. So the OBSERVED shear flux measures
-  `⟨|⃛M^{TL}|²⟩` directly: `F_shear = ⟨|⃛M^{TL}|²⟩/(ρ c_S^5) · (4π/5)` (q1 §1.2 integral).
+- The **S-channel** reads ONLY the symmetric-traceless part `M^{TL}` of a SYMMETRIC moment:
+  `(δ−γγ)·(γ·δ) = γ − γ = 0` — the isotropic part radiates zero shear, identically, for every
+  direction. *(★R1-repair: a purely ANTISYMMETRIC moment also radiates S with zero P — that
+  route is closed in §4a by absence + the observational pin, and the floor below carries the
+  `f_W` clause of the headline.)* So the shear flux measures `⟨|M̈^{TL}|²⟩` directly:
+  `F_shear = ⟨|M̈^{TL}|²⟩/(ρ c_S^5) · (4π/5)` (q1 §1.2 integral; notation unified to `M̈` per
+  the `u ∝ Ṁ` far-field forms above — ★R2 notation repair).
 - The **P-channel** reads both parts: `γγ:M = γγ:M^{TL} + \tfrac13\mathrm{tr}M`. The first term
   has pure `l = 2` angular structure over the sphere; the second is `l = 0`. **They are
   orthogonal on the sphere**, so the flux integral splits with NO cross term:
   $$F_{bulk} \;=\; \underbrace{\frac{\langle|\ddot M^{TL}|^{2}\rangle}{\rho c_P^{5}}\cdot\frac{8\pi}{15}}_{\text{anchored to } F_{shear}} \;+\; \underbrace{F_{bulk}^{\,l=0}}_{\geq\,0}.$$
-- Taking the ratio of the anchored term to the observed shear flux, the unknown source
-  normalization `⟨|⃛M^{TL}|²⟩` **cancels**:
+- Taking the ratio of the anchored term to the shear flux, the unknown source normalization
+  `⟨|M̈^{TL}|²⟩` **cancels**:
   $$\boxed{\;\frac{F_{bulk}}{F_{shear}} \;\geq\; \frac{(8\pi/15)}{(4\pi/5)}\left(\frac{c_S}{c_P}\right)^{5} \;=\; \frac{2}{3}\left(\frac{c_S}{c_P}\right)^{5}\;}$$
 
-**What was assumed before and is not assumed now.** q1/envelope carried `κ_L/κ_T = 1` as an
-assumption bracketed `[0.5,2]²` — hedging against the observed GW being a non-elastic spin-2
-mode. Within canon that hedge is vacated: GW = elastic T2 shear (R1) and both channels are
-projections of ONE displacement field (R2), so the "coupling ratio" is not a parameter — it is
-the Green's function. The bound consumes: the observed `F_shear` (measured), the angular
-integrals (theorems), and the speed ratio (receipted). **No pluck, no microscopic coupling, no
-cage resolution.**
+**What the bound does to the q1 assumption (★R12-repair: RELOCATES, not eliminates).**
+q1/envelope carried `κ_L/κ_T = 1` as an assumption bracketed `[0.5,2]²` — q1's own words hedge
+*"if the observed GW is treated as a spin-2 TT mode."* This bound re-expresses that hedge as an
+explicit conditionality: GIVEN canon's sector assignment (R1 — GW = elastic T2 shear at the
+banked rate; RECEIPTED-consistency, held, not driver-validated) and one displacement field
+(R2), the "coupling ratio" is not a parameter — it is the Green's function. The assumption has
+not vanished; it has moved from an ad-hoc numerical bracket to the named sector-canon premise,
+where Grant's sector-ownership adjudications can reach it. The normalization-cancellation
+itself was already banked (envelope §6.1: *"NOT numerically circular … the mass-moment
+normalization cancels"*); the new content is the deviatoric anchoring + the orthogonality
+split. Numerically the floor moves little vs the banked envelope bracket (0.0148 → 0.0152; the
+upper end tightens because LC-1 killed the `√2·c` reading, not because of the anchor). The
+bound consumes: canon's banked shear rate (R1), the angular integrals (theorems), and the
+speed ratio (receipted). **No pluck and no microscopic coupling — but R1 and the cage fork are
+carried as live conditionals, not discharged.**
 
-### §3.3 Why the cage fork cannot rescue (and what it CAN do)
+### §3.3 The cage fork's reach over the floor (★R10 CRITICAL repair — the original "cannot rescue" is WITHDRAWN)
 
-The #770-REOPENED fork concerns whether constituent `Γ_bulk = −1` walls image-cancel the CORE
-COMPRESSION moments — i.e., the **isotropic (l = 0) radiative moment**. By the orthogonality
-split above, that entire physics lives in `F_bulk^{l=0} ≥ 0` — the ADD-ON. The floor term is
-anchored to the traceless moment, whose radiation is OBSERVED (it is the GR-matched shear flux
-itself), and whose P-projection cannot be cancelled by any trace component (an `l = 0` pattern
-cannot cancel an `l = 2` pattern on the sphere — they add in quadrature). The deviatoric source
-texture also lives OUTSIDE the constituent walls (the receipted `∇·u = 0` Lamé exterior is
-deviatoric strain in the wall-free exterior region), and the forward-scattering correction from
-the walls themselves is negligible by scale (`k·r_core ~ 10⁻²⁵`). **So the fork's resolution
-moves `F_bulk` between the floor and the floor-plus-add-on; it cannot take `F_bulk` below the
-floor.** The fork stays OPEN (inherited; seven lanes, none resolved; not resolved here) — and
-it no longer gates the kill.
+*(Superseded text preserved in the PR history at `67886ee9`; this section is rewritten per the
+Tier-2 CONFIRMED-CRITICAL finding: the original mapped the #770 fork to the l=0 (trace) moment
+index, but the fork is CHANNEL-indexed, not multipole-indexed.)*
+
+**What the fork actually is.** #770's reopening repair, verbatim `[sic]`: *"a channel-asymmetric
+compression-only stop IS constitutively realizable (`c_P→0`, `c_S` finite)"* — and the envelope
+doc's statement of the live route, verbatim `[sic]`: *"Lloyd cancellation would suppress each
+nucleon's compression moment `∝(k·r_core)²` while leaving shear at the GR rate."* `Γ_bulk = −1`
+is a reflection coefficient for the P WAVE: it suppresses a caged core's ENTIRE longitudinal
+emission — the l=2 projection `γγ:M^{TL}` exactly as much as the l=0 trace — because `γγ:M` is
+what a P-wave carries. The l=0⊥l=2 orthogonality lemma of §3.2 is true, but it partitions the
+moment STRUCTURE of an **uncaged** equivalent source; it says nothing about a source region
+whose per-channel transfer functions differ (compression-opaque, shear-transparent).
+
+**Consequence, stated without softening: the floor is CAGE-FORK-CONDITIONAL.** On the uncaged
+receipted structure (the smooth texture #761/#767 adjudicated; the branch every prior lane's
+kill numbers live on), the floor of §3.2 holds. If the fork resolves to image-cancelled
+constituent cores, the P and S far fields are NOT two projections of one moment through one
+Green function, and the anchored floor does NOT apply. The fork stays OPEN (inherited; #770
+REOPENED at deep rail; #775 BIN-3; #802 straddle; all routed to Grant) — **and it DOES gate
+the anchored kill number**, exactly as it gated #767's (BIN-1-CONDITIONAL). This lane's floor
+inherits the same conditionality grade, and claims nothing stronger.
+
+**What survives fork-independently.** (i) The multipole ORDER: n = 2 on every branch — the
+cage suppresses amplitudes, it does not re-order the ladder (monopole/dipole stay
+conservation-killed on any branch). (ii) The **exterior-texture leg (Branch X, prereg-frozen,
+RESTORED here):** the receipted `∇·u = 0` Lamé exterior is real deviatoric displacement strain
+in the wall-free region outside every core; it orbits with the stars; its bulk radiation at 2Ω
+is behind no wall. Its magnitude is compactness-suppressed — the prereg's frozen Branch-X
+bracket `F ∈ ~[3×10⁻⁴, 5×10⁻³]` ⇒ `~[0.2, 3]σ` HT / `~[2.5, 40]×` DP. That is the
+fork-live floor. *(The original §3.3's two supporting assertions — "the deviatoric texture
+lives outside the walls so the floor is cage-immune," and the `k·r_core` aggregation-washout
+scale argument — are demoted: the first conflates the texture's location with the caged
+interior moment the anchor also needs; the second is verbatim the assertion #767 §3.1 already
+tagged "an assertion, not a derivation," and #770 was fired to adjudicate. Neither is used.)*
 
 ### §3.4 What the bound rides on (honest conditionals)
 
-1. **The sector canon R1** (`GW = T2 shear`; `mass = A1 dilatation`) — RECEIPTED-consistency,
-   Grant-ratified banners, held not driver-validated (#761 ledger). If Grant re-opens the
-   sector assignment itself, the bound re-opens with it (routed, §8).
+1. **The sector canon R1, INCLUDING the banked rate** (`GW = T2 shear` radiating at the
+   Peters–Mathews rate; `mass = A1 dilatation`) — RECEIPTED-consistency, Grant-ratified
+   banners, held not driver-validated (#761 ledger); the rate is canon's IMPORT
+   (`08_gravitational_waves.tex`: *"a consistency reproduction rather than an independent
+   first-principles derivation"*). ★R11: because `Ṗ_b` is a total, the exclusion of §5 is an
+   internal-inconsistency kill against this banked commitment, not a direct observational
+   channel measurement. If Grant re-opens the sector assignment or un-banks the rate, the bound
+   re-opens with it (routed, §8).
+1b. **The cage fork (#770, OPEN)** — the anchored floor holds on the UNCAGED branch only
+   (§3.3); the fork-live floor is Branch X. Carried, not discharged.
 2. **Isotropy of the partition integrals** — the `2/3` is the isotropic-medium theorem; the srs
    carrier is anisotropic. The receipted direction-resolved speeds bound the effect: re-evaluating
    the continuum formula across every receipted speed reading spans `[0.0152, 0.0455]` (§5) —
@@ -210,17 +274,25 @@ it no longer gates the kill.
 
 ## §4 — Loophole audit (every named escape, checked)
 
-- **(a) The antisymmetric-moment escape (the ONLY route to zero P at nonzero S).**
-  `γγ:M = 0` for all `γ` forces the symmetric part of `M` to vanish entirely — so radiating
-  shear with zero longitudinal projection requires a PURELY ANTISYMMETRIC moment (a torque
-  density). In a Cosserat medium antisymmetric stress couples to the micro-rotation sector —
-  **the #897-fenced frontier line. The fence is checked and NOT crossed:** this lane does not
-  route any coupling through rotation; it cites canon's own closure — the rotational branch is
-  gapped and *"supplies no radiation resistance … `⟨P⟩_period = 0` exactly"*
-  (`approach-leak_result.md:77-82`, theorem-with-measured-input; MeV-scale explicitly fenced
-  out of scope there and untouched here). Additionally the observed GW pattern is the SYMMETRIC
-  traceless quadrupole (the Peters–Mathews consistency canon imports). The escape is dead
-  in-band by canon's own receipt. **No STOP condition arises.**
+- **(a) The antisymmetric-moment escape (the ONLY route to zero P at nonzero S) — ★R1 MAJOR
+  repair: re-grounded.** `γγ:M = 0` for all `γ` forces the symmetric part of `M` to vanish
+  entirely — so radiating shear with zero longitudinal projection requires a PURELY
+  ANTISYMMETRIC moment (a torque density), and an antisymmetric fraction `f_W` of the shear
+  flux degrades the floor to `(1−f_W)·(2/3)(c_S/c_P)⁵` (no cross term — Tier-2 re-derivation).
+  **The closure, correctly grounded:** (i) **ABSENT-unreceipted** — the §1 enumeration finds NO
+  torque-like matter→substrate coupling anywhere in canon; every receipted coupling (Komar
+  `∇·[D∇ε₁₁]`, ponderomotive `∫x_ix_j|A|²`, #761 delta body-force, the Lamé exterior) is a
+  symmetric/gradient structure — the same ABSENT class as row 6 kinetic stress. (ii) **The
+  observational pin** — `Ṗ_b` matches the SYMMETRIC-quadrupole functional form predicted from
+  independently-measured masses at 0.16%; evading the HT floor needs `f_W ≥ 0.90–0.97`
+  torque-sourced GW reproducing that form by conspiracy. **WITHDRAWN from this role** (★R1):
+  the original citation of `approach-leak_result.md:77-82` — that theorem governs the gapped
+  Cosserat MICRO-ROTATION DOF branch, whereas an antisymmetric stress-moment `σ^anti_{ji} =
+  ε_{jik}m_k` exerts the solenoidal body force `−(∇×m)` on the DISPLACEMENT field and drives
+  the ordinary S-branch, never entering the micro-rotation balance. The receipt stays valid
+  for what it says (the rotation-DOF channel carries no radiation resistance sub-MeV) but does
+  not close this loophole; absence + pin do. **Fence status unchanged: no derivation step
+  routes through the #897 frontier line; no STOP condition arises.**
 - **(b) The static `∇·u = 0` exterior as a source-killer.** The receipted Lamé-exterior
   equivoluminality is the `ω → 0` limit of the exterior boundary-value problem — a DC identity,
   not a conservation law. At finite `ω` the same configuration acquires `∇·u ≠ 0` at radiative
@@ -236,8 +308,11 @@ it no longer gates the kill.
   orthogonality (§3.2). Checked; foreclosed.
 - **(e) Anisotropy.** Bounded within `[0.0152, 0.0455]` by the receipted speed readings (§3.4-2,
   §5). Checked; O(1) only, conclusion unchanged.
-- **(f) Dispersion/nonlocality at 2Ω.** `k·ℓ_node ~ 10⁻¹⁸`: the long-wave continuum limit is
-  exact to every relevant digit (LC-1 §11.1 C1). Checked; nothing moves.
+- **(f) Dispersion/nonlocality at 2Ω.** ★R14 repair: at the pulsar drive (`2Ω ≈ 4.5×10⁻⁴`
+  rad/s, HT `P_b = 7.75` hr), `k·ℓ_node = 2Ω·ℓ_node/c_P ≈ 3×10⁻²⁵` — band-correct for THIS
+  lane (the original quoted LC-1's 100 Hz figure `10⁻¹⁸`, ~7 orders off for this band; LC-1
+  §11.1 C1 receipts the same conclusion at its own band). The long-wave continuum limit is
+  exact to every relevant digit. Checked; nothing moves.
 
 ## §5 — The flux against the FROZEN comparator (prereg §3; retrieved from source before any flux number)
 
@@ -248,35 +323,54 @@ across every receipted speed reading (arithmetic re-derivable from the symbolic 
 | Speed reading (receipt) | `c_P/c_S` | `F_bulk/F_shear ≥ (2/3)(c_S/c_P)⁵` | vs `δ_HT` | vs `δ_DP` |
 |---|---|---|---|---|
 | VRH isotropic `√(10/3)` (`constants.py` K=2G chain; q1 headline) | `1.8257` | `0.0329` | **20.5σ** | **253×** |
-| Band-survey direction-resolved `[100]` (`srs-band-structure.md:120-122`) | `1.7105` | `0.0455` | **28.5σ** | **350×** |
-| Band-survey `[111]` | `1.9041` | `0.0266` | **16.6σ** | **205×** |
+| Band-survey direction-resolved `[100]` (3 s.f. at `srs-band-structure.md:120`; 4-digit value from `research/2026-07-09_srs-vector-band-survey_result.md:91` — ★R4 cite repair) | `1.7105` | `0.0455` | **28.5σ** | **350×** |
+| Band-survey `[111]` (`…srs-vector-band-survey_result.md:93`) | `1.9041` | `0.0266` | **16.6σ** | **205×** |
 | srs full-tensor direction-resolved MIN (LC-1 `:420`, quarantined characterization — the most-suppressed receipted reading) | `2.1304` | `0.0152` | **9.5σ** | **117×** |
 
-**Every receipted reading is excluded — as a LOWER BOUND** (the l=0 add-on only raises it).
-The frozen Branch-F expectation (prereg §5) is confirmed at its central value; the frozen
-Branch-X floor (`~[0.2, 3]σ` HT — the exterior-texture-only variant) turned out to be built on
-a premise the derivation VACATES: the bound does not depend on how much of the A1 content sits
-outside the walls, because it anchors to the observed shear flux, not to the caged compression.
-Branch X is recorded as UNDERSHOT-by-construction (the frozen bracket was honest at freeze; the
-anchor supersedes it), per fork-record-both honesty.
+**★R3 disclosure (two receipts, one direction, incompatible values):** the band-survey assigns
+`[100] ≈ 1.71` while LC-1's full-tensor Christoffel characterization puts its MINIMUM ratio
+`2.1304` at worst-direction `[100]` — a 25% disagreement at the SAME direction, because the two
+are readings of DIFFERENT stiffness objects (Bloch translational survey vs full elastic-tensor
+Christoffel). The table conservatively spans BOTH as a bracket; both endpoints exclude; the
+owed anisotropic-partition sharpening (§3.4-2) is where the tension gets adjudicated.
 
-**Residual room, stated honestly (the brief's ask):** the transverse channel matches HT at
-`0.9983 ± 0.0016` — residual room ~0.33% at 2σ — and the double pulsar at `1.3×10⁻⁴`. The
-derived floor consumes 12–46× the entire HT 2σ room and 117–350× the DP bound.
+**These significances are the UNCAGED-branch internal-inconsistency figures (★R11):** they
+measure the incompatibility of {canon's banked Peters–Mathews shear rate} + {the derived
+floor} + {the observed total `Ṗ_b`}, per the headline reframe — not a direct per-channel
+observation.
+
+**Fork-record-both, scored honestly (★R10):** the frozen Branch-F expectation (prereg §5) is
+confirmed at its central value ON THE UNCAGED BRANCH. The frozen Branch-X floor
+(`F ∈ ~[3×10⁻⁴, 5×10⁻³]` ⇒ `~[0.2, 3]σ` HT / `~[2.5, 40]×` DP) is **RESTORED as the
+fork-live floor** — the original text's claim that the anchor VACATES Branch X rode the §3.3
+fork-immunity argument the Tier-2 review refuted; with the floor now cage-fork-conditional,
+Branch X is exactly the branch that survives if the fork resolves to image-cancellation. *(The
+original "UNDERSHOT-by-construction" sentence is WITHDRAWN.)*
+
+**Residual room, stated honestly (the brief's ask; ★R6 arithmetic repair):** the transverse
+channel matches HT at `0.9983 ± 0.0016` — 2σ room `0.0032–0.0033` — and the double pulsar at
+`1.3×10⁻⁴`. The uncaged-branch floor consumes **4.6–13.8×** the entire HT 2σ room (=
+`[0.0152, 0.0455]/0.0033`) and **117–350×** the DP bound. *(The original "12–46×" was not
+re-derivable from its own inputs and is WITHDRAWN; the σ table above is unaffected and
+reproduces exactly.)* The fork-live Branch-X floor consumes `~[2.5, 40]×` the DP bound but
+fits inside the HT room at its low end.
 
 ## §6 — Scored against the frozen bins
 
-| Frozen bin (prereg §2, verbatim grammar) | Score |
+| Frozen bin (prereg §2 grammar — labels below are pointers to the verbatim §2 quotes, not re-quotes — ★R9 wording) | Score |
 |---|---|
-| **RADIATIVE(n)** — *"a non-vanishing coupling at multipole order n, flux derived; compare pulsar-timing residual; feeds Grant's arc-scope ruling as the kill-arm confirmation"* | **FIRED, n = 2.** The flux is derived as a shear-anchored lower-bound family (§3, §5); comparator comparison delivered; kill-arm confirmation feeds Grant's arc-scope ruling. |
-| **SOURCELESS** — every receipted coupling vanishes by named structure | **NOT FIRED.** No receipted structure kills the quadrupole integral (§2, §4); the candidate killers fail at derivation (§4b-d). |
-| **NOT-DERIVABLE** — canon lacks a named piece | **NOT FIRED as the verdict** — the adjudication closes on receipted structure alone (§3). The missing-piece inventory is REAL and delivered as subsidiary findings (§7): the pluck operator remains ABSENT; the isotropic add-on's magnitude remains OPEN (#770). Honest statement: what is not derivable is the ADD-ON's size, not the verdict. |
+| **RADIATIVE(n)** | **FIRED, n = 2 — with the ★R13 qualifier the frozen text forces.** The ORDER is settled on receipted structure (fork-independent). The FLUX is delivered as a two-branch family: the uncaged-branch anchored floor (`0.0152–0.0455`, an internal-inconsistency kill against canon's banked shear rate — ★R11) and the fork-live Branch-X floor (`~[2.5,40]×` DP). Comparator comparison delivered; the kill-arm input to Grant's arc-scope ruling carries both branches. |
+| **SOURCELESS** | **NOT FIRED.** No receipted structure kills the quadrupole integral (§2, §4); the candidate killers fail at derivation (§4b-d). The cage fork COULD deliver an effective near-SOURCELESS outcome on the anchored floor if it resolves to image-cancellation — that is an OPEN fork (#770, Grant's), not a receipted structure, so this bin cannot fire on it. |
+| **NOT-DERIVABLE** | **NOT FIRED as the verdict — but its frozen trigger is MET for the AMPLITUDE, and that is disclosed plainly (★R13).** On the prereg's own frozen conjuncts: every non-vanishing route DOES pass through an ASSUMED or ABSENT link (pluck ABSENT; ponderomotive coefficient ASSUMED; sector identity held-not-derived), and NO receipted DC-anchor normalization closes the amplitude — the §3 shear anchor is a post-freeze device that closes a RATIO against a banked import, not an amplitude from structure. The bin is not fired because the brief's RADIATIVE(n) grammar keys on the ORDER + a flux comparison, both delivered; but the honest full sentence is: **RADIATIVE(2) on the order; anchored-conditional on the flux; NOT-DERIVABLE standing on the coupling OPERATOR and on the absolute normalization of BOTH channels.** The orchestrator/Grant may re-cut this bin choice; the order result survives either cut. |
 
 ## §7 — The missing-piece inventory (subsidiary; the NOT-DERIVABLE content, delivered without firing the bin)
 
 1. **The microscopic pluck operator** (`axiom-register.md:193`) — ABSENT; 0 claim-register hits
    (two-method, §1 row 5); the auto-resonate attempt superseded. Blocks: any FIRST-PRINCIPLES
-   (non-anchored) flux derivation, for BOTH channels symmetrically.
+   (non-anchored) flux derivation, for BOTH channels symmetrically — which is exactly why the
+   §6 RADIATIVE cell carries the ★R13 qualifier (the flux is anchored-conditional, and
+   NOT-DERIVABLE stands on the operator and the absolute normalizations; §6 and this item are
+   now one consistent statement — ★R13 repair of the earlier §6-vs-§7 contradiction).
 2. **The isotropic (l=0) radiative moment of caged constituents** — OPEN (#770 REOPENED at deep
    rail; #775 BIN-3; #802 straddle; all routed to Grant). Sets where in `[floor, floor + add-on]`
    the true flux lands; cannot move the floor.
@@ -294,9 +388,10 @@ derived floor consumes 12–46× the entire HT 2σ room and 117–350× the DP b
 |---|---|---|---|
 | n = 2 lowest order; monopole/dipole kills | `[derived]` (+ re-exhibits #761/envelope) | — | DEMONSTRATED manifestation |
 | Angular partition `A_ang = 2/3`; the l=0⊥l=2 split | `[derived]` (theorems of the isotropic angular integrals; seismology-anchored) | dimensionless | manifestation |
-| The shear-anchor bound + normalization-cancellation | `[derived]` (this lane; §3) | — | **ADJUDICATED — the new content** |
-| `c_P/c_S` readings | `[canon-read]` forms | `1.71–2.13` `[import/canon]` (K=2G GR-imported; srs tensor) | consistency |
-| `F_bulk/F_shear` floor | `[derived]`-form × observed-`F_shear` anchor | `0.0152–0.0455` | the kill number (lower bound) |
+| The shear-anchor bound + deviatoric anchoring + orthogonality split | `[derived]` (this lane; §3; normalization-cancellation already banked at envelope §6.1) | — | **ADJUDICATED — the new content; UNCAGED-branch + banked-rate conditional (★R10/R11/R12)** |
+| `c_P/c_S` readings | `[canon-read]` forms; ★R3 two-object tension disclosed | `1.71–2.13` `[import/canon]` (K=2G GR-imported; srs tensor) | consistency |
+| `F_bulk/F_shear` floor (uncaged branch) | `[derived]`-form × BANKED-`F_shear`-rate anchor (canon's Peters–Mathews import — ★R11) | `0.0152–0.0455` | the kill number (internal-inconsistency class, cage-fork-conditional) |
+| Branch-X exterior-texture floor (fork-live) | `[derived]`-form × compactness bracket (prereg-frozen) | `~3×10⁻⁴–5×10⁻³` | the fork-live floor (restored — ★R10) |
 | `δ_HT`, `δ_DP` | — | `[import]`, re-retrieved from source at freeze | comparator (frozen pre-flux) |
 | `GW = T2 shear`; `mass = A1` | `[canon-read]` | — | RECEIPTED-consistency, held (the bound's R1) |
 | Exclusion significances | `[derived]` `= F/δ` | 9.5–28.5σ / 117–350× | manifestation given imports |
@@ -305,17 +400,21 @@ derived floor consumes 12–46× the entire HT 2σ room and 117–350× the DP b
 
 | Gate | Result |
 |---|---|
-| G-ENUM | **PASS** — §1 table complete; every candidate tagged with verified receipts |
+| G-ENUM | **PASS-WITH-REPAIR (★R8)** — §1 table complete with verified receipts, but as shipped it used tags outside the frozen four-tag grammar and mis-stated which rows were additions (true additions: rows 7–8; row 6 = C-d, row 9 = C-f). Frozen-grammar tags now supplied: row 1 = RECEIPTED-CONSISTENCY (Grant-ruled + code; static-sector); row 7's receipt = RECEIPTED-CONSISTENCY about the micro-rotation channel (its ROLE in §4a re-scoped per ★R1); row 8 = ABSENT (no receipted mechanism; TKI ceiling); row 9 = not-a-coupling (OPEN-fork modifier, outside the coupling grammar by construction). |
 | G-NEGCTRL | **PASS** — the grammar sees the receipted shear coupling (§1); exposes the pluck-gap symmetry honestly |
 | G-ABSENCE | **PASS** — every absence claim two-method with named engines (§1 rows 5, 6, 9) |
 | G-LADDER | **PASS** — receipted monopole/dipole kills reproduced identically before the new step (§2) |
-| G-NUM | **PASS** — every load-bearing numeral re-derivable from the stated symbolic forms; comparator frozen pre-flux |
+| G-NUM | **FAILED-AS-SHIPPED on two rows, REPAIRED (★R6/R14)** — the "12–46×" residual-room multiple was not re-derivable from its own inputs (now 4.6–13.8×, §5) and §4f carried LC-1's 100 Hz `k·ℓ_node` into the pulsar band (now `~3×10⁻²⁵`). All verdict-bearing numerals (the §5 σ/× table, the floor values, the comparator) reproduced exactly under Tier-2 re-derivation. Gate re-scored honest: the two defective rows were rhetorical/supporting, not verdict-bearing; both corrected. |
 
 ### §8.3 Routing (nothing executed here)
 
-1. **The verdict → the orchestrator:** RADIATIVE(2), shear-anchored floor `0.015–0.046`,
-   excluded 9.5–28.5σ HT / 117–350× DP. LC-2..5 and the arc-scope ruling are Grant's; the
-   kill-arm confirmation is this lane's input to it.
+1. **The verdict → the orchestrator (★review-repaired form):** RADIATIVE(2) on the order
+   (fork-independent). Flux: uncaged-branch anchored floor `0.015–0.046` = an
+   internal-inconsistency kill against canon's banked Peters–Mathews shear rate at 9.5–28.5σ
+   HT / 117–350× DP; fork-live Branch-X floor `~2.5–40×` DP (HT-compatible at its low end).
+   The cage fork (#770, OPEN, Grant's) is the one live suppression route on the anchored
+   floor. LC-2..5 and the arc-scope ruling are Grant's; this two-branch statement is the
+   lane's kill-arm input.
 2. **FLAG-LC1-B → auditor lane + Grant:** fossil-conflation relabel of
    `physics-lineage-map.md:63` (add the sector qualifier: the EM-longitudinal Gauss-kill is
    TRUE and untouched; the mechanical A1 statement is superseded by the standing Q1 state);
@@ -338,10 +437,74 @@ derived floor consumes 12–46× the entire HT 2σ room and 117–350× the DP b
 > sweep may add more; additions are enumerated in the result with the same grammar"*). All
 > `[canon]`/receipt quotes verified two-method (background sweep + first-party `sed`/`grep`) at
 > worktree HEAD `91a910f8`. Engine byte-untouched; no runs; mints nothing; edits no leaf.
-> **Verdict: RADIATIVE(2) — quadrupole bulk-channel emission with a shear-anchored,
-> Green's-function-forced flux floor `F_bulk/F_shear ≥ (2/3)(c_S/c_P)⁵ ∈ [0.0152, 0.0455]`,
-> excluded at 9.5–28.5σ (Hulse-Taylor) / 117–350× (double pulsar) across every receipted speed
-> reading; the O(1) coupling assumption is eliminated from the kill chain; the cage fork and
-> the pluck question remain open and CANNOT rescue; FLAG-LC1-B resolves as a fossil conflation
-> (routed); the rotational fence is checked and not triggered.** Companions: the frozen prereg,
-> the brief, #761, q1-hardening, #767/#770 lineage, LC-1 (PR #913).
+> **Verdict (★as review-repaired): RADIATIVE(2) — quadrupole bulk-channel emission, order
+> settled fork-independently on receipted structure. Flux: on the UNCAGED branch, the
+> shear-anchored floor `F_bulk/F_shear ≥ (2/3)(c_S/c_P)⁵ ∈ [0.0152, 0.0455]` is
+> self-inconsistent with canon's banked Peters–Mathews shear rate + the observed total at
+> 9.5–28.5σ (Hulse-Taylor) / 117–350× (double pulsar); the q1 O(1)-coupling assumption is
+> RELOCATED to the named sector-canon premise (R1, consistency-grade, held), not eliminated;
+> the cage fork (#770, OPEN) gates the anchored floor and its fork-live residue is the
+> restored Branch-X exterior-texture floor at `~2.5–40×` the DP bound; the pluck operator
+> remains ABSENT and NOT-DERIVABLE stands on the coupling operator + absolute normalizations
+> (disclosed in the §6 RADIATIVE cell); FLAG-LC1-B resolves as a fossil conflation (routed);
+> the rotational fence is checked and not triggered (closure re-grounded on absence + the
+> observational pin).** Companions: the frozen prereg, the brief, #761, q1-hardening,
+> #767/#770 lineage, LC-1 (PR #913).
+
+---
+
+> **★TIER-2 REVIEW-REPAIR ADDENDUM (2026-08-07, PR #919 adversarial review — this doc EDITED
+> per Rule-12 repair-and-bank; the frozen prereg is BYTE-UNTOUCHED; superseded text preserved
+> in the PR history at `67886ee9`).** Four lenses (Green's-function math / receipts /
+> frozen-criteria / physics-consensus-knife), per-finding adversarial verify. **Disposition: 15
+> confirmed (2 CRITICAL, 2 MAJOR, 11 MINOR) / 1 refuted — every confirmed finding
+> EVIDENCE-VOID (repair-and-bank), none CONCLUSION-WRONG.** The verify pass independently
+> re-derived the §3.2 angular integrals (exact quadrature; `2/3` confirmed; l=0⊥l=2 cross term
+> zero; antisymmetric-M S-flux at zero P confirmed) and reproduced the §5 σ/× table exactly.
+>
+> - **R10 (CRITICAL): §3.3 fork-immunity WITHDRAWN.** The original mapped the #770 fork to the
+>   l=0 index; the fork is CHANNEL-indexed (`c_P,eff→0`, shear finite) and suppresses a caged
+>   core's entire longitudinal emission (l=2 included). The floor is now CAGE-FORK-CONDITIONAL;
+>   Branch X restored as the fork-live floor (§3.3, §5, §6, headline).
+> - **R11 (CRITICAL): the "OBSERVED shear flux" anchor re-grounded.** `Ṗ_b` is a TOTAL (the
+>   prereg's own SVA row 3); the channel split is supplied by canon's BANKED Peters–Mathews
+>   import, so the exclusion is an INTERNAL-INCONSISTENCY kill against that banked commitment,
+>   not a direct observational channel measurement (headline, §3.2, §3.4-1, §5, §6, ledger).
+> - **R1 (MAJOR): §4a antisymmetric-loophole closure re-grounded** on ABSENT-unreceipted + the
+>   observational pin (`f_W ≥ 0.90–0.97` conspiracy threshold, corrected from the reviewer's
+>   own 0.8); the `approach-leak` citation WITHDRAWN from that role (it governs the
+>   micro-rotation DOF branch, not the S-branch a solenoidal body force drives); headline
+>   "equality iff" extended to require zero antisymmetric moment. Fence status unchanged.
+> - **R6 (MAJOR) + R5/R1-minor: the "12–46×" residual-room multiple** was not re-derivable and
+>   is corrected to 4.6–13.8× of the HT 2σ room; G-NUM re-scored FAILED-AS-SHIPPED/REPAIRED.
+> - **R12: "eliminates the O(1)" → RELOCATES** it to the named R1 sector-canon premise; the
+>   normalization-cancellation was already banked at envelope §6.1 (credit corrected).
+> - **R13: the §6 NOT-DERIVABLE cell now discloses** that the prereg's frozen trigger is MET
+>   for the AMPLITUDE (the anchor is a post-freeze ratio device, not a receipted DC-anchor
+>   normalization); §7-1 made consistent; the bin choice is disclosed as re-cuttable by
+>   Grant/the orchestrator with the order result surviving either cut.
+> - **R2/R14: notation unified to `M̈`** per the `u ∝ Ṁ` forms; §4f band-corrected to
+>   `k·ℓ_node ≈ 3×10⁻²⁵` at 2Ω.
+> - **R3/R4: the `[100]` two-receipt tension (1.71 band-survey vs 2.13 LC-1 Christoffel)
+>   disclosed** in §5; the 4-digit speed values re-cited to
+>   `research/2026-07-09_srs-vector-band-survey_result.md:91,:93`.
+> - **R8: G-ENUM re-scored PASS-WITH-REPAIR** (frozen-grammar tags supplied for rows 1/7/8/9;
+>   the additions-disclosure corrected: rows 7–8 are the true additions).
+> - **R7/R9 (prereg defects — dated notes here; the frozen prereg is NOT edited, Rule 12):**
+>   (i) prereg §0 row 1's rotational fence carries an em-dash gloss ("the kernel-collapse
+>   carve-out … `wall-taxonomy.md:437` + `:157`") that is NOT in the brief's fence wording and
+>   is hereby retroactively labeled **DISPATCH-GLOSS** — worse, the glossed carve-out is
+>   itself fork-conditional per wall-taxonomy's own fence; the §4a fence call does NOT turn on
+>   the gloss (it turns on absence + pin). The prereg §8 claim that the C-lettering is the
+>   "one DISPATCH-GLOSS" is therefore corrected to TWO. (ii) Both brief line-range pointers
+>   are off by one: the frozen question is at brief `:18-29` (not `:17-28`) and the verdict
+>   grammar at `:33-41` (not `:32-40`); the quoted TEXT is byte-identical in both cases
+>   (reviewer-diffed), so the freeze content is unaffected — the pointers are corrected here.
+> - **Refuted (1):** one greens-function-math finding did not survive its verify pass (see the
+>   review record).
+>
+> **Net effect on the verdict:** RADIATIVE(2) STANDS on the multipole order; the flux claim is
+> DEMOTED from "Green's-function-forced, fork-immune, observation-normalized" to
+> "banked-rate-anchored internal-inconsistency kill on the uncaged branch, with the
+> #770-gated Branch-X floor (`~2.5–40×` DP) as the fork-live residue." The kill-arm input to
+> Grant's arc-scope ruling is the two-branch statement of §8.3-1.
