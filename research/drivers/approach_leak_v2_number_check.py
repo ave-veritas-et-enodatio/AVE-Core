@@ -4,11 +4,13 @@
 Two jobs, and the second is a STRICT SUPERSET of a target it replaces.
 
 (1) V2: every back-ticked numeral in `research/2026-08-06_approach-leak-v2_result.md`
-    must be present in `approach_leak_v2_results.json`, or be DERIVED here from
-    registered JSON inputs by a stated formula.  It also MACHINE-GATES
-    `G-DET-V2`: the v2 driver is re-run into a temporary path via the
-    APPROACH_LEAK_V2_OUT env override and the recomputed `_digest` must equal
-    the shipped one.
+    must be present in `approach_leak_v2_results.json`, be DERIVED here from
+    registered JSON inputs by a stated formula, or -- third category, added with
+    the R11 parity repair -- be COMPUTED FROM THE DOCUMENT ITSELF, which is how
+    §9's cite of its own raw line number is gated rather than allow-listed (see
+    `doc_selfref_registry`).  It also MACHINE-GATES `G-DET-V2`: the v2 driver is
+    re-run into a temporary path via the APPROACH_LEAK_V2_OUT env override and the
+    recomputed `_digest` must equal the shipped one.
 
 (2) V1, PRESERVED: `verify-approach-leak-number-check` is dropped from the
     `verify:` prerequisite list because of FLAG-SCANFRAG -- v1's own G-DET
@@ -145,15 +147,17 @@ def amendment_registry(d: dict) -> dict[str, str]:
     and carries AMENDMENT-NCBYTES-2026-08-06-B.  A receipt whose baseline slides
     forward with every edit is not a receipt.
 
-    HONESTY CAVEAT (Tier-2 finding B1/A3, disclosed rather than papered over): these
-    counts ARE re-derived here on every run, but the §9 numerals as QUOTED IN THE DOC
-    are NOT currently scanned.  Raw line 471 of the result doc has an odd back-tick
-    count (7) and is the only odd-parity line surviving `strip_fences`, so global
-    pairing flips there and every token below it falls into an unscanned gap.  So
-    "kept registered" is, at this commit, a statement about this function and NOT
-    about the document.  What chaining actually preserves is that §9 stays TRUE --
-    a re-based receipt would compute 417/6/120 against the doc's 350/5/53.  The
-    parity gap is pre-existing at base and is routed as A3, not fixed here."""
+    CAVEAT LIFTED 2026-08-06 (Tier-2 finding B1/A3, ruled R11 -- scan-coverage IS the
+    standard, so the gap was a BUG).  This docstring used to disclose that these counts
+    were re-derived here but that the §9 numerals AS QUOTED IN THE DOC were never
+    scanned: raw line 471 has an odd back-tick count (7) and is the only odd-parity line
+    surviving `strip_fences`, so GLOBAL pairing flipped there and every token below it
+    fell into an unscanned gap.  `scan_doc` now pairs PER LINE, so "kept registered" is
+    once again a statement about the DOCUMENT and not merely about this function: §9's
+    297 / 350 / 417 / 53 / 67 are scanned and matched against these re-derived values,
+    and the re-based counterfactual 417 / 6 / 120 is registered from the composed delta
+    below.  Chaining still buys what it always bought -- that §9 stays TRUE -- but the
+    page is now checked as well as the receipt."""
     reg: dict[str, str] = {}
 
     pre = _blob_json(PRE_AMENDMENT_JSON_BLOB, "pre-amendment")
@@ -193,7 +197,20 @@ def amendment_registry(d: dict) -> dict[str, str]:
     if direct["other"]:
         FAILURES.append("AMENDMENT receipt (composed): a physics leaf moved somewhere in the "
                         "chain: " + ", ".join(direct["other"][:10]))
-    reg["amend_chain_other"] = str(len(direct["other"]))
+    # PARITY REPAIR (ruled R11): the composed comparison is the RE-BASED receipt that
+    # §9's surface-note quotes as the counterfactual -- "a re-based receipt would compute
+    # 417 / 6 / 120 against the table's 350 / 5 / 53".  Those three numerals are below the
+    # document's odd-back-tick line, so until the repair they were never scanned and had no
+    # home.  Registering the whole composed delta gives them a DERIVED one: they are now
+    # re-computed from the two git blobs on every run, exactly like the chained pair.
+    reg.update({
+        "amend_chain_leaves_pre": str(direct["n_old"]),
+        "amend_chain_leaves_post": str(direct["n_new"]),
+        "amend_chain_changed": str(len(direct["changed"])),
+        "amend_chain_added": str(len(direct["added"])),
+        "amend_chain_removed": str(len(direct["removed"])),
+        "amend_chain_other": str(len(direct["other"])),
+    })
     return reg
 
 
@@ -275,6 +292,12 @@ def strip_fences(text: str) -> str:
     (log10 margins, zeta_max, the N_open counts) did NOT.  Stripping fences
     first restores balanced pairing.  This is a STRENGTHENING of the checker,
     not a relaxation: it can only ADD numerals to the checked set.
+
+    SCOPE, added with the R11 parity repair: that last sentence is true OF THIS
+    DOCUMENT, not in general -- dropping fenced blocks also drops any back-ticked
+    numeral written INSIDE a fence, which on some other document would be a loss.
+    Same caveat, and the same reason, as the scope note in `scan_doc` below;
+    recorded here because the two claims are the same claim.
     """
     out, in_fence = [], False
     for line in text.splitlines():
@@ -286,13 +309,108 @@ def strip_fences(text: str) -> str:
     return "\n".join(out)
 
 
+def odd_parity_lines(text: str) -> list[int]:
+    """RAW 1-based line numbers whose back-tick count is ODD, among the lines that
+    survive `strip_fences`.  These are exactly the lines at which a GLOBAL pairing
+    pass flips phase; per-line pairing confines each one to itself."""
+    out, in_fence = [], False
+    for i, line in enumerate(text.splitlines(), 1):
+        if line.lstrip().startswith("```"):
+            in_fence = not in_fence
+            continue
+        if not in_fence and line.count("`") % 2:
+            out.append(i)
+    return out
+
+
 def scan_doc(text: str, known: set[str]) -> list[str]:
+    """Back-ticked bare numerals in `text` that are not in `known`.
+
+    PARITY REPAIR (ruled R11; docket 2026-08-06-backtick-parity), disclosed: this
+    used to run `NUM_RE.findall` over the WHOLE of `strip_fences(text)`.  The
+    token class does NOT exclude newlines, so one line with an ODD back-tick count
+    flips the open/close phase for the ENTIRE REST OF THE DOCUMENT and every
+    numeral below it lands in an unscanned gap -- silently, with the gate still
+    green.  `strip_fences` repaired that for triple-back-tick FENCES and left
+    inline DOUBLED spans unhandled; raw line 471 of the v2 result doc quotes this
+    very regex inside one, and it is the only odd-parity line the document has.
+
+    Pairing is now PER LINE.  Two reasons this is preferred over a CommonMark
+    back-tick-RUN parser, which was implemented and MEASURED as the alternative:
+
+      * It fails SAFE.  A malformed line can now only ADD spans on its own line
+        (a non-numeral span is dropped; a numeral goes RED and a human looks).  It
+        can never again silently REMOVE coverage from everything below it, which
+        is the failure class R11 names.  It also confines the GENERAL defect, not
+        just the doubled-span instance that exposed it.
+      * It is measurably not weaker ON THE DOCUMENTS THIS CHECKER READS: for both
+        of them the per-line token set is a strict SUPERSET of the global one
+        (measured LOST = 0) and is IDENTICAL to the run-aware parser's.  The
+        hand-rolled parser therefore buys no coverage while adding a code path
+        that could itself under-scan -- the very thing being repaired.
+
+    SCOPE, and it is not a general theorem (Tier-2 probe C): per-line pairing is a
+    strengthening on THESE documents, not on every possible one.  A CommonMark code
+    span may straddle a newline, and such a span is read by GLOBAL pairing and
+    missed per-line -- a back-ticked numeral written across a line break would be
+    LOST.  No such span exists in either document here (hence LOST = 0, measured,
+    not assumed).  The same bounded hole is shared by the nine sibling checkers
+    whose token class is the newline-excluding one: it is the repo's standing
+    convention for this scan, not a regression introduced here.  What the repair
+    removes is the unbounded hole -- one odd line silently unscanning everything
+    below it -- and per R11 that is the failure class that matters, because a
+    numeral is gated only if the scanner actually reads it.
+    """
+    out = []
+    for line in strip_fences(text).splitlines():
+        for tok in NUM_RE.findall(line):
+            s = tok.strip()
+            if re.fullmatch(r"[-+]?[0-9][0-9eE+.\-]*", s) and s not in known:
+                out.append(s)
+    return out
+
+
+def _scan_doc_legacy_global(text: str, known: set[str]) -> list[str]:
+    """The PRE-REPAIR scanner (GLOBAL pairing), retained for exactly ONE purpose:
+    it is `M12`'s counterfactual arm.  A mutation that the OLD scanner catches too
+    proves nothing about the repair, so M12 runs the same planted document through
+    this function and REQUIRES it to MISS.  Not reachable from any gate."""
     out = []
     for tok in NUM_RE.findall(strip_fences(text)):
         s = tok.strip()
         if re.fullmatch(r"[-+]?[0-9][0-9eE+.\-]*", s) and s not in known:
             out.append(s)
     return out
+
+
+def doc_selfref_registry(text: str, sink: list[str] | None = None) -> dict[str, str]:
+    """§9's surface-note cites THIS DOCUMENT's own raw line number as the unique
+    odd-back-tick line.  The parity repair makes that cite SCANNED for the first
+    time, so it needs a home.  It is registered COMPUTED from the document rather
+    than allow-listed, because a self-cite no gate re-derives is a declaration.
+
+    `sink` is where failures go, defaulting to the module-level FAILURES.  It
+    exists so `M13` can CALL THIS FUNCTION -- the real gate, with the real
+    criterion -- against planted text and read its verdict, instead of
+    re-deriving the predicate at the mutation site.  A mutation that restates
+    its target's logic tests its own copy, not the gate: weaken the criterion
+    here and such a mutation stays green while the gate rots.  Passing a sink
+    keeps the call side-effect-free so the receipt cannot pollute a real run.
+    """
+    out = FAILURES if sink is None else sink
+    odd = odd_parity_lines(text)
+    if len(odd) != 1:
+        # Surface the COMPUTED replacement, not just the count: if the document
+        # legitimately gains a line above the cite, the operator needs to read
+        # "the cite moved to N", not a bare unregistered numeral downstream.
+        computed = str(odd[0]) if len(odd) == 1 else (
+            f"{len(odd)} candidates {odd[:10]}" if odd else "none")
+        out.append(
+            "doc self-reference: §9 cites ONE odd-back-tick line as the only one "
+            f"surviving strip_fences; COMPUTED instead: {computed}.  If this is a "
+            "legitimate line shift, re-site §9's cite on the computed value")
+        return {}
+    return {"odd_parity_raw_line": str(odd[0])}
 
 
 # ---------------------------------------------------------------------------
@@ -357,11 +475,13 @@ def main(mutation_receipt: bool = False) -> int:
         return mutation()
 
     d = json.loads(RESULTS.read_text(encoding="utf-8"))
+    doc_text = DOC.read_text(encoding="utf-8")
     reg = registry(d)
     reg.update(amendment_registry(d))
+    reg.update(doc_selfref_registry(doc_text))
     known = set(reg.values()) | ALLOWED_LITERAL
 
-    unregistered = scan_doc(DOC.read_text(encoding="utf-8"), known)
+    unregistered = scan_doc(doc_text, known)
     if unregistered:
         FAILURES.append("unregistered backticked numerals in the v2 result doc: "
                         + ", ".join(sorted(set(unregistered))))
@@ -434,12 +554,17 @@ def main(mutation_receipt: bool = False) -> int:
 
 
 def mutation() -> int:
-    """The checker must FAIL on perturbed sources.  FOUR REAL mutations, each
-    applied to an in-memory copy and each required to be CAUGHT."""
+    """The checker must FAIL on perturbed sources.  THIRTEEN REAL mutations, each
+    applied to an in-memory copy and each required to be CAUGHT.
+
+    (The count in this line is load-bearing prose and has drifted before -- it read
+    "FOUR" against eleven mutations, the same comment-vs-code drift class corrected
+    at `amendment_registry`.  If you add a mutation, this number moves with it.)"""
     d = json.loads(RESULTS.read_text(encoding="utf-8"))
     text = DOC.read_text(encoding="utf-8")
     reg = registry(d)
     reg.update(amendment_registry(d))
+    reg.update(doc_selfref_registry(text))
     known = set(reg.values()) | ALLOWED_LITERAL
     results: list[tuple[str, bool]] = []
 
@@ -583,6 +708,53 @@ def mutation() -> int:
     finally:
         drv._blob_text = saved_blob_text
     results.append(("M11 additive-only violated (pinned line deleted)", caught11))
+
+    # M12 -- THE PARITY REPAIR's own mutation (ruled R11).  Plant an unregistered
+    #        numeral on a new line immediately BELOW the document's odd-back-tick
+    #        line: the exact position the shipped GLOBAL pairing left in an
+    #        unscanned gap.  THREE controls, every one EXECUTED, not asserted:
+    #          (a) NEGATIVE control -- the UNPERTURBED document must scan CLEAN, so
+    #              the catch is attributable to the plant and not to standing red.
+    #          (b) the repaired scanner must CATCH the plant.
+    #          (c) LOAD-BEARING control -- the PRE-REPAIR global-paired scanner, run
+    #              on the SAME planted text, must MISS it.  Without (c) M12 would
+    #              have passed just as happily against the bug it exists to prove
+    #              fixed, which is the definition of a mutation that proves nothing.
+    odd12 = odd_parity_lines(text)
+    assert len(odd12) == 1, "M12 anchor: expected exactly one odd-back-tick line"
+    lines12 = text.splitlines()
+    lines12.insert(odd12[0], "Planted by the M12 mutation: `1.2345678e-77`.")
+    m12_doc = "\n".join(lines12)
+    control12_clean = not scan_doc(text, known)                       # (a)
+    caught12_new = bool(scan_doc(m12_doc, known))                     # (b)
+    missed12_old = not _scan_doc_legacy_global(m12_doc, known)        # (c)
+    results.append(("M12 numeral planted below the odd-back-tick line "
+                    "(pre-repair scanner MISSES it; repaired scanner catches it)",
+                    control12_clean and caught12_new and missed12_old))
+
+    # M13 -- the doc SELF-CITE gate.  §9 names raw line `471` as the ONLY odd-back-
+    #        tick line surviving strip_fences, and the checker registers that number
+    #        COMPUTED instead of allow-listing it.  Plant a SECOND odd-parity line:
+    #        the cite stops being unique and the gate must refuse.
+    #
+    #        THIS MUTATION CALLS `doc_selfref_registry` AND READS ITS VERDICT.  It
+    #        deliberately does NOT re-derive "exactly one odd line" here.  An earlier
+    #        draft did, and Tier-2 falsified it: weakening the REAL criterion from
+    #        `!= 1` to `< 1` left that draft CAUGHT, because it was testing its own
+    #        restatement of the predicate rather than the function it names.  A
+    #        mutation must exercise the shipped code path or it receipts nothing.
+    #        Failures go to a LOCAL sink, so the receipt cannot pollute a real run.
+    sink13_clean: list[str] = []
+    reg13_clean = doc_selfref_registry(text, sink13_clean)
+    control13 = (not sink13_clean                                   # negative control:
+                 and reg13_clean.get("odd_parity_raw_line") == str(odd12[0]))
+    lines13 = text.splitlines()
+    lines13.insert(odd12[0], "Planted by the M13 mutation: one ` unbalanced back-tick.")
+    sink13: list[str] = []
+    reg13 = doc_selfref_registry("\n".join(lines13), sink13)
+    caught13 = control13 and not reg13 and bool(sink13)
+    results.append(("M13 doc self-cite: a second odd-back-tick line appears "
+                    "(the gate function itself is called and must refuse)", caught13))
 
     ok = all(caught for _, caught in results)
     print("APPROACH-LEAK v2 mutation receipt: "
