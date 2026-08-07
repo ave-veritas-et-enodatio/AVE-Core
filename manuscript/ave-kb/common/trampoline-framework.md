@@ -94,7 +94,7 @@ For the canonical K4 lattice ($z = 4$, tetrahedral, 109.47°): primary K4 bonds 
 
 **The genesis mechanism — phase transition while spinning sets $u_0$ (Grant hypothesis, 2026-05-15):**
 
-During lattice formation from pre-geodesic plasma, the crystallizing region is rotating with angular velocity $\Omega_{\text{freeze}}$. The centrifugal pseudo-force stretches bonds:
+During lattice formation from the **pre-bond state** *(R9 rename, 2026-08-06; formerly "pre-geodesic plasma", gloss *pre-geodesic*: no bonds → no impedance network → no wave paths → no metric)*, the crystallizing region is rotating with angular velocity $\Omega_{\text{freeze}}$. The centrifugal pseudo-force stretches bonds:
 
 $$L_{\text{rotating eq}}(r) = L_{\text{lab eq}} \left(1 + \frac{\rho\, \Omega_{\text{freeze}}^2\, r^2}{2 K_0}\right)$$
 
@@ -710,7 +710,7 @@ The substrate hosts $\Gamma = -1$ boundaries at every scale where the local satu
 | Nucleus ($\ell \sim 10^{-15}$ m) | $\approx 2.6\times10^{-3}$ (sub-node; a fraction of one $\ell_{\text{node}}=386$ fm — accommodated by **elastic node displacement**, not grid compression, per [`proton-neutron-mass-split.md`](../vol2/particle-physics/ch02-baryon-sector/proton-neutron-mass-split.md):28,44) | Borromean $6_2^3$ confinement (real-space) on the $(2,5)$ phase-space winding | 3-strand $6_2^3$ Borromean linkage (real-space body) | $T_{\text{nuc}} \sim 1$ GeV/fm | canonical |
 | Atom ($\ell \sim 10^{-10}$ m) | $1/\alpha \approx 137$ (identity $a_0/\ell_{\text{node}} = 1/\alpha$; **which** boundary is the $\Gamma=-1$ atomic skin is **Q-G43 OPEN**) | Outer shell saturation (?) | Nucleus + $Z$ electrons | EM binding + QED loop dressing | Q-G43 open |
 | Solar ($\ell \sim 10^{13}$ m) | **Q-G44 OPEN** — value TAG-missing (solar boundary not yet identified) | Heliopause / Oort cloud | Sun + planets + comets | solar-scale Machian impedance | Q-G44 open |
-| Black hole ($\ell \sim R_S$) | TAG-missing ($R_S/\ell_{\text{node}}$, $\propto M$ — no single value) | Event horizon at $R_S = 2GM/c^2$ | All matter → pre-geodesic plasma | external gravity, Hawking radiation | canonical (Vol 3 Ch 15) |
+| Black hole ($\ell \sim R_S$) | TAG-missing ($R_S/\ell_{\text{node}}$, $\propto M$ — no single value) | Event horizon at $R_S = 2GM/c^2$ | All matter → de-bonded state *(R9, 2026-08-06: BH interior = **de-bonded**; the primordial phase is **pre-bond**)* | external gravity, Hawking radiation | canonical (Vol 3 Ch 15) |
 | Cosmic ($\ell \sim R_H \sim 10^{26}$ m) | $R_H/\ell_{\text{node}} \approx 3.456\times10^{38}$ | Parent BH Schwarzschild radius | All observable matter + dark sector | Newton's $G = c^4 / (7 \xi T_{EM})$ | canonical (Vol 3 Ch 4) |
 
 🔴 *[register-split 2026-07-13 — nucleus row corrected per [`proton-identification.md`](../vol2/particle-physics/ch02-baryon-sector/proton-identification.md) §1 properties 1–2 and `manuscript/ave-kb/CLAUDE.md:22` (knot/trefoil disambiguation extending INVARIANT-N1). Superseded cells byte-verbatim:* ~~"Borromean confinement on (2,5) | 3-strand SU(3) cinquefoil"~~ *— the $(2,5)$ cinquefoil is the **phase-space** per-loop polarization winding portrait on the bond-pair LC tank (Clifford torus), NOT a real-space knot; the nucleon **real-space body** is the $6_2^3$ Borromean linkage. Mirrors the electron-row note at [`boundary-observables-m-q-j.md`](boundary-observables-m-q-j.md):54.]*
