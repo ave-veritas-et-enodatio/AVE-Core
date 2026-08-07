@@ -703,3 +703,25 @@ action, named here and not performed here.**
   the band, so the last cell bounds the rest — but it is **implicit in the driver and written down
   nowhere**. An argument a reader must reconstruct is not a receipt. **ROUTED: write it at the site
   where the sweep is defined.**
+
+**⚑ DATED SURFACE-NOTE, 2026-08-06 (second pass) — the back-tick parity gap in THIS checker's scan is
+FIXED. Written below the line it is about, per the note-only convention; nothing above is rewritten.**
+
+The §9.1 note above states that this section's own numerals are **"never scanned"**, and §9.3's
+routing states the parity gap is **"routed — not fixed in this lane"**. **Both are now superseded for
+the v2 checker**, and are left standing above as the record of what was true when they were written.
+
+- **What changed.** `research/drivers/approach_leak_v2_number_check.py` now pairs back-ticks **per
+  line** instead of globally, so an odd-parity line can no longer flip the pairing for the remainder
+  of the document. The numerals §9.1 lists as unscanned — this section's amendment counts, and the
+  re-based counterfactual — **are scanned and matched** against values the checker re-derives on
+  every run. Raw line `471` of this file is still the document's only odd-parity line; the checker
+  now **computes** that number and gates this page's cite of it, rather than allow-listing it.
+- **Under which ruling.** **R11** — *scan-coverage is the standard*, which makes the gap a **bug**
+  rather than a convention. The token reconciliation, the sibling audit and the mutation receipts
+  are in the docket fragment
+  [`2026-08-06-backtick-parity.md`](../_orchestration/docket-entries/2026-08-06-backtick-parity.md).
+- **What is still routed.** The **v1** checker carries the same defect and is **not** repaired here:
+  it is one of the read-only artifacts this lane's `NC-BYTES` gate pins byte-exactly, so editing it
+  moves the digest and fails `G-DET-V2`. That twin stays routed, with its measured cost recorded in
+  the docket fragment. §9.3's routing therefore still stands **for the v1 checker**.
