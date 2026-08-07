@@ -1,5 +1,5 @@
 {
- "_digest": "4da48b39074d9fbc",
+ "_digest": "f336bc5fe6281368",
  "_frozen_reanchor_constants": {
   "bound_leg_A": "5e-30",
   "bound_leg_Bs": "2.5e-16",
@@ -22,7 +22,7 @@
  "_non_claim": "DERIVATION result. Mints no clm-/def-/exp-/sup-/ilk-; propagates to no KB or manuscript leaf; moves no solidity. Engine src/ave byte-untouched and never imported. Every predecessor artifact byte-untouched (NC-BYTES).",
  "_predecessor": "research/2026-08-05_approach-leak_prereg-FROZEN.md + _result.md (branch research/approach-leak, PR #903, CLEARED, UNMERGED)",
  "_prereg": "research/2026-08-06_approach-leak-v2_prereg-FROZEN.md (commit ebd1f4c7, pushed with no code)",
- "_runtime_sec": 21.74,
+ "_runtime_sec": 24.96,
  "adjudication": {
   "CHANNEL-OPENS_members": [
    "2.0",
@@ -251,107 +251,171 @@
   },
   "NC-BYTES": {
    "amendment": "AMENDMENT-NCBYTES-2026-08-06",
+   "amendment_B": "AMENDMENT-NCBYTES-2026-08-06-B",
+   "amendment_B_blob_pin_DECLARED": {
+    "research/2026-08-05_last-bond-kernel-collapse_result.md": "95a7dae4d7fa7794a4bb22c0c03b08af1268bded"
+   },
+   "amendment_B_disclosure": "_orchestration/docket-entries/2026-08-06-g-rho2-supersession.md",
+   "amendment_B_frozen": "ONE read-only artifact -- the frozen v1 kernel-collapse result document -- carries a DISCLOSED, records-lane-authored dated supersession note, so its live blob no longer equals its blob at the v1 pin commit. Its pin moves to a per-artifact BLOB pin rather than a commit pin, because the commit that carries the move does not exist until this branch commits. Purpose preserved (no predecessor drifted un-disclosed); nothing dropped; THREE conjuncts ADDED, all of which gate the re-pin itself: (i) the COMPUTED left-the-v1-pin set must equal the DECLARED supersession set, so an undisclosed edit to any of the other nine fails; (ii) the move must be ADDITIVE-ONLY -- the pinned text must survive as a line subsequence of the live text, so the frozen record cannot be rewritten under cover of a 'note'; (iii) the record's OWN verdict strings (the ROW-NOT-CERTIFIED line, the G-RHO2 FAIL table row, the frozen-consequence line) must still be present byte-exactly, because a blob pin says WHICH BYTES and never WHICH CLAIM.",
+   "amendment_B_pin_kind": "per-artifact blob pin (not a commit pin)",
    "amendment_disclosure": "research/2026-08-06_approach-leak-v2_result.md section 9; _orchestration/docket-entries/2026-08-06-approach-leak-v2-correction.md",
    "artifacts": [
     {
+     "blob_at_effective_pin": "42f5c9630b73",
      "blob_at_v1_pin": "42f5c9630b73",
      "blob_at_v1_ship": "42f5c9630b73",
      "blob_live": "42f5c9630b73",
      "byte_identical": true,
      "declaration_reconciles": true,
+     "effective_pin_source": "V1_PIN_COMMIT",
      "moved_by_disclosed_repair_COMPUTED": false,
      "moved_by_disclosed_repair_DECLARED": false,
-     "path": "research/2026-08-05_approach-leak_prereg-FROZEN.md"
+     "moved_by_disclosed_supersession_COMPUTED": false,
+     "moved_by_disclosed_supersession_DECLARED": false,
+     "path": "research/2026-08-05_approach-leak_prereg-FROZEN.md",
+     "supersession_declaration_reconciles": true
     },
     {
+     "blob_at_effective_pin": "1671d36dac69",
      "blob_at_v1_pin": "1671d36dac69",
      "blob_at_v1_ship": "efa13ef999c7",
      "blob_live": "1671d36dac69",
      "byte_identical": true,
      "declaration_reconciles": true,
+     "effective_pin_source": "V1_PIN_COMMIT",
      "moved_by_disclosed_repair_COMPUTED": true,
      "moved_by_disclosed_repair_DECLARED": true,
-     "path": "research/2026-08-05_approach-leak_result.md"
+     "moved_by_disclosed_supersession_COMPUTED": false,
+     "moved_by_disclosed_supersession_DECLARED": false,
+     "path": "research/2026-08-05_approach-leak_result.md",
+     "supersession_declaration_reconciles": true
     },
     {
+     "blob_at_effective_pin": "2fd15ea7387b",
      "blob_at_v1_pin": "2fd15ea7387b",
      "blob_at_v1_ship": "ac3068174e20",
      "blob_live": "2fd15ea7387b",
      "byte_identical": true,
      "declaration_reconciles": true,
+     "effective_pin_source": "V1_PIN_COMMIT",
      "moved_by_disclosed_repair_COMPUTED": true,
      "moved_by_disclosed_repair_DECLARED": true,
-     "path": "research/drivers/approach_leak.py"
+     "moved_by_disclosed_supersession_COMPUTED": false,
+     "moved_by_disclosed_supersession_DECLARED": false,
+     "path": "research/drivers/approach_leak.py",
+     "supersession_declaration_reconciles": true
     },
     {
+     "blob_at_effective_pin": "35415d29d317",
      "blob_at_v1_pin": "35415d29d317",
      "blob_at_v1_ship": "35415d29d317",
      "blob_live": "35415d29d317",
      "byte_identical": true,
      "declaration_reconciles": true,
+     "effective_pin_source": "V1_PIN_COMMIT",
      "moved_by_disclosed_repair_COMPUTED": false,
      "moved_by_disclosed_repair_DECLARED": false,
-     "path": "research/drivers/approach_leak_results.json"
+     "moved_by_disclosed_supersession_COMPUTED": false,
+     "moved_by_disclosed_supersession_DECLARED": false,
+     "path": "research/drivers/approach_leak_results.json",
+     "supersession_declaration_reconciles": true
     },
     {
+     "blob_at_effective_pin": "4dc4f9929492",
      "blob_at_v1_pin": "4dc4f9929492",
      "blob_at_v1_ship": "4dc4f9929492",
      "blob_live": "4dc4f9929492",
      "byte_identical": true,
      "declaration_reconciles": true,
+     "effective_pin_source": "V1_PIN_COMMIT",
      "moved_by_disclosed_repair_COMPUTED": false,
      "moved_by_disclosed_repair_DECLARED": false,
-     "path": "research/drivers/approach_leak_number_check.py"
+     "moved_by_disclosed_supersession_COMPUTED": false,
+     "moved_by_disclosed_supersession_DECLARED": false,
+     "path": "research/drivers/approach_leak_number_check.py",
+     "supersession_declaration_reconciles": true
     },
     {
+     "blob_at_effective_pin": "49b2e236e79b",
      "blob_at_v1_pin": "49b2e236e79b",
      "blob_at_v1_ship": "49b2e236e79b",
      "blob_live": "49b2e236e79b",
      "byte_identical": true,
      "declaration_reconciles": true,
+     "effective_pin_source": "V1_PIN_COMMIT",
      "moved_by_disclosed_repair_COMPUTED": false,
      "moved_by_disclosed_repair_DECLARED": false,
-     "path": "_orchestration/docket-entries/2026-08-05-approach-leak.md"
+     "moved_by_disclosed_supersession_COMPUTED": false,
+     "moved_by_disclosed_supersession_DECLARED": false,
+     "path": "_orchestration/docket-entries/2026-08-05-approach-leak.md",
+     "supersession_declaration_reconciles": true
     },
     {
+     "blob_at_effective_pin": "7406c8f793b7",
      "blob_at_v1_pin": "7406c8f793b7",
      "blob_at_v1_ship": "7406c8f793b7",
      "blob_live": "7406c8f793b7",
      "byte_identical": true,
      "declaration_reconciles": true,
+     "effective_pin_source": "V1_PIN_COMMIT",
      "moved_by_disclosed_repair_COMPUTED": false,
      "moved_by_disclosed_repair_DECLARED": false,
-     "path": "research/drivers/last_bond_kernel_collapse.py"
+     "moved_by_disclosed_supersession_COMPUTED": false,
+     "moved_by_disclosed_supersession_DECLARED": false,
+     "path": "research/drivers/last_bond_kernel_collapse.py",
+     "supersession_declaration_reconciles": true
     },
     {
+     "blob_at_effective_pin": "14b8e909421f",
      "blob_at_v1_pin": "14b8e909421f",
      "blob_at_v1_ship": "14b8e909421f",
      "blob_live": "14b8e909421f",
      "byte_identical": true,
      "declaration_reconciles": true,
+     "effective_pin_source": "V1_PIN_COMMIT",
      "moved_by_disclosed_repair_COMPUTED": false,
      "moved_by_disclosed_repair_DECLARED": false,
-     "path": "research/drivers/last_bond_kernel_collapse_results.json"
+     "moved_by_disclosed_supersession_COMPUTED": false,
+     "moved_by_disclosed_supersession_DECLARED": false,
+     "path": "research/drivers/last_bond_kernel_collapse_results.json",
+     "supersession_declaration_reconciles": true
     },
     {
+     "blob_at_effective_pin": "bee3d3884f6b",
      "blob_at_v1_pin": "bee3d3884f6b",
      "blob_at_v1_ship": "bee3d3884f6b",
      "blob_live": "bee3d3884f6b",
      "byte_identical": true,
      "declaration_reconciles": true,
+     "effective_pin_source": "V1_PIN_COMMIT",
      "moved_by_disclosed_repair_COMPUTED": false,
      "moved_by_disclosed_repair_DECLARED": false,
-     "path": "research/drivers/last_bond_kernel_collapse_number_check.py"
+     "moved_by_disclosed_supersession_COMPUTED": false,
+     "moved_by_disclosed_supersession_DECLARED": false,
+     "path": "research/drivers/last_bond_kernel_collapse_number_check.py",
+     "supersession_declaration_reconciles": true
     },
     {
+     "blob_at_effective_pin": "95a7dae4d7fa",
      "blob_at_v1_pin": "a9da71b525bc",
      "blob_at_v1_ship": "a9da71b525bc",
-     "blob_live": "a9da71b525bc",
+     "blob_live": "95a7dae4d7fa",
      "byte_identical": true,
      "declaration_reconciles": true,
+     "effective_pin_source": "AMENDMENT-NCBYTES-2026-08-06-B",
      "moved_by_disclosed_repair_COMPUTED": false,
      "moved_by_disclosed_repair_DECLARED": false,
-     "path": "research/2026-08-05_last-bond-kernel-collapse_result.md"
+     "moved_by_disclosed_supersession_COMPUTED": true,
+     "moved_by_disclosed_supersession_DECLARED": true,
+     "path": "research/2026-08-05_last-bond-kernel-collapse_result.md",
+     "supersession_additive_only_COMPUTED": true,
+     "supersession_declaration_reconciles": true,
+     "supersession_frozen_verdict_probes_missing": [],
+     "supersession_frozen_verdicts_preserved_COMPUTED": true,
+     "supersession_lines_added": 3,
+     "supersession_lines_at_v1_pin": 594,
+     "supersession_lines_live": 597,
+     "supersession_n_frozen_verdict_probes": 3
     }
    ],
    "artifacts_moved_between_pins_COMPUTED": [
@@ -362,6 +426,12 @@
     "research/2026-08-05_approach-leak_result.md",
     "research/drivers/approach_leak.py"
    ],
+   "artifacts_moved_by_supersession_COMPUTED": [
+    "research/2026-08-05_last-bond-kernel-collapse_result.md"
+   ],
+   "artifacts_moved_by_supersession_DECLARED": [
+    "research/2026-08-05_last-bond-kernel-collapse_result.md"
+   ],
    "delta_declaration_reconciles": true,
    "frozen": "every read-only predecessor artifact hashes to its blob at the pinned v1 commit -- this lane wrote none of them. AMENDED 2026-08-06: the pin is the REPAIRED v1 tip f3607be8, not the pre-repair ship 5e2694c0; two of the ten were rewritten between them by the ORCHESTRATOR's disclosed SCANFRAG repair, an event extrinsic to this lane. Purpose preserved, no conjunct dropped, two conjuncts ADDED that gate the re-pin itself.",
    "n_artifacts": 10,
@@ -371,6 +441,10 @@
    "pin_commit": "f3607be8",
    "superseded_pin_commit": "5e2694c0",
    "superseded_pin_retained_per_artifact": true,
+   "supersession_all_frozen_verdicts_preserved": true,
+   "supersession_all_moves_additive_only": true,
+   "supersession_delta_declaration_reconciles": true,
+   "supersession_per_artifact_declaration_reconciles": true,
    "unmoved_artifacts_identical_at_both_commits": true
   },
   "NC-FT": {

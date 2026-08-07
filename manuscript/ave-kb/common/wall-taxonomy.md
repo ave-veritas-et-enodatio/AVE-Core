@@ -574,6 +574,51 @@ Four places where the walk's recollection did not survive the grep. In every cas
 > verbatim: *"The `G-RHO2` certification rerun is queued core-side and **may moot the caveat** before
 > the wave fires"*) — it did not moot it before this commit, so the caveat prints.
 >
+> **⚑ DATED SURFACE-NOTE, 2026-08-06 — THE PENDING-REFRESH NOTE'S PREMISES ARE VACATED AT HEAD. Its
+> body is left exactly as written; a note that measured its own moment is not corrected by rewriting
+> what it measured.** Both premises it read at its own commit have since flipped, and both are
+> re-read here rather than assumed: `gh pr view 902` now returns **`state: MERGED`**, merged
+> 2026-08-06 at merge commit `b06cbeb1`; and `git cat-file -e origin/main:research/2026-08-05_last-bond-g-rho2-rerun_result.md`
+> now **succeeds** — the successor result document **is** on `origin/main`. **The argument the note
+> made is therefore DEAD rather than wrong**, and its conclusion (*"the certification wording above
+> and at every mirror site stays exactly as it is"*) no longer follows from anything. **What does NOT
+> follow from that is a licence to refresh:** the routed item below is unchanged and still OPEN for
+> the documentation lane — **each refresh sentence must name which run it quotes**, and this note
+> does not pre-write those sentences either.
+>
+> **Two cite-drifts, re-derived at THIS commit rather than carried:** (i) the cross-lane paragraph
+> below cites `Makefile`:111 and `:250`; at HEAD the `verify:` prerequisite line carrying
+> `verify-last-bond-number-check` is **`Makefile`:115** and the target definition
+> `verify-last-bond-number-check:` is at **`:275`**. The paragraph's *substance* is re-verified and
+> still exact: `last_bond_kernel_collapse_number_check.py`:171 still reads
+> `G-RHO2 is recorded as PASS but the doc reports it as FAIL`, so that gate still hard-asserts the
+> **first** run's FAIL and `make verify` is green with #902 landed. (ii) The `:NN` anchors in the
+> table above point into a file that this commit **lengthened by three lines**, additively, in the
+> lockstep records edit that added the supersession pointer. Re-derived map for
+> `research/2026-08-05_last-bond-kernel-collapse_result.md`: cites at or below `:24` are unmoved,
+> `:25`–`:78` shift **+1**, `:79` and beyond shift **+3**. So the table's `:27` → `:28`,
+> `:33` → `:34`, `:49`–`:53` → `:50`–`:54`, `:52` → `:53`, `:54` → `:55`, `:55` → `:56`,
+> `:78` → `:79`; `:24` is unchanged. The quoted excerpts beside each are **unchanged bytes** — the
+> `G-RHO2` gate row still reads `| **G-RHO2** ✗ | 2 | fitted exponent of` … `| **FAIL** |` — which is
+> why this is anchor drift and not content drift. **Fixing those anchors is part of the routed
+> refresh, not of this note.**
+>
+> **⚑ This surface-note is NOT payload, on the same fence the note below already sets.** It quotes
+> `G-RHO2` while describing the search; the payload counts the refresh pass needs are the ones the
+> note below states, and these lines are excluded from them exactly as that note's own lines are.
+> **And the note below's naive-recount figures are STRUCTURALLY UNCARRYABLE — do not quote them, and
+> do not "correct" them either.** A naive re-run counts the describing lines along with the payload,
+> and **this surface-note and that one are both describing lines**, so the naive pair moves every
+> time either note is edited — including by the edit that would record a new value. A figure that
+> falsifies itself on being written down is not a measurement to refresh; it is a quantity that
+> should never have been carried. **The first draft of this very clause proved the point: it printed
+> a freshly measured naive pair and was stale before it shipped, because writing it changed what it
+> was counting.** No replacement figure is minted here.
+>
+> **The only actionable number is the payload pair, 16 / 18** — payload excludes every describing
+> line by construction, so it does not move when these notes are edited, and it is unchanged by this
+> commit. A refresh pass should act on that pair and ignore the naive one entirely.
+>
 > **What a refresh pass must do when #902 lands, scoped by measurement rather than by estimate.** The
 > certification sentence is mirrored across the corpus, and the print-certification rule makes every
 > one of them load-bearing, so a state change is a **lockstep edit that must ship in ONE commit**.
