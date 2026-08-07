@@ -96,3 +96,32 @@ E2 I_ω(A) law → `2026-08-06_iomega-law-brief`. E3 phase-register + pre-bond r
 PROPOSAL → doc-lane follow-on brief (no corpus sweep without a GO). E4 Hawking-coefficient
 derivation + Z₀-from-rotor-coupling → frontier-queue candidates, NOT dispatched
 (arc-serial; two lanes ahead of them).
+
+---
+## §8 DATED ADDENDUM (2026-08-06 EOD) — the lock lens + the Adler carve (Grant-adopted as starting vocabulary; still ⚑ UN-AUDITED)
+
+Ruling record: `_orchestration/docket-entries/2026-08-06-rulings-final-batch.md` R17.
+Refines §1/§4/§5: the bond's constitutive description is a **phase-lock between
+adjacent rotors**. Freezing = the rotor field locking into one global synchronized
+network (omega-freeze's common phase = the frozen chirality). Compliance = the lock's
+small-signal stiffness (presents as capacitance). E = the locked network's coherent
+back-reaction (sharpens §5's monism: the same object seen twice). Breakdown = drive
+past the lock range. De-bonded = free-running rotors — dark by construction (§4's
+conclusion, now with a mechanism). "Melt" is RETIRED (§4's melt-vs-breakdown binary
+dissolves into lock-loss under two control parameters: noise-driven vs drive-driven;
+canon's BH route is drive-driven; the primordial freeze route is OPEN).
+
+**THE ADLER CARVE (leak-check result, load-bearing):** literal PLL/injection locking
+imports a dissipative attractor (limit cycle = gain + loss), forbidden by Ax3 in the
+cold phase; two lossless coupled oscillators beat, they do not Adler-lock. The
+substrate-native object is **Hamiltonian resonance capture** — phase-locked islands
+(KAM/Arnold-tongue structure, no dissipation required). Survives: lock range = island
+width; sharp threshold = separatrix crossing; the dark free-running phase. Forbidden:
+"settling into lock" (capture is a boundary-crossing event, not a relaxation). All
+lock words phase-scoped (crystal / boundary / de-bonded).
+
+**New counter-arm C6 (this addendum's own):** resonance-capture islands in Hamiltonian
+systems are typically FRAGILE (measure-zero-adjacent, chaotic separatrix layers) — a
+vacuum-stable global lock needs the island to be LARGE and the capture generic; that
+is a derivation obligation, not a given. Routing: rides E1/E3 (the residence and
+phase-register lanes); the translation-circuit row stays QUEUED until audited.
