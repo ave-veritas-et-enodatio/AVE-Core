@@ -125,12 +125,18 @@ def main() -> int:
           "a scan-stage gate is not green in the shipped JSON")
 
     # 2. LAW-RERUN ---------------------------------------------------------------------
-    r = subprocess.run([sys.executable, str(DRIVERS / "iomega_law_check.py")],
-                       capture_output=True, text=True, cwd=REPO)
-    check(r.returncode == 0, f"iomega_law_check.py re-run failed: {r.stdout[-300:]}")
-    law2 = json.loads(CHECK_JSON.read_text(encoding="utf-8"))
-    check(law2["digest_excluding_runtime"] == law["digest_excluding_runtime"],
-          "law-check re-run digest drifted")
+    # Re-run live, compare digests, then RESTORE the shipped bytes so a `make verify`
+    # never dirties the working tree (the re-run rewrites _runtime_sec).
+    shipped_bytes = CHECK_JSON.read_bytes()
+    try:
+        r = subprocess.run([sys.executable, str(DRIVERS / "iomega_law_check.py")],
+                           capture_output=True, text=True, cwd=REPO)
+        check(r.returncode == 0, f"iomega_law_check.py re-run failed: {r.stdout[-300:]}")
+        law2 = json.loads(CHECK_JSON.read_text(encoding="utf-8"))
+        check(law2["digest_excluding_runtime"] == law["digest_excluding_runtime"],
+              "law-check re-run digest drifted")
+    finally:
+        CHECK_JSON.write_bytes(shipped_bytes)
 
     # 3. COMPLETE ----------------------------------------------------------------------
     doc_sites = set(re.findall(r"\| \d+ \| `([^`]+):(\d+)` \|", doc))
