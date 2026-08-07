@@ -64,3 +64,22 @@ adjudication routing; LC-1 runs first and its kill condition is arc-terminating.
   this arc — see `research/2026-08-04_vacuum-smith-chart-geometry_framing-note.md`.
 - **V3 literature retrieval** for the same note's `[L]` tags: may run alongside this arc's
   retrieval lane (shared external-retrieval dispatch).
+
+---
+**DATED CURRENCY UPDATE 2026-08-06 EOD (pre-launch check; ruling record
+`2026-08-06-rulings-final-batch.md` R15):** the sequencing clause above is SUPERSEDED —
+this arc now LEADS (with the I_ω lane; residence runs alongside as canon-closure).
+New on `main` since this brief froze, mandatory lane inputs (re-derive, don't trust):
+(1) **the two-band k·p result** (#884 + its KB landing, `clm-2bkp7v`) — photon-at-c
+derived via (G+G_c)/ρ minus the G_c/ρ level-repulsion, and the gapped-carrier
+v-mismatch v²_⊥−v²_∥ = G_c/ρ (moduli-independent) — DIRECT input to LC-1(a); its
+scale-separation and gap-identification conditionals carry into any LC-1 verdict.
+(2) **A-008** (#895): the rotational gap = 2m_ec² pinned — input to LC-1(b)
+(gapped-channel observability) and LC-3's carrier bookkeeping. (3) **kernel-collapse
+v2 + correction** (#905/#907): the cross-grade combine fence — LC tests run cold-linear
+where all kernels ≈ 1, so verdicts should be member-INSENSITIVE, but each prereg
+declares this explicitly rather than assuming it. (4) **NO-TWIST** (#890): srs 432
+kills homogeneous strain→rotation coupling — input to LC-2's rotational-channel
+suppression derivation (which the brief correctly lists as NOT guaranteed — the O(q²)
+gradient-order survivor is the thing to derive). SVA leaf is v0.2 on `main`; the
+prereg-header mandate stands as written.
