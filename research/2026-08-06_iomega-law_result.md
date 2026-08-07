@@ -830,3 +830,15 @@ result-time disclosure.
 |   | ↳ verbatim *(trunc.)* | | `"frozen": "n_files_scanned reproduces as 4418 and every P1-P5 hit count, agreement flag and union-hit list reproduces -- so the I_omega(A) absence rec` |
 
 **Class totals:** {'ARCHIVE-STAGED': 36, 'NON-LAW': 63, 'DISCOURSE': 41} — **CANON-LAW count: 0.**
+
+---
+**DATED NOTE, 2026-08-07 (Tier-2 delta re-verify residual, disclosed):** two of the law
+driver's fire-tests are structurally unfailable inside the frozen pure-power
+parameterization — the cold-point injection always preserves the pin (S at the cold
+point is unity for every exponent) and the pairing residual is constant-zero by the
+cancellation theorem itself. Nothing false is claimed by their green state; their
+compensating live controls are the gate-reconciliation layer and the LAW-RERUN
+non-zero-exit propagation, both mutation-receipted. Recorded for whoever next touches
+the driver. Also of record: this restack dropped the lane's Makefile hunk — the
+checker is auto-discovered by the merged umbrella (`verify-lane-number-checks`), the
+conversion's first live proof.
