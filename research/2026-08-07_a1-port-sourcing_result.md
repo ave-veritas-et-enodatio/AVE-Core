@@ -96,8 +96,9 @@ receipted profile). **PHASE-STATE** — cold-reactive far field (radiation is a 
 >
 > **Subsidiary (NOT the verdict): the missing-piece inventory stands.** The microscopic
 > matter→substrate source operator (the pluck, `axiom-register.md:193`) is ABSENT in canon
-> (0 `clm-` hits, two-method §1); the isotropic add-on's magnitude rides the OPEN #770 cage fork.
-> Neither is needed for the bound: RADIATIVE(2) is adjudicated on receipted structure alone.
+> (0 `clm-` hits, two-method §1); the cage fork (#770) is OPEN and gates the anchored floor
+> (★R10). The multipole ORDER n = 2 needs neither; the FLUX carries both as live conditionals
+> (§3.4), and the §6 NOT-DERIVABLE cell discloses what stands underived (★R13).
 
 ---
 
