@@ -55,7 +55,7 @@ VOLUMES = vol_0_engineering_compendium vol_1_foundations vol_2_subatomic vol_3_m
 PAPER_DIR = papers/2026_birefringence_letter
 PAPER_JOB = sve_vacuum_birefringence_letter
 
-.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-coldq-v2-number-check verify-coldq-v22-number-check refresh-provenance-baseline framing-audit verify-anchor-content verify-new-cite-excerpts test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup verify-coldq-v24-number-check verify-coldq-polar-number-check verify-echo-delay-number-check verify-coldq-axial-rhob-number-check verify-two-band-kp-number-check verify-echo-delay-v2-number-check verify-last-bond-number-check verify-srs-twist-number-check gamma-census verify-approach-leak-number-check verify-approach-leak-v2-number-check verify-last-bond-g-rho2-rerun-number-check
+.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-coldq-v2-number-check verify-coldq-v22-number-check refresh-provenance-baseline framing-audit verify-anchor-content verify-new-cite-excerpts test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup verify-coldq-v24-number-check verify-coldq-polar-number-check verify-echo-delay-number-check verify-coldq-axial-rhob-number-check verify-two-band-kp-number-check verify-echo-delay-v2-number-check verify-last-bond-number-check verify-srs-twist-number-check gamma-census verify-approach-leak-number-check verify-approach-leak-v2-number-check verify-last-bond-g-rho2-rerun-number-check verify-lc1-one-speed-number-check
 
 help:
 	@echo "Applied Vacuum Engineering (AVE-Core) Build System"
@@ -81,6 +81,7 @@ help:
 	@echo "  make verify-srs-twist-number-check : Check the srs compression-twist result-doc numerals + mutation receipt (gating)"
 	@echo "  make verify-approach-leak-number-check : Check the approach-leak result-doc numerals + G-DET re-run + mutation receipt (gating)"
 	@echo "  make verify-approach-leak-v2-number-check : Check the approach-leak V2 result-doc numerals + G-DET-V2 re-run + BOTH mutation receipts, and the PRESERVED v1 target content (gating)"
+	@echo "  make verify-lc1-one-speed-number-check : Check the LC-1 one-speed result-doc numerals + mutation receipt (gating)"
 	@echo "  make refresh-provenance-baseline : Regenerate the grandfather baseline from the live scan (allowed to shrink)"
 	@echo "  make framing-audit        : Scan corpus for reviewer-misread framing anti-patterns (advisory)"
 	@echo "  make verify-anchor-content : Check cited path:NN vs adjacent backtick excerpt drift (WARN-CLASS advisory)"
@@ -112,7 +113,7 @@ setup:
 # =============================================================================
 # 1. Physics Verification (The "Simulate to Verify" Protocol)
 # =============================================================================
-verify: $(KB_VERIFY) verify-md-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-coldq-v2-number-check verify-coldq-v22-number-check verify-coldq-v24-number-check verify-coldq-polar-number-check verify-echo-delay-number-check verify-coldq-axial-rhob-number-check verify-two-band-kp-number-check verify-echo-delay-v2-number-check verify-last-bond-number-check verify-last-bond-g-rho2-rerun-number-check verify-srs-twist-number-check verify-approach-leak-number-check verify-approach-leak-v2-number-check
+verify: $(KB_VERIFY) verify-md-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-coldq-v2-number-check verify-coldq-v22-number-check verify-coldq-v24-number-check verify-coldq-polar-number-check verify-echo-delay-number-check verify-coldq-axial-rhob-number-check verify-two-band-kp-number-check verify-echo-delay-v2-number-check verify-last-bond-number-check verify-last-bond-g-rho2-rerun-number-check verify-srs-twist-number-check verify-approach-leak-number-check verify-approach-leak-v2-number-check verify-lc1-one-speed-number-check
 # FLAG-SCANFRAG -- REPAIRED UPSTREAM; the v1 target is RESTORED to this chain
 # (AMENDED 2026-08-06, research/2026-08-06_approach-leak-v2_result.md §9.2(c)).
 #
@@ -306,6 +307,16 @@ verify-srs-twist-number-check:
 	$(PYTHON) research/drivers/srs_twist_coefficient_number_check.py
 	@echo "Mutation receipt: the numeral checker must FAIL on perturbed sources..."
 	$(PYTHON) research/drivers/srs_twist_coefficient_number_check.py --mutation-receipt
+
+# LC-1 one-speed (multi-messenger) lane number-check.  Its OWN target with its OWN
+# recipe body, per the standing per-lane pattern.  Every checked numeral names the
+# EXACT scalar path it reads and the mutation receipt perturbs that same path, so a
+# check cannot be receipted by a perturbation that misses it.
+verify-lc1-one-speed-number-check:
+	@echo "Checking the LC-1 one-speed result-doc numerals against its shipped JSON (gating)..."
+	$(PYTHON) research/drivers/lc1_one_speed_number_check.py
+	@echo "Mutation receipt: the numeral checker must FAIL on perturbed sources..."
+	$(PYTHON) research/drivers/lc1_one_speed_number_check.py --mutation-receipt
 
 # APPROACH-LEAK lane number-check.  Its OWN target with its OWN recipe body -- no
 # recipe line is shared with any other lane.  The mutation receipt runs on EVERY
