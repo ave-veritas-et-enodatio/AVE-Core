@@ -445,10 +445,28 @@ verify-frozen-provenance:
 #      `$(wildcard)`, so a checker added while make is resolving is still seen.
 #      An EMPTY discovery set is a hard error, not a silent pass -- a glob that
 #      matches nothing is exactly how this kind of gate rots into a no-op.
+#   5. HARDENED 2026-08-06 (review finding B1).  The receipt detector distinguishes
+#      grep's THREE outcomes, not two: exit 0 = match (run the receipt), exit 1 =
+#      no match (skip it), anything else = grep ITSELF failed, which is a HARD
+#      FAILURE of the umbrella (exit 3).  The earlier `if grep -q ...; then/else`
+#      form folded "grep broke" into "no receipt", so a broken detector narrowed
+#      the receipt set toward ZERO while every checker reported `no-receipt` and
+#      the gate still reported OK.  Demonstrated with a PATH shim; see the docket.
 #
 # `LANE_CHECK_FILTER=<script-stem>` restricts the run to one checker.  That is the
 # single mechanism the legacy per-lane aliases below are built on, so an alias and
 # the umbrella can never drift apart in HOW a checker is invoked.
+#
+# HARDENED 2026-08-06 (review finding B1, BLOCKING).  The filter SELECTS FROM the
+# expanded discovery set by exact path equality; it does NOT build a path.  The
+# earlier form concatenated `$(LANE_CHECK_DIR)/$(LANE_CHECK_FILTER).py` and gated
+# it on `[ -f ]` alone, so the filter could reach ANY .py file in research/drivers/
+# -- including the bare lane DRIVERS, 14 of which are same-prefix siblings of a
+# checker (`approach_leak.py` next to `approach_leak_number_check.py`).  Running a
+# bare driver from a `verify-*` target is not a read-only gate: drivers WRITE their
+# results JSON, so `LANE_CHECK_FILTER=approach_leak` mutated a gated baseline and
+# still printed `[lane-checks] OK` with exit 0.  Selecting from the glob makes that
+# unreachable by construction rather than by a filename convention.
 LANE_CHECK_DIR    = research/drivers
 LANE_CHECK_GLOB   = $(LANE_CHECK_DIR)/*_number_check.py
 LANE_CHECK_FILTER ?=
@@ -456,20 +474,28 @@ LANE_CHECK_FILTER ?=
 verify-lane-number-checks:
 	@echo "Checking research-lane result-doc numeric tokens against their shipped JSON sources (gating)..."
 	@set -u; \
+	discovered=$$(ls $(LANE_CHECK_GLOB) 2>/dev/null); \
+	if [ -z "$$discovered" ]; then \
+		echo "[lane-checks] *** DISCOVERY ERROR: no checker matched $(LANE_CHECK_GLOB)"; \
+		echo "[lane-checks]     an empty glob is treated as a FAILURE, never as a pass."; \
+		exit 2; \
+	fi; \
 	if [ -n "$(LANE_CHECK_FILTER)" ]; then \
-		checkers="$(LANE_CHECK_DIR)/$(LANE_CHECK_FILTER).py"; \
-		if [ ! -f "$$checkers" ]; then \
-			echo "[lane-checks] *** FILTER ERROR: no such checker: $$checkers"; \
+		want="$(LANE_CHECK_DIR)/$(LANE_CHECK_FILTER).py"; \
+		checkers=""; \
+		for d in $$discovered; do \
+			if [ "$$d" = "$$want" ]; then checkers="$$d"; fi; \
+		done; \
+		if [ -z "$$checkers" ]; then \
+			echo "[lane-checks] *** FILTER ERROR: LANE_CHECK_FILTER=$(LANE_CHECK_FILTER) does not name a MEMBER of the discovery set."; \
+			echo "[lane-checks]     The filter SELECTS FROM $(LANE_CHECK_GLOB) by exact path equality."; \
+			echo "[lane-checks]     It can never reach a path outside that set -- in particular it can"; \
+			echo "[lane-checks]     never execute a bare driver, which may WRITE a gated JSON baseline."; \
 			exit 2; \
 		fi; \
 		echo "[lane-checks] filtered to 1 checker (LANE_CHECK_FILTER=$(LANE_CHECK_FILTER))"; \
 	else \
-		checkers=$$(ls $(LANE_CHECK_GLOB) 2>/dev/null); \
-		if [ -z "$$checkers" ]; then \
-			echo "[lane-checks] *** DISCOVERY ERROR: no checker matched $(LANE_CHECK_GLOB)"; \
-			echo "[lane-checks]     an empty glob is treated as a FAILURE, never as a pass."; \
-			exit 2; \
-		fi; \
+		checkers="$$discovered"; \
 		echo "[lane-checks] auto-discovered $$(echo $$checkers | wc -w | tr -d ' ') checker(s) via $(LANE_CHECK_GLOB)"; \
 	fi; \
 	nplain=0; nreceipt=0; nskip=0; \
@@ -483,7 +509,8 @@ verify-lane-number-checks:
 		nplain=$$((nplain+1)); \
 	done; \
 	for c in $$checkers; do \
-		if grep -qF -e '--mutation-receipt' "$$c"; then \
+		grep -qF -e '--mutation-receipt' "$$c"; g=$$?; \
+		if [ $$g -eq 0 ]; then \
 			echo "[lane-checks] RECEIPT  $$c --mutation-receipt"; \
 			$(PYTHON) "$$c" --mutation-receipt; rc=$$?; \
 			if [ $$rc -ne 0 ]; then \
@@ -491,9 +518,16 @@ verify-lane-number-checks:
 				exit $$rc; \
 			fi; \
 			nreceipt=$$((nreceipt+1)); \
-		else \
+		elif [ $$g -eq 1 ]; then \
 			echo "[lane-checks] no-receipt $$c (source declares no --mutation-receipt handler; passing the flag would silently re-run the plain check)"; \
 			nskip=$$((nskip+1)); \
+		else \
+			echo "[lane-checks] *** RECEIPT-DETECTOR ERROR: grep exited $$g on $$c."; \
+			echo "[lane-checks]     grep exit 0 = match, 1 = no match, >=2 = grep ITSELF failed."; \
+			echo "[lane-checks]     A broken detector narrows the receipt set toward ZERO while every"; \
+			echo "[lane-checks]     checker still reports 'no-receipt' and the gate still reports OK."; \
+			echo "[lane-checks]     Refusing to report a green gate on an unknown receipt set."; \
+			exit 3; \
 		fi; \
 	done; \
 	echo "[lane-checks] OK -- $$nplain plain run(s), $$nreceipt mutation receipt(s), $$nskip checker(s) with no receipt support"

@@ -48,16 +48,35 @@ Two engines, both run 2026-08-06 on the full working tree: `git grep -F` (tracke
 `grep -rF` (working tree, untracked included). **They agree exactly**, file-for-file, on all
 thirteen names.
 
-**24 references** to the per-lane target names exist outside `Makefile`. They are not all the same
-kind of reference, and that is what settled the decision:
+> **CORRECTED 2026-08-06 (review finding A2).** The first version of this section said **24
+> references** with a breakdown of 4/5/4/5/6. That number was **wrong, and wrong in a specific,
+> instructive way**: the census script counted **files** (`git grep -c … | wc -l`) while the prose
+> claimed **references**. Several files carry more than one citing line, so the file count
+> under-reported the reference count. The auditor's independent re-measure found **28 distinct
+> lines**; re-taken here with both engines, it reproduces **exactly, line for line**. The
+> *decision* is unaffected — a larger reference surface strengthens the case for keeping the
+> aliases — but a census that does not reproduce is not a census, so the corrected numbers are
+> below and the superseded ones are named above rather than quietly overwritten.
 
-| where | count | can it be rewritten? |
+**28 distinct citing lines** name the thirteen per-lane targets outside `Makefile`, in the
+pre-existing corpus. They are not all the same kind of reference, and that is what settled the
+decision:
+
+| where | lines | can it be rewritten? |
 |---|---|---|
-| FROZEN prereg documents (approach-leak v2, echo-delay, echo-delay v2) | 4 | **No** — frozen text |
-| frozen result documents (approach-leak v2, cold-Q v2.4) | 5 | **No** — frozen text |
-| checker-script docstrings ("or `make verify-…`") | 4 | **No** — a concurrent implementer holds one of these files; no checker was touched by this lane |
-| KB canonical (`claim-quality`, `translation-circuit`, `wall-taxonomy`) | 5 | possible, but they are user-facing "run this" instructions |
-| docket entries | 6 | historical record |
+| FROZEN prereg documents (approach-leak v2 ×4, echo-delay, echo-delay v2) | **6** | **No** — frozen text |
+| frozen result documents (approach-leak v2 ×4, cold-Q v2.4) | **5** | **No** — frozen text |
+| checker-script docstrings (`coldq_pole_v2p2` ×2, `approach_leak_v2` ×2, `coldq_pole_v2`) | **5** | **No** — a concurrent implementer holds one of these files; no checker was touched by this lane |
+| KB canonical (`wall-taxonomy` ×3, `translation-circuit`, `claim-quality`) | **5** | possible, but they are user-facing "run this" instructions |
+| docket entries (approach-leak-v2 ×3, +correction, srs-twist, coldq-axial-rhob, coldq-v2p4-root) | **7** | historical record |
+
+**Count pin, per the measure-then-edit rule.** Re-measured **after** the repairs in §4a were
+written, not before: whole-tree **29** distinct lines, of which **1** is in this fragment itself
+(the help-drift sentence in §3), leaving the pre-existing corpus at **28**. Both engines agree at
+that measurement. The §4a additions quote *script stems* and `LANE_CHECK_FILTER` values rather than
+`verify-*-number-check` target names, so they did not move the count — which is why the figure is
+the same as at the first commit (`85f2ea1a`) and is stated here as measured rather than predicted.
+Anyone re-running the census should subtract this fragment's own line before comparing to the 28.
 
 **DECISION: keep all thirteen names, as thin one-line aliases.** Removing them would break `make`
 invocations printed inside documents that are frozen against rewriting, and would require editing a
@@ -134,6 +153,119 @@ newly-discovered checker turns the whole gate red. The dummy was **removed befor
 `git status` shows `M Makefile` and the new fragment only, and the glob is back to 17.
 
 **Acceptance:** `make verify` exit 0 and `make test` green on the converted tree.
+
+## 4a. Tier-2 review repairs (2026-08-06) — two real escape hatches, both closed
+
+The Tier-2 review returned **NOT CONFIRMED: 1 blocking, 4 advisory**. The core design held (the
+collision attack was refuted on exact paths; receipt detection independently verified 8/8 by
+reading each checker's argv handling; the count invariant reproduced 17/25 on both sides via an
+independent `execve` recorder; both failure modes propagate; Rule 12 clean; the help-drift
+incidental confirmed true). Two findings were real defects in the umbrella recipe. Both are fixed
+on this branch, and **each control was forced false first** — the escape was reproduced before the
+fix, so the fix is demonstrably load-bearing rather than decorative.
+
+### B1 (BLOCKING) — `LANE_CHECK_FILTER` could escape the discovery glob
+
+The filtered branch **built** a path (`$(LANE_CHECK_DIR)/$(LANE_CHECK_FILTER).py`) and gated it on
+`[ -f ]` alone. Any `.py` in `research/drivers/` was therefore reachable — including the **bare lane
+drivers**, 14 of which are same-prefix siblings of a checker (`approach_leak.py` beside
+`approach_leak_number_check.py`), and 31 non-checker files in total. This is not a cosmetic scoping
+bug: **drivers write their results JSON**, so the auditor's `LANE_CHECK_FILTER=approach_leak` ran the
+bare driver, printed `gates_failed=['G-NC-SLAST']`, still reported `[lane-checks] OK` with **exit 0**,
+and **mutated a gated baseline** (`approach_leak_results.json`, `_runtime_sec` moved). A `verify-*`
+target must never be able to write the thing it gates.
+
+**Fix:** the filter now **selects from** the expanded discovery set by exact path equality instead
+of constructing a path. Everything outside `research/drivers/*_number_check.py` is unreachable by
+construction, not by a filename convention.
+
+**Control, forced false on the pre-fix code.** A harmless probe was used rather than re-running the
+destructive form — same escape mechanism (string concat + `[ -f ]`), no gated baseline touched:
+
+```
+[lane-checks] filtered to 1 checker (LANE_CHECK_FILTER=zz_probe_notachecker)
+[lane-checks] RUN      research/drivers/zz_probe_notachecker.py
+ZZ-PROBE: I AM NOT A CHECKER and I just got EXECUTED by a verify-* target (argv tail: none)
+[lane-checks] OK -- 1 plain run(s), 0 mutation receipt(s), 1 checker(s) with no receipt support
+make-exit=0
+```
+
+MISSED, green, exit 0 — the defect reproduces. **Post-fix, direction 1** (the real escape target):
+
+```
+[lane-checks] *** FILTER ERROR: LANE_CHECK_FILTER=approach_leak does not name a MEMBER of the discovery set.
+[lane-checks]     The filter SELECTS FROM research/drivers/*_number_check.py by exact path equality.
+[lane-checks]     It can never reach a path outside that set -- in particular it can
+[lane-checks]     never execute a bare driver, which may WRITE a gated JSON baseline.
+make: *** [verify-lane-number-checks] Error 2
+make-exit=2
+```
+
+`git status` **byte-identical before and after** that run — no `approach_leak_results.json` write.
+**Post-fix, direction 2** (the legitimate name still works, and runs exactly one checker):
+
+```
+[lane-checks] filtered to 1 checker (LANE_CHECK_FILTER=approach_leak_number_check)
+[lane-checks] RUN      research/drivers/approach_leak_number_check.py
+[lane-checks] RECEIPT  research/drivers/approach_leak_number_check.py --mutation-receipt
+[lane-checks] OK -- 1 plain run(s), 1 mutation receipt(s), 0 checker(s) with no receipt support
+make-exit=0
+```
+
+The same probe that escaped pre-fix is now **CAUGHT** (`*** FILTER ERROR`, exit 2), and was removed
+before staging.
+
+### A1 (advisory, fixed) — the receipt detector conflated "no match" with "grep broke"
+
+`if grep -qF …; then … else …` folds grep's exit **1** (no match) and exit **≥2** (grep itself
+failed) into the same branch. A broken detector therefore narrows the receipt set **toward zero**
+while every checker is reported `no-receipt` and the gate still reports OK — the exact failure shape
+this umbrella was built to prevent, reintroduced one level up.
+
+**Control, forced false on the pre-fix code** (PATH shim making `grep` exit 2, test-only), on a
+checker that genuinely *has* a receipt:
+
+```
+[lane-checks] RUN      research/drivers/srs_twist_coefficient_number_check.py
+grep: SIMULATED INTERNAL FAILURE
+[lane-checks] no-receipt research/drivers/srs_twist_coefficient_number_check.py (source declares no --mutation-receipt handler; …)
+[lane-checks] OK -- 1 plain run(s), 0 mutation receipt(s), 1 checker(s) with no receipt support
+make-exit=0
+```
+
+A real receipt silently vanished and the gate stayed green. **Post-fix**, the detector branches on
+grep's exit status explicitly — 0 → receipt, 1 → no-receipt, anything else → hard failure:
+
+```
+[lane-checks] *** RECEIPT-DETECTOR ERROR: grep exited 2 on research/drivers/srs_twist_coefficient_number_check.py.
+[lane-checks]     grep exit 0 = match, 1 = no match, >=2 = grep ITSELF failed.
+[lane-checks]     Refusing to report a green gate on an unknown receipt set.
+make: *** [verify-lane-number-checks] Error 3
+```
+
+Sanity re-check that the fix did not collapse the two legitimate branches: unshimmed,
+`coldq_pole_v2_number_check` still classifies as `no-receipt` and exits 0, while
+`approach_leak_number_check` still classifies as `RECEIPT`. Both grep outcomes remain reachable.
+
+### A3 (informational) — the receipt detector matches the literal flag anywhere in the file
+
+Detection is a fixed-string search over the whole source, **prose and comments included**. A checker
+that *documents* `--mutation-receipt` in its docstring without implementing it would be classified
+as receipt-bearing and would then **double-run its plain check silently** — precisely the failure
+mode the conditional detector exists to avoid, entering through the other door. **Tolerated today**:
+verified 0 false positives across all 17 checkers, every one of which parses the flag in code.
+**Tighten to a code-shaped pattern** (e.g. requiring `sys.argv`/`argv` on the matching line) if this
+is ever tripped. Recorded so the next lane inherits the caveat rather than rediscovering it.
+
+### PENDING-GRANT — the root condition behind B1
+
+B1 was reachable at all because **`research/drivers/` mixes read-only checkers and
+baseline-writing drivers under one naming family**, distinguished only by a filename suffix. The
+fix makes the umbrella safe; it does not address the arrangement that made the umbrella unsafe.
+**Question for Grant, routed and not resolved here:** should a `verify-*` target ever be able to
+execute a bare driver at all — or should write-capable drivers be separated from read-only checkers
+structurally (different directory, or a declared read-only contract the gate can check), so that
+"a gate mutated its own baseline" is impossible rather than merely blocked at one call site?
 
 ## 5. Rule 12 preservation, and what this does NOT claim
 
