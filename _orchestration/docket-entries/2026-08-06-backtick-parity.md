@@ -4,8 +4,9 @@
 
 **Lane:** infra (core-side). **Class:** INSTRUMENT repair — mints no `clm-`/`def-`, propagates to no
 KB solidity, moves no gate tolerance, computes no new physics. Engine `src/ave` byte-untouched and
-never imported. **No result document is edited**; both frozen docs are byte-identical to
-`origin/main` and their downstream pins are undisturbed.
+never imported. The v1 result doc and the v1 checker are byte-identical to `origin/main`. The v2
+result doc gains **one appended dated surface-note inside §9** and nothing else — no sentence above
+it is rewritten, and the v2 `_digest` is unchanged (§4).
 
 **Ruling:** **R11** — *"registered-vs-unscanned: SCAN-COVERAGE IS THE STANDARD"* — in the
 2026-08-06 rulings final batch (`_orchestration/docket-entries/2026-08-06-rulings-final-batch.md`).
@@ -41,9 +42,9 @@ implemented and measured as the alternative; it is **not** shipped. Two reasons:
   span is dropped, a numeral goes RED and a human looks. It can never again silently *remove*
   coverage from everything below it, which is exactly the failure class R11 names. It also confines
   the **general** defect, not merely the doubled-span instance that exposed it.
-- **Run-aware buys nothing here.** Measured on both documents these checkers read, the run-aware
-  token set is **identical** to the per-line set (`240`/`84` and `143`/`80`). It would add a
-  hand-rolled parser that could itself under-scan — the very thing being repaired.
+- **Run-aware buys nothing here.** Re-measured after all edits, on both documents these checkers
+  read, the run-aware token set is **identical** to the per-line set (`241`/`84` and `143`/`80`). It
+  would add a hand-rolled parser that could itself under-scan — the very thing being repaired.
 
 **A second scan site exists and is NOT repaired.** `main()` in the v1 checker keeps its own copy of
 the scan loop alongside `_scan_doc`, so that lane has two defective sites, not one. Both are inside
@@ -53,12 +54,20 @@ the byte-pinned file of §3.1 and are routed with it.
 
 | path | before (global) | after (per-line) | newly scanned | LOST | unregistered after | status |
 |---|---|---|---|---|---|---|
-| v2 result doc | `186` tok / `70` distinct | `240` tok / `84` distinct | `14` distinct | `0` | **none** | **FIXED** |
+| v2 result doc | `186` tok / `70` distinct | `241` tok / `84` distinct | `14` distinct | `0` | **none** | **FIXED** |
 | v1-preserved content path | `55` tok / `33` distinct | `143` tok / `80` distinct | `47` distinct | `0` | `520` | **BLOCKED — §3.1** |
 
-Nothing is LOST on either path: the per-line set is a strict **superset** of the global set, so the
-change can only strengthen. The v2 registry grows `88` → `94`. The v1 checker is **byte-unchanged**
-from `origin/main`; its measured row above is the *counterfactual* the fix would produce.
+Nothing is LOST on either path: **on these two documents** the per-line set is a strict **superset**
+of the global set. The v2 registry grows `88` → `94`. The v1 checker is **byte-unchanged** from
+`origin/main`; its measured row above is the *counterfactual* the fix would produce.
+
+**SCOPE — this is not a general theorem** (Tier-2 probe C). A CommonMark code span may straddle a
+newline; such a span is read by global pairing and **missed** per-line, so a back-ticked numeral
+written across a line break would be LOST. Neither document contains one — that is why `LOST` is `0`
+by **measurement** and not by argument. The same bounded hole is shared by the nine sibling checkers
+whose token class excludes newlines: it is the repo's standing convention for this scan, **not a
+regression introduced here**. What the repair removes is the *unbounded* hole — one odd line
+silently unscanning everything below it.
 
 **The 14 newly-scanned v2 tokens.** `297` / `350` / `417` / `53` / `67` (the §9 amendment counts) and
 `3` were already registry-resident; `11` / `32` / `520` / `59` / `60` / `73` were already in
@@ -96,18 +105,42 @@ values, `M1`–`M4` all CAUGHT, the v1 result doc byte-untouched). It was then *
 and this lane tried to write one. **Measured token delta of the blocked fix: `+47` distinct
 (`33` → `80`), `0` lost, one token (`520`) needing an `ALLOWED_LITERAL` entry.** Routed, not forced.
 
+**⚑ SELF-DECLARED, not reproducible from this tree.** The reverted patch is not in the repo, so two
+claims above cannot be re-derived by a reviewer at this commit and are marked rather than dressed up
+as receipts: **(a)** the moved digest `3499c1ef3c4c1494`, and **(b)** the "ran green in isolation"
+run of the reverted patch. Everything else in this section IS reproducible now — that
+`approach_leak_number_check.py` is a byte-pinned `NC-BYTES` artifact, and the `+47`/`0`-lost token
+delta, are both measurable against the tree as it stands.
+
 **⚑ Correction to the routed item's own measurement.** §7 of the g-rho2 docket records the gap as
 `297` / `350` / `417` / `67` / `53` — five numerals. The full newly-scanned set measured here is
 **14** distinct, of which **two** (`120`, `471`) were unregistered rather than merely unscanned. The
 routed count was not wrong about the five it named; it was **incomplete**. Flagged rather than
 silently absorbed.
 
-## 4. What this makes stale (no document is edited)
+## 4. What this makes stale — and the dated surface-note that records it
 
-The v2 result doc's §9 dated surface-note states that its `297` / `350` / `417` / `53` / `67` *"is
-never scanned"*. **That is now false** — they are scanned and matched. The document is frozen with
-downstream pins and is **not** rewritten; this fragment is the dated record of the change. The
-`amendment_registry` docstring, which carried the same caveat **in code**, IS updated: a comment
+The v2 result doc's §9.1 note states that its `297` / `350` / `417` / `53` / `67` *"is never
+scanned"*, and §9.3 routes the parity gap as *"not fixed in this lane"*. **Both are now false of the
+shipped checker.** Per the standing vacated-cite rule — frozen text gets a dated surface-note, never
+a rewrite — a **dated surface-note is appended inside §9**, below the line it is about. Nothing above
+it is edited.
+
+**⚑ CORRECTION to this fragment's first draft, which stated the wrong blocker.** That draft said the
+result doc was *"frozen with downstream pins"* and could not be touched. **That is not true and was
+not the reason.** The doc is **not** in the `NC-BYTES` read-only set — it is in `V2_OWN_ARTIFACTS`,
+i.e. this lane's own, and the v1 scan surface that would otherwise notice it is commit-pinned at
+`SCAN_PIN`. Verified after the edit: the v2 `_digest` is **unchanged** at `f336bc5fe6281368`. The
+two real constraints are:
+
+1. **The new self-cite gate.** `doc_selfref_registry` computes the odd-parity line and this page
+   cites it as `471`. Any insertion **above** that line shifts it and turns the gate red. The note is
+   therefore appended **below** raw line `471`, and every inserted line is **even**-parity so the
+   odd-parity set stays exactly one element.
+2. **The note-only convention.** Superseded sentences are left standing and answered below, not
+   rewritten in place.
+
+The `amendment_registry` docstring, which carried the same caveat **in code**, IS updated: a comment
 that contradicts its own gate is the checklist-not-gate tell this file already corrected once at A4.
 
 ## 5. Receipts
@@ -119,8 +152,11 @@ that contradicts its own gate is the checklist-not-gate tell this file already c
 - `approach_leak_number_check.py` (v1) + `--mutation-receipt` — green, `M1`–`M3` CAUGHT, **unchanged
   from base**: this PR reverts its repair (§3.1) and leaves the file byte-identical to `origin/main`.
 - `NC-BYTES` `pass` = `True`, `10` artifacts, all `byte_identical` — re-confirmed after the revert.
-- Both frozen result documents and the v1 checker: `git diff` clean against `origin/main`.
-- **Only two files change**: the v2 number-check and this fragment.
+- The v1 result doc and the v1 checker: `git diff` clean against `origin/main`.
+- The v2 `_digest` is **unchanged** at `f336bc5fe6281368` with the §9 surface-note in place, and the
+  self-cite gate still computes `471` — the doc edit moves no gate.
+- **Three files change**: the v2 number-check, the v2 result doc's appended §9 surface-note, and this
+  fragment.
 
 ### 5.1 The new mutations, and the proof they are load-bearing
 
@@ -131,8 +167,24 @@ scan clean), the catch itself, and a **counterfactual arm** that runs the *same 
 the retained pre-repair scanner and requires a **MISS**. Without the third arm the mutation would
 pass just as happily against the bug it exists to prove fixed.
 
-`M13` (v2) plants a **second** odd-parity line and requires `doc_selfref_registry` to refuse, since
-§9 cites raw line `471` as the *only* one.
+`M13` plants a **second** odd-parity line and requires `doc_selfref_registry` to refuse, since §9
+cites raw line `471` as the *only* one.
+
+**⚑ `M13` WAS DECORATIVE IN THE FIRST DRAFT, and Tier-2 falsified it.** That draft **re-derived** the
+"exactly one odd line" predicate at the mutation site instead of calling the gate. Weakening the real
+criterion from `!= 1` to `< 1` left the draft **CAUGHT** — it was testing its own restatement, not
+the function it named. `M13` now **calls `doc_selfref_registry`** on the planted text and requires
+its verdict (empty registry + a failure surfaced), with the clean document as the executed negative
+control. Failures go to a **local sink** so the receipt cannot pollute a real run. Acceptance receipt,
+executed **both directions**:
+
+| criterion in `doc_selfref_registry` | `M13` |
+|---|---|
+| shipped `len(odd) != 1` | **CAUGHT** |
+| weakened to `len(odd) < 1` (forcing-E, scratch copy) | **MISSED** |
+| restored | **CAUGHT** |
+
+That is the difference between a mutation that receipts a gate and one that receipts a copy of it.
 
 Every control was **forced false** and the receipt re-run; each forcing turns the mutation `MISSED`,
 so none is decoration:
@@ -158,7 +210,7 @@ of odd-parity lines. Method 1 says whether the defect is *present*; method 2 say
 
 | module | regex class | verdict | doc measure (global → per-line) | odd lines |
 |---|---|---|---|---|
-| `approach_leak_v2_number_check` | `` [^`]+ `` | **DEFECT, FIRING — FIXED HERE** | `186`/`70` → `240`/`84` | `1` |
+| `approach_leak_v2_number_check` | `` [^`]+ `` | **DEFECT, FIRING — FIXED HERE** | `186`/`70` → `241`/`84` | `1` |
 | `approach_leak_number_check` | `` [^`]+ `` | **DEFECT, FIRING — BLOCKED, §3.1** | `55`/`33` → `143`/`80` | `20` |
 | `coldq_pole_derivation_number_check` | `` [^`]+ `` | DEFECT, **latent** — FLAGGED | `184`/`105` → `184`/`105` | `0` |
 | `coldq_pole_v2p2_root_number_check` | `` [^`]+ `` | DEFECT, **latent** — FLAGGED | `203`/`96` → `203`/`96` | `0` |
@@ -172,7 +224,7 @@ of odd-parity lines. Method 1 says whether the defect is *present*; method 2 say
 | `echo_delay_regulated_sum_number_check` | `` [^`\n]+ `` | SAFE | `175`/`132` → unchanged | `4` |
 | `echo_delay_v2_number_check` | `` [^`\n]+ `` | SAFE | `299`/`193` → unchanged | `8` |
 | `last_bond_g_rho2_rerun_number_check` | `` [^`\n]+ `` | SAFE | `52`/`36` → unchanged | `4` |
-| `last_bond_kernel_collapse_number_check` | `` [^`\n]+ `` | SAFE | `118`/`50` → unchanged | `4` |
+| `last_bond_kernel_collapse_number_check` | `` [^`\n]+ `` | SAFE | `118`/`50` → unchanged | `8` |
 | `two_band_kp_kinematics_number_check` | `` [^`\n]+ `` | SAFE | `59`/`36` → unchanged | `2` |
 | `srs_twist_coefficient_number_check` | — | no back-tick numeral scan | n/a | n/a |
 
@@ -181,6 +233,17 @@ here; the other is blocked by §3.1.** The `SAFE` rows are safe *by construction
 several have odd-parity lines and are still unaffected, because the newline barrier confines pairing
 to a line already. The cheap corpus-wide immunisation, for whoever picks up the routed items, is to
 add `\n` to the token class — that is what the nine safe modules already do.
+
+**⚑ CORRECTION, and the counting surface.** The `last_bond_kernel_collapse` cell read `4` in this
+fragment's first draft; the measured value is **`8`** (raw lines `218`, `223`, `229`, `233`, `280`,
+`282`, `288`, `293`) — a transcription error, the dynamic-audit output said `8` all along. Re-taken
+after the edits, across the nine `SAFE` documents: **`33`** odd-parity lines total, of which **`30`
+are ``` fence markers** and only **`3` are genuine inline** unbalanced back-ticks
+(`coldq-pole-v2.4-root` line `348`; `two-band-kinematics` lines `249` and `250`). The odd-line column
+is therefore mostly counting fences, which is exactly why it is a poor proxy for risk on its own and
+why the global-vs-per-line token delta is the column that adjudicates. *(Tier-2 quoted `22` of `25`
+for the same split; that total omits the `8` it was simultaneously correcting — `33 − 8 = 25`. The
+`3` genuine-inline figure agrees exactly. Both numbers here are mine, re-measured.)*
 
 **The 5 latent modules are FLAGGED and ROUTED, not fixed.** Measured delta is **`+0`/`-0` distinct
 tokens on every one of their eight documents**, so the per-line repair would be a **no-op today** and
