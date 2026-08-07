@@ -182,7 +182,7 @@ The Class 2 emergence lift (quantitative substrate-statistical-mechanics derivat
 
 ### Upstream substrate primitives
 
-- **Cosserat rotation-sector mass-gap** ($\omega_m = 2$ in natural units $\sim 1$ MeV): [`trampoline-framework.md:192`](../../../common/trampoline-framework.md) — canonical substrate-mechanism source
+- **Cosserat rotation-sector mass-gap** ($\omega_m = 2$ in natural units $\sim 1$ MeV): [`trampoline-framework.md:192`](../../../common/trampoline-framework.md) — `m_\omega^2 = 4 G_c / I_\omega` — canonical substrate-mechanism source
 - **Cosserat couple-stress modulus $\gamma_c$ + characteristic length $l_c = \sqrt{\gamma_c/G_{vac}}$** (weak force range): [`gauge-boson-masses.md:39`](../../../vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md) — canonical substrate-mechanism source; same primitive that produces δ_strain
 - **SYM-class α-invariance proof** (clm-3zz0f6, confidence/solidity 0.85): [`alpha-invariance-symmetric-gravity.md`](../../gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md) — load-bearing: SYM scaling gives α invariance; δ_strain emerges precisely because asymmetric thermal occupation breaks SYM
 - **SYM vs ASYM canonical** (clm-8nkvwy): [`einstein-field-equation.md`](../../gravity/ch02-general-relativity/einstein-field-equation.md) — load-bearing: the c_EM vs c_shear distinction underlying the asymmetric scaling analysis

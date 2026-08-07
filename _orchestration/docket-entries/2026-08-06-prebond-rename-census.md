@@ -67,6 +67,20 @@ a quote surface. Distinct files across all classes = 30.
 | **Q1 — frozen / preserved-historical** (`research/_archive/**`, dated preregs / results / notes / charters, merged docket records, the framing note that PROPOSED the rename) | 26 | 20 | untouched |
 | **TOTAL** | **51** | **30** | |
 
+> **🔴 CLASS SUPERSEDED 2026-08-07 — R20. The "verbatim-quote surfaces" class above no longer describes
+> the corpus, and the census history is NOT rewritten to hide that.** Ruled at
+> [`2026-08-07-rulings-f3-f5-f1.md`](2026-08-07-rulings-f3-f5-f1.md) (R20), Grant verbatim: *"I think we
+> might want the full term 'pre-geodesic plasma' fully removed right?"*. This census's treatment for that
+> class — keep the quotation's bytes, attach a gloss — was the right call under R9 (a rename may not
+> falsify a quotation) and is **SUPERSEDED** by R20, which removes the term rather than working around it.
+> **What R20 did instead of editing quotations:** it re-anchored the CHAIN. The print origin
+> `04_generative_cosmology.tex`:491 was renamed; the glossary relay was struck-with-pointer (Rule 12, body
+> preserved at that leaf's `:73`/`:75`) and re-issued as a dated **v2** entry quoting the new text; the four
+> citing leaves were re-pointed to the v2 anchor. So no quotation was ever edited — the quoted SOURCE moved,
+> and the quotations followed it honestly. **The class counts above stand as the 2026-08-06 measurement**
+> (4 lines / 4 files at `d129e7ac`); only their TREATMENT changed. Post-R20 the retired term survives
+> exclusively inside dated supersession notes.
+
 The four quote surfaces, named so the class is checkable rather than asserted:
 `cosmic-axes-and-frames-glossary.md`:75, `trampoline-analogy-primer.md`:269,
 `04_generative_cosmology.tex`:491, `14_phase_diagrams.tex`:48.
