@@ -8,7 +8,8 @@ Prereg-file: research/2026-08-06_iomega-law_prereg-FROZEN.md
 **Number check:** [`research/drivers/iomega_law_number_check.py`](drivers/iomega_law_number_check.py) — gating via `make verify`, with a mutation receipt.
 **Class:** DERIVATION result (research-doc; **mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-`; propagates to no KB/manuscript leaf; changes no solidity; edits no falsification ledger**). Engine `src/ave` **byte-untouched and never imported** — every engine line quoted below is a receipt about the CODE, per the brief's fence.
 **Provenance:** the FLAG-IOMEGA lane (brief `_orchestration/2026-08-06_iomega-law-brief.md`, ruled R6). **Written against `origin/main` = `d129e7ac`.**
-**Adversarial panel:** a six-refuter pre-result panel (cancellation / μ-chain / symmetric-standard / bins-contract / framing / cites) ran against the draft claims; every WEAKENED-verdict repair it mandated is incorporated below and the panel's material corrections are credited in-line. All 16 load-bearing cites verified drift-free by the cite refuter.
+**Adversarial panel:** a six-refuter pre-result panel (cancellation / μ-chain / symmetric-standard / bins-contract / framing / cites) ran against the draft claims; every WEAKENED-verdict repair it mandated is incorporated below and the panel's material corrections are credited in-line. The panel's cite refuter verified the `16` body cites present at that time drift-free.
+**Tier-2 review (2026-08-06):** a post-panel Tier-2 review returned two blocking findings (a gate-reconciliation gap in the number-check; an over-broad `b > 0` closure headline) and one prereg claim-to-check that does not survive as worded, plus eleven advisory items. **Every one is executed in place, dated, and labelled `Tier-2` at the site it repairs**; the frozen prereg is byte-untouched. **The one measured cite count:** the standing **G-CITE registry: `39` entries**, each re-verified at `file:line` on every `make verify`, and every italic-quoted excerpt in this doc's body is required to be covered by one (`CITE-COMPLETE`). That number supersedes the `16`/`20` counts quoted before the registration pass — those were, respectively, the panel-era body-cite count and the pre-Tier-2 registry size — and it is re-taken from `len(QUOTE_REGISTRY)` by the checker (`COUNT-REGISTRY`), so it cannot drift.
 
 ---
 
@@ -40,10 +41,21 @@ Prereg-file: research/2026-08-06_iomega-law_prereg-FROZEN.md
 > carve-out/disidentification arm: `b = 0`. On the SYM-loading∧identification arm: `b = −1`** —
 > the DOWNWARD direction the archive's E-073 entry prescribed and never ratified. **Neither arm
 > carries a DERIVED tag the other lacks** (panel repair: the two arms hang on the same fork).
-> **Every `b > 0` route is closed on receipted structure**: all canon UP-gradings of inertia key
-> on the element's OWN rate; the static bias carries zero own-rate; and canon's one candidate
-> foreign-keyed grade of the μ-sector is DOWNWARD. `b = +3` requires the CH-R transfer
-> (≥2 genuinely un-derived links; §2.4) — **excluded from receipted structure, not disproven.**
+> **Every `b > 0` route THROUGH THE TWO KEYED CHANNELS is closed on receipted structure**: all
+> canon UP-gradings of inertia key on the element's OWN rate; the static bias carries zero
+> own-rate; and canon's one candidate foreign-keyed grade of the μ-sector is DOWNWARD. `b = +3`
+> requires the CH-R transfer (≥2 genuinely un-derived links; §2.4) — **excluded from receipted
+> structure, not disproven.**
+> **⚠ CARVED OUT OF THAT CLOSURE — the PER-ELEMENT PITCH channel (Tier-2 review repair D2,
+> 2026-08-06).** The headline read “every `b > 0` route is closed” at first
+> publication; this doc's own §4 contradicts that as stated. A stiffer short bond
+> (`g_c(ℓ)`) and a smaller rotor's
+> moment (`j(ℓ)`) are a `b > 0` route that **none of the three keying reasons touches** — it is
+> not an own-rate keying, not a foreign keying of the μ-sector, and not the CH-R transfer — and
+> **canon defines neither dependence** (`P-I4`: zero hits). Its sign and magnitude are therefore
+> **ABSENCE-OF-COVERAGE, NOT CLOSURE**: the lane cannot close what canon never wrote. The bound
+> `−1 ≤ b ≤ 0` and every bin and verdict below are stated CONDITIONAL on this channel
+> contributing zero (§2.2 antecedent (3); §3; §4).
 >
 > **★ THE KNIFE CONSEQUENCE (Rule 11 honored: the knife itself is untouched).** Composed with
 > `a ∈ {1, 2}` (the dispatch's stated and the engine's coded `G_c` exponents — `a = 2` remains
@@ -81,14 +93,47 @@ Prereg-file: research/2026-08-06_iomega-law_prereg-FROZEN.md
 **Frozen (prereg §5.3):** any gate failing outside its fireability injection ⇒ `LAW-NOT-CERTIFIED`,
 no bin adjudicated. **No frozen criterion was dropped, widened, or re-defined.**
 
+**★ Scope of that sentence, reconciled (Tier-2 review repair D3, 2026-08-06).** It is a statement
+about the frozen **GATE and BIN criteria** — every one of which is reported below at its frozen
+wording, with nothing dropped, widened or re-defined. **It is NOT a claim that every frozen
+claim-to-check came back sustained.** Prereg §2.2's claim-to-check (i) is labelled
+**`NOT-SUSTAINED-AS-WORDED`** in §4, carrying the frozen text verbatim, the corrected form, and the
+falsifying finding. A claim-to-check returning NOT-SUSTAINED is the instrument working at strength;
+**re-wording or quietly dropping it would have been the violation**, and neither happened — the
+prereg is byte-untouched.
+
 ### §1.1 Scan-stage gates (shipped JSON: `iomega_law_scan_results.json`)
 
 | gate | frozen criterion | measured | verdict |
 |---|---|---|---|
 | **G-SCAN** | identical hit sets per pattern, both engines named | `9`/`9` patterns agree; engines: `git grep -P (PCRE2)` + `CPython re` (versions in JSON) | **PASS** |
 | **G-NC-P34** | `P-NC3`/`P-NC4` byte-identical to the v1 §5.1 rows | both `true` (extracted and string-compared) | **PASS** |
-| **FT-SCAN** | absent sentinel `0`/`0`; present sentinel identical non-empty | `[0, 0]`; present `[3, 3]` identical | **FIRES** |
+| **FT-SCAN** | absent sentinel `0`/`0`; present sentinel identical non-empty | `[0, 0]`; present `[2, 2]` identical | **FIRES** |
 | **G-DET** | two full runs, identical digest excluding runtime | `e7df3fe5f8ffe288` twice | **PASS** |
+
+**★ Numeral correction (Tier-2 review, 2026-08-06).** The `FT-SCAN` present-sentinel cell read
+`[3, 3]` at first publication. The shipped JSON's measured `present_counts` is `[2, 2]`
+(`iomega_law_scan_results.json`, gate `FT-SCAN`); the doc is corrected **to the measurement**, and
+the number-check now reconciles this cell against the JSON on every `make verify` (control
+`NUM-FTSCAN-CELLS`) so it cannot drift again. **No gate verdict moves:** `FT-SCAN`'s frozen
+criterion is `absent = [0, 0]` ∧ `present[0] > 0` ∧ identical present sets — all three hold at
+`[2, 2]`, and the gate is recomputed from those three fields rather than read off its own label
+(see the gate-reconciliation note below).
+
+**★ GATES ARE NOW RECONCILED, NOT CONSUMED (Tier-2 review repair D1, 2026-08-06).** The
+number-check previously read each gate's own `pass`/`fires` label out of the JSON — a checklist,
+not a gate. It now **recomputes every scan-stage and law-stage verdict from that JSON's own
+measured fields** and treats *declared ≠ computed* as a FAILURE: `G-SCAN` ⇐ every pattern's
+`methods_agree` ∧ `method_a_hits == method_b_hits`; `G-NC-P34` ⇐ `P3_byte_identical` ∧
+`P4_byte_identical`; `FT-SCAN` ⇐ `absent_counts == [0,0]` ∧ `present_counts[0] > 0` ∧
+`present_sets_identical`; `G-KNIFE-ARITH` ⇐ every knife row's `engines_agree`; `G-A008-COLD` ⇐
+every branch's `cold_point_pin_preserved`; `G-PAIR` ⇐ `residual_zero`; `FT-KNIFE` ⇐
+`b3_bins == ["CHANNEL-OPENS", "CHANNEL-OPENS"]`. **All seven reconcile.** **Disclosed limit:**
+`FT-A008` and `FT-PAIR` ship **no** measured field beyond `fires`, so they cannot be reconciled
+from the JSON — their compensating control is the live `LAW-RERUN` (the law driver exits nonzero
+unless every gate is green, and it is re-executed on every `make verify`). Five forced-false
+receipts prove the reconciliation fires: a self-declared-green gate with a contradicting measured
+field FAILS the check.
 
 **Hit census (all quoted and classified in the Appendix, per the frozen §3.2 rule):** `P-NC3` 6,
 `P-NC4` 0, `P-I3a` 14, `P-I3b` 19, `P-I3c` 34, `P-I4` **0**, `P-I5` 67, `P-I6` **0**, `P-CAT` 0 —
@@ -104,6 +149,22 @@ inside INVARIANT-S2) **is a candidate CANON-LAW-equivalent site the battery cann
 construction** — μ-vocabulary, not I_ω-vocabulary. That is disclosed here rather than discovered
 later, and it is itself a reason the CONDITIONAL reading of the deliverable is the defensible one:
 on the identification arm the law is not absent from canon, it is written in the other register.
+
+**★ The other register, ENUMERATED (Tier-2 review repair A3, 2026-08-06).** That μ-grade is not
+one stray sentence. `10` canon `μ_eff = μ₀·S` sites carry it, every one cite-verified at
+`file:line` by the number-check's `MU-SITE` control:
+`vol4/circuit-theory/ch1-vacuum-circuit-analysis/node-up-small-large-signal.md`:207, :290, :295,
+:371; `…/resonant-lc-solitons.md`:143; `manuscript/backmatter/02_full_derivation_chain.tex`:156;
+and the Vol-9 datasheet at `chapters/03_pin_port_configuration.tex`:132,
+`04_dc_electrical_characteristics.tex`:157, `05_ac_electrical_characteristics.tex`:83 and :637 —
+beside the W6 block at `manuscript/ave-kb/CLAUDE.md`:75 cited above. **Reported in the direction it
+actually cuts: this STRENGTHENS ARM-1's conditional trigger.** The μ/inductive sector's
+operating-point down-grade is a corpus-wide written law, so *if* the §2.1 fork resolves FOR on both
+links, the `b = −1` arm is not an exotic reading — it is the law canon already writes ten times
+over, transposed onto `I_ω`. **It resolves neither link**: L-A still asks whether the static
+gravitational grade at `r_sat` is a SYM-class load, and L-B still asks whether that graded μ IS the
+gap's `I_ω`. The count is a measured number, gated by the checker (`COUNT-MU-SITES`), not an
+adjective.
 
 ### §1.2 Law-stage gates (shipped JSON: `iomega_law_check_results.json`)
 
@@ -132,7 +193,9 @@ with two coupled links, **both open, neither resolved by this lane**:
   (`manuscript/ave-kb/CLAUDE.md`:75). AGAINST loading at THIS wall: the same W6 block's own fence
   (*"It does NOT follow that any DC bias scales both sectors"*), the ratified channel-scoped
   kernel-collapse carve-out for this exact wall (the rotational channel *"unwalled at `r_sat`,
-  its own wall being a κ-amplitude surface"*), the last-bond receipt (the static grading
+  its own wall being a κ-amplitude surface"*, `manuscript/ave-kb/common/wall-taxonomy.md`:499 —
+  **cite added by the Tier-2 review, repair A1, 2026-08-06: the ratified carve-out was quoted with
+  no `file:line` anywhere in the doc**), the last-bond receipt (the static grading
   *"carries no micro-rotation at all"*,
   `research/2026-08-05_last-bond-kernel-collapse_result.md`:151 — **fork fence carried:** the
   `S_κ`-carve-out CONSEQUENCE rides the L∞-across-grades member of the OPEN cross-grade
@@ -140,7 +203,23 @@ with two coupled links, **both open, neither resolved by this lane**:
   the fork-independent kinematic content is only `κ = |∇ω| = 0` for a static A1 grading), and
   the slew-keyed μ-grade (static drive ⇒ zero circulation ⇒ `S_μ = 1` on the own-variable
   keyings). **Which voice governs the `r_sat` approach maps onto the OPEN cross-grade
-  aggregation fork. CONTESTED-IN-CANON, not receipted either way.**
+  aggregation fork. CONTESTED-IN-CANON.**
+  **Second FOR receipt, surfaced by the Tier-2 review (repair A4, 2026-08-06):** the FOR side is
+  not only a `CLAUDE.md` operating-point note. The canon KB leaf
+  `manuscript/ave-kb/vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md`:15
+  states that under Symmetric Gravity *"both constitutive parameters scale by the same factor $n \cdot S$"*
+  — carrying claim ids `clm-3zz0f6`/`clm-rd9cjm` in its frontmatter (:5). **Solidity, taken
+  separately because the two ids do NOT share one:** `clm-3zz0f6` is **`0.85`**, *"ok to build on"*
+  (`manuscript/ave-kb/claim-quality.md`:160); `clm-rd9cjm` is `0.55`
+  (`manuscript/ave-kb/vol3/claim-quality.md`:62). The load-bearing id for this link is
+  `clm-3zz0f6`.
+  **Correction to this bullet's first-publication wording (Tier-2 A4):** it closed “not receipted
+  either way” (this doc, first publication). **BOTH sides are receipted** — FOR by the
+  `0.85` leaf above plus the ten-site
+  μ-grade enumerated in §1.1; AGAINST by the ratified channel-scoped carve-out and the last-bond
+  receipt. What is un-receipted is **the adjudication between them at this wall**. The earlier
+  phrase understated both sides and is withdrawn; the CONTESTED-IN-CANON verdict and the fork
+  itself are unchanged.
 - **Link L-B — is the graded per-node `μ_eff` the gap's kinetic coefficient `I_ω`?** FOR: canon's
   register statement *"$\mu_0$ is the per-node inductance (rotational inertia)"*
   (`manuscript/common_equations/eq_calibration_constants.tex`:47–48 — a SECTOR-level register
@@ -149,8 +228,12 @@ with two coupled links, **both open, neither resolved by this lane**:
   for "per-node inductance", none mentioning `I_ω`); the dimensional bridge `μ₀`[H/m] → `I_ω`
   [kg/m] requires the `ξ_topo²` transduction, unstated anywhere; and the Grant-adjudicated G2
   ruling **canon-disfavors** the identification for the propagating branch — the photon's
-  magnetic content is the bond-level curl of the `u`-wave, *"NOT the node micro-rotation"*, with
-  the eigenvector receipt (massless-branch ω-fraction ≤ `2.5e-7`). **UN-DERIVED, and
+  magnetic content is the bond-level curl of the `u`-wave, *"NOT the node micro-rotation"*
+  (`manuscript/ave-kb/vol1/axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md`:158 —
+  **cite added by the Tier-2 review, repair A1, 2026-08-06: this quote carried no `file:line`
+  anywhere in the doc**), with the eigenvector receipt (massless-branch ω-fraction ≤ `2.5e-7`;
+  mirror site `manuscript/ave-kb/vol1/claim-quality.md`:1142, *"$\omega$-frac max
+  $2.5\times10^{-7}$"*). **UN-DERIVED, and
   contra-receipted for the branch canon has adjudicated.**
 
 ### §2.2 ARM-0 (carve-out governs, or the disidentification holds): **`b = 0`**
@@ -159,13 +242,21 @@ On this arm no receipted chain forces `∂I_ω/∂A_ε ≠ 0`: the kinetic coeff
 value along the whole sub-yield approach. What supports the arm — stated at calibrated strength
 (panel repairs incorporated): the A-034 catalog's zero **RATE-keyed** rows (**absence-of-coverage,
 not evidence-of-absence** — the catalog self-declares its kinetic side un-catalogued, GAP G2, and
-notes *"relativistic mass"* hiding among its swing rows; this receipt CORROBORATES the own-rate
+notes *"relativistic mass"* hiding among its swing rows
+(`manuscript/ave-kb/common/universal-saturation-kernel-catalog.md`:151 — cite added by the Tier-2
+review, repair A1, 2026-08-06); this receipt CORROBORATES the own-rate
 pattern, it does not stand alone); the own-rate keying pattern of every canon UP-grading of
 inertia (§2.4); and the CODE-class receipt that the landed engine's kinetic side is bare
 (`src/ave/topological/cosserat_field_3d.py`:953–954, :967; kernels multiply stiffness only,
-:761–768). **The arm's own un-derived antecedent is enumerated per the frozen BIN-CONDITIONAL
-wording: it assumes L-B resolves NEGATIVELY (μ_eff is NOT the gap's `I_ω`) or L-A resolves to the
-carve-out.** **Walk tag (frozen §0 row 8): walk-CONSISTENT and explicitly NOT walk-validating;
+:761–768). **The arm's own un-derived antecedents are enumerated per the frozen BIN-CONDITIONAL
+wording — THREE of them, not two (the third added by the Tier-2 review repair D2, 2026-08-06):**
+**(1)** L-B resolves NEGATIVELY (`μ_eff` is NOT the gap's `I_ω`), **OR (2)** L-A resolves to the
+carve-out; **AND (3) `b_j^pitch = 0`** — the per-element pitch dependence of the rotor moment
+contributes nothing. **Antecedent (3) is un-receipted in EITHER direction** (canon defines neither
+`g_c(ℓ)` nor `j(ℓ)`; `P-I4` zero hits, §4), so it is an **assumption of this arm, not a result of
+it** — and it is a conjunct, not an alternative: (1)-or-(2) closes the two KEYED channels, and
+nothing in either closes the pitch channel.
+**Walk tag (frozen §0 row 8): walk-CONSISTENT and explicitly NOT walk-validating;
 counter-arms C1–C6 untouched.**
 
 ### §2.3 ARM-1 (SYM loading AND identification): **`b = −1`**
@@ -173,11 +264,25 @@ counter-arms C1–C6 untouched.**
 If the SYM voice governs the approach (L-A) and the per-node `μ_eff` is the gap's kinetic
 coefficient (L-B), then `I_ω^eff(r) = I_ω·S(r)` — **`b = −1` in the frozen sign convention: the
 micro-inertia SOFTENS toward the wall.** This is exactly the direction the archive prescribed and
-never ratified: the E-073 entry's `T = ½(ρS)|u̇|² + ½(I_ωS)|ω̇|²` on an Ax-3/unitarity argument
-(*"rest mass saturates L, propagation saturates C"*), canceled as closure-scoped deprioritization
-(*"cleanliness only, NOT load-bearing for closure"*,
+never ratified: the E-073 entry's `T = ½(ρS)|u̇|² + ½(I_ωS)|ω̇|²`, resting on **Ax 4's symmetric
+L/C requirement** — Grant's one-sentence collapse *"rest mass saturates L, propagation saturates C"*
+(`research/_archive/L3_electron_soliton/VACUUM_ENGINE_MANUAL.md`:42) — canceled as closure-scoped
+deprioritization (*"cleanliness only, NOT load-bearing for closure"*,
 `research/_archive/L5/axiom_derivation_status.md`:313) — **canceled in priority, never adjudicated
-false** (§7). **Walk tag: if the fork resolves onto this arm, it is a walk-FALSIFIER and is
+false** (§7).
+**★ Framing + cite correction (Tier-2 review repair A13, 2026-08-06).** At first publication this
+sentence read "on an Ax-3/unitarity argument" and hung the collapse quote on
+`axiom_derivation_status.md`:313. **Both are wrong at source, and the correction is the source's
+own.** (a) The quote lives at `VACUUM_ENGINE_MANUAL.md`:42, not at `:313` (`:313` carries only the
+E-073 cancellation clause). (b) Doc 75's own Rule-12 framing note **retracts the Ax-3 reading**:
+*"earlier versions of this doc framed the bug as "violates Ax 3 energy conservation.""*, restating
+it as **Ax 4's asymmetric L/C implementation** — Ax 3 is the Effective Action Principle, and energy
+conservation is a Noether consequence of it, not the axiom
+(`research/_archive/L3_electron_soliton/75_cosserat_energy_conservation_violation.md`:1, :3).
+(c) The word "unitarity" appears **nowhere** in doc 75 (measured: `git grep -c` returns no match).
+**Nothing about ARM-1's direction or `b = −1` changes** — only the axiom label and the
+cite.
+**Walk tag: if the fork resolves onto this arm, it is a walk-FALSIFIER and is
 reported as one.** Domain: cold crystalline sub-yield DC bias, SYM-class loading per W6; Regime IV
 out of domain.
 
@@ -205,13 +310,27 @@ medium would contradict canon's one stated foreign-keyed μ-grade, which is DOWN
 (`ρ_eff = ρ₀/S_topo³`, asserted with no derivation at
 `manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/interior-singularity-resolution.md`:16–21,
 *"Topo-Relativistic Impedance Divergence"*) transplanted onto `I_ω` across **≥2 genuinely
-un-derived links** — substance (matter → lattice, against FORK-3's LEADING member (c),
+un-derived links**.
+**RHO-B's WRITTEN keying is STATIC STRAIN, not a rate (Tier-2 review repair A5, 2026-08-06):** the
+resultbox keys on POSITION — *"S_{topo}(r) = \sqrt{1 - \varepsilon_{11}^2}"* with
+`ε₁₁(r) = 7GM/(c²r)` (`…/interior-singularity-resolution.md`:21, :12) — while the OWN-RATE reading
+is the source's **motivating sentence**, not its written form (*"longitudinal inertia scales with
+the Lorentz factor"*, `manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex`:445).
+The links, restated with that in hand — substance (matter → lattice, against FORK-3's LEADING member (c),
 `research/2026-07-31_qlaw-framing-challenge_walk.md`:1201, *"two different substances, and canon
 must say so"*) and sector (translational → rotational) — **plus a keying link (own-velocity →
 foreign-static-strain) whose precedent is contested** (the SYM μ-grade is a canon precedent for
 foreign-keying an inductance, though DOWNWARD). FORK-3 itself is OPEN
 (`manuscript/ave-kb/common/wall-taxonomy.md`:433, *"the fork is still OPEN"*) and **is not
 adjudicated here**. **Excluded from receipted structure, not disproven.**
+
+**Link-count discipline (Tier-2 review repair A6, 2026-08-06).** The third link (**keying**) is
+**RETAINED as un-derived-but-precedented and is NOT counted toward the floor**: the SYM μ-grade is
+a canon precedent for foreign-keying an inductance, and per the A5 correction above RHO-B's own
+written form is already foreign-static-keyed rather than own-rate-keyed. **`≥2` is therefore the
+CONSERVATIVE floor**, which is what the frozen §2.5 R6 checklist asks for — substance and sector
+are un-derived with no precedent at all; on a stricter count that admits the keying link the chain
+carries 3. The `b > 0` exclusion does not depend on which of the two counts is used.
 
 ---
 
@@ -229,7 +348,15 @@ The v2 member table consumed here is the certified one (GAP-CLOSED on `p ∈ {0.
 CHANNEL-OPENS on `p ∈ {2.0, 2.5, 3.0}`; `p = 2.0` SPLIT-annotated, awarded v1's frozen
 CHANNEL-OPENS), re-derived by the §4.4 second method at freeze. **On the derived-or-conditional
 bound `−1 ≤ b ≤ 0` the maximum composed `p` is `1 < 2`: the verdict direction is invariant. A
-flip requires `b ≥ 2` at `a = 2` — reached only by the un-receipted CH-R chain.** The `a`-side
+flip requires `b ≥ 2` at `a = 2` — reached only by the un-receipted CH-R chain.**
+**★ The bound is CONDITIONAL on the pitch channel contributing zero (Tier-2 review repair D2,
+2026-08-06).** `−1 ≤ b ≤ 0` bounds the two KEYED channels only. It holds **conditional on
+`b_j^pitch = 0`** — the per-element pitch dependence (`g_c(ℓ)`, `j(ℓ)`), which §4 shows does NOT
+cancel and which canon does not define in either direction (`P-I4`: zero hits). That channel is
+**un-receipted, not closed**, so a nonzero `b_j^pitch` is not excluded by anything in this lane;
+what this lane can say is that no receipted-or-conditional reading of the two keyed channels
+reaches `p = 2`. **No bin and no verdict in the table above moves** — the conditionality is stated,
+not exercised, because the pitch channel has no receipted value to compose with. The `a`-side
 remains the G_c(A) canon gap, owned elsewhere; nothing here promotes `a = 2`
 (the v2 fence *"while the engine's `a = 2` stands"*,
 [`2026-08-06_approach-leak-v2_result.md`](2026-08-06_approach-leak-v2_result.md):379, is honored).
@@ -242,7 +369,17 @@ fixed-topology net forces (the count ratio is topological: `z = 3` gives `3/2` b
 the periodic net; the ratio is invariant under ANY bond-preserving deformation, affine or not) —
 enters `G_c` and `I_ω` identically and cancels in the gap: `(a, b) → (a_c − d, b_j + d)` leaves
 `p` invariant, exactly. **Domain: cold crystalline, sub-yield; the premise (intact bond network)
-fails in Regime IV.** **Boundary-cell disclosure:** the innermost intact cell has dangling bonds
+fails in Regime IV.**
+**The lemma is `z`-INDEPENDENT (Tier-2 review repair A8, 2026-08-06): it needs a FIXED topology
+and nothing more.** Any fixed coordination `z` gives a fixed bonds-per-node ratio `z/2`, which
+enters both slots identically and cancels identically; the `3/2` is quoted because `z = 3` is
+canon's **ratified production carrier** — *"the chiral srs z=3 net"*
+(`manuscript/ave-kb/common/vocabulary-register.md`:526, `def-4b1a2c`, RATIFIED Grant 2026-07-03,
+ruling D1). The **legacy 4-bond sites still in the corpus** (the degree-4 diamond, re-tagged a
+non-canonical instrument by that same ratification) would give `2` bonds per node and cancel just
+as exactly. **Nothing in this lemma rides the carrier choice**, so no reader has to adjudicate the
+`z = 3` / `z = 4` corpus split to consume it.
+**Boundary-cell disclosure:** the innermost intact cell has dangling bonds
 toward the saturated region, so its LOCAL ratio falls below `3/2` by `O(1)`; this cannot flip any
 `p < 2` member because the knife's margin there grows without bound as `x → 0` (the v1 freeze's
 own derivation), and the `p = 2` bin is frozen-boundary-governed.
@@ -260,6 +397,21 @@ consistent decomposition; a density factor cannot enter one slot only (the fixed
 forbids bond-count and node-count densities grading differently), so the `b = 3`-with-`a = 2`
 scenario **has no CH-G reading on a fixed-topology sub-yield net and must be routed as CH-R** —
 which is where §2.4 adjudicates it.
+
+**⚠ FROZEN CLAIM-TO-CHECK (i): `NOT-SUSTAINED-AS-WORDED` (Tier-2 review repair D3, 2026-08-06).**
+The frozen prereg §2.2 froze as a claim-to-check: *"the knife's `p` is
+invariant to any geometric density grading, so FLAG-PITCH cannot move the knife whichever way it
+resolves"* ([`2026-08-06_iomega-law_prereg-FROZEN.md`](2026-08-06_iomega-law_prereg-FROZEN.md):194–196).
+**The DENSITY half is SUSTAINED** — proven above and machine-checked at `G-PAIR`. **The second
+half — that FLAG-PITCH cannot move the knife whichever way it resolves — is NOT SUSTAINED AS
+WORDED**, and the falsifying finding is this section's own paragraph above: FLAG-PITCH has a
+PER-ELEMENT channel (`g_c(ℓ)`, `j(ℓ)`) that is **not** a density factor, does **not** cancel, and
+lands in the constitutive exponents `(a_c, b_j)`. **Corrected form:** *the knife's `p` is invariant
+to FLAG-PITCH's DENSITY component; FLAG-PITCH's PER-ELEMENT component is un-receipted in canon and
+is NOT bounded by this lemma.* **The prereg is FROZEN and is NOT edited** — this label travels with
+the result, per the preserve-the-body discipline; the frozen wording is carried verbatim above so a
+reader adjudicates against the original, not a paraphrase. **This is a claim-to-check returning
+NOT-SUSTAINED, which is the instrument working; no gate criterion, bin boundary or verdict moves.**
 
 ## §5 — THE OWN-SECTOR STATEMENT (D3, the `A_κ` and own-rate line)
 
@@ -279,18 +431,42 @@ which is where §2.4 adjudicates it.
 cold-point pin `G_c/I_ω = ω_C²`
 ([`2026-08-05_a008-factor-propagation_note.md`](2026-08-05_a008-factor-propagation_note.md):175,
 `G_c/I_\omega = \omega_C^2 = 1`) is preserved by every delivered branch. The pin's own record
-fences it at the cold point (*"does not reach into the saturated regime"*), and no candidate law
+fences it at the cold point — the A-008 **PREREG**'s regime row records that the check *"does not
+reach into the saturated regime"*
+(`research/2026-08-05_a008-factor-propagation_prereg-FROZEN.md`:25–26) — and no candidate law
 was justified BY the pin away from `S = 1`. **`STOP-A008` did not fire.**
+
+**★ Cite correction + de-wrap disclosure (Tier-2 review repair A2, 2026-08-06).** At first
+publication this quote carried **no `file:line` at all** and was attributed loosely to "the pin's
+own record". Its home is the A-008 **prereg**, row 2 (REGIME / PHASE-STATE) — **not** the
+propagation **note**, which carries the ratio (`:175`) but not the fence. The quote is also
+**DE-WRAPPED**: the source breaks it across two lines as `…this row records that the check does` /
+`not reach into the saturated regime where omega would be graded.`, so the excerpt as printed here
+exists on no single source line. The G-CITE registry pins the **unwrapped fragment at `:26`** and
+carries this doc's de-wrapped rendering explicitly, so the re-rendering is a disclosed transform
+rather than a drift.
 
 ## §7 — THE ARCHIVE SURFACED (D5) — reported, not adjudicated, with its direction stated honestly
 
 The archived kinetic co-saturation prescription (`ρ → ρ·S`, `I_ω → I_ω·S`; doc-75 family,
-`VACUUM_ENGINE_MANUAL` r8.10) **prescribed the DOWNWARD direction — ARM-1's `b = −1` — on an
-Ax-3/unitarity + `c_eff = c₀√S` argument, and was canceled as E-073 in its LOAD-BEARING STATUS
-for the L3 closure only** (*"cleanliness only, NOT load-bearing for closure"*,
+`VACUUM_ENGINE_MANUAL` r8.10) **prescribed the DOWNWARD direction — ARM-1's `b = −1` — on Ax 4's
+SYMMETRIC-L/C requirement plus a saturated-wave-speed argument, and was canceled as E-073 in its
+LOAD-BEARING STATUS for the L3 closure only** (*"cleanliness only, NOT load-bearing for closure"*,
 `research/_archive/L5/axiom_derivation_status.md`:313; *"empirically negligible at relevant
-amplitudes"* — a low-amplitude statement that does not extend to the near-wall `S → 0` approach).
-**It was never adjudicated false.** Panel repair honored: this cancellation is NOT cited as a
+amplitudes"*, `research/_archive/L3_electron_soliton/VACUUM_ENGINE_MANUAL.md`:42 — a low-amplitude
+statement that does not extend to the near-wall `S → 0` approach).
+**It was never adjudicated false.**
+**★ Framing + cite correction (Tier-2 review repair A13, 2026-08-06), matching §2.3.** At first
+publication this sentence read "on an Ax-3/unitarity + `c_eff = c₀√S` argument" and cited the
+second quote to `axiom_derivation_status.md`:313. **The corrections are the sources' own:**
+(a) the quote's home is `VACUUM_ENGINE_MANUAL.md`:42; (b) doc 75's Rule-12 framing note **retracts**
+the Ax-3 reading in favour of **Ax 4's asymmetric L/C implementation**
+(`…/75_cosserat_energy_conservation_violation.md`:1, :3), and **"unitarity" appears nowhere in
+doc 75**; (c) the wave-speed clause is left as a description of the archive's argument without a
+pinned exponent, because the corpus does not speak with one voice on it — see the routed
+`FLAG-CEFF-CITE` in §10. **None of this moves ARM-1's direction, `b = −1`, or the D5
+verdict.**
+Panel repair honored: this cancellation is NOT cited as a
 `b = 0` receipt anywhere in this doc — the archive record, read at source, points toward ARM-1.
 The known sign conflict inside the kinetic-precedent set (E-073's DOWN vs relativistic-inductor /
 RHO-B UP) resolves cleanly under the keying carve: foreign-keyed operating-point grades run DOWN
@@ -312,8 +488,10 @@ here as an observation, not minted.
 ## §9 — BIN ADJUDICATION + THIS LANE'S OWN FREEZE IMPRECISIONS (surfaced, routed)
 
 **The co-fire, reported as the frozen text fires it (no precedence rule minted):**
-`BIN-CONST-DERIVED` (mechanical criterion: R1–R6 quote-verified — the cite refuter confirmed all
-16 quotes drift-free — and zero CANON-LAW battery hits, discharged by the Appendix classification)
+`BIN-CONST-DERIVED` (mechanical criterion: R1–R6 quote-verified — the pre-result cite refuter
+confirmed the `16` body cites it then examined drift-free, and the standing registry now carries
+the ONE measured number below — and zero CANON-LAW battery hits, discharged by the Appendix
+classification)
 **co-fires with** `BIN-CONDITIONAL` (its second disjunct is entailed: every nonzero-`b` chain
 carries un-derived links). The co-fire is STRUCTURAL — a designed-in subset relation this lane's
 prereg did not anticipate — and the prereg froze no precedence among its bins. **Both tokens
@@ -339,8 +517,9 @@ result-time disclosure.
 |---|---|---|
 | **FLAG-FORK-RESIDENCE** | the §2.1 fork (L-A grade-loading at `r_sat`; L-B μ↔`I_ω` identification, with the `ξ_topo²` bridge unstated) is the same territory as the γ_c-residence question — a saturation budget is a property of the element that stores the energy, and L-B asks which element that is | orchestrator docket → pointer to the residence lane (E1) |
 | **FLAG-R8-LIVE-ECHO** | `src/scripts/vol_1_foundations/r8_diag_a_cosserat_wave_speed.py`:257 (a tracked, non-archive driver) still prints the E-073-canceled prescription as a diagnostic recommendation string | doc lane (stale-recommendation cleanup) |
-| **FLAG-IMAX-DISCREPANCY** | `I_max ≈ 124.4 A` (`relativistic-inductor.md`:15, `pvlas-static-b-verdict.md`:31) vs `I_max ≃ 116 A` (the ratified 2×2 tables, `operators.md` + kernel catalog) — pre-existing corpus discrepancy, not a lane misquote | auditor lane |
+| **FLAG-IMAX-DISCREPANCY** | `I_max ≈ 124.4 A` (`relativistic-inductor.md`:15, `pvlas-static-b-verdict.md`:33 — **cite corrected from `:31` by the Tier-2 review, repair A10, 2026-08-06; both endpoints are now in the G-CITE registry**) vs `I_max ≃ 116 A` (the ratified 2×2 tables, `operators.md` + kernel catalog, *"$I_{max}\simeq116$ A"* at `universal-saturation-kernel-catalog.md`:171) — pre-existing corpus discrepancy, not a lane misquote | auditor lane |
 | **FLAG-BIN-BANK** | the §9 single-token banking decision + the three token-dependent items | orchestrator |
+| **FLAG-CEFF-CITE** *(new, Tier-2 review 2026-08-06 — surfaced, NOT adjudicated)* | `Op16 Universal Wave Speed` asserts `$c_{shear} = c_0\cdot\sqrt{S}$` and cites two Vol-2 Ch-7 locations as *"grep-verified explicit formula"* carrying `$c_{eff} = c_0\cdot S^{1/2}$` with label `eq:c_shear` (`manuscript/ave-kb/common/operators.md`:56). **Neither cited location carries that formula at HEAD:** `07_quantum_mechanics_and_orbitals.tex`:991 gives `c_0\,\sqrt{1 - A^2}` (i.e. `c_0·S`, label `eq:c_eff` at :994), and the line-1032/`eq:c_shear` box gives `c_S \equiv c`. A third form, `c_{eff}(V) = c_0/\sqrt{S(A)}`, sits at `manuscript/ave-kb/common/claim-quality.md`:396 (described there as the *internal* core speed, so it may be a different object — which is exactly why this is routed, not resolved). **Nothing in this lane rides on it**: no gate, bin, exponent or verdict here consumes a `c_eff` form; the lane's §7 wave-speed clause is now written without a pinned exponent because of this | auditor lane |
 
 ### Appendix — the full hit classification (frozen rule prereg §3.2; quotes truncated at 150 chars, full lines in the shipped JSON)
 
