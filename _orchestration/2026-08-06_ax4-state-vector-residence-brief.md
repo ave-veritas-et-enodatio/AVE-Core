@@ -60,3 +60,19 @@ consume the corrected residence map in
 `2026-08-06-ruling-kernel-collapse-rescope-v2-correction.md` C2 (three definitions,
 two live functionals + a separate S11 objective; definition 3 is the Phase-4 default via
 `k4_cosserat_coupling`) as the authoritative engine-state statement.
+
+---
+**DATED SCOPE UPDATE 2026-08-06 late (ruling record
+`2026-08-06-rulings-sourcing-go-pitch-walk.md`):** three converging questions now
+formally in this lane's scope — all one object (which element owns which budget):
+(a) **FLAG-FORK-RESIDENCE** (PR #914): the I_ω lane's ARM-0/ARM-1 fork (does the
+strain grade load the rotational sector; which element is the gap's kinetic
+coefficient) is this lane's question 3 seen from the kinetic side — read #914's
+result §2 before deriving; (b) **SYM-class** (#914 Tier-2 Q2): the r_sat approach's
+ε₁₁ = 7GM/(c²r) is a RADIAL PRINCIPAL strain — is that a realization of the SYM
+(symmetric-gravity) voice at all, or does L-A resolve to the carve-out on
+anisotropy grounds alone?; (c) **the pitch question** (R19, Grant LEAN recorded:
+rotor moment is a node property, bond strain does not re-machine it — nodes stay,
+waves shrink): derive whether j(ℓ) arises, i.e. whether canon's fixed-topology
+primitive also fixes the per-element moment under strain. The lean is walk-level;
+derive-don't-adopt.
