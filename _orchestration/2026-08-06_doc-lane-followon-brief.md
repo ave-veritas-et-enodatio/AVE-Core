@@ -38,6 +38,12 @@ pending-orchestrator]`.
    in print.
 
 ---
+**DATED UPDATE 2026-08-06 PM (ruling record `2026-08-06-rulings-go-prebond-hawking.md`
+R9):** item 7 is upgraded PROPOSAL-ONLY → **EXECUTE** (Grant GO, verbatim in the record).
+Census-then-execute order stands; the rename is vocabulary-only — any site whose sentence
+stops being true under the new word is a finding to surface, not fix.
+
+---
 **DATED UPDATE 2026-08-06 PM (Tier-2 on #905, findings A3/A4/A5/A11):** item 3 widens —
 `wall-taxonomy.md` §10.2 quotes the SUPERSEDED v1 ruled text byte-identically and its
 "the ruled text above does NOT carry it" fence sentence is now false of the current

@@ -83,6 +83,46 @@ REPAIRED_BY_DISCLOSED_ORCHESTRATOR_REPAIR = {
     "research/drivers/approach_leak.py",
 }
 
+# AMENDMENT-NCBYTES-2026-08-06-B (disclosed pre-merge; docket fragment
+# _orchestration/docket-entries/2026-08-06-g-rho2-supersession.md).  A SECOND
+# extrinsic, disclosed move of ONE read-only artifact -- and this one is not a
+# repair, it is a records edit.
+#
+# WHAT HAPPENED, in one sentence: the frozen v1 kernel-collapse result document
+# records `G-RHO2` as FAIL, the rerun that document's own section 1.3 NAMED has since
+# landed ROW-CERTIFIED (PR #902, merge commit b06cbeb1), and the records lane added
+# the dated supersession pointer the corpus's freeze discipline requires -- so the
+# artifact's live blob no longer equals its blob at V1_PIN_COMMIT.
+#
+# WHY THE PIN MOVES RATHER THAN THE GATE RELAXING: the gate's purpose is "no
+# predecessor artifact drifted un-disclosed".  A per-artifact BLOB pin (not a commit
+# pin) expresses exactly that for an artifact whose move is authored HERE: the move is
+# nailed to one 40-hex object, so any FURTHER edit -- by this lane or anyone -- fails.
+# A commit pin cannot be used because the commit that carries the move does not exist
+# until this lane commits, which would make the gate un-runnable pre-commit.
+SUPERSESSION_BLOB_PIN = {
+    "research/2026-08-05_last-bond-kernel-collapse_result.md":
+        "95a7dae4d7fa7794a4bb22c0c03b08af1268bded",
+}
+
+# The DECLARED moved-set for amendment B, reconciled below against the COMPUTED one.
+MOVED_BY_DISCLOSED_SUPERSESSION_NOTE = set(SUPERSESSION_BLOB_PIN)
+
+# The v1 record's OWN verdict text, which the supersession note may not soften.  These
+# are byte-exact substrings of the artifact as pinned; the gate requires every one of
+# them to still be present in the LIVE file.  A "supersession note" that quietly
+# re-graded the frozen FAIL would fail here even though the blob pin still matched,
+# because the blob pin only says WHICH bytes, never WHICH CLAIM.
+FROZEN_VERDICT_PROBES = {
+    "research/2026-08-05_last-bond-kernel-collapse_result.md": [
+        "**TASK 2 is `ROW-NOT-CERTIFIED`.** `G-RHO2` FAILS on an injection point this "
+        "lane sized wrong at freeze.",
+        "| **G-RHO2** ✗ | 2 | fitted exponent of `\\|dΓ/dZ_beyond\\|` vs `k_0` in "
+        "`[1.9, 2.1]` | `0.00370115115631918737071374823881` | **FAIL** |",
+        "TASK 2 → `ROW-NOT-CERTIFIED`.",
+    ],
+}
+
 # ---------------------------------------------------------------------------
 # Frozen constants of the re-anchor (prereg section 2).  DERIVED FROM DIGIT
 # COUNTS OF THE SHIPPED STRINGS, not from any measured separation.
@@ -209,6 +249,30 @@ def _blob(commit: str, rel: str) -> str:
                           cwd=REPO, capture_output=True, text=True).stdout.strip()
 
 
+def _blob_text(sha: str) -> str:
+    return subprocess.run(["git", "cat-file", "blob", sha],
+                          cwd=REPO, capture_output=True, text=True).stdout
+
+
+def _is_subsequence(old_lines: list[str], new_lines: list[str]) -> bool:
+    """True iff `old_lines` occurs in order inside `new_lines` -- i.e. the edit that
+    took old to new DELETED nothing and only INSERTED.
+
+    Greedy earliest-match is exact for subsequence existence, so this is a decision
+    procedure and not a heuristic.  It is used instead of `git diff --numstat` on two
+    blobs because the LIVE blob is not in the object database until commit time, and a
+    gate must not write objects as a side effect of running.
+    """
+    it = iter(new_lines)
+    for ol in old_lines:
+        for nl in it:
+            if nl == ol:
+                break
+        else:
+            return False
+    return True
+
+
 def nc_bytes() -> dict:
     """AMENDED 2026-08-06 (AMENDMENT-NCBYTES-2026-08-06), pre-merge and disclosed.
 
@@ -231,17 +295,35 @@ def nc_bytes() -> dict:
            so an undisclosed extra rewrite fails the gate;
       (ii) every artifact NOT in that set must be byte-identical at BOTH commits
            -- so the eight-fold no-op is proved, not claimed.
+
+    RE-AMENDED 2026-08-06 (AMENDMENT-NCBYTES-2026-08-06-B), pre-merge and disclosed.
+    A SECOND disclosed move, this one authored by the records lane rather than by the
+    orchestrator: the frozen v1 kernel-collapse result document now carries a dated
+    supersession note pointing at the ROW-CERTIFIED rerun its own section 1.3 named.
+    That artifact's target becomes a PER-ARTIFACT BLOB PIN; the other nine keep the
+    commit pin.  Three further conjuncts are ADDED (COMPUTED/DECLARED reconciliation
+    of the supersession set, ADDITIVE-ONLY on the moved artifact, and byte-exact
+    survival of the record's own FAIL verdict strings).  See `amendment_B_frozen`.
     """
     rows = []
     ok = True
     computed_moved: list[str] = []
+    computed_superseded: list[str] = []
     unmoved_stable = True
+    sup_additive_all = True
+    sup_verdicts_all = True
+    sup_reconciles_all = True
     for rel in READ_ONLY_ARTIFACTS:
         b_ship = _blob(V1_SHIP_COMMIT, rel)
         b_pin = _blob(V1_PIN_COMMIT, rel)
         l = subprocess.run(["git", "hash-object", rel],
                            cwd=REPO, capture_output=True, text=True).stdout.strip()
-        same = bool(b_pin) and b_pin == l
+        # AMENDMENT-NCBYTES-2026-08-06-B: the EFFECTIVE pin is the v1-pin blob unless
+        # this artifact carries a DECLARED per-artifact supersession blob pin.
+        b_eff = SUPERSESSION_BLOB_PIN.get(rel, b_pin)
+        pin_src = ("AMENDMENT-NCBYTES-2026-08-06-B" if rel in SUPERSESSION_BLOB_PIN
+                   else "V1_PIN_COMMIT")
+        same = bool(b_eff) and b_eff == l
         ok = ok and same
         moved = bool(b_ship) and bool(b_pin) and b_ship != b_pin
         declared = rel in REPAIRED_BY_DISCLOSED_ORCHESTRATOR_REPAIR
@@ -249,15 +331,48 @@ def nc_bytes() -> dict:
             computed_moved.append(rel)
         else:
             unmoved_stable = unmoved_stable and (b_ship == b_pin)
-        rows.append({"path": rel,
-                     "blob_at_v1_ship": b_ship[:12],
-                     "blob_at_v1_pin": b_pin[:12],
-                     "blob_live": l[:12],
-                     "byte_identical": same,
-                     "moved_by_disclosed_repair_COMPUTED": moved,
-                     "moved_by_disclosed_repair_DECLARED": declared,
-                     "declaration_reconciles": moved == declared})
+        # amendment B's own COMPUTED/DECLARED reconciliation, on the SAME shape as A:
+        # "did this artifact's live bytes leave the v1 pin?" vs "did we say so?".
+        sup_moved = bool(b_pin) and bool(l) and b_pin != l
+        sup_declared = rel in MOVED_BY_DISCLOSED_SUPERSESSION_NOTE
+        sup_reconciles_all = sup_reconciles_all and (sup_moved == sup_declared)
+        if sup_moved:
+            computed_superseded.append(rel)
+        row = {"path": rel,
+               "blob_at_v1_ship": b_ship[:12],
+               "blob_at_v1_pin": b_pin[:12],
+               "blob_at_effective_pin": b_eff[:12],
+               "effective_pin_source": pin_src,
+               "blob_live": l[:12],
+               "byte_identical": same,
+               "moved_by_disclosed_repair_COMPUTED": moved,
+               "moved_by_disclosed_repair_DECLARED": declared,
+               "declaration_reconciles": moved == declared,
+               "moved_by_disclosed_supersession_COMPUTED": sup_moved,
+               "moved_by_disclosed_supersession_DECLARED": sup_declared,
+               "supersession_declaration_reconciles": sup_moved == sup_declared}
+        if sup_declared:
+            old_lines = _blob_text(b_pin).splitlines()
+            new_lines = Path(REPO / rel).read_text(encoding="utf-8").splitlines()
+            additive = _is_subsequence(old_lines, new_lines)
+            probes = FROZEN_VERDICT_PROBES.get(rel, [])
+            live_text = "\n".join(new_lines)
+            missing = [p for p in probes if p not in live_text]
+            sup_additive_all = sup_additive_all and additive
+            sup_verdicts_all = sup_verdicts_all and not missing
+            row.update({
+                "supersession_lines_at_v1_pin": len(old_lines),
+                "supersession_lines_live": len(new_lines),
+                "supersession_lines_added": len(new_lines) - len(old_lines),
+                "supersession_additive_only_COMPUTED": additive,
+                "supersession_n_frozen_verdict_probes": len(probes),
+                "supersession_frozen_verdicts_preserved_COMPUTED": not missing,
+                "supersession_frozen_verdict_probes_missing": missing,
+            })
+        rows.append(row)
     delta_reconciles = sorted(computed_moved) == sorted(REPAIRED_BY_DISCLOSED_ORCHESTRATOR_REPAIR)
+    sup_delta_reconciles = (sorted(computed_superseded)
+                            == sorted(MOVED_BY_DISCLOSED_SUPERSESSION_NOTE))
     return {"frozen": (f"every read-only predecessor artifact hashes to its blob at the pinned v1 "
                        f"commit -- this lane wrote none of them. AMENDED 2026-08-06: the pin is "
                        f"the REPAIRED v1 tip {V1_PIN_COMMIT}, not the pre-repair ship "
@@ -289,7 +404,38 @@ def nc_bytes() -> dict:
                 REPAIRED_BY_DISCLOSED_ORCHESTRATOR_REPAIR),
             "delta_declaration_reconciles": bool(delta_reconciles),
             "unmoved_artifacts_identical_at_both_commits": bool(unmoved_stable),
-            "pass": bool(ok and delta_reconciles and unmoved_stable)}
+            # ---- AMENDMENT-NCBYTES-2026-08-06-B ------------------------------
+            "amendment_B": "AMENDMENT-NCBYTES-2026-08-06-B",
+            "amendment_B_disclosure": ("_orchestration/docket-entries/"
+                                       "2026-08-06-g-rho2-supersession.md"),
+            "amendment_B_frozen": (
+                "ONE read-only artifact -- the frozen v1 kernel-collapse result document -- "
+                "carries a DISCLOSED, records-lane-authored dated supersession note, so its "
+                "live blob no longer equals its blob at the v1 pin commit. Its pin moves to "
+                "a per-artifact BLOB pin rather than a commit pin, because the commit that "
+                "carries the move does not exist until this branch commits. Purpose "
+                "preserved (no predecessor drifted un-disclosed); nothing dropped; THREE "
+                "conjuncts ADDED, all of which gate the re-pin itself: (i) the COMPUTED "
+                "left-the-v1-pin set must equal the DECLARED supersession set, so an "
+                "undisclosed edit to any of the other nine fails; (ii) the move must be "
+                "ADDITIVE-ONLY -- the pinned text must survive as a line subsequence of the "
+                "live text, so the frozen record cannot be rewritten under cover of a "
+                "'note'; (iii) the record's OWN verdict strings (the ROW-NOT-CERTIFIED "
+                "line, the G-RHO2 FAIL table row, the frozen-consequence line) must still "
+                "be present byte-exactly, because a blob pin says WHICH BYTES and never "
+                "WHICH CLAIM."),
+            "amendment_B_pin_kind": "per-artifact blob pin (not a commit pin)",
+            "amendment_B_blob_pin_DECLARED": dict(SUPERSESSION_BLOB_PIN),
+            "artifacts_moved_by_supersession_COMPUTED": sorted(computed_superseded),
+            "artifacts_moved_by_supersession_DECLARED": sorted(
+                MOVED_BY_DISCLOSED_SUPERSESSION_NOTE),
+            "supersession_delta_declaration_reconciles": bool(sup_delta_reconciles),
+            "supersession_all_moves_additive_only": bool(sup_additive_all),
+            "supersession_all_frozen_verdicts_preserved": bool(sup_verdicts_all),
+            "supersession_per_artifact_declaration_reconciles": bool(sup_reconciles_all),
+            "pass": bool(ok and delta_reconciles and unmoved_stable
+                         and sup_delta_reconciles and sup_additive_all
+                         and sup_verdicts_all and sup_reconciles_all)}
 
 
 # ---------------------------------------------------------------------------
