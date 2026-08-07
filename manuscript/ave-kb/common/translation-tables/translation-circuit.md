@@ -515,7 +515,7 @@ The canonical cross-checks that establish the EE-as-substrate-native mapping is 
 | 9 | Solar deflection $4GM/bc^2$ | Refraction through gradient-index medium | $\checkmark$ Class C consistency | Vol 3 gravity canonical |
 | 10 | W boson mass scale | Cosserat couple-stress length $l_c$ = transformer-leakage-inductance characteristic length | $\checkmark$ order-of-magnitude | [`gauge-boson-masses.md`](../../vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md):39 |
 | 11 | Saturation kernel $S(A)$ | Varactor C-vs-V near breakdown | $\checkmark$ direct mapping | INVARIANT-S2 Ax 4; PONDER-05 canonical bench tester |
-| 12 | Cosserat rotation-sector mass-gap $m_\omega \sim 1$ MeV | Transformer cutoff frequency / ferrite Curie threshold | $\checkmark$ structural | [`trampoline-framework.md`](../trampoline-framework.md):188 |
+| 12 | Cosserat rotation-sector mass-gap $m_\omega \sim 1$ MeV | Transformer cutoff frequency / ferrite Curie threshold | $\checkmark$ structural | [`trampoline-framework.md`](../trampoline-framework.md):192 |
 | 13 | Electron $(2, 3)$ Clifford-torus winding | 2-primary / 3-secondary toroidal transformer | $\checkmark$ topological | [`torus-knot-uniqueness.md`](../../vol2/particle-physics/ch01-topological-matter/torus-knot-uniqueness.md) |
 | 14 | SU(2)→SO(3) double cover (spin-½) | Transformer 2:1 galvanic-isolation winding ratio | $\checkmark$ topological | same |
 | 15 | $\delta_{strain} \approx 2.22 \times 10^{-6}$ at $T_{CMB}$ | TCC of vacuum dielectric with Cosserat-Curie-frozen $\mu$ | $\checkmark$ substrate-mechanism class identified, SIGN predicted (Q-DELTA-MAP-1 closed at mechanism-class identification 2026-05-28); ❌ quantitative $\eta_\varepsilon$ magnitude derivation CLOSED NEGATIVE (Q-DELTA-MAP-1-quant, FT-1 2026-05-31: ~31 OOM undershoot, generic-thermal not AVE-distinct) — magnitude is a definitional residual | clm-009nkt + clm-hp7nlm |
@@ -597,7 +597,7 @@ The user-level skill `~/.claude/skills/ave-ee-first-mapping/SKILL.md` v1.0 is th
 - [`op21-multi-mode-mode-counting.md`](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/op21-multi-mode-mode-counting.md) — Op21 $Q = \ell$ at $\Gamma = -1$ boundary, substrate-orthogonal-channel mode-counting
 - [`four-regimes.md`](../../vol1/operators-and-regimes/ch7-regime-map/four-regimes.md) — Regime III Miller-avalanche mapping
 - [`alpha-invariance-symmetric-gravity.md`](../../vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md) — SYM scaling gives $\alpha$ invariance; canonical Pitfall #5 anchor
-- [`trampoline-framework.md`](../trampoline-framework.md) — Cosserat rotation-sector mass-gap (line 188; $\omega_m \sim 1$ MeV)
+- [`trampoline-framework.md`](../trampoline-framework.md) — Cosserat rotation-sector mass-gap (line 192; $\omega_m \sim 1$ MeV)
 - [`trampoline-analogy-primer.md`](../trampoline-analogy-primer.md) — GR-metric as gradient-index TL impedance profile (pedagogical primer)
 - [`temporal-saturation-regime-classifier.md`](../temporal-saturation-regime-classifier.md) — orthogonal temporal axis (loss tangent $\delta_{AVE}$); EE-substrate-native phase classification
 - [`omega-freeze-cosmic-grain-cascade.md`](../omega-freeze-cosmic-grain-cascade.md) — Machian $G$ as cosmic-TL input impedance; cosmic-chirality axis
@@ -692,7 +692,7 @@ Each row: **ideal EE component** (left) → **engineering-measured correction** 
 | Hysteresis (B-H loop area) | Substrate phase-lock memory in microrotational sector — Cosserat-coupled bond rotations remember last-direction state | Ax 1 Cosserat B sector + substrate phase-lock memory |
 | Eddy current loss | Cosserat substrate boundary-mode coupling between adjacent rotating regions; Joule extraction at boundary $|\Gamma| < 1$ | Ax 1 Cosserat couple-stress $\gamma_c$ + Op17 |
 | Core loss (sum of hysteresis + eddy) | Substrate Joule dissipation in Cosserat microrotational sector at imperfect operating impedance | same |
-| Temperature coefficient TC$L$ / TC$\mu$ (small for air-core; large near Curie for ferrite) | **Cosserat rotation-sector mass-gap** — below substrate-native Curie temperature, B-modes frozen → TC$\mu \approx 0$; near substrate Curie temperature ($\sim 1$ MeV), B-modes thermally populate → TC$\mu$ grows; ferrite-Curie is the material-specific analog of substrate-Curie at engineering temperatures | [`trampoline-framework.md`](../trampoline-framework.md):188 + §9.3 below + [`delta-strain-cosmic-tcc.md`](../../vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md) |
+| Temperature coefficient TC$L$ / TC$\mu$ (small for air-core; large near Curie for ferrite) | **Cosserat rotation-sector mass-gap** — below substrate-native Curie temperature, B-modes frozen → TC$\mu \approx 0$; near substrate Curie temperature ($\sim 1$ MeV), B-modes thermally populate → TC$\mu$ grows; ferrite-Curie is the material-specific analog of substrate-Curie at engineering temperatures | [`trampoline-framework.md`](../trampoline-framework.md):192 + §9.3 below + [`delta-strain-cosmic-tcc.md`](../../vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md) |
 | Saturation curve $L(I)$ rolloff | Ax 4 saturation kernel $L_{eff} = L_0 / S(A_0)$ on the magnetic branch | Ax 4 INVARIANT-S2 |
 
 #### Ideal op-amp
@@ -751,7 +751,7 @@ Each row: **ideal EE component** (left) → **engineering-measured correction** 
 | Magnetizing current $I_m$ | Substrate flywheel inertia — finite microrotational-sector inertia at primary winding requires current to build flux | Ax 1 Cosserat B sector |
 | Core loss (hysteresis + eddy) | Cosserat substrate dissipation in microrotational sector at imperfect operating impedance | Ax 1 Cosserat B sector + Op17 |
 | Turn ratio $n_p : n_s$ (topological invariants) | **Topological winding $(p, q)$ — toroidal transformer winding numbers are integer topological invariants of substrate flux-link topology** | [`torus-knot-uniqueness.md`](../../vol2/particle-physics/ch01-topological-matter/torus-knot-uniqueness.md) |
-| **Curie temperature ferrite ($T_C$)** | **Cosserat rotation-sector mass-gap $\omega_m \sim 1$ MeV** — substrate-native magnetic-mode thermal-freeze threshold; ferrite-$T_C$ is the material-specific manifestation at lab temperatures | [`trampoline-framework.md`](../trampoline-framework.md):188 + §9.3 below |
+| **Curie temperature ferrite ($T_C$)** | **Cosserat rotation-sector mass-gap $\omega_m \sim 1$ MeV** — substrate-native magnetic-mode thermal-freeze threshold; ferrite-$T_C$ is the material-specific manifestation at lab temperatures | [`trampoline-framework.md`](../trampoline-framework.md):192 + §9.3 below |
 | Saturation flux density $B_{sat}$ | Cosserat $B$-mode amplitude at substrate microrotational yield — Cosserat sector hits Ax 4 yield | Ax 4 magnetic-branch INVARIANT-S2 |
 | Interwinding capacitance | Bond geometry between primary and secondary windings; substrate-LC topology at winding-overlap scales | Ax 1 bond-network topology |
 
@@ -787,7 +787,7 @@ Cross-link: the new δ_strain canonical leaf [`delta-strain-cosmic-tcc.md`](../.
 
 - **δ_strain canonical mechanism leaf:** [`delta-strain-cosmic-tcc.md`](../../vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md) (clm-hp7nlm) — Cosserat-rotation-sector-mass-gap thermal-mode-population ASYM; substrate-mechanism path for the TCC rows above
 - **Cosserat couple-stress canonical:** [`gauge-boson-masses.md`](../../vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md):39 ($l_c = \sqrt{\gamma_c/G_{vac}}$) — same primitive that sets transformer leakage-inductance characteristic length AND weak force range
-- **Cosserat rotation-sector mass-gap canonical:** [`trampoline-framework.md`](../trampoline-framework.md):188 ($\omega_m = 2$ in natural units, $\sim 1$ MeV) — substrate-native Curie analog
+- **Cosserat rotation-sector mass-gap canonical:** [`trampoline-framework.md`](../trampoline-framework.md):192 ($\omega_m = 2$ in natural units, $\sim 1$ MeV) — substrate-native Curie analog
 - **SYM α-invariance canonical:** [`alpha-invariance-symmetric-gravity.md`](../../vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md) (clm-3zz0f6) — load-bearing for ASYM-induced α-drift mechanism (SYM gives α invariance; the substrate-thermal ASYM is what produces δ_strain)
 - **SYM vs ASYM canonical:** [`einstein-field-equation.md`](../../vol3/gravity/ch02-general-relativity/einstein-field-equation.md) (clm-8nkvwy) — the c_EM vs c_shear distinction load-bearing for δ_strain derivation
 - **Companion agent-discipline skill:** `~/.claude/skills/ave-ee-first-mapping/SKILL.md` v1.0 — EE-first-mapping discipline that uses this catalog at fire-time

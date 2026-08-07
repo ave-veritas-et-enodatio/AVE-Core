@@ -34,7 +34,7 @@ Per Axiom 1 (INVARIANT-S2 verbatim, `manuscript/ave-kb/CLAUDE.md` line 55), the 
 - **3 translational E-DOFs** at each K4 node — bond-stretching modes, capacitive storage, source of $\mathbf{E}$ field. Spectrum: gapless acoustic at long wavelength; dispersion $\omega(k) = c_E |k|$ as $|k| \to 0$. Thermal occupation at any $T > 0$.
 - **3 microrotational B-DOFs** at each K4 node — bond-twisting flywheels, inductive storage, source of $\mathbf{B}$ field. Spectrum: **gapped** by Cosserat couple-stress; mass-gap $\omega_m$ at $k = 0$. Thermal occupation suppressed by Boltzmann factor $\exp(-\hbar\omega_m/k_B T)$ at $T \ll \omega_m/k_B$.
 
-The B-mode mass-gap is the canonical Cosserat rotation-sector mass-gap from `manuscript/ave-kb/common/trampoline-framework.md` §1.4 line 188 (verbatim):
+The B-mode mass-gap is the canonical Cosserat rotation-sector mass-gap from `manuscript/ave-kb/common/trampoline-framework.md` §1.4 line 192 (verbatim):
 
 > *"Mass gap in the rotation sector: $m_\omega^2 = 4 G_c / I_\omega$ where $G_c$ is the Cosserat couple-stress modulus. Period $T = 2\pi/\omega_m = \pi$ in natural units. Verlet-validated at doc 41 §2-§3; E-046 canonical."*
 
@@ -147,7 +147,7 @@ for $T_{CMB} \ll T \ll T_{B-gap}$.
 
 ### §6.2 — Joint-constraint with weak force range
 
-The same Cosserat couple-stress modulus $\gamma_c$ that sets the weak force range $r_W = l_c = \sqrt{\gamma_c/G_{vac}}$ per canonical `gauge-boson-masses.md` line 39 ALSO sets the B-mode mass-gap $\omega_m^2 = 4 G_c / I_\omega$ per canonical `trampoline-framework.md` line 188 that produces δ_strain. **Joint falsification**: detection of a stable, freely propagating right-handed neutrino (the canonical kill-switch at `vol4/falsification/ch11-experimental-bench-falsification/epistemology-of-falsification.md` clm-gw2wgc) falsifies the $\frac{1}{3} G_{vac}$ microrotational boundary condition, geometrically destroying the derivation of the weak force — AND simultaneously falsifies the δ_strain mechanism (the substrate primitive $\gamma_c$ underlies both).
+The same Cosserat couple-stress modulus $\gamma_c$ that sets the weak force range $r_W = l_c = \sqrt{\gamma_c/G_{vac}}$ per canonical `gauge-boson-masses.md` line 39 ALSO sets the B-mode mass-gap $\omega_m^2 = 4 G_c / I_\omega$ per canonical `trampoline-framework.md` line 192 that produces δ_strain. **Joint falsification**: detection of a stable, freely propagating right-handed neutrino (the canonical kill-switch at `vol4/falsification/ch11-experimental-bench-falsification/epistemology-of-falsification.md` clm-gw2wgc) falsifies the $\frac{1}{3} G_{vac}$ microrotational boundary condition, geometrically destroying the derivation of the weak force — AND simultaneously falsifies the δ_strain mechanism (the substrate primitive $\gamma_c$ underlies both).
 
 This is a substrate-physics consistency commitment: the substrate-physics framework predicts that the weak force range AND the substrate-thermal-running-of-α share a common substrate primitive. Independent falsification of either constrains both. Independent measurement of either provides cross-check on the substrate primitive.
 
@@ -182,7 +182,7 @@ The Class 2 emergence lift (quantitative substrate-statistical-mechanics derivat
 
 ### Upstream substrate primitives
 
-- **Cosserat rotation-sector mass-gap** ($\omega_m = 2$ in natural units $\sim 1$ MeV): [`trampoline-framework.md:188`](../../../common/trampoline-framework.md) — canonical substrate-mechanism source
+- **Cosserat rotation-sector mass-gap** ($\omega_m = 2$ in natural units $\sim 1$ MeV): [`trampoline-framework.md:192`](../../../common/trampoline-framework.md) — canonical substrate-mechanism source
 - **Cosserat couple-stress modulus $\gamma_c$ + characteristic length $l_c = \sqrt{\gamma_c/G_{vac}}$** (weak force range): [`gauge-boson-masses.md:39`](../../../vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md) — canonical substrate-mechanism source; same primitive that produces δ_strain
 - **SYM-class α-invariance proof** (clm-3zz0f6, confidence/solidity 0.85): [`alpha-invariance-symmetric-gravity.md`](../../gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md) — load-bearing: SYM scaling gives α invariance; δ_strain emerges precisely because asymmetric thermal occupation breaks SYM
 - **SYM vs ASYM canonical** (clm-8nkvwy): [`einstein-field-equation.md`](../../gravity/ch02-general-relativity/einstein-field-equation.md) — load-bearing: the c_EM vs c_shear distinction underlying the asymmetric scaling analysis

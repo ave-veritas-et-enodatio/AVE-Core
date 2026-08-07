@@ -20,7 +20,7 @@ The chapter consolidates: the Cosserat-Curie thermal-asymmetry mechanism (cosmic
 
 ## Upstream substrate primitives referenced
 
-- **Cosserat rotation-sector mass-gap** ($\omega_m = 2$ in natural units, $\sim 1$ MeV): [`trampoline-framework.md`](../../common/trampoline-framework.md) line 188 — substrate-native magnetic-mode thermal-freeze threshold; substrate-Curie analog.
+- **Cosserat rotation-sector mass-gap** ($\omega_m = 2$ in natural units, $\sim 1$ MeV): [`trampoline-framework.md`](../../common/trampoline-framework.md) line 192 — substrate-native magnetic-mode thermal-freeze threshold; substrate-Curie analog.
 - **Cosserat couple-stress $\gamma_c$** + characteristic length $l_c = \sqrt{\gamma_c/G_{vac}}$: [`gauge-boson-masses.md`](../../vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md) line 39 — load-bearing joint-constraint with the weak-force range.
 - **SYM α-invariance proof** (`clm-3zz0f6`): [`alpha-invariance-symmetric-gravity.md`](../../vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md) — load-bearing; SYM scaling preserves α, the Cosserat-Curie ASYM is the substrate-mechanism class that breaks SYM and produces α-drift.
 - **Two-effective-wave-speeds canonical** (`clm-8nkvwy:111` / `:113`): [`einstein-field-equation.md`](../../vol3/gravity/ch02-general-relativity/einstein-field-equation.md) — $c_{EM}$ (Maxwell phase velocity, enters α) vs $c_{shear}$ (mechanical / group / rest-mass velocity, Schwarzschild). Pitfall #5 framework-leakage warning preserved.
