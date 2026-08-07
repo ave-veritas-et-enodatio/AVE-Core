@@ -58,3 +58,17 @@ fragments carry `### ENTRY <YYYY-MM-DD>-<lane-slug>` headers per the docket READ
 keys gate is warn-only and currently vacuous for ~20 recent fragments; sweep optional,
 forward hygiene mandatory). Consume the corrected engine residence map from
 `2026-08-06-ruling-kernel-collapse-rescope-v2-correction.md` C2 wherever item 4 lands.
+
+---
+**DATED UPDATE 2026-08-06 EOD (ruling record `2026-08-06-rulings-final-batch.md`):**
+NEW ITEM 10 — the FLAG-D strike (R16): dated Rule-12 corrections at
+`l3-electron-soliton-synthesis.md:132` and `trampoline-framework.md:220` (first
+clause), canonical direction ħω_m = 2m_ec² / observable = medium/2, citing R16 + the
+A-008 propagation record; FLAG-C's 15-site `:188`→`:192` line-shift repair rides the
+same pass. NEW ITEM 11 — vocabulary-register PROPOSED-status entry for the lock
+vocabulary (R17: phase-lock bond, lock range, free-running/de-bonded, the Adler carve
+— Hamiltonian resonance capture NOT dissipative PLL; every word phase-scoped;
+licenses nothing in print). NEW ITEM 12 — two CONVENTIONS lines per R14
+(probe-list-covers-the-verdict; self-declared pins nailed only by rosters+probes).
+Item 7 scope note: the pre-bond rename must NOT import lock-vocab into canon sites —
+the rename is R9's vocabulary only; lock words stay register-PROPOSED until audited.
