@@ -55,7 +55,35 @@ VOLUMES = vol_0_engineering_compendium vol_1_foundations vol_2_subatomic vol_3_m
 PAPER_DIR = papers/2026_birefringence_letter
 PAPER_JOB = sve_vacuum_birefringence_letter
 
-.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-coldq-v2-number-check verify-coldq-v22-number-check refresh-provenance-baseline framing-audit verify-anchor-content verify-new-cite-excerpts test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup verify-coldq-v24-number-check verify-coldq-polar-number-check verify-echo-delay-number-check verify-coldq-axial-rhob-number-check verify-two-band-kp-number-check verify-echo-delay-v2-number-check verify-last-bond-number-check verify-srs-twist-number-check gamma-census verify-approach-leak-number-check verify-approach-leak-v2-number-check verify-last-bond-g-rho2-rerun-number-check
+# LEGACY per-lane number-check target names. FROZEN 2026-08-06 at the umbrella-glob
+# adoption (see the UMBRELLA-GLOB section below). This is the complete set of
+# per-lane target names that existed when auto-discovery landed. They are KEPT, as
+# thin one-line aliases, because a two-engine census (`git grep` + `grep -r`, run
+# 2026-08-06) found 24 corpus references naming them -- including sites inside
+# FROZEN prereg and result documents, and inside checker-script docstrings, that
+# cannot be rewritten to point somewhere else.
+#
+# ***APPEND NOTHING TO THIS LIST.*** A new lane's checker is auto-discovered from
+# `research/drivers/*_number_check.py` and requires ZERO Makefile edits -- no
+# .PHONY entry, no `verify:` prerequisite, no help line, no target block. This
+# variable exists so the shared `.PHONY` line is structurally final rather than
+# final by promise.
+LEGACY_LANE_CHECK_ALIASES = \
+	verify-coldq-v2-number-check \
+	verify-coldq-v22-number-check \
+	verify-coldq-v24-number-check \
+	verify-coldq-polar-number-check \
+	verify-coldq-axial-rhob-number-check \
+	verify-echo-delay-number-check \
+	verify-echo-delay-v2-number-check \
+	verify-two-band-kp-number-check \
+	verify-last-bond-number-check \
+	verify-last-bond-g-rho2-rerun-number-check \
+	verify-srs-twist-number-check \
+	verify-approach-leak-number-check \
+	verify-approach-leak-v2-number-check
+
+.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks refresh-provenance-baseline framing-audit verify-anchor-content verify-new-cite-excerpts test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup gamma-census $(LEGACY_LANE_CHECK_ALIASES)
 
 help:
 	@echo "Applied Vacuum Engineering (AVE-Core) Build System"
@@ -69,18 +97,9 @@ help:
 	@echo "  make verify-inter-repo-links : Same, but broken inter-repo links also gate (inter-repo: error)"
 	@echo "  make verify-provenance-stamps : Check research/ provenance stamps carry a resolvable artifact reference (baseline-gated)"
 	@echo "  make verify-frozen-provenance : Check research/ result-doc Frozen-label criteria appear byte-identically in the lane prereg (date-gated)"
-	@echo "  make verify-lane-number-checks : Check research-lane result-doc numeric tokens against their shipped JSON sources (gating)"
-	@echo "  make verify-coldq-v2-number-check : Check the cold-Q v2.1 result-doc numerals against its shipped JSON (gating)"
-	@echo "  make verify-coldq-v22-number-check : Check the cold-Q v2.2 root-certification result-doc numerals against its shipped JSON (gating)"
-	@echo "  make verify-coldq-v24-number-check : Check the cold-Q v2.4 root-certification result-doc numerals against its shipped JSON (gating)"
-	@echo "  make verify-coldq-polar-number-check : Check the cold-Q POLAR FAMILY result-doc numerals against its shipped JSON (gating)"
-	@echo "  make verify-echo-delay-number-check : Check the ECHO-DELAY regulated-sum result-doc numerals + mutation receipt (gating)"
-	@echo "  make verify-coldq-axial-rhob-number-check : Check the cold-Q axial RHO-B result-doc numerals against its shipped JSON (gating)"
-	@echo "  make verify-echo-delay-v2-number-check : Check the ECHO-DELAY v2 rerun + Y8 reach-through result-doc numerals + mutation receipt (gating)"
-	@echo "  make verify-last-bond-g-rho2-rerun-number-check : Check the G-RHO2 rerun v2 result-doc numerals + mutation receipt (gating)"
-	@echo "  make verify-srs-twist-number-check : Check the srs compression-twist result-doc numerals + mutation receipt (gating)"
-	@echo "  make verify-approach-leak-number-check : Check the approach-leak result-doc numerals + G-DET re-run + mutation receipt (gating)"
-	@echo "  make verify-approach-leak-v2-number-check : Check the approach-leak V2 result-doc numerals + G-DET-V2 re-run + BOTH mutation receipts, and the PRESERVED v1 target content (gating)"
+	@echo "  make verify-lane-number-checks : Run EVERY research/drivers/*_number_check.py (auto-discovered) + each one's mutation receipt (gating)"
+	@echo "     ...one checker only : make verify-lane-number-checks LANE_CHECK_FILTER=<script-stem>   (e.g. LANE_CHECK_FILTER=srs_twist_coefficient_number_check)"
+	@echo "     legacy per-lane aliases (frozen set, kept for corpus cites): $(LEGACY_LANE_CHECK_ALIASES)"
 	@echo "  make refresh-provenance-baseline : Regenerate the grandfather baseline from the live scan (allowed to shrink)"
 	@echo "  make framing-audit        : Scan corpus for reviewer-misread framing anti-patterns (advisory)"
 	@echo "  make verify-anchor-content : Check cited path:NN vs adjacent backtick excerpt drift (WARN-CLASS advisory)"
@@ -112,8 +131,22 @@ setup:
 # =============================================================================
 # 1. Physics Verification (The "Simulate to Verify" Protocol)
 # =============================================================================
-verify: $(KB_VERIFY) verify-md-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-coldq-v2-number-check verify-coldq-v22-number-check verify-coldq-v24-number-check verify-coldq-polar-number-check verify-echo-delay-number-check verify-coldq-axial-rhob-number-check verify-two-band-kp-number-check verify-echo-delay-v2-number-check verify-last-bond-number-check verify-last-bond-g-rho2-rerun-number-check verify-srs-twist-number-check verify-approach-leak-number-check verify-approach-leak-v2-number-check
+verify: $(KB_VERIFY) verify-md-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks
+# UMBRELLA-GLOB ADOPTION 2026-08-06: the thirteen per-lane `verify-*-number-check`
+# prerequisites that used to be listed on the line above are GONE FROM THIS LINE and
+# from nowhere else -- `verify-lane-number-checks` now auto-discovers and runs all
+# seventeen `research/drivers/*_number_check.py` checkers plus the eight mutation
+# receipts, which is the identical execution multiset (measured before/after on the
+# same tree: 17 plain + 8 receipts, both sides). The names survive as aliases below.
+# This line is now STRUCTURALLY FINAL: a new lane adds nothing to it.
+#
 # FLAG-SCANFRAG -- REPAIRED UPSTREAM; the v1 target is RESTORED to this chain
+# [DATED NOTE 2026-08-06, umbrella-glob adoption: "this chain" is now the single
+#  `verify-lane-number-checks` prerequisite rather than a named entry on the line
+#  above. `approach_leak_number_check.py` is auto-discovered and still GATES on
+#  every `make verify`, with its mutation receipt -- the restoration this block
+#  records is intact, only its wiring changed. The block below is preserved
+#  verbatim as the history of why it was ever dropped.]
 # (AMENDED 2026-08-06, research/2026-08-06_approach-leak-v2_result.md §9.2(c)).
 #
 # HISTORY, because the previous comment here asserted the fragility as live and it
@@ -192,18 +225,18 @@ kb-claim-stats:
 # number-check recipes: PR #854 has open, unmerged edits both to the
 # verify-lane-number-checks recipe and to the block after verify-anchor-content,
 # and a third edit adjacent to either would collide.  Same gating effect.
+# ALIAS since 2026-08-06 (umbrella-glob): body is one filtered delegation; the checker gates via auto-discovery, not via this name. Comment above preserved as history.
 verify-coldq-v22-number-check:
-	@echo "Checking the cold-Q v2.2 root-certification result-doc numerals against its shipped JSON (gating)..."
-	$(PYTHON) research/drivers/coldq_pole_v2p2_root_number_check.py
+	@$(MAKE) --no-print-directory verify-lane-number-checks LANE_CHECK_FILTER=coldq_pole_v2p2_root_number_check
 
 # Placed as its OWN target rather than appended to the verify-lane-number-checks
 # recipe: PR #854 and PR #856 both carry open, unmerged edits to that recipe, and
 # a third edit inside it would collide.  Same gating effect.  DISCLOSED (prereg
 # FLAG-12): the .PHONY line and the verify: prerequisite line ARE shared with
 # those branches and are a REAL two-line conflict, not an append-only merge.
+# ALIAS since 2026-08-06 (umbrella-glob): body is one filtered delegation; the checker gates via auto-discovery, not via this name. Comment above preserved as history.
 verify-coldq-v24-number-check:
-	@echo "Checking the cold-Q v2.4 root-certification result-doc numerals against its shipped JSON (gating)..."
-	$(PYTHON) research/drivers/coldq_pole_v2p4_root_number_check.py
+	@$(MAKE) --no-print-directory verify-lane-number-checks LANE_CHECK_FILTER=coldq_pole_v2p4_root_number_check
 
 # FIFTH cold-Q number-check target.  Placed as its OWN target rather than
 # appended to any existing recipe: the four predecessor cold-Q recipes each
@@ -211,28 +244,26 @@ verify-coldq-v24-number-check:
 # would collide.  Same gating effect.  DISCLOSED (prereg FLAG-MK): the .PHONY
 # line and the verify: prerequisite line ARE shared and are a REAL two-line
 # conflict with any other open cold-Q branch, not an append-only merge.
+# ALIAS since 2026-08-06 (umbrella-glob): body is one filtered delegation; the checker gates via auto-discovery, not via this name. Comment above preserved as history.
 verify-coldq-polar-number-check:
-	@echo "Checking the cold-Q POLAR FAMILY result-doc numerals against its shipped JSON (gating)..."
-	$(PYTHON) research/drivers/coldq_polar_family_number_check.py
+	@$(MAKE) --no-print-directory verify-lane-number-checks LANE_CHECK_FILTER=coldq_polar_family_number_check
 
 # SIXTH lane number-check target.  Placed as its OWN target rather than
 # appended to any existing recipe, for the same reason the fifth was: each
 # predecessor recipe belongs to a different branch's history.  This one also
 # runs the MUTATION RECEIPT, so the gate proves it can FAIL on every invocation
 # rather than only when something is already broken.
+# ALIAS since 2026-08-06 (umbrella-glob): body is one filtered delegation; the checker gates via auto-discovery, not via this name. Comment above preserved as history.
 verify-echo-delay-number-check:
-	@echo "Checking the ECHO-DELAY regulated-sum result-doc numerals against its shipped JSON (gating)..."
-	$(PYTHON) research/drivers/echo_delay_regulated_sum_number_check.py
-	@echo "Mutation receipt: the numeral checker must FAIL on perturbed sources..."
-	$(PYTHON) research/drivers/echo_delay_regulated_sum_number_check.py --mutation-receipt
+	@$(MAKE) --no-print-directory verify-lane-number-checks LANE_CHECK_FILTER=echo_delay_regulated_sum_number_check
 # Wired as its OWN target so no recipe body is shared with any other cold-Q
 # lane.  DISCLOSED, carrying v2.4's FLAG-12 forward unchanged: the .PHONY line
 # and the verify: prerequisite line ARE shared and are a REAL conflict, not an
 # append-only merge.  The polar-family branch (PR #869) edits the same two
 # lines.
+# ALIAS since 2026-08-06 (umbrella-glob): body is one filtered delegation; the checker gates via auto-discovery, not via this name. Comment above preserved as history.
 verify-coldq-axial-rhob-number-check:
-	@echo "Checking the cold-Q axial RHO-B result-doc numerals against its shipped JSON (gating)..."
-	$(PYTHON) research/drivers/coldq_axial_rhob_number_check.py
+	@$(MAKE) --no-print-directory verify-lane-number-checks LANE_CHECK_FILTER=coldq_axial_rhob_number_check
 
 # EIGHTH lane number-check target.  Own target, own recipe body — no recipe line is
 # shared with any predecessor lane, so a merge conflict here is impossible.
@@ -242,11 +273,9 @@ verify-coldq-axial-rhob-number-check:
 # that adds a number-check edits the same two lines, and the correct resolution is the
 # UNION of all lanes' targets, never a pick-one.  Runs its MUTATION RECEIPT on every
 # invocation so the gate is proven fireable, not assumed to be.
+# ALIAS since 2026-08-06 (umbrella-glob): body is one filtered delegation; the checker gates via auto-discovery, not via this name. Comment above preserved as history.
 verify-two-band-kp-number-check:
-	@echo "Checking the two-band / k.p kinematics result-doc numerals against its shipped JSON (gating)..."
-	$(PYTHON) research/drivers/two_band_kp_kinematics_number_check.py
-	@echo "Mutation receipt: the numeral checker must FAIL on perturbed shipped values..."
-	$(PYTHON) research/drivers/two_band_kp_kinematics_number_check.py --mutation-receipt
+	@$(MAKE) --no-print-directory verify-lane-number-checks LANE_CHECK_FILTER=two_band_kp_kinematics_number_check
 # SEVENTH lane number-check target.  Placed as its OWN target rather than
 # appended to any existing recipe, for the same reason the fifth and sixth
 # were: each predecessor recipe belongs to a different branch's history.  Like
@@ -257,26 +286,27 @@ verify-two-band-kp-number-check:
 # verify: prerequisite line ARE shared with every other lane's number-check
 # target and are a REAL two-line union-conflict class with any concurrent
 # lane, not an append-only merge.
+# ALIAS since 2026-08-06 (umbrella-glob): body is one filtered delegation; the checker gates via auto-discovery, not via this name. Comment above preserved as history.
 verify-echo-delay-v2-number-check:
-	@echo "Checking the ECHO-DELAY v2 rerun + Y8 reach-through result-doc numerals against its shipped JSON (gating)..."
-	$(PYTHON) research/drivers/echo_delay_v2_number_check.py
-	@echo "Mutation receipt: the numeral checker must FAIL on perturbed sources..."
-	$(PYTHON) research/drivers/echo_delay_v2_number_check.py --mutation-receipt
+	@$(MAKE) --no-print-directory verify-lane-number-checks LANE_CHECK_FILTER=echo_delay_v2_number_check
 
 # Its OWN target (not appended to verify-lane-number-checks): that recipe already
 # carries an open unmerged edit from PR #845, and the umbrella-glob proposal that
 # would replace all of these with one wildcard target is PENDING, so a per-lane
 # target is still the shipping form.  Same gating effect.
+# ADOPTED 2026-08-06 (Rule 12 shape -- the paragraph above is PRESERVED, not edited).
+# The umbrella-glob proposal it calls PENDING HAS LANDED; see the UMBRELLA-GLOB
+# section further down this file.  "A per-lane target is still the shipping form"
+# is HISTORY as of that date: the shipping form is now auto-discovery, and this
+# target name survives only as an alias.
 # DISCLOSED, carrying the FLAG forward unchanged: the .PHONY line and the verify:
 # prerequisite line ARE shared with every other lane's number-check target and are
 # a REAL two-line union-conflict class with any concurrent lane, not an
 # append-only merge.  This lane touched exactly those two shared lines plus this
 # appended block.
+# ALIAS since 2026-08-06 (umbrella-glob): body is one filtered delegation; the checker gates via auto-discovery, not via this name. Comment above preserved as history.
 verify-last-bond-number-check:
-	@echo "Checking the LAST-BOND kernel-collapse result-doc numerals against its shipped JSON (gating)..."
-	$(PYTHON) research/drivers/last_bond_kernel_collapse_number_check.py
-	@echo "Mutation receipt: the numeral checker must FAIL on perturbed sources..."
-	$(PYTHON) research/drivers/last_bond_kernel_collapse_number_check.py --mutation-receipt
+	@$(MAKE) --no-print-directory verify-lane-number-checks LANE_CHECK_FILTER=last_bond_kernel_collapse_number_check
 # G-RHO2 RERUN v2 number-check.  Its OWN target with its OWN recipe body -- no recipe
 # line is shared with any other lane.  The mutation receipt runs on EVERY invocation, so
 # the gate cannot silently degrade into a no-op.  This checker additionally reconciles
@@ -289,11 +319,9 @@ verify-last-bond-number-check:
 # with any concurrently open lane -- not an append-only merge.  The correct resolution is
 # the UNION of all lanes' targets, never a pick-one.  This lane touched exactly those three
 # shared lines plus this appended block.
+# ALIAS since 2026-08-06 (umbrella-glob): body is one filtered delegation; the checker gates via auto-discovery, not via this name. Comment above preserved as history.
 verify-last-bond-g-rho2-rerun-number-check:
-	@echo "Checking the G-RHO2 RERUN v2 result-doc numerals against its shipped JSON (gating)..."
-	$(PYTHON) research/drivers/last_bond_g_rho2_rerun_number_check.py
-	@echo "Mutation receipt: the numeral checker must FAIL on perturbed sources..."
-	$(PYTHON) research/drivers/last_bond_g_rho2_rerun_number_check.py --mutation-receipt
+	@$(MAKE) --no-print-directory verify-lane-number-checks LANE_CHECK_FILTER=last_bond_g_rho2_rerun_number_check
 # SRS COMPRESSION-TWIST lane number-check.  Its OWN target with its OWN recipe
 # body -- no recipe line is shared with any other lane.  The mutation receipt runs
 # on EVERY invocation, so the gate cannot silently degrade into a no-op.
@@ -301,11 +329,9 @@ verify-last-bond-g-rho2-rerun-number-check:
 # line ARE shared with every other lane's number-check target.  Any concurrently
 # open lane adding a number-check edits those same two lines, and the correct
 # resolution is the UNION of all lanes' targets -- never a pick-one.
+# ALIAS since 2026-08-06 (umbrella-glob): body is one filtered delegation; the checker gates via auto-discovery, not via this name. Comment above preserved as history.
 verify-srs-twist-number-check:
-	@echo "Checking the srs compression-twist result-doc numerals against its shipped JSON (gating)..."
-	$(PYTHON) research/drivers/srs_twist_coefficient_number_check.py
-	@echo "Mutation receipt: the numeral checker must FAIL on perturbed sources..."
-	$(PYTHON) research/drivers/srs_twist_coefficient_number_check.py --mutation-receipt
+	@$(MAKE) --no-print-directory verify-lane-number-checks LANE_CHECK_FILTER=srs_twist_coefficient_number_check
 
 # APPROACH-LEAK lane number-check.  Its OWN target with its OWN recipe body -- no
 # recipe line is shared with any other lane.  The mutation receipt runs on EVERY
@@ -321,11 +347,17 @@ verify-srs-twist-number-check:
 # `research/drivers/*_number_check.py`) would retire this conflict class entirely
 # and REMAINS PENDING; it is not adopted here because adopting it unilaterally
 # would change the gate surface of every other open lane.
+# ADOPTED 2026-08-06 (Rule 12 shape -- the paragraph above is PRESERVED, not edited).
+# The proposal it calls PENDING HAS LANDED; see the UMBRELLA-GLOB section further
+# down this file.  Its stated reason for deferral -- "adopting it unilaterally
+# would change the gate surface of every other open lane" -- was DISCHARGED by
+# measurement rather than waived: the execution multiset is identical before and
+# after on the same tree (17 plain runs + 8 mutation receipts on BOTH sides), so
+# no lane's gate surface moved.  This block's diagnosis of the conflict class was
+# correct and is the reason the class is now retired.
+# ALIAS since 2026-08-06 (umbrella-glob): body is one filtered delegation; the checker gates via auto-discovery, not via this name. Comment above preserved as history.
 verify-approach-leak-number-check:
-	@echo "Checking the APPROACH-LEAK result-doc numerals against its shipped JSON (gating; includes the G-DET re-run)..."
-	$(PYTHON) research/drivers/approach_leak_number_check.py
-	@echo "Mutation receipt: the numeral checker must CATCH every perturbation..."
-	$(PYTHON) research/drivers/approach_leak_number_check.py --mutation-receipt
+	@$(MAKE) --no-print-directory verify-lane-number-checks LANE_CHECK_FILTER=approach_leak_number_check
 
 # APPROACH-LEAK V2 lane number-check.  Its OWN target with its OWN recipe body --
 # no recipe line is shared with any other lane.  It MACHINE-GATES G-DET-V2 (re-runs
@@ -350,11 +382,16 @@ verify-approach-leak-number-check:
 # `research/drivers/*_number_check.py`) would retire this conflict class entirely
 # and REMAINS PENDING; it is not adopted here because adopting it unilaterally
 # would change the gate surface of every other open lane.
+# ADOPTED 2026-08-06 (Rule 12 shape -- the paragraph above is PRESERVED, not edited).
+# The proposal it calls PENDING HAS LANDED; see the UMBRELLA-GLOB section further
+# down this file.  Measured discharge of the deferral reason: identical execution
+# multiset before and after on the same tree (17 plain runs + 8 mutation receipts,
+# both sides).  The AMENDED-2026-08-06 sentence above about the v1 target being
+# "back in the `verify:` chain" still holds -- both v1 and v2 checkers are
+# auto-discovered and both gate; only the wiring changed, never the coverage.
+# ALIAS since 2026-08-06 (umbrella-glob): body is one filtered delegation; the checker gates via auto-discovery, not via this name. Comment above preserved as history.
 verify-approach-leak-v2-number-check:
-	@echo "Checking the APPROACH-LEAK V2 result-doc numerals + the PRESERVED v1 target content (gating; includes the G-DET-V2 re-run)..."
-	$(PYTHON) research/drivers/approach_leak_v2_number_check.py
-	@echo "Mutation receipt: the v2 numeral checker must CATCH every perturbation..."
-	$(PYTHON) research/drivers/approach_leak_v2_number_check.py --mutation-receipt
+	@$(MAKE) --no-print-directory verify-lane-number-checks LANE_CHECK_FILTER=approach_leak_v2_number_check
 
 verify-md-links:
 	@echo "Checking Markdown link integrity + cited-id validity (inter-repo: warn)..."
@@ -372,12 +409,94 @@ verify-frozen-provenance:
 	@echo "Checking research/ result-doc Frozen-label criteria appear byte-identically in the lane prereg (date-gated)..."
 	$(PYTHON) $(KB_TOOLS_DIR)/verify-frozen-provenance.py
 
+# =============================================================================
+# UMBRELLA-GLOB LANE NUMBER-CHECKS -- ADOPTED 2026-08-06
+# =============================================================================
+# ADOPTED 2026-08-06.  The standing umbrella-glob proposal documented in the
+# per-lane FLAG blocks ABOVE (search this file for "umbrella-glob proposal") is
+# now the shipping form.  Those FLAG blocks are PRESERVED verbatim as history --
+# they are the record of a conflict class that was disclosed at freeze by five
+# separate lanes and then observed ten times at merge -- and each carries a dated
+# ADOPTED pointer back to here.  Nothing about their rationale is retracted; the
+# only thing that changed is that the proposal they deferred has landed.
+#
+# WHAT THIS RETIRES.  Every lane used to add (a) its name to the `.PHONY` line,
+# (b) its name to the `verify:` prerequisite line, (c) an echo to the `help`
+# recipe, and (d) its own target block.  (a)-(c) are SHARED lines: two concurrent
+# lanes touching them conflict on GitHub's server-side merge regardless of the
+# union merge driver in `.gitattributes` (same mechanism the docket news-fragments
+# convention was adopted for -- see `_orchestration/docket-entries/README.md`).
+# Under auto-discovery a new lane edits NONE of those four things: it drops
+# `research/drivers/<lane>_number_check.py` in and this target finds it.
+#
+# THE DISCOVERY CONTRACT, so a lane knows what it is opting into:
+#   1. Any `research/drivers/*_number_check.py` is run, plain, exactly once.
+#   2. It is then run a second time with `--mutation-receipt` IF AND ONLY IF its
+#      own source contains that literal flag.  Every checker in this repo parses
+#      the flag by `"--mutation-receipt" in sys.argv` rather than by argparse, so
+#      a checker that does NOT implement it silently ignores the flag and re-runs
+#      the plain check -- a double-run masquerading as a gate.  Source-grep is the
+#      only honest detector available, and it is exact: measured 2026-08-06, the
+#      grep set is byte-identical to the set of 8 lanes that had hand-wired a
+#      receipt line, with 0 false positives and 0 false negatives over 17 files.
+#   3. Fail-fast: the first non-zero exit stops the run and the failing checker is
+#      named with its mode (plain vs mutation receipt) and its exit code.
+#   4. Discovery is measured at RUN time by the shell, not at parse time by
+#      `$(wildcard)`, so a checker added while make is resolving is still seen.
+#      An EMPTY discovery set is a hard error, not a silent pass -- a glob that
+#      matches nothing is exactly how this kind of gate rots into a no-op.
+#
+# `LANE_CHECK_FILTER=<script-stem>` restricts the run to one checker.  That is the
+# single mechanism the legacy per-lane aliases below are built on, so an alias and
+# the umbrella can never drift apart in HOW a checker is invoked.
+LANE_CHECK_DIR    = research/drivers
+LANE_CHECK_GLOB   = $(LANE_CHECK_DIR)/*_number_check.py
+LANE_CHECK_FILTER ?=
+
 verify-lane-number-checks:
 	@echo "Checking research-lane result-doc numeric tokens against their shipped JSON sources (gating)..."
-	$(PYTHON) research/drivers/continuum_radial_solver_number_check.py
-	$(PYTHON) research/drivers/subc_kubc_bracket_number_check.py
-	$(PYTHON) research/drivers/coldq_pole_derivation_number_check.py
-	$(PYTHON) research/drivers/pasteur_kappa_desk_calc_number_check.py
+	@set -u; \
+	if [ -n "$(LANE_CHECK_FILTER)" ]; then \
+		checkers="$(LANE_CHECK_DIR)/$(LANE_CHECK_FILTER).py"; \
+		if [ ! -f "$$checkers" ]; then \
+			echo "[lane-checks] *** FILTER ERROR: no such checker: $$checkers"; \
+			exit 2; \
+		fi; \
+		echo "[lane-checks] filtered to 1 checker (LANE_CHECK_FILTER=$(LANE_CHECK_FILTER))"; \
+	else \
+		checkers=$$(ls $(LANE_CHECK_GLOB) 2>/dev/null); \
+		if [ -z "$$checkers" ]; then \
+			echo "[lane-checks] *** DISCOVERY ERROR: no checker matched $(LANE_CHECK_GLOB)"; \
+			echo "[lane-checks]     an empty glob is treated as a FAILURE, never as a pass."; \
+			exit 2; \
+		fi; \
+		echo "[lane-checks] auto-discovered $$(echo $$checkers | wc -w | tr -d ' ') checker(s) via $(LANE_CHECK_GLOB)"; \
+	fi; \
+	nplain=0; nreceipt=0; nskip=0; \
+	for c in $$checkers; do \
+		echo "[lane-checks] RUN      $$c"; \
+		$(PYTHON) "$$c"; rc=$$?; \
+		if [ $$rc -ne 0 ]; then \
+			echo "[lane-checks] *** FAILED (plain run): $$c  [exit $$rc]"; \
+			exit $$rc; \
+		fi; \
+		nplain=$$((nplain+1)); \
+	done; \
+	for c in $$checkers; do \
+		if grep -qF -e '--mutation-receipt' "$$c"; then \
+			echo "[lane-checks] RECEIPT  $$c --mutation-receipt"; \
+			$(PYTHON) "$$c" --mutation-receipt; rc=$$?; \
+			if [ $$rc -ne 0 ]; then \
+				echo "[lane-checks] *** FAILED (mutation receipt): $$c  [exit $$rc]"; \
+				exit $$rc; \
+			fi; \
+			nreceipt=$$((nreceipt+1)); \
+		else \
+			echo "[lane-checks] no-receipt $$c (source declares no --mutation-receipt handler; passing the flag would silently re-run the plain check)"; \
+			nskip=$$((nskip+1)); \
+		fi; \
+	done; \
+	echo "[lane-checks] OK -- $$nplain plain run(s), $$nreceipt mutation receipt(s), $$nskip checker(s) with no receipt support"
 
 refresh-provenance-baseline:
 	@echo "Regenerating the provenance-stamp grandfather baseline from the live scan (allowed to shrink)..."
@@ -415,9 +534,9 @@ verify-anchor-content:
 # Placed as its OWN target rather than appended to the verify-lane-number-checks
 # recipe: PR #845 has an open, unmerged edit to that recipe, and a second
 # addition to the same three-line block would collide.  Same gating effect.
+# ALIAS since 2026-08-06 (umbrella-glob): body is one filtered delegation; the checker gates via auto-discovery, not via this name. Comment above preserved as history.
 verify-coldq-v2-number-check:
-	@echo "Checking the cold-Q v2.1 result-doc numerals against its shipped JSON (gating)..."
-	$(PYTHON) research/drivers/coldq_pole_v2_number_check.py
+	@$(MAKE) --no-print-directory verify-lane-number-checks LANE_CHECK_FILTER=coldq_pole_v2_number_check
 
 
 # =============================================================================
