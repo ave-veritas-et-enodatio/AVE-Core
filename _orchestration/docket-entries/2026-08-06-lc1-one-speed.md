@@ -5,7 +5,7 @@
 **Prereg:** `research/2026-08-06_lc1-one-speed_prereg-FROZEN.md` ·
 **Result:** `research/2026-08-06_lc1-one-speed_result.md`
 **Driver:** `research/drivers/lc1_one_speed_check.py` → `..._results.json`
-(digest `590bc7e280d16fac99dd06f900c802137308afe001686f3ba7c6027f30c29405`, double-run)
+(digest `824f38e1c546bd7cefad3c618036847f545ecc27d7a3ff77f4ecb0f984630396`, double-run)
 **Gate:** `make verify-lc1-one-speed-number-check` — 25 numerals, mutation receipt, wired into `verify`.
 **Base:** `origin/main` @ `d129e7ac` (PR #910). **SVA v0.2-pilot pass** (does not canonize the leaf).
 
@@ -32,7 +32,8 @@
    $K=0$**; $v_L = c$ requires $K = -G/3$ (an unstable medium). **The $K=2G$ GR-import is a
    magnitude knob, not an existence knob** — it moves $1.1547 \to 1.8257$. This closes the last
    modulus-level escape from the standing exclusion, **against the framework**, and is the lane's
-   principal derived result. Stronger than what the prereg predicted.
+   principal derived result — and **exactly as pre-registered** (prereg §4.2 froze the
+   $K>0$ condition with the algebra; §4.3 prediction 3 froze the magnitude-knob reading).
 3. **LC-1's own comparator has no power over that channel, for a derived kinematic reason.** A
    superluminal channel hands you the source's PAST, and a chirp's past is at lower frequency. For
    GW170817 the P-channel content arriving coincident with the merger was emitted `59.005` Myr
@@ -58,12 +59,26 @@
    NOT terminate the arc on an inherited kill. Whether a standing *pulsar*-comparator exclusion
    should terminate a *multi-messenger* arc is framing-level and is Grant's. Decision package with
    both arguments at result §6.4.
-2. **FLAG-LC1-DISPATCH — arc-brief currency.** The dispatch and the arc brief both describe
-   port-register Q1 as *"explicitly-OPEN"* with three candidate answers (gapped/confined/
-   sourceless). At HEAD, Q1 is a RULED row, REVERTED 2026-07-20 to Reading-A-live, and all three
-   candidate answers were falsified by #761 **before the brief was written**. The 2026-08-06 dated
-   currency update did not catch it. Consequence: **the dispatch's bin (i) was unreachable at
-   freeze**, which is why the prereg added a comparator-scoped axis.
+2. **FLAG-LC1-DISPATCH — Q1 currency (attribution CORRECTED 2026-08-06, review R1).** The phrase
+   *"explicitly-OPEN"* is the **orchestrator dispatch's**; it does **not** appear in the arc brief
+   (`grep -c` returns `0`). The stale framing that IS in tracked canon is
+   `manuscript/ave-kb/common/index.md:70`, verbatim `[sic]`: *"Q1 (does the A1/bulk channel open an
+   independent far-field radiative port for gravitating sources?) **stays OPEN** pending a
+   Grant/auditor sector-ownership ruling"* — a **merged canon index row that contradicts the
+   port-register leaf it indexes** (Q1 was REVERTED to Reading-A-live on 2026-07-20). The arc brief
+   uses neither phrase; what it does is **presuppose** the gapped/confined/sourceless trichotomy,
+   all three of which #761 falsified before the brief was written. Consequence: **the dispatch's
+   bin (i) was unreachable at freeze.** The corrected finding is LARGER than the original: it names
+   a tracked-canon currency defect, not just a dispatch slip.
+2b. **★KILL-CELL RECONCILIATION (review R5).** The kill condition this lane adjudicated
+   (*"...sources and a detector reads"*) is the **dispatch's**, not the brief's. The brief's kill
+   cell (`_orchestration/2026-08-04_lorentz-compliance-arc-brief.md:44`) reads verbatim `[sic]`:
+   *"An energy-carrying inter-event channel at ≠ c ⇒ arc-level kill"* — **no detectability
+   clause** — and three merged sites restate it comparator-agnostic (`claim-quality.md:1646`,
+   `translation-circuit.md:380`, `2026-08-05-two-band-kinematics.md:28-29`). **Under the brief's
+   operative wording, row 3b satisfies the kill on its face** (subject to the sourced-conditional).
+   Bins are NOT re-scored — Rule 11 forbids post-data bin edits in BOTH directions — so the
+   discrepancy is reported and the criterion question is routed to Grant. Result §6.3.5.
 3. **FLAG-LC1-B — sector-ownership adjudication, live corpus contradiction.**
    `physics-lineage-map.md:63` (*"the A1 grade is non-radiative in free space"*) vs the standing Q1
    state (A1 rides the gapless P-branch, port OPEN). Likely reconciliation is an EM-A1 vs

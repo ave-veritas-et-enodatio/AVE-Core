@@ -47,7 +47,12 @@ the framework predicts a difference of exactly zero, with zero free parameters. 
 is EXPECTED-CONSISTENCY, not a discriminating survival, and it may be an outright IDENTITY.**
 
 **2. ★The superluminal longitudinal channel is forced by the SAME modulus that sets $c$ — the
-$K=2G$ GR-import is NOT what creates it.** Derived here and stronger than this lane pre-registered:
+$K=2G$ GR-import is NOT what creates it.** Derived here, and **exactly as this lane
+pre-registered** — prereg §4.2 froze the row *"condition for $v_L > v_T$ | $K > 0$ |
+$K + \tfrac43 G > G \iff K > -\tfrac13 G$"* with the algebra, and §4.3 prediction 3 froze
+the import-is-a-magnitude-knob reading. The derivation confirmed the prediction; it did not
+exceed it. *(Dated review correction 2026-08-06: an earlier draft of this line read "stronger
+than this lane pre-registered," which was wrong on its own prereg — corrected, R6.)*
 
 $$\frac{v_L^2}{v_T^2} \;=\; \frac{4}{3} + \frac{K}{G} \;\;\geq\;\; \frac{4}{3} \quad\text{for every } K \geq 0 .$$
 
@@ -355,6 +360,82 @@ in principle; the specific instrument used by this comparator cannot see it, for
 kinematic reason, by a margin that is robust across every quoted uncertainty. A comparator-power
 null constrains nothing about the physics and must never be banked as if it did.
 
+## §5.3 — ★DATED REVIEW ADDITION (2026-08-06, R4) — the isotropy ansatz, its provenance, and the direction-resolved check
+
+**The review's finding, and it is correct.** Every frozen leg above runs on a **hard-coded isotropic
+stiffness tensor** (driver `leg_A`, $C_{ijkl} = \lambda\delta_{ij}\delta_{kl} + G(\ldots)$). Canon's
+ratified srs-z3 carrier is **materially anisotropic at exactly this order**.
+`src/ave/core/constants.py:623-626`, verbatim `[sic]`:
+
+> "**ANISOTROPY LABEL (PR#506):** 2/7 is ν_Hill — the ISOTROPIC Voigt-Reuss-Hill AVERAGE scalar at
+> K=2G; the srs-z3 lattice is materially anisotropic (Zener A≈1.23 at ρ*≈9.7734), so it is an
+> AVERAGING CHOICE over an anisotropic tensor, **NOT a per-direction lattice output**."
+
+Direction-resolved receipts: `research/2026-07-04_srs-elastic-tensor_result.md:150` (*"underlying
+Zener anisotropy A=1.23 is real and direction-resolved"*) and `:197`.
+
+**Consequence, stated plainly: G-SPEC's "exactly two distinct eigenvalues in every direction" is a
+property of the ANSATZ, not of the carrier.** On a cubic tensor with $A \neq 1$ there are three
+distinct eigenvalues along `[110]`. The frozen result is not wrong — it is scoped to the isotropic
+average — but its scope was not declared, and that is a real gap in this lane's SVA row-5 tagging.
+
+### §5.3.1 — Import-ledger repair (R4 i): the modeling choice the row-5 tags missed
+
+**ADDED to the import ledger (prereg §10) as a dated correction:**
+
+| quantity | source | provenance tag |
+|---|---|---|
+| **the isotropic constitutive ansatz** $C_{ijkl} = \lambda\delta\delta + G(\delta\delta+\delta\delta)$ | driver `leg_A`, hand-written | **ENG-CHOICE (averaging import)** — it inherits `NU_VAC`'s Voigt-Reuss-Hill averaging choice (`constants.py:623-626`), and is NOT a per-direction lattice output |
+
+This was **the one load-bearing modeling choice the prereg's provenance tagging did not catch.** The
+prereg tagged every *constant* and no *constitutive form*. Logged as an SVA amendment candidate in
+§12.
+
+### §5.3.2 — REVIEW-ADDED CONDITIONAL C8 (R4 ii)
+
+**C8 — the isotropy ansatz.** Whether any propagation direction on the *real* srs Cauchy tensor
+brings the fastest branch down to the transverse branches is **NOT derived by the frozen legs**. The
+$v_L^2/v_T^2 = 4/3 + K/G$ floor of §2.2 is an **isotropic-average statement**. Qualitatively, a
+Zener ratio of $\approx 1.23$ moving a $\geq 4/3$ ratio-of-squares floor all the way to $1$ would be
+surprising — **but this lane does not assert that**, and the frozen verdict does not rest on it.
+
+### §5.3.3 — REVIEW-FOLLOW-ON CHARACTERIZATION (R4 iii) — QUARANTINED from the frozen bins
+
+**Post-freeze work. Adjudicates no frozen bin. Not part of the verdict. Reported because the input
+was cheaply importable and a reader deserves the number rather than a promise.**
+
+The canonical srs Cauchy tensor is available as a **shipped, gated artifact of the merged #890
+lane** (`research/drivers/srs_twist_coefficient_results.json`, gate G2), so it is read, not
+hard-coded. That member carries $(C_{11},C_{12},C_{44})$ with Zener $A = $ `1.407178792210442` —
+**more** anisotropic than the `srs-elastic-tensor` table's $A \approx 1.23$ row at the same $\rho^*$,
+hence the **conservative** member for this question (more anisotropy = more direction-dependence =
+more chance of a dip). *(The two are the #890 lane's own KEEP-BOTH fork on $C_{44}$; both are named,
+neither is adjudicated here.)*
+
+Direction-resolved Christoffel sweep over `20006` directions (Fibonacci sphere + the high-symmetry
+axes):
+
+| quantity | value |
+|---|---|
+| min over directions of $v_{fast}/v_{mid}$ | **`2.1304120885826254`** |
+| min over directions of $v_{fast}/v_{slow}$ | `2.1304120885826254` |
+| max over directions of $v_{fast}/v_{mid}$ | `2.470116331498249` |
+| worst direction | `[100]` |
+| fastest branch exceeds BOTH transverse branches in every direction | **`true`** |
+| isotropic-ansatz comparison $v_L/v_T$ | `1.8257418583505538` |
+
+**Reading, carefully scoped.** On the real anisotropic tensor the fastest branch exceeds both
+transverse branches **in every one of the sampled directions, by a factor of at least
+`2.1304120885826254`** — i.e. direction-resolution makes the superluminal margin **larger**, not
+smaller. **Anisotropy does not rescue the framework here; it is the direction the review suspected,
+and it is the direction against the framework.**
+
+**What this does NOT establish** (fence, and it matters): these are ratios *within* the srs tensor's
+own natural units. Identifying which transverse branch is "the photon" on an anisotropic medium —
+and hence whether $v_{fast} > c$ in SI — is the **anisotropy** question, i.e. **LC-2's**, and it is
+fenced out of this lane. C8 therefore stands **open** as written; this characterization narrows the
+qualitative expectation without discharging the conditional.
+
 ## §6 — The bins, scored against the frozen criteria
 
 Scored against the criteria frozen in prereg §7, with nothing dropped, widened, or re-defined.
@@ -405,6 +486,63 @@ merged receipts, re-verified at this worktree HEAD:
 | **(ii) KILL** | **NOT FIRED on the comparator-scoped reading; FIRED on the broad reading, where it was entailed.** |
 | **(iii) NOT-CERTIFIED** | not fired. |
 
+### §6.3.5 — ★DATED REVIEW FINDING (2026-08-06, R5) — THE KILL CELL I ADJUDICATED WAS NOT THE BRIEF'S
+
+**This is the review's top finding and it is confirmed. It is stated before the decision package
+because it changes how that package should be read.**
+
+The kill condition this lane froze and adjudicated — *"an energy-carrying inter-event channel at
+speed $\neq c$ that a GW170817-class event **sources and a detector reads**"* — came from the
+**orchestrator dispatch**, not from the tracked arc brief.
+
+**The arc brief's own kill cell**, `_orchestration/2026-08-04_lorentz-compliance-arc-brief.md:44`,
+verbatim `[sic]`:
+
+> **"An energy-carrying inter-event channel at ≠ c ⇒ arc-level kill"**
+
+and `:59`, verbatim `[sic]`: *"LC-1 runs first and its kill condition is arc-terminating."*
+**There is no sources-and-reads clause.** Three already-merged sites restate it the same
+comparator-agnostic way:
+
+- `manuscript/ave-kb/common/claim-quality.md:1646`, verbatim `[sic]`: *"**Does NOT fire LC-1's
+  arc-level kill**, which needs an energy-carrying INTER-EVENT channel at $\neq c$; this entry does
+  not establish the carrier branch is one."*
+- `manuscript/ave-kb/common/translation-tables/translation-circuit.md:380`, verbatim `[sic]`:
+  *"**LC-1's arc-level kill is NOT fired.** That requires an energy-carrying *inter-event* channel
+  at…"*
+- `_orchestration/docket-entries/2026-08-05-two-band-kinematics.md:28-29`, verbatim `[sic]`:
+  *"**LC-1's arc-level kill is NOT fired** (that needs an energy-carrying inter-event channel at
+  $\neq c$; this lane does not establish one)."*
+
+A repository-wide search finds the phrase "detector reads" **nowhere** in any tracked LC-arc
+document outside this lane's own files.
+
+**My FLAG-LC1-DISPATCH quoted the brief's adjacent *derivation-task* cell (*"gapped, confined, or
+sourceless?"*) and never quoted the kill cell itself.** That was the gap that let a dispatch-only
+qualifier be adjudicated as though it were the frozen arc criterion.
+
+**What follows, stated without softening.** Under the arc brief's operative, merged wording, the
+question is only whether an energy-carrying inter-event channel at $\neq c$ **exists**. Row 3b of
+§5 is one: it is energy-carrying, it is inter-event, and it runs at $\sqrt{10/3}\,c$. **On its face,
+under the brief's wording, row 3b satisfies the kill** — subject to the same sourced-conditional
+that conditions everything else about it (the envelope lane's OPEN constituent-knot-core fork,
+§11.1). The detectability qualifier that produced the comparator-scoped `A-COMPLIANT-AT-COMPARATOR`
+bin exists **only in the orchestrator dispatch**.
+
+**Why the bins are NOT re-scored.** Rule 11 runs in both directions: bins frozen before the data
+are not re-cut after it — not to convert a ❌ into a ✅, and **not to convert a ✅ into a ❌ either.**
+The dual-axis structure this lane froze adjudicated the *dispatch* wording, and that is what §6.1
+and §6.2 report. Re-binning now against a different criterion would be a post-data bin edit, which
+is precisely the failure the freeze discipline exists to prevent. **The honest resolution is to
+report the discrepancy at full strength and route the criterion question to Grant** — which is what
+this section does.
+
+**Practically, the two readings converge on the same routed decision anyway:** the broad axis
+(`S2-KILL-INHERITED`) already FIRED in §6.2, and the brief's wording routes row 3b to the same
+place. What changes is the framing of §6.4 — it is not "an entailed inherited kill on a different
+comparator," it is **"the arc's own frozen criterion, on its face, on this lane's own channel
+table."** The decision package below stands; read it in that light.
+
 ### §6.4 The arc-termination decision — routed to Grant, not taken here
 
 Per prereg §7.3, LC-1 terminates the arc only on `B-KILL-AT-COMPARATOR`, which did not fire. But
@@ -440,7 +578,7 @@ this lane does not take it.** The decision package:
 | **G-GAPMARGIN** | gap over-determination (C6 hinge) | RUN | dead at gap $\times\{0.25,0.5,1,2,4\}$; drive/gap `4.0466498947022305e-19`; path `3.1962745316728043e+36` Yukawa reaches | **PASS**, and the margin is reported so the pass reads as over-determination, not a tight call |
 | **G-CONST** | canonical-source discipline | RUN | every substrate constant imported from `ave.core.constants`; the three unit definitions (solar mass parameter, parsec, Julian year) declared and emitted into the JSON | **PASS** |
 | **G-NEG** | negative controls | RUN | $K\to0$ gives $v_L/v_T = $ `1.1547005383792517` vs analytic `1.1547005383792515`; $G_c\to0$ splitting vanishes (inherited) | **PASS** |
-| **G-DET** | determinism | RUN | double-run digest `fabf7bf8d043605f8706b395ed6b0eed521c571425aa695fb8bd8d242776ba1c` twice | **PASS** |
+| **G-DET** | determinism | RUN | double-run digest `824f38e1c546bd7cefad3c618036847f545ecc27d7a3ff77f4ecb0f984630396` twice | **PASS** |
 | **G-DOC** | result-doc numeral gate | RUN | `lc1_one_speed_number_check.py` re-derives every backticked load-bearing numeral from the shipped JSON; mutation receipt included | **PASS** |
 
 ### §7.1 Fireability self-tests — all three FIRED
@@ -450,7 +588,62 @@ this lane does not take it.** The decision package:
 2. **G-BAND** fed a fictitious $f_{low} = 10^{-6}$ Hz detector flips to in-band. **FIRES.**
 3. **G-DOC** under `--mutation-receipt` fails on every perturbed JSON source value. **FIRES.**
 
-No gate in this lane is decorative.
+*(Originally: "No gate in this lane is decorative." Corrected below.)*
+
+### §7.2 ★DATED REVIEW CORRECTION (2026-08-06) — two gates re-labelled identity-class
+
+The adversarial review found that **two of the twelve gates cannot fail on this lane's physical
+inputs**, and the frozen prereg asserted otherwise. The prereg text is immutable; the correction
+lands here.
+
+**Frozen prereg §9 (`:706`, the G-MEMBER row) claims, verbatim `[sic]`, under "can it fail?":**
+*"YES — any difference fails it and the propagation verdict becomes member-conditional."* **That
+is wrong as written, and so is the corresponding G-NU claim.**
+
+| gate | frozen claim | corrected class | why it cannot fail here |
+|---|---|---|---|
+| **G-MEMBER** | "can it fail? YES" | **IDENTITY-CLASS** | At $S=1$ both combine members multiply the same moduli by literal `1.0`. The driver computes `G_VAC * 1.0` twice and differences them. The measured `0.0` is arithmetic, not physics. It is a *correct* statement that the cold-linear verdict is member-insensitive — but the gate DEMONSTRATES that, it does not TEST it. |
+| **G-NU** | "can it fail?" (implied YES) | **CANON-DRIFT-CLASS** | It diffs a hand-substituted symbolic $2/7$ against `NU_VAC`, which is the constants file's literal `2.0 / 7.0`. It can only fire if someone edits the constants file. That is a real and useful tripwire — it is just not a physics test of this lane's derivation. |
+
+**Nothing in the verdict moves**: neither gate was load-bearing for any bin, and the ten remaining
+gates (including the two REPAIRED below) carry the certification. **The corrected line is: ten of
+the twelve gates are genuinely fireable; two are identity/drift-class tripwires and are now
+labelled as such.**
+
+### §7.3 ★DATED REVIEW REPAIRS (2026-08-06) — two gates that were not doing their job
+
+**G-SPEC fireability, REPAIRED (R3a).** The original self-test fed `np.diag([1,2,3])` straight to
+`eigvalsh`. It never built an anisotropic stiffness tensor and never entered the Christoffel path —
+it exercised `numpy`, not the gate. **Rebuilt:** a genuinely anisotropic CUBIC tensor
+($C_{11},C_{12},C_{44}$ with Zener $A = $ `1.4285714285714286`) is now pushed THROUGH
+`christoffel_cubic` and probed along `[110]`, where cubic anisotropy splits the degenerate
+transverse pair. It returns `3` distinct eigenvalues; the isotropic control ($A=1$, same code path)
+returns `2`. **The self-test now genuinely fires.**
+
+**G-NEG G_c→0 leg, RUN (R3b).** The frozen prereg specified BOTH a $K\to0$ leg and a $G_c\to0$ leg
+("confirm the carrier splitting vanishes"); only the first was computed in the original submission.
+**The second is now run for real**, by extending this lane's own functional with the curvature term
+$W_\kappa = \gamma|\nabla\boldsymbol\omega|^2$ (no-$\tfrac12$ convention, `clm-kmliqx`):
+
+| quantity | this lane's own operator | corpus (`clm-2bkp7v`) |
+|---|---|---|
+| $v^2_\parallel$ ($\boldsymbol\omega\parallel\mathbf k$) | `2*gamma/I_omega` | $2\gamma/I_\omega$ ✓ |
+| $v^2_\perp$ ($\boldsymbol\omega\perp\mathbf k$) | `G_c/rho + 2*gamma/I_omega` | $2\gamma/I_\omega + G_c/\rho$ ✓ |
+| **splitting** | **`G_c/rho`**, residual exactly `0` | $v^2_\perp - v^2_\parallel = G_c/\rho$ ✓ |
+| splitting at $G_c=0$ | `0` | vanishes ✓ |
+| gap at $G_c=0$ | `0` | ✓ |
+| acoustic branch at $G_c=0$ | `G/rho`, unchanged | ✓ |
+
+**So this lane now independently reproduces `clm-2bkp7v`'s headline splitting identity from its own
+energy functional** — a stronger cross-check than the original submission carried.
+
+**★And the control did its job on the way: it caught an error in this lane's own algebra.** The
+first implementation added `2*gamma*k**2` to the curvature Hessian instead of `gamma*k**2`
+(double-counting the same normalization used on the $\boldsymbol\omega\parallel\mathbf k$ branch).
+The splitting then came out `G_c/rho + 2*gamma/I_omega`, which does NOT vanish at $G_c=0$ — the
+control failed, the slip was found and fixed, and the comment recording it is in the driver. **This
+is the receipt that G-NEG is a real gate and not a decoration**, and it is exactly why the frozen
+prereg specified the leg.
 
 ## §8 — What this does to port-register Q1, and what it does NOT do
 
@@ -522,8 +715,24 @@ resolved here. No leaf, register, ledger or ruling is edited.**
 
 ### FLAG-LC1-DISPATCH — the dispatch's and the arc brief's description of Q1 is STALE against `main`
 
-**Dispatch:** *"the explicitly-OPEN Q1"*. **Arc brief LC-1 row:** *"bulk $\sqrt{10/3}c$ P-wave
-observability — gapped, confined, or sourceless?"*
+**★DATED REVIEW CORRECTION (2026-08-06, R1) — the attribution below was wrong, and the corrected
+finding is LARGER than the original.** The original text of this flag attributed the phrase
+*"explicitly-OPEN"* to the arc brief. **It does not appear there** (`grep -c` on
+`_orchestration/2026-08-04_lorentz-compliance-arc-brief.md` returns `0`). The correct three-way
+attribution:
+
+| source | what it actually says | status |
+|---|---|---|
+| the **orchestrator dispatch** (untracked) | *"the explicitly-OPEN Q1"* | the origin of that exact phrase |
+| **`manuscript/ave-kb/common/index.md:70`** — MERGED CANON | verbatim `[sic]`: *"Q1 (does the A1/bulk channel open an independent far-field radiative port for gravitating sources?) **stays OPEN** pending a Grant/auditor sector-ownership ruling."* | **STALE canon** — never updated when Q1 was reverted 2026-07-20 |
+| the **arc brief** LC-1 row | *"bulk $\sqrt{10/3}c$ P-wave observability — gapped, confined, or sourceless?"* | uses neither phrase; it **presupposes the trichotomy** |
+| the **port register** itself | *"(was: explicitly-OPEN, adjudication-pending)"* | correctly-superseded text, preserved under Rule 12 |
+
+**The correction makes this flag bigger, not smaller:** the stale "stays OPEN" framing is not merely
+in an untracked dispatch — **it is live in a merged canon index row**, `common/index.md:70`, which
+contradicts the port-register leaf it indexes. That is a tracked-canon currency defect and it is
+routed to the auditor lane. The original observation (the brief's trichotomy was already foreclosed
+by #761) stands unchanged.
 
 **`port-register.md` frontmatter at HEAD, verbatim `[sic]`:** *"Q1 is a RULED row — REVERTED
 2026-07-20 to Reading-A-live … the independent-radiative-port exclusion is live against the
@@ -655,7 +864,14 @@ amendment candidates. **This lane does NOT canonize the SVA leaf.**
    does not catch imported *verdicts* — a merged ruling that pre-determines a bin. `ave-prereg`
    Step 3.10 catches it, but only if the author remembers to run it; the SVA header would fire it
    structurally.
-3. **Row 4's "plane & projection" gloss should name the eigenbasis-vs-modulus-basis distinction
+3. **★Row 5 tags CONSTANTS but not CONSTITUTIVE FORMS (added 2026-08-06 by review finding R4).**
+   This lane tagged every imported *constant* and still shipped an untagged, load-bearing
+   *constitutive ansatz* — the isotropic $C_{ijkl}$, which silently inherits `NU_VAC`'s
+   Voigt-Reuss-Hill averaging choice over a materially anisotropic carrier. Row 5 says "every
+   grading law and constant"; a stiffness-tensor SYMMETRY CLASS is neither, and it slipped through.
+   **Candidate: row 5 should read "every grading law, constant, AND constitutive form (symmetry
+   class, isotropy/averaging assumption, dimensional reduction)."** This lane is the receipt.
+4. **Row 4's "plane & projection" gloss should name the eigenbasis-vs-modulus-basis distinction
    explicitly** for elastic/acoustic lanes, the way it already names the spectral-lane
    branch-selection projection. This lane is the receipt: it is the row that resolved FLAG-A.
 
@@ -670,4 +886,4 @@ python research/drivers/lc1_one_speed_number_check.py --mutation-receipt
 make verify-lc1-one-speed-number-check
 ```
 
-Deterministic double-run digest: `fabf7bf8d043605f8706b395ed6b0eed521c571425aa695fb8bd8d242776ba1c`.
+Deterministic double-run digest: `824f38e1c546bd7cefad3c618036847f545ecc27d7a3ff77f4ecb0f984630396`.
