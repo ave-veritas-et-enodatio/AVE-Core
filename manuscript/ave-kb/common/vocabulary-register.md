@@ -1295,3 +1295,59 @@ promotion.
   instrument class); the `ave-infinity-discipline` skill; the Wilsonian reading in
   `_orchestration/2026-08-04_lorentz-compliance-arc-brief.md` (divergences mark where the
   continuum description is insensitive to the substrate).
+
+---
+
+## the LOCK vocabulary (phase-lock bond / lock range / free-running) — ⚑ PROPOSED, licenses nothing
+<!-- dated 2026-08-06; Grant R17 (starting vocabulary, walk-level); NO def- id minted — see the gate note -->
+
+- **status:** **PROPOSED** — adopted as the *starting* vocabulary for the bond's constitutive
+  description, walk-level and **UN-AUDITED**. It is **not** canon, it **licenses nothing in
+  print**, and no leaf may quote it as the mechanism of anything. Ruled at
+  [`2026-08-06-rulings-final-batch.md`](../../../_orchestration/docket-entries/2026-08-06-rulings-final-batch.md):61
+  (R17), Grant verbatim at `:63` — *"yes on 5, PLL makes sense or at least is the seemingly
+  correct lens to start from, we might adjust vocab later but I like it"*. Source walk:
+  [`research/2026-08-06_rotation-substance-ontology_framing-note.md`](../../../research/2026-08-06_rotation-substance-ontology_framing-note.md):101–127
+  (§8 dated addendum) — whose own header reads *"still ⚑ UN-AUDITED"*.
+- **no `def-` id is minted here, deliberately.** A `def-` node records a *locked* meaning and
+  materializes into `claims.jsonl`; this vocabulary is explicitly not locked (R17: *"we might
+  adjust vocab later"*). It lands in the dated-entry shape the two entries above use, so a grep
+  for the words resolves here and reads the fence first.
+
+**The proposed terms, each phase-scoped (crystal / boundary / de-bonded — a lock word with no
+phase attached is a mis-use):**
+
+| term | proposed meaning | phase scope |
+|---|---|---|
+| **phase-lock bond** | the bond as a phase-lock between adjacent rotors; freezing = the rotor field locking into one globally synchronized network (omega-freeze's common phase = the frozen chirality) | crystal |
+| **compliance (lock sense)** | the lock's small-signal stiffness — what presents in the circuit register as capacitance | crystal |
+| **lock range** | the drive amplitude a bond holds lock across; breakdown = drive past the lock range | crystal → boundary |
+| **free-running** | the de-bonded phase: rotors not locked to neighbours, **dark by construction** (no bond sector ⇒ no EM coupling) | de-bonded |
+
+**⚑ THE ADLER CARVE — load-bearing, and the reason this entry is not just "PLL".** Literal
+PLL / injection locking imports a **dissipative attractor**: Adler locking needs a limit cycle,
+i.e. gain plus loss. **Axiom 3 forbids that in the cold phase** — two lossless coupled
+oscillators beat, they do not Adler-lock. The substrate-native object is **Hamiltonian resonance
+capture**: phase-locked islands with KAM / Arnold-tongue structure, which exist with no
+dissipation at all.
+
+- **Survives the carve:** the lock range (= island width); the sharp threshold (= separatrix
+  crossing); the dark free-running phase.
+- **FORBIDDEN LANGUAGE:** *"settling into lock"*. Capture in a lossless system is a
+  **boundary-crossing event**, not a relaxation. Any wording that implies decay toward an
+  attractor has re-imported the dissipation the carve removed.
+- Also retired by R17 in this register: **"melt"** as the C7 wording — melt-vs-breakdown
+  dissolves into lock-loss under two control parameters (noise-driven vs drive-driven; canon's
+  BH route is drive-driven, the primordial-freeze route is OPEN).
+
+**Standing counter-arm carried WITH the vocabulary (C6, the addendum's own):** resonance-capture
+islands in Hamiltonian systems are typically **fragile** — measure-zero-adjacent, with chaotic
+separatrix layers. A vacuum-stable *global* lock needs the island to be LARGE and the capture
+generic, and that is a **derivation obligation, not a given**. Until it is discharged the lock
+lens is a picture, not a mechanism.
+
+**Landing tiers, stated so no one over-reads this entry.** Framing-note addendum: landed. This
+register entry: landed, PROPOSED, licenses nothing. The
+[`translation-tables/translation-circuit.md`](translation-tables/translation-circuit.md) §4 row:
+**QUEUED, not landed** — the mapping table stays canon-only until the residence / phase-register
+lanes audit the picture.
