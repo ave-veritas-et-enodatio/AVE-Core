@@ -94,6 +94,27 @@ def christoffel_symbolic():
     return Kb, G, {sp.simplify(sp.expand(k)): v for k, v in ev.items()}
 
 
+
+def christoffel_cubic(C, direction):
+    """Eigenvalues of Gamma_ik = C_ijkl n_j n_l for a CUBIC medium, given (C11,C12,C44).
+
+    Cubic (m-3m) Voigt tensor.  Used by (a) the G-SPEC fireability self-test and (b) the
+    REVIEW-FOLLOW-ON direction-resolved sweep on the ratified srs carrier's Cauchy tensor.
+    Returns eigenvalues sorted ascending (= rho * v^2).
+    """
+    C11, C12, C44 = C
+    n = np.asarray(direction, dtype=float)
+    n = n / np.linalg.norm(n)
+    G = np.empty((3, 3))
+    for i in range(3):
+        for k in range(3):
+            if i == k:
+                j, l = [x for x in range(3) if x != i]
+                G[i, k] = C11 * n[i] ** 2 + C44 * (n[j] ** 2 + n[l] ** 2)
+            else:
+                G[i, k] = (C12 + C44) * n[i] * n[k]
+    return np.sort(np.linalg.eigvalsh(G))
+
 def christoffel_numeric(K_over_G, directions):
     """Numeric eigenvalues of Gamma/G for a list of directions, at a given K/G."""
     lam = K_over_G - 2.0 / 3.0
@@ -160,9 +181,18 @@ def leg_A():
         sp.Eq(sp.Symbol("Kb") + sp.Rational(4, 3) * G_s, G_s), sp.Symbol("Kb")
     )]
 
-    # G-SPEC fireability self-test: a deliberately anisotropic tensor must show >2
-    aniso = np.diag([1.0, 2.0, 3.0])  # a fake Gamma with three distinct eigenvalues
-    aniso_distinct = len({round(float(x), 12) for x in np.linalg.eigvalsh(aniso)})
+    # G-SPEC fireability self-test (REVIEW-REPAIRED R3a).  The previous version fed a
+    # diagonal matrix straight to eigvalsh -- it exercised numpy, not the gate.  This
+    # builds a genuinely anisotropic CUBIC stiffness tensor (Zener A != 1) and pushes
+    # it THROUGH the same christoffel_cubic path the real spectrum uses, probing [110]
+    # where cubic anisotropy splits the degenerate transverse pair.
+    aniso_C = (1.0, 0.3, 0.5)  # (C11, C12, C44); Zener A = 2*C44/(C11-C12) = 1.428...
+    aniso_eigs = christoffel_cubic(aniso_C, (1, 1, 0))
+    aniso_distinct = len({round(float(x), 12) for x in aniso_eigs})
+    aniso_zener = 2.0 * aniso_C[2] / (aniso_C[0] - aniso_C[1])
+    # control: the SAME path on an ISOTROPIC cubic tensor (A = 1) must give exactly 2
+    iso_C = (1.0, 0.3, 0.35)  # C44 = (C11-C12)/2 -> A = 1 exactly
+    iso_distinct = len({round(float(x), 12) for x in christoffel_cubic(iso_C, (1, 1, 0))})
 
     return {
         "symbolic_eigenvalues_pretty": sym_pretty,
@@ -180,6 +210,9 @@ def leg_A():
         "K_required_for_vL_equals_c": [str(x) for x in K_for_vL_eq_c],
         "superluminal_forced_by_G_alone": bool(floor_at_K0 > 1.0),
         "gspec_fireability_selftest_distinct_count": aniso_distinct,
+        "gspec_fireability_selftest_zener": aniso_zener,
+        "gspec_fireability_isotropic_control_distinct_count": iso_distinct,
+        "gspec_fireability_is_through_christoffel_path": True,
     }
 
 
@@ -250,6 +283,41 @@ def leg_C():
     long_offdiag = sp.simplify(K_long[0, 1])
     long_v2 = sp.simplify(K_long[0, 0] / (rho / 2) / k**2)
 
+    # --- REVIEW-REPAIRED R3b: the G_c -> 0 leg of G-NEG, actually computed ---------
+    # Extend the same functional with the curvature term W_kappa = gamma |grad omega|^2
+    # (no-1/2 convention, clm-kmliqx).  Two carrier branches:
+    #   omega PARALLEL k : decoupled from u (Omega_z = 0) -> its own 1-DOF problem
+    #   omega PERP     k : the optical root of the SAME 2x2 as above, plus curvature
+    gamma = sp.Symbol("gamma", positive=True)
+
+    # omega || k  (twist branch): V = gamma k^2 W^2 / 2 + G_c W^2 ; M = I_omega/2
+    V_par = gamma * k**2 * W**2 / 2 + Gc * W**2
+    v2_par = sp.simplify(sp.hessian(V_par, (W,))[0, 0] / (Iw / 2) / k**2 - 4 * Gc / (Iw * k**2))
+    v2_par = sp.simplify(sp.expand(
+        sp.hessian(V_par, (W,))[0, 0] / (Iw / 2)).coeff(k, 2))
+
+    # omega perp k : same 2x2 with the curvature term added to K_WW
+    # Hessian of the curvature term gamma*k^2*W^2/2 is gamma*k^2 -- the SAME
+    # normalization used for the omega||k branch above.  (An earlier draft wrote
+    # 2*gamma*k^2 here and the G_c->0 control caught it: the splitting came out
+    # G_c/rho + 2*gamma/I_omega instead of G_c/rho, i.e. it did not vanish at
+    # G_c = 0.  Recorded because it is exactly what a negative control is for.)
+    K_perp = Kmat + sp.Matrix([[0, 0], [0, gamma * k**2]])
+    char_perp = sp.simplify(sp.det(K_perp - w2 * M))
+    roots_perp = sp.solve(sp.Eq(char_perp, 0), w2)
+    ac_p = [r for r in roots_perp if sp.simplify(r.subs(k, 0)) == 0]
+    op_p = [r for r in roots_perp if sp.simplify(r.subs(k, 0)) != 0]
+    v2_perp = sp.simplify(sp.expand(
+        sp.series(op_p[0], k, 0, 4).removeO()).coeff(k, 2)) if op_p else None
+    v2_ac_p = sp.simplify(sp.expand(
+        sp.series(ac_p[0], k, 0, 4).removeO()).coeff(k, 2)) if ac_p else None
+
+    splitting = sp.simplify(v2_perp - v2_par)
+    splitting_residual = sp.simplify(splitting - Gc / rho)
+    splitting_at_Gc0 = sp.simplify(splitting.subs(Gc, 0))
+    gap_at_Gc0 = sp.simplify(gap_expr.subs(Gc, 0))
+    acoustic_at_Gc0 = sp.simplify(v2_coeff.subs(Gc, 0))
+
     return {
         "acoustic_branch_v2_coefficient": str(v2_coeff),
         "acoustic_branch_v2_minus_G_over_rho": str(residual),
@@ -261,6 +329,19 @@ def leg_C():
         "longitudinal_offdiagonal_coupling": str(long_offdiag),
         "longitudinal_is_micropolar_decoupled": bool(long_offdiag == 0),
         "longitudinal_v2_expr": str(long_v2),
+        # --- G-NEG, G_c -> 0 leg (REVIEW-REPAIRED R3b) -------------------------
+        "carrier_v2_parallel": str(v2_par),
+        "carrier_v2_perp": str(v2_perp),
+        "carrier_splitting": str(splitting),
+        "carrier_splitting_minus_Gc_over_rho": str(splitting_residual),
+        "splitting_reproduces_clm2bkp7v": bool(splitting_residual == 0),
+        "carrier_splitting_at_Gc_zero": str(splitting_at_Gc0),
+        "splitting_vanishes_at_Gc_zero": bool(splitting_at_Gc0 == 0),
+        "gap_at_Gc_zero": str(gap_at_Gc0),
+        "gap_vanishes_at_Gc_zero": bool(gap_at_Gc0 == 0),
+        "acoustic_v2_at_Gc_zero": str(acoustic_at_Gc0),
+        "acoustic_unchanged_at_Gc_zero": bool(sp.simplify(acoustic_at_Gc0 - G / rho) == 0),
+        "acoustic_v2_from_perp_operator": str(v2_ac_p),
     }
 
 
@@ -426,6 +507,81 @@ def leg_F():
     }
 
 
+
+# =============================================================================
+# LEG G — REVIEW-FOLLOW-ON CHARACTERIZATION (R4 iii), QUARANTINED from the frozen bins
+# =============================================================================
+# The frozen legs run on an ISOTROPIC constitutive ansatz.  Canon's ratified srs-z3
+# carrier is materially ANISOTROPIC at exactly this order (constants.py:623-626: 2/7 is
+# the isotropic Voigt-Reuss-Hill AVERAGE over an anisotropic tensor, Zener A ~ 1.23).
+# This leg asks the direction-resolved question the isotropic ansatz cannot: does ANY
+# propagation direction on the real cubic Cauchy tensor bring the fastest branch down to
+# the transverse branches?
+#
+# POST-FREEZE.  Adjudicates NO frozen bin.  Reported as characterization only.
+#
+# The tensor is READ from the shipped, gated artifact of the merged #890 lane
+# (srs_twist_coefficient_results.json, gate G2) -- not hard-coded.  That member carries
+# Zener A ~ 1.41, MORE anisotropic than the srs-elastic-tensor table's A ~ 1.23 row at
+# the same rho*, so it is the CONSERVATIVE member for this question (more anisotropy =
+# more direction-dependence = more chance of a dip).  The two members are the #890
+# lane's own KEEP-BOTH fork and both are named in the result doc.
+SRS_JSON = Path(__file__).with_name("srs_twist_coefficient_results.json")
+
+
+def _fibonacci_directions(n):
+    i = np.arange(n) + 0.5
+    phi = np.arccos(1.0 - 2.0 * i / n)
+    theta = np.pi * (1.0 + 5.0**0.5) * i
+    return np.stack(
+        [np.sin(phi) * np.cos(theta), np.sin(phi) * np.sin(theta), np.cos(phi)], axis=1
+    )
+
+
+def leg_G():
+    if not SRS_JSON.exists():
+        return {"status": "SKIPPED — shipped srs tensor artifact not present"}
+    srs = json.loads(SRS_JSON.read_text())
+    g2 = next(g for g in srs["gates"] if g.get("gate") == "G2")
+    C = (float(g2["C11"]), float(g2["C12"]), float(g2["C44"]))
+    zener = 2.0 * C[2] / (C[0] - C[1])
+
+    dirs = list(_fibonacci_directions(20000))
+    for d in [(1, 0, 0), (1, 1, 0), (1, 1, 1), (2, 1, 0), (3, 2, 1), (1, 1, 2)]:
+        dirs.append(np.asarray(d, dtype=float))
+
+    ratios_fast_slow, ratios_fast_mid, worst = [], [], None
+    for nvec in dirs:
+        e = christoffel_cubic(C, nvec)  # ascending: T_slow, T_fast, L
+        r_slow = float(np.sqrt(e[2] / e[0]))
+        r_mid = float(np.sqrt(e[2] / e[1]))
+        ratios_fast_slow.append(r_slow)
+        ratios_fast_mid.append(r_mid)
+        if worst is None or r_mid < worst[0]:
+            worst = (r_mid, nvec / np.linalg.norm(nvec), e)
+
+    hs = {
+        name: [float(x) for x in christoffel_cubic(C, d)]
+        for name, d in [("[100]", (1, 0, 0)), ("[110]", (1, 1, 0)), ("[111]", (1, 1, 1))]
+    }
+    return {
+        "status": "REVIEW-FOLLOW-ON CHARACTERIZATION — adjudicates no frozen bin",
+        "source": "research/drivers/srs_twist_coefficient_results.json gate G2 (merged #890)",
+        "C11_C12_C44": list(C),
+        "zener_A_of_this_member": zener,
+        "n_directions": len(dirs),
+        "min_over_directions_vfast_over_vslow": float(min(ratios_fast_slow)),
+        "min_over_directions_vfast_over_vmid": float(min(ratios_fast_mid)),
+        "max_over_directions_vfast_over_vmid": float(max(ratios_fast_mid)),
+        "worst_direction": [float(x) for x in worst[1]],
+        "worst_direction_eigs": [float(x) for x in worst[2]],
+        "fastest_branch_exceeds_both_transverse_everywhere": bool(
+            min(ratios_fast_mid) > 1.0
+        ),
+        "high_symmetry_eigs": hs,
+        "isotropic_ansatz_comparison_vL_over_vT": float(np.sqrt(10.0 / 3.0)),
+    }
+
 # =============================================================================
 def main():
     res = {
@@ -454,6 +610,7 @@ def main():
         "legD_combine_member": leg_D(),
         "legE_arrival_kinematics": leg_E(),
         "legF_cosserat_margins": leg_F(),
+        "legG_srs_anisotropy_characterization_POST_FREEZE": leg_G(),
     }
     # derived consistency: V_LONG / C_0 must be sqrt(2), and must NOT equal vL/c
     res["flagA_check"] = {

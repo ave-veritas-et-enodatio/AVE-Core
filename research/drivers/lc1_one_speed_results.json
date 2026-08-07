@@ -25,7 +25,7 @@
     "RHO_BULK": 7909692.740007466,
     "V_LONG": 423970560.00076646
   },
-  "digest": "fabf7bf8d043605f8706b395ed6b0eed521c571425aa695fb8bd8d242776ba1c",
+  "digest": "824f38e1c546bd7cefad3c618036847f545ecc27d7a3ff77f4ecb0f984630396",
   "flagA_check": {
     "V_LONG_over_C0": 1.414213562373095,
     "christoffel_vL_over_c": 1.8257418583505538,
@@ -36,7 +36,10 @@
     "K_required_for_vL_equals_c": [
       "-G/3"
     ],
+    "gspec_fireability_is_through_christoffel_path": true,
+    "gspec_fireability_isotropic_control_distinct_count": 2,
     "gspec_fireability_selftest_distinct_count": 3,
+    "gspec_fireability_selftest_zener": 1.4285714285714286,
     "n_distinct_eigenvalues_at_K2G": {
       "[100]": 2,
       "[110]": 2,
@@ -95,17 +98,29 @@
   "legC_micropolar_kp": {
     "acoustic_branch_v2_coefficient": "G/rho",
     "acoustic_branch_v2_minus_G_over_rho": "0",
+    "acoustic_unchanged_at_Gc_zero": true,
+    "acoustic_v2_at_Gc_zero": "G/rho",
+    "acoustic_v2_from_perp_operator": "G/rho",
     "cancellation_exact": true,
+    "carrier_splitting": "G_c/rho",
+    "carrier_splitting_at_Gc_zero": "0",
+    "carrier_splitting_minus_Gc_over_rho": "0",
+    "carrier_v2_parallel": "2*gamma/I_omega",
+    "carrier_v2_perp": "G_c/rho + 2*gamma/I_omega",
+    "gap_at_Gc_zero": "0",
     "gap_matches_corpus_m2": true,
     "gap_minus_4Gc_over_Iomega": "0",
     "gap_roots_at_k0": [
       "0",
       "4*G_c/I_omega"
     ],
+    "gap_vanishes_at_Gc_zero": true,
     "longitudinal_is_micropolar_decoupled": true,
     "longitudinal_offdiagonal_coupling": "0",
     "longitudinal_v2_expr": "(2*G + lambda_lame)/rho",
-    "optical_branch_gap_expr": "4*G_c/I_omega"
+    "optical_branch_gap_expr": "4*G_c/I_omega",
+    "splitting_reproduces_clm2bkp7v": true,
+    "splitting_vanishes_at_Gc_zero": true
   },
   "legD_combine_member": {
     "S_at_cold": 1.0,
@@ -243,6 +258,49 @@
     "path_in_yukawa_reaches": 3.1962745316728043e+36,
     "path_length_m": 1.234271032596547e+24,
     "yukawa_reach_m": 3.8615926772428334e-13
+  },
+  "legG_srs_anisotropy_characterization_POST_FREEZE": {
+    "C11_C12_C44": [
+      0.7278554448844049,
+      0.49992695446387325,
+      0.1603680689301565
+    ],
+    "fastest_branch_exceeds_both_transverse_everywhere": true,
+    "high_symmetry_eigs": {
+      "[100]": [
+        0.1603680689301565,
+        0.1603680689301565,
+        0.7278554448844049
+      ],
+      "[110]": [
+        0.11396424521026585,
+        0.16036806893015648,
+        0.7742592686042955
+      ],
+      "[111]": [
+        0.12943218645022941,
+        0.12943218645022944,
+        0.7897272098442594
+      ]
+    },
+    "isotropic_ansatz_comparison_vL_over_vT": 1.8257418583505538,
+    "max_over_directions_vfast_over_vmid": 2.470116331498249,
+    "min_over_directions_vfast_over_vmid": 2.1304120885826254,
+    "min_over_directions_vfast_over_vslow": 2.1304120885826254,
+    "n_directions": 20006,
+    "source": "research/drivers/srs_twist_coefficient_results.json gate G2 (merged #890)",
+    "status": "REVIEW-FOLLOW-ON CHARACTERIZATION \u2014 adjudicates no frozen bin",
+    "worst_direction": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "worst_direction_eigs": [
+      0.1603680689301565,
+      0.1603680689301565,
+      0.7278554448844049
+    ],
+    "zener_A_of_this_member": 1.407178792210442
   },
   "prereg": "research/2026-08-06_lc1-one-speed_prereg-FROZEN.md",
   "prereg_freeze_commit": "992bb5a60230e66f8dd9181d9b3942cdc2b89593",
