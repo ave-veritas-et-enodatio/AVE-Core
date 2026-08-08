@@ -38,7 +38,7 @@ It is critical to distinguish the atomic cavity from the gravitational equivalen
 
 In the gravitational domain, the cavity is formed by \textbf{Transverse Shear Waves} (photons or gravity waves). Because these are native, massless vibrations of the linear vacuum, they are perfectly impedance-matched to empty space ($Z = 377 \ \Omega$). Their phase velocity is fixed at $c_0$, and they only reflect or form standing waves when the vacuum lattice physically tears or yields at the macroscopic $V_{SNAP}$ limit (e.g., an event horizon).
 
-By contrast, an electron ($0_1$ unknot) is a massive topological defect. It represents a permanent macroscopic \textbf{Impedance Mismatch} ($\Gamma = -1$) to the linear vacuum. It does not travel as a shear wave at $c_0$; instead, its motion displaces the lattice, generating longitudinal acoustic pressure waves governed by the vacuum's \textbf{Bulk Modulus}.
+By contrast, an electron ($0_1$ unknot) is a massive topological defect. It represents a permanent macroscopic \textbf{Impedance Mismatch} ($\Gamma = -1$\gammaundeclared{}) to the linear vacuum. It does not travel as a shear wave at $c_0$; instead, its motion displaces the lattice, generating longitudinal acoustic pressure waves governed by the vacuum's \textbf{Bulk Modulus}.
 
 Because the electron interacts with the bulk modulus, its local wave speed and acoustic refractive index $n_{acoustic}(r) \propto 1 / \sqrt{E - eV(r)}$ are entirely dictated by its remaining kinetic energy, not the $V_{SNAP}$ limit. The matter wave does not bounce off a physical tear in the vacuum; it bounces when it simply runs out of kinetic energy to push against the bulk modulus ($E - eV(r) = 0$). At this exact boundary, the local acoustic impedance becomes purely imaginary, forcing a total reflection. The atomic orbital is the precise radius where this trapped bulk-modulus acoustic wave achieves a lossless resonant impedance match with itself ($2\pi r = n \lambda$).
 
@@ -3902,7 +3902,7 @@ The impedance mismatch at this discrete step produces a reflection coefficient (
     \label{eq:sir_gamma}
 \end{equation}
 \end{resultbox}
-This is the same operator at every scale: antenna port reflection ($S_{11}$), seismic Moho discontinuity ($\Gamma \approx 0.17$), and particle Pauli exclusion ($\Gamma \to -1$).  The operator is implemented in \kbleaf{scale\_invariant.py:reflection\_coefficient()}.
+This is the same operator at every scale: antenna port reflection ($S_{11}$), seismic Moho discontinuity ($\Gamma \approx 0.17$), and particle Pauli exclusion ($\Gamma \to -1$\gammaundeclared{}).  The operator is implemented in \kbleaf{scale\_invariant.py:reflection\_coefficient()}.
 
 \paragraph{Dimensional check:} $[Z_\text{out}]$ = $[Z_\text{in}]$ = dimensionless charge numbers, so $\Gamma$ is dimensionless.~$\checkmark$
 
