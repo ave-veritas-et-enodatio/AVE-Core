@@ -35,6 +35,12 @@ def fmt_set(x, sigfigs=(3, 4, 5, 6)):
     out.add(f"{v:.2f}")
     out.add(f"{v:.3f}")
     out.add(f"{v:.4f}")
+    for s in (1, 2, 3):
+        out.add(f"{v:.{s}e}")
+        # also the zero-stripped exponent form (1.19e-03 vs 1.19e-3)
+        out.add(re.sub(r"e([+-])0(\d)$", r"e\1\2", f"{v:.{s}e}"))
+    if v == int(v):
+        out.add(str(int(v)))
     out.add(str(v))
     return out
 
@@ -72,12 +78,33 @@ def registry(j):
         reg[f"{tag}_treflect"] = blk["drive"]["t_reflect"]
         for run, r in blk["runs"].items():
             reg[f"{tag}_{run}_EP"] = r["E_P_window"]
+            reg[f"{tag}_{run}_ES"] = r["E_S_window"]
             reg[f"{tag}_{run}_EPrate"] = r["E_P_rate"]
             reg[f"{tag}_{run}_wpk"] = r["omega_peak_over_2Omega"]
             reg[f"{tag}_{run}_specOm"] = r["spec_ratio_at_Omega"]
             if r["H_drift_postburst"] is not None:
                 reg[f"{tag}_{run}_Hdrift"] = r["H_drift_postburst"]
             reg[f"{tag}_{run}_maxu"] = r["max_u"]
+            reg[f"{tag}_{run}_band"] = r["band_frac_at_omega_d"]
+            reg[f"{tag}_{run}_ESoverEP"] = (r["E_S_window"]
+                                            / (r["E_P_window"] + 1e-300))
+            for w, v in r["by_window"].items():
+                if v is not None:
+                    reg[f"{tag}_{run}_{w}_rate"] = v["E_P_rate"]
+        for w, v in blk.get("floor_variants", {}).items():
+            if v is not None:
+                reg[f"{tag}_floor_{w}"] = v["floor_rate"]
+                reg[f"{tag}_Rc_{w}"] = v["R_comm_over_floor"]
+                reg[f"{tag}_Ra_{w}"] = v["R_radac_over_floor"]
+        reg[f"{tag}_tarr"] = blk["drive"]["t_arr"]
+        reg[f"{tag}_tsclear"] = blk["drive"]["t_s_clear"]
+        reg[f"{tag}_sigt"] = blk["drive"]["sigma_t"]
+        reg[f"{tag}_t0"] = blk["drive"]["t0"]
+        reg[f"{tag}_t0ramp"] = blk["drive"]["t0_ramp"]
+        reg[f"{tag}_sigramp"] = blk["drive"]["sigma_ramp"]
+        reg[f"{tag}_turnon"] = blk["drive"]["turn_on_sigma"]
+        reg[f"{tag}_Omrot"] = blk["drive"]["Omega_rot"]
+        reg[f"{tag}_Td"] = blk["drive"]["T_d"]
     C = j["arm_C_eccentricity"]
     reg["circ_TL"] = C["circular_TL_invariant"]
     for e in ("0.0", "0.05", "0.088", "0.3", "0.6171"):
@@ -86,9 +113,22 @@ def registry(j):
         reg[f"C_{e}_trace"] = r["trace_over_TL0"]
         reg[f"C_{e}_lead"] = r["trace_leading_form"]
         reg[f"C_{e}_addon"] = r["flux_addon_5_96_e2"]
-    # derived closed forms quoted in the doc
-    reg["ratio_4_25"] = 4.0 / 25.0
-    reg["addon_5_96"] = 5.0 / 96.0
+    # derived closed forms quoted in the doc (each formula stated)
+    reg["ratio_4_25"] = 4.0 / 25.0            # small-kR force-overlap limit
+    reg["addon_5_96"] = 5.0 / 96.0            # trace-channel coefficient
+    b64 = j["arm_B_time_domain_operative_L64"]
+    Twin = b64["runs"]["commutation"]["T_win"]
+    import math
+    reg["fft_bin"] = 2 * math.pi / Twin       # intrinsic FFT resolution
+    reg["fft_offset"] = abs(
+        b64["runs"]["commutation"]["omega_peak_l2proj"]
+        - b64["drive"]["omega_d"])            # |omega_peak - 2*Omega|
+    reg["Rca_over_ref"] = (b64["R_comm_over_radac"]
+                           / b64["rho_ref_continuum_at_kR"])  # x-method vs continuum
+    reg["Rca_over_spec"] = (b64["R_comm_over_radac"]
+                            / j["arm_A_spectral_overlap"]["sweep"]["2.6"]["rho_spec"])
+    reg["dp_drive_pct"] = (j["arm_C_eccentricity"]["0.088"]["f_PM_formula"]
+                           - 1.0) * 100.0     # DP drive above circular, %
     return reg
 
 
@@ -103,7 +143,8 @@ def check(doc_text, j):
                 "0.3", "2000", "2003", "0.16", "1.052", "11.86", "0.1460",
                 "0.1275", "0.0862", "0.0540", "5", "96", "24", "32", "2",
                 "0.9983", "914", "0.03", "1e-06", "50", "0.9", "0.1",
-                "0.02", "1e-4", "0.354", "9.77337", "1.7105", "1.8528",
+                "0.02", "1e-4", "2e-2", "1.3e-04", "0.354", "9.77337",
+                "0.286", "1.7105", "1.8528",
                 "1.9041", "0.520", "0.285", "4", "25", "0.16", "761",
                 "919", "913", "770", "0.033", "15", "9", "8", "7", "6",
                 "1", "0"):

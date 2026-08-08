@@ -411,12 +411,24 @@ def run_time_domain(L, rho_star, cP_spec, cS_spec, n_cycles_fwhm, k_s=1.0,
         # streaming per-site window accumulators (AC-content energy: the static
         # control's DC near-field deformation must NOT read as radiated energy;
         # E_AC = sum_t u^2 - n <u>^2 per site, i.e. window variance).
-        # Static control reads the LATE HALF of the window (transient cleared).
-        t_win_lo = t_arr if tag != "static_control" \
-            else 0.5 * (t_arr + t_reflect)
-        n_win = 0
-        s1_par = np.zeros(n_meas); s2_par = 0.0
-        s1_perp = np.zeros((n_meas, 3)); s2_perp = 0.0
+        # v2 (post-v1 instrument repair, DISCLOSED as a dated deviation in the
+        # result doc): THREE window variants computed SIMULTANEOUSLY, no
+        # post-hoc selection —
+        #   'frozen_full' : [t_arr, t_reflect)             (prereg-literal)
+        #   'late_half'   : [(t_arr+t_reflect)/2, t_reflect)   (v1 definition)
+        #   's_cleared'   : [t_ramp_clear, t_reflect)      (analytic: the ramp
+        #       transient's SLOW S-TAIL arrival cleared — t0_ramp + 2.5 sigma
+        #       + (R_MEAS-R_PORT)/c_S; all inputs analytic spectral speeds,
+        #       no tuning freedom).  Empty windows report None (L=48 case).
+        t_s_clear = t0_ramp + 2.5 * sig_ramp + (R_MEAS - R_PORT) / (cS_spec + 1e-30)
+        windows = {
+            "frozen_full": (t_arr, t_reflect),
+            "late_half": (0.5 * (t_arr + t_reflect), t_reflect),
+            "s_cleared": (t_s_clear, t_reflect),
+        }
+        acc = {w: {"n": 0, "s1p": np.zeros(n_meas), "s2p": 0.0,
+                   "s1t": np.zeros((n_meas, 3)), "s2t": 0.0}
+               for w in windows}
         max_u = 0.0
         for step in range(n_steps):
             t = step * dt
@@ -444,10 +456,12 @@ def run_time_domain(L, rho_star, cP_spec, cS_spec, n_cycles_fwhm, k_s=1.0,
             rec["s00"].append(float(np.sum(u_par * q00)))
             rec["drive_ms"].append(float(np.sum(Fe[port] ** 2)))
             rec["E_par_inst"].append(float(np.sum(u_par ** 2)))
-            if (t >= t_win_lo) and (t < t_reflect):
-                n_win += 1
-                s1_par += u_par; s2_par += float(np.sum(u_par ** 2))
-                s1_perp += u_perp; s2_perp += float(np.sum(u_perp ** 2))
+            for wname, (lo, hi) in windows.items():
+                if (t >= lo) and (t < hi):
+                    a = acc[wname]
+                    a["n"] += 1
+                    a["s1p"] += u_par; a["s2p"] += float(np.sum(u_par ** 2))
+                    a["s1t"] += u_perp; a["s2t"] += float(np.sum(u_perp ** 2))
             # H ledger (sampled; free H — drive work makes it grow during burst)
             if step % H_EVERY == 0:
                 du = u[bi] - u[bj]
@@ -464,19 +478,30 @@ def run_time_domain(L, rho_star, cP_spec, cS_spec, n_cycles_fwhm, k_s=1.0,
 
         tarr = np.array(rec["t"])
         win = (tarr >= t_arr) & (tarr < t_reflect)
-        if n_win < 10:
+        if acc["frozen_full"]["n"] < 10:
             raise RuntimeError(
                 f"ARTIFACT-class config: empty/near-empty measurement window "
-                f"(n_win={n_win}, t_arr={t_arr:.1f}, t_reflect={t_reflect:.1f}) "
+                f"(t_arr={t_arr:.1f}, t_reflect={t_reflect:.1f}) "
                 f"— grid too small for r_meas; enlarge L (prereg SS11 fence 5)")
-        # AC-content (window-variance) energies, DC deformation removed;
-        # reported BOTH as window totals and per-unit-window-time (the floor
-        # ratio uses per-time so the static late-half window compares fairly)
-        E_P = float((s2_par - np.sum(s1_par ** 2) / max(n_win, 1)) * dt)
-        E_S = float((s2_perp - np.sum(s1_perp ** 2) / max(n_win, 1)) * dt)
-        T_win = n_win * dt
-        E_P_rate = E_P / (T_win + 1e-300)
-        E_S_rate = E_S / (T_win + 1e-300)
+
+        def win_energies(a):
+            n = a["n"]
+            if n < 10:
+                return None
+            EP = float((a["s2p"] - np.sum(a["s1p"] ** 2) / n) * dt)
+            ES = float((a["s2t"] - np.sum(a["s1t"] ** 2) / n) * dt)
+            Tw = n * dt
+            return {"E_P": EP, "E_S": ES, "T_win": Tw,
+                    "E_P_rate": EP / Tw, "E_S_rate": ES / Tw}
+
+        by_window = {w: win_energies(a) for w, a in acc.items()}
+        # primary window per run class: bursts read the full window (their
+        # signal spans it); the static floor's instrument-correct window is
+        # s_cleared (falls back to late_half where s_cleared is empty — L=48)
+        prim = by_window["frozen_full"] if tag != "static_control" else (
+            by_window["s_cleared"] or by_window["late_half"])
+        E_P, E_S, T_win = prim["E_P"], prim["E_S"], prim["T_win"]
+        E_P_rate, E_S_rate = prim["E_P_rate"], prim["E_S_rate"]
         # G-FREQ spectrum: l=2-projected radial signal in the window (zero-padded)
         s22 = np.array(rec["s22"])[win]
         s00 = np.array(rec["s00"])[win]
@@ -492,6 +517,8 @@ def run_time_domain(L, rho_star, cP_spec, cS_spec, n_cycles_fwhm, k_s=1.0,
         fpos, spec22 = absf[sel], spec22[sel]
         pk = int(np.argmax(spec22))
         omega_peak = float(fpos[pk])
+        band = np.abs(fpos - omega_d) < 0.15 * omega_d
+        band_frac = float(spec22[band].sum() / (spec22.sum() + 1e-300))
         # content at the rotation rate Omega vs the 2*Omega peak (folded)
         mOm = np.abs(fpos - Omega_rot) < (fpos[1] - fpos[0]) * 4
         ratio_Om = float(spec22[mOm].max() / (spec22[pk] + 1e-300)) if mOm.any() else 0.0
@@ -504,6 +531,8 @@ def run_time_domain(L, rho_star, cP_spec, cS_spec, n_cycles_fwhm, k_s=1.0,
             "E_P_window": E_P, "E_S_window": E_S,
             "E_P_rate": E_P_rate, "E_S_rate": E_S_rate,
             "T_win": T_win,
+            "by_window": by_window,
+            "band_frac_at_omega_d": band_frac,
             "omega_peak_l2proj": omega_peak,
             "omega_peak_over_2Omega": omega_peak / (omega_d + 1e-300),
             "spec_ratio_at_Omega": ratio_Om,
@@ -516,6 +545,12 @@ def run_time_domain(L, rho_star, cP_spec, cS_spec, n_cycles_fwhm, k_s=1.0,
     E_static = runs["static_control"]["E_P_rate"]
     E_comm = runs["commutation"]["E_P_rate"]
     E_rad = runs["radial_ac"]["E_P_rate"]
+    floor_variants = {}
+    for w, v in runs["static_control"]["by_window"].items():
+        floor_variants[w] = (None if v is None
+                             else {"floor_rate": v["E_P_rate"],
+                                   "R_comm_over_floor": E_comm / (v["E_P_rate"] + 1e-300),
+                                   "R_radac_over_floor": E_rad / (v["E_P_rate"] + 1e-300)})
     x = KR_TD
     rho_ref = float((spherical_jn(2, x, derivative=True)
                      / spherical_jn(0, x, derivative=True)) ** 2)
@@ -528,10 +563,14 @@ def run_time_domain(L, rho_star, cP_spec, cS_spec, n_cycles_fwhm, k_s=1.0,
                   "Omega_rot": Omega_rot, "n_cycles_fwhm": n_cycles_fwhm,
                   "sigma_t": sig_t, "t0": t0, "turn_on_sigma": turn_on_sigma,
                   "t_arr": t_arr, "t_reflect": t_reflect,
-                  "window_budget_ok": window_budget_ok},
+                  "window_budget_ok": window_budget_ok,
+                  "t0_ramp": t0_ramp, "sigma_ramp": sig_ramp,
+                  "t_s_clear": (t0_ramp + 2.5 * sig_ramp
+                                + (R_MEAS - R_PORT) / (cS_spec + 1e-30))},
         "runs": runs,
         "R_comm_over_static": E_comm / (E_static + 1e-300),
         "R_radac_over_static": E_rad / (E_static + 1e-300),
+        "floor_variants": floor_variants,
         "R_comm_over_radac": (runs["commutation"]["E_P_window"]
                               / (runs["radial_ac"]["E_P_window"] + 1e-300)),
         "rho_ref_continuum_at_kR": rho_ref,
