@@ -148,7 +148,7 @@ Saturation kernel $S(A) = \sqrt{1-A^2}$ & Schwinger / breakdown & yield / ruptur
   Use freely; Axiom~4 canonical. \\
 \hline
 Boundary & charged surface & yield surface &
-  Default: substrate-vocabulary. Always. $\Gamma = -1$ saturation surface. \\
+  Default: substrate-vocabulary. Always. $\Gamma = -1$\gammaundeclared{} saturation surface. \\
 \hline
 % [2026-08-02 ENVELOPE WORD-SENSE reconciliation to the ruled KB block. Prior row (git trail):
 %  "Envelope & wavefunction support & zone of influence & Default: substrate. What the substrate
@@ -158,7 +158,7 @@ Boundary & charged surface & yield surface &
 %  S(A)->0, |Gamma|=1 mirror; the balance shell (ii) and the knee / dress edge (iii) keep their
 %  own names. Vocabulary correction only: no numerical value, radius or gate status is touched
 %  (the leaf's radii stay gate-registered, NOT SOLID).]
-Envelope & $|\Gamma| = 1$ mirror & yield surface &
+Envelope & $|\Gamma| = 1$\gammaundeclared{} mirror & yield surface &
   Ruled 2026-07-15: \emph{envelope} $=$ \textbf{the wall} --- the fully-yielded
   $S(A) \to 0$ surface. A surface, not a region. The \textbf{balance shell} and
   the \textbf{knee / dress edge} keep their own names
@@ -182,7 +182,7 @@ Machian & (no clean analog) & (no clean analog) & Use freely; relational substra
 
 \paragraph{The three substrate boundary invariants $\mathcal{M}, \mathcal{Q}, \mathcal{J}$
 (canonical 2026-05-14 evening).} These three integers/half-integer are the
-only externally observable invariants at any local $\Gamma = -1$ boundary
+only externally observable invariants at any local $\Gamma = -1$\gammaundeclared{} boundary
 (substrate-observability rule, Common Foreword $\S$``Three Boundary Observables
 and the Substrate-Observability Rule''). This is the no-hair theorem applied at
 every scale: from outside a BH, observers see $M, Q, J$; from outside an electron,
@@ -257,7 +257,7 @@ Standard circuit simulators rely on ideal, linear RLC components. However, the p
 %   ave_vacuum_cell.lib:61,:84 ("C_eff = C0 / S(V), knee at V_SNAP (A1 compliance)") and the KB
 %   ch18 index :33. SCOPE: this note covers THIS subsection only; it does not adjudicate the
 %   keying of any other section of this chapter.
-\noindent\textbf{Sector re-keying correction (2026-08-02, \texttt{def-vyvsn1} grade-fork RESOLVED $=$ T2, Grant 2026-06-30; the subsection body below is preserved per Rule~12 KEEP-BOTH).} The text below keys the diverging compliance $C_{eff} = C_0/S$ on $V_{yield} = \sqrt{\alpha}\,V_{snap} \approx 43.65$~kV. That keying is \textbf{corrected}. \textbf{(1) Which reactance.} The diverging $C_0/S$ is the \textbf{longitudinal-A1 bond compliance} (the stretch-reactance $1/k_a$), \emph{not} the transverse dielectric capacitance; the transverse permittivity $\varepsilon_{eff} = \varepsilon_0 S$ and the across-gap cell capacitance an LCR meter reads, $C_{diel} \propto S$, \emph{roll off} instead. The two are \textbf{orthogonal} reactances (A1 $\perp$ T2) that share the EE name ``capacitance''; identifying them is the \emph{genesis-24 double-count}. \textbf{(2) Which voltage.} $V_{yield} = \sqrt{\alpha}\,V_{snap} \approx 43.65$~kV is the \textbf{transverse Cosserat ($T_2$) self-trap wall} --- the electron's confining $\Gamma = -1$ --- \emph{not} the A1 compliance bound. The longitudinal-A1 compliance diverges at the higher $V_{snap} = m_e c^2/e \approx 511$~kV, a factor $1/\sqrt{\alpha} \approx 11.7$ above $V_{yield}$. Read Eq.~\ref{eq:varactor}, its Taylor expansion and every row of Table~\ref{tab:varactor_values} with $V_{yield} \to V_{snap}$: the tabulated \emph{ratios} $C_{eff}/C_0$ and $S$ are unchanged, but the voltage column rescales by $1/\sqrt{\alpha}$ --- the printed $43.65$~kV endpoint is the $V/V_{snap} = \sqrt{\alpha} \approx 0.085$ \emph{first} row of the corrected table, not its divergence. \textbf{(3) Consequence.} A standing electron's A1 mass core operates at strain $A = V_{yield}/V_{snap} = \sqrt{\alpha} \approx 0.085$ --- deeply \textbf{sub-saturated} ($S \approx 0.996$) --- which is \emph{why} it binds: the $S \to 0$ varactor runaway never fires on the mass channel, and the confining wall is supplied by the transverse $T_2$ self-trap instead. Since $V_{yield} = \sqrt{\alpha}\,V_{snap}$ exactly, $A = \sqrt{\alpha}$ is an $\alpha$-echo operating point (Class-C), not a free parameter. Canonical: \kbleaf{ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md} (\texttt{def-vyvsn1}); the engine's SPICE cell is already keyed on \texttt{V\_SNAP}. \emph{Scope:} this note covers this subsection only.
+\noindent\textbf{Sector re-keying correction (2026-08-02, \texttt{def-vyvsn1} grade-fork RESOLVED $=$ T2, Grant 2026-06-30; the subsection body below is preserved per Rule~12 KEEP-BOTH).} The text below keys the diverging compliance $C_{eff} = C_0/S$ on $V_{yield} = \sqrt{\alpha}\,V_{snap} \approx 43.65$~kV. That keying is \textbf{corrected}. \textbf{(1) Which reactance.} The diverging $C_0/S$ is the \textbf{longitudinal-A1 bond compliance} (the stretch-reactance $1/k_a$), \emph{not} the transverse dielectric capacitance; the transverse permittivity $\varepsilon_{eff} = \varepsilon_0 S$ and the across-gap cell capacitance an LCR meter reads, $C_{diel} \propto S$, \emph{roll off} instead. The two are \textbf{orthogonal} reactances (A1 $\perp$ T2) that share the EE name ``capacitance''; identifying them is the \emph{genesis-24 double-count}. \textbf{(2) Which voltage.} $V_{yield} = \sqrt{\alpha}\,V_{snap} \approx 43.65$~kV is the \textbf{transverse Cosserat ($T_2$) self-trap wall} --- the electron's confining $\Gamma = -1$\gammaundeclared{} --- \emph{not} the A1 compliance bound. The longitudinal-A1 compliance diverges at the higher $V_{snap} = m_e c^2/e \approx 511$~kV, a factor $1/\sqrt{\alpha} \approx 11.7$ above $V_{yield}$. Read Eq.~\ref{eq:varactor}, its Taylor expansion and every row of Table~\ref{tab:varactor_values} with $V_{yield} \to V_{snap}$: the tabulated \emph{ratios} $C_{eff}/C_0$ and $S$ are unchanged, but the voltage column rescales by $1/\sqrt{\alpha}$ --- the printed $43.65$~kV endpoint is the $V/V_{snap} = \sqrt{\alpha} \approx 0.085$ \emph{first} row of the corrected table, not its divergence. \textbf{(3) Consequence.} A standing electron's A1 mass core operates at strain $A = V_{yield}/V_{snap} = \sqrt{\alpha} \approx 0.085$ --- deeply \textbf{sub-saturated} ($S \approx 0.996$) --- which is \emph{why} it binds: the $S \to 0$ varactor runaway never fires on the mass channel, and the confining wall is supplied by the transverse $T_2$ self-trap instead. Since $V_{yield} = \sqrt{\alpha}\,V_{snap}$ exactly, $A = \sqrt{\alpha}$ is an $\alpha$-echo operating point (Class-C), not a free parameter. Canonical: \kbleaf{ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md} (\texttt{def-vyvsn1}); the engine's SPICE cell is already keyed on \texttt{V\_SNAP}. \emph{Scope:} this note covers this subsection only.
 
 As defined by Axiom~4, the effective compliance (capacitance) of the spatial substrate is bounded by the dielectric saturation limit at $V_{yield} = \sqrt{\alpha}\, V_{snap} \approx 43.65$ kV. The constitutive equation follows directly from the saturation kernel applied to the electric sector:
 \begin{resultbox}{Vacuum Varactor Constitutive Equation}
@@ -503,7 +503,7 @@ Event horizon             & $\to 0$ (saturated)    & $\to 0$ (saturated)        
 \end{tabularx}
 \end{table}
 
-\noindent The critical distinction: gravity scales $\mu$ and $\epsilon$ \textit{symmetrically} ($n \times n$), preserving $Z_0$ and producing zero reflection. Topological saturation (particles, event horizons) drives both to zero \textit{asymmetrically} via Axiom~4, collapsing $Z$ and creating perfect mirrors ($\Gamma = -1$). This is why gravity wells are RF-transparent (stealth) while particle boundaries and event horizons are perfect reflectors.\section{Gravitational Stealth (S-Parameter Analysis)}
+\noindent The critical distinction: gravity scales $\mu$ and $\epsilon$ \textit{symmetrically} ($n \times n$), preserving $Z_0$ and producing zero reflection. Topological saturation (particles, event horizons) drives both to zero \textit{asymmetrically} via Axiom~4, collapsing $Z$ and creating perfect mirrors ($\Gamma = -1$\gammaundeclared{}). This is why gravity wells are RF-transparent (stealth) while particle boundaries and event horizons are perfect reflectors.\section{Gravitational Stealth (S-Parameter Analysis)}
 
 In classical RF engineering, when a wave transitions into a denser physical medium, the refractive index ($n$) rises asymmetrically, forcing the characteristic impedance to drop. This impedance mismatch causes the signal to partially reflect, measured logarithmically as Return Loss ($S_{11}$). This introduces a profound paradox for analog gravity models: \textit{If a gravity well represents a physical increase in the localized optical density of the vacuum, why does light seamlessly enter a black hole without scattering or reflecting off the boundary?}
 
@@ -514,7 +514,7 @@ Z_{local}(r) = \sqrt{\frac{\mu_{local}}{\epsilon_{local}}} = \sqrt{\frac{n(r) \c
 
 The substrate is mathematically and perfectly Impedance-Matched to itself everywhere, absolutely regardless of extreme gravitational strain. Because the spatial derivative of the impedance remains strictly zero ($\partial_r Z_0 = 0$), the Reflection Coefficient ($\Gamma$) is mathematically forced to zero. The universe structurally possesses an \textbf{$S_{11}$ Return Loss of $-\infty$ dB}. This provides the exact continuum-mechanics mechanism for why localized gravitational gradients act as perfect RF-absorbing stealth structures rather than optical mirrors.
 
-\medskip\noindent\textbf{The branch-vertex counterpoint --- an intrinsically mismatched reciprocal 3-port.} The symmetric \emph{volumetric} scaling above matches a \emph{2-port} boundary. A \emph{3-way branch} does not have that luxury. At the chiral \emph{srs} vacuum-net vertex (coordination $z=3$), a wave down one bond sees the other two in parallel ($Z_0/2$), so the bare junction reflects $\Gamma = (2-z)/z = -\tfrac13$ ($|\Gamma|^2 = \tfrac19$, about $-9.5$~dB) --- a pure counting fact (one bond feeding two), reactively back-scattering (Axiom~3, not dissipation). The floor $|S_{11}| \ge \tfrac13$ is the classic matched-lossless-reciprocal-3-port theorem (Pozar-class), confirmed at the vertex: \emph{no} lossless reciprocal bore reaches the $S_{11} \to -\infty$~dB match a symmetric 2-port enjoys. The \emph{only} matched 3-port is non-reciprocal --- the ideal circulator ($S_{11}=0$, unitary, $C_3$) --- which requires a time-reversal-breaking bias ($I4_132$ chirality is only parity-breaking); whether the vacuum supplies one is PENDING-GRANT (asserted nowhere). So the gravity well is RF-transparent and the saturated particle core is a perfect $\Gamma=-1$ mirror, but a bare 3-way vacuum junction sits between them: a hard $\tfrac13$ reciprocal reflection floor unless a circulator bias intervenes. Canonical at \kbleaf{ave-kb/vol1/operators-and-regimes/ch6-universal-operators/srs-vertex-scattering.md} (\texttt{clm-v3port}, \texttt{clm-bore2x}; X38/X37).
+\medskip\noindent\textbf{The branch-vertex counterpoint --- an intrinsically mismatched reciprocal 3-port.} The symmetric \emph{volumetric} scaling above matches a \emph{2-port} boundary. A \emph{3-way branch} does not have that luxury. At the chiral \emph{srs} vacuum-net vertex (coordination $z=3$), a wave down one bond sees the other two in parallel ($Z_0/2$), so the bare junction reflects $\Gamma = (2-z)/z = -\tfrac13$ ($|\Gamma|^2 = \tfrac19$, about $-9.5$~dB) --- a pure counting fact (one bond feeding two), reactively back-scattering (Axiom~3, not dissipation). The floor $|S_{11}| \ge \tfrac13$ is the classic matched-lossless-reciprocal-3-port theorem (Pozar-class), confirmed at the vertex: \emph{no} lossless reciprocal bore reaches the $S_{11} \to -\infty$~dB match a symmetric 2-port enjoys. The \emph{only} matched 3-port is non-reciprocal --- the ideal circulator ($S_{11}=0$, unitary, $C_3$) --- which requires a time-reversal-breaking bias ($I4_132$ chirality is only parity-breaking); whether the vacuum supplies one is PENDING-GRANT (asserted nowhere). So the gravity well is RF-transparent and the saturated particle core is a perfect $\Gamma=-1$\gammaundeclared{} mirror, but a bare 3-way vacuum junction sits between them: a hard $\tfrac13$ reciprocal reflection floor unless a circulator bias intervenes. Canonical at \kbleaf{ave-kb/vol1/operators-and-regimes/ch6-universal-operators/srs-vertex-scattering.md} (\texttt{clm-v3port}, \texttt{clm-bore2x}; X38/X37).
 
 \begin{figure}[htbp]
     \centering
@@ -694,10 +694,10 @@ Evaluating the boundary between the saturated particle core ($0\,\Omega$) and th
 ambient vacuum ($Z_{0}\approx376.7\,\Omega$) yields:
 
 \begin{equation}
-\Gamma=\frac{Z_{core}-Z_{0}}{Z_{core}+Z_{0}}=\frac{0-376.7}{0+376.7}=-1
+\Gamma=\frac{Z_{core}-Z_{0}}{Z_{core}+Z_{0}}=\frac{0-376.7}{0+376.7}=-1\gammaundeclared{}
 \end{equation}
 
-A reflection coefficient of $\Gamma=-1$ constitutes a \textbf{Perfect Short-Circuit Boundary}.
+A reflection coefficient of $\Gamma=-1$\gammaundeclared{} constitutes a \textbf{Perfect Short-Circuit Boundary}.
 
 This mathematical limit proves that 100\% of the kinetic energy attempting to radiate
 outward from the saturated flux tube hits this impedance wall, undergoes a perfect $180^{\circ}$ phase
@@ -711,7 +711,7 @@ radiative loss.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.62\textwidth]{electron_lattice_net_S.png}
-    \caption{\textbf{The ``Local Bubble'' on the real vacuum lattice (engine-exact).} The seeded $(2,3)$ winding on the chiral \emph{srs} net (degree-$3$, $I4_132$ / (10,3)-a; $L=6$, $1728$ interior $z=3$ nodes), projected to the $(x',y')$ plane. Node colour is the Axiom-4 saturation kernel $S(A)=(1-A^2)^{0.5}$ at the winding amplitude field; the ring of open markers is the set of $19$ \textbf{wall nodes at yield} ($A>0.9$, $S\!\to\!0.045$) --- the $Z_{core}\to0$, $\Gamma=-1$ perfect short-circuit shell derived above, rendered on the canonical carrier. The teal cycle is the $\Delta b_1=+1$ meridian doorway (linking $\pm1$ with the winding core, verified). Axes in $a_{\mathrm{cell}}$; the in-plane projection is presentation-layer, all node/bond/winding/kernel values are engine-exact. Driver: \texttt{src/scripts/viz/electron\_lattice\_scene.py} (\texttt{ave.core.chiral\_lattice.build\_srs\_net} + \texttt{srs\_cage\_winding} + \texttt{graded\_vacuum\_network.saturation\_kernel}); provenance ledger \texttt{viz/README.md} Visual~1.}
+    \caption{\textbf{The ``Local Bubble'' on the real vacuum lattice (engine-exact).} The seeded $(2,3)$ winding on the chiral \emph{srs} net (degree-$3$, $I4_132$ / (10,3)-a; $L=6$, $1728$ interior $z=3$ nodes), projected to the $(x',y')$ plane. Node colour is the Axiom-4 saturation kernel $S(A)=(1-A^2)^{0.5}$ at the winding amplitude field; the ring of open markers is the set of $19$ \textbf{wall nodes at yield} ($A>0.9$, $S\!\to\!0.045$) --- the $Z_{core}\to0$, $\Gamma=-1$\gammaundeclared{} perfect short-circuit shell derived above, rendered on the canonical carrier. The teal cycle is the $\Delta b_1=+1$ meridian doorway (linking $\pm1$ with the winding core, verified). Axes in $a_{\mathrm{cell}}$; the in-plane projection is presentation-layer, all node/bond/winding/kernel values are engine-exact. Driver: \texttt{src/scripts/viz/electron\_lattice\_scene.py} (\texttt{ave.core.chiral\_lattice.build\_srs\_net} + \texttt{srs\_cage\_winding} + \texttt{graded\_vacuum\_network.saturation\_kernel}); provenance ledger \texttt{viz/README.md} Visual~1.}
     \label{fig:electron_lattice_local_bubble}
 \end{figure}
 
@@ -731,7 +731,7 @@ continuous vacuum.
 
 \subsection{The Mechanical Origin of the Pauli Exclusion Principle}
 
-The establishment of the saturated particle boundary as a perfect topological mirror ($\Gamma = -1$)
+The establishment of the saturated particle boundary as a perfect topological mirror ($\Gamma = -1$\gammaundeclared{})
 provides a rigorous, continuous-mechanical derivation for the Pauli Exclusion Principle. 
 
 In standard quantum mechanics, the inability of fermions to occupy the same quantum
@@ -746,7 +746,7 @@ another, permitting infinite superposition.
 
 Conversely, Fermions are massive topological defects bounded by strictly saturated $Z_{core} =
 0\,\Omega$ envelopes. If two fermions are forced into the same spatial volume, their boundaries
-collide. Because both boundaries possess a reflection coefficient of strictly $\Gamma = -1$, their
+collide. Because both boundaries possess a reflection coefficient of strictly $\Gamma = -1$\gammaundeclared{}, their
 internal localized wave-functions cannot mathematically penetrate one another. The kinetic
 energy of Fermion A perfectly reflects off the infinite-compliance wall of Fermion B. The Pauli
 Exclusion Principle is therefore physically identical to the hard-sphere collision of perfectly
