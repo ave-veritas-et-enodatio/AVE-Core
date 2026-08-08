@@ -87,3 +87,49 @@ $r = A/A_c$ (the saturation ratio / regime coordinate) is **defined only WITHIN 
 - **LINE-IMPRECISE CITE (corrected):** the source survey cited $T_{melt}$ at `02_absolute_maximum_ratings.tex:38,65`. The value $\approx 5.93\times10^9$ K is at **:38** (verified verbatim); **:65 is the scope-table `\label`** (caption at :64: "the only calibration input … is $\alpha$"), NOT a $T_{melt}$ line. Cited as **:38** only.
 - **PR-POINTER:** PR #144 is verified MERGED (title "Dark-wake thruster $R_{rad,L}$: Phases 1–5 …"); the "§6 mode-level anti-identification" subsection label is a PR-description pointer not independently grep-verified — the substance is grounded in `dark-back-reaction-taxonomy.md:54` + `rrad-l-darkwake_result.md:111-144`.
 - All other §1–§5 cites re-verified verbatim.
+
+---
+
+## §Surface-note, dated 2026-08-07 — the glossary citability stamp is STALE; the physics above is unchanged
+
+**Appended, never a rewrite.** This document is FROZEN (`:6` — *"Status: FINDINGS FROZEN"*), and nothing above
+this rule is edited, re-pointed, re-graded, or re-worded. **The physics in this note is byte-preserved and
+unchanged — only the citability stamp is stale.** Dated surface-note under the standing vacated-cite pattern
+(frozen text gets a dated surface-note, never a rewrite), ruled **R25** at
+[`_orchestration/docket-entries/2026-08-07-rulings-r23-r27.md`](../_orchestration/docket-entries/2026-08-07-rulings-r23-r27.md):37
+— *"take dated surface-notes under the standing vacated-cite pattern"* (Grant, verbatim: *"Go/rec."*).
+
+**The two surfaces this note covers.** Both point at
+`manuscript/ave-kb/common/cosmic-axes-and-frames-glossary.md:73`:
+
+| site above | what it does | what is stale |
+|---|---|---|
+| `:53` (§5, running prose) | pointer into the glossary's *Parent-BH spin axis* entry, quoting its pre-crystallization-phase sentence | the **pointer** refers to the entry's **pre-R20 state** |
+| `:69` (§6 class-tag table) | grades that same pointer **CANONICAL** | the **CANONICAL stamp** refers to the entry's **pre-R20 state**; that entry is now struck-with-pointer |
+
+**What moved, and when.** Both were correct when written: on 2026-06-10 the quoted block *was* glossary `:73`
+(re-verified for this note at `37bf84ca`, the last commit touching that file before the note's date). On
+**2026-08-07** the cited entry was **struck-with-pointer under Rule 12, body preserved** — Grant ruling **R20**,
+[`_orchestration/docket-entries/2026-08-07-rulings-f3-f5-f1.md`](../_orchestration/docket-entries/2026-08-07-rulings-f3-f5-f1.md):12,
+*"the old quotation entry struck-with-pointer per Rule 12 (body preserved)"*. At HEAD:
+
+- [`cosmic-axes-and-frames-glossary.md`](../manuscript/ave-kb/common/cosmic-axes-and-frames-glossary.md):73 is
+  now the strike header, reading *"this entry and its quotation are kept for history and must not be cited as
+  current"*; the preserved quotation itself sits one blank line below it, at `:75`.
+- **The live v2 anchor is
+  [`cosmic-axes-and-frames-glossary.md`](../manuscript/ave-kb/common/cosmic-axes-and-frames-glossary.md):169**
+  (§6, *"Parent-BH spin axis relay, v2 (2026-08-07 — R20 re-anchor)"*), which re-quotes the renamed print
+  origin: *"the inside region is our universe's pre-crystallization phase"*, now naming the **pre-bond state**.
+
+**What this surface-note does NOT do.**
+
+- It does **not** re-point `:53`, does **not** re-grade `:69`, and does **not** re-verify any cite above. A
+  reader auditing what this survey staked on 2026-06-10 reads the frozen text exactly as written; a reader who
+  needs the current relay reads the v2 anchor instead.
+- It adjudicates nothing. §5's two-objects argument is about the *phase* — a phase for which the regime
+  coordinate $r = A/A_c$ is undefined because it predates the crystal — not about the noun R20 retired. The v2
+  anchor states the scope of the R20 change in its own words at
+  `cosmic-axes-and-frames-glossary.md:172`: *"No physics claim, no direction, no identification changes"*.
+- It does **not** reinstate retired vocabulary. The term *pre-geodesic plasma* stands in the frozen text above
+  at `:53` and `:69` as 2026-06-10 history; it is not live vocabulary at HEAD, where the print origin and the
+  KB relay both read **pre-bond state**.
