@@ -204,6 +204,17 @@ EMPHASIS_QUOTE_RE = re.compile(r"[*_]{1,3}[\"“]([^\"“”\n]+)[\"”][*_]{1,3
 #
 # The peer ordering therefore costs 43 displaced anchors and buys nothing. That
 # is a measurement, not a preference.
+#
+# ⚑ RESIDUAL FALSE-NEGATIVE, disclosed (PR #926 Tier-2 audit). Admitting bare
+# quotes AT ALL — in any pass order — opens one narrow hole: if a lane's real
+# house-style excerpt is MALFORMED so that it yields no span in any form (an
+# unclosed back-tick, say), and some unrelated bare-quoted phrase sits in the
+# window and happens to occur in the target file, the cite flips BLOCKED -> ok
+# on an excerpt nobody meant as one. The shipped last-resort order does not
+# cause this and is the safest of the three measured; the hole is inherent to
+# the form. ACCEPTED as the R27 trade: it costs a rare false-negative on
+# malformed excerpts, and it buys the closing of a blind spot that hid every
+# bare-quoted MISQUOTE from every gate in the repo.
 BARE_QUOTE_RE = re.compile(r"[\"“]([^\"“”\n]+)[\"”]")
 
 # A span whose whole (stripped) body is a bare path or path-cite — NOT content.
