@@ -191,12 +191,12 @@ At the radial boundary of the phase defect, the internal lattice impedance drops
     \Gamma = \frac{Z_\mathrm{knot} - Z_0}{Z_\mathrm{knot} + Z_0} \;\to\; -1
     \label{eq:confinement_gamma}
 \end{equation}
-$\Gamma = -1$ is a perfect electromagnetic mirror (total reflection with phase inversion), permanently trapping the dynamic wave energy inside the topological knot. This is the physical mechanism of colour confinement: the gauge field cannot escape the knot boundary because the impedance mismatch reflects it back with unit efficiency.
+$\Gamma = -1$\gammaundeclared{} is a perfect electromagnetic mirror (total reflection with phase inversion), permanently trapping the dynamic wave energy inside the topological knot. This is the physical mechanism of colour confinement: the gauge field cannot escape the knot boundary because the impedance mismatch reflects it back with unit efficiency.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.85\textwidth]{figures/fig_confinement_gamma.pdf}
-\caption{Reflection coefficient $\Gamma$ vs.\ knot boundary impedance $Z_\mathrm{knot}$. As $Z_\mathrm{knot} \to 0$, $\Gamma \to -1$: total reflection, trapping energy inside the topological defect.}
+\caption{Reflection coefficient $\Gamma$ vs.\ knot boundary impedance $Z_\mathrm{knot}$. As $Z_\mathrm{knot} \to 0$, $\Gamma \to -1$\gammaundeclared{}: total reflection, trapping energy inside the topological defect.}
 \label{fig:confinement_gamma}
 \end{figure}
 
@@ -560,7 +560,7 @@ Ricci flow is therefore the \textbf{geometric form} of the same relaxation proce
 
 A simply connected manifold has trivial fundamental group: every closed loop can be contracted to a point. In AVE, this means the manifold contains no torus knots --- no topological defects with crossing number $c > 0$. The perturbation has zero topological charge.
 
-Topological defects (particles) are protected against relaxation by their crossing number. At the knot boundary, $\Gamma = -1$ (Step~4 of Yang-Mills), trapping energy indefinitely. But a simply connected perturbation has $c = 0$ --- there is no impedance mirror, no topological barrier. Energy stored in curvature radiates freely.
+Topological defects (particles) are protected against relaxation by their crossing number. At the knot boundary, $\Gamma = -1$\gammaundeclared{} (Step~4 of Yang-Mills), trapping energy indefinitely. But a simply connected perturbation has $c = 0$ --- there is no impedance mirror, no topological barrier. Energy stored in curvature radiates freely.
 
 \subsection{Step 3: The Vacuum Ground State Is $S^3$}
 
@@ -586,7 +586,7 @@ Every simply connected, closed 3-manifold $\xrightarrow{\text{Ricci flow}}\; S^3
 \end{resultbox}
 
 \subsection{The Engineering Verdict}
-Perelman's proof is the geometric expression of lattice impedance relaxation. The Poincar\'e Conjecture holds because the vacuum ground state has the topology of $S^3$, and perturbations without topological protection (simply connected, $c = 0$) relax to this ground state under diffusion. The converse --- that topological defects ($c > 0$) do \textit{not} relax to $S^3$ --- is equally physical: particles are permanent because their knot topology creates an impedance mirror ($\Gamma = -1$) that traps energy indefinitely.
+Perelman's proof is the geometric expression of lattice impedance relaxation. The Poincar\'e Conjecture holds because the vacuum ground state has the topology of $S^3$, and perturbations without topological protection (simply connected, $c = 0$) relax to this ground state under diffusion. The converse --- that topological defects ($c > 0$) do \textit{not} relax to $S^3$ --- is equally physical: particles are permanent because their knot topology creates an impedance mirror ($\Gamma = -1$\gammaundeclared{}) that traps energy indefinitely.
 
 This reveals a fundamental property of the AVE lattice: \textbf{$S^3$ is the natural topology of the vacuum ground state}. All deviations from $S^3$ are either topologically protected (particles) or transient (radiation).
 
@@ -660,7 +660,7 @@ The lesson: \textit{Ricci flow, spectral theory, and optimisation are all manife
 
 \subsection{The Deep Result: $S^3$ and Topological Protection}
 
-The Poincar\'e Conjecture reveals that $S^3$ is the natural topology of the vacuum ground state. The Yang-Mills mass gap reveals that topological defects with crossing number $c > 0$ are permanently confined by impedance reflection ($\Gamma = -1$). Together, these establish a complete classification of lattice configurations:
+The Poincar\'e Conjecture reveals that $S^3$ is the natural topology of the vacuum ground state. The Yang-Mills mass gap reveals that topological defects with crossing number $c > 0$ are permanently confined by impedance reflection ($\Gamma = -1$\gammaundeclared{}). Together, these establish a complete classification of lattice configurations:
 
 \begin{resultbox}{Vacuum Classification}
 \begin{equation}
@@ -685,7 +685,7 @@ The translation to formal mathematics requires:
 \textbf{Problem} & \textbf{AVE Argument} & \textbf{Formal Object Needed} \\
 \midrule
 Navier-Stokes & Discrete Laplacian bounded, Picard-Lindel\"of on finite lattice & Sobolev $H^1$ bound on the continuum limit $\ell \to 0$; convergence of the lattice ODE to the PDE \\
-Yang-Mills & Bogomol'nyi bound on Faddeev-Skyrme functional; $\Gamma = -1$ confinement & Constructive spectral gap proof on infinite lattice; Osterwalder-Schrader axioms for the continuum limit \\
+Yang-Mills & Bogomol'nyi bound on Faddeev-Skyrme functional; $\Gamma = -1$\gammaundeclared{} confinement & Constructive spectral gap proof on infinite lattice; Osterwalder-Schrader axioms for the continuum limit \\
 Riemann & Spectral cutoff at $\sigma = 1/2$; functional equation from reciprocity & Proof that the spectral regime boundary argument is equivalent to a zero-free region proof for $\sigma \neq 1/2$ \\
 \bottomrule
 \end{tabularx}

@@ -168,7 +168,7 @@ Subatomic particles are topological knots where the spatial LC metric reaches di
 \end{itemize}
 The kinetic yield governs mass assembly and confinement; the snap limit governs dielectric breakdown and pair production. The Transmission Line mathematics of the saturation boundary provide a derivation of the physical origin of solid matter and wave-particle duality.
 
-\noindent\textbf{Reconciliation with Ch.~\ref{ch:regime_map} regime map.} Ch.~\ref{ch:regime_map} places $r_3 = 1.0$ at this same $V_{yield} = 43.65$~kV boundary and describes it as ``Regime IV: topology destroyed.'' The two descriptions refer to the \emph{same} phase transition viewed from opposite sides: from a trapped mode below the boundary, the saturating LC reaches $Z \to 0$, $\Gamma \to -1$, the wave reflects inward and forms a standing wave = stable rest mass (\emph{matter assembly} picture); from a propagating mode crossing the boundary, the lattice's dielectric ruptures, $\varepsilon_{eff} \to 0$, the topology of any existing knot is destroyed and the energy radiates as a transverse wave or a pair (\emph{topology destroyed} picture). One transition, two operational faces.
+\noindent\textbf{Reconciliation with Ch.~\ref{ch:regime_map} regime map.} Ch.~\ref{ch:regime_map} places $r_3 = 1.0$ at this same $V_{yield} = 43.65$~kV boundary and describes it as ``Regime IV: topology destroyed.'' The two descriptions refer to the \emph{same} phase transition viewed from opposite sides: from a trapped mode below the boundary, the saturating LC reaches $Z \to 0$, $\Gamma \to -1$\gammaundeclared{}, the wave reflects inward and forms a standing wave = stable rest mass (\emph{matter assembly} picture); from a propagating mode crossing the boundary, the lattice's dielectric ruptures, $\varepsilon_{eff} \to 0$, the topology of any existing knot is destroyed and the energy radiates as a transverse wave or a pair (\emph{topology destroyed} picture). One transition, two operational faces.
 
 \begin{figure}[h!]
     \centering
@@ -319,7 +319,7 @@ When an entangled pair (e.g., $e^-e^+$) is synthesised from a single deformation
 \end{equation}
 \end{resultbox}
 
-\noindent The thread connecting the two particles is a path of $N = d/\ell_{node}$ nodes on the $K_4$ graph, where $d$ is the spatial separation. Each node is an LC element (Axiom~1: no resistance $\Rightarrow$ lossless), and the two particle cores provide perfect short-circuit boundaries ($\Gamma = -1$, from Axiom~4 saturation). The thread therefore constitutes a \textbf{lossless short-short resonator}:
+\noindent The thread connecting the two particles is a path of $N = d/\ell_{node}$ nodes on the $K_4$ graph, where $d$ is the spatial separation. Each node is an LC element (Axiom~1: no resistance $\Rightarrow$ lossless), and the two particle cores provide perfect short-circuit boundaries ($\Gamma = -1$\gammaundeclared{}, from Axiom~4 saturation). The thread therefore constitutes a \textbf{lossless short-short resonator}:
 \begin{itemize}
     \item Characteristic impedance: $Z_0 = \sqrt{\mu_0/\epsilon_0} \approx 377 \; \Omega$
     \item Propagation speed: $v = c$
@@ -394,8 +394,8 @@ Operator           & $S(T/T_c) = \sqrt{1-(T/T_c)^2}$ & $S(\varepsilon/\alpha) = 
 
 \noindent When Alice's detector couples to particle~A (an Ohmic load applying localised torque), she is not probing an isolated defect: she is turning one gear in a locked train. The winding constraint of the entire chain---a global topological invariant of the connected graph---constrains the outcome at particle~B.
 
-\subsubsection{Universal $\Gamma \to -1$ Translation Matrix}
-The entanglement thread is one instance of a universal mechanism: every phenomenon in the AVE framework where a boundary saturates to $\Gamma = -1$ is the same operator (Axiom~4) applied to a different sector. The complete cross-discipline isomorphism is:
+\subsubsection{Universal $\Gamma \to -1$\gammaundeclared{} Translation Matrix}
+The entanglement thread is one instance of a universal mechanism: every phenomenon in the AVE framework where a boundary saturates to $\Gamma = -1$\gammaundeclared{} is the same operator (Axiom~4) applied to a different sector. The complete cross-discipline isomorphism is:
 
 \begin{center}
 \scriptsize
@@ -408,7 +408,7 @@ Domain            & Topology (Vol.~I)  & EM (Vol.~I)            & Condensed matt
 Saturated field   & $\varepsilon(r)$   & $\varepsilon_{eff}$    & $\mu_{eff}$                  & $Z_{core}$ \\
 Saturation input  & $r/\ell_{node}$    & $V/V_{snap}$           & $B/B_c$                      & $\varepsilon/\alpha$ \\
 Operator          & $S = \sqrt{1-r^2}$ & $S = \sqrt{1-(V/V_s)^2}$ & $S = \sqrt{1-(B/B_c)^2}$ & $S = \sqrt{1-(\varepsilon/\alpha)^2}$ \\
-$\Gamma \to -1$ means & Particle trapped  & EM wave reflected      & B-field expelled             & Winding topologically locked \\
+$\Gamma \to -1$\gammaundeclared{} means & Particle trapped  & EM wave reflected      & B-field expelled             & Winding topologically locked \\
 Characteristic scale & $\ell_{node}$   & $\delta = c/\omega_p$  & $\lambda_L$                  & $d$ (separation) \\
 Collective state  & Knot (stable defect) & Plasma cutoff         & Rigid gear train             & Phase-locked thread \\
 Engine module     & \texttt{faddeev\_skyrme} & \texttt{plasma/cutoff} & \texttt{plasma/}\allowbreak\texttt{superconductor} & \texttt{topological/}\allowbreak\texttt{entanglement\_thread} \\
@@ -425,7 +425,7 @@ The angular dependence of the entanglement correlation derives from three AVE in
 \begin{enumerate}
     \item \textbf{Spin-1/2 as M\"obius topology (Axiom~1).} The electron unknot ($0_1$) is a Beltrami standing wave ($\nabla \times \mathbf{A} = k\mathbf{A}$) on the chiral $K_4$ graph. The M\"obius-strip topology of the chiral labyrinth requires $720^\circ$ for a complete cycle, producing a physical \textbf{half-angle coupling}: when a detector axis $\hat{a}$ makes angle $\theta$ with the defect's rotation axis $\hat{n}$, the effective phase mismatch is $\theta/2$.
 
-    \item \textbf{Binary outcome from saturation (Axiom~4).} The particle's saturated boundary ($\Gamma = -1$) supports a standing wave with exactly two antinodes. The detector couples to whichever antinode has lower impedance mismatch, producing a binary ($\pm$) outcome.
+    \item \textbf{Binary outcome from saturation (Axiom~4).} The particle's saturated boundary ($\Gamma = -1$\gammaundeclared{}) supports a standing wave with exactly two antinodes. The detector couples to whichever antinode has lower impedance mismatch, producing a binary ($\pm$) outcome.
 
     \item \textbf{Probability from Ohmic extraction (Axiom~3).} The Born rule, derived in \S3.5, gives the probability of each outcome from the Joule power extracted by the detector:
     \begin{equation}
@@ -499,7 +499,7 @@ Bob always observes a 50/50 outcome distribution. Alice cannot control which out
 
 \subsection{K4-TLM Lattice Check (preliminary)}
 \label{subsec:k4tlm_entanglement}
-A preliminary K4-TLM lattice run --- a $32^3$-node Diamond lattice with nonlinear Axiom~4 saturation, with two saturated $\Gamma = -1$ defect cores connected by a $2\pi$ phase-wound standing wave --- is consistent with this protection mechanism: the winding is immune to sub-threshold perturbations and unwinds only once the drive exceeds the pair-creation energy. A reproducible generating driver is pending; the quantitative coherence traces are deferred until it is in place.
+A preliminary K4-TLM lattice run --- a $32^3$-node Diamond lattice with nonlinear Axiom~4 saturation, with two saturated $\Gamma = -1$\gammaundeclared{} defect cores connected by a $2\pi$ phase-wound standing wave --- is consistent with this protection mechanism: the winding is immune to sub-threshold perturbations and unwinds only once the drive exceeds the pair-creation energy. A reproducible generating driver is pending; the quantitative coherence traces are deferred until it is in place.
 
 \section*{Chapter Summary}
 \begin{itemize}
