@@ -159,6 +159,27 @@ docs.**
   the main checkout). They exited silently and read as clean. **They were no-ops,
   not receipts** — the two methods above are the real ones.
 
+---
+
+## ★Tier-2 review repairs (2026-08-07, second pass — NOT CONFIRMED → repaired on branch)
+
+Tier-2 returned **3 must-fix, 4 should-fix, 1 nit**, every one **additive** — nothing landed in the first pass needed rewriting. The auditor also **upheld this lane's `:157` false-positive claim against its own finding**. All eight repaired in-branch; **31 new pins re-verified from scratch before use** (the auditor's pointers were the starting set, not the evidence).
+
+| ID | Repair | Where |
+|---|---|---|
+| **D1** *(must)* | G3 gains the **FLAG-W termination rider** — new **§12.3(b)** | the compression line's termination is UNRESOLVED (`coldq-polar-family_result.md`:170, *"vent, or does it dead-end?"*, *"Three canonical leaves, two opposite answers, no repair made"*, ROUTED TO GRANT). Scope stated: mode-identity is termination-INdependent and stands; anything termination-dependent is NOT licensed. **R30 bench candidate inherits the flag** and cannot be specified past it |
+| **D2** *(must)* | G5 gains the **LIVE Hulse-Taylor channel-attribution contradiction** | `port-register.md`:127 (*"a bulk+shear double-count pulsar timing forbids"*), plus `:87`, `:35`, `vocabulary-register.md`:1060. It is now stated as **the reason the wattmeter lens matters**; G5 explicitly must not read as closure over an open flag |
+| **D3** *(must)* | **"Two-method" label on G2/G3 was WRONG and is withdrawn** | `:37` + `:48`/`:49` are two lines of ONE file — one source read twice. **Replaced with genuinely independent receipts:** (a) analytic irrep derivation `k4-port-irrep-decomposition.md`:11 vs (b) separately-run engine eigen-decomposition `src/ave/solvers/node_scattering_multiplicity.py`:81/:83 (*"the COMMON MODE"* / *"the DIFFERENTIAL modes"*), corroborated at `node-2domain-nport.md`:61,63. The withdrawal is stated **in-row** so the bad pairing cannot be cited as precedent |
+| **D4** *(should)* | G4 cites **its own fence** | `device-circuit-models.md`:145 (*"do NOT collapse to one unit"*) + the ideal-transformer transducer `node-2domain-nport.md`:200/:201/:204 — with the explicit note that **a transducer object existing in canon does NOT make G4's leg derived**; it names what would have to be. Homodyne receipts `gw-detection-antenna.md`:31 + `fabry-perot-phase-shift.md`:15 |
+| **D5** *(should)* | G6 **RE-GRADED to PRIOR-ART-EXISTS** | `gw-impedance-perturbation.md`:10 (readout) and `:18` (shear carrier) are **one leaf** — the reconciliation is already canon-resident. Prior "STRUCTURAL PASS as a de-confliction" was an over-grade; corrected in place. One site per text family added: `einstein-field-equation.md`:82,:84 (carrier) and `:76` (gradient-index) |
+| **D6** *(should)* | G1 gains the **§10.4 noun-collision distinction** | "commutation" is already spent in **this same leaf** on the electron's self-commutation (`:832`, `:838` *"the rotor supplies its own commutation; no external commutator"*). G1's binary is the **inverted** case — externally commutated, no self-drive. Distinguished exactly as G4 distinguishes "balanced bridge". Plus `#761 §0`:28 (sector fence) and `def-satshr` (`vocabulary-register.md`:1054 — the trace/traceless split is already a def-node, so G1 mints no split) |
+| **D7** *(should)* | G1 gains a **§12.3 rider pointer** | it asserts simultaneous ch-2/ch-3 drive, so the drive-scoping rider is now one hop away, as it already was from G3 |
+| **NIT** | `dark-back-reaction-taxonomy.md` `:27 ff` → precise pins | **`:29`** (*"Species 2 — dark resonance"*) + **`:31`** (*"near-field reactive self-energy"*). ★Auditor suggested `:29`/`:33`; `:33` is the **symbol-mislabel** paragraph, so `:31` is the substantive second pin. Verified, then substituted — surfaced rather than silently followed |
+
+**Placement discipline held:** every repair is either in-place on an existing line or inside §12, which is EOF. Diff hunks on `translation-circuit.md` are `:159` (in-place), `:534` (in-place), and `930+` (EOF). **Inbound-cite count re-taken after the repairs: 0 rotted, 0 in frozen docs.**
+
+**Tier-2 receipts:** `verify-new-cite-excerpts` OK; the independent off-disk checker run over the **31 new pins → 0 ABSENT**; `make verify` green; `make test` **2966 passed, 3 skipped, 9 xfailed**.
+
 ## Open / routed after this lane
 
 - **PENDING-GRANT:** the shear-vs-Cosserat sector-ownership call (does the
@@ -169,5 +190,7 @@ docs.**
 - **ROUTED (derivation):** FLAG-CEFF-CITE — which of the four $c_{eff}$ forms is
   right. Not adjudicated here.
 - **HELD ON THE OVERLAP LANE:** the G3 drive question.
+- **PENDING-GRANT (added by Tier-2 D1):** **FLAG-W** — does the compression line **vent or dead-end** at $r_{sat}$? Three canonical leaves, two opposite answers, no repair made. **The R30 compression-line-antenna bench candidate inherits this and cannot be specified past it.**
+- **LIVE against the framework (added by Tier-2 D2):** the `08_gravitational_waves.tex` Hulse-Taylor $\dot P_b$ bulk-vs-shear channel-attribution double-count (`port-register.md`:127) — resolves only with the Q1 ruling.
 - **ORCHESTRATOR:** the stale *"OPEN Q1 bulk-radiation row"* footer in
   `translation-elastodynamics.md`.
