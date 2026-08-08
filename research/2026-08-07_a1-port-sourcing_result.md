@@ -23,11 +23,21 @@ receipted profile). **PHASE-STATE** — cold-reactive far field (radiation is a 
 
 ## HEADLINE
 
-> **VERDICT: `RADIATIVE(2)` — the multipole ORDER is settled on receipted structure; the FLUX
-> floor is a SHEAR-ANCHORED bound whose anchor is canon's own BANKED Peters–Mathews shear rate,
-> and it is CAGE-FORK-CONDITIONAL** *(★review-repaired 2026-08-07, PR #919 Tier-2 — R10/R11; the
-> original headline's "Green's-function-forced … cannot touch" fork-immunity claim and its
-> "OBSERVED shear flux" anchor wording are WITHDRAWN; see the addendum)*. The lowest
+> **🔴 VERDICT AS RE-CUT (2026-08-07, Grant ruling R23,
+> `_orchestration/docket-entries/2026-08-07-rulings-r23-r27.md`, verbatim *"let's recut"*):
+> `RADIATIVE(2)-on-the-order / NOT-DERIVABLE-on-the-amplitude`.** The re-cut exercises this
+> doc's own §6-disclosed frozen trigger (Rule-11-clean per R23); the ORDER result below is
+> UNCHANGED; the flux material stands as supporting analysis whose anchor premise carries
+> **CONTESTED-BY-GRANT status per R24** (the def-9a4f07 identity is NOT ratified; the
+> GW-formation walk gates it — see the R23/R24 addendum at the end of this doc). The headline
+> text below is PRESERVED as the pre-R23 review-repaired state (Rule 12).
+>
+> **VERDICT (pre-R23 form, preserved): `RADIATIVE(2)` — the multipole ORDER is settled on
+> receipted structure; the FLUX floor is a SHEAR-ANCHORED bound whose anchor is canon's own
+> BANKED Peters–Mathews shear rate, and it is CAGE-FORK-CONDITIONAL** *(★review-repaired
+> 2026-08-07, PR #919 Tier-2 — R10/R11; the original headline's "Green's-function-forced …
+> cannot touch" fork-immunity claim and its "OBSERVED shear flux" anchor wording are WITHDRAWN;
+> see the addendum)*. The lowest
 > non-vanishing multipole order of bulk-channel emission for a binary A1 configuration is
 > **n = 2 (quadrupole)**: the monopole is killed by total-mass conservation (`Ṁ = 0`), the
 > dipole by momentum conservation (`Ẍ_cm = 0`), and the quadrupole coupling integral does
@@ -155,7 +165,19 @@ the §3 bound are **new adjudication** (ADJUDICATED).
 
 ### §3.1 The three receipts
 
-- **R1 (canon).** The observed GW is the substrate's **T2 elastic transverse shear** channel at
+> **🔴 STATUS NOTE (2026-08-07, Grant ruling R24,
+> `_orchestration/docket-entries/2026-08-07-rulings-r23-r27.md` — status change only; no
+> re-derivation, no bin edit beyond R23).** The anchor premise below (R1 + R2 jointly: the
+> GW-carrying shear ≡ the transverse polarization of the SAME displacement field whose
+> longitudinal polarization is the A1 bulk mode, i.e. the `def-9a4f07`-adjacent identity) is
+> **CONTESTED-BY-GRANT and NOT ratified**. Grant verbatim `[sic]`: *"They seem different. A GW
+> is a saturation wave, which affects Transverse EM right? but not the same."* The identity
+> does not adjudicate until the GW-FORMATION WALK lands (Grant + orchestrator, corpus-fed; the
+> walk dossier is `research/2026-08-07_gw-formation-walk-dossier.md`). Until then the §3 flux
+> floor carries CONTESTED status at its anchor premise; the ORDER verdict is unaffected (R24).
+
+- **R1 (canon) — ★CONTESTED per R24, see the status note above.** The observed GW is the
+  substrate's **T2 elastic transverse shear** channel at
   `c` (`gw-propagation-lossless.md`, `three-channel-impedances.md` "Shear / GW" row; q1 §0
   SECTOR header), and the binary's observed `Ṗ_b` matches the GR shear-quadrupole to the frozen
   residuals (§5) — an OBSERVED, liveness-proven flux.
@@ -509,3 +531,40 @@ fits inside the HT room at its low end.
 > "banked-rate-anchored internal-inconsistency kill on the uncaged branch, with the
 > #770-gated Branch-X floor (`~2.5–40×` DP) as the fork-live residue." The kill-arm input to
 > Grant's arc-scope ruling is the two-branch statement of §8.3-1.
+
+---
+
+> **🔴 R23/R24 ADDENDUM (2026-08-07 — dated Rule-12 addendum; ruling record
+> `_orchestration/docket-entries/2026-08-07-rulings-r23-r27.md` on main; the frozen prereg
+> stays BYTE-UNTOUCHED; all pre-R23 text above is PRESERVED).**
+>
+> **R23 — the bin re-cut, EXECUTED.** Grant verbatim `[sic]`: *"let's recut."* Ruling text:
+> the prereg's frozen NOT-DERIVABLE trigger is met for the AMPLITUDE (the pluck operator is
+> absent; the shear anchor is a post-freeze ratio device), so the verdict re-cuts to
+> **`RADIATIVE(2)-on-the-order / NOT-DERIVABLE-on-the-amplitude`**. Per R23 this exercises the
+> re-cut option this doc's own §6 disclosed, on the prereg's own frozen conjuncts —
+> *"Exercising a frozen trigger is Rule-11-clean."* Standing content after the re-cut:
+> - **RADIATIVE(2)-on-the-order (unchanged):** the lowest non-vanishing multipole of
+>   bulk-channel emission for a binary A1 configuration is the quadrupole — monopole killed by
+>   `Ṁ = 0`, dipole by `Ẍ_cm = 0`, no receipted structure kills n = 2; fork-independent (§2).
+> - **NOT-DERIVABLE-on-the-amplitude (now the verdict's second half, not a subsidiary):** the
+>   missing-piece list of §7 is the deliverable — the microscopic pluck operator
+>   (`axiom-register.md:193`, ABSENT, two-method); the absolute normalization of BOTH channels
+>   (the shear rate is canon's Peters–Mathews IMPORT); the ponderomotive coefficient
+>   (def-pndenv, ASSUMED); the cage-fork ensemble aggregation (#770, OPEN).
+> - **The §3/§5 flux material is DEMOTED to supporting analysis** (a conditional
+>   internal-inconsistency bracket, not a verdict component): its anchor premise additionally
+>   carries CONTESTED-BY-GRANT status per R24 (§3.1 status note).
+>
+> **R24 — the anchor premise is CONTESTED; the GW-formation walk gates it.** Grant verbatim
+> `[sic]`: *"They seem different. A GW is a saturation wave, which affects Transverse EM
+> right? but not the same. Do we need to walk how a GW forms?"* Per R24 the identity
+> (GW-carrying shear ≡ transverse polarization of the same displacement field whose
+> longitudinal polarization is the A1 bulk mode) is CONTESTED and does not adjudicate until
+> the GW-FORMATION WALK runs. Consequences in force, recorded here: the §3 anchor premise
+> carries CONTESTED status (§3.1 note — status change only); the ORDER verdict is unaffected;
+> the #770 cage-fork lane does NOT dispatch before the walk lands; #913/#919/arc-scope stay
+> held. This lane's closing deliverables under R24: the walk dossier
+> (`research/2026-08-07_gw-formation-walk-dossier.md`, receipts-only, no adjudication) and the
+> #770 decision packet re-issued in the plumber register
+> (`_orchestration/2026-08-07_cage-fork-decision-packet_plumber_HELD-until-walk.md`, HELD).
