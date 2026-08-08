@@ -23,7 +23,7 @@ JS = HERE / "overlap_integral_lattice_results.json"
 NUM_RE = re.compile(r"^-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$")
 
 
-def fmt_set(x, sigfigs=(3, 4, 5, 6)):
+def fmt_set(x, sigfigs=(2, 3, 4, 5, 6)):
     """Every string form a doc might quote for a float."""
     out = set()
     try:
@@ -86,6 +86,8 @@ def registry(j):
                 reg[f"{tag}_{run}_Hdrift"] = r["H_drift_postburst"]
             reg[f"{tag}_{run}_maxu"] = r["max_u"]
             reg[f"{tag}_{run}_band"] = r["band_frac_at_omega_d"]
+            reg[f"{tag}_{run}_s00rms"] = r["s00_window_rms"]
+            reg[f"{tag}_{run}_drivems"] = r["drive_ms_timeavg"]
             reg[f"{tag}_{run}_ESoverEP"] = (r["E_S_window"]
                                             / (r["E_P_window"] + 1e-300))
             for w, v in r["by_window"].items():
@@ -113,6 +115,11 @@ def registry(j):
         reg[f"C_{e}_trace"] = r["trace_over_TL0"]
         reg[f"C_{e}_lead"] = r["trace_leading_form"]
         reg[f"C_{e}_addon"] = r["flux_addon_5_96_e2"]
+        if r["trace_leading_form"] > 0:
+            reg[f"C_{e}_trace_over_lead"] = (r["trace_over_TL0"]
+                                             / r["trace_leading_form"])
+            reg[f"C_{e}_trace_dev_pct"] = (r["trace_over_TL0"]
+                                           / r["trace_leading_form"] - 1) * 100
     # derived closed forms quoted in the doc (each formula stated)
     reg["ratio_4_25"] = 4.0 / 25.0            # small-kR force-overlap limit
     reg["addon_5_96"] = 5.0 / 96.0            # trace-channel coefficient
@@ -129,6 +136,8 @@ def registry(j):
                             / j["arm_A_spectral_overlap"]["sweep"]["2.6"]["rho_spec"])
     reg["dp_drive_pct"] = (j["arm_C_eccentricity"]["0.088"]["f_PM_formula"]
                            - 1.0) * 100.0     # DP drive above circular, %
+    for kR, d in j["arm_A_spectral_overlap"]["sweep"].items():
+        reg[f"A_{kR}_dev_pct"] = abs(1 - d["ratio_to_ref"]) * 100  # |1-ratio| %
     return reg
 
 
@@ -138,23 +147,72 @@ def check(doc_text, j):
     for v in reg.values():
         known |= fmt_set(v)
     # frozen constants the prereg carries (allowed literals)
+    # frozen-constant literals (prereg-carried values + tolerance cells + the
+    # closed-form constants).  Tier-2 T5: stale #761-era literals purged
+    # (0.520/0.285/0.033/1.7105/1.8528/1.9041) and the two wrong frozen
+    # numerals (0.0862/11.86) REMOVED so frozen-vs-shipped drift can fire;
+    # 0.0863/11.8533/11.8568/0.086280 covered by the registry/errata entries.
     for lit in ("2026", "08", "48", "64", "3", "12", "2.6", "1.0", "1.5",
-                "2.2", "0.088", "0.6171", "0.0016", "1.3", "10", "0.05",
-                "0.3", "2000", "2003", "0.16", "1.052", "11.86", "0.1460",
-                "0.1275", "0.0862", "0.0540", "5", "96", "24", "32", "2",
+                "2.2", "0.088", "0.6171", "0.6171334", "0.0016", "1.3",
+                "10", "0.05", "0.3", "2000", "2003", "0.16", "1.052",
+                "0.1460", "0.1275", "0.0540", "0.0863", "0.086280",
+                "5", "96", "24", "32", "2",
                 "0.9983", "914", "0.03", "1e-06", "50", "0.9", "0.1",
                 "0.02", "1e-4", "2e-2", "1.3e-04", "0.354", "9.77337",
-                "0.286", "1.7105", "1.8528",
-                "1.9041", "0.520", "0.285", "4", "25", "0.16", "761",
-                "919", "913", "770", "0.033", "15", "9", "8", "7", "6",
-                "1", "0"):
+                "0.286", "4", "25", "761",
+                "919", "913", "770", "15", "9", "8", "7", "6",
+                "1", "0", "0.9972", "0.0019", "59.6", "0.04483",
+                "10.4", "0.094", "11.8533", "11.8568",
+                # errata-quoted WRONG frozen numerals (SS2.0-7 quotes them AS
+                # the erroneous values; the correct ones are registry-carried)
+                "0.0862", "11.86",
+                # #919 banked-import brackets quoted with pointers in SS4
+                "0.0152", "0.0455", "2.5", "40", "9.5", "28.5", "117", "350",
+                # driver frozen constants + display mantissas
+                "0.2", "4.3", "3.0", "1.1", "2.0", "1.4", "1.8", "1.86",
+                "1.96", "1.63", "0.0806", "0.1443", "0.1245", "0.0471"):
         known.add(lit)
     missing = []
     for m in re.finditer(r"`([^`]+)`", doc_text):
         tok = m.group(1).strip()
-        if NUM_RE.match(tok) and tok not in known:
-            missing.append(tok)
+        for num in extract_numerals(tok):
+            if num not in known:
+                missing.append(f"{num} (in `{tok[:40]}`)")
+    # must-appear half (Tier-2 T5): the bin-conjunct verdict numerals must be
+    # PRESENT in the doc — closes the cross-collision / silent-drop hole
+    must_appear = {
+        "R_c/s": fmt_set(reg["B64_Rc_s_cleared"]),
+        "R_c/a": fmt_set(reg["B64_Rca"]),
+        "rho_spec(2.6)": fmt_set(reg["A_2.6_rho_spec"]),
+        "static band_frac": fmt_set(reg["B64_static_control_band"]),
+    }
+    for label, forms in must_appear.items():
+        if not any(f in doc_text for f in forms if len(f) >= 4):
+            missing.append(f"MUST-APPEAR absent: {label}")
     return missing, reg
+
+
+def extract_numerals(tok):
+    """Measurement-like numerals inside a (possibly composite) backtick token.
+    Tier-2 T5 repair: the shipped v1 matched only BARE numeral tokens, so
+    composite tokens (`R_{c/s} = 2013 >= 10`) escaped coverage entirely.
+    Skips file-path-ish tokens (line-number cites are not measurements) and
+    date tokens; extracts decimal/exponent floats and >=4-digit integers.
+    """
+    if "/" in tok or ".md" in tok or ".py" in tok or ".json" in tok:
+        return []
+    if re.match(r"^\d{4}-\d{2}-\d{2}", tok):
+        return []
+    if re.match(r"^[0-9a-f]{8,}$", tok):
+        return []                              # commit hashes
+    out = []
+    for m in re.finditer(r"\d+\.\d+(?:[eE][+-]?\d+)?|\d+(?:\.\d+)?[eE][+-]?\d+|\d{4,}", tok):
+        s = m.group(0)
+        # skip pure years / PR numbers context
+        if re.match(r"^(19|20)\d{2}$", s) and re.search(r"#|\b(19|20)\d{2}\b.*ruling", tok):
+            continue
+        out.append(s)
+    return out
 
 
 def main(mutation_receipt=False):
@@ -171,17 +229,23 @@ def main(mutation_receipt=False):
     if mutation_receipt:
         # perturb one registered numeral IN A COPY of the doc; the checker
         # must FAIL — proves the gate can go red on every invocation
+        # target a numeral INSIDE a composite token (Tier-2 T5: the receipt
+        # must certify the population the verdict lives in)
         target = None
         for m in re.finditer(r"`([^`]+)`", doc):
             tok = m.group(1).strip()
-            if NUM_RE.match(tok) and "." in tok and len(tok) >= 5:
-                target = tok
+            if NUM_RE.match(tok):
+                continue                       # skip bare tokens
+            nums = [n for n in extract_numerals(tok)
+                    if "." in n and len(n) >= 5]
+            if nums:
+                target = nums[0]
                 break
         if target is None:
             print("FAIL: mutation receipt found no mutable numeral"); return 1
         last = target[-1]
         mut = target[:-1] + ("1" if last != "1" else "2")
-        doc_mut = doc.replace(f"`{target}`", f"`{mut}`", 1)
+        doc_mut = doc.replace(target, mut, 1)
         missing_mut, _ = check(doc_mut, j)
         if not missing_mut:
             print(f"FAIL: mutation receipt did not fire (mutated {target} -> {mut})")
