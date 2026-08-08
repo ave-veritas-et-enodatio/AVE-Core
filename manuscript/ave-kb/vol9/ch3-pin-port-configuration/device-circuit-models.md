@@ -147,7 +147,7 @@ Each channel is one substrate grade. The impedances and saturation $\Gamma$ valu
 | Channel | Grade | Impedance | $\Gamma$ at saturation | Two-"3"s tag |
 |---|---|---|---|---|
 | $Z_{\mathrm{EM}}$ | T2 transverse field | $Z_{\mathrm{EM}}\equiv Z_0=\sqrt{\mu_0/\varepsilon_0}\approx376.73\,\Omega$ | $\Gamma_{\mathrm{EM}}=0$ — **MATCHED / radiative PORT** | — (matched port, not a hair-sector) |
-| $Z_{\mathrm{shear}}$ | deviatoric $G$ | $Z_{\mathrm{shear}}=\rho_{\mathrm{bulk}}\,c_{\mathrm{shear}}$ | $\Gamma_{\mathrm{shear}}\to-1$ — CONFINED | **CHARGE-"3"** (Cosserat micro-rotation winding) |
+| $Z_{\mathrm{shear}}$ | deviatoric $G$ | $Z_{\mathrm{shear}}=\rho_{\mathrm{bulk}}\,c_{\mathrm{shear}}$ | $\Gamma_{\mathrm{shear}}\to-1$ — CONFINED | **CHARGE-"3"** (Cosserat micro-rotation winding) ⚑ **CHANNEL-TAG CONFLICT (2026-08-07) — PENDING-GRANT; see the dated flag at the end of this leaf before citing this tag** |
 | $Z_{\mathrm{bulk}}$ | dilatation $K$ | $Z_{\mathrm{bulk}}=\rho_{\mathrm{bulk}}\,c_{\mathrm{bulk}}=\sqrt2\,\rho_{\mathrm{bulk}}\,c_0$ at $K=2G$ (i.e. $c_{\mathrm{bulk}}=\sqrt2\,c_0$) — a MECHANICAL/acoustic impedance ($\rho\times$speed), **NOT** in $Z_0$ units | $\Gamma_{\mathrm{bulk}}\to-1$ — CONFINED | **MASS-"3"** (A1 dilatation) |
 
 **Naming discipline (do NOT rename the channels).** Keep $Z_{\mathrm{EM}}$ named $Z_{\mathrm{EM}}$ — do **not** rename it to $Z_{\mathrm{transverse}}$: BOTH EM and shear are transverse waves, so "transverse" is ambiguous; $Z_{\mathrm{EM}}\equiv Z_0$ is the native label because $Z_0=\sqrt{\mu_0/\varepsilon_0}$ is a vacuum constant. Keep this three-grade wave-channel set DISTINCT from the coarser **Electric / Magnetic / Either** per-element constitutive tags of the `AVE_VACUUM_CELL` (§1) — those are a different (per-element constitutive) classification, not the wave-channel set.
@@ -270,3 +270,18 @@ provisional slot.**
 | Electron $\Gamma_{\mathrm{bulk}}$ not $\Gamma_{\mathrm{EM}}$ | [`electron-bh-isomorphism.md`](../../vol3/cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md):26 ✓ |
 
 ---
+
+## ⚑ CHANNEL-TAG FLAG — shear vs Cosserat (dated 2026-08-07; SURFACED, NOT RESOLVED; PENDING-GRANT sector-ownership call)
+
+**Placement note.** This block is an **EOF append** and the only edit above it is a one-token ⚑ marker inside the `:150` table cell — both deliberately **line-pin-neutral**, so none of the ~60 inbound `device-circuit-models.md:NN` cites (three of them inside `_prereg_FROZEN` docs) are rotted by this flag. The flag belongs beside the `:150` row; the marker carries the adjacency, this block carries the argument.
+
+**The conflict.** The §6.1 channel table's shear row (`:150`) tags the deviatoric-$G$ channel ($Z_{\mathrm{shear}}=\rho\,c_{\mathrm{shear}}$) with the **CHARGE-"3" (Cosserat micro-rotation winding)**. The canonical port register carries those as **two DISTINCT channels with different physics**, not one:
+
+- [`port-register.md`](../../common/port-register.md):48 — **channel 2**, *"Mechanical shear / GW"* ($T_2$ shear-$G$), $Z_{shear}=\rho\,c_{shear}$, $c_{shear}=c$, **GAPLESS** (*"gapless acoustic; edge"* $2c/\ell_{node}$); it is the carrier of the **observed GW** to the far field.
+- [`port-register.md`](../../common/port-register.md):50 — **channel 4**, *"Cosserat micro-rotation / wryness"* (couple-stress $\gamma$-grade, the $(2,3)$ winding), $c_\kappa=\sqrt2\,c$, **GAPPED** (*"(gapped — see gap)"*; $m_\omega=\sqrt{4G_c/I_\omega}$, Yukawa reach $\sim\ell_{node}$).
+
+**This row assigns channel 4's tag to channel 2's impedance.** The difference is physical, not clerical: **ch-2 is gapless and radiates at $c$; ch-4 is gapped and Yukawa-screened at $\sim\ell_{node}$.** Under the ch-4 reading the $(2,3)$ winding is confined **by the gap**. Under the ch-2 reading it rides the same gapless line the GW uses, and confinement must come from $\Gamma_{\mathrm{shear}}\to-1$ alone. Those are **different confinement stories for charge**, and this leaf asserts the second while the register asserts the first.
+
+**Adjacent datum — surfaced because it is the likely ROOT, not because it settles anything.** The authority this leaf cites for the grade tag, [`master-equation.md`](../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20 (the Grant-ratified 🔴 TWO-"3"s banner), itself calls the Cosserat winding *"T2 couple-stress"* — carrying **both** labels on one object ($T_2$ is the shear irrep; couple-stress is the ch-4 grade). So the conflation may be **inherited from the ratified line** rather than introduced here. Both readings are quoted verbatim; **neither is reframed to match the other.**
+
+**NOT FIXED HERE.** No channel renamed, no tag moved, no row's physics edited. The sector-ownership question — *does the CHARGE-"3" own ch-2, ch-4, or a projection across both?* — is Grant's call. A twin flag is carried at `research/2026-06-20_node-2domain-nport.md` (the `shear-Cosserat` compound). **Until it is ruled, do not cite the `:150` grade tag as settling which channel the $(2,3)$ winding rides.**
