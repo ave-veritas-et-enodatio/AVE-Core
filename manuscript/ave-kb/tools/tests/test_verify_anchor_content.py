@@ -297,16 +297,29 @@ def test_emphasis_quote_excerpt_across_a_hard_line_wrap_is_seen() -> None:
         assert vac.main(["--root", str(root), "--new-cites", "base"]) == 0
 
 
-def test_emphasis_quote_recognizer_does_not_swallow_non_excerpts() -> None:
+def test_quote_recognizer_does_not_swallow_non_excerpts() -> None:
     """Widening the recognizer must not turn decoration into an anchor.
 
-    A bullet/emphasis marker followed by a SPACE and a quote is ordinary prose,
-    not the excerpt style; a quoted path-cite is a cite, not content; and a
-    quoted fragment under MIN_QUOTE_LEN stays trivial. Each must still leave the
-    cite unanchored, or the ratchet degrades into a checklist.
+    A quoted path-cite is a cite, not content; and a quoted fragment under
+    MIN_QUOTE_LEN stays trivial. Each must still leave the cite unanchored, or
+    the ratchet degrades into a checklist. Both hold for ALL THREE recognized
+    forms, because `is_checkable_quote` filters the span body after the match
+    and is form-blind.
+
+    ★SUPERSEDED ARM, recorded rather than dropped (ruling R27, 2026-08-07). This
+    test used to carry a third arm asserting that a bullet marker followed by a
+    space and a quote — `* "a bulleted quoted sentence"` — is ordinary prose and
+    must NOT anchor a cite. R27 admits the BARE `"…"` form, and there is no way
+    to admit it while excluding the instances that happen to follow a bullet:
+    the two are the same span. Carving `* "` out would re-open the exact escape
+    route R27 closes (write the excerpt after a bullet and no gate sees it). The
+    arm is therefore retired ON PURPOSE, and the fact that decided it is asserted
+    below instead — the bulleted sentence is NOT an emphasis span and IS a bare
+    span, which is precisely why its status changed.
     """
     vac = _load_module()
     assert vac.EMPHASIS_QUOTE_RE.search('* "a bulleted quoted sentence"') is None
+    assert vac.BARE_QUOTE_RE.search('* "a bulleted quoted sentence"') is not None
     assert vac.EMPHASIS_QUOTE_RE.search('the word *"cage"* here') is not None
     assert not vac.is_checkable_quote("abc")  # under MIN_QUOTE_LEN
     assert not vac.is_checkable_quote("some/path/leaf.md:42")  # a cite, not content
@@ -318,14 +331,79 @@ def test_emphasis_quote_recognizer_does_not_swallow_non_excerpts() -> None:
         (kb / "leaf.md").write_text(
             "# Leaf\n\n"
             "pre-existing bare cite: `target.md:10`\n"
-            '* "a bulleted quoted sentence" then `target.md:10`\n'
+            'quoted PATH is not content: "some/path/leaf.md:42" then `target.md:10`\n'
+            'quote under MIN_QUOTE_LEN: "abc" then `target.md:10`\n'
         )
         _git(root, "add", "-A")
         _git(root, "commit", "-q", "-m", "branch work")
 
         violations = vac.check_new_cites("base", root)
-        assert len(violations) == 1, violations
-        assert violations[0][2] == "target.md:10", violations
+        # Line 4 carries TWO cites (the quoted path is itself a cite) and line 5
+        # one; none of the three finds a checkable span in any form.
+        assert [(v[1], v[2]) for v in violations] == [
+            (4, "some/path/leaf.md:42"),
+            (4, "target.md:10"),
+            (5, "target.md:10"),
+        ], violations
+
+
+def test_bare_double_quote_excerpts_satisfy_the_ratchet() -> None:
+    """The THIRD excerpt form — plain `"…"` — must satisfy the gate (R27).
+
+    Before this, a bare-quoted excerpt was invisible to BOTH consumers: the
+    ratchet blocked the cite as excerpt-less, and — the reason it matters — the
+    advisory drift check never compared that excerpt to its target, so a
+    misquote written in bare quotes was unreachable by any gate in the repo.
+    That was the escape route around the #915 primer-misquote blocker.
+
+    Measured on the corpus at the landing commit: the gate's blocked set falls
+    169 -> 127 over the origin/main~120 window and 572 -> 357 over ~400, with
+    ZERO cites added to either blocked set.
+    """
+    vac = _load_module()
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td)
+        _ratchet_repo(root)
+        kb = root / "manuscript" / "ave-kb" / "common"
+        (kb / "leaf.md").write_text(
+            "# Leaf\n\n"
+            "pre-existing bare cite: `target.md:10`\n"
+            f'added, straight-quote excerpt: `target.md:10` ("{_ANCHOR}")\n'
+            f'added, excerpt on the line above:\n"{_ANCHOR}"\n`target.md:10`\n'
+            f'added, curly-quote excerpt: `target.md:10` (“{_ANCHOR}”)\n'
+        )
+        _git(root, "add", "-A")
+        _git(root, "commit", "-q", "-m", "branch work")
+
+        assert vac.check_new_cites("base", root) == []
+        assert vac.main(["--root", str(root), "--new-cites", "base"]) == 0
+
+
+def test_bare_quotes_are_a_last_resort_and_never_displace_a_house_style_span() -> None:
+    """The ordering that makes the widening purely additive — asserted, not assumed.
+
+    A bare `"…"` sitting CLOSER to the cite than a back-ticked excerpt must not
+    win: the first association pass admits only the house styles, so it returns
+    before the bare form is ever considered. Both controls execute:
+      * FORCED-OFF arm — the same line run through `_associate(..., bare=True)`,
+        i.e. the peer ordering, DOES select the bare span. That is what proves
+        the two-pass structure (and not the fixture) is doing the work.
+      * a bare span with NO house-style competitor is still selected, so the
+        last-resort pass is reachable rather than dead code.
+    """
+    vac = _load_module()
+    line = f'`{_ANCHOR}` cited at `target.md:10` right after "a nearer bare quote here"'
+    lines = [line]
+    col = line.index("target.md:10")
+
+    assert vac.associate_quote(lines, 0, col) == _ANCHOR
+    # FORCED-OFF: peer ordering selects the nearer bare span instead.
+    assert vac._associate(lines, 0, col, bare=True) == "a nearer bare quote here"
+    # Reachability: with no house-style span present, the bare form is used.
+    solo = ['cited at `target.md:10` with only "a bare quoted excerpt here"']
+    assert vac.associate_quote(solo, 0, solo[0].index("target.md:10")) == (
+        "a bare quoted excerpt here"
+    )
 
 
 def test_fixture_trees_are_pruned_from_the_advisory_crawl() -> None:
@@ -353,6 +431,8 @@ if __name__ == "__main__":
     test_new_cite_ratchet_scope_predicate()
     test_emphasis_quote_excerpts_satisfy_the_ratchet()
     test_emphasis_quote_excerpt_across_a_hard_line_wrap_is_seen()
-    test_emphasis_quote_recognizer_does_not_swallow_non_excerpts()
+    test_quote_recognizer_does_not_swallow_non_excerpts()
+    test_bare_double_quote_excerpts_satisfy_the_ratchet()
+    test_bare_quotes_are_a_last_resort_and_never_displace_a_house_style_span()
     test_fixture_trees_are_pruned_from_the_advisory_crawl()
     print("test_verify_anchor_content: PASSED")

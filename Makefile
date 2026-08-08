@@ -445,7 +445,7 @@ verify-frozen-provenance:
 #      `$(wildcard)`, so a checker added while make is resolving is still seen.
 #      An EMPTY discovery set is a hard error, not a silent pass -- a glob that
 #      matches nothing is exactly how this kind of gate rots into a no-op.
-#   5. HARDENED 2026-08-06 (review finding B1).  The receipt detector distinguishes
+#   5. HARDENED 2026-08-06 (review finding A1).  The receipt detector distinguishes
 #      grep's THREE outcomes, not two: exit 0 = match (run the receipt), exit 1 =
 #      no match (skip it), anything else = grep ITSELF failed, which is a HARD
 #      FAILURE of the umbrella (exit 3).  The earlier `if grep -q ...; then/else`
