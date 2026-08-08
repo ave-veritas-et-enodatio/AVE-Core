@@ -504,6 +504,12 @@ under a byte-integrity check. Both are ruled at
    over (`READ_ONLY_ARTIFACTS`, `:165`) and the probes on their contents —
    nothing else in the chain can.
 
+**Addition, 2026-08-07 (R26).** Rule-12 preserved bodies keep their pointers pinned
+to the preserved history entry; live prose follows renames. Ruled at
+[`_orchestration/docket-entries/2026-08-07-rulings-r23-r27.md`](../../_orchestration/docket-entries/2026-08-07-rulings-r23-r27.md):41
+— *"Rule-12 preserved bodies keep their pointers pinned to the preserved history
+entry; live prose follows renames."* (Grant: *"rec."*).
+
 ---
 
 ## Notation Invariants Summary
