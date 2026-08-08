@@ -33,7 +33,7 @@ The substrate's $I4_1 32$ chirality enters the magnetic/microrotational sector a
 
 ## Primary canonical sources
 
-- [`common/trampoline-framework.md`](../../common/trampoline-framework.md) line 188 — Cosserat rotation-sector mass-gap $m_\omega^2 = 4 G_c / I_\omega$; ferrite-Curie analog; Verlet-validated at E-046.
+- [`common/trampoline-framework.md`](../../common/trampoline-framework.md) line 192 — Cosserat rotation-sector mass-gap $m_\omega^2 = 4 G_c / I_\omega$; ferrite-Curie analog; Verlet-validated at E-046.
 - [`vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md`](../../vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md) line 39 — Cosserat characteristic length $l_c = \sqrt{\gamma_c / G_{vac}}$ identified with weak-force range $r_W$; $W^\pm / Z^0$ as evanescent cutoff modes (`clm-5zuo7g`, `clm-q8un7j`).
 - [`vol2/particle-physics/ch01-topological-matter/finkelstein-misner-spin-half-derivation.md`](../../vol2/particle-physics/ch01-topological-matter/finkelstein-misner-spin-half-derivation.md) — SU(2) / SO(3) double-cover spin-½ from Cosserat micro-rotation on extended closed defect (`clm-salw2h`).
 - [`common/translation-tables/translation-circuit.md`](../../common/translation-tables/translation-circuit.md) §4, `clm-eemap1` — EE-as-substrate-native META framework; magnetic / microrotational primitive → EE inductance / transformer / ferrite-Curie projection.
