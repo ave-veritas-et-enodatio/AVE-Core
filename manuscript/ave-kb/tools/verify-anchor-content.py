@@ -44,11 +44,13 @@ Scope
     the repo root. Unresolvable targets are counted UNRESOLVED and skipped
     (broken-link territory — that is `verify-md-links`'s job, not ours).
   * Association: a cite is paired with the nearest CHECKABLE excerpt span on
-    the same line or ±QUOTE_ADJACENCY lines. TWO written excerpt styles are
-    recognized, because the corpus uses both (see EMPHASIS_QUOTE_RE):
+    the same line or ±QUOTE_ADJACENCY lines. THREE written excerpt styles are
+    recognized, because the corpus uses all three:
       - `backticks` .... preferred for symbols, identifiers, code;
       - *"emphasised quotes"* (also `**"…"**` / `_"…"_`) .... used for running
-        prose, INCLUDING when the excerpt straddles a hard line-wrap.
+        prose, INCLUDING when the excerpt straddles a hard line-wrap;
+      - "bare double quotes" .... the plain-prose form (see BARE_QUOTE_RE),
+        admitted as a LAST RESORT so it can never displace a house-style span.
     A span is checkable when it is not itself a path-cite / bare-path reference
     and is not trivially short (see MIN_QUOTE_LEN). Cites with no checkable
     adjacent excerpt are counted NOT-CHECKED (no-quote) and are NOT failures.
@@ -180,6 +182,30 @@ BACKTICK_RE = re.compile(r"`([^`\n]+)`")
 # §6 of _orchestration/docket-entries/2026-08-05-cite-rot-line-existence.md.
 EMPHASIS_QUOTE_RE = re.compile(r"[*_]{1,3}[\"“]([^\"“”\n]+)[\"”][*_]{1,3}")
 
+# The THIRD house form: a BARE double-quoted excerpt, with no emphasis markers
+# and no back-ticks. Added 2026-08-07 under ruling R27
+# (_orchestration/docket-entries/2026-08-07-rulings-r23-r27.md). It was the
+# escape route around the #915 primer-misquote blocker: a lane could write its
+# excerpt as "…", satisfy no recognizer, and the drift check above would never
+# compare that excerpt against its target — a misquote written this way was
+# unreachable by any gate in the repo.
+#
+# ADMITTED AS A LAST RESORT, never as a peer (see `associate_quote`). Bare
+# double quotes are ubiquitous in ordinary prose, so giving them equal standing
+# would let a passing quoted phrase DISPLACE a deliberate house-style excerpt
+# that a lane put beside its cite. Measured over the whole corpus at the commit
+# this landed on, the three orderings buy IDENTICAL coverage (+700 newly-checked
+# cites in every one) and differ only in displacement:
+#
+#   ordering                              newly-checked   OK->not-OK flips
+#   bare as a peer, nearest span wins          +700              43
+#   bare as a same-line fallback               +700               4
+#   bare as a whole-pass last resort (SHIPPED) +700               0
+#
+# The peer ordering therefore costs 43 displaced anchors and buys nothing. That
+# is a measurement, not a preference.
+BARE_QUOTE_RE = re.compile(r"[\"“]([^\"“”\n]+)[\"”]")
+
 # A span whose whole (stripped) body is a bare path or path-cite — NOT content.
 PATHISH_RE = re.compile(r"^[\w./+-]+\.[A-Za-z0-9]+(:\d+)?$")
 
@@ -310,16 +336,19 @@ def _straddling_emphasis_spans(lines: list[str], idx: int) -> list[tuple[int, st
     return out
 
 
-def _quote_spans(lines: list[str], idx: int) -> list[tuple[int, str]]:
+def _quote_spans(lines: list[str], idx: int, bare: bool = False) -> list[tuple[int, str]]:
     """Checkable excerpt spans visible from line `idx`, as (start_col, body).
 
-    Both house styles (backticks and emphasised quotes), plus emphasised quotes
-    that straddle a single hard line-wrap into the neighbouring line.
+    The house styles (backticks and emphasised quotes), plus emphasised quotes
+    that straddle a single hard line-wrap into the neighbouring line. With
+    `bare=True` the plain `"…"` form is admitted as well — only the second pass
+    of `associate_quote` passes that, never the first.
     """
     line = lines[idx]
+    regexes = (BACKTICK_RE, EMPHASIS_QUOTE_RE) + ((BARE_QUOTE_RE,) if bare else ())
     spans = [
         (m.start(), m.group(1))
-        for regex in (BACKTICK_RE, EMPHASIS_QUOTE_RE)
+        for regex in regexes
         for m in regex.finditer(line)
         if is_checkable_quote(m.group(1))
     ]
@@ -327,15 +356,15 @@ def _quote_spans(lines: list[str], idx: int) -> list[tuple[int, str]]:
     return spans
 
 
-def associate_quote(lines: list[str], cite_line_idx: int, cite_col: int) -> str | None:
-    """Nearest checkable excerpt span to a cite (same line, then ±ADJACENCY).
+def _associate(lines: list[str], cite_line_idx: int, cite_col: int, bare: bool) -> str | None:
+    """One association pass (same line, then ±ADJACENCY).
 
     Same-line spans are ranked by |column distance| to the cite; adjacent lines
     are considered only if the cite line has none AND the adjacent line carries
     no cite of its own (so a sibling cite's quote is never stolen — this is what
     keeps dense cite-lists from cross-contaminating). Returns the body or None.
     """
-    same = _quote_spans(lines, cite_line_idx)
+    same = _quote_spans(lines, cite_line_idx, bare)
     if same:
         same.sort(key=lambda cb: abs(cb[0] - cite_col))
         return same[0][1]
@@ -344,10 +373,32 @@ def associate_quote(lines: list[str], cite_line_idx: int, cite_col: int) -> str 
             if 0 <= idx < len(lines):
                 if CITE_RE.search(lines[idx]):  # that quote belongs to its own cite
                     continue
-                spans = _quote_spans(lines, idx)
+                spans = _quote_spans(lines, idx, bare)
                 if spans:
                     return spans[0][1]
     return None
+
+
+def associate_quote(lines: list[str], cite_line_idx: int, cite_col: int) -> str | None:
+    """Nearest checkable excerpt span to a cite — house styles first, bare last.
+
+    TWO passes of the SAME search. The first admits only the house styles, so
+    every association that existed before BARE_QUOTE_RE was added is returned
+    unchanged, by construction. Only when that pass comes up EMPTY is the search
+    re-run with bare `"…"` spans admitted. The widening is therefore purely
+    additive: it can turn a None into a quote and can never change or remove one.
+
+    That is what makes it safe in BOTH consumers. In the gating `--new-cites`
+    ratchet a None is the violation, so no cite that passed can start failing.
+    In the advisory drift scan the selected excerpt drives the verdict, so a
+    displaced selection could have flipped an anchored cite to drift; measured
+    corpus-wide at the landing commit, this ordering flips ZERO (the peer
+    ordering flips 43 — see BARE_QUOTE_RE).
+    """
+    quote = _associate(lines, cite_line_idx, cite_col, bare=False)
+    if quote is None:
+        quote = _associate(lines, cite_line_idx, cite_col, bare=True)
+    return quote
 
 
 class TargetCache:
@@ -599,8 +650,9 @@ def report_new_cites(violations: list[tuple[Path, int, str]], base_ref: str) -> 
         print(f"   · {rel}:{lineno}  ->  {cited}")
     print(
         "\n  Fix: put a verbatim excerpt of the cited content beside the cite (same\n"
-        "  line, or the line above/below), in either house style — `backticks`\n"
-        '  for symbols and identifiers, *"emphasised quotes"* for running prose.\n'
+        "  line, or the line above/below), in any of the three house styles —\n"
+        "  `backticks` for symbols and identifiers, *\"emphasised quotes\"* for\n"
+        '  running prose, or plain "double quotes".\n'
         "  That makes the cite self-verifying — the advisory drift check can then\n"
         "  re-anchor it when the target file moves, instead of the `:NN` rotting\n"
         "  silently."
