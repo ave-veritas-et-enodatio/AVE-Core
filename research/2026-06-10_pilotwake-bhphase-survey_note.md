@@ -110,7 +110,7 @@ unchanged — only the citability stamp is stale.** Dated surface-note under the
 **What moved, and when.** Both were correct when written: on 2026-06-10 the quoted block *was* glossary `:73`
 (re-verified for this note at `37bf84ca`, the last commit touching that file before the note's date). On
 **2026-08-07** the cited entry was **struck-with-pointer under Rule 12, body preserved** — Grant ruling **R20**,
-[`_orchestration/docket-entries/2026-08-07-rulings-f3-f5-f1.md`](../_orchestration/docket-entries/2026-08-07-rulings-f3-f5-f1.md):12,
+[`_orchestration/docket-entries/2026-08-07-rulings-f3-f5-f1.md`](../_orchestration/docket-entries/2026-08-07-rulings-f3-f5-f1.md):13,
 *"the old quotation entry struck-with-pointer per Rule 12 (body preserved)"*. At HEAD:
 
 - [`cosmic-axes-and-frames-glossary.md`](../manuscript/ave-kb/common/cosmic-axes-and-frames-glossary.md):73 is

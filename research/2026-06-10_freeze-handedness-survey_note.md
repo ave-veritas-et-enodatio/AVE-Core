@@ -100,12 +100,13 @@ unchanged — only the citability stamp is stale.** Dated surface-note under the
 **The surface this note covers.** §6's class-tag table row at `:59` grades *"Parent-BH-spin → K4 chirality
 lock"* **CANONICAL** against two cites, one of which is
 `manuscript/ave-kb/common/cosmic-axes-and-frames-glossary.md:71-73`. That span was the glossary's *Parent-BH
-spin axis* entry — heading at `:71`, quotation at `:73` — when the row was written (re-verified for this note
+spin axis* entry — `:71` its identifying prose, `:73` the quotation it relays (the entry's `###` heading sits
+one line above the cited span, at `:69`) — when the row was written (re-verified for this note
 at `37bf84ca`, the last commit touching that file before the note's date).
 
 **What moved, and when.** On **2026-08-07** the cited entry was **struck-with-pointer under Rule 12, body
 preserved** — Grant ruling **R20**,
-[`_orchestration/docket-entries/2026-08-07-rulings-f3-f5-f1.md`](../_orchestration/docket-entries/2026-08-07-rulings-f3-f5-f1.md):12,
+[`_orchestration/docket-entries/2026-08-07-rulings-f3-f5-f1.md`](../_orchestration/docket-entries/2026-08-07-rulings-f3-f5-f1.md):13,
 *"the old quotation entry struck-with-pointer per Rule 12 (body preserved)"*. At HEAD:
 
 - [`cosmic-axes-and-frames-glossary.md`](../manuscript/ave-kb/common/cosmic-axes-and-frames-glossary.md):73 is

@@ -506,7 +506,7 @@ under a byte-integrity check. Both are ruled at
 
 **Addition, 2026-08-07 (R26).** Rule-12 preserved bodies keep their pointers pinned
 to the preserved history entry; live prose follows renames. Ruled at
-[`_orchestration/docket-entries/2026-08-07-rulings-r23-r27.md`](../../_orchestration/docket-entries/2026-08-07-rulings-r23-r27.md):41
+[`_orchestration/docket-entries/2026-08-07-rulings-r23-r27.md`](../../_orchestration/docket-entries/2026-08-07-rulings-r23-r27.md):41-42
 — *"Rule-12 preserved bodies keep their pointers pinned to the preserved history
 entry; live prose follows renames."* (Grant: *"rec."*).
 
