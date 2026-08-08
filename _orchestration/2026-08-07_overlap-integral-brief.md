@@ -9,6 +9,29 @@ condition) — the pluck question posed as a MODE-OVERLAP INTEGRAL. This decides
 **SVA §0 header mandatory; freeze-first; frozen criteria verbatim or file:line;
 `[DO-NOT-MERGE][REVIEW: pending-orchestrator]`; Tier-2 at adjudication.**
 
+## THE INCUMBENT THIS LANE CHALLENGES (quote travels verbatim; the lane must engage it, not route around it)
+
+#761 §2, `research/2026-07-20_mechanical-commonmode-derivation_result.md:79`, verbatim:
+
+> Kept for completeness (the last source-side escape). The A1 channel is the
+> scalar/breathing sector; the mass second moment `M_ij` has a trace `Σ M_a r_a²`
+> that, **for a circular binary, is constant.** Tempting: "the A1 sees only the
+> constant trace ⇒ no radiation." **FALSE.** A scalar/longitudinal field radiates at
+> quadrupole order via the **traceless** second moment of the source (standard
+> acoustic multipole radiation — the same structure that gives every earthquake its
+> P-arrival). With `mass = A1-dilatation`, the scalar source's second moment IS
+> `M_ij`, whose traceless part **rotates at `2Ω`** — nonzero. ... **The
+> tracelessness rescue is dead**
+
+That verdict fired the Q1 revert and the live pulsar exclusion. Its load-bearing step
+is an IMPORTED continuum result ("standard acoustic multipole radiation"). This lane's
+mandate is the lattice-native re-derivation: does the DISCRETE network's propagating
+common mode accept the rotating traceless-second-moment boundary condition the way the
+continuum does, or does the lattice's structure (mode functions, Green function,
+topology) project it out? Agreement with the continuum = the exclusion stands as
+derived, on the lattice's own authority. Disagreement = the negative was an import
+artifact — and the lane must name the exact step where continuum and lattice diverge.
+
 ## The frozen question
 
 For the lattice's longitudinal propagating mode (the common mode of the bond network),
