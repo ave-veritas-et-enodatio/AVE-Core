@@ -85,3 +85,50 @@ All cites in §1–§6 re-verified verbatim against the named files/lines. Notes
 - `closure-roadmap.md` resolves to the actual file **`claim-quality-closure-roadmap.md`** (no bare `closure-roadmap.md` exists in the tree); :92 and :88 verified there.
 - No cite in this note FAILED re-verification.
 - **Registry-pin precision (auditor FINDING 2, applied 2026-06-10):** the `clm-4vwsjc` `confidence 0.4` / `do not build on, rework needed` value is verbatim-correct but its registry home is [`vol2/claim-quality.md:491,496`](../manuscript/ave-kb/vol2/claim-quality.md) (block header `clm-4vwsjc` at :476), **not** `baryon-asymmetry.md` (which carries only `claims: [clm-4vwsjc]` at :5). §5 and §6 now pin both the formula location and the registry-status location. Non-falsifying cite-location polish (Class-B); the value and the do-not-headline conclusion are unchanged.
+
+---
+
+## §Surface-note, dated 2026-08-07 — the glossary citability stamp is STALE; the physics above is unchanged
+
+**Appended, never a rewrite.** This document is FROZEN (`:6` — *"Status: FINDINGS FROZEN"*), and nothing above
+this rule is edited, re-pointed, re-graded, or re-worded. **The physics in this note is byte-preserved and
+unchanged — only the citability stamp is stale.** Dated surface-note under the standing vacated-cite pattern
+(frozen text gets a dated surface-note, never a rewrite), ruled **R25** at
+[`_orchestration/docket-entries/2026-08-07-rulings-r23-r27.md`](../_orchestration/docket-entries/2026-08-07-rulings-r23-r27.md):37
+— *"take dated surface-notes under the standing vacated-cite pattern"* (Grant, verbatim: *"Go/rec."*).
+
+**The surface this note covers.** §6's class-tag table row at `:59` grades *"Parent-BH-spin → K4 chirality
+lock"* **CANONICAL** against two cites, one of which is
+`manuscript/ave-kb/common/cosmic-axes-and-frames-glossary.md:71-73`. That span was the glossary's *Parent-BH
+spin axis* entry — `:71` its identifying prose, `:73` the quotation it relays (the entry's `###` heading sits
+one line above the cited span, at `:69`) — when the row was written (re-verified for this note
+at `37bf84ca`, the last commit touching that file before the note's date).
+
+**What moved, and when.** On **2026-08-07** the cited entry was **struck-with-pointer under Rule 12, body
+preserved** — Grant ruling **R20**,
+[`_orchestration/docket-entries/2026-08-07-rulings-f3-f5-f1.md`](../_orchestration/docket-entries/2026-08-07-rulings-f3-f5-f1.md):13,
+*"the old quotation entry struck-with-pointer per Rule 12 (body preserved)"*. At HEAD:
+
+- [`cosmic-axes-and-frames-glossary.md`](../manuscript/ave-kb/common/cosmic-axes-and-frames-glossary.md):73 is
+  now the strike header, reading *"this entry and its quotation are kept for history and must not be cited as
+  current"*; the preserved quotation itself sits one blank line below it, at `:75`.
+- **The live v2 anchor is
+  [`cosmic-axes-and-frames-glossary.md`](../manuscript/ave-kb/common/cosmic-axes-and-frames-glossary.md):169**
+  (§6, *"Parent-BH spin axis relay, v2 (2026-08-07 — R20 re-anchor)"*), which re-quotes the renamed print
+  origin: *"the inside region is our universe's pre-crystallization phase"*, now naming the **pre-bond state**.
+
+So the `:59` row's **CANONICAL stamp refers to the pre-R20 state** of the cited glossary span. The row's second
+cite, `omega-freeze-cosmic-grain-cascade.md:206`, is not touched by R20 and is not surfaced here.
+
+**What this surface-note does NOT do.**
+
+- It does **not** re-point `:59`, does **not** re-grade it, and does **not** re-verify any cite above. A reader
+  auditing what this survey staked on 2026-06-10 reads the frozen text exactly as written; a reader who needs
+  the current relay reads the v2 anchor instead.
+- It adjudicates nothing. The §1 identification the row records — $\hat{J}_{\text{parent}}$ identified with
+  $\hat{\Omega}_{\text{freeze}}$ at K4 lattice genesis — is what the v2 anchor still carries; that anchor states
+  the scope of the R20 change in its own words at `cosmic-axes-and-frames-glossary.md:172`: *"No physics claim,
+  no direction, no identification changes"*.
+- It does **not** reinstate retired vocabulary. The term *pre-geodesic plasma* stands in the frozen text above
+  at `:19` as 2026-06-10 history; it is not live vocabulary at HEAD, where the print origin and the KB relay
+  both read **pre-bond state**.
