@@ -45,6 +45,8 @@ Run:  python3 research/drivers/coldq_pole_derivation_number_check.py
 
 from __future__ import annotations
 
+import contextlib
+import io
 import json
 import os
 import re
@@ -293,6 +295,44 @@ TOKEN_RE = re.compile(r"`([^`]+)`")
 NUM_RE = re.compile(r"^[-+]?(\d+\.?\d*|\.\d+)([eE][-+]?\d+)?$")
 
 
+def scan_spans(text: str) -> list[str]:
+    """Every back-tick span in `text`, paired PER LINE.
+
+    PARITY IMMUNISATION (ruling R27, `_orchestration/docket-entries/
+    2026-08-07-rulings-r23-r27.md`; defect found by the #912 sibling audit,
+    `_orchestration/docket-entries/2026-08-06-backtick-parity.md` section 6).
+
+    This was a single `TOKEN_RE.finditer(text)` over the WHOLE document.  The
+    token class ``[^`]+`` does NOT exclude newlines, so ONE line carrying an ODD
+    back-tick count flips the open/close phase for the ENTIRE REST OF THE
+    DOCUMENT: every numeral below it lands in a gap the scanner never reads --
+    silently, with the gate still green.
+
+    On this checker's document the repair is a MEASURED NO-OP: +0/-0 spans, 0
+    odd-parity lines, re-measured at the landing commit.  It ships anyway because
+    the defect is a TIME BOMB -- the first odd-parity line anyone adds unscans
+    everything below it.  Per-line pairing fails SAFE: a malformed line can only
+    ever ADD spans on its own line, never remove coverage from the lines below.
+
+    SCOPE, and it is not a general theorem: a CommonMark code span may straddle a
+    newline; such a span is read by global pairing and missed per-line.  This
+    document contains none (hence the measured +0/-0, not an argument).  The same
+    bounded hole is the repo's standing convention for this scan -- the sibling
+    checkers whose token class is ``[^`\\n]+`` have always had it.  What the
+    repair removes is the UNBOUNDED hole.
+    """
+    return [m for line in text.splitlines() for m in TOKEN_RE.findall(line)]
+
+
+def _scan_spans_legacy_global(text: str) -> list[str]:
+    """The PRE-REPAIR scanner (GLOBAL pairing), retained for exactly ONE purpose:
+    it is the parity mutation's FORCED-OFF arm.  A mutation the old scanner
+    catches too proves nothing about the repair, so the receipt re-runs `main`
+    with this scanner injected and REQUIRES it to MISS.  Not reachable from any
+    gate -- `main`'s `_scanner` parameter has no argv spelling."""
+    return TOKEN_RE.findall(text)
+
+
 def is_number(tok: str) -> bool:
     return bool(NUM_RE.match(tok.strip()))
 
@@ -315,17 +355,30 @@ def matches(token: str, value) -> bool:
     return abs(v - tv) <= 0.5
 
 
-def main() -> int:
+def main(_text_override: str | None = None, _scanner=None) -> int:
+    """The gating check.
+
+    The two private parameters are SEAMS FOR THE MUTATION RECEIPT and have no
+    argv spelling, so nothing a caller can type reaches them:
+      * `_text_override` -- run the shipped classification over an IN-MEMORY
+        planted copy of the document, leaving the file on disk untouched;
+      * `_scanner` -- substitute the pre-repair global-paired scanner, which is
+        how the receipt FORCES THE FIX OFF and demonstrates the same plant is
+        MISSED without it.
+    Both default to the shipped behaviour.
+    """
+    scan = _scanner or scan_spans
     for bad in NON_REGISTRABLE:
         if bad in REGISTERED or bad in ALLOWED:
             print(f"[coldq-number-check] FAIL — {bad} is NON_REGISTRABLE "
                   f"(machine-dependent) and must not be registered or allow-listed")
             return 1
 
-    text = open(DOC, encoding="utf-8").read()
+    text = (open(DOC, encoding="utf-8").read() if _text_override is None
+            else _text_override)
     seen, bad_rows, n_reg, n_allow = set(), [], 0, 0
-    for m in TOKEN_RE.finditer(text):
-        tok = m.group(1).strip()
+    for raw in scan(text):
+        tok = raw.strip()
         if not is_number(tok) or tok in seen:
             continue
         seen.add(tok)
@@ -360,5 +413,88 @@ def main() -> int:
     return 0
 
 
+# ---------------------------------------------------------------------------
+# Mutation receipt for the parity immunisation (ruling R27).
+# ---------------------------------------------------------------------------
+#
+# The repair is a MEASURED NO-OP on today's document (+0/-0 spans, 0 odd-parity
+# lines).  A no-op repair is exactly the kind that rots into decoration, so it
+# ships with a receipt that DEMONSTRATES the failure mode it removes, on an
+# in-memory copy, with the fix forced off as the counterfactual arm.
+
+PARITY_PROBE_LINE = ("Parity probe planted by the mutation receipt: one ` "
+                     "unbalanced back-tick.")
+PARITY_PLANT_TOKEN = "1.2345678e-77"
+PARITY_PLANT_LINE = f"Planted by the mutation receipt: `{PARITY_PLANT_TOKEN}`."
+
+# Every arm below must appear in this set and must be True.  Enumerated rather
+# than counted so a DROPPED arm is a FAIL, not a silently smaller receipt.
+PARITY_ARMS = ("anti-vacuity", "negative-control", "scanner-level", "CATCH",
+               "forced-off MISS")
+
+
+def mutation_receipt() -> int:
+    """Prove the per-line parity repair is load-bearing, end-to-end.
+
+    Five arms, every one EXECUTED against the SHIPPED `main`, none asserted:
+
+      anti-vacuity ..... the planted numeral is absent from the real document and
+                         is in neither REGISTERED nor ALLOWED.  Without this the
+                         plant could be a registered value and the whole receipt
+                         would be vacuous the day someone registers it.
+      negative-control . the UNPERTURBED document must PASS, so the catch is
+                         attributable to the plant and not to standing red.
+      scanner-level .... the repaired scanner READS the planted numeral and the
+                         pre-repair one does NOT.  Names the mechanism, so a
+                         failure localises instead of pointing at `main`.
+      CATCH ............ `main` over the planted text must return 1.
+      forced-off MISS .. `main` over the SAME planted text with the PRE-REPAIR
+                         global-paired scanner injected must return 0.  This is
+                         the arm that makes the receipt a receipt for THE FIX
+                         rather than for the checker in general: back the repair
+                         out and the mutation goes MISSED.
+
+    The plant is two lines appended IN MEMORY: an odd-back-tick probe line, then
+    an unregistered back-ticked numeral below it.  Under global pairing the probe
+    line's lone back-tick opens a span that swallows the numeral's opening
+    back-tick, so the numeral is never read.  Under per-line pairing the probe
+    line yields no span at all and the numeral is read normally.
+    """
+    text = open(DOC, encoding="utf-8").read()
+    planted = text + "\n" + PARITY_PROBE_LINE + "\n" + PARITY_PLANT_LINE + "\n"
+
+    results: dict[str, bool] = {}
+    results["anti-vacuity"] = (PARITY_PLANT_TOKEN not in text
+                               and PARITY_PLANT_TOKEN not in REGISTERED
+                               and PARITY_PLANT_TOKEN not in ALLOWED)
+    sink = io.StringIO()
+    with contextlib.redirect_stdout(sink):
+        rc_clean = main(_text_override=text)
+        rc_planted = main(_text_override=planted)
+        rc_forced = main(_text_override=planted,
+                         _scanner=_scan_spans_legacy_global)
+    results["negative-control"] = rc_clean == 0
+    results["scanner-level"] = (
+        PARITY_PLANT_TOKEN in [s.strip() for s in scan_spans(planted)]
+        and PARITY_PLANT_TOKEN not in
+        [s.strip() for s in _scan_spans_legacy_global(planted)])
+    results["CATCH"] = rc_planted == 1
+    results["forced-off MISS"] = rc_forced == 0
+
+    ok = set(results) == set(PARITY_ARMS) and all(results.values())
+    for arm in PARITY_ARMS:
+        got = results.get(arm)
+        print(f"[coldq-number-check]   {arm:<17} "
+              f"{'OK' if got else 'FAIL' if got is False else 'MISSING'}")
+    if not ok:
+        print("[coldq-number-check] --- captured output from the arms ---")
+        print(sink.getvalue())
+    print(f"[coldq-number-check] parity mutation receipt: "
+          f"{'PASS' if ok else 'FAIL'} ({len(PARITY_ARMS)} arms)")
+    return 0 if ok else 1
+
+
 if __name__ == "__main__":
+    if "--mutation-receipt" in sys.argv:
+        sys.exit(mutation_receipt())
     sys.exit(main())
