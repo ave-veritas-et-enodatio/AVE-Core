@@ -127,9 +127,21 @@ Re-derived at `origin/main` = **`644a4546`**, in a worktree verified clean befor
 - **Engine A** — Python `pathlib.rglob` + `re`: for each of the 205 merged `\gammaundeclared{}`
   markers, extract the asserting expression it terminates and classify the left operand.
   Result: **15 MAGNITUDE-ASSERTION / 190 SIGNED-BARE / 0 SQUARED / 0 unclassified**.
-- **Engine B** — `git grep -F -o -f <pattern-file>` over the four literal shapes, the patterns
-  passed through a FILE rather than the shell so a shell-escaped `$`/`\` cannot silently
-  false-negative. Result: **15 occurrences on 14 lines**, site set identical to Engine A.
+- **Engine B** — `git grep -F -o -f <pattern-file>` over four literal shapes, the patterns passed
+  through a FILE rather than the shell so a shell-escaped `$`/`\` cannot silently false-negative.
+  All four named with their measured hit counts, so the receipt is reproducible as written:
+
+  | # | pattern | hits |
+  |---|---|---|
+  | 1 | `\|\Gamma\| \to 1$\gammaundeclared{}` | 5 |
+  | 2 | `\|\Gamma\| = 1$\gammaundeclared{}` | 5 |
+  | 3 | `\|\Gamma\|=1$\gammaundeclared{}` | 4 |
+  | 4 | `\|\Gamma\| \to 1\gammaundeclared{}` — the DISPLAY-math form, no closing `$` before the marker | 1 |
+
+  Result: **15 occurrences on 14 lines** (5+5+4+1), site set identical to Engine A. Pattern 4's one
+  hit is `11_thermodynamics_and_entropy.tex`:324, whose magnitude assertion lives inside an
+  `equation` environment where there is no `$` to close — which is why the `|\Gamma| \to 1` shape
+  totals 6 (5 inline + 1 display) rather than 5.
 - **Tree-state** — worktree at `644a4546`, `git status --porcelain` = 0, measured before any edit
   in this branch.
 
@@ -173,3 +185,39 @@ It untags nothing — the 15 markers stay exactly where they are, because they a
 spec §1 and the census marks the population, not the debt. It adjudicates no channel, mints no id,
 moves no solidity, and leaves the `Γ_shear` sign unresolved where canon has it
 (`wall-taxonomy.md` §10.1).
+
+### What R33 supersedes above — and this addition is what stales it
+
+**Read §2 and §3 above with this note.** The instrument that produced them had the three defects
+R33 repaired, so **four of §2's seven rows and §3's actionable row are superseded** — by *this*
+lane's own change, which is why the note belongs here rather than nowhere. The rows are **not
+rewritten**: the body above stands as measured, and the sentence in this addition that the census
+"stands as measured" means exactly that — *those numbers are what that instrument reported* — not
+that they are the current slice.
+
+Re-measured on the **`91a910f8` corpus with the tip instrument** (corpus held fixed, instrument
+swapped, so the delta is the repair and nothing else):
+
+| §2 row | as recorded (pre-R33) | with the repaired instrument | moved by |
+|---|---|---|---|
+| channel named **and** signed ±1 | 202 / 67 | **147 / 58** | −55 / −9 |
+| **ACTIONABLE** | **238 / 63** | **206 / 61** | −32 / −2 |
+| … restricted to `= −1` | 184 / 57 | **177 / 56** | −7 / −1 |
+| … the same slice in the KB (`.md`) | 994 / 168 | **675 / 145** | −319 / −23 |
+
+| §3 row | as recorded | with the repaired instrument |
+|---|---|---|
+| `216 / 60` actionable → nearest slice / delta | 238 / 63 · +22 / +3 | **206 / 61 · −10 / +1** |
+
+**The three §2 rows that did NOT move** — TOTAL `2887 / 356`, unspecified-channel `2332 / 330`,
+channel-named `555 / 142` — are detection-and-subscript slices only. Their stability is the receipt
+that **R33 changed classification and nothing else**.
+
+**Why this note exists.** The frozen spec protects itself — §4 item 1 says *"Do not carry the
+238/63 figure forward as truth — it is a measurement, and the convention it demonstrates is that
+measurements are re-taken."* This record carried no such caveat, so a reader arriving at §2 would
+take a superseded slice as current. Nothing above is edited; the supersession is recorded beside it.
+
+**Full derivation, the mutation receipt, and the reconciliation identity
+(`206 = 205 tagged + 1 §4.4 site-selection exclusion`):**
+[`2026-08-07-gamma-tag-spec-correction.md`](2026-08-07-gamma-tag-spec-correction.md) §3–4.

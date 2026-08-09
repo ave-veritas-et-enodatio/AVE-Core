@@ -116,12 +116,38 @@ which selects whole lines, and that knob's meaning does not change.
 the same raw detection set — it re-runs green at `644a4546` (`agree, A = B = 2150 lines`). No
 universe knob, no preset, and no ERE pattern moved.
 
+**Why 2150 and not the spec's 2146 — the delta is fully accounted, and none of it is the repair.**
+Detection-line sets diffed between `91a910f8` and `644a4546`: **+4 lines, 0 removed**, and the same
+instrument reproduces `2146` on the `91a910f8` corpus.
+
+- `manuscript/structure/commands.tex`:163 and :165 — the macro's OWN `%`-comment documentation,
+  matched because `gamma_form=all` admits a bare ASCII `Gamma`. **The same self-referential drift
+  class as §2's 211 → 213 note**: the corpus now discusses the token, so a corpus-wide scan for the
+  token counts the discussion.
+- `manuscript/ave-kb/common/translation-tables/translation-circuit.md`:991 and
+  `manuscript/ave-kb/vol9/ch3-pin-port-configuration/device-circuit-models.md`:283 — unrelated KB
+  merges landed between the two SHAs. Nothing to do with this lane.
+
+**The bridge is composed from the knob, not copied from it** (NOTE-3a). `_BRIDGE_RE` is built from
+`SUBSCRIPT_NESTED` + `GAP_CHARS_NESTED` — the two named pieces `GAPS["adjacent-nested"]` is itself
+now composed from — so widening or narrowing that knob moves the classifier's notion of "adjacent"
+with it. A duplicated character class would let knob and classifier drift apart silently, which is
+the defect class R33 exists to close one level up. The refactor is byte-neutral: the emitted
+detection regex is **string-identical** before and after, asserted on the same universe.
+
 ## 4. R33 — the mutation receipt
 
 `research/drivers/gamma_census_adjacency_number_check.py`, auto-discovered by
 `make verify` through `verify-lane-number-checks` (the `research/drivers/*_number_check.py` glob);
 its receipt is auto-run because the source declares the literal `--mutation-receipt`. It is also
-runnable standalone. Four controls, all recomputed — none consumes a declared number.
+runnable standalone.
+
+**What each check consumes, scoped honestly.** IDENTITY and the planted families consume **no
+declared number** — both sides are recomputed on the run, from the tree and from the classifier.
+FINDINGS consumes **29 frozen `expected_post_fix` baselines**. That is a legitimate REGRESSION
+BASELINE rather than a self-declared field — each was measured at the #923 execution SHA `2520e467`
+and re-measured at `644a4546`, reproducing at both — but it is a baseline, and reading the whole
+gate as baseline-free would be wrong.
 
 **Plain run at `644a4546`:**
 
@@ -152,20 +178,47 @@ post-R33 actionable  = 206
 > checklist-wearing-a-gate defect this module's own docstring exists to prevent. It is therefore
 > correctly **actionable** and correctly **untagged**, and the driver asserts exactly that.
 
-**Planted cases — the forced-failure proof.** Six synthetic lines; nothing in them reads the corpus,
-so a corpus edit can never quietly turn one green.
+**Planted cases — the forced-failure proof.** Nine synthetic lines; nothing in them reads the
+corpus, so a corpus edit can never quietly turn one green. Seven assert a **sign**, two assert
+**`rendered`** (the comment repair is not a sign property and needs its own control).
 
-| case | expected | fix ON | fix FORCED OFF |
-|---|---|---|---|
-| FAR-VALUE (the only ±1 sits far away, past a math-mode exit) | `none` | `none` ✓ | **`-1`** ← the defect |
-| TRUNCATED (`\|\Gamma\|^2 = 1 - \alpha`) | `other` | `other` ✓ | **`+1`** ← the defect |
-| NOT-LEFT-OPERAND (`T^2 = 1 - \Gamma^2 \to 1` … `at $\Gamma = 0$`) | `none` | `none` ✓ | **`+1`** ← the defect |
-| ADJACENT (`$\Gamma = -1$` in its own span) | `-1` | `-1` ✓ | `-1` |
-| MAGNITUDE (`$\|\Gamma\| = 1$`) | `+1` | `+1` ✓ | `+1` |
-| CHAIN (`\Gamma = \frac{…}{…} = \frac{…}{…} = -1`) | `-1` | `-1` ✓ | `-1` |
+| case | asserts | expected | fix ON | fix FORCED OFF |
+|---|---|---|---|---|
+| FAR-VALUE (the only ±1 sits far away, past a math-mode exit) | sign | `none` | `none` ✓ | **`-1`** ← the defect |
+| TRUNCATED (`\|\Gamma\|^2 = 1 - \alpha`) | sign | `other` | `other` ✓ | **`+1`** ← the defect |
+| NOT-LEFT-OPERAND (`T^2 = 1 - \Gamma^2 \to 1` … `at $\Gamma = 0$`) | sign | `none` | `none` ✓ | **`+1`** ← the defect |
+| **MATH-SPAN** (`($\Gamma$ = -1)` — value OUTSIDE the Γ's math span) | sign | `none` | `none` ✓ | **`-1`** ← the defect |
+| **TRAILING-COMMENT** (`\draw …; % … ($\Gamma = -1$) wall`) | `rendered` | `False` | `False` ✓ | **`True`** ← the defect |
+| ADJACENT (`$\Gamma = -1$` in its own span) | sign | `-1` | `-1` ✓ | `-1` |
+| MAGNITUDE (`$\|\Gamma\| = 1$`) | sign | `+1` | `+1` ✓ | `+1` |
+| CHAIN (`\Gamma = \frac{…}{…} = \frac{…}{…} = -1`) | sign | `-1` | `-1` ✓ | `-1` |
+| RENDERED-CONTROL (no comment anywhere) | `rendered` | `True` | `True` ✓ | `True` |
 
-The last three are deliberate **non-regression** cases: the repair must not eat assertions that were
-always correct, and it does not.
+The last four are deliberate **non-regression** cases: the repair must not eat assertions that were
+always correct, and must not start suppressing typeset sites. It does neither.
+
+**Two of these controls exist because attribution without a control is not evidence.**
+
+- **MATH-SPAN** isolates the span confinement, and it is built so nothing else can mask it: the text
+  before the Γ ends in an opener (left-operand passes), the value is a clean `-1` (the termination
+  guard passes), and `$` is a BRIDGE character — so the anchored bridge would walk straight out of
+  the math span and read `= -1` from text mode. Measured: with `math_segment` neutered and every
+  other repair left on, the line reads `-1`; with it on, `none`. Without this case the span
+  confinement would be a **conservative narrowing with no independent control** — corpus-wide it
+  changes 18 classifications and **zero inside the actionable slice**, and FAR-VALUE is caught by
+  the bridge either way.
+- **TRAILING-COMMENT** isolates `is_comment_site`, which today is otherwise **behaviourally
+  masked**: on the whole corpus it differs from `is_comment_line` at exactly **one** site
+  (`figures/electron_selfbiased_multiport.tex`:46) and at that site the left-operand guard fires
+  first. So the planted line puts an opener before the Γ and a clean adjacent value after it —
+  leaving the comment repair as the only thing that can catch it.
+
+**Attribution corrected in the driver's own registry** (same reason). `classify_sign`
+short-circuits on the left-operand test before it reads a value, so a site can be caught by two
+repairs at once and the #923 triage label is not always today's eliminating guard. Two rows are now
+DUAL-labelled: `figures/electron_selfbiased_multiport.tex`:46 (TRAILING-COMMENT sets
+`rendered=False` **and** NOT-THE-LEFT-OPERAND sets `sign=none`; both fire independently) and
+`16_silicon.tex`:89 (triaged TRUNCATED-VALUE, eliminated by NOT-THE-LEFT-OPERAND; both fire).
 
 **Receipt run (`--mutation-receipt`, `ADJACENCY_FIX` forced off, corpus untouched):**
 
@@ -175,12 +228,22 @@ FIRED   FINDINGS                   — the #923 finding lines come back as actio
 FIRED   PLANTED[FAR-VALUE]         — a value far down the line is read as adjacent again
 FIRED   PLANTED[TRUNCATED]         — `= 1 - \alpha` is read as `+1` again
 FIRED   PLANTED[NOT-LEFT-OPERAND]  — T^2's limit is attributed to Gamma again
-perturbed run produced 32 failure(s)
+FIRED   PLANTED[MATH-SPAN]         — the bridge walks out of the math span and reads a foreign value
+FIRED   PLANTED[TRAILING-COMMENT]  — a Gamma inside a trailing comment counts as typeset again
+perturbed run produced 34 failure(s)
 RECEIPT OK — every declared control fired under the forced-off instrument.
 ```
 
-Every declared control fires under the perturbation, so no check here is a tautology over an
-unperturbed instrument.
+All **seven** declared controls fire under the perturbation, so no check here is a tautology over an
+unperturbed instrument, and every named repair has a control that isolates it.
+
+**Where the second §4.4 site went.** The printed line reads `§4.4 do-not-touch : 1`, while #923
+recorded **two** §4.4 do-not-touch classes. The other one —
+`figures/electron_selfbiased_multiport.tex`:46, withheld as a `%`-comment line — has **migrated out
+of §4.4 and into §1**: with `is_comment_site` in place its Γ is no longer `rendered`, so it fails a
+§1 condition on its own and never reaches the site-selection stage. One do-not-touch class became a
+classification. The quoted-ruled-text site is the only §4.4 exclusion left, and that is why the
+count is 1.
 
 ## 5. What this correction does NOT do
 

@@ -21,11 +21,22 @@ Checks, on every `make verify` (all gating; nonzero exit on any failure):
   3. PLANTED   — synthetic lines exercising each repaired defect classify as the
                  repair requires; in particular a far-value line (the only ±1 value
                  sits well past the Γ, behind unrelated text) must NOT read as
-                 adjacent.
+                 adjacent, a value outside the Γ's math span must not be reached,
+                 and a Γ inside a TRAILING comment must not count as typeset.
+                 Nothing in these lines reads the corpus, so a corpus edit can
+                 never quietly turn one green.
   4. MUTATION  — `--mutation-receipt` forces `ADJACENCY_FIX` OFF and re-runs the SAME
                  check code. Each named control must FIRE. A control that does not
                  fire prints MISSED and the run fails, so no check here is a
                  tautology over an unperturbed instrument.
+
+WHAT EACH CHECK CONSUMES (scoped honestly, because "recomputed" is not uniform):
+  * IDENTITY and the PLANTED families consume NO declared number — both sides are
+    recomputed from the tree / from the classifier on this run.
+  * FINDINGS consumes 29 frozen `expected_post_fix` baselines. That is a legitimate
+    REGRESSION BASELINE, not a self-declared field: each was measured at the #923
+    execution SHA `2520e467` and re-measured at `644a4546`, reproducing at both. It
+    is called out here so nobody reads the whole gate as baseline-free.
 
 Standalone: `python3 research/drivers/gamma_census_adjacency_number_check.py`
             `python3 research/drivers/gamma_census_adjacency_number_check.py --mutation-receipt`
@@ -57,6 +68,13 @@ QUOTED_EXCLUSION = ("manuscript/vol_9_vacuum_datasheet/chapters/12_cosmological_
 
 #: (path, lineno, pre_fix_actionable, findings_hosted, expected_post_fix, classes)
 #: measured at the #923 execution SHA 2520e467 and re-derived at 644a4546.
+#:
+#: `classes` is the #923 TRIAGE label — the reason the site was withheld from
+#: tagging. It is NOT always the guard that eliminates the site today, because
+#: `classify_sign` short-circuits on the left-operand test before it reads a
+#: value, so a site can be caught by two repairs at once. Where the audit
+#: measured a divergence the label is DUAL, naming the triage class first and
+#: the eliminating guard second — an honest attribution beats a tidy one.
 FINDING_LINES: tuple[tuple[str, int, int, int, int, str], ...] = (
     ("manuscript/backmatter/01_appendices.tex", 80, 2, 1, 1, "NOT-THE-LEFT-OPERAND"),
     ("manuscript/common_equations/eq_axiom_3.tex", 37, 2, 1, 1, "MIS-ASSOCIATION"),
@@ -68,7 +86,7 @@ FINDING_LINES: tuple[tuple[str, int, int, int, int, str], ...] = (
     ("manuscript/vol_3_macroscopic/chapters/19_phase_transition_melting.tex", 452, 1, 1, 0, "TRUNCATED-VALUE"),
     ("manuscript/vol_5_biology/chapters/02_organic_circuitry.tex", 522, 1, 1, 0, "TRUNCATED-VALUE"),
     ("manuscript/vol_5_biology/chapters/02_organic_circuitry.tex", 772, 1, 1, 0, "TRUNCATED-VALUE"),
-    ("manuscript/vol_6_periodic_table/chapters/16_silicon.tex", 89, 1, 1, 0, "TRUNCATED-VALUE"),
+    ("manuscript/vol_6_periodic_table/chapters/16_silicon.tex", 89, 1, 1, 0, "TRUNCATED-VALUE (eliminated by NOT-THE-LEFT-OPERAND; both fire)"),
     ("manuscript/vol_9_vacuum_datasheet/chapters/03_pin_port_configuration.tex", 11, 2, 1, 1, "MIS-ASSOCIATION"),
     ("manuscript/vol_9_vacuum_datasheet/chapters/03_pin_port_configuration.tex", 214, 1, 1, 0, "NOT-THE-LEFT-OPERAND"),
     ("manuscript/vol_9_vacuum_datasheet/chapters/03_pin_port_configuration.tex", 225, 2, 1, 1, "MIS-ASSOCIATION"),
@@ -86,7 +104,7 @@ FINDING_LINES: tuple[tuple[str, int, int, int, int, str], ...] = (
     ("manuscript/vol_9_vacuum_datasheet/chapters/13_application_examples.tex", 35, 2, 1, 1, "MIS-ASSOCIATION"),
     ("manuscript/vol_9_vacuum_datasheet/chapters/13_application_examples.tex", 267, 1, 1, 0, "MIS-ASSOCIATION"),
     ("manuscript/vol_9_vacuum_datasheet/chapters/15_falsification_tests.tex", 29, 2, 1, 1, "MIS-ASSOCIATION"),
-    ("manuscript/vol_9_vacuum_datasheet/figures/electron_selfbiased_multiport.tex", 46, 1, 1, 0, "TRAILING-COMMENT"),
+    ("manuscript/vol_9_vacuum_datasheet/figures/electron_selfbiased_multiport.tex", 46, 1, 1, 0, "TRAILING-COMMENT (rendered=False) + NOT-THE-LEFT-OPERAND (sign=none); both fire independently"),
 )
 
 #: (label, line, expected sign, why). Synthetic — nothing here reads the corpus, so a
@@ -129,6 +147,40 @@ PLANTED: tuple[tuple[str, str, str, str], ...] = (
         r"\[ \Gamma = \frac{Z_{knot} - Z_0}{Z_{knot} + Z_0} = \frac{0 - 377}{0 + 377} = -1 \]",
         "-1",
         "a relation CHAIN does assert its final value for Gamma",
+    ),
+    (
+        # ISOLATES `math_segment`. Constructed so no other guard can mask it: the
+        # text before the Gamma ends in an opener (left-operand passes), the value
+        # is a clean `-1` (the termination guard passes), and `$` is a BRIDGE
+        # character — so the anchored bridge would walk straight out of the math
+        # span and read a value that is not in the same expression. Only the
+        # span confinement stops it.
+        "MATH-SPAN",
+        r"total reflection ($\Gamma$ = -1) at the wall.",
+        "none",
+        "the value sits OUTSIDE the Gamma's math span; the bridge alone would reach it",
+    ),
+)
+
+#: (label, line, expected `rendered`, why). The comment repair is a `rendered`
+#: property, not a sign, so it needs its own control — and it needs one BADLY:
+#: on the corpus `is_comment_site` differs from `is_comment_line` at exactly ONE
+#: site, and at that site the left-operand guard fires first, so the comment
+#: repair is behaviourally masked and nothing else here would exercise it. This
+#: line is built so ONLY the comment repair can catch it: the text before the Γ
+#: ends in an opener, and the value is adjacent and clean.
+PLANTED_RENDERED: tuple[tuple[str, str, bool, str], ...] = (
+    (
+        "TRAILING-COMMENT",
+        r"\draw (0,0) -- (1,1); % shorted stub ($\Gamma = -1$) wall",
+        False,
+        "the Gamma is inside a TRAILING comment; the line's first token is not one",
+    ),
+    (
+        "RENDERED-CONTROL",
+        r"total reflection ($\Gamma = -1$) at the wall.",
+        True,
+        "no comment anywhere; the repair must not start suppressing typeset sites",
     ),
 )
 
@@ -191,6 +243,24 @@ def classify_line(cen, line: str, suffix: str = ".tex") -> str:
     return cen.classify_sign(after, line[: match.start()])
 
 
+def rendered_of_first_gamma(cen, line: str, suffix: str = ".tex") -> bool:
+    """`rendered` the census would assign to the FIRST Γ occurrence on a line.
+
+    Mirrors `scan_python`'s own branch exactly — per-OCCURRENCE with the repair
+    on, per-LINE with it off — so this control actually exercises the toggle
+    rather than restating one side of it.
+    """
+    regex = re.compile(
+        cen.Universe(gamma_form="all", relation="any", signs="any").detection_regex()
+    )
+    match = regex.search(line)
+    if match is None:
+        return True
+    if cen.ADJACENCY_FIX:
+        return not cen.is_comment_site(suffix, line, match.start())
+    return not cen.is_comment_line(suffix, line)
+
+
 def run_checks(cen) -> list[str]:
     """Every control, as a list of failure strings. Empty list == all green."""
     fails: list[str] = []
@@ -217,12 +287,20 @@ def run_checks(cen) -> list[str]:
                 f"(pre-fix {pre}), measured {got}"
             )
 
-    # 3. PLANTED ----------------------------------------------------------------
+    # 3. PLANTED — sign ---------------------------------------------------------
     for label, line, want, why in PLANTED:
         got = classify_line(cen, line)
         if got != want:
             fails.append(
                 f"PLANTED[{label}]: expected sign {want!r} ({why}), measured {got!r}"
+            )
+
+    # 4. PLANTED — rendered -----------------------------------------------------
+    for label, line, want, why in PLANTED_RENDERED:
+        got = rendered_of_first_gamma(cen, line)
+        if got != want:
+            fails.append(
+                f"PLANTED[{label}]: expected rendered={want} ({why}), measured {got}"
             )
 
     return fails
@@ -242,6 +320,8 @@ CONTROLS: tuple[tuple[str, str], ...] = (
     ("PLANTED[FAR-VALUE]", "a value far down the line is read as adjacent again"),
     ("PLANTED[TRUNCATED]", "`= 1 - \\alpha` is read as `+1` again"),
     ("PLANTED[NOT-LEFT-OPERAND]", "T^2's limit is attributed to Gamma again"),
+    ("PLANTED[MATH-SPAN]", "the bridge walks out of the math span and reads a foreign value"),
+    ("PLANTED[TRAILING-COMMENT]", "a Gamma inside a trailing comment counts as typeset again"),
 )
 
 
@@ -293,7 +373,7 @@ def main(argv: list[str]) -> int:
         print(f"[gamma-adjacency] *** FAILED — {len(fails)} check(s)")
         return 1
     print(f"[gamma-adjacency] OK — identity reconciled, {len(FINDING_LINES)} finding "
-          f"line(s) re-checked, {len(PLANTED)} planted case(s) correct.")
+          f"line(s) re-checked, {len(PLANTED) + len(PLANTED_RENDERED)} planted case(s) correct.")
     return 0
 
 

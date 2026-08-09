@@ -151,6 +151,13 @@ MATH_GLUE = "[ " + _TAB + "$" + "\\\\" + "!~]"
 #: byte-identical pattern.
 MAGNITUDE_GUARD = "([^0-9.]|$)"
 
+#: The two pieces of the repaired ``adjacent-nested`` gap, named ONCE so both
+#: ``GAPS["adjacent-nested"]`` (detection) and ``_BRIDGE_RE`` (the R33
+#: classifier, far below) are built from the same definition. Spelling either
+#: one twice is how a knob edit silently stops propagating into the classifier.
+SUBSCRIPT_NESTED = r"(_\{[^=]{0,40}\}|_[A-Za-z0-9]{1,12})?"
+GAP_CHARS_NESTED = "[ " + _TAB + "$}|]*"
+
 
 # --------------------------------------------------------------------------
 # Universe knobs — the whole point of the module. Each is a named vocabulary
@@ -201,7 +208,11 @@ GAPS: dict[str, str] = {
     # cost of also spanning a sibling token if one closes on a brace within 40
     # characters. Bounded and brace-terminated, so it stays far tighter than
     # `near`/`any`, but it is a widening and is named as one.
-    "adjacent-nested": r"(_\{[^=]{0,40}\}|_[A-Za-z0-9]{1,12})?" + "[ " + _TAB + "$}|]*",
+    # Composed from the two named pieces below rather than spelled out, so the
+    # R33 adjacency bridge (`_BRIDGE_RE`) consumes the SAME definition: an edit
+    # to this knob propagates into the classifier instead of silently diverging
+    # from it.
+    "adjacent-nested": SUBSCRIPT_NESTED + GAP_CHARS_NESTED,
     "near": r".{0,25}",
     "any": r".*",
 }
@@ -475,8 +486,14 @@ ADJACENCY_FIX = True
 #: What may sit between the Γ token and its relation and still count as
 #: adjacent: a closing magnitude bar, a `^2`, a subscript, and the gap
 #: characters `GAPS["adjacent-nested"]` already admits.
+#:
+#: Built from `SUBSCRIPT_NESTED` / `GAP_CHARS_NESTED` — the SAME two pieces
+#: `GAPS["adjacent-nested"]` is composed from — so widening or narrowing that
+#: knob moves the classifier's notion of "adjacent" with it. A duplicated
+#: character class here would let the knob and the classifier drift apart, which
+#: is the defect class R33 exists to close, one level up.
 _BRIDGE_RE = re.compile(
-    r"^(\|)?(_\{[^=]{0,40}\}|_[A-Za-z0-9]{1,12})?(\^\{?2\}?)?(\|)?[ \t$}|]*"
+    r"^(\|)?" + SUBSCRIPT_NESTED + r"(\^\{?2\}?)?(\|)?" + GAP_CHARS_NESTED
 )
 _RELATION_RE = re.compile(r"^(=|\\to|\\rightarrow|→|->|\\equiv|\\approx|\\simeq)")
 _NUMERAL_RE = re.compile(r"^[ \t$\\!~]*([-−+]?)[ \t]*([0-9]+(?:\.[0-9]+)?)")
