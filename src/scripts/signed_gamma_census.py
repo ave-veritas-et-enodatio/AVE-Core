@@ -383,9 +383,42 @@ def is_comment_line(suffix: str, line: str) -> bool:
 
     Conservative on purpose — see ``COMMENT_PREFIXES``. A ``.tex`` line reading
     ``  % \\Gamma_{bulk} = -1`` is not rendered; ``$\\Gamma=-1$  % note`` is.
+
+    LINE-level, and deliberately so: it backs the ``--comments`` universe knob,
+    which selects whole lines. For whether a PARTICULAR Γ occurrence is typeset,
+    use :func:`is_comment_site` (R33) — a trailing ``%`` comment makes the line
+    rendered but the occurrence after it not.
     """
     stripped = line.lstrip()
     return stripped.startswith(COMMENT_PREFIXES.get(suffix, ()))
+
+
+def is_comment_site(suffix: str, line: str, column: int) -> bool:
+    """True when the Γ occurrence at ``column`` (0-based) sits inside a comment.
+
+    R33 repair (`_orchestration/docket-entries/2026-08-07-gamma-tag-spec-correction.md`).
+    :func:`is_comment_line` tests only the line's FIRST token, so a TikZ line
+    such as ``\\draw (3.6,-0.4) -- (3.6,-1.6); % shorted stub / Gamma=-1 wall``
+    was reported ``rendered`` even though its Γ is inside the comment. Spec §1
+    condition 2 is about whether the ASSERTION is typeset, so the test has to be
+    per-occurrence.
+
+    Only the ``%``-comment languages are handled positionally; for any other
+    suffix this falls back to the line-level answer.
+    """
+    if is_comment_line(suffix, line):
+        return True
+    if "%" not in COMMENT_PREFIXES.get(suffix, ()):
+        return False
+    i = 0
+    while i < min(column, len(line)):
+        if line[i] == "\\":  # \% is an escaped percent, not a comment opener
+            i += 2
+            continue
+        if line[i] == "%":
+            return True
+        i += 1
+    return False
 
 
 # --------------------------------------------------------------------------
@@ -404,6 +437,176 @@ _SUBSCRIPT_RE = re.compile(
 _VALUE_RE = re.compile(
     r"(?:=|\\to|\\rightarrow|→|->|\\equiv|\\approx|\\simeq)[ \t$\\!~]*([-−+]?)[ \t]*([0-9]+(?:\.[0-9]+)?)"
 )
+
+# --------------------------------------------------------------------------
+# R33 — ADJACENCY REPAIR
+# Ruled at `_orchestration/docket-entries/2026-08-07-rulings-r31-r33.md` (R33),
+# Grant verbatim *"Agree."*: "The spec's §1 adjacency definition stands; the
+# instrument diverges". Documented at
+# `_orchestration/docket-entries/2026-08-07-gamma-tag-spec-correction.md`.
+#
+# THE THREE MEASURED DEFECTS, and what each repair does:
+#
+#   1. NON-ADJACENT VALUE. `_VALUE_RE.search` scans the WHOLE remainder of the
+#      line, so a Γ that asserts nothing inherits the value of a later Γ. On the
+#      #923 corpus one site read its "adjacent" value from 410 characters away
+#      (`vol_2_subatomic/chapters/01_topological_matter.tex`:167). REPAIR: the
+#      relation must be reachable from the Γ token across the BRIDGE only
+#      (magnitude bars, `^2`, a subscript, and the universe's own gap
+#      characters), and the whole reading is confined to the enclosing
+#      inline-math span.
+#   2. TRUNCATED VALUE. The numeral was accepted with no check on what follows,
+#      so `= 1 - \alpha`, `= 1/3` and `= 1/9` all classified `+1`. REPAIR: a
+#      value that is continued by an arithmetic operator is `other`, not ±1 —
+#      visible in the census, never silently dropped.
+#   3. NOT THE LEFT OPERAND. `T^2 = 1 - \Gamma^2 \to 1` gave Γ the limit that
+#      belongs to T² — on lines that go on to say "at $\Gamma = 0$". REPAIR: the
+#      Γ (optionally inside magnitude bars) must be the relation's LEFT operand.
+#
+# `ADJACENCY_FIX` exists so a mutation receipt can force the repair OFF and show
+# the receipt firing; nothing but a receipt may flip it.
+# --------------------------------------------------------------------------
+
+#: Master switch for the R33 repair. Off = the pre-R33 behaviour, kept ONLY so
+#: `research/drivers/gamma_census_adjacency_number_check.py --mutation-receipt`
+#: can prove its check is not a tautology.
+ADJACENCY_FIX = True
+
+#: What may sit between the Γ token and its relation and still count as
+#: adjacent: a closing magnitude bar, a `^2`, a subscript, and the gap
+#: characters `GAPS["adjacent-nested"]` already admits.
+_BRIDGE_RE = re.compile(
+    r"^(\|)?(_\{[^=]{0,40}\}|_[A-Za-z0-9]{1,12})?(\^\{?2\}?)?(\|)?[ \t$}|]*"
+)
+_RELATION_RE = re.compile(r"^(=|\\to|\\rightarrow|→|->|\\equiv|\\approx|\\simeq)")
+_NUMERAL_RE = re.compile(r"^[ \t$\\!~]*([-−+]?)[ \t]*([0-9]+(?:\.[0-9]+)?)")
+
+#: A value followed by one of these is part of a LARGER expression (`1-\alpha`,
+#: `1/3`, `1 - 2\times0.250`), so the asserted quantity is not the bare numeral.
+_CONTINUES_VALUE = set("-−+/*^·×÷")
+_CONTINUES_MACROS = (r"\times", r"\cdot", r"\over", r"\div", r"\pm", r"\mp", r"\frac")
+
+#: Tokens a Γ may legitimately sit immediately after and still be the relation's
+#: left operand. Anything else (a digit, an operator, a closing group) means the
+#: Γ is embedded in a larger expression.
+_OPENERS = set("$([{,;&")
+_IMPLIES = (r"\Rightarrow", r"\Longrightarrow", r"\implies", r"\Leftrightarrow",
+            r"\iff", r"\therefore", r"\leadsto")
+_SPACERS = (r"\left", r"\bigl", r"\Bigl", r"\quad", r"\qquad", r"\!", r"\,", r"\;", r"\:")
+
+
+def _strip_spacers(text: str) -> str:
+    """Drop trailing whitespace and LaTeX spacing macros, repeatedly."""
+    while True:
+        stripped = text.rstrip()
+        hit = next((s for s in _SPACERS if stripped.endswith(s)), None)
+        if hit is None:
+            return stripped
+        text = stripped[: -len(hit)]
+
+
+def is_left_operand(text_before_gamma: str, _bar_stripped: bool = False) -> bool:
+    """True when the Γ is the LEFT operand of the relation that follows it.
+
+    Defect 3 above. `|\\Gamma|` is still the left operand (the bar is a
+    delimiter, not an operator), so ONE magnitude bar is stripped and the test
+    re-applied — which is what separates `($|\\Gamma| = 1$)` (left operand)
+    from `$1 - 2|\\Gamma|^2$` (not).
+    """
+    seg = _strip_spacers(text_before_gamma)
+    if not seg:
+        return True
+    if seg.endswith("\\["):
+        return True
+    if any(seg.endswith(tok) for tok in _IMPLIES):
+        return True
+    if seg[-1] == "|" and not _bar_stripped:
+        return is_left_operand(seg[:-1], _bar_stripped=True)
+    return seg[-1] in _OPENERS
+
+
+def _value_is_terminated(tail: str) -> bool:
+    """True when nothing after the numeral continues the asserted quantity."""
+    rest = tail.lstrip(" \t")
+    if not rest:
+        return True
+    if rest[0] in _CONTINUES_VALUE:
+        return False
+    return not any(rest.startswith(mac) for mac in _CONTINUES_MACROS)
+
+
+def _skip_balanced(text: str) -> int:
+    """Index just past one brace-balanced expression at the head of ``text``."""
+    i, depth = 0, 0
+    while i < len(text):
+        ch = text[i]
+        if ch == "\\":
+            i += 2
+            continue
+        if ch == "{":
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+        elif depth == 0 and _RELATION_RE.match(text[i:]):
+            return i
+        i += 1
+    return len(text)
+
+
+def read_adjacent_value(segment: str) -> tuple[str, str] | None:
+    """``(sign, magnitude)`` asserted for the Γ that ``segment`` starts after.
+
+    Walks the bridge, then the relation, then the value. A relation whose
+    right-hand side is an EXPRESSION rather than a numeral (`\\Gamma =
+    \\frac{Z-Z_0}{Z+Z_0} = -1`) is followed one hop at a time, because that
+    chain does assert a value FOR Γ; a relation whose numeral is continued
+    (`= 1 - \\alpha`) stops the walk, because that value is not the numeral.
+    """
+    bridge = _BRIDGE_RE.match(segment)
+    pos = bridge.end() if bridge else 0
+    for _ in range(4):  # bounded: no corpus chain is longer, and no unbounded scan
+        rel = _RELATION_RE.match(segment[pos:])
+        if not rel:
+            return None
+        pos += rel.end()
+        num = _NUMERAL_RE.match(segment[pos:])
+        if num:
+            if not _value_is_terminated(segment[pos + num.end() :]):
+                return ("", "other")
+            return (num.group(1), num.group(2))
+        pos += _skip_balanced(segment[pos:])
+    return None
+
+
+def math_segment(text_after_gamma: str, inside_math: bool) -> str:
+    """The reading window: the rest of the enclosing inline-math span, or line."""
+    if not inside_math:
+        return text_after_gamma
+    i = 0
+    while i < len(text_after_gamma):
+        if text_after_gamma[i] == "\\":
+            i += 2
+            continue
+        if text_after_gamma[i] == "$":
+            return text_after_gamma[:i]
+        i += 1
+    return text_after_gamma
+
+
+def in_inline_math(text_before_gamma: str) -> bool:
+    """True when an odd number of unescaped ``$`` precede the Γ on this line."""
+    i, n = 0, 0
+    while i < len(text_before_gamma):
+        if text_before_gamma[i] == "\\":
+            i += 2
+            continue
+        if text_before_gamma[i] == "$":
+            if i + 1 < len(text_before_gamma) and text_before_gamma[i + 1] == "$":
+                i += 2
+                continue
+            n += 1
+        i += 1
+    return n % 2 == 1
 
 
 def _window(line: str, start: int, end: int, pad: int = 70) -> str:
@@ -445,19 +648,36 @@ def classify_channel(text_after_gamma: str) -> str:
     return f"other:{token}"
 
 
-def classify_sign(text_after_gamma: str) -> str:
-    """Read the asserted value off the first relation operator after Γ.
+def classify_sign(text_after_gamma: str, text_before_gamma: str = "") -> str:
+    """Read the asserted value off the relation ADJACENT to this Γ.
 
     The trailing-digit discrimination lives HERE rather than in the detection
     regex, because a negative lookahead is not expressible in POSIX ERE and the
     detection regex must stay byte-identical across both scan methods. So a
     line reading ``\\Gamma = -1.0`` is DETECTED (both methods agree on it) and
     then classified ``other`` — visible in the census, not silently dropped.
+
+    R33: with :data:`ADJACENCY_FIX` on (the default), the value must be
+    ADJACENT — reachable across the bridge, inside the same math span, with Γ
+    as the relation's left operand, and not continued past the numeral. With it
+    off this falls back to the pre-R33 whole-line ``search``, which exists only
+    so the mutation receipt can demonstrate the difference.
     """
-    match = _VALUE_RE.search(text_after_gamma)
-    if not match:
-        return "none"
-    sign, magnitude = match.group(1), match.group(2)
+    if not ADJACENCY_FIX:
+        match = _VALUE_RE.search(text_after_gamma)
+        if not match:
+            return "none"
+        sign, magnitude = match.group(1), match.group(2)
+    else:
+        if not is_left_operand(text_before_gamma):
+            return "none"
+        segment = math_segment(text_after_gamma, in_inline_math(text_before_gamma))
+        read = read_adjacent_value(segment)
+        if read is None:
+            return "none"
+        sign, magnitude = read
+        if magnitude == "other":
+            return "other"
     negative = sign in ("-", "−")
     if magnitude == "1":
         return "-1" if negative else "+1"
@@ -515,9 +735,18 @@ def scan_python(repo: Path, universe: Universe) -> tuple[list[Site], set[tuple[s
                     continue
                 if universe.channels and channel not in universe.channels:
                     continue
-                sign = classify_sign(after_gamma)
+                before_gamma = line[: match.start()]
+                sign = classify_sign(after_gamma, before_gamma)
                 if universe.sign_filter and sign not in universe.sign_filter:
                     continue
+                # R33: `rendered` is a property of the OCCURRENCE, not the line —
+                # a trailing `%` comment leaves the line rendered and the Γ after
+                # it not. `comment` (line-level) still drives the --comments knob.
+                site_comment = (
+                    is_comment_site(path.suffix, line, match.start())
+                    if ADJACENCY_FIX
+                    else comment
+                )
                 sites.append(
                     Site(
                         path=rel,
@@ -525,7 +754,7 @@ def scan_python(repo: Path, universe: Universe) -> tuple[list[Site], set[tuple[s
                         column=match.start() + 1,
                         channel=channel,
                         sign=sign,
-                        rendered=not comment,
+                        rendered=not site_comment,
                         file_class=classify_file(rel),
                         matched=match.group(0),
                         excerpt=_window(line, match.start(), match.end()),
