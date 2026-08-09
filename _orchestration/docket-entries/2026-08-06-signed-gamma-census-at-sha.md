@@ -92,3 +92,84 @@ by one command, at any SHA, with the universe attached.
 
 It adjudicates no channel, prefers no density branch, and touches the `Γ_shear` sign nowhere. It
 counts.
+
+---
+
+## DATED ADDITION 2026-08-07 (R32) — the MAGNITUDE-ASSERTION class
+
+**Appended, never a rewrite.** Nothing above this rule is edited; the census recorded at
+`d129e7ac` stands as measured. Ruled at
+[`2026-08-07-rulings-r31-r33.md`](2026-08-07-rulings-r31-r33.md) (R32), Grant verbatim *"Agree."*
+
+### The class
+
+**MAGNITUDE-ASSERTION** — a site whose asserted quantity is the **unsigned magnitude** `|Γ|`, not a
+signed Γ. Surface forms in this corpus: `|\Gamma| = 1`, `|\Gamma|=1`, `|\Gamma| \to 1`.
+
+**Unsigned-magnitude assertions are channel-independent by construction.** Axiom 3 forces
+`|Γ| = 1` at a saturation boundary in every channel — the magnitude is what the axiom fixes, and it
+fixes it the same way everywhere. Only a **SIGNED** Γ requires the plane / projection / profile
+declarations that `wall-taxonomy.md` §10 enumerates, because only the sign depends on where the
+reference plane is cut, which projection is taken, and which density profile is assumed. **The
+signed-channel-declaration debt therefore does NOT attach to these sites.**
+
+This is the **fourth finding class**, alongside the three the #923 execution recorded
+(MIS-ASSOCIATION, TRUNCATED-VALUE, NOT-THE-LEFT-OPERAND) and the two §4.4 do-not-touch classes. It
+differs from all of them in kind: those sites are **not actionable** — this class **is** actionable
+under spec §1 and **is** tagged, and what the class records is that its tags carry **no channel
+debt to discharge**.
+
+### The 15 sites
+
+Re-derived at `origin/main` = **`644a4546`**, in a worktree verified clean before any edit.
+**Two-method receipt — engines and tree-state both named.**
+
+- **Engine A** — Python `pathlib.rglob` + `re`: for each of the 205 merged `\gammaundeclared{}`
+  markers, extract the asserting expression it terminates and classify the left operand.
+  Result: **15 MAGNITUDE-ASSERTION / 190 SIGNED-BARE / 0 SQUARED / 0 unclassified**.
+- **Engine B** — `git grep -F -o -f <pattern-file>` over the four literal shapes, the patterns
+  passed through a FILE rather than the shell so a shell-escaped `$`/`\` cannot silently
+  false-negative. Result: **15 occurrences on 14 lines**, site set identical to Engine A.
+- **Tree-state** — worktree at `644a4546`, `git status --porcelain` = 0, measured before any edit
+  in this branch.
+
+| site | shape |
+|---|---|
+| `backmatter/02_full_derivation_chain.tex`:1223 | `|\Gamma| \to 1` |
+| `common_equations/eq_axiom_4.tex`:55 | `|\Gamma| = 1` |
+| `vol_1_foundations/chapters/04_continuum_electrodynamics.tex`:105 | `|\Gamma|=1` |
+| `vol_3_macroscopic/chapters/06_solar_system.tex`:12 | `|\Gamma| \to 1` |
+| `vol_3_macroscopic/chapters/06_solar_system.tex`:392 | `|\Gamma| \to 1` |
+| `vol_3_macroscopic/chapters/11_thermodynamics_and_entropy.tex`:324 | `|\Gamma| \to 1` |
+| `vol_3_macroscopic/chapters/11_thermodynamics_and_entropy.tex`:389 | `|\Gamma| \to 1` |
+| `vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex`:68 | `|\Gamma| = 1` |
+| `vol_3_macroscopic/chapters/21_black_hole_interior_regime_iv.tex`:203 | `|\Gamma| = 1` |
+| `vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex`:161 | `|\Gamma| = 1` |
+| `vol_5_biology/chapters/02_organic_circuitry.tex`:624 | `|\Gamma| \to 1` |
+| `vol_9_vacuum_datasheet/chapters/03a_device_circuit_models.tex`:82 | `|\Gamma| = 1` |
+| `vol_9_vacuum_datasheet/chapters/05_ac_electrical_characteristics.tex`:172 | `|\Gamma|=1` |
+| `vol_9_vacuum_datasheet/chapters/05_ac_electrical_characteristics.tex`:172 | `|\Gamma|=1` |
+| `vol_9_vacuum_datasheet/chapters/05_ac_electrical_characteristics.tex`:241 | `|\Gamma|=1` |
+
+Breakdown: `|\Gamma| \to 1` ×6 · `|\Gamma| = 1` ×5 · `|\Gamma|=1` ×4 = **15**. Two sites share
+`05_ac_electrical_characteristics.tex`:172, which is why the 15 occurrences sit on 14 lines.
+
+**Two of them are the sentences that make the class self-evident:**
+`15_black_hole_orbital_resonance.tex`:68 — *"Axiom~3 forces only $|\Gamma| = 1$; a signed $\Gamma$
+additionally requires its **reference plane**"* — and `03a_device_circuit_models.tex`:82 —
+*"**Axiom~3 forces only $|\Gamma| = 1$**; the authority for a wall's $\Gamma$ **phase** is the
+branch-derived indicial wall row of a certified instrument"*. The corpus already draws the
+magnitude/sign line exactly where R32 draws it.
+
+### Population split
+
+At `644a4546` the 205 merged tags are **190 signed-bare Γ + 15 magnitude**, with **zero** `\Gamma^2`
+tagged (all four `T^2 = 1 - \Gamma^2 \to 1` sites are NOT-THE-LEFT-OPERAND findings). The discharge
+workstream inherits **190 sites carrying channel debt**, not 205.
+
+### What this addition does NOT do
+
+It untags nothing — the 15 markers stay exactly where they are, because they are actionable under
+spec §1 and the census marks the population, not the debt. It adjudicates no channel, mints no id,
+moves no solidity, and leaves the `Γ_shear` sign unresolved where canon has it
+(`wall-taxonomy.md` §10.1).
