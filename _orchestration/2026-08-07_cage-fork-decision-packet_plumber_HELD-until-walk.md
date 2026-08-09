@@ -58,3 +58,43 @@ only a partial one? Sealed ⇒ the standing 10–30σ pressure-channel overshoot
 skin-water residue (double-pulsar-tested at ~2.5–40×, on numbers whose anchor premise is
 itself CONTESTED pending the walk, per R24). Leaky ⇒ the full overshoot stands. The knob to
 rule on is the wall depth; everything else in the fork follows from it.
+
+---
+## DATED ADDENDUM (2026-08-08) — the SEALED arm's physical argument (Grant walk, folded per his GO)
+
+The walk that produced this (Grant's three instincts, orchestrator carves, all
+walk-level):
+
+**The pilot-dress picture.** The steady compression response around a moving mass is a
+pilot-wave-class object: a real, bound accompaniment carried on the medium. And the
+DC part is sealed BY KINEMATICS: the bulk channel runs at √(10/3)·c ≈ 1.8c, so matter
+can never outrun it — a uniformly moving mass's dress is always subsonic, always
+bound, sheds nothing. (Canon makes the same identification for the electron: the
+Compton clock IS the de Broglie drive.)
+
+**The reactive store is canon.** The bulk channel's near-field is the ruled
+dark-halo row (`port-register.md:35` — "stores/loads, added-mass, NOT a port"), and
+the two dresses' mutual reactive coupling through the lattice is the binding itself —
+gravity as mutual lattice inductance. Real, large, returned each cycle.
+
+**The honest carve (why the above does not, by itself, break the kill chain):** every
+antenna carries a large reactive near-field AND a nonzero radiation resistance — the
+partitions coexist; stored energy does not cancel radiated energy. The overlap
+integral (#927, bit-reproduced) IS the radiation-resistance computation for the BARE
+rotating l=2 pattern, and it is nonzero. Losslessness is also no shield: radiation is
+lossless TRANSPORT, and the pulsar wattmeter reads energy leaving the orbit
+regardless of how cleanly it travels.
+
+**Therefore the SEALED arm's precise claim is SELF-SCREENING:** the co-moving bound
+response arranges itself so the NET radiating moment vanishes at the skin — the AC
+part of the dress bound the way the DC part provably is. What #927 computed was the
+bare pattern's coupling; the screened, back-reacted source is exactly what this arm
+contests. The wall-depth knob is where a screening structure would live.
+
+**The ruling question, final form:** *is the AC dress bound like the DC dress — and
+what structure forces that?* Honesty box: nothing in canon derives the screening;
+generic elastodynamics gives radiation-reaction corrections, not cancellation.
+Ruling SEALED therefore commits the program to deriving the screening theorem as a
+first-class constitutive obligation (a named IOU with its own lane); ruling LEAKY
+fires the frozen LC-1 kill on a fully derived chain and invokes the framework-level
+walk-back protocol.
