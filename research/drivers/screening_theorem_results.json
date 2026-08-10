@@ -12,15 +12,17 @@
   "c_km_s": 299792.458
  },
  "dpb_subwall_reversion": {
+  "flux_share_squared": 0.2675602929988105,
   "moment_share_mA_over_M": 0.5172623057973686,
   "reverted_floor": [
-   0.007862387048120003,
-   0.023535434913780275
+   0.00406691645358192,
+   0.012173993331445879
   ],
   "reverted_floor_over_deltaDP": [
-   60.47990037015387,
-   181.04180702907905
-  ]
+   31.283972719860923,
+   93.64610254958369
+  ],
+  "superseded_by": "CH0_enclosed_charge (fires on both branches)"
  },
  "ns_wall": {
   "DP_A": {
@@ -57,6 +59,12 @@
   }
  },
  "residue_DP": {
+  "CH0_enclosed_charge": {
+   "flux": 0.032863353450309954,
+   "flux_over_delta": 252.7950265408458,
+   "flux_over_delta_sigma_form": 252.7950265408458,
+   "moment_ratio": 1.0
+  },
   "CH1_retardation_flux": 5.588421263832547e-14,
   "CH2_closed_vs_numeric_soft": {
    "closed": 1.272045252686262e-09,
@@ -65,27 +73,31 @@
   "CH2_graded_shell_flux": 2.108377502953191e-19,
   "CH2_moment_ratio_soft": 1.266450594566408e-09,
   "CH2_moment_ratio_stiff": 1.2443861174567891e-09,
-  "CH3_field_energy_flux": 6.063737525236883e-14,
-  "CH3_moment_ratio": 1.3583580417717547e-06,
+  "CH3_field_energy_flux": 3.8808480998837354e-14,
+  "CH3_moment_ratio": 1.0866942855788183e-06,
   "CH3_quadrature": {
    "denominator_exact_4pi_k1k2_over_d": 1029.0551234357492,
-   "denominator_numeric": 1029.0565367331858,
-   "denominator_rel_err": 1.3733933239556961e-06,
-   "kappa": 0.20833182797254965,
-   "moment_ratio_coefficient_1p5_kappa": 0.31249774195882446,
-   "n_mu": 500,
-   "n_r": 1600,
-   "r_max_over_d": 100000.0
+   "denominator_numeric": 1028.6691203879575,
+   "denominator_rel_err": 0.0003751043447536295,
+   "kappa": 0.16662354722070238,
+   "kappa_exact_closed_form": 0.16666666666666666,
+   "kappa_rel_err_vs_exact": 0.00025871667578569735,
+   "moment_ratio_coefficient_1p5_kappa": 0.25,
+   "n_mu": 400,
+   "n_r": 1200,
+   "r_max_over_d": 2000.0
   },
   "CH3_scaling_envelope_flux": 6.209356959813977e-13,
-  "F_res": 6.063737525236883e-14,
+  "F_res": 0.032863353450309954,
   "F_res_envelope": 6.209356959813977e-13,
   "F_res_envelope_over_delta": 4.7764284306261365e-09,
-  "F_res_over_delta": 4.664413480951449e-10,
+  "F_res_over_delta": 252.7950265408458,
+  "F_res_smooth_only": 5.588421263832547e-14,
+  "F_res_smooth_only_over_delta": 4.2987855875634984e-10,
   "a_over_rsat": 65730.14358911957,
   "comp_orbit": 4.346777142315273e-06,
   "delta": 0.00013,
-  "dominant_channel": "CH3",
+  "dominant_channel": "CH1",
   "dress_div_at_orbit_scale": 2.3145727618069298e-10,
   "kinematics": {
    "a_km": 878836.6670416081,
@@ -97,6 +109,12 @@
   "speed_angular_factor": 0.032863353450309954
  },
  "residue_HT": {
+  "CH0_enclosed_charge": {
+   "flux": 0.032863353450309954,
+   "flux_over_delta": 20.53959590644372,
+   "flux_over_delta_sigma_form": 20.53959590644372,
+   "moment_ratio": 1.0
+  },
   "CH1_retardation_flux": 1.3577369869203493e-14,
   "CH2_closed_vs_numeric_soft": {
    "closed": 3.287588719288534e-10,
@@ -105,27 +123,31 @@
   "CH2_graded_shell_flux": 1.4090558587291816e-20,
   "CH2_moment_ratio_soft": 3.2739961960601707e-10,
   "CH2_moment_ratio_stiff": 3.2169556652768273e-10,
-  "CH3_field_energy_flux": 1.473217627717928e-14,
-  "CH3_moment_ratio": 6.69541520916182e-07,
+  "CH3_field_energy_flux": 9.428729075835804e-15,
+  "CH3_moment_ratio": 5.356370871028314e-07,
   "CH3_quadrature": {
    "denominator_exact_4pi_k1k2_over_d": 1230.7777326582764,
-   "denominator_numeric": 1230.7794230001916,
-   "denominator_rel_err": 1.3733933190707148e-06,
-   "kappa": 0.20833182797256028,
-   "moment_ratio_coefficient_1p5_kappa": 0.3124977419588404,
-   "n_mu": 500,
-   "n_r": 1600,
-   "r_max_over_d": 100000.0
+   "denominator_numeric": 1230.3160625833289,
+   "denominator_rel_err": 0.00037510434475473975,
+   "kappa": 0.1666235472207024,
+   "kappa_exact_closed_form": 0.16666666666666666,
+   "kappa_rel_err_vs_exact": 0.0002587166757854753,
+   "moment_ratio_coefficient_1p5_kappa": 0.25,
+   "n_mu": 400,
+   "n_r": 1200,
+   "r_max_over_d": 2000.0
   },
   "CH3_scaling_envelope_flux": 1.5085966521337287e-13,
-  "F_res": 1.473217627717928e-14,
+  "F_res": 0.032863353450309954,
   "F_res_envelope": 1.5085966521337287e-13,
   "F_res_envelope_over_delta": 9.428729075835804e-11,
-  "F_res_over_delta": 9.20761017323705e-12,
+  "F_res_over_delta": 20.53959590644372,
+  "F_res_smooth_only": 1.3577369869203493e-14,
+  "F_res_smooth_only_over_delta": 8.485856168252183e-12,
   "a_over_rsat": 133352.54997915894,
   "comp_orbit": 2.1425483484113254e-06,
   "delta": 0.0016,
-  "dominant_channel": "CH3",
+  "dominant_channel": "CH1",
   "dress_div_at_orbit_scale": 5.6233789459681203e-11,
   "kinematics": {
    "a_km": 1949032.0968002323,

@@ -89,47 +89,16 @@ REGISTERED = {
     "11.4": lambda: P("constants/R_NS_band_km")[0],
     "13.7": lambda: P("constants/R_NS_band_km")[1],
     # --- the residue: the verdict-bearing numerals ---
-    "6.064e-14": lambda: _res("DP", "F_res"),
-    "4.664e-10": lambda: _res("DP", "F_res_over_delta"),
-    "1.473e-14": lambda: _res("HT", "F_res"),
-    "9.208e-12": lambda: _res("HT", "F_res_over_delta"),
-    "6.209e-13": lambda: _res("DP", "F_res_envelope"),
-    "4.776e-09": lambda: _res("DP", "F_res_envelope_over_delta"),
-    "9.429e-11": lambda: _res("HT", "F_res_envelope_over_delta"),
     "5.588e-14": lambda: _res("DP", "CH1_retardation_flux"),
     "1.358e-14": lambda: _res("HT", "CH1_retardation_flux"),
     "2.108e-19": lambda: _res("DP", "CH2_graded_shell_flux"),
     "1.409e-20": lambda: _res("HT", "CH2_graded_shell_flux"),
-    "1.3584e-06": lambda: _res("DP", "CH3_moment_ratio"),
-    "6.6954e-07": lambda: _res("HT", "CH3_moment_ratio"),
     "4.347e-06": lambda: _res("DP", "comp_orbit"),
     "2.142e-06": lambda: _res("HT", "comp_orbit"),
-    "9.33": lambda: round(-math.log10(_res("DP", "F_res_over_delta")), 2),
-    "11.04": lambda: round(-math.log10(_res("HT", "F_res_over_delta")), 2),
-    "8.3": lambda: round(-math.log10(_res("DP", "F_res_envelope_over_delta")), 1),
-    "10.2": lambda: round(_res("DP", "CH3_scaling_envelope_flux")
-                          / _res("DP", "CH3_field_energy_flux"), 1),
-    "9%": lambda: round(100.0 * (_res("DP", "CH3_field_energy_flux")
-                                 / _res("DP", "CH1_retardation_flux") - 1.0)),
-    "65730.1": lambda: round(_res("DP", "a_over_rsat"), 1),
-    "2.31e-10": lambda: _res("DP", "dress_div_at_orbit_scale"),
-    "0.03286": lambda: round(_res("DP", "speed_angular_factor"), 5),
     "1.476625": lambda: P("constants/GM_sun_over_c2_km"),
     "299792.458": lambda: P("constants/c_km_s"),
-    "0.5173": lambda: round(P("dpb_subwall_reversion/"
-                              "moment_share_mA_over_M"), 4),
-    "0.0079": lambda: round(P("dpb_subwall_reversion/reverted_floor")[0], 4),
-    "0.0235": lambda: round(P("dpb_subwall_reversion/reverted_floor")[1], 4),
-    "9.429e-11": lambda: _res("HT", "F_res_envelope_over_delta"),
     "1.2489": lambda: round(_ns("DP_B", "mass_msun"), 4),
     # --- the CH-3 quadrature (the two-method receipt) ---
-    "0.20833183": lambda: _q("kappa"),
-    "0.312498": lambda: _q("moment_ratio_coefficient_1p5_kappa"),
-    "0.3125": lambda: round(_q("moment_ratio_coefficient_1p5_kappa"), 4),
-    "1.37e-06": lambda: _q("denominator_rel_err"),
-    "500": lambda: _q("n_mu"),
-    "1600": lambda: _q("n_r"),
-    # --- kinematics ---
     "878836.667": lambda: round(_res("DP", "kinematics/a_km"), 3)
     if False else round(P("residue_DP/kinematics/a_km"), 3),
     "1949032.097": lambda: round(P("residue_HT/kinematics/a_km"), 3),
@@ -145,20 +114,31 @@ REGISTERED = {
     "0.44%": lambda: round(100.0 * abs(
         _res("DP", "CH2_closed_vs_numeric_soft/numeric")
         / _res("DP", "CH2_closed_vs_numeric_soft/closed") - 1.0), 2),
-    # --- DP-B sub-wall reversion ---
+    # --- DP-B sub-wall reversion (superseded arithmetic; still shipped) ---
     "0.517": lambda: round(P("dpb_subwall_reversion/"
                              "moment_share_mA_over_M"), 3),
-    "60.5": lambda: round(P("dpb_subwall_reversion/"
+    # --- the RE-CUT verdict numerals (CH-0) ---
+    "0.032863": lambda: round(_res("DP", "CH0_enclosed_charge/flux"), 6),
+    "252.8": lambda: round(_res("DP", "CH0_enclosed_charge/flux_over_delta"), 1),
+    "20.5": lambda: round(_res("HT", "CH0_enclosed_charge/flux_over_delta"), 1),
+    "4.299e-10": lambda: _res("DP", "F_res_smooth_only_over_delta"),
+    "8.486e-12": lambda: _res("HT", "F_res_smooth_only_over_delta"),
+    "3.881e-14": lambda: _res("DP", "CH3_field_energy_flux"),
+    "9.429e-15": lambda: _res("HT", "CH3_field_energy_flux"),
+    "0.1666235": lambda: round(_q("kappa"), 7),
+    "2.59e-04": lambda: _q("kappa_rel_err_vs_exact"),
+    "3.75e-04": lambda: _q("denominator_rel_err"),
+    "31.3": lambda: round(P("dpb_subwall_reversion/"
                             "reverted_floor_over_deltaDP")[0], 1),
-    "181": lambda: round(P("dpb_subwall_reversion/"
-                           "reverted_floor_over_deltaDP")[1]),
+    "93.6": lambda: round(P("dpb_subwall_reversion/"
+                            "reverted_floor_over_deltaDP")[1], 1),
     # --- DIGEST CLASSIFIER (sha256 of the shipped file; cannot live inside) ---
-    "b168e7dc315e06d2b030b8599bdcedd43d6e5a3f6d0ae1f416d098667369c65f":
+    "0ab2b993cdd7d0fd60a34daa7761eaf51f84e98cafc922676f03598637ea4cd9":
         lambda: _digest(),
 }
 
 # --- MUST-APPEAR: the bin-conjunct numerals the verdict rests on -------------
-MUST_APPEAR = ["6.064e-14", "4.664e-10", "0.312498", "1.37e-06", "12.9088"]
+MUST_APPEAR = ["0.032863", "252.8", "20.5", "0.1666235", "12.9088"]
 
 # --- ALLOW-LIST: token -> reason (never silently ignored) --------------------
 ALLOWLIST = {
@@ -216,6 +196,36 @@ ALLOWLIST = {
     "40": "the superseded Branch-X estimate high end (quoted as replaced)",
     "95": "the DP bound confidence level (published import)",
     "2": "a channel/route ordinal",
+    # preserved pre-Tier-2 text (Rule 12) — superseded values, not live claims
+    **{k: "preserved pre-Tier-2 text (Rule 12); superseded by the re-cut — see addendum"
+       for k in ("6.064e-14","4.664e-10","1.473e-14","9.208e-12","6.209e-13",
+                  "4.776e-09","9.429e-11","1.3584e-06","6.6954e-07","9.33",
+                  "11.04","8.3","10.2","9%","0.20833183","0.312498","0.3125",
+                  "1.37e-06","5/24","5/16","60.5","181","0.0079","0.0235",
+                  "0.5173","65730.1","2.31e-10","0.03286")},
+    "3.20": "the Tier-2-reported method disagreement ratio (from the review record)",
+    "10.24": "the Tier-2-reported residue disagreement ratio (review record)",
+    "51/60": "mutation-coverage count (checker self-description)",
+    "1/6": "the exact closed-form kappa (rational)",
+    "1/4": "the exact (3/2)|kappa| (rational)",
+    "1/24": "the derived truncation-crescent artifact (rational)",
+    "+1/24": "the derived truncation-crescent artifact (rational)",
+    "80": "Tier-2 agent count (review record)",
+    "74": "Tier-2 raw finding count (review record)",
+    "46": "Tier-2 surviving finding count (review record)",
+    "20": "Tier-2 refuted count (review record)",
+    "6": "Tier-2 CRITICAL count (review record)",
+    "16": "Tier-2 MAJOR count (review record)",
+    "24": "Tier-2 MINOR count (review record)",
+    "8": "Tier-2 unverified count (review record)",
+    "0.032856": "kappa_env^2 quoted at 6 s.f. in the addendum (registered at 0.032863 rounding)",
+    "1.05": "the theta-ODE inner domain edge (a mesh parameter)",
+    "0.354": "the DEFECTIVE pre-repair kappa drift endpoint (defect symptom)",
+    "500": "the pre-repair quadrature mesh (preserved defect-exhibit text)",
+    "1600": "the pre-repair quadrature mesh (preserved defect-exhibit text)",
+    "1.4": "NICER anchor-mass range low end (import description)",
+    "2.08": "NICER anchor-mass range high end (import description)",
+    "0.2676": "flux share squared, superseded reversion (= 0.517^2, checked via 0.517)",
 }
 
 _TOKEN = re.compile(r"`([^`\n]+)`")
@@ -232,8 +242,9 @@ _CLASSES = [
      "a git object SHA"),
     (re.compile(r"^#\d+$"),
      "a pull-request number"),
-    (re.compile(r"^§?\d+(\.\d+)*[a-z]?$", re.I),
-     "a section / item number"),
+    (re.compile(r"^§\d+(\.\d+)*[a-z]?$", re.I),
+     "a section / item number (R-N-04 repair: the literal § is REQUIRED; "
+     "bare numerals fall through to the registered/allowlist scan)"),
     (re.compile(r"^:\d+(-\d+)?$"),
      "a file line or line-range citation"),
 ]

@@ -199,18 +199,24 @@ def residue(comp_key):
     mr = max(abs(mr_soft["moment_ratio"]), abs(mr_stiff["moment_ratio"]))
     ch2 = (2.0 * mr) ** 2 * speed_factor          # 2 stars, coherent worst case
 
-    # CH-3 interaction-energy (A1 field-energy) moment. METHOD (a), scaling:
-    # moment ratio ~ O(1) * G M_tot/(a c^2). METHOD (b), independent
-    # quadrature: the SAME ratio with its O(1) coefficient MEASURED
-    # (= 1.5*|kappa|). Both are shipped; the measured one is the derived
-    # number, the coefficient-1 scaling variant is the conservative envelope.
+    # CH-0 (Tier-2 repair): the enclosed-charge orbital quadrupole — the
+    # residue-setting channel. Moment ratio 1 by #767's receipted structure.
+    ch0 = ch0_enclosed_charge_channel(comp)
+
+    # CH-3 interaction-energy (A1 field-energy) EXTRA moment (the smooth
+    # field-energy distribution's own l=2 content, distinct from CH-0's
+    # source-charge term). METHOD (a): exact closed form kappa = 1/6
+    # ((3/2)|kappa| = 1/4). METHOD (b): independent midpoint-centered
+    # full-domain quadrature (reproduces 1/6; the defective mass-centered
+    # doubling that gave 5/24 is retained above as the disclosed exhibit).
     comp_orbit = (comp["m_p"] + comp["m_c"]) * GM_SUN_OVER_C2_KM / kin["a_km"]
-    quad = ch3_field_moment_quadrature(comp["m_p"], comp["m_c"])
-    coef = quad["moment_ratio_coefficient_1p5_kappa"]
+    quad = ch3_field_moment_quadrature_midpoint(comp["m_p"], comp["m_c"])
+    coef = quad["moment_ratio_coefficient_1p5_kappa"]   # = 1/4, exact-anchored
     ch3 = (coef * comp_orbit) ** 2 * speed_factor
     ch3_scaling_envelope = comp_orbit ** 2 * speed_factor
 
-    f_res = max(ch1, ch2, ch3)
+    f_res = max(ch0["flux"], ch1, ch2, ch3)
+    f_res_smooth_only = max(ch1, ch2, ch3)   # the pre-repair (defective) scope
     f_res_envelope = max(ch1, ch2, ch3_scaling_envelope)
     return {
         "kinematics": {k: float(v) for k, v in kin.items()},
@@ -226,12 +232,16 @@ def residue(comp_key):
             "numeric": float(mr_soft["moment_ratio"]),
             "closed": float(mr_soft["closed_form"]),
         },
+        "CH0_enclosed_charge": ch0,
         "CH3_field_energy_flux": float(ch3),
         "CH3_moment_ratio": float(coef * comp_orbit),
         "CH3_quadrature": quad,
         "CH3_scaling_envelope_flux": float(ch3_scaling_envelope),
         "F_res": float(f_res),
         "F_res_over_delta": float(f_res / comp["delta"]),
+        "F_res_smooth_only": float(f_res_smooth_only),
+        "F_res_smooth_only_over_delta": float(f_res_smooth_only
+                                              / comp["delta"]),
         "F_res_envelope": float(f_res_envelope),
         "F_res_envelope_over_delta": float(f_res_envelope / comp["delta"]),
         "delta": comp["delta"],
@@ -241,9 +251,103 @@ def residue(comp_key):
 
 # ----------------------------------------------------------------------------
 
-def ch3_field_moment_quadrature(m1, m2, n_mu=500, n_r=1600,
-                                r_max_over_d=100000.0):
-    """CH-3 SECOND METHOD (genuinely independent of the scaling argument).
+def ch0_enclosed_charge_channel(comp):
+    """CH-0 (Tier-2 PK-01/PK-02 repair): the ENCLOSED-CHARGE orbital
+    quadrupole. The exterior dress u0 = B/r^2 is a center of dilatation:
+    div u = 4*pi*B*delta^3(x) -- div-free in the exterior with NONZERO
+    enclosed compression charge (the Coulomb structure), measurable purely
+    on the cold side (surface flux at any r > r_sat). The compression-source
+    second moment is therefore the MOVING-CHARGE quadrupole q_a X_a X_a with
+    q_a proportional to m_a -- i.e. the orbital MATTER quadrupole, moment
+    ratio exactly 1 relative to the shear anchor (#767's receipted multipole
+    ladder: int x_i x_j div u = Q_ij, monopole/dipole conservation-killed,
+    quadrupole radiates). The seal (an AC-transmission statement at the wall)
+    does not screen it: per-star self-screening cannot cancel a two-body
+    quadrupole formed of two separated monopoles, and canon's deep-rail
+    measurement records the mass 'EXPLICITLY untouched by the image'.
+    Flux = kappa_env^2 = (2/3)(c_S/c_P)^5 -- the #919 uncaged partition
+    (anchored-floor structure; R24-contested anchor inherited)."""
+    speed_factor = A_ANG * (1.0 / C_P_OVER_C_S) ** 5
+    return {
+        "moment_ratio": 1.0,
+        "flux": float(speed_factor),
+        "flux_over_delta": float(speed_factor / comp["delta"]),
+        "flux_over_delta_sigma_form": float(speed_factor / comp["delta"]),
+    }
+
+
+def kappa_exact():
+    """CH-3 moment coefficient, EXACT closed form (Tier-2 R-N-01 repair).
+
+    grad A1 . grad A2 = (1/2) Lap(A1 A2) + 2*pi*(k2 A1 delta_2 + k1 A2 delta_1)
+    with W = z^2 - r^2/3 harmonic and the boundary terms vanishing (the
+    leading angular content of A1*A2*W has zero average), so
+      num = 2*pi*(k2 * A1(x2) * W(x2) + k1 * A2(x1) * W(x1))
+          = 2*pi * 2 * (k1 k2 / d) * (d^2/6) = (2*pi/3) k1 k2 d,
+      den = 4*pi*k1*k2/d,   kappa = num/(d^2 den) = 1/6 EXACTLY.
+    """
+    return 1.0 / 6.0
+
+
+def ch3_field_moment_quadrature_midpoint(m1, m2, n_mu=400, n_r=1200,
+                                         r_max_over_d=2000.0):
+    """CH-3 moment coefficient, INDEPENDENT numeric method: full-domain
+    quadrature on a MIDPOINT-centered ball (symmetric truncation).
+
+    Tier-2 R-N-01 (CONFIRMED CRITICAL): the original implementation doubled
+    the z>0 half evaluated on a MASS-1-centered truncated ball. The halves
+    are equal for the exact integral, but the mass-centered truncation
+    boundary is displaced d/2 from the symmetric one, and the crescent
+    between the two spheres contributes an R-INDEPENDENT artifact of exactly
+    +1/24 to kappa -- which is why the defective run 'converged' to the
+    clean rational 5/24 = 1/6 + 1/24. The midpoint-centered domain has no
+    crescent; kappa(R) -> 1/6 with the O(d^2/R^2) truncation tail only.
+    The defective implementation is retained below (renamed *_masscentered)
+    as the disclosed defect exhibit; it is not consumed.
+    """
+    d = 1.0
+    k1, k2 = 7.0 * m1, 7.0 * m2
+    mu_nodes, mu_w = np.polynomial.legendre.leggauss(n_mu)
+    s_nodes, s_w = np.polynomial.legendre.leggauss(n_r)
+    # log-graded radial map from the midpoint, r in (0, R]
+    R = r_max_over_d * d
+    L = math.log1p(R / (0.01 * d))
+    t = 0.5 * (s_nodes + 1.0)
+    r = 0.01 * d * np.expm1(L * t)
+    jac_r = 0.5 * L * 0.01 * d * np.exp(L * t) * s_w
+
+    num = 0.0
+    den = 0.0
+    for ri, wr in zip(r, jac_r):
+        r1sq = ri * ri - d * ri * mu_nodes + 0.25 * d * d
+        r2sq = ri * ri + d * ri * mu_nodes + 0.25 * d * d
+        g = k1 * k2 * (ri * ri - 0.25 * d * d) / (r1sq * r2sq) ** 1.5
+        W = ri * ri * (mu_nodes * mu_nodes - 1.0 / 3.0)
+        num += wr * np.sum(mu_w * g * W * ri * ri)
+        den += wr * np.sum(mu_w * g * ri * ri)
+    num *= 2.0 * math.pi
+    den *= 2.0 * math.pi
+    den_exact = 4.0 * math.pi * k1 * k2 / d
+    kappa = num / (den_exact * d * d)   # exact-den normalization
+    return {
+        "kappa": float(kappa),
+        "kappa_exact_closed_form": kappa_exact(),
+        "kappa_rel_err_vs_exact": float(abs(kappa / kappa_exact() - 1.0)),
+        "denominator_numeric": float(den),
+        "denominator_exact_4pi_k1k2_over_d": float(den_exact),
+        "denominator_rel_err": float(abs(den / den_exact - 1.0)),
+        "moment_ratio_coefficient_1p5_kappa": float(1.5 * abs(kappa_exact())),
+        "n_mu": n_mu, "n_r": n_r, "r_max_over_d": r_max_over_d,
+    }
+
+
+def ch3_field_moment_quadrature_masscentered_DEFECTIVE(
+        m1, m2, n_mu=500, n_r=1600, r_max_over_d=100000.0):
+    """RETAINED AS THE DISCLOSED DEFECT EXHIBIT (Tier-2 R-N-01) — NOT CONSUMED.
+
+    Doubles the z>0 half on a MASS-1-centered truncated ball. The truncation
+    crescent (displaced d/2 from the symmetric boundary) contributes exactly
+    +1/24 to kappa, so this converges to 5/24 instead of the true 1/6.
 
     Direct spatial quadrature of the l=2 (traceless zz) moment of the two-body
     A1-sector INTERACTION field-energy density, normalized by that density's
@@ -317,19 +421,23 @@ def ch3_field_moment_quadrature(m1, m2, n_mu=500, n_r=1600,
 
 
 def dpb_subwall_reversion():
-    """If DP-B is sub-wall (R_B > r_sat,B), its matter compression moment is
-    un-sealed and couples per the #919 uncaged structure. Moment share of the
-    orbital quadrupole re-sourced by B alone: m_B r_B^2 / (mu a^2) = m_A/M.
-    Reverted floor = share * [0.0152, 0.0455] (#919 uncaged bracket, cited as
-    the incumbent structure, R24-contested anchor)."""
+    """SUPERSEDED BY CH-0 (Tier-2 PK-01): under the repaired accounting the
+    enclosed-charge quadrupole fires on BOTH the walled and sub-wall branches,
+    so the walled/sub-wall asymmetry this function priced no longer moves the
+    verdict. Retained (with the Tier-2 R-N-09/FW-09 level-error repair: a
+    MOMENT share entering a FLUX bracket enters SQUARED) as the record of the
+    superseded conditional arithmetic. NOT verdict-consumed."""
     dp = COMPARATORS["DP"]
     m_a, m_b = dp["m_p"], dp["m_c"]
     share = m_a / (m_a + m_b)
-    lo, hi = 0.0152 * share, 0.0455 * share
+    share_sq = share * share
+    lo, hi = 0.0152 * share_sq, 0.0455 * share_sq
     return {
         "moment_share_mA_over_M": share,
+        "flux_share_squared": share_sq,
         "reverted_floor": [lo, hi],
         "reverted_floor_over_deltaDP": [lo / dp["delta"], hi / dp["delta"]],
+        "superseded_by": "CH0_enclosed_charge (fires on both branches)",
     }
 
 
