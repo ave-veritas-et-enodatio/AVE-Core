@@ -1,0 +1,312 @@
+{
+  "comparator": {
+    "delta_v_over_c_lower": -3e-15,
+    "delta_v_over_c_upper": 7e-16,
+    "f_low_hz_bracket": [
+      10.0,
+      30.0
+    ],
+    "f_low_hz_nominal": 20.0,
+    "luminosity_distance_mpc": 40.0,
+    "luminosity_distance_mpc_hi": 48.0,
+    "luminosity_distance_mpc_lo": 26.0,
+    "observed_delay_s": 1.74,
+    "paper_source": "LIGO/Virgo, Phys. Rev. Lett. 119 161101 (2017), arXiv:1710.05832",
+    "paper_timing": "LIGO/Virgo/Fermi-GBM/INTEGRAL, ApJL 848:L13 (2017), arXiv:1710.05834",
+    "total_mass_msun": 2.74
+  },
+  "constants_from_ave_core": {
+    "C_0": 299792458.0,
+    "G_VAC": 7.108877312298718e+23,
+    "HBAR": 1.054571817e-34,
+    "L_NODE": 3.8615926772428334e-13,
+    "M_E": 9.1093837015e-31,
+    "NU_VAC": 0.2857142857142857,
+    "RHO_BULK": 7909692.740007466,
+    "V_LONG": 423970560.00076646
+  },
+  "digest": "824f38e1c546bd7cefad3c618036847f545ecc27d7a3ff77f4ecb0f984630396",
+  "flagA_check": {
+    "V_LONG_over_C0": 1.414213562373095,
+    "christoffel_vL_over_c": 1.8257418583505538,
+    "they_differ": true
+  },
+  "lane": "LC-1 one-speed (multi-messenger)",
+  "legA_christoffel": {
+    "K_required_for_vL_equals_c": [
+      "-G/3"
+    ],
+    "gspec_fireability_is_through_christoffel_path": true,
+    "gspec_fireability_isotropic_control_distinct_count": 2,
+    "gspec_fireability_selftest_distinct_count": 3,
+    "gspec_fireability_selftest_zener": 1.4285714285714286,
+    "n_distinct_eigenvalues_at_K2G": {
+      "[100]": 2,
+      "[110]": 2,
+      "[111]": 2,
+      "[210]": 2,
+      "[321]": 2
+    },
+    "spectrum_over_G_at_K2G": {
+      "[100]": [
+        1.0,
+        3.333333333333
+      ],
+      "[110]": [
+        1.0,
+        3.333333333333
+      ],
+      "[111]": [
+        1.0,
+        3.333333333333
+      ],
+      "[210]": [
+        1.0,
+        3.333333333333
+      ],
+      "[321]": [
+        1.0,
+        3.333333333333
+      ]
+    },
+    "sqrt2_is_an_eigenvalue_at_K2G": false,
+    "superluminal_forced_by_G_alone": true,
+    "symbolic_eigenvalues_pretty": {
+      "-G*sqrt(4*n1**4 + 8*n1**2*n2**2 + 4*n1**2*n3**2 - 4*n1**2 + 4*n2**4 + 4*n2**2*n3**2 - 4*n2**2 + 1)/6 + 7*G/6 - K_bulk*sqrt(4*n1**4 + 8*n1**2*n2**2 + 4*n1**2*n3**2 - 4*n1**2 + 4*n2**4 + 4*n2**2*n3**2 - 4*n2**2 + 1)/2 + K_bulk/2": 1,
+      "G": 1,
+      "G*sqrt(4*n1**4 + 8*n1**2*n2**2 + 4*n1**2*n3**2 - 4*n1**2 + 4*n2**4 + 4*n2**2*n3**2 - 4*n2**2 + 1)/6 + 7*G/6 + K_bulk*sqrt(4*n1**4 + 8*n1**2*n2**2 + 4*n1**2*n3**2 - 4*n1**2 + 4*n2**4 + 4*n2**2*n3**2 - 4*n2**2 + 1)/2 + K_bulk/2": 1
+    },
+    "symbolic_eigenvalues_srepr": {
+      "Add(Mul(Integer(-1), Rational(1, 6), Symbol('G', positive=True), Pow(Add(Mul(Integer(4), Pow(Symbol('n1', real=True), Integer(4))), Mul(Integer(8), Pow(Symbol('n1', real=True), Integer(2)), Pow(Symbol('n2', real=True), Integer(2))), Mul(Integer(4), Pow(Symbol('n1', real=True), Integer(2)), Pow(Symbol('n3', real=True), Integer(2))), Mul(Integer(-1), Integer(4), Pow(Symbol('n1', real=True), Integer(2))), Mul(Integer(4), Pow(Symbol('n2', real=True), Integer(4))), Mul(Integer(4), Pow(Symbol('n2', real=True), Integer(2)), Pow(Symbol('n3', real=True), Integer(2))), Mul(Integer(-1), Integer(4), Pow(Symbol('n2', real=True), Integer(2))), Integer(1)), Rational(1, 2))), Mul(Rational(7, 6), Symbol('G', positive=True)), Mul(Integer(-1), Rational(1, 2), Symbol('K_bulk', positive=True), Pow(Add(Mul(Integer(4), Pow(Symbol('n1', real=True), Integer(4))), Mul(Integer(8), Pow(Symbol('n1', real=True), Integer(2)), Pow(Symbol('n2', real=True), Integer(2))), Mul(Integer(4), Pow(Symbol('n1', real=True), Integer(2)), Pow(Symbol('n3', real=True), Integer(2))), Mul(Integer(-1), Integer(4), Pow(Symbol('n1', real=True), Integer(2))), Mul(Integer(4), Pow(Symbol('n2', real=True), Integer(4))), Mul(Integer(4), Pow(Symbol('n2', real=True), Integer(2)), Pow(Symbol('n3', real=True), Integer(2))), Mul(Integer(-1), Integer(4), Pow(Symbol('n2', real=True), Integer(2))), Integer(1)), Rational(1, 2))), Mul(Rational(1, 2), Symbol('K_bulk', positive=True)))": 1,
+      "Add(Mul(Rational(1, 6), Symbol('G', positive=True), Pow(Add(Mul(Integer(4), Pow(Symbol('n1', real=True), Integer(4))), Mul(Integer(8), Pow(Symbol('n1', real=True), Integer(2)), Pow(Symbol('n2', real=True), Integer(2))), Mul(Integer(4), Pow(Symbol('n1', real=True), Integer(2)), Pow(Symbol('n3', real=True), Integer(2))), Mul(Integer(-1), Integer(4), Pow(Symbol('n1', real=True), Integer(2))), Mul(Integer(4), Pow(Symbol('n2', real=True), Integer(4))), Mul(Integer(4), Pow(Symbol('n2', real=True), Integer(2)), Pow(Symbol('n3', real=True), Integer(2))), Mul(Integer(-1), Integer(4), Pow(Symbol('n2', real=True), Integer(2))), Integer(1)), Rational(1, 2))), Mul(Rational(7, 6), Symbol('G', positive=True)), Mul(Rational(1, 2), Symbol('K_bulk', positive=True), Pow(Add(Mul(Integer(4), Pow(Symbol('n1', real=True), Integer(4))), Mul(Integer(8), Pow(Symbol('n1', real=True), Integer(2)), Pow(Symbol('n2', real=True), Integer(2))), Mul(Integer(4), Pow(Symbol('n1', real=True), Integer(2)), Pow(Symbol('n3', real=True), Integer(2))), Mul(Integer(-1), Integer(4), Pow(Symbol('n1', real=True), Integer(2))), Mul(Integer(4), Pow(Symbol('n2', real=True), Integer(4))), Mul(Integer(4), Pow(Symbol('n2', real=True), Integer(2)), Pow(Symbol('n3', real=True), Integer(2))), Mul(Integer(-1), Integer(4), Pow(Symbol('n2', real=True), Integer(2))), Integer(1)), Rational(1, 2))), Mul(Rational(1, 2), Symbol('K_bulk', positive=True)))": 1,
+      "Symbol('G', positive=True)": 1
+    },
+    "vL2_over_vT2_at_K2G": 3.3333333333333335,
+    "vL2_over_vT2_general_expr": "4/3 + K_bulk/G",
+    "vL_gt_vT_condition_expr": "G/3 + K_bulk",
+    "vL_over_c": 1.8257418583505538,
+    "vL_over_vT_at_K0_negative_control": 1.1547005383792517,
+    "vL_over_vT_at_K2G": 1.8257418583505538,
+    "vL_over_vT_floor_at_K_zero": 1.1547005383792515
+  },
+  "legB_poisson": {
+    "NU_VAC_from_constants": 0.2857142857142857,
+    "abs_diff": 0.0,
+    "nu_symbolic_at_K2G": "2/7",
+    "nu_value": 0.2857142857142857
+  },
+  "legC_micropolar_kp": {
+    "acoustic_branch_v2_coefficient": "G/rho",
+    "acoustic_branch_v2_minus_G_over_rho": "0",
+    "acoustic_unchanged_at_Gc_zero": true,
+    "acoustic_v2_at_Gc_zero": "G/rho",
+    "acoustic_v2_from_perp_operator": "G/rho",
+    "cancellation_exact": true,
+    "carrier_splitting": "G_c/rho",
+    "carrier_splitting_at_Gc_zero": "0",
+    "carrier_splitting_minus_Gc_over_rho": "0",
+    "carrier_v2_parallel": "2*gamma/I_omega",
+    "carrier_v2_perp": "G_c/rho + 2*gamma/I_omega",
+    "gap_at_Gc_zero": "0",
+    "gap_matches_corpus_m2": true,
+    "gap_minus_4Gc_over_Iomega": "0",
+    "gap_roots_at_k0": [
+      "0",
+      "4*G_c/I_omega"
+    ],
+    "gap_vanishes_at_Gc_zero": true,
+    "longitudinal_is_micropolar_decoupled": true,
+    "longitudinal_offdiagonal_coupling": "0",
+    "longitudinal_v2_expr": "(2*G + lambda_lame)/rho",
+    "optical_branch_gap_expr": "4*G_c/I_omega",
+    "splitting_reproduces_clm2bkp7v": true,
+    "splitting_vanishes_at_Gc_zero": true
+  },
+  "legD_combine_member": {
+    "S_at_cold": 1.0,
+    "member_insensitive": true,
+    "normalized_L2_kernel_at_S1": 1.0,
+    "vL_member_absdiff": 0.0,
+    "vL_normalizedL2_member": 547343639.3884003,
+    "vL_per_grade_member": 547343639.3884003,
+    "vT_member_absdiff": 0.0,
+    "vT_normalizedL2_member": 299792458.0,
+    "vT_per_grade_member": 299792458.0
+  },
+  "legE_arrival_kinematics": {
+    "band_bracket": {
+      "f_low=10.0": {
+        "decades_below_band": 4.594976701874511,
+        "f_low_hz": 10.0,
+        "in_band": false
+      },
+      "f_low=20.0": {
+        "decades_below_band": 4.896006697538493,
+        "f_low_hz": 20.0,
+        "in_band": false
+      },
+      "f_low=30.0": {
+        "decades_below_band": 5.072097956594174,
+        "f_low_hz": 30.0,
+        "in_band": false
+      }
+    },
+    "band_shortfall_factor_at_20hz": 78705.79273351967,
+    "chirp_bracket": {
+      "q=0.5": {
+        "f_gw_at_arrival_hz": 0.00026558619323211206,
+        "in_band_at_20hz": false,
+        "mchirp_msun": 1.1112788645249225
+      },
+      "q=0.6": {
+        "f_gw_at_arrival_hz": 0.000260335905132733,
+        "in_band_at_20hz": false,
+        "mchirp_msun": 1.1473537353091645
+      },
+      "q=0.75": {
+        "f_gw_at_arrival_hz": 0.00025608336276388273,
+        "in_band_at_20hz": false,
+        "mchirp_msun": 1.1779901592376194
+      },
+      "q=1.0": {
+        "f_gw_at_arrival_hz": 0.00025411090220151336,
+        "in_band_at_20hz": false,
+        "mchirp_msun": 1.19265427171569
+      }
+    },
+    "chirp_mass_msun_equal_mass": 1.19265427171569,
+    "decades_below_20hz": 4.896006697538493,
+    "distance_bracket": {
+      "D=26.0Mpc": {
+        "f_gw_at_arrival_hz": 0.0002986625641482756,
+        "in_band_at_20hz": false,
+        "retarded_offset_myr": 38.35342481544801
+      },
+      "D=40.0Mpc": {
+        "f_gw_at_arrival_hz": 0.00025411090220151336,
+        "in_band_at_20hz": false,
+        "retarded_offset_myr": 59.00526894684309
+      },
+      "D=48.0Mpc": {
+        "f_gw_at_arrival_hz": 0.00023731780939912256,
+        "in_band_at_20hz": false,
+        "retarded_offset_myr": 70.8063227362117
+      }
+    },
+    "gband_fireability_selftest": {
+      "f_low_hz": 1e-06,
+      "in_band": true
+    },
+    "nominal": {
+      "D_mpc": 40.0,
+      "f_gw_at_arrival_hz": 0.00025411090220151336,
+      "light_travel_time_myr": 130.46255108669735,
+      "light_travel_time_s": 4117085002173560.0,
+      "one_minus_c_over_v": 0.4522774424948339,
+      "retarded_offset_myr": 59.00526894684309,
+      "retarded_offset_s": 1862064675316895.5,
+      "v_over_c": 1.8257418583505538
+    },
+    "sqrt2_column_row": {
+      "D_mpc": 40.0,
+      "f_gw_at_arrival_hz": 0.00029907778268538246,
+      "light_travel_time_myr": 130.46255108669735,
+      "light_travel_time_s": 4117085002173560.0,
+      "one_minus_c_over_v": 0.29289321881345254,
+      "retarded_offset_myr": 38.21159652239727,
+      "retarded_offset_s": 1205866278415204.2,
+      "v_over_c": 1.4142135623730951
+    }
+  },
+  "legF_cosserat_margins": {
+    "drive_frequency_hz": 100.0,
+    "drive_over_gap": 4.0466498947022305e-19,
+    "drive_quantum_J": 6.62607014594008e-32,
+    "drive_quantum_eV": 4.135667694389856e-13,
+    "gap_energy_J": 1.6374211553647772e-13,
+    "gap_energy_MeV": 1.0219978999923285,
+    "gap_margin_sweep": {
+      "gap x0.25": {
+        "drive_over_gap": 1.6186599578808922e-18,
+        "gap_J": 4.093552888411943e-14,
+        "still_dead": true
+      },
+      "gap x0.5": {
+        "drive_over_gap": 8.093299789404461e-19,
+        "gap_J": 8.187105776823886e-14,
+        "still_dead": true
+      },
+      "gap x1.0": {
+        "drive_over_gap": 4.0466498947022305e-19,
+        "gap_J": 1.6374211553647772e-13,
+        "still_dead": true
+      },
+      "gap x2.0": {
+        "drive_over_gap": 2.0233249473511153e-19,
+        "gap_J": 3.2748423107295543e-13,
+        "still_dead": true
+      },
+      "gap x4.0": {
+        "drive_over_gap": 1.0116624736755576e-19,
+        "gap_J": 6.549684621459109e-13,
+        "still_dead": true
+      }
+    },
+    "log10_drive_over_gap": -18.39290436797714,
+    "log10_path_in_reaches": 36.504644074293445,
+    "over_determined": true,
+    "path_in_yukawa_reaches": 3.1962745316728043e+36,
+    "path_length_m": 1.234271032596547e+24,
+    "yukawa_reach_m": 3.8615926772428334e-13
+  },
+  "legG_srs_anisotropy_characterization_POST_FREEZE": {
+    "C11_C12_C44": [
+      0.7278554448844049,
+      0.49992695446387325,
+      0.1603680689301565
+    ],
+    "fastest_branch_exceeds_both_transverse_everywhere": true,
+    "high_symmetry_eigs": {
+      "[100]": [
+        0.1603680689301565,
+        0.1603680689301565,
+        0.7278554448844049
+      ],
+      "[110]": [
+        0.11396424521026585,
+        0.16036806893015648,
+        0.7742592686042955
+      ],
+      "[111]": [
+        0.12943218645022941,
+        0.12943218645022944,
+        0.7897272098442594
+      ]
+    },
+    "isotropic_ansatz_comparison_vL_over_vT": 1.8257418583505538,
+    "max_over_directions_vfast_over_vmid": 2.470116331498249,
+    "min_over_directions_vfast_over_vmid": 2.1304120885826254,
+    "min_over_directions_vfast_over_vslow": 2.1304120885826254,
+    "n_directions": 20006,
+    "source": "research/drivers/srs_twist_coefficient_results.json gate G2 (merged #890)",
+    "status": "REVIEW-FOLLOW-ON CHARACTERIZATION \u2014 adjudicates no frozen bin",
+    "worst_direction": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "worst_direction_eigs": [
+      0.1603680689301565,
+      0.1603680689301565,
+      0.7278554448844049
+    ],
+    "zener_A_of_this_member": 1.407178792210442
+  },
+  "prereg": "research/2026-08-06_lc1-one-speed_prereg-FROZEN.md",
+  "prereg_freeze_commit": "992bb5a60230e66f8dd9181d9b3942cdc2b89593",
+  "unit_definitions": {
+    "GM_SUN_m3_s2": 1.32712440018e+20,
+    "JULIAN_YEAR_s": 31557600.0,
+    "PARSEC_m": 3.085677581491367e+16
+  }
+}
