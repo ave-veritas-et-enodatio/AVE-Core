@@ -124,6 +124,11 @@ REGISTERED = {
     "4.299e-10": lambda: _res("DP", "F_res_smooth_only_over_delta"),
     "8.486e-12": lambda: _res("HT", "F_res_smooth_only_over_delta"),
     "3.881e-14": lambda: _res("DP", "CH3_field_energy_flux"),
+    # --- §2.2 table :140 correction (2026-08-09): the LIVE post-repair moment
+    # ratios, registered against the shipped JSON leaves (the pre-repair values
+    # remain allow-listed for the Rule-12 preserved sites only) ---
+    "1.0867e-06": lambda: _res("DP", "CH3_moment_ratio"),
+    "5.3564e-07": lambda: _res("HT", "CH3_moment_ratio"),
     "9.429e-15": lambda: _res("HT", "CH3_field_energy_flux"),
     "0.1666235": lambda: round(_q("kappa"), 7),
     "2.59e-04": lambda: _q("kappa_rel_err_vs_exact"),

@@ -137,7 +137,7 @@ Sub-wall-DP-B reversion arithmetic — **SUPERSEDED at Tier-2 (PK-01: CH-0 fires
 | `a` (km) | `878836.667` | `1949032.097` |
 | `β = v_rel/c` | `2.085e-03` | `1.464e-03` |
 | `GM_tot/(ac²)` | `4.347e-06` | `2.142e-06` |
-| CH-3 moment ratio (measured coefficient) | `1.3584e-06` | `6.6954e-07` |
+| CH-3 moment ratio (measured coefficient; corrected to the shipped JSON 2026-08-09 — the prior row carried the pre-κ-repair values, exactly (5/24)/(1/6) = 1.25× high) | `1.0867e-06` | `5.3564e-07` |
 | **CH-0 flux (RE-CUT residue-setter; enclosed-charge quadrupole)** | **`0.032863`** | **`0.032863`** |
 | **CH-0 `/δ`** | **`252.8`×** | **`20.5`σ** |
 | CH-1 flux (one-method scaling bound; smooth dress) | `5.588e-14` | `1.358e-14` |
