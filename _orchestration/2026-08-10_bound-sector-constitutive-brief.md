@@ -44,3 +44,18 @@ gate); regime/phase declarations; sector-ownership (A1 accounting vs the driver
 inventory); stencil-lens (the engine codes K — engine runs corroborate nothing);
 Rule 11; two-method receipts, named engines; the rotational fence-reach STOP; the
 create-on-append and measure-then-edit hygiene rules apply.
+
+---
+**DATED ADDENDUM (2026-08-10, pre-merge — the #935 verify's routed addition):**
+**Item (0), UPSTREAM of all four deliverables — the axiom-text contradiction.**
+`eq_axiom_3.tex:22` asserts the written form is "the standard Maxwell Lagrangian" —
+it is not (no A₀/scalar-potential term, hence no Gauss constraint exists in it);
+`:27` asserts U(1) gauge symmetry follows as a Noether consequence — the written form
+is not gauge-invariant (verified: |∂_t A|² is not invariant under A → A + ∇λ). This
+generates the fork the whole arc exposed: under the "standard Maxwell" READING, A_L
+is pure gauge and def-9a4f07/G-SCALAR-REAL is contradicted in the EM sector; under
+the LITERAL reading, A_L is a physical flat direction and the axiom's own labels are
+wrong. The corpus cannot straddle both. The lane's FIRST deliverable is the
+adjudicated repair proposal for this axiom text (which reading is the physics; what
+the corrected text says; the full consequence audit) — a Grant-ratification object.
+Items (i)-(iv) then build on whichever reading is ratified.
