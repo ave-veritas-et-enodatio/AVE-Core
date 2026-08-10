@@ -70,9 +70,9 @@ The direction of $\hat{\Omega}_{\text{freeze}}$ becomes the direction of bond bo
 
 ### Parent-BH spin axis $\hat{J}_{\text{parent}}$
 
-The parent-BH spin axis $\hat{J}_{\text{parent}}$ is identified with $\hat{\Omega}_{\text{freeze}}$ at the moment of K4 lattice genesis. Per `04_generative_cosmology.tex:405-413`:
+The parent-BH spin axis $\hat{J}_{\text{parent}}$ is identified with $\hat{\Omega}_{\text{freeze}}$ at the moment of K4 lattice genesis. Per `04_generative_cosmology.tex:405-413`: **🔴 SUPERSEDED 2026-08-07 (Rule 12 — body PRESERVED, not rewritten; Grant ruling R20, [`2026-08-07-rulings-f3-f5-f1.md`](../../../_orchestration/docket-entries/2026-08-07-rulings-f3-f5-f1.md)).** **The live relay is now the v2 entry in §6 below** — this entry and its quotation are kept for history and must not be cited as current. Two defects are frozen into the preserved text and are corrected in v2 rather than here: the span `04_generative_cosmology.tex:405-413` is wrong (the quoted passage runs `:483`–`:491`), and the quotation below carries the retired term `pre-geodesic plasma`, which R20 removes from live vocabulary.
 
-> "A spinning black hole is not a floating blob in nothing — it sits in its own embedding lattice (the parent lattice) and imparts bulk strain on it via frame-dragging... Per Vol 3 Ch 21 we sit inside our parent BH's Schwarzschild radius (cosmic horizon $R_H$ = parent BH's $r_s$). The parent BH's spin imparts strain on the parent lattice; this strain extends inside its own event horizon (Kerr interior frame-dragging continues); the inside region is our universe's pre-crystallization phase (supercooled pre-geodesic plasma)."
+> "A spinning black hole is not a floating blob in nothing — it sits in its own embedding lattice (the parent lattice) and imparts bulk strain on it via frame-dragging... Per Vol 3 Ch 21 we sit inside our parent BH's Schwarzschild radius (cosmic horizon $R_H$ = parent BH's $r_s$). The parent BH's spin imparts strain on the parent lattice; this strain extends inside its own event horizon (Kerr interior frame-dragging continues); the inside region is our universe's pre-crystallization phase (supercooled pre-geodesic plasma)." *(**⚑ Vocabulary currency, 2026-08-06 — the quoted block above is PRESERVED VERBATIM and is NOT renamed.** Under R9 the phase it names is the **pre-bond state** (gloss *pre-geodesic*): the primordial parent medium that never bonded, as against the **de-bonded state** of a BH interior, which bonded once and was released. "Plasma" is retired as a vocabulary leak of the retired-"amorphous" class — it imports free-charge/Debye theorems underived here. **This quotation is the canonical anchor several leaves cite by line, and it relays print text at `manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex`:491, so renaming inside it would falsify a quotation chain to fix a word. Recorded, not rewritten.**)* **🔴 SUPERSEDED 2026-08-07 (R20) — do not quote this block. The current text is quoted in §6 below.** Preserved verbatim as the pre-R20 relay; the print sentence it relayed has itself been renamed at `manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex`:491, which now reads *"pre-crystallization phase (supercooled pre-bond state)"*.
 
 Per [`universal-saturation-kernel-catalog.md:101`](universal-saturation-kernel-catalog.md):
 
@@ -151,6 +151,29 @@ These two velocity predictions have DIFFERENT scoping and are not interchangeabl
 - $\alpha c / (2\pi) \approx 348$ km/s: equilibrium velocity floor for LSR-class kinematics; zero-parameter Hoop-Stress-2π projection; LSR-population-statistical prediction.
 
 The 9% gap between the two (LSR cluster median 375 km/s observed vs $\alpha c / 2\pi$ prediction) reflects LSR participation in CMB-dipole-aligned cosmic flow (Local Group → Great Attractor), not a contradiction between the two predictions.
+
+## §6 — Parent-BH spin axis relay, **v2** (2026-08-07 — R20 re-anchor)
+
+Dated re-issue of the §2 *Parent-BH spin axis* relay, which is struck-with-pointer above (Rule 12, body
+preserved). Ruled at
+[`2026-08-07-rulings-f3-f5-f1.md`](../../../_orchestration/docket-entries/2026-08-07-rulings-f3-f5-f1.md)
+(R20), Grant verbatim — *"I think we might want the full term 'pre-geodesic plasma' fully removed right?"*.
+**This is the live anchor. Cite this block, not the struck one.** It supersedes the glossed-quotation carve
+shipped in PR #915, which preserved the old print wording so this chain would stay verbatim; R20 re-anchors
+the chain instead, so the print origin is renamed and the relay re-quotes it.
+
+Per [`04_generative_cosmology.tex:483-491`](../../vol_3_macroscopic/chapters/04_generative_cosmology.tex)
+— span re-derived at this commit, two methods (`grep -n "floating blob"` → `:484`; explicit line read of
+`:483`–`:491`), because the struck entry's `:405-413` was wrong:
+
+> "A spinning black hole is not a floating blob in nothing — it sits in its own embedding lattice (the parent lattice) and imparts bulk strain on it via frame-dragging... Per Vol 3 Ch 21 we sit inside our parent BH's Schwarzschild radius (cosmic horizon $R_H$ = parent BH's $r_s$). The parent BH's spin imparts strain on the parent lattice; this strain extends inside its own event horizon (Kerr interior frame-dragging continues); the inside region is our universe's pre-crystallization phase (supercooled **pre-bond state**)."
+
+**What changed and what did not.** Exactly one noun phrase moved: *pre-geodesic plasma* → **pre-bond state**
+(R9 vocabulary, R20 removal). No physics claim, no direction, no identification changes — $\hat{J}_{\text{parent}}$
+is still identified with $\hat{\Omega}_{\text{freeze}}$ at K4 lattice genesis, and the empirical-inference
+caveat at §2 still governs. **History split, carried at the anchor:** this phase is **pre-bond** — the
+primordial parent medium that never bonded — as against the **de-bonded** state of a BH interior, which bonded
+once and was released.
 
 ## Cross-references
 

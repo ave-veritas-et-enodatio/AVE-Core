@@ -125,3 +125,30 @@ systems are typically FRAGILE (measure-zero-adjacent, chaotic separatrix layers)
 vacuum-stable global lock needs the island to be LARGE and the capture generic; that
 is a derivation obligation, not a given. Routing: rides E1/E3 (the residence and
 phase-register lanes); the translation-circuit row stays QUEUED until audited.
+
+---
+## §9 DATED ADDENDUM (2026-08-06 late) — the static-bias walk: clocks, compression, and the pitch lean (⚑ UN-AUDITED)
+
+Ruling record: `2026-08-06-rulings-sourcing-go-pitch-walk.md` R19 (Grant's walk
+verbatim there). The physics, in the register:
+
+- **Name the clock.** A static saturation bias is a time-invariant medium ⇒ the
+  propagating wave's ω is conserved in the global frame. What down-regulates is the
+  LOCAL node clock — the varactor tank's own resonance drops as saturation loads its
+  C. Gravitational redshift = the unchanged wave measured against the slowed local
+  clock. "Same energy, frequency down-regulates" — both true once the reference is
+  declared (vocab-cage: "frequency" without a named clock is under-specified).
+- **Optical compression is real and spatial.** v drops in the biased region ⇒ λ
+  shortens ⇒ the wave packs into fewer metres — the photon-past-a-black-hole picture.
+  A SOLITON re-equilibrates smaller (its size is the local dispersion balance) and its
+  own dress adds to the bias (the two-way back-reaction, engine-landed).
+- **The pitch lean (Grant, LEAN not ruling):** the rotor moment j is a NODE property;
+  strain is a BOND deformation; arrangement load does not re-machine the substance's
+  grain. Nodes stay the same; waves/solitons get smaller. If derived, j(ℓ) never
+  arises and the #914 pitch channel (the last b>0 door) closes. Routed: the residence
+  lane derives; counter-arm: canon currently defines NO j(ℓ) law either way
+  (absence-of-coverage, #914 P-I4 zero hits) — the lean is exactly the kind of
+  seductive-clean statement the lab exists to test.
+- **The quaternion bulk-scalar thread (Grant):** the V-sector scalar (the "3") is the
+  natural home of the static bias a passing wave reads — links this walk to the
+  A1-port sourcing lane (R18); context there, not receipt.

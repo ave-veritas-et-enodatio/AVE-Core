@@ -29,7 +29,7 @@ The chapter content is **Class B/C synthesis** per `consistency-vs-emergence` v1
 | [`vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md`](../../vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md) (`clm-5zuo7g`, `clm-q8un7j`) | $l_c = \sqrt{\gamma_c / G_{vac}}$ weak-force range; $W/Z$ evanescent cutoff masses; $m_W/m_Z = \sqrt{7}/3$ |
 | [`common/appendix-derived-numerology.md`](../../common/appendix-derived-numerology.md) (`clm-zi6t1e`) | Derived hardware numerology incl. $\nu_{vac} = 2/7$, $K = 2G$ at $p^* = 8\pi\alpha$, $n_{3D} = 38/21$ |
 | [`common/translation-tables/translation-circuit.md`](../../common/translation-tables/translation-circuit.md) (`clm-eemap1`) | EE-substrate-native META framework + comprehensive substrate-primitive-to-EE-component mapping table |
-| [`common/trampoline-framework.md`](../../common/trampoline-framework.md) line 188 | Cosserat rotation-sector mass-gap $m_\omega \sim 1$ MeV (consequence for Ch.10) |
+| [`common/trampoline-framework.md`](../../common/trampoline-framework.md) line 192 | Cosserat rotation-sector mass-gap $m_\omega \sim 1$ MeV (consequence for Ch.10) |
 | [`vol9/ch3-pin-port-configuration/device-circuit-models.md`](../ch3-pin-port-configuration/device-circuit-models.md):143-149 | Node-model channel tags: bulk = MASS-"3"/A1 dilatation ($Z_{bulk}$), shear = CHARGE-"3"/Cosserat micro-rotation ($Z_{shear}$), EM = matched radiative PORT ($Z_0$, $\Gamma_{EM} = 0$); $A1 \perp T2$ orthogonality fence |
 | `src/ave/core/constants.py` | symbols `NU_VAC`, `RHO_BULK`, `G_VAC`, `V_LONG`, `XI_TOPO`, `P_C`, `L_NODE` (symbol-name cites; line numbers unstable across renumbers) |
 

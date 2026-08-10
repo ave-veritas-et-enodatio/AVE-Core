@@ -404,6 +404,50 @@ whole row. So: **do not park a live cite on the same line as a provenance SHA**
 if you want it checked. Measured cost and precision, with worked instances, in
 §5 of `_orchestration/docket-entries/2026-08-05-cite-rot-line-existence.md`.
 
+### Author-declared pin marker — the forward convention (2026-08-06)
+
+Ruled at `_orchestration/docket-entries/2026-08-06-rulings-decision-batch.md`:24
+(R2) — *"no line-scoped regex can say which cite a row-level SHA pins"*. The
+heuristic above is not repairable in place, because the thing it is missing is
+not a better pattern but an **author declaration**. This section is the
+declaration's form. **Convention text only — the checker still reads the
+bare-SHA heuristic; the gate re-key is a separate follow-on (below).**
+
+**Form.** A deliberately-historical cite carries the marker
+`` pin:`<short-sha>` `` immediately after the location cite it pins:
+
+```markdown
+per `some-leaf.md:42` pin:`c4a546dc` — *"the sentence that line carried then"*
+```
+
+**Scope rule — this is the whole content of the change.** The marker pins
+exactly ONE cite: the nearest location cite to its **left** on the same line. A
+ledger row carrying three live cites and one historical cite marks only the
+historical one, and the other three stay checked. Repeat the marker if a row
+pins two.
+
+**Grammar.** `` pin:`[0-9a-f]{7,40}` ``. Verified **0 prior corpus hits** at
+`d129e7ac`, two methods (a fixed-string `git grep -F` for the four-character
+opener, and an independent `grep -r` over `*.md` / `*.tex` / `*.py` — the
+grep-completeness cross-check, because a single scan method inherits its own
+false-negative), so a migration sweep can separate
+marked from unmarked without re-introducing a heuristic. The marker embeds the
+same backticked SHA the current rule keys on, so a marked cite is exempt under
+**both** the old rule and the new one — the migration needs no flag day.
+
+**Grandfathering.** The KB line-cites currently exempted by a bare
+SHA-on-the-line keep their exemption until migrated — they are *unmarked*, not
+wrong. Population as measured on a pristine checkout of `d5a1b06b`:
+`manuscript/ave-kb/tools/verify-md-links.py`:465 — `96 KB line-cites sit on a
+SHA-bearing line (3.6% of the KB's 2,681),` (of which `85 are actually exempted
+here`, `:466`).
+
+**Exemption re-key — SEPARATE follow-on, deliberately NOT done here.** Once the
+grandfathered set carries markers, `_HISTORICAL_PIN_RE` re-keys from the
+line-scoped `` `[0-9a-f]{7,40}` `` to the cite-scoped marker, and the bare-SHA
+exemption retires. That is a checker edit; writing the convention first is what
+makes the sweep mechanical rather than a judgement call per row.
+
 ---
 
 ## Adding New Content
@@ -438,6 +482,33 @@ Must return zero hits. All resultbox environments must use the blockquote format
 grep -r 'leaf: placeholder' ave-kb/
 ```
 Must return zero hits. Placeholder leaves must be replaced with verbatim content before a document is considered complete.
+
+### Frozen-record probes and self-declared pins (2026-08-06)
+
+Two standing reader's rules for any edit to a frozen record that a driver reads
+under a byte-integrity check. Both are ruled at
+`_orchestration/docket-entries/2026-08-06-rulings-final-batch.md`:29 (R14) —
+*"Two lines for CONVENTIONS"*; neither adds machinery.
+
+1. **Probes protect BYTES and NAMED VERDICTS, not CLAIMS.** A subsequence check
+   plus a hand-chosen set of literal probes fixes the strings it was given and
+   nothing else. It cannot notice that a sentence *around* those strings now
+   asserts something different. So a reviewer of any frozen-record edit checks
+   **that the probe list covers the verdict the edit touches** — if the edit
+   moves a verdict no probe names, the probe suite passing is not evidence.
+2. **A self-declared commit pin is nailed only by its artifact roster.** A
+   `V1_PIN_COMMIT`-class constant (`research/drivers/approach_leak_v2.py`:76 —
+   `V1_PIN_COMMIT = "f3607be8"`) is compared against a commit the driver itself
+   names, so moving the pin forward past a drift is self-consistent by
+   construction. What catches it is the roster of artifacts the pin is checked
+   over (`READ_ONLY_ARTIFACTS`, `:165`) and the probes on their contents —
+   nothing else in the chain can.
+
+**Addition, 2026-08-07 (R26).** Rule-12 preserved bodies keep their pointers pinned
+to the preserved history entry; live prose follows renames. Ruled at
+[`_orchestration/docket-entries/2026-08-07-rulings-r23-r27.md`](../../_orchestration/docket-entries/2026-08-07-rulings-r23-r27.md):41-42
+— *"Rule-12 preserved bodies keep their pointers pinned to the preserved history
+entry; live prose follows renames."* (Grant: *"rec."*).
 
 ---
 

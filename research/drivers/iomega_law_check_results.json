@@ -1,0 +1,91 @@
+{
+ "_runtime_sec": 0.053,
+ "branches": [
+  {
+   "antecedent": "link L-A resolves to the wall-specific carve-out OR link L-B resolves negatively (the graded per-node mu_eff is NOT the gap's kinetic coefficient); own-rate channels empty at the static bias",
+   "b": "0",
+   "cold_point_pin_preserved": true,
+   "knife_rows": [
+    {
+     "a": "1",
+     "bin": "GAP-CLOSED",
+     "engines_agree": true,
+     "p": "1/2"
+    },
+    {
+     "a": "2",
+     "bin": "GAP-CLOSED",
+     "engines_agree": true,
+     "p": "1"
+    }
+   ],
+   "name": "ARM-0 (carve-out governs, or disidentification)"
+  },
+  {
+   "antecedent": "link L-A resolves to the W6 Symmetric-Gravity voice AND link L-B resolves positively (mu_eff IS the gap's kinetic coefficient, via the unstated xi_topo^2 bridge) — the E-073-prescribed downward direction",
+   "b": "-1",
+   "cold_point_pin_preserved": true,
+   "knife_rows": [
+    {
+     "a": "1",
+     "bin": "NOT-A-FROZEN-MEMBER (below every member)",
+     "engines_agree": true,
+     "p": "0"
+    },
+    {
+     "a": "2",
+     "bin": "GAP-CLOSED",
+     "engines_agree": true,
+     "p": "1/2"
+    }
+   ],
+   "name": "ARM-1 (SYM loading AND identification)"
+  }
+ ],
+ "digest_excluding_runtime": "4f62b598527e3704",
+ "excluded_chain": {
+  "b": "3",
+  "knife_rows": [
+   {
+    "a": "1",
+    "bin": "CHANNEL-OPENS",
+    "engines_agree": true,
+    "p": "2"
+   },
+   {
+    "a": "2",
+    "bin": "CHANNEL-OPENS",
+    "engines_agree": true,
+    "p": "5/2"
+   }
+  ],
+  "name": "CH-R-TRANSFER (excluded from receipted structure)"
+ },
+ "gates": {
+  "FT-A008": {
+   "fires": true
+  },
+  "FT-KNIFE": {
+   "b3_bins": [
+    "CHANNEL-OPENS",
+    "CHANNEL-OPENS"
+   ],
+   "fires": true
+  },
+  "FT-PAIR": {
+   "fires": true
+  },
+  "G-A008-COLD": {
+   "all_branches_preserve_pin": true,
+   "pass": true
+  },
+  "G-KNIFE-ARITH": {
+   "all_engine_pairs_agree": true,
+   "pass": true
+  },
+  "G-PAIR": {
+   "pass": true,
+   "residual_zero": true
+  }
+ }
+}

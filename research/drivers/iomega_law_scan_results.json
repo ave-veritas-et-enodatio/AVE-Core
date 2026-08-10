@@ -1,0 +1,826 @@
+{
+ "_runtime_sec": 103.758,
+ "digest_excluding_runtime": "e7df3fe5f8ffe288",
+ "gates": {
+  "FT-SCAN": {
+   "absent_counts": [
+    0,
+    0
+   ],
+   "fires": true,
+   "present_counts": [
+    2,
+    2
+   ],
+   "present_sets_identical": true
+  },
+  "G-NC-P34": {
+   "P3_byte_identical": true,
+   "P4_byte_identical": true,
+   "pass": true,
+   "v1_P3_extracted": "I_\\\\?omega\\s*\\(\\s*A\\s*\\)|I_\\{?\\\\?omega\\}?\\s*\\(\\s*A\\s*\\)",
+   "v1_P4_extracted": "(I_\\\\?omega|micro.?inertia)[^\\n]{0,40}(S\\^|/\\s*S|S\\(A\\))"
+  },
+  "G-SCAN": {
+   "all_patterns_agree": true,
+   "pass": true
+  }
+ },
+ "meta": {
+  "binary_or_undecodable_skipped": 674,
+  "engine_method_a": "git grep -P (PCRE2), git version 2.39.5 (Apple Git-154)",
+  "engine_method_b": "CPython re, Python 3.11.15",
+  "scan_pin": "d129e7ac35d50aaaccca3a635fe3cf3b2b40a271",
+  "sentinel_absent_choice": "IOMEGA_SENTINEL_ABSENT_2026_08_06",
+  "sentinel_present_choice": "Topo-Relativistic Impedance Divergence",
+  "tracked_blob_count": 5075
+ },
+ "patterns": {
+  "P-CAT": {
+   "hits_union": [],
+   "method_a_hits": 0,
+   "method_b_hits": 0,
+   "methods_agree": true,
+   "purpose": "inertial row in the A-034 catalog",
+   "regex": "(inerti|kinetic|mass densit)[^\\n]{0,60}(S\\(A\\)|√\\(1|\\\\sqrt\\{1|kernel)",
+   "scope": "manuscript/ave-kb/common/universal-saturation-kernel-catalog.md"
+  },
+  "P-I3a": {
+   "hits_union": [
+    [
+     "research/_archive/L3_electron_soliton/76_lattice_to_axiom3_bridge.md",
+     219,
+     "**Diag A's \"Mode I per pre-reg\" verdict stands** (sub-percent at corpus amplitudes), but the reading deepens: Diag A measured the engine's PARTIAL realization of Ax 4's c_eff = c_0·√S prediction. **Full Ax 4 implementation (per doc 75_'s prescription ρ → ρ·S, I_ω → I_ω·S) would produce stronger amplitude dependence**, and Diag A would land Mode II (drift > 5%) at a fully Ax-4-honoring engine."
+    ],
+    [
+     "research/_archive/L3_electron_soliton/76_lattice_to_axiom3_bridge.md",
+     255,
+     "Doc 75_ prescribed `ρ → ρ·S`, `I_ω → I_ω·S` to make T_kinetic saturate alongside V_potential. **This doc identifies the same fix as the lattice-level realization of Ax 4's `c_eff = c_0·√S` prediction.** The engine's current asymmetric saturation (V·S, T·1) under-realizes Ax 4 — partial wave-speed scaling. Doc 75_'s fix makes c_eff actually equal Ax 4's prediction at the lattice level."
+    ],
+    [
+     "research/_archive/L3_electron_soliton/77_lattice_to_axiom4_bridge.md",
+     133,
+     "**Diag A's \"Mode I per pre-reg\" verdict stands** (sub-percent at corpus amplitudes), but the reading deepens: **Diag A measured the engine's PARTIAL realization of Ax 4's c_eff = c_0·√S prediction.** Full Ax 4 implementation (per doc 75_'s prescription ρ → ρ·S, I_ω → I_ω·S) would produce stronger amplitude dependence; Diag A would land Mode II (drift > 5%) at a fully Ax-4-honoring engine."
+    ],
+    [
+     "research/_archive/L3_electron_soliton/77_lattice_to_axiom4_bridge.md",
+     167,
+     "Doc 75_ prescribed `ρ → ρ·S`, `I_ω → I_ω·S` to make T_kinetic saturate alongside V_potential. **Under Scheme A, this fix is the lattice-level realization of Ax 4's `c_eff = c_0·√S` prediction.** The engine's current asymmetric saturation (V·S, T·1) under-realizes Ax 4 — partial wave-speed scaling. Doc 75_'s fix makes c_eff actually equal Ax 4's prediction at the lattice level."
+    ],
+    [
+     "research/_archive/L3_electron_soliton/79_l3_branch_closure_synthesis.md",
+     572,
+     "- ρ → ρ·S, I_ω → I_ω·S in cosserat_field_3d.py (per doc 75 §6.3)"
+    ],
+    [
+     "research/_archive/L3_electron_soliton/VACUUM_ENGINE_MANUAL.md",
+     42,
+     "2. **Cosserat energy conservation violation** (Move 11 + Diag A; [doc 75_](75_cosserat_energy_conservation_violation.md)): H_cos drift 5.5% + ρ(T_cos, V_cos) = +0.366 (positive Pearson trading, NOT LC reactance signature). Diag A traced the V·S vs T·1 saturation asymmetry — Cosserat code saturates V_potential (G·S, K·S, G_c·S) but leaves T_kinetic unmodulated (ρ, I_ω constants); ½LI² and ½CV² don't co-saturate; total energy isn't conserved; ω drifts as a consequence. **Engine bug, not missing axiom** (A44 missing-axiom-vs-engine-bug diagnostic; one-sentence Grant collapse: \"this is our conservation of energy axiom. rest mass saturates L, propagation saturates C\"). **Engine fix specified at doc 75_ §6.3:** T_kinetic gets the same Op14 S factor (ρ → ρ·S, I_ω → I_ω·S). Per Diag A the asymmetry is **empirically negligible at relevant amplitudes** — the fix is housekeeping not load-bearing for the Mode III statement. Will land as r8.10 once committed."
+    ],
+    [
+     "research/_archive/L3_electron_soliton/VACUUM_ENGINE_MANUAL.md",
+     60,
+     "- **r8.10:** Engine fix per [doc 75_ §6.3](75_cosserat_energy_conservation_violation.md) — T_kinetic gets the same Op14 S factor (ρ → ρ·S, I_ω → I_ω·S). Closes the energy-conservation violation surfaced by Move 11. Housekeeping (per Diag A: empirically negligible at relevant amplitudes; doesn't flip the Mode III statement)."
+    ],
+    [
+     "research/_archive/L3_electron_soliton/VACUUM_ENGINE_MANUAL.md",
+     1833,
+     "| Round 8 Diag A — Cosserat wave-speed amplitude dependence | ✅ RAN 2026-04-26 (commits `36d6e0d`, `bfc58d8`, `391a3b5`) — Mode I per pre-reg: V·S vs T·1 asymmetry is REAL but EMPIRICALLY NEGLIGIBLE at relevant amplitudes | P_ax5_cosserat_wave_speed_amplitude_dependence | A=6 integrator-cliff is separate from V·S/T·1 asymmetry; Diag C source audit + Move 11b's already-measured Pearson matrix close the Move 11 H_cos drift question (Op14 trading, not missing physics). Doc 75_ §6.3 engine fix specified: T_kinetic gets the same Op14 S factor (ρ → ρ·S, I_ω → I_ω·S). |"
+    ],
+    [
+     "research/_archive/L3_electron_soliton/VACUUM_ENGINE_MANUAL.md",
+     1836,
+     "| Doc 75_ Cosserat energy conservation violation finding | ✅ RAN 2026-04-26-27 — Engine bug, not missing axiom (A44 collapse) | doc 75_ §1-§11 + §6.3 fix spec | Move 11 + Diag A traced the V·S vs T·1 saturation asymmetry — Cosserat code saturates V_potential (G·S, K·S, G_c·S) but leaves T_kinetic unmodulated (ρ, I_ω constants); ½LI² and ½CV² don't co-saturate; total energy isn't conserved; ω drifts as a consequence. **Engine bug, not missing axiom** (Grant collapse: \"this is our conservation of energy axiom. rest mass saturates L, propagation saturates C\"). Engine fix specified at §6.3: T_kinetic gets the same Op14 S factor (ρ → ρ·S, I_ω → I_ω·S). Per Diag A asymmetry is empirically negligible at relevant amplitudes — fix is housekeeping not load-bearing. |"
+    ],
+    [
+     "research/_archive/L3_electron_soliton/VACUUM_ENGINE_MANUAL.md",
+     1839,
+     "| **Engine fix r8.10 (housekeeping)** | 🔄 PENDING — implementer commit | ~1 fresh session | Apply doc 75_ §6.3 T_kinetic Op14 saturation: `ρ → ρ·S`, `I_ω → I_ω·S`. Closes energy-conservation violation surfaced by Move 11. Per Diag A empirically negligible at relevant amplitudes — fix forecloses \"did the engine fully honor Ax 4?\" objection on closure doc but doesn't flip Mode III statement. r8.10 manual update will mark r8.9-pending engine fix as committed. |"
+    ],
+    [
+     "research/_archive/L3_electron_soliton/VACUUM_ENGINE_MANUAL.md",
+     2240,
+     "- [75_cosserat_energy_conservation_violation.md](75_cosserat_energy_conservation_violation.md) — **NEW r8.9.** Cosserat energy conservation violation finding from Move 11 + Diag A. §1-§5 Move 11 H_cos drift 5.5% + ρ(T_cos, V_cos)=+0.366 (positive Pearson trading, NOT LC reactance signature) traced via Diag A: V·S vs T·1 saturation asymmetry — Cosserat code saturates V_potential (G·S, K·S, G_c·S) but leaves T_kinetic unmodulated (ρ, I_ω constants); ½LI² and ½CV² don't co-saturate; total energy isn't conserved; ω drifts as a consequence. **§6 Engine bug, not missing axiom (A44 missing-axiom-vs-engine-bug diagnostic; one-sentence Grant collapse: \"this is our conservation of energy axiom. rest mass saturates L, propagation saturates C\").** §6.3 engine fix specified: T_kinetic gets the same Op14 S factor (ρ → ρ·S, I_ω → I_ω·S). §7 Diag A confirmed asymmetry empirically negligible at relevant amplitudes (Mode I per pre-reg). §8-§10 photon-tail dual-seed (path a) Mode III 0/4 + propagating-IC (path b) Mode III near-identical to (a). §11 Round 8 photon-tail branch closure + A57 (C4 informational vs C1/C2/C3 binary framing) + A58 (path-(a)/path-(b) empirical equivalence). Framing-error pass per `69fd974` corrected \"Ax 3 = energy conservation\" → \"Ax 4 asymmetric L/C, Noether-broken energy conservation\" per axiom homologation."
+    ],
+    [
+     "src/scripts/_archive/r8_diag_a_cosserat_wave_speed.py",
+     245,
+     "                f\"add S factor to T_kinetic via ρ → ρ·S, I_ω → I_ω·S. \""
+    ],
+    [
+     "src/scripts/vol_1_foundations/r8_diag_a_cosserat_wave_speed.py",
+     257,
+     "                f\"add S factor to T_kinetic via ρ → ρ·S, I_ω → I_ω·S. \""
+    ],
+    [
+     "src/tests/test_thermal_equipartition.py",
+     336,
+     "        \"\"\"σ_ω = √(T·1.14 / (4π²·I_ω)); doubling I_ω → σ_ω by 1/√2.\"\"\""
+    ]
+   ],
+   "method_a_hits": 14,
+   "method_b_hits": 14,
+   "methods_agree": true,
+   "purpose": "archive Unicode prescription-arrow form (I_omega -> I_omega*S)",
+   "regex": "I_ω\\s*(→|->)",
+   "scope": null
+  },
+  "P-I3b": {
+   "hits_union": [
+    [
+     "research/2026-08-05_approach-leak_prereg-FROZEN.md",
+     191,
+     "Let `G_c^eff(r) = G_c·S(r)^a` and `I_ω^eff(r) = I_ω·S(r)^{−b}`. Then"
+    ],
+    [
+     "research/_archive/L3_electron_soliton/75_cosserat_energy_conservation_violation.md",
+     148,
+     "Per pre-reg Mode I, the fix described in §4 of the original [plan](../../.claude/plans/yes-bring-notes-up-binary-giraffe.md) (`T = ½·(ρ·S)·|u̇|² + ½·(I_ω·S)·|ω̇|²` with corresponding integrator update) is NOT applied in this commit. The asymmetry is structural and worth fixing for cleanness, but:"
+    ],
+    [
+     "research/_archive/L3_electron_soliton/76_lattice_to_axiom3_bridge.md",
+     219,
+     "**Diag A's \"Mode I per pre-reg\" verdict stands** (sub-percent at corpus amplitudes), but the reading deepens: Diag A measured the engine's PARTIAL realization of Ax 4's c_eff = c_0·√S prediction. **Full Ax 4 implementation (per doc 75_'s prescription ρ → ρ·S, I_ω → I_ω·S) would produce stronger amplitude dependence**, and Diag A would land Mode II (drift > 5%) at a fully Ax-4-honoring engine."
+    ],
+    [
+     "research/_archive/L3_electron_soliton/76_lattice_to_axiom3_bridge.md",
+     255,
+     "Doc 75_ prescribed `ρ → ρ·S`, `I_ω → I_ω·S` to make T_kinetic saturate alongside V_potential. **This doc identifies the same fix as the lattice-level realization of Ax 4's `c_eff = c_0·√S` prediction.** The engine's current asymmetric saturation (V·S, T·1) under-realizes Ax 4 — partial wave-speed scaling. Doc 75_'s fix makes c_eff actually equal Ax 4's prediction at the lattice level."
+    ],
+    [
+     "research/_archive/L3_electron_soliton/77_lattice_to_axiom4_bridge.md",
+     133,
+     "**Diag A's \"Mode I per pre-reg\" verdict stands** (sub-percent at corpus amplitudes), but the reading deepens: **Diag A measured the engine's PARTIAL realization of Ax 4's c_eff = c_0·√S prediction.** Full Ax 4 implementation (per doc 75_'s prescription ρ → ρ·S, I_ω → I_ω·S) would produce stronger amplitude dependence; Diag A would land Mode II (drift > 5%) at a fully Ax-4-honoring engine."
+    ],
+    [
+     "research/_archive/L3_electron_soliton/77_lattice_to_axiom4_bridge.md",
+     167,
+     "Doc 75_ prescribed `ρ → ρ·S`, `I_ω → I_ω·S` to make T_kinetic saturate alongside V_potential. **Under Scheme A, this fix is the lattice-level realization of Ax 4's `c_eff = c_0·√S` prediction.** The engine's current asymmetric saturation (V·S, T·1) under-realizes Ax 4 — partial wave-speed scaling. Doc 75_'s fix makes c_eff actually equal Ax 4's prediction at the lattice level."
+    ],
+    [
+     "research/_archive/L3_electron_soliton/79_l3_branch_closure_synthesis.md",
+     572,
+     "- ρ → ρ·S, I_ω → I_ω·S in cosserat_field_3d.py (per doc 75 §6.3)"
+    ],
+    [
+     "research/_archive/L3_electron_soliton/VACUUM_ENGINE_MANUAL.md",
+     42,
+     "2. **Cosserat energy conservation violation** (Move 11 + Diag A; [doc 75_](75_cosserat_energy_conservation_violation.md)): H_cos drift 5.5% + ρ(T_cos, V_cos) = +0.366 (positive Pearson trading, NOT LC reactance signature). Diag A traced the V·S vs T·1 saturation asymmetry — Cosserat code saturates V_potential (G·S, K·S, G_c·S) but leaves T_kinetic unmodulated (ρ, I_ω constants); ½LI² and ½CV² don't co-saturate; total energy isn't conserved; ω drifts as a consequence. **Engine bug, not missing axiom** (A44 missing-axiom-vs-engine-bug diagnostic; one-sentence Grant collapse: \"this is our conservation of energy axiom. rest mass saturates L, propagation saturates C\"). **Engine fix specified at doc 75_ §6.3:** T_kinetic gets the same Op14 S factor (ρ → ρ·S, I_ω → I_ω·S). Per Diag A the asymmetry is **empirically negligible at relevant amplitudes** — the fix is housekeeping not load-bearing for the Mode III statement. Will land as r8.10 once committed."
+    ],
+    [
+     "research/_archive/L3_electron_soliton/VACUUM_ENGINE_MANUAL.md",
+     60,
+     "- **r8.10:** Engine fix per [doc 75_ §6.3](75_cosserat_energy_conservation_violation.md) — T_kinetic gets the same Op14 S factor (ρ → ρ·S, I_ω → I_ω·S). Closes the energy-conservation violation surfaced by Move 11. Housekeeping (per Diag A: empirically negligible at relevant amplitudes; doesn't flip the Mode III statement)."
+    ],
+    [
+     "research/_archive/L3_electron_soliton/VACUUM_ENGINE_MANUAL.md",
+     1833,
+     "| Round 8 Diag A — Cosserat wave-speed amplitude dependence | ✅ RAN 2026-04-26 (commits `36d6e0d`, `bfc58d8`, `391a3b5`) — Mode I per pre-reg: V·S vs T·1 asymmetry is REAL but EMPIRICALLY NEGLIGIBLE at relevant amplitudes | P_ax5_cosserat_wave_speed_amplitude_dependence | A=6 integrator-cliff is separate from V·S/T·1 asymmetry; Diag C source audit + Move 11b's already-measured Pearson matrix close the Move 11 H_cos drift question (Op14 trading, not missing physics). Doc 75_ §6.3 engine fix specified: T_kinetic gets the same Op14 S factor (ρ → ρ·S, I_ω → I_ω·S). |"
+    ],
+    [
+     "research/_archive/L3_electron_soliton/VACUUM_ENGINE_MANUAL.md",
+     1836,
+     "| Doc 75_ Cosserat energy conservation violation finding | ✅ RAN 2026-04-26-27 — Engine bug, not missing axiom (A44 collapse) | doc 75_ §1-§11 + §6.3 fix spec | Move 11 + Diag A traced the V·S vs T·1 saturation asymmetry — Cosserat code saturates V_potential (G·S, K·S, G_c·S) but leaves T_kinetic unmodulated (ρ, I_ω constants); ½LI² and ½CV² don't co-saturate; total energy isn't conserved; ω drifts as a consequence. **Engine bug, not missing axiom** (Grant collapse: \"this is our conservation of energy axiom. rest mass saturates L, propagation saturates C\"). Engine fix specified at §6.3: T_kinetic gets the same Op14 S factor (ρ → ρ·S, I_ω → I_ω·S). Per Diag A asymmetry is empirically negligible at relevant amplitudes — fix is housekeeping not load-bearing. |"
+    ],
+    [
+     "research/_archive/L3_electron_soliton/VACUUM_ENGINE_MANUAL.md",
+     1839,
+     "| **Engine fix r8.10 (housekeeping)** | 🔄 PENDING — implementer commit | ~1 fresh session | Apply doc 75_ §6.3 T_kinetic Op14 saturation: `ρ → ρ·S`, `I_ω → I_ω·S`. Closes energy-conservation violation surfaced by Move 11. Per Diag A empirically negligible at relevant amplitudes — fix forecloses \"did the engine fully honor Ax 4?\" objection on closure doc but doesn't flip Mode III statement. r8.10 manual update will mark r8.9-pending engine fix as committed. |"
+    ],
+    [
+     "research/_archive/L3_electron_soliton/VACUUM_ENGINE_MANUAL.md",
+     2240,
+     "- [75_cosserat_energy_conservation_violation.md](75_cosserat_energy_conservation_violation.md) — **NEW r8.9.** Cosserat energy conservation violation finding from Move 11 + Diag A. §1-§5 Move 11 H_cos drift 5.5% + ρ(T_cos, V_cos)=+0.366 (positive Pearson trading, NOT LC reactance signature) traced via Diag A: V·S vs T·1 saturation asymmetry — Cosserat code saturates V_potential (G·S, K·S, G_c·S) but leaves T_kinetic unmodulated (ρ, I_ω constants); ½LI² and ½CV² don't co-saturate; total energy isn't conserved; ω drifts as a consequence. **§6 Engine bug, not missing axiom (A44 missing-axiom-vs-engine-bug diagnostic; one-sentence Grant collapse: \"this is our conservation of energy axiom. rest mass saturates L, propagation saturates C\").** §6.3 engine fix specified: T_kinetic gets the same Op14 S factor (ρ → ρ·S, I_ω → I_ω·S). §7 Diag A confirmed asymmetry empirically negligible at relevant amplitudes (Mode I per pre-reg). §8-§10 photon-tail dual-seed (path a) Mode III 0/4 + propagating-IC (path b) Mode III near-identical to (a). §11 Round 8 photon-tail branch closure + A57 (C4 informational vs C1/C2/C3 binary framing) + A58 (path-(a)/path-(b) empirical equivalence). Framing-error pass per `69fd974` corrected \"Ax 3 = energy conservation\" → \"Ax 4 asymmetric L/C, Noether-broken energy conservation\" per axiom homologation."
+    ],
+    [
+     "research/_archive/L3_electron_soliton/round_10_plan.md",
+     317,
+     "- Modulate kinetic energy in [`src/ave/topological/cosserat_field_3d.py:1204-1209`](../../src/ave/topological/cosserat_field_3d.py): `T = ½·(ρ·S)·|u̇|² + ½·(I_ω·S)·|ω̇|²`"
+    ],
+    [
+     "research/_archive/L3_electron_soliton/round_10_plan.md",
+     318,
+     "- Update `step()` integrator at `cosserat_field_3d.py:1228-1285` to use `ρ·S` and `I_ω·S` (currently constants)"
+    ],
+    [
+     "research/_archive/L3_electron_soliton/round_10_plan.md",
+     320,
+     "**Implementation difficulty (revised cost ~2-3 sessions, not 1):** state-dependent inertia in a symplectic integrator is genuinely hard. Velocity-Verlet with constant ρ and I_ω is straightforward; with ρ·S(A(t)) and I_ω·S(A(t)), the standard explicit symplectic structure breaks. Three viable approaches, each non-trivial:"
+    ],
+    [
+     "research/_archive/L5/engine_pending.md",
+     406,
+     "  - **Action:** [`cosserat_field_3d.py:545-587`](../../src/ave/topological/cosserat_field_3d.py#L545) saturates V_potential (W·S) but [`cosserat_field_3d.py:1204-1209`](../../src/ave/topological/cosserat_field_3d.py#L1204) does NOT saturate T_kinetic (`rho`, `I_omega` are constants 1.0). Per doc 75 §1 Ax 3 / unitarity argument, this is an in-principle violation of energy conservation. Fix: `T = ½·(ρ·S)·|u̇|² + ½·(I_ω·S)·|ω̇|²` with corresponding velocity-Verlet integrator update for time-varying effective inertia. Reframed motivation per doc 76 §6.3: not just energy-conservation cleanliness; makes engine's c_eff actually equal Ax 4's `c_0·√S` prediction (currently engine under-saturates c by leaving T unmodulated)."
+    ],
+    [
+     "src/scripts/_archive/r8_diag_a_cosserat_wave_speed.py",
+     245,
+     "                f\"add S factor to T_kinetic via ρ → ρ·S, I_ω → I_ω·S. \""
+    ],
+    [
+     "src/scripts/vol_1_foundations/r8_diag_a_cosserat_wave_speed.py",
+     257,
+     "                f\"add S factor to T_kinetic via ρ → ρ·S, I_ω → I_ω·S. \""
+    ]
+   ],
+   "method_a_hits": 19,
+   "method_b_hits": 19,
+   "methods_agree": true,
+   "purpose": "archive Unicode product form",
+   "regex": "I_ω\\s*[·*]\\s*S",
+   "scope": null
+  },
+  "P-I3c": {
+   "hits_union": [
+    [
+     "_orchestration/2026-08-06_iomega-law-brief.md",
+     1,
+     "# Lane brief — the I_ω(A) law (FLAG-IOMEGA) (2026-08-06)"
+    ],
+    [
+     "_orchestration/2026-08-06_iomega-law-brief.md",
+     20,
+     "- **The p=2 knife:** the leak lane's mass-cancellation verdict flips on the I_ω(A) form"
+    ],
+    [
+     "_orchestration/2026-08-06_iomega-law-brief.md",
+     27,
+     "  I_ω(A_ε) ≠ const, that is a walk-falsifier and gets reported as one — the lab"
+    ],
+    [
+     "_orchestration/2026-08-06_iomega-law-brief.md",
+     36,
+     "- Two-method receipts, named engines, on any corpus-absence claim (\"no I_ω(A) law"
+    ],
+    [
+     "_orchestration/docket-entries/2026-08-05-approach-leak.md",
+     32,
+     "  **zero hits for any `I_ω(A)` grading law**; the only substantive `G_c`-grading hit is the ENGINE"
+    ],
+    [
+     "_orchestration/docket-entries/2026-08-05-approach-leak.md",
+     57,
+     "| **2** | **FLAG-IOMEGA — a NEW canon gap**, distinct from the five the last-bond lane enumerated: **no `I_ω(A)` grading law exists anywhere**, and the leak verdict turns over on it. Minted as a question, not filled with a default. | Grant / canon |"
+    ],
+    [
+     "_orchestration/docket-entries/2026-08-05-approach-leak.md",
+     73,
+     "- No promotion of the engine's coded `a = 2` to canon; no invention of an `I_ω(A)` law. The RHO-B"
+    ],
+    [
+     "_orchestration/docket-entries/2026-08-06-approach-leak-v2.md",
+     55,
+     "> which requires the unwritten `I_ω(A)` law. `SCALE-UNDERDETERMINED` co-fires on the residual"
+    ],
+    [
+     "_orchestration/docket-entries/2026-08-06-approach-leak-v2.md",
+     135,
+     "lands corpus-state entries. **Single hinge, named not buried:** if an `I_ω(A)` law is ever ruled at"
+    ],
+    [
+     "_orchestration/docket-entries/2026-08-06-approach-leak-v2.md",
+     145,
+     "- No promotion of the engine's coded `a = 2` to canon; no invention of an `I_ω(A)` law. The RHO-B"
+    ],
+    [
+     "research/2026-08-05_approach-leak_prereg-FROZEN.md",
+     63,
+     "    2026-06-23** (`cosserat-mass-gap.md`:104). ★ **`G_c(A)` grading exponent `a` and `I_ω(A)`"
+    ],
+    [
+     "research/2026-08-05_approach-leak_prereg-FROZEN.md",
+     413,
+     "the `I_ω(A)` exponent. The enumerated members and their provenance:"
+    ],
+    [
+     "research/2026-08-05_approach-leak_prereg-FROZEN.md",
+     447,
+     "| `P3` | `I_\\\\?omega\\s*\\(\\s*A\\s*\\)|I_\\{?\\\\?omega\\}?\\s*\\(\\s*A\\s*\\)` | no `I_ω(A)` grading law |"
+    ],
+    [
+     "research/2026-08-05_approach-leak_result.md",
+     54,
+     "> with `a` the `G_c(A)` exponent and `b` the `I_ω(A)` exponent. Patterns `P3` and `P4` return"
+    ],
+    [
+     "research/2026-08-05_approach-leak_result.md",
+     56,
+     "> states no `I_ω(A)` grading law at all.** `P1`'s four hits are all statements of `G_c(A)`'s"
+    ],
+    [
+     "research/2026-08-05_approach-leak_result.md",
+     251,
+     "| `P3` | `I_ω(A)` written as a function | `0` | `0` | ✅ | **ABSENCE RECEIPT** |"
+    ],
+    [
+     "research/2026-08-05_approach-leak_result.md",
+     273,
+     "`I_ω(A)` law that does not exist anywhere.** That is the whole uncertainty, and it is enumerated"
+    ],
+    [
+     "research/2026-08-05_approach-leak_result.md",
+     436,
+     "| `UNDERDETERMINED-CANON` | co-fires. The clause's *\"the leak is one computable number\"* would have to read *\"one computable number **given a grading law for `G_c(A)` and `I_ω(A)`**\"* — and canon states neither. |"
+    ],
+    [
+     "research/2026-08-05_approach-leak_result.md",
+     440,
+     "knife-edge, and the members that open it require an `I_ω(A)` law that appears nowhere in the corpus."
+    ],
+    [
+     "research/2026-08-05_approach-leak_result.md",
+     478,
+     "states no `I_ω(A)` grading law.** Yet the verdict turns over at `p = 2`, and `b = 3` (the RHO-B"
+    ],
+    [
+     "research/2026-08-05_approach-leak_result.md",
+     482,
+     "law but not the `I_ω(A)` one). **Minted as a question, not filled with a default.** ROUTED."
+    ],
+    [
+     "research/2026-08-05_approach-leak_result.md",
+     571,
+     "4. **Any promotion of the engine's coded `a = 2` to canon**, and **no invention of an `I_ω(A) law`**."
+    ],
+    [
+     "research/2026-08-05_approach-leak_result.md",
+     581,
+     "**The single hinge, stated plainly:** if a grading law for `I_ω(A)` is ever ruled at `b = 3` while"
+    ],
+    [
+     "research/2026-08-06_approach-leak-v2_prereg-FROZEN.md",
+     374,
+     "| **`NC-SCAN`** | within `G-NC-REPRO`: `G-SCAN`'s `n_files_scanned` reproduces as **`4418`** and every `P1`–`P5` hit count, agreement flag and union-hit list reproduces — **so the `I_ω(A)` absence receipt that `UNDERDETERMINED-CANON` rests on is RE-VERIFIED on this branch, not inherited** | RECOMPUTED |"
+    ],
+    [
+     "research/2026-08-06_approach-leak-v2_prereg-FROZEN.md",
+     592,
+     "3. **No promotion of the engine's coded `a = 2` to canon**, and **no invention of an `I_ω(A)` law**."
+    ],
+    [
+     "research/2026-08-06_approach-leak-v2_result.md",
+     277,
+     "> every one of which requires the unwritten `I_ω(A)` law. `SCALE-UNDERDETERMINED` co-fires on the"
+    ],
+    [
+     "research/2026-08-06_approach-leak-v2_result.md",
+     283,
+     "by members that need a grading law for `I_ω(A)` that **appears nowhere in `4418` tracked files**."
+    ],
+    [
+     "research/2026-08-06_approach-leak-v2_result.md",
+     315,
+     "| `P3` | `I_ω(A)` written as a function | `0` | `0` | ✅ | **ABSENCE RECEIPT** |"
+    ],
+    [
+     "research/2026-08-06_approach-leak-v2_result.md",
+     320,
+     "missing laws, enumerated exactly:** (i) the `I_ω(A)` grading law — the exponent `b` — which"
+    ],
+    [
+     "research/2026-08-06_approach-leak-v2_result.md",
+     362,
+     "> grading law for `I_ω(A)` that canon does not state** — at `p ≥ 2` the verdict inverts, and the"
+    ],
+    [
+     "research/2026-08-06_approach-leak-v2_result.md",
+     378,
+     "auditor lands corpus-state entries.** The single hinge is named rather than buried: **if an `I_ω(A)`"
+    ],
+    [
+     "research/2026-08-06_approach-leak-v2_result.md",
+     539,
+     "4. **Any promotion of the engine's coded `a = 2` to canon**, and **no invention of an `I_ω(A)` law**."
+    ],
+    [
+     "research/2026-08-06_rotation-substance-ontology_framing-note.md",
+     35,
+     "arrangement's load) — the missing I_ω(A) law (FLAG-IOMEGA), which the p=2 knife hinges on."
+    ],
+    [
+     "research/2026-08-06_rotation-substance-ontology_framing-note.md",
+     95,
+     "E2 I_ω(A) law → `2026-08-06_iomega-law-brief`. E3 phase-register + pre-bond rename"
+    ]
+   ],
+   "method_a_hits": 34,
+   "method_b_hits": 34,
+   "methods_agree": true,
+   "purpose": "Unicode functional form - discourse-vs-law classifier feed",
+   "regex": "I_ω\\s*\\(\\s*A",
+   "scope": null
+  },
+  "P-I4": {
+   "hits_union": [],
+   "method_a_hits": 0,
+   "method_b_hits": 0,
+   "methods_agree": true,
+   "purpose": "per-node rotor moment / gyration definition",
+   "regex": "(per.?node|node.?level)[^\\n]{0,60}(moment of inertia|gyration)",
+   "scope": null
+  },
+  "P-I5": {
+   "hits_union": [
+    [
+     "_orchestration/2026-06-22_frame-gravity-workstream-brief.md",
+     27,
+     "AVE treats gravity as substrate density/strain (the gravity-PPN work), so the local gravitational environment can modulate the substrate state (ℓ_node, c_eff, ω_C, the saturation scale, the anisotropy). Sweep: altitude (Earth potential), the Sun–Moon tidal cycle (diurnal + monthly), the annual solar-potential swing → the **gravitational systematic budget** AND any AVE-distinct gravity-modulation signal."
+    ],
+    [
+     "_orchestration/2026-07-09_electron-def-canon-authoring.md",
+     11,
+     "- **Core/far-field (D3 = COEXIST, with justification):** TWO statements at different radii, both kept. (i) IDENTITY: the core is a topological singularity — charge sign/windings are boundary data (Burgers/Frank-analog INPUTS to the surrounding elasticity); mapping spatial structure INTO it to store identity is a category error. (ii) ENVELOPE: the ~ℓ_node near-field region (hollow-vortex R*≈1.6ℓ_node cavity; saturated/slowed tube-core values) is the REAL yield-envelope of the medium — where saturation and the Γ→−1 mismatch wall live (cavitation-bubble sense: where the medium gave up, not the inside of the propeller). The cavity describes the medium's response region; the singularity states that no interior map stores the identity. Different questions, no contradiction. EVERY edit touching a spatial-core passage adds this two-question justification rather than a demotion banner."
+    ],
+    [
+     "_orchestration/ax4-saturation-narrow-aperture-amplitude-shape.md",
+     88,
+     "The mapping \"N independent lattice sites\" assumes site-independence is set by lattice spacing. The substrate's spatial correlation length (set by Ax 4 saturation regime + boundary-impedance matching length) may be longer than ℓ_node, especially in the saturation regime where the K4-TLM nonlinearity couples adjacent sites more strongly than the linear-regime baseline. If the saturation-regime correlation length is N_corr × ℓ_node for some N_corr > 1, then the \"N independent lattice sites\" count maps to an aperture width of N × N_corr × ℓ_node rather than N × ℓ_node — softening the narrow-aperture geometric constraint."
+    ],
+    [
+     "manuscript/ave-kb/.index/claims.jsonl",
+     357,
+     "{\"node_type\": \"definition\", \"id\": \"def-b0nd01\", \"term\": \"bond (\\\"bond = transmission-line segment\\\")\", \"adjudicated_meaning\": \"the substrate **BOND** noun (a K4/srs lattice edge) is an **IDENTITY-at-structure-level** commitment: **three propagating coupling channels + one gapped Cosserat couple-stress $\\\\gamma$-grade** (`port-register.md:47-50`; parameterized constitutively by the stretch/bend/twist stiffness triple — axial $k_a$ / shear $k_s$ / couple-stress $\\\\gamma_c$: `axiom-register.md:189` [$\\\\rho=k_a/k_s$ stretch/bend], `vol9/ch9-mechanical-characteristics/index.md:11` [$\\\\gamma_c$] — the $k_a/k_s/\\\\gamma_c$ stiffness triple and the 3+1 port rows are two projections of the same edge), a **unitary node scatter** (power-conserving vertex, $|\\\\Gamma|^2+|T|^2=1$), and a **finite per-cell delay** ($\\\\tau=\\\\sqrt{L_{cell}C_{cell}}=\\\\ell_{node}/c_0$). The phrase **\\\"transmission-line segment\\\"** is grade **MODEL-OF, REGIME-SCOPED**: a *per-channel* projection (a TL is one-mode; the bond is three-channel), **exact in the propagating long-wave regime** ($\\\\omega\\\\tau\\\\ll1$) and native to the EM-sector engines — each K4/srs bond **is** a lossless transmission-line span (`z0-derivation.md:98,:115`, clm-mfb2ax; the lumped node is the $\\\\omega\\\\tau\\\\ll1$ limit of the distributed bond; distributed-vs-lumped ABCD first diverge at $O(\\\\theta^2)$). ★**At band-edge scales the corpus-adjudicated arccos band top $\\\\omega=\\\\omega_{\\\\text{link}}\\\\arccos(\\\\mu/3)$ (`srs-band-structure.md` §2, clm-bnd5rq, gates #604/#607) IS the DISTRIBUTED / transmission-line (TLM) bond description, which stays EXACT through the band edge; the LUMPED mass-spring description ($\\\\omega=\\\\sqrt\\\\lambda$, band top $\\\\sqrt{12}$) is the long-wave approximation that BREAKS DOWN there** (it fails the frozen $1/\\\\sqrt3$ velocity gate). The two descriptions **book the delay differently** (distributed-in-bond vs emergent-from-chain) and are **co-equal only BELOW the band edge** (where lumped↔distributed coincide). `def-tk1xfm`'s TKI co-equality carries exactly this band-edge scope (ratified 2026-07-21). **★Correction (2026-07-21, #781 review):** the original inverted label — the arccos band top paired with the *lumped* mass-spring description — came from the orchestrator walk and was caught by this review; the ratified GRADE (IDENTITY-at-structure-level + MODEL-OF regime-scoped) is unaffected (the reviewer's carve).\", \"axis\": \"other — substrate-noun ontology (a lattice edge / coupling element; its channels carry speeds $L\\\\,T^{-1}$)\", \"dimension\": \"n/a as a noun; the channels carry stiffnesses/impedances ($k_a,k_s$, couple-stress $\\\\gamma_c$) and a one-span delay $\\\\tau=\\\\ell_{node}/c_0$ [T]\", \"status\": \"SOLID\", \"canonical_path\": \"common/vocabulary-register.md\", \"canonical_anchor\": \"bond\", \"clm_cross_links\": [\"clm-bnd5rq\", \"clm-fy05jc\", \"clm-mfb2ax\", \"clm-uu1qbo\"], \"open_ambiguity\": false, \"conflicting_sites\": []}"
+    ],
+    [
+     "manuscript/ave-kb/common/claim-quality.md",
+     166,
+     "  - Each row asserts an AVE re-rendering of a domain concept, traceable to $\\xi_{topo} = e/\\ell_{node}$ (circuit/biology), the saturation operator $S(A)$ and Axioms 1–4 (gravity/cosmology/particle physics), or the impedance/reflection operator $Z, \\Gamma$ (condensed matter)."
+    ],
+    [
+     "manuscript/ave-kb/common/divergence-test-substrate-map.md",
+     544,
+     "| D3-GEOM-ENTROPY | Geometric entropy $\\hat{\\mathcal{S}}_{geo}/S_{BH} \\approx 2.8 \\times 10^{-44}$ | D / new-exp | III↔IV | A-B interface Op14 mechanism gives $\\hat{\\mathcal{S}}_{geo} = k_B A \\log 2 / \\ell_{node}^2$ | Ax1 (ℓ_node) + Ax4 (saturation horizon) (**C**) | Cascade: C1 BH horizon shares A-region machinery. NULL = no Hawking-radiation correlation measurement currently possible. | U-C | $2.8 \\times 10^{-44}$ ratio to $S_{BH}$ | [`../vol3/condensed-matter/ch11-thermodynamics/four-entropy-distinction.md`](../vol3/condensed-matter/ch11-thermodynamics/four-entropy-distinction.md) |"
+    ],
+    [
+     "manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md",
+     179,
+     "| **State I (Intact Impedance Lock)**: open tetrahedral H-bond network, $V = a^3$ with $a = 4r_{OO}/\\sqrt{3}$ | $I4_1 32$ ordered chiral ground state, $\\ell_{node}$ set by saturation closure |"
+    ],
+    [
+     "manuscript/ave-kb/common/vocabulary-register.md",
+     942,
+     "- **adjudicated-meaning:** the substrate **BOND** noun (a K4/srs lattice edge) is an **IDENTITY-at-structure-level** commitment: **three propagating coupling channels + one gapped Cosserat couple-stress $\\gamma$-grade** (`port-register.md:47-50`; parameterized constitutively by the stretch/bend/twist stiffness triple — axial $k_a$ / shear $k_s$ / couple-stress $\\gamma_c$: `axiom-register.md:189` [$\\rho=k_a/k_s$ stretch/bend], `vol9/ch9-mechanical-characteristics/index.md:11` [$\\gamma_c$] — the $k_a/k_s/\\gamma_c$ stiffness triple and the 3+1 port rows are two projections of the same edge), a **unitary node scatter** (power-conserving vertex, $|\\Gamma|^2+|T|^2=1$), and a **finite per-cell delay** ($\\tau=\\sqrt{L_{cell}C_{cell}}=\\ell_{node}/c_0$). The phrase **\"transmission-line segment\"** is grade **MODEL-OF, REGIME-SCOPED**: a *per-channel* projection (a TL is one-mode; the bond is three-channel), **exact in the propagating long-wave regime** ($\\omega\\tau\\ll1$) and native to the EM-sector engines — each K4/srs bond **is** a lossless transmission-line span (`z0-derivation.md:98,:115`, clm-mfb2ax; the lumped node is the $\\omega\\tau\\ll1$ limit of the distributed bond; distributed-vs-lumped ABCD first diverge at $O(\\theta^2)$). ★**At band-edge scales the corpus-adjudicated arccos band top $\\omega=\\omega_{\\text{link}}\\arccos(\\mu/3)$ (`srs-band-structure.md` §2, clm-bnd5rq, gates #604/#607) IS the DISTRIBUTED / transmission-line (TLM) bond description, which stays EXACT through the band edge; the LUMPED mass-spring description ($\\omega=\\sqrt\\lambda$, band top $\\sqrt{12}$) is the long-wave approximation that BREAKS DOWN there** (it fails the frozen $1/\\sqrt3$ velocity gate). The two descriptions **book the delay differently** (distributed-in-bond vs emergent-from-chain) and are **co-equal only BELOW the band edge** (where lumped↔distributed coincide). `def-tk1xfm`'s TKI co-equality carries exactly this band-edge scope (ratified 2026-07-21). **★Correction (2026-07-21, #781 review):** the original inverted label — the arccos band top paired with the *lumped* mass-spring description — came from the orchestrator walk and was caught by this review; the ratified GRADE (IDENTITY-at-structure-level + MODEL-OF regime-scoped) is unaffected (the reviewer's carve)."
+    ],
+    [
+     "manuscript/ave-kb/vol2/claim-quality.md",
+     336,
+     "  - $Ry = \\alpha^2 m_e c^2/2$ is **emergent** from $r_{sat} = a_0 = \\ell_{node}/\\alpha$ and the cavity-saturation derivation; it is not imported as a Bohr postulate."
+    ],
+    [
+     "manuscript/ave-kb/vol2/claim-quality.md",
+     432,
+     "  - On the AVE lattice with discrete pitch $\\ell_{node}$ (Axiom 1) and saturation cap (Axiom 4), the lattice Hamiltonian is bounded below ($H \\ge 0$), bounded above per cell ($H_{cell} \\le m_e c^2$), and self-adjoint. The lightest topological defect is the unknot $0_1$ with rest energy $m_e c^2$, which is the mass gap."
+    ],
+    [
+     "manuscript/ave-kb/vol2/claim-quality.md",
+     1193,
+     "  - INVARIANT-S2 / Axiom 1 (horn-torus unknot at $R=r=\\ell_{node}/(2\\pi)$; Bounding Limit 1 saturation)"
+    ],
+    [
+     "manuscript/ave-kb/vol2/claim-quality.md",
+     1412,
+     "AVE-native canonical identification of the proton, structured to parallel the electron and photon identification leaves. Provides a 4-property definition (🔴 *[2026-06-08 relabels — walk-back from proton-identification.md corrections 1+2]* $(2,5)$ cinquefoil **phase-space per-loop polarization winding** [~~\"cinquefoil topology\"~~ — NOT real-space; cf electron-identification.md:23 + constants.py:689-694] + $6_2^3$ Borromean linkage **as the real-space topology** + dimensionless confinement-budget ratio $r_{opt} = \\kappa_{FS}/5 = 8\\pi/5 \\approx 5.03$ [~~\"$\\approx 4.97\\,\\ell_{node}$\"~~ — a pure number, NOT a length; $\\kappa_{FS}=8\\pi$ is a pure geometric constant per constants.py:683-687; the only measured proton size is the sub-node $D_p=0.841$ fm, $\\approx 460\\times$ smaller than $\\ell_{node}$] + Axiom-4-saturated core), a first-principles axiom audit per property, and a per-input audit of the mass eigenvalue across 6 inputs (all first-principles, no fit parameters), plus a 6-framing cross-corpus translation guide."
+    ],
+    [
+     "manuscript/ave-kb/vol2/claim-quality.md",
+     1595,
+     "  - **Distinct-cutoff discipline declared + guard-tested:** SPATIAL $k_{max}=\\pi/\\ell_{node}$ (the loop bound) vs TEMPORAL $\\omega_C=c/\\ell_{node}$ (the μ-grade ceiling, NOT in the loop); ratio exactly $\\pi$. Conflating them is a factor-$\\pi$ error."
+    ],
+    [
+     "manuscript/ave-kb/vol2/nuclear-field/ch12-millennium-prizes/index.md",
+     11,
+     "Chapter 12 presents **framework-conditional engineering-physics derivations** of the seven Millennium Prize Problems, treating each paradox as what happens when continuous pure mathematics omits the discrete lattice floor ($\\ell_{node}$) and the universal saturation bound ($A_{\\text{yield}}$) of the physical vacuum. Under the four AVE axioms taken as physical hardware postulates, each paradox resolves cleanly — but these are **not Clay-rigorous proofs**. A ZFC-formal formalization remains open future work; the chapter itself carries the scope caveat at its opening, and this KB leaf should be read in the same ideal-circuit-vs-parasitics spirit that Vol 2 Ch 12 establishes."
+    ],
+    [
+     "manuscript/ave-kb/vol2/nuclear-field/ch12-millennium-prizes/yang-mills-steps1-2.md",
+     10,
+     "> **Scope correction (2026-05-17 night, Foundation Item 14 audit per `ave-infinity-discipline` skill + `.agents/kb_audit/phase-5-millennium.md`)**: This derivation is **framework-conditional**, classification **(B)** per kb_audit phase-5 taxonomy — a careful argument within the AVE lattice + saturation framework that does NOT prove the Clay problem as formulated. Clay asks for a continuum 4D quantum gauge theory (SU(N), N≥2) on $\\mathbb{R}^4$ with positive mass gap; this leaf provides a discrete lattice Hamiltonian with ground state = unknot at $m_e c^2$ via Axiom 1 ℓ_node ≈ 386 fm UV cutoff + Axiom 4 saturation cap. Gap: (i) continuum limit ℓ_node → 0 explicitly NOT taken; (ii) SU(N) emergence from torus knot topology is ansatz, not derived from Yang-Mills field equations; (iii) Osterwalder–Schrader reconstruction requires Schwinger functions defined continuously on $\\mathbb{R}^4$ which AVE does not provide. The mass gap = m_e c² is the rest energy of the assumed lightest topological defect, NOT a derived consequence of Yang-Mills dynamics. **The lattice result is interesting AVE-internal physics; it should NOT be cited as solving the Clay problem.** See `ch12-millennium-prizes/index.md:5` for canonical scope framing."
+    ],
+    [
+     "manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/electron-identification.md",
+     60,
+     "- **(ii) ENVELOPE (the medium-response question).** The $\\sim\\ell_{node}$ near-field region — the hollow-vortex cavity ($R^* \\approx 1.6\\,\\ell_{node}$, framing 9) and the saturated/slowed tube-core values — is the **real yield-envelope of the medium**: where Axiom-4 saturation and the $\\Gamma \\to -1$ mismatch wall live (the cavitation-bubble sense — *where the medium gave up*, not \"the inside of the propeller\"). This describes the medium's **response region**, not an identity store."
+    ],
+    [
+     "manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/electron-identification.md",
+     127,
+     "| 7 | **LC tank cavity resonance at Compton frequency** | $\\omega_C = c/\\ell_{node}$ is single-bond LC eigenfrequency; resonance + saturation = electron | [`../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md`](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md); Vol 4 Ch 1 | *\"$\\omega_C = c/\\ell_{node}$ (Compton frequency = LC tank eigenfrequency)\"* — combined with photon-identification §4 step C-F: at $\\omega_C$ + $V \\to V_{yield}$, the LC tank traps the photon into a standing wave |"
+    ],
+    [
+     "manuscript/ave-kb/vol3/claim-quality.md",
+     535,
+     "- $k_{\\max} = \\pi/\\ell_{node}$; $E(k) = C_K \\varepsilon^{2/3} k^{-5/3} S(k/k_{\\max})$; $n_{3D} = 38/21$"
+    ],
+    [
+     "manuscript/ave-kb/vol3/condensed-matter/ch11-thermodynamics/index.md",
+     63,
+     "| [Kolmogorov Spectral Cutoff](./kolmogorov-spectral-cutoff.md) | Nyquist hard cutoff at $k_{\\max} = \\pi/\\ell_{node}$; saturated energy spectrum $E(k) \\cdot S(k/k_{\\max})$; AVALANCHE_N $= 38/21$; bounded enstrophy proof |"
+    ],
+    [
+     "manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/node-up-small-large-signal.md",
+     113,
+     "$\\omega_C = 1/\\sqrt{L_{cell}C_{cell}} = c_0/\\ell_{node}$). Both reactive elements saturate through"
+    ],
+    [
+     "manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/op21-multi-mode-mode-counting.md",
+     131,
+     "| $\\Lambda_{\\text{surf}} = 4\\pi^2 (R \\cdot r) = \\pi^2$ | **Ax 4 self-saturation + Op14 Meissner-asymmetric coupling + named phasor-area-equals-Nyquist-cell-area identification** (Q-EMBED-SEL-1 Phase 1 substrate-mechanism per `research/2026-05-31_Q-EMBED-SEL-1_step_c_result.md` §2.3) | Substrate-derived $R \\cdot r = 1/4$ at $d = 1\\,\\ell_{node}$ from phasor enclosed area at Axiom-4 self-saturation onset equal to Nyquist cell cross-section area (replaces prior spinor-half-cover provenance retired per doc 29 F5 + doc 39 §3.4) |"
+    ],
+    [
+     "manuscript/ave-kb/vol4/claim-quality.md",
+     1545,
+     "Clarification leaf documenting the canonical strain-measure convention. The corpus uses two distinct, both-valid strain measures: the topological geometric confinement ratio A_geom(r) = ℓ_node/r (∝ 1/r) and the Coulomb field ratio A_field(r) = E·ℓ_node/V_yield (∝ 1/r²). Kernel applications (C_eff, S(A), V/V_snap, Q-G19α Petermann) use A_geom; the IVIM apparatus bench uses A_field. Both conventions yield internally consistent predictions; the apparent \"four-way conflict\" in A(r) definitions across chapters dissolves once the convention split is recognized."
+    ],
+    [
+     "manuscript/ave-kb/vol4/claim-quality.md",
+     1714,
+     "  - $B_{SNAP}=1.89\\times10^9$ T is an **energy-density scale** ($B_{SNAP}^2/2\\mu_0 = m_ec^2/\\ell_{node}^3$), NOT a rival kernel argument; the $\\mu$-grade kernel argument is $I/I_{max}$, not $B/B_{SNAP}$."
+    ],
+    [
+     "manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/binary-kill-switches.md",
+     17,
+     "> **No-dispersion is the correct canonical reading (weak-C prereg, edit C).** Under weak-C, the **free photon is the continuum EM field** — the LC-ladder's long-wavelength regime ($L \\gg \\ell_{node}$) — and is **sub-saturation** ($\\Delta\\phi \\ll \\alpha$, $Z_0$-matched, unlocked). It does **not** lock to nodes and carries **no zone-edge $(q\\ell_{node})^2$ dispersion**. So AVE **predicts NO photon dispersion**; observed energy-dependent GRB arrival-time delay is the kill. This is now **regime-grounded AND empirically corroborated**: GeV–TeV photons cross ~Gpc with no dispersion (GRB090510 31 GeV; LHAASO 221009A 13 TeV) — the same null this kill-switch expects. (The $(q\\ell_{node})^2$ zone-edge bending is a *lattice-mode* property of *matter* carriers, which ARE lattice-locked; the continuum photon does not have it — see `preferred-frame-and-emergent-lorentz.md` §4.)"
+    ],
+    [
+     "manuscript/ave-kb/vol9/ch15-falsification-tests/index.md",
+     38,
+     "| **Mass sector** (m_p −0.002%, lepton ladder) | CONSISTENCY-ECHO (dimensionful, rides m_e/ℓ_node) | SM: Yukawa fits | particle masses as ℓ_node geometric ratios | closed ECHO-final (near-saturation chord-residual closed-negative, PR #311) | [`form-deriving-value-importing.md`:74-77](../../common/form-deriving-value-importing.md) |"
+    ],
+    [
+     "manuscript/vol_2_subatomic/chapters/12_the_millennium_prizes.tex",
+     14,
+     "The derivations in this chapter are \\textbf{framework-conditional}: each proceeds from the four AVE axioms treated as physical hardware (discrete $\\ell_{node}$ pitch, saturation bound $A_{\\text{yield}}$, ideal LC impedance, topological phase dislocation). Under those postulates the paradoxes resolve cleanly. This is an ideal-circuit treatment in the same sense that electrical engineering uses idealised components---parasitics (non-ideality of a real vacuum, finite thermal noise floor, etc.) are explicitly absorbed into the axiom set rather than proved away from pure mathematical first principles. A Clay-grade formalization---closing the gap from ``framework-consistent derivation'' to ``theorem in ZFC without the AVE axioms''---remains open future work. Readers should treat the chapter as a rigorous engineering-physics analysis of the problems, not as a claim to the Clay prizes."
+    ],
+    [
+     "manuscript/vol_9_vacuum_datasheet/chapters/15_falsification_tests.tex",
+     274,
+     "Mass sector ($m_p$ $-0.002\\%$, lepton ladder) & CONSISTENCY-ECHO (dimensionful, rides $m_e/\\ell_{node}$) & SM: Yukawa fits & particle masses as $\\ell_{node}$ geometric ratios & Echo (dimensionful, rides $m_e/\\ell_{node}$); near-saturation chord-residual consistent with zero & \\kbleaf{form-deriving-value-importing.md}:74--77 \\\\"
+    ],
+    [
+     "research/2026-05-18_cosserat-lagrangian-engine-full-picture.md",
+     51,
+     "For the soliton to advance ℓ_node forward, the trailing edge must complete a full desaturate cycle (≈ $T_{\\text{LC}}/2$ for relaxation back to sub-saturation):"
+    ],
+    [
+     "research/2026-05-26_ax4-saturation-phase-0c-pdelta-v-derivation-prereg.md",
+     169,
+     "The substrate correlation length $\\ell_{corr}(V_{DC})$ in real-space lattice units is derived from the K4-TLM bond-LC linearization around $V_{DC}$. Expected functional form: $\\ell_{corr}(V_{DC})/\\ell_{node} \\propto 1/S(V_{DC}/A_c) = (1 - (V_{DC}/A_c)^2)^{-1/2}$ to leading order — the same Ax 4 kernel that governs $C_{eff}$ also governs the correlation-length divergence."
+    ],
+    [
+     "research/2026-05-26_ax4-saturation-phase-0c-pdelta-v-derivation-result.md",
+     285,
+     "The prereg §3.5 anticipated $\\ell_{corr}(V_{DC})/\\ell_{node} \\sim 1/S(V_{DC}/A_c)$ — correlation length DIVERGES toward yield. The derived form is:"
+    ],
+    [
+     "research/2026-05-26_ax4-saturation-phase-0c-pdelta-v-derivation-result.md",
+     357,
+     "**Prereg expectation (§3.5 of prereg, §4 AC-0c.4)**: $\\ell_{corr}(V_{DC})/\\ell_{node} \\sim 1/S(V_{DC}/A_c)$ — correlation length DIVERGES toward yield."
+    ],
+    [
+     "research/2026-05-27_clm-0ktpcn-phase-3-A4-op21-formalization-prereg.md",
+     244,
+     "- Step 1 (Ax 1 Nyquist) is independent of Step 2 (Ax 3 Min-reflection): the Nyquist cell size $\\ell_{node} = 1$ is a substrate-topology primitive; the $\\Gamma = -1$ saturation boundary is a substrate-dynamics primitive at $V_{yield}$."
+    ],
+    [
+     "research/2026-06-03_topological-charge-occupation-robustness.md",
+     12,
+     "> **One-line:** The femto-Coulomb floor (41.5 mV/μm) rests on the swept charge $\\mathcal{Q} = \\mathrm{Link}(\\partial\\Omega, \\mathbf{F}_{\\text{substrate}}) \\in \\mathbb{Z}$ being a gap-protected integer (boundary linking number, the no-hair observable) converted to volts by the frozen-metric unit-bridge $\\xi_{topo} = e/\\ell_{node}$. Pauli-saturated interior occupancy — atoms and their filled shells, the solid dielectric — are $\\Gamma = -1$ bounded soliton assemblies, no-hair-INVISIBLE to the swept boundary loop. The integer the loop counts is the lattice's linking number, robust to where the Pauli-filled charges sit. So $\\mathcal{Q}$ is dielectric-invariant and the floor LOCKS — provided the dielectric does not close the substrate's topological gap."
+    ],
+    [
+     "research/2026-06-05_2-3-winding-extractor-coordinate-prereg.md",
+     52,
+     "- **bond-pair / node-centred** (corpus `l3:30`): the \"2\" closes across the **bond-pair span** (≈2 ℓ_node, crossing at a saturated node)."
+    ],
+    [
+     "research/2026-06-06_maxwell-quaternion-longitudinal-context.md",
+     51,
+     "**Why AVE realizes it:** AVE's medium is **not an ideal fluid but a saturable elastic crystal** (the K4–Cosserat micropolar lattice). The **saturation `Γ=−1` wall** supplies the confinement Kelvin lacked, and the **lattice `ℓ_node`** supplies the length scale — so the knot **quantizes**: the `(2,q)` torus-knot ladder (`torus-knot-ladder.md`: electron `(2,3)`, proton `(2,5)`, `r_opt = κ_FS/q`, `κ_FS = 8π`) with fixed size (`ℓ_node` = reduced Compton) and `Q=ℓ` mode-count. **The saturation crystal fixes Kelvin's fatal flaw.** And the loop closes: the knot theory Kelvin's physics *spawned* (Tait → Reidemeister / Alexander / Jones → Faddeev–Niemi knotted solitons) is now the math AVE *uses* to identify its particles — a 150-year round-trip."
+    ],
+    [
+     "research/2026-06-09_thixotropy-amplitude-dependent-tau_prereg.md",
+     66,
+     "If the canonical single-τ = ℓ_node/c is exact through the saturation knee (no A-dependence that breaks sign-symmetry), the thixotropy hypothesis is false → B. Conversely, if a symmetric-drive cycle on the amplitude-dependent-τ model encloses **nonzero** net area with H conserved, the dead-by-default verdict is wrong → A."
+    ],
+    [
+     "research/2026-06-09_thixotropy-amplitude-dependent-tau_prereg.md",
+     75,
+     "- **Limits from canon, not tuned** — τ_relax = ℓ_node/c, L_eff(A) near-saturation form from `#59` / Op14 canon, the ρ̄ relation from `04_superluminal_transit.tex:86`, not fitted."
+    ],
+    [
+     "research/2026-06-10_foreword-proposal_two-deletions.md",
+     208,
+     "  node pitch `ℓ_node`, and the confinement is the saturation `Γ = −1` wall that"
+    ],
+    [
+     "research/2026-06-10_foreword-proposal_two-deletions.md",
+     235,
+     "`ℓ_node`, the saturation kernel, the boundary observables — carries its own"
+    ],
+    [
+     "research/2026-06-11_dark-sector-response-characterization.md",
+     52,
+     "`tau0 = ell_node/c0`, `SR_max = V_yield·omega_node`, `S(A)=√(1−A²)`."
+    ],
+    [
+     "research/2026-06-12_scale-spectrum-saturation-drag-vs-confinement.md",
+     18,
+     "One **K4 Cosserat LC lattice** with one **Axiom-4 saturation kernel** $S(A)=\\sqrt{1-A^2}$ (A-034) hosts **transverse $T_2$ sector** physics from ℓ_node to $R_H$. The **readout branch** depends on local saturation:"
+    ],
+    [
+     "research/2026-06-15_weak-c-photon-continuum_prereg.md",
+     143,
+     "ℓ_node-independent. Matter = saturation locked to nodes (the Γ=−1 TIR wall"
+    ],
+    [
+     "research/2026-06-29_grqed-stage2-qed-extension_result.md",
+     215,
+     "| TEMPORAL `ω_C=c/ℓ_node` (`=1/ℓ_node` in 1/m) | `2.590×10¹² /m` | the μ-grade (circulation-rate) ceiling — NOT used in the loop quadrature |"
+    ],
+    [
+     "research/2026-06-29_grqed-stage2-qed-extension_result.md",
+     256,
+     "**Integration: QED's linear core + the ℓ_node cutoff + the saturating-ε birefringence.** Stage-2 is a"
+    ],
+    [
+     "research/2026-06-30_electron-portmap-derivation_prereg_FROZEN.md",
+     122,
+     "   cannot compress below `~2π ℓ_node` without unwinding — a hard forbidden-wall); (c) saturation"
+    ],
+    [
+     "research/2026-07-02_arcstar-yield-anchor-scope_prereg.md",
+     6,
+     "**Source result:** [`2026-07-02_axiom4-moduli-hierarchy_result.md`](2026-07-02_axiom4-moduli-hierarchy_result.md) (PR #460) §4 — the forward prediction: a compressible K4 strut settles at a self-consistent fixed arc-length `arc* = 4ρ/(4ρ+1)·ℓ_node`, so the saturation kernel's effective yield strain is `arc* < ℓ_node` by O(1/ρ), ~4.5–11% short of the bare bond length (ρ = slenderness² ∈ [2, 5.3])."
+    ],
+    [
+     "research/2026-07-02_arcstar-yield-anchor-scope_prereg.md",
+     20,
+     "- **The self-consistent arc-length:** minimizing U = ½k_a(arc − ℓ)² + ½k_s S² over the bow S at fixed axial projection A gives a fixed operating arc-length `arc* = 4ρ/(4ρ+1)·ℓ_node`, independent of A (tent kinematic). The saturation kernel S(A) = ½·arc*·√(1 − (A/arc*)²) is then an exact quarter-arc in u = A/arc*."
+    ],
+    [
+     "research/2026-07-02_axiom4-buckling-kernel_prereg.md",
+     19,
+     "**The Pythagorean \"constant\" in `vertical²+A²=const²` IS the fixed K4 bond length `ℓ_node` (inextensibility) — an Axiom-1 geometric primitive — so `S(A)=√(1−(A/A_yield)²)` with `A_yield=ℓ_node` is a THEOREM of Axiom-1 bond geometry, α-free.** If so, the \"fixed-radius L2 energy constraint\" the prior pass called Axiom-4's residual axiom **is not an independent posit** — it is the fixed bond length (Axiom-1). And the cross-grade \"combine\" is not a norm (L∞ vs L2) but the **Euler-buckling bifurcation**: the axial dilatation (A1) load drives the transverse shear (T2) stiffness `S→0` at the buckling instability (the vertical tangent = the √-law bifurcation onset)."
+    ],
+    [
+     "research/2026-07-02_axiom4-moduli-hierarchy_result.md",
+     14,
+     "**Inextensibility is NOT Axiom-1-forced and NOT achieved at the vacuum operating point — Outcome C (inherits GR) / NEGATIVE (extensible). The Outcome-A rescue (Euler elastica) is decisively killed.** But the arc closes on a clean, honest note: the **√ FORM is *more* robust than the buckling result showed** — for *any* finite ρ, a compressible K4 strut sits at a self-consistent fixed arc-length `arc* = 4ρ/(4ρ+1)·ℓ_node`, so `S(A)=½·arc*·√(1−(A/arc*)²)` is an **exact quarter-arc in the renormalized amplitude `u=A/arc*`**. The √ shape needs neither `ρ≫1` nor the elastica limit. **What fails is the Axiom-1 closure:** the yield anchor is `arc* ≈ 0.89–0.96·ℓ_node` (4.5–11% short of the bare bond length), and `arc*` inherits from the **GR-imported K=2G** (ρ is K=2G-set). So Axiom-4's shape stays **SHAPE-DERIVED (conditional)**, count **4** — the √ *form* is a robust α-free theorem, but its *anchor* is a GR-imported value, not Axiom-1."
+    ],
+    [
+     "research/2026-07-02_axiom4-moduli-hierarchy_result.md",
+     43,
+     "The buckling result's `A_yield=ℓ_node` is refined: the true yield anchor is `arc*`, so `S(A)` measured against the *bare* `ℓ_node` deviates from `√(1−A²)` by a constant `O(1/ρ)` radius deficit `ε_c=1−arc* = 1/(4ρ+1)`: **11.1% at `ρ=2`, 4.5% at `ρ=5.3`** (raw-`S` deviation reaches ~50% near `A→1` at `ρ=2`, where the true bow collapses at `A=arc*<1`). This is an AVE-internal prediction: the saturation kernel's *effective yield strain* is `arc*<ℓ_node`, set by the same `ρ` that sets K=2G."
+    ],
+    [
+     "research/2026-07-04_srs-chiral-micropolar_result.md",
+     94,
+     "  `ℓ_c=√6·ℓ_node`) → `γ=6·k_s`. The ν_eff shift **saturates for γ≳6** (0.224 at γ=6,"
+    ],
+    [
+     "research/2026-07-07_semiconductor-cv-dip_RESULT.md",
+     171,
+     "$\\omega(q)=(2c_0/\\ell_{node})|\\sin(q\\ell_{node}/2)|$ (`graded-network-response.md`:56)."
+    ],
+    [
+     "research/2026-07-14_tij-x44b_CHARTER.md",
+     130,
+     "> **★ ROLE-3 restatement (Wall-A ruling, `_orchestration/2026-07-10_rulings-docket.md:540-544`, `608`; Grant-accepted \"accept!\" 2026-07-14).** The `A²=2α` (`A_yield = √(2α)`) contour is **THE DEFICIT KNEE** (the `ΔS = α` regime-I boundary), **NOT** the TIR wall: the engine kernel `s = √(1−a2c)` (`src/ave/core/chiral_lattice_v10.py:56`) gives `S(A²=2α) ≈ 0.993`, `Γ ≈ −0.002` (docket auditor arithmetic). The yield **wall** is the **ROLE-2** local `S(A)→0` / `Γ=−1` discontinuity, whose location is `max(dynamical S→0 locus, geometric floor ℓ_node/2π ≈ 0.159)` (for the ground state it saturates the floor — ROLE-1≡ROLE-2). **`R_yield` in this gate is the ROLE-2 wall, never the ROLE-3 `A²=2α` knee.** The `A_YIELD_SQ = 2·ALPHA` symbol (`chiral_lattice_v10.py:29-30`) is the knee's coordinate authority — the outer contour, a DIFFERENT radial surface from the wall."
+    ],
+    [
+     "research/2026-07-17_regime-iv-dissipation-audit_items.json",
+     896,
+     "   \"ee_analog\": \"Capacitor dielectric-breakdown-voltage threshold: equilibrium thermal RMS voltage sigma_V (equipartition, k_BT/C_cell across a bond capacitance C_cell = eps_0 * l_node) crossing the fixed dielectric SNAP amplitude V_SNAP (Ax4 saturation boundary -- translation-circuit.md:120: 'ideal saturation dissipates nothing, lossless refusal'). A varactor reaching its yield voltage, not a resistor.\","
+    ],
+    [
+     "research/2026-08-04_echo-delay-regulated-sum_prereg-FROZEN.md",
+     51,
+     "3. **Op14 saturation.** Enters as the static grade `S(A) = √(1−A²)` in the modulus for both branches and, **under RHO-B only**, a second time in the inertia. **It also enters a THIRD time, and that is this lane's new content: the LOCAL BAND TOP scales with the LOCAL speed**, `ω_max(r) = π√3·c(r)/ℓ_node`, so Op14 modulates the lattice's own frequency ceiling. Frozen: `the local band edge collapses with the local speed as omega_max(r) = (band-top coefficient)*c(r)/l_node, so an Op14-graded region has a spatially varying frequency ceiling; this is the local-clock-modulation checkpoint applied to a BAND EDGE rather than to an eigenvalue`."
+    ],
+    [
+     "research/_archive/L3_electron_soliton/104_round_13_layer_3_entry.md",
+     329,
+     "**Honest substrate-physics interpretation:** the engine evolved the IC into bulk waves that disperse outward, leaving a low-amplitude DC residual at the IC's spatial pattern. This is straightforward K4-TLM behavior at ℓ_node sampling for an unbound IC at sub-saturation amplitude with no Cosserat coupling. **NOT a falsification of any specific corpus-canonical claim** — it's the engine doing exactly what the substrate allows under these conditions."
+    ],
+    [
+     "research/_archive/L3_electron_soliton/59_memristive_yield_crossing_derivation.md",
+     12,
+     "**Axiom chain:** Ax4's saturation kernel `S(r) = √(1−r²)` is algebraically symmetric in r. Ax1 (K4 LC lattice) + Ax3 (scale-free action with c as propagation limit) together force a finite state-change time `τ_relax = ℓ_node/c ≈ 1.29·10⁻²¹ s`. The dynamic `S(t)` obeys a first-order relaxation ODE `dS/dt = (S_eq(r) − S)/τ_relax` with `S_eq(r) = √(1−r²)`. This makes the yield-CROSSING directionally asymmetric: fast crossings leave `S(t)` lagging `S_eq(r(t))`, and the lag sign depends on `sign(dr/dt)`. The vacuum is therefore memristive, matching [Vol 4 Ch 1:§3.3](../../manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex#L209-L228)."
+    ],
+    [
+     "research/_archive/L3_electron_soliton/62_ruptured_plasma_bh_entropy_derivation.md",
+     342,
+     "**Flag 62-G:** The corpus ruptured-plasma picture's Γ=0 treats the horizon as a smooth phase boundary. If the boundary has DISCRETE lattice structure at the ℓ_node scale (which Ax1 guarantees), then even in symmetric saturation there may be discrete scattering events that give Ŝ ≠ 0. Not computed here. If such discrete structure gives `|Γ|² = 1/2` per cell, the corpus picture converges on doc 61_'s result — an interesting possibility."
+    ],
+    [
+     "research/_archive/L3_electron_soliton/65_flag_62g_discrete_lattice_gamma.md",
+     42,
+     "> \"The corpus ruptured-plasma Γ=0 picture treats the horizon as a smooth phase boundary. If the boundary has DISCRETE lattice structure at the ℓ_node scale (which Ax1 guarantees), then even in symmetric saturation there may be discrete scattering events that give Ŝ ≠ 0. Not computed here. If such discrete structure gives |Γ|² = 1/2 per cell, the corpus picture converges on doc 61_'s result — an interesting possibility.\""
+    ],
+    [
+     "research/_archive/L3_electron_soliton/VACUUM_ENGINE_MANUAL.md",
+     2166,
+     "| **4.0.0** | 2026-04-23 | 49917ff | Stage 6 Phase 5.6: Memristive Op14 (K4 sector). Adds `S(t)` dynamical state variable per first-order relaxation ODE `dS/dt = (S_eq(r) − S)/τ_relax` with `τ_relax = ℓ_node/c`. Opt-in via `use_memristive_saturation: bool = False` flag preserves backward-compat. **Major because new state variable** — first dynamical S(t) in the K4 sector. Combined with Phase 5 PairNucleationGate's new physical-axiom invocation (nucleation rule), bumps to 4.0.0. |"
+    ],
+    [
+     "src/ave/qed/brillouin_cutoff.py",
+     32,
+     "        TEMPORAL ω_C   = c / ℓ_node   ≈ 7.763e20 rad/s — the μ-grade (circulation) bound"
+    ],
+    [
+     "src/ave/qed/brillouin_cutoff.py",
+     35,
+     "    bounded by the SPATIAL k_max = π/ℓ_node.** ω_C is the μ-saturation ceiling"
+    ],
+    [
+     "src/ave/qed/brillouin_cutoff.py",
+     53,
+     "#   ceiling. (constants.OMEGA_C = c/ℓ_node is the TEMPORAL μ-grade bound; the"
+    ],
+    [
+     "src/ave/topological/cosserat_field_3d.py",
+     31,
+     "  ℓ_c / ℓ_node ≈ √6              (substrate's saturation-boundary scale)"
+    ],
+    [
+     "src/scripts/vol_2_subatomic/fem_borromean_convergence_jax.py",
+     21,
+     "Geometry uses FWHM = ℓ_node (Axiom 1); the saturation threshold ρ_threshold is"
+    ],
+    [
+     "src/scripts/vol_2_subatomic/solve_helium_ground_state.py",
+     10,
+     "At atomic scales (r ~ a₀ ≫ ℓ_node), the AVE saturation operator"
+    ],
+    [
+     "src/scripts/vol_4_engineering/simulate_optical_caustic.py",
+     16,
+     "For z ≳ ℓ_node, the AVE saturation behavior IS the canonical prediction."
+    ]
+   ],
+   "method_a_hits": 67,
+   "method_b_hits": 67,
+   "methods_agree": true,
+   "purpose": "ell_node graded by S/saturation (CH-G receipt)",
+   "regex": "(ell_\\{?node\\}?|l_\\{?node\\}?|ℓ_\\{?node\\}?)[^\\n]{0,60}(S\\(|saturat|grade)",
+   "scope": null
+  },
+  "P-I6": {
+   "hits_union": [],
+   "method_a_hits": 0,
+   "method_b_hits": 0,
+   "methods_agree": true,
+   "purpose": "kinetic-side kernel in landed engine code",
+   "regex": "(self\\.I_omega|self\\.rho)\\s*[*/]\\s*S|I_omega\\s*\\*\\s*S",
+   "scope": "src/ave/"
+  },
+  "P-NC3": {
+   "hits_union": [
+    [
+     "research/2026-08-05_approach-leak_result.md",
+     215,
+     "   a = the G_c(A) exponent ,  b = the I_omega(A) exponent"
+    ],
+    [
+     "research/drivers/approach_leak.py",
+     16,
+     "with `a` the (unstated) G_c(A) exponent and `b` the (unstated) I_omega(A)"
+    ],
+    [
+     "research/drivers/approach_leak_v2.py",
+     640,
+     "                \"I_omega(A) grading law -- exponent b -- ZERO hits on P3 and P4, both engines\","
+    ],
+    [
+     "research/drivers/approach_leak_v2.py",
+     767,
+     "                       \"flag and union-hit list reproduces -- so the I_omega(A) absence receipt \""
+    ],
+    [
+     "research/drivers/approach_leak_v2_results.json",
+     48,
+     "    \"I_omega(A) grading law -- exponent b -- ZERO hits on P3 and P4, both engines\","
+    ],
+    [
+     "research/drivers/approach_leak_v2_results.json",
+     491,
+     "   \"frozen\": \"n_files_scanned reproduces as 4418 and every P1-P5 hit count, agreement flag and union-hit list reproduces -- so the I_omega(A) absence receipt UNDERDETERMINED-CANON rests on is RE-VERIFIED, not inherited\","
+    ]
+   ],
+   "method_a_hits": 6,
+   "method_b_hits": 6,
+   "methods_agree": true,
+   "purpose": "v1 P3 reproduced byte-identically - reproduction control",
+   "regex": "I_\\\\?omega\\s*\\(\\s*A\\s*\\)|I_\\{?\\\\?omega\\}?\\s*\\(\\s*A\\s*\\)",
+   "scope": null
+  },
+  "P-NC4": {
+   "hits_union": [],
+   "method_a_hits": 0,
+   "method_b_hits": 0,
+   "methods_agree": true,
+   "purpose": "v1 P4 reproduced byte-identically - reproduction control",
+   "regex": "(I_\\\\?omega|micro.?inertia)[^\\n]{0,40}(S\\^|/\\s*S|S\\(A\\))",
+   "scope": null
+  }
+ }
+}

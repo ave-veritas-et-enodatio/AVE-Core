@@ -93,7 +93,7 @@ $\gamma_c$ & substrate-native (set by $r_W = l_c$) & \si{\newton} &
 Cosserat couple-stress modulus --- the substrate's bond-level resistance to differential micro-rotation between neighbouring K4 nodes. The microrotational analog of the bulk shear modulus $G_{vac}$. Substrate primitive of the rotation sector; sets the weak-force range scale. Source: \kbleaf{vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md} line~39; see Ch.~\ref{ch:vol9_mechanical_characteristics} \S Cosserat Couple-Stress for the mechanical-side derivation. \\
 
 $m_\omega$ & $\sim \qty{1}{\mega\electronvolt}$ (rotation-sector mass-gap) & \si{\mega\electronvolt} &
-Cosserat rotation-sector excitation gap. The substrate's microrotational sector has a finite mass-gap $m_\omega^2 = 4 G_c / I_\omega$ (canonical at \kbleaf{common/trampoline-framework.md} line~188, period $T = 2\pi/\omega_m = \pi$ in natural units, Verlet-validated). Below $T \sim m_\omega/k_B$, microrotation modes are thermally frozen out --- the substrate's ferrite-Curie-temperature analog. At $T_{CMB}$ the B-sector is well below this gap, producing the asymmetric thermal response that drives $\delta_{strain}$ via the Cosserat-Curie mechanism (Ch.~\ref{ch:vol9_temperature_characteristics}). Source: \kbleaf{trampoline-framework.md:188}; maps onto the transformer cutoff frequency / ferrite Curie threshold (\kbleaf{common/translation-tables/translation-circuit.md} \S 4). \\
+Cosserat rotation-sector excitation gap. The substrate's microrotational sector has a finite mass-gap $m_\omega^2 = 4 G_c / I_\omega$ (canonical at \kbleaf{common/trampoline-framework.md} line~192, period $T = 2\pi/\omega_m = \pi$ in natural units, Verlet-validated). Below $T \sim m_\omega/k_B$, microrotation modes are thermally frozen out --- the substrate's ferrite-Curie-temperature analog. At $T_{CMB}$ the B-sector is well below this gap, producing the asymmetric thermal response that drives $\delta_{strain}$ via the Cosserat-Curie mechanism (Ch.~\ref{ch:vol9_temperature_characteristics}). Source: \kbleaf{trampoline-framework.md:192}; maps onto the transformer cutoff frequency / ferrite Curie threshold (\kbleaf{common/translation-tables/translation-circuit.md} \S 4). \\
 
 $l_c^{\text{(weak)}}$ & $\sqrt{\gamma_c / G_{vac}}\, \approx 10^{-18}$~\si{\metre} & \si{\metre} &
 \textbf{Weak-force-range} Cosserat characteristic length, identified with $r_W$. Couple-stress / shear-modulus ratio sets the length over which Cosserat micro-rotation correlates; weak interactions operating below the medium's natural cutoff frequency become evanescent waves with characteristic decay length $l_c^{\text{(weak)}}$. The $W^\pm / Z^0$ gauge bosons are the evanescent cutoff modes of the substrate's bending and torsional rotation sectors respectively. Source: \kbleaf{vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md} line~39. \emph{Distinct from the LATTICE Cosserat coupling length $\ell_c^{\text{(K4)}} = \sqrt{6}\,\ell_{node} \approx \num{9.46e-13}$~m (\texttt{ELL\_C}) --- see Ch.~\ref{ch:vol9_mechanical_characteristics} \S Two Cosserat Characteristic Lengths for the disambiguation.} \\
@@ -140,7 +140,7 @@ $m_W/m_Z = \sqrt{7}/3$ & COLLECTIVE & DERIVED (from $\nu_{vac}=2/7$) & --- \\
 \section{Rotation-Sector Mass-Gap and Ferrite-Curie Analog}
 \label{sec:vol9_rotation_sector_mass_gap}
 
-The Cosserat microrotational sector carries a finite excitation gap. Per the canonical Verlet-validated derivation (\kbleaf{common/trampoline-framework.md} line~188; E-046 canonical):
+The Cosserat microrotational sector carries a finite excitation gap. Per the canonical Verlet-validated derivation (\kbleaf{common/trampoline-framework.md} line~192; E-046 canonical):
 
 \[
 m_\omega^2 = 4\, G_c / I_\omega,
@@ -152,7 +152,7 @@ with $G_c$ the Cosserat couple-stress modulus (here called $\gamma_c$ in the spe
 
 This asymmetric thermal response --- $\varepsilon$ thermally modulated (E-modes thermally populated; no rest-mass-equivalent gap for translational modes at substrate scale) while $\mu$ thermally frozen (B-modes mass-gap-suppressed) --- produces the canonical $\delta_{strain}$ mechanism at $T_{CMB}$ documented in Ch.~\ref{ch:vol9_temperature_characteristics}. The Cosserat-Curie-frozen $\mu$ side is the substrate-native origin of the thermal-mode-population ASYM class, a substrate-mechanism class distinct from the SYM and strong-field ASYM classes.
 
-\textbf{EE-substrate-native projection.} The substrate's rotation-sector mass-gap maps cleanly onto the \textbf{transformer cutoff frequency / ferrite Curie threshold} (\kbleaf{common/translation-tables/translation-circuit.md} \S 4). Engineering observation catalogs ferrite Curie behavior at lab scale; AVE substrate-physics identifies the same mechanism at substrate scale via the Cosserat micro-rotation mass-gap. Canonical at \kbleaf{trampoline-framework.md:188}.
+\textbf{EE-substrate-native projection.} The substrate's rotation-sector mass-gap maps cleanly onto the \textbf{transformer cutoff frequency / ferrite Curie threshold} (\kbleaf{common/translation-tables/translation-circuit.md} \S 4). Engineering observation catalogs ferrite Curie behavior at lab scale; AVE substrate-physics identifies the same mechanism at substrate scale via the Cosserat micro-rotation mass-gap. Canonical at \kbleaf{trampoline-framework.md:192}.
 
 \section{Weak-Force Range and W/Z Cutoff}
 \label{sec:vol9_weak_force_range_wz_cutoff}
@@ -278,7 +278,7 @@ The EE-projection status for this chapter's primitives (\kbleaf{common/translati
 \begin{itemize}
     \item $\mu_0$, $L_{cell} = \mu_0 \ell_{node}$: identity (substrate-native = canonical EE constant; LC tank inductance = bond microrotation density times $\ell_{node}$). EE wave propagation $= 1/\sqrt{\mu_0 \varepsilon_0}$ identity.
     \item $\gamma_c$ + $l_c$ + W/Z mass scale: order-of-magnitude match against transformer-leakage-inductance characteristic frequency (canonical at \kbleaf{gauge-boson-masses.md:39}).
-    \item Cosserat rotation-sector mass-gap $m_\omega \sim \qty{1}{\mega\electronvolt}$: maps cleanly onto transformer cutoff frequency / ferrite Curie temperature analog (canonical at \kbleaf{trampoline-framework.md:188}).
+    \item Cosserat rotation-sector mass-gap $m_\omega \sim \qty{1}{\mega\electronvolt}$: maps cleanly onto transformer cutoff frequency / ferrite Curie temperature analog (canonical at \kbleaf{trampoline-framework.md:192}).
     \item $(2, 3)$ Clifford-torus electron winding: maps onto 2-primary / 3-secondary toroidal transformer winding pattern (canonical at \kbleaf{torus-knot-uniqueness.md}); see Ch.~\ref{ch:vol9_topological_characteristics} for full topological framing.
     \item SU(2) $\to$ SO(3) double cover (spin-$\tfrac{1}{2}$): maps onto transformer 2:1 galvanic-isolation winding ratio (canonical at \kbleaf{finkelstein-misner-spin-half-derivation.md}).
     \item $B_{snap}$: substrate-axiomatic saturation threshold; cross-validated against Schwinger pair-production scale via $B^2/(2\mu_0) \sim m_e c^2 / \ell_{node}^3$. Documented in Ch.~\ref{ch:vol9_absolute_maximum_ratings}.

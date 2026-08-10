@@ -159,7 +159,7 @@ ONE vacuum node, three substrate grades on one K4 cell, **two impedance domains*
 | Port | domain | Z (cold) | Γ (cold) | confinement | grade |
 |---|---|---|---|---|---|
 | EM-transverse | electrical (Ω) | 376.730 Ω | **0** (matched) | open radiative — SOLE external | EM transverse photon (2 DOF) |
-| shear-Cosserat | mechanical (Rayl) | 2.371×10¹⁵ | 0 (cold match) | **Γ→−1** at sat | Cosserat (2,3) CHARGE-"3" |
+| shear-Cosserat | mechanical (Rayl) | 2.371×10¹⁵ | 0 (cold match) | **Γ→−1** at sat | Cosserat (2,3) CHARGE-"3" ⚑ **CHANNEL-TAG CONFLICT (2026-08-07) — PENDING-GRANT; see the dated flag at the end of this doc** |
 | bulk-A1-dilatation | mechanical (Rayl) | 3.353×10¹⁵ | 0 (cold match) | **Γ→−1** at sat | A1 dilatation MASS-"3" |
 
 EM cell: `L_cell = 4.853×10⁻¹⁹ H`, `C_cell = 3.419×10⁻²⁴ F`, `ω_LC = 7.763×10²⁰ rad/s`.
@@ -276,3 +276,18 @@ asserts):
 | `vacuum_node_circuit.py:38` | deviatoric (shear) = SEPARATE differential axis (splits pairs) |
 | `master-equation.md:20,85` | A1 ⊥ T2; electron mass-cage = A1 dilatation `Z_bulk→0 ⇒ Γ=−1` |
 | `device-circuit-models.md:139,195` | mixed-domain discipline; seam 4 OPEN pending Grant |
+
+---
+
+## ⚑ CHANNEL-TAG FLAG — shear vs Cosserat (dated 2026-08-07, ADDITIVE; SURFACED, NOT RESOLVED; PENDING-GRANT sector-ownership call)
+
+**Doc-class check performed before writing (the flag's own precondition).** This doc is a **tracked hygiene / disambiguation artifact**, not a frozen prereg — no freeze declaration in the body, no `_prereg-FROZEN` suffix, no companion frozen-criteria pair (the three `prereg` hits at `:28`, `:51`, `:103` all reference a *different* lane's prereg). An **additive dated note is therefore the right shape**; a rewrite would not be, and nothing above this line is edited except a one-token ⚑ marker in the `:162` table cell. **This block is an EOF append and the marker is line-count-neutral**, so no inbound `2026-06-20_node-2domain-nport.md:NN` cite is rotted.
+
+**The conflict.** This doc's netlist diagram (`:150`, *"CHARGE-"3" (Cosserat (2,3) wind)"*) and its port table (`:162`, the `shear-Cosserat` row) name **one** channel `shear-Cosserat`, fusing shear-$G$ with Cosserat micro-rotation. The canonical port register carries them as **two distinct channels with different physics**:
+
+- `manuscript/ave-kb/common/port-register.md`:48 — **channel 2**, *"Mechanical shear / GW"* ($T_2$ shear-$G$), $c_{shear}=c$, **GAPLESS** (*"gapless acoustic; edge"*), the observed-GW carrier.
+- `manuscript/ave-kb/common/port-register.md`:50 — **channel 4**, *"Cosserat micro-rotation / wryness"* (couple-stress $\gamma$-grade, the $(2,3)$ winding), $c_\kappa=\sqrt2\,c$, **GAPPED** (*"(gapped — see gap)"*, Yukawa reach $\sim\ell_{node}$).
+
+The compound name `shear-Cosserat` **presumes the fusion this doc was not chartered to adjudicate**, and the stakes are physical: gapless-radiating-at-$c$ versus gapped-and-screened is a different confinement story for charge.
+
+**Twin flag + likely root.** The full argument, including the observation that `master-equation.md:20` itself calls the winding *"T2 couple-stress"* (so the conflation may be inherited from the ratified line rather than introduced by either leaf), is carried at `manuscript/ave-kb/vol9/ch3-pin-port-configuration/device-circuit-models.md` (§CHANNEL-TAG FLAG). **Do not cite the `shear-Cosserat` compound as settling which channel the $(2,3)$ winding rides.**

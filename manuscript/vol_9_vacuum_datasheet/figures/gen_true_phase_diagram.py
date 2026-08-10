@@ -2,7 +2,7 @@
 """Generate the substrate true-thermodynamic-phase-diagram figure for Vol 9 Ch 14.
 
 Axes:   thermal occupation T (vertical, log)  x  bulk dilatation rho_bar (horizontal).
-Phases: SOLID (K4-Cosserat crystal)  /  MELT (pre-geodesic plasma)  /  CAVITATED (candidate).
+Phases: SOLID (K4-Cosserat crystal)  /  MELT (pre-bond state; gloss pre-geodesic - R9 rename 2026-08-06)  /  CAVITATED (candidate).
 Lines:  melt line  T_melt = m_e c^2 / k_B          (CANONICAL; 02_absolute_maximum_ratings.tex:38,60)
         cavitation line  rho_bar_cav = -1/phi      (CANDIDATE, CONTESTED; cavitation_flow.py:62-64)
 Excit.: the Regime I->IV excitation r=A/A_c is a THIRD coordinate, orthogonal to BOTH
@@ -95,7 +95,7 @@ ax.axvline(RHO_CAV, color=style.COLORS["muted"], lw=2.0, ls="--", zorder=4)  # c
 # --- phase labels ----------------------------------------------------------------
 ax.text(0.30, 6.0e3, "SOLID\n(K4-Cosserat crystal)\nthe canonical AVE vacuum",
         ha="center", va="center", fontsize=10, weight="bold", color=style.COLORS["ave"])
-ax.text(0.10, 2.6e10, "MELT  (pre-geodesic plasma)\nBH interior - parent medium - pre-K4 cosmos",
+ax.text(0.10, 2.6e10, "MELT  (pre-bond state)\nBH interior - parent medium - pre-K4 cosmos",
         ha="center", va="center", fontsize=9.5, weight="bold", color=style.COLORS["comparison"])
 ax.text(-0.75, 3.0e2, "CAVITATED /\nVAPOR\n(CANDIDATE)",
         ha="center", va="center", fontsize=8.5, weight="bold", color=style.COLORS["data"],

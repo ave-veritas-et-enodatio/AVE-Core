@@ -212,7 +212,7 @@ appears at every impedance boundary in the framework:
 \toprule
 \textbf{Scale} & \textbf{Boundary} & \textbf{$\Gamma$ value} \\
 \midrule
-Sub-nuclear & Pauli exclusion ($Z_{knot} \to 0$) & $\Gamma \to -1$ \\
+Sub-nuclear & Pauli exclusion ($Z_{knot} \to 0$) & $\Gamma \to -1$\gammaundeclared{} \\
 Laboratory  & Resonant Antenna S$_{11}$ & $|\Gamma| < 1$ \\
 Planetary   & Moho discontinuity (crust$\to$mantle) & $\Gamma \approx 0.17$ \\
 \bottomrule
@@ -232,7 +232,7 @@ on the substrate lattice impedance.
 \textbf{Solution:} As defined by Axiom 4, the core of a topologically saturated fermion cannot support further internal dynamic RF strain, dropping its internal wave impedance to $Z_{knot} = 0\,\Omega$ (an RF short circuit).
 The surrounding relaxed macroscopic vacuum maintains the baseline impedance $Z_0 \approx 377\,\Omega$.
 Applying the Universal Reflection Operator:
-\[ \Gamma = \frac{Z_{knot} - Z_0}{Z_{knot} + Z_0} = \frac{0 - 377}{0 + 377} = -1 \]
+\[ \Gamma = \frac{Z_{knot} - Z_0}{Z_{knot} + Z_0} = \frac{0 - 377}{0 + 377} = -1\gammaundeclared{} \]
 A reflection coefficient of $-1$ signifies total phase-reversed reflection. This means that incoming vacuum wave transients (or other probing particles) bounce perfectly off the saturated core, creating the impenetrable "hard wall" boundary known in quantum mechanics as Pauli Exclusion. The same mathematical function predicts this macroscopic subatomic event and acoustic seismic reflections identically.
 \end{examplebox}
 
@@ -242,7 +242,7 @@ A reflection coefficient of $-1$ signifies total phase-reversed reflection. This
     \caption{\textbf{Scale invariance of AVE operators.}
     \textbf{Top left:} The universal reflection coefficient
     $\Gamma(Z_1,Z_0)$ applied across 7 domains --- all converge
-    to $\Gamma = -1$ at their respective critical thresholds.
+    to $\Gamma = -1$\gammaundeclared{} at their respective critical thresholds.
     \textbf{Top right:} The universal saturation factor
     $S = \sqrt{1-(V/V_c)^2}$ with physical operating points
     from gravitational waves (linear) to pair production (saturated).
@@ -374,7 +374,7 @@ Code path: \texttt{universal\_operators.universal\_packing\_reflection(Rg\_sq, N
 
 The physics engine resolves local geometric conflicts unconditionally through two topology metrics:
 \begin{enumerate}
-    \item \textbf{Op 9: Universal Steric Reflection ($\Gamma_\text{steric}$):} Applies Pauli-level repulsion mapping overlap to an impedance divergence $\Gamma \to -1$.
+    \item \textbf{Op 9: Universal Steric Reflection ($\Gamma_\text{steric}$):} Applies Pauli-level repulsion mapping overlap to an impedance divergence $\Gamma \to -1$\gammaundeclared{}.
     \item \textbf{Op 10: Junction Projection Loss ($Y_\text{loss}$):} Derived from the universal bend loss formula, mapping orthogonal mismatch angles $\theta$ to signal attenuation $Y_\text{loss} \approx \sin^2(\theta) / \pi^2$.
 \end{enumerate}
 

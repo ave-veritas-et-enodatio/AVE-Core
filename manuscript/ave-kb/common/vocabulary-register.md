@@ -591,7 +591,7 @@ The grade is **orthogonal to `status`**: `status` answers "is the adjudicated se
 - **canonical-home:** `vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:18` (the Maxwell–Heaviside note: the scalar/longitudinal grade demoted by Heaviside–Gibbs, "re-engages at saturation = the electron")
 - **clm-cross-links:** clm-efo113 (Master Equation EFT validity — the longitudinal/7th-mode dispersion regime), clm-lv3uw1 (Magnetic-Branch Confinement — the A1 longitudinal grade re-engaging at the $\Gamma=-1$ wall), clm-uu1qbo ($A_1$/$T_2$ propagation-speed split, $c\sqrt{2}$ vs $c$ — the A1 longitudinal port-mode that grounds sense (d))
 - **open-ambiguity-flag:** YES — "longitudinal" is overloaded (the field-symbol registry locks four readings); the load-bearing distinction is:
-  - (a) the **bulk-volumetric / V-sector scalar** longitudinal grade — the Heaviside-excised compression scalar, the **A1 dilatation-mass "3"** (`master-equation.md:18,20`). This is the real, physical, Gauss-undeleted grade. **Physical realization:** the **K4 breathing mode** (symmetric radial dilation of all 4 nodes, `vol6/appendix/geometric-inevitability/lambda-higgs-derivation.md`), onto which the **SM Higgs** is a FORM-identification ($m_H = v/\sqrt{N_{K4}} = v/2$) — **NOT** a VALUE-derivation: the route imports $v$ and asserts $N_{K4}=4$, and the quaternion-scalar↔Higgs chord is closed-negative / G3-FAIL (see `def-9b3d05` + `research/2026-06-06_biquaternion-node-algebra-result.md`). [scalar V grade]
+  - (a) the **bulk-volumetric / V-sector scalar** longitudinal grade — the Heaviside-excised compression scalar, the **A1 dilatation-mass "3"** (`master-equation.md:18,20`). This is the real, physical, Gauss-undeleted grade. **Physical realization:** the **K4 breathing mode** (symmetric radial dilation of all 4 nodes, `vol6/appendix/geometric-inevitability/lambda-higgs-derivation.md`), onto which the **SM Higgs** is a FORM-identification ($m_H = v/\sqrt{N_{K4}} = v/2$) — **NOT** a VALUE-derivation: the route imports $v$ and asserts $N_{K4}=4$, and the quaternion-scalar↔Higgs chord is closed-negative / G3-FAIL (see `def-9b3d05` + `research/2026-06-06_biquaternion-node-algebra-result.md`). [scalar V grade] **★SHARPENED 2026-08-07 — REFINE, not retract (everything above in (a) is byte-untouched; this is additive).** The **mechanical content** of this grade, adopted **verbatim** from #761 §1.1 (`research/2026-07-20_mechanical-commonmode-derivation_result.md`:46): the A1-dilatation $\theta=\nabla\!\cdot\!\mathbf u$ is the *"longitudinal polarization of the vector displacement field"* — *"NOT a separate scalar DOF; it is a projection of the same 3-vector"* $\mathbf u$ that the vector band survey solves (nonzero exactly on the P-branch, zero on the S-branches). **Why this is load-bearing and not a gloss:** it forecloses the QED gauge misreading *structurally* rather than by prohibition. A **separate** scalar DOF could be argued constrained/non-dynamical the way EM's $\nabla\!\cdot\!\mathbf A$ genuinely is (curl-only Lagrangian ⇒ no restoring force); a **polarization of a physical displacement field that carries a bulk restoring force** $K\neq0$ cannot be — it is a propagating P-branch wave, and carrying the EM Gauss-kill across is *"structurally incompatible with the rest of the corpus"* (same doc `:71`). The standing "never frame in QED-vector terms" guard is thereby given a *mechanism*, not just an instruction. **Disposition:** this lands, **at the def-node**, the repair #761 §1.3 routed at `:73` as a *"sector-ownership WORDING"* tightening. ★**The `master-equation.md:20` canon line itself is NOT edited** — it is the Grant-ratified 🔴 TWO-"3"s banner (PR#260), and #761 §6.2 item 2 (`research/2026-07-20_mechanical-commonmode-derivation_result.md`:181) books that half as a *"Grant/auditor sector-ownership WORDING ruling"* that is *"wording-only"* with *"the physics identification stands"*. **Def-node half discharged; canon-line half remains Grant's call.**
   - (b) **shear-in-the-longitudinal-direction** — the Cosserat longitudinal-shear sense (the substrate-mechanical $\tau_{zx}$ family used in the dark-wake / thrust arc), a genuine Maxwell/Cauchy shear stress. [stress, $N\,m^{-2}$]
   - (c) the **EM-forbidden** longitudinal photon (transverse-only EM mode) — the sense in which the photon has no longitudinal component.
   - (d) the **port / lattice** $A_1$ longitudinal port-mode ($\sqrt{2}c$ bulk-modulus dilatation; see `def-2e8d61` c).
@@ -1295,3 +1295,59 @@ promotion.
   instrument class); the `ave-infinity-discipline` skill; the Wilsonian reading in
   `_orchestration/2026-08-04_lorentz-compliance-arc-brief.md` (divergences mark where the
   continuum description is insensitive to the substrate).
+
+---
+
+## the LOCK vocabulary (phase-lock bond / lock range / free-running) — ⚑ PROPOSED, licenses nothing
+<!-- dated 2026-08-06; Grant R17 (starting vocabulary, walk-level); NO def- id minted — see the gate note -->
+
+- **status:** **PROPOSED** — adopted as the *starting* vocabulary for the bond's constitutive
+  description, walk-level and **UN-AUDITED**. It is **not** canon, it **licenses nothing in
+  print**, and no leaf may quote it as the mechanism of anything. Ruled at
+  [`2026-08-06-rulings-final-batch.md`](../../../_orchestration/docket-entries/2026-08-06-rulings-final-batch.md):61
+  (R17), Grant verbatim at `:63` — *"yes on 5, PLL makes sense or at least is the seemingly
+  correct lens to start from, we might adjust vocab later but I like it"*. Source walk:
+  [`research/2026-08-06_rotation-substance-ontology_framing-note.md`](../../../research/2026-08-06_rotation-substance-ontology_framing-note.md):101–127
+  (§8 dated addendum) — whose own header reads *"still ⚑ UN-AUDITED"*.
+- **no `def-` id is minted here, deliberately.** A `def-` node records a *locked* meaning and
+  materializes into `claims.jsonl`; this vocabulary is explicitly not locked (R17: *"we might
+  adjust vocab later"*). It lands in the dated-entry shape the two entries above use, so a grep
+  for the words resolves here and reads the fence first.
+
+**The proposed terms, each phase-scoped (crystal / boundary / de-bonded — a lock word with no
+phase attached is a mis-use):**
+
+| term | proposed meaning | phase scope |
+|---|---|---|
+| **phase-lock bond** | the bond as a phase-lock between adjacent rotors; freezing = the rotor field locking into one globally synchronized network (omega-freeze's common phase = the frozen chirality) | crystal |
+| **compliance (lock sense)** | the lock's small-signal stiffness — what presents in the circuit register as capacitance | crystal |
+| **lock range** | the drive amplitude a bond holds lock across; breakdown = drive past the lock range | crystal → boundary |
+| **free-running** | the de-bonded phase: rotors not locked to neighbours, **dark by construction** (no bond sector ⇒ no EM coupling) | de-bonded |
+
+**⚑ THE ADLER CARVE — load-bearing, and the reason this entry is not just "PLL".** Literal
+PLL / injection locking imports a **dissipative attractor**: Adler locking needs a limit cycle,
+i.e. gain plus loss. **Axiom 3 forbids that in the cold phase** — two lossless coupled
+oscillators beat, they do not Adler-lock. The substrate-native object is **Hamiltonian resonance
+capture**: phase-locked islands with KAM / Arnold-tongue structure, which exist with no
+dissipation at all.
+
+- **Survives the carve:** the lock range (= island width); the sharp threshold (= separatrix
+  crossing); the dark free-running phase.
+- **FORBIDDEN LANGUAGE:** *"settling into lock"*. Capture in a lossless system is a
+  **boundary-crossing event**, not a relaxation. Any wording that implies decay toward an
+  attractor has re-imported the dissipation the carve removed.
+- Also retired by R17 in this register: **"melt"** as the C7 wording — melt-vs-breakdown
+  dissolves into lock-loss under two control parameters (noise-driven vs drive-driven; canon's
+  BH route is drive-driven, the primordial-freeze route is OPEN).
+
+**Standing counter-arm carried WITH the vocabulary (C6, the addendum's own):** resonance-capture
+islands in Hamiltonian systems are typically **fragile** — measure-zero-adjacent, with chaotic
+separatrix layers. A vacuum-stable *global* lock needs the island to be LARGE and the capture
+generic, and that is a **derivation obligation, not a given**. Until it is discharged the lock
+lens is a picture, not a mechanism.
+
+**Landing tiers, stated so no one over-reads this entry.** Framing-note addendum: landed. This
+register entry: landed, PROPOSED, licenses nothing. The
+[`translation-tables/translation-circuit.md`](translation-tables/translation-circuit.md) §4 row:
+**QUEUED, not landed** — the mapping table stays canon-only until the residence / phase-register
+lanes audit the picture.
