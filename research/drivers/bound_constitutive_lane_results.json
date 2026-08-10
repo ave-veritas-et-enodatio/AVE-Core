@@ -1,0 +1,153 @@
+{
+ "lane": "bound-constitutive (R41)",
+ "engines": [
+  "sympy-exact",
+  "plain-float/numpy"
+ ],
+ "R0": {
+  "R0a_residual_symmetry_exact_zero": true,
+  "R0b_timedep_remainder_matches": true,
+  "R0b_remainder_form": "eps0*(dA/dt).grad(dlam/dt) + (eps0/2)*|grad(dlam/dt)|^2",
+  "R0c_noether_density_identity": true,
+  "R0c_div_curl_curl_zero_symbolic": true,
+  "R0c_div_curl_curl_zero_float_seed20260810": true
+ },
+ "R1": {
+  "sympy_longitudinal_curl_is_zero": true,
+  "numeric_linear_drift_residual": 2.1458390619955026e-12,
+  "numeric_linear_drift_pass_le_1e-10": true,
+  "conserved_momentum_note": "Pi_L = eps0*dA_L/dt constant by construction (Add==0)"
+ },
+ "R2": {
+  "vacuum_max_abs_ddt_div_pi": 1.3010426069826053e-18,
+  "vacuum_pass_le_1e-12": true,
+  "sourced_max_abs_continuity_defect": 1.734723475976807e-18,
+  "sourced_pass_le_1e-12": true,
+  "grid": {
+   "n": 96,
+   "h": 1.0,
+   "dt": 0.2,
+   "steps": 200
+  },
+  "note": "central-difference div/grad/lap are commuting convolutions on the periodic grid, so div(curl-curl force) == 0 to roundoff \u2014 the discrete DEC-class identity"
+ },
+ "R3": {
+  "transverse_receipted": {
+   "kind": "receipted",
+   "pol": "T",
+   "K_over_G": null,
+   "front_speed": 0.995850622406639,
+   "arrivals": {
+    "r_d1": 60.0,
+    "t1": 52.25,
+    "r_d2": 120.0,
+    "t2": 112.5
+   },
+   "max_displacement_change": 0.12089573650398677,
+   "grid": {
+    "n": 400,
+    "dt": 0.25,
+    "steps": 700
+   }
+  },
+  "transverse_speed_pass_within_3pct_of_c": true,
+  "longitudinal_receipted": {
+   "kind": "receipted",
+   "pol": "L",
+   "K_over_G": null,
+   "front_speed": 0.0,
+   "arrivals": {
+    "r_d1": 60.0,
+    "t1": null,
+    "r_d2": 120.0,
+    "t2": null
+   },
+   "max_displacement_change": 1.6263032587282567e-19,
+   "grid": {
+    "n": 400,
+    "dt": 0.25,
+    "steps": 700
+   }
+  },
+  "longitudinal_receipted_STATIC_pass": true,
+  "longitudinal_K2G_control": {
+   "kind": "K2G-loaded control",
+   "pol": "L",
+   "K_over_G": 2.0,
+   "front_speed": 1.818166165992253,
+   "arrivals": {
+    "r_d1": 60.0,
+    "t1": 28.618503629644927,
+    "r_d2": 120.0,
+    "t2": 61.61878771933118
+   },
+   "max_displacement_change": 0.12089573650398615,
+   "grid": {
+    "n": 400,
+    "dt": 0.13693063937629152,
+    "steps": 700
+   }
+  },
+  "control_detects_superluminal_front_ge_1.5c": true,
+  "control_speed_within_3pct_of_sqrt10over3": true,
+  "sqrt_10_3_frozen": 1.8257418583505538
+ },
+ "R4": {
+  "sympy_exact_match": true,
+  "float_value_Bin2out50": 6.031857894892402,
+  "float_ref": 6.031857894892402,
+  "float_pass": true,
+  "form": "4*pi*B^2*(1/r_in - 1/r_out): finite, positive, Coulomb-class (1/r^4 density)"
+ },
+ "R5": {
+  "exterior_profile_u_prime_plus_2u_over_r": "Eq(u(r), C1/r**2)",
+  "profile_is_C_over_r2": true,
+  "flux_proxy_time_avg_udot2_at_rmid_K2G": 1.898757928173913e-09,
+  "flux_proxy_time_avg_udot2_at_rmid_receipted": 0.0,
+  "receipted_transports_nothing_pass": true,
+  "control_radiates_pass_ge_10x_floor": true,
+  "params": {
+   "n": 800,
+   "r_in": 5.0,
+   "r_out": 405.0,
+   "omega": 0.15,
+   "steps": 2400,
+   "note": "flux proxy = time-averaged |u_dot|^2 at r_mid, declared per prereg"
+  }
+ },
+ "R6": {
+  "nu_at_K2G": {
+   "exact": "2/7",
+   "float": 0.2857142857142857
+  },
+  "trace_factor_1_minus_2nu": {
+   "exact": "3/7",
+   "float": 0.42857142857142855
+  },
+  "cP2_over_cT2_at_K0": {
+   "exact": "4/3",
+   "float": 1.3333333333333333
+  },
+  "cP2_over_cT2_at_K2G": {
+   "exact": "10/3",
+   "float": 3.3333333333333335
+  },
+  "all_banked_ratios_pass": true,
+  "sqrt_check_float": {
+   "sqrt_4_3": 1.1547005383792515,
+   "sqrt_10_3": 1.8257418583505538,
+   "frozen_sqrt_4_3": 1.1547005383792515,
+   "frozen_sqrt_10_3": 1.8257418583505538
+  }
+ },
+ "gates": {
+  "R0": true,
+  "R1": true,
+  "R2": true,
+  "R3": true,
+  "R4": true,
+  "R5": true,
+  "R6": true
+ },
+ "all_pass": true
+}
