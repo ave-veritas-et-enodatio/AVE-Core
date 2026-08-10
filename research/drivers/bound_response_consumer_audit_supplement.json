@@ -1,0 +1,89 @@
+{
+ "provenance": "Tier-2 repair supplement (2026-08-10, wf_e993ce37-f91 findings #6/#7/#11/#12/#14). Two defect classes repaired: (A) the 58 canon union files (100 family hits) the panel pass never classified; (B) the counter-sweep sites the shared-pattern sweep missed entirely (recall hole: both engines consumed ONE pattern set — engine independence was mechanics-level, not coverage-level). The original annex and its 349/59/185/105 counts are UNCHANGED (they describe the panel pass); THIS file carries the supplement. The enumeration is hereby re-labeled PATTERN-BOUNDED, not exhaustive: no completeness claim survives; the demotion sweep should treat the union+supplement as a floor, not a ceiling.",
+ "pattern_bug_disclosed": "F3_partition's alternative 'Aki' matched case-insensitively as a SUBSTRING (t-AKI-ng / m-AKI-ng / bre-AKI-ng), inflating F3 with ~71 prose false-positives among the unclassified hits. Direction of effect: noise only (raised apparent hit counts; hid no consumer).",
+ "counter_sweep_misses_classified": [
+  {
+   "site": "manuscript/ave-kb/vol2/appendices/app-f-solver-toolchain/lattice-phase-transition.md:18",
+   "quote": "| Longitudinal waves | Propagate | May propagate |",
+   "bin": "DIES-WITH-THE-PHANTOM",
+   "rationale": "byte-twin of solver-toolchain.md:214 (already DIES); independent leaf clm-d9ivj1 (0.63, input-only)"
+  },
+  {
+   "site": "manuscript/ave-kb/vol2/appendices/app-f-solver-toolchain/sm-translation-toolchain.md:28",
+   "quote": "Acoustic Bulk Modulus Cavity | Atomic Orbital | The electron is an impedance mismatch ($\\Gamma=-1$) that traps a longitudinal wave, bouncing at $E=V(r)$",
+   "bin": "NEEDS-RE-DERIVATION",
+   "rationale": "byte-twin of solver-toolchain.md:468; orbital-acoustics mechanism-label family"
+  },
+  {
+   "site": "manuscript/ave-kb/vol1/dynamics/ch3-quantum-signal-dynamics/schrodinger-from-circuit.md:28",
+   "quote": "the paraxial envelope equation of a classical macroscopic pressure wave propagating through the discrete massive $LC$ circuits",
+   "bin": "NEEDS-RE-DERIVATION",
+   "rationale": "the envelope ALGEBRA is carrier-agnostic; the pressure-wave carrier label rides the phantom — orbital-acoustics family; no quantitative step consumes c_P"
+  },
+  {
+   "site": "manuscript/ave-kb/vol1/dynamics/ch3-quantum-signal-dynamics/gup-derivation.md:55",
+   "quote": "a physical pressure wave cannot resolve structural details smaller than the spatial Nyquist limit of the underlying LC network",
+   "bin": "NEEDS-RE-DERIVATION",
+   "rationale": "the Nyquist/discreteness bound is carrier-agnostic; the pressure-wave carrier label owes re-derivation"
+  },
+  {
+   "site": "src/ave/solvers/coupled_resonator.py:605",
+   "quote": "continuous longitudinal modes bounded by the two nuclear singularities",
+   "bin": "NEEDS-RE-DERIVATION",
+   "rationale": "engine-flag inventory addition (coded longitudinal mode content missed by section-5's list)"
+  }
+ ],
+ "unclassified_hits_dispositioned": {
+  "NOT-A-CONSUMER_pattern_artifact": "71 F3 hits matching 'Aki' inside taking/making/breaking + '23.4 THz' amino-acid lines + numeric coincidences (claim-quality-closure-roadmap process-ledger rows; vol5 amino-acid tables incl. batch-spice-20-amino-acids.md:101, simulation-results-zero-parameter.md:19, 02_organic_circuitry.tex:196/:340/:690, 06_biophysics_pharmacology.tex:378; vol6 prose incl. helium/neon/aluminum/silicon topological-area rows, executive-abstract.md:38, 00_introduction.tex:113, B_high_z_boundary.tex:95; preamble.tex:72 comment; cem-methods-survey.md:127 + 13_future_geometries.tex:259 PO/GO optics; 00_intro.tex:18; 03_quantum_and_signal_dynamics.tex:371 caption; 06_universal_operators.tex:327 (srs vertex floor - reflection-class, channel-agnostic); 03_neutrino_sector.tex:268 (neutrino group velocities - Cosserat sector); 04_quantum_spin.tex:53/:72 (Larmor); 10-11 thermodynamics 'breaking' hits (impedance-mismatch mechanism, carrier-agnostic); 10_quantum_computing:51; 11_experimental_falsification.tex:54/:507; 13_future_geometries.tex:66; appendix_c:124 (Kolmogorov); 01_appendices.tex:230/:249 + vol_0 twins (symplectic/DEC method prose); 06_spice:152/:262 (methodology prose); metric-levitation-limit.md:15, epistemology-of-falsification.md:13, project-roentgen-03.md:18, chiral-thrust-derivation.md:85, vacuum-birefringence-e4.md:173, consciousness-cavity-eigenmode.md:52, first-principles-bond-force-constants.md:176, pn-junction-coupling.md:57 + 01_computational.tex:205, dcve/computational-graph prose",
+  "genuine_rows": [
+   {
+    "site": "manuscript/backmatter/06_spice_verification_manual.tex:167",
+    "quote": "V_SNAP ... 510998.95 V ... A1 bond-compliance divergence voltage (metric varactor knee)",
+    "bin": "SURVIVES-AS-RESPONSE",
+    "rationale": "the A1 bond-compliance reading - the prereg's named survival class"
+   },
+   {
+    "site": "manuscript/ave-kb/common/axiom-register.md:229",
+    "quote": "the lattice *responds* - impedance, screw...",
+    "bin": "SURVIVES-AS-RESPONSE",
+    "rationale": "response-framing of Ax1 - carve-consonant"
+   },
+   {
+    "site": "src/ave/core/chiral_lattice_v14.py:30 (+v15:30,v16:32,v17:38 and z_wall usage lines - 10 hits)",
+    "quote": "Z_BULK_WALL",
+    "bin": "SURVIVES-AS-RESPONSE",
+    "rationale": "wall/boundary constants (sign-invariant reflection role); engine-flag family for the formula-level Z_bulk re-derivation"
+   },
+   {
+    "site": "manuscript/vol_9_vacuum_datasheet/chapters/01_general_description.tex:22 + 03_pin_port_configuration.tex:213/:271",
+    "quote": "Ax4 quarter-arc kernel / Gamma=-1 saturation TIR boundary",
+    "bin": "SURVIVES-AS-RESPONSE",
+    "rationale": "kernel + TIR boundary receipts (T2-route at :213)"
+   },
+   {
+    "site": "manuscript/vol_3_macroscopic/chapters/07_stellar_interiors.tex:78 + 20_white_dwarf_predictions.tex:262",
+    "quote": "Helioseismology as Cavity Resonance / g-modes and p-modes ... ZZ Ceti",
+    "bin": "NOT-A-CONSUMER",
+    "rationale": "MATTER-side acoustics (stellar plasma/solid) - genuinely compressible media, not the vacuum bulk slot"
+   },
+   {
+    "site": "manuscript/ave-kb/vol6/framework/computational-mass-defect/network-analytics.md:18-24 + manuscript/vol_6_periodic_table/chapters/01_computational.tex:77-79",
+    "quote": "Mechanism relabel - 2026-08-04 ... prior wording 'acoustic drag (vacuum friction)'",
+    "bin": "NEEDS-RE-DERIVATION",
+    "rationale": "record rows of the already-executed relabel AWAY from acoustic-drag; carve-consonant; demotion-sweep touch for residual acoustic vocabulary"
+   },
+   {
+    "site": "manuscript/vol_4_engineering/chapters/11_experimental_falsification.tex:358",
+    "quote": "Scope flag (2026-07-19, deep-space reactive-bulk ruling...)",
+    "bin": "SURVIVES-AS-RESPONSE",
+    "rationale": "records the P9 reactive reading - the carve's own class"
+   },
+   {
+    "site": "manuscript/ave-kb/claim-quality-closure-roadmap.md:91/:130/:151/:184/:188/:192/:194/:208/:411/:846 + backmatter/05_universal_solver_toolchain.tex:89 + appendix_vacuum_engineering.tex:155 + universal-saturation-kernel-catalog.md:28/:93/:170/:206 + vol9 06_temperature_characteristics.tex:53-182",
+    "quote": "(process-ledger / kernel-catalog / thermal-ASYM rows)",
+    "bin": "NOT-A-CONSUMER",
+    "rationale": "process records, Ax4 kernel rows (sector split already tabled), and epsilon-sector thermal content - no bulk-as-wave consumption"
+   }
+  ]
+ }
+}
