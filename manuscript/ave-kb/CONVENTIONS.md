@@ -510,6 +510,14 @@ to the preserved history entry; live prose follows renames. Ruled at
 — *"Rule-12 preserved bodies keep their pointers pinned to the preserved history
 entry; live prose follows renames."* (Grant: *"rec."*).
 
+**Addition, 2026-08-09 (R39).** Rule-12 preserved spans are byte-fenced against ALL later
+passes, mechanical included; their audit findings live in ledgers, not in-span. Ruled at
+[`_orchestration/docket-entries/2026-08-09-ruling-r39-sixtags.md`](../../_orchestration/docket-entries/2026-08-09-ruling-r39-sixtags.md):15-17
+— *"Rule-12 preserved spans are byte-fenced against ALL later passes, mechanical included;
+their audit findings live in ledgers, not in-span."* (Grant: *"a on the six tags."*).
+Extends the R26 line above from *pointers* to *bytes*: a marker that renders nothing still
+breaks the blob pins and subsequence gates by which preservation is machine-verified.
+
 ---
 
 ## Notation Invariants Summary

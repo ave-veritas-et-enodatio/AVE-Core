@@ -221,3 +221,34 @@ take a superseded slice as current. Nothing above is edited; the supersession is
 **Full derivation, the mutation receipt, and the reconciliation identity
 (`206 = 205 tagged + 1 §4.4 site-selection exclusion`):**
 [`2026-08-07-gamma-tag-spec-correction.md`](2026-08-07-gamma-tag-spec-correction.md) §3–4.
+
+### DATED SUPERSESSION 2026-08-09 (R39) — the inheritance number moved
+
+**Appended, never a rewrite.** The R32 block above states at `:180` that *"the discharge
+workstream inherits **190 sites carrying channel debt**, not 205"*, and the note above it
+states the identity as `206 = 205 tagged + 1 exclusion`. Both are superseded — **by this
+lane's own later change** — and it is recorded here rather than left as an honesty lag.
+
+Ruled at [`2026-08-09-ruling-r39-sixtags.md`](2026-08-09-ruling-r39-sixtags.md), Grant
+verbatim *"a on the six tags."*: six markers found by the R36 audit sitting inside Rule-12
+preserved spans were **REMOVED**. Re-measured at `origin/main` = `e338743e`, two methods
+(`git grep -o` scoped to `manuscript` net of the definition; independent Python `rglob`+`re`):
+
+| quantity | as written above | at `e338743e` |
+|---|---|---|
+| tagged population | 205 | **199** |
+| signed-bare | 190 | **185** |
+| MAGNITUDE-ASSERTION | 15 | **14** |
+| **discharge-workstream inheritance** | 190 | **185** |
+| census identity | `206 = 205 + 1` | **`206 = 199 + 7`** (1 quoted + 6 §4.4-preserved) |
+
+**The magnitude class lost one member, and that is why the inheritance is 185 and not 184.**
+Of the six removed markers five were signed-bare and one —
+`vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex`:161, `$|\Gamma| = 1$` — is a
+MAGNITUDE-ASSERTION site from the fifteen listed above. Per this block's own reasoning the
+magnitude class carries **no** signed-channel-declaration debt, so removing a magnitude site
+does not reduce the debt count; only the five signed-bare removals do.
+
+Full execution, the six byte-restoration receipts and the re-derived split:
+[`2026-08-07-gamma-tag-spec-correction.md`](2026-08-07-gamma-tag-spec-correction.md),
+addendum dated 2026-08-09.
