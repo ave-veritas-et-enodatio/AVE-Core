@@ -65,9 +65,24 @@ def main():
     # energy + response
     checks.append(("R4 Coulomb integral float", abs(r["R4"]["float_value_Bin2out50"]
                                                     - 4 * math.pi * (0.5 - 0.02)) < 1e-12))
-    checks.append(("R5 receipted transports nothing",
-                   r["R5"]["flux_proxy_time_avg_udot2_at_rmid_receipted"] == 0.0))
+    checks.append(("R5 receipted arm zero (ENTAILED identity, relabeled)",
+                   r["R5"]["receipted_arm_identically_zero_by_operator_restriction"] == 0.0))
     checks.append(("R5 control radiates", r["R5"]["flux_proxy_time_avg_udot2_at_rmid_K2G"] > 1e-10))
+
+    # Tier-2 repair receipts
+    checks.append(("R1 full EOM reduces (C20 repair)",
+                   r["R1"]["sympy_full_EOM_reduces_to_eps0_fpp_zero"] is True))
+    checks.append(("R7 retarded front within 3% of c", abs(r["R7"]["front_speed_from_delay"] - 1.0) <= 0.03))
+    checks.append(("R7 energy outside c-cone <= 1e-10 frac",
+                   r["R7"]["energy_outside_c_cone_frac"] <= 1e-10))
+    checks.append(("R8 near-zone tracking <= 10% at omega1",
+                   r["R8"]["nearzone_rel_deviation_at_omega1"] <= 0.1))
+    checks.append(("R8 quadratic-class scaling ratio in [3,9]",
+                   3.0 <= r["R8"]["deviation_ratio"] <= 9.0))
+    checks.append(("R9 D1-form EL is NOT canon (C3/C14)",
+                   r["R9"]["D1_form_chain_rule_remainder_nonzero"] is True))
+    checks.append(("R9 Kirchhoff D2-form EL exact",
+                   r["R9"]["kirchhoff_D2_form_EL_equals_D_times_canon_exact"] is True))
     checks.append(("all driver gates green", r["all_pass"] is True or MUTATE))
 
     bad = [name for name, ok in checks if not ok]

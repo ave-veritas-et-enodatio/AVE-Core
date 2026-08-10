@@ -14,14 +14,15 @@
  },
  "R1": {
   "sympy_longitudinal_curl_is_zero": true,
+  "sympy_full_EOM_reduces_to_eps0_fpp_zero": true,
   "numeric_linear_drift_residual": 2.1458390619955026e-12,
   "numeric_linear_drift_pass_le_1e-10": true,
-  "conserved_momentum_note": "Pi_L = eps0*dA_L/dt constant by construction (Add==0)"
+  "numeric_leg_label": "ENTAILED arithmetic consequence of Add==0 \u2014 banked-context reproduction of the #935 receipt class, NOT an independent dynamics test (Tier-2 C20 relabel)"
  },
  "R2": {
   "vacuum_max_abs_ddt_div_pi": 1.3010426069826053e-18,
   "vacuum_pass_le_1e-12": true,
-  "sourced_max_abs_continuity_defect": 1.734723475976807e-18,
+  "sourced_max_abs_continuity_defect": 4.40619762898109e-16,
   "sourced_pass_le_1e-12": true,
   "grid": {
    "n": 96,
@@ -103,8 +104,8 @@
   "exterior_profile_u_prime_plus_2u_over_r": "Eq(u(r), C1/r**2)",
   "profile_is_C_over_r2": true,
   "flux_proxy_time_avg_udot2_at_rmid_K2G": 1.898757928173913e-09,
-  "flux_proxy_time_avg_udot2_at_rmid_receipted": 0.0,
-  "receipted_transports_nothing_pass": true,
+  "receipted_arm_identically_zero_by_operator_restriction": 0.0,
+  "receipted_arm_label": "ENTAILED/DEMONSTRATED analytic identity \u2014 curl-curl of a radial field is identically zero, so the 1D-spherical receipted arm evaluates acc == 0 BY CONSTRUCTION; it is NOT a falsifiable measurement (Tier-2 C10/D3 relabel). The discrete falsifiable receipt for the same claim is R3's 2D longitudinal-static arm (1.6e-19, full operator run)",
   "control_radiates_pass_ge_10x_floor": true,
   "params": {
    "n": 800,
@@ -114,6 +115,59 @@
    "steps": 2400,
    "note": "flux proxy = time-averaged |u_dot|^2 at r_mid, declared per prereg"
   }
+ },
+ "R7": {
+  "arrival_t1": 51.0,
+  "arrival_t2": 110.75,
+  "front_speed_from_delay": 1.00418410041841,
+  "front_within_3pct_of_c": true,
+  "energy_outside_c_cone_frac": 1.101692277913463e-14,
+  "cone_check_time": 140.0,
+  "outside_cone_pass_le_1e-10_frac": true,
+  "params": {
+   "n": 400,
+   "dt": 0.25,
+   "omega": 0.1,
+   "steps": 640,
+   "note": "switched-on div-free transverse current; per-detector 1pct relative threshold; cone margin 25 = source support"
+  }
+ },
+ "R8": {
+  "omega_1": 0.025,
+  "omega_2": 0.05,
+  "nearzone_rel_deviation_at_omega1": 0.029872935653555643,
+  "nearzone_rel_deviation_at_omega2": 0.2030557601121126,
+  "deviation_ratio": 6.797315217593748,
+  "tracks_elliptic_pass_dev_le_0.1_at_omega1": true,
+  "omega2_scaling_pass_ratio_in_3_to_9": true,
+  "object_measured": "(u,pi)-sector response to a conserved compact dipole current; NOT the grade (candidate-conditional)",
+  "instrument_iteration_history_disclosed": [
+   "cut 1: compared u (A-analog) \u2014 object error, dev ~1e4 (the C1/C16 confusion)",
+   "cut 2: sign error (lap psi = +dep), dev ~2.7 anti-correlated",
+   "cut 3: continuum-k^2 Poisson + no sponge \u2014 omega-independent floors (discretization mismatch + periodic wrap) masked the scaling (ratio 0.70)",
+   "cut 4: omega2=0.08 left the near zone (kr=0.76), ratio 7.8",
+   "final: matched discrete symbols + sponge + kr<=0.48; dev1=3.0%, ratio 6.8"
+  ],
+  "band_note": "the frozen prereg froze the SCALING LAW (corrections O((omega r/c)^2), ratio measured at two omega) \u2014 no numeric band was frozen; the [3,9] band is declared from the 2D instrument's own structure (pure quadratic = 4; 2D Hankel near-zone corrections carry log(kr) factors that inflate a frequency-doubling ratio above 4). Direction-of-effect of every instrument iteration stated above.",
+  "params": {
+   "n": 256,
+   "dt": 0.25,
+   "probe_annulus": [
+    8.0,
+    11.0
+   ],
+   "ramp": "adiabatic one-period switch-on",
+   "sponge": "quadratic shell r>100, strength 0.2",
+   "expected_scaling": "quadratic-class: ratio in [3, 9] for w2/w1 = 2"
+  }
+ },
+ "R9": {
+  "D1_form_EL_equals_canon": false,
+  "D1_form_chain_rule_remainder_nonzero": true,
+  "kirchhoff_D2_form_EL_equals_D_times_canon_exact": true,
+  "kirchhoff_source_coupling": "K(eps) = arcsin(eps/eps_yield)*eps_yield",
+  "float_flag": true,
+  "note": "first-cut \u00a74.2 'EXACTLY the EL equation' claim was FALSE for the D^1 form (Tier-2 C3/C14); the exact variational preimage is the Kirchhoff-transformed D^2 form, and EL[J] = D*(canon) so the stationary sets coincide (D>0)"
  },
  "R6": {
   "nu_at_K2G": {
@@ -147,7 +201,10 @@
   "R3": true,
   "R4": true,
   "R5": true,
-  "R6": true
+  "R6": true,
+  "R7": true,
+  "R8": true,
+  "R9": true
  },
  "all_pass": true
 }
