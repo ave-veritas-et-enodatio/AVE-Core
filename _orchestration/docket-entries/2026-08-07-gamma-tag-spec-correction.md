@@ -382,3 +382,107 @@ reading, 7 on a literal one.**
   is **bytes**, and §4.4 is a bytes-level fence.
 - **No channel is adjudicated**, no solidity moves, no id is minted, and the `Γ_shear` sign stays
   unresolved at `manuscript/ave-kb/common/wall-taxonomy.md` §10.1.
+
+---
+
+## DATED ADDENDUM 2026-08-09 (R39) — the six preserved-block tags are REMOVED
+
+**Appended, never a rewrite.** Nothing above is edited. Ruled at
+[`2026-08-09-ruling-r39-sixtags.md`](2026-08-09-ruling-r39-sixtags.md), Grant verbatim
+*"a on the six tags."* — reading (a), removal. Executed as the #932-family correction PR.
+
+**Execution SHA `e338743e`**, worktree verified clean before any edit. Every number below is
+re-derived at that SHA, not adjusted from the previous addendum.
+
+> **Numbering note.** The chat referenced *"r38-sixtag"*; R38 went to the Door-1
+> bound-response ruling on another lane. The sixtags record is **R39**, and R39 is what
+> every edit in this execution cites.
+
+### The removals — byte-exact restoration, six sites
+
+The remedy is the violation's diff reversed and nothing else. Each restored line was
+checked byte-for-byte against its pre-#923 state at the tagging execution SHA `2520e467`:
+
+| site | tags on line | restored line == `2520e467` |
+|---|---|---|
+| `vol_4_engineering/chapters/11_experimental_falsification.tex`:142 | 1 | **YES** |
+| same file :147 | 1 | **YES** |
+| same file :151 | 1 | **YES** |
+| `vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex`:151 | 1 | **YES** |
+| same file :161 | 1 | **YES** |
+| same file :185 | 1 | **YES** |
+
+Line counts unchanged (577 and 1057, matching `2520e467` on both files); `git diff
+--numstat` is `3 3` on each, so the removals are same-line and no anchor moves.
+
+**The seventh containment KEEPS its tag.** `01_vacuum_circuit_analysis.tex`:260 — the
+same-dated correction note inside the `:18` span — is ruled live: *"live prose follows the
+pass; preserved bodies do not"*. The asymmetry is now named in the driver rather than left
+to be inferred.
+
+### The identity, re-stated
+
+```
+206 actionable = 199 tagged + 7 named site-selection exclusions
+                             ( 1 quoted-ruled-text + 6 §4.4-preserved )
+```
+
+Tag population re-derived at `e338743e`, two methods agreeing: **199 markers / 184 lines /
+61 files** (`git grep -o` scoped to `manuscript` net of the definition; independent Python
+`rglob` + `re` walk).
+
+`research/drivers/gamma_census_adjacency_number_check.py` no longer carries a single
+quotation constant: the exclusions are a **NAMED per-class list** (path, line, class), so
+membership is printed on every run and a change to it is loud. A second control asserts the
+per-line arithmetic directly, because naming the exclusions is precisely what un-silences
+R36's silent-balance asymmetry — an UNNAMED wrongly-tagged site sits in both `actionable`
+and `tagged` and cancels; a NAMED one is added to `expected` on top of its tag count, so
+re-tagging it breaks the arithmetic.
+
+> ⚑ **The receipt refused a tautological control, and that changed the driver.** The new
+> `EXCLUSIONS` control does not fire under the existing perturbation — forcing
+> `ADJACENCY_FIX` off moves the ACTIONABLE side of the identity, never the TAG side — so
+> the receipt reported `MISSED` and failed. Rather than drop the control or weaken the
+> receipt, the driver gained a **second mutation**: `M2`, a named §4.4 exclusion coming
+> back TAGGED, fed through the same check code with the corpus untouched. Both controls
+> now fire, each under the mutation that can actually reach it.
+
+### Downstream numbers, re-derived rather than adjusted
+
+**The R32 class split moved, and NOT the way arithmetic-by-assumption would have it.** The
+six removed sites are **5 signed-bare + 1 MAGNITUDE**, not six signed-bare:
+`01_vacuum_circuit_analysis.tex`:161 is `$|\Gamma| = 1$` — an unsigned-magnitude
+assertion, i.e. one of R32's fifteen.
+
+| quantity | before R39 | after R39 | measured how |
+|---|---|---|---|
+| tagged population | 205 | **199** | two methods, `e338743e` |
+| signed-bare | 190 | **185** | left-operand classification of every remaining marker |
+| MAGNITUDE-ASSERTION | 15 | **14** | same pass |
+| `\Gamma^2` tagged | 0 | **0** | unchanged |
+| **discharge-workstream inheritance** (sites carrying channel debt) | 190 | **185** | = signed-bare |
+
+The inheritance is **185, not 184**. Per R32 the magnitude class carries no
+signed-channel-declaration debt, so removing a magnitude site does not reduce the debt
+count — only the five signed-bare removals do.
+
+**Still true, re-checked at `e338743e`:** zero bare-form call sites — every one of the 199
+markers is the `{}`-terminated spelling ratified at R31.
+
+### Render neutrality of the REMOVAL, proved
+
+The tag renders nothing, so taking it out must be render-neutral too — asserted in #923 for
+insertion, and now measured for removal. Vol 4 compiled both ways with the same toolchain:
+
+| build | result |
+|---|---|
+| baseline — `e338743e`, detached worktree, six tags present | exit 0, zero `!` errors |
+| branch — same tree with the six removed | exit 0, zero `!` errors, no undefined control sequence |
+| `pdftotext` diff | **EMPTY** — 9477 lines each side |
+
+### What this addendum does NOT do
+
+It retags nothing, adjudicates no channel, prefers no density branch, mints no id, moves no
+solidity, and leaves the `Γ_shear` sign unresolved at
+`manuscript/ave-kb/common/wall-taxonomy.md` §10.1. The six sites remain in the R36 ledger as
+findings; what changed is that the markers no longer sit inside the spans.

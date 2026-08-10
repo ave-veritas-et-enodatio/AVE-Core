@@ -59,12 +59,42 @@ CENSUS = REPO / "src/scripts/signed_gamma_census.py"
 
 TAG_RE = re.compile(r"\\gammaundeclared\{\}")
 
-#: The one #923 finding the CLASSIFIER cannot and must not eliminate: the Γ sits
-#: inside a verbatim ``…'' quotation of a canonical KB leaf, which spec §4 item 4
-#: excludes as a SITE-SELECTION rule ("any line inside quoted ruled text"). Spec §1
-#: has four conditions — file class, rendered, channel, sign — and quotation is not
-#: one of them, so this site is correctly ACTIONABLE and correctly UNTAGGED.
-QUOTED_EXCLUSION = ("manuscript/vol_9_vacuum_datasheet/chapters/12_cosmological_characteristics.tex", 190)
+#: Sites the §1 CLASSIFIER cannot and must not eliminate, because §4.4 excludes them
+#: as a SITE-SELECTION rule rather than a classification. Spec §1 has four conditions —
+#: file class, rendered, channel, sign — and neither "is quoted" nor "is inside a
+#: preserved span" is one of them. Every entry below is therefore correctly ACTIONABLE
+#: and correctly UNTAGGED, and the identity carries them by NAME rather than by a bare
+#: count so a change of membership is loud.
+#:
+#: Two classes, both from spec §4 item 4 ("any frozen or preserved-historical block;
+#: any line inside quoted ruled text"):
+#:   quoted-ruled-text  — 1, found by the #923 execution.
+#:   §4.4-preserved     — 6, found by the R36 audit and REMOVED under R39
+#:                        (`_orchestration/docket-entries/2026-08-09-ruling-r39-sixtags.md`,
+#:                        Grant verbatim "a on the six tags."). Rule-12 preserved spans
+#:                        are byte-fenced against ALL later passes, mechanical included.
+#: (path, lineno, class)
+NAMED_EXCLUSIONS: tuple[tuple[str, int, str], ...] = (
+    ("manuscript/vol_9_vacuum_datasheet/chapters/12_cosmological_characteristics.tex", 190,
+     "quoted-ruled-text"),
+    ("manuscript/vol_4_engineering/chapters/11_experimental_falsification.tex", 142,
+     "§4.4-preserved (LIGO-echo signature block, PRESERVED verbatim @:113/:114)"),
+    ("manuscript/vol_4_engineering/chapters/11_experimental_falsification.tex", 147,
+     "§4.4-preserved (LIGO-echo signature block, PRESERVED verbatim @:113/:114)"),
+    ("manuscript/vol_4_engineering/chapters/11_experimental_falsification.tex", 151,
+     "§4.4-preserved (LIGO-echo signature block, PRESERVED verbatim @:113/:114)"),
+    ("manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex", 151,
+     "§4.4-preserved (TKI section body, preserved per Rule 12 @:18)"),
+    ("manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex", 161,
+     "§4.4-preserved (TKI section body, preserved per Rule 12 @:18)"),
+    ("manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex", 185,
+     "§4.4-preserved (TKI section body, preserved per Rule 12 @:18)"),
+)
+
+#: R39 kept this one TAGGED: the same-dated correction note inside the `:18` span reads
+#: as live editorial writing, not preserved body — "live prose follows the pass;
+#: preserved bodies do not". Named here so the asymmetry is documented, not inferred.
+RULED_LIVE_INSIDE_SPAN = ("manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex", 260)
 
 #: (path, lineno, pre_fix_actionable, findings_hosted, expected_post_fix, classes)
 #: measured at the #923 execution SHA 2520e467 and re-derived at 644a4546.
@@ -261,20 +291,53 @@ def rendered_of_first_gamma(cen, line: str, suffix: str = ".tex") -> bool:
     return not cen.is_comment_line(suffix, line)
 
 
-def run_checks(cen) -> list[str]:
-    """Every control, as a list of failure strings. Empty list == all green."""
+def run_checks(cen, tags_override: collections.Counter | None = None) -> list[str]:
+    """Every control, as a list of failure strings. Empty list == all green.
+
+    `tags_override` exists only so a mutation receipt can perturb the MEASURED tag map
+    and feed it back through this same code. Nothing in the normal path passes it.
+    """
     fails: list[str] = []
 
     # 1. IDENTITY ---------------------------------------------------------------
-    act, tags = actionable_sites(cen), tagged_sites()
+    # R39: 206 actionable = 199 tagged + 7 NAMED exclusions (1 quoted + 6 §4.4-preserved).
+    act = actionable_sites(cen)
+    tags = tagged_sites() if tags_override is None else tags_override
     expected = collections.Counter(tags)
-    expected[QUOTED_EXCLUSION] += 1
+    for path, lineno, _cls in NAMED_EXCLUSIONS:
+        expected[(path, lineno)] += 1
     if act != expected:
         fails.append(
-            "IDENTITY: post-R33 actionable != tagged + the one §4.4 exclusion  "
-            f"(actionable={sum(act.values())}, tagged={sum(tags.values())}; "
+            "IDENTITY: post-R33 actionable != tagged + the named §4.4 exclusions  "
+            f"(actionable={sum(act.values())}, tagged={sum(tags.values())}, "
+            f"named-exclusions={len(NAMED_EXCLUSIONS)}; "
             f"actionable-only={sorted((act - expected).elements())}, "
             f"expected-only={sorted((expected - act).elements())})"
+        )
+
+    # 1b. EXCLUSIONS RECONCILE PER LINE -----------------------------------------
+    # Naming the exclusions is what un-silences the silent-balance asymmetry R36
+    # described: an UNNAMED wrongly-tagged site sits in `act` AND `tags` and cancels,
+    # whereas a NAMED one is added to `expected` on top of its tag count, so re-tagging
+    # it breaks the arithmetic. This per-line check says so in a targeted message rather
+    # than leaving a reviewer to read a whole-corpus multiset diff. It is line-aware
+    # because a line may host an excluded Γ and a tagged Γ at once — :190 does.
+    excl_per_line = collections.Counter((p, l) for p, l, _ in NAMED_EXCLUSIONS)
+    for (path, lineno), n_excl in sorted(excl_per_line.items()):
+        gap = act[(path, lineno)] - tags[(path, lineno)]
+        if gap != n_excl:
+            named = [c for p, l, c in NAMED_EXCLUSIONS if (p, l) == (path, lineno)]
+            fails.append(
+                f"EXCLUSIONS: {path}:{lineno} hosts {n_excl} named exclusion(s) "
+                f"{named}, so actionable-minus-tagged on that line must be {n_excl}; "
+                f"measured {gap} (actionable={act[(path, lineno)]}, "
+                f"tagged={tags[(path, lineno)]})"
+            )
+    if not tags[RULED_LIVE_INSIDE_SPAN]:
+        fails.append(
+            f"EXCLUSIONS: {RULED_LIVE_INSIDE_SPAN[0]}:{RULED_LIVE_INSIDE_SPAN[1]} lost its "
+            "tag — R39 ruled this same-dated correction note LIVE prose, which the pass "
+            "does tag ('live prose follows the pass; preserved bodies do not')"
         )
 
     # 2. FINDINGS ---------------------------------------------------------------
@@ -316,6 +379,7 @@ def run_checks(cen) -> list[str]:
 # =====================================================================================
 CONTROLS: tuple[tuple[str, str], ...] = (
     ("IDENTITY", "the actionable set no longer reconciles against the tag population"),
+    ("EXCLUSIONS", "a named §4.4 exclusion stops reconciling on its own line"),
     ("FINDINGS", "the #923 finding lines come back as actionable"),
     ("PLANTED[FAR-VALUE]", "a value far down the line is read as adjacent again"),
     ("PLANTED[TRUNCATED]", "`= 1 - \\alpha` is read as `+1` again"),
@@ -325,28 +389,60 @@ CONTROLS: tuple[tuple[str, str], ...] = (
 )
 
 
-def mutation_receipt(cen) -> int:
-    print("[gamma-adjacency] MUTATION RECEIPT — forcing ADJACENCY_FIX = False")
-    print("[gamma-adjacency]   (the pre-R33 instrument; the corpus is NOT touched)")
+def _mut_adjacency_off(cen) -> list[str]:
+    """M1 — the pre-R33 instrument. The corpus is NOT touched."""
     cen.ADJACENCY_FIX = False
     try:
-        fails = run_checks(cen)
+        return run_checks(cen)
     finally:
         cen.ADJACENCY_FIX = True
+
+
+def _mut_retag_an_exclusion(cen) -> list[str]:
+    """M2 — a named §4.4 exclusion comes back TAGGED. The corpus is NOT touched.
+
+    This is the failure R36 named: a marker inside a preserved span. Before R39 named
+    these sites the identity swallowed it (present on both sides, cancels); with them
+    named it must break the arithmetic. M1 cannot exercise that — forcing the classifier
+    off moves the ACTIONABLE side, not the TAG side — so the control gets its own
+    mutation instead of being declared against a perturbation that cannot reach it.
+    """
+    tags = tagged_sites()
+    path, lineno, _cls = NAMED_EXCLUSIONS[1]  # a §4.4-preserved site, re-tagged
+    tags[(path, lineno)] += 1
+    return run_checks(cen, tags_override=tags)
+
+
+#: Each mutation perturbs ONE thing and re-runs the SAME check code above.
+MUTATIONS: tuple[tuple[str, str, object], ...] = (
+    ("M1", "ADJACENCY_FIX = False (the pre-R33 instrument)", _mut_adjacency_off),
+    ("M2", "a named §4.4 exclusion comes back TAGGED", _mut_retag_an_exclusion),
+)
+
+
+def mutation_receipt(cen) -> int:
+    print("[gamma-adjacency] MUTATION RECEIPT — the corpus is NOT touched by any mutation")
+    fails_by_mut = {}
+    for tag, why, fn in MUTATIONS:
+        f = fn(cen)
+        fails_by_mut[tag] = f
+        print(f"[gamma-adjacency]   {tag}: {why} -> {len(f)} failure(s)")
     missed = []
     for name, why in CONTROLS:
-        fired = any(f.startswith(name) for f in fails)
-        print(f"  {'FIRED ' if fired else 'MISSED'}  {name:26s} — {why}")
-        if not fired:
+        fired_in = [t for t, f in fails_by_mut.items() if any(x.startswith(name) for x in f)]
+        mark = "FIRED " if fired_in else "MISSED"
+        print(f"  {mark}  {name:26s} [{','.join(fired_in) or '--'}] — {why}")
+        if not fired_in:
             missed.append(name)
-    print(f"[gamma-adjacency]   perturbed run produced {len(fails)} failure(s)")
+    total = sum(len(f) for f in fails_by_mut.values())
+    print(f"[gamma-adjacency]   {len(MUTATIONS)} mutation(s), {total} failure(s) total")
     if missed:
         print("[gamma-adjacency] *** RECEIPT FAILED — control(s) did not fire: "
               + ", ".join(missed))
         print("[gamma-adjacency]     A control that cannot fire is not a control.")
         return 1
-    print("[gamma-adjacency] RECEIPT OK — every declared control fired under the "
-          "forced-off instrument.")
+    print("[gamma-adjacency] RECEIPT OK — every declared control fired under at least "
+          "one mutation.")
     return 0
 
 
@@ -361,10 +457,16 @@ def main(argv: list[str]) -> int:
           f"{len(act)} lines / {len({p for p, _ in act})} files")
     print(f"[gamma-adjacency]   merged tags         : {sum(tags.values())} markers / "
           f"{len(tags)} lines")
-    print(f"[gamma-adjacency]   §4.4 do-not-touch   : 1 "
-          f"({QUOTED_EXCLUSION[0]}:{QUOTED_EXCLUSION[1]}, quoted ruled text)")
-    print(f"[gamma-adjacency]   identity            : "
-          f"{sum(act.values())} = {sum(tags.values())} tagged + 1 site-selection exclusion")
+    byclass = collections.Counter(c.split(" ")[0] for _, _, c in NAMED_EXCLUSIONS)
+    print(f"[gamma-adjacency]   §4.4 exclusions     : {len(NAMED_EXCLUSIONS)} named "
+          f"({', '.join(f'{n}x {k}' for k, n in sorted(byclass.items()))})")
+    for path, lineno, cls in NAMED_EXCLUSIONS:
+        print(f"[gamma-adjacency]       - {path}:{lineno}  [{cls}]")
+    print(f"[gamma-adjacency]   ruled LIVE, tagged  : "
+          f"{RULED_LIVE_INSIDE_SPAN[0]}:{RULED_LIVE_INSIDE_SPAN[1]} (R39)")
+    print(f"[gamma-adjacency]   identity (R39)      : "
+          f"{sum(act.values())} = {sum(tags.values())} tagged + "
+          f"{len(NAMED_EXCLUSIONS)} named site-selection exclusions")
 
     fails = run_checks(cen)
     for f in fails:
