@@ -251,3 +251,134 @@ It does not rewrite the frozen spec, does not re-open the §1 definition, does n
 single print site, adjudicates no channel, prefers no density branch, and leaves the `Γ_shear` sign
 exactly where canon has it — **unresolved**, at `manuscript/ave-kb/common/wall-taxonomy.md` §10.1.
 It corrects a spelling, a counting method, and an instrument.
+
+---
+
+## DATED ADDENDUM 2026-08-08 (R35 / R36 / R37)
+
+**Appended, never a rewrite.** Nothing in §§1–5 above is edited — this addendum is a pure append to
+a merged fragment. Ruled at
+[`2026-08-08-rulings-r35-r37.md`](2026-08-08-rulings-r35-r37.md), Grant having adopted the
+orchestrator's recommendations verbatim (*"I'm sending this exact to doc lane"* — the relayed text
+is the ruling text).
+
+**Counts re-taken at `origin/main` = `2c866f1b`**, in a worktree verified clean before any edit.
+Tag population unchanged: **205 markers / 190 lines / 61 files** (two methods — `git grep -o`
+scoped to `manuscript` net of the definition, and an independent Python `rglob` + `re` walk).
+
+### R35 — the `206 = 205 + 1` identity is RATIFIED
+
+Ruled **spec-faithful**, on the reading §4 above already stated: **§1's four operational conditions
+define what the actionable set CONTAINS; §4.4's site-selection governs what the tagging pass
+TOUCHES.** The vol-9 quotation site
+(`manuscript/vol_9_vacuum_datasheet/chapters/12_cosmological_characteristics.tex`:190) is
+**genuinely actionable and legitimately untagged**. The use-vs-mention counter-reading — that a Γ
+inside a quotation is mentioned rather than used, and so is not a location where a value is
+asserted — is preserved in the #928 PR record as **considered-and-declined**, not overlooked.
+
+**Standing standard, noted with approval as of this ruling: instruments are never taught
+pre-decided numbers.** The refusal to force the census to 205 is the reference instance. A census
+built to reproduce a number it was handed is a checklist wearing a gate's clothes; the number it
+returns then carries no information. The identity is 206 because that is what the corpus measures.
+
+### R37 — per-occurrence `rendered` is RATIFIED within R33's intent
+
+R33's mandate was *"make the instrument match §1"*; §1 condition 2 asks whether the **assertion** is
+typeset, which is a per-OCCURRENCE question, and the reading was measured at **zero net effect on
+the actionable set**. Recorded here per the ruling — **no separate correction fragment**.
+`is_comment_line` remains unchanged and still backs the line-level `--comments` knob (§3 above).
+
+### R36 — the §4.4 frozen-block audit: EXECUTED. Verdict: **FINDING — 6 tagged sites sit inside declared preserved blocks**
+
+R36's ground, quoted: *"the silent-balance asymmetry — a new quoted Γ fires the identity gate
+loudly; a wrongly-tagged frozen-block site would balance silently."* That asymmetry is real: the
+identity gate compares the actionable set against the **tag** population, so a tag that should not
+exist is present on both sides and cancels. Only a direct audit can see it. This is that audit.
+
+**Tree-state:** worktree at `2c866f1b`, `git status --porcelain` = 0, measured before any edit.
+**Scope:** all **205** tagged sites against §4.4's FULL class list.
+
+**Two independent methods, chosen to fail in opposite directions.**
+
+- **Method A — PROXIMITY (lexical, deliberately over-inclusive).** Marker vocabulary derived from
+  the corpus by grep census rather than guessed (`Rule 12` / `Rule~12` / `PRESERVED` / `SUPERSEDED`
+  / `struck` / `FROZEN` / `RETRACTED` / `walk-back` / `byte-untouched` / `do not quote` / …), tested
+  in a ±6-line window around every tagged line. **21 of 205 flagged.**
+- **Method B — STRUCTURAL (scope-aware).** Environment nesting (`quote` / `quotation` /
+  `displayquote` / `verbatim` / `lstlisting`), the blank-line-delimited PARAGRAPH the site sits in,
+  and the enclosing sectioning heading, each tested for a governing directive. **0 environment
+  flags, 10 paragraph flags, 0 section-heading flags.**
+- **Method B2 — PRESERVED-SPAN CONTAINMENT.** The sharp form. This corpus's Rule-12 pattern is
+  **banner-then-body**: a declaration states what it preserves and where. B2 enumerates every such
+  declaration in a tag-bearing file (**65**), computes the span it governs, and tests containment.
+  **13 declarations contain at least one tagged site; 26 site-containments to adjudicate.**
+
+> ⚑ **Method self-correction, recorded because it changed the verdict.** B2's first span rule ended
+> a governed span at the FIRST sectioning command below the declaration. That is wrong exactly when
+> the preserved material is itself sectioned — *"the four retrospective signatures below"* — because
+> the first `\subsection` is the START of the preserved block, not its end. Under the v1 rule the
+> `11_experimental_falsification.tex` span computed as empty and the audit would have returned
+> ALL-CLEAN. The corrected rule runs the span to the end of the enclosing `\section`, and the finding
+> below is what it surfaced. **A two-method audit whose sharper method has an off-by-one scope bug
+> returns a clean bill of health, loudly.**
+
+**Every flagged site was read by hand.** The union was adjudicated site by site, not sampled.
+
+#### Clean classes (three of §4.4's four)
+
+| §4.4 class | measured | note |
+|---|---|---|
+| already carries a channel subscript | **0** | one crude backward-look false positive at `03_macroscopic_relativity.tex`:178 — the subscripted `$\Gamma_{EM}=0$` is a DIFFERENT, earlier Γ on the same line; the tagged Γ is bare |
+| `%`-comment line | **0** | per-occurrence test (R37), so trailing comments are covered too |
+| quoted ruled text | **0** | independently reproduces #928's review finding — cited, and re-derived free by this method |
+
+#### The frozen/preserved-historical class — where the finding is
+
+Nine of the thirteen containing declarations are **CLEAN on reading**, in three recurring shapes:
+
+- **Preserved-object is INSIDE the `%`-comment** (*"prior wording PRESERVED verbatim **here and in
+  git**"*, *"prior cell preserved … column **was** …"*). The banner carries the old text; the body
+  below is the NEW corrected prose. `07_universal_saturation_kernel.tex`:77 (tags 83/89/145),
+  `03_pin_port_configuration.tex`:183 (tags 213/215/222/225),
+  `13_application_examples.tex`:158 (tag 187).
+- **Preserved-object is ABOVE, or is a figure** (*"printed figure above preserved"*, *"printed
+  figures above/below preserved"*). `04_continuum_electrodynamics.tex`:142 (tag 145 is a new
+  `\paragraph`), `15_black_hole_orbital_resonance.tex`:31 (the tag is ON the correction note itself).
+- **Preserved-object is a SPECIFIC named element, and the tags are outside it.**
+  `01_vacuum_circuit_analysis.tex`:250 / :260 (preserved prose+equation+table begin at :262; the
+  tagged :260 is the live correction note), :556 / :617 (the preserved Silicon-28 paragraph is
+  :619–621; the tags are at :697–:749, in later subsections),
+  `14_phase_diagrams.tex`:48 (a one-line quotation; the tag is 57 lines away).
+
+**Two declarations govern a BLOCK that contains tagged sites. These are the finding.**
+
+| # | tagged site | the declaration, verbatim | why it is inside |
+|---|---|---|---|
+| 1 | `manuscript/vol_4_engineering/chapters/11_experimental_falsification.tex`:142 | :113 — *"the four retrospective signatures below (proton-radius, neutron-lifetime, Hubble-tension, LIGO-echo) are **PRESERVED verbatim**"* ; :114 — *"body below preserved per Rule 12"* | inside `\subsection{LIGO GW150914 Black Hole Echoes}` (:139–:152), which **is** the fourth of the four named signatures |
+| 2 | same file :147 | same | the figure caption inside that subsection |
+| 3 | same file :151 | same | the closing paragraph of that subsection |
+| 4 | `manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex`:151 | :18 — *"Scope of the isomorphism (2026-08-02 …; **the section body below is preserved per Rule~12**)"* | `\section{The Topo-Kinematic Circuit Identity}` runs :12–:549; the declared span is :19–:549 |
+| 5 | same file :161 | same | table row inside that section body |
+| 6 | same file :185 | same | body prose inside that section body |
+
+**A seventh containment, weaker and reported separately rather than folded in.** The same
+`01_vacuum_circuit_analysis.tex`:18 span also covers the tag at **:260** — but :260 is *itself* a
+dated 2026-08-02 correction note, written the same day as the declaration at :18. Under this
+corpus's own banner-vs-body distinction a same-dated editorial note reads as **live writing, not
+preserved body**. It is listed here so the count is not quietly chosen: **6 sites on the strong
+reading, 7 on a literal one.**
+
+#### What this finding does and does not assert
+
+- **Nothing is untagged.** R36 is explicit that untagging is a ruling, not a doc-lane action, and
+  the six markers stay exactly where they are.
+- **The counter-reading is surfaced, not suppressed.** *"PRESERVED verbatim"* in these banners is
+  scoped to the reconciling pass's own action — it records that the 2026-06-15 / 2026-08-02
+  reconciliations added a scope note **instead of** rewriting the body. Whether that is also a
+  standing do-not-touch directive binding every later pass is exactly the open question. Two facts
+  bear on it and neither settles it: the tag **renders nothing** (proved at volume scale in #923 —
+  `pdftotext` diffs empty on vol 1 and vol 9), so no preserved *reading* changed; and the tag pass
+  honoured §4.3 line-count neutrality, so no anchor into the preserved block moved. What did change
+  is **bytes**, and §4.4 is a bytes-level fence.
+- **No channel is adjudicated**, no solidity moves, no id is minted, and the `Γ_shear` sign stays
+  unresolved at `manuscript/ave-kb/common/wall-taxonomy.md` §10.1.
