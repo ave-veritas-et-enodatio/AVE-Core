@@ -16,6 +16,10 @@ L2  the two clock branches (deliverable 2), sympy-exact, both engines.
 L3  the near-zone frequency-response instrument (deliverable 1) with its FROZEN
     liveness set: three analytic positive controls + one negative control.
 L4  the bias-inertia magnitude the LC-HYPERBOLIC bin must pay for.
+L5  the WIDENED clock lemma: any C^1 W = f(S) with f'(1) finite dies (S^p is a
+    proper subset); the escape condition dW/dA|_0 != 0; the |grad eps| non-escape.
+L6  the pole-test VALIDITY SCOPE: the (c/c_g)^(2l+1) suppression that bounds where
+    the banked pulsar exclusion can be read at all.
 
 Two engines wherever a number carries a verdict: sympy exact symbolics and an
 independent mpmath 50-digit numeric arm. Engine `src/ave` is never imported for
@@ -29,6 +33,7 @@ import hashlib
 import json
 import math
 import sys
+import tempfile
 from pathlib import Path
 
 import mpmath as mp
@@ -114,6 +119,20 @@ def leg1() -> dict:
         "n_temporal_equals_1_plus_2GM_over_c2r": bool(
             sp.simplify(n_temporal - (1 + 2 * Gs * M / (c**2 * r))) == 0
         ),
+        # --- RECONCILIATION MATERIAL (no declared boolean is the sole basis of a
+        # check; the number check recomputes each of these in plain `math`) ---
+        "A_at_r_s_numeric": float(sp.N(A.subs(r, r_s))),
+        "n_temporal_samples": [
+            # constants CANONICAL (never hard-coded); the sample radii are pure
+            # evaluation points for a two-engine reconciliation, not comparators.
+            {
+                "G": G, "M": M_SUN, "c": C_0, "r": rr,
+                "n_temporal": float(
+                    sp.N(n_temporal.subs({Gs: G, M: M_SUN, c: C_0, r: rr}), 30)
+                ),
+            }
+            for rr in (6.957e8, 1.0e9, 1.0e11)
+        ],
         "note": (
             "Reconciles eq_axiom_4.tex ('BH event horizon eps_11(r)=1 matches "
             "Schwarzschild r_s=2GM/c^2 exactly') with the eps_11 = 7GM/c^2 r profile: "
@@ -139,12 +158,51 @@ def leg2() -> dict:
     ratio1_exact = sp.simplify(F1 / F_newton)
     ratio1_lead = sp.simplify(sp.limit(ratio1_exact, Gs, 0))          # G^0 term
     ratio1_1pn = sp.simplify(sp.series(ratio1_exact, Gs, 0, 2).removeO())
-    # GR cross-check: the force-at-infinity on a STATIC test mass in Schwarzschild
-    # is F = (GMm/r^2) * (1 - r_s/r)^(-1/2). If CLOCK-1 reproduces that EXACTLY
-    # (not just to leading order), the ENTAILED declaration of prereg 3.2 is
-    # confirmed at every post-Newtonian order, not merely the Newtonian one.
+    # GR cross-check -- NAME THE OBJECT PRECISELY (F4 repair, 2026-08-11 review).
+    # The quantity derived here is -d/dr of the energy-at-infinity in SCHWARZSCHILD
+    # COORDINATE r. That equals GR's static-observer PROPER force
+    #     m*a = (GMm/r^2) * (1 - r_s/r)^(-1/2)
+    # (the force the LOCAL static observer must exert). It is NOT the force at
+    # infinity: the force applied at infinity through an ideal string is
+    #     F_inf = sqrt(1 - r_s/r) * m*a = GMm/r^2  EXACTLY  (Wald sec 6.3),
+    # i.e. the Newtonian expression with no correction at any order. The two
+    # differ by the redshift factor, which is exactly the coordinate-r vs
+    # proper-length conversion dl = dr/sqrt(1 - r_s/r). Both are emitted below.
     gr_ratio = 1 / sp.sqrt(1 - 2 * Gs * M / (c**2 * r))
     gr_match_exact = bool(sp.simplify(ratio1_exact - gr_ratio) == 0)
+    # the force-AT-INFINITY ratio: multiply by the redshift factor. Must be 1.
+    redshift = sp.sqrt(1 - 2 * Gs * M / (c**2 * r))
+    ratio1_at_infinity = sp.simplify(ratio1_exact * redshift)
+    force_at_infinity_is_exactly_newtonian = bool(
+        sp.simplify(ratio1_at_infinity - 1) == 0
+    )
+
+    # --- G-AGFREE, SYMBOLICALLY (F8b repair). Introduce A_g as a live free symbol,
+    # carry it through the ONE relation canon gives it (u_0 = -A_g grad eps_11),
+    # and prove the deliverable-2 target is INDEPENDENT of it on the sympy
+    # EXPRESSION TREE -- free_symbols membership + d/dA_g == 0 -- not by string
+    # inspection of the printed form. Stated honestly: this is an INDEPENDENCE
+    # proof, not the cancellation of a term that was ever present; A_g never
+    # enters the energy chain E = hbar*omega_inf(A) at all.
+    Ag = sp.Symbol("mathcal_A_g", positive=True)
+    u0 = -Ag * sp.diff(eps11, r)                 # the ONE place A_g appears (Ax5 clause G)
+    # (i) the symbol is LIVE in the construction, not inert:
+    ag_live_in_u0 = bool(Ag in u0.free_symbols) and bool(sp.diff(u0, Ag) != 0)
+    # (ii) the deliverable-2 target does not see it, on the expression tree:
+    ag_in_target_free_symbols = bool(Ag in ratio1_exact.free_symbols)
+    ag_derivative_is_zero = bool(sp.simplify(sp.diff(ratio1_exact, Ag)) == 0)
+    # (iii) DETECTOR LIVENESS (the "absence where it doesn't exist" half): a
+    # COUNTERFACTUAL energy chain in which the resonator energy is allowed to
+    # depend on the bound response, E' = hbar*omega_inf*(1 + lam*u_0). This is
+    # NOT a canon claim -- it exists only to prove the detector can SEE A_g when
+    # A_g is there. If this control came out A_g-free, the gate above would be
+    # vacuous.
+    lam = sp.Symbol("lambda_cf", positive=True)
+    E1_cf = hbar * w_inf_1 * (1 + lam * u0)
+    ratio_cf = sp.simplify(sp.simplify(-sp.diff(E1_cf, r)) / F_newton)
+    ag_detector_sees_it_in_control = bool(
+        Ag in ratio_cf.free_symbols and sp.simplify(sp.diff(ratio_cf, Ag)) != 0
+    )
 
     # CLOCK-S: Ax4 kernel route, c_eff = c_0 sqrt(S) = c_0 (1-A^2)^(1/4)
     w_inf_S = w0 * (1 - A**2) ** sp.Rational(1, 4)
@@ -168,6 +226,11 @@ def leg2() -> dict:
     r_s_sun = 2 * G * M_sun / C_0**2
     A_sun = r_s_sun / R_sun
 
+    # reconciliation material for the hbar-cancellation claim: evaluate the target
+    # at two different hbar values. If hbar truly cancels the two are identical.
+    subs_2hbar = {**subs, hbar: mp.mpf(HBAR) * 2}
+    f1_2hbar = mp.mpf(sp.N(ratio1_exact.subs(subs_2hbar), 50))
+
     return {
         "CLOCK_1": {
             "omega_inf": str(w_inf_1),
@@ -175,11 +238,52 @@ def leg2() -> dict:
             "F_over_F_newton_G0_leading": str(ratio1_lead),
             "leading_is_exactly_one": bool(sp.simplify(ratio1_lead - 1) == 0),
             "F_over_F_newton_through_1PN": str(ratio1_1pn),
-            "matches_GR_static_force_at_infinity_EXACTLY": gr_match_exact,
-            "gr_reference_expression": str(gr_ratio),
+            # --- F4 RELABEL (2026-08-11 review). The derived object is GR's
+            # static-observer PROPER force m*a, equivalently -d(E_inf)/dr in
+            # Schwarzschild coordinate r -- NOT the force at infinity.
+            "matches_GR_static_observer_PROPER_force_EXACTLY": gr_match_exact,
+            "gr_static_observer_proper_force_ratio_expression": str(gr_ratio),
+            "force_AT_INFINITY_ratio_expression": str(ratio1_at_infinity),
+            "force_AT_INFINITY_is_exactly_newtonian": force_at_infinity_is_exactly_newtonian,
+            "gr_object_note": (
+                "m*a = (GMm/r^2)(1-r_s/r)^(-1/2) is the STATIC-OBSERVER PROPER force "
+                "(= -dE_inf/dr in Schwarzschild coordinate r). The force AT INFINITY "
+                "is sqrt(1-r_s/r) times it = GMm/r^2 EXACTLY, with no correction at "
+                "any order (Wald sec 6.3). The redshift factor between them IS the "
+                "coordinate-vs-proper-length conversion dl = dr/sqrt(1-r_s/r)."
+            ),
+            "pn_scope_note": (
+                "What is reproduced exactly is the g_00 function in SCHWARZSCHILD "
+                "COORDINATES. The spatial-metric sector (PPN gamma) is untouched by "
+                "this construction and is neither imported nor tested here."
+            ),
             "hbar_cancels": "hbar" not in str(sp.simplify(ratio1_exact)),
-            "Ag_appears": "A_g" in str(ratio1_exact),
+            "hbar_independence_pair": [float(f1), float(f1_2hbar)],
+            # --- G-AGFREE, symbolic (F8b repair) ---
+            "Ag_appears": bool(ag_in_target_free_symbols),
+            "Ag_free_symbol_absent_from_target": bool(not ag_in_target_free_symbols),
+            "Ag_derivative_of_target_is_zero": ag_derivative_is_zero,
+            "Ag_symbol_is_live_in_u0": ag_live_in_u0,
+            "Ag_u0_expression": str(u0),
+            "Ag_detector_sees_it_in_counterfactual_control": ag_detector_sees_it_in_control,
+            "Ag_counterfactual_control_ratio_expression": str(ratio_cf),
+            "Ag_basis_note": (
+                "INDEPENDENCE proof on the sympy expression tree (free_symbols "
+                "membership + d/dA_g == 0), NOT a cancellation of a term that was "
+                "ever present: A_g never enters E = hbar*omega_inf(A). Detector "
+                "liveness shown on a declared COUNTERFACTUAL control in which the "
+                "energy is allowed to depend on u_0 -- there A_g IS seen."
+            ),
             "numeric_at_solar_surface": float(f1),
+            "gr_reference_diff_samples": [
+                {
+                    "r_m": rr,
+                    "abs_diff_ratio_minus_gr": float(
+                        abs(sp.N((ratio1_exact - gr_ratio).subs({**subs, r: mp.mpf(rr)}), 50))
+                    ),
+                }
+                for rr in (6.957e8, 1.0e9, 1.0e11)
+            ],
         },
         "CLOCK_S": {
             "omega_inf": str(w_inf_S),
@@ -315,6 +419,203 @@ def leg4() -> dict:
     }
 
 
+# --------------------------------------------------------------------------
+# L5 -- the WIDENED clock lemma (F1/F-lemma repair, 2026-08-11 review)
+#
+# The result doc's original lemma was stated for the one-parameter family
+# W = S^p. That family is a PROPER SUBSET of what actually dies. The widened
+# statement, proven here:
+#
+#   For ANY C^1 function f with f'(1) finite, the clock law W = f(S(A)) on
+#   Axiom 4's kernel S(A) = sqrt(1-A^2) has dW/dA|_0 = 0 identically, because
+#   dS/dA|_0 = 0. Hence the leading force is
+#       F = -hbar*omega_0 * f'(1) * r_s^2 / r^3      (1/r^3, NOT 1/r^2)
+#   and no such clock can produce Newtonian gravity at all.
+#   S^p is the special case f'(1) = p, reproducing F = -p*hbar*omega_0*r_s^2/r^3.
+#
+#   ESCAPE CONDITION: dW/dA|_0 != 0, i.e. the clock must be LEADING-ORDER LINEAR
+#   in A. Since S = 1 - A^2/2 + O(A^4) is quadratic in A, no C^1 f(S) achieves
+#   it; the escape requires f'(1) -> infinity (non-C^1 at S=1). The surviving
+#   realization is the slope-1 lapse W = sqrt(1-A), dW/dA|_0 = -1/2.
+#
+#   NAMED NON-ESCAPE: keying the clock on the observable GRADIENT |grad eps_11|
+#   instead (canon's "only spatial gradients of A are observable" rescue) also
+#   fails: |grad eps_11| = 7GM/c^2 r^2, so a clock linear in it gives F ~ 1/r^3
+#   again. Verified symbolically below.
+# --------------------------------------------------------------------------
+def _radial_power(expr, r, lo: int = 0, hi: int = 8) -> int:
+    """Smallest n in [lo, hi] with expr * r**n free of r, i.e. expr ~ 1/r**n."""
+    for n in range(lo, hi + 1):
+        if r not in sp.simplify(expr * r**n).free_symbols:
+            return n
+    raise ValueError(f"no pure 1/r**n form found for {expr}")
+
+
+def leg5() -> dict:
+    Aa = sp.Symbol("A", positive=True)
+    Gs, M, c, r, hbar, w0 = sp.symbols("G M c r hbar omega_0", positive=True)
+    S = sp.sqrt(1 - Aa**2)
+
+    # (a) generic C^1 f: dW/dA at A=0
+    f = sp.Function("f")
+    W_gen = f(S)
+    dW_gen = sp.diff(W_gen, Aa)
+    dW_gen_at_0 = sp.simplify(dW_gen.subs(Aa, 0))
+    generic_first_derivative_vanishes = bool(dW_gen_at_0 == 0)
+
+    # (b) the surviving second-order coefficient: W ~ f(1) - (1/2) f'(1) A^2
+    fp = sp.Symbol("fprime1", real=True)   # stands for f'(1)
+    W_quad = sp.Symbol("f1", real=True) - sp.Rational(1, 2) * fp * Aa**2
+    A_of_r = 2 * Gs * M / (c**2 * r)       # A = r_s/r
+    r_s_sym = 2 * Gs * M / c**2
+    E_quad = hbar * w0 * W_quad.subs(Aa, A_of_r)
+    F_quad = sp.simplify(-sp.diff(E_quad, r))
+    F_quad_target = sp.simplify(-hbar * w0 * fp * r_s_sym**2 / r**3)
+    generic_force_matches_1_over_r3 = bool(sp.simplify(F_quad - F_quad_target) == 0)
+    generic_force_power = _radial_power(F_quad, r)
+
+    # (c) S^p as the SPECIAL CASE f'(1) = p
+    p = sp.Symbol("p", positive=True)
+    W_p = S**p
+    dWp_at_0 = sp.simplify(sp.diff(W_p, Aa).subs(Aa, 0))
+    Sp_first_derivative_vanishes = bool(dWp_at_0 == 0)
+    E_p = hbar * w0 * (W_p.subs(Aa, A_of_r))
+    F_p = sp.simplify(-sp.diff(E_p, r))
+    F_p_leading = sp.simplify(sp.series(F_p, Gs, 0, 3).removeO())
+    Sp_leading_matches_generic = bool(
+        sp.simplify(F_p_leading - (-p * hbar * w0 * r_s_sym**2 / r**3)) == 0
+    )
+    # f'(1) for f(S) = S^p is p -- the widened lemma's coefficient specialises
+    fprime1_of_Sp = sp.simplify(sp.diff(sp.Symbol("s")**p, sp.Symbol("s")).subs(sp.Symbol("s"), 1))
+
+    # (d) the ESCAPE: the slope-1 lapse is leading-order LINEAR in A
+    W_lapse = sp.sqrt(1 - Aa)
+    dW_lapse_at_0 = sp.simplify(sp.diff(W_lapse, Aa).subs(Aa, 0))
+    lapse_escapes = bool(dW_lapse_at_0 != 0)
+
+    # (e) the NAMED NON-ESCAPE: a clock keyed on |grad eps_11|
+    lam = sp.Symbol("lambda_g", positive=True)
+    eps11 = 7 * Gs * M / (c**2 * r)
+    grad_eps_mag = sp.simplify(-sp.diff(eps11, r))          # = 7GM/c^2 r^2 > 0
+    W_grad = 1 - lam * grad_eps_mag
+    F_grad = sp.simplify(-sp.diff(hbar * w0 * W_grad, r))
+    grad_force_power = _radial_power(F_grad, r)
+    grad_route_is_1_over_r3 = bool(
+        sp.simplify(F_grad - (-2 * lam * hbar * w0 * 7 * Gs * M / (c**2 * r**3))) == 0
+    )
+    # the power is independent of lambda: F_grad * r^3 is free of BOTH r and lam's
+    # ability to move it, so no choice of the coupling recovers a 1/r^2 law.
+    grad_route_can_never_be_newtonian = bool(
+        r not in sp.simplify(F_grad * r**3).free_symbols and grad_force_power != 2
+    )
+
+    # --- RECONCILIATION MATERIAL: numeric samples so the number check can
+    # recompute the radial POWERS and the lemma coefficients in plain `math`,
+    # instead of consuming a declared boolean. Constants canonical; f'(1) = 1,
+    # p = 2 and lambda_g = 1 are pure evaluation choices, not comparators.
+    ev = {Gs: G, M: M_SUN, c: C_0, hbar: HBAR, w0: 1.0}
+    radii = (1.0e9, 2.0e9)
+    generic_samples = [
+        {"r_m": rr, "F": float(sp.N(F_quad.subs({**ev, fp: 1.0, r: rr}), 30))}
+        for rr in radii
+    ]
+    Sp_samples = [
+        {"r_m": rr, "F": float(sp.N(F_p_leading.subs({**ev, p: 2.0, r: rr}), 30))}
+        for rr in radii
+    ]
+    grad_samples = [
+        {"r_m": rr, "F": float(sp.N(F_grad.subs({**ev, lam: 1.0, r: rr}), 30))}
+        for rr in radii
+    ]
+    # dW/dA at small A for W = S^p (p = 2): must vanish linearly in A
+    Sp_dWdA_small_A = [
+        {"A": aa, "dW_dA": float(sp.N(sp.diff(W_p, Aa).subs({p: 2.0, Aa: aa}), 30))}
+        for aa in (1e-6, 1e-8)
+    ]
+
+    return {
+        "kernel": str(S),
+        "constants_used_for_samples": {"G": G, "M_SUN": M_SUN, "c": C_0, "hbar": HBAR,
+                                       "omega_0": 1.0},
+        "generic_force_samples_fprime1_eq_1": generic_samples,
+        "Sp_force_samples_p_eq_2": Sp_samples,
+        "grad_eps_force_samples_lambda_eq_1": grad_samples,
+        "Sp_dW_dA_small_A_samples": Sp_dWdA_small_A,
+        "generic_C1_dW_dA_at_zero": str(dW_gen_at_0),
+        "generic_C1_first_derivative_vanishes": generic_first_derivative_vanishes,
+        "generic_leading_force": str(F_quad),
+        "generic_leading_force_matches_minus_fprime1_rs2_over_r3":
+            generic_force_matches_1_over_r3,
+        "generic_leading_force_radial_power": generic_force_power,
+        "Sp_is_special_case_fprime1_equals_p": str(fprime1_of_Sp),
+        "Sp_first_derivative_vanishes": Sp_first_derivative_vanishes,
+        "Sp_leading_force": str(F_p_leading),
+        "Sp_leading_matches_widened_lemma": Sp_leading_matches_generic,
+        "escape_condition": "dW/dA|_0 != 0  (the clock must be LEADING-ORDER LINEAR in A)",
+        "slope1_lapse_dW_dA_at_zero": str(dW_lapse_at_0),
+        "slope1_lapse_escapes": lapse_escapes,
+        "grad_eps_route_force": str(F_grad),
+        "grad_eps_route_radial_power": grad_force_power,
+        "grad_eps_route_is_1_over_r3": grad_route_is_1_over_r3,
+        "grad_eps_route_can_never_be_1_over_r2": grad_route_can_never_be_newtonian,
+        "verdict": (
+            "WIDENED: every C^1 clock law W = f(S) with f'(1) finite gives a 1/r^3 "
+            "leading force and cannot produce Newtonian gravity. S^p is the special "
+            "case f'(1) = p. The escape is dW/dA|_0 != 0, which no C^1 f(S) supplies "
+            "(S is quadratic in A at the origin); the surviving realization in canon "
+            "is the slope-1 lapse sqrt(1-A). Keying on |grad eps_11| does NOT escape: "
+            "it returns 1/r^3 as well."
+        ),
+    }
+
+
+# --------------------------------------------------------------------------
+# L6 -- the pole-test VALIDITY SCOPE (F3 repair, 2026-08-11 review)
+#
+# The banked pulsar exclusion (port-register.md:93 -- "9-110 sigma Hulse-Taylor /
+# 100-1400x the double-pulsar bound") was computed for a Reading-A QUADRUPOLE
+# (l = 2) radiating at O(c). Multipole-l radiated power carries (v/c_g)^(2l+1),
+# so the exclusion of a pole-bearing completion is suppressed by (c/c_g)^(2l+1).
+# The test therefore BOUNDS ONLY completions with c_g <~ O(c). At this lane's own
+# forced value c_g = sqrt(2 xi_Machian) c the suppression is ~10^-111 and the
+# exclusion evaporates: a SUPERLUMINAL pole-bearing completion is NOT excluded by
+# pulsar timing.
+# --------------------------------------------------------------------------
+def leg6() -> dict:
+    cg_over_c_forced = math.sqrt(2.0 * XI_MACHIAN)
+    # the lane's own c_g = c central exclusion factor. ORDER-ONLY (a confirmed
+    # Tier-2 MAJOR stands against its digits); carried as a declared INPUT here,
+    # never re-derived, and used only to show where the ORDER lands.
+    central_at_cg_eq_c_ORDER_ONLY = 8974.0
+    banked_exclusion_range = [100.0, 1400.0]   # port-register.md:93, double pulsar
+    supp = {}
+    for ell in (1, 2, 3):
+        s = cg_over_c_forced ** (-(2 * ell + 1))
+        supp[f"l={ell}"] = {
+            "exponent_2l_plus_1": 2 * ell + 1,
+            "suppression_c_over_cg_pow": s,
+            "rescaled_exclusion_ratio_ORDER_ONLY": central_at_cg_eq_c_ORDER_ONLY * s,
+        }
+    return {
+        "validity_condition": "c_g <~ O(c)",
+        "suppression_law": "(c/c_g)^(2l+1)",
+        "radiating_multipole_of_the_banked_bound": 2,
+        "banked_exclusion_range_x": banked_exclusion_range,
+        "banked_exclusion_source": "manuscript/ave-kb/common/port-register.md:93",
+        "cg_over_c_forced_by_node_scale_inertia": cg_over_c_forced,
+        "cg_over_c_forced_provenance": "sqrt(2 * XI_MACHIAN) -- L0/L4 admission price",
+        "per_multipole": supp,
+        "central_at_cg_eq_c_ORDER_ONLY_INPUT": central_at_cg_eq_c_ORDER_ONLY,
+        "verdict": (
+            "The pole test bounds only c_g <~ O(c). At the lane's own forced "
+            "c_g = 1.277e22 c the quadrupole (l=2) exclusion ratio falls to ~1e-107 "
+            "-- i.e. ~107 orders BELOW the comparator instead of ~4 above. A "
+            "SUPERLUMINAL pole-bearing completion is NOT excluded by pulsar timing. "
+            "ORDER-ONLY at every step; no digit here is banked."
+        ),
+    }
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--mutation-receipt", action="store_true",
@@ -336,12 +637,22 @@ def main() -> int:
         "L2_clock_branches": leg2(),
         "L3_frequency_response_instrument": leg3(),
         "L4_lc_admission_price": leg4(),
+        "L5_widened_clock_lemma": leg5(),
+        "L6_pole_test_validity_scope": leg6(),
     }
+    # TREE-DIRTYING HAZARD (2026-08-11 review): --mutation-receipt used to write
+    # the CORRUPTED payload over the tracked JSON, leaving a dirty tree that a
+    # later commit could capture. Mutated runs now go to a temp path and the
+    # tracked artifact is never touched.
+    out = OUT
+    if args.mutation_receipt:
+        out = Path(tempfile.gettempdir()) / f"{OUT.stem}_MUTATED.json"
     payload = json.dumps(results, indent=2, sort_keys=True)
-    OUT.write_text(payload)
+    out.write_text(payload)
     results["self_sha256"] = hashlib.sha256(payload.encode()).hexdigest()
-    OUT.write_text(json.dumps(results, indent=2, sort_keys=True))
-    print(f"wrote {OUT.name}  sha256={results['self_sha256'][:16]}...")
+    out.write_text(json.dumps(results, indent=2, sort_keys=True))
+    tag = "  [MUTATED -- temp path, tracked JSON untouched]" if args.mutation_receipt else ""
+    print(f"wrote {out}  sha256={results['self_sha256'][:16]}...{tag}")
     return 0
 
 
