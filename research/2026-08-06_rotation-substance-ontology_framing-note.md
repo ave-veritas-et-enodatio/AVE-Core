@@ -152,3 +152,42 @@ verbatim there). The physics, in the register:
 - **The quaternion bulk-scalar thread (Grant):** the V-sector scalar (the "3") is the
   natural home of the static bias a passing wave reads — links this walk to the
   A1-port sourcing lane (R18); context there, not receipt.
+
+---
+## §10 DATED ADDENDUM (2026-08-10) — the DC-sector walk: circuit class, coupling mechanism (⚑ UN-AUDITED)
+
+Ruling context: R48-R50. Grant's probes and the walk outputs, recorded same-session:
+
+- **The three-way circuit-class fork (Grant's "inertia is the resistance?" catch):**
+  inertia ↔ inductance (stores/returns), resistance ↔ friction (dissipates) — and a
+  genuinely RC-diffusive bias line would DISSIPATE, which Ax3 forbids. The bias
+  propagation theorem's fork is therefore RC-diffusive (suspect under Ax3 unless the
+  "R" is a pure redistribution coefficient with the ledger closed in the fast layer)
+  / LC-hyperbolic (no hardware candidate for bias inertia) / DISPERSIVE-UNITARY
+  (Schrödinger-class — the generic lossless-oscillator envelope: spreading without
+  loss, frequency-dependent delay). Ax3 presses toward the third. The orchestrator's
+  prior RC lean is CORRECTED on the record (Grant's probe caught it).
+- **The two-layer reduction (the causality dissolution):** the bias network is not a
+  second medium — it is the fast layer's envelope; nothing outruns c because
+  everything IS the fast layer underneath (the power-rail analogy). The theorem's
+  job = derive the envelope reduction, not hunt for new hardware.
+- **Longitudinal-configuration carve (Grant: "and it's longitudinal?"):** the bound
+  response u₀ = −𝒜_g∇ε₁₁ is curl-free = longitudinal in GEOMETRY, DC in DYNAMICS —
+  longitudinal configuration, never a longitudinal wave. The slot holds books.
+- **The coupling mechanism (Grant's walk: saturation → clock down-regulation →
+  ponderomotive drift):** a trapped resonance saturates its nodes → the local
+  resonant frequency down-regulates → a second resonance's energy E = ħω(local) is
+  lower toward the bias → the energy gradient is the attractive force —
+  ponderomotive-class coupling, the mutual version. Moving sources trail an induced
+  circulating response (the near-field wake, the surviving dark-wake sense). Canon
+  half-owns the register: "ponderomotive bias-texture drive" is a recorded source
+  register whose mechanism half survived the sweep (def-pndenv's partition half
+  died). **The unification claim (walk-level): redshift, lensing, and attraction
+  from ONE mechanism — the node clock riding the bias.**
+- **Counter-arms:** (C7) the clock-gradient force sketch assumes the trapped
+  resonance's total energy tracks the local clock linearly — underived; (C8) the
+  ponderomotive form imports the time-averaged-potential structure (regime
+  declaration owed: slowly-varying bias vs the resonance's clock); (C9) the
+  unification is an ECHO until the force MAGNITUDE reproduces the canon chain — the
+  sharp check: does F = −∇E = −ħ(∂ω/∂ε)∇ε reproduce g = GM/r² on the canon bias
+  profile with zero new constants? That check is frozen into the lane brief.
