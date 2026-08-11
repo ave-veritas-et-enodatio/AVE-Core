@@ -428,9 +428,9 @@ silently committed — this is canonical infrastructure):
 1. **The tooling blocker — DISCHARGED by a minimal parser widening.** The bullet
    parser was hard-capped at axioms one through four, so an `- Axiom 5:` bullet would
    have **silently** produced no node and no error. Widened at
-   `manuscript/ave-kb/tools/kb_index_lib.py`:184 to
+   `manuscript/ave-kb/tools/kb_index_lib.py`:180 to
    `` `_AXIOM_BULLET_RE = re.compile(r"^- Axiom ([1-5]): \*\*(.+?)\*\*")` `` and the
-   in-bullet token regex at `:187` to `` `\bAxiom ([1-5])\b` ``. **Minimal by
+   in-bullet token regex at `:183` to `` `\bAxiom ([1-5])\b` ``. **Minimal by
    construction:** bumped to the live count, NOT opened to `\d+`, so a typo'd
    "Axiom 9" still fails loudly instead of quietly minting a node.
    **Before/after receipt** (`make refresh-kb-metadata`, same tree, one variable
@@ -446,6 +446,24 @@ silently committed — this is canonical infrastructure):
    the materialized node is identical either way — verified by the anchor above.
    **All 23 cite anchors re-verified unshifted post-edit.** The `##` heading is
    deliberate: an `### INVARIANT-…` heading would have minted a spurious invariant.
+
+> **⚑ UNAVOIDABLE SIDE-EFFECT, DISCLOSED: minting a node shifts `.index/claims.jsonl`
+> line cites by +1.** `claims.jsonl` is GENERATED and stable-sorted, so inserting the
+> `axiom-5` record pushes every later record down one line. Three tracked line-cites
+> into it are affected, and the re-resolution map is given here because one of the
+> citing documents is a FROZEN prereg and cannot be re-pointed:
+>
+> | Cite | Record it meant | Now at |
+> |---|---|---|
+> | `claims.jsonl:122` (`research/2026-06-15_grid-definition-cartography.md`:187) | `clm-f5ucdo` | `:123` |
+> | `claims.jsonl:239` (`…k4-zone-edge-nyquist-settle_prereg_FROZEN.md`:39 + its result `:87`) | `clm-q8un7j` | `:240` |
+> | `claims.jsonl:357` (`research/2026-08-06_iomega-law_result.md`:686) | `def-b0nd01` | `:358` |
+>
+> **Root cause, stated so it is not re-learned:** a `:NN` cite into a generated,
+> stable-sorted index is inherently volatile — ANY new `clm-`/`def-`/`sup-`/axiom
+> node moves it. The durable citation form is the **node id** (`clm-q8un7j`), which
+> is greppable and shift-proof by construction. Not repaired here (frozen prereg;
+> and the practice, not this landing, is the defect); routed.
 
 **Consequently `expected-independent-axiom-count` is now 5 and the two counts AGREE.**
 The earlier state — ratified-axiom 5, framework-node 4 — is closed, not papered over.

@@ -176,11 +176,7 @@ _CODE_FENCE_RE = re.compile(r"^```")
 # Framework-node parsing (from manuscript/ave-kb/CLAUDE.md).
 # Invariant headings: `### INVARIANT-XX: <title>`.
 _INVARIANT_HEADING_RE = re.compile(r"^### (INVARIANT-[A-Z]+[0-9]+):\s*(.+)$")
-# Axiom bullets in the INVARIANT-S2 section: `- Axiom N: **<title>** — ...`.
-# Widened [1-4] -> [1-5] 2026-08-10 for Axiom 5 (Substrate DC Bias), the first new
-# axiom since the founding set (R44: "the axiom count is 5"). MINIMAL widening per
-# R47 item 1 — bumped to the live count, NOT opened to \d+, so a typo'd "Axiom 9"
-# still fails loudly instead of silently minting a node.
+# Axiom bullets in the INVARIANT-S2 section: `- Axiom N: **<title>** — ...`.  [1-4]->[1-5] 2026-08-10, R47 item 1, for Axiom 5 (Substrate DC Bias) — the first new axiom since the founding set (R44: "the axiom count is 5"). MINIMAL: bumped to the LIVE COUNT, deliberately NOT opened to \d+, so a typo'd "Axiom 9" still fails loudly instead of silently minting a node. Edit kept LINE-COUNT-NEUTRAL: this file carries inbound :NN cites as deep as :2989.
 _AXIOM_BULLET_RE = re.compile(r"^- Axiom ([1-5]): \*\*(.+?)\*\*")
 # In-bullet target tokens for depends-on head extraction.
 _INVARIANT_TOKEN_RE = re.compile(r"\b(INVARIANT-[A-Z]+[0-9]+)\b")
