@@ -827,3 +827,38 @@ Cross-repo Explore-agent investigations that produced this catalog (raw outputs 
 ---
 
 *Doc written 2026-04-27 by auditor agent per Grant directive. Pedantic per request. Surfaces 4-5 distinct axiom-numbering schemes in active use; documents the canonical-vs-divergent status; flags 2-week-old technical debt (SiLU misnomer queued 2026-04-20, never fixed) plus a structural inconsistency between `eq_axiom_*.tex` "single source of truth" claim and Vol 1 Ch 1's actual axiom names; recommends 9 prioritized fixes (R1-R9). Auditor's own writings flagged for correction in §14. Open Grant adjudication questions in §15.*
+
+---
+
+## ★ DATED SURFACE-NOTE (2026-08-10, R43) — the Axiom-3 §0 rename note's parenthetical label is superseded
+
+**Surface-note only; the historical body above is NOT rewritten** (this document
+states at its head that "The historical body below preserves the legacy naming as
+written", and that preservation is honoured here).
+
+**Site:** `:14`, the §0 RENAME NOTES entry for Axiom 3, which carries the
+parenthetical label *"The variational form (Maxwell Lagrangian, $S_{AVE} = \int
+\mathcal{L}_{node}\,d^4x$)"*.
+
+**What changed upstream (2026-08-10, R43 "TIER A RATIFIED"; ruling at
+`_orchestration/docket-entries/2026-08-10-ruling-r43-ratification.md`):** the
+variational form is the **temporal-gauge (Weyl-gauge, $A_0$-free)** Maxwell
+Lagrangian. Standard Maxwell dynamics are recovered on the Gauss-constrained
+initial-data surface; the constraint is supplied by the newly-ratified BC-SRC
+clause **S** (`manuscript/common_equations/eq_axiom_bc_src.tex`), not by an
+equation of motion of the written action. Bare "Maxwell Lagrangian" is therefore
+TRUE of the constrained dynamics and FALSE of the action.
+
+**Scope: label only.** The §0 rename adjudication itself — Axiom 3 "Effective
+Action Principle" → "Minimum Reflection Principle", following the
+substrate-observable $|\Gamma|^2$ — is **untouched and unaffected**. This note
+corrects one parenthetical, nothing else.
+
+**Standing caveat re-stated:** this document's own header says *"DO NOT MAKE
+SWEEPING CHANGES BASED ON THIS DOCUMENT WITHOUT FULLY RE-EVALUATING CURRENT
+STATUS"*. That still governs; the canonical Axiom-3 statement lives at
+`manuscript/common_equations/eq_axiom_3.tex` and the canonical status view at
+`manuscript/ave-kb/common/axiom-register.md`.
+
+**Sweep provenance:** `research/2026-08-10_bound-constitutive_sweep-record.md`
+§NEEDS-RESCOPE row 10 — *"parenthetical label; session-historical"*.
