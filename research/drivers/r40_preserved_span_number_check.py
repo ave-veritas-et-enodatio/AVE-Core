@@ -81,6 +81,12 @@ This detector does NOT cover, and a future pass must not read its clean run as c
   * Python MODULE-LEVEL declarations held in a sibling STRING CONSTANT (not the module
     docstring, not a `#` comment run) — e.g. `_PRESERVED_NOTE = \"\"\"... Rule 12 ...\"\"\"`.
   * Cross-FILE governance: a declaration in file A naming a span in file B.
+  * The CONTAINER ARRIVING AFTER THE STAMP (forward guard only; 2026-08-11 delta
+    re-verify N2): a branch that adds a preservation declaration AROUND an unchanged
+    pre-existing stamped line creates a genuine fencing relationship the added-line
+    guard cannot see — the stamp is not an added line.  The round-1 EOF-proxy guard
+    would have caught this shape; narrowing to added lines traded it away, and the
+    trade is declared here rather than silently implied away.
 Of the four out-of-list probe shapes raised at review, exactly ONE (LaTeX sectioning) is fixed
 here; the other three are the blind spots above and are left uncovered ON PURPOSE, declared
 rather than silently implied away.
@@ -314,22 +320,38 @@ def scan(files, preserve=PRESERVE, live_only=True, at_rev=None, old_rev="origin/
 GUARD_ADJUDICATED_FP: set = set()
 
 
-def _added_from_diff_text(text):
-    """Head-side line numbers of the `+` hunks in a unified-0 diff (pure; testable)."""
-    added = set()
-    for m in re.finditer(r"^@@ -\d+(?:,\d+)? \+(\d+)(?:,(\d+))? @@", text, re.M):
-        start = int(m.group(1))
-        count = 1 if m.group(2) is None else int(m.group(2))
-        added.update(range(start, start + count))
+def _added_map_from_diff_text(text):
+    """{path: head-side added-line set} from a whole unified-0 diff (pure; testable).
+
+    Hunks are attributed to the `b/` path of the preceding `diff --git` header.  A
+    pure rename block carries a `rename to` header and ZERO hunks, so it contributes
+    nothing — which is the point (see `added_map_for`)."""
+    added, cur = {}, None
+    for line in text.split("\n"):
+        m = re.match(r"^diff --git a/.* b/(.*)$", line)
+        if m:
+            cur = m.group(1)
+            continue
+        h = re.match(r"^@@ -\d+(?:,\d+)? \+(\d+)(?:,(\d+))? @@", line)
+        if h and cur is not None:
+            start = int(h.group(1))
+            count = 1 if h.group(2) is None else int(h.group(2))
+            added.setdefault(cur, set()).update(range(start, start + count))
     return added
 
 
-def added_lines(f, base="origin/main", head="HEAD"):
-    """The line numbers (head side) that base..head ADDED to `f`."""
+def added_map_for(base="origin/main", head="HEAD"):
+    """The branch's full added-line map, from ONE whole-diff invocation.
+
+    Deliberately NO pathspec: a per-file pathspec filters the rename source out
+    before git's rename detection runs, so a renamed file reads as brand-new and
+    every pre-existing stamped line in it re-flags (probed 2026-08-11, delta
+    re-verify N1).  Whole-diff with `-M`, a pure rename is `similarity index 100%`
+    with zero hunks, and rename+edit yields exactly the real added lines."""
     out = subprocess.run(
-        ["git", "-C", REPO, "diff", "--unified=0", base, head, "--", f],
+        ["git", "-C", REPO, "diff", "--unified=0", "-M", base, head],
         capture_output=True, text=True).stdout
-    return _added_from_diff_text(out)
+    return _added_map_from_diff_text(out)
 
 
 def scan_added(files, base="origin/main", head="HEAD", preserve=PRESERVE,
@@ -339,7 +361,10 @@ def scan_added(files, base="origin/main", head="HEAD", preserve=PRESERVE,
     `added_map`/`read_file` exist so the mutation receipt can drive the decision
     logic in memory; the gate always calls with both None (git + working tree).
     A modified line is a delete+add in unified-0, so in-place stamp edits are
-    scanned too; pre-existing (e.g. batch-1) stamps are never in the added set."""
+    scanned too; pre-existing (e.g. batch-1) stamps are never in the added set,
+    and a pure rename contributes no hunks, so it re-flags nothing."""
+    if added_map is None:
+        added_map = added_map_for(base, head)
     n_scanned, flagged = 0, []
     for f in files:
         if read_file is None:
@@ -349,7 +374,7 @@ def scan_added(files, base="origin/main", head="HEAD", preserve=PRESERVE,
             lines = open(full, encoding="utf-8").read().split("\n")
         else:
             lines = read_file(f)
-        add = added_lines(f, base, head) if added_map is None else added_map.get(f, set())
+        add = added_map.get(f, set())
         for ln in sorted(add):
             if ln < 1 or ln > len(lines) or not STAMP.search(lines[ln - 1]):
                 continue
@@ -499,7 +524,7 @@ def run_gate(verbose=True):
 
 def mutation_receipt():
     """Every perturbation of the detector's own load-bearing structure must trip the gate."""
-    print("[r40-span] MUTATION RECEIPT — each perturbation must FAIL the checker")
+    print("[r40-span] MUTATION RECEIPT — detector perturbations must trip; behavioral probes must hold")
     results = []
 
     # M1 — drop SPEC EXTENSION 1 (sectioning containers).
@@ -566,12 +591,38 @@ def mutation_receipt():
     results.append(("M6b guard ignores a pre-existing stamp in a touched file",
                     not fl6b and n6b == 0))
 
-    # M6c — the hunk parser: head-side numbers, count-omitted-means-1, count-0 hunks
-    # (pure deletions) contribute nothing.
-    parsed = _added_from_diff_text(
-        "@@ -10,2 +12,3 @@ ctx\n@@ -30 +40 @@\n@@ -50,2 +60,0 @@\n")
-    results.append(("M6c unified-0 hunk parser exact",
-                    parsed == {12, 13, 14, 40}))
+    # M6c — the whole-diff map parser: per-file hunk attribution, count-omitted-
+    # means-1, count-0 (pure deletion) contributes nothing, and a PURE RENAME block
+    # (similarity index 100%, no hunks) contributes nothing — the N1 shape.
+    parsed = _added_map_from_diff_text(
+        "diff --git a/manuscript/x.tex b/manuscript/x.tex\n"
+        "@@ -10,2 +12,3 @@ ctx\n@@ -30 +40 @@\n@@ -50,2 +60,0 @@\n"
+        "diff --git a/manuscript/old-name.md b/manuscript/new-name.md\n"
+        "similarity index 100%\nrename from manuscript/old-name.md\n"
+        "rename to manuscript/new-name.md\n"
+        "diff --git a/src/y.py b/src/y.py\n@@ -5,0 +6,2 @@\n")
+    results.append(("M6c whole-diff map parser exact (incl. rename-no-hunks)",
+                    parsed == {"manuscript/x.tex": {12, 13, 14, 40},
+                               "src/y.py": {6, 7}}))
+
+    # M6d — the GUARD_ADJUDICATED_FP registry is narrow: the correct (file, bytes)
+    # key suppresses the flag; a wrong-file or wrong-bytes key must NOT.
+    stamp_line = breach[2].strip()
+    def _fp_probe(key):
+        GUARD_ADJUDICATED_FP.add(key)
+        try:
+            _, fl = scan_added(["manuscript/_probe_new_file.tex"],
+                               added_map={"manuscript/_probe_new_file.tex":
+                                          set(range(1, len(breach) + 1))},
+                               read_file=lambda f: list(breach))
+        finally:
+            GUARD_ADJUDICATED_FP.discard(key)
+        return fl
+    ok_key = not _fp_probe(("manuscript/_probe_new_file.tex", stamp_line))
+    wrong_file = bool(_fp_probe(("manuscript/other.tex", stamp_line)))
+    wrong_bytes = bool(_fp_probe(("manuscript/_probe_new_file.tex", "XXXX")))
+    results.append(("M6d FP registry: right key suppresses, wrong file/bytes do not",
+                    ok_key and wrong_file and wrong_bytes))
 
     allgood = True
     for label, tripped in results:
@@ -579,9 +630,9 @@ def mutation_receipt():
               f"{'probe holds (good)' if tripped else 'probe FAILS (BAD)'}")
         allgood = allgood and tripped
     if not allgood:
-        print("[r40-span] MUTATION RECEIPT FAILED — a perturbed detector still reports clean.")
+        print("[r40-span] MUTATION RECEIPT FAILED — a probe did not hold (perturbation un-caught or behavior wrong).")
         return 1
-    print("[r40-span] MUTATION RECEIPT OK: every perturbation trips the checker.")
+    print("[r40-span] MUTATION RECEIPT OK: every perturbation trips and every behavioral probe holds.")
     return 0
 
 
