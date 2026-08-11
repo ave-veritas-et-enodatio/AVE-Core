@@ -267,6 +267,10 @@ class SonicHorizonFlow2D(CavitationFlow2D):
 #   batch-1 record _orchestration/2026-08-11_r40-sweep-batch1.md;
 #   vocabulary ruling R50 _orchestration/docket-entries/2026-08-10-ruling-r50-vocab.md
 #   (canonical: the displacement pattern u0 around a deposit is THE BOUND RESPONSE,
-#   mechanism gloss BACK-REACTION; eps_11 is THE BIAS; "dress", "grade"-as-canonical-noun,
-#   "halo"-for-the-physics and "retardation" are retired).
+#   mechanism gloss BACK-REACTION; eps_11 is THE BIAS; "dress", "grade"-as-canonical-noun
+#   and "halo"-for-the-physics are retired, and the owed theorem is renamed
+#   THE BIAS PROPAGATION THEOREM);
+#   vocabulary ruling R49(b) _orchestration/docket-entries/2026-08-10-rulings-r48-r49.md
+#   ("retardation" is retired; the canonical term is PROPAGATION DELAY / FINITE PROPAGATION
+#   SPEED) -- the retardation retirement is R49(b)'s, NOT R50's; corrected 2026-08-11 at review.
 # ============================================================================

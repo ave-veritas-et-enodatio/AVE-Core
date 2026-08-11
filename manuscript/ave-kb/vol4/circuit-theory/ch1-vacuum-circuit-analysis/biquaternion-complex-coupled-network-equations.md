@@ -302,7 +302,10 @@ canon**. Nothing is deleted.
 - **`:133`** — *"Bulk / A1 compression | S_bulk(A), Z_bulk∝1/S | bulk | longitudinal bulk wave | yes at Γ=-1 wall"*
   Stamped in place at `:133`.
   **Why it dies (audited row rationale, verbatim):** Both-hosting table row: the 'longitudinal bulk wave' Propagating-wave? column entry dies; the mass-store-at-Γ=-1-wall column survives separately (see :159 row).
-  **Also covered by this demotion** (named in the audited row; not separately stamped): `:159`.
+  **Scope carve (review fix 2026-08-11).** `:159` is **NOT** demoted — it is a banked
+  **SURVIVES-AS-RESPONSE** row (*"Boundary-reflection receipt; role unchanged under the carve"*), and
+  this row's own audited rationale carves it verbatim: *"the mass-store-at-Γ=-1-wall column survives
+  separately (see :159 row)."* Only the *"longitudinal bulk wave"* Propagating-wave? column entry dies.
 - **`:251`** — *"Bulk-port vs P-wave ratio | √2=c_bulk/c_0 | √(10/3)=c_L/c_T | prereg 2.582 double-count"*
   Stamped in place at `:251`.
   **Why it dies (audited row rationale, verbatim):** The guard row presupposes both bulk-related speeds exist; the √(10/3)=c_L/c_T P-wave member has no referent under the carve, and with it the two-speed double-count hazard dissolves (the dissolution IS the carve's provenance content).
@@ -332,4 +335,7 @@ axiom **with that debt open**, not a closed replacement.
 **Records.** R40 ruling `_orchestration/docket-entries/2026-08-10-rulings-r40-r42.md` · verified worklist `research/drivers/r40_sweep_worklist_verified.json` · scope verification `_orchestration/2026-08-10_r40-sweep-scope-verification.md` ·
 batch-1 record `_orchestration/2026-08-11_r40-sweep-batch1.md` · vocabulary R50 `_orchestration/docket-entries/2026-08-10-ruling-r50-vocab.md` (canonical: the displacement pattern u₀ around a
 deposit is **the bound response**, mechanism gloss **back-reaction**; ε₁₁ is **the bias**;
-"dress", "grade"-as-canonical-noun, "halo"-for-the-physics and "retardation" are retired).
+"dress", "grade"-as-canonical-noun and "halo"-for-the-physics are retired; and the owed theorem is
+renamed **THE BIAS PROPAGATION THEOREM**) · vocabulary **R49(b)** `_orchestration/docket-entries/2026-08-10-rulings-r48-r49.md` (*"retardation"
+is RETIRED from this role. The canonical term is **propagation delay / finite propagation speed*** —
+the retardation retirement is R49(b)'s, NOT R50's; corrected 2026-08-11 at review).

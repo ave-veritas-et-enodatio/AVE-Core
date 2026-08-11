@@ -148,7 +148,11 @@ canon**. Nothing is deleted.
 - **`:40`** — *"c_L = \sqrt{\tfrac{10}{3}}\,c \approx 5.48 \times 10^{8} \text{ m/s} \approx 1.83c"*
   Stamped in place at `:37`.
   **Why it dies (audited row rationale, verbatim):** 'Superluminal Longitudinal (P) Wave Velocity' resultbox asserts a physical transit speed; the leaf's own :43 note says neither longitudinal speed feeds a_0 = cH/(2pi), so amputation is clean — the MOND result is a static hoop-stress projection and survives independently.
-  **Also covered by this demotion** (named in the audited row; not separately stamped): `:43`.
+  **Scope carve (review fix 2026-08-11).** `:43` is **NOT** listed as covered. The audited rationale
+  cites it as EVIDENCE that the amputation is clean, verbatim: *"the leaf's own :43 note says neither
+  longitudinal speed feeds a_0 = cH/(2pi), so amputation is clean — the MOND result is a static
+  hoop-stress projection and survives independently."* Whether `:43`'s own retained $\sqrt2\,c$ bulk
+  quantity re-scopes is a batch-2 question, not adjudicated here.
 
 **The arc, complete — the framing R40 rules every demotion note carries:**
 
@@ -175,4 +179,7 @@ axiom **with that debt open**, not a closed replacement.
 **Records.** R40 ruling `_orchestration/docket-entries/2026-08-10-rulings-r40-r42.md` · verified worklist `research/drivers/r40_sweep_worklist_verified.json` · scope verification `_orchestration/2026-08-10_r40-sweep-scope-verification.md` ·
 batch-1 record `_orchestration/2026-08-11_r40-sweep-batch1.md` · vocabulary R50 `_orchestration/docket-entries/2026-08-10-ruling-r50-vocab.md` (canonical: the displacement pattern u₀ around a
 deposit is **the bound response**, mechanism gloss **back-reaction**; ε₁₁ is **the bias**;
-"dress", "grade"-as-canonical-noun, "halo"-for-the-physics and "retardation" are retired).
+"dress", "grade"-as-canonical-noun and "halo"-for-the-physics are retired; and the owed theorem is
+renamed **THE BIAS PROPAGATION THEOREM**) · vocabulary **R49(b)** `_orchestration/docket-entries/2026-08-10-rulings-r48-r49.md` (*"retardation"
+is RETIRED from this role. The canonical term is **propagation delay / finite propagation speed*** —
+the retardation retirement is R49(b)'s, NOT R50's; corrected 2026-08-11 at review).

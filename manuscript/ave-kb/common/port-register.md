@@ -142,6 +142,16 @@ canon**. Nothing is deleted.
 
 - **`:49`** — *"$\sqrt{10/3}\,c \approx 1.83c$ (isotropic-solid P-wave; the $4G/3$ shear term cannot be dropped for a real far-field wave)"*
   Stamped in place at `:49`.
+  **⚑ MIXED-BIN ROW — read the stamp as scoped, not blanket (disclosure added 2026-08-11 at review).**
+  `:49` is a 9-cell channel-3 table row, and the banked worklist hosts a **second, co-resident row on
+  this same line** binned **NEEDS-RE-DERIVATION**, not DIES: quote *"$Z_{bulk} = \rho\,c_{bulk}$ …
+  $\sqrt2\,c$ ($V_{LONG}$; $K=2G$ magic-angle PORT/impedance mode) … gapless acoustic; edge
+  $2\sqrt2\,c/\ell_{node}$"*, rationale *"Prereg-explicit: Z_bulk=rho*c_bulk owes formula-level
+  re-derivation; the gapless band-edge entry presumes a spectrum branch the carve removes."* **That
+  row is BATCH 2 and is not demoted here.** The stamp — inserted before the row's final `|`, so it
+  lands in the provenance cell — demotes exactly the **RADIATIVE (far-field) speed** cell
+  `$\sqrt{10/3}\,c \approx 1.83c$` quoted above; the PORT/impedance-speed and band-edge cells carry
+  the co-resident NEEDS row and await batch 2.
   **Why it dies (audited row rationale, verbatim):** Prereg-named ch-3 radiative column: a far-field bulk wave with a physical transit speed IS the phantom; also covers :57 (freely-propagating-wave bullet) and :58 (both-superluminal causality/flux-prefactor claim, void with no transit speeds).
   **Also covered by this demotion** (named in the audited row; not separately stamped): `:57`, `:58`.
 - **`:74`** — *"Per-channel (arccos, by $\sqrt2$ scaling for bulk): EM/shear $\approx0.80c$; bulk $\approx0.80\sqrt2\,c\approx1.13c$"*
@@ -177,4 +187,7 @@ axiom **with that debt open**, not a closed replacement.
 **Records.** R40 ruling `_orchestration/docket-entries/2026-08-10-rulings-r40-r42.md` · verified worklist `research/drivers/r40_sweep_worklist_verified.json` · scope verification `_orchestration/2026-08-10_r40-sweep-scope-verification.md` ·
 batch-1 record `_orchestration/2026-08-11_r40-sweep-batch1.md` · vocabulary R50 `_orchestration/docket-entries/2026-08-10-ruling-r50-vocab.md` (canonical: the displacement pattern u₀ around a
 deposit is **the bound response**, mechanism gloss **back-reaction**; ε₁₁ is **the bias**;
-"dress", "grade"-as-canonical-noun, "halo"-for-the-physics and "retardation" are retired).
+"dress", "grade"-as-canonical-noun and "halo"-for-the-physics are retired; and the owed theorem is
+renamed **THE BIAS PROPAGATION THEOREM**) · vocabulary **R49(b)** `_orchestration/docket-entries/2026-08-10-rulings-r48-r49.md` (*"retardation"
+is RETIRED from this role. The canonical term is **propagation delay / finite propagation speed*** —
+the retardation retirement is R49(b)'s, NOT R50's; corrected 2026-08-11 at review).

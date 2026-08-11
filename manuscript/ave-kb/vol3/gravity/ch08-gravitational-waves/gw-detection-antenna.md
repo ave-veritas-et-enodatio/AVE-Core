@@ -65,7 +65,12 @@ canon**. Nothing is deleted.
 - **`:51`** — *"the framework additionally predicts a bulk (longitudinal P-wave) admixture radiating on top of the shear decay at O(1) coupling"*
   Stamped in place at `:51`.
   **Why it dies (audited row rationale, verbatim):** Sibling propagation of the canonical :48 statement; the leaf's own detection content (LIGO reads transverse shear) is Reading-independent and untouched — only the additional bulk radiative channel dies.
-  **Also covered by this demotion** (named in the audited row; not separately stamped): `:48`.
+  **Scope carve (review fix 2026-08-11).** No site in THIS file is additionally covered. The
+  audited row's `:48` is a CROSS-FILE referent — the canonical statement at
+  `manuscript/ave-kb/vol3/gravity/ch08-gravitational-waves/gw-propagation-lossless.md:48`, which this
+  batch stamps in its own file; line 48 of THIS file is blank. The audited rationale carves the rest
+  verbatim: *"the leaf's own detection content (LIGO reads transverse shear) is Reading-independent and
+  untouched — only the additional bulk radiative channel dies."*
 
 **The arc, complete — the framing R40 rules every demotion note carries:**
 
@@ -92,4 +97,7 @@ axiom **with that debt open**, not a closed replacement.
 **Records.** R40 ruling `_orchestration/docket-entries/2026-08-10-rulings-r40-r42.md` · verified worklist `research/drivers/r40_sweep_worklist_verified.json` · scope verification `_orchestration/2026-08-10_r40-sweep-scope-verification.md` ·
 batch-1 record `_orchestration/2026-08-11_r40-sweep-batch1.md` · vocabulary R50 `_orchestration/docket-entries/2026-08-10-ruling-r50-vocab.md` (canonical: the displacement pattern u₀ around a
 deposit is **the bound response**, mechanism gloss **back-reaction**; ε₁₁ is **the bias**;
-"dress", "grade"-as-canonical-noun, "halo"-for-the-physics and "retardation" are retired).
+"dress", "grade"-as-canonical-noun and "halo"-for-the-physics are retired; and the owed theorem is
+renamed **THE BIAS PROPAGATION THEOREM**) · vocabulary **R49(b)** `_orchestration/docket-entries/2026-08-10-rulings-r48-r49.md` (*"retardation"
+is RETIRED from this role. The canonical term is **propagation delay / finite propagation speed*** —
+the retardation retirement is R49(b)'s, NOT R50's; corrected 2026-08-11 at review).

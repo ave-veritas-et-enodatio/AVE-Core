@@ -636,7 +636,9 @@ canon**. Nothing is deleted.
 - **`:566`** — *"longitudinal-BULK (A1 dilatation) compression mode IS REAL on the extended medium — the ... acoustic branch"*
   Stamped in place at `:582`.
   **Why it dies (audited row rationale, verbatim):** Register home of sup-3kq9w7 (:561-591): propagation at √2 c₀ + CHORD tag (:574) + the supports-edge lifting clm-crbl60 via a bulk-speed measurement (:578, :591) all require the propagating DOF; the entry re-reads as an engine-capability record, and the K=2G lift must be vacated/re-routed.
-  **Also covered by this demotion** (named in the audited row; not separately stamped): `:561`, `:574`, `:578`, `:591`.
+  **Also covered by this demotion** (named in the audited row; not separately stamped): `:561`, `:578`,
+  `:591`. (`:574` is named in the audited row too but is **stamped in place** by this batch under R42 —
+  see the next entry — so it is subtracted from the not-separately-stamped list.)
 - **R42 — the CHORD tag at `:574`** demotes to `engine-artifact-pending-constitutive-law`, stamped in place, per `_orchestration/docket-entries/2026-08-10-rulings-r40-r42.md` (R42). Quality was `*pending*`, so **no solidity number moves**.
 
 **The arc, complete — the framing R40 rules every demotion note carries:**
@@ -664,4 +666,7 @@ axiom **with that debt open**, not a closed replacement.
 **Records.** R40 ruling `_orchestration/docket-entries/2026-08-10-rulings-r40-r42.md` · verified worklist `research/drivers/r40_sweep_worklist_verified.json` · scope verification `_orchestration/2026-08-10_r40-sweep-scope-verification.md` ·
 batch-1 record `_orchestration/2026-08-11_r40-sweep-batch1.md` · vocabulary R50 `_orchestration/docket-entries/2026-08-10-ruling-r50-vocab.md` (canonical: the displacement pattern u₀ around a
 deposit is **the bound response**, mechanism gloss **back-reaction**; ε₁₁ is **the bias**;
-"dress", "grade"-as-canonical-noun, "halo"-for-the-physics and "retardation" are retired).
+"dress", "grade"-as-canonical-noun and "halo"-for-the-physics are retired; and the owed theorem is
+renamed **THE BIAS PROPAGATION THEOREM**) · vocabulary **R49(b)** `_orchestration/docket-entries/2026-08-10-rulings-r48-r49.md` (*"retardation"
+is RETIRED from this role. The canonical term is **propagation delay / finite propagation speed*** —
+the retardation retirement is R49(b)'s, NOT R50's; corrected 2026-08-11 at review).

@@ -64,6 +64,16 @@ canon**. Nothing is deleted.
 
 - **`:11`** — *"the solid longitudinal P-wave c_L = √((K + 4G/3)/ρ) = √(10/3) c_0 ≈ 1.83 c_0 at ν_vac = 2/7"*
   Stamped in place at `:11`.
+  **⚑ MIXED-BIN LINE — read the stamp as scoped, not blanket (disclosure added 2026-08-11 at review).**
+  `:11` is one long scope paragraph carrying MORE than the demoted claim, and the banked worklist
+  hosts a **second, co-resident row on this same line** binned **NEEDS-RE-DERIVATION**, not DIES:
+  quote *"the bulk-modulus dilatational / A1-scalar port-mode v_bulk = √2 c_0 = √(K/ρ) (drops the
+  4G/3 shear term)"*, rationale *"The √2c PORT object survives as the near-field/A1 port reading
+  (prereg §6), but v_bulk=√(K/ρ) as a SPEED formula consumes the K-reservoir-to-wave-speed mechanism
+  — formula-level re-derivation owed."* **That row is BATCH 2 and is not demoted here.** The
+  line-terminal stamp demotes exactly the quoted `c_L = √(10/3) c_0` P-wave member above and nothing
+  else; `K_vac = 2G_vac`, `ν_vac = 2/7`, `v_T = c_0` and `ℓ_c = r_W` on the same line are **not**
+  ruled on by R40 and are untouched.
   **Why it dies (audited row rationale, verbatim):** The KEEP-BOTH row's P-wave member is a bulk propagation speed as a physical transit speed — the prereg's expected DIES class for √(10/3) rows.
 
 **The arc, complete — the framing R40 rules every demotion note carries:**
@@ -91,4 +101,7 @@ axiom **with that debt open**, not a closed replacement.
 **Records.** R40 ruling `_orchestration/docket-entries/2026-08-10-rulings-r40-r42.md` · verified worklist `research/drivers/r40_sweep_worklist_verified.json` · scope verification `_orchestration/2026-08-10_r40-sweep-scope-verification.md` ·
 batch-1 record `_orchestration/2026-08-11_r40-sweep-batch1.md` · vocabulary R50 `_orchestration/docket-entries/2026-08-10-ruling-r50-vocab.md` (canonical: the displacement pattern u₀ around a
 deposit is **the bound response**, mechanism gloss **back-reaction**; ε₁₁ is **the bias**;
-"dress", "grade"-as-canonical-noun, "halo"-for-the-physics and "retardation" are retired).
+"dress", "grade"-as-canonical-noun and "halo"-for-the-physics are retired; and the owed theorem is
+renamed **THE BIAS PROPAGATION THEOREM**) · vocabulary **R49(b)** `_orchestration/docket-entries/2026-08-10-rulings-r48-r49.md` (*"retardation"
+is RETIRED from this role. The canonical term is **propagation delay / finite propagation speed*** —
+the retardation retirement is R49(b)'s, NOT R50's; corrected 2026-08-11 at review).

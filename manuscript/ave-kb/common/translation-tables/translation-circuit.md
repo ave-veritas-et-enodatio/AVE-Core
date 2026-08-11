@@ -1024,7 +1024,9 @@ canon**. Nothing is deleted.
   **NOT stamped in body — R39 BYTE-FENCE ROUTED:** the site is inside the verbatim #761 block-quotation at :971-979 ("The incumbent, quoted verbatim and not paraphrased", :969) — quotation class, R39.
   Preserved-span bytes are untouched; this ledger entry is the note.
   **Why it dies (audited row rationale, verbatim):** The §12.3 incumbent is an imported P-Green-function radiation claim — void when there is no P branch; its voiding is carve content. The rider's routed lattice-native re-derivation lane (:983) survives as routing: the carve is the pre-declared "negative was an import artifact" arm.
-  **Also covered by this demotion** (named in the audited row; not separately stamped): `:983`.
+  **Scope carve (review fix 2026-08-11).** `:983` is **NOT** demoted. The audited rationale carves it
+  verbatim: *"The rider's routed lattice-native re-derivation lane (:983) survives as routing: the carve
+  is the pre-declared 'negative was an import artifact' arm."*
 - **`:1004`** — *"A dedicated bulk-channel receiver is a registered bench candidate, not a correspondence"*
   Stamped in place at `:1004`.
   **Why it dies (audited row rationale, verbatim):** A compression-line antenna (also :995) is a receiver for a far-field bulk wave — nothing to receive under the carve; the candidate's design premise is the phantom (its FLAG-W inheritance dissolves with it).
@@ -1055,4 +1057,7 @@ axiom **with that debt open**, not a closed replacement.
 **Records.** R40 ruling `_orchestration/docket-entries/2026-08-10-rulings-r40-r42.md` · verified worklist `research/drivers/r40_sweep_worklist_verified.json` · scope verification `_orchestration/2026-08-10_r40-sweep-scope-verification.md` ·
 batch-1 record `_orchestration/2026-08-11_r40-sweep-batch1.md` · vocabulary R50 `_orchestration/docket-entries/2026-08-10-ruling-r50-vocab.md` (canonical: the displacement pattern u₀ around a
 deposit is **the bound response**, mechanism gloss **back-reaction**; ε₁₁ is **the bias**;
-"dress", "grade"-as-canonical-noun, "halo"-for-the-physics and "retardation" are retired).
+"dress", "grade"-as-canonical-noun and "halo"-for-the-physics are retired; and the owed theorem is
+renamed **THE BIAS PROPAGATION THEOREM**) · vocabulary **R49(b)** `_orchestration/docket-entries/2026-08-10-rulings-r48-r49.md` (*"retardation"
+is RETIRED from this role. The canonical term is **propagation delay / finite propagation speed*** —
+the retardation retirement is R49(b)'s, NOT R50's; corrected 2026-08-11 at review).

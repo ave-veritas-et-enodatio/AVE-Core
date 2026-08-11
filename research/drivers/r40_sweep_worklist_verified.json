@@ -4634,7 +4634,7 @@
     "line_before": 148,
     "line_after": 148,
     "moved": false,
-    "cause": "FALSE DRIFT - the cited line DOES hold the quoted content. The probe missed because the signed-Gamma tag macro \\gammaundeclared{} was inserted mid-quote after the audit quote was captured (the R39 / gamma-tag census family); on 03a:148 the captured quote additionally normalised $\\Gamma{=}-1$ from the source's $\\Gamma=-1$. Anchor is CORRECT; no re-pin needed."
+    "cause": "FALSE DRIFT - the cited line DOES hold the quoted content. TWO transforms separate the banked quote from the source, which is why this row alone failed even the \\gammaundeclared{}-only probe: (1) the signed-Gamma tag macro \\gammaundeclared{} was inserted mid-quote after the audit quote was captured (the R39 / gamma-tag census family); (2) the captured quote NORMALISED the brace form, writing $\\Gamma{=}-1$ where the source reads $\\Gamma=-1$. Removing the macro alone still fails; removing the macro AND normalising the brace form gives an exact raw hit at :148. Anchor is CORRECT; no re-pin needed."
    },
    {
     "site": "manuscript/ave-kb/vol9/ch1-general-description/index.md:22",
@@ -4642,7 +4642,7 @@
     "line_before": 22,
     "line_after": 22,
     "moved": false,
-    "cause": "FALSE DRIFT - the cited line DOES hold the quoted content. The probe missed because the audit quote is RENDERED prose (V_snap=m_ec^2/e~511 kV, def-vyvsn1 unbackticked) against LaTeX-in-markdown source ($V_{snap}=m_ec^2/e\\approx511$ kV, `def-vyvsn1`) - the v2-class artifact named in the batch-0 method finding. Anchor is CORRECT; no re-pin needed."
+    "cause": "FALSE DRIFT - the cited line DOES hold the quoted content. This row is the ONLY non-tex case and carries a wholly distinct cause: no macro is involved. The audit quote is RENDERED prose (V_snap=m_ec^2/e ~ 511 kV, def-vyvsn1 unbackticked) measured against LaTeX-in-markdown SOURCE ($V_{snap}=m_ec^2/e\\approx511$ kV, `def-vyvsn1`) - the v2-class rendered-vs-source artifact the batch-0 method finding named in its own probe table. Rendering the source line gives an exact hit at :22. Anchor is CORRECT; no re-pin needed."
    },
    {
     "site": "manuscript/vol_3_macroscopic/chapters/02_general_relativity_and_gravity.tex:43",
@@ -4650,7 +4650,7 @@
     "line_before": 43,
     "line_after": 43,
     "moved": false,
-    "cause": "FALSE DRIFT - the cited line DOES hold the quoted content. The probe missed because the signed-Gamma tag macro \\gammaundeclared{} was inserted mid-quote after the audit quote was captured (the R39 / gamma-tag census family); on 03a:148 the captured quote additionally normalised $\\Gamma{=}-1$ from the source's $\\Gamma=-1$. Anchor is CORRECT; no re-pin needed."
+    "cause": "FALSE DRIFT - the cited line DOES hold the quoted content. SINGLE transform: the signed-Gamma tag macro \\gammaundeclared{} was inserted mid-quote (after 'The total-confinement $\\Gamma = -1$') by the R39 / gamma-tag census family, after the audit quote was captured. The banked quote carries $\\Gamma = -1$ with NO brace-form normalisation, so removing \\gammaundeclared{} alone yields an exact raw hit at :43. Anchor is CORRECT; no re-pin needed."
    },
    {
     "site": "manuscript/vol_3_macroscopic/chapters/03_macroscopic_relativity.tex:169",
@@ -4658,7 +4658,7 @@
     "line_before": 169,
     "line_after": 169,
     "moved": false,
-    "cause": "FALSE DRIFT - the cited line DOES hold the quoted content. The probe missed because the signed-Gamma tag macro \\gammaundeclared{} was inserted mid-quote after the audit quote was captured (the R39 / gamma-tag census family); on 03a:148 the captured quote additionally normalised $\\Gamma{=}-1$ from the source's $\\Gamma=-1$. Anchor is CORRECT; no re-pin needed."
+    "cause": "FALSE DRIFT - the cited line DOES hold the quoted content. SINGLE transform: \\gammaundeclared{} inserted mid-quote (after 'The $\\Gamma=-1$') by the R39 / gamma-tag census family, after the audit quote was captured. The banked quote carries $\\Gamma=-1$ with NO brace-form normalisation, so removing \\gammaundeclared{} alone yields an exact raw hit at :169. Anchor is CORRECT; no re-pin needed."
    },
    {
     "site": "manuscript/vol_9_vacuum_datasheet/chapters/05_ac_electrical_characteristics.tex:121",
@@ -4666,8 +4666,10 @@
     "line_before": 121,
     "line_after": 121,
     "moved": false,
-    "cause": "FALSE DRIFT - the cited line DOES hold the quoted content. The probe missed because the signed-Gamma tag macro \\gammaundeclared{} was inserted mid-quote after the audit quote was captured (the R39 / gamma-tag census family); on 03a:148 the captured quote additionally normalised $\\Gamma{=}-1$ from the source's $\\Gamma=-1$. Anchor is CORRECT; no re-pin needed."
+    "cause": "FALSE DRIFT - the cited line DOES hold the quoted content. SINGLE transform: \\gammaundeclared{} inserted mid-quote (after 'closed by a $\\Gamma = -1$') by the R39 / gamma-tag census family, after the audit quote was captured. The banked quote carries $\\Gamma = -1$ with NO brace-form normalisation, so removing \\gammaundeclared{} alone yields an exact raw hit at :121. Anchor is CORRECT; no re-pin needed."
    }
-  ]
+  ],
+  "per_row_causes_note": "Corrected 2026-08-11 at review: the first cut carried ONE copy-pasted cause paragraph across the four .tex rows, so three of them asserted the 03a:148 brace-form normalisation clause that applies to 03a:148 only. Each row's cause is now derived from its own site: two transforms on 03a:148, one transform on the other three .tex rows, and a wholly distinct rendered-vs-source cause on the one .md row. The markdown record's per-row table was already correct; the JSON now matches it.",
+  "upstream_debt_2026_08_11": "ROUTED, NOT EXECUTED: the batch-0 prose record _orchestration/2026-08-10_r40-sweep-scope-verification.md (merged on main via PR #938) still asserts 'DRIFTED-NEEDS-REPIN | 5 | the cited line does not hold the quoted content' at :61 and 'Three of the five are same-passage off-by-a-few' at :79. Batch 1 does NOT edit that merged artifact. It owes a dated forward/supersession note in the corpus's own convention (cf. _orchestration/docket-entries/2026-08-10-ruling-r43-sg-ratified.md's SUPERSEDED banner). Until that lands, a reader who greps DRIFTED-NEEDS-REPIN can reach the batch-0 doc first; this block and _orchestration/2026-08-11_r40-sweep-batch1.md sec.5 carry the correction."
  }
 }
