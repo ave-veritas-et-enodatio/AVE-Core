@@ -1650,7 +1650,7 @@ class EngineConfig:
     use_trilinear_converter: bool = False
     converter_mode: str = "trilinear"
     converter_photon_deplete: bool = False
-    # Phase 2b — rarefaction bulk-density sector (GAP-A port; KEEP-BOTH default OFF).
+    # Phase 2b — rarefaction bulk-density sector (GAP-A port; KEEP-BOTH default OFF).  DEMOTED 2026-08-11 — R40-B1 (dated demotion note at end of file).
     # Prereg: research/2026-06-12_loop-gap-harness-bulk-channel_prereg_DRAFT.md
     bulk_density_on: bool = False
     bulk_c2_floor: float = 1e-3
@@ -2016,3 +2016,55 @@ class VacuumEngine3D:
         if A2 < _RUPTURE_BOUND_A2:
             return "III"
         return "IV"
+
+
+# ============================================================================
+# DATED DEMOTION NOTE — 2026-08-11 (R40 demotion sweep, batch 1)
+# ============================================================================
+# Class: DIES-WITH-THE-PHANTOM. STATUS CHANGE ONLY — no code path, constant, default or
+# behaviour is altered by this note; the text above is preserved verbatim (honesty-lag
+# pattern, Rule 12) and stamped in place. Nothing is deleted. This module's phantom-bearing
+# DOCUMENTATION is demoted; any live re-scope of the CODE is batch 2 / the engine lane.
+#
+# Demoted in this file:
+#   :1653 — "# Phase 2b — rarefaction bulk-density sector (GAP-A port; KEEP-BOTH default OFF)."
+#       stamped in place at :1653
+#       why it dies (audited row rationale, verbatim): A flag-gated coded bulk PORT:
+#       BulkRarefactionSector (:1732) is a time-stepped dynamical bulk-density field with its own
+#       c_bulk² (snapshot keys c_bulk2_min/max :1945-1946) — an independent bulk DOF with a port
+#       name; default OFF; its voiding is the carve's content.
+#       also covered (named in the audited row, not separately stamped): :1732, :1945
+#
+# THE ARC, COMPLETE (the framing R40 rules every demotion note carries):
+#   1. The kill fired (#930) — the walk-back that closed the bulk radiative-port reading.
+#   2. The premise localized to the #261 K = 2G import (G-RECON, unchallenged): the
+#      compressible far-field branch was minted by a GR-imported elastic modulus, not
+#      forced by the axioms.
+#   3. The axioms underdetermine the bulk sector — the #935 flat-direction finding: the
+#      written action conserves the Gauss function pointwise and never fixes its value.
+#   4. The replacement is the RATIFIED bound-sector law — AXIOM 5, SUBSTRATE DC BIAS
+#      (BC-SRC clauses S / G / Q), ratified per _orchestration/docket-entries/2026-08-10-ruling-r43-ratification.md,
+#      as reconciled by _orchestration/docket-entries/2026-08-10-ruling-r44-r43-reconciliation.md
+#      (R44: the full-scope R43 record is FINAL and authoritative; the partial
+#      2026-08-10-ruling-r43-sg-ratified.md is SUPERSEDED and is NOT the resolution).
+#      Under the ratified law the A1 / bulk slot is a BOUND RESPONSE — mechanism gloss
+#      BACK-REACTION — with no independent propagating branch, no port, and zero
+#      longitudinal characteristic speed. A bulk wave speed, a bulk radiative port, a bulk
+#      band-branch and a bulk transit clock therefore have no referent.
+#
+# STANDING NAMED-OPEN DEBT (the honest rider): the ratified axiom does NOT discharge
+#   everything. THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open entry —
+#   clause G's elliptic law is the STATIC ABSTRACTION of underived finite-speed bias
+#   dynamics (_orchestration/2026-08-10_bias-propagation-brief.md). Where a demoted claim's
+#   replacement depends on finite-speed bias dynamics, the resolution is the ratified
+#   axiom WITH THAT DEBT OPEN, not a closed replacement.
+#
+# Records: R40 ruling _orchestration/docket-entries/2026-08-10-rulings-r40-r42.md;
+#   verified worklist research/drivers/r40_sweep_worklist_verified.json;
+#   scope verification _orchestration/2026-08-10_r40-sweep-scope-verification.md;
+#   batch-1 record _orchestration/2026-08-11_r40-sweep-batch1.md;
+#   vocabulary ruling R50 _orchestration/docket-entries/2026-08-10-ruling-r50-vocab.md
+#   (canonical: the displacement pattern u0 around a deposit is THE BOUND RESPONSE,
+#   mechanism gloss BACK-REACTION; eps_11 is THE BIAS; "dress", "grade"-as-canonical-noun,
+#   "halo"-for-the-physics and "retardation" are retired).
+# ============================================================================

@@ -38,7 +38,7 @@ THE GAPS THE MERGE LACKS (named before building):
 This component ADDS the 3D rarefaction bulk-density sector (ρ̄, u, EOS, exact
 pressure ledger) as a NEW, additively-integrated DOF ALONGSIDE the unchanged
 V/w/ω. Master switch `bulk_density_on` (default False) ⇒ `step()` is byte-for-
-byte `CrystalGraftV4.step()` (the inherited-physics-unchanged HARD CONSTRAINT).
+byte `CrystalGraftV4.step()` (the inherited-physics-unchanged HARD CONSTRAINT).  DEMOTED 2026-08-11 — R40-B1 (dated demotion note at end of file).
 
 ave-apparatus-floor-attribution: every new numerical knob (c2_floor, rho_floor,
 eps_den, nu_art_bulk, rho_diff) is a CLIP suspect, named here, swept in the
@@ -355,7 +355,7 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         self.rho_bar = self.rho_bar + dt * k2r
         self.u_adv = self.u_adv + dt * k2u
         # reuse the parent's PML/edge absorber (CP7 — the bulk sector vents the
-        # same boundary as V/w/ω); interior measurement uses interior_mask()
+        # same boundary as V/w/ω); interior measurement uses interior_mask()  DEMOTED 2026-08-11 — R40-B1 (dated demotion note at end of file).
         self.rho_bar *= self.damping
         self.u_adv *= self.damping[..., None]
         # clip telltales (apparatus — counted in the interior so we know if they bit)
@@ -1363,7 +1363,7 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         seed: a ∂_tV velocity kick over the seed window carries vent_near_frac
         (near-field); the remainder is tracked as radiated (spherical remainder).
         Energy-accounted (driver-honesty: a labeled model coupling — the GAP-C
-        surface)."""
+        surface).  DEMOTED 2026-08-11 — R40-B1 (dated demotion note at end of file). """
         if e_vent <= 0.0 or not getattr(self, "vent_into_seed", False):
             return
         w = self._seed_window
@@ -1459,3 +1459,67 @@ class UnifiedGenesisEngine(CrystalGraftV4):
             f"bulk_density={self.bulk_density_on}, photon_coupling={self.photon_coupling}, "
             f"lock={self.lock_on}(η={self.lock_eta:.3f}), κ̃={self.kappa_tilde}, step={self.step_count})"
         )
+
+
+# ============================================================================
+# DATED DEMOTION NOTE — 2026-08-11 (R40 demotion sweep, batch 1)
+# ============================================================================
+# Class: DIES-WITH-THE-PHANTOM. STATUS CHANGE ONLY — no code path, constant, default or
+# behaviour is altered by this note; the text above is preserved verbatim (honesty-lag
+# pattern, Rule 12) and stamped in place. Nothing is deleted. This module's phantom-bearing
+# DOCUMENTATION is demoted; any live re-scope of the CODE is batch 2 / the engine lane.
+#
+# Demoted in this file:
+#   :38 — "This component ADDS the 3D rarefaction bulk-density sector (ρ̄, u, EOS, exact pressure ledger) as a NEW, additively-integrated DOF ALONGSIDE the unchanged V/w/ω."
+#       stamped in place at :41
+#       why it dies (audited row rationale, verbatim): Explicitly mints the bulk slot as a NEW
+#       independent DOF with hyperbolic dynamics at c_bulk (_bulk_rhs :321-323) — the
+#       controlled-source carve says no such state variable exists; the 'D6 longitudinal-burst
+#       detector' (:285, :1431-1432) reads the same phantom.
+#       also covered (named in the audited row, not separately stamped): :285, :321, :1431
+#   :357 — "reuse the parent's PML/edge absorber (CP7 — the bulk sector vents the same boundary as V/w/ω)"
+#       stamped in place at :358
+#       why it dies (audited row rationale, verbatim): A coded bulk radiative vent:
+#       boundary-crossing energy on the compression line — the prereg's DIES qualifier ('a bulk
+#       radiative port') verbatim; under the carve the channel has no port to cross.
+#   :1362 — "Deliver an impulsive LONGITUDINAL pulse of energy `e_vent` into the seed … the remainder is tracked as radiated (spherical remainder)."
+#       stamped in place at :1366
+#       why it dies (audited row rationale, verbatim): E_vent_radiated (:1376) books far-field
+#       longitudinal radiated flux — a bulk radiative ledger with no channel under the carve; the
+#       near-field kick half could re-home, but the radiated-remainder claim is void. GAP-C coupling
+#       is hypothesis-class, default OFF.
+#       also covered (named in the audited row, not separately stamped): :1376
+#
+# THE ARC, COMPLETE (the framing R40 rules every demotion note carries):
+#   1. The kill fired (#930) — the walk-back that closed the bulk radiative-port reading.
+#   2. The premise localized to the #261 K = 2G import (G-RECON, unchallenged): the
+#      compressible far-field branch was minted by a GR-imported elastic modulus, not
+#      forced by the axioms.
+#   3. The axioms underdetermine the bulk sector — the #935 flat-direction finding: the
+#      written action conserves the Gauss function pointwise and never fixes its value.
+#   4. The replacement is the RATIFIED bound-sector law — AXIOM 5, SUBSTRATE DC BIAS
+#      (BC-SRC clauses S / G / Q), ratified per _orchestration/docket-entries/2026-08-10-ruling-r43-ratification.md,
+#      as reconciled by _orchestration/docket-entries/2026-08-10-ruling-r44-r43-reconciliation.md
+#      (R44: the full-scope R43 record is FINAL and authoritative; the partial
+#      2026-08-10-ruling-r43-sg-ratified.md is SUPERSEDED and is NOT the resolution).
+#      Under the ratified law the A1 / bulk slot is a BOUND RESPONSE — mechanism gloss
+#      BACK-REACTION — with no independent propagating branch, no port, and zero
+#      longitudinal characteristic speed. A bulk wave speed, a bulk radiative port, a bulk
+#      band-branch and a bulk transit clock therefore have no referent.
+#
+# STANDING NAMED-OPEN DEBT (the honest rider): the ratified axiom does NOT discharge
+#   everything. THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open entry —
+#   clause G's elliptic law is the STATIC ABSTRACTION of underived finite-speed bias
+#   dynamics (_orchestration/2026-08-10_bias-propagation-brief.md). Where a demoted claim's
+#   replacement depends on finite-speed bias dynamics, the resolution is the ratified
+#   axiom WITH THAT DEBT OPEN, not a closed replacement.
+#
+# Records: R40 ruling _orchestration/docket-entries/2026-08-10-rulings-r40-r42.md;
+#   verified worklist research/drivers/r40_sweep_worklist_verified.json;
+#   scope verification _orchestration/2026-08-10_r40-sweep-scope-verification.md;
+#   batch-1 record _orchestration/2026-08-11_r40-sweep-batch1.md;
+#   vocabulary ruling R50 _orchestration/docket-entries/2026-08-10-ruling-r50-vocab.md
+#   (canonical: the displacement pattern u0 around a deposit is THE BOUND RESPONSE,
+#   mechanism gloss BACK-REACTION; eps_11 is THE BIAS; "dress", "grade"-as-canonical-noun,
+#   "halo"-for-the-physics and "retardation" are retired).
+# ============================================================================

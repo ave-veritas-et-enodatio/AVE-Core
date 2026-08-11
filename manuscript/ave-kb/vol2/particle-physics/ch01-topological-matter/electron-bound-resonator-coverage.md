@@ -62,7 +62,7 @@ definitional = the dimensionful number is calibration-imported. GAP = not derive
 | de Broglie $\lambda=h/p$ | **B/C-mix** | de-broglie-standing-wave.md (clm-oltvwy) | FORM=chord on standing-wave quantization / VALUE=echo | NOT cage-testable (atomic bound soliton) |
 | Lorentz time dilation | **C** for SR-boost; B-adjacent for grav. √S | SR rides clm-fgo20a/clm-p5cf3t; grav clm-8nkvwy | GAP on native SR moving-clock; SYM √S is a DIFFERENT (gravity) mechanism | NOT cage-testable |
 | Lorentz length contraction | **C** — zero AVE-specific derivation | NONE specific | GAP — rides imported $\gamma$ | NOT cage-testable |
-| group/phase velocity $v_g v_p=c^2$ | **PARTIAL/C** on the IDENTIFICATION | clm-8nkvwy ($c_{EM},c_{shear}$) | FORM=partial-chord (two speeds) / GAP on tying to a moving electron | PARTIAL — $c_{bulk}$ + $c_{eff}(A)$ measured (T3.1/T3.2); moving-cage $v_g/v_p$ not |
+| group/phase velocity $v_g v_p=c^2$ | **PARTIAL/C** on the IDENTIFICATION | clm-8nkvwy ($c_{EM},c_{shear}$) | FORM=partial-chord (two speeds) / GAP on tying to a moving electron | PARTIAL — $c_{bulk}$ + $c_{eff}(A)$ measured (T3.1/T3.2); moving-cage $v_g/v_p$ not 🔴 **[DEMOTED 2026-08-11 — R40-B1; note at EOF]** |
 | matter-wave interference (free) | **C** — bound is corpus, free two-path is not | de-broglie standing-wave | FORM=chord on standing waves / GAP on free two-path | NOT cage-testable |
 | pair production / annihilation | **C** — mechanism sketched, not quantitative | clm-ezai5b, clm-hb2xmj | FORM=partial-chord / VALUE=GAP (no σ, no rate; `pair-production-axiom-derivation.md:111`) | NOT cage-testable |
 | Compton scattering (KN) | **C** — qualitative one-liner only | NONE | `photon-identification.md:179` "transient saturation event"; no σ | NOT cage-testable |
@@ -235,3 +235,44 @@ T3.4a's docstring; it does not change any bin.
 - **Class node:** [`BoundResonator` def-b42e9d](../../../common/vocabulary-register.md) (proposed/gated); the electron R/X/Q/L/C bundle = instance-1 ([clm-fd1e7a](../../../vol4/claim-quality.md))
 - **Canonical electron identification:** [electron-identification.md](electron-identification.md)
 - **Q-factor value-scope:** [theorem-3-1-q-factor.md](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md):19 ("echo at the value level")
+
+---
+
+### 🔴 Dated demotion note — 2026-08-11 (R40 demotion sweep, batch 1)
+
+**Class: DIES-WITH-THE-PHANTOM.** Status change only — the claim text is **preserved
+verbatim** (honesty-lag pattern, Rule 12) and stamped in place; it is **no longer live
+canon**. Nothing is deleted.
+
+**Demoted in this file:**
+
+- **`:65`** — *"PARTIAL — $c_{bulk}$ + $c_{eff}(A)$ measured (T3.1/T3.2); moving-cage $v_g/v_p$ not"*
+  Stamped in place at `:65`.
+  **Why it dies (audited row rationale, verbatim):** An engine-MEASURED bulk transit speed cited as coverage support — a bulk propagation speed as a physical transit speed; the receipt is the coded K-import's echo and is void as physics under the carve.
+
+**The arc, complete — the framing R40 rules every demotion note carries:**
+
+1. **The kill fired** (#930) — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the #261 K = 2G import** (G-RECON, unchallenged): the compressible
+   far-field branch was minted by a GR-imported elastic modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the #935 flat-direction finding: the written
+   action conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the RATIFIED bound-sector law — Axiom 5, Substrate DC Bias**
+   (BC-SRC clauses **S** / **G** / **Q**), ratified per `_orchestration/docket-entries/2026-08-10-ruling-r43-ratification.md`, as reconciled by `_orchestration/docket-entries/2026-08-10-ruling-r44-r43-reconciliation.md` (R44 — the
+   full-scope R43 record is FINAL and authoritative; the partial
+   `_orchestration/docket-entries/2026-08-10-ruling-r43-sg-ratified.md` is SUPERSEDED and is **not**
+   the resolution). Under the ratified law the A1 / bulk slot is a **bound response** — mechanism
+   gloss **back-reaction** — with no independent propagating branch, no port, and zero longitudinal
+   characteristic speed. A bulk *wave speed*, a bulk *radiative port*, a bulk *band-branch* and a
+   bulk *transit clock* therefore have **no referent**.
+
+**Standing named-open debt (the honest rider).** The ratified axiom does **not** discharge
+everything: **THE BIAS PROPAGATION THEOREM** is Axiom 5's standing named-open entry — clause G's
+elliptic law is the *static abstraction* of underived finite-speed bias dynamics (`_orchestration/2026-08-10_bias-propagation-brief.md`). Where a
+demoted claim's replacement depends on finite-speed bias dynamics, the resolution is the ratified
+axiom **with that debt open**, not a closed replacement.
+
+**Records.** R40 ruling `_orchestration/docket-entries/2026-08-10-rulings-r40-r42.md` · verified worklist `research/drivers/r40_sweep_worklist_verified.json` · scope verification `_orchestration/2026-08-10_r40-sweep-scope-verification.md` ·
+batch-1 record `_orchestration/2026-08-11_r40-sweep-batch1.md` · vocabulary R50 `_orchestration/docket-entries/2026-08-10-ruling-r50-vocab.md` (canonical: the displacement pattern u₀ around a
+deposit is **the bound response**, mechanism gloss **back-reaction**; ε₁₁ is **the bias**;
+"dress", "grade"-as-canonical-noun, "halo"-for-the-physics and "retardation" are retired).
