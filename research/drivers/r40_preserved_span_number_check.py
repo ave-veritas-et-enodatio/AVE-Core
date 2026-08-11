@@ -60,9 +60,16 @@ twin of the gate-consuming-self-declared-fields class.  The repair splits the tw
 the one scan was conflating:
   * The FIXTURE numbers are a property of the batch-1 merge commit (`BATCH1_MERGE`)
     and are re-derived from it, pinned, every run — stable on main and on any branch.
-  * The CURRENT branch gets a LIVE FORWARD GUARD instead: any NEW stamped line landing
-    inside a preserved container fails loudly and demands hand-adjudication.  Batch-1's
-    own lines sit below each file's origin/main EOF and are never re-flagged.
+  * The CURRENT branch gets a LIVE FORWARD GUARD instead: any stamped line the branch
+    ADDED (a `+` line of `origin/main..HEAD`, unified-0 hunks) landing inside a
+    preserved container fails loudly and demands hand-adjudication.  (Second repair,
+    same day, forced by the independent verify: the first cut derived the guard's
+    surface from a line-number-vs-old-EOF proxy, which was inverted on BOTH sides —
+    it re-flagged batch-1's landed, already-adjudicated stamps whenever a later
+    branch touched one of their 19 files, and it was blind to stamps in NEW files,
+    whose every line sat past the proxy's boundary.  The added-line set closes both:
+    pre-existing stamps are not in it; a new file's lines all are.)  An adjudicated
+    false positive is registered in `GUARD_ADJUDICATED_FP` with its reading.
 
 RESIDUAL BLIND SPOTS — DECLARED, NOT COVERED
 --------------------------------------------
@@ -301,6 +308,60 @@ def scan(files, preserve=PRESERVE, live_only=True, at_rev=None, old_rev="origin/
     return n_scanned, flagged
 
 
+#: Forward-guard flags hand-adjudicated FALSE POSITIVE, keyed (file, stripped line
+#: content — line numbers drift, bytes do not).  Each entry carries its reading as a
+#: comment.  Empty until the guard's first real flag is adjudicated.
+GUARD_ADJUDICATED_FP: set = set()
+
+
+def _added_from_diff_text(text):
+    """Head-side line numbers of the `+` hunks in a unified-0 diff (pure; testable)."""
+    added = set()
+    for m in re.finditer(r"^@@ -\d+(?:,\d+)? \+(\d+)(?:,(\d+))? @@", text, re.M):
+        start = int(m.group(1))
+        count = 1 if m.group(2) is None else int(m.group(2))
+        added.update(range(start, start + count))
+    return added
+
+
+def added_lines(f, base="origin/main", head="HEAD"):
+    """The line numbers (head side) that base..head ADDED to `f`."""
+    out = subprocess.run(
+        ["git", "-C", REPO, "diff", "--unified=0", base, head, "--", f],
+        capture_output=True, text=True).stdout
+    return _added_from_diff_text(out)
+
+
+def scan_added(files, base="origin/main", head="HEAD", preserve=PRESERVE,
+               added_map=None, read_file=None):
+    """THE FORWARD GUARD's scan: stamped lines the branch ADDED, container-checked.
+
+    `added_map`/`read_file` exist so the mutation receipt can drive the decision
+    logic in memory; the gate always calls with both None (git + working tree).
+    A modified line is a delete+add in unified-0, so in-place stamp edits are
+    scanned too; pre-existing (e.g. batch-1) stamps are never in the added set."""
+    n_scanned, flagged = 0, []
+    for f in files:
+        if read_file is None:
+            full = os.path.join(REPO, f)
+            if not os.path.isfile(full):
+                continue
+            lines = open(full, encoding="utf-8").read().split("\n")
+        else:
+            lines = read_file(f)
+        add = added_lines(f, base, head) if added_map is None else added_map.get(f, set())
+        for ln in sorted(add):
+            if ln < 1 or ln > len(lines) or not STAMP.search(lines[ln - 1]):
+                continue
+            n_scanned += 1
+            if (f, lines[ln - 1].strip()) in GUARD_ADJUDICATED_FP:
+                continue
+            hits = flags_for(f, lines, ln, preserve)
+            if hits:
+                flagged.append((f, ln, hits))
+    return n_scanned, flagged
+
+
 #: The batch-1 merge commit on main (#950).  The 60/24 numbers below are a property of
 #: THIS commit's first-parent diff — NOT of whatever branch happens to run the gate.
 #: (2026-08-11 repair: the first cut computed them from `origin/main..HEAD`, which
@@ -418,16 +479,20 @@ def run_gate(verbose=True):
     say(not breach, "the adjudicated breach stays reversed",
         f"{FIXTURE_NUMBERS['adjudicated_breach']} absent from the pinned scan"
         if not breach else f"RE-APPEARED: {breach}")
-    # --- THE LIVE FORWARD GUARD: this branch's NEW stamped lines must carry ZERO flags.
-    # Batch-1's own lines are part of origin/main now, so they are never re-flagged here;
-    # anything this guard flags is a NEW stamp inside a preserved container and must be
-    # hand-adjudicated (and, if a false positive, allow-listed HERE with its reading).
-    n_live, flagged_live = scan(corpus_files())
+    # --- THE LIVE FORWARD GUARD: stamped lines this branch ADDED (the `+` hunks of
+    # origin/main..HEAD) must carry ZERO unadjudicated flags.  Pre-existing stamps —
+    # batch-1's landed, adjudicated lines included — are not in the added set and are
+    # never re-flagged, no matter which files the branch touches; a NEW file's lines
+    # are all added, so a breach in a new file is fully scanned.  A flag demands
+    # hand-adjudication; an adjudicated false positive is registered in
+    # GUARD_ADJUDICATED_FP with its reading.
+    n_live, flagged_live = scan_added(corpus_files())
     say(not flagged_live,
-        "live forward guard (new stamped lines on this branch)",
-        f"{n_live} new stamped line(s) scanned, 0 flagged"
+        "live forward guard (stamped lines this branch ADDED)",
+        f"{n_live} added stamped line(s) scanned, 0 flagged"
         if not flagged_live else
-        f"{n_live} scanned, {len(flagged_live)} FLAGGED — hand-adjudicate each: "
+        f"{n_live} scanned, {len(flagged_live)} FLAGGED — hand-adjudicate each "
+        "(then register true FPs in GUARD_ADJUDICATED_FP): "
         + "; ".join(f"{f}:{ln}" for f, ln, _ in flagged_live))
     return ok, n, flagged
 
@@ -479,16 +544,39 @@ def mutation_receipt():
     results.append(("M5 pin the batch-1 scan to the wrong rev",
                     n5 != FIXTURE_NUMBERS["post_fix_scanned"]))
 
-    # M6 — the live forward guard's flag path: a breach-shaped file (the committed
-    # fixture, scanned whole) must produce a non-empty flag list — the exact condition
-    # the guard turns into a FAIL.
-    _, fl6 = scan([os.path.relpath(FIXTURE, REPO)], live_only=False)
-    results.append(("M6 live guard flags a breach-shaped file", bool(fl6)))
+    # M6a — the guard MUST flag a breach in a NEW file: an in-memory .tex whose every
+    # line is added (a new file's diff shape), with the stamp inside a declared box.
+    # This is the exact probe the first cut's guard failed (it skipped new files).
+    breach = ["\\begin{warningbox}",
+              "This box is preserved verbatim per Rule~12.",
+              "Text. \\textbf{[DEMOTED 2026-08-11 --- probe]}",
+              "\\end{warningbox}", ""]
+    n6a, fl6a = scan_added(["manuscript/_probe_new_file.tex"],
+                           added_map={"manuscript/_probe_new_file.tex":
+                                      set(range(1, len(breach) + 1))},
+                           read_file=lambda f: list(breach))
+    results.append(("M6a guard flags a breach in a NEW file", bool(fl6a)))
+
+    # M6b — the guard MUST NOT flag a pre-existing stamp in a touched file: same
+    # content, but the branch's added set does not contain the stamped line (the
+    # batch-1 re-flag defect the first cut shipped).
+    n6b, fl6b = scan_added(["manuscript/_probe_touched_file.tex"],
+                           added_map={"manuscript/_probe_touched_file.tex": {5}},
+                           read_file=lambda f: list(breach))
+    results.append(("M6b guard ignores a pre-existing stamp in a touched file",
+                    not fl6b and n6b == 0))
+
+    # M6c — the hunk parser: head-side numbers, count-omitted-means-1, count-0 hunks
+    # (pure deletions) contribute nothing.
+    parsed = _added_from_diff_text(
+        "@@ -10,2 +12,3 @@ ctx\n@@ -30 +40 @@\n@@ -50,2 +60,0 @@\n")
+    results.append(("M6c unified-0 hunk parser exact",
+                    parsed == {12, 13, 14, 40}))
 
     allgood = True
     for label, tripped in results:
         print(f"  [{'OK' if tripped else 'BROKEN'}] {label} -> "
-              f"{'checker FAILS (good)' if tripped else 'checker still passes (BAD)'}")
+              f"{'probe holds (good)' if tripped else 'probe FAILS (BAD)'}")
         allgood = allgood and tripped
     if not allgood:
         print("[r40-span] MUTATION RECEIPT FAILED — a perturbed detector still reports clean.")
