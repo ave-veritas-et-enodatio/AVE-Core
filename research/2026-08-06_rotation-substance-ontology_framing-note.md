@@ -274,7 +274,7 @@ LINEAR coupling to the bias; Ax4's kernel is flat at zero. The walk (Grant-drive
   arc* (Ax4's standing bond BOW) — **hypothesis: the bow, the angle, and A₀ are one
   geometric fact of the srs rest-state**, derivable from the screw geometry.
 - **Counter-arms:** (C10) cosmology is the most seductive narrative class —
-  everything above is walk-level and must reconcile with the vol6 sector, never
+  everything above is walk-level and must reconcile with the vol3 cosmology sector (vol3, not vol6 — the prior-art sweep's correction, same as folded into the briefs at fb3088db), never
   parallel-mint; (C11) H₀-as-creep invites numerology — frozen criteria before any
   number; (C12) the u₀*/arc*/A₀ unification is a HYPOTHESIS (both parents are
   orphaned imports — deriving one from the other without the geometry derivation
