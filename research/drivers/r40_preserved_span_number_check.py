@@ -87,9 +87,16 @@ This detector does NOT cover, and a future pass must not read its clean run as c
     guard cannot see — the stamp is not an added line.  The round-1 EOF-proxy guard
     would have caught this shape; narrowing to added lines traded it away, and the
     trade is declared here rather than silently implied away.
-Of the four out-of-list probe shapes raised at review, exactly ONE (LaTeX sectioning) is fixed
-here; the other three are the blind spots above and are left uncovered ON PURPOSE, declared
-rather than silently implied away.
+  * PATHS THE HEADER PARSER CANNOT EXTRACT (forward guard only; 2026-08-11 delta
+    re-verify H1/H2): a path containing a space mis-keys under the greedy ` b/`
+    split, and a git c-quoted path (non-ASCII, quotes, backslash) leaves the
+    header unmatched — attribution is invalidated, never inherited.  Both fail
+    OPEN (added lines under-scanned, never falsely flagged); 0 of 5165 tracked
+    paths carry either shape today.
+Of the four out-of-list probe shapes raised at the batch-1 review, exactly ONE (LaTeX
+sectioning) was fixed then; the first four bullets above are that review's residue, and
+the last two were added at the 2026-08-11 delta re-verifies.  All are left uncovered ON
+PURPOSE, declared rather than silently implied away.
 
 USAGE
 -----
@@ -328,9 +335,14 @@ def _added_map_from_diff_text(text):
     nothing — which is the point (see `added_map_for`)."""
     added, cur = {}, None
     for line in text.split("\n"):
-        m = re.match(r"^diff --git a/.* b/(.*)$", line)
-        if m:
-            cur = m.group(1)
+        if line.startswith("diff --git "):
+            m = re.match(r"^diff --git a/.* b/(.*)$", line)
+            # A header the extraction cannot parse (git c-quotes paths with
+            # non-ASCII/quotes/backslashes) must INVALIDATE the attribution,
+            # never leave the previous file's standing — else the quoted file's
+            # hunks would be credited to its neighbor and could FALSE-FLAG it
+            # (delta re-verify H2).  Unparseable headers therefore fail OPEN.
+            cur = m.group(1) if m else None
             continue
         h = re.match(r"^@@ -\d+(?:,\d+)? \+(\d+)(?:,(\d+))? @@", line)
         if h and cur is not None:
@@ -600,7 +612,9 @@ def mutation_receipt():
         "diff --git a/manuscript/old-name.md b/manuscript/new-name.md\n"
         "similarity index 100%\nrename from manuscript/old-name.md\n"
         "rename to manuscript/new-name.md\n"
-        "diff --git a/src/y.py b/src/y.py\n@@ -5,0 +6,2 @@\n")
+        "diff --git a/src/y.py b/src/y.py\n@@ -5,0 +6,2 @@\n"
+        "diff --git \"a/manuscript/e\\303\\251.tex\" \"b/manuscript/e\\303\\251.tex\"\n"
+        "@@ -1,0 +2,2 @@\n")
     results.append(("M6c whole-diff map parser exact (incl. rename-no-hunks)",
                     parsed == {"manuscript/x.tex": {12, 13, 14, 40},
                                "src/y.py": {6, 7}}))
