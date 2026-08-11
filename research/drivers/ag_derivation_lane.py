@@ -251,16 +251,19 @@ def run_c3() -> dict:
     fitN_near = _fit_b_over_window(epsN, rr, 3.0, 8.0)
     fitN_far = _fit_b_over_window(epsN, rr, 8.0, 12.0)
 
-    # (b2) LOAD-BEARING RECEIPT — the exact discrete Gauss-flux identity.
-    # Instrument iteration (disclosed): the site-averaged profile fit on the native
-    # stencil is confounded by parity-class decoupling (TETRA_OFFSETS shifts p−p′
-    # are all-even ⇒ 8 decoupled sublattices; a point source feeds ONE class, the
-    # fit mask drops the 7 zero classes, and the sourced-class amplitude carries
-    # sublattice + deep-discrete-GF factors). The flux chain the clause-G dress
-    # consumes is NOT the profile fit but the divergence-form identity
-    #   Σ_ball (L·ε) = Σ_ball T00  (exact by construction),
-    # so ∮(D∇ε)·n̂ = −M_latt exactly, stencil-independent. Direction-of-effect:
-    # replaces a stencil-confounded fit with an exact identity (strengthens).
+    # (b2) RESIDUAL RECEIPT — the exact discrete divergence-form identity.
+    # ⚑ TIER-2 RE-CLASSIFIED (2026-08-10, algebra-knife finding 3′): this identity
+    # (Σ_ball L·ε = Σ_ball T00, exact by Div == Grad.T adjointness/telescoping) is
+    # a SOLVE-RESIDUAL check and is NORMALIZATION-BLIND — it returns 1.0 for ANY
+    # κ-rescale, including one wrong by exactly 4π (panel probe). It therefore
+    # verifies the divergence form, NOT the chain coefficient f. The only native
+    # GF-amplitude measurement in this driver is the smooth-blob masked fit below
+    # (two_way_blob.fit_diagnostic), which separates 1× from 16× but is
+    # window-fragile (R² ≈ 0.88; band ~0.74–0.99 across windows).
+    # Sublattice diagnosis (three-method panel receipt): the p−p′ difference
+    # lattice has index |det| = 16 in Z³ and connected_components(L) = 16 for
+    # N ≡ 0 (mod 4) — a point source feeds ONE class (masked fit inflates ×16);
+    # CAVEAT: at N ≡ 2 (mod 4) the torus wrap halves the count to 8.
     from ave.gravity.gw_propagation import _build_native_grad_div
     from scipy import sparse as _sp
 
@@ -313,13 +316,18 @@ def run_c3() -> dict:
     blob_fit = _fit_b_over_window(epsB, rrB, 5.0, 10.0)
     blob_b_expected = float(T00B.sum()) / (4.0 * np.pi)
 
-    # (c) SI-chain algebra (sympy): -κ∇²ε = M c² δ³  ⇒  ε = (7GM/c²)/(4π r)
+    # (c) SI-chain algebra (sympy), BOTH source conventions:
+    #  - plain-density reading (the first cut's premise): -κ∇²ε = M c² δ³
+    #  - the CANON-DECLARED convention (⚑ Tier-2: gordon-optical-metric.md:25,
+    #    clm-rd9cjm): -κ∇²ε = 4π M c² δ³  — Green's fn -1/4πr ⇒ ε = 7GM/c²r EXACT
     Ms, cs, Gsym, rs = sp.symbols("M c G r", positive=True)
     kappa = cs**4 / (7 * Gsym)
-    b_SI = (Ms * cs**2) / (4 * sp.pi * kappa)  # 1/r coefficient of the GF solution
-    f_chain = sp.simplify(b_SI / (Gsym * Ms / cs**2))  # B_code = A_g·b ⇒ f = b/(GM/c²)
+    b_SI = (Ms * cs**2) / (4 * sp.pi * kappa)  # 1/r coeff, plain-density reading
+    f_chain = sp.simplify(b_SI / (Gsym * Ms / cs**2))  # = 7/(4π)
+    b_SI_canon = (4 * sp.pi * Ms * cs**2) / (4 * sp.pi * kappa)  # canon 4π source
+    f_chain_canon = sp.simplify(b_SI_canon / (Gsym * Ms / cs**2))  # = 7 exactly
     f_profile = sp.Integer(7)  # canon-profile side: B = A_g·7GM/c²
-    ratio = sp.simplify(f_profile / f_chain)  # expect 4π
+    ratio = sp.simplify(f_profile / f_chain)  # the two READINGS differ by 4π
 
     return {
         "lattice_M": M_lat,
@@ -346,31 +354,82 @@ def run_c3() -> dict:
         },
         "f_chain_SI_exact": str(f_chain),
         "f_chain_SI_float": float(f_chain.evalf()),
+        "f_chain_CANON_convention_exact": str(f_chain_canon),
+        "f_chain_CANON_convention_float": float(f_chain_canon.evalf()),
         "f_profile_exact": str(f_profile),
         "profile_over_chain_ratio_exact": str(ratio),
         "profile_over_chain_ratio_float": float(ratio.evalf()),
+        "consumers_agree_under_canon_convention": bool(
+            sp.simplify(f_chain_canon - f_profile) == 0
+        ),
     }
 
 
 def run_c3_convention_sweep() -> dict:
-    """C3c — does any canon site declare the solve's T00 with an explicit 4π?"""
+    """C3c — does any canon site declare the solve's source with an explicit 4π?
+
+    ⚑ TIER-2 REPAIRED INSTRUMENT (2026-08-10). The first-cut patterns required the
+    literal token T00 next to the 4π and could not match LaTeX ``4\\pi`` at all
+    (``[πp]`` matches Unicode π or ASCII 'p', and the backslash of ``\\pi`` defeats
+    ``4\\s?[πp]``) — a structural false-negative on every LaTeX-spelled canon
+    equation. The Tier-2 panel found the declaration the first cut missed:
+    ``gordon-optical-metric.md:25`` (clm-rd9cjm). Repairs: (a) symbol-agnostic
+    LaTeX+Unicode patterns; (b) a KNOWN-POSITIVE control line the pattern set MUST
+    match (liveness, the missing-negative-control defect); (c) the claim-id-trail
+    enumeration (every host of clm-rd9cjm) alongside the regex sweep; (d) a genuine
+    second engine (Python re) for THIS sweep, not only C1's.
+    """
     pats = [
-        r"4\s?[πp]i?\s?(G|T_?\{?00\}?|\\rho|rho)",
-        r"nabla.*7G.*T_\{?00\}?",
-        r"T_\{?00\}?.*=.*4\s?[πp]i",
+        r"4\s*(\\,)?\s*(\\pi|π)\s*(\\,)?\s*M\s*c",  # 4π M c² source spelling
+        r"4\s*(\\,)?\s*(\\pi|π)\s*(\\,)?\s*(G|T_?\{?00\}?|\\rho|rho)",
+        r"(\\delta|δ)\s*\^?\{?3\}?\s*\(",  # δ³( — point-source statements
+        r"Green",
     ]
+    known_positive = (
+        r"-\left(\frac{c^{4}}{7G}\right)\nabla^{2}\epsilon_{11}(r) = 4\pi Mc^{2}\delta^{3}(r)"
+    )
+    liveness = {p: bool(re.search(p, known_positive)) for p in pats}
     roots = ["manuscript", "research", "src/ave/gravity"]
     hits: dict[str, list[str]] = {}
+    py_counts: dict[str, int] = {}
     for p in pats:
         cmd = ["grep", "-rniE", p] + roots + [
             "--include=*.md", "--include=*.tex", "--include=*.py",
+            "--exclude=*2026-08-10_ag-derivation*",
         ]
         try:
             out = subprocess.run(cmd, capture_output=True, text=True, cwd=REPO, timeout=120).stdout
         except Exception as e:  # noqa: BLE001
             out = f"ENGINE-ERROR: {e}"
-        hits[p] = sorted(out.strip().splitlines())[:200] if out.strip() else []
-    return {"patterns": pats, "hits": hits, "hit_counts": {p: len(hits[p]) for p in pats}}
+        hits[p] = sorted(out.strip().splitlines())[:400] if out.strip() else []
+        rx = re.compile(p, re.IGNORECASE)
+        n = 0
+        for root in roots:
+            for dirpath, _dirs, files in os.walk(os.path.join(REPO, root)):
+                for fn in sorted(files):
+                    if not fn.endswith((".md", ".tex", ".py")) or "2026-08-10_ag-derivation" in fn:
+                        continue
+                    try:
+                        txt = open(os.path.join(dirpath, fn), encoding="utf-8").read()
+                    except Exception:  # noqa: BLE001
+                        continue
+                    n += len(rx.findall(txt))
+        py_counts[p] = n
+    # claim-id trail: every host of clm-rd9cjm (the profile's canonical claim)
+    cmd = ["grep", "-rn", "clm-rd9cjm", "manuscript", "--include=*.md", "--include=*.tex"]
+    trail = subprocess.run(cmd, capture_output=True, text=True, cwd=REPO, timeout=120).stdout
+    return {
+        "patterns": pats,
+        "liveness_known_positive_matched": liveness,
+        "hits": hits,
+        "hit_counts": {p: len(hits[p]) for p in pats},
+        "py_engine_counts": py_counts,
+        "engines_agree_on_presence": {p: (len(hits[p]) > 0) == (py_counts[p] > 0) for p in pats},
+        "clm_rd9cjm_trail": sorted(trail.strip().splitlines()),
+        "declaration_found": sorted(
+            h for p in pats[:1] for h in hits[p] if "gordon-optical-metric" in h or "03_macroscopic_relativity" in h
+        ),
+    }
 
 
 def main() -> None:
@@ -390,9 +449,10 @@ def main() -> None:
         "C3": run_c3(),
         "C3_convention_sweep": run_c3_convention_sweep(),
     }
-    blob = json.dumps(results, indent=1, sort_keys=True, ensure_ascii=False)
+    blob = json.dumps(results, indent=1, sort_keys=True, ensure_ascii=False) + "\n"
     with open(OUT, "w", encoding="utf-8") as f:
-        f.write(blob + "\n")
+        f.write(blob)
+    # printed digest == file digest (Tier-2 receipts-lens nit: was pre-newline)
     print("sha256:", hashlib.sha256(blob.encode()).hexdigest())
     print("wrote", OUT)
 
