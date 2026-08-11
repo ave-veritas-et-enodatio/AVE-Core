@@ -43,8 +43,52 @@ nothing else: the question is only whether an energy-carrying inter-event channe
 at ≠ c **exists**. No detectability qualifier, no comparator scoping, no
 "sources-and-reads" clause is imported. All three quoted cells above are
 byte-verified at HEAD by the lane's committed two-engine quote gate
-(`research/drivers/bound_constitutive_quotes_number_check.py`, rows 1–2), which
-runs inside `make verify`.
+(`research/drivers/bound_constitutive_quotes_number_check.py`, rows 1–3), which
+runs inside `make verify`. **Coverage correction (2026-08-10, review finding):** an earlier
+cut of this record claimed all three cells were gated by "rows 1–2" — two rows
+cannot byte-verify three cells, and the uncovered one was the DERIVATION-TASK
+cell that §4 adjudicates tasks (a) and (b) against. That cell is now a third gate
+row, and the gate's mutation receipt is per-row, so every expectation is proven
+live rather than assumed.
+
+## §1.5 — THE ARMING GATE, QUOTED AND DISCHARGED (do not skip: this record should not exist unless both halves are discharged)
+
+The source lane put an explicit brake on this very record, and it sits on the SAME
+LINE this record quotes its derived-partials fragment from —
+[`research/2026-08-10_bound-constitutive_result.md`](../../research/2026-08-10_bound-constitutive_result.md):25,
+verbatim `[sic]`:
+
+> **"LC-1's cell re-adjudication is NOT ARMED:** it is gated on Grant's ratification of BC-SRC (and an orchestrator ruling on whether `DERIVED-VIA-NEW-AXIOM` counts as "DERIVED-class" under the brief's frozen sentence) — not arithmetic, per C2's confirmed repair."
+
+The brake exists because the frozen trigger is grade-conditional —
+[`_orchestration/2026-08-10_bound-sector-constitutive-brief.md`](../2026-08-10_bound-sector-constitutive-brief.md):37,
+verbatim `[sic]`: *"LC-1's cell re-adjudicates only on (i)+(ii) both DERIVED-class."*
+— while the lane in fact landed the SECOND of the brief's three grades for all four
+items (`:23`: *"**THE FOUR-TUPLE (final): (i) `DERIVED-VIA-NEW-AXIOM(BC-SRC)`"*).
+
+**Both halves are now discharged, and by whom is stated so Grant can see the call
+being made:**
+
+- **Gate (a) — ratification of the axiom: DISCHARGED BY GRANT.**
+  [`2026-08-10-ruling-r44-r43-reconciliation.md`](2026-08-10-ruling-r44-r43-reconciliation.md),
+  Grant verbatim: *"The first session I accidentally reset the chat to before it on
+  R43, the one we scoped is final, so the dc operation point/quiescent point is
+  ok."* R44 resolves the dual-record ambiguity in favour of the full-scope record —
+  *"the full-scope record is FINAL"*, **Tier A + clauses S, G AND Q all ratified**.
+- **Gate (b) — whether `DERIVED-VIA-NEW-AXIOM` counts as DERIVED-class:
+  DISCHARGED BY ORCHESTRATOR RULING, MADE IN R44 — not "standing".** R44 `:18-19`,
+  verbatim: *"**LC-1's cell re-adjudication FIRES** (all clauses ratified, per the
+  standing orchestrator ruling)."* Read plainly: with the candidate ratified as an
+  axiom, the `(candidate)` qualifier in the brief's second grade evaporates and the
+  four-tuple is DERIVED-under-the-ratified-set.
+
+**⚑ Disclosed defect in the citation chain, surfaced not smoothed.** R43 `:30`
+attributes gate (b) to *"the standing orchestrator ruling (#939 record)"* — but the
+#939 record is the very document whose `:25` and `:257` say the ruling has **not**
+been made. That is a circular arming citation. It is upstream of this record (the
+R43 file landed on main separately, not in this PR), it is **not repaired here**,
+and R44's later `FIRES` is what this record actually stands on. Routed to the
+orchestrator as a correction-PR candidate against R43 `:30`.
 
 ## §2 — WHAT FIRED THE KILL, AND WHAT ITS REFERENT WAS
 
@@ -79,11 +123,35 @@ characteristic speed**, not a small one. There is no finite-$\omega$ longitudina
 eigenmode to carry a $1/r$ term at any drive frequency, so there is no radiative
 pole, no radiated power, and nothing that is "energy-carrying" and "inter-event"
 on that line at any speed. The $\sqrt{10/3}\,c$ branch is a theorem of the
-**imported** $K=2G$ elastic operator, not of the axioms —
+**imported** elastic OPERATOR, not of the axioms —
 [`research/2026-08-10_bound-constitutive_result.md`](../../research/2026-08-10_bound-constitutive_result.md)
 §5.4 (`:213`), verbatim `[sic]`:
 
 > **"there is no such mode and no such passband in the receipted dynamics — the `√(10/3)c` branch is a theorem of the imported W (the driver's control arm, where the instrument duly detects it at `1.8182c`), not of the axioms. The corpus owed a mechanism for a phantom's silence; the actual structure has nothing to silence."**
+
+**⚑ THE GROUND IS STENCIL-ABSENCE, NOT MODULUS PROVENANCE — stated explicitly,
+because LC-1 pre-closed the modulus route and this record must not appear to
+reconstruct it.** LC-1 froze an anti-escape clause aimed at exactly this kind of
+argument —
+[`research/2026-08-06_lc1-one-speed_result.md`](../../research/2026-08-06_lc1-one-speed_result.md):661,
+verbatim `[sic]`: *"**Q1's exclusion cannot be escaped through the $K=2G$ import.**
+§2.2: $v_L > c$ for every $K \geq 0$. Any future re-derivation, dispute, or
+replacement of $K$ leaves a superluminal branch."* — with the $K=0$ floor at
+`:185`, verbatim `[sic]`: *"**$v_L > c$ for every $K \geq 0$.** The floor at $K=0$
+is $\sqrt{4/3}\,c$"*. **That clause is scoped to the MODULUS (re-derive, dispute,
+or replace $K$), and this record does not take that route.** The defeater is the
+absent STENCIL, carried verbatim from the source lane —
+[`…_bound-constitutive_result.md`](../../research/2026-08-10_bound-constitutive_result.md):139,
+verbatim `[sic]`:
+
+> **"The LC-1 K=0 trap is answered structurally, not by tuning:** the imported W's longitudinal floor `v_L ≥ √(4/3)c` at K=0 comes from its deviatoric-restoring stencil acting on longitudinal patterns; the receipted potential HAS no such term — its potential is curl-keyed only."
+
+and `:35`, verbatim `[sic]`: *"and NOT by the K→0 route the LC-1 receipt closes: the
+receipted potential lacks the deviatoric-restoring stencil entirely, which is why
+there is no `√(4/3)c` floor"*. So the $4G/3$ term that produces the floor is not
+present to be tuned to zero: LC-1's clause forbids escaping through $K$'s VALUE,
+and this record escapes through the OPERATOR the axioms wrote instead. Reconciled
+in the open rather than left for a third document.
 
 **Receipts (all machine-checked; the lane's number gate `BOUND-CONSTITUTIVE
 NUMBER CHECK: PASS — 27 checks green` runs inside `make verify` and byte-checks
@@ -128,12 +196,49 @@ pole-absence results survive it untouched)"*. Landed at
 [`eq_axiom_5.tex`](../../manuscript/common_equations/eq_axiom_5.tex)
 ("What BC-SRC forbids").
 
-**Therefore: the premise "an energy-carrying inter-event channel at ≠ c" has NO
-REFERENT under the ratified set.** Row 3b is the only object that ever satisfied
-the kill cell, and row 3b is a mode of an imported operator the axioms never
-wrote. The kill **de-fires**.
+### §3.2 — THE OTHER CHANNELS IN LC-1'S OWN TABLE, NAMED AND DISPOSED (no bare universal)
 
-### §3.1 — Dependency structure of this de-firing (stated so it can be attacked)
+The §3 argument above — *"on the longitudinal line the spatial operator is
+identically zero"* — reaches rows **3a/3b** and nothing else. LC-1's frozen channel
+table has two further rows that run at $\neq c$, and an unqualified "no referent"
+would silently sweep them in. They are named and disposed here instead:
+
+- **Row 4 — the Cosserat micro-rotation / wryness carrier** (`clm-2bkp7v`;
+  [`…_lc1-one-speed_result.md`](../../research/2026-08-06_lc1-one-speed_result.md):339,
+  *"both $\neq c$"*). **EXCLUDED, on its own lane's terms, by citation not
+  re-derivation.** Its source lane forbids exactly this use —
+  [`research/2026-08-05_two-band-kinematics_result.md`](../../research/2026-08-05_two-band-kinematics_result.md):304-306,
+  verbatim `[sic]`: *"**This lane does NOT license:** … and any firing of LC-1's
+  arc-level kill."* — and the merged docket record restates it comparator-agnostically,
+  [`2026-08-05-two-band-kinematics.md`](2026-08-05-two-band-kinematics.md):28,
+  verbatim `[sic]`: *"**LC-1's arc-level kill is NOT fired** (that needs an"* energy-carrying
+  inter-event channel at $\neq c$; this lane does not establish one). Substantively:
+  its $\neq c$ is the **low-energy effective theory's invariant speed, not a
+  transport speed** — same record `:22`, verbatim `[sic]`: *"**★MATERIAL QUALIFIER
+  — do NOT read this as superluminal transport.**"* An invariant speed in an
+  effective theory whose validity window closes before its relativistic regime
+  opens is not an energy-carrying inter-event channel.
+- **Row 5 — matter messengers (neutrinos, cosmic rays).** **NOT disposed, and NOT
+  claimed as de-fired.** LC-1 leaves its speed **UNDERIVED** (`:340`) and refused
+  to fold it into a verdict — `:352`, verbatim `[sic]`: *"**One row the corpus
+  cannot fill.** It is left open and visible rather than assumed compliant."* That
+  refusal is **carried forward here unchanged**. A kill fires only on a positive
+  referent and an UNDERIVED row establishes none, so row 5 does not resurrect the
+  kill — but neither does this record get to call it absent. It is a **named-open**.
+
+**Therefore: the premise "an energy-carrying inter-event channel at ≠ c" has NO
+ESTABLISHED REFERENT under the ratified set.** Row 3b is the only object that ever
+satisfied the kill cell (corpus-wide: *"satisfies the kill"* resolves to row 3b and
+nothing else), and row 3b is a mode of an imported operator the axioms never wrote;
+row 4 is excluded on its own lane's terms; row 5 is UNDERIVED and stays a
+named-open. The kill **de-fires** — on the absence of an established referent, not
+on a claim that no referent could ever exist.
+
+*(Wording note: the first cut of this record asserted the bare universal "has NO
+REFERENT" and named none of these rows. That over-reached against LC-1's own frozen
+table and is corrected here.)*
+
+### §3.3 — Dependency structure of this de-firing (stated so it can be attacked)
 
 The de-firing rides the **pole-absence half** of the lane's item (iv), which
 stands **DERIVED from the receipted action alone** — the source doc's own
@@ -201,7 +306,7 @@ adjudication — but it is named rather than left for someone to trip over.
 
 | Object | Frozen text | Disposition under the ratified set |
 |---|---|---|
-| LC-1 **kill cell** (`brief:44` col 5) | *"An energy-carrying inter-event channel at ≠ c ⇒ arc-level kill"* | **DOES NOT FIRE — premise has no referent.** The prior FIRED disposition (via row 3b / PR #930's residue) is **VACATED**: it rested on a mode of an imported operator, not of the axioms. |
+| LC-1 **kill cell** (`brief:44` col 5) | *"An energy-carrying inter-event channel at ≠ c ⇒ arc-level kill"* | **DOES NOT FIRE — premise has no ESTABLISHED referent** (rows 3a/3b removed by the absent stencil; row 4 excluded on its own lane's terms; row 5 UNDERIVED = named-open, carried forward not swept in). The prior FIRED disposition (via row 3b / PR #930's residue) is **VACATED**: it rested on a mode of an imported operator, not of the axioms. |
 | LC-1 **arc-termination** (`brief:59`) | *"LC-1 runs first and its kill condition is arc-terminating."* | **NOT TRIGGERED.** The arc is not terminated; LC-2…LC-5 stand unaffected. |
 | LC-1 task **(b)** (`brief:44` col 4) | *"bulk √(10/3)c P-wave observability — gapped, confined, or sourceless?"* | **DISCHARGED NEGATIVELY, outside the frozen trichotomy** — the mode is non-existent. Framing finding recorded. |
 | LC-1 task **(a)** (`brief:44` col 4) | *"provenance of cold c_shear = c (is G_vac = ρc² derived or a matching condition?)"* | **OPEN — not discharged.** VALUE-provenance; #261/#506 imports untouched. |
