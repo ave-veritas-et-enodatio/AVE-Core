@@ -2600,7 +2600,9 @@
    "path": "manuscript/vol_9_vacuum_datasheet/chapters/03a_device_circuit_models.tex",
    "lineno": 148,
    "status": "ABSENT",
-   "site_verdict": "DRIFTED-NEEDS-REPIN"
+   "site_verdict": "DRIFTED-NEEDS-REPIN",
+   "site_verdict_repin_2026_08_11": "VERIFIED-BY-HAND (anchor unchanged; batch-0 DRIFTED verdict CORRECTED)",
+   "repin_line_2026_08_11": 148
   },
   {
    "site": "manuscript/vol_9_vacuum_datasheet/chapters/03a_device_circuit_models.tex:79",
@@ -4108,7 +4110,9 @@
    "path": "manuscript/ave-kb/vol9/ch1-general-description/index.md",
    "lineno": 22,
    "status": "ABSENT",
-   "site_verdict": "DRIFTED-NEEDS-REPIN"
+   "site_verdict": "DRIFTED-NEEDS-REPIN",
+   "site_verdict_repin_2026_08_11": "VERIFIED-BY-HAND (anchor unchanged; batch-0 DRIFTED verdict CORRECTED)",
+   "repin_line_2026_08_11": 22
   },
   {
    "site": "manuscript/ave-kb/vol9/ch17-engine-requirements/engine-acceptance-suite.md:205",
@@ -4251,7 +4255,9 @@
    "path": "manuscript/vol_3_macroscopic/chapters/02_general_relativity_and_gravity.tex",
    "lineno": 43,
    "status": "ABSENT",
-   "site_verdict": "DRIFTED-NEEDS-REPIN"
+   "site_verdict": "DRIFTED-NEEDS-REPIN",
+   "site_verdict_repin_2026_08_11": "VERIFIED-BY-HAND (anchor unchanged; batch-0 DRIFTED verdict CORRECTED)",
+   "repin_line_2026_08_11": 43
   },
   {
    "site": "manuscript/vol_3_macroscopic/chapters/03_macroscopic_relativity.tex:169",
@@ -4264,7 +4270,9 @@
    "path": "manuscript/vol_3_macroscopic/chapters/03_macroscopic_relativity.tex",
    "lineno": 169,
    "status": "ABSENT",
-   "site_verdict": "DRIFTED-NEEDS-REPIN"
+   "site_verdict": "DRIFTED-NEEDS-REPIN",
+   "site_verdict_repin_2026_08_11": "VERIFIED-BY-HAND (anchor unchanged; batch-0 DRIFTED verdict CORRECTED)",
+   "repin_line_2026_08_11": 169
   },
   {
    "site": "manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex:173",
@@ -4368,7 +4376,9 @@
    "path": "manuscript/vol_9_vacuum_datasheet/chapters/05_ac_electrical_characteristics.tex",
    "lineno": 121,
    "status": "ABSENT",
-   "site_verdict": "DRIFTED-NEEDS-REPIN"
+   "site_verdict": "DRIFTED-NEEDS-REPIN",
+   "site_verdict_repin_2026_08_11": "VERIFIED-BY-HAND (anchor unchanged; batch-0 DRIFTED verdict CORRECTED)",
+   "repin_line_2026_08_11": 121
   },
   {
    "site": "manuscript/vol_9_vacuum_datasheet/chapters/05_ac_electrical_characteristics.tex:272",
@@ -4606,5 +4616,58 @@
   "VERIFIED": 338,
   "VERIFIED-BY-HAND": 6,
   "DRIFTED-NEEDS-REPIN": 5
+ },
+ "repin_2026_08_11": {
+  "authority": "R40 batch 1, brief item (4) - the 5 DRIFTED-NEEDS-REPIN anchor re-pins",
+  "banked_field_preserved": "the original per-row `site_verdict` is NOT overwritten (ave-reproduction-gate: on drift bank BOTH under a dated note, never overwrite). The correction rides in `site_verdict_repin_2026_08_11` / `repin_line_2026_08_11`.",
+  "engines": [
+   "ENGINE 1 - hard-reduction character scan: quote and target both reduced to [a-z0-9] only (LaTeX command names, $ \\ { } _ ^, Greek, arrows, punctuation, whitespace removed); the file is concatenated with a per-character line map; the reduced quote is located as a substring; the line of its first character is reported.",
+   "ENGINE 2 - token-containment sliding window: both sides reduced to alphanumeric word tokens; every k-line window (k=1..6) scored by |quote_tokens & window_tokens| / |quote_tokens|; the first line of the best-scoring window is reported. Order-insensitive and gap-tolerant - different failure modes from engine 1.",
+   "ENGINE 3 (confirmation) - targeted single-transform probe: remove ONLY \\gammaundeclared{} from the target (tex rows) or render the source line (md row), then exact raw substring match."
+  ],
+  "result": "5 of 5 resolve AT the originally cited line on all three engines. ZERO anchors move.",
+  "driver": "the re-pin probe is reproduced in the batch-1 record; engines 1 and 2 agree on all five rows and engine 3 confirms exact-substring presence at the cited line after removing exactly one known transform.",
+  "rows": [
+   {
+    "site": "manuscript/vol_9_vacuum_datasheet/chapters/03a_device_circuit_models.tex:148",
+    "bin": "NEEDS-RE-DERIVATION",
+    "line_before": 148,
+    "line_after": 148,
+    "moved": false,
+    "cause": "FALSE DRIFT - the cited line DOES hold the quoted content. The probe missed because the signed-Gamma tag macro \\gammaundeclared{} was inserted mid-quote after the audit quote was captured (the R39 / gamma-tag census family); on 03a:148 the captured quote additionally normalised $\\Gamma{=}-1$ from the source's $\\Gamma=-1$. Anchor is CORRECT; no re-pin needed."
+   },
+   {
+    "site": "manuscript/ave-kb/vol9/ch1-general-description/index.md:22",
+    "bin": "SURVIVES-AS-RESPONSE",
+    "line_before": 22,
+    "line_after": 22,
+    "moved": false,
+    "cause": "FALSE DRIFT - the cited line DOES hold the quoted content. The probe missed because the audit quote is RENDERED prose (V_snap=m_ec^2/e~511 kV, def-vyvsn1 unbackticked) against LaTeX-in-markdown source ($V_{snap}=m_ec^2/e\\approx511$ kV, `def-vyvsn1`) - the v2-class artifact named in the batch-0 method finding. Anchor is CORRECT; no re-pin needed."
+   },
+   {
+    "site": "manuscript/vol_3_macroscopic/chapters/02_general_relativity_and_gravity.tex:43",
+    "bin": "SURVIVES-AS-RESPONSE",
+    "line_before": 43,
+    "line_after": 43,
+    "moved": false,
+    "cause": "FALSE DRIFT - the cited line DOES hold the quoted content. The probe missed because the signed-Gamma tag macro \\gammaundeclared{} was inserted mid-quote after the audit quote was captured (the R39 / gamma-tag census family); on 03a:148 the captured quote additionally normalised $\\Gamma{=}-1$ from the source's $\\Gamma=-1$. Anchor is CORRECT; no re-pin needed."
+   },
+   {
+    "site": "manuscript/vol_3_macroscopic/chapters/03_macroscopic_relativity.tex:169",
+    "bin": "SURVIVES-AS-RESPONSE",
+    "line_before": 169,
+    "line_after": 169,
+    "moved": false,
+    "cause": "FALSE DRIFT - the cited line DOES hold the quoted content. The probe missed because the signed-Gamma tag macro \\gammaundeclared{} was inserted mid-quote after the audit quote was captured (the R39 / gamma-tag census family); on 03a:148 the captured quote additionally normalised $\\Gamma{=}-1$ from the source's $\\Gamma=-1$. Anchor is CORRECT; no re-pin needed."
+   },
+   {
+    "site": "manuscript/vol_9_vacuum_datasheet/chapters/05_ac_electrical_characteristics.tex:121",
+    "bin": "SURVIVES-AS-RESPONSE",
+    "line_before": 121,
+    "line_after": 121,
+    "moved": false,
+    "cause": "FALSE DRIFT - the cited line DOES hold the quoted content. The probe missed because the signed-Gamma tag macro \\gammaundeclared{} was inserted mid-quote after the audit quote was captured (the R39 / gamma-tag census family); on 03a:148 the captured quote additionally normalised $\\Gamma{=}-1$ from the source's $\\Gamma=-1$. Anchor is CORRECT; no re-pin needed."
+   }
+  ]
  }
 }
