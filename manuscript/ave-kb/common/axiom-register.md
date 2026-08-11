@@ -171,7 +171,7 @@ to an `ilk-` entry / a per-constant criteria entry) with these fields:
 
 - **axiom-node:** `axiom-3` (framework node, `node_type: "axiom"`; parsed from the CLAUDE.md INVARIANT-S2 `- Axiom 3: **Minimum Reflection Principle**` bullet; UNSCORED).
 - **canonical-statement:** The substrate extremizes the macroscopic action $S_{AVE}$; two co-canonical forms — the **variational** form ($\mathcal{L}_{node} = \tfrac12\varepsilon_0|\partial_t\mathbf{A}_n|^2 - \tfrac{1}{2\mu_0}|\nabla\times\mathbf{A}_n|^2$) and the substrate-native **boundary** form (minimize the reflection $|\Gamma|^2$ at every internal impedance boundary). The two are equivalent (E-L equations enforce E/B continuity = the $|\Gamma|^2$-minimum condition). Canonical: [`axiom-definitions.md:36-46`](../vol1/axioms-and-lattice/ch1-fundamental-axioms/axiom-definitions.md) + `eq_axiom_3.tex` (`eq:axiom3_lagrangian`, `eq:axiom3_boundary`; architectural label `eq:axiom3_action`).
-- **status:** **POSTULATED.** No derivation of the extremal principle from weaker structure exists. (The variational ⇄ boundary EQUIVALENCE is a proven internal theorem, but it relates two co-canonical FORMS of the one postulated axiom — it does not derive the axiom itself.)
+- **status:** **POSTULATED.** No derivation of the extremal principle from weaker structure exists. (The variational ⇄ boundary EQUIVALENCE is **ASSERTED — a flagged underived dynamics leg** — and it relates two co-canonical FORMS of the one postulated axiom, so it would not derive the axiom itself even if it were tight.) **⚑ R43 (2026-08-10) — self-contradiction repaired (drift finding D2).** This field previously read *"the variational ⇄ boundary EQUIVALENCE is a proven internal theorem"*, which contradicted this same register's own DERIVED-LEGS row at `:231` (*"**ASSERTED-not-derived:** the **variational ↔ min-$|\Gamma|^2$ equivalence**"*, *"an **underived dynamics leg**"*). Adjudicated in favour of ASSERTED, because the canonical source of truth already says so and had already surfaced the divergence rather than overwriting it: [`eq_axiom_3.tex`](../../common_equations/eq_axiom_3.tex):37 — *"Equivalence (ASSERTED --- an underived dynamics leg)"*, *"a \textbf{flagged underived dynamics leg}"*, and, naming this very field, *"the register presently records this equivalence as a proven internal theorem; the field-continuity gap above is surfaced for adjudication rather than silently overwriting either statement."* Two concordant statements (`:231` + the canonical `.tex`) against one; the substantive gap is that field continuity holds at *reflecting* boundaries too, so EL-continuity is necessary but not sufficient for the $|\Gamma|^2$-extremum. Prior wording lives in git per the audit-trail-in-git-only convention. Ruling: [`2026-08-10-ruling-r43-ratification.md`](../../../_orchestration/docket-entries/2026-08-10-ruling-r43-ratification.md) — *"the register `:174`/`:231` self-contradiction repair ride the same execution."*
 - **provenance:** Postulated primitive. Legacy name "Effective Action Principle" (the variational dialect). The substrate-native name follows the externally-observable quantity ($|\Gamma|^2$) per the substrate-observability rule.
 - **residual_content:** **the whole axiom** — the minimum-reflection / least-reflected-action extremal principle is entirely axiomatic. (Note: Axiom 3's lossless-reactive extremal content is the primitive that MAKES the bond-LC L2 energy invariant exact — the invariant Axiom 4's SHAPE-DERIVED status leans on; see the Axiom-4 provenance below. Axiom 3 supplies the "lossless" half of that residual.)
 - **derived_by:** `(none — postulated)`.
@@ -210,7 +210,7 @@ DERIVED-TO-THEOREM. Axiom 4's SHAPE-DERIVED status is a content reduction, not a
 count reduction — the residual L2-norm primitive is the relocated axiomatic
 content. The count drops `4 → 3` only if an axiom's *whole* content becomes a
 theorem of the others + a bare pre-existing identification (DERIVED-TO-THEOREM),
-which the Axiom-4 full-reduction epic would test but has not established.
+which the Axiom-4 full-reduction epic would test but has not established. **⚑ R43 (2026-08-10) — this roll-up is now INCOMPLETE and is NOT silently rewritten (line-shift discipline: the rows above carry inbound `:NN` cites).** A FIFTH axiom, **BC-SRC**, was ratified on 2026-08-10 — *"This is the first new axiom ratified since the founding set"* — and its full register entry, its summary-table delta, and the enumerated machine-side blocker on its `axiom-N` framework node are appended at the END of this file under **"Axiom 5 — BC-SRC"**. Read that section together with this line: the *framework-node* count is still four (BC-SRC has no node yet), while the *ratified-axiom* count is five.
 
 ## Per-axiom DERIVED-LEGS (dictionary-vs-dynamics decomposition)
 
@@ -300,3 +300,149 @@ silently committed — this is canonical infrastructure):
 - **(D-D) `expected-independent-axiom-count: 4` hand-asserted, gate deferred.**
   Per item 1 above — flagged for Grant's ratify on whether to wire the CI gate
   now or when the epic lands.
+
+---
+
+## Axiom 5 — BC-SRC (the Bound-Sector Source Coupling)
+
+> **★ THE FIRST NEW AXIOM RATIFIED SINCE THE FOUNDING SET.** Ratified
+> 2026-08-10 under R43. Source of record:
+> [`2026-08-10-ruling-r43-ratification.md`](../../../_orchestration/docket-entries/2026-08-10-ruling-r43-ratification.md):22
+> — *"This is the first new axiom ratified since the founding set."* Clauses S
+> and G were ratified in the companion record
+> [`2026-08-10-ruling-r43-sg-ratified.md`](../../../_orchestration/docket-entries/2026-08-10-ruling-r43-sg-ratified.md);
+> clause Q and the vocabulary ruling ride the R43 ratification record on top.
+> **This section is appended at the END of the register rather than slotted after
+> Axiom 4 deliberately**: the Axiom-1..4 sections and the roll-up table carry a
+> dense inbound `:NN` cite surface (max inbound `:232` at authoring) and an
+> in-place insertion would silently shift every one of them.
+
+- **axiom-node:** ***NOT YET MINTED*** — BC-SRC has **no** `axiom-5` framework
+  node in `.index/claims.jsonl`, so this section is a register entry WITHOUT the
+  node it would view. This is a **disclosed gap, not an oversight**; the blocker
+  is enumerated under *Machine-side status* below and is routed to the
+  orchestrator. Every other field here is authored as a normal register entry so
+  the entry is complete the moment the node lands.
+- **canonical-statement:** The four founding axioms write a *floating* network —
+  topology (Ax 1), charge dictionary (Ax 2), lossless extremal dynamics (Ax 3),
+  saturation kernel (Ax 4) — but never write the source coupling that pins the
+  bound (A1 dilatation) sector's absolute state. **BC-SRC is that missing
+  specification: the substrate's DC operating point.** Canonical:
+  [`eq_axiom_bc_src.tex`](../../common_equations/eq_axiom_bc_src.tex)
+  (`eq:bcsrc_deposit`, `eq:bcsrc_bridge`, `eq:bcsrc_quiescence`,
+  `eq:bcsrc_falsifier`). **Three clauses, ratified together** — clause text
+  landed AS RATIFIED from
+  [`2026-08-10_bound-constitutive_result.md`](../../../research/2026-08-10_bound-constitutive_result.md)
+  §2.6, with the R43 / R43-S+G ratification records' expansions folded in where
+  they add content:
+
+  - **S (deposit).** *"A matter defect deposits a nonzero net A1 dilatation flux:
+    `∮_S u·n̂ = 4πB(M)` over any enclosing exterior surface, with `B(M)` = the
+    defect's A1 mass accounting (dimensional VALUE via the imported G/ξ chain)."*
+    Ratified expansion (R43-S+G): every defect deposits this flux **at genesis** —
+    particles are factory-charged; **mass is an enclosed compression charge BY
+    LAW**. The write event is a genuine new law (the four-lock no-go bars the
+    receipted dynamics from creating it); KCL / the derived conservation leg
+    preserves it thereafter.
+  - **G (grade coupling / bridge).** *"The operating-point grade is the bound
+    sector's potential: `u₀ = −λ∇ε₁₁`, with the grade pinned by the elliptic law
+    `−∇·[κD(A)∇ε₁₁] = T₀₀`, `κ = c⁴/7G` (VALUE imported). Equivalently: the canon
+    backreaction solve becomes BC-LAW in potential form."* Ratified expansion
+    (R43-S+G): read as a circuit this is the **DC-bias-network law** — mass-energy
+    injects current, the saturation-graded conductance distributes the potential
+    ε₁₁, the dress is its field, κ is the bias sector's permittivity.
+    `backreaction.py`'s elliptic statics becomes **axiom-licensed**. **One new
+    constant, λ**, enters the framework here and nowhere else.
+  - **Q (quiescence — the DC operating point).** *"The sourceless substrate sits
+    at the cold operating point: `∇·π = 0`, `θ = 0`, `ε₁₁ = 0` away from
+    defects."* Ratified role (R43): this is **the DC OPERATING POINT — the
+    quiescent reference that makes potentials defined and G's solve well-posed**.
+    **⚑ Reconciliation finding (surfaced, not silently resolved):** the §2.6
+    source text closes clause Q with the hedge *"(Possibly already canon — the
+    cold-quiescent operating-point definition; bundled for completeness and
+    flagged as such.)"* R43 ratified Q as a full load-bearing clause with a named
+    role, so that hedge is **superseded by the ratification** and is recorded here
+    rather than carried forward as live text.
+
+- **VOCABULARY RULING (R43, binding on every consumer).** The canonical term is
+  **"DC operating point / quiescent point (Q-point)"**. **"Ground (reference)" is
+  the EE-analogy gloss, NEVER the canonical noun.** Grant's physical framing of
+  record — *"BC-SRC is the GROUND REFERENCE of the floating network the bare
+  axioms built"* — is quoted as the analogy, and the canonical noun is used in
+  every surrounding statement. The proposed `quiescent point` vocabulary node
+  ([`def-q1escn`](vocabulary-register.md)) **promotes to ratified under this
+  naming**.
+- **status:** **POSTULATED.** BC-SRC is a new axiomatic primitive, not a theorem
+  of Axioms 1–4. **Minimality is established by ablation, not asserted:** without
+  **S** the derived conservation legs leave the dress value unpinned; without
+  **G** there is no receipted home for the finite static stiffness, no
+  grade-reading causality, no energy functional, and no derived connection to the
+  static /7 chain; without **Q** the conserved data is unpinned far from sources.
+  No clause is derivable from the receipted action — S has no energy→flux map, G's
+  κ has no axiom preimage, Q is definitional.
+- **provenance:** Postulated primitive, ratified 2026-08-10 (R43 + the R43-S+G
+  companion). Produced as the minimal new-axiom candidate of the bound-sector
+  constitutive lane, which ran its own Tier-2 (44 agents, 5 lenses) BEFORE
+  presentation and re-binned all four of its deliverables
+  `DERIVED-VIA-NEW-AXIOM(BC-SRC)` rather than `DERIVED`.
+- **residual_content:** **all three clauses.** S (the nonzero, M-proportional
+  deposit), G (the dress↔grade bridge + the κ-stiffened elliptic grade law), and
+  Q (the quiescent DC operating point) are the axiom's own content. **FORM-derived
+  / VALUE-imported** per the framework's standing signature: κ = c⁴/7G and
+  ν = 2/7 stay GR-imported (#261 untouched) and B(M)'s dimensional normalization
+  rides the imported G/ξ chain; **λ is a genuinely new constant.**
+- **derived_by:** `(none — postulated)`. What the lane DID derive, and what
+  therefore does **not** belong to this axiom's residual: the conservation leg
+  `∂_t(∇·π) = −∇·j_m`; the kinematic freeze; the exterior uniqueness `u₀ = B r̂/r²`;
+  zero longitudinal characteristic speed; the (u,π)-sector domain-of-dependence
+  theorem; the exact Kirchhoff-transformed energy functional; the pole-absence
+  half. Those are theorems of the receipted dynamics, cited at
+  [`2026-08-10_bound-constitutive_result.md`](../../../research/2026-08-10_bound-constitutive_result.md).
+- **count-effect:** counts as **1 independent axiom**. The **ratified-axiom count
+  is 5**; the **framework-node count remains 4** until the node lands (below).
+  Both numbers are stated because they currently differ — neither is quietly
+  adjusted to match the other.
+- **internal falsifier (ships with the axiom):** clauses S + G jointly force
+  `B = 7λGM/c²`. **One λ across every consumer** — measuring λ from two
+  independent consumers over-determines it, and the over-determination is the
+  axiom's own test port. This is the first axiom in the register to arrive with a
+  built-in falsifier rather than an appended one; the λ over-determination lane is
+  the ratification's first follow-on derivation.
+
+### Machine-side status — the `axiom-5` framework node is BLOCKED (enumerated, routed)
+
+**This register is a VIEW over `axiom-N` framework nodes** (INVARIANT-S11 —
+extend, don't reinvent); it mints no ids of its own. The `axiom-N` nodes are
+parsed out of the KB [`CLAUDE.md`](../CLAUDE.md) INVARIANT-S2 axiom bullets by
+`refresh-kb-metadata`. Minting `axiom-5` therefore needs **two** changes this
+doc-lane pass deliberately did NOT make, because neither is inside R43's
+enumerated batch and each has real blast radius:
+
+1. **A tooling change (hard blocker).** The bullet parser is hard-capped at
+   axioms one through four:
+   `manuscript/ave-kb/tools/kb_index_lib.py`:180 —
+   `` `_AXIOM_BULLET_RE = re.compile(r"^- Axiom ([1-4]): \*\*(.+?)\*\*")` ``
+   (the in-bullet token regex on the next lines is capped the same way). An
+   `- Axiom 5:` bullet added to `CLAUDE.md` today would **silently not parse** —
+   no node, no error. A doc-lane pass must not edit the KB indexing tools.
+2. **A high-blast-radius corpus edit.** Adding the INVARIANT-S2 bullet shifts
+   every line at or below it in KB `CLAUDE.md`, which carries 23 distinct inbound
+   `:NN` cite lines (including the heavily-cited `:73` / `:75` operating-point
+   pair and cites as deep as `:318`).
+
+**Routed to the orchestrator** as a single follow-on: (a) widen the two regexes,
+(b) add the INVARIANT-S2 bullet, (c) re-point the shifted `CLAUDE.md` cites, (d)
+move `expected-independent-axiom-count` 4 → 5 and add the summary-table row.
+Until then this entry is the canonical BC-SRC record and the node gap is stated
+in the open.
+
+### Summary roll-up delta (the table above is NOT rewritten in place)
+
+| Axiom | node | status | residual_content | count-effect |
+|---|---|---|---|---|
+| **5** BC-SRC (Bound-Sector Source Coupling) | *(none yet — blocked, above)* | POSTULATED | whole axiom (clauses S + G + Q; one new constant λ) | counts (1) |
+
+**Ratified-axiom count = 5** (Axioms 1–4 + BC-SRC). **Framework-node count = 4**
+(`expected-independent-axiom-count: 4` in the `axiom-meta` block is left at 4 on
+purpose — it is an assertion about the *nodes*, and there are still four). Zero
+axioms at DERIVED-TO-THEOREM.
