@@ -171,7 +171,7 @@ never read charge/spin/μ off the scalar cage). The companion property×bucket s
 [`electron-bound-resonator-coverage.md`](../../vol2/particle-physics/ch01-topological-matter/electron-bound-resonator-coverage.md)
 (the electron = `BoundResonator` instance-1, def-b42e9d).
 
-- **T3.1 → sup-3kq9w7 → clm-crbl60** [CHORD — AVE-distinct existence vs QED]. A
+- **T3.1 → sup-3kq9w7 → clm-crbl60** [CHORD — AVE-distinct existence vs QED — 🔴 TAG DEMOTED 2026-08-11 per R42 → engine-artifact-pending-constitutive-law]. A
   propagating longitudinal-BULK (A1 dilatation) compression mode IS REAL on the extended
   medium — it is the Heaviside-Gibbs-EXCISED scalar grade (def-9a4f07) that QED
   gauge-DELETES (Gupta-Bleuler leaves 2 transverse on-shell), and AVE KEEPS as a physical
@@ -180,7 +180,7 @@ never read charge/spin/μ off the scalar cage). The companion property×bucket s
   ω(k) (dω/dk > 0), and runs at the K=2G dilatation speed `c_bulk = √(2G/ρ) = √2·c₀`
   (|c_bulk/c₀ − √2| < 1e-9) — a SECOND, faster channel distinct from the c₀ transverse
   photon. This FLIPS the T1.7 ⊘ absence-finding (the srs vector-TLM carried 2 transverse
-  DOF only; the canonical Master-Equation scalar engine now carries the longitudinal grade).
+  DOF only; the canonical Master-Equation scalar engine now carries the longitudinal grade). 🔴 **[DEMOTED 2026-08-11 — R40-B1; dated demotion note at the end of this file]**
   Lifts the DERIVATION branch of the vacuum bulk-modulus / K=2G claim (clm-crbl60: the mode
   propagates at exactly the `c_bulk = √(K/ρ) = √(2G/ρ)` speed that claim's `K_vac = 2G_vac`
   Cauchy relation + `G_vac = ρ_bulk·c₀²` construction predict; the `√2·c₀` measurement is
@@ -253,3 +253,49 @@ is a cage output. 🔴 *(2026-06-24 SHARPER QUALIFIER: the Stage-2 native-cage m
 > provenance through this leaf.
 
 ---
+
+---
+
+### 🔴 Dated demotion note — 2026-08-11 (R40 demotion sweep, batch 1)
+
+**Class: DIES-WITH-THE-PHANTOM.** Status change only — the claim text is **preserved
+verbatim** (honesty-lag pattern, Rule 12) and stamped in place; it is **no longer live
+canon**. Nothing is deleted.
+
+**Demoted in this file:**
+
+- **`:175`** — *"A propagating longitudinal-BULK (A1 dilatation) compression mode IS REAL on the extended medium"*
+  Stamped in place at `:183`.
+  **Why it dies (audited row rationale, verbatim):** The strongest consumer in the slice: measured propagation at c_bulk=√2 c_0 tagged CHORD (AVE-distinct existence vs QED) — the claim IS the phantom; what the test actually measured is the coded compressibility of the engine (deliverable-5 architecture note), and the sup-3kq9w7→clm-crbl60 lift routed on it is void (framing at :163-164 'the longitudinal grade EXISTS + propagates' and the :149 ledger row fall with it).
+  **Also covered by this demotion** (named in the audited row; not separately stamped): `:149`, `:163`.
+- **R42 — the CHORD tag at `:174`** demotes to `engine-artifact-pending-constitutive-law`, stamped in place, per `_orchestration/docket-entries/2026-08-10-rulings-r40-r42.md` (R42). Quality was `*pending*`, so **no solidity number moves**.
+
+**The arc, complete — the framing R40 rules every demotion note carries:**
+
+1. **The kill fired** (#930) — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the #261 K = 2G import** (G-RECON, unchallenged): the compressible
+   far-field branch was minted by a GR-imported elastic modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the #935 flat-direction finding: the written
+   action conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the RATIFIED bound-sector law — Axiom 5, Substrate DC Bias**
+   (BC-SRC clauses **S** / **G** / **Q**), ratified per `_orchestration/docket-entries/2026-08-10-ruling-r43-ratification.md`, as reconciled by `_orchestration/docket-entries/2026-08-10-ruling-r44-r43-reconciliation.md` (R44 — the
+   full-scope R43 record is FINAL and authoritative; the partial
+   `_orchestration/docket-entries/2026-08-10-ruling-r43-sg-ratified.md` is SUPERSEDED and is **not**
+   the resolution). Under the ratified law the A1 / bulk slot is a **bound response** — mechanism
+   gloss **back-reaction** — with no independent propagating branch, no port, and zero longitudinal
+   characteristic speed. A bulk *wave speed*, a bulk *radiative port*, a bulk *band-branch* and a
+   bulk *transit clock* therefore have **no referent**.
+
+**Standing named-open debt (the honest rider).** The ratified axiom does **not** discharge
+everything: **THE BIAS PROPAGATION THEOREM** is Axiom 5's standing named-open entry — clause G's
+elliptic law is the *static abstraction* of underived finite-speed bias dynamics (`_orchestration/2026-08-10_bias-propagation-brief.md`). Where a
+demoted claim's replacement depends on finite-speed bias dynamics, the resolution is the ratified
+axiom **with that debt open**, not a closed replacement.
+
+**Records.** R40 ruling `_orchestration/docket-entries/2026-08-10-rulings-r40-r42.md` · verified worklist `research/drivers/r40_sweep_worklist_verified.json` · scope verification `_orchestration/2026-08-10_r40-sweep-scope-verification.md` ·
+batch-1 record `_orchestration/2026-08-11_r40-sweep-batch1.md` · vocabulary R50 `_orchestration/docket-entries/2026-08-10-ruling-r50-vocab.md` (canonical: the displacement pattern u₀ around a
+deposit is **the bound response**, mechanism gloss **back-reaction**; ε₁₁ is **the bias**;
+"dress", "grade"-as-canonical-noun and "halo"-for-the-physics are retired; and the owed theorem is
+renamed **THE BIAS PROPAGATION THEOREM**) · vocabulary **R49(b)** `_orchestration/docket-entries/2026-08-10-rulings-r48-r49.md` (*"retardation"
+is RETIRED from this role. The canonical term is **propagation delay / finite propagation speed*** —
+the retardation retirement is R49(b)'s, NOT R50's; corrected 2026-08-11 at review).

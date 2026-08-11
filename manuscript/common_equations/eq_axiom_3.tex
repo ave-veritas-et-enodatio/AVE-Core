@@ -19,12 +19,12 @@ The substrate, in its continuum limit, evolves to extremize the macroscopic subs
     S_{AVE} = \int \mathcal{L}_{node}\, d^4x
     \label{eq:axiom3_lagrangian}
 \end{equation}
-This is the standard Maxwell Lagrangian (in vector-potential form), recovered as the substrate's effective action in the linear regime ($A \ll A_{yield}$). Under finite strain, $\varepsilon_0$ and $\mu_0$ become nonlinear functions of local strain via Axiom 4's saturation kernel ($\varepsilon_{eff} = \varepsilon_0\, S(A)$, $\mu_{eff} = \mu_0\, S(A)$).
+This is the temporal-gauge (Weyl-gauge, $A_0$-free) form of the Maxwell Lagrangian: standard Maxwell dynamics are recovered on the Gauss-constrained initial-data surface --- $\nabla\cdot(\varepsilon_0\partial_t\mathbf{A})$ is a constant of motion of these equations, pinned to its source value by the bound-sector constitutive law (Axiom 5, Substrate DC Bias --- \texttt{eq\_axiom\_5.tex}, KB \texttt{axiom-register.md}; \emph{which} clause of Axiom 5 pins it is deliberately left open here, riding the DEFERRED FORK-1 variable-class fork), not by an equation of motion of this action (the written action carries no scalar-potential/multiplier term). Recovered as the substrate's effective action in the linear regime ($A \ll A_{yield}$). Under finite strain, $\varepsilon_0$ and $\mu_0$ become nonlinear functions of local strain via Axiom 4's saturation kernel ($\varepsilon_{eff} = \varepsilon_0\, S(A)$, $\mu_{eff} = \mu_0\, S(A)$).
 
 \medskip\noindent\textbf{Lossless-reactive.} The substrate action is \textbf{lossless and purely reactive}: $\mathcal{L}_{node}$ carries only capacitive ($\tfrac12\varepsilon_0|\partial_t\mathbf{A}_n|^2$) and inductive ($\tfrac{1}{2\mu_0}|\nabla\times\mathbf{A}_n|^2$) energy-storage terms and \emph{no resistive / dissipative term}. This is the ``Ax3-lossless'' property the corpus relies on throughout (the bond-LC tank conserves $E = \tfrac12 C V^2 + \tfrac12\Phi^2/L$ exactly): the vacuum stores and returns energy but does not dissipate it, so any apparent loss must be a boundary-radiation or mode-conversion channel, never a bulk resistive one.
 
 \medskip\noindent
-Energy conservation and U(1) gauge symmetry follow as Noether consequences of $\mathcal{L}_{node}$'s symmetry structure. \textbf{Lorentz invariance} follows only \emph{in the continuum limit} --- it is \textbf{emergent}, not exact: the discrete K4 substrate is a preferred-frame medium, and Lorentz symmetry is recovered as a low-energy / long-wavelength effective symmetry (KB \texttt{preferred-frame-and-emergent-lorentz.md}).
+Energy conservation follows as a Noether consequence of time-translation invariance. The written action's exact internal symmetry is the residual (time-independent) gauge family $\mathbf{A} \to \mathbf{A} + \nabla\lambda(\mathbf{x})$; its Noether content is the pointwise conservation of the Gauss function $\nabla\cdot(\varepsilon_0\partial_t\mathbf{A})$. Full time-dependent U(1) is \textbf{NOT} a symmetry of this action (the $|\partial_t\mathbf{A}|^2$ term shifts by $\varepsilon_0(\partial_t\mathbf{A})\cdot\nabla(\partial_t\lambda) + \tfrac12\varepsilon_0|\nabla(\partial_t\lambda)|^2$); it is recovered on the constraint surface in the covariant completion. \textbf{Lorentz invariance} follows only \emph{in the continuum limit} --- it is \textbf{emergent}, not exact: the discrete K4 substrate is a preferred-frame medium, and Lorentz symmetry is recovered as a low-energy / long-wavelength effective symmetry (KB \texttt{preferred-frame-and-emergent-lorentz.md}).
 
 \medskip\noindent\textbf{Boundary form} (substrate-native, engineering-natural). The substrate evolves to minimize the reflection coefficient $|\Gamma|^2$ at every internal impedance boundary:
 \begin{equation}
@@ -36,3 +36,50 @@ Equivalent names: \textit{Minimum Reflection Principle} (substrate-native, this 
 
 \medskip\noindent\textbf{Equivalence (ASSERTED --- an underived dynamics leg).} The variational extremum (Eq.~\ref{eq:axiom3_lagrangian}) is \emph{asserted} to correspond to the boundary reflection minimum (Eq.~\ref{eq:axiom3_boundary}). The usual argument --- the Euler--Lagrange equations of $\mathcal{L}_{node}$ enforce continuity of $E$ and $B$ at boundaries, which minimizes $|\Gamma|^2$ --- does \textbf{not} by itself establish the equivalence: field continuity holds at \emph{reflecting} boundaries too (a $\Gamma = -1$\gammaundeclared{} TIR wall is $E$/$B$-continuous yet is a reflection \emph{maximum}, not a minimum), so continuity is necessary but not sufficient for the $|\Gamma|^2$-extremum. The two forms are treated as co-canonical dialects of one postulated axiom, but the bijection between ``extremize $S_{AVE}$'' and ``minimize $|\Gamma|^2$ at every $\partial\Omega$'' is a \textbf{flagged underived dynamics leg}. See the derived-legs status in the KB \texttt{axiom-register.md}. (Note: the register presently records this equivalence as a proven internal theorem; the field-continuity gap above is surfaced for adjudication rather than silently overwriting either statement.)
 \end{resultbox}
+%
+% ── TIER-A REPAIR PROVENANCE (2026-08-10, R43) ────────────────────────────────
+% Ruling: _orchestration/docket-entries/2026-08-10-ruling-r43-ratification.md
+%         ("TIER A RATIFIED --- the Axiom-3 repair: the written form is
+%          temporal-gauge (Weyl) Maxwell taken literally").
+% Source of the ratified repair text: research/2026-08-10_bound-constitutive_result.md
+%         section 1.3 ("The repair text (PROPOSAL --- replaces the two false
+%         sentences; everything else byte-unchanged)").
+%
+% TWO sentences were replaced, in place, on their original lines; every other
+% byte of this file is unchanged (line count and line positions preserved so the
+% heavy inbound :NN cite surface into this file does not shift).
+%
+%   (1) The former line-22 sentence "This is the standard Maxwell Lagrangian (in
+%       vector-potential form), recovered as the substrate's effective action in
+%       the linear regime" was FALSE OF THE ACTION: with no A_0 term, Gauss's law
+%       is not an equation of motion of this action. It is TRUE of the dynamics
+%       ON the Gauss-constrained surface. Replaced by the ratified text.
+%   (2) The former line-27 clause "Energy conservation and U(1) gauge symmetry
+%       follow as Noether consequences" was FALSE for the full time-dependent
+%       U(1) group: the |d_t A|^2 term is not invariant. The action's exact
+%       internal symmetry is the RESIDUAL time-independent family A -> A + grad
+%       lambda(x), whose Noether content is the pointwise conservation of the
+%       Gauss function. Replaced by the ratified text.
+%
+% TRANSLITERATION NOTE (implementer finding, surfaced not silently resolved):
+% the ratified repair text is Unicode running prose; this file is LaTeX and the
+% manuscript tree carries ZERO Unicode nabla/epsilon math glyphs in any .tex
+% (verified two-method). The ratified sentences are therefore landed as a
+% SYMBOL-EXACT LaTeX transliteration --- no clause added, dropped, or reworded.
+% The ratified ":27" text closes with the parenthetical marker "(unchanged)" on
+% its Lorentz clause; that marker is a meta-annotation meaning "this clause is
+% carried over verbatim", so the pre-existing emergent-Lorentz sentence is
+% preserved byte-for-byte rather than the literal string "(unchanged)" landed.
+% The ratified ":22" text carries the placeholder "[BC-LAW leaf]". It is resolved
+% to the LEAF ONLY -- eq_axiom_5.tex + the KB axiom-register Axiom-5 entry -- and
+% to NO clause. CORRECTION (2026-08-10, review finding): the first cut of this
+% batch narrowed it to "BC-SRC clause S". That was an UNRATIFIED narrowing and is
+% WITHDRAWN at all seven sites it reached. It was also wrong on the physics: clause
+% S is an A1 dilatation-MASS deposit law, while :22's object is the EM Gauss
+% function -- and Axiom 5's own text forbids "any EM/winding-sector deposit". It
+% further presumed an answer on FORK-1, which the ruling keeps DEFERRED. Which
+% clause pins the Gauss function is now stated as OPEN, riding FORK-1.
+%
+% Consequence audit for these two sentences: research/2026-08-10_bound-constitutive_sweep-record.md
+% (77 sites two-method; 10 NEEDS-RESCOPE, of which these two ARE rows 1 and 2).
+% ─────────────────────────────────────────────────────────────────────────────

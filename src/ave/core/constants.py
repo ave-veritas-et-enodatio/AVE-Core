@@ -777,7 +777,7 @@ G_VAC: float = RHO_BULK * C_0**2
 #   cosserat-mass-gap.md); it DROPS the 4G/3 shear term. It is NOT the solid P-wave:
 #   the full compressional (P) wave is  c_L = √((K + 4G/3)/ρ) = √(10/3)·c ≈ 1.83c
 #   (canonical Vol 2 Ch 7 / app-f derived-numerology.md). The two are distinct physical
-#   longitudinal modes, both retained; V_LONG stays the √2·c A1-scalar bulk value.
+#   longitudinal modes, both retained; V_LONG stays the √2·c A1-scalar bulk value.  DEMOTED 2026-08-11 — R40-B1 (dated demotion note at end of file).
 V_LONG: float = np.sqrt(2.0 * G_VAC / RHO_BULK)
 
 # Kinematic mutual inductance  ν_vac_kin = α · c · ℓ_node
@@ -1204,3 +1204,59 @@ E_0_NUCLEAR: float = HBAR * OMEGA_0_NUCLEAR / (e_charge * 1e6)  # ≈ 301.6 MeV
 
 # Dimensionless coupling coefficient (from deuteron binding)
 K_COUPLING: float = 1.0 / (1.0 - ALPHA) ** 2 - 1.0  # ≈ 0.01476 ≈ 2α
+
+
+# ============================================================================
+# DATED DEMOTION NOTE — 2026-08-11 (R40 demotion sweep, batch 1)
+# ============================================================================
+# Class: DIES-WITH-THE-PHANTOM. STATUS CHANGE ONLY — no code path, constant, default or
+# behaviour is altered by this note; the text above is preserved verbatim (honesty-lag
+# pattern, Rule 12) and stamped in place. Nothing is deleted. This module's phantom-bearing
+# DOCUMENTATION is demoted; any live re-scope of the CODE is batch 2 / the engine lane.
+#
+# Demoted in this file:
+#   :778 — "the full compressional (P) wave is  c_L = √((K + 4G/3)/ρ) = √(10/3)·c ≈ 1.83c"
+#       stamped in place at :780
+#       why it dies (audited row rationale, verbatim): Asserts the solid P-wave as physically real
+#       (:779-780 'two are distinct physical longitudinal modes, both retained') — the free-running
+#       P-branch is exactly what R38 voids; prereg §6 names constants.py:778 in the radiative
+#       family.
+#       also covered (named in the audited row, not separately stamped): :779
+#
+# THE ARC, COMPLETE (the framing R40 rules every demotion note carries):
+#   1. The kill fired (#930) — the walk-back that closed the bulk radiative-port reading.
+#   2. The premise localized to the #261 K = 2G import (G-RECON, unchallenged): the
+#      compressible far-field branch was minted by a GR-imported elastic modulus, not
+#      forced by the axioms.
+#   3. The axioms underdetermine the bulk sector — the #935 flat-direction finding: the
+#      written action conserves the Gauss function pointwise and never fixes its value.
+#   4. The replacement is the RATIFIED bound-sector law — AXIOM 5, SUBSTRATE DC BIAS
+#      (BC-SRC clauses S / G / Q), ratified per _orchestration/docket-entries/2026-08-10-ruling-r43-ratification.md,
+#      as reconciled by _orchestration/docket-entries/2026-08-10-ruling-r44-r43-reconciliation.md
+#      (R44: the full-scope R43 record is FINAL and authoritative; the partial
+#      2026-08-10-ruling-r43-sg-ratified.md is SUPERSEDED and is NOT the resolution).
+#      Under the ratified law the A1 / bulk slot is a BOUND RESPONSE — mechanism gloss
+#      BACK-REACTION — with no independent propagating branch, no port, and zero
+#      longitudinal characteristic speed. A bulk wave speed, a bulk radiative port, a bulk
+#      band-branch and a bulk transit clock therefore have no referent.
+#
+# STANDING NAMED-OPEN DEBT (the honest rider): the ratified axiom does NOT discharge
+#   everything. THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open entry —
+#   clause G's elliptic law is the STATIC ABSTRACTION of underived finite-speed bias
+#   dynamics (_orchestration/2026-08-10_bias-propagation-brief.md). Where a demoted claim's
+#   replacement depends on finite-speed bias dynamics, the resolution is the ratified
+#   axiom WITH THAT DEBT OPEN, not a closed replacement.
+#
+# Records: R40 ruling _orchestration/docket-entries/2026-08-10-rulings-r40-r42.md;
+#   verified worklist research/drivers/r40_sweep_worklist_verified.json;
+#   scope verification _orchestration/2026-08-10_r40-sweep-scope-verification.md;
+#   batch-1 record _orchestration/2026-08-11_r40-sweep-batch1.md;
+#   vocabulary ruling R50 _orchestration/docket-entries/2026-08-10-ruling-r50-vocab.md
+#   (canonical: the displacement pattern u0 around a deposit is THE BOUND RESPONSE,
+#   mechanism gloss BACK-REACTION; eps_11 is THE BIAS; "dress", "grade"-as-canonical-noun
+#   and "halo"-for-the-physics are retired, and the owed theorem is renamed
+#   THE BIAS PROPAGATION THEOREM);
+#   vocabulary ruling R49(b) _orchestration/docket-entries/2026-08-10-rulings-r48-r49.md
+#   ("retardation" is retired; the canonical term is PROPAGATION DELAY / FINITE PROPAGATION
+#   SPEED) -- the retardation retirement is R49(b)'s, NOT R50's; corrected 2026-08-11 at review.
+# ============================================================================

@@ -256,7 +256,7 @@ Axiom 3 (Minimum Reflection Principle, boundary form: minimise $|\Gamma|^2$ at e
   - The "PONDER-05 469 µN predicted thrust" wording in **`vol4/index.md` lines 12 and 23 has no leaf-level derivation** anywhere in `vol4/` and the linked `hardware-programs/` directory does not exist. Treat as a routing artifact in the index, not as a leaf-supported claim. Followup logged.
   - "Metric Streamlining and Superluminal Transit" / "warp metric" / "Alcubierre-type shock fronts" are framework-internal interpretive consequences of the non-linear scalar wave equation; Vol 4 does NOT claim experimental validation of superluminal transit, nor a quantitative warp-bubble derivation.
   - Gargantua simulation reproduces the visual D-shaped photon shadow / Doppler beaming / accretion disk via topological-saturation ray tracing — **a category (iii) consistency check** with standard GR ray-tracing results, not an independent novel prediction.
-  - **Dynamic radiative role of $\nu_{vac}=2/7$ — WALK-BACK / KEEP-BOTH (2026-06-08, `research/2026-06-08_rrad-l-darkwake_result.md` §9).** The **static** $\nu_{vac}=2/7$ helical-to-longitudinal strain-transfer coefficient in the thrust law above (the Poisson-ratio leaf [chiral-thrust-derivation](./circuit-theory/ch2-topological-thrust-mechanics/chiral-thrust-derivation.md)) is **preserved unchanged**. Separately, the *dynamic radiative* role of the same 2/7 — its reuse as the Dark-Wake $R_{rad,L}$ back-reaction prefactor — is **downgraded from asserted identity to unconfirmed**: an amplitude-level coefficient was used in a power-level role, so the candidate *radiative* value is the power-level square **$4/49 = (2/7)^2$** (an unlanded queued delta), and the absolute $R_{rad,L}$ magnitude remains uncalibrated. This scopes the radiative-prefactor reuse only; it does not touch the static thrust coefficient.
+  - **Dynamic radiative role of $\nu_{vac}=2/7$ — WALK-BACK / KEEP-BOTH (2026-06-08, `research/2026-06-08_rrad-l-darkwake_result.md` §9).** The **static** $\nu_{vac}=2/7$ helical-to-longitudinal strain-transfer coefficient in the thrust law above (the Poisson-ratio leaf [chiral-thrust-derivation](./circuit-theory/ch2-topological-thrust-mechanics/chiral-thrust-derivation.md)) is **preserved unchanged**. Separately, the *dynamic radiative* role of the same 2/7 — its reuse as the Dark-Wake $R_{rad,L}$ back-reaction prefactor — is **downgraded from asserted identity to unconfirmed**: an amplitude-level coefficient was used in a power-level role, so the candidate *radiative* value is the power-level square **$4/49 = (2/7)^2$** (an unlanded queued delta), and the absolute $R_{rad,L}$ magnitude remains uncalibrated. This scopes the radiative-prefactor reuse only; it does not touch the static thrust coefficient. 🔴 **[DEMOTED 2026-08-11 — R40-B1; dated demotion note at the end of this file]**
 
 > **Leaf references:** [chiral-thrust-derivation](./circuit-theory/ch2-topological-thrust-mechanics/chiral-thrust-derivation.md), [regimes-of-operation](./circuit-theory/ch2-topological-thrust-mechanics/regimes-of-operation.md), [open-source-hardware](./falsification/ch11-experimental-bench-falsification/open-source-hardware.md).
 
@@ -1940,3 +1940,47 @@ A three-round adversarially-reviewed (thrice-fixed) **blind** derivation routes 
   - Resolve the three-way varactor-convention tangle (crown one object as "the small-signal C" across node-up:105/:370, `CLAUDE.md`:73/:75, `device-circuit-models.md`:60) — a Grant corpus-consistency adjudication, after which the M3 coefficient stops being KEEP-BOTH. **✅ SATISFIED (2026-07-07, Grant-ratified 2026-07-06; payload as enumerated in PR #558; item PRESERVED per house convention, marked done not deleted):** resolved by the varactor sector-keying supersession — payload (ii) crowns the tangent $dQ/dV$ as "*the* small-signal" (in both sectors) and payload (iii) shows the chord/tangent fork is the ⊥/∥ polarization eigenmode pair of one saturable-dielectric tensor, so "which is *the* C" dissolves at the tensor level and the M3 coefficient stops being KEEP-BOTH. Provenance: `research/2026-07-07_semiconductor-cv-dip_RESULT.md` (h); PR #558; landed at node-up-small-large-signal.md §1 :105 supersession block + §4 :229 closure note (`analysis/land-varactor-supersession`). Note: this does NOT lift solidity — the binding 0.55 gate is the clm-mfb2ax srs-$C_{44}$ borrow (cap ii), unaffected by this ratification (see the strengthen-by item below + the rationale).
   - Replace the FLAGGED srs-z3 $C_{44}$ borrow with a K4-native saturated shear-modulus computation, converting the lattice-rigidity magnitude from a sibling-lattice borrow to an own-lattice derivation.
   - Derive whether the $O(A^4)$ Jensen gap ever routes the keying (it does not at any order that keeps the DC baseline, but an exact all-order statement would lift the leading-order cap).
+
+---
+
+**🔴 Dated demotion note — 2026-08-11 (R40 demotion sweep, batch 1).**
+
+**Class: DIES-WITH-THE-PHANTOM.** Status change only — the claim text is **preserved
+verbatim** (honesty-lag pattern, Rule 12) and stamped in place; it is **no longer live
+canon**. Nothing is deleted.
+
+**Demoted in this file:**
+
+- **`:259`** — *"the dynamic radiative role of the same 2/7 — its reuse as the Dark-Wake R_rad,L back-reaction prefactor"*
+  Stamped in place at `:259`.
+  **Why it dies (audited row rationale, verbatim):** A longitudinal radiation resistance is a bulk radiative port — Re(Z)≡0/no-port under the carve voids the object (already downgraded to unconfirmed; the static ν=2/7 strain-transfer half is static-import class, out of these bins).
+
+**The arc, complete — the framing R40 rules every demotion note carries:**
+
+1. **The kill fired** (#930) — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the #261 K = 2G import** (G-RECON, unchallenged): the compressible
+   far-field branch was minted by a GR-imported elastic modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the #935 flat-direction finding: the written
+   action conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the RATIFIED bound-sector law — Axiom 5, Substrate DC Bias**
+   (BC-SRC clauses **S** / **G** / **Q**), ratified per `_orchestration/docket-entries/2026-08-10-ruling-r43-ratification.md`, as reconciled by `_orchestration/docket-entries/2026-08-10-ruling-r44-r43-reconciliation.md` (R44 — the
+   full-scope R43 record is FINAL and authoritative; the partial
+   `_orchestration/docket-entries/2026-08-10-ruling-r43-sg-ratified.md` is SUPERSEDED and is **not**
+   the resolution). Under the ratified law the A1 / bulk slot is a **bound response** — mechanism
+   gloss **back-reaction** — with no independent propagating branch, no port, and zero longitudinal
+   characteristic speed. A bulk *wave speed*, a bulk *radiative port*, a bulk *band-branch* and a
+   bulk *transit clock* therefore have **no referent**.
+
+**Standing named-open debt (the honest rider).** The ratified axiom does **not** discharge
+everything: **THE BIAS PROPAGATION THEOREM** is Axiom 5's standing named-open entry — clause G's
+elliptic law is the *static abstraction* of underived finite-speed bias dynamics (`_orchestration/2026-08-10_bias-propagation-brief.md`). Where a
+demoted claim's replacement depends on finite-speed bias dynamics, the resolution is the ratified
+axiom **with that debt open**, not a closed replacement.
+
+**Records.** R40 ruling `_orchestration/docket-entries/2026-08-10-rulings-r40-r42.md` · verified worklist `research/drivers/r40_sweep_worklist_verified.json` · scope verification `_orchestration/2026-08-10_r40-sweep-scope-verification.md` ·
+batch-1 record `_orchestration/2026-08-11_r40-sweep-batch1.md` · vocabulary R50 `_orchestration/docket-entries/2026-08-10-ruling-r50-vocab.md` (canonical: the displacement pattern u₀ around a
+deposit is **the bound response**, mechanism gloss **back-reaction**; ε₁₁ is **the bias**;
+"dress", "grade"-as-canonical-noun and "halo"-for-the-physics are retired; and the owed theorem is
+renamed **THE BIAS PROPAGATION THEOREM**) · vocabulary **R49(b)** `_orchestration/docket-entries/2026-08-10-rulings-r48-r49.md` (*"retardation"
+is RETIRED from this role. The canonical term is **propagation delay / finite propagation speed*** —
+the retardation retirement is R49(b)'s, NOT R50's; corrected 2026-08-11 at review).

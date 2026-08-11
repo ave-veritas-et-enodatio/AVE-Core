@@ -193,6 +193,51 @@ Ruling context: R48-R50. Grant's probes and the walk outputs, recorded same-sess
   profile with zero new constants? That check is frozen into the lane brief.
 
 ---
+
+## ★ DATED SURFACE-NOTE (2026-08-10) — the two-layer analogy is ANALOGY, NOT THEOREM (orchestrator-owned)
+
+**Surface-note only; §10 above is not rewritten** (dated addendum, another lane's
+artifact).
+
+**Site:** `:172`, the §10 two-layer reduction — *"the bias network is not a second
+medium — it is the fast layer's envelope; nothing outruns c because everything IS the
+fast layer underneath (the power-rail analogy)"*. *(Quoted plain: `:172` carries no
+emphasis on "the power-rail analogy"; an earlier cut of this note bolded it inside the
+quotation marks, which is an undeclared emphasis change. Corrected.)*
+
+**Tag: ANALOGY, NOT THEOREM. Orchestrator-owned.** The envelope/power-rail picture is
+an **orchestrator-authored analogy** offered as a way to see why an envelope
+description need not imply superluminal transport. It is **not** a derivation, it
+carries no receipt, and it **does not discharge** the causality question it addresses.
+What would discharge it is the **BIAS PROPAGATION THEOREM** — the envelope reduction
+derived FROM the fast layer, with its dispersion relation exhibited — which is Axiom
+5's standing named-open debt and the subject of its own lane brief. Until that lands,
+the analogy licenses nothing in print, exactly as this note's own header already says
+of the whole document.
+
+**⚑ Naming finding, surfaced not silently resolved:** this analogy has been referred
+to downstream as *"the slewing-amplifier analogy"*. **That phrase did not occur
+anywhere in this document's body as measured at `d98e4ccd`, before this note landed**
+(two-method: zero hits for `slew`, `amplifier`, `op-amp`). **The measurement is dated
+and scoped on purpose: this very sentence introduces those words, so a present-tense
+"zero hits" claim would be falsified by the file that asserts it** — re-grepping the
+current file returns the hits THIS NOTE added and nothing else. The in-document term
+for the object is **the power-rail analogy** at `:172`. Recorded so the two names
+are known to denote one object, and so the absent phrase is not later cited to this
+file as if it were here.
+
+**Same tag applies to the §10 counter-arms C7/C8/C9 already flagged there** — they are
+correctly marked UN-AUDITED and are unaffected by this note.
+
+*(Merge note, 2026-08-11, orchestrator: §11 below entered this file at the #952
+merge, after the above measurement landed on main. §11 independently contains the
+word "amplifier" once — "Class-A amplifier practice", a Q-point-biasing reference
+unrelated to the naming finding. The "nothing else" clause above is therefore
+scoped to the file state at this note's landing (post-`d98e4ccd`, pre-§11) and
+remains true at that scope; it is not a claim about the file after this merge.)*
+
+---
+
 ## §11 DATED ADDENDUM (2026-08-10) — the pre-tension walk: the linear-coupling fork and its charter (⚑ UN-AUDITED)
 
 Context: the #951 bias-propagation verdict (D1 NOT-DERIVABLE; the S^p lemma pending

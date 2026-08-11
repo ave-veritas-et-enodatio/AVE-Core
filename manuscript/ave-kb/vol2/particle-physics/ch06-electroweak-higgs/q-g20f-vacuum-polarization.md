@@ -99,3 +99,51 @@ AVE's chiral Laves K4 Cosserat substrate (Axiom 1) introduces an additional **ch
   - [Q-G20a Lamb Shift (uses Q-G20f as input)](../../quantum-orbitals/ch07-quantum-mechanics/q-g20a-lamb-shift-structural-closure.md) — composes vacuum polarization with self-energy and anomalous moment
 - **Empirical test queue:**
   - PVLAS / ALPS-II vacuum birefringence — AVE predicts $\Delta n = 0$ rigorously **under static $\mathbf B$** because the $\mu$-grade is an ideal relativistic inductor keyed on circulating current $I$ (not on $|\mathbf B|$): a static $\mathbf B$ has no $\partial\mathbf B/\partial t$ to load it, so $S_\mu=1$, $\delta n_\mu=0$ (NOT a "lattice symmetry" argument — see [`pvlas-static-b-verdict.md`](../../../vol4/falsification/ch11-experimental-bench-falsification/pvlas-static-b-verdict.md)). QED predicts $\Delta n \sim 10^{-23}$ at 5T. The PVLAS null is therefore **consistent with AVE**, not a falsifier; the discriminating measurement is the **E-route** ([`vacuum-birefringence-e4.md`](../../../vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md), $7.5/\alpha^3\approx1.93\times10^7$).
+
+---
+
+## ★ R43 CONSEQUENCE LEDGER — dated note, OUTSIDE the preserved span (2026-08-10)
+
+> **Why this is at EOF and not at `:66`.** An earlier cut of this batch rewrote the
+> sentence at `:66` in place and landed its audit finding in-span. That breached
+> **R39's byte-fence** — [`CONVENTIONS.md`](../../../CONVENTIONS.md), verbatim:
+> *"Rule-12 preserved spans are byte-fenced against ALL later passes, mechanical
+> included; their audit findings live in ledgers, not in-span."* This leaf carries
+> two preservation declarations (`:10` Rule-12 QED-normalization correction; `:22`
+> *"body below preserved per KEEP-BOTH, git is the trail"*), and R43 ratified no
+> exception to R39 (two-method: zero occurrences of `Rule 12` / `preserv` /
+> `byte-fence` / `R39` / `KEEP-BOTH` in the R43 ruling). **`:66` has been restored
+> byte-for-byte to its pre-batch state** (verified: `git diff 3b0bbfc5 -- <this
+> file>` is empty) and the finding lives here instead.
+
+**The finding (unchanged in substance; only its location moved).** Line `:66`
+reads, verbatim at HEAD: *"AVE is a local relativistic field theory (Axiom 3
+Minimum Reflection Principle) with the same low-energy U(1) gauge content as QED
+(Maxwell Lagrangian in the linear regime)."* It load-bears **two** labels that the
+R43 Axiom-3 repair corrected:
+
+1. **"relativistic"** is flat, against `eq_axiom_3.tex`'s own demotion — Lorentz
+   invariance *"follows only \emph{in the continuum limit} --- it is
+   \textbf{emergent}, not exact"*. Read it as *relativistic in the continuum
+   limit*.
+2. **"Maxwell Lagrangian"** is the **temporal-gauge (Weyl, $A_0$-free)** form.
+   Full time-dependent U(1) is **not** a symmetry of the written action; it is
+   recovered on the Gauss-constrained initial-data surface, where the constraint
+   is supplied by **Axiom 5 (Substrate DC Bias)**. *Which* clause of Axiom 5
+   supplies it is **left open**, riding the DEFERRED FORK-1 variable-class fork —
+   an earlier cut of this batch named clause **S**, which is an unratified
+   narrowing and is withdrawn (clause S is an **A1 dilatation-mass** deposit law,
+   and Axiom 5 explicitly forbids *"any EM/winding-sector deposit"*).
+
+**The RT argument itself SURVIVES, and is not retracted.** The Renormalization
+Theorem's premise is the low-energy gauge content **on the constraint surface**,
+which is exactly where AVE's U(1) lives. This is a premise-precision note, not a
+walk-back: no claim id, solidity, or numeric moves, and the `:47`-`:49`
+*"**Identical** (RT-equivalence)"* status cells are untouched.
+
+**Provenance:** ruling
+[`2026-08-10-ruling-r43-ratification.md`](../../../../../_orchestration/docket-entries/2026-08-10-ruling-r43-ratification.md)
+item (g); sweep row 8 at
+[`2026-08-10_bound-constitutive_sweep-record.md`](../../../../../research/2026-08-10_bound-constitutive_sweep-record.md):49
+— *"load-bears BOTH labels"*; R39 at
+[`2026-08-09-ruling-r39-sixtags.md`](../../../../../_orchestration/docket-entries/2026-08-09-ruling-r39-sixtags.md).
