@@ -233,7 +233,7 @@ block, so refresh can parse it):
 > **What this section adds (Grant directive 2026-06-24; KEEP-BOTH additive).** The
 > `ilk-` entries above are organized **per joint-constraint mechanism** (R·r=¼,
 > the Machian termination, …). This section is the orthogonal **per-CALIBRATION-CONSTANT**
-> view: for EACH constant in the marked set `{m_e, α, G}` it tracks the four
+> view: for EACH constant in the marked set `{m_e, α, G}` it tracks the four **(2026-08-10, R48: 𝒜_g is tracked in this register but is deliberately NOT in the marked set — that absence is exactly what keeps `expected-independent-count` at 3, and it is a ruling, not an omission.)**
 > criteria Grant requires, plus a derived **braced-status** and the theory-level
 > **graduation gate**. It does NOT mint any new `ilk-` node, does NOT carry an
 > `<!-- id: ilk-xxxxxx -->` marker, and does NOT add or remove any `interlocks`
@@ -252,7 +252,7 @@ block, so refresh can parse it):
 Each `### <constant>` subheading below carries a bolded field block parallel to an
 `ilk-` entry's, with these per-constant fields:
 
-- **class** — the FORM-vs-VALUE landing site (the [`form-deriving-value-importing.md`](form-deriving-value-importing.md) per-constant verdict): `SCALE / definitional-anchor` (m_e) | `ECHO` (α value) | `MIXED` (G). This is the human-facing roll-up of the wired `ilk-` `real_or_fitted` tag(s) for that constant.
+- **class** — the FORM-vs-VALUE landing site (the [`form-deriving-value-importing.md`](form-deriving-value-importing.md) per-constant verdict): `SCALE / definitional-anchor` (m_e) | `ECHO` (α value) | `MIXED` (G). This is the human-facing roll-up of the wired `ilk-` `real_or_fitted` tag(s) for that constant. **| `UNVALUED-RATIFIED-CONSTANT` (added 2026-08-10, R48 — ratified and coherent but with NO value yet; the only class that asserts the absence of a value rather than classifying one. It is prose-level here: the `ilk-` `real_or_fitted` enum is fixed at three values by `.index/SCHEMA.md`:162, so machine-enforcing this class is a schema question routed to Grant, not a doc-lane edit.)**
 - **definition_uniqueness (criterion 1)** — the ONE universal tractable definition / identity for the constant, and whether it is `ASSERTED` (a definitional anchor / named identification) or `UNIQUE-FORM` (a substrate-forced dimensionless skeleton). Flags any definition-display duplication / grade-attribution fork that muddies the single-definition claim.
 - **routes_status (criterion 2)** — the lift-route map. **ENCODED HONESTLY per the Grant-RATIFIED 2026-06-24 rule: NEVER "exhausted"; only `open — N routes closed-negative, flip-condition LIVE/DEAD`.** A `closed-negative` route is REFUTED for that route; it is NOT a proof the route-space is empty. A brace is `forced` only when route-space-completeness is itself Grant-ratified — which has NOT happened for any constant — so this field forces the **closed ≠ exhausted** distinction and a brace is never quietly claimed forced when it is merely un-refuted. `N/A` only for the irreducible dimensional scale (m_e), where there is no route-space because there is nothing to derive it FROM (it IS the anchor).
 - **promotion_criterion (criterion 3)** — the explicit, pre-registered condition that would promote `echo → form-derived` (`fitted → real`, or `mixed → real`). **The promotion criterion IS the VCA-R19 forced-not-accommodated knife**: the relation between constants must be FORCED by the substrate (no free dial that was tuned to fit), not merely ACCOMMODATED (consistent-after-the-fact). `N/A` for m_e (the anchor cannot be promoted — there is nothing to promote it from).
@@ -364,3 +364,102 @@ FAIL = echo (the three-route commitment, [`form-deriving-value-importing.md:119-
 > graduation TARGET, gated on `𝒥_cosmic`; it is not a current achievement. The
 > `braced_status` field is the audit-able qualifier the gate reads, and it reads
 > `un-refuted-only` for every dimensionless constant today.
+
+---
+
+### 𝒜_g — the bias-coupling area *(R48: UNVALUED-RATIFIED-CONSTANT; the count STAYS 3)*
+
+**Ruling:** [`2026-08-10-rulings-r48-r49.md`](../../../_orchestration/docket-entries/2026-08-10-rulings-r48-r49.md),
+Grant verbatim: *"agree for interlock entry/rec."* This entry **supersedes R46's
+derive-first "𝒜_g enters NO register"** — the derive-first gate is discharged
+(the lane reported) and the constant now has a home.
+
+- **class** — **`UNVALUED-RATIFIED-CONSTANT`** *(new edge class, minted by R48)*.
+  Distinct from every existing class because the existing ones classify a
+  constant's VALUE-provenance (echo / mixed / definitional / GR-imported), and
+  this one records that there **is no value to classify yet**: 𝒜_g is ratified as
+  real, coherent across consumers, and **unvalued**.
+- **definition_uniqueness (1)** — ONE definition, ratified: the bias-coupling area
+  in Axiom 5's clause G, $\mathbf{u}_0 = -\mathcal{A}_g\nabla\varepsilon_{11}$,
+  $[\mathrm{m}^2]$. **𝒜_g is NOT a falloff** — the $1/r$ bias profile and the
+  $1/r^2$ bound response are free geometry from the elliptic solve. 𝒜_g is the
+  **scale converter**: metres of displacement per unit bias slope.
+- **routes_status (2)** — `open — 1 route closed-negative, flip-condition live`.
+  The frozen hypothesis $\mathcal{A}_g = c\,\ell_{node}^2$ ($c$ a pure number) is
+  **NOT SUPPORTED**: no receipted consumer values 𝒜_g at $\ell_{node}^2$ scale and
+  the only valued route sits ~57 orders away. Per the standing rule this is
+  **never** written "exhausted".
+- **coherence** — **COHERENT across consumers at $f = 7$** under the declared
+  $4\pi$ source convention. The axiom's own over-determination port did **not**
+  fire: the falsifier is intact and unfired, not passed-by-luck.
+- **valuation** — **UNVALUED. No sound consumer values it.** The one VALUED route
+  is carried below as an exhibit of its own inconsistency, not as a value.
+- **promotion_criterion (3)** — **the count moves 3 → 4 exactly when a SOUND
+  consumer produces a value.** "Sound" is doing real work here: a consumer whose
+  own declared regime is self-consistent. Until then the calibration count is
+  **3**, unchanged.
+- **failure_causation (4)** — `INNOCENT`. 𝒜_g is not consumed by any live
+  derivation for a number; it is a ratified slot awaiting a value.
+- **braced_status (derived)** — **`n/a — unvalued`**. This field is declared required
+  above as *"the audit-able qualifier the gate reads"*, and it is deliberately not
+  forced into one of its existing values here: every existing value
+  (`forced-braced` / `un-refuted-only`) presupposes a RELATION between the constant
+  and something else that could be forced or left un-refuted. 𝒜_g has no value yet, so
+  there is no relation to brace. It acquires a real `braced_status` at the same moment
+  it acquires a value — i.e. at the 3 → 4 adjudication. Stated rather than left blank,
+  because a blank required field reads as an oversight.
+
+> **⚑ DISCLOSED SUBSTITUTION: the machine-enforced home was ATTEMPTED and REFUSED.**
+> R48's wording is *"the interlock register gains the new edge class
+> UNVALUED-RATIFIED-CONSTANT"*. The obvious reading is a fourth value on the `ilk-`
+> nodes' `real_or_fitted` field — **that route was tried and does not fit**:
+> [`.index/SCHEMA.md`](../.index/SCHEMA.md):162 fixes the field as a **three-value
+> enum**, verbatim — *"`real_or_fitted: string,` // `\"real-geometric-constraint\"` |
+> `\"mixed\"` | `\"fitted-identification\"` — the chord/echo classification (3
+> values)"* — and `:177` makes it CI-gated at materialization. Adding a fourth value
+> is a **schema change**, i.e. a second `tools/` edit in a doc-lane pass.
+>
+> **What was chosen instead, and why it is not a dodge:** 𝒜_g is a **CONSTANT, not a
+> mechanism**. `ilk-` nodes record joint-constraint MECHANISMS between constants;
+> 𝒜_g joins no two constants — it has no value to join with. The per-constant criteria
+> register is its correct structural home regardless of the enum question, and this
+> section is explicitly outside the count computation, which is what makes "the count
+> stays 3" **provable** rather than asserted.
+>
+> **What stays OPEN and is routed to Grant:** whether `UNVALUED-RATIFIED-CONSTANT`
+> should ALSO become a fourth `real_or_fitted` value (or a new node type) so the class
+> is machine-enforced rather than prose. This entry does not foreclose that; it is
+> recorded here so a later reader sees that the machine-enforced home was attempted,
+> refused for a stated reason, and left as a live schema question — not overlooked.
+
+> **⚑ EXHIBIT (not a value): the C2 near-field-store row's bracket, carried as
+> evidence of THAT CONSUMER'S OWN INCONSISTENCY.** The added-mass row inverts to
+> $\mathcal{A}_g \approx 3.7\times10^{32}$–$1.2\times10^{33}\,\mathrm{m}^2$. It is
+> **self-refuting on its own regime declaration**: at that value the bound-response
+> strain is $\sim2.3\times10^{10}$ at a solar surface — **ten orders past yield** —
+> so the row would put every star's near field past-wall while declaring itself
+> cold-linear. **This bracket is therefore NOT a valuation of 𝒜_g**; it is a
+> receipt that this consumer is inconsistent with itself. **The row's repair is
+> ROUTED and is deliberately NOT performed here.** Source: PR #946 (`[DO-NOT-MERGE]`),
+> its C2 section and §7 routing.
+
+> **⚑ WHY THE PARAMETER-ECONOMY COUNT IS UNMOVED — BY RULING, not by a blind gate.**
+> This must not be read as the gate failing to notice a new constant. The count is
+> computed **only** from the `ilk-` `real_or_fitted` tags (see the integration note
+> above: *"The count is still computed ONLY from the `ilk-` `real_or_fitted` tags …
+> NOT from this section"*), and 𝒜_g deliberately mints **no** `ilk-` node and is
+> deliberately **absent** from the `calibration-params:` meta line. That absence is
+> **R48's ruling** — an unvalued constant buys no parameter and costs none — and it
+> is recorded here so the green gate is read as *the ruled state*, not as an
+> oversight. `expected-independent-count: 3` is correct **because it was ruled so**.
+
+> **Non-circularity observation (R48 walk note; ROUTED to the residence-lane family,
+> recorded NOT adjudicated).** Clause G is non-circular only if the bias
+> $\varepsilon_{11}$ is a **distinct object** from mechanical strain $\nabla u$. The
+> $\ell_{node}^2$ hypothesis's 57-order miss is **evidence FOR that distinctness** —
+> if they were one object, $\mathcal{A}_g \sim \ell_{node}^2$ would have worked.
+> Stated as an observation with its routing, not as a finding.
+
+**Cross-refs:** [`eq_axiom_5.tex`](../../common_equations/eq_axiom_5.tex) clause G ·
+the Axiom-5 entry in [`axiom-register.md`](axiom-register.md) · the bias-propagation
+lane brief (Axiom 5's standing debt).

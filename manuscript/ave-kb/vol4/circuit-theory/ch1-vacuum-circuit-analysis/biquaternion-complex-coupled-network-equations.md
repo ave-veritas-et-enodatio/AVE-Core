@@ -10,7 +10,7 @@ no-claim: "Class-C CONSISTENCY synthesis — stacks node-up (clm-vca7r1), graded
 This leaf is the **integrated equation block** the graded-vacuum network arc has been building toward:
 one numbered stack that maps **static/dynamic stress** and **small/large-signal** operating points onto
 the **three propagating wave channels** (EM-transverse, shear, bulk-longitudinal) **plus** the **mass
-store** (the nonlinear A1 cavity at $\Gamma\to-1$).
+store** (the nonlinear A1 cavity at $\Gamma\to-1$). 🔴 **[DEMOTED 2026-08-11 — R40-B1; dated demotion note at the end of this file]**
 
 It sits **above** the single-node layer ([`node-up-small-large-signal.md`](node-up-small-large-signal.md),
 clm-vca7r1) and **beside** the network-response layer
@@ -130,7 +130,7 @@ Every nonlinearity flows through **one** kernel $S(A)$ ([`unified-engine-design-
 | Symmetric volumetric strain (R1 internal) | $S_\varepsilon=S_\mu=S$ | EM + bulk + shear co-grade | yes (all linear below saturation) | yes when $A\to1$ confines bulk |
 | Static $\mathbf E$ / bench pump (R2) | $S_\varepsilon<1$, $S_\mu=1$ | EM $\varepsilon$ | EM transverse (+ birefringence) | no |
 | Static $\mathbf B$ / magnet (R3) | $S_\mu=1$ identically | — | transparent ($\delta n_\mu=0$) | no |
-| Bulk / A1 compression | $S_{\mathrm{bulk}}(A)$, $Z_{\mathrm{bulk}}\propto1/S$ | bulk | longitudinal bulk wave | **yes** at $\Gamma=-1$ wall |
+| Bulk / A1 compression | $S_{\mathrm{bulk}}(A)$, $Z_{\mathrm{bulk}}\propto1/S$ | bulk | longitudinal bulk wave | **yes** at $\Gamma=-1$ wall 🔴 **[DEMOTED 2026-08-11 — R40-B1; note at EOF]** |
 | Deviatoric / shear strain | $S_{\mathrm{shear}}(A)$ | shear | shear / GW-class | no |
 | Dynamic AC ($\partial_t\mathbf B\neq0$) | $S_\mu(A_I)$ active | EM $\mu$ + all channels | all + dispersion $\omega(q)$ | cavity eigenmode if confined |
 
@@ -248,7 +248,7 @@ This is the work-doing $C\leftrightarrow L$ store ([`resonant-lc-solitons.md`](r
 |---|---|---|---|
 | **Grade triple** (EM / shear / bulk) | §3 | Per-DOF $(L_i,C_i)$ tensor | directional anisotropy within EM translation |
 | **Two impedance domains** | §3.1 transformer | Bare $\rho c$ vs $Z_0$ numerics | writing $Z_{\mathrm{bulk}}=\sqrt2\,Z_0$ |
-| **Bulk-port vs P-wave ratio** | $\sqrt2=c_{\mathrm{bulk}}/c_0$ | $\sqrt{10/3}=c_L/c_T$ | prereg 2.582 double-count |
+| **Bulk-port vs P-wave ratio** | $\sqrt2=c_{\mathrm{bulk}}/c_0$ | $\sqrt{10/3}=c_L/c_T$ | prereg 2.582 double-count 🔴 **[DEMOTED 2026-08-11 — R40-B1; note at EOF]** |
 | **Charge integer vs A1 amplitude** | Layer 0 notation | Two-natured electron | genesis-24 phasor wire |
 
 ---
@@ -284,3 +284,58 @@ This is the work-doing $C\leftrightarrow L$ store ([`resonant-lc-solitons.md`](r
 | 4 | Op3/Op14 + saturation wall BCs in mass-cage / fork-b tests |
 
 ---
+
+---
+
+### 🔴 Dated demotion note — 2026-08-11 (R40 demotion sweep, batch 1)
+
+**Class: DIES-WITH-THE-PHANTOM.** Status change only — the claim text is **preserved
+verbatim** (honesty-lag pattern, Rule 12) and stamped in place; it is **no longer live
+canon**. Nothing is deleted.
+
+**Demoted in this file:**
+
+- **`:12`** — *"the three propagating wave channels (EM-transverse, shear, bulk-longitudinal) plus the mass store"*
+  Stamped in place at `:13`.
+  **Why it dies (audited row rationale, verbatim):** Enumerates bulk-longitudinal as one of three PROPAGATING wave channels; under the carve the branch is removed from the spectrum — the enumeration re-scopes to 2 propagating + 1 bound (same claim repeats at :121-122, :130).
+  **Also covered by this demotion** (named in the audited row; not separately stamped): `:121`, `:130`.
+- **`:133`** — *"Bulk / A1 compression | S_bulk(A), Z_bulk∝1/S | bulk | longitudinal bulk wave | yes at Γ=-1 wall"*
+  Stamped in place at `:133`.
+  **Why it dies (audited row rationale, verbatim):** Both-hosting table row: the 'longitudinal bulk wave' Propagating-wave? column entry dies; the mass-store-at-Γ=-1-wall column survives separately (see :159 row).
+  **Scope carve (review fix 2026-08-11).** `:159` is **NOT** demoted — it is a banked
+  **SURVIVES-AS-RESPONSE** row (*"Boundary-reflection receipt; role unchanged under the carve"*), and
+  this row's own audited rationale carves it verbatim: *"the mass-store-at-Γ=-1-wall column survives
+  separately (see :159 row)."* Only the *"longitudinal bulk wave"* Propagating-wave? column entry dies.
+- **`:251`** — *"Bulk-port vs P-wave ratio | √2=c_bulk/c_0 | √(10/3)=c_L/c_T | prereg 2.582 double-count"*
+  Stamped in place at `:251`.
+  **Why it dies (audited row rationale, verbatim):** The guard row presupposes both bulk-related speeds exist; the √(10/3)=c_L/c_T P-wave member has no referent under the carve, and with it the two-speed double-count hazard dissolves (the dissolution IS the carve's provenance content).
+
+**The arc, complete — the framing R40 rules every demotion note carries:**
+
+1. **The kill fired** (#930) — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the #261 K = 2G import** (G-RECON, unchallenged): the compressible
+   far-field branch was minted by a GR-imported elastic modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the #935 flat-direction finding: the written
+   action conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the RATIFIED bound-sector law — Axiom 5, Substrate DC Bias**
+   (BC-SRC clauses **S** / **G** / **Q**), ratified per `_orchestration/docket-entries/2026-08-10-ruling-r43-ratification.md`, as reconciled by `_orchestration/docket-entries/2026-08-10-ruling-r44-r43-reconciliation.md` (R44 — the
+   full-scope R43 record is FINAL and authoritative; the partial
+   `_orchestration/docket-entries/2026-08-10-ruling-r43-sg-ratified.md` is SUPERSEDED and is **not**
+   the resolution). Under the ratified law the A1 / bulk slot is a **bound response** — mechanism
+   gloss **back-reaction** — with no independent propagating branch, no port, and zero longitudinal
+   characteristic speed. A bulk *wave speed*, a bulk *radiative port*, a bulk *band-branch* and a
+   bulk *transit clock* therefore have **no referent**.
+
+**Standing named-open debt (the honest rider).** The ratified axiom does **not** discharge
+everything: **THE BIAS PROPAGATION THEOREM** is Axiom 5's standing named-open entry — clause G's
+elliptic law is the *static abstraction* of underived finite-speed bias dynamics (`_orchestration/2026-08-10_bias-propagation-brief.md`). Where a
+demoted claim's replacement depends on finite-speed bias dynamics, the resolution is the ratified
+axiom **with that debt open**, not a closed replacement.
+
+**Records.** R40 ruling `_orchestration/docket-entries/2026-08-10-rulings-r40-r42.md` · verified worklist `research/drivers/r40_sweep_worklist_verified.json` · scope verification `_orchestration/2026-08-10_r40-sweep-scope-verification.md` ·
+batch-1 record `_orchestration/2026-08-11_r40-sweep-batch1.md` · vocabulary R50 `_orchestration/docket-entries/2026-08-10-ruling-r50-vocab.md` (canonical: the displacement pattern u₀ around a
+deposit is **the bound response**, mechanism gloss **back-reaction**; ε₁₁ is **the bias**;
+"dress", "grade"-as-canonical-noun and "halo"-for-the-physics are retired; and the owed theorem is
+renamed **THE BIAS PROPAGATION THEOREM**) · vocabulary **R49(b)** `_orchestration/docket-entries/2026-08-10-rulings-r48-r49.md` (*"retardation"
+is RETIRED from this role. The canonical term is **propagation delay / finite propagation speed*** —
+the retardation retirement is R49(b)'s, NOT R50's; corrected 2026-08-11 at review).

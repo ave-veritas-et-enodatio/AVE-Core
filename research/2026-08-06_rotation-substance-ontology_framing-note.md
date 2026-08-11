@@ -152,3 +152,130 @@ verbatim there). The physics, in the register:
 - **The quaternion bulk-scalar thread (Grant):** the V-sector scalar (the "3") is the
   natural home of the static bias a passing wave reads — links this walk to the
   A1-port sourcing lane (R18); context there, not receipt.
+
+---
+## §10 DATED ADDENDUM (2026-08-10) — the DC-sector walk: circuit class, coupling mechanism (⚑ UN-AUDITED)
+
+Ruling context: R48-R50. Grant's probes and the walk outputs, recorded same-session:
+
+- **The three-way circuit-class fork (Grant's "inertia is the resistance?" catch):**
+  inertia ↔ inductance (stores/returns), resistance ↔ friction (dissipates) — and a
+  genuinely RC-diffusive bias line would DISSIPATE, which Ax3 forbids. The bias
+  propagation theorem's fork is therefore RC-diffusive (suspect under Ax3 unless the
+  "R" is a pure redistribution coefficient with the ledger closed in the fast layer)
+  / LC-hyperbolic (no hardware candidate for bias inertia) / DISPERSIVE-UNITARY
+  (Schrödinger-class — the generic lossless-oscillator envelope: spreading without
+  loss, frequency-dependent delay). Ax3 presses toward the third. The orchestrator's
+  prior RC lean is CORRECTED on the record (Grant's probe caught it).
+- **The two-layer reduction (the causality dissolution):** the bias network is not a
+  second medium — it is the fast layer's envelope; nothing outruns c because
+  everything IS the fast layer underneath (the power-rail analogy). The theorem's
+  job = derive the envelope reduction, not hunt for new hardware.
+- **Longitudinal-configuration carve (Grant: "and it's longitudinal?"):** the bound
+  response u₀ = −𝒜_g∇ε₁₁ is curl-free = longitudinal in GEOMETRY, DC in DYNAMICS —
+  longitudinal configuration, never a longitudinal wave. The slot holds books.
+- **The coupling mechanism (Grant's walk: saturation → clock down-regulation →
+  ponderomotive drift):** a trapped resonance saturates its nodes → the local
+  resonant frequency down-regulates → a second resonance's energy E = ħω(local) is
+  lower toward the bias → the energy gradient is the attractive force —
+  ponderomotive-class coupling, the mutual version. Moving sources trail an induced
+  circulating response (the near-field wake, the surviving dark-wake sense). Canon
+  half-owns the register: "ponderomotive bias-texture drive" is a recorded source
+  register whose mechanism half survived the sweep (def-pndenv's partition half
+  died). **The unification claim (walk-level): redshift, lensing, and attraction
+  from ONE mechanism — the node clock riding the bias.**
+- **Counter-arms:** (C7) the clock-gradient force sketch assumes the trapped
+  resonance's total energy tracks the local clock linearly — underived; (C8) the
+  ponderomotive form imports the time-averaged-potential structure (regime
+  declaration owed: slowly-varying bias vs the resonance's clock); (C9) the
+  unification is an ECHO until the force MAGNITUDE reproduces the canon chain — the
+  sharp check: does F = −∇E = −ħ(∂ω/∂ε)∇ε reproduce g = GM/r² on the canon bias
+  profile with zero new constants? That check is frozen into the lane brief.
+
+---
+
+## ★ DATED SURFACE-NOTE (2026-08-10) — the two-layer analogy is ANALOGY, NOT THEOREM (orchestrator-owned)
+
+**Surface-note only; §10 above is not rewritten** (dated addendum, another lane's
+artifact).
+
+**Site:** `:172`, the §10 two-layer reduction — *"the bias network is not a second
+medium — it is the fast layer's envelope; nothing outruns c because everything IS the
+fast layer underneath (the power-rail analogy)"*. *(Quoted plain: `:172` carries no
+emphasis on "the power-rail analogy"; an earlier cut of this note bolded it inside the
+quotation marks, which is an undeclared emphasis change. Corrected.)*
+
+**Tag: ANALOGY, NOT THEOREM. Orchestrator-owned.** The envelope/power-rail picture is
+an **orchestrator-authored analogy** offered as a way to see why an envelope
+description need not imply superluminal transport. It is **not** a derivation, it
+carries no receipt, and it **does not discharge** the causality question it addresses.
+What would discharge it is the **BIAS PROPAGATION THEOREM** — the envelope reduction
+derived FROM the fast layer, with its dispersion relation exhibited — which is Axiom
+5's standing named-open debt and the subject of its own lane brief. Until that lands,
+the analogy licenses nothing in print, exactly as this note's own header already says
+of the whole document.
+
+**⚑ Naming finding, surfaced not silently resolved:** this analogy has been referred
+to downstream as *"the slewing-amplifier analogy"*. **That phrase did not occur
+anywhere in this document's body as measured at `d98e4ccd`, before this note landed**
+(two-method: zero hits for `slew`, `amplifier`, `op-amp`). **The measurement is dated
+and scoped on purpose: this very sentence introduces those words, so a present-tense
+"zero hits" claim would be falsified by the file that asserts it** — re-grepping the
+current file returns the hits THIS NOTE added and nothing else. The in-document term
+for the object is **the power-rail analogy** at `:172`. Recorded so the two names
+are known to denote one object, and so the absent phrase is not later cited to this
+file as if it were here.
+
+**Same tag applies to the §10 counter-arms C7/C8/C9 already flagged there** — they are
+correctly marked UN-AUDITED and are unaffected by this note.
+
+*(Merge note, 2026-08-11, orchestrator: §11 below entered this file at the #952
+merge, after the above measurement landed on main. §11 independently contains the
+word "amplifier" once — "Class-A amplifier practice", a Q-point-biasing reference
+unrelated to the naming finding. The "nothing else" clause above is therefore
+scoped to the file state at this note's landing (post-`d98e4ccd`, pre-§11) and
+remains true at that scope; it is not a claim about the file after this merge.)*
+
+---
+
+## §11 DATED ADDENDUM (2026-08-10) — the pre-tension walk: the linear-coupling fork and its charter (⚑ UN-AUDITED)
+
+Context: the #951 bias-propagation verdict (D1 NOT-DERIVABLE; the S^p lemma pending
+orchestrator verify). The lemma + the GR-echo jointly pose: canon's gravity needs
+LINEAR coupling to the bias; Ax4's kernel is flat at zero. The walk (Grant-driven):
+
+- **THE FORK (four arms, creepage-fenced):** (1) PRE-TENSION — the vacuum idles at a
+  finite scalar operating offset A₀ (linear small-signal coupling for free). ⚠ SSB
+  FENCE: this is structurally the Higgs-VEV template (the orchestrator's
+  most-trained pattern); its legitimate twin is Q-POINT BIASING (Class-A amplifier
+  practice). Arm 1 must be posed as a STRUCTURAL/GEOMETRIC fact — potential-
+  minimization machinery and Goldstone-mode narratives are the import tells, BANNED.
+  (2) KINEMATIC/GEOMETRIC — waves riding DISPLACED geometry couple linearly in u₀ by
+  pure kinematics, kernel-free (the arm the constitutive-thinking habit missed).
+  (3) EXTRA-KERNEL LINEAR CHANNEL — last resort; the add-a-field reflex flagged.
+  (4) CANON-INCONSISTENT — the audit arm: the graded-network row licenses only
+  δn ∝ A² (quadratic) while the gravity sector's lensing/redshift chain runs
+  linear-in-ε₁₁ and lands GR-exact; the lemma may have EXPOSED a standing
+  unlicensed linearity, not opened a fork. → THE AUDIT LANE RUNS FIRST.
+- **GRANT'S ARM-1 CHARTER (verbatim leans):** *"of course there's a default
+  tension"* — origin = QUENCHED-IN residual stress at the freeze (tempered-glass
+  class; stability and V_snap-rupture become one mechanism — the Prince Rupert
+  structure); self-equilibrating (no external frame); *"how is it expanding?"* —
+  evolution = CREEP of the frozen stress, with **H₀ as the candidate relaxation
+  rate (falsifier-class: derive the rate from A₀ + lattice constants or the
+  identification dies)**; the wave ledger — cosmological redshift = adiabatic
+  stretch, energy into the tension books (a mechanism for the ρ_Λ row).
+- **THE GEOMETRIC PINNING (Grant: "geometry sets the q point in semiconductors
+  right?"):** yes — built-in potential, strained-Si, the GaN HEMT 2DEG (a channel
+  at zero applied bias, set by crystal structure). The lattice analog: 432 FORBIDS
+  polar/piezo built-ins (NO-TWIST) but PERMITS scalar/pseudoscalar offsets — the
+  symmetry SELECTS the isotropic form cosmology requires. Candidates already in
+  canon wearing orphan tags: u₀* ≈ 0.187 (the magic-ANGLE operating point) and
+  arc* (Ax4's standing bond BOW) — **hypothesis: the bow, the angle, and A₀ are one
+  geometric fact of the srs rest-state**, derivable from the screw geometry.
+- **Counter-arms:** (C10) cosmology is the most seductive narrative class —
+  everything above is walk-level and must reconcile with the vol3 cosmology sector (vol3, not vol6 — the prior-art sweep's correction, same as folded into the briefs at fb3088db), never
+  parallel-mint; (C11) H₀-as-creep invites numerology — frozen criteria before any
+  number; (C12) the u₀*/arc*/A₀ unification is a HYPOTHESIS (both parents are
+  orphaned imports — deriving one from the other without the geometry derivation
+  would be orphan-marries-orphan); (C13) the audit arm may moot the fork entirely.

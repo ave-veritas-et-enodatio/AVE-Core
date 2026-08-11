@@ -2,13 +2,13 @@
 
 <!-- kb-frontmatter
 kind: leaf
-no-claim: "Canonical AXIOM register — a status / provenance / residual-content VIEW over the FOUR existing `axiom-N` framework nodes (node_type: \"axiom\", ids axiom-1..axiom-4), which are ALREADY materialized into claims.jsonl by refresh-kb-metadata from the `- Axiom N: **…**` bullets in CLAUDE.md INVARIANT-S2 (the KB's axiom-numbering authority). This leaf originates NO new node-body via frontmatter and mints NO new axiom id: axioms are terminal UNSCORED framework nodes (SCHEMA.md 'Framework record' — 5 fields, no confidence/solidity/quality, emit no edges), so a register that re-declared them would be a parallel scheme, forbidden by INVARIANT-S11 (extend, don't reinvent). It is the axiom analog of the interlock-register's per-CONSTANT Calibration-Constant Criteria Register: a bolded-field VIEW that POINTS AT the existing framework nodes (via the `axiom-N` id) and, where an axiom's content is partly derived, at the theorem `clm-`/result that carries the proof — NOT a source of new claims. Hence no-claim."
+no-claim: "Canonical AXIOM register — a status / provenance / residual-content VIEW over the FIVE existing `axiom-N` framework nodes (node_type: \"axiom\", ids axiom-1..axiom-5; axiom-5 = Substrate DC Bias, ratified 2026-08-10 per R44, materialized once the INVARIANT-S2 bullet parser was widened [1-4]->[1-5]), which are ALREADY materialized into claims.jsonl by refresh-kb-metadata from the `- Axiom N: **…**` bullets in CLAUDE.md INVARIANT-S2 (the KB's axiom-numbering authority). This leaf originates NO new node-body via frontmatter and mints NO new axiom id: axioms are terminal UNSCORED framework nodes (SCHEMA.md 'Framework record' — 5 fields, no confidence/solidity/quality, emit no edges), so a register that re-declared them would be a parallel scheme, forbidden by INVARIANT-S11 (extend, don't reinvent). It is the axiom analog of the interlock-register's per-CONSTANT Calibration-Constant Criteria Register: a bolded-field VIEW that POINTS AT the existing framework nodes (via the `axiom-N` id) and, where an axiom's content is partly derived, at the theorem `clm-`/result that carries the proof — NOT a source of new claims. Hence no-claim."
 path-stable: "the canonical axiom-register leaf; makes the AVE axioms' status / provenance / residual-content first-class as a view over the axiom-N framework nodes"
 -->
 
 <!-- axiom-meta
-axiom-nodes: axiom-1 axiom-2 axiom-3 axiom-4
-expected-independent-axiom-count: 4
+axiom-nodes: axiom-1 axiom-2 axiom-3 axiom-4 axiom-5
+expected-independent-axiom-count: 5
 -->
 
 # Axiom Register — the Four AVE Axioms (status / provenance / residual-content view)
@@ -79,7 +79,7 @@ analog of the interlock-register's `real_or_fitted` chord/echo axis, but a
 - **DERIVED-TO-THEOREM** — the axiom's *entire* content is a theorem of the
   other axioms + a bare, already-present identification (no independent residual
   primitive). Only at this status does the **independent-axiom count drop** (the
-  axiom is no longer independent). **No axiom is at this status.**
+  axiom is no longer independent). **No axiom is at this status.** **⊕ RATIFIED-ADDITION** *(the UPWARD bin, added 2026-08-10 per R47 item 1)* — a NEW axiom is ratified into the set; the only bin that moves the count UP. It demotes nothing: existing axioms keep their numbering, names and status. **Axiom 5 (Substrate DC Bias) is the first and so far only entry.** The bin exists because the four values above could only describe an axiom SHRINKING (POSTULATED → SHAPE-DERIVED → DERIVED-TO-THEOREM); the axis had no way to record the set GROWING, so a ratified addition had nowhere honest to sit.
 
 > **Status ≠ solidity.** A framework node has no solidity to lower. The
 > `status` field records the *derivational maturity of the axiom's content*, a
@@ -148,7 +148,7 @@ to an `ilk-` entry / a per-constant criteria entry) with these fields:
 - **residual_content:** **the whole axiom** — the K4 Cosserat crystal substrate topology (space group, connectivity, per-node 6-DOF micropolar structure) is entirely axiomatic.
 - **derived_by:** `(none — postulated)`.
 - **count-effect:** counts as 1 independent axiom.
-- **finding — Axiom 1 has NO dedicated axiom-content `clm-` node (only the framework `axiom-1` node).** The brief asked to reconcile Axiom 1's supposed `clm-3kzmt9`. **`clm-3kzmt9` is NOT an Axiom-1 node.** Verified: its canonical entry is at [`vol1/claim-quality.md:187`](../vol1/claim-quality.md) titled around the **ξ vs ξ_topo homonym distinction** (its body: "$\xi \approx 8.15\times10^{43}$ … vs $\xi_{topo} = e/\ell_{node}$ … different quantities sharing a Greek letter"; specific claim = the $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2}$ cosmological-horizon dilution) plus the α-is-Class-B relabel — confidence 0.90, solidity 0.63, depends-on clm-0ktpcn + clm-5xon03. In [`axiom-definitions.md:33`](../vol1/axioms-and-lattice/ch1-fundamental-axioms/axiom-definitions.md) its Tier-2 marker `<!-- claim-quality: clm-3kzmt9 -->` sits on the **notation-warning block UNDER Axiom 2**, not on Axiom 1. So it was never Axiom 1's node. Axiom 1's ONLY first-class node is the terminal framework node `axiom-1`; there is no scored `clm-` that states Axiom 1's content (nor should there be — an axiom is UNSCORED bedrock, so a scored Axiom-1 `clm-` would be a category error, per the node-type discipline). This register's `axiom-1` view IS the intended first-class status home; no `clm-` wiring is needed or correct. **⚑ DOMAIN OF VALIDITY (PHASE-SCOPED) — ADDED 2026-08-06, Grant ruling R7. An ADDITION: nothing above is rewritten, and this axiom's `status`, `provenance`, `residual_content`, `derived_by` and `count-effect` are unchanged by it.** Ruled at [`2026-08-06-rulings-decision-batch.md`](../../../_orchestration/docket-entries/2026-08-06-rulings-decision-batch.md):100–113 (R7), Grant verbatim at `:102` — *"all right, let's do it but intrinsic LC would be the crystallized form of the vacuum so really that ax needs to understand each phase of the vacuum material right?"*. Ruled at concept level: Axiom 1's intrinsic-LC description is the constitutive law of the vacuum material's **crystalline phase**, not of the material as such; **phases are states of one substance, not new axioms** — which is why this lands as a scope header ON Axiom 1 and explicitly NOT as a fifth axiom. **RULED HEADER TEXT, quoted word-for-word from the record `:109`–`:113` (the wording merge-ratified with it):** ⟪ **Domain of validity (phase-scoped, 2026-08-06).** This axiom states the constitutive law of the vacuum material's crystalline phase (cold, sub-yield, lossless-reactive). It does not assert the substance-level law across the material's other phase-states (saturation boundary; ruptured/plasma above V_snap; pre-freeze). Any use across a phase boundary is an extrapolation and must be declared as one. ⟫ *(Rendering note: the ruled text is set inline between ⟪ ⟫ rather than as an indented blockquote because this register's `:189`, `:190`, `:193`, `:194`, `:229`–`:232` are cited by line across the corpus — including inside MERGED ruled text — so this entry is written line-count-neutral. The words are the record's; only the wrapper differs.)* **⚑ VOCABULARY RIDER — SURFACED, NOT FIXED (doc lane).** R7's own vocabulary fence (`:115` — *"Vocabulary fence: the phase inventory must be substrate-named"*) bars borrowed condensed-matter phase words, and the SAME batch's R8 (`:130`–`:131`) classes **"plasma"** as *"a vocabulary leak of the same class as the retired 'amorphous'"* — a lean since upgraded to a GO for the **pre-bond** rename ([`2026-08-06-rulings-go-prebond-hawking.md`](../../../_orchestration/docket-entries/2026-08-06-rulings-go-prebond-hawking.md):7–17, R9). The ruled header above nevertheless contains the token `ruptured/plasma`. **It is quoted word-for-word and NOT silently repaired here** — ruled text propagates verbatim, and R9's rename is scoped to the phrase *"pre-geodesic plasma"*, which this is not. Whether the header's `plasma` token is inside or outside the rename's scope is the ruling author's call. Flagged, not resolved.
+- **finding — Axiom 1 has NO dedicated axiom-content `clm-` node (only the framework `axiom-1` node).** The brief asked to reconcile Axiom 1's supposed `clm-3kzmt9`. **`clm-3kzmt9` is NOT an Axiom-1 node.** Verified: its canonical entry is at [`vol1/claim-quality.md:187`](../vol1/claim-quality.md) titled around the **ξ vs ξ_topo homonym distinction** (its body: "$\xi \approx 8.15\times10^{43}$ … vs $\xi_{topo} = e/\ell_{node}$ … different quantities sharing a Greek letter"; specific claim = the $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2}$ cosmological-horizon dilution) plus the α-is-Class-B relabel — confidence 0.90, solidity 0.63, depends-on clm-0ktpcn + clm-5xon03. In [`axiom-definitions.md:33`](../vol1/axioms-and-lattice/ch1-fundamental-axioms/axiom-definitions.md) its Tier-2 marker `<!-- claim-quality: clm-3kzmt9 -->` sits on the **notation-warning block UNDER Axiom 2**, not on Axiom 1. So it was never Axiom 1's node. Axiom 1's ONLY first-class node is the terminal framework node `axiom-1`; there is no scored `clm-` that states Axiom 1's content (nor should there be — an axiom is UNSCORED bedrock, so a scored Axiom-1 `clm-` would be a category error, per the node-type discipline). This register's `axiom-1` view IS the intended first-class status home; no `clm-` wiring is needed or correct. **⚑ DOMAIN OF VALIDITY (PHASE-SCOPED) — ADDED 2026-08-06, Grant ruling R7. An ADDITION: nothing above is rewritten, and this axiom's `status`, `provenance`, `residual_content`, `derived_by` and `count-effect` are unchanged by it.** Ruled at [`2026-08-06-rulings-decision-batch.md`](../../../_orchestration/docket-entries/2026-08-06-rulings-decision-batch.md):100–113 (R7), Grant verbatim at `:102` — *"all right, let's do it but intrinsic LC would be the crystallized form of the vacuum so really that ax needs to understand each phase of the vacuum material right?"*. Ruled at concept level: Axiom 1's intrinsic-LC description is the constitutive law of the vacuum material's **crystalline phase**, not of the material as such; **phases are states of one substance, not new axioms** — which is why this lands as a scope header ON Axiom 1 and explicitly NOT as a fifth axiom. **RULED HEADER TEXT, quoted word-for-word from the record `:109`–`:113` (the wording merge-ratified with it):** ⟪ **Domain of validity (phase-scoped, 2026-08-06).** This axiom states the constitutive law of the vacuum material's crystalline phase (cold, sub-yield, lossless-reactive). It does not assert the substance-level law across the material's other phase-states (saturation boundary; ruptured/plasma above V_snap; pre-freeze). Any use across a phase boundary is an extrapolation and must be declared as one. ⟫ *(Rendering note: the ruled text is set inline between ⟪ ⟫ rather than as an indented blockquote because this register's `:189`, `:190`, `:193`, `:194`, `:229`–`:232` are cited by line across the corpus — including inside MERGED ruled text — so this entry is written line-count-neutral. The words are the record's; only the wrapper differs.)* **⚑ VOCABULARY RIDER — SURFACED, NOT FIXED (doc lane).** R7's own vocabulary fence (`:115` — *"Vocabulary fence: the phase inventory must be substrate-named"*) bars borrowed condensed-matter phase words, and the SAME batch's R8 (`:130`–`:131`) classes **"plasma"** as *"a vocabulary leak of the same class as the retired 'amorphous'"* — a lean since upgraded to a GO for the **pre-bond** rename ([`2026-08-06-rulings-go-prebond-hawking.md`](../../../_orchestration/docket-entries/2026-08-06-rulings-go-prebond-hawking.md):7–17, R9). The ruled header above nevertheless contains the token `ruptured/plasma`. **It is quoted word-for-word and NOT silently repaired here** — ruled text propagates verbatim, and R9's rename is scoped to the phrase *"pre-geodesic plasma"*, which this is not. Whether the header's `plasma` token is inside or outside the rename's scope is the ruling author's call. Flagged, not resolved. **⚑⚑ R7 IS OVERRULED — R45, 2026-08-10. Dated supersession; the ruled header text above is PRESERVED byte-for-byte and is NOT rewritten.** Grant, verbatim: *"I didn't want axiom 1 to be solid/crystal phase only, I wanted it to be comprehensive and open to other phases and show the boundaries and nuances between them, same goes for each axiom, so yes I want to overrule the last ruling."* **What changes:** R7 read each axiom as valid-in-the-crystalline-phase-ONLY, with any cross-phase use a declared extrapolation. R45 replaces that with the COMPREHENSIVE-MAP doctrine — **each axiom is a law of the MATERIAL and carries its phase structure explicitly INSIDE**: (a) the crystalline-phase form (today's content), (b) the behavior at each phase boundary where derived, and (c) NAMED-OPEN holes where the phase's law is not yet written, as first-class entries rather than silences. So the header above is no longer a *scope limitation* on Axiom 1; it is row (a) of Axiom 1's phase map, and rows (b)/(c) are supplied in the **Per-axiom PHASE-STRUCTURE map** at the end of this register (R47 item 5). **Honesty requirement carried from the ruling:** comprehensiveness is the FRAME; the text never claims content it lacks. The `ruptured/plasma` vocabulary rider above is unaffected and still routed.
 
 ---
 
@@ -171,7 +171,7 @@ to an `ilk-` entry / a per-constant criteria entry) with these fields:
 
 - **axiom-node:** `axiom-3` (framework node, `node_type: "axiom"`; parsed from the CLAUDE.md INVARIANT-S2 `- Axiom 3: **Minimum Reflection Principle**` bullet; UNSCORED).
 - **canonical-statement:** The substrate extremizes the macroscopic action $S_{AVE}$; two co-canonical forms — the **variational** form ($\mathcal{L}_{node} = \tfrac12\varepsilon_0|\partial_t\mathbf{A}_n|^2 - \tfrac{1}{2\mu_0}|\nabla\times\mathbf{A}_n|^2$) and the substrate-native **boundary** form (minimize the reflection $|\Gamma|^2$ at every internal impedance boundary). The two are equivalent (E-L equations enforce E/B continuity = the $|\Gamma|^2$-minimum condition). Canonical: [`axiom-definitions.md:36-46`](../vol1/axioms-and-lattice/ch1-fundamental-axioms/axiom-definitions.md) + `eq_axiom_3.tex` (`eq:axiom3_lagrangian`, `eq:axiom3_boundary`; architectural label `eq:axiom3_action`).
-- **status:** **POSTULATED.** No derivation of the extremal principle from weaker structure exists. (The variational ⇄ boundary EQUIVALENCE is a proven internal theorem, but it relates two co-canonical FORMS of the one postulated axiom — it does not derive the axiom itself.)
+- **status:** **POSTULATED.** No derivation of the extremal principle from weaker structure exists. (The variational ⇄ boundary EQUIVALENCE is **ASSERTED — a flagged underived dynamics leg** — and it relates two co-canonical FORMS of the one postulated axiom, so it would not derive the axiom itself even if it were tight.) **⚑ R43 (2026-08-10) — self-contradiction repaired (drift finding D2).** This field previously read *"the variational ⇄ boundary EQUIVALENCE is a proven internal theorem"*, which contradicted this same register's own DERIVED-LEGS row at `:231` (*"**ASSERTED-not-derived:** the **variational ↔ min-$|\Gamma|^2$ equivalence**"*, *"an **underived dynamics leg**"*). Adjudicated in favour of ASSERTED, because the canonical source of truth already says so and had already surfaced the divergence rather than overwriting it: [`eq_axiom_3.tex`](../../common_equations/eq_axiom_3.tex):37 — *"Equivalence (ASSERTED --- an underived dynamics leg)"*, *"a \textbf{flagged underived dynamics leg}"*, and, naming this very field, *"the register presently records this equivalence as a proven internal theorem; the field-continuity gap above is surfaced for adjudication rather than silently overwriting either statement."* Two concordant statements (`:231` + the canonical `.tex`) against one; the substantive gap is that field continuity holds at *reflecting* boundaries too, so EL-continuity is necessary but not sufficient for the $|\Gamma|^2$-extremum. Prior wording lives in git per the audit-trail-in-git-only convention. Ruling: [`2026-08-10-ruling-r43-ratification.md`](../../../_orchestration/docket-entries/2026-08-10-ruling-r43-ratification.md) — *"the register `:174`/`:231` self-contradiction repair ride the same execution."*
 - **provenance:** Postulated primitive. Legacy name "Effective Action Principle" (the variational dialect). The substrate-native name follows the externally-observable quantity ($|\Gamma|^2$) per the substrate-observability rule.
 - **residual_content:** **the whole axiom** — the minimum-reflection / least-reflected-action extremal principle is entirely axiomatic. (Note: Axiom 3's lossless-reactive extremal content is the primitive that MAKES the bond-LC L2 energy invariant exact — the invariant Axiom 4's SHAPE-DERIVED status leans on; see the Axiom-4 provenance below. Axiom 3 supplies the "lossless" half of that residual.)
 - **derived_by:** `(none — postulated)`.
@@ -210,7 +210,7 @@ DERIVED-TO-THEOREM. Axiom 4's SHAPE-DERIVED status is a content reduction, not a
 count reduction — the residual L2-norm primitive is the relocated axiomatic
 content. The count drops `4 → 3` only if an axiom's *whole* content becomes a
 theorem of the others + a bare pre-existing identification (DERIVED-TO-THEOREM),
-which the Axiom-4 full-reduction epic would test but has not established.
+which the Axiom-4 full-reduction epic would test but has not established. **⚑ R43/R44 (2026-08-10) — this roll-up is INCOMPLETE and is NOT silently rewritten (line-shift discipline: the rows above carry inbound `:NN` cites).** A FIFTH axiom, **BC-SRC**, was ratified on 2026-08-10 — *"This is the first new axiom ratified since the founding set"* — and its full register entry, its summary-table delta, and the enumerated machine-side blocker on its `axiom-N` framework node are appended at the END of this file under **"Axiom 5 — BC-SRC"**. Read that section together with this line. **UPDATE (same day): the gap is CLOSED** — the `axiom-5` framework node now EXISTS (the `[1-4]`->`[1-5]` parser widening landed under R47 item 1), so the framework-node count and the ratified-axiom count now AGREE at **five**, and `expected-independent-axiom-count` in the `axiom-meta` block above reads 5.
 
 ## Per-axiom DERIVED-LEGS (dictionary-vs-dynamics decomposition)
 
@@ -300,3 +300,335 @@ silently committed — this is canonical infrastructure):
 - **(D-D) `expected-independent-axiom-count: 4` hand-asserted, gate deferred.**
   Per item 1 above — flagged for Grant's ratify on whether to wire the CI gate
   now or when the epic lands.
+
+---
+
+## Axiom 5 — Substrate DC Bias (deposit · grade · quiescence)
+
+> **★ THE FIRST NEW AXIOM RATIFIED SINCE THE FOUNDING SET.** Ratified
+> 2026-08-10 under R43. Source of record:
+> [`2026-08-10-ruling-r43-ratification.md`](../../../_orchestration/docket-entries/2026-08-10-ruling-r43-ratification.md):22
+> — *"This is the first new axiom ratified since the founding set."* Clauses S
+> and G were first recorded in the companion partial record (**SUPERSEDED IN SCOPE per
+> R44**; body preserved, cite the full record)
+> [`2026-08-10-ruling-r43-sg-ratified.md`](../../../_orchestration/docket-entries/2026-08-10-ruling-r43-sg-ratified.md);
+> clause Q and the vocabulary ruling ride the R43 ratification record on top.
+> **This section is appended at the END of the register rather than slotted after
+> Axiom 4 deliberately**: the Axiom-1..4 sections and the roll-up table carry a
+> dense inbound `:NN` cite surface (max inbound `:232` at authoring) and an
+> in-place insertion would silently shift every one of them.
+
+- **axiom-node:** ***NOT YET MINTED*** — BC-SRC has **no** `axiom-5` framework
+  node in `.index/claims.jsonl`, so this section is a register entry WITHOUT the
+  node it would view. This is a **disclosed gap, not an oversight**; the blocker
+  is enumerated under *Machine-side status* below and is routed to the
+  orchestrator. Every other field here is authored as a normal register entry so
+  the entry is complete the moment the node lands.
+- **canonical-statement:** The four founding axioms write a *floating* network —
+  topology (Ax 1), charge dictionary (Ax 2), lossless extremal dynamics (Ax 3),
+  saturation kernel (Ax 4) — but never write the source coupling that pins the
+  bound (A1 dilatation) sector's absolute state. **BC-SRC is that missing
+  specification: the substrate's DC operating point.** Canonical:
+  [`eq_axiom_5.tex`](../../common_equations/eq_axiom_5.tex)
+  (`eq:bcsrc_deposit`, `eq:bcsrc_bridge`, `eq:bcsrc_quiescence`,
+  `eq:bcsrc_falsifier`). **Three clauses, ratified together** — clause text
+  landed AS RATIFIED from
+  [`2026-08-10_bound-constitutive_result.md`](../../../research/2026-08-10_bound-constitutive_result.md)
+  §2.6, with the R43 / R43-S+G ratification records' expansions folded in where
+  they add content:
+
+  - **S (deposit).** *"A matter defect deposits a nonzero net A1 dilatation flux:
+    `∮_S u·n̂ = 4πB(M)` over any enclosing exterior surface, with `B(M)` = the
+    defect's A1 mass accounting (dimensional VALUE via the imported G/ξ chain)."*
+    Ratified expansion (S+G partial record, SUPERSEDED IN SCOPE per R44 — record-of-origin only): every defect deposits this flux **at genesis** —
+    particles are factory-charged; **mass is an enclosed compression charge BY
+    LAW**. The write event is a genuine new law (the four-lock no-go bars the
+    receipted dynamics from creating it); KCL / the derived conservation leg
+    preserves it thereafter.
+  - **G (bias coupling / bridge).** *"The operating-point grade is the bound
+    sector's potential: `u₀ = −λ∇ε₁₁`, with the grade pinned by the elliptic law
+    `−∇·[κD(A)∇ε₁₁] = T₀₀`, `κ = c⁴/7G` (VALUE imported). Equivalently: the canon
+    backreaction solve becomes BC-LAW in potential form."* Ratified expansion
+    (recorded in the S+G partial record, **SUPERSEDED IN SCOPE per R44** — cited as
+    record-of-origin only; the authoritative record is the full-scope R43 ratification): read as a circuit this is the **DC-bias-network law** — mass-energy
+    injects current, the saturation-graded conductance distributes the potential
+    ε₁₁ (THE BIAS), the BOUND RESPONSE is its field, κ is the bias sector's
+    permittivity.
+    `backreaction.py`'s elliptic statics becomes **axiom-licensed**. **One new
+    coupling constant, $\mathcal{A}_g$** (the BIAS-COUPLING AREA, [m²]; R50's re-read of R46's "grade-coupling area"), enters the framework
+    here and nowhere else. **⚑ SYMBOL RETIREMENT (R46, 2026-08-10):** the verbatim
+    clause text above still reads `λ` because it is quoted verbatim from the source
+    lane and verbatim text is not rewritten. **`λ` is RETIRED for this role** —
+    wavelength and Lagrange-multiplier collisions — and the ratified symbol is
+    **𝒜_g**. Collision receipt (R46, re-verified here two-method): the ξ family is
+    crowded (seven members, ξ_topo alone ×790) so ξ_g was REJECTED, while
+    `\mathcal{A}` carries exactly one other subscripted member corpus-wide — 𝒜_g is
+    clean. Read every `λ` inside the quoted clause as 𝒜_g. **The same applies to `grade` and
+    `dress` in that quote:** R50 demoted "grade" from ε₁₁'s canonical name to informal
+    use (canonical noun: **THE BIAS**) and retired "dress" (canonical: **the bound
+    response**). The quoted clause is likewise left verbatim — read every `grade`
+    inside it as **bias**, and `dress` as **bound response**.
+  - **Q (quiescence — the DC operating point).** *"The sourceless substrate sits
+    at the cold operating point: `∇·π = 0`, `θ = 0`, `ε₁₁ = 0` away from
+    defects."* Ratified role (R43): this is **the DC OPERATING POINT — the
+    quiescent reference that makes potentials defined and G's solve well-posed**.
+    **⚑ Reconciliation finding (surfaced, not silently resolved):** the §2.6
+    source text closes clause Q with the hedge *"(Possibly already canon — the
+    cold-quiescent operating-point definition; bundled for completeness and
+    flagged as such.)"* R43 ratified Q as a full load-bearing clause with a named
+    role, so that hedge is **superseded by the ratification** and is recorded here
+    rather than carried forward as live text.
+
+- **VOCABULARY RULING (R43, binding on every consumer).** The canonical term is
+  **"DC operating point / quiescent point (Q-point)"**. **"Ground (reference)" is
+  the EE-analogy gloss, NEVER the canonical noun.** Grant's physical framing of
+  record — *"BC-SRC is the GROUND REFERENCE of the floating network the bare
+  axioms built"* — is quoted as the analogy, and the canonical noun is used in
+  every surrounding statement. The proposed `quiescent point` vocabulary node
+  ([`def-q1escn`](vocabulary-register.md)) **promotes to ratified under this
+  naming**.
+- **status:** **POSTULATED.** BC-SRC is a new axiomatic primitive, not a theorem
+  of Axioms 1–4. **Minimality is established by ablation, not asserted:** without
+  **S** the derived conservation legs leave the bound-response value unpinned; without
+  **G** there is no receipted home for the finite static stiffness, no
+  bias-reading causality, no energy functional, and no derived connection to the
+  static /7 chain; without **Q** the conserved data is unpinned far from sources.
+  No clause is derivable from the receipted action — S has no energy→flux map, G's
+  κ has no axiom preimage, Q is definitional-or-canon.
+- **provenance:** Postulated primitive, ratified 2026-08-10 (R43 + the R43-S+G
+  companion). Produced as the minimal new-axiom candidate of the bound-sector
+  constitutive lane, which ran its own Tier-2 (44 agents, 5 lenses) BEFORE
+  presentation and re-binned all four of its deliverables
+  `DERIVED-VIA-NEW-AXIOM(BC-SRC)` rather than `DERIVED`.
+- **residual_content:** **all three clauses.** S (the nonzero, M-proportional
+  deposit), G (the bias↔bound-response bridge + the κ-stiffened elliptic bias law), and
+  Q (the quiescent DC operating point) are the axiom's own content. **FORM-derived
+  / VALUE-imported** per the framework's standing signature: κ = c⁴/7G and
+  ν = 2/7 stay GR-imported (#261 untouched) and B(M)'s dimensional normalization
+  rides the imported G/ξ chain; **𝒜_g is a genuinely new constant.**
+- **derived_by:** `(none — postulated)`. What the lane DID derive, and what
+  therefore does **not** belong to this axiom's residual: the conservation leg
+  `∂_t(∇·π) = −∇·j_m`; the kinematic freeze; the exterior uniqueness of the bound response `u₀ = B r̂/r²`;
+  zero longitudinal characteristic speed; the (u,π)-sector domain-of-dependence
+  theorem; the exact Kirchhoff-transformed energy functional; the pole-absence
+  half. Those are theorems of the receipted dynamics, cited at
+  [`2026-08-10_bound-constitutive_result.md`](../../../research/2026-08-10_bound-constitutive_result.md).
+- **count-effect:** counts as **1 independent axiom**. The **ratified-axiom count
+  is 5**; the **framework-node count remains 4** until the node lands (below).
+  Both numbers are stated because they currently differ — neither is quietly
+  adjusted to match the other.
+- **internal falsifier (ships with the axiom):** clauses S + G jointly force
+  `B = 7·𝒜_g·GM/c²`. **One 𝒜_g across every consumer** — measuring 𝒜_g from two
+  independent consumers over-determines it, and the over-determination is the
+  axiom's own test port. This is the first axiom in the register to arrive with a
+  built-in falsifier rather than an appended one; the 𝒜_g over-determination lane is
+  the ratification's first follow-on derivation.
+
+### Machine-side status — the `axiom-5` framework node is MINTED (blocker discharged 2026-08-10)
+
+> **⚑ SUPERSEDES the "BLOCKED (enumerated, routed)" section that stood here.** That
+> section correctly enumerated two blockers and routed them rather than forcing them.
+> **R47 item 1 ruled GO**, and both are now discharged in-branch:
+
+1. **The tooling blocker — DISCHARGED by a minimal parser widening.** The bullet
+   parser was hard-capped at axioms one through four, so an `- Axiom 5:` bullet would
+   have **silently** produced no node and no error. Widened at
+   `manuscript/ave-kb/tools/kb_index_lib.py`:180 to
+   `` `_AXIOM_BULLET_RE = re.compile(r"^- Axiom ([1-5]): \*\*(.+?)\*\*")` `` and the
+   in-bullet token regex at `:183` to `` `\bAxiom ([1-5])\b` ``. **Minimal by
+   construction:** bumped to the live count, NOT opened to `\d+`, so a typo'd
+   "Axiom 9" still fails loudly instead of quietly minting a node.
+   **★ AND THE SILENT-DROP MODE ITSELF IS DEAD, not merely narrowed** (Grant: *"kill
+   the mode, not just the range"*). The parse is now **broad-RECOGNIZE then strictly
+   PARSE**, with **three outcomes and no fourth**: *parsed* / *not-a-bullet* (silent,
+   correct — absence is not malformation) / **MALFORMED → RAISES
+   `FrameworkNodeParseError`** naming the file:line. The recognizer is
+   `` `^\s*-\s*Axiom\b` `` — **leading indentation included**, which matters because
+   indentation is *the* canonical malformation: the parse-error docstring names it
+   first and this repo's own regression fixture mangles by indenting. An earlier cut
+   of this batch wrote `` `^- *Axiom\b` `` (the star AFTER the dash), which **cannot
+   match an indented bullet at all** — so the hole survived the widening and was found
+   by review, not by me. Closed with two regression tests, one the **Axiom-5-specific**
+   case: `axiom-5` has **zero** inbound `depends-on` edges (axiom-1: 99, axiom-2: 38,
+   axiom-3: 30, axiom-4: 101, **axiom-5: 0**), so dropping it dangles nothing and the
+   downstream `_assert_framework_node_coverage` backstop **cannot** see it — the
+   parse-time recognizer is the only thing that can.
+   **AUTHORING CONSTRAINT, documented because it is a real fence:** a prose bullet that
+   merely opens with `- Axiom N` (e.g. `- Axiom 3 forbids dissipation.`) now
+   **hard-fails the indexer**. Blast radius is one file and it fails loud, so the
+   direction is right — but write such prose without the leading-bullet form.
+   **Before/after receipt** (`make refresh-kb-metadata`, same tree, one variable
+   changed): BEFORE → `['axiom-1','axiom-2','axiom-3','axiom-4']`; AFTER →
+   `['axiom-1','axiom-2','axiom-3','axiom-4','axiom-5']`, the new record titled
+   *Substrate DC Bias* with `canonical_anchor: invariant-s2-ave-axiom-numbering`.
+2. **The blast-radius blocker — DISCHARGED without moving a single cite.** The
+   INVARIANT-S2 bullet did NOT go inline (that would have shifted the 23 distinct
+   inbound `:NN` cite lines in KB `CLAUDE.md`, including the heavily-cited
+   `:73`/`:75` operating-point pair and cites as deep as `:318`). It went at the END
+   of `CLAUDE.md` under an explicit **"INVARIANT-S2 continuation"** heading, with the
+   S2 lead-in edited same-line to point at it. The parser scans the whole file, so
+   the materialized node is identical either way — verified by the anchor above.
+   **All 23 cite anchors re-verified unshifted post-edit.** The `##` heading is
+   deliberate: an `### INVARIANT-…` heading would have minted a spurious invariant.
+
+> **⚑ UNAVOIDABLE SIDE-EFFECT, DISCLOSED: minting a node shifts `.index/claims.jsonl`
+> line cites by +1.** `claims.jsonl` is GENERATED and stable-sorted, so inserting the
+> `axiom-5` record pushes every later record down one line. Three tracked line-cites
+> into it are affected, and the re-resolution map is given here because one of the
+> citing documents is a FROZEN prereg and cannot be re-pointed:
+>
+> **Complete map — all SIX affected cites** (re-derived range-aware at the final tip;
+> an earlier cut of this note listed only three, which was an undercount):
+>
+> | Cite | Record it meant | Now at | Citing site(s) |
+> |---|---|---|---|
+> | `claims.jsonl:17` | `clm-2e9j97` | `:18` | `research/2026-07-20_ringdown-systematics_derivation.md`:19 |
+> | `claims.jsonl:122` | `clm-f5ucdo` | `:123` | `research/2026-06-15_grid-definition-cartography.md`:187 |
+> | `claims.jsonl:203` | `clm-mroghg` | `:204` | `_orchestration/2026-08-02_manuscript-reconciliation-board.md`:172 |
+> | `claims.jsonl:239` | `clm-q8un7j` | `:240` | `…k4-zone-edge-nyquist-settle_prereg_FROZEN.md`:39 (**FROZEN**) + its result `:87` |
+> | `claims.jsonl:252` | `clm-refjr6` | `:253` | `research/2026-06-24_engine-reroute-epic-summary.md`:93 + two docket entries |
+> | `claims.jsonl:357` | `def-b0nd01` | `:358` | `research/2026-08-06_iomega-law_result.md`:686 |
+>
+> **Root cause, stated so it is not re-learned:** a `:NN` cite into a generated,
+> stable-sorted index is inherently volatile — ANY new `clm-`/`def-`/`sup-`/axiom
+> node moves it. The durable citation form is the **node id** (`clm-q8un7j`), which
+> is greppable and shift-proof by construction. Not repaired here (frozen prereg;
+> and the practice, not this landing, is the defect); routed.
+
+**Consequently `expected-independent-axiom-count` is now 5 and the two counts AGREE.**
+
+> **⚑ THE ARC IN MINIATURE.** The axiom was ratified, registered, indexed and gated —
+> and still did not exist in the book anyone would read, because no document `\input`
+> the file. Wiring it into the foreword is the whole fix; noticing that the machine
+> state and the readable state had silently diverged is the point worth keeping.
+The earlier state — ratified-axiom 5, framework-node 4 — is closed, not papered over.
+
+> **⚑ HOMONYM GUARD — "Axiom 5" is an overloaded token as of this landing.** Three
+> live engine files use `Axiom 5` for an unrelated coupled-resonator normal-mode
+> operator: `src/ave/solvers/coupled_resonator.py`, `src/ave/condensed/silicon_crystal.py`,
+> `src/ave/condensed/silicon_doping.py`. They pre-date this axiom and are **NOT**
+> renamed here — engine code is outside this lane's fence. Note the direction of the
+> problem: before this landing that label pointed at *nothing*; it now silently
+> re-targets onto a real axiom, so a bare `grep "Axiom 5"` returns two unrelated
+> objects. **Canonically, "Axiom 5" means Substrate DC Bias and nothing else.** The
+> engine token is the stale one; rename/disambiguation is routed, not done here.
+
+### Per-axiom PHASE-STRUCTURE map (R45 comprehensive doctrine; R47 item 5)
+
+**This is a phase-structure column, NOT a scope-limitation column.** Each axiom is a
+law of the MATERIAL; the map states (a) its crystalline-phase form, (b) its behavior
+at each phase boundary *where derived*, and (c) its NAMED-OPEN holes as first-class
+entries. **Honesty requirement (R45): comprehensiveness is the FRAME; the text never
+claims content it lacks.** An "unwritten" cell below is a real hole, deliberately
+named — not a hedge and not a promise.
+
+| Axiom | (a) Crystalline-phase form | (b) At a derived phase boundary | (c) NAMED-OPEN holes |
+|---|---|---|---|
+| **1** Substrate Topology | K4 Cosserat crystal, 6-DOF micropolar nodes, intrinsic LC per node — the R7 header text at `:151`, now read as row (a) rather than as a scope fence | the saturation boundary via Ax 4's kernel; the buckling/strut projection at near-yield | **de-bonded** phase topology (unwritten); **genesis** (pre-lattice) (unwritten); **pre-freeze** (unwritten) |
+| **2** Topo-Kinematic Isomorphism | $[Q]\equiv[L]$, charge = Burgers-vector dislocation; integers survive coarse-graining | integer protection is topological, so it does NOT lapse at the yield boundary — the one cell where the crystalline law provably carries across | **genesis/formation** of a winding (leans-falsified as a ROUTE, not as existence); $\mathbb{Z}_3$ fractional splitting; the de-bonded phase's dictionary (unwritten) |
+| **3** Minimum Reflection Principle | lossless-reactive extremal principle in two co-canonical forms; temporal-gauge (Weyl) written action | Ax3-lossless is what makes the bond-LC L2 invariant exact, so it is load-bearing AT the yield boundary | the variational ⇄ min-$\|\Gamma\|^2$ **equivalence** (ASSERTED, underived — see `:174`); **ruptured-phase** form (unwritten); whether losslessness itself survives past-wall (unwritten) |
+| **4** Universal Saturation Kernel | $S(A)=\sqrt{1-(A/A_{yield})^2}$ — the kernel IS the boundary law, so this axiom is the one that spans (a)→(b) by construction | the yield boundary is its own subject; vertical tangent at $A\to A_{yield}$ | the ceiling's **HARDNESS** (yield *exists* = derived; yield is *hard/impulsive* = open); cross-grade combine rule underdetermined at $O(\alpha)$; **past-wall** behavior (unwritten) |
+| **5** Substrate DC Bias | clauses **Q** and **G** are the crystalline-phase law. Clause **S** is *genesis-deposited boundary DATA on this phase* — present and conserved, **mechanism-agnostic** | $D(A)$ carries clause G's response into the graded regime; the $D(A)\to\infty$ wall is past-wall-adjacent and **not written** | **★ THE BIAS PROPAGATION THEOREM — this axiom's STANDING DEBT.** Clause G's elliptic law is the **static abstraction of underived finite-speed bias dynamics** (an elliptic solve is instantaneous by construction, and the axiom does not write what replaces it when the source moves). **The $(u,\pi)$ no-signalling theorem does NOT cover the bias read** — it is proven on the $(u,\pi)$ sector and the bias is a declared distinct object, so the bias's finite propagation speed is **owed, not held**. Also: **the genesis-phase law that writes clause S's flux** (the deposit is data, not a derivation); **de-bonded** form of all three clauses (unwritten); **pre-freeze** (unwritten) |
+
+*Ax5's row is R45's own worked example, carried in substance from the ruling: "Q and
+G are crystalline-phase law; S is genesis-deposited boundary data on the crystalline
+phase, mechanism-agnostic — the mechanism is a named-open entry of the genesis phase."*
+
+### Summary roll-up delta (the table above is NOT rewritten in place)
+
+| Axiom | node | status | residual_content | count-effect |
+|---|---|---|---|---|
+| **5** Substrate DC Bias (deposit · grade · quiescence) | `axiom-5` ✅ **minted** | POSTULATED *(bin: RATIFIED-ADDITION)* | whole axiom (clauses S + G + Q; one coupling constant 𝒜_g — DERIVE-FIRST, in no register) | counts (1) |
+
+**LIVE independent-axiom count = 5** — ratified-axiom count and framework-node count
+now AGREE (`expected-independent-axiom-count: 5` in the `axiom-meta` block). Zero
+axioms at DERIVED-TO-THEOREM; one at RATIFIED-ADDITION.
+
+### 𝒜_g and the independent-PARAMETER count — RULED, not left to a blind gate
+
+**⚑ SUPERSEDES this section's earlier "𝒜_g enters NO register (R46 derive-first)"
+statement.** The derive-first gate has been discharged — the lane reported, the frozen
+hypothesis $\mathcal{A}_g = c\,\ell_{node}^2$ is NOT SUPPORTED — and **R48 rules that
+𝒜_g DOES enter the register now**, under a new class.
+
+- **𝒜_g's home:** [`interlock-register.md`](interlock-register.md), per-constant
+  criteria register, class **`UNVALUED-RATIFIED-CONSTANT`** (minted by R48). Ratified
+  as real, **COHERENT across consumers at $f = 7$** under the declared $4\pi$
+  convention, and **UNVALUED** — no sound consumer values it.
+- **The calibration count STAYS 3, BY RULING.** It moves 3 → 4 exactly when a
+  **sound** consumer produces a value. This is the disposition of the standing
+  parameter-economy question, and it must be read correctly: the count is unmoved
+  **because R48 ruled that an unvalued constant buys no parameter and costs none** —
+  **NOT** because the INVARIANT-S13 gate structurally cannot see 𝒜_g. Both facts are
+  true and only one is the reason. Mechanically: 𝒜_g mints no `ilk-` node and is
+  deliberately absent from `calibration-params:`, and the register's own integration
+  note states the count is computed *"ONLY from the `ilk-` `real_or_fitted` tags …
+  NOT from this section"*. So a green `verify-kb-metadata` here reports the **ruled**
+  state.
+- **The one VALUED route is an EXHIBIT of its own inconsistency, not a value.** The
+  near-field-store (added-mass) row inverts to
+  $\mathcal{A}_g \approx 3.7\times10^{32}$–$1.2\times10^{33}\,\mathrm{m}^2$, but at
+  that value the bound-response strain is $\sim2.3\times10^{10}$ at a solar surface —
+  **ten orders past yield**, while the row declares itself cold-linear. Self-refuting
+  on its own regime declaration. **The row's repair is ROUTED and is deliberately not
+  performed here.**
+- **𝒜_g is not a falloff.** The $1/r$ bias profile and $1/r^2$ bound response are free
+  geometry from the elliptic solve; 𝒜_g is the **scale converter** (metres of
+  displacement per unit bias slope). *(R48 walk note of record.)*
+- **Non-circularity observation, ROUTED (recorded, not adjudicated):** clause G is
+  non-circular only if the bias $\varepsilon_{11}$ is a **distinct object** from
+  mechanical strain $\nabla u$; the $\ell_{node}^2$ hypothesis's 57-order miss is
+  **evidence FOR that distinctness**. Routed to the residence-lane family.
+
+### R49(a) — the clause-G source convention: repaired here, routed there
+
+**The correction (TYPO-CLASS, dated fragment, NOT a re-ratification).** The ratified
+clause-G text writes the elliptic law with a bare `= T₀₀`; the canonical declared
+convention carries the $4\pi$ — [`gordon-optical-metric.md`](../vol3/gravity/ch03-macroscopic-relativity/gordon-optical-metric.md):25
+(clm-rd9cjm), verbatim: *"-\left(\frac{c^{4}}{7G}\right)\nabla^{2}\epsilon_{11}(r) = 4\pi Mc^{2}\delta^{3}(r)"*.
+R49(a) corrects it typo-class **because the ratification never exhibited the
+convention question** — there was nothing to re-ratify. No VALUE moves; the $f = 7$
+chain is unchanged.
+
+**⚑ SITE COUNT RE-DERIVED AT HEAD, NOT INHERITED — and CORRECTED TWICE.** The
+upstream inventory says *"five-plus sites"*. My derivations, in order, with the reason
+each moved: **19** (first strict pass — WRONG, false-negatived on the Unicode `∇²`
+superscript) → **25** (widened) → **27** (widened again: `.json`/`.jsonl` were outside
+the scanned extensions, and the *inside-bracket* variational form
+`(−∇·[κD∇ε₁₁] − T₀₀)` never has `= T₀₀` on the right-hand side so the `=`-anchored
+pattern could not see it). **27 is the current figure: 3 repaired here + 24 still
+carrying the bare source.** Every intermediate number is shown because a count that
+moved three times under my own method is exactly the thing not to present as final.
+
+| Class | n | Sites | Disposition |
+|---|---|---|---|
+| KB / manuscript prose | 3 | `saturating-modulus-and-backreaction.md`:42, :50; `vol3/claim-quality.md`:1254 | **REPAIRED HERE**, each same-line with a dated typo-class note. Also repaired: that leaf's `:43-44` cite, which named `gravitational-refractive-index-gradient.md` — a file carrying **neither** formula — now re-pointed to the gordon leaf + clm-rd9cjm. |
+| Verbatim-quoted ratified text | 4 | `axiom-register.md`:350 (inside the quoted clause-G block); `2026-08-10_inventory-review.md`:211, :450, :455 | **NOT rewritten.** Ratified text quoted verbatim is never edited; the dated fragment in [`eq_axiom_5.tex`](../../common_equations/eq_axiom_5.tex) carries the correction for all four. |
+| Dated / FROZEN research | 12 | `2026-06-29_grqed-stage1-gr-extension_result.md`:14, :16, :38, :39, :73, :164; `2026-08-10_bound-constitutive_result.md`:37, :120, **:173**; `…_prereg-FROZEN.md`:16; `2026-08-07_a1-port-sourcing_result.md`:123; `2026-08-09_bound-response_result.md`:61 | **SURFACE-NOTE CLASS, not repaired.** ★ **`:173` is the substantive one and was missed by my first two passes**: it is not a prose restatement but the corrected energy functional's **Euler–Lagrange pair**, `D(ε₁₁)·(−∇·[κD∇ε₁₁] − T₀₀) = 0`. Under the declared 4π convention the variational source must carry the 4π too, or the *"R9 machine-verified"* stationarity statement no longer matches the canon law. **A convention-dependent DERIVATION, not a label** — flagged as such and routed, since the doc is frozen. |
+| Driver artifact | 1 | `research/drivers/bound_response_consumer_audit.json`:3120 | **SURFACE-NOTE CLASS, not repaired** — a frozen classifier artifact whose `rationale` string restates clause G with a bare `T₀₀`. Missed by my earlier passes because `.json` was outside the scanned extensions. |
+| Engine `src/ave/` | 7 | `gw_propagation.py`:364, :368, :412, :456, :482, :599; `backreaction.py`:12 | **ROUTED, out of the doc lane's fence.** The upstream inventory named three of these; there are seven. |
+
+**Also routed, unrepaired (from the same upstream inventory, re-verified as real):** the
+engine units-bridge gap (`backreaction.py` runs dimensionless-lattice and carries no
+$4\pi$ in its source normalization — nothing bridges its lattice `T₀₀` to the canon
+$4\pi$-carrying SI source), and the $\kappa$ dimensional-label question ($c^4/7G$
+carries FORCE units as the equation requires, yet is labelled `[Pa]` in code).
+
+### Routed follow-on — the parsimony-class count sites (flag-don't-fix, NOT repaired here)
+
+Two deltas landed today (a fifth axiom; a new coupling constant 𝒜_g whose status is
+open). The **naming** class of "four axioms" sites is NOT stale — "the four founding
+axioms" remains correct, and `eq_axiom_5.tex` says so explicitly — but the
+**derivation-base / parsimony** class understates the base and is routed:
+
+| Site | What is stale |
+|---|---|
+| `README.md`:41, :51, :74 | "47 predictions … from exactly **4 axioms**"; "3 dimensionful constants `{m_e, α, G}` plus the 4 axioms" |
+| `LIVING_REFERENCE.md`:13 | "1 cosmological IC (Ω_freeze) + 1 scale (ℓ_node) + 4 axioms" |
+| `manuscript/backmatter/02_full_derivation_chain.tex`:1053, :1057, :1137 | "+ four axioms"; "reduces 26 SM parameters to a 3-element bounding set + four axioms" |
+
+Excluded on purpose (per `eq_axiom_5.tex`: *"It is NOT one of the four founding
+axioms and does not renumber them"*): every site that NAMES the founding set —
+`README.md`:63 "The 4 Axioms", `LIVING_REFERENCE.md`:447 "Never modify the 4 axioms",
+`01_fundamental_axioms.tex`:2's chapter title, and the "Vol 1 Ch 1 (Four Fundamental
+Axioms)" cross-refs. Those are names, not counts, and are correct as written.

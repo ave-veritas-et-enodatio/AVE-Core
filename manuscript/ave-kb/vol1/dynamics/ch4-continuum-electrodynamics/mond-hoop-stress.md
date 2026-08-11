@@ -34,7 +34,7 @@ By applying this exact continuum mechanics projection to the topological knot, t
 > a_{genesis}=\frac{a_r}{2\pi}=\frac{c\cdot H_{\infty}}{2\pi} = \frac{14 m_e^3 c^2 G}{\hbar^2 \alpha^2} \approx 1.07 \times 10^{-10} \text{ m/s}^2
 > $$
 
-> **[Resultbox]** *Superluminal Longitudinal (P) Wave Velocity*
+> **[Resultbox]** *Superluminal Longitudinal (P) Wave Velocity* 🔴 **[DEMOTED 2026-08-11 — R40-B1; dated demotion note at the end of this file]**
 >
 > $$
 > c_L = \sqrt{\frac{K_{vac} + \tfrac{4}{3}G_{vac}}{\rho_{bulk}}} = \sqrt{\tfrac{10}{3}}\,c \approx 5.48 \times 10^{8} \text{ m/s} \approx 1.83c
@@ -134,3 +134,52 @@ The Ideal Ropelength is a TOPOLOGICAL INVARIANT (Cantarella, Kusner, Sullivan 20
 <!-- Figure: fig:unruh_hawking_hoop_stress — Hoop Stress and the MOND Boundary. (Simulation Output). Classical Hoop-Stress projection (T = F_r/2*pi) upon an elementary 1D Fermion topological loop. When embedded within an isotropic 3D expanding horizon (a_r = c*H_infinity), the 2*pi divisor subjects the knot to an internal drift of a_genesis ~ 1.07e-10 m/s^2. -->
 
 ---
+
+---
+
+### 🔴 Dated demotion note — 2026-08-11 (R40 demotion sweep, batch 1)
+
+**Class: DIES-WITH-THE-PHANTOM.** Status change only — the claim text is **preserved
+verbatim** (honesty-lag pattern, Rule 12) and stamped in place; it is **no longer live
+canon**. Nothing is deleted.
+
+**Demoted in this file:**
+
+- **`:40`** — *"c_L = \sqrt{\tfrac{10}{3}}\,c \approx 5.48 \times 10^{8} \text{ m/s} \approx 1.83c"*
+  Stamped in place at `:37`.
+  **Why it dies (audited row rationale, verbatim):** 'Superluminal Longitudinal (P) Wave Velocity' resultbox asserts a physical transit speed; the leaf's own :43 note says neither longitudinal speed feeds a_0 = cH/(2pi), so amputation is clean — the MOND result is a static hoop-stress projection and survives independently.
+  **Scope carve (review fix 2026-08-11).** `:43` is **NOT** listed as covered. The audited rationale
+  cites it as EVIDENCE that the amputation is clean, verbatim: *"the leaf's own :43 note says neither
+  longitudinal speed feeds a_0 = cH/(2pi), so amputation is clean — the MOND result is a static
+  hoop-stress projection and survives independently."* Whether `:43`'s own retained $\sqrt2\,c$ bulk
+  quantity re-scopes is a batch-2 question, not adjudicated here.
+
+**The arc, complete — the framing R40 rules every demotion note carries:**
+
+1. **The kill fired** (#930) — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the #261 K = 2G import** (G-RECON, unchallenged): the compressible
+   far-field branch was minted by a GR-imported elastic modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the #935 flat-direction finding: the written
+   action conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the RATIFIED bound-sector law — Axiom 5, Substrate DC Bias**
+   (BC-SRC clauses **S** / **G** / **Q**), ratified per `_orchestration/docket-entries/2026-08-10-ruling-r43-ratification.md`, as reconciled by `_orchestration/docket-entries/2026-08-10-ruling-r44-r43-reconciliation.md` (R44 — the
+   full-scope R43 record is FINAL and authoritative; the partial
+   `_orchestration/docket-entries/2026-08-10-ruling-r43-sg-ratified.md` is SUPERSEDED and is **not**
+   the resolution). Under the ratified law the A1 / bulk slot is a **bound response** — mechanism
+   gloss **back-reaction** — with no independent propagating branch, no port, and zero longitudinal
+   characteristic speed. A bulk *wave speed*, a bulk *radiative port*, a bulk *band-branch* and a
+   bulk *transit clock* therefore have **no referent**.
+
+**Standing named-open debt (the honest rider).** The ratified axiom does **not** discharge
+everything: **THE BIAS PROPAGATION THEOREM** is Axiom 5's standing named-open entry — clause G's
+elliptic law is the *static abstraction* of underived finite-speed bias dynamics (`_orchestration/2026-08-10_bias-propagation-brief.md`). Where a
+demoted claim's replacement depends on finite-speed bias dynamics, the resolution is the ratified
+axiom **with that debt open**, not a closed replacement.
+
+**Records.** R40 ruling `_orchestration/docket-entries/2026-08-10-rulings-r40-r42.md` · verified worklist `research/drivers/r40_sweep_worklist_verified.json` · scope verification `_orchestration/2026-08-10_r40-sweep-scope-verification.md` ·
+batch-1 record `_orchestration/2026-08-11_r40-sweep-batch1.md` · vocabulary R50 `_orchestration/docket-entries/2026-08-10-ruling-r50-vocab.md` (canonical: the displacement pattern u₀ around a
+deposit is **the bound response**, mechanism gloss **back-reaction**; ε₁₁ is **the bias**;
+"dress", "grade"-as-canonical-noun and "halo"-for-the-physics are retired; and the owed theorem is
+renamed **THE BIAS PROPAGATION THEOREM**) · vocabulary **R49(b)** `_orchestration/docket-entries/2026-08-10-rulings-r48-r49.md` (*"retardation"
+is RETIRED from this role. The canonical term is **propagation delay / finite propagation speed*** —
+the retardation retirement is R49(b)'s, NOT R50's; corrected 2026-08-11 at review).

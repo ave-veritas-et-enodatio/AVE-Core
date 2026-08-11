@@ -176,11 +176,11 @@ _CODE_FENCE_RE = re.compile(r"^```")
 # Framework-node parsing (from manuscript/ave-kb/CLAUDE.md).
 # Invariant headings: `### INVARIANT-XX: <title>`.
 _INVARIANT_HEADING_RE = re.compile(r"^### (INVARIANT-[A-Z]+[0-9]+):\s*(.+)$")
-# Axiom bullets in the INVARIANT-S2 section: `- Axiom N: **<title>** — ...`.
-_AXIOM_BULLET_RE = re.compile(r"^- Axiom ([1-4]): \*\*(.+?)\*\*")
+# Axiom bullets in the INVARIANT-S2 section: `- Axiom N: **<title>** — ...`.  [1-4]->[1-5] 2026-08-10, R47 item 1, for Axiom 5 (Substrate DC Bias) — the first new axiom since the founding set (R44: "the axiom count is 5"). MINIMAL: bumped to the LIVE COUNT, deliberately NOT opened to \d+, so a typo'd "Axiom 9" still fails loudly instead of silently minting a node. Edit kept LINE-COUNT-NEUTRAL: this file carries inbound :NN cites as deep as :2989.
+_AXIOM_BULLET_RE = re.compile(r"^- Axiom ([1-5]): \*\*(.+?)\*\*"); _AXIOM_BULLET_LOOSE_RE = re.compile(r"^\s*-\s*Axiom\b")  # broad RECOGNIZER (leading indent INCLUDED: an indented bullet is THE canonical malformation -- see the FrameworkNodeParseError docstring, which names it first, and the indent-mangling regression fixture). A line this matches but the strict one does not is MALFORMED, never skipped.
 # In-bullet target tokens for depends-on head extraction.
 _INVARIANT_TOKEN_RE = re.compile(r"\b(INVARIANT-[A-Z]+[0-9]+)\b")
-_AXIOM_TOKEN_RE = re.compile(r"\bAxiom ([1-4])\b")
+_AXIOM_TOKEN_RE = re.compile(r"\bAxiom ([1-5])\b")
 
 # Quality-field parsing.
 # `confidence: 0.X` and `solidity: 0.X (build-status phrase) [optional arithmetic]`
@@ -539,12 +539,12 @@ def parse_framework_nodes(kb_root: Path = KB_ROOT_DEFAULT) -> list[FrameworkNode
     Invariants come from ``### INVARIANT-XX: <title>`` headings; each node's
     ``canonical_anchor`` is the GitHub-style slug of its own heading.
 
-    Axioms come from the ``- Axiom N: **<title>** — ...`` bullets in the
-    INVARIANT-S2 section; all four point at the INVARIANT-S2 heading's slug
-    (the KB's axiom-numbering authority). Node ids are ``axiom-1``..``axiom-4``.
-
-    Returns an empty list if ``CLAUDE.md`` is absent. ``canonical_path`` is
-    ``"CLAUDE.md"`` for every framework node.
+    Axioms come from the ``- Axiom N: **<title>** — ...`` bullets, N in 1-5 (the
+    Axiom-5 bullet sits in the "INVARIANT-S2 continuation"; the scan is whole-file).
+    Ids ``axiom-1``..``axiom-5``. THREE OUTCOMES PER LINE, NO FOURTH: parsed /
+    not-a-bullet (silent) / MALFORMED -> RAISES FrameworkNodeParseError naming
+    file:line -- a leading-INDENTED bullet is the canonical malformed case, and a
+    prose bullet opening "- Axiom N" now hard-fails. Empty list if CLAUDE.md absent.
     """
     claude_md = kb_root / "CLAUDE.md"
     if not claude_md.is_file():
@@ -570,19 +570,19 @@ def parse_framework_nodes(kb_root: Path = KB_ROOT_DEFAULT) -> list[FrameworkNode
             if label == "INVARIANT-S2":
                 s2_anchor = anchor
 
-    for line in lines:
+    for lineno, line in enumerate(lines, 1):
         m = _AXIOM_BULLET_RE.match(line)
-        if m:
-            num, title = m.group(1), m.group(2).strip()
-            nodes.append(
-                FrameworkNode(
-                    node_type="axiom",
-                    id=f"axiom-{num}",
-                    title=title,
-                    canonical_path="CLAUDE.md",
-                    canonical_anchor=s2_anchor or "",
-                )
-            )
+        if not m:
+            # THREE-WAY OUTCOME (R48 tightening, Grant: "kill the mode, not just the
+            # range"): parsed / no-bullet / MALFORMED. A line that LOOKS like an axiom
+            # bullet but fails the strict parse must NEVER vanish silently -- the
+            # silent-skip mode was the real defect; [1-4]->[1-5] only moved its edge.
+            if _AXIOM_BULLET_LOOSE_RE.match(line):
+                raise FrameworkNodeParseError(
+                    f"MALFORMED axiom bullet at CLAUDE.md:{lineno}: {line.rstrip()!r}. "
+                    f"Expected `- Axiom N: **<title>** - ...`, N in 1-5, bold title.")
+            continue
+        nodes.append(FrameworkNode(node_type="axiom", id=f"axiom-{m.group(1)}", title=m.group(2).strip(), canonical_path="CLAUDE.md", canonical_anchor=s2_anchor or ""))
     return nodes
 
 

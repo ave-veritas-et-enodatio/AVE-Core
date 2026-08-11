@@ -296,7 +296,7 @@ The scalar potential $V$ at any node rises or falls based on the net sum of curr
 \end{equation}
 \end{resultbox}
 
-This explicit two-step numerical engine enforces local gauge invariance and energy conservation across the discrete crystal. By injecting arbitrary external scalar tension or driving boundary vector currents, the Python engine calculates macroscopic electrodynamic waves and structural stress tensors from the ground up, generating complex physics without abstracting to macroscopic geometry.
+This explicit two-step numerical engine enforces the \emph{discrete Gauss-generator conservation} and energy conservation across the discrete crystal (rescoped 2026-08-10, R43: the exact content is the \emph{residual}, time-independent gauge family $\mathbf{A}\to\mathbf{A}+\nabla\lambda(\mathbf{x})$ and its Noether charge $\nabla\cdot(\varepsilon_0\partial_t\mathbf{A})$ --- \emph{not} full local U(1) gauge invariance, which is not a symmetry of the written action; see \texttt{eq\_axiom\_3.tex}). By injecting arbitrary external scalar tension or driving boundary vector currents, the Python engine calculates macroscopic electrodynamic waves and structural stress tensors from the ground up, generating complex physics without abstracting to macroscopic geometry.
 
 \subsection*{Master Constants Derivation Pipeline}
 \begin{center}

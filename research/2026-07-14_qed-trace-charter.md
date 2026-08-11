@@ -184,3 +184,51 @@ The charter must reconcile the standing anti-diagram prose (*"No Feynman diagram
 - **Regge-vs-(2,q)-ladder contact → FUTURE DESK-CHECK (flagged only).** The one concrete contact worth a later look: the **Regge trajectory** (J ∝ M², linear mass²-vs-spin) versus AVE's **(2,q) torus-knot ladder** (the baryon mass ladder indexed by winding). Whether the linear Regge slope and the (2,q) ladder spacing are the *same* combinatorial object viewed two ways, or merely superficially similar, is **an open desk-check** — not run here, not claimed. Flagged for a future consistency pass; if pursued, it freezes its own pre-reg with the FORM/VALUE firewall (a linear-in-index mass ladder is generic, so any match is echo-suspect until a distinct spacing coefficient is forced).
 
 **Net:** walk-class throughout. The lineage rhyme licenses no number and no chord; it is recorded as context for why "read the math as medium data" is a recurring dual across programs that dropped (or never had) the constitutive layer.
+
+---
+
+## ★ DATED SURFACE-NOTE (2026-08-10, R43) — the Axiom-3 Noether quote this charter hosts has been REPAIRED upstream
+
+**This is a surface-note, not a rewrite.** This charter is a FROZEN founding
+document; nothing above is edited, and the sites named below keep their original
+bytes. This note is appended so a reader arriving at those lines is not left
+holding a superseded upstream quote.
+
+**What changed upstream.** `manuscript/common_equations/eq_axiom_3.tex:27`
+formerly read *"Energy conservation and U(1) gauge symmetry follow as Noether
+consequences of $\mathcal{L}_{node}$'s symmetry structure."* Under R43
+(`_orchestration/docket-entries/2026-08-10-ruling-r43-ratification.md`, "TIER A
+RATIFIED") that sentence is REPLACED. The written action carries no $A_0$ term,
+so **full time-dependent U(1) is NOT a symmetry of it** — the $|\partial_t
+\mathbf{A}|^2$ term shifts by $\varepsilon_0(\partial_t\mathbf{A})\cdot
+\nabla(\partial_t\lambda) + \tfrac12\varepsilon_0|\nabla(\partial_t\lambda)|^2$.
+The action's exact internal symmetry is the **residual, time-independent** family
+$\mathbf{A}\to\mathbf{A}+\nabla\lambda(\mathbf{x})$, whose Noether content is the
+pointwise conservation of the Gauss function
+$\nabla\cdot(\varepsilon_0\partial_t\mathbf{A})$.
+
+**Sites in this family that host the superseded quote** (all left byte-unchanged):
+`:33` (the Ward-host row), `:110` (the Ward dictionary-row costing), `:168` (the
+receipts table row citing `eq_axiom_3.tex:27` + `axiom-register.md:231`), and
+`research/2026-07-14_qed-trace-beta-gate_prereg_FROZEN.md:30`. **The frozen
+prereg is deliberately NOT annotated at all** — a frozen prereg stays
+byte-untouched, and this note is the family's single surface record for it.
+
+**What survives, and it is the load-bearing half.** The charter's Ward-host claim
+is *"Ward = conservation identities"*, and that host is **stronger** after the
+repair, not weaker: the residual symmetry's Noether charge IS the Gauss
+generator, i.e. exactly a conservation identity. **No mapping row, no costing, and
+no gate in this charter is invalidated** — the Ward↔conservation-identity
+dictionary row lands on the repaired statement as cleanly as on the old one. What
+a reader must NOT carry forward is the *"U(1) gauge symmetry follows as a Noether
+consequence"* wording for the FULL group.
+
+**Second, independent caveat on the `:168` receipt row:** it also cites
+`common/axiom-register.md:231`. That register field is unchanged, but its
+companion at `:174` was self-contradictory and was repaired under the same R43
+batch (drift finding D2) — the Ax3 variational⇄boundary equivalence is
+**ASSERTED, an underived dynamics leg**, not "a proven internal theorem".
+
+**Sweep provenance:** `research/2026-08-10_bound-constitutive_sweep-record.md`
+§NEEDS-RESCOPE row 9 — *"hosts :27 verbatim; content survives as the
+Gauss-generator statement; FROZEN docs get dated surface-notes only"*.
