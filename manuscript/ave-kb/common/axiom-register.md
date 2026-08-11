@@ -453,11 +453,17 @@ silently committed — this is canonical infrastructure):
 > into it are affected, and the re-resolution map is given here because one of the
 > citing documents is a FROZEN prereg and cannot be re-pointed:
 >
-> | Cite | Record it meant | Now at |
-> |---|---|---|
-> | `claims.jsonl:122` (`research/2026-06-15_grid-definition-cartography.md`:187) | `clm-f5ucdo` | `:123` |
-> | `claims.jsonl:239` (`…k4-zone-edge-nyquist-settle_prereg_FROZEN.md`:39 + its result `:87`) | `clm-q8un7j` | `:240` |
-> | `claims.jsonl:357` (`research/2026-08-06_iomega-law_result.md`:686) | `def-b0nd01` | `:358` |
+> **Complete map — all SIX affected cites** (re-derived range-aware at the final tip;
+> an earlier cut of this note listed only three, which was an undercount):
+>
+> | Cite | Record it meant | Now at | Citing site(s) |
+> |---|---|---|---|
+> | `claims.jsonl:17` | `clm-2e9j97` | `:18` | `research/2026-07-20_ringdown-systematics_derivation.md`:19 |
+> | `claims.jsonl:122` | `clm-f5ucdo` | `:123` | `research/2026-06-15_grid-definition-cartography.md`:187 |
+> | `claims.jsonl:203` | `clm-mroghg` | `:204` | `_orchestration/2026-08-02_manuscript-reconciliation-board.md`:172 |
+> | `claims.jsonl:239` | `clm-q8un7j` | `:240` | `…k4-zone-edge-nyquist-settle_prereg_FROZEN.md`:39 (**FROZEN**) + its result `:87` |
+> | `claims.jsonl:252` | `clm-refjr6` | `:253` | `research/2026-06-24_engine-reroute-epic-summary.md`:93 + two docket entries |
+> | `claims.jsonl:357` | `def-b0nd01` | `:358` | `research/2026-08-06_iomega-law_result.md`:686 |
 >
 > **Root cause, stated so it is not re-learned:** a `:NN` cite into a generated,
 > stable-sorted index is inherently volatile — ANY new `clm-`/`def-`/`sup-`/axiom
