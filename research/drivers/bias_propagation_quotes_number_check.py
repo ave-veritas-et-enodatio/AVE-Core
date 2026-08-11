@@ -135,6 +135,11 @@ QUOTES = [
     (None, "research/2026-08-10_bound-constitutive_result.md",
      "every observable grade reading is a local functional of the causal",
      "result §1.4 consequence: the second half of that leg"),
+    (None, "research/2026-08-10_bound-constitutive_result.md",
+     "the observable-grade branch lands CAUSAL-CONDITIONAL-ON-BC-SRC",
+     "result §1.4 consequence: that lane's FORK-2 verdict, quoted in this lane's "
+     "body -- registered 2026-08-11 after the delta re-verify found the span had "
+     "been quoted without its verb"),
     # ---- the lane's own frozen prereg (criteria travel verbatim) ----
     (None, "research/2026-08-10_bias-propagation_prereg-FROZEN.md",
      "or any bin admitting a finite-ω longitudinal pole",

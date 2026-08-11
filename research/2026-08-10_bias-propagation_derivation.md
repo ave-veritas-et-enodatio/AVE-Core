@@ -120,7 +120,7 @@ The structural reason is one line: any clock keyed on a quantity that falls as `
 - **DOES:** rule out, in the weak field, every `C¹`-function-of-the-kernel gravitational clock, on the ground that canon has Newtonian gravity. This is an **internal-coherence adjudication** and the run could have come out otherwise.
 - **DOES NOT:** say anything about the strong field (`A → 1`), where the expansions above are void and where the two candidate `S`-readings do genuinely differ in kind.
 - **DOES NOT:** discharge C7. If a resonance's energy carries additional bias dependence (mode volume, `D(A)`-graded confinement, `c_eff`-graded size), `E = ħω_∞` is not the whole energy and (1) is not the whole force.
-- **DOES NOT:** pick a winner in §2's collision. It shows one reading is weak-field-falsified *as a clock*; it says nothing about that same function's role as a **constitutive modulus**, which is a different job for the same symbol.
+- **DOES NOT:** pick a winner in §2's collision. It shows one reading is weak-field-falsified *as a clock*; it says nothing about what that same function's role **would be** as a **constitutive modulus** — which would be a different job for the same symbol, and is **not** a resolution this lane is proposing (the modulus-and-lapse split was shipped as fact in the first cut, and is withdrawn; §2.2a of the result doc).
 
 ---
 
@@ -195,7 +195,15 @@ exclusion ratio ≈ 10⁻¹⁰⁷        (order only; digits not banked)        
 
 > **★ ~107 orders BELOW the comparator, instead of ~4 above. A superluminal pole-bearing completion is NOT excluded by pulsar timing.** The constraint *"whatever completes clause G cannot be a radiating line"* holds **only for `c_g ≲ O(c)`**, and must travel with that scope.
 
-**Disclosure, not reconciliation:** the review's arithmetic quotes `~1.5×10⁻¹⁰⁷` for (15) and this driver's returns `~2.6×10⁻¹⁰⁷` on the same order-only central. They agree at the **order**, which is the only grade banked (the exclusion number carries the lane's one not-refuted Tier-2 MAJOR). The leading-digit difference is recorded rather than resolved by picking one.
+**★The two arms, reconciled (corrected 2026-08-11 — the first cut of this paragraph stated the wrong reason).** The review's arithmetic quotes `~1.5×10⁻¹⁰⁷` for (15) and this driver's returns `~2.6×10⁻¹⁰⁷`. They did **not** run on the same central, and the gap is exact arithmetic rather than unexplained residue. The exclusion ratio is a radiated compression fraction `κ²` divided by the observational cap `κ_max² = 1.3×10⁻⁴` (`result.md` §3 item b), so
+
+```
+driver arm  : κ² implied by 8974× = 8974 × 1.3×10⁻⁴ = 1.1666
+review arm  : κ² = 0.666
+1.1666 / 0.666 = 1.7517 = 2.6416×10⁻¹⁰⁷ / 1.5081×10⁻¹⁰⁷                                (16)
+```
+
+`κ²` is the O(1)-coupling coefficient the lane's one **not-refuted** Tier-2 MAJOR contests (§5) — the coefficient whose Lagrangian normalisation was fixed by a check structurally blind to it. **The difference between the two arms IS that open coefficient and nothing else.** That is why only the **order** is banked, why neither leading digit is, and why this lane picks neither `κ²`. *(Machine-reconciled: the number check recomputes both arms and (16) from the JSON's own `8974` input.)*
 
 *Machine check (driver `L6`):* (13) recomputed independently from `XI_MACHIAN`; (12) recomputed per `ℓ ∈ {1,2,3}`; (15) bracketed in `[1e-108, 1e-106]`.
 

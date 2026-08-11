@@ -278,6 +278,12 @@ def main():
                    L5["generic_leading_force_radial_power"] == round(n_gen)))
     checks.append(("LEMMA: |grad eps| power label == RECOMPUTED",
                    L5["grad_eps_route_radial_power"] == round(n_grad)))
+    # W4 (2026-08-11 delta re-verify): the is-1/r^3 BOOLEAN is its own declared
+    # field and was previously registered against the radial-power check, which
+    # reconciles a DIFFERENT field. It gets its own recomputation here: the
+    # boolean must equal the power recomputed from the shipped force samples.
+    checks.append(("LEMMA: |grad eps| is-1/r^3 label == RECOMPUTED",
+                   L5["grad_eps_route_is_1_over_r3"] == (round(n_grad) == 3)))
     checks.append(("LEMMA: |grad eps| never-1/r^2 label == RECOMPUTED",
                    L5["grad_eps_route_can_never_be_1_over_r2"] == (round(n_grad) != 2)))
     # the S^p leading coefficient, recomputed in plain math: F = -p hbar w_0 r_s^2/r^3
@@ -344,6 +350,32 @@ def main():
     checks.append(("pole scope: validity condition is c_g <~ O(c)",
                    L6["validity_condition"] == "c_g <~ O(c)"))
 
+    # ---- B1 (2026-08-11 delta re-verify): the TWO EXCLUSION ARMS, reconciled --
+    # result.md 1.3 and derivation.md 4 eq.(16) now state that the gap between
+    # this driver's arm and the review's arm is EXACTLY the kappa^2 central --
+    # the coefficient the lane's one not-refuted MAJOR contests. Both literals
+    # below are declared INPUTS, never re-derived here: kappa_max^2 = 1.3e-4 is
+    # the observational cap quoted at result.md 3 item (b), and kappa^2 = 0.666
+    # is the review arm's central. The ratio identity is algebra; what these
+    # checks buy is that the numerals SHIPPED IN THE DOCS are what the
+    # arithmetic returns, so no unverified numeral rides in on the correction.
+    KAPPA_MAX_SQ = 1.3e-4          # result.md 3(b) comparator, declared INPUT
+    REVIEW_ARM_KAPPA_SQ = 0.666    # the review arm's central, declared INPUT
+    supp_l2 = q["suppression_c_over_cg_pow"]
+    driver_arm = q["rescaled_exclusion_ratio_ORDER_ONLY"]
+    review_arm = REVIEW_ARM_KAPPA_SQ * supp_l2 / KAPPA_MAX_SQ
+    implied_kappa_sq = L6["central_at_cg_eq_c_ORDER_ONLY_INPUT"] * KAPPA_MAX_SQ
+    checks.append(("F3 arms: kappa^2 implied by the 8974x central == 1.1666",
+                   abs(implied_kappa_sq - 1.1666) < 5e-5))
+    checks.append(("F3 arms: driver arm == 2.6416e-107 (the doc numeral)",
+                   abs(driver_arm - 2.6416e-107) / 2.6416e-107 < 1e-4))
+    checks.append(("F3 arms: review arm == 1.5081e-107 (the doc numeral)",
+                   abs(review_arm - 1.5081e-107) / 1.5081e-107 < 1e-4))
+    checks.append(("F3 arms: the gap IS the kappa^2 ratio, 1.7517",
+                   abs(driver_arm / review_arm
+                       - implied_kappa_sq / REVIEW_ARM_KAPPA_SQ) < 1e-9
+                   and abs(driver_arm / review_arm - 1.7517) < 5e-4))
+
     # ---- F8c: DECLARED-BOOLEAN COVERAGE GATE -------------------------------
     # Every declared boolean this checker consumes is registered here together
     # with the name of the check that RECOMPUTES the same fact from the JSON's
@@ -402,7 +434,7 @@ def main():
         "L5.slope1_lapse_escapes":
             "LEMMA: the slope-1 lapse ESCAPES with dW/dA|_0 == -1/2",
         "L5.grad_eps_route_is_1_over_r3":
-            "LEMMA: |grad eps| power label == RECOMPUTED",
+            "LEMMA: |grad eps| is-1/r^3 label == RECOMPUTED",
         "L5.grad_eps_route_radial_power":
             "LEMMA: |grad eps| power label == RECOMPUTED",
         "L5.grad_eps_route_can_never_be_1_over_r2":
