@@ -42,3 +42,10 @@ ratified set. (3) The sweep's pending-R41 notes gain their resolution pointers.
 (4) The walk's circuit rows land via the standard audit path. (5) **The λ
 over-determination lane** — measure λ from two independent consumers; the repaired
 sector's first forward test.
+
+---
+**⚑ SUPERSEDED, 2026-08-10 (R44):** this record's session was accidentally reset
+mid-conversation (Grant, verbatim in the R44 record); the FINAL R43 scope is the
+full ratification — Tier A + S + G + Q — per
+`2026-08-10-ruling-r43-ratification.md`. Body preserved above per Rule 12; cite the
+full record.
