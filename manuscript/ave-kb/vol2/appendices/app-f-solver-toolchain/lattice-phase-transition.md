@@ -37,8 +37,9 @@ canon**. Nothing is deleted.
   **Why it dies (audited row rationale, verbatim):** byte-twin of solver-toolchain.md:214 (already DIES); independent leaf clm-d9ivj1 (0.63, input-only)
   (Cite excerpt, verbatim from that twin row: `| Longitudinal waves | Propagate`.)
   **Cross-file referent (review fix 2026-08-11).** The audited row's `:214` is NOT a line of this
-  23-line file — it is `manuscript/ave-kb/common/solver-toolchain.md:214`, the byte-twin row, which this
-  same batch stamps **in its own file**. Nothing further in THIS file is covered.
+  23-line file — it is `manuscript/ave-kb/common/solver-toolchain.md:214` — verbatim there:
+  `| Longitudinal waves | Propagate` — the byte-twin row, which this same batch stamps **in its own
+  file**. Nothing further in THIS file is covered.
 
 **The arc, complete — the framing R40 rules every demotion note carries:**
 

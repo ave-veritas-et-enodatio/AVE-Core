@@ -49,9 +49,9 @@ canon**. Nothing is deleted.
   **Why it dies (audited row rationale, verbatim):** Index restatement of the spoke's partition row — same voiding as translation-elastodynamics.md:19; tabled separately only because it re-asserts the claim rather than merely linking.
   (Cite excerpt, verbatim from that spoke row: `**P/S far-field partition** of an isotropic (Poisson) elastic solid`.)
   **Cross-file referent (review fix 2026-08-11).** The audited row's `:19` is NOT a line of this file —
-  it is `manuscript/ave-kb/common/translation-tables/translation-elastodynamics.md:19`, the spoke's
-  partition row, which this same batch stamps **in its own file**. Nothing further in THIS file is
-  covered.
+  it is `manuscript/ave-kb/common/translation-tables/translation-elastodynamics.md:19` — verbatim
+  there: `**P/S far-field partition** of an isotropic (Poisson) elastic solid` — the spoke's partition
+  row, which this same batch stamps **in its own file**. Nothing further in THIS file is covered.
 
 **The arc, complete — the framing R40 rules every demotion note carries:**
 

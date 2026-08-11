@@ -67,8 +67,9 @@ canon**. Nothing is deleted.
   **Why it dies (audited row rationale, verbatim):** Sibling propagation of the canonical :48 statement; the leaf's own detection content (LIGO reads transverse shear) is Reading-independent and untouched — only the additional bulk radiative channel dies.
   **Scope carve (review fix 2026-08-11).** No site in THIS file is additionally covered. The
   audited row's `:48` is a CROSS-FILE referent — the canonical statement at
-  `manuscript/ave-kb/vol3/gravity/ch08-gravitational-waves/gw-propagation-lossless.md:48`, which this
-  batch stamps in its own file; line 48 of THIS file is blank. The audited rationale carves the rest
+  `manuscript/ave-kb/vol3/gravity/ch08-gravitational-waves/gw-propagation-lossless.md:48` — verbatim
+  there: `admixture radiating on top of the shear decay at $O(1)$ coupling` — which this batch stamps
+  in its own file; line 48 of THIS file is blank. The audited rationale carves the rest
   verbatim: *"the leaf's own detection content (LIGO reads transverse shear) is Reading-independent and
   untouched — only the additional bulk radiative channel dies."*
 
