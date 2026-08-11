@@ -28,10 +28,22 @@ QUOTES = [
      "Per-deliverable: DERIVED / DERIVED-VIA-NEW-AXIOM(candidate) / NOT-DERIVABLE(named"),
     ("_orchestration/2026-08-10_bound-sector-constitutive-brief.md",
      "quietly reconstructs the flat-direction-as-constraint assertion dies at its own"),
+    # ── R43 TIER-A ANCHOR ROTATION (2026-08-10) ──────────────────────────────
+    # These two rows originally byte-checked the PRE-REPAIR sentences, i.e. the
+    # lane's evidence that the two FALSE labels were live at HEAD:
+    #     "This is the standard Maxwell Lagrangian (in vector-potential form)"
+    #     "Energy conservation and U(1) gauge symmetry follow as Noether consequences"
+    # R43 (_orchestration/docket-entries/2026-08-10-ruling-r43-ratification.md,
+    # "TIER A RATIFIED") ratified the section-1.3 repair text and the doc-lane
+    # execution batch landed it, so those strings are correctly ABSENT now. The
+    # rows are rotated to the RATIFIED replacements: the gate keeps its teeth by
+    # asserting the repair is PRESENT rather than that the defect is. The
+    # pre-repair strings are preserved above as the historical record (git carries
+    # the full trail); they are deliberately NOT re-added as expectations.
     ("manuscript/common_equations/eq_axiom_3.tex",
-     "This is the standard Maxwell Lagrangian (in vector-potential form)"),
+     "This is the temporal-gauge (Weyl-gauge, $A_0$-free) form of the Maxwell Lagrangian"),
     ("manuscript/common_equations/eq_axiom_3.tex",
-     "Energy conservation and U(1) gauge symmetry follow as Noether consequences"),
+     "its Noether content is the pointwise conservation of the Gauss function"),
     ("manuscript/common_equations/eq_axiom_4.tex",
      "The electron is a real-space"),
     ("manuscript/common_equations/eq_axiom_4.tex",
