@@ -838,14 +838,14 @@ written", and that preservation is honoured here).
 
 **Site:** `:14`, the §0 RENAME NOTES entry for Axiom 3, which carries the
 parenthetical label *"The variational form (Maxwell Lagrangian, $S_{AVE} = \int
-\mathcal{L}_{node}\,d^4x$)"*.
+\mathcal{L}_{node}\, d^4x$)"*.
 
 **What changed upstream (2026-08-10, R43 "TIER A RATIFIED"; ruling at
 `_orchestration/docket-entries/2026-08-10-ruling-r43-ratification.md`):** the
 variational form is the **temporal-gauge (Weyl-gauge, $A_0$-free)** Maxwell
 Lagrangian. Standard Maxwell dynamics are recovered on the Gauss-constrained
-initial-data surface; the constraint is supplied by the newly-ratified BC-SRC
-clause **S** (`manuscript/common_equations/eq_axiom_bc_src.tex`), not by an
+initial-data surface; the constraint is supplied by the newly-ratified Axiom 5,
+Substrate DC Bias (`manuscript/common_equations/eq_axiom_5.tex`; clause open), not by an
 equation of motion of the written action. Bare "Maxwell Lagrangian" is therefore
 TRUE of the constrained dynamics and FALSE of the action.
 

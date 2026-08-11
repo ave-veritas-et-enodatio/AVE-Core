@@ -125,7 +125,7 @@ landed there, item (ii) would be FALSE.
 audit forbids it — §2.6 item 5 (`:130`), verbatim `[sic]`: *"any new longitudinal stiffness
 or wave (BC-SRC adds no kinetic/potential term on the flat direction — the
 pole-absence results survive it untouched)"*. Landed at
-[`eq_axiom_bc_src.tex`](../../manuscript/common_equations/eq_axiom_bc_src.tex)
+[`eq_axiom_5.tex`](../../manuscript/common_equations/eq_axiom_5.tex)
 ("What BC-SRC forbids").
 
 **Therefore: the premise "an energy-carrying inter-event channel at ≠ c" has NO
@@ -225,4 +225,4 @@ object the Tier-2 reviews, not a cleared verdict.
 [the arc brief](../2026-08-04_lorentz-compliance-arc-brief.md) ·
 [LC-1's result](../../research/2026-08-06_lc1-one-speed_result.md) +
 [its dated disposition note](../../research/2026-08-07_lc1-one-speed_result.md) ·
-[BC-SRC's equation file](../../manuscript/common_equations/eq_axiom_bc_src.tex).
+[BC-SRC's equation file](../../manuscript/common_equations/eq_axiom_5.tex).

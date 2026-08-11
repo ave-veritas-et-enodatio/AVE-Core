@@ -328,7 +328,7 @@ silently committed — this is canonical infrastructure):
   saturation kernel (Ax 4) — but never write the source coupling that pins the
   bound (A1 dilatation) sector's absolute state. **BC-SRC is that missing
   specification: the substrate's DC operating point.** Canonical:
-  [`eq_axiom_bc_src.tex`](../../common_equations/eq_axiom_bc_src.tex)
+  [`eq_axiom_5.tex`](../../common_equations/eq_axiom_5.tex)
   (`eq:bcsrc_deposit`, `eq:bcsrc_bridge`, `eq:bcsrc_quiescence`,
   `eq:bcsrc_falsifier`). **Three clauses, ratified together** — clause text
   landed AS RATIFIED from
