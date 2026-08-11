@@ -106,7 +106,7 @@ A consolidated, **tagged and diagnosed** record of finished negative efforts acr
 - **Tag:** 🔴 **GENUINE-FALSIFICATION — scoped to the NAIVE RADIATIVE READING of the three-channel table** (an independent far-field bulk radiative port with O(1) coupling). **Scope-lock (do NOT over-read):** this **excludes the radiative-port reading**; it does **NOT by itself derive the closure mechanism** — the Reading-B suppression derivation (B1 constraint-slaving / B2 source-projection / B4 no-independent-P-branch) is the **B-mechanism lane's open obligation**. The companion **Reading-B ruling is CONDITIONAL** on that lane: *the bulk sector has no far-field radiative port for gravitating sources — the halo is its complete story (reactive near-field; nothing drains)* — and if the B-lane lands **NONE-DERIVES, this exclusion goes LIVE against the framework** (the Reading-B ruling reverts). Ruling: **Grant 2026-07-20** (Grant-verbatim three-parter, [sic]: *"part 1: loose works / Part 2: bank / part 3: rule it"* — this entry banks **Part 2 "bank"**; ruling content = the orchestrator's walk, ratified in chat). **Consistency-vs-emergence class:** consistency-class kill (imports `K=2G` GR-imported `constants.py:385` + the pulsar `Ṗ_b` observations Weisberg-Huang 2016 / Kramer 2021) — no emergence-class claim; the deliverable is the dimensionless flux ratio and its exclusion significance.
 - **D1 rider (OPEN, not ruled today):** the compact-object scalar-charge/mass question (surfaced by #750's review) rides the B-lane's context and is **not** adjudicated by this ruling.
 - **Recovery (receipts):** merged **#753** on main — `research/2026-07-20_q1-pulsar-hardening.md` (§1 exact prefactor + §2 pulsar-timing budget) + driver `research/drivers/q1_pulsar_timing_budget.py` (+ `_results.json`, speeds from `ave.core.constants` K=2G read-only); the seismology means-test anchor (hardening doc §6, `E_S/E_P ≈ 23.4`); the port register Q1 row (`research/2026-07-20_port-register_draft.md` §3, RULED-CONDITIONAL note); docket ENTRY 32.
-- 🔴 **PROMOTED LIVE 2026-07-20 — banked-conditional → LIVE closed-negative against the gravitational bulk sector (prior entry text above PRESERVED per Rule 12; this is an appended dated status change).** The condition on which the Part-2 bank was held has now fired: the make-or-break mechanical `∇·u` common-mode derivation landed **NONE-DERIVES at review grade** (#761 merged, main @ `caa51c17`; `research/2026-07-20_mechanical-commonmode-derivation_result.md` §5 — verdict NONE-DERIVES: mode-absence FALSIFIED (the A1-dilatation rides the gapless P-branch; Leg-C breathing source radiates `f_long ≈ 0.98` ≫ 0.5 → port OPEN on the lattice), derived-cold-emptying FALSIFIED (`Z_eff → Z_0` cold ⇒ zero conversion), derived-source-decoupling FALSIFIED (tracelessness rescue dead; the source drives the dilatation channel at quadrupole order), and the make-or-break `∇·u` closure **STRUCTURALLY BLOCKED** by the bulk restoring force `K ≠ 0` the EM curl-only Lagrangian lacks). Per the port-register Q1 row's own clause (`port-register.md:87` `[canon]`, verbatim `[sic]`: *"if NONE-DERIVES this ruling REVERTS and the banked Reading-A exclusion (falsification ledger; 9–110σ pulsar) goes live"*), the RULED-CONDITIONAL **Reading-B REVERTS** and **this exclusion is now LIVE**: the AVE gravitational bulk sector carries an independent far-field radiative port at O(1) coupling that binary-pulsar timing excludes at **9–110σ (Hulse-Taylor)** / **100–1400× (double-pulsar)** — a standing closed-negative against the framework's gravitational-radiation sector, no longer a conditional bank. **Rule 11 honest closure:** the branch is closed with the single mechanism named (the elastic-solid `K ≠ 0` bulk restoring force forces a radiating P-wave). **Substitution-not-retraction (Rule 12):** the slot is NOT refilled with a rescue; a future re-open needs a **DERIVED** coupling (the envelope-sector reduction lane, `research/envelope-sector-reduction`, in flight) and its own Grant ruling. **Receipts:** #761 result §5 CONSEQUENCE STATEMENT + the reverted port-register Q1 row (`manuscript/ave-kb/common/port-register.md` §3) + docket ENTRY 37 / ENTRY 2026-07-20-q1-revert-execution.
+- 🔴 **PROMOTED LIVE 2026-07-20 — banked-conditional → LIVE closed-negative against the gravitational bulk sector (prior entry text above PRESERVED per Rule 12; this is an appended dated status change).** The condition on which the Part-2 bank was held has now fired: the make-or-break mechanical `∇·u` common-mode derivation landed **NONE-DERIVES at review grade** (#761 merged, main @ `caa51c17`; `research/2026-07-20_mechanical-commonmode-derivation_result.md` §5 — verdict NONE-DERIVES: mode-absence FALSIFIED (the A1-dilatation rides the gapless P-branch; Leg-C breathing source radiates `f_long ≈ 0.98` ≫ 0.5 → port OPEN on the lattice), derived-cold-emptying FALSIFIED (`Z_eff → Z_0` cold ⇒ zero conversion), derived-source-decoupling FALSIFIED (tracelessness rescue dead; the source drives the dilatation channel at quadrupole order), and the make-or-break `∇·u` closure **STRUCTURALLY BLOCKED** by the bulk restoring force `K ≠ 0` the EM curl-only Lagrangian lacks). Per the port-register Q1 row's own clause (`port-register.md:87` `[canon]`, verbatim `[sic]`: *"if NONE-DERIVES this ruling REVERTS and the banked Reading-A exclusion (falsification ledger; 9–110σ pulsar) goes live"*), the RULED-CONDITIONAL **Reading-B REVERTS** and **this exclusion is now LIVE**: the AVE gravitational bulk sector carries an independent far-field radiative port at O(1) coupling that binary-pulsar timing excludes at **9–110σ (Hulse-Taylor)** / **100–1400× (double-pulsar)** — a standing closed-negative against the framework's gravitational-radiation sector, no longer a conditional bank. **Rule 11 honest closure:** the branch is closed with the single mechanism named (the elastic-solid `K ≠ 0` bulk restoring force forces a radiating P-wave). **Substitution-not-retraction (Rule 12):** the slot is NOT refilled with a rescue; a future re-open needs a **DERIVED** coupling (the envelope-sector reduction lane, `research/envelope-sector-reduction`, in flight) and its own Grant ruling. **Receipts:** #761 result §5 CONSEQUENCE STATEMENT + the reverted port-register Q1 row (`manuscript/ave-kb/common/port-register.md` §3) + docket ENTRY 37 / ENTRY 2026-07-20-q1-revert-execution. 🔴 **[DEMOTED 2026-08-11 — R40-B1; dated demotion note at the end of this file]**
 
 ### a2mu-vs-Q-crux — A²_μ does not scale with Q (WALL, not KNOB)
 - **Hypothesis:** the K4↔Cosserat / Op14 trace-reversal microrotation `A²_μ` scales with the resonant Q — Q is a **knob** that pumps the pair-nucleation gate.
@@ -153,3 +153,51 @@ A consolidated, **tagged and diagnosed** record of finished negative efforts acr
 - **`analysis/2026-06-08-vacuum-z4-coordination-walkback` @ `28026bed`** (pushed) — this is **not a negative**; it is a Tier-C corpus **walk-back** that re-grounds 9 gate-independent claims and **edits 5 canon KB leaves** (`delta-cp-violation.md`, `op14-local-clock-modulation.md`, `k4-tlm-simulator.md`, `first-principles-bond-force-constants.md`, + the neutrino-sector index). The record *is* the walk-back. **Merge-assessment** (does it belong on main?), not a dead-end — held for Grant/auditor, separate from this ledger.
 
 ---
+
+---
+
+### 🔴 Dated demotion note — 2026-08-11 (R40 demotion sweep, batch 1)
+
+**Class: DIES-WITH-THE-PHANTOM.** Status change only — the claim text is **preserved
+verbatim** (honesty-lag pattern, Rule 12) and stamped in place; it is **no longer live
+canon**. Nothing is deleted.
+
+**Demoted in this file:**
+
+- **`:104`** — *"F_bulk/F_shear = (2/3)·(c_shear/c_long)^5 ∈ [0.015, 0.177]` (headline `0.033` at radiative `√(10/3)·c`"*
+  **NOT stamped in body — R39 BYTE-FENCE ROUTED:** the site is inside the Rule-12 preserved prior-entry span declared at :109 ("prior entry text above PRESERVED per Rule 12").
+  Preserved-span bytes are untouched; this ledger entry is the note.
+  **Why it dies (audited row rationale, verbatim):** The Aki-Richards P/S partition and c_long have no referent under the carve — F_bulk ≡ 0 identically; re-reads as SUPERSEDED-INPUT, the imported reading's self-exclusion (receipt FOR the carve).
+- **`:109`** — *"carries an independent far-field radiative port at O(1) coupling that binary-pulsar timing excludes"*
+  Stamped in place at `:109`.
+  **Why it dies (audited row rationale, verbatim):** The PROMOTED-LIVE standing-negative's premise (elastic K≠0 forces a radiating P-branch) IS the import the carve deletes; its voiding is the carve's content — Rule-12 row keeps history, G-RECON owes it a dated diagnosis note.
+
+**The arc, complete — the framing R40 rules every demotion note carries:**
+
+1. **The kill fired** (#930) — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the #261 K = 2G import** (G-RECON, unchallenged): the compressible
+   far-field branch was minted by a GR-imported elastic modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the #935 flat-direction finding: the written
+   action conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the RATIFIED bound-sector law — Axiom 5, Substrate DC Bias**
+   (BC-SRC clauses **S** / **G** / **Q**), ratified per `_orchestration/docket-entries/2026-08-10-ruling-r43-ratification.md`, as reconciled by `_orchestration/docket-entries/2026-08-10-ruling-r44-r43-reconciliation.md` (R44 — the
+   full-scope R43 record is FINAL and authoritative; the partial
+   `_orchestration/docket-entries/2026-08-10-ruling-r43-sg-ratified.md` is SUPERSEDED and is **not**
+   the resolution). Under the ratified law the A1 / bulk slot is a **bound response** — mechanism
+   gloss **back-reaction** — with no independent propagating branch, no port, and zero longitudinal
+   characteristic speed. A bulk *wave speed*, a bulk *radiative port*, a bulk *band-branch* and a
+   bulk *transit clock* therefore have **no referent**.
+
+**Standing named-open debt (the honest rider).** The ratified axiom does **not** discharge
+everything: **THE BIAS PROPAGATION THEOREM** is Axiom 5's standing named-open entry — clause G's
+elliptic law is the *static abstraction* of underived finite-speed bias dynamics (`_orchestration/2026-08-10_bias-propagation-brief.md`). Where a
+demoted claim's replacement depends on finite-speed bias dynamics, the resolution is the ratified
+axiom **with that debt open**, not a closed replacement.
+
+**Records.** R40 ruling `_orchestration/docket-entries/2026-08-10-rulings-r40-r42.md` · verified worklist `research/drivers/r40_sweep_worklist_verified.json` · scope verification `_orchestration/2026-08-10_r40-sweep-scope-verification.md` ·
+batch-1 record `_orchestration/2026-08-11_r40-sweep-batch1.md` · vocabulary R50 `_orchestration/docket-entries/2026-08-10-ruling-r50-vocab.md` (canonical: the displacement pattern u₀ around a
+deposit is **the bound response**, mechanism gloss **back-reaction**; ε₁₁ is **the bias**;
+"dress", "grade"-as-canonical-noun and "halo"-for-the-physics are retired; and the owed theorem is
+renamed **THE BIAS PROPAGATION THEOREM**) · vocabulary **R49(b)** `_orchestration/docket-entries/2026-08-10-rulings-r48-r49.md` (*"retardation"
+is RETIRED from this role. The canonical term is **propagation delay / finite propagation speed*** —
+the retardation retirement is R49(b)'s, NOT R50's; corrected 2026-08-11 at review).

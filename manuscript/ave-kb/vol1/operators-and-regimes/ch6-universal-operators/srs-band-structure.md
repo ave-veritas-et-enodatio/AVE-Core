@@ -91,7 +91,7 @@ d\otimes\hat d)$ at the canonical bond ratio $\rho^*=9.77337$, DERIVED from $\nu
 | estimate | value ($\omega_C$) | value (MeV) | basis |
 |---|---|---|---|
 | normalized-arccos (substrate-native, **LOWER**) | 5.4414 | 2.781 | $\tilde\lambda_{\max}=2.0000$ (srs bipartite) ⇒ $\pi\sqrt3$ for ANY $\rho$ — normalization divides out the stiffness that should lift the top |
-| P-wave-scaled | 9.9346 | 5.078 | $\pi\sqrt3\cdot\sqrt{10/3}$ (macroscopic P/S factor) |
+| P-wave-scaled | 9.9346 | 5.078 | $\pi\sqrt3\cdot\sqrt{10/3}$ (macroscopic P/S factor) 🔴 **[DEMOTED 2026-08-11 — R40-B1; note at EOF]** |
 | lumped-calibrated | 12.4060 | 6.340 | $\pi\sqrt3\cdot\sqrt{\lambda_{\max}(D)/6}$ (elastic $\sqrt{\text{eig}}$, computed) |
 | raw-link ($\sqrt{\rho^*}$, loosest **UPPER**) | 17.0111 | 8.693 | $\pi\sqrt3\cdot\sqrt{\rho^*}$ (raw stiffness link-speed cutoff) |
 
@@ -101,7 +101,7 @@ d\otimes\hat d)$ at the canonical bond ratio $\rho^*=9.77337$, DERIVED from $\nu
   top is pinned at $\pi\sqrt3\,\omega_C$ by $\ell_{\text{node}}+c_0$ alone (a striking "one-scale vacuum"
   reading); under per-channel link speeds the stiff longitudinal channel lifts the Bragg cutoff to
   $\pi\sqrt3\cdot\sqrt{\rho^*}$. Grant's ruling sets the fork-A floor (5.441 vs ~17); it does **NOT** change the
-  band SHAPE, the velocity table (§4), or the gap inventory.
+  band SHAPE, the velocity table (§4), or the gap inventory. 🔴 **[DEMOTED 2026-08-11 — R40-B1; dated demotion note at the end of this file]**
 - Gates PASS: 12 bands $\forall\mathbf k$; scalar reduction exact ($2.7\times10^{-15}$, top 5.4414);
   $\nu_{\text{Hill}}=0.285714$, $K/G=2.0000$, Zener $A=1.2293$; enantiomorphs identical ($1.9\times10^{-8}$,
   the 12×12 roundoff floor, Rule-7 post-hoc relaxation $1\text{e-}9\to1\text{e-}6$ disclosed); $\rho^*$ imported.
@@ -113,13 +113,13 @@ Three $\sqrt{}$-factors are in play; they are **distinct objects** and the surve
 | factor | value | what it is | longitudinal? |
 |---|---|---|---|
 | **$\sqrt3$** | 1.7321 | **network / coordination projection** $c_{\text{link}}\to c_0$ (D=3 isotropic average over $z=3$); the emergent light-speed factor. Multiplies **ALL** branches equally — an overall scale, **NOT a channel/polarization selector**. | **NO — universal network factor** |
-| **$\sqrt{10/3}$** | 1.8257 | **P-wave (LONGITUDINAL)** speed ratio $c_P/c_S$ at the **VRH (Voigt-Reuss-Hill) average ONLY**: $(K+4G/3)/G=10/3$. A **K=2G RE-EXPRESSION** (GR-imported, PR #261), **NOT lattice-emergent** — no single lattice direction gives $10/3$; only the VRH average does. | YES — longitudinal branch factor |
+| **$\sqrt{10/3}$** | 1.8257 | **P-wave (LONGITUDINAL)** speed ratio $c_P/c_S$ at the **VRH (Voigt-Reuss-Hill) average ONLY**: $(K+4G/3)/G=10/3$. A **K=2G RE-EXPRESSION** (GR-imported, PR #261), **NOT lattice-emergent** — no single lattice direction gives $10/3$; only the VRH average does. | YES — longitudinal branch factor 🔴 **[DEMOTED 2026-08-11 — R40-B1; note at EOF]** |
 | **$\sqrt2$** | 1.4142 | **A1-scalar BULK-SOUND** `V_LONG`$=\sqrt{2G/\rho}$, the pure-dilatation A1 port mode that DROPS the $4G/3$ shear term — a **scalar-sector** object **imported from `constants.py:770`**, **NOT a Bloch branch** of this translational problem (not lattice-computed here). | NO — different sector (A1 dilatation) |
 | **$1$** | 1.0000 | **S / transverse (shear)** branch $=c_S=c_0$ — the **light-like PROXY** (velocity factor $1/\sqrt3$ vs $c_{\text{link}}$). ⚠ PROXY: the true photon is the **T2 Cosserat MICROROTATION**, a **named follow-on** not surveyed at this Cauchy-translational level. | transverse |
 
 Direction-resolved $c_P/c_S$ (the Zener $A=1.23$ anisotropy, direction-real, lattice-computed): **[100] 1.71,
 [110] 1.85, [111] 1.90**. Only the Hill average recovers the clean $\sqrt{10/3}$; the per-direction spread IS
-the material anisotropy.
+the material anisotropy. 🔴 **[DEMOTED 2026-08-11 — R40-B1; dated demotion note at the end of this file]**
 
 ## §5 — Consumers
 
@@ -166,3 +166,56 @@ characterization of the substrate's own linear dispersion, not a chord and not a
 - [`../../../common/boundary-observables-m-q-j.md`](../../../common/boundary-observables-m-q-j.md) (clm-3bwhad) — the k-space Nyquist **wavevector** edge ($\sqrt2\,\pi/\ell_{\text{node}}$ srs, $\sqrt3\,\pi/\ell_{\text{node}}$ cubic control), the $\omega$-vs-k companion (§2 discipline note).
 - [`../../../common/lattice-model-register.md`](../../../common/lattice-model-register.md) — the srs-embedding column that owns the Brillouin zone / band edge / dispersion $\omega(k)$; its frequency-fence entry cites this leaf.
 - [`../../../vol4/falsification/ch12-falsifiable-predictions/vacuum-photon-photon-channel.md`](../../../vol4/falsification/ch12-falsifiable-predictions/vacuum-photon-photon-channel.md) (clm-gg4wmx) — the γγ / FORK-A consumer whose tone floor gates on the §5(a) vector-safe placement.
+
+---
+
+### 🔴 Dated demotion note — 2026-08-11 (R40 demotion sweep, batch 1)
+
+**Class: DIES-WITH-THE-PHANTOM.** Status change only — the claim text is **preserved
+verbatim** (honesty-lag pattern, Rule 12) and stamped in place; it is **no longer live
+canon**. Nothing is deleted.
+
+**Demoted in this file:**
+
+- **`:94`** — *"P-wave-scaled | 9.9346 | 5.078 | $\pi\sqrt3\cdot\sqrt{10/3}$ (macroscopic P/S factor)"*
+  Stamped in place at `:94`.
+  **Why it dies (audited row rationale, verbatim):** Band-top estimate obtained by scaling with the P-wave propagation factor; with no propagating longitudinal branch the estimate has no referent.
+- **`:102`** — *"under per-channel link speeds the stiff longitudinal channel lifts the Bragg cutoff to $\pi\sqrt3\cdot\sqrt{\rho^*}$"*
+  Stamped in place at `:104`.
+  **Why it dies (audited row rationale, verbatim):** The stiffness-lifted arm of the PENDING-Grant single-scale-vs-stiffness-lifted fork requires the longitudinal channel to be a propagating channel with a Bragg cutoff; carve voids that arm — FLAG: this is a fork-adjudication implication, route to the lane, do not resolve by leaf edit.
+- **`:116`** — *"**P-wave (LONGITUDINAL)** speed ratio $c_P/c_S$ at the **VRH (Voigt-Reuss-Hill) average ONLY**: $(K+4G/3)/G=10/3$"*
+  Stamped in place at `:116`.
+  **Why it dies (audited row rationale, verbatim):** Prereg-named site: the sqrt(10/3) as a longitudinal-branch speed ratio has no referent under the carve; the row's own 'K=2G RE-EXPRESSION, NOT lattice-emergent' provenance survives as static-import bookkeeping.
+- **`:120`** — *"Direction-resolved $c_P/c_S$ (the Zener $A=1.23$ anisotropy, direction-real, lattice-computed): **[100] 1.71, [110] 1.85, [111] 1.90**"*
+  Stamped in place at `:122`.
+  **Why it dies (audited row rationale, verbatim):** Lattice-computed directional propagation anisotropy of the P branch — a per-direction physical transit-speed claim; no branch, no anisotropy of it.
+
+**The arc, complete — the framing R40 rules every demotion note carries:**
+
+1. **The kill fired** (#930) — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the #261 K = 2G import** (G-RECON, unchallenged): the compressible
+   far-field branch was minted by a GR-imported elastic modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the #935 flat-direction finding: the written
+   action conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the RATIFIED bound-sector law — Axiom 5, Substrate DC Bias**
+   (BC-SRC clauses **S** / **G** / **Q**), ratified per `_orchestration/docket-entries/2026-08-10-ruling-r43-ratification.md`, as reconciled by `_orchestration/docket-entries/2026-08-10-ruling-r44-r43-reconciliation.md` (R44 — the
+   full-scope R43 record is FINAL and authoritative; the partial
+   `_orchestration/docket-entries/2026-08-10-ruling-r43-sg-ratified.md` is SUPERSEDED and is **not**
+   the resolution). Under the ratified law the A1 / bulk slot is a **bound response** — mechanism
+   gloss **back-reaction** — with no independent propagating branch, no port, and zero longitudinal
+   characteristic speed. A bulk *wave speed*, a bulk *radiative port*, a bulk *band-branch* and a
+   bulk *transit clock* therefore have **no referent**.
+
+**Standing named-open debt (the honest rider).** The ratified axiom does **not** discharge
+everything: **THE BIAS PROPAGATION THEOREM** is Axiom 5's standing named-open entry — clause G's
+elliptic law is the *static abstraction* of underived finite-speed bias dynamics (`_orchestration/2026-08-10_bias-propagation-brief.md`). Where a
+demoted claim's replacement depends on finite-speed bias dynamics, the resolution is the ratified
+axiom **with that debt open**, not a closed replacement.
+
+**Records.** R40 ruling `_orchestration/docket-entries/2026-08-10-rulings-r40-r42.md` · verified worklist `research/drivers/r40_sweep_worklist_verified.json` · scope verification `_orchestration/2026-08-10_r40-sweep-scope-verification.md` ·
+batch-1 record `_orchestration/2026-08-11_r40-sweep-batch1.md` · vocabulary R50 `_orchestration/docket-entries/2026-08-10-ruling-r50-vocab.md` (canonical: the displacement pattern u₀ around a
+deposit is **the bound response**, mechanism gloss **back-reaction**; ε₁₁ is **the bias**;
+"dress", "grade"-as-canonical-noun and "halo"-for-the-physics are retired; and the owed theorem is
+renamed **THE BIAS PROPAGATION THEOREM**) · vocabulary **R49(b)** `_orchestration/docket-entries/2026-08-10-rulings-r48-r49.md` (*"retardation"
+is RETIRED from this role. The canonical term is **propagation delay / finite propagation speed*** —
+the retardation retirement is R49(b)'s, NOT R50's; corrected 2026-08-11 at review).

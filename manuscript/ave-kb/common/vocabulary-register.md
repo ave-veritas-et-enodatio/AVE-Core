@@ -1051,7 +1051,7 @@ MODEL-OF / ANALOGY / IMPORT.
 <!-- id: def-satshr -->
 
 - **term:** saturation-shear wave vs saturation-compression wave — the traceless/trace projection split of the saturation-bias field's radiative moment
-- **adjudicated-meaning:** *(a definitional trace/traceless SPLIT of the mass second-moment; the LIVE exclusion status is cited, not this node's own grade — see status).* The radiative moment of the slow envelope's bias field is $Q_{ij}\propto\int x_i x_j|A|^2$ (the mass second-moment). Its **traceless (deviatoric)** projection = the **saturation-SHEAR wave** = the **OBSERVED gravitational wave** — the T2-shear channel, quadrupole rotating at $2\Omega$, radiating at $c$, tensor polarization (`scalar-gw-bulk-channel_derivation.md`:95 *"the traceless part rotates at 2Ω"*; kept on the T2/shear channel at exactly $c$, consistent with GW170817's $|c_{GW}-c_{EM}|/c\lesssim10^{-15}$). Its **trace** projection = the **saturation-COMPRESSION wave** = the A1-bulk / scalar (breathing) channel = the **pulsar-excluded bulk radiative port** (Q1 Reading-A, now LIVE against the framework). The observed-GW-=-shear identification is **Reading-independent** (survives the Q1 revert); the compression channel's live exclusion **rides** port-register Q1 Reading-A LIVE and is a cited consequence, not this node's grade.
+- **adjudicated-meaning:** *(a definitional trace/traceless SPLIT of the mass second-moment; the LIVE exclusion status is cited, not this node's own grade — see status).* The radiative moment of the slow envelope's bias field is $Q_{ij}\propto\int x_i x_j|A|^2$ (the mass second-moment). Its **traceless (deviatoric)** projection = the **saturation-SHEAR wave** = the **OBSERVED gravitational wave** — the T2-shear channel, quadrupole rotating at $2\Omega$, radiating at $c$, tensor polarization (`scalar-gw-bulk-channel_derivation.md`:95 *"the traceless part rotates at 2Ω"*; kept on the T2/shear channel at exactly $c$, consistent with GW170817's $|c_{GW}-c_{EM}|/c\lesssim10^{-15}$). Its **trace** projection = the **saturation-COMPRESSION wave** = the A1-bulk / scalar (breathing) channel = the **pulsar-excluded bulk radiative port** (Q1 Reading-A, now LIVE against the framework). The observed-GW-=-shear identification is **Reading-independent** (survives the Q1 revert); the compression channel's live exclusion **rides** port-register Q1 Reading-A LIVE and is a cited consequence, not this node's grade. 🔴 **[DEMOTED 2026-08-11 — R40-B1; dated demotion note at the end of this file]**
 - **axis:** other — sector-projection split of the saturation-bias field (A1-bulk **trace** vs T2-shear **traceless**), a mass-second-moment decomposition
 - **dimension/type:** both are radiative wave channels (metric strain, dimensionless); scalar/breathing (trace, A1-bulk) vs tensor (traceless deviatoric, T2-shear) polarization classes
 - **status:** SOLID for the trace/traceless DEFINITIONAL SPLIT (the standard mass-second-moment decomposition; the observed GW = the traceless shear projection is Reading-independent). **NOT a hardening of the coupling verdict:** that the compression/trace channel is an independent radiative port and is pulsar-excluded is **Q1 Reading-A LIVE** (a REVERTED ruling, `port-register.md:87`) — cited here, graded there.
@@ -1081,7 +1081,7 @@ MODEL-OF / ANALOGY / IMPORT.
 <!-- id: def-pndenv -->
 
 - **term:** ponderomotive envelope coupling — the $|A|^2$-to-acoustic-branch far-field source structure of the #767 envelope reduction
-- **adjudicated-meaning:** *(the SOURCE STRUCTURE is banked per merged #767; the coupling COEFFICIENT is q1-inherited/ASSUMED, NOT derived — the def carries that; see status).* The mechanism by which the slow envelope drives the radiative channel: the **mass-quadrupole ponderomotive back-reaction** of the carrier intensity $|A|^2$ (= the mass-energy density, `master-equation.md:20`) onto the low-frequency acoustic field — source $Q_{ij}\propto\int x_i x_j|A|^2$ radiating at $2\Omega$ into the **gapless** P-branch (#767 result `:12`/`:36`). Fork F1 resolved: whether $|A|^2$ is a *source* (RHS) or a *coefficient* (the moving well the envelope rides), the far-field object is the same mass quadrupole at $2\Omega$; the adiabatic ($\varepsilon=\Omega/\omega_0\sim10^{-24}$) protection covers only the frequency-scale-separated carrier band, never the gapless acoustic channel (#761 gaplessness, clm-bnd5rq 0.8). **The coefficient is NOT derived here:** the far-field structural coupling $\kappa_{env}^2 = A_{ang}(c_S/c_P)^5 = 0.034$ uses $A_{ang}=2/3$ = the **q1-inherited ASSUMED symmetric-coupling** normalization ($\kappa_L/\kappa_T=1$; the #761 prereg's own *"assumed symmetric-coupling grade-assignment"*), NOT computed from the K4/Ax4 Lagrangian (it is not numerically circular — $\kappa^2$ is a flux ratio, the mass-moment normalization cancels).
+- **adjudicated-meaning:** *(the SOURCE STRUCTURE is banked per merged #767; the coupling COEFFICIENT is q1-inherited/ASSUMED, NOT derived — the def carries that; see status).* The mechanism by which the slow envelope drives the radiative channel: the **mass-quadrupole ponderomotive back-reaction** of the carrier intensity $|A|^2$ (= the mass-energy density, `master-equation.md:20`) onto the low-frequency acoustic field — source $Q_{ij}\propto\int x_i x_j|A|^2$ radiating at $2\Omega$ into the **gapless** P-branch (#767 result `:12`/`:36`). Fork F1 resolved: whether $|A|^2$ is a *source* (RHS) or a *coefficient* (the moving well the envelope rides), the far-field object is the same mass quadrupole at $2\Omega$; the adiabatic ($\varepsilon=\Omega/\omega_0\sim10^{-24}$) protection covers only the frequency-scale-separated carrier band, never the gapless acoustic channel (#761 gaplessness, clm-bnd5rq 0.8). **The coefficient is NOT derived here:** the far-field structural coupling $\kappa_{env}^2 = A_{ang}(c_S/c_P)^5 = 0.034$ uses $A_{ang}=2/3$ = the **q1-inherited ASSUMED symmetric-coupling** normalization ($\kappa_L/\kappa_T=1$; the #761 prereg's own *"assumed symmetric-coupling grade-assignment"*), NOT computed from the K4/Ax4 Lagrangian (it is not numerically circular — $\kappa^2$ is a flux ratio, the mass-moment normalization cancels). 🔴 **[DEMOTED 2026-08-11 — R40-B1; dated demotion note at the end of this file]**
 - **axis:** other — envelope→acoustic-branch source coupling (slow-band ponderomotive drive of the gapless P-branch)
 - **dimension/type:** a source-coupling structure ($Q_{ij}\propto\int x_i x_j|A|^2$, source of the $2\Omega$ far field); the coefficient $\kappa_{env}^2$ is dimensionless (a far-field flux ratio $F_{bulk}/F_{shear}$)
 - **status:** proposed — the SOURCE STRUCTURE is banked per **#767 merged** (`5287ef32`); the coupling **COEFFICIENT is q1-inherited / ASSUMED** (not derived from the Lagrangian — #767 review R3), and the overall lane verdict is **BIN-1-CONDITIONAL**. Coinage (0 prior corpus hits; the only prior use is the queue line). **NOT SOLID** (the coefficient is assumed, not derived); a re-open with a DERIVED coupling is a separate future ruling.
@@ -1351,3 +1351,53 @@ register entry: landed, PROPOSED, licenses nothing. The
 [`translation-tables/translation-circuit.md`](translation-tables/translation-circuit.md) §4 row:
 **QUEUED, not landed** — the mapping table stays canon-only until the residence / phase-register
 lanes audit the picture.
+
+---
+
+### 🔴 Dated demotion note — 2026-08-11 (R40 demotion sweep, batch 1)
+
+**Class: DIES-WITH-THE-PHANTOM.** Status change only — the claim text is **preserved
+verbatim** (honesty-lag pattern, Rule 12) and stamped in place; it is **no longer live
+canon**. Nothing is deleted.
+
+**Demoted in this file:**
+
+- **`:1054`** — *"Its trace projection = the saturation-COMPRESSION wave = the A1-bulk / scalar (breathing) channel = the pulsar-excluded bulk radiative port"*
+  Stamped in place at `:1054`.
+  **Why it dies (audited row rationale, verbatim):** def-satshr's compression-WAVE half requires the bulk radiative channel; the trace/traceless SPLIT of Q_ij survives as accounting (charge-not-flux, per the #919/#930 residue) and the traceless/shear half (observed GW at c) is untouched; the ridden Q1-Reading-A live-exclusion re-reads as the import's self-exclusion. Covers the :1199 batch-summary restatement.
+  **Also covered by this demotion** (named in the audited row; not separately stamped): `:1199`.
+- **`:1084`** — *"source $Q_{ij}\propto\int x_i x_j|A|^2$ radiating at $2\Omega$ into the gapless P-branch ... $\kappa_{env}^2 = A_{ang}(c_S/c_P)^5 = 0.034$"*
+  Stamped in place at `:1084`.
+  **Why it dies (audited row rationale, verbatim):** def-pndenv's far-field coupling: the (c_S/c_P)^5 partition has no referent when c_P is not a propagation speed (prereg verbatim for this family); the ponderomotive mass-quadrupole moment itself survives as source/dress accounting.
+  *(R50 reading-note — the audited rationale predates R50 and is quoted byte-exact: where it writes
+  "dress", the canonical noun is **the bound response**, mechanism gloss **back-reaction**.)*
+
+**The arc, complete — the framing R40 rules every demotion note carries:**
+
+1. **The kill fired** (#930) — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the #261 K = 2G import** (G-RECON, unchallenged): the compressible
+   far-field branch was minted by a GR-imported elastic modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the #935 flat-direction finding: the written
+   action conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the RATIFIED bound-sector law — Axiom 5, Substrate DC Bias**
+   (BC-SRC clauses **S** / **G** / **Q**), ratified per `_orchestration/docket-entries/2026-08-10-ruling-r43-ratification.md`, as reconciled by `_orchestration/docket-entries/2026-08-10-ruling-r44-r43-reconciliation.md` (R44 — the
+   full-scope R43 record is FINAL and authoritative; the partial
+   `_orchestration/docket-entries/2026-08-10-ruling-r43-sg-ratified.md` is SUPERSEDED and is **not**
+   the resolution). Under the ratified law the A1 / bulk slot is a **bound response** — mechanism
+   gloss **back-reaction** — with no independent propagating branch, no port, and zero longitudinal
+   characteristic speed. A bulk *wave speed*, a bulk *radiative port*, a bulk *band-branch* and a
+   bulk *transit clock* therefore have **no referent**.
+
+**Standing named-open debt (the honest rider).** The ratified axiom does **not** discharge
+everything: **THE BIAS PROPAGATION THEOREM** is Axiom 5's standing named-open entry — clause G's
+elliptic law is the *static abstraction* of underived finite-speed bias dynamics (`_orchestration/2026-08-10_bias-propagation-brief.md`). Where a
+demoted claim's replacement depends on finite-speed bias dynamics, the resolution is the ratified
+axiom **with that debt open**, not a closed replacement.
+
+**Records.** R40 ruling `_orchestration/docket-entries/2026-08-10-rulings-r40-r42.md` · verified worklist `research/drivers/r40_sweep_worklist_verified.json` · scope verification `_orchestration/2026-08-10_r40-sweep-scope-verification.md` ·
+batch-1 record `_orchestration/2026-08-11_r40-sweep-batch1.md` · vocabulary R50 `_orchestration/docket-entries/2026-08-10-ruling-r50-vocab.md` (canonical: the displacement pattern u₀ around a
+deposit is **the bound response**, mechanism gloss **back-reaction**; ε₁₁ is **the bias**;
+"dress", "grade"-as-canonical-noun and "halo"-for-the-physics are retired; and the owed theorem is
+renamed **THE BIAS PROPAGATION THEOREM**) · vocabulary **R49(b)** `_orchestration/docket-entries/2026-08-10-rulings-r48-r49.md` (*"retardation"
+is RETIRED from this role. The canonical term is **propagation delay / finite propagation speed*** —
+the retardation retirement is R49(b)'s, NOT R50's; corrected 2026-08-11 at review).

@@ -8,7 +8,7 @@ subtree-experiments: []
 
 # Ch.9 Mechanical Characteristics
 
-Chapter 9 of the Vol 9 datasheet documents the natural vacuum substrate as a Cosserat micropolar continuum (Axiom 1: 6 DOF per K4 node = 3 translational $\to$ $\mathbf{E}$ + 3 microrotational $\to$ $\mathbf{B}$; intrinsic spin originates from the Cosserat microrotational DOF). Spec entries: shear modulus $G_{vac}$, bulk modulus $K_{vac} = 2 G_{vac}$, vacuum Poisson ratio $\nu_{vac} = 2/7$ (Axiom 1 LC + Axiom 2 $\alpha$ interlink), Cosserat couple-stress modulus $\gamma_c$, bulk mass density $\rho_{bulk} = \xi_{topo}^2 \mu_0 / (P_C \ell_{node}^2)$, transverse mechanical wave speed $v_T = c_0$ at the cold-lattice limit (modulated to $v_T(A_0) = c_{shear}(A_0) = c_0\sqrt{S(A_0)}$ under saturation), two distinct longitudinal speeds (KEEP-BOTH, 2026-06-08 $c_L$ reconciliation, Rule 12) — the **bulk-modulus dilatational / A1-scalar port-mode** $v_{bulk} = \sqrt{2}\, c_0 = \sqrt{K/\rho}$ (drops the $4G/3$ shear term) **distinct from** the **solid longitudinal P-wave** $c_L = \sqrt{(K + 4G/3)/\rho} = \sqrt{10/3}\, c_0 \approx 1.83\, c_0$ at $\nu_{vac} = 2/7$ — and Cosserat characteristic length $l_c = \sqrt{\gamma_c / G_{vac}}$ identified with the weak-force range $r_W$.
+Chapter 9 of the Vol 9 datasheet documents the natural vacuum substrate as a Cosserat micropolar continuum (Axiom 1: 6 DOF per K4 node = 3 translational $\to$ $\mathbf{E}$ + 3 microrotational $\to$ $\mathbf{B}$; intrinsic spin originates from the Cosserat microrotational DOF). Spec entries: shear modulus $G_{vac}$, bulk modulus $K_{vac} = 2 G_{vac}$, vacuum Poisson ratio $\nu_{vac} = 2/7$ (Axiom 1 LC + Axiom 2 $\alpha$ interlink), Cosserat couple-stress modulus $\gamma_c$, bulk mass density $\rho_{bulk} = \xi_{topo}^2 \mu_0 / (P_C \ell_{node}^2)$, transverse mechanical wave speed $v_T = c_0$ at the cold-lattice limit (modulated to $v_T(A_0) = c_{shear}(A_0) = c_0\sqrt{S(A_0)}$ under saturation), two distinct longitudinal speeds (KEEP-BOTH, 2026-06-08 $c_L$ reconciliation, Rule 12) — the **bulk-modulus dilatational / A1-scalar port-mode** $v_{bulk} = \sqrt{2}\, c_0 = \sqrt{K/\rho}$ (drops the $4G/3$ shear term) **distinct from** the **solid longitudinal P-wave** $c_L = \sqrt{(K + 4G/3)/\rho} = \sqrt{10/3}\, c_0 \approx 1.83\, c_0$ at $\nu_{vac} = 2/7$ — and Cosserat characteristic length $l_c = \sqrt{\gamma_c / G_{vac}}$ identified with the weak-force range $r_W$. 🔴 **[DEMOTED 2026-08-11 — R40-B1; dated demotion note at the end of this file]**
 
 ## Node-model channel tags (session add — bulk = MASS-"3"/A1, shear = CHARGE-"3"/Cosserat)
 
@@ -51,3 +51,57 @@ The chapter content is **Class B/C synthesis** per `consistency-vs-emergence` v1
 - Vol 1 Ch.~`ch:regime_map` --- four-regime kernel context for $S(A_0)$ saturation modulation.
 
 ---
+
+---
+
+### 🔴 Dated demotion note — 2026-08-11 (R40 demotion sweep, batch 1)
+
+**Class: DIES-WITH-THE-PHANTOM.** Status change only — the claim text is **preserved
+verbatim** (honesty-lag pattern, Rule 12) and stamped in place; it is **no longer live
+canon**. Nothing is deleted.
+
+**Demoted in this file:**
+
+- **`:11`** — *"the solid longitudinal P-wave c_L = √((K + 4G/3)/ρ) = √(10/3) c_0 ≈ 1.83 c_0 at ν_vac = 2/7"*
+  Stamped in place at `:11`.
+  **⚑ MIXED-BIN LINE — read the stamp as scoped, not blanket (disclosure added 2026-08-11 at review).**
+  `:11` is one long scope paragraph carrying MORE than the demoted claim, and the banked worklist
+  hosts a **second, co-resident row on this same line** binned **NEEDS-RE-DERIVATION**, not DIES:
+  quote *"the bulk-modulus dilatational / A1-scalar port-mode v_bulk = √2 c_0 = √(K/ρ) (drops the
+  4G/3 shear term)"*, rationale *"The √2c PORT object survives as the near-field/A1 port reading
+  (prereg §6), but v_bulk=√(K/ρ) as a SPEED formula consumes the K-reservoir-to-wave-speed mechanism
+  — formula-level re-derivation owed."* **That row is BATCH 2 and is not demoted here.** The
+  line-terminal stamp demotes exactly the quoted `c_L = √(10/3) c_0` P-wave member above and nothing
+  else; `K_vac = 2G_vac`, `ν_vac = 2/7`, `v_T = c_0` and `ℓ_c = r_W` on the same line are **not**
+  ruled on by R40 and are untouched.
+  **Why it dies (audited row rationale, verbatim):** The KEEP-BOTH row's P-wave member is a bulk propagation speed as a physical transit speed — the prereg's expected DIES class for √(10/3) rows.
+
+**The arc, complete — the framing R40 rules every demotion note carries:**
+
+1. **The kill fired** (#930) — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the #261 K = 2G import** (G-RECON, unchallenged): the compressible
+   far-field branch was minted by a GR-imported elastic modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the #935 flat-direction finding: the written
+   action conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the RATIFIED bound-sector law — Axiom 5, Substrate DC Bias**
+   (BC-SRC clauses **S** / **G** / **Q**), ratified per `_orchestration/docket-entries/2026-08-10-ruling-r43-ratification.md`, as reconciled by `_orchestration/docket-entries/2026-08-10-ruling-r44-r43-reconciliation.md` (R44 — the
+   full-scope R43 record is FINAL and authoritative; the partial
+   `_orchestration/docket-entries/2026-08-10-ruling-r43-sg-ratified.md` is SUPERSEDED and is **not**
+   the resolution). Under the ratified law the A1 / bulk slot is a **bound response** — mechanism
+   gloss **back-reaction** — with no independent propagating branch, no port, and zero longitudinal
+   characteristic speed. A bulk *wave speed*, a bulk *radiative port*, a bulk *band-branch* and a
+   bulk *transit clock* therefore have **no referent**.
+
+**Standing named-open debt (the honest rider).** The ratified axiom does **not** discharge
+everything: **THE BIAS PROPAGATION THEOREM** is Axiom 5's standing named-open entry — clause G's
+elliptic law is the *static abstraction* of underived finite-speed bias dynamics (`_orchestration/2026-08-10_bias-propagation-brief.md`). Where a
+demoted claim's replacement depends on finite-speed bias dynamics, the resolution is the ratified
+axiom **with that debt open**, not a closed replacement.
+
+**Records.** R40 ruling `_orchestration/docket-entries/2026-08-10-rulings-r40-r42.md` · verified worklist `research/drivers/r40_sweep_worklist_verified.json` · scope verification `_orchestration/2026-08-10_r40-sweep-scope-verification.md` ·
+batch-1 record `_orchestration/2026-08-11_r40-sweep-batch1.md` · vocabulary R50 `_orchestration/docket-entries/2026-08-10-ruling-r50-vocab.md` (canonical: the displacement pattern u₀ around a
+deposit is **the bound response**, mechanism gloss **back-reaction**; ε₁₁ is **the bias**;
+"dress", "grade"-as-canonical-noun and "halo"-for-the-physics are retired; and the owed theorem is
+renamed **THE BIAS PROPAGATION THEOREM**) · vocabulary **R49(b)** `_orchestration/docket-entries/2026-08-10-rulings-r48-r49.md` (*"retardation"
+is RETIRED from this role. The canonical term is **propagation delay / finite propagation speed*** —
+the retardation retirement is R49(b)'s, NOT R50's; corrected 2026-08-11 at review).
