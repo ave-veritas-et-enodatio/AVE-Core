@@ -39,7 +39,7 @@ claims: [clm-zbvfpi, clm-w5ez6i]
 <!-- claim-quality: clm-zbvfpi -->
 
 The inherited linear core is the **weak-field limit**:
-$-(c^4/7G)\nabla^2\varepsilon_{11}=4\pi Mc^{2}\delta^{3}(r)\Rightarrow\varepsilon_{11}=7GM/c^2r$, $n=1+(2/7)\varepsilon_{11}$  *(source convention corrected TYPO-CLASS 2026-08-10, R49(a): the declared $4\pi$ convention per `gordon-optical-metric.md:25` / clm-rd9cjm — it previously read a bare $=T_{00}$.)*
+$-(c^4/7G)\nabla^2\varepsilon_{11}=4\pi Mc^{2}\delta^{3}(r)\Rightarrow\varepsilon_{11}=7GM/c^2r$, $n=1+(2/7)\varepsilon_{11}$  *(source convention corrected TYPO-CLASS 2026-08-10, R49(a): the declared $4\pi$ convention per `gordon-optical-metric.md`:25, verbatim there — `-\left(\frac{c^{4}}{7G}\right)\nabla^{2}\epsilon_{11}(r) = 4\pi Mc^{2}\delta^{3}(r)` — / clm-rd9cjm; it previously read a bare $=T_{00}$.)*
 (canonical at [`einstein-field-equation.md`](einstein-field-equation.md) and
 [`gordon-optical-metric.md`](../ch03-macroscopic-relativity/gordon-optical-metric.md):25, clm-rd9cjm). *(Cite repaired 2026-08-10, R49(a): this line previously named `gravitational-refractive-index-gradient.md`, which carries neither formula; the convention-declaring leaf is the gordon one — verbatim there: `-\left(\frac{c^{4}}{7G}\right)\nabla^{2}\epsilon_{11}(r) = 4\pi Mc^{2}\delta^{3}(r)`.)*
 Stage-1 multiplies the elliptic operator by a **saturating modulus**:
