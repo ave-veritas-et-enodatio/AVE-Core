@@ -35,6 +35,7 @@ canon**. Nothing is deleted.
 - **`:18`** — *"| Longitudinal waves | Propagate | May propagate |"*
   Stamped in place at `:18`.
   **Why it dies (audited row rationale, verbatim):** byte-twin of solver-toolchain.md:214 (already DIES); independent leaf clm-d9ivj1 (0.63, input-only)
+  (Cite excerpt, verbatim from that twin row: `| Longitudinal waves | Propagate`.)
   **Also covered by this demotion** (named in the audited row; not separately stamped): `:214`.
 
 **The arc, complete — the framing R40 rules every demotion note carries:**

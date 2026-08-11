@@ -47,6 +47,7 @@ canon**. Nothing is deleted.
 - **`:34`** — *"Seismological P/S far-field partition ↔ the substrate's A1/T2 radiation partition ... means-test PASS at value level, $E_S/E_P\approx23.4$"*
   Stamped in place at `:34`.
   **Why it dies (audited row rationale, verbatim):** Index restatement of the spoke's partition row — same voiding as translation-elastodynamics.md:19; tabled separately only because it re-asserts the claim rather than merely linking.
+  (Cite excerpt, verbatim from that spoke row: `**P/S far-field partition** of an isotropic (Poisson) elastic solid`.)
   **Also covered by this demotion** (named in the audited row; not separately stamped): `:19`.
 
 **The arc, complete — the framing R40 rules every demotion note carries:**
