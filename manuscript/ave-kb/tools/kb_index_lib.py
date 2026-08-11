@@ -177,10 +177,14 @@ _CODE_FENCE_RE = re.compile(r"^```")
 # Invariant headings: `### INVARIANT-XX: <title>`.
 _INVARIANT_HEADING_RE = re.compile(r"^### (INVARIANT-[A-Z]+[0-9]+):\s*(.+)$")
 # Axiom bullets in the INVARIANT-S2 section: `- Axiom N: **<title>** — ...`.
-_AXIOM_BULLET_RE = re.compile(r"^- Axiom ([1-4]): \*\*(.+?)\*\*")
+# Widened [1-4] -> [1-5] 2026-08-10 for Axiom 5 (Substrate DC Bias), the first new
+# axiom since the founding set (R44: "the axiom count is 5"). MINIMAL widening per
+# R47 item 1 — bumped to the live count, NOT opened to \d+, so a typo'd "Axiom 9"
+# still fails loudly instead of silently minting a node.
+_AXIOM_BULLET_RE = re.compile(r"^- Axiom ([1-5]): \*\*(.+?)\*\*")
 # In-bullet target tokens for depends-on head extraction.
 _INVARIANT_TOKEN_RE = re.compile(r"\b(INVARIANT-[A-Z]+[0-9]+)\b")
-_AXIOM_TOKEN_RE = re.compile(r"\bAxiom ([1-4])\b")
+_AXIOM_TOKEN_RE = re.compile(r"\bAxiom ([1-5])\b")
 
 # Quality-field parsing.
 # `confidence: 0.X` and `solidity: 0.X (build-status phrase) [optional arithmetic]`

@@ -65,7 +65,7 @@ Individual volumes may use only a subset; resultbox is the most common. Vol 5 us
 
 ### INVARIANT-S2: AVE Axiom numbering
 
-The four AVE axioms carry stable meanings across all volumes. Canonical source of truth: [`manuscript/common_equations/eq_axiom_[1-4].tex`](../common_equations/). KB documents must use these labels; volume-specific re-instantiations may add a parenthetical domain alias but the canonical name is primary.
+The AVE axioms carry stable meanings across all volumes. Canonical source of truth: [`manuscript/common_equations/eq_axiom_[1-5].tex`](../common_equations/). **Count = 5 (R44, 2026-08-10).** Axioms 1-4 are the FOUNDING SET and keep that name and their numbering; **Axiom 5 (Substrate DC Bias)** is the first new axiom since the founding set and does not renumber them. Its bullet is at the END of this file, under "INVARIANT-S2 continuation", NOT inline below -- a deliberate line-count-safe placement: this file carries 23 distinct inbound `:NN` cite lines (including the heavily-cited `:73`/`:75` operating-point pair and cites as deep as `:318`), and an inline 5th bullet would shift every one of them. The bullet parser scans the whole file, so the node materializes identically from either position. KB documents must use these labels; volume-specific re-instantiations may add a parenthetical domain alias but the canonical name is primary.
 
 - Axiom 1: **Substrate Topology** — vacuum is a 3D chiral Laves K4 Cosserat crystal, with micropolar nodes (6 DOFs each: 3 translational → E, 3 microrotational → B; Cosserat rotational DOF IS the substrate-native origin of intrinsic spin), $I4_1 32$ chiral space group, intrinsic LC oscillators at each node, modeled in continuum as a Trace-Reversed Chiral LC Network. Legacy aliases: *Chiral Laves K4 Crystal*, *LC Network*. Operational signatures: K4 graph, ABCD cascade, $\ell_{node}$, $Z_0 = \sqrt{\mu_0/\varepsilon_0}$.
 - Axiom 2: **Topo-Kinematic Isomorphism** — charge as discrete geometric dislocation in the substrate; $[Q] \equiv [L]$; $\xi_{topo} = e/\ell_{node}$. Operational signatures: TKI, $(2,q)$ torus knot, topological phase dislocation, chiral SRS.
@@ -351,3 +351,36 @@ When a KB document suggests (but does not require) navigation to a related locat
 ```
 
 Cross-volume references appear in index documents and in leaf documents where the source text explicitly references another section. They must never paraphrase or summarize the target content.
+
+---
+
+## INVARIANT-S2 continuation — the Axiom-5 bullet (line-count-safe placement)
+
+This section exists only so the Axiom-5 bullet can be added without shifting this
+file's 23 inbound `:NN` cite lines. It is part of INVARIANT-S2; `refresh-kb-metadata`
+scans the whole file for `- Axiom N: **…**` bullets, so the node it materializes is
+identical to an inline placement (`canonical_anchor` resolves to the INVARIANT-S2
+heading either way). **This heading is deliberately `##`, not `### INVARIANT-…`, so
+it does not mint a spurious invariant node.**
+
+- Axiom 5: **Substrate DC Bias** — the substrate's DC operating point; the source coupling the four founding axioms never wrote. Three clauses: **S (deposit)** — a matter defect deposits a nonzero net A1 dilatation flux $\oint_S \mathbf{u}\cdot\hat{\mathbf{n}} = 4\pi B(M)$, mass as an enclosed compression charge BY LAW, genesis-deposited boundary data, MECHANISM-AGNOSTIC; **G (grade coupling)** — the dress↔grade bridge $\mathbf{u}_0 = -\mathcal{A}_g\nabla\varepsilon_{11}$ with the $\kappa$-stiffened elliptic grade law $-\nabla\cdot[\kappa D(A)\nabla\varepsilon_{11}] = T_{00}$, $\kappa = c^4/7G$ (VALUE imported); **Q (quiescence)** — the sourceless substrate sits at the cold operating point $\nabla\cdot\pi = 0$, $\theta = 0$, $\varepsilon_{11} = 0$, the quiescent reference that makes the potentials defined and G's solve well-posed. Ratified 2026-08-10 (R44 full-scope; named by R46). Canonical: `eq_axiom_5.tex`. Internal falsifier ships with it: $B = 7\mathcal{A}_g GM/c^2$, ONE $\mathcal{A}_g$ across every consumer. Operational signatures: DC operating point, Q-point, dress↔grade bridge, grade-coupling area $\mathcal{A}_g$.
+
+> **$\mathcal{A}_g$ is DERIVE-FIRST and is in NO register (R46).** The grade-coupling
+> area $\mathcal{A}_g$ [m²] (formerly drafted λ, now retired for this role) does not
+> enter the interlock register or the calibration-parameter set until the derivation
+> lane adjudicates the frozen hypothesis $\mathcal{A}_g = c\,\ell_{node}^2$. So the
+> LIVE independent-parameter count is **unmoved by Axiom 5 in either direction**, and
+> `expected-independent-count: 3` in the interlock register is correct as it stands —
+> deliberately, not by oversight. Brief: `_orchestration/2026-08-10_ag-derivation-brief.md`.
+
+> **Homonym guard — "Axiom 5" is overloaded as of this landing.** Three live engine
+> files use the token `Axiom 5` for an unrelated coupled-resonator normal-mode
+> operator (`src/ave/solvers/coupled_resonator.py`, `src/ave/condensed/silicon_crystal.py`,
+> `src/ave/condensed/silicon_doping.py`). Those pre-date this axiom and are NOT
+> renamed here (engine code is outside this lane's fence). Before this landing the
+> engine label pointed at nothing; it now silently re-targets onto a real axiom, so a
+> bare `grep "Axiom 5"` returns both objects. **Canonically, "Axiom 5" means Substrate
+> DC Bias and nothing else.** The engine's use is the stale token and is routed for
+> rename/disambiguation.
+
+*Confirmed by: `eq_axiom_5.tex`; the Axiom-5 entry in `common/axiom-register.md`; rulings R43/R44 (ratification + reconciliation) and R45/R46/R47 (phase doctrine, name + symbol + derive-first, tracking spec).*
