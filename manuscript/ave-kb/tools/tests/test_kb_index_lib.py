@@ -1466,15 +1466,23 @@ class TestFrameworkNodeCoverageGuard(unittest.TestCase):
 
     def test_build_all_records_fires_on_malformed_claude_md(self):
         # Reproduce #28: copy the fixture, mangle the axiom bullets so the
-        # parser regex (`^- Axiom N: **...**`) no longer matches (here: indent
-        # them, as a hand-merge might). The fixture's claim depends on Axiom 4,
-        # so the dropped axiom-4 node leaves a dangling edge → guard must fire.
+        # parser regex (`^- Axiom N: **...**`) no longer matches. The fixture's
+        # claim depends on Axiom 4, so the dropped axiom-4 node leaves a
+        # dangling edge → the downstream coverage guard must fire.
+        #
+        # NOTE (2026-08-10): the mangle here is a BULLET-CHARACTER swap, not the
+        # indent this test originally used. Indentation is now caught EARLIER and
+        # LOUDER by the loose-recognizer in parse_framework_nodes (see
+        # test_indented_axiom_bullet_raises_*), so it can no longer reach this
+        # backstop. A non-bullet-looking drop is what still exercises it — and
+        # the backstop is still worth having, because it covers drop modes the
+        # recognizer is not designed to see.
         with tempfile.TemporaryDirectory() as tmp:
             kb = Path(tmp) / "mini-kb"
             shutil.copytree(_FIXTURE, kb)
             claude = kb / "CLAUDE.md"
             text = claude.read_text(encoding="utf-8")
-            mangled = text.replace("\n- Axiom ", "\n  - Axiom ")  # indent bullets
+            mangled = text.replace("\n- Axiom ", "\n* Axiom ")  # swap bullet char
             self.assertNotEqual(text, mangled, "fixture must contain axiom bullets")
             claude.write_text(mangled, encoding="utf-8")
 
@@ -1488,6 +1496,50 @@ class TestFrameworkNodeCoverageGuard(unittest.TestCase):
             msg = str(ctx.exception)
             self.assertIn("axiom-4", msg)
             self.assertIn("CLAUDE.md", msg)
+
+    def test_indented_axiom_bullet_raises_at_parse_time(self):
+        # THE CANONICAL MALFORMATION. The FrameworkNodeParseError docstring names
+        # indentation FIRST among the causes, and this suite's own #28 fixture
+        # used to mangle by indenting — so an indented bullet must be LOUD, not
+        # silently dropped. Regression for the 2026-08-10 hole where the loose
+        # recognizer read `^- *Axiom` (star AFTER the dash), which cannot match a
+        # leading-indent bullet at all.
+        with tempfile.TemporaryDirectory() as tmp:
+            kb = Path(tmp) / "mini-kb"
+            shutil.copytree(_FIXTURE, kb)
+            claude = kb / "CLAUDE.md"
+            text = claude.read_text(encoding="utf-8")
+            claude.write_text(text.replace("\n- Axiom ", "\n  - Axiom "), encoding="utf-8")
+            with self.assertRaises(lib.FrameworkNodeParseError) as ctx:
+                lib.discover_kb(kb, diagnostic_stream=None)
+            self.assertIn("MALFORMED", str(ctx.exception))
+
+    def test_indented_axiom5_bullet_raises_even_with_no_inbound_edges(self):
+        # THE CASE THE DOWNSTREAM BACKSTOP CANNOT COVER. axiom-5 has ZERO inbound
+        # depends-on edges in the live KB, so dropping it dangles nothing and
+        # _assert_framework_node_coverage stays silent. Only the parse-time
+        # recognizer can catch it. Indent ONLY the Axiom-5 bullet and require a
+        # raise; the other four bullets stay well-formed.
+        with tempfile.TemporaryDirectory() as tmp:
+            kb = Path(tmp) / "mini-kb"
+            shutil.copytree(_FIXTURE, kb)
+            claude = kb / "CLAUDE.md"
+            text = claude.read_text(encoding="utf-8")
+            ax5 = "- Axiom 5: **Substrate DC Bias** — the substrate's DC operating point.\n"
+            # add a well-formed Axiom-5 bullet, confirm it parses, then indent ONLY it
+            claude.write_text(text.replace("\n- Axiom 4", "\n" + ax5 + "- Axiom 4"), encoding="utf-8")
+            state = lib.discover_kb(kb, diagnostic_stream=None)
+            self.assertIn("axiom-5", {n.id for n in state.framework_nodes})
+
+            claude.write_text(
+                claude.read_text(encoding="utf-8").replace("\n- Axiom 5:", "\n  - Axiom 5:"),
+                encoding="utf-8",
+            )
+            with self.assertRaises(lib.FrameworkNodeParseError) as ctx:
+                lib.discover_kb(kb, diagnostic_stream=None)
+            msg = str(ctx.exception)
+            self.assertIn("MALFORMED", msg)
+            self.assertIn("Axiom 5", msg)
 
 
 if __name__ == "__main__":

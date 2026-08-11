@@ -223,3 +223,39 @@ No emergence-class claim. No chord on any outcome (§0 row 8). Mints nothing; ed
 > **Net effect: `BOUND-RESPONSE-DERIVED` → `NOT-DERIVABLE` (missing structure enumerated).** The carve survives as R38's walk-level candidate with a four-item derivation worklist; the kill chain stays GATED (not un-fired, not re-fired); the audit + premise-localization + no-finite-ω-branch partials are banked at their stated grades. The demotion sweep continues to HOLD on Grant's disposition of THIS re-cut (R38's "one sweep, the complete arc").
 
 > **Result-doc provenance.** Frozen prereg committed ALONE + pushed at `0722a8a3` (freeze-by-push) BEFORE any derivation content, audit output, driver code, or lane number existed — byte-untouched since (blob `ab9ac5a1…` verified at Tier-2), carrying one disclosed quote-integrity erratum (the §4 LC-1 collage — G-QUOTE row). Driver committed before the result; two full driver runs byte-identical (JSON digest `983fe810902724fd1807687740dc863f5a7cef47da3651e61486ad58798ad297`). Two-method receipts as scored: the carve = route (a) + route (b); the audit = two engines + panel + orchestrator adjudication; algebra = exact fractions + floats. Engine `src/ave` byte-untouched (`git diff --stat` empty). Interior/past-wall = declared out of scope at every use. `[DO-NOT-MERGE][REVIEW: pending-orchestrator]`. Companions: the frozen prereg, the brief, R38, #761/#919/#927/#930 at their frozen homes, LC-1 @ `be04ea03`, #919 @ `ba1d872d`, the #261 record, the consumer-audit annex JSON.
+
+---
+
+## ★ DATED SURFACE-NOTE (2026-08-10, R43) — the `eq_axiom_3.tex` quote at `:35` is a VACATED CITE
+
+**Surface-note only; nothing above is rewritten** (dated result doc). Added because
+this doc's `:35` introduces its quote with the words *"canonical, single source of
+truth"*, and the sentence it quotes is no longer in that source.
+
+**What `:35` quotes:** *"the standard Maxwell Lagrangian … recovered as the
+substrate's effective action in the linear regime."*
+
+**What happened:** under R43 (Tier A RATIFIED,
+`_orchestration/docket-entries/2026-08-10-ruling-r43-ratification.md`) that sentence
+was **replaced** at `manuscript/common_equations/eq_axiom_3.tex:22`. The written
+action carries no $A_0$ term, so it is the **temporal-gauge (Weyl, $A_0$-free)** form:
+"standard Maxwell" is TRUE of the dynamics on the Gauss-constrained initial-data
+surface and FALSE of the action. `:35`'s quote is therefore a **vacated cite** — the
+cite drifted past the state it argued about.
+
+**What SURVIVES, and it is the whole load-bearing point of `:35`:** the proposition
+this doc actually consumes is that **the axiom-level dynamics is curl-only**, hence
+*"A curl-free configuration contributes NOTHING to the potential term … no restoring
+force, no eigenfrequency, no branch."* That is **unaffected** — indeed the repair
+strengthens it, since the repaired `:22`/`:27` say explicitly that the action is
+curl-only with the Gauss constraint absent. **No verdict, bin, or receipt in this
+document moves.** Only the quoted label is stale.
+
+**Provenance of this note (stated because the routing was wrong upstream):** the
+consequence sweep binned this site TRUE-UNDER-REPAIR, i.e. correctly OUTSIDE the
+NEEDS-RESCOPE repair set — but it did so under the label *"(frozen; surface-note
+class)"* at
+`research/2026-08-10_bound-constitutive_sweep-record.md`:70, and **this document is
+not frozen** (it was itself edited 2026-08-10 under a Rule-12 repair-and-bank
+addendum). The right reason for a surface note here is **vacated-cite**, not frozen.
+Recorded so the next sweep does not inherit the mislabel.

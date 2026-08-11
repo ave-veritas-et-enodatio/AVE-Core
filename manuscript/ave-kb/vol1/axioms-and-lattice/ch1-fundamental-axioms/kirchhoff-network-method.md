@@ -40,7 +40,7 @@ The scalar potential $V$ at any node rises or falls based on the net sum of curr
 > V_{new} = V_{old} + \frac{\Delta t}{C} \left( \sum I_{in} - \sum I_{out} \right)
 > $$
 
-This explicit two-step numerical engine enforces local gauge invariance and energy conservation across the discrete crystal. By injecting arbitrary external scalar tension or driving boundary vector currents, the Python engine calculates macroscopic electrodynamic waves and structural stress tensors from the ground up, generating complex physics without abstracting to macroscopic geometry.
+This explicit two-step numerical engine enforces the **discrete Gauss-generator conservation** and energy conservation across the discrete crystal. *(Rescoped 2026-08-10 under R43 — this line previously read "enforces local gauge invariance". The exact content is the **residual**, time-independent gauge family $\mathbf{A}\to\mathbf{A}+\nabla\lambda(\mathbf{x})$ and its Noether charge, the pointwise-conserved Gauss function $\nabla\cdot(\varepsilon_0\partial_t\mathbf{A})$ — **not** full local U(1) gauge invariance, which is not a symmetry of the written action. Canonical: [`eq_axiom_3.tex`](../../../../common_equations/eq_axiom_3.tex); ruling [`2026-08-10-ruling-r43-ratification.md`](../../../../../_orchestration/docket-entries/2026-08-10-ruling-r43-ratification.md).)* By injecting arbitrary external scalar tension or driving boundary vector currents, the Python engine calculates macroscopic electrodynamic waves and structural stress tensors from the ground up, generating complex physics without abstracting to macroscopic geometry.
 
 ### Master Constants Derivation Pipeline
 

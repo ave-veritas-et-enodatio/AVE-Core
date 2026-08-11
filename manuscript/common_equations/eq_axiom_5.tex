@@ -1,0 +1,168 @@
+% eq_axiom_5.tex — Axiom 5: Substrate DC Bias (deposit · grade · quiescence)
+% Single source of truth. \input this wherever Axiom 5 is formally restated.
+%
+% FILENAME PROVENANCE. Created in this batch as `eq_axiom_bc_src.tex` and RENAMED to
+% `eq_axiom_5.tex` per R47 item 1, which names the file explicitly. No alias, no stub;
+% the rename is a git mv, so `git log --follow` carries it. "BC-SRC" survives ONLY as
+% the working name of the source lane's candidate; the ratified name is R46's.
+%
+% RATIFICATION PROVENANCE (git carries the full trail):
+%   .../2026-08-10-ruling-r44-r43-reconciliation.md  ★ R44 — THE AUTHORITATIVE RECORD.
+%       "the full-scope record is FINAL"; Tier A + clauses S, G AND Q all ratified;
+%       "the axiom count is 5"; "LC-1's cell re-adjudication FIRES".
+%   .../2026-08-10-ruling-r43-ratification.md   the full-scope R43 record R44 declares final.
+%   .../2026-08-10-ruling-r43-sg-ratified.md    ⚠ SUPERSEDED per R44 (session accidentally
+%       reset mid-conversation). Never cited here as authority — only as record-of-origin.
+%   .../2026-08-10-rulings-r45-r47.md   R45 comprehensive phase-structured axioms;
+%       R46 the name + the symbol + DERIVE-FIRST; R47 the tracking-integration spec.
+%   .../2026-08-10-rulings-r48-r49.md   R48 𝒜_g's interlock entry (UNVALUED-RATIFIED-
+%       CONSTANT; count stays 3); R49(a) the clause-G convention correction.
+%   .../2026-08-10-ruling-r50-vocab.md  R50 the DC-sector vocabulary.
+%   Clause text source: research/2026-08-10_bound-constitutive_result.md §2.6.
+%
+%   Grant, verbatim (the walk close):    "makes perfect sense, we need a ground reference"
+%   Grant, verbatim (the ratification):  "we can map it to ground but call it DC operating
+%                                         point? approved."
+%   Grant, verbatim (the name, R46):     "I like the Substrate DC Bias or similar naming"
+%   Grant, verbatim (derive-first, R46): "so let's derive first"
+%   Grant, verbatim (interlock, R48):    "agree for interlock entry/rec."
+%   Grant, verbatim (vocabulary, R50):   "the dress, and other terms aren't ee native.
+%                                         I think you're looking for back reaction?"
+%
+% VOCABULARY (R43 + R50, binding on this file and every consumer):
+%   * canonical operating-point noun: "DC operating point / quiescent point (Q-point)".
+%     "Ground (reference)" is the EE-ANALOGY GLOSS ONLY, never the canonical noun.
+%   * "dress" is RETIRED (a QFT import). The displacement pattern u_0 around a deposit
+%     is THE BOUND RESPONSE (R38's ratified term); BACK-REACTION is the mechanism gloss.
+%   * eps_11's canonical name is THE BIAS. "grade" demotes to informal use.
+%   * A_g is the BIAS-COUPLING AREA (R50's re-read of R46's "grade-coupling area").
+%   * "halo" only as the astronomical referent; the physics noun is the near-field
+%     store / added-mass.
+%   ⚑ FINDING, surfaced not reworded: R46 RATIFIED the subtitle "(deposit · grade ·
+%     quiescence)", and R50 then demoted "grade" from the canonical noun. The ratified
+%     subtitle is kept verbatim (ratified text lands as ratified); every OTHER use of
+%     "grade" as eps_11's name is swept to "bias". The subtitle's third-term wording
+%     is the ruling author's call, not the doc lane's.
+%
+% STATUS: the FIRST new axiom ratified since the founding set. It does NOT renumber
+% Axioms 1-4; "the four founding axioms" remains the correct name for that set.
+% Ratified-axiom count = 5 (R44).
+%
+\begin{resultbox}{Axiom 5 — Substrate DC Bias (deposit $\cdot$ grade $\cdot$ quiescence)}
+The four founding axioms write a \emph{floating} network: they fix the substrate's topology (Ax 1), its charge dictionary (Ax 2), its lossless extremal dynamics (Ax 3), and its saturation kernel (Ax 4) --- but they never write the source coupling that pins the bound (A1 dilatation) sector's absolute state. Axiom 5 is that missing specification: the substrate's \textbf{DC operating point}. Three clauses, ratified together:
+
+\medskip\noindent\textbf{S (deposit).} A matter defect deposits a nonzero net A1 dilatation flux:
+\begin{equation}
+    \oint_S \mathbf{u}\cdot\hat{\mathbf{n}} = 4\pi B(M)
+    \label{eq:axiom5_deposit}
+\end{equation}
+over any enclosing exterior surface, with $B(M)$ = the defect's A1 mass accounting (dimensional VALUE via the imported $G/\xi$ chain). \textbf{Mass is an enclosed compression charge BY LAW}: the write event is a genuine new law (the four-lock no-go bars the receipted dynamics from creating it), and Kirchhoff's current law / the derived conservation leg $\partial_t(\nabla\cdot\pi) = -\nabla\cdot j_m$ preserves it thereafter. \textbf{Clause S is MECHANISM-AGNOSTIC:} it is \emph{genesis-deposited boundary data on the crystalline phase}, and it states \emph{that} the flux is written, not \emph{how}. The genesis mechanism is a named-open entry of the genesis phase (phase map below) --- this clause neither supplies one nor licenses one.
+
+\medskip\noindent\textbf{G (bias coupling / bridge).} The operating-point \textbf{bias} $\varepsilon_{11}$ is the bound sector's potential, and the \textbf{bound response} $\mathbf{u}_0$ is its gradient:
+\begin{equation}
+    \mathbf{u}_0 = -\mathcal{A}_g\nabla\varepsilon_{11},\qquad
+    -\nabla\cdot\!\left[\kappa\, D(A)\,\nabla\varepsilon_{11}\right] = 4\pi\,T_{00},\qquad
+    \kappa = \frac{c^4}{7G}
+    \label{eq:axiom5_bridge}
+\end{equation}
+(the $\kappa$-stiffened elliptic bias law; $\kappa$'s VALUE stays imported). Equivalently: the canon back-reaction solve becomes the bound-sector constitutive law in potential form. \textbf{One coupling constant, $\mathcal{A}_g$} (the \textbf{bias-coupling area}, $[\mathrm{m}^2]$), enters the framework here and nowhere else.
+
+\medskip\noindent\textbf{Q (quiescence --- the DC operating point).} The sourceless substrate sits at the cold operating point:
+\begin{equation}
+    \nabla\cdot\pi = 0,\qquad \theta = 0,\qquad \varepsilon_{11} = 0
+    \label{eq:axiom5_quiescence}
+\end{equation}
+away from defects. This is the \textbf{quiescent reference (Q-point) that makes the potentials defined and clause G's elliptic solve well-posed} --- without it the conserved data is unpinned far from sources and the potential problem has no boundary condition. Clause Q is a statement about the substrate's \emph{state}; it is not a claim that small-signal linearisation is valid, which is a separate, separately-declared regime condition.
+
+\medskip\noindent\textbf{The internal falsifier ships with the axiom.} Clauses S and G jointly force the consistency relation
+\begin{equation}
+    B = \frac{7\,\mathcal{A}_g\,G M}{c^2}
+    \label{eq:axiom5_falsifier}
+\end{equation}
+(from $\mathbf{u}_0 = -\mathcal{A}_g\nabla\varepsilon_{11}$ and the canon bias profile $\varepsilon_{11} = 7GM/c^2 r$). \textbf{One $\mathcal{A}_g$ across every consumer}: measuring $\mathcal{A}_g$ from independent consumers over-determines it, and the over-determination is the axiom's own test port --- built in, not appended.
+
+\medskip\noindent\textbf{$\mathcal{A}_g$ is RATIFIED, COHERENT, and UNVALUED (R48).} The derive-first lane has reported: the frozen hypothesis $\mathcal{A}_g = c\,\ell_{node}^2$ is \textbf{NOT SUPPORTED} --- no receipted consumer values $\mathcal{A}_g$ at $\ell_{node}^2$ scale, and the only valued route sits $\sim$57 orders away. So $\mathcal{A}_g$ enters the interlock register under the new edge class \textbf{UNVALUED-RATIFIED-CONSTANT}: ratified, coherent across consumers ($f = 7$ under the declared $4\pi$ convention), and \emph{unvalued}. \textbf{The calibration count stays 3}, and moves only when a \emph{sound} consumer produces a value. $\mathcal{A}_g$ is \textbf{not a falloff}: the $1/r$ bias profile and the $1/r^2$ bound response are free geometry from the elliptic solve. $\mathcal{A}_g$ is the \textbf{scale converter} --- metres of displacement per unit bias slope.
+
+\medskip\noindent\textbf{Phase structure (R45 --- the axiom carries its phases inside).} \emph{(a) Crystalline phase (cold, sub-yield, lossless-reactive):} clauses \textbf{Q} and \textbf{G} are the law here, as written above. Clause \textbf{S} is genesis-deposited boundary \emph{data} on this phase --- present, conserved, mechanism-agnostic. \emph{(b) At the saturation boundary:} $D(A)$ carries clause G's response into the graded regime; the $D(A)\to\infty$ wall behaviour is past-wall-adjacent and \textbf{not written here}. \emph{(c) NAMED-OPEN holes (first-class, not omissions):} \textbf{(c1) THE BIAS PROPAGATION THEOREM --- this axiom's STANDING DEBT.} Clause G's elliptic law is the \emph{static abstraction of underived finite-speed bias dynamics}: an elliptic solve is instantaneous by construction, and the axiom does not write what replaces it when the source moves. \textbf{The $(u,\pi)$ no-signalling theorem does NOT cover the bias read} --- it is proven on the $(u,\pi)$ sector, and the bias $\varepsilon_{11}$ is a declared distinct object. Until that theorem lands, the finite propagation speed of the bias is \emph{owed, not held}. \textbf{(c2)} the \textbf{genesis-phase} law that writes clause S's flux (the deposit is data, not a derivation). \textbf{(c3)} the \textbf{de-bonded} phase form of all three clauses, and \textbf{(c4)} the \textbf{pre-freeze} phase --- both unwritten. Comprehensiveness is the FRAME: this axiom is a law of the material across its phases, and the phases whose law is not yet written are named rather than silently assumed.
+
+\medskip\noindent\textbf{What Axiom 5 forbids.} A sourceless bound response (no net A1 flux without matter); any new longitudinal stiffness or wave (it adds no kinetic or potential term on the flat direction, so the pole-absence results survive it untouched); any EM/winding-sector deposit (the four locks are untouched --- the A1 sector's transportability, not a new source, is what breaks the A1/EM symmetry).
+\end{resultbox}
+%
+% ── R49(a) DATED FRAGMENT — the clause-G source convention (TYPO-CLASS) ───────
+% The ratified clause-G text writes the elliptic law with a bare `= T_00`. Corrected
+% TYPO-CLASS by dated fragment (R31-style), NOT re-ratified: the ratification never
+% exhibited the convention question, so there was nothing to re-ratify. The law
+% carries the canonical DECLARED 4-pi source convention, per gordon-optical-metric.md:25
+% (clm-rd9cjm), verbatim: "-\left(\frac{c^{4}}{7G}\right)\nabla^{2}\epsilon_{11}(r)
+% = 4\pi Mc^{2}\delta^{3}(r)". Hence `= 4 pi T_00` above, with T_00 = Mc^2 delta^3 for
+% a point mass. This is one symbol with two spellings in canon, now reconciled to the
+% declared one; no VALUE moves and the f = 7 chain is unchanged.
+%
+% ⚑ SURFACED FOR THE RULING AUTHOR — "fragment-only" or "edit-plus-fragment"?
+% R49(a) says the correction lands "TYPO-CLASS by dated fragment (R31-style)". This
+% batch did BOTH: it added the fragment above AND edited the ratified equation body in
+% this canonical file (`= T_00` -> `= 4 pi T_00`). The carve applied was: the CANONICAL
+% file is corrected in place with the fragment as its audit trail, while every VERBATIM
+% QUOTATION of the ratified clause is left byte-untouched (4 such sites, listed in the
+% axiom register's R49(a) inventory). That carve is self-consistent and the fragment
+% discloses the pre-edit spelling verbatim, so nothing is hidden -- but EDITING RATIFIED
+% TEXT IS A GRANT-FACING CALL, not a doc-lane one, and this PR's own disposition table
+% states "Ratified text quoted verbatim is never edited". Whether the intended landing
+% was fragment-ONLY (leave `= T_00` in the body, let the fragment carry the convention)
+% or edit-plus-fragment as done here is the ruling author's to say. Flagged, not
+% presented as settled -- same treatment as the R46/R50 subtitle conflict above.
+%
+% DERIVATION-GRADE NOTE. Axiom 5 is POSTULATED — a new axiomatic primitive, not a
+% theorem of Axioms 1–4. The source lane bins all four of its deliverables
+% `DERIVED-VIA-NEW-AXIOM(BC-SRC)`: the conservation, kinematic-freeze, and uniqueness
+% legs are DERIVED from the receipted dynamics; clauses S, G and Q are the axiom's own
+% content and are NOT derived — S has no energy->flux map, G's kappa has no axiom
+% preimage, Q is definitional-or-canon. FORM-derived / VALUE-imported per the
+% framework's standing signature: kappa = c^4/7G and nu = 2/7 stay GR-imported (#261
+% untouched); B(M)'s dimensional normalization rides the imported G/xi chain.
+%
+% ⚑ DISCLOSED ALTERNATIVE, UNADJUDICATED (not "ruled out"). A constraint-free
+% alternative to this axiom — pinning the bound sector by something other than a
+% deposited-flux + potential-bridge + quiescent-reference triple — was CONSIDERED and
+% is UNADJUDICATED. No lane has closed it, no ruling has excluded it, and nothing in
+% this file should be read as evidence against it. Recorded because "we did not
+% examine this" and "this is ruled out" are different states and only one of them is
+% true here.
+%
+% ⚑ NON-CIRCULARITY OBSERVATION (R48 walk note; ROUTED to the residence-lane family,
+% recorded not adjudicated). Clause G is non-circular only if the bias eps_11 is a
+% DISTINCT object from mechanical strain (grad u). The A_g = c*l_node^2 hypothesis's
+% 57-order miss is evidence FOR that distinctness — one object would have made
+% A_g ~ l_node^2 work. Stated as an observation with its routing, not as a finding.
+%
+% ── EE-FIRST MAPPING (hub-and-spoke; CONSISTENCY-class, buys no number) ───────
+% Landed per R47 item 1's mandatory pass; nouns per R50. Both correspondences map the
+% EE spoke to the SUBSTRATE HUB; neither is a discipline-to-discipline mapping, and
+% neither derives a value. (That sentence was dropped by the R50 nouns-only sweep and
+% is RESTORED -- deleting a load-bearing epistemic fence is scope creep in a
+% vocabulary pass, and the fence is the reason the mapping is safe to state at all.)
+%
+%   BIAS NETWORK  <->  clause G. Mass-energy injects current; the saturation-graded
+%   conductance D(A) distributes the node potential eps_11 (THE BIAS); the bound
+%   response is its field; kappa is the bias sector's permittivity. DISANALOGY,
+%   load-bearing: an EE bias network is driven by an EXTERNAL supply, and the
+%   substrate's is not — T_00 sources it and Axiom-4 self-saturation sets the
+%   operating point. Do not import "there is a supply rail" from the analogy.
+%
+%   ELECTRET  <->  clause S. An electret is a dielectric carrying a frozen-in,
+%   quasi-permanent polarization that persists with no applied field; clause S's
+%   genesis-written flux likewise persists with no drive, preserved by the derived
+%   conservation leg. DISANALOGY, load-bearing: an electret's frozen state is a
+%   DIPOLE (net-zero monopole), while clause S deposits a NET MONOPOLE flux. The
+%   analogy carries persistence-without-drive and NOTHING about the multipole order.
+%   VERIFIED 0 prior corpus hits for "electret" before this landing.
+%
+% ── DISCRIMINATION CHECK (ave-discrimination-check, run before landing) ───────
+% SM/GR counterfactual: defining a mass as a conserved surface flux is exactly what GR
+% does with ADM mass, and pinning a constrained sector by initial data is what every
+% gauge theory does with Gauss's law. Axiom 5's CONTENT is therefore PEER with the
+% incumbents — CONSISTENCY-class, NOT an AVE-distinct chord. Interpretive alternative,
+% stated: the whole axiom can be read as "boundary conditions", which every field
+% theory carries. The AVE-distinct content is not inside the axiom; it is the FORWARD
+% test port — ONE A_g across independent consumers. That over-determination is what
+% could fail, and it is where any chord would live.
