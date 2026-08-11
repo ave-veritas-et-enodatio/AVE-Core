@@ -228,3 +228,54 @@ file as if it were here.
 
 **Same tag applies to the §10 counter-arms C7/C8/C9 already flagged there** — they are
 correctly marked UN-AUDITED and are unaffected by this note.
+
+*(Merge note, 2026-08-11, orchestrator: §11 below entered this file at the #952
+merge, after the above measurement landed on main. §11 independently contains the
+word "amplifier" once — "Class-A amplifier practice", a Q-point-biasing reference
+unrelated to the naming finding. The "nothing else" clause above is therefore
+scoped to the file state at this note's landing (post-`d98e4ccd`, pre-§11) and
+remains true at that scope; it is not a claim about the file after this merge.)*
+
+---
+
+## §11 DATED ADDENDUM (2026-08-10) — the pre-tension walk: the linear-coupling fork and its charter (⚑ UN-AUDITED)
+
+Context: the #951 bias-propagation verdict (D1 NOT-DERIVABLE; the S^p lemma pending
+orchestrator verify). The lemma + the GR-echo jointly pose: canon's gravity needs
+LINEAR coupling to the bias; Ax4's kernel is flat at zero. The walk (Grant-driven):
+
+- **THE FORK (four arms, creepage-fenced):** (1) PRE-TENSION — the vacuum idles at a
+  finite scalar operating offset A₀ (linear small-signal coupling for free). ⚠ SSB
+  FENCE: this is structurally the Higgs-VEV template (the orchestrator's
+  most-trained pattern); its legitimate twin is Q-POINT BIASING (Class-A amplifier
+  practice). Arm 1 must be posed as a STRUCTURAL/GEOMETRIC fact — potential-
+  minimization machinery and Goldstone-mode narratives are the import tells, BANNED.
+  (2) KINEMATIC/GEOMETRIC — waves riding DISPLACED geometry couple linearly in u₀ by
+  pure kinematics, kernel-free (the arm the constitutive-thinking habit missed).
+  (3) EXTRA-KERNEL LINEAR CHANNEL — last resort; the add-a-field reflex flagged.
+  (4) CANON-INCONSISTENT — the audit arm: the graded-network row licenses only
+  δn ∝ A² (quadratic) while the gravity sector's lensing/redshift chain runs
+  linear-in-ε₁₁ and lands GR-exact; the lemma may have EXPOSED a standing
+  unlicensed linearity, not opened a fork. → THE AUDIT LANE RUNS FIRST.
+- **GRANT'S ARM-1 CHARTER (verbatim leans):** *"of course there's a default
+  tension"* — origin = QUENCHED-IN residual stress at the freeze (tempered-glass
+  class; stability and V_snap-rupture become one mechanism — the Prince Rupert
+  structure); self-equilibrating (no external frame); *"how is it expanding?"* —
+  evolution = CREEP of the frozen stress, with **H₀ as the candidate relaxation
+  rate (falsifier-class: derive the rate from A₀ + lattice constants or the
+  identification dies)**; the wave ledger — cosmological redshift = adiabatic
+  stretch, energy into the tension books (a mechanism for the ρ_Λ row).
+- **THE GEOMETRIC PINNING (Grant: "geometry sets the q point in semiconductors
+  right?"):** yes — built-in potential, strained-Si, the GaN HEMT 2DEG (a channel
+  at zero applied bias, set by crystal structure). The lattice analog: 432 FORBIDS
+  polar/piezo built-ins (NO-TWIST) but PERMITS scalar/pseudoscalar offsets — the
+  symmetry SELECTS the isotropic form cosmology requires. Candidates already in
+  canon wearing orphan tags: u₀* ≈ 0.187 (the magic-ANGLE operating point) and
+  arc* (Ax4's standing bond BOW) — **hypothesis: the bow, the angle, and A₀ are one
+  geometric fact of the srs rest-state**, derivable from the screw geometry.
+- **Counter-arms:** (C10) cosmology is the most seductive narrative class —
+  everything above is walk-level and must reconcile with the vol3 cosmology sector (vol3, not vol6 — the prior-art sweep's correction, same as folded into the briefs at fb3088db), never
+  parallel-mint; (C11) H₀-as-creep invites numerology — frozen criteria before any
+  number; (C12) the u₀*/arc*/A₀ unification is a HYPOTHESIS (both parents are
+  orphaned imports — deriving one from the other without the geometry derivation
+  would be orphan-marries-orphan); (C13) the audit arm may moot the fork entirely.
