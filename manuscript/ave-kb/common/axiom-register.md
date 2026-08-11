@@ -363,7 +363,11 @@ silently committed — this is canonical infrastructure):
     **𝒜_g**. Collision receipt (R46, re-verified here two-method): the ξ family is
     crowded (seven members, ξ_topo alone ×790) so ξ_g was REJECTED, while
     `\mathcal{A}` carries exactly one other subscripted member corpus-wide — 𝒜_g is
-    clean. Read every `λ` inside the quoted clause as 𝒜_g.
+    clean. Read every `λ` inside the quoted clause as 𝒜_g. **The same applies to `grade` and
+    `dress` in that quote:** R50 demoted "grade" from ε₁₁'s canonical name to informal
+    use (canonical noun: **THE BIAS**) and retired "dress" (canonical: **the bound
+    response**). The quoted clause is likewise left verbatim — read every `grade`
+    inside it as **bias**, and `dress` as **bound response**.
   - **Q (quiescence — the DC operating point).** *"The sourceless substrate sits
     at the cold operating point: `∇·π = 0`, `θ = 0`, `ε₁₁ = 0` away from
     defects."* Ratified role (R43): this is **the DC OPERATING POINT — the
@@ -434,6 +438,25 @@ silently committed — this is canonical infrastructure):
    in-bullet token regex at `:183` to `` `\bAxiom ([1-5])\b` ``. **Minimal by
    construction:** bumped to the live count, NOT opened to `\d+`, so a typo'd
    "Axiom 9" still fails loudly instead of quietly minting a node.
+   **★ AND THE SILENT-DROP MODE ITSELF IS DEAD, not merely narrowed** (Grant: *"kill
+   the mode, not just the range"*). The parse is now **broad-RECOGNIZE then strictly
+   PARSE**, with **three outcomes and no fourth**: *parsed* / *not-a-bullet* (silent,
+   correct — absence is not malformation) / **MALFORMED → RAISES
+   `FrameworkNodeParseError`** naming the file:line. The recognizer is
+   `` `^\s*-\s*Axiom\b` `` — **leading indentation included**, which matters because
+   indentation is *the* canonical malformation: the parse-error docstring names it
+   first and this repo's own regression fixture mangles by indenting. An earlier cut
+   of this batch wrote `` `^- *Axiom\b` `` (the star AFTER the dash), which **cannot
+   match an indented bullet at all** — so the hole survived the widening and was found
+   by review, not by me. Closed with two regression tests, one the **Axiom-5-specific**
+   case: `axiom-5` has **zero** inbound `depends-on` edges (axiom-1: 99, axiom-2: 38,
+   axiom-3: 30, axiom-4: 101, **axiom-5: 0**), so dropping it dangles nothing and the
+   downstream `_assert_framework_node_coverage` backstop **cannot** see it — the
+   parse-time recognizer is the only thing that can.
+   **AUTHORING CONSTRAINT, documented because it is a real fence:** a prose bullet that
+   merely opens with `- Axiom N` (e.g. `- Axiom 3 forbids dissipation.`) now
+   **hard-fails the indexer**. Blast radius is one file and it fails loud, so the
+   direction is right — but write such prose without the leading-bullet form.
    **Before/after receipt** (`make refresh-kb-metadata`, same tree, one variable
    changed): BEFORE → `['axiom-1','axiom-2','axiom-3','axiom-4']`; AFTER →
    `['axiom-1','axiom-2','axiom-3','axiom-4','axiom-5']`, the new record titled
@@ -567,20 +590,23 @@ R49(a) corrects it typo-class **because the ratification never exhibited the
 convention question** — there was nothing to re-ratify. No VALUE moves; the $f = 7$
 chain is unchanged.
 
-**⚑ SITE COUNT RE-DERIVED AT HEAD, NOT INHERITED.** The upstream inventory says
-*"five-plus sites"*. Re-derived two-method here (Python-walk primary, operator-form +
-source-term matched, shell as cross-check): **25 sites**, in four disposition classes.
-My own first strict pass returned 19 and was itself wrong — it false-negatived on the
-Unicode superscript `∇²` form; widened and re-run. Reporting both numbers because a
-count that moved under my own method is exactly the thing not to quietly present as
-final.
+**⚑ SITE COUNT RE-DERIVED AT HEAD, NOT INHERITED — and CORRECTED TWICE.** The
+upstream inventory says *"five-plus sites"*. My derivations, in order, with the reason
+each moved: **19** (first strict pass — WRONG, false-negatived on the Unicode `∇²`
+superscript) → **25** (widened) → **27** (widened again: `.json`/`.jsonl` were outside
+the scanned extensions, and the *inside-bracket* variational form
+`(−∇·[κD∇ε₁₁] − T₀₀)` never has `= T₀₀` on the right-hand side so the `=`-anchored
+pattern could not see it). **27 is the current figure: 3 repaired here + 24 still
+carrying the bare source.** Every intermediate number is shown because a count that
+moved three times under my own method is exactly the thing not to present as final.
 
-| Class | n | Disposition |
-|---|---|---|
-| KB / manuscript, plain prose | 3 | **REPAIRED HERE** — `saturating-modulus-and-backreaction.md`:42, :50 and `vol3/claim-quality.md`:1254, each same-line with a dated typo-class note. Also repaired: that leaf's `:43-44` cite, which named `gravitational-refractive-index-gradient.md` — a file carrying **neither** formula — now re-pointed to the gordon leaf + clm-rd9cjm. |
-| Verbatim-quoted ratified text | 4 | **NOT rewritten** (`axiom-register.md`:350 inside the quoted clause-G block; `2026-08-10_inventory-review.md`:211/:450/:455). Ratified text quoted verbatim is never edited — the dated fragment in [`eq_axiom_5.tex`](../../common_equations/eq_axiom_5.tex) is what carries the correction for all of them. |
-| Dated / FROZEN research docs | 11 | **SURFACE-NOTE CLASS, not repaired** — `2026-06-29_grqed-stage1-gr-extension_result.md` (6 sites), `2026-08-10_bound-constitutive_result.md` (2), `…_prereg-FROZEN.md`, `2026-08-07_a1-port-sourcing_result.md`, `2026-08-09_bound-response_result.md`. |
-| Engine `src/ave/` docstrings | 7 | **OUT of the doc lane's fence, ROUTED** — `gw_propagation.py`:364/:368/:412/:456/:482/:599 and `backreaction.py`:12. Engine code is not this lane's to edit. Note the upstream inventory named three of these; there are seven. |
+| Class | n | Sites | Disposition |
+|---|---|---|---|
+| KB / manuscript prose | 3 | `saturating-modulus-and-backreaction.md`:42, :50; `vol3/claim-quality.md`:1254 | **REPAIRED HERE**, each same-line with a dated typo-class note. Also repaired: that leaf's `:43-44` cite, which named `gravitational-refractive-index-gradient.md` — a file carrying **neither** formula — now re-pointed to the gordon leaf + clm-rd9cjm. |
+| Verbatim-quoted ratified text | 4 | `axiom-register.md`:350 (inside the quoted clause-G block); `2026-08-10_inventory-review.md`:211, :450, :455 | **NOT rewritten.** Ratified text quoted verbatim is never edited; the dated fragment in [`eq_axiom_5.tex`](../../common_equations/eq_axiom_5.tex) carries the correction for all four. |
+| Dated / FROZEN research | 12 | `2026-06-29_grqed-stage1-gr-extension_result.md`:14, :16, :38, :39, :73, :164; `2026-08-10_bound-constitutive_result.md`:37, :120, **:173**; `…_prereg-FROZEN.md`:16; `2026-08-07_a1-port-sourcing_result.md`:123; `2026-08-09_bound-response_result.md`:61 | **SURFACE-NOTE CLASS, not repaired.** ★ **`:173` is the substantive one and was missed by my first two passes**: it is not a prose restatement but the corrected energy functional's **Euler–Lagrange pair**, `D(ε₁₁)·(−∇·[κD∇ε₁₁] − T₀₀) = 0`. Under the declared 4π convention the variational source must carry the 4π too, or the *"R9 machine-verified"* stationarity statement no longer matches the canon law. **A convention-dependent DERIVATION, not a label** — flagged as such and routed, since the doc is frozen. |
+| Driver artifact | 1 | `research/drivers/bound_response_consumer_audit.json`:3120 | **SURFACE-NOTE CLASS, not repaired** — a frozen classifier artifact whose `rationale` string restates clause G with a bare `T₀₀`. Missed by my earlier passes because `.json` was outside the scanned extensions. |
+| Engine `src/ave/` | 7 | `gw_propagation.py`:364, :368, :412, :456, :482, :599; `backreaction.py`:12 | **ROUTED, out of the doc lane's fence.** The upstream inventory named three of these; there are seven. |
 
 **Also routed, unrepaired (from the same upstream inventory, re-verified as real):** the
 engine units-bridge gap (`backreaction.py` runs dimensionless-lattice and carries no

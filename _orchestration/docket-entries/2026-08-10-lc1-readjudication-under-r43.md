@@ -73,13 +73,14 @@ being made:**
   [`2026-08-10-ruling-r44-r43-reconciliation.md`](2026-08-10-ruling-r44-r43-reconciliation.md),
   Grant verbatim: *"The first session I accidentally reset the chat to before it on
   R43, the one we scoped is final, so the dc operation point/quiescent point is
-  ok."* R44's own ruling text, verbatim `[sic]`: *"The **full-scope record is
+  ok."* R44's own ruling text, same record `:11-14`, verbatim `[sic]`: *"The **full-scope record is
   FINAL**: `2026-08-10-ruling-r43-ratification.md` (via #941) — **Tier A + BC-SRC
   clauses S, G, AND Q all RATIFIED**, with the DC operating point / quiescent point
   (Q-point) naming."*
 - **Gate (b) — whether `DERIVED-VIA-NEW-AXIOM` counts as DERIVED-class:
   DISCHARGED BY ORCHESTRATOR RULING, MADE IN R44 — not "standing".** R44's
-  consequences clause, verbatim `[sic]`: *"Consequences now unambiguous: the axiom
+  consequences clause at [`2026-08-10-ruling-r44-r43-reconciliation.md`](2026-08-10-ruling-r44-r43-reconciliation.md):15-19,
+  verbatim `[sic]`: *"Consequences now unambiguous: the axiom
   count is **5**; the doc-lane execution batch runs items (a)-(g) IN FULL (the Tier-A
   repair and the Q/def-node promotion are no longer held); **LC-1's cell
   re-adjudication FIRES** (all clauses ratified, per the standing orchestrator
