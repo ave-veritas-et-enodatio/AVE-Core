@@ -1251,7 +1251,7 @@ The substrate-mechanism class for the CMB-thermal-running of $\alpha$ ($\delta_{
 ## Saturating-Modulus Correction on the Linear GR Core (GR-QED Stage-1)
 <!-- id: clm-zbvfpi -->
 
-The FIRST increment of the GR-QED extension engine (2026-06-29): a saturating modulus $D(A)=1/S(A)$ multiplying the inherited elastic-Poisson elliptic operator, $-\nabla\!\cdot[(c^4/7G)D(A)\nabla\varepsilon_{11}]=T_{00}$ with $A=\varepsilon_{11}/\varepsilon_{yield}$, $S(A)=(1-A^2)^{1/2}$ (the ONE canonical Op14 kernel, REUSED not minted). **Engine-capability / consistency-class** — a correction ON the linear GR core, NOT a re-derivation of it.
+The FIRST increment of the GR-QED extension engine (2026-06-29): a saturating modulus $D(A)=1/S(A)$ multiplying the inherited elastic-Poisson elliptic operator, $-\nabla\!\cdot[(c^4/7G)D(A)\nabla\varepsilon_{11}]=4\pi T_{00}$ with $A=\varepsilon_{11}/\varepsilon_{yield}$, $S(A)=(1-A^2)^{1/2}$ (the ONE canonical Op14 kernel, REUSED not minted). **Engine-capability / consistency-class** — a correction ON the linear GR core, NOT a re-derivation of it. *(source convention corrected TYPO-CLASS 2026-08-10 under R49(a) to the declared $4\pi$ convention, `gordon-optical-metric.md:25` / clm-rd9cjm; no VALUE moves, no re-grade.)*
 
 - _Specific Claims_
   - **Recover-the-known (consistency):** at $r\gg r_{sat}$ ($A\to0$, $S\to1$, $D\to1$) the correction vanishes and the inherited linear elastic-Poisson / Schwarzschild profile ($\varepsilon_{11}=7GM/c^2r$, $n=1+(2/7)\varepsilon_{11}$) is reproduced. Non-tautological evidence = relaxed-field exterior tail (unsaturated $A<0.4$ regime exists) + $D\to1$ stiffness recovery.

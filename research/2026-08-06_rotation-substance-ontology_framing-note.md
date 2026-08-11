@@ -191,3 +191,34 @@ Ruling context: R48-R50. Grant's probes and the walk outputs, recorded same-sess
   unification is an ECHO until the force MAGNITUDE reproduces the canon chain — the
   sharp check: does F = −∇E = −ħ(∂ω/∂ε)∇ε reproduce g = GM/r² on the canon bias
   profile with zero new constants? That check is frozen into the lane brief.
+
+---
+
+## ★ DATED SURFACE-NOTE (2026-08-10) — the two-layer analogy is ANALOGY, NOT THEOREM (orchestrator-owned)
+
+**Surface-note only; §10 above is not rewritten** (dated addendum, another lane's
+artifact).
+
+**Site:** `:172`, the §10 two-layer reduction — *"the bias network is not a second
+medium — it is the fast layer's envelope; nothing outruns c because everything IS the
+fast layer underneath (**the power-rail analogy**)"*.
+
+**Tag: ANALOGY, NOT THEOREM. Orchestrator-owned.** The envelope/power-rail picture is
+an **orchestrator-authored analogy** offered as a way to see why an envelope
+description need not imply superluminal transport. It is **not** a derivation, it
+carries no receipt, and it **does not discharge** the causality question it addresses.
+What would discharge it is the **BIAS PROPAGATION THEOREM** — the envelope reduction
+derived FROM the fast layer, with its dispersion relation exhibited — which is Axiom
+5's standing named-open debt and the subject of its own lane brief. Until that lands,
+the analogy licenses nothing in print, exactly as this note's own header already says
+of the whole document.
+
+**⚑ Naming finding, surfaced not silently resolved:** this analogy has been referred
+to downstream as *"the slewing-amplifier analogy"*. **That phrase does not occur in
+this document** (two-method: zero hits for `slew`, `amplifier`, `op-amp`). The
+in-document term is **the power-rail analogy** at `:172`. Recorded so the two names
+are known to denote one object, and so the absent phrase is not later cited to this
+file as if it were here.
+
+**Same tag applies to the §10 counter-arms C7/C8/C9 already flagged there** — they are
+correctly marked UN-AUDITED and are unaffected by this note.

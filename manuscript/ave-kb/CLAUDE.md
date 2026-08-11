@@ -363,15 +363,18 @@ identical to an inline placement (`canonical_anchor` resolves to the INVARIANT-S
 heading either way). **This heading is deliberately `##`, not `### INVARIANT-…`, so
 it does not mint a spurious invariant node.**
 
-- Axiom 5: **Substrate DC Bias** — the substrate's DC operating point; the source coupling the four founding axioms never wrote. Three clauses: **S (deposit)** — a matter defect deposits a nonzero net A1 dilatation flux $\oint_S \mathbf{u}\cdot\hat{\mathbf{n}} = 4\pi B(M)$, mass as an enclosed compression charge BY LAW, genesis-deposited boundary data, MECHANISM-AGNOSTIC; **G (grade coupling)** — the dress↔grade bridge $\mathbf{u}_0 = -\mathcal{A}_g\nabla\varepsilon_{11}$ with the $\kappa$-stiffened elliptic grade law $-\nabla\cdot[\kappa D(A)\nabla\varepsilon_{11}] = T_{00}$, $\kappa = c^4/7G$ (VALUE imported); **Q (quiescence)** — the sourceless substrate sits at the cold operating point $\nabla\cdot\pi = 0$, $\theta = 0$, $\varepsilon_{11} = 0$, the quiescent reference that makes the potentials defined and G's solve well-posed. Ratified 2026-08-10 (R44 full-scope; named by R46). Canonical: `eq_axiom_5.tex`. Internal falsifier ships with it: $B = 7\mathcal{A}_g GM/c^2$, ONE $\mathcal{A}_g$ across every consumer. Operational signatures: DC operating point, Q-point, dress↔grade bridge, grade-coupling area $\mathcal{A}_g$.
+- Axiom 5: **Substrate DC Bias** — the substrate's DC operating point; the source coupling the four founding axioms never wrote. Three clauses: **S (deposit)** — a matter defect deposits a nonzero net A1 dilatation flux $\oint_S \mathbf{u}\cdot\hat{\mathbf{n}} = 4\pi B(M)$, mass as an enclosed compression charge BY LAW, genesis-deposited boundary data, MECHANISM-AGNOSTIC; **G (bias coupling)** — the bias↔bound-response bridge $\mathbf{u}_0 = -\mathcal{A}_g\nabla\varepsilon_{11}$ with the $\kappa$-stiffened elliptic bias law $-\nabla\cdot[\kappa D(A)\nabla\varepsilon_{11}] = 4\pi T_{00}$ (the declared $4\pi$ source convention, R49(a)), $\kappa = c^4/7G$ (VALUE imported); **Q (quiescence)** — the sourceless substrate sits at the cold operating point $\nabla\cdot\pi = 0$, $\theta = 0$, $\varepsilon_{11} = 0$, the quiescent reference that makes the potentials defined and G's solve well-posed. Ratified 2026-08-10 (R44 full-scope; named by R46). Canonical: `eq_axiom_5.tex`. Internal falsifier ships with it: $B = 7\mathcal{A}_g GM/c^2$, ONE $\mathcal{A}_g$ across every consumer. Operational signatures: DC operating point, Q-point, bias↔bound-response bridge, bias-coupling area $\mathcal{A}_g$.
 
-> **$\mathcal{A}_g$ is DERIVE-FIRST and is in NO register (R46).** The grade-coupling
-> area $\mathcal{A}_g$ [m²] (formerly drafted λ, now retired for this role) does not
-> enter the interlock register or the calibration-parameter set until the derivation
-> lane adjudicates the frozen hypothesis $\mathcal{A}_g = c\,\ell_{node}^2$. So the
-> LIVE independent-parameter count is **unmoved by Axiom 5 in either direction**, and
-> `expected-independent-count: 3` in the interlock register is correct as it stands —
-> deliberately, not by oversight. Brief: `_orchestration/2026-08-10_ag-derivation-brief.md`.
+> **$\mathcal{A}_g$ — RATIFIED, COHERENT, UNVALUED (R48; supersedes R46's derive-first
+> "no register").** The **bias-coupling area** $\mathcal{A}_g$ [m²] (formerly drafted
+> λ, retired for this role) now HAS a register home: the interlock register's
+> per-constant criteria section, class **`UNVALUED-RATIFIED-CONSTANT`**. The frozen
+> hypothesis $\mathcal{A}_g = c\,\ell_{node}^2$ came back **NOT SUPPORTED**, so the
+> constant is ratified and coherent ($f = 7$ under the declared $4\pi$ convention) but
+> **unvalued**. **The calibration count STAYS 3 — by RULING**, not because the gate
+> cannot see the constant; it moves only when a **sound** consumer produces a value.
+> The one valued route is carried as an **exhibit of its own inconsistency** (solar
+> bound-response strain ten orders past yield), and that row's repair is routed.
 
 > **Homonym guard — "Axiom 5" is overloaded as of this landing.** Three live engine
 > files use the token `Axiom 5` for an unrelated coupled-resonator normal-mode

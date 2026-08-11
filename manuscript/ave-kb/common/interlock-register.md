@@ -364,3 +364,71 @@ FAIL = echo (the three-route commitment, [`form-deriving-value-importing.md:119-
 > graduation TARGET, gated on `𝒥_cosmic`; it is not a current achievement. The
 > `braced_status` field is the audit-able qualifier the gate reads, and it reads
 > `un-refuted-only` for every dimensionless constant today.
+
+---
+
+## 𝒜_g — the bias-coupling area *(R48: UNVALUED-RATIFIED-CONSTANT; the count STAYS 3)*
+
+**Ruling:** [`2026-08-10-rulings-r48-r49.md`](../../../_orchestration/docket-entries/2026-08-10-rulings-r48-r49.md),
+Grant verbatim: *"agree for interlock entry/rec."* This entry **supersedes R46's
+derive-first "𝒜_g enters NO register"** — the derive-first gate is discharged
+(the lane reported) and the constant now has a home.
+
+- **class** — **`UNVALUED-RATIFIED-CONSTANT`** *(new edge class, minted by R48)*.
+  Distinct from every existing class because the existing ones classify a
+  constant's VALUE-provenance (echo / mixed / definitional / GR-imported), and
+  this one records that there **is no value to classify yet**: 𝒜_g is ratified as
+  real, coherent across consumers, and **unvalued**.
+- **definition_uniqueness (1)** — ONE definition, ratified: the bias-coupling area
+  in Axiom 5's clause G, $\mathbf{u}_0 = -\mathcal{A}_g\nabla\varepsilon_{11}$,
+  $[\mathrm{m}^2]$. **𝒜_g is NOT a falloff** — the $1/r$ bias profile and the
+  $1/r^2$ bound response are free geometry from the elliptic solve. 𝒜_g is the
+  **scale converter**: metres of displacement per unit bias slope.
+- **routes_status (2)** — `open — 1 route closed-negative, flip-condition live`.
+  The frozen hypothesis $\mathcal{A}_g = c\,\ell_{node}^2$ ($c$ a pure number) is
+  **NOT SUPPORTED**: no receipted consumer values 𝒜_g at $\ell_{node}^2$ scale and
+  the only valued route sits ~57 orders away. Per the standing rule this is
+  **never** written "exhausted".
+- **coherence** — **COHERENT across consumers at $f = 7$** under the declared
+  $4\pi$ source convention. The axiom's own over-determination port did **not**
+  fire: the falsifier is intact and unfired, not passed-by-luck.
+- **valuation** — **UNVALUED. No sound consumer values it.** The one VALUED route
+  is carried below as an exhibit of its own inconsistency, not as a value.
+- **promotion_criterion (3)** — **the count moves 3 → 4 exactly when a SOUND
+  consumer produces a value.** "Sound" is doing real work here: a consumer whose
+  own declared regime is self-consistent. Until then the calibration count is
+  **3**, unchanged.
+- **failure_causation (4)** — `INNOCENT`. 𝒜_g is not consumed by any live
+  derivation for a number; it is a ratified slot awaiting a value.
+
+> **⚑ EXHIBIT (not a value): the C2 near-field-store row's bracket, carried as
+> evidence of THAT CONSUMER'S OWN INCONSISTENCY.** The added-mass row inverts to
+> $\mathcal{A}_g \approx 3.7\times10^{32}$–$1.2\times10^{33}\,\mathrm{m}^2$. It is
+> **self-refuting on its own regime declaration**: at that value the bound-response
+> strain is $\sim2.3\times10^{10}$ at a solar surface — **ten orders past yield** —
+> so the row would put every star's near field past-wall while declaring itself
+> cold-linear. **This bracket is therefore NOT a valuation of 𝒜_g**; it is a
+> receipt that this consumer is inconsistent with itself. **The row's repair is
+> ROUTED and is deliberately NOT performed here.** Source: PR #946 (`[DO-NOT-MERGE]`),
+> its C2 section and §7 routing.
+
+> **⚑ WHY THE PARAMETER-ECONOMY COUNT IS UNMOVED — BY RULING, not by a blind gate.**
+> This must not be read as the gate failing to notice a new constant. The count is
+> computed **only** from the `ilk-` `real_or_fitted` tags (see the integration note
+> above: *"The count is still computed ONLY from the `ilk-` `real_or_fitted` tags …
+> NOT from this section"*), and 𝒜_g deliberately mints **no** `ilk-` node and is
+> deliberately **absent** from the `calibration-params:` meta line. That absence is
+> **R48's ruling** — an unvalued constant buys no parameter and costs none — and it
+> is recorded here so the green gate is read as *the ruled state*, not as an
+> oversight. `expected-independent-count: 3` is correct **because it was ruled so**.
+
+> **Non-circularity observation (R48 walk note; ROUTED to the residence-lane family,
+> recorded NOT adjudicated).** Clause G is non-circular only if the bias
+> $\varepsilon_{11}$ is a **distinct object** from mechanical strain $\nabla u$. The
+> $\ell_{node}^2$ hypothesis's 57-order miss is **evidence FOR that distinctness** —
+> if they were one object, $\mathcal{A}_g \sim \ell_{node}^2$ would have worked.
+> Stated as an observation with its routing, not as a finding.
+
+**Cross-refs:** [`eq_axiom_5.tex`](../../common_equations/eq_axiom_5.tex) clause G ·
+the Axiom-5 entry in [`axiom-register.md`](axiom-register.md) · the bias-propagation
+lane brief (Axiom 5's standing debt).

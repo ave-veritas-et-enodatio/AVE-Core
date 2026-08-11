@@ -345,16 +345,17 @@ silently committed — this is canonical infrastructure):
     LAW**. The write event is a genuine new law (the four-lock no-go bars the
     receipted dynamics from creating it); KCL / the derived conservation leg
     preserves it thereafter.
-  - **G (grade coupling / bridge).** *"The operating-point grade is the bound
+  - **G (bias coupling / bridge).** *"The operating-point grade is the bound
     sector's potential: `u₀ = −λ∇ε₁₁`, with the grade pinned by the elliptic law
     `−∇·[κD(A)∇ε₁₁] = T₀₀`, `κ = c⁴/7G` (VALUE imported). Equivalently: the canon
     backreaction solve becomes BC-LAW in potential form."* Ratified expansion
     (recorded in the S+G partial record, **SUPERSEDED IN SCOPE per R44** — cited as
     record-of-origin only; the authoritative record is the full-scope R43 ratification): read as a circuit this is the **DC-bias-network law** — mass-energy
     injects current, the saturation-graded conductance distributes the potential
-    ε₁₁, the dress is its field, κ is the bias sector's permittivity.
+    ε₁₁ (THE BIAS), the BOUND RESPONSE is its field, κ is the bias sector's
+    permittivity.
     `backreaction.py`'s elliptic statics becomes **axiom-licensed**. **One new
-    coupling constant, $\mathcal{A}_g$** (the grade-coupling AREA, [m²]), enters the framework
+    coupling constant, $\mathcal{A}_g$** (the BIAS-COUPLING AREA, [m²]; R50's re-read of R46's "grade-coupling area"), enters the framework
     here and nowhere else. **⚑ SYMBOL RETIREMENT (R46, 2026-08-10):** the verbatim
     clause text above still reads `λ` because it is quoted verbatim from the source
     lane and verbatim text is not rewritten. **`λ` is RETIRED for this role** —
@@ -384,9 +385,9 @@ silently committed — this is canonical infrastructure):
   naming**.
 - **status:** **POSTULATED.** BC-SRC is a new axiomatic primitive, not a theorem
   of Axioms 1–4. **Minimality is established by ablation, not asserted:** without
-  **S** the derived conservation legs leave the dress value unpinned; without
+  **S** the derived conservation legs leave the bound-response value unpinned; without
   **G** there is no receipted home for the finite static stiffness, no
-  grade-reading causality, no energy functional, and no derived connection to the
+  bias-reading causality, no energy functional, and no derived connection to the
   static /7 chain; without **Q** the conserved data is unpinned far from sources.
   No clause is derivable from the receipted action — S has no energy→flux map, G's
   κ has no axiom preimage, Q is definitional-or-canon.
@@ -396,14 +397,14 @@ silently committed — this is canonical infrastructure):
   presentation and re-binned all four of its deliverables
   `DERIVED-VIA-NEW-AXIOM(BC-SRC)` rather than `DERIVED`.
 - **residual_content:** **all three clauses.** S (the nonzero, M-proportional
-  deposit), G (the dress↔grade bridge + the κ-stiffened elliptic grade law), and
+  deposit), G (the bias↔bound-response bridge + the κ-stiffened elliptic bias law), and
   Q (the quiescent DC operating point) are the axiom's own content. **FORM-derived
   / VALUE-imported** per the framework's standing signature: κ = c⁴/7G and
   ν = 2/7 stay GR-imported (#261 untouched) and B(M)'s dimensional normalization
   rides the imported G/ξ chain; **𝒜_g is a genuinely new constant.**
 - **derived_by:** `(none — postulated)`. What the lane DID derive, and what
   therefore does **not** belong to this axiom's residual: the conservation leg
-  `∂_t(∇·π) = −∇·j_m`; the kinematic freeze; the exterior uniqueness `u₀ = B r̂/r²`;
+  `∂_t(∇·π) = −∇·j_m`; the kinematic freeze; the exterior uniqueness of the bound response `u₀ = B r̂/r²`;
   zero longitudinal characteristic speed; the (u,π)-sector domain-of-dependence
   theorem; the exact Kirchhoff-transformed energy functional; the pole-absence
   half. Those are theorems of the receipted dynamics, cited at
@@ -472,6 +473,11 @@ silently committed — this is canonical infrastructure):
 > and the practice, not this landing, is the defect); routed.
 
 **Consequently `expected-independent-axiom-count` is now 5 and the two counts AGREE.**
+
+> **⚑ THE ARC IN MINIATURE.** The axiom was ratified, registered, indexed and gated —
+> and still did not exist in the book anyone would read, because no document `\input`
+> the file. Wiring it into the foreword is the whole fix; noticing that the machine
+> state and the readable state had silently diverged is the point worth keeping.
 The earlier state — ratified-axiom 5, framework-node 4 — is closed, not papered over.
 
 > **⚑ HOMONYM GUARD — "Axiom 5" is an overloaded token as of this landing.** Three
@@ -499,7 +505,7 @@ named — not a hedge and not a promise.
 | **2** Topo-Kinematic Isomorphism | $[Q]\equiv[L]$, charge = Burgers-vector dislocation; integers survive coarse-graining | integer protection is topological, so it does NOT lapse at the yield boundary — the one cell where the crystalline law provably carries across | **genesis/formation** of a winding (leans-falsified as a ROUTE, not as existence); $\mathbb{Z}_3$ fractional splitting; the de-bonded phase's dictionary (unwritten) |
 | **3** Minimum Reflection Principle | lossless-reactive extremal principle in two co-canonical forms; temporal-gauge (Weyl) written action | Ax3-lossless is what makes the bond-LC L2 invariant exact, so it is load-bearing AT the yield boundary | the variational ⇄ min-$\|\Gamma\|^2$ **equivalence** (ASSERTED, underived — see `:174`); **ruptured-phase** form (unwritten); whether losslessness itself survives past-wall (unwritten) |
 | **4** Universal Saturation Kernel | $S(A)=\sqrt{1-(A/A_{yield})^2}$ — the kernel IS the boundary law, so this axiom is the one that spans (a)→(b) by construction | the yield boundary is its own subject; vertical tangent at $A\to A_{yield}$ | the ceiling's **HARDNESS** (yield *exists* = derived; yield is *hard/impulsive* = open); cross-grade combine rule underdetermined at $O(\alpha)$; **past-wall** behavior (unwritten) |
-| **5** Substrate DC Bias | clauses **Q** and **G** are the crystalline-phase law. Clause **S** is *genesis-deposited boundary DATA on this phase* — present and conserved, **mechanism-agnostic** | $D(A)$ carries clause G's response into the graded regime; the $D(A)\to\infty$ wall is past-wall-adjacent and **not written** | **the genesis-phase law that writes clause S's flux** — the deposit is data, not a derivation, and the mechanism is a first-class named-open, not an omission; **de-bonded** form of all three clauses (unwritten); **pre-freeze** (unwritten) |
+| **5** Substrate DC Bias | clauses **Q** and **G** are the crystalline-phase law. Clause **S** is *genesis-deposited boundary DATA on this phase* — present and conserved, **mechanism-agnostic** | $D(A)$ carries clause G's response into the graded regime; the $D(A)\to\infty$ wall is past-wall-adjacent and **not written** | **★ THE BIAS PROPAGATION THEOREM — this axiom's STANDING DEBT.** Clause G's elliptic law is the **static abstraction of underived finite-speed bias dynamics** (an elliptic solve is instantaneous by construction, and the axiom does not write what replaces it when the source moves). **The $(u,\pi)$ no-signalling theorem does NOT cover the bias read** — it is proven on the $(u,\pi)$ sector and the bias is a declared distinct object, so the bias's finite propagation speed is **owed, not held**. Also: **the genesis-phase law that writes clause S's flux** (the deposit is data, not a derivation); **de-bonded** form of all three clauses (unwritten); **pre-freeze** (unwritten) |
 
 *Ax5's row is R45's own worked example, carried in substance from the ruling: "Q and
 G are crystalline-phase law; S is genesis-deposited boundary data on the crystalline
@@ -515,33 +521,72 @@ phase, mechanism-agnostic — the mechanism is a named-open entry of the genesis
 now AGREE (`expected-independent-axiom-count: 5` in the `axiom-meta` block). Zero
 axioms at DERIVED-TO-THEOREM; one at RATIFIED-ADDITION.
 
-### 𝒜_g and the independent-PARAMETER count — stated, because a silent gate is not an answer
+### 𝒜_g and the independent-PARAMETER count — RULED, not left to a blind gate
 
-The axiom-count above is the AXIOM count. The **independent-PARAMETER** count is a
-different, separately-gated number (INVARIANT-S13; `interlock-register.md`'s
-`expected-independent-count: 3`), and Axiom 5 introduces a constant, so the question
-"does the parameter count move?" must be answered rather than left to a gate that
-structurally cannot see it.
+**⚑ SUPERSEDES this section's earlier "𝒜_g enters NO register (R46 derive-first)"
+statement.** The derive-first gate has been discharged — the lane reported, the frozen
+hypothesis $\mathcal{A}_g = c\,\ell_{node}^2$ is NOT SUPPORTED — and **R48 rules that
+𝒜_g DOES enter the register now**, under a new class.
 
-- **The gate cannot see 𝒜_g, and that is by design, not a defect.** The live count is
-  computed from the nodes explicitly declared in the interlock register's
-  `calibration-params:` meta line. An undeclared constant contributes nothing. The
-  gate's designed trigger is a chord/echo **tag flip** in the reduction direction,
-  not new-constant arrival. So `make verify-kb-metadata` staying green with 𝒜_g in
-  the axioms is the gate behaving as specified — but it is emphatically **not**
-  evidence that the count is unaffected.
-- **The answer, per R46: the count does NOT move, because 𝒜_g is DERIVE-FIRST and
-  enters NO register.** 𝒜_g is deliberately absent from the calibration set until the
-  derivation lane adjudicates the frozen hypothesis **𝒜_g = c·ℓ_node²** (`c` a pure
-  number; ℓ_node = ℏ/m_ec, core-derived). Brief:
-  [`2026-08-10_ag-derivation-brief.md`](../../../_orchestration/2026-08-10_ag-derivation-brief.md).
-  **If DERIVED:** 𝒜_g is core-derived, the interlock count never moves, and the
-  import question dissolves. **If NOT:** 𝒜_g enters the interlock register and the
-  count adjudication (3→4, or a new edge class) is a **Grant ruling** — not an
-  implementer default.
-- **So `expected-independent-count: 3` is correct as it stands, deliberately.** It is
-  not stale and was not overlooked. What would be dishonest is asserting a reduced
-  count that silently *includes* a free 𝒜_g; no text in this corpus does that.
+- **𝒜_g's home:** [`interlock-register.md`](interlock-register.md), per-constant
+  criteria register, class **`UNVALUED-RATIFIED-CONSTANT`** (minted by R48). Ratified
+  as real, **COHERENT across consumers at $f = 7$** under the declared $4\pi$
+  convention, and **UNVALUED** — no sound consumer values it.
+- **The calibration count STAYS 3, BY RULING.** It moves 3 → 4 exactly when a
+  **sound** consumer produces a value. This is the disposition of the standing
+  parameter-economy question, and it must be read correctly: the count is unmoved
+  **because R48 ruled that an unvalued constant buys no parameter and costs none** —
+  **NOT** because the INVARIANT-S13 gate structurally cannot see 𝒜_g. Both facts are
+  true and only one is the reason. Mechanically: 𝒜_g mints no `ilk-` node and is
+  deliberately absent from `calibration-params:`, and the register's own integration
+  note states the count is computed *"ONLY from the `ilk-` `real_or_fitted` tags …
+  NOT from this section"*. So a green `verify-kb-metadata` here reports the **ruled**
+  state.
+- **The one VALUED route is an EXHIBIT of its own inconsistency, not a value.** The
+  near-field-store (added-mass) row inverts to
+  $\mathcal{A}_g \approx 3.7\times10^{32}$–$1.2\times10^{33}\,\mathrm{m}^2$, but at
+  that value the bound-response strain is $\sim2.3\times10^{10}$ at a solar surface —
+  **ten orders past yield**, while the row declares itself cold-linear. Self-refuting
+  on its own regime declaration. **The row's repair is ROUTED and is deliberately not
+  performed here.**
+- **𝒜_g is not a falloff.** The $1/r$ bias profile and $1/r^2$ bound response are free
+  geometry from the elliptic solve; 𝒜_g is the **scale converter** (metres of
+  displacement per unit bias slope). *(R48 walk note of record.)*
+- **Non-circularity observation, ROUTED (recorded, not adjudicated):** clause G is
+  non-circular only if the bias $\varepsilon_{11}$ is a **distinct object** from
+  mechanical strain $\nabla u$; the $\ell_{node}^2$ hypothesis's 57-order miss is
+  **evidence FOR that distinctness**. Routed to the residence-lane family.
+
+### R49(a) — the clause-G source convention: repaired here, routed there
+
+**The correction (TYPO-CLASS, dated fragment, NOT a re-ratification).** The ratified
+clause-G text writes the elliptic law with a bare `= T₀₀`; the canonical declared
+convention carries the $4\pi$ — [`gordon-optical-metric.md`](../vol3/gravity/ch03-macroscopic-relativity/gordon-optical-metric.md):25
+(clm-rd9cjm), verbatim: *"-\left(\frac{c^{4}}{7G}\right)\nabla^{2}\epsilon_{11}(r) = 4\pi Mc^{2}\delta^{3}(r)"*.
+R49(a) corrects it typo-class **because the ratification never exhibited the
+convention question** — there was nothing to re-ratify. No VALUE moves; the $f = 7$
+chain is unchanged.
+
+**⚑ SITE COUNT RE-DERIVED AT HEAD, NOT INHERITED.** The upstream inventory says
+*"five-plus sites"*. Re-derived two-method here (Python-walk primary, operator-form +
+source-term matched, shell as cross-check): **25 sites**, in four disposition classes.
+My own first strict pass returned 19 and was itself wrong — it false-negatived on the
+Unicode superscript `∇²` form; widened and re-run. Reporting both numbers because a
+count that moved under my own method is exactly the thing not to quietly present as
+final.
+
+| Class | n | Disposition |
+|---|---|---|
+| KB / manuscript, plain prose | 3 | **REPAIRED HERE** — `saturating-modulus-and-backreaction.md`:42, :50 and `vol3/claim-quality.md`:1254, each same-line with a dated typo-class note. Also repaired: that leaf's `:43-44` cite, which named `gravitational-refractive-index-gradient.md` — a file carrying **neither** formula — now re-pointed to the gordon leaf + clm-rd9cjm. |
+| Verbatim-quoted ratified text | 4 | **NOT rewritten** (`axiom-register.md`:350 inside the quoted clause-G block; `2026-08-10_inventory-review.md`:211/:450/:455). Ratified text quoted verbatim is never edited — the dated fragment in [`eq_axiom_5.tex`](../../common_equations/eq_axiom_5.tex) is what carries the correction for all of them. |
+| Dated / FROZEN research docs | 11 | **SURFACE-NOTE CLASS, not repaired** — `2026-06-29_grqed-stage1-gr-extension_result.md` (6 sites), `2026-08-10_bound-constitutive_result.md` (2), `…_prereg-FROZEN.md`, `2026-08-07_a1-port-sourcing_result.md`, `2026-08-09_bound-response_result.md`. |
+| Engine `src/ave/` docstrings | 7 | **OUT of the doc lane's fence, ROUTED** — `gw_propagation.py`:364/:368/:412/:456/:482/:599 and `backreaction.py`:12. Engine code is not this lane's to edit. Note the upstream inventory named three of these; there are seven. |
+
+**Also routed, unrepaired (from the same upstream inventory, re-verified as real):** the
+engine units-bridge gap (`backreaction.py` runs dimensionless-lattice and carries no
+$4\pi$ in its source normalization — nothing bridges its lattice `T₀₀` to the canon
+$4\pi$-carrying SI source), and the $\kappa$ dimensional-label question ($c^4/7G$
+carries FORCE units as the equation requires, yet is labelled `[Pa]` in code).
 
 ### Routed follow-on — the parsimony-class count sites (flag-don't-fix, NOT repaired here)
 

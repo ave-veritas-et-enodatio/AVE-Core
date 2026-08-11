@@ -73,12 +73,17 @@ being made:**
   [`2026-08-10-ruling-r44-r43-reconciliation.md`](2026-08-10-ruling-r44-r43-reconciliation.md),
   Grant verbatim: *"The first session I accidentally reset the chat to before it on
   R43, the one we scoped is final, so the dc operation point/quiescent point is
-  ok."* R44 resolves the dual-record ambiguity in favour of the full-scope record —
-  *"the full-scope record is FINAL"*, **Tier A + clauses S, G AND Q all ratified**.
+  ok."* R44's own ruling text, verbatim `[sic]`: *"The **full-scope record is
+  FINAL**: `2026-08-10-ruling-r43-ratification.md` (via #941) — **Tier A + BC-SRC
+  clauses S, G, AND Q all RATIFIED**, with the DC operating point / quiescent point
+  (Q-point) naming."*
 - **Gate (b) — whether `DERIVED-VIA-NEW-AXIOM` counts as DERIVED-class:
-  DISCHARGED BY ORCHESTRATOR RULING, MADE IN R44 — not "standing".** R44 `:18-19`,
-  verbatim: *"**LC-1's cell re-adjudication FIRES** (all clauses ratified, per the
-  standing orchestrator ruling)."* Read plainly: with the candidate ratified as an
+  DISCHARGED BY ORCHESTRATOR RULING, MADE IN R44 — not "standing".** R44's
+  consequences clause, verbatim `[sic]`: *"Consequences now unambiguous: the axiom
+  count is **5**; the doc-lane execution batch runs items (a)-(g) IN FULL (the Tier-A
+  repair and the Q/def-node promotion are no longer held); **LC-1's cell
+  re-adjudication FIRES** (all clauses ratified, per the standing orchestrator
+  ruling)."* Read plainly: with the candidate ratified as an
   axiom, the `(candidate)` qualifier in the brief's second grade evaporates and the
   four-tuple is DERIVED-under-the-ratified-set.
 
@@ -89,6 +94,24 @@ been made. That is a circular arming citation. It is upstream of this record (th
 R43 file landed on main separately, not in this PR), it is **not repaired here**,
 and R44's later `FIRES` is what this record actually stands on. Routed to the
 orchestrator as a correction-PR candidate against R43 `:30`.
+
+### §1.6 — BASIS OF THIS RE-ADJUDICATION, SCOPED (read before §3)
+
+**This record rests on ONE theorem and says so: the $(u,\pi)$-sector ENERGY-TRANSPORT
+theorem.** T1 (one finite characteristic speed $c$, zero longitudinal characteristic
+speed) + T2 (constraint conserved step-by-step by local operations) + T3 (the
+shrinking-cone/Grönwall energy estimate, with the longitudinal sector contributing
+ZERO flux). That is what the receipts measure and that is the whole of the basis.
+
+**What the basis explicitly does NOT include, stated up front rather than discovered
+later:** it does **not** cover the **bias read**. The no-signalling theorem is proven
+on the $(u,\pi)$ sector; the bias $\varepsilon_{11}$ is a **declared distinct
+object**, and clause G's elliptic law is the *static abstraction of underived
+finite-speed bias dynamics*. **THE BIAS PROPAGATION THEOREM is Axiom 5's standing
+debt and is NOT discharged here.** The kill cell asks about an energy-carrying
+inter-event channel, which is an energy-transport question and therefore inside this
+basis — but a reader must not carry this record as authority for the bias sector's
+propagation speed. It is not.
 
 ## §2 — WHAT FIRED THE KILL, AND WHAT ITS REFERENT WAS
 
@@ -111,10 +134,10 @@ The whole kill stands or falls on whether that mode exists. The standing record
 itself already flagged the premise as under adjudication; that adjudication is
 the bound-constitutive lane, and it has now returned.
 
-## §3 — THE ADJUDICATION: THE PREMISE HAS NO REFERENT UNDER THE RATIFIED SET
+## §3 — THE ADJUDICATION: THE PREMISE HAS NO REFERENT AMONG THE DERIVED ROWS
 
-**Verdict: the kill condition does NOT fire under the ratified set — because its
-referent does not exist, not because a bound was met.**
+**Verdict: the kill condition does NOT fire under the ratified set — because it has
+no referent among the DERIVED rows, not because a bound was met.**
 
 The ratified axiom set writes **no longitudinal restoring term**. The receipted
 dynamics is curl-only, so on the longitudinal line the spatial operator is
@@ -227,7 +250,11 @@ would silently sweep them in. They are named and disposed here instead:
   kill — but neither does this record get to call it absent. It is a **named-open**.
 
 **Therefore: the premise "an energy-carrying inter-event channel at ≠ c" has NO
-ESTABLISHED REFERENT under the ratified set.** Row 3b is the only object that ever
+REFERENT AMONG THE DERIVED ROWS under the ratified set.** (That phrasing is the
+honest one and is deliberate: rows 3a/3b are removed by the absent stencil, row 4 is
+excluded on its own lane's terms, and **row 5 is UNDERIVED — a NAMED-OPEN, not a
+de-firing**. The claim is scoped to the rows the corpus has actually derived, and it
+is not an unqualified universal over all possible channels.) Row 3b is the only object that ever
 satisfied the kill cell (corpus-wide: *"satisfies the kill"* resolves to row 3b and
 nothing else), and row 3b is a mode of an imported operator the axioms never wrote;
 row 4 is excluded on its own lane's terms; row 5 is UNDERIVED and stays a
@@ -249,7 +276,7 @@ and item (iv)'s final-bin note lists *"the pole-absence derivation … stand[s]"
 with only *"the static-stiffness home"* re-homed to clause G. **So the kill's
 de-firing does NOT depend on BC-SRC.** It depends on the receipted dynamics
 having no longitudinal wave operator, which is prior to the new axiom. BC-SRC is
-required for a *different* leg — the observable-**grade** causality (§3.4 of the
+required for a *different* leg — the observable-**bias** causality (§3.4 of the
 source doc), which is candidate-conditional and whose condition R43 has now
 discharged by ratifying clause G.
 
@@ -306,7 +333,7 @@ adjudication — but it is named rather than left for someone to trip over.
 
 | Object | Frozen text | Disposition under the ratified set |
 |---|---|---|
-| LC-1 **kill cell** (`brief:44` col 5) | *"An energy-carrying inter-event channel at ≠ c ⇒ arc-level kill"* | **DOES NOT FIRE — premise has no ESTABLISHED referent** (rows 3a/3b removed by the absent stencil; row 4 excluded on its own lane's terms; row 5 UNDERIVED = named-open, carried forward not swept in). The prior FIRED disposition (via row 3b / PR #930's residue) is **VACATED**: it rested on a mode of an imported operator, not of the axioms. |
+| LC-1 **kill cell** (`brief:44` col 5) | *"An energy-carrying inter-event channel at ≠ c ⇒ arc-level kill"* | **DOES NOT FIRE — premise has no referent AMONG THE DERIVED ROWS** (rows 3a/3b removed by the absent stencil; row 4 excluded on its own lane's terms; row 5 UNDERIVED = named-open, carried forward not swept in). The prior FIRED disposition (via row 3b / PR #930's residue) is **VACATED**: it rested on a mode of an imported operator, not of the axioms. |
 | LC-1 **arc-termination** (`brief:59`) | *"LC-1 runs first and its kill condition is arc-terminating."* | **NOT TRIGGERED.** The arc is not terminated; LC-2…LC-5 stand unaffected. |
 | LC-1 task **(b)** (`brief:44` col 4) | *"bulk √(10/3)c P-wave observability — gapped, confined, or sourceless?"* | **DISCHARGED NEGATIVELY, outside the frozen trichotomy** — the mode is non-existent. Framing finding recorded. |
 | LC-1 task **(a)** (`brief:44` col 4) | *"provenance of cold c_shear = c (is G_vac = ρc² derived or a matching condition?)"* | **OPEN — not discharged.** VALUE-provenance; #261/#506 imports untouched. |
