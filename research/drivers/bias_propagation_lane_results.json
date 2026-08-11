@@ -1,0 +1,114 @@
+{
+  "L0_constants_and_tautology": {
+    "G_TAUTOLOGY_identity_symbolically_proven": true,
+    "G_TAUTOLOGY_residual": "0",
+    "inertia_over_rho_lnode2": 1.630966739279045e+44,
+    "inertia_required_for_cg_eq_c_kg_per_m": 1.9237013164287275e+26,
+    "kappa_N": 1.7289365204831522e+43,
+    "premise_rho_bulk_eq_me_over_2lnode3_relerr": 6.528954375905942e-11,
+    "premise_xi_eq_c2_lnode_over_7Gme_relerr": 1.2144355951751924e-16,
+    "ratio_over_xi": 1.9999999998694216,
+    "verdict": "DEFINITIONAL IDENTITY: inertia_required = 2 * xi_Machian * rho_bulk * ell_node^2 reduces to c^2/7G symbolically. NOT a structural coincidence.",
+    "xi_machian": 8.154833696927648e+43
+  },
+  "L1_ax4_dialect_consistency": {
+    "A_at_r_s": "1",
+    "A_at_r_s_equals_one": true,
+    "A_definition": "2*G*M/(c**2*r)",
+    "eps11": "7*G*M/(c**2*r)",
+    "n_temporal_at_r": "2*G*M/(c**2*r) + 1",
+    "n_temporal_equals_1_plus_2GM_over_c2r": true,
+    "note": "Reconciles eq_axiom_4.tex ('BH event horizon eps_11(r)=1 matches Schwarzschild r_s=2GM/c^2 exactly') with the eps_11 = 7GM/c^2 r profile: Ax4's A and the profile's eps_11 differ by the factor nu_vac = 2/7."
+  },
+  "L2_clock_branches": {
+    "A_at_solar_surface": 4.246264992173933e-06,
+    "CLOCK_1": {
+      "Ag_appears": false,
+      "F_over_F_newton_G0_leading": "1",
+      "F_over_F_newton_exact": "c*sqrt(r)/sqrt(-2*G*M + c**2*r)",
+      "F_over_F_newton_through_1PN": "G*M/(c**2*r) + 1",
+      "gr_reference_expression": "1/sqrt(-2*G*M/(c**2*r) + 1)",
+      "hbar_cancels": true,
+      "leading_is_exactly_one": true,
+      "matches_GR_static_force_at_infinity_EXACTLY": true,
+      "numeric_at_solar_surface": 1.0000021231392577,
+      "omega_inf": "omega_0*sqrt(-2*G*M/(c**2*r) + 1)"
+    },
+    "CLOCK_S": {
+      "F_over_F_newton_exact": "2*G*M*c*sqrt(r)/(-4*G**2*M**2 + c**4*r**2)**(3/4)",
+      "F_over_F_newton_leading": "2*G*M/(c**2*r)",
+      "leading_equals_A": true,
+      "numeric_at_solar_surface": 4.246264992231355e-06,
+      "omega_inf": "omega_0*(-4*G**2*M**2/(c**4*r**2) + 1)**(1/4)",
+      "underprediction_factor": 235501.0819695719
+    },
+    "separation_orders_of_magnitude": 5.37199382882814,
+    "solar_r_s_m": 2954.126555055405
+  },
+  "L3_frequency_response_instrument": {
+    "G_LIVE_all_green": true,
+    "amplitude_test_note": "|H| = 1 for hyperbolic and schrodinger (lossless); |H| < 1 for diffusive. This is the Ax3 port test: a diffusive bias line loses amplitude, which requires a named boundary-crossing port.",
+    "negative_control_instantaneous": {
+      "PASS_expect_unresolvable": true,
+      "p_measured": null,
+      "points_above_floor": 0,
+      "resolvable": false
+    },
+    "positive_controls": {
+      "diffusive": {
+        "PASS": true,
+        "abs_H_at_w1e-5": 0.9977664301601514,
+        "lossless_absH_is_1": false,
+        "p_frozen_target": 0.5,
+        "p_frozen_tol": 0.15,
+        "p_measured": 0.4999971694470616,
+        "points": 25,
+        "resid_over_floor": 7.071066633770781e+44
+      },
+      "hyperbolic": {
+        "PASS": true,
+        "abs_H_at_w1e-5": 1.0,
+        "lossless_absH_is_1": true,
+        "p_frozen_target": 2.0,
+        "p_frozen_tol": 0.2,
+        "p_measured": 1.9999999998966114,
+        "points": 25,
+        "resid_over_floor": 4.9999999999995826e+35
+      },
+      "schrodinger": {
+        "PASS": true,
+        "abs_H_at_w1e-5": 1.0,
+        "lossless_absH_is_1": true,
+        "p_frozen_target": 1.0,
+        "p_frozen_tol": 0.2,
+        "p_measured": 0.9999971609576447,
+        "points": 25,
+        "resid_over_floor": 9.999998333333444e+41
+      }
+    }
+  },
+  "L4_lc_admission_price": {
+    "implied_length_scale_m": 4931613292.3792095,
+    "implied_over_lnode2": 1.6309667392790448e+44,
+    "inertia_over_rho_bulk_m2": 2.4320809665571303e+19,
+    "inertia_required_kg_per_m": 1.9237013164287275e+26,
+    "l_node_squared_m2": 1.4911898004935474e-25,
+    "note": "The LC-HYPERBOLIC bin's admission price: a fast-layer object with inertia density 1.92e26 kg/m. The substrate's own bulk inertia is RHO_BULK = 7.91e6 kg/m^3; the required inertia corresponds to an area 2.43e19 m^2 (length 4.93e9 m), which is 1.63e44 x ell_node^2. Whether the fast layer supplies this is the derivation, not this number.",
+    "substrate_rho_bulk_kg_per_m3": 7909692.740007466
+  },
+  "constants": {
+    "C_0": 299792458.0,
+    "G": 6.6743e-11,
+    "HBAR": 1.054571817e-34,
+    "L_NODE": 3.8615926772428334e-13,
+    "M_E": 9.1093837015e-31,
+    "M_SUN": 1.989e+30,
+    "RHO_BULK": 7909692.740007466,
+    "XI_MACHIAN": 8.154833696927648e+43
+  },
+  "lane": "bias-propagation-theorem",
+  "mutation_receipt_mode": false,
+  "prereg": "research/2026-08-10_bias-propagation_prereg-FROZEN.md",
+  "prereg_freeze_commit": "d4bee683",
+  "self_sha256": "46b8b3c7944fed311ff73b41acb4ce5b3649e3a7720baf234ef89a416b5005c4"
+}
