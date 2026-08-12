@@ -27,6 +27,12 @@ edit to any KB leaf, register, ruling, axiom file, or manuscript file. **Mints n
 > **That verdict holds for lensing, Shapiro, perihelion, and the static force chain. It does NOT
 > hold for the local clock.** The clock is a genuine **STUCK-POINT** (§7): canon carries **FOUR**
 > mutually exclusive clocks — the fourth found by the review at site 15 — **two Grant rulings** ride
+> *(⚑ **#957 / R51, 2026-08-12 — DEFINITE, not under adjudication.** #957 returned **ONTOLOGY-DEAD**.
+> Two sevens, different objects: the **per-cell kinematic inventory** seven stands independently
+> (`vol9/ch3-pin-port-configuration/index.md`:17 — 3 **u** + 3 **ω** + 1 **A₁** breathing); the
+> **ν-denominator** seven does not — `(3K+G)/G` = 4 · **7** · 8 · 10 for `K` = `G` · `2G` · `7G/3` ·
+> `3G`, so `mode-counting-heat-capacity.md`:14's "7" is **K-conditional**. Carve ratified at R51,
+> `_orchestration/docket-entries/2026-08-12-ruling-r51-a1-two-objects-carve.md`.)*
 > on the one the merged #951 lemma weak-field-falsifies, and the channel discipline canon used to
 > resolve the adjacent two-radii item points *at* that same falsified one. Corpus license cannot
 > settle it. **No winner is picked here.**
@@ -120,7 +126,8 @@ by verdict. **No site was added after classification began.**
 > **The miss, disclosed.** The §1–§8 review found a site the frozen list should have caught and did
 > not: **`ponderomotive-equivalence.md`:14,:19** — `clm-rd9cjm`, in **ch03-macroscopic-relativity,
 > the same chapter and the same claim-id as sites 3 and 5.** It is added here as **site 15**, dated,
-> rather than inserted into the frozen table — the 14-site list is left byte-intact so the
+> rather than inserted into the frozen table — **13 of 14 rows byte-intact; row 5's path was
+> disambiguated per the review's basename finding (`translation-gravity.md`:23 → `common/translation-tables/translation-gravity.md`:23) — disclosed here, no verdict moved.** So the
 > freeze-then-classify ordering (such as it is, see the provenance note above) is not retro-edited.
 >
 > | # | Site | What it states (role) |
@@ -158,7 +165,7 @@ possible — both quoted).
 |---|---|---|---|
 | **2** | `gordon-optical-metric.md`:25 — `-\left(\frac{c^{4}}{7G}\right)\nabla^{2}\epsilon_{11}(r) = 4\pi Mc^{2}\delta^{3}(r)` | **LICENSED** | **Linear Poisson with a CONSTANT modulus.** The modulus `c⁴/7G` carries no `A`-dependence and no kernel. `ε₁₁ = 7GM/c²r` is the Green's-function solution of a linear PDE (`:28`). Linearity here is not a coupling *choice* — it is the equation's own form. **This is the root of the whole chain.** |
 | **3** | `refractive-index-of-gravity.md`:10 — *"Substituting the trace-reversed tensor boundary (`ν_vac = 2/7`) and the radial strain field yields"* `n(r) = 1 + (2/7)(7GM/c²r)` | **LICENSED** | **Op19 constitutive projection** (site 7). Arithmetic substitution of `ε₁₁` into a linear relation. |
-| **7** | `operators.md`:59 (**Op19**) — `n(r) = 1 + \nu_{vac}\cdot\varepsilon_{11}`, status **CANONICAL** | **LICENSED** | **Poisson-ratio kinematics.** `ν_vac = 2/7` is declared at the site as *"Poisson ratio: 2 compliance / 7 total modes"* — a **kinematic ratio** (transverse strain per longitudinal strain), not a modulus. Kinematic ratios are linear by construction; the kernel grades *moduli*, not kinematics. **This is why Op19 and Ax4 are not in conflict — they answer different questions** (§4.1). |
+| **7** | `operators.md`:59 (**Op19**) — `n(r) = 1 + \nu_{vac}\cdot\varepsilon_{11}`, status **CANONICAL** | **LICENSED** | **Poisson-ratio kinematics.** ⚑ *(Gloss reconciled 2026-08-12: this cell is the NARROW, transverse-only reading; §4.1 carries the generalized mode-count statement and its #957/R51 K-conditional pointer. Read them together — the weaker gloss here is scoped to Op19's own channel, and "kinematic ratio … linear by construction" is NOT a claim that the 7 is a count.)* `ν_vac = 2/7` is declared at the site as *"Poisson ratio: 2 compliance / 7 total modes"* — a **kinematic ratio** (transverse strain per longitudinal strain), not a modulus. Kinematic ratios are linear by construction; the kernel grades *moduli*, not kinematics. **This is why Op19 and Ax4 are not in conflict — they answer different questions** (§4.1). |
 | **4** | `double-deflection.md`:28 — `n_{\perp} = 1 + \nu_{vac}\,\chi_{vol} = 1 + \tfrac{2}{7}\chi_{vol}` | **LICENSED** | Op19, applied to the **transverse Cosserat** channel. Same structure as #3, different channel. |
 | **1** | `eq_gravity_derived.tex`:53 / `temporal-spatial…md`:18 — `n_{temporal} = 1 + \tfrac{2}{7}\varepsilon_{11}` | **LICENSED** | Op19 again. (The `(9/7)` companion at `:19` is a **bookkeeping sum** `n_t + ε₁₁`, per PPN result `:92`; it is linear for the same reason and its deflection attribution was already corrected by W1.) |
 | **5** | `common/translation-tables/translation-gravity.md`:23 — `n(r) = (1+r_s/2r)³/(1−r_s/2r)` | **LICENSED (by IMPORT, declared)** | The **full GR isotropic optical index**, imported whole. Not derived from the kernel; not claimed to be. |
@@ -240,6 +247,8 @@ file.**
 Nine of the ten licensed sites in §3.1 (+ site 15) are **the same structure wearing different channel
 labels**:
 
+> ⚑ **#957 / R51 (2026-08-12) — the two sevens are DIFFERENT OBJECTS.** The **per-cell KINEMATIC INVENTORY** seven stands on independent footing (`vol9/ch3-pin-port-configuration/index.md`:17 — 3 translational **u** + 3 microrotational **ω** + 1 volumetric **A₁** breathing). The **ν-DENOMINATOR** seven does **not**: it is a sliding coefficient — `(3K+G)/G` = 4 · **7** · 8 · 10 for `K` = `G` · `2G` · `7G/3` · `3G` (independently re-derived at the adjudication) — so the "7" at `mode-counting-heat-capacity.md`:14 is **K-conditional**. #957 returned **ONTOLOGY-DEAD**; carve ratified at R51, `_orchestration/docket-entries/2026-08-12-ruling-r51-a1-two-objects-carve.md`.
+>
 > **`observable − 1 = (channel MODE-COUNT fraction) × (channel strain)`, with the strain the solution
 > of a LINEAR elliptic equation of CONSTANT modulus.**
 
@@ -249,6 +258,9 @@ labels**:
 > *"redshift/lensing/attraction consume **three different projection coefficients** off one field
 > (`1/7` clock, `2/7` transverse index, `9/7` matter-wave) — the unification is at the FIELD level,
 > **not** at the coefficient level"*
+
+⚑ **These three fractions are the ν-denominator seven, which #957/R51 rule K-conditional — see the
+pointer above. They are NOT the per-cell kinematic inventory.**
 
 | fraction | channel | site |
 |---|---|---|
@@ -552,8 +564,8 @@ Everything else in this map follows from the answer, and nothing in the corpus a
 | **4** | `operators.md`:56 — *"`c·√(1−A²)` ≡ Schwarzschild `c·√(1−r_s/r)`"* | **a fourth face of the collision** | ⚑ **do not action separately.** The cell is **already VACATED** (FLAG-CEFF-CITE, 2026-08-07, ROUTED-NOT-RULED). §8 there flags the *exponent* disagreement; it does **not** flag that no power of `S` can equal `√(1−r_s/r)` at first order. **This lane ROUTES that second, orthogonal defect to the existing flag — no edit was made to `operators.md`.** |
 | **5** | Arm-1 charter re-scope (§4.2) | **brief amendment** | `_orchestration/2026-08-10_pretension-brief.md` — its necessity is contingent on §7. Worth reading before that lane runs. |
 | **6** | The §7 clock question | **Grant** | This report. |
-| **8** ⚑ | `anomalous-perihelion-advance.md`:20's 2026-05-17 note calls the perihelion result **"CLOSED, substrate-native"** — which **contradicts site 6's own warningbox** (`14_macroscopic_orbital_mechanics.tex`:70–72: *"adopted as a static potential … a consistency-class re-statement (AVE = GR …), not an independent AVE derivation"*). Two live sites, opposite provenance classes, same result | **FLAG, DO NOT FIX** (§1–§8 review instruction) | **Already surfaced to Grant; not this lane's to resolve.** Recorded here only so the contradiction is not re-discovered. **No edit, no verdict, no propagation.** |
 | **7** | `verify-frozen-provenance.py`:210–214 — a `Prereg-file:` path beginning with `_` **silently fails to resolve** when backtick- or emphasis-wrapped | **gate defect** (hit live by this lane) | tooling. The optional emphasis group `(?:[*_\`]{1,3})?` is greedy over `{*, _, \`}`, so `` `_orchestration/…` `` is captured as `orchestration/…`, which resolves nowhere — and the doc is then reported as *"carries Frozen label(s) but no prereg resolves"*, i.e. **the wrong diagnosis**. Every brief under `_orchestration/` is affected. Worked around here with the link form; **not fixed** (out of lane scope). |
+| **8** ⚑ | `anomalous-perihelion-advance.md`:20's 2026-05-17 note calls the perihelion result **"CLOSED, substrate-native"** — which **contradicts site 6's own warningbox** (`14_macroscopic_orbital_mechanics.tex`:70–72: *"adopted as a static potential … a consistency-class re-statement (AVE = GR …), not an independent AVE derivation"*). Two live sites, opposite provenance classes, same result | **FLAG, DO NOT FIX** (§1–§8 review instruction) | **Already surfaced to Grant; not this lane's to resolve.** Recorded here only so the contradiction is not re-discovered. **No edit, no verdict, no propagation.** |
 
 **Explicitly NOT done by this lane:** no leaf/axiom/register/ruling/manuscript edit; no solidity
 moved; no claim-id minted; no `A₀` derived or estimated; no winner picked on §7; no re-litigation of

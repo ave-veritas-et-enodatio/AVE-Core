@@ -258,6 +258,11 @@ check_expr("R13d site-15 U_wave = m c^2 - GMm/r  (leaf :19)",
 
 print("\n" + "=" * 90)
 if MUTATE:
+    # An EMPTY detector tuple would pass vacuously ("all 0 detectors tripped", exit 0) —
+    # exactly the shape the repo's own verify-lane-number-checks refuses. Gate it.
+    if not MUTATION_DETECTORS:
+        print("MUTATION RECEIPT INVALID: MUTATION_DETECTORS is empty — a vacuous pass.")
+        raise SystemExit(1)
     # Receipt inverted: under a mutated kernel the named detectors MUST have failed.
     missed = [d for d in MUTATION_DETECTORS if d not in FAILURES]
     for d in MUTATION_DETECTORS:
