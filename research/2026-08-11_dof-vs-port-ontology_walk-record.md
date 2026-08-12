@@ -27,7 +27,10 @@
 > [`2026-08-12-ruling-r51-a1-two-objects-carve.md`](../_orchestration/docket-entries/2026-08-12-ruling-r51-a1-two-objects-carve.md)
 > — the bias **sits**, the common-mode tank **rings defect-locally**, and the engine's vacuum-wide
 > gapless `V` is **phantom-in-form**. That carve is now the standing frame; this record is closed
-> beneath it.
+> beneath it. ⚑ **Carry R51's own grade with it:** R51 is **Grant-ratified but WALK-LEVEL, with
+> live kill-checks** — its preamble reads *"the algebra herein is chat-walk grade, un-audited; the
+> carve ships with its own kill-checks (§5) and its first test is the derivation lane it launches"*
+> (see also R51 §5(ii)–(iii)). **The standing frame is standing, not settled.**
 >
 > **What this means for Grant's 3+3+1.** It **stands** — `vol9/ch3-pin-port-configuration/index.md`:17
 > counts *"seven per-cell kinematic modes — 3 translational **u** … 3 microrotational **ω** … 1
@@ -42,6 +45,8 @@ be adjudicated, not to be believed.**
 **Adjudication brief:** [`_orchestration/2026-08-11_dof-port-adjudication-brief.md`](../_orchestration/2026-08-11_dof-port-adjudication-brief.md)
 **Receipts:** [`research/drivers/dof_port_ontology_check.py`](drivers/dof_port_ontology_check.py) — 14 checks, incl. an anti-tautology leg.
 **Base:** `origin/main` @ `a23a044b`.
+⚑ **MERGE ORDER — this PR must land before or with #955.** #955's R51 path and its *"DEFINITE,
+not under adjudication"* stamp both resolve through this branch.
 
 **Provenance, stated plainly.** This is a live conversational walk between Grant and the
 gravity-linearity lane on 2026-08-11, following PR #955's §1–§8 review. **Its central claim (M1) is
@@ -292,6 +297,14 @@ freedom"* and **never mentions the A₁ breathing mode at all**, while `index.md
 seventh kinematic mode. **That is the live question — an omission, not a contradiction — and it is
 Grant's.** *(Reported this way per the frozen-criteria-travel-verbatim discipline: a paraphrase that
 becomes the pivot is the failure mode this lane has already been bitten by.)*
+
+**⚑ (f), (g) and D1 ARE ONE GAP AT THREE SITES — routed as a single question, not adjudicated.**
+The six-count originates at **Axiom 1** (`eq_axiom_1.tex`:37, bulleted at
+`manuscript/ave-kb/CLAUDE.md`:70) and recurs at `07_saturation_characteristics.tex`:45 and
+`06_temperature_characteristics.tex`:29. **(f)** is the A₁ breathing mode omitted from that count;
+**(g)** is Axiom 1 not pointing at Axiom 5, which names the gap; **D1** is the dead `CLAUDE.md`:55
+pointer that two of those sites share. **One ruling from Grant settles all three.** Mirrored at
+#955 §8 row 9. **No adjudication here.**
 
 **(g) G1 — RE-FRAMED before it goes to Grant.** Axiom 1's silence on the scalar channel is real, **but
 the axiom SET is not silent.** `manuscript/common_equations/eq_axiom_5.tex`'s preamble names exactly
