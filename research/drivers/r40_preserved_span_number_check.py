@@ -791,6 +791,26 @@ GUARD_ADJUDICATED_FP.update({
     # large-signal.md:59 -- decl :90 is a def-tk1xfm status-sync striking the PRIOR STATUS
     # in place (KEEP-BOTH); :59 is a mixed-domain impedance sentence, not that status
     # line.
+    #   READING EXTENDED 2026-08-12 at review, to dispose of a declaration THE GATE NEVER
+    #   SAW. This file also carries, at :8, `> QED-NORMALIZATION CORRECTION (2026-07-03;
+    #   Rule-12 -- body preserved below, git is the trail).` -- a DOWNWARD region-delimiting
+    #   form. The detector cannot see it: :8 sits in markdown PRE-HEADING front matter (the
+    #   first `##` is at :20), which is a DECLARED blind spot of this module, so its absence
+    #   from the flag set is not evidence of anything. Hand-read: the banner's own NEXT
+    #   sentence (:9) names its object -- "The OQ-1 differential coefficient
+    #   \"$7.5/\alpha^3\approx1.93\times10^7$\" below" -- so "body preserved below" is
+    #   SELF-SCOPED to the OQ-1 coefficient passage, an identifiable object DIFFERENT from
+    #   :59's mixed-domain impedance sentence in the SS0 port/sector table.
+    #   CONSISTENCY WITH THE ROUTED CASES, since the standards look asymmetric otherwise:
+    #   this batch's stated rule is that a fence needs a declaration that DELIMITS a region
+    #   AND an anchor inside it, and that where the named object plausibly INCLUDES the
+    #   anchor the row is ROUTED rather than argued. :8 names a different object in its very
+    #   next sentence -> stamp. engine-capability-map.md:29/:31's banners name NO object at
+    #   all ("body preserved", full stop) -> routed. Same rule, opposite inputs.
+    #   * PENDING GRANT QUESTION, flagged not assumed: whether a whole-body "preserved
+    #   below" banner fences LATER STATUS STAMPS at all, as opposed to fencing rewrites of
+    #   the body. This registration does NOT presume an answer -- it rests on :8's
+    #   self-scoping, which holds under either ruling.
     ('manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/node-up-small-large-signal.md',
      '> deviatoric-shear rows are **mechanical** ($Z_{\\mathrm{bulk}}$, $Z_{\\mathrm{shear}}$ — $\\rho\\times$speed, 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**'),
     # manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-

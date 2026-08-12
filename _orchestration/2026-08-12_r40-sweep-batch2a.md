@@ -176,8 +176,15 @@ distance-limited probe missing a real declaration** (batch 1's window detector m
 the durable lesson is that *any* window on this corpus is wrong — only the container is right, and the
 container must be read in the direction the declaration points.
 
-**The 55 false positives, by adjudicated class** (rows sum to 55; every site and its reading is in
-`GUARD_ADJUDICATED_FP` in the detector, and the same readings are the machine half of this table):
+**The false positives, by adjudicated class.** ⚑ **Two denominators live here and the first cut
+labelled them with one number — corrected 2026-08-12 at review.** The **anchor census** (this §2.1
+scan, run on the 185 *anchor* lines before any edit) returned **62 flags → 7 genuine + 55 FP**. The
+**forward guard** (run on the 177 *stamped* lines after the first commit) returned **58 flags → 2
+genuine + 56 FP**; its set is not the anchor census's, because routed and STUCK rows carry no stamp
+while three stamped lines self-match on this batch's own EOF note. **The table below is the
+GUARD-scoped set and sums to 56**, which is why it reconciles with the 56 keys in
+`GUARD_ADJUDICATED_FP`; the anchor-census FP count is **55**. Both numbers are correct for their own
+surface, and neither is a subset of the other.
 
 | class | n | reading |
 |---|---|---|
@@ -230,33 +237,77 @@ Cross-checks:
 
 ## 5. STUCK-POINTs — 2 rows, unactioned, routed to Grant
 
-Both are rows whose **resolution pointer is genuinely ambiguous**: the banked rationale poses a
-sector fork that no landed artifact selects, so naming Axiom 5 as the resolution would *pick an arm*
-and manufacture a false discharge. Two attempts were made on each (read the row's leaf in context;
-read the banked rationale against clause G) and both stopped at the same fork.
+Both rows are left **unstamped**. Their reports were **rewritten 2026-08-12 at review** — the first
+cut of this section was **authored by hand** rather than generated from the banked row, and it broke
+in two different ways, one of them severely. Both corrections are stated in the open below.
+
+> 🔴 **CORRECTION OF RECORD (2026-08-12, at review) — STUCK-1's quote was FABRICATED, and it was
+> routed to Grant in that state.** The first cut printed, under the label ***"Quote (byte-exact at
+> HEAD)"***, the string `thrust metric via acoustic steepening: ∂_t ρ + ∇·(ρ v) = 0 with c_eff =
+> c_0√(1 + ρ̄/(1−ρ̄²))`. **That string is at no line of any corpus file.** Re-derived at HEAD: it
+> occurs exactly once corpus-wide, in *this record*, i.e. only where I wrote it. It is neither the
+> banked quote nor the text at `appendices-overview.md:95`.
+>
+> **How it happened, stated so the mechanism is fixable and not just apologised for.** The 185 rows'
+> in-corpus notes take their quote from the banked `quote` field **programmatically** and are byte-
+> exact by construction (§9's machine check: 185/185). The two STUCK-POINT reports were the only
+> row-level prose I typed by hand, and for STUCK-1 I typed a *reconstruction* of the physics — a
+> continuity equation plus a wave-speed law that "looked like" the row — and then labelled the
+> reconstruction byte-exact. **The label was the defect, not the physics intuition:** paraphrase is
+> legitimate when it is called paraphrase. A fabricated string under a byte-exact label routed to
+> Grant would have had him adjudicating text that does not exist.
+>
+> **The rule this batch now states for itself and hands to 2b:** *no quote is authored by hand.*
+> Every quote in a report is pulled from the banked `quote` field or read out of the file, and is
+> machine-verified against HEAD before the report is written — the same standard the generated notes
+> already met. §7 carries the verification receipt.
+
+Both rows remain **genuinely stuck on the merits** — but for STUCK-2 the ambiguity is now *narrower*
+than the first cut claimed, because the corpus already answers half of it (below).
 
 ### STUCK-1 — `manuscript/ave-kb/common/appendices-overview.md:95`
 
 - **Row (banked):** family `dark-wake-reaction-mass`, `uncertain: true`, `site_verdict: VERIFIED`,
   re-verified at HEAD by both engines.
-- **Quote (byte-exact at HEAD):** `thrust metric via acoustic steepening: ∂_t ρ + ∇·(ρ v) = 0 with
-  c_eff = c_0√(1 + ρ̄/(1−ρ̄²))`
+- **Quote — the BANKED field, machine-verified present at HEAD:**
+  `Non-Linear FDTD Acoustic Steepening PDE: $c_{eff}^2(x, y, z) = c_0^2 \left(1 + \kappa \cdot \bar{\rho}(x, y, z) \right)$`
+- **The line at HEAD, read out of the file (the banked quote is a substring of it modulo the leading
+  bullet/bold markup):**
+  `- **Non-Linear FDTD Acoustic Steepening PDE:** $c_{eff}^2(x, y, z) = c_0^2 \left(1 + \kappa \cdot \bar{\rho}(x, y, z) \right)$ (Derived structurally for topological thrust metrics)`
 - **Banked rationale, verbatim:** *"Thrust-metric 'acoustic steepening' PDE: if c_eff is the T2/EM
   index modulated by density it survives as refraction; if it is the compression carrier it dies —
   sector declaration owed."*
 - **What is ambiguous:** the row's own rationale makes the disposition conditional on **which sector
   `c_eff` names**. If `c_eff` is the T2/EM index, the row is not an A1 consumer at all and Axiom 5
   clause G is the wrong pointer; if it is the compression carrier, clause G is the pointer and the
-  mechanism dies. Nothing in `eq_axiom_5.tex`, the axiom register, the interlock register or R49
-  selects the arm.
-- **Candidate readings considered:** (a) point at clause G and note the fork in the note — rejected:
-  it reads as a discharge and the note's own resolution sentence would assert the compression arm;
-  (b) point at *both* arms — rejected: a note that says "either the axiom resolves this or the row is
-  out of scope" is not a resolution pointer; (c) leave unstamped and route — taken.
-- **What is needed to proceed:** a sector declaration for `c_eff` in the thrust-metric PDE (T2/EM
-  index vs A1 compression carrier), from Grant or from the owning propulsion lane.
-- **Recommendation:** route to the lane that owns the thrust metric for a one-line sector
-  declaration, then re-bin. If it is the T2/EM index the row is arguably not a NEEDS row at all.
+  mechanism dies. **Re-checked against the corrected quote:** no landed artifact declares the sector
+  for *this* form. `eq_axiom_5.tex`, the axiom register, the interlock register and R49 are all
+  silent on it, and the leaf itself says only *"(Derived structurally for topological thrust
+  metrics)"*. **The routing stands on the merits.**
+- **★ THE SUBSTRATE WALK, added at review — my reading, not a ruling.** A nonlinear FDTD wave speed
+  keyed on the **local density** $\bar\rho$ and exhibiting **acoustic steepening** is a **compression
+  carrier by construction**: steepening is what a wave does when its own speed depends on the
+  amplitude it is carrying, so the modulating field and the carried field are the *same* field —
+  that is a density/dilatation wave, i.e. the A1 slot. An **EM-index** reading would not be written
+  this way: it would carry a refractive index $n(\bar\rho)$ with $c_{EM} = c_0/n$, the modulating
+  density would be a *separate* field the transverse wave merely propagates through, and it would
+  **not steepen**. On that reading the row is an A1 consumer and clause G is the pointer. **Surfaced
+  as a reading; Grant still rules** — the row stays unstamped until he does, because a plumber's
+  reading of a formula's shape is not a sector declaration.
+- **★ THE NEAR-MISS, and it is the tell that the fabrication was self-inflicted.** The formula the
+  first cut invented — `c_0√(1 + ρ̄/(1−ρ̄²))` — **is** a real corpus object, just not this row's:
+  `src/ave/core/cavitation_flow.py`:22 carries
+  `c_bulk²(ρ̄) = c₀² (1 + ρ̄/(1 − ρ̄²))`, and that module's own header line `:2` reads
+  `Cavitation-Core Bulk-Flow — the rarefaction-stiffness branch of the BULK sector`. So the object I
+  drifted toward **has** an explicit sector declaration — *BULK* — and had I verified my own quote I
+  would have found it. That does not resolve STUCK-1 (different object, different leaf, different
+  form: $1 + \kappa\bar\rho$ vs $1 + \bar\rho/(1-\bar\rho^2)$), but it is corroborating context for
+  the walk above, and it is exactly the check the fabricated label prevented me from running.
+- **What is needed to proceed:** a sector declaration for `c_eff` in the FDTD thrust-metric PDE
+  (T2/EM index vs A1 compression carrier), from Grant or from the owning propulsion lane.
+- **Recommendation:** rule the sector; if A1, the row demotes under clause G with the BIAS-DEBT rider
+  and can be stamped by 2b. If T2/EM, it is a **re-bin** (arguably not a NEEDS row at all), which is
+  2b's call and not this batch's.
 
 ### STUCK-2 — `manuscript/ave-kb/vol4/claim-quality.md:252`
 
@@ -269,19 +320,33 @@ read the banked rationale against clause G) and both stopped at the same fork.
   ambiguous ('longitudinal shear'); the dark-wake is separately banked WRONG-REGIME, but the
   momentum-closure mechanism as stated consumes a propagating longitudinal carrier — re-derivation
   owed."*
-- **What is ambiguous:** the corpus phrase **"longitudinal shear strain"** names two different
-  objects depending on reading — an A1 dilatation (dies under clause G) or a Cosserat/T2 shear
-  carrier (untouched). The row is *also* the register home of a claim separately banked
-  **WRONG-REGIME**, so a status stamp here risks stacking two different demotions on one line.
-- **Candidate readings considered:** (a) treat "longitudinal shear" as A1 and point at clause G —
-  rejected: the phrase is self-contradictory in canonical vocabulary and picking A1 is a guess;
-  (b) treat it as Cosserat-shear and mark the row surviving — rejected: that is a re-bin, which this
-  batch has no authority to do; (c) leave unstamped and route — taken.
-- **What is needed to proceed:** an adjudication of the phrase *"longitudinal shear strain"* against
-  the canonical sector vocabulary (A1 dilatation vs Cosserat shear), and a ruling on whether the
-  WRONG-REGIME banking already covers this register row.
-- **Recommendation:** adjudicate the phrase first (it is a `def-`-shaped vocabulary question, not a
-  physics fork); the row's disposition then falls out mechanically.
+- **🔴 THE VOCABULARY HALF IS WITHDRAWN — the corpus already answers it, and this batch failed to
+  look (corrected 2026-08-12 at review).** The first cut asked Grant to adjudicate *"longitudinal
+  shear strain"* against the canonical sector vocabulary. **That adjudication exists, is Grant's, is
+  canonical, and predates this batch by two months.** `manuscript/ave-kb/common/dark-back-reaction-taxonomy.md`:13,
+  verbatim: `**Channel-subscript note (2026-06-10, Grant rename-queue adjudication R5 — paragraph above preserved unedited):** the "longitudinal-shear" signature here is the **SHEAR channel** (the Cosserat deviatoric $\tau_{zx}$, a shear stress with longitudinal propagation direction) — explicitly **NOT** the bulk-volumetric/dilatational **longitudinal-V** grade (the "3").`
+  The same leaf's `:23` fixes the same object as the dark wake and gives it the same propagation
+  statement this row makes — verbatim: `The **dark wake** is the **far-field radiated shear stress** $\tau^{\text{far}}_{zx}$ — the real-space longitudinal-shear trail behind a **moving** soliton. It propagates *outward* (backward) at substrate wave speed $c_0$`.
+  Same phrase, same object, same propagate-at-$c_0$ claim. **Asking a question the corpus has already
+  ruled is the failure mode `verify-before-cite` exists to prevent, and this batch committed it:**
+  the phrase was treated as ambiguous *in the abstract* instead of being grepped against the
+  registry that owns it.
+- **What remains genuinely open, RE-POSED as a re-bin question.** With R5 applied, the carrier is the
+  **SHEAR** channel, which the carve does **not** touch — so the row's demotion premise is in doubt.
+  That makes the live question a **bin** question, not a vocabulary one: **(a)** does the separately
+  banked **WRONG-REGIME** disposition already cover this register row, so that a NEEDS demotion would
+  double-count it? and **(b)** is a **NEEDS → SURVIVES-AS-RESPONSE re-bin** the correct disposition,
+  given R5 puts the carrier outside the carve?
+- **Why it is still not actionable here:** **a re-bin is out of this batch's authority.** R40 batch
+  2a executes the banked bins; it does not move them. Stamping the row would demote a claim whose
+  carrier R5 says survives; re-binning it would be this lane deciding a bin. Both are refused.
+- **Candidate readings considered:** (a) stamp under clause G — **rejected**, R5 puts the carrier in
+  the shear channel; (b) re-bin to SURVIVES in place — **rejected**, out of authority; (c) leave
+  unstamped, discharge the vocabulary half against R5, and route the re-bin — **taken**.
+- **What is needed to proceed:** a ruling on (a) and (b) above.
+- **Recommendation:** **batch 2b should re-bin this row NEEDS → SURVIVES-AS-RESPONSE** unless the
+  WRONG-REGIME banking is judged to already dispose of it, in which case it needs no separate action
+  at all. Either way the vocabulary question is closed by R5 and should not be re-asked.
 
 ---
 
@@ -327,13 +392,53 @@ anchor `:10` sits mid-sentence inside the `%` comment run `:8-12` — so the not
 false about the corpus. Repaired in place to state the real reason and the real stamped line
 (`:12`). **A generated note is still an authored claim.**
 
-**F6 — the derived `.index/` moved by exactly 3 records, and the movement is the stamp text.**
-`make refresh-kb-metadata` reports *"Rewrote solidity in 0 claim-quality.md file(s) (0 solidity
+**F6 — the derived `.index/` movement was UNDERSTATED, and one movement was CONTENT LOSS, not stamp
+text. Corrected 2026-08-12 at review, and the loss is repaired.** The first cut reported *"exactly 3
+records, and the movement is the stamp text"*. **Measured: 5 records across 3 files**, and the fifth
+was not stamp text at all.
+
+| file | records | what moved |
+|---|---|---|
+| `claims.jsonl` | 3 | `def-l0ngdu`, `def-ncsatw` (`adjudicated_meaning`) and `clm-m3z5ux` (`rationale`) each gained the stamp string, because the stamped line feeds that derived field — the batch-1 F4 class, additive and benign |
+| `strengthen-by.jsonl` | 1 | the to-do `text` for the `common/claim-quality.md`:561 bullet gained the stamp string — additive, same class |
+| `depends-on.jsonl` | **1** | 🔴 **CONTENT LOSS:** the `clm-m3z5ux → clm-crbl60` edge's **`context` field became `null`** |
+
+**The lost content is precisely the disambiguation this arc turns on** — 206 characters reading
+*"…for the √2 c = √(K/ρ) bulk-modulus (dilatational) compression speed; per 2026-06-08 c_L
+reconciliation this √2 c is the bulk-modulus speed, NOT the longitudinal P-wave √(10/3) c…"*. A
+demotion sweep about the bulk sector deleted the √2c-vs-√(10/3)c carve from the machine index. It
+never showed up as a gate failure: `verify-kb-metadata` checks the index is *freshly regenerated*,
+and a faithfully-regenerated index of a broken parse is still fresh.
+
+**Root cause, located and generic.** `manuscript/ave-kb/vol1/claim-quality.md`:445 is a depends-on
+annotation of the shape `- clm-… — <title> [<context>]`, and the extractor anchors the context to
+**end of line**: `_DEPENDS_ON_BRACKET_RE = re.compile(r"\[([^\[\]]*)\]\s*$")`
+(`manuscript/ave-kb/tools/kb_index_lib.py`:195). Appending the stamp after the closing `]` moves the
+bracket off the line end and the parse silently yields `None`. Putting the stamp *inside* the bracket
+is also wrong — the stamp itself contains `[` and `]`, and the pattern's `[^\[\]]*` forbids nesting.
+
+**Repair applied:** the stamp is moved to sit **before** the trailing `[context]` group, so the line
+still ends with `]`. **Receipt, re-taken after `make refresh-kb-metadata`:** `depends-on.jsonl` is now
+**byte-identical to `origin/main` — 0 differing records**, and the `clm-m3z5ux → clm-crbl60`
+`context` is restored **byte-identical** (206 chars, compared field-by-field, not eyeballed). The
+`.index/` delta is now **4 records across 2 files**, all additive stamp text.
+
+**Scope check — how many other lines could carry this defect: exactly ONE, and it is this one.** A
+Python scan over all 175 stamped lines' *original* text finds **1** line matching the depends-on
+annotation shape ending in `[...]`, and **1** line ending with `]` at all — the same line. So the
+defect was fully contained, but only by luck of distribution. **This annotation shape is now in the
+batch-2b protocol (§8): 2b will meet it again, and its stamp must go before the bracket.**
+
+`make refresh-kb-metadata` still reports *"Rewrote solidity in 0 claim-quality.md file(s) (0 solidity
 line(s), 0 depends-on annotation(s) changed)"* and *"Rewrote leaf-references footer in 0
-claim-quality.md file(s)"*. The 3 changed records are `def-l0ngdu` and `def-ncsatw`
-(`adjudicated_meaning`) and `clm-m3z5ux` (`rationale`) — each because the stamped line feeds that
-derived field. **No solidity number moved anywhere in this batch**, no `status:` field of any `def-`
-node moved, and the derived file is committed **regenerated**, not hand-edited (batch-1 F4 class).
+claim-quality.md file(s)"*. **No solidity number moved anywhere in this batch**, no `status:` field of
+any `def-` node moved, and the derived files are committed **regenerated**, never hand-edited.
+
+> **⚑ ONE ITEM DID NOT REPRODUCE AS REVIEWED.** The review reported the `strengthen-by.jsonl` `text`
+> as gaining a **TRUNCATED** stamp fragment (`… 🔴 **[DEMOTED 2026-08-11 — R40`). Measured at HEAD,
+> that field is **224 characters and carries the stamp in full**, terminating in `file]**`. There is
+> no truncation in the artifact; the ellipsis appears to be display-side. The **count** correction
+> (3 → 5 records, 2 → 3 files) stands and is applied above; the truncation characterisation does not.
 
 **F7 — the engine edits are documentation-only.** Every added line in `src/` is a `#` comment or
 docstring prose; the only modified pre-existing lines are the 29 stamped ones. `py_compile` is clean
@@ -399,6 +504,24 @@ un-stamps and the guard registry). *A receipt that describes a prior tree is not
 content.** The 175 modified lines reconcile with the identity's 176 stamped rows on 175 distinct
 lines (§3).
 
+**★ QUOTE-VERIFICATION RECEIPT (added 2026-08-12 at review — the check whose absence let §5's
+fabrication through).** Every quote in this record's hand-authored sections is now machine-checked
+against the artifact it cites, not read back by eye:
+
+| quote | check | result |
+|---|---|---|
+| STUCK-1's quote | is the **banked `quote` field** of the row, and is present at `appendices-overview.md:95` modulo the leading bullet/bold markup | **PASS** |
+| STUCK-1's HEAD line | reproduced byte-exact from the file | **PASS** |
+| STUCK-2's quote | byte-present at `vol4/claim-quality.md:252`; the banked `quote` is a substring of it | **PASS** |
+| R5 `dark-back-reaction-taxonomy.md:13` | excerpt byte-present at the cited line | **PASS** |
+| R5 `dark-back-reaction-taxonomy.md:23` | excerpt byte-present at the cited line | **PASS** |
+| `cavitation_flow.py:2` and `:22` | excerpts byte-present at the cited lines | **PASS** |
+| `kb_index_lib.py:195` | the `_DEPENDS_ON_BRACKET_RE` line byte-present at the cited line | **PASS** |
+| the fabricated string | occurs **exactly once** in the record, **inside the correction rider**, and nowhere under a live byte-exact label | **PASS** |
+
+The 185 in-corpus notes were already machine-verified on this axis by construction (§9) — this
+receipt closes the gap that the two hand-typed reports fell into.
+
 **Gates, on the landed commits:**
 
 | Gate | Result |
@@ -414,8 +537,19 @@ lines (§3).
 supports.** Surface: the WHOLLY-NEW lines this batch authored (the 109 EOF notes + this record; a
 modified pre-existing line is excluded, because its retired-word content is the corpus's, not this
 batch's), with fenced verbatim quotes and inline backtick spans stripped. Python `re.findall` and
-shell `grep -o -E` over the same bytes agree exactly: *dress* **111**, *retardation* **112**, *halo*
-**111**, *grade* (exact word) **112**.
+shell `grep -o -E` over the same bytes agree exactly: *dress* **112**, *retardation* **112**, *halo*
+**111**, *grade* (exact word) **113**.
+
+> ⚑ **These figures were 111 / 112 / 111 / 112 in the first cut and are corrected to 112 / 112 /
+> 111 / 113 (2026-08-12, at review).** The two deltas trace to **one string** — §7's own correction
+> rider, which quotes the pre-existing corpus phrase *"the graded Coulomb dress"* in *italics*
+> rather than backticks, so the stated stripping rule leaves it in-surface. **The receipt is
+> self-referential on this axis:** every word this receipt writes about the retired vocabulary moves
+> the count it reports, and the first cut measured before its own rider existed. The rider that says
+> *"a receipt that has to be re-scoped to survive is a finding about the receipt"* was itself off by
+> one on exactly that axis, which is the tidiest possible demonstration of the point. **The
+> load-bearing invariant does not move and is re-confirmed: authored USES = 0.** The count of
+> mentions is bookkeeping about this document; the zero is the claim about the corpus.
 
 **Every one of those is a MENTION, not a USE.** Hand-classified: all but one sit inside the
 *retirement paragraph itself* — the sentence in each note that names the retired words in order to
@@ -451,9 +585,62 @@ is never reworded. **Authored uses of the retired nouns: 0.**
 - **No live re-scope of engine behaviour**, no flag default changed, no channel enumeration rewritten.
 - **No `status:` field of any `def-` node moved**, no solidity moved, no `clm-`/`sup-` minted or
   retired.
-- **★ NAMED OPEN DEBT — the guard registry's scaling defect is registered-into, not repaired** (F1).
-- **★ NAMED OPEN DEBT — the guard's date-hard-coded `STAMP` regex** (F3): the next batch dated other
-  than `2026-08-11` is invisible to the gate unless it is generalised first.
+### ★ PROTOCOL ADDITIONS BATCH 2b MUST CARRY (learned the hard way here)
+
+1. **Stamp placement vs the depends-on annotation shape.** A claim-quality line of the form
+   `- <id> — <title> [<context>]` has its context anchored to **end of line**
+   (`kb_index_lib.py`:195, verbatim: `_DEPENDS_ON_BRACKET_RE = re.compile(r"\[([^\[\]]*)\]\s*$")`).
+   A stamp appended **after** the `]` silently nulls the `context` field in `depends-on.jsonl`, and
+   no gate catches it (F6). A stamp **inside** the bracket is also wrong — the stamp contains `[`
+   and `]` and the pattern forbids nesting. **The stamp goes BEFORE the trailing bracket.** 2a met
+   this shape once in 175 lines; 2b's 105 SURVIVES rows land in the same registers and will meet it
+   again.
+2. **No quote is authored by hand.** Every quote in every report — including STUCK-POINT reports and
+   any hand-written prose — is pulled from the banked `quote` field or read out of the file, and is
+   **machine-verified against HEAD** before the report is written. 2a's generated notes met this by
+   construction (185/185); its two hand-typed reports did not, and one of them fabricated a quote
+   under a byte-exact label (§5).
+3. **Grep the registry that owns a term before routing a vocabulary question to Grant.** 2a routed
+   *"longitudinal shear strain"* for adjudication when Grant had already ruled it
+   (`dark-back-reaction-taxonomy.md`:13, R5). A phrase that "reads ambiguous" is a prompt to search,
+   not a prompt to escalate.
+4. **After any `.index/`-touching pass, diff the derived index FIELD-BY-FIELD against the base**, not
+   by record count. F6's content loss was a field going `null` inside an otherwise-present record;
+   `verify-kb-metadata` passes on a faithfully-regenerated index of a broken parse.
+
+### ★ ROUTED TO A SEPARATE INFRA PR — REQUIRED BEFORE BATCH 2b
+
+These three change **gate semantics** and are deliberately **not folded into this PR**; each needs
+its own fixture delta and its own review. Recorded here so 2b cannot start without them.
+
+1. **The date-pinned `STAMP` regex** (`research/drivers/r40_preserved_span_number_check.py`:119,
+   verbatim: `STAMP = re.compile(r"DEMOTED 2026-08-11|TAG DEMOTED 2026-08-11")`). Any batch not
+   dated `2026-08-11` is **invisible** to both the pinned scan and the live forward guard, which
+   would then report a clean run over a batch it never examined.
+   **⚑ MY PROPOSED FIX WAS MEASURED AND IS WRONG — do not use it.** F3 proposed
+   `(?:TAG )?DEMOTED \d{4}-\d{2}-\d{2}`; measured, that makes the **pinned scan read 61/25** (not
+   60/24) and **self-flags `04_continuum_electrodynamics.tex:288`** — the very site
+   `SECTIONING_PROBE` pins as a live regression. **This is exactly what F3 said had to happen
+   before the change lands** (*"whether it perturbs the pinned batch-1 fixture numbers must be
+   measured before it lands, not assumed"*) — the discipline held, and the measurement killed my
+   own suggestion. The pattern that measures clean is
+   `(?:TAG )?DEMOTED \d{4}-\d{2}-\d{2}(?=[^\n]{0,12}(?:R4\d-B|per R4\d))`
+   (pinned 60/24 ✓, live 175/0 ✓, future-dated breach 1/1 ✓). An R40-**only** lookahead must be
+   avoided: it drops the 2 R42 stamps.
+   **Also required in that PR:** a **minimum-scanned assertion**, so an empty forward scan can never
+   read as clean (the F2 failure mode, made structural instead of documented).
+2. **`untouched` / `unedited` added to the `PRESERVE` vocabulary** — a real declaration form the
+   detector's vocabulary lacks. Live at `manuscript/vol_9_vacuum_datasheet/figures/moduli_relationship.tex`:25
+   (adjudicated **not** a fence, but **invisible** to the gate, so the gate's silence there carries
+   no information).
+3. **The F1 registry re-key** — recommended `(file, stamp-token, sha1(stripped-line)[:12])`, with
+   the human reading staying exactly where it is. **The hazard is already live, not hypothetical:**
+   this batch's third commit re-wrapped 8 stamped lines *after* the second commit wrote the
+   registry. None of the 8 happened to be registered — **luck, not design**. A re-key removes the
+   coupling between a line's byte-length and the gate's memory.
+
+- **★ NAMED OPEN DEBT — the guard registry's scaling defect is registered-into, not repaired** (F1;
+  re-key routed above).
 - **★ INHERITED, STILL OPEN — batch 1's two named debts are untouched by this batch:** the #938
   supersession note owed on `2026-08-10_r40-sweep-scope-verification.md` (`:61` / `:79` still assert
   5 DRIFTED rows), and the R50/R49(b) mis-attribution at `2026-08-10_bias-propagation-brief.md:11`.
