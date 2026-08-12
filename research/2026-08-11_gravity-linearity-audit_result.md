@@ -26,7 +26,13 @@ merging this first leaves both hanging on an unmerged branch.
 > ⚑ **The whole content of this pointer is (a).** **(a)** The **ν-denominator** seven is
 > **K-CONDITIONAL** — solid, #957's D3. **(b)** Separately: the per-cell **kinematic-inventory** seven is a **separately counted** inventory (`vol9/ch3-pin-port-configuration/index.md`:17 — 3 **u** + 3 **ω** + 1 **A₁** breathing). ⚑ **It is cited as COUNTED, not asserted to stand:** it is under a live tension with **#761** (`research/2026-07-20_mechanical-commonmode-derivation_result.md`:46, adopted **verbatim** at `vocabulary-register.md`:594) — *"It is **NOT a separate scalar DOF**; it is a projection of the same 3-vector `u`."* **If that reading holds the seven-count double-counts. GRANT'S TO RULE; this pointer flags it and nothing more.**
 > The
-> **ν-denominator** seven does **not**: **`ν = (3K−2G)/(2(3K+G))` equals `2/7` only at `K = 2G`.**
+> **ν-denominator** seven does **not**. ⚑ **The ratified reason is R52's, and it is cited as
+> primary, not re-argued** (`…ruling-r52-k2g-operating-point.md`:110–112): *"THE MODE-COUNT GLOSS
+> IS THE IMPORT; THE KINEMATIC GLOSS IS CORRECT"*, because the denominator `(3K+G)/G` **slides**
+> (4, 7, 8, 10 at `K` = `G`, `2G`, `7G/3`, `3G`). **The `(n, d)` split below adds no new argument —
+> it exists only to reconcile three presentations of one `ν`** (A47 v11b: do not refill a closed
+> slot with a different argument for the same conclusion). Restated for the reconciliation:
+> **`ν = (3K−2G)/(2(3K+G))` equals `2/7` only at `K = 2G`.**
 > Read as C3's `d/n` with `n = (3K+G)/G`, **both** halves slide and neither stays integral —
 > `(n, d)` = `(4, ½)` · `(7, 2)` · `(8, 5/2)` · `(10, 7/2)` for `K` = `G` · `2G` · `7G/3` · `3G`.
 > **A count cannot be ½.** ⚑ *Reconciles with #957 §11:* that record quotes the **reduced**
@@ -40,7 +46,7 @@ merging this first leaves both hanging on an unmerged branch.
 > (its own preamble: *"the algebra herein is chat-walk grade, un-audited; the carve ships with its
 > own kill-checks (§5)"*), `_orchestration/docket-entries/2026-08-12-ruling-r51-a1-two-objects-carve.md`
 >
-> ⚑ **R52's ruling has NOT propagated.** R52 (`_orchestration/docket-entries/2026-08-12-ruling-r52-k2g-operating-point.md`:110–112) declares the mode-count gloss the import (*"THE MODE-COUNT GLOSS IS THE IMPORT; THE KINEMATIC GLOSS IS CORRECT"*). The derivation it unlicenses is **live and unedited** at `mode-counting-heat-capacity.md`:14, `g-star-derivation.md`:18, `alpha-s-derivation.md`:21,:35, `03_geometric_inevitability.tex`:417,:475,:495 and `11_thermodynamics_and_entropy.tex`:149. **This pointer records that the propagation is OWED. It is not the repair.**)*
+> ⚑ **R52's ruling has NOT propagated.** R52 (`_orchestration/docket-entries/2026-08-12-ruling-r52-k2g-operating-point.md`:110–112) declares the mode-count gloss the import (*"THE MODE-COUNT GLOSS IS THE IMPORT; THE KINEMATIC GLOSS IS CORRECT"*). The derivation it unlicenses is **live and unedited** at `mode-counting-heat-capacity.md`:14, `g-star-derivation.md`:18, `alpha-s-derivation.md`:21,:35, `03_geometric_inevitability.tex`:417,:475,:495 and `11_thermodynamics_and_entropy.tex`:149. ⚑ **VERIFICATION SCOPE, stated exactly:** this lane read **`mode-counting-heat-capacity.md`:14 directly** and confirms it still counts seven. **The other five sites are carried from the relay — their files were confirmed to exist, their line content was NOT independently checked here.** **This pointer records that the propagation is OWED. It is not the repair, and the five unverified sites are a relay-carried list, not this lane's receipt.**)*
 > and second-order: it grades the *modulus*, and canon states the split in its own words at
 > `white-dwarf-gravitational-predictions.md`:44–54 (*"For Standard General Relativity, S = 1"*).
 > **So the two "laws" are not competitors for one observable — they are two roles, and `√S` is a
