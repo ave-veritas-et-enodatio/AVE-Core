@@ -91,7 +91,7 @@ See .agents/handoffs/TAU_YIELD_DERIVATION_AUDIT.md. Do not re-add without a deri
 - **Macroscopic Strong Force:** $F_{confinement} = 3 \left(\frac{m_p}{m_e}\right) \alpha^{-1} T_{EM} \approx \mathbf{160{,}037\text{ N}} \ (\approx 0.999\text{ GeV/fm})$
 - **Witten Effect Fractional Charge (Quarks):** $q_{eff} = n + \frac{\theta}{2\pi}e \implies \pm \frac{1}{3}e, \pm \frac{2}{3}e$
 - **Vacuum Poisson's Ratio (Trace-Reversed Bound):** $\nu_{vac} \equiv \frac{2}{7}$
-- **Weak Mixing Angle (Acoustic Mode Ratio):** $\frac{m_W}{m_Z} = \frac{1}{\sqrt{1+\nu_{vac}}} = \frac{\sqrt{7}}{3} \approx \mathbf{0.8819}$
+- **Weak Mixing Angle (Acoustic Mode Ratio):** $\frac{m_W}{m_Z} = \frac{1}{\sqrt{1+\nu_{vac}}} = \frac{\sqrt{7}}{3} \approx \mathbf{0.8819}$ 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 - **Non-Linear FDTD Acoustic Steepening PDE:** $c_{eff}^2(x, y, z) = c_0^2 \left(1 + \kappa \cdot \bar{\rho}(x, y, z) \right)$ (Derived structurally for topological thrust metrics)
 
 ### Cosmological Dynamics
@@ -177,7 +177,7 @@ $$
 \sigma_{ij} = \lambda \varepsilon_{kk} \delta_{ij} + 2G \varepsilon_{ij} + \kappa_{rot} \epsilon_{ijk} (\theta_k - \phi_k)
 $$
 
-Where $\theta_k$ is the macroscopic voxel rotation vector, and $\phi_k$ is the microscopic independent internal rotation of the basis nodes. The presence of $\kappa_{rot}$ enforces a strictly positive effective bulk modulus within the numerical grid, ensuring stability at all acoustic frequencies while correctly simulating the emergent trace-reversed vacuum signatures.
+Where $\theta_k$ is the macroscopic voxel rotation vector, and $\phi_k$ is the microscopic independent internal rotation of the basis nodes. The presence of $\kappa_{rot}$ enforces a strictly positive effective bulk modulus within the numerical grid, ensuring stability at all acoustic frequencies while correctly simulating the emergent trace-reversed vacuum signatures. 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 
 ### Exact Lattice Operators: Discrete Hilbert Commutators
 
@@ -210,3 +210,91 @@ Where $C_{VK}$ relies fundamentally upon the derived Faddeev-Skyrme lattice limi
 **The Computational Spec:** The AVE physical bounds require the engine algorithm to deploy non-linear tension saturation equations naturally without programmatic branches. As spatial expansion strains array tension arrays below the critical macroscopic background strength, ambient metric effects dominate. The exact simulation logic leverages the non-linear AQUAL Lagrangian definition for computational evaluation:
 
 Where the background vacuum noise floor establishes $\mu(x \ll 1) \approx x$. If the voxel engine natively processes this localized saturation metric continuously ($a_0 \equiv c H_\infty / 2\pi$), the Milgrom/MOND flat rotation dynamics generate intrinsically as a structural boundary-layer solution to the vacuum dielectric continuum, unifying both microscopic logic elements and macroscopic galaxies under a single computational algorithm.
+
+---
+
+## R40 batch-2a — NEEDS-RE-DERIVATION status note (2026-08-11)
+
+**Class:** status demotion under **R40**. This note mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-`,
+**moves no solidity number**, adjudicates no channel and opens no fork. Every byte of each demoted
+claim is preserved; the stamped line gains a status marker only (honesty-lag pattern, Rule 12).
+
+**The arc, in four clauses (R40's header form; clause 4 points at the LANDED artifact, not at a
+ruling record).**
+
+1. **The kill fired** — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the imported `K = 2G` elastic modulus** — the compressible far-field
+   branch was minted by a GR-imported modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the flat-direction finding: the written action
+   conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the LANDED ratified bound-sector law — Axiom 5, Substrate DC Bias**, clauses
+   **S** (deposit), **G** (bias coupling / bridge) and **Q** (quiescence), canonical at
+   [`eq_axiom_5.tex`](../../common_equations/eq_axiom_5.tex) with its register entry in
+   [`axiom-register.md`](../common/axiom-register.md) (§ *Axiom 5 — Substrate DC Bias*). Under
+   clause **G** the A1 / bulk slot is a **bound response** — $\mathbf{u}_0 =
+   -\mathcal{A}_g\nabla\varepsilon_{11}$, mechanism gloss **back-reaction** — with **no independent
+   propagating branch, no port and zero longitudinal characteristic speed**. A bulk *wave speed*, a
+   bulk *radiative port*, a bulk *band-branch* and a bulk *transit clock* therefore have **no
+   referent**, and each row below owes its re-derivation on that footing.
+   $\mathcal{A}_g$ (the **bias-coupling area**) is an `UNVALUED-RATIFIED-CONSTANT` per **R48**
+   ([`interlock-register.md`](../common/interlock-register.md), § *𝒜_g — the bias-coupling
+   area*): it is **not valued here or anywhere**, and **the calibration count stays 3**.
+
+**Standing named-open debt — the honesty rider.** The ratified axiom does **not** discharge
+everything. **THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt**, stated by the
+axiom's own phase-structure paragraph, clause **(c1)**: clause G's elliptic law is the *static
+abstraction of underived finite-speed bias dynamics*, and the $(u,\pi)$ no-signalling theorem does
+**not** cover the bias read — the bias's finite propagation speed is *owed, not held*. Every row
+tagged **⚑ BIAS-DEBT** below re-derives against the ratified axiom **with that debt standing**, never
+against a closed replacement.
+
+**Vocabulary.** Canonical nouns authored here: **the bound response** ($\mathbf{u}_0$), **the bias**
+($\varepsilon_{11}$), the **DC operating point / quiescent point (Q-point)**; **back-reaction** is
+the mechanism gloss. *"dress"*, *"grade"* as $\varepsilon_{11}$'s canonical noun, and *"halo"* for
+the physics (the physics noun is the **near-field store / added-mass**) are RETIRED by **R50**;
+*"retardation"* is retired by **R49(b)** in favour of **propagation delay / finite propagation
+speed**. Corpus text quoted below is byte-exact and is never reworded.
+
+**Rows carried in this file.**
+
+- **`:94`** — stamped at `:94`. *(family: acoustic-mass-ratio-WZ; banked `uncertain`)*
+  Quoted claim, byte-exact at HEAD:
+  ```text
+  Weak Mixing Angle (Acoustic Mode Ratio): $\frac{m_W}{m_Z} = \frac{1}{\sqrt{1+\nu_{vac}}} = \frac{\sqrt{7}}{3}
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Same W/Z acoustic-mode-ratio family as full-derivation-chain:302 / mathematical-closure:94 — the formula itself is a static (1+ν) combination, the acoustic-mode framing is what is owed.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave.
+
+- **`:95`** — **NOT STAMPED — STUCK-POINT, routed to Grant** (the resolution pointer is genuinely ambiguous; see the batch record). *(family: dark-wake-reaction-mass; banked `uncertain`)*
+  Quoted claim, byte-exact at HEAD:
+  ```text
+  Non-Linear FDTD Acoustic Steepening PDE: $c_{eff}^2(x, y, z) = c_0^2 \left(1 + \kappa \cdot \bar{\rho}(x, y, z) \right)$
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Thrust-metric 'acoustic steepening' PDE: if c_eff is the T2/EM index modulated by density it survives as refraction; if it is the compression carrier it dies — sector declaration owed.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave.
+
+- **`:180`** — stamped at `:180`. *(family: K-backed-stability)*
+  Quoted claim, byte-exact at HEAD:
+  ```text
+  enforces a strictly positive effective bulk modulus within the numerical grid, ensuring stability at all acoustic frequencies
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  A K-backed stability argument — the prereg's named NEEDS example; under the carve stability is kinematic (no compression DOF to implode), so the K>0-guarantees-stability mechanism is the import's.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave.
+
+**Records.** Ruling **R40** (the demotion sweep) · the banked worklist
+[`r40_sweep_worklist_verified.json`](../../../research/drivers/r40_sweep_worklist_verified.json) · batch-0
+scope verification and batch-1 execution records in `_orchestration/` · this batch's record
+`_orchestration/2026-08-12_r40-sweep-batch2a.md`.
+

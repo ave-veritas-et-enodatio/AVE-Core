@@ -46,7 +46,7 @@ The Vacuum Circuit Analysis (VCA) framework establishes a single, exact dimensio
 | [Relativistic Inductor](relativistic-inductor.md) | Current-dependent inductance; $E = mc^2$ from inductor energy; SPICE enforcement of $c$ |
 | [Node-Up Small/Large-Signal Response](node-up-small-large-signal.md) | The LC-tank dual ($\varepsilon$-varactor on $V$ / $\mu$-relativistic-inductor on $I$); R1/R2/R3 operating points; static-field grade asymmetry (static-$\mathbf E$ loads, static-$\mathbf B$ → $\delta n_\mu=0$ exactly); derived-vs-asserted ledger; VCA-R01 |
 | [Graded-Network Response](graded-network-response.md) | The K4 graded LC transmission line (network layer above the single node): LC-ladder dispersion → $c_{EM}=c_0$, $Z_0$ (validate-on-known); the QUARTIC $(q\ell_{node})^4$ anisotropy tell (K4 2nd moment isotropic, 4th moment cubic-harmonic); SYM-lens-vs-ASYM-mirror graded index; the $\ell_{node}$-invariant coherent optical-path macroscopic bridge (coefficient survives); achromatic $\Gamma=0$ vs reflective $\Gamma\ne0$ boundary; routes-don't-mix + chiral-circulator category-error guard; chord-vs-echo ledger |
-| [Parent Condition: Ax3 Forces $k_s=k_a$](parent-condition-match-forces-balance.md) | Axiom 3 ($\lvert\Gamma\rvert^2$-min at the internal acoustic boundary) forces the isotropic-bond ratio $\rho_{bond}=k_a/k_s=1$ knob-free (½/¼ knife passes); MATCH ($\varepsilon\mu$) = BALANCE (axial↔shear) = HEAVISIDE (distortionless) co-locate at $\rho_{bond}=1$ — one parent condition; the photon's emergent-Lorentz point is an axiom consequence [MECHANISM-DERIVED / FORM not VALUE]; K<0 lossless-reactive honest flag (photon point ≠ stable static solid, matter locus is a different $\rho^*\approx9.77$); post-#521 [SAME-TENSOR-POINT] state (loci connect model-scoped, $9.77$ stays GR-imported) |
+| [Parent Condition: Ax3 Forces $k_s=k_a$](parent-condition-match-forces-balance.md) | Axiom 3 ($\lvert\Gamma\rvert^2$-min at the internal acoustic boundary) forces the isotropic-bond ratio $\rho_{bond}=k_a/k_s=1$ knob-free (½/¼ knife passes); MATCH ($\varepsilon\mu$) = BALANCE (axial↔shear) = HEAVISIDE (distortionless) co-locate at $\rho_{bond}=1$ — one parent condition; the photon's emergent-Lorentz point is an axiom consequence [MECHANISM-DERIVED / FORM not VALUE]; K<0 lossless-reactive honest flag (photon point ≠ stable static solid, matter locus is a different $\rho^*\approx9.77$); post-#521 [SAME-TENSOR-POINT] state (loci connect model-scoped, $9.77$ stays GR-imported) 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]** |
 | [Biquaternion Complex Coupled Network Equations](biquaternion-complex-coupled-network-equations.md) | Integrated five-layer equation block (2026-06-27): biquaternion port/wall notation (Layer 0) + keyed large-signal stress dispatch (Layer 1) + three-channel $Y(j\omega)$ and $H_{\mathrm{couple}}$ (Layer 2) + small-signal $n$, $Z_{\mathrm{eff}}$, $\Gamma$ (Layer 3) + null-cone wall and A1 mass store (Layer 4); stress→wave→mass table; Build-A/B spectral map; Class-C synthesis — no new clm- |
 | [Q-G24 Newtonian-Limit Closure](relativistic-inductor-newtonian-limit.md) | Full $E = \gamma m_0 c^2$ relativistic dispersion from LC tank + virial equipartition + relativistic-inductor mapping; three independent Derrick-bypass mechanisms (lattice floor / Faddeev-Skyrme / bilateral chiral); no fit parameters |
 | [Q-G22 Strain Convention (Geometric vs Field-Ratio)](q-g22-strain-convention.md) | Clarification: corpus uses $A_{geom} = \ell_{node}/r$ ($\propto 1/r$, geometric confinement ratio) for kernel applications; IVIM bench uses $A_{field} = E\ell_{node}/V_{yield}$ ($\propto 1/r^2$, field ratio) for apparatus calculations; both internally consistent, different physical measures |
@@ -73,3 +73,67 @@ The Vacuum Circuit Analysis (VCA) framework establishes a single, exact dimensio
 
 ---
 | [Computational Solver Selection](./computational-solver-selection.md) | Computes Solvers FDTD vs TLM |
+
+---
+
+## R40 batch-2a — NEEDS-RE-DERIVATION status note (2026-08-11)
+
+**Class:** status demotion under **R40**. This note mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-`,
+**moves no solidity number**, adjudicates no channel and opens no fork. Every byte of each demoted
+claim is preserved; the stamped line gains a status marker only (honesty-lag pattern, Rule 12).
+
+**The arc, in four clauses (R40's header form; clause 4 points at the LANDED artifact, not at a
+ruling record).**
+
+1. **The kill fired** — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the imported `K = 2G` elastic modulus** — the compressible far-field
+   branch was minted by a GR-imported modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the flat-direction finding: the written action
+   conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the LANDED ratified bound-sector law — Axiom 5, Substrate DC Bias**, clauses
+   **S** (deposit), **G** (bias coupling / bridge) and **Q** (quiescence), canonical at
+   [`eq_axiom_5.tex`](../../../../common_equations/eq_axiom_5.tex) with its register entry in
+   [`axiom-register.md`](../../../common/axiom-register.md) (§ *Axiom 5 — Substrate DC Bias*). Under
+   clause **G** the A1 / bulk slot is a **bound response** — $\mathbf{u}_0 =
+   -\mathcal{A}_g\nabla\varepsilon_{11}$, mechanism gloss **back-reaction** — with **no independent
+   propagating branch, no port and zero longitudinal characteristic speed**. A bulk *wave speed*, a
+   bulk *radiative port*, a bulk *band-branch* and a bulk *transit clock* therefore have **no
+   referent**, and each row below owes its re-derivation on that footing.
+   $\mathcal{A}_g$ (the **bias-coupling area**) is an `UNVALUED-RATIFIED-CONSTANT` per **R48**
+   ([`interlock-register.md`](../../../common/interlock-register.md), § *𝒜_g — the bias-coupling
+   area*): it is **not valued here or anywhere**, and **the calibration count stays 3**.
+
+**Standing named-open debt — the honesty rider.** The ratified axiom does **not** discharge
+everything. **THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt**, stated by the
+axiom's own phase-structure paragraph, clause **(c1)**: clause G's elliptic law is the *static
+abstraction of underived finite-speed bias dynamics*, and the $(u,\pi)$ no-signalling theorem does
+**not** cover the bias read — the bias's finite propagation speed is *owed, not held*. Every row
+tagged **⚑ BIAS-DEBT** below re-derives against the ratified axiom **with that debt standing**, never
+against a closed replacement.
+
+**Vocabulary.** Canonical nouns authored here: **the bound response** ($\mathbf{u}_0$), **the bias**
+($\varepsilon_{11}$), the **DC operating point / quiescent point (Q-point)**; **back-reaction** is
+the mechanism gloss. *"dress"*, *"grade"* as $\varepsilon_{11}$'s canonical noun, and *"halo"* for
+the physics (the physics noun is the **near-field store / added-mass**) are RETIRED by **R50**;
+*"retardation"* is retired by **R49(b)** in favour of **propagation delay / finite propagation
+speed**. Corpus text quoted below is byte-exact and is never reworded.
+
+**Rows carried in this file.**
+
+- **`:49`** — stamped at `:49`. *(family: parent-condition acoustic boundary; banked `uncertain`)*  ⚑ **BIAS-DEBT**
+  Quoted claim, byte-exact at HEAD:
+  ```text
+  Axiom 3 (|Γ|²-min at the internal acoustic boundary) forces the isotropic-bond ratio ρ_bond=k_a/k_s=1 knob-free
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Uncertain: the Γ_internal(ρ_bond) minimization and the BALANCE/HEAVISIDE co-location may compute reflection/transmission of an axial (compression) lattice branch — if the derivation's incident object is a propagating longitudinal wave, its mechanism consumes the phantom; the k_a/k_s ratio itself is static-constitutive. Owning leaf (parent-condition-match-forces-balance.md) is outside this slice — route the check there.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+**Records.** Ruling **R40** (the demotion sweep) · the banked worklist
+[`r40_sweep_worklist_verified.json`](../../../../../research/drivers/r40_sweep_worklist_verified.json) · batch-0
+scope verification and batch-1 execution records in `_orchestration/` · this batch's record
+`_orchestration/2026-08-12_r40-sweep-batch2a.md`.
+

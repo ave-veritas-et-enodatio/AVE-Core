@@ -177,7 +177,7 @@ The substrate's cosmic-scale temperature coefficient $\delta_{strain}$ is theref
 \textbf{Substrate primitives invoked.}
 
 \begin{itemize}
-    \item \textbf{Three wired reactance channels} (Ch.~\ref{ch:vol9_pin_port_configuration} \S Device Circuit Models; canonical at \kbleaf{device-circuit-models.md}:141--149): the EM channel $Z_{EM} \equiv Z_0 = \sqrt{\mu_0/\varepsilon_0} \approx 376.73\,\Omega$ ($\Gamma_{EM} = 0$, matched), the shear channel $Z_{shear} = \rho_{bulk}\, c_{shear}$ ($\Gamma_{shear} \to -1$, confined --- the CHARGE-``3''), and the bulk channel $Z_{bulk} = \sqrt{2}\,\rho_{bulk}\, c_0$ at $K = 2G$ ($\Gamma_{bulk} \to -1$, confined --- the MASS-``3'').
+    \item \textbf{Three wired reactance channels} (Ch.~\ref{ch:vol9_pin_port_configuration} \S Device Circuit Models; canonical at \kbleaf{device-circuit-models.md}:141--149): the EM channel $Z_{EM} \equiv Z_0 = \sqrt{\mu_0/\varepsilon_0} \approx 376.73\,\Omega$ ($\Gamma_{EM} = 0$, matched), the shear channel $Z_{shear} = \rho_{bulk}\, c_{shear}$ ($\Gamma_{shear} \to -1$, confined --- the CHARGE-``3''), and the bulk channel $Z_{bulk} = \sqrt{2}\,\rho_{bulk}\, c_0$ at $K = 2G$ ($\Gamma_{bulk} \to -1$, confined --- the MASS-``3''). \textbf{[DEMOTED 2026-08-11 --- R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]}
     \item \textbf{Mixed impedance domains} (Ch.~\ref{ch:vol9_mechanical_characteristics} \S Node-model channel tags): $Z_{EM}$ is an \emph{electrical} impedance ($\Omega$); $Z_{shear}$ and $Z_{bulk}$ are \emph{mechanical/acoustic} impedances ($\rho \times$ speed, Pa$\cdot$s/m), $\sim$12 OOM off $Z_0$ and a unit change away.
     \item \textbf{The EM-$\Omega$ $\leftrightarrow$ mechanical-$\rho c$ TKI-transformer} (Ch.~\ref{ch:vol9_topological_characteristics} $\xi_{topo}$; \kbleaf{device-circuit-models.md}:205--210): two ports in different units cannot be directly wired --- a domain crossing requires a TRANSDUCER (an electro-mechanical change-of-reference), realized as an ideal transformer (turns-ratio scaling), not a direct wire and not a gyrator. \emph{Status (\texttt{def-tk1xfm}, \textbf{RATIFIED SOLID}, Grant 2026-07-21; \kbleaf{common/vocabulary-register.md}:435--441):} the Topo-Kinematic Isomorphism (Axiom~2) is an exact, lossless, gain-1, pole-less, invertible \textbf{co-equality of the mechanical and electrical descriptions below the band edge} ($\omega\tau \ll 1$, the long-wave regime). Two riders travel with the ratification. \textbf{(a) Regime fence:} the co-equality is regime-scoped --- at band-edge scales the distributed-in-bond (arccos transmission-line) and lumped mass--spring descriptions book the propagation delay differently and are \emph{no longer} co-equal. \textbf{(b) Strength ceiling:} it is \emph{identity-by-translation}, \textbf{not} emerges-from and \textbf{not} a derivation of a mechanism --- SOLID means the node is canonical, not that it derives anything (ceiling reaffirmed by the Cleave-01 Chern null, \texttt{clm-clvchn}). The dynamics (poles $=$ masses, the $Q = 1/\alpha$ radiative leak, the Axiom-4 saturation trap) live in the resonator transfer function, not in the Axiom-2 dictionary.
     \item \textbf{$\alpha$ localized to the transducer} via the critical packing fraction $p_c = 8\pi\alpha$ (\kbleaf{src/ave/core/constants.py}, \texttt{P\_C}): the $\alpha$-echo localizes to \emph{exactly} the EM$\leftrightarrow$mechanical transformer turns-ratio (Ch.~\ref{ch:vol9_breakdown_characteristics} dielectric-rupture consistency identity).
@@ -289,3 +289,62 @@ $\delta_{strain}$ as cosmic-scale TCC (\S\ref{sec:vol9_app_delta_strain_cosmic_t
 Each application example treated above is the substrate's natural response under specified operating conditions, with the substrate primitives in Chs.~2--12 combining to produce the observed engineering quantity. No example introduces a new substrate primitive; no example postulates a physical phenomenon beyond what the substrate axioms (Ax~1 K4 Cosserat lattice + Ax~2 topo-kinematic isomorphism $\xi_{topo}$ + Ax~3 minimum reflection + Ax~4 universal saturation kernel) plus the structural-closure framing (one scale primitive $\ell_{node}$ + one cosmological initial-data parameter $\hat{\Omega}_{freeze}$) already supplies. The framework's predictive content is the joint constraint across application examples: $\alpha$, $G$, $m_W/m_Z$, $\delta_{strain}$, the Born-rule $p=2$ exponent, and (more broadly) every observable in this datasheet derive from one operating point $u_0^*$ + the substrate axioms; if any single derivation chain breaks, the framework breaks.
 
 The substrate is natural; the application examples document the substrate-mechanism behind specific observed phenomena; engineering measures; AVE substrate-physics derives. The next-step datasheet entries continue the same pattern: Ch.~\ref{ch:vol9_phase_diagrams} consolidates the operating-point + cosmic-phase partition; Ch.~\ref{ch:vol9_falsification_tests} catalogs the empirical kill-switches; Ch.~\ref{ch:vol9_cross_volume_reference} is the auto-generated parameter $\to$ derivation map.
+% --------------------------------------------------------------------------
+% R40 batch-2a --- NEEDS-RE-DERIVATION status note (2026-08-11)
+% --------------------------------------------------------------------------
+% CLASS: status demotion under R40. Mints no clm-/def-/exp-/sup-/ilk-, moves no solidity number,
+% adjudicates no channel and opens no fork. Every byte of each demoted claim is preserved; the
+% stamped line gains a status marker only.
+%
+% THE ARC, IN FOUR CLAUSES (R40's header form; clause 4 points at the LANDED artifact, not at a
+% ruling record). (1) The kill fired --- the walk-back that closed the bulk radiative-port
+% reading. (2) The premise localized to the imported K = 2G elastic modulus: the compressible
+% far-field branch was minted by a GR-imported modulus, not forced by the axioms. (3) The axioms
+% underdetermine the bulk sector --- the flat-direction finding: the written action conserves the
+% Gauss function pointwise and never fixes its value. (4) THE REPLACEMENT IS THE LANDED RATIFIED
+% BOUND-SECTOR LAW --- AXIOM 5, SUBSTRATE DC BIAS, clauses S (deposit), G (bias coupling / bridge)
+% and Q (quiescence), canonical at manuscript/common_equations/eq_axiom_5.tex with its register
+% entry in manuscript/ave-kb/common/axiom-register.md. Under clause G the A1 / bulk slot is a
+% BOUND RESPONSE --- u_0 = -A_g grad(eps_11), mechanism gloss BACK-REACTION --- with no
+% independent propagating branch, no port and zero longitudinal characteristic speed. A bulk wave
+% speed, a bulk radiative port, a bulk band-branch and a bulk transit clock therefore have no
+% referent. A_g (the bias-coupling area) is an UNVALUED-RATIFIED-CONSTANT per R48
+% (manuscript/ave-kb/common/interlock-register.md): it is not valued here or anywhere, and THE
+% CALIBRATION COUNT STAYS 3.
+%
+% STANDING NAMED-OPEN DEBT (the honesty rider). The ratified axiom does NOT discharge everything.
+% THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt, stated by the axiom's own
+% phase-structure paragraph, clause (c1): clause G's elliptic law is the static abstraction of
+% underived finite-speed bias dynamics, and the (u,pi) no-signalling theorem does NOT cover the
+% bias read --- the bias's finite propagation speed is owed, not held. Every row tagged BIAS-DEBT
+% below re-derives against the ratified axiom WITH THAT DEBT STANDING, never against a closed
+% replacement.
+%
+% VOCABULARY. Canonical nouns authored here: the bound response (u_0), the bias (eps_11), the DC
+% operating point / quiescent point (Q-point); back-reaction is the mechanism gloss. 'dress',
+% 'grade' as eps_11's canonical noun, and 'halo' for the physics (the physics noun is the
+% near-field store / added-mass) are RETIRED by R50; 'retardation' is retired by R49(b) in favour
+% of propagation delay / finite propagation speed. Corpus text quoted below is byte-exact and is
+% never reworded.
+%
+% ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
+%
+%   :180  family: Z_bulk=rho*c formula class  [BIAS-DEBT]
+%        QUOTE (byte-exact at HEAD): the bulk channel $Z_{bulk} = \sqrt{2}\,\rho_{bulk}\, c_0$ at $K =
+%        2G$ ($\Gamma_{bulk} \to -1$, confined --- the MASS-``3'')
+%       STAMPED AT: :180
+%        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): Application-chapter
+%        recurrence of the three-channel Z=rho*c formula (also :187 2-domain N-port); confined role and
+%        mass accounting survive, formula consumes phantom.
+%        RESOLUTION: the demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that
+%        slot is the bound response, so the re-derivation must be re-posed on the bound-sector
+%        constitutive law (bias eps_11, bound response u_0, mechanism gloss back-reaction) rather than on
+%        a compression wave. BIAS-DEBT: this row turns on finite-speed bias dynamics, so the resolution
+%        is the ratified axiom WITH THE BIAS PROPAGATION THEOREM STANDING (clause (c1)) --- the
+%        replacement is owed, not held.
+%
+% RECORDS: ruling R40 (the demotion sweep); the banked worklist
+% research/drivers/r40_sweep_worklist_verified.json; the batch-0 scope verification and batch-1
+% execution records in _orchestration/; this batch's record
+% _orchestration/2026-08-12_r40-sweep-batch2a.md.
+% --------------------------------------------------------------------------

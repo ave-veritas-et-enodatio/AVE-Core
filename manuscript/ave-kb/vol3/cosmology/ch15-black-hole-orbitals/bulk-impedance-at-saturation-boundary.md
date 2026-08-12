@@ -21,7 +21,7 @@ At the K/G = 2 operating point ($K_{bulk} = 2G_{vac}$), the bulk-longitudinal ac
 > Z_{bulk} = \rho_{bulk}\,c_{bulk}
 > $$
 
-with $\rho_{bulk}$ and $G_{vac} = \rho_{bulk}\,c_0^2$ from `constants.py`, and $c_{bulk}$ the bulk dilatational speed (canonical three-speed split: $c_{bulk}$ freezes at the cavitation floor; at dielectric rupture $c_{bulk} \to 0$).
+with $\rho_{bulk}$ and $G_{vac} = \rho_{bulk}\,c_0^2$ from `constants.py`, and $c_{bulk}$ the bulk dilatational speed (canonical three-speed split: $c_{bulk}$ freezes at the cavitation floor; at dielectric rupture $c_{bulk} \to 0$). 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 
 ### Assignment at $r_{\text{sat}}$
 
@@ -95,3 +95,67 @@ The boundary is **four channel views** of the **same** physical surface at $r_{\
 ---
 
 > **⚑ Sign-relativity declaration (Grant ruling 2026-08-04; [`wall-taxonomy.md`](../../../common/wall-taxonomy.md) §10; PR #869 FLAG-W).** The Resultbox (:36–40) and the Bulk row of the channel table above (**three rows when this declaration was written 2026-08-04; four since the 2026-08-05 row-4 insert**) are stated (i) at the **LOAD plane** — the level-set itself, not the input plane outside the gradient skin (a quarter-wave of skin inverts the sign); (ii) on the **SHUNT-graded projection**; (iii) under the **constant-density (RHO-A) profile**: the step $Z_{bulk}=\rho_{bulk}\,c_{bulk}\to0$ multiplies the vanishing speed by a constant $\rho$. Under canon's $\rho_{eff}=\rho_0/S^3$ ([`saturating-modulus-and-backreaction.md`](../../gravity/ch02-general-relativity/saturating-modulus-and-backreaction.md):73; FORK-3(b), fenced, axial run in flight) the same $c_{bulk}\to0$ coexists with $Z_{bulk}=\sqrt{K\,\rho_{eff}}\to\infty$. The signed value here is therefore profile-conditional and **computed-not-chosen** (branch-derived wall row = authority); the apparent conflict with the bulk-stiffening line ([`saturating-modulus-and-backreaction.md`](../../gravity/ch02-general-relativity/saturating-modulus-and-backreaction.md):59) is plane/projection/profile relativity, not a contradiction. Body above preserved per Rule 12.
+
+---
+
+## R40 batch-2a — NEEDS-RE-DERIVATION status note (2026-08-11)
+
+**Class:** status demotion under **R40**. This note mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-`,
+**moves no solidity number**, adjudicates no channel and opens no fork. Every byte of each demoted
+claim is preserved; the stamped line gains a status marker only (honesty-lag pattern, Rule 12).
+
+**The arc, in four clauses (R40's header form; clause 4 points at the LANDED artifact, not at a
+ruling record).**
+
+1. **The kill fired** — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the imported `K = 2G` elastic modulus** — the compressible far-field
+   branch was minted by a GR-imported modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the flat-direction finding: the written action
+   conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the LANDED ratified bound-sector law — Axiom 5, Substrate DC Bias**, clauses
+   **S** (deposit), **G** (bias coupling / bridge) and **Q** (quiescence), canonical at
+   [`eq_axiom_5.tex`](../../../../common_equations/eq_axiom_5.tex) with its register entry in
+   [`axiom-register.md`](../../../common/axiom-register.md) (§ *Axiom 5 — Substrate DC Bias*). Under
+   clause **G** the A1 / bulk slot is a **bound response** — $\mathbf{u}_0 =
+   -\mathcal{A}_g\nabla\varepsilon_{11}$, mechanism gloss **back-reaction** — with **no independent
+   propagating branch, no port and zero longitudinal characteristic speed**. A bulk *wave speed*, a
+   bulk *radiative port*, a bulk *band-branch* and a bulk *transit clock* therefore have **no
+   referent**, and each row below owes its re-derivation on that footing.
+   $\mathcal{A}_g$ (the **bias-coupling area**) is an `UNVALUED-RATIFIED-CONSTANT` per **R48**
+   ([`interlock-register.md`](../../../common/interlock-register.md), § *𝒜_g — the bias-coupling
+   area*): it is **not valued here or anywhere**, and **the calibration count stays 3**.
+
+**Standing named-open debt — the honesty rider.** The ratified axiom does **not** discharge
+everything. **THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt**, stated by the
+axiom's own phase-structure paragraph, clause **(c1)**: clause G's elliptic law is the *static
+abstraction of underived finite-speed bias dynamics*, and the $(u,\pi)$ no-signalling theorem does
+**not** cover the bias read — the bias's finite propagation speed is *owed, not held*. Every row
+tagged **⚑ BIAS-DEBT** below re-derives against the ratified axiom **with that debt standing**, never
+against a closed replacement.
+
+**Vocabulary.** Canonical nouns authored here: **the bound response** ($\mathbf{u}_0$), **the bias**
+($\varepsilon_{11}$), the **DC operating point / quiescent point (Q-point)**; **back-reaction** is
+the mechanism gloss. *"dress"*, *"grade"* as $\varepsilon_{11}$'s canonical noun, and *"halo"* for
+the physics (the physics noun is the **near-field store / added-mass**) are RETIRED by **R50**;
+*"retardation"* is retired by **R49(b)** in favour of **propagation delay / finite propagation
+speed**. Corpus text quoted below is byte-exact and is never reworded.
+
+**Rows carried in this file.**
+
+- **`:24`** — stamped at `:24`. *(family: Z_bulk = ρc_bulk formula)*  ⚑ **BIAS-DEBT**
+  Quoted claim, byte-exact at HEAD:
+  ```text
+  and c_bulk the bulk dilatational speed (canonical three-speed split: c_bulk freezes at the cavitation floor; at dielectric rupture c_bulk → 0)
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  The leaf's Resultbox Z_bulk = ρ_bulk c_bulk (:21, 'bulk-longitudinal acoustic impedance' :16) is the prereg's explicit formula-level consumer — c_bulk as a member of a three-SPEED split presupposes a propagating branch. The leaf's JOB (channel-subscripted wall assignment) survives; the formula is owed re-derivation.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+**Records.** Ruling **R40** (the demotion sweep) · the banked worklist
+[`r40_sweep_worklist_verified.json`](../../../../../research/drivers/r40_sweep_worklist_verified.json) · batch-0
+scope verification and batch-1 execution records in `_orchestration/` · this batch's record
+`_orchestration/2026-08-12_r40-sweep-batch2a.md`.
+

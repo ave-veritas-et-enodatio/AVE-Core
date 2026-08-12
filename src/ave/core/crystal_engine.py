@@ -5,7 +5,7 @@ Crystal Engine — the State-C elastodynamic graft for electron-genesis
 Implements the design prereg
 `research/2026-06-09_crystal-engine-elastodynamic-graft_design-prereg.md`:
 a three-branch chiral micropolar (I4₁32) crystal that hosts the electron as a
-self-assembled, trapped LONGITUDINAL bulk-modulus acoustic resonance born by
+self-assembled, trapped LONGITUDINAL bulk-modulus acoustic resonance born by  [DEMOTED 2026-08-11 - R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]
 TRANSVERSE-SHEAR → LONGITUDINAL-BULK mode conversion.
 
 NO-QED rule (Grant directive 2026-06-09): the trapped electron is the
@@ -24,7 +24,7 @@ enters only as the helicity carrier of the shear seed):
 
 Branch speeds are TIED by the substrate Poisson ratio ν_vac=2/7 at the canonical
 K=2G operating point (NOT free knobs, `ave-fundamental-ground-up-implementation`):
-    c_L²/c_T² = 2(1-ν)/(1-2ν) = (K + 4G/3)/G |_{K=2G} = 10/3   (DERIVED).
+    c_L²/c_T² = 2(1-ν)/(1-2ν) = (K + 4G/3)/G |_{K=2G} = 10/3   (DERIVED).  [DEMOTED 2026-08-11 - R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]
 
 ADD-2 (the one new primitive — closes GAP-1, the genesis-23/24 dead ω→V source):
 the chiral shear→bulk CONVERTER = the I4₁32 chirality's gyrotropic transverse↔
@@ -352,7 +352,7 @@ class CrystalEngine:
 
     # ----------------------------------------------------------- ledger
     def bulk_energy(self, interior_only: bool = True) -> float:
-        """E_V = ½∫(∂_t V)² + ½∫c0²(∇V)²  (the trapped-bulk energy = the latent
+        """E_V = ½∫(∂_t V)² + ½∫c0²(∇V)²  (the trapped-bulk energy = the latent  [DEMOTED 2026-08-11 - R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]
         heat = the candidate mₑc²). PML-excluded by default (CP7)."""
         pV = self.bulk_velocity()
         gx, gy, gz = np.gradient(self.V, self.dx)
@@ -497,3 +497,99 @@ class CrystalEngine:
             f"kappa_tilde={self.kappa_tilde}, converter_on={self.converter_on}, "
             f"step={self.step_count})"
         )
+# --------------------------------------------------------------------------
+# R40 batch-2a --- NEEDS-RE-DERIVATION status note (2026-08-11)
+# --------------------------------------------------------------------------
+# CLASS: status demotion under R40. Mints no clm-/def-/exp-/sup-/ilk-, moves no solidity number,
+# adjudicates no channel and opens no fork. Every byte of each demoted claim is preserved; the
+# stamped line gains a status marker only.
+#
+# THE ARC, IN FOUR CLAUSES (R40's header form; clause 4 points at the LANDED artifact, not at a
+# ruling record). (1) The kill fired --- the walk-back that closed the bulk radiative-port
+# reading. (2) The premise localized to the imported K = 2G elastic modulus: the compressible
+# far-field branch was minted by a GR-imported modulus, not forced by the axioms. (3) The axioms
+# underdetermine the bulk sector --- the flat-direction finding: the written action conserves the
+# Gauss function pointwise and never fixes its value. (4) THE REPLACEMENT IS THE LANDED RATIFIED
+# BOUND-SECTOR LAW --- AXIOM 5, SUBSTRATE DC BIAS, clauses S (deposit), G (bias coupling / bridge)
+# and Q (quiescence), canonical at manuscript/common_equations/eq_axiom_5.tex with its register
+# entry in manuscript/ave-kb/common/axiom-register.md. Under clause G the A1 / bulk slot is a
+# BOUND RESPONSE --- u_0 = -A_g grad(eps_11), mechanism gloss BACK-REACTION --- with no
+# independent propagating branch, no port and zero longitudinal characteristic speed. A bulk wave
+# speed, a bulk radiative port, a bulk band-branch and a bulk transit clock therefore have no
+# referent. A_g (the bias-coupling area) is an UNVALUED-RATIFIED-CONSTANT per R48
+# (manuscript/ave-kb/common/interlock-register.md): it is not valued here or anywhere, and THE
+# CALIBRATION COUNT STAYS 3.
+#
+# STANDING NAMED-OPEN DEBT (the honesty rider). The ratified axiom does NOT discharge everything.
+# THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt, stated by the axiom's own
+# phase-structure paragraph, clause (c1): clause G's elliptic law is the static abstraction of
+# underived finite-speed bias dynamics, and the (u,pi) no-signalling theorem does NOT cover the
+# bias read --- the bias's finite propagation speed is owed, not held. Every row tagged BIAS-DEBT
+# below re-derives against the ratified axiom WITH THAT DEBT STANDING, never against a closed
+# replacement.
+#
+# VOCABULARY. Canonical nouns authored here: the bound response (u_0), the bias (eps_11), the DC
+# operating point / quiescent point (Q-point); back-reaction is the mechanism gloss. 'dress',
+# 'grade' as eps_11's canonical noun, and 'halo' for the physics (the physics noun is the
+# near-field store / added-mass) are RETIRED by R50; 'retardation' is retired by R49(b) in favour
+# of propagation delay / finite propagation speed. Corpus text quoted below is byte-exact and is
+# never reworded.
+#
+# ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
+#
+#   :8  family: electron-sector trapped-acoustic label  [PAST-WALL]
+#        QUOTE (byte-exact at HEAD): trapped LONGITUDINAL bulk-modulus acoustic resonance born by
+#        TRANSVERSE-SHEAR → LONGITUDINAL-BULK mode conversion
+#       STAMPED AT: :8
+#        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): Electron-sector label
+#        the prereg expects at NEEDS-RE-DERIVATION with past-wall scope declared: the wall-confinement
+#        content survives; 'acoustic resonance'/'bulk mode' mechanism label consumes the phantom;
+#        saturated interior itself is out of carve scope.
+#        RESOLUTION: the demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that
+#        slot is the bound response, so the re-derivation must be re-posed on the bound-sector
+#        constitutive law (bias eps_11, bound response u_0, mechanism gloss back-reaction) rather than on
+#        a compression wave. PAST-WALL: the content reaches past the saturation wall, a phase Axiom 5
+#        explicitly does NOT write (the D(A)->infinity wall behaviour is past-wall-adjacent and 'not
+#        written here'; the de-bonded and pre-freeze phase forms are named-open). The demotion is SCOPED:
+#        clause G resolves the cold, sub-yield side; the past-wall reading is neither discharged nor
+#        adjudicated.
+#
+#   :27  family: coded compressibility (engine bulk branch)  [BIAS-DEBT]
+#        QUOTE (byte-exact at HEAD): c_L²/c_T² = 2(1-ν)/(1-2ν) = (K + 4G/3)/G |_{K=2G} = 10/3 (DERIVED).
+#       STAMPED AT: :27
+#        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): The ratio's algebra
+#        survives as static K=2G identity, but here it ties two PHYSICAL branch transit speeds in a live
+#        integrator (c0 = 'the bulk (longitudinal) speed c_L' :85; c_T=c0/√(10/3) :96; CFL :98-100) — the
+#        cold-region hyperbolic V branch is the phantom; constraint-form re-home is the flagged
+#        G-ENGINE-FLAG re-derivation.
+#        RESOLUTION: the demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that
+#        slot is the bound response, so the re-derivation must be re-posed on the bound-sector
+#        constitutive law (bias eps_11, bound response u_0, mechanism gloss back-reaction) rather than on
+#        a compression wave. BIAS-DEBT: this row turns on finite-speed bias dynamics, so the resolution
+#        is the ratified axiom WITH THE BIAS PROPAGATION THEOREM STANDING (clause (c1)) --- the
+#        replacement is owed, not held.
+#
+#   :355  family: K-as-dynamical-reservoir energy  [BIAS-DEBT | PAST-WALL]
+#        QUOTE (byte-exact at HEAD): E_V = ½∫(∂_t V)² + ½∫c0²(∇V)² (the trapped-bulk energy = the latent
+#        heat = the candidate mₑc²)
+#       STAMPED AT: :355
+#        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): The
+#        storage/mass-accounting duty survives (G-SCALAR-REAL host), but the energy functional is the
+#        K-backed wave-reservoir form of the propagating branch; re-derivation of the ledger under the
+#        bound-response form owed; trapped interior is past-wall scope.
+#        RESOLUTION: the demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that
+#        slot is the bound response, so the re-derivation must be re-posed on the bound-sector
+#        constitutive law (bias eps_11, bound response u_0, mechanism gloss back-reaction) rather than on
+#        a compression wave. BIAS-DEBT: this row turns on finite-speed bias dynamics, so the resolution
+#        is the ratified axiom WITH THE BIAS PROPAGATION THEOREM STANDING (clause (c1)) --- the
+#        replacement is owed, not held. PAST-WALL: the content reaches past the saturation wall, a phase
+#        Axiom 5 explicitly does NOT write (the D(A)->infinity wall behaviour is past-wall-adjacent and
+#        'not written here'; the de-bonded and pre-freeze phase forms are named-open). The demotion is
+#        SCOPED: clause G resolves the cold, sub-yield side; the past-wall reading is neither discharged
+#        nor adjudicated.
+#
+# RECORDS: ruling R40 (the demotion sweep); the banked worklist
+# research/drivers/r40_sweep_worklist_verified.json; the batch-0 scope verification and batch-1
+# execution records in _orchestration/; this batch's record
+# _orchestration/2026-08-12_r40-sweep-batch2a.md.
+# --------------------------------------------------------------------------

@@ -17,13 +17,13 @@ Before discussing the bulk properties of the universe, the transport mechanism i
 
 > ↗ See also: [Historical Precedents](../../../common/historical-precedents.md) — why it is *Maxwell-Heaviside*: Maxwell wrote EM in Hamilton's quaternions; Heaviside-Gibbs reformulated to vector calculus, demoting the scalar/longitudinal (correct for the transverse photon; the longitudinal re-engages at saturation = the electron).
 
-> **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal re-engages at saturation = the electron" names the **A1 dilatation-MASS** "3" only — the Heaviside-excised longitudinal compression scalar (the A1 breather; `mₑc²` = trapped acoustic compression energy). It must **NOT** be conflated with the **second, orthogonal "3"**: the Cosserat **micro-rotation `(2,3)` WINDING** (T2 couple-stress, the Axiom-1 intrinsic-spin DOF; charge = Beltrami helicity `H_bel = ∫ω·(∇×ω)`). The "3" is **TWO DISTINCT objects, orthogonal (A1 ⊥ T2)** — Grant-ratified, recorded verbatim at the crystal-graft-v2 result §0 ("The two distinct '3's", branch `analysis/2026-06-09-crystal-graft-v2`; the n-exponent qualifier addendum at `9fdba6fe`). Load-bearing consequence (same source): **never wire the winding into the breather's own phasor `(V_inc, V_ref)`** — `V_ref` is a read-only projection of the same scalar `V`, not an independent DOF; doing so self-inflicts the genesis-24/crystal `w_pol = 0` double-count. The electron is the unknot dilatation-mass **carrying** the `(2,3)` winding — two objects, not one.
+> **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal re-engages at saturation = the electron" names the **A1 dilatation-MASS** "3" only — the Heaviside-excised longitudinal compression scalar (the A1 breather; `mₑc²` = trapped acoustic compression energy). It must **NOT** be conflated with the **second, orthogonal "3"**: the Cosserat **micro-rotation `(2,3)` WINDING** (T2 couple-stress, the Axiom-1 intrinsic-spin DOF; charge = Beltrami helicity `H_bel = ∫ω·(∇×ω)`). The "3" is **TWO DISTINCT objects, orthogonal (A1 ⊥ T2)** — Grant-ratified, recorded verbatim at the crystal-graft-v2 result §0 ("The two distinct '3's", branch `analysis/2026-06-09-crystal-graft-v2`; the n-exponent qualifier addendum at `9fdba6fe`). Load-bearing consequence (same source): **never wire the winding into the breather's own phasor `(V_inc, V_ref)`** — `V_ref` is a read-only projection of the same scalar `V`, not an independent DOF; doing so self-inflicts the genesis-24/crystal `w_pol = 0` double-count. The electron is the unknot dilatation-mass **carrying** the `(2,3)` winding — two objects, not one. 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 
 > **↗ Cross-link (2026-06-10, Rule 12, Grant rename-queue R1 — note above preserved):** this two-objects content is the STATE-side companion to the PROVENANCE-vs-STATE ontology at [`photon-identification.md:11`](photon-identification.md) — the (2,3) winding *rides* the condensed phase (the A1 standing-V order parameter); "self-trapped photon" is provenance, not state. Registry §5 R1.
 
 > **↗ Rotation-flavor tag (2026-07-03, KEEP-BOTH — §8 rotation un-conflation, `research/2026-07-03_em-readout-vsector-stage1_prereg.md` §8; additive, prior lines preserved):** the `(2,3)` WINDING rotation named above is the **GAPPED mechanical Cosserat micro-rotation ω** (couple-stress / curvature grade; the Yukawa-screened `clm-wcoul2` field; carries the *static* (2,3) Link on the shear sector). It is **NOT** the **massless EM-inductive rotation** (the Axiom-1 μ₀-family **B** field = the T₂-photon). Two rotation-flavored fields, ONE name "micro-rotation": the mechanical ω is gapped and short-range; the EM-inductive B-rotation is massless and matched. Reference (already clean): [`node-up-small-large-signal.md:39`](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/node-up-small-large-signal.md) (MECHANICAL Cosserat → `Z_shear`).
 
-> **↗ Sector-dynamics tag (2026-07-20, KEEP-BOTH — routed from #761 result §6.2-2, Grant-ratified; additive, prior lines preserved):** "Heaviside-excised" above is a **historical/notational** statement — the vector-calculus reformulation dropped the scalar/longitudinal potential, correct bookkeeping for the *transverse EM* sector — **NOT a dynamical gauge-kill**. The A1 compression scalar is **dynamical**: with **u = the node displacement field**, θ = ∇·u is its volumetric/compression projection (the standard Helmholtz/Lamé split — the same split that gives seismology its P and S waves), and θ carries a genuine bulk restoring force (½K(∇·u)², K = 2G) on the gapless lattice-computed P-branch. The EM longitudinal ∇·A is gauge because the curl-only EM Lagrangian gives it no restoring force. One word each way: **∇·u propagates; ∇·A is gauge.** The #761 adversarial review (2026-07-20) closed a gauge-misreading of this line at corpus level; this tag prevents re-litigation. Receipts: `research/2026-07-20_mechanical-commonmode-derivation_result.md` §1.3/§5 (merged).
+> **↗ Sector-dynamics tag (2026-07-20, KEEP-BOTH — routed from #761 result §6.2-2, Grant-ratified; additive, prior lines preserved):** "Heaviside-excised" above is a **historical/notational** statement — the vector-calculus reformulation dropped the scalar/longitudinal potential, correct bookkeeping for the *transverse EM* sector — **NOT a dynamical gauge-kill**. The A1 compression scalar is **dynamical**: with **u = the node displacement field**, θ = ∇·u is its volumetric/compression projection (the standard Helmholtz/Lamé split — the same split that gives seismology its P and S waves), and θ carries a genuine bulk restoring force (½K(∇·u)², K = 2G) on the gapless lattice-computed P-branch. The EM longitudinal ∇·A is gauge because the curl-only EM Lagrangian gives it no restoring force. One word each way: **∇·u propagates; ∇·A is gauge.** The #761 adversarial review (2026-07-20) closed a gauge-misreading of this line at corpus level; this tag prevents re-litigation. Receipts: `research/2026-07-20_mechanical-commonmode-derivation_result.md` §1.3/§5 (merged). 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 
 > **↗ Cross-link (2026-07-03):** the T2 winding sector "3" now carries a **derived pair interaction** — two (2,3) windings repel (like) / attract (unlike) with Coulomb sign structure, mediated by the gapped ω sector (`clm-wcoul2`, consistency-class; [`vol4/claim-quality.md`](../../../vol4/claim-quality.md)). This is the Axiom-2 interaction leg; it lives entirely on the T2/charge "3" (A1 ⊥ T2 untouched).
 
@@ -115,3 +115,79 @@ This single line of non-linear differential topology formally replaces the fragm
 3. **Gravity:** The trapped topological knot permanently strains the surrounding $\varepsilon_{eff}$ and $\mu_{eff}$ fields symmetrically ($n(r) = 1 + 2GM/rc^2$). This produces a continuous refractive gradient radially outward while preserving $Z_0$. Test photons propagating through this gradient refract toward the knot, executing the macroscopic acceleration attributed to gravity.
 
 ---
+
+---
+
+## R40 batch-2a — NEEDS-RE-DERIVATION status note (2026-08-11)
+
+**Class:** status demotion under **R40**. This note mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-`,
+**moves no solidity number**, adjudicates no channel and opens no fork. Every byte of each demoted
+claim is preserved; the stamped line gains a status marker only (honesty-lag pattern, Rule 12).
+
+**The arc, in four clauses (R40's header form; clause 4 points at the LANDED artifact, not at a
+ruling record).**
+
+1. **The kill fired** — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the imported `K = 2G` elastic modulus** — the compressible far-field
+   branch was minted by a GR-imported modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the flat-direction finding: the written action
+   conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the LANDED ratified bound-sector law — Axiom 5, Substrate DC Bias**, clauses
+   **S** (deposit), **G** (bias coupling / bridge) and **Q** (quiescence), canonical at
+   [`eq_axiom_5.tex`](../../../../common_equations/eq_axiom_5.tex) with its register entry in
+   [`axiom-register.md`](../../../common/axiom-register.md) (§ *Axiom 5 — Substrate DC Bias*). Under
+   clause **G** the A1 / bulk slot is a **bound response** — $\mathbf{u}_0 =
+   -\mathcal{A}_g\nabla\varepsilon_{11}$, mechanism gloss **back-reaction** — with **no independent
+   propagating branch, no port and zero longitudinal characteristic speed**. A bulk *wave speed*, a
+   bulk *radiative port*, a bulk *band-branch* and a bulk *transit clock* therefore have **no
+   referent**, and each row below owes its re-derivation on that footing.
+   $\mathcal{A}_g$ (the **bias-coupling area**) is an `UNVALUED-RATIFIED-CONSTANT` per **R48**
+   ([`interlock-register.md`](../../../common/interlock-register.md), § *𝒜_g — the bias-coupling
+   area*): it is **not valued here or anywhere**, and **the calibration count stays 3**.
+
+**Standing named-open debt — the honesty rider.** The ratified axiom does **not** discharge
+everything. **THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt**, stated by the
+axiom's own phase-structure paragraph, clause **(c1)**: clause G's elliptic law is the *static
+abstraction of underived finite-speed bias dynamics*, and the $(u,\pi)$ no-signalling theorem does
+**not** cover the bias read — the bias's finite propagation speed is *owed, not held*. Every row
+tagged **⚑ BIAS-DEBT** below re-derives against the ratified axiom **with that debt standing**, never
+against a closed replacement.
+
+**Vocabulary.** Canonical nouns authored here: **the bound response** ($\mathbf{u}_0$), **the bias**
+($\varepsilon_{11}$), the **DC operating point / quiescent point (Q-point)**; **back-reaction** is
+the mechanism gloss. *"dress"*, *"grade"* as $\varepsilon_{11}$'s canonical noun, and *"halo"* for
+the physics (the physics noun is the **near-field store / added-mass**) are RETIRED by **R50**;
+*"retardation"* is retired by **R49(b)** in favour of **propagation delay / finite propagation
+speed**. Corpus text quoted below is byte-exact and is never reworded.
+
+**Rows carried in this file.**
+
+- **`:20`** — stamped at `:20`. *(family: electron-interior-label)*  ⚑ **BIAS-DEBT** · ⚑ **PAST-WALL**
+  Quoted claim, byte-exact at HEAD:
+  ```text
+  the A1 breather; `mₑc²` = trapped acoustic compression energy
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Prereg-named electron-sector label class: 'trapped acoustic compression energy' names the saturated interior in propagating-wave vocabulary; past-wall is out of the cold-linear carve scope — label-level re-derivation owed, scope declared (:42 repeats it).
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*. **⚑ PAST-WALL:** the content reaches past the saturation wall, a phase Axiom 5 explicitly does **not** write (its phase-structure paragraph puts the $D(A)\to\infty$ wall behaviour past-wall-adjacent and *not written here*, with the de-bonded and pre-freeze phase forms named-open). The demotion is therefore **scoped**: clause G resolves the cold, sub-yield side; the past-wall reading is neither discharged nor adjudicated here.
+
+- **`:26`** — stamped at `:26`. *(family: P-branch-propagates)*  ⚑ **BIAS-DEBT**
+  Quoted claim, byte-exact at HEAD:
+  ```text
+  θ carries a genuine bulk restoring force (½K(∇·u)², K = 2G) on the gapless lattice-computed P-branch ... **∇·u propagates; ∇·A is gauge.**
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Prereg-named: the anti-Heaviside real-scalar point SURVIVES (G-SCALAR-REAL — the sector is real, not gauge), but 'gapless lattice-computed P-branch' + 'propagates' is exactly the phantom; the real-not-independent distinction is the owed re-derivation.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+**Records.** Ruling **R40** (the demotion sweep) · the banked worklist
+[`r40_sweep_worklist_verified.json`](../../../../../research/drivers/r40_sweep_worklist_verified.json) · batch-0
+scope verification and batch-1 execution records in `_orchestration/` · this batch's record
+`_orchestration/2026-08-12_r40-sweep-batch2a.md`.
+

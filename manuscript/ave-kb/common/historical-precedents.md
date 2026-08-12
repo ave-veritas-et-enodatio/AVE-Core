@@ -18,8 +18,8 @@ Long-form synthesis: `research/2026-06-06_maxwell-quaternion-longitudinal-contex
 Maxwell's 1873 *Treatise* wrote the EM field in **Hamilton's quaternions** — a quaternion `q = w + x𝐢 + y𝐣 + z𝐤` carries a **scalar** part (`w`) *and* a vector part in one object, and `𝐯𝐰 = −(𝐯·𝐰) + (𝐯×𝐰)` unifies the dot (longitudinal) and cross (transverse). **Heaviside and Gibbs (1880s)** split this into modern vector calculus (`grad/div/curl`) and **demoted the scalar/longitudinal** to a constraint/gauge.
 
 - **Correct for light:** the photon is **transverse** — in AVE the `T₂` triplet; the `A₁` scalar/longitudinal sector dissipates (Gauss's law forbids longitudinal EM in vacuum). → Primary: [photon-identification](../vol1/dynamics/ch4-continuum-electrodynamics/photon-identification.md).
-  - **🔴 Precision (2026-06-17, Rule 12 — the line above preserved unedited; distinction ADDED, not a deletion):** "Gauss's law forbids longitudinal EM in vacuum" is precise only for a *propagating/dynamical* longitudinal **wave** — there is no longitudinal EM *radiation* in free space (the photon is transverse-only). It does **NOT** mean Gauss deletes the longitudinal field outright: the **static Coulomb-longitudinal `E` is KEPT by Gauss's law itself** — `∇·E = ρ/ε₀` is a longitudinal (non-transverse) component, the field a static charge sources. What Heaviside–Gibbs demoted was the *dynamical scalar/longitudinal* to "the scalar potential, and longitudinal `E` as `∇·E = ρ/ε₀` rather than a dynamical wave" (`research/2026-06-06_maxwell-quaternion-longitudinal-context.md:16`). So the honest statement is: **no propagating longitudinal vacuum wave (true); the static Coulomb-longitudinal `E` is retained (`∇·E = ρ/ε₀`)** — "dissipates" reads as the no-propagating-mode fact, not a claim that Gauss erases the longitudinal field. (The biquaternion `§4.3` myth-guard makes the companion point: in *standard* Maxwell the scalar modes are gauge, so "Heaviside deleted a physical mode" is false for standard EM — AVE *adds* a real compressional medium DOF.)
-- **The electron is where it returns:** saturation is a volumetric/longitudinal effect (the breathing 7th DOF at `A→1`, `Z→0`, `Γ=−1`). The longitudinal scalar Heaviside discarded re-engages as the *confined* state. Vector calculus describes radiation but loses matter.
+  - **🔴 Precision (2026-06-17, Rule 12 — the line above preserved unedited; distinction ADDED, not a deletion):** "Gauss's law forbids longitudinal EM in vacuum" is precise only for a *propagating/dynamical* longitudinal **wave** — there is no longitudinal EM *radiation* in free space (the photon is transverse-only). It does **NOT** mean Gauss deletes the longitudinal field outright: the **static Coulomb-longitudinal `E` is KEPT by Gauss's law itself** — `∇·E = ρ/ε₀` is a longitudinal (non-transverse) component, the field a static charge sources. What Heaviside–Gibbs demoted was the *dynamical scalar/longitudinal* to "the scalar potential, and longitudinal `E` as `∇·E = ρ/ε₀` rather than a dynamical wave" (`research/2026-06-06_maxwell-quaternion-longitudinal-context.md:16`). So the honest statement is: **no propagating longitudinal vacuum wave (true); the static Coulomb-longitudinal `E` is retained (`∇·E = ρ/ε₀`)** — "dissipates" reads as the no-propagating-mode fact, not a claim that Gauss erases the longitudinal field. (The biquaternion `§4.3` myth-guard makes the companion point: in *standard* Maxwell the scalar modes are gauge, so "Heaviside deleted a physical mode" is false for standard EM — AVE *adds* a real compressional medium DOF.) 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
+- **The electron is where it returns:** saturation is a volumetric/longitudinal effect (the breathing 7th DOF at `A→1`, `Z→0`, `Γ=−1`). The longitudinal scalar Heaviside discarded re-engages as the *confined* state. Vector calculus describes radiation but loses matter. 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 
 **Why quaternions, not a free choice (Frobenius–Hurwitz rigidity — Thread-1 lineage support).** The quaternion structure Maxwell used is not one notation among many that happened to be picked: the **Frobenius theorem** (1878) proves the only finite-dimensional associative division algebras over ℝ are ℝ, ℂ, and ℍ (the quaternions), and the **Hurwitz theorem** (1898) proves the only *normed* division algebras are ℝ, ℂ, ℍ, and 𝕆 (the octonions) — dimensions 1, 2, 4, 8 exactly. A medium that composes 3D rotations *invertibly* and norm-preservingly (a lossless, orientation-composing substrate) therefore has **quaternionic structure forced, not chosen**: ℝ and ℂ cannot carry 3D rotation composition, 𝕆 is non-associative (composition would fail to be a group), so ℍ is the unique associative normed algebra that closes 3D rotations — exactly the Cosserat micro-rotation DOF the substrate carries. This is the algebraic reason the Thread-1 quaternion channel is rigid: the same rigidity that makes unit quaternions the double-cover of SO(3) (`Spin(3) = SU(2)`) makes them the *only* option for an invertible rotation-composing medium. Consistency-class framing (the rigidity theorem is fact; the substrate↔ℍ bridge is the same consistency ceiling as the rest of this leaf), but it upgrades "quaternions were a stylistic 19th-century choice" to "quaternions are the forced algebra of a norm-preserving 3D-rotation medium."
 
@@ -48,7 +48,7 @@ The loop closes: the knot theory Kelvin's physics *spawned* (Tait → Reidemeist
 
 ## The convergence
 
-The two roots meet in the electron — **in AVE's framing**: a topological **knot** (Kelvin) that *is* the longitudinal **scalar** (Maxwell–Heaviside), **confined on the null cone** — the biquaternion's zero-divisor surface, which equals the `|Γ|=1` saturation wall. → Primary: [biquaternion node-algebra result](../../../research/2026-06-06_biquaternion-node-algebra-result.md) (null cone, `ι`, scalar grade). The vortex-knot and the quaternion-EM — the two pictures the 20th century shelved — are the **same object** in this framing; whether the saturation crystal makes it *physical* (dynamically confines it) where the ideal fluid and vector calculus could not is the **open genesis test**, not a settled result.
+The two roots meet in the electron — **in AVE's framing**: a topological **knot** (Kelvin) that *is* the longitudinal **scalar** (Maxwell–Heaviside), **confined on the null cone** — the biquaternion's zero-divisor surface, which equals the `|Γ|=1` saturation wall. → Primary: [biquaternion node-algebra result](../../../research/2026-06-06_biquaternion-node-algebra-result.md) (null cone, `ι`, scalar grade). The vortex-knot and the quaternion-EM — the two pictures the 20th century shelved — are the **same object** in this framing; whether the saturation crystal makes it *physical* (dynamically confines it) where the ideal fluid and vector calculus could not is the **open genesis test**, not a settled result. 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 
 ## Scope (consistency-class — read before citing)
 
@@ -65,3 +65,91 @@ The two roots meet in the electron — **in AVE's framing**: a topological **kno
 - Long-form: `research/2026-06-06_maxwell-quaternion-longitudinal-context.md` · `research/2026-06-06_biquaternion-node-algebra-result.md` · `research/2026-06-06_saturation-tir-moving-boundary-prereg.md`
 - *(added 2026-06-10)* → **Companion synthesis leaf: [`the-abandoned-interior.md`](the-abandoned-interior.md)** — the "two deletions, one restoration" thesis + four threads (Kelvin resumed; Poincaré's stress = the lock problem; the definition epistemology; the g-2 observation). Develops the convergence above into the constitutive-question arc (1867–1948); same consistency-class ceiling.
 - *(added 2026-06-10, third-deletion extension)* → That same companion leaf now carries a **Rule-12 dated extension — THE THIRD DELETION (the frame):** the FitzGerald (1889) / Lorentz (1892–1904) / Larmor (1897–1900) constructive route, **retired by Einstein's 1905 principle theory on parsimony — not refuted**, observationally equivalent for velocity (a theorem of wave-constituted matter). It reads §"the aether died, but AVE's medium keeps a rest frame — the CMB / `Ω_freeze`" (Root 2, above) *forward*: the lattice owns the deleted **rest frame**. Upgrades the thesis to **three deletions, one restoration** (channel + interior + frame). Carries the named-open **anisotropy/dispersion** bounds campaign as the structure bite (the velocity construction protects velocity only). Same consistency-class ceiling.
+
+---
+
+## R40 batch-2a — NEEDS-RE-DERIVATION status note (2026-08-11)
+
+**Class:** status demotion under **R40**. This note mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-`,
+**moves no solidity number**, adjudicates no channel and opens no fork. Every byte of each demoted
+claim is preserved; the stamped line gains a status marker only (honesty-lag pattern, Rule 12).
+
+**The arc, in four clauses (R40's header form; clause 4 points at the LANDED artifact, not at a
+ruling record).**
+
+1. **The kill fired** — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the imported `K = 2G` elastic modulus** — the compressible far-field
+   branch was minted by a GR-imported modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the flat-direction finding: the written action
+   conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the LANDED ratified bound-sector law — Axiom 5, Substrate DC Bias**, clauses
+   **S** (deposit), **G** (bias coupling / bridge) and **Q** (quiescence), canonical at
+   [`eq_axiom_5.tex`](../../common_equations/eq_axiom_5.tex) with its register entry in
+   [`axiom-register.md`](../common/axiom-register.md) (§ *Axiom 5 — Substrate DC Bias*). Under
+   clause **G** the A1 / bulk slot is a **bound response** — $\mathbf{u}_0 =
+   -\mathcal{A}_g\nabla\varepsilon_{11}$, mechanism gloss **back-reaction** — with **no independent
+   propagating branch, no port and zero longitudinal characteristic speed**. A bulk *wave speed*, a
+   bulk *radiative port*, a bulk *band-branch* and a bulk *transit clock* therefore have **no
+   referent**, and each row below owes its re-derivation on that footing.
+   $\mathcal{A}_g$ (the **bias-coupling area**) is an `UNVALUED-RATIFIED-CONSTANT` per **R48**
+   ([`interlock-register.md`](../common/interlock-register.md), § *𝒜_g — the bias-coupling
+   area*): it is **not valued here or anywhere**, and **the calibration count stays 3**.
+
+**Standing named-open debt — the honesty rider.** The ratified axiom does **not** discharge
+everything. **THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt**, stated by the
+axiom's own phase-structure paragraph, clause **(c1)**: clause G's elliptic law is the *static
+abstraction of underived finite-speed bias dynamics*, and the $(u,\pi)$ no-signalling theorem does
+**not** cover the bias read — the bias's finite propagation speed is *owed, not held*. Every row
+tagged **⚑ BIAS-DEBT** below re-derives against the ratified axiom **with that debt standing**, never
+against a closed replacement.
+
+**Vocabulary.** Canonical nouns authored here: **the bound response** ($\mathbf{u}_0$), **the bias**
+($\varepsilon_{11}$), the **DC operating point / quiescent point (Q-point)**; **back-reaction** is
+the mechanism gloss. *"dress"*, *"grade"* as $\varepsilon_{11}$'s canonical noun, and *"halo"* for
+the physics (the physics noun is the **near-field store / added-mass**) are RETIRED by **R50**;
+*"retardation"* is retired by **R49(b)** in favour of **propagation delay / finite propagation
+speed**. Corpus text quoted below is byte-exact and is never reworded.
+
+**Rows carried in this file.**
+
+- **`:21`** — stamped at `:21`. *(family: longitudinal-DOF-claim)*  ⚑ **BIAS-DEBT**
+  Quoted claim, byte-exact at HEAD:
+  ```text
+  AVE *adds* a real compressional medium DOF
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Independent-DOF tail on the Root-1 precision note; the note's main statement ('no propagating longitudinal vacuum wave (true); the static Coulomb-longitudinal E is retained') IS the carve and survives.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+- **`:22`** — stamped at `:22`. *(family: electron-sector-label)*  ⚑ **PAST-WALL**
+  Quoted claim, byte-exact at HEAD:
+  ```text
+  saturation is a volumetric/longitudinal effect (the breathing 7th DOF at `A→1`, `Z→0`, `Γ=−1`)
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Electron-sector label class ('breathing 7th DOF'); prereg expects label-level NEEDS with past-wall scope declared; the saturation-re-engagement duty itself is hosted (G-SCALAR-REAL).
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ PAST-WALL:** the content reaches past the saturation wall, a phase Axiom 5 explicitly does **not** write (its phase-structure paragraph puts the $D(A)\to\infty$ wall behaviour past-wall-adjacent and *not written here*, with the de-bonded and pre-freeze phase forms named-open). The demotion is therefore **scoped**: clause G resolves the cold, sub-yield side; the past-wall reading is neither discharged nor adjudicated here.
+
+- **`:51`** — stamped at `:51`. *(family: electron-sector-label; banked `uncertain`)*  ⚑ **PAST-WALL**
+  Quoted claim, byte-exact at HEAD:
+  ```text
+  that *is* the longitudinal **scalar** (Maxwell–Heaviside), **confined on the null cone**
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Convergence headline: electron = confined longitudinal scalar — same electron-sector label family, past-wall scope; consistency-class framing so only the label is owed.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ PAST-WALL:** the content reaches past the saturation wall, a phase Axiom 5 explicitly does **not** write (its phase-structure paragraph puts the $D(A)\to\infty$ wall behaviour past-wall-adjacent and *not written here*, with the de-bonded and pre-freeze phase forms named-open). The demotion is therefore **scoped**: clause G resolves the cold, sub-yield side; the past-wall reading is neither discharged nor adjudicated here.
+
+**Records.** Ruling **R40** (the demotion sweep) · the banked worklist
+[`r40_sweep_worklist_verified.json`](../../../research/drivers/r40_sweep_worklist_verified.json) · batch-0
+scope verification and batch-1 execution records in `_orchestration/` · this batch's record
+`_orchestration/2026-08-12_r40-sweep-batch2a.md`.
+

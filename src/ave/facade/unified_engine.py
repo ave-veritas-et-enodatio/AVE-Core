@@ -27,10 +27,10 @@ EXCLUDED: master_equation_fdtd (Cartesian artifact), fdtd_3d (μ-on-static-|B| b
 THE SINGLE-GRID 6-DOF/NODE STATE (the high-leverage bet)
 ═══════════════════════════════════════════════════════════════════════════════
 On ONE native K4 graph, per node:
-  u  ∈ R³   — 3 translational DOF ↔ E/ε₀ (2 transverse = photon; 1 longitudinal
+  u  ∈ R³   — 3 translational DOF ↔ E/ε₀ (2 transverse = photon; 1 longitudinal  [DEMOTED 2026-08-11 - R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]
               = the A1 dilatation MASS-"3" projection)
   ω  ∈ R³   — 3 Cosserat micro-rotation DOF ↔ B/μ₀ (the (2,3) winding = charge)
-  a_A1 ∈ C  — the A1 bulk-dilatation breather as a NODE-ATTACHED scalar field on
+  a_A1 ∈ C  — the A1 bulk-dilatation breather as a NODE-ATTACHED scalar field on  [DEMOTED 2026-08-11 - R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]
               the SAME diamond-K4 node set as ω (the bet's LOAD-BEARING half:
               A1 needs no second grid relative to ω; the remaining srs-z3↔diamond-z4
               carrier reconciliation is the P1/D1 task, design note §2 verdict)
@@ -537,3 +537,77 @@ class UnifiedEngine:
             "omega_energy": (float(om_0), float(om_1)),
             "verdict": "WORKS" if works else "WALLED",
         }
+# --------------------------------------------------------------------------
+# R40 batch-2a --- NEEDS-RE-DERIVATION status note (2026-08-11)
+# --------------------------------------------------------------------------
+# CLASS: status demotion under R40. Mints no clm-/def-/exp-/sup-/ilk-, moves no solidity number,
+# adjudicates no channel and opens no fork. Every byte of each demoted claim is preserved; the
+# stamped line gains a status marker only.
+#
+# THE ARC, IN FOUR CLAUSES (R40's header form; clause 4 points at the LANDED artifact, not at a
+# ruling record). (1) The kill fired --- the walk-back that closed the bulk radiative-port
+# reading. (2) The premise localized to the imported K = 2G elastic modulus: the compressible
+# far-field branch was minted by a GR-imported modulus, not forced by the axioms. (3) The axioms
+# underdetermine the bulk sector --- the flat-direction finding: the written action conserves the
+# Gauss function pointwise and never fixes its value. (4) THE REPLACEMENT IS THE LANDED RATIFIED
+# BOUND-SECTOR LAW --- AXIOM 5, SUBSTRATE DC BIAS, clauses S (deposit), G (bias coupling / bridge)
+# and Q (quiescence), canonical at manuscript/common_equations/eq_axiom_5.tex with its register
+# entry in manuscript/ave-kb/common/axiom-register.md. Under clause G the A1 / bulk slot is a
+# BOUND RESPONSE --- u_0 = -A_g grad(eps_11), mechanism gloss BACK-REACTION --- with no
+# independent propagating branch, no port and zero longitudinal characteristic speed. A bulk wave
+# speed, a bulk radiative port, a bulk band-branch and a bulk transit clock therefore have no
+# referent. A_g (the bias-coupling area) is an UNVALUED-RATIFIED-CONSTANT per R48
+# (manuscript/ave-kb/common/interlock-register.md): it is not valued here or anywhere, and THE
+# CALIBRATION COUNT STAYS 3.
+#
+# STANDING NAMED-OPEN DEBT (the honesty rider). The ratified axiom does NOT discharge everything.
+# THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt, stated by the axiom's own
+# phase-structure paragraph, clause (c1): clause G's elliptic law is the static abstraction of
+# underived finite-speed bias dynamics, and the (u,pi) no-signalling theorem does NOT cover the
+# bias read --- the bias's finite propagation speed is owed, not held. Every row tagged BIAS-DEBT
+# below re-derives against the ratified axiom WITH THAT DEBT STANDING, never against a closed
+# replacement.
+#
+# VOCABULARY. Canonical nouns authored here: the bound response (u_0), the bias (eps_11), the DC
+# operating point / quiescent point (Q-point); back-reaction is the mechanism gloss. 'dress',
+# 'grade' as eps_11's canonical noun, and 'halo' for the physics (the physics noun is the
+# near-field store / added-mass) are RETIRED by R50; 'retardation' is retired by R49(b) in favour
+# of propagation delay / finite propagation speed. Corpus text quoted below is byte-exact and is
+# never reworded.
+#
+# ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
+#
+#   :30  family: A1 DOF-slot enumeration
+#        QUOTE (byte-exact at HEAD): u ∈ R³ — 3 translational DOF ↔ E/ε₀ (2 transverse = photon; 1
+#        longitudinal = the A1 dilatation MASS-"3" projection)
+#       STAMPED AT: :30
+#        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): Enumerates the
+#        longitudinal projection as one of 3 free translational DOF — DOF status is the phantom; the
+#        projection is real-and-bound under the carve (mass=A1 accounting survives), so the state-vector
+#        layout needs the dependent-variable form, not deletion.
+#        RESOLUTION: the demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that
+#        slot is the bound response, so the re-derivation must be re-posed on the bound-sector
+#        constitutive law (bias eps_11, bound response u_0, mechanism gloss back-reaction) rather than on
+#        a compression wave.
+#
+#   :33  family: coded compressibility (engine bulk branch)  [BIAS-DEBT]
+#        QUOTE (byte-exact at HEAD): a_A1 ∈ C — the A1 bulk-dilatation breather as a NODE-ATTACHED scalar
+#        field on the SAME diamond-K4 node set as ω
+#       STAMPED AT: :33
+#        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): The facade's A1 carrier
+#        is an independent dynamical node-field stepped hyperbolically by native_cage_imex with PML
+#        (:268-284, cfg pml_thickness) — the coded-compressibility form whose constraint re-home (∇·u as
+#        multiplier, A1 accounting re-homed) is exactly the flagged G-ENGINE-FLAG deliverable; the
+#        dispatch facade itself survives.
+#        RESOLUTION: the demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that
+#        slot is the bound response, so the re-derivation must be re-posed on the bound-sector
+#        constitutive law (bias eps_11, bound response u_0, mechanism gloss back-reaction) rather than on
+#        a compression wave. BIAS-DEBT: this row turns on finite-speed bias dynamics, so the resolution
+#        is the ratified axiom WITH THE BIAS PROPAGATION THEOREM STANDING (clause (c1)) --- the
+#        replacement is owed, not held.
+#
+# RECORDS: ruling R40 (the demotion sweep); the banked worklist
+# research/drivers/r40_sweep_worklist_verified.json; the batch-0 scope verification and batch-1
+# execution records in _orchestration/; this batch's record
+# _orchestration/2026-08-12_r40-sweep-batch2a.md.
+# --------------------------------------------------------------------------

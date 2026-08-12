@@ -91,7 +91,7 @@ The entirety of the framework's predictive power is derived by bridging **Three 
 From these initial geometric anchors and four structural rules, all fundamental constants dynamically emerge as the strict mechanical limits of the EFT:
 - **Geometry & Symmetries (Parameters 1 & 2):** Dividing the localized topological yield by the continuous macroscopic Schwinger yield dictates the emergence of the macroscopic fine-structure geometric constant ($1/\alpha = 8\pi/p_c$). The $\mathbb{Z}_3$ symmetry of the Borromean proton generates $SU(3)$ color symmetry, evaluating the Witten Effect to predict $\pm 1/3e$ and $\pm 2/3e$ fractional charges.
 - **Electromagnetism (Axioms 1 & 2):** Axiom 2's topo-kinematic mechanism yields the topological conversion constant ($\xi_{topo}$), demonstrating that magnetism is equivalent to kinematic convective vorticity ($\mathbf{H} = \mathbf{v} \times \mathbf{D}$); Axiom 1 supplies the wave dynamics propagating this charge.
-- **The Electroweak Layer (Axioms 1 & 2):** Axiom 1's LC network, evaluated via Effective Medium Theory (EMT) for a 3D amorphous central-force network with coordination $z_0 \approx 51.25$, shows that $K/G = 2$ at the unique operating point $p^* = 8\pi\alpha \approx 0.1834$, located $56.7\%$ above the rigidity threshold. The vacuum is a rigid solid, not a marginal glass. This trace-reversed geometric boundary forces the macroscopic vacuum Poisson's ratio to $\nu_{vac} = 2/7$, which evaluates the Weak Mixing Angle acoustic mass ratio ($m_W / m_Z = \sqrt{7}/3 \approx 0.8819$). The fine-structure value of $\alpha$ entering this constraint is fixed by Axiom 2.
+- **The Electroweak Layer (Axioms 1 & 2):** Axiom 1's LC network, evaluated via Effective Medium Theory (EMT) for a 3D amorphous central-force network with coordination $z_0 \approx 51.25$, shows that $K/G = 2$ at the unique operating point $p^* = 8\pi\alpha \approx 0.1834$, located $56.7\%$ above the rigidity threshold. The vacuum is a rigid solid, not a marginal glass. This trace-reversed geometric boundary forces the macroscopic vacuum Poisson's ratio to $\nu_{vac} = 2/7$, which evaluates the Weak Mixing Angle acoustic mass ratio ($m_W / m_Z = \sqrt{7}/3 \approx 0.8819$). The fine-structure value of $\alpha$ entering this constraint is fixed by Axiom 2. 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 - **Gravity, Orbital Mechanics, and Cosmology (derived consequence of Axioms 1 + 4):** Projecting a 1D QED string tension into the 3D bulk metric via the trace-reversed tensor yields the $1/7$ isotropic projection factor for massive defects. Integrating the 1D causal chain across the 3D holographic solid angle, bounded by the cross-sectional porosity ($\alpha^2$) of the discrete graph, analytically binds macroscopic gravity ($G = \hbar c/(7\xi\,m_e^2)$) and the Asymptotic de Sitter Expansion Limit ($H_\infty$) into a single, unified mathematical identity. <!-- claim-quality: clm-k3p9wz --> For macroscopic orbital mechanics natively bounded by baryonic crystal arrays (the Geodynamo target layer and the Moon's inductive resonant shell), the macroscopic Sagnac drag-boundary amplification is **conjectured** to equal the Torus knot eigenvalue of the Proton ($m_p/m_e \approx 1836.12$) — an **asserted cross-scale identity** (`clm-k3p9wz`). The numerical match is striking, but the mechanism connecting the proton's Faddeev eigenvalue to a macroscopic drag amplification is **not derived**; the "quantum mass hierarchy → Earth-space topological drag" unification this would imply is a forward conjecture, not an established identity.
 - **The Dark Sector (Axiom 4):** The strict EFT hardware packing fraction ($p_c \approx 0.1834$) limits excess thermal energy storage during lattice genesis, proving Dark Energy is a mathematically stable phantom energy state ($w \approx -1.0001$). The generative expansion of the lattice sets a fundamental continuous Unruh-Hawking drift. The exact topological derivation of the substrate mass density ($\rho_{bulk}$) and mutual inductance ($\nu_{vac}$) dictates a saturating Dielectric Saturation-plastic transition, mathematically recovering the exact empirical MOND acceleration boundary ($a_{genesis} = c H_\infty / 2\pi$), dynamically yielding flat galactic rotation curves without invoking non-baryonic particulate dark matter.
 
@@ -168,3 +168,67 @@ The closure conditions above resolve into a small, explicit set of pending deriv
 | **H_∞ closure: G derivation independent of R_H** | The current G derivation routes through ξ = 4π(R_H/ℓ_node)α⁻² with R_H ≡ c/H_∞ substituted in. Algebraically, H_∞ = 28π m_e³ c G/(ℏ²α²) is the same constraint as G = ℏc/(7ξ m_e²) rearranged — one identity in (G, H_∞), not two independent predictions. Vol 3 Ch 1 already discloses this as "consistency proof, not prediction"; Vol 3 Ch 4 §Verification has been re-aligned to the same framing. | Promotes H_∞ from a geometric consistency check to a genuine downstream prediction. Requires deriving G from a thermodynamic balance whose closure conditions are local (lattice tension, equipartition, generation rate per node) rather than horizon-scale; substituting that local-G into the H_∞ formula then yields a true prediction. | [Vol 3 Ch 1 §Asymptotic Hubble Constant](../vol3/gravity/ch01-gravity-yield/asymptotic-hubble-constant.md); [Vol 3 Ch 4 §Verification](../vol3/cosmology/ch04-generative-cosmology/lattice-genesis-hubble-tension.md) |
 
 These are the principal outstanding rigour gaps. They are not calculational errors elsewhere in the chain — the chain itself is acyclic and the values it produces match experiment to the precision quoted in the master prediction table. Closing any of these gaps moves the "structurally zero-parameter" framing closer to absolute, without invalidating the existing predictions.
+
+---
+
+## R40 batch-2a — NEEDS-RE-DERIVATION status note (2026-08-11)
+
+**Class:** status demotion under **R40**. This note mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-`,
+**moves no solidity number**, adjudicates no channel and opens no fork. Every byte of each demoted
+claim is preserved; the stamped line gains a status marker only (honesty-lag pattern, Rule 12).
+
+**The arc, in four clauses (R40's header form; clause 4 points at the LANDED artifact, not at a
+ruling record).**
+
+1. **The kill fired** — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the imported `K = 2G` elastic modulus** — the compressible far-field
+   branch was minted by a GR-imported modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the flat-direction finding: the written action
+   conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the LANDED ratified bound-sector law — Axiom 5, Substrate DC Bias**, clauses
+   **S** (deposit), **G** (bias coupling / bridge) and **Q** (quiescence), canonical at
+   [`eq_axiom_5.tex`](../../common_equations/eq_axiom_5.tex) with its register entry in
+   [`axiom-register.md`](../common/axiom-register.md) (§ *Axiom 5 — Substrate DC Bias*). Under
+   clause **G** the A1 / bulk slot is a **bound response** — $\mathbf{u}_0 =
+   -\mathcal{A}_g\nabla\varepsilon_{11}$, mechanism gloss **back-reaction** — with **no independent
+   propagating branch, no port and zero longitudinal characteristic speed**. A bulk *wave speed*, a
+   bulk *radiative port*, a bulk *band-branch* and a bulk *transit clock* therefore have **no
+   referent**, and each row below owes its re-derivation on that footing.
+   $\mathcal{A}_g$ (the **bias-coupling area**) is an `UNVALUED-RATIFIED-CONSTANT` per **R48**
+   ([`interlock-register.md`](../common/interlock-register.md), § *𝒜_g — the bias-coupling
+   area*): it is **not valued here or anywhere**, and **the calibration count stays 3**.
+
+**Standing named-open debt — the honesty rider.** The ratified axiom does **not** discharge
+everything. **THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt**, stated by the
+axiom's own phase-structure paragraph, clause **(c1)**: clause G's elliptic law is the *static
+abstraction of underived finite-speed bias dynamics*, and the $(u,\pi)$ no-signalling theorem does
+**not** cover the bias read — the bias's finite propagation speed is *owed, not held*. Every row
+tagged **⚑ BIAS-DEBT** below re-derives against the ratified axiom **with that debt standing**, never
+against a closed replacement.
+
+**Vocabulary.** Canonical nouns authored here: **the bound response** ($\mathbf{u}_0$), **the bias**
+($\varepsilon_{11}$), the **DC operating point / quiescent point (Q-point)**; **back-reaction** is
+the mechanism gloss. *"dress"*, *"grade"* as $\varepsilon_{11}$'s canonical noun, and *"halo"* for
+the physics (the physics noun is the **near-field store / added-mass**) are RETIRED by **R50**;
+*"retardation"* is retired by **R49(b)** in favour of **propagation delay / finite propagation
+speed**. Corpus text quoted below is byte-exact and is never reworded.
+
+**Rows carried in this file.**
+
+- **`:94`** — stamped at `:94`. *(family: acoustic-mass-ratio-WZ; banked `uncertain`)*  ⚑ **BIAS-DEBT**
+  Quoted claim, byte-exact at HEAD:
+  ```text
+  which evaluates the Weak Mixing Angle acoustic mass ratio ($m_W / m_Z = \sqrt{7}/3 \approx 0.8819$)
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  'Acoustic mass ratio' imports a wave-mode reading of W/Z masses; if the underlying algebra is the static (1+ν) shear-signature projection it drops to static-import class — attribution owed.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+**Records.** Ruling **R40** (the demotion sweep) · the banked worklist
+[`r40_sweep_worklist_verified.json`](../../../research/drivers/r40_sweep_worklist_verified.json) · batch-0
+scope verification and batch-1 execution records in `_orchestration/` · this batch's record
+`_orchestration/2026-08-12_r40-sweep-batch2a.md`.
+

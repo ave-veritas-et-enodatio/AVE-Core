@@ -31,7 +31,7 @@ The first step in simulating the vacuum is establishing the 3D coordinate positi
 
 Once the spatial nodes are safely crystallized via the Poisson-Disk algorithm, the computational architecture must generate the connective spatial edges (The Capacitive Flux Tubes, $\epsilon_0$).
 
-**The Cauchy Delaunay Failure:** If the physics engine simply computes a standard nearest-neighbor Delaunay Triangulation on the Poisson-Disk point cloud, the resulting discrete volumetric packing fraction of the amorphous manifold evaluates to $\kappa_{cauchy} \approx 0.3068$. While less dense than a perfect crystal (FCC $\approx 0.74$), it is still too dense to survive. 🔴 *[KB-reconciliation 2026-06-15 (vol_2 brief §D, internal mislabel; mirrors vol_0 ch03:22 / PR #235)]* ~~A standard Cauchy elastic solid ($K = -\frac{4}{3}G$) is thermodynamically unstable and will implode during macroscopic continuous simulation.~~ **A standard (non-micropolar) Cauchy elastic treatment of this substrate is thermodynamically unstable: without the chiral couple-stress the effective bulk modulus is not held positive, so the longitudinal modulus collapses through its instability threshold ($M = K + \frac{4}{3}G = 0$, i.e. $K = -\frac{4}{3}G$) and the lattice implodes during macroscopic continuous simulation. (A standard Cauchy solid is $K = \frac{5}{3}G$; $K = -\frac{4}{3}G$ is the $M=0$ longitudinal-modulus instability threshold, not the Cauchy state.)**
+**The Cauchy Delaunay Failure:** If the physics engine simply computes a standard nearest-neighbor Delaunay Triangulation on the Poisson-Disk point cloud, the resulting discrete volumetric packing fraction of the amorphous manifold evaluates to $\kappa_{cauchy} \approx 0.3068$. While less dense than a perfect crystal (FCC $\approx 0.74$), it is still too dense to survive. 🔴 *[KB-reconciliation 2026-06-15 (vol_2 brief §D, internal mislabel; mirrors vol_0 ch03:22 / PR #235)]* ~~A standard Cauchy elastic solid ($K = -\frac{4}{3}G$) is thermodynamically unstable and will implode during macroscopic continuous simulation.~~ **A standard (non-micropolar) Cauchy elastic treatment of this substrate is thermodynamically unstable: without the chiral couple-stress the effective bulk modulus is not held positive, so the longitudinal modulus collapses through its instability threshold ($M = K + \frac{4}{3}G = 0$, i.e. $K = -\frac{4}{3}G$) and the lattice implodes during macroscopic continuous simulation. (A standard Cauchy solid is $K = \frac{5}{3}G$; $K = -\frac{4}{3}G$ is the $M=0$ longitudinal-modulus instability threshold, not the Cauchy state.)** 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 
 **Enforcing QED Saturation:** The analysis derived that the fundamental phase limits of the universe bounded the geometric packing fraction of the vacuum to 🔴 *[KB-reconciliation 2026-06-15 (vol_2 brief §A.2; mirrors vol_0 ch03:24 / PR #235)]* ~~$p_{c} \approx \mathbf{0.1834}$, forcing the emergence of $\alpha$~~ **$p_{c} = 8\pi\alpha \approx \mathbf{0.1834}$ — with $\alpha$ a *retained* calibration input (a value-scoped echo beneath the canonical Class-B identification, resting on $R\cdot r = 1/4$ which the substrate does not independently select; per `vol1/ch8-alpha-golden-torus.md` :11), not an output forced to emerge from the packing fraction**. To computationally force the effective geometric packing fraction ($p_{eff}$) down from the unstable $\sim 0.3068$ baseline to the stable $0.1834$ limit, the software must enforce **Chiral LC Over-Bracing**. The connective array of the physics engine cannot be limited to primary nearest neighbors; the internal structural logic must span outward to incorporate the next-nearest-neighbor lattice shell.
 
@@ -64,3 +64,67 @@ $$
 By combining the $C_{ratio} \approx 1.187$ Chiral LC Over-Bracing requirement over a $r_{min} = l_{node}$ Poisson-Disk genesis space, and advancing the lattice via Symplectic Kirchhoff loops, the computational framework provides a proving-ground connecting raw network mechanics to classical standard-model topological properties.
 
 ---
+
+---
+
+## R40 batch-2a — NEEDS-RE-DERIVATION status note (2026-08-11)
+
+**Class:** status demotion under **R40**. This note mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-`,
+**moves no solidity number**, adjudicates no channel and opens no fork. Every byte of each demoted
+claim is preserved; the stamped line gains a status marker only (honesty-lag pattern, Rule 12).
+
+**The arc, in four clauses (R40's header form; clause 4 points at the LANDED artifact, not at a
+ruling record).**
+
+1. **The kill fired** — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the imported `K = 2G` elastic modulus** — the compressible far-field
+   branch was minted by a GR-imported modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the flat-direction finding: the written action
+   conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the LANDED ratified bound-sector law — Axiom 5, Substrate DC Bias**, clauses
+   **S** (deposit), **G** (bias coupling / bridge) and **Q** (quiescence), canonical at
+   [`eq_axiom_5.tex`](../../../../common_equations/eq_axiom_5.tex) with its register entry in
+   [`axiom-register.md`](../../../common/axiom-register.md) (§ *Axiom 5 — Substrate DC Bias*). Under
+   clause **G** the A1 / bulk slot is a **bound response** — $\mathbf{u}_0 =
+   -\mathcal{A}_g\nabla\varepsilon_{11}$, mechanism gloss **back-reaction** — with **no independent
+   propagating branch, no port and zero longitudinal characteristic speed**. A bulk *wave speed*, a
+   bulk *radiative port*, a bulk *band-branch* and a bulk *transit clock* therefore have **no
+   referent**, and each row below owes its re-derivation on that footing.
+   $\mathcal{A}_g$ (the **bias-coupling area**) is an `UNVALUED-RATIFIED-CONSTANT` per **R48**
+   ([`interlock-register.md`](../../../common/interlock-register.md), § *𝒜_g — the bias-coupling
+   area*): it is **not valued here or anywhere**, and **the calibration count stays 3**.
+
+**Standing named-open debt — the honesty rider.** The ratified axiom does **not** discharge
+everything. **THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt**, stated by the
+axiom's own phase-structure paragraph, clause **(c1)**: clause G's elliptic law is the *static
+abstraction of underived finite-speed bias dynamics*, and the $(u,\pi)$ no-signalling theorem does
+**not** cover the bias read — the bias's finite propagation speed is *owed, not held*. Every row
+tagged **⚑ BIAS-DEBT** below re-derives against the ratified axiom **with that debt standing**, never
+against a closed replacement.
+
+**Vocabulary.** Canonical nouns authored here: **the bound response** ($\mathbf{u}_0$), **the bias**
+($\varepsilon_{11}$), the **DC operating point / quiescent point (Q-point)**; **back-reaction** is
+the mechanism gloss. *"dress"*, *"grade"* as $\varepsilon_{11}$'s canonical noun, and *"halo"* for
+the physics (the physics noun is the **near-field store / added-mass**) are RETIRED by **R50**;
+*"retardation"* is retired by **R49(b)** in favour of **propagation delay / finite propagation
+speed**. Corpus text quoted below is byte-exact and is never reworded.
+
+**Rows carried in this file.**
+
+- **`:34`** — stamped at `:34`. *(family: K-backed stability)*  ⚑ **BIAS-DEBT**
+  Quoted claim, byte-exact at HEAD:
+  ```text
+  without the chiral couple-stress the effective bulk modulus is not held positive, so the longitudinal modulus collapses through its instability threshold ($M = K + \frac{4}{3}G = 0$)
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  K-backed stability argument (the bin's named example): stability is governed by positivity of the P-wave modulus, treating K as a dynamical reservoir; under the carve stability is kinematic (no compression DOF to implode) — the leaf's job survives, its mechanism is the import's.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+**Records.** Ruling **R40** (the demotion sweep) · the banked worklist
+[`r40_sweep_worklist_verified.json`](../../../../../research/drivers/r40_sweep_worklist_verified.json) · batch-0
+scope verification and batch-1 execution records in `_orchestration/` · this batch's record
+`_orchestration/2026-08-12_r40-sweep-batch2a.md`.
+

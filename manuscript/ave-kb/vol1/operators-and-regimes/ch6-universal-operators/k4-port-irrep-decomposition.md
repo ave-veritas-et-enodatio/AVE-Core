@@ -115,7 +115,7 @@ This impedance mismatch **transduces energy asymmetrically between the two mode-
 
 ## §5 — Physical correctness: Gauss's law forbids longitudinal EM
 
-This asymmetric **mode-transduction** (2026-07-19 RULED — the $A_1$ mode empties into $T_2$; the system conserves power, not a system loss) is **physically correct** for electromagnetic waves on a Maxwell-substrate: **longitudinal components ($\nabla \cdot \mathbf{E} \neq 0$) are forbidden in vacuum by Gauss's law**, so any $A_1$-type longitudinal excitation must **empty (transduce out of the $A_1$ mode)** to leave only the transverse ($\nabla \cdot \mathbf{E} = 0$) sector. *(Superseded prose, preserved 2026-07-19: "This asymmetric dissipation is physically correct … so any $A_1$-type longitudinal excitation must dissipate to leave only the transverse sector.")*
+This asymmetric **mode-transduction** (2026-07-19 RULED — the $A_1$ mode empties into $T_2$; the system conserves power, not a system loss) is **physically correct** for electromagnetic waves on a Maxwell-substrate: **longitudinal components ($\nabla \cdot \mathbf{E} \neq 0$) are forbidden in vacuum by Gauss's law**, so any $A_1$-type longitudinal excitation must **empty (transduce out of the $A_1$ mode)** to leave only the transverse ($\nabla \cdot \mathbf{E} = 0$) sector. *(Superseded prose, preserved 2026-07-19: "This asymmetric dissipation is physically correct … so any $A_1$-type longitudinal excitation must dissipate to leave only the transverse sector.")* 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 
 **The K4 scattering realizes this constraint automatically through $T_d$ symmetry.** No additional physics needs to be imposed; the substrate's tetrahedral symmetry forces the right EM behavior.
 
@@ -230,3 +230,79 @@ This mass split is **exactly what's needed**: the photon ($T_2$) needs to be mas
 > **⚠ Self-correction to this inventory (the #728 trap, caught here).** The rows for `C13b:29` and `lc-electrodynamics.md:50` were listed above as `:109`→`:111` with a ✓. That ✓ was **mis-verified**: both cites quote the **§6 transverse-photon speed row** (*"$T_2$ (transverse photon): $c=\sqrt{G/\rho}$"*), which is at **`:129`**, NOT `:111` (line `:111` is the Op3-transduction sentence). The `:111` was an **arithmetic +2** (the RULING-21 D1 §4 shift), applied to cites that actually point at §6 (cumulative drift +20). The inventory's OWN weak-C row correctly maps the identical-content `:121`→`:129`, so `:109`→`:111` for the same content was internally inconsistent. **Corrected content-verified target for both: `:129`** (grep-confirmed at HEAD; executed at both citing docs).
 >
 > **JSON note (the "else" branch).** `research/2026-07-17_regime-iv-dissipation-audit_items.json` has a **strict uniform 12-key schema** across all 126 items; adding a one-off correction key would break schema uniformity and risk downstream consumers. Per the additive-key-else-drift-inventory-note convention, the `:1571` repoint is recorded **here** and the JSON body is left **unedited**: the `reread_proposal` string at `:1571` recommends "fix at the canonical leaf `k4-port-irrep-decomposition.md:28,97,101,111`"; at HEAD `:28`/`:97`/`:101` are stable and the cited `:111` content (*"$A_1$ loses energy monotonically until it reaches zero"*, now the superseded-preserved prose) is at **`:113`**. That recommended fix was already executed by RULING 21; the repoint is documentary.
+
+---
+
+## R40 batch-2a — NEEDS-RE-DERIVATION status note (2026-08-11)
+
+**Class:** status demotion under **R40**. This note mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-`,
+**moves no solidity number**, adjudicates no channel and opens no fork. Every byte of each demoted
+claim is preserved; the stamped line gains a status marker only (honesty-lag pattern, Rule 12).
+
+**The arc, in four clauses (R40's header form; clause 4 points at the LANDED artifact, not at a
+ruling record).**
+
+1. **The kill fired** — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the imported `K = 2G` elastic modulus** — the compressible far-field
+   branch was minted by a GR-imported modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the flat-direction finding: the written action
+   conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the LANDED ratified bound-sector law — Axiom 5, Substrate DC Bias**, clauses
+   **S** (deposit), **G** (bias coupling / bridge) and **Q** (quiescence), canonical at
+   [`eq_axiom_5.tex`](../../../../common_equations/eq_axiom_5.tex) with its register entry in
+   [`axiom-register.md`](../../../common/axiom-register.md) (§ *Axiom 5 — Substrate DC Bias*). Under
+   clause **G** the A1 / bulk slot is a **bound response** — $\mathbf{u}_0 =
+   -\mathcal{A}_g\nabla\varepsilon_{11}$, mechanism gloss **back-reaction** — with **no independent
+   propagating branch, no port and zero longitudinal characteristic speed**. A bulk *wave speed*, a
+   bulk *radiative port*, a bulk *band-branch* and a bulk *transit clock* therefore have **no
+   referent**, and each row below owes its re-derivation on that footing.
+   $\mathcal{A}_g$ (the **bias-coupling area**) is an `UNVALUED-RATIFIED-CONSTANT` per **R48**
+   ([`interlock-register.md`](../../../common/interlock-register.md), § *𝒜_g — the bias-coupling
+   area*): it is **not valued here or anywhere**, and **the calibration count stays 3**.
+
+**Standing named-open debt — the honesty rider.** The ratified axiom does **not** discharge
+everything. **THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt**, stated by the
+axiom's own phase-structure paragraph, clause **(c1)**: clause G's elliptic law is the *static
+abstraction of underived finite-speed bias dynamics*, and the $(u,\pi)$ no-signalling theorem does
+**not** cover the bias read — the bias's finite propagation speed is *owed, not held*. Every row
+tagged **⚑ BIAS-DEBT** below re-derives against the ratified axiom **with that debt standing**, never
+against a closed replacement.
+
+**Vocabulary.** Canonical nouns authored here: **the bound response** ($\mathbf{u}_0$), **the bias**
+($\varepsilon_{11}$), the **DC operating point / quiescent point (Q-point)**; **back-reaction** is
+the mechanism gloss. *"dress"*, *"grade"* as $\varepsilon_{11}$'s canonical noun, and *"halo"* for
+the physics (the physics noun is the **near-field store / added-mass**) are RETIRED by **R50**;
+*"retardation"* is retired by **R49(b)** in favour of **propagation delay / finite propagation
+speed**. Corpus text quoted below is byte-exact and is never reworded.
+
+**Rows carried in this file.**
+
+- **`:118`** — stamped at `:118`. *(family: gauss-A1-transduction)*  ⚑ **BIAS-DEBT**
+  Quoted claim, byte-exact at HEAD:
+  ```text
+  any $A_1$-type longitudinal excitation must **empty (transduce out of the $A_1$ mode)** to leave only the transverse
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  The ROLE (no longitudinal EM far-field; only T2 survives) is carve-consonant, but the mechanism assumes an independent A1 excitation that dynamically transduces — under the carve the exclusion is kinematic (no DOF to empty); ':27/:105 A_1 propagates forever' same family.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+- **`:128`** — **NOT STAMPED — R39 BYTE-FENCE ROUTED** (the anchor sits inside a Rule-12 preserved body; this entry IS the routed ledger note and the span is byte-untouched). *(family: A1-port-speed)*  ⚑ **BIAS-DEBT**
+  Quoted claim, byte-exact at HEAD:
+  ```text
+  $A_1$ (longitudinal) | $c \cdot \sqrt{2} = \sqrt{K_{\text{bulk}} / \rho}$ | Bulk modulus $K_{\text{bulk}}$ governs scalar compression
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Canonical home of the A1/T2 speed-split: the irrep decomposition (group theory) survives untouched, but the A1 propagation-speed formula consumes the phantom; mirrored at :11, :25, :131, :141.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+**Records.** Ruling **R40** (the demotion sweep) · the banked worklist
+[`r40_sweep_worklist_verified.json`](../../../../../research/drivers/r40_sweep_worklist_verified.json) · batch-0
+scope verification and batch-1 execution records in `_orchestration/` · this batch's record
+`_orchestration/2026-08-12_r40-sweep-batch2a.md`.
+

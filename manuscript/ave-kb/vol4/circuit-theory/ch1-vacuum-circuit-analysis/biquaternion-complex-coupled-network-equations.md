@@ -144,7 +144,7 @@ Mechanical channel impedances (cold, $K/G=2$): [`three-channel-impedances.md`](.
 
 **Mixed domains (do NOT collapse):** only $Z_{\mathrm{EM}}\equiv Z_0$ is electrical ($\Omega$).
 $Z_{\mathrm{shear}}=\rho_{\mathrm{bulk}}c_{\mathrm{shear}}$ and
-$Z_{\mathrm{bulk}}=\rho_{\mathrm{bulk}}c_{\mathrm{bulk}}=\sqrt2\,\rho_{\mathrm{bulk}}c_0$ at $K=2G$ are
+$Z_{\mathrm{bulk}}=\rho_{\mathrm{bulk}}c_{\mathrm{bulk}}=\sqrt2\,\rho_{\mathrm{bulk}}c_0$ at $K=2G$ are 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 mechanical (Pa·s/m). Join via **TKI transformer** $\mathsf T(\xi_{\mathrm{topo}})$, not a direct wire
 ([`device-circuit-models.md`](../../../vol9/ch3-pin-port-configuration/device-circuit-models.md):139).
 
@@ -160,7 +160,7 @@ $\Gamma_{\mathrm{EM}}=0$ (matched port), $\Gamma_{\mathrm{shear/bulk}}\to-1$ (co
 
 ### §3.2 — Inter-grade coupling (dynamics coded; spectral Build-B open)
 
-> **[Resultbox]** *Conserved chiral bulk↔shear coupling (α-free)*
+> **[Resultbox]** *Conserved chiral bulk↔shear coupling (α-free)* 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 >
 > $$
 > H_{\mathrm{couple}} = \tilde\kappa \int g\, V_{A1}\, \Omega_w\, d^3r,
@@ -339,3 +339,79 @@ deposit is **the bound response**, mechanism gloss **back-reaction**; ε₁₁ i
 renamed **THE BIAS PROPAGATION THEOREM**) · vocabulary **R49(b)** `_orchestration/docket-entries/2026-08-10-rulings-r48-r49.md` (*"retardation"
 is RETIRED from this role. The canonical term is **propagation delay / finite propagation speed*** —
 the retardation retirement is R49(b)'s, NOT R50's; corrected 2026-08-11 at review).
+
+---
+
+## R40 batch-2a — NEEDS-RE-DERIVATION status note (2026-08-11)
+
+**Class:** status demotion under **R40**. This note mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-`,
+**moves no solidity number**, adjudicates no channel and opens no fork. Every byte of each demoted
+claim is preserved; the stamped line gains a status marker only (honesty-lag pattern, Rule 12).
+
+**The arc, in four clauses (R40's header form; clause 4 points at the LANDED artifact, not at a
+ruling record).**
+
+1. **The kill fired** — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the imported `K = 2G` elastic modulus** — the compressible far-field
+   branch was minted by a GR-imported modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the flat-direction finding: the written action
+   conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the LANDED ratified bound-sector law — Axiom 5, Substrate DC Bias**, clauses
+   **S** (deposit), **G** (bias coupling / bridge) and **Q** (quiescence), canonical at
+   [`eq_axiom_5.tex`](../../../../common_equations/eq_axiom_5.tex) with its register entry in
+   [`axiom-register.md`](../../../common/axiom-register.md) (§ *Axiom 5 — Substrate DC Bias*). Under
+   clause **G** the A1 / bulk slot is a **bound response** — $\mathbf{u}_0 =
+   -\mathcal{A}_g\nabla\varepsilon_{11}$, mechanism gloss **back-reaction** — with **no independent
+   propagating branch, no port and zero longitudinal characteristic speed**. A bulk *wave speed*, a
+   bulk *radiative port*, a bulk *band-branch* and a bulk *transit clock* therefore have **no
+   referent**, and each row below owes its re-derivation on that footing.
+   $\mathcal{A}_g$ (the **bias-coupling area**) is an `UNVALUED-RATIFIED-CONSTANT` per **R48**
+   ([`interlock-register.md`](../../../common/interlock-register.md), § *𝒜_g — the bias-coupling
+   area*): it is **not valued here or anywhere**, and **the calibration count stays 3**.
+
+**Standing named-open debt — the honesty rider.** The ratified axiom does **not** discharge
+everything. **THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt**, stated by the
+axiom's own phase-structure paragraph, clause **(c1)**: clause G's elliptic law is the *static
+abstraction of underived finite-speed bias dynamics*, and the $(u,\pi)$ no-signalling theorem does
+**not** cover the bias read — the bias's finite propagation speed is *owed, not held*. Every row
+tagged **⚑ BIAS-DEBT** below re-derives against the ratified axiom **with that debt standing**, never
+against a closed replacement.
+
+**Vocabulary.** Canonical nouns authored here: **the bound response** ($\mathbf{u}_0$), **the bias**
+($\varepsilon_{11}$), the **DC operating point / quiescent point (Q-point)**; **back-reaction** is
+the mechanism gloss. *"dress"*, *"grade"* as $\varepsilon_{11}$'s canonical noun, and *"halo"* for
+the physics (the physics noun is the **near-field store / added-mass**) are RETIRED by **R50**;
+*"retardation"* is retired by **R49(b)** in favour of **propagation delay / finite propagation
+speed**. Corpus text quoted below is byte-exact and is never reworded.
+
+**Rows carried in this file.**
+
+- **`:147`** — stamped at `:147`. *(family: Z_bulk=ρc_bulk formula)*  ⚑ **BIAS-DEBT**
+  Quoted claim, byte-exact at HEAD:
+  ```text
+  Z_shear=ρ_bulk c_shear and Z_bulk=ρ_bulk c_bulk=√2 ρ_bulk c_0 at K=2G are mechanical (Pa·s/m)
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Prereg-named formula class: the channel admittance Y_bulk survives as a reactance of the bound sector, but Z_bulk=ρ·c_bulk consumes a bulk propagation speed.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+- **`:166`** — anchor `:166` is display math — **stamped at `:163`** (the enclosing block's title line; the math line is byte-untouched). *(family: bulk↔shear coupling term; banked `uncertain`)*
+  Quoted claim, byte-exact at HEAD:
+  ```text
+  H_couple = κ̃ ∫ g V_A1 Ω_w d³r ... Conserved chiral bulk↔shear coupling (α-free)
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Treats V_A1 as an independent dynamical field with its own energy in a two-field coupling Hamiltonian; under the carve V_A1 is bound/slaved, so the coupling must re-derive as parametric-on-a-response, not field-field.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave.
+
+**Records.** Ruling **R40** (the demotion sweep) · the banked worklist
+[`r40_sweep_worklist_verified.json`](../../../../../research/drivers/r40_sweep_worklist_verified.json) · batch-0
+scope verification and batch-1 execution records in `_orchestration/` · this batch's record
+`_orchestration/2026-08-12_r40-sweep-batch2a.md`.
+

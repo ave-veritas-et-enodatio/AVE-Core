@@ -67,7 +67,7 @@ Cross-volume reference material shared across all AVE volumes. Contains the unif
 | [Window-Blind / Bounding-Plane: the Charge-Winding "3"](window-blind-bounding-plane.md) | Picture-first companion to `trampoline-framework.md`: the Cosserat microrotation / (2,3)-winding (μ/L) half — the "window blind" the flat sheet cannot depict. One spring, two orthogonal "3"s (mass-dilatation ⊥ charge-winding, master-equation.md:20); sector ⊥ gauge; the no-phasor-wire rule. |
 | [Substrate-Native Terminology Discipline (EE-native leak-check)](substrate-native-terminology.md) | NO-CLAIM selection rule for *which discipline's vocabulary is substrate-native*: EE is the reference language ($\varepsilon_0/\mu_0/Z_0/c$ ARE vacuum constants); leak-check each borrowed word's defining property against the lossless/reactive/discrete/saturable substrate (elastic/stiffness PASS; plastic/viscous/thixotropic/amorphous FAIL = dissipation-or-disorder leak). Restore the longitudinal + micropolar grades (transverse-only EE = QED trap); EE owns dynamics, topology owns the conserved integers. Companion to `vocabulary-register.md` (the selection RULE vs the per-term `def-` adjudications). |
 | [Retention / Transition Split (PRODUCT vs TRANSITION)](retention-transition-split.md) | NO-CLAIM term-selection discipline (Grant-ratified 2026-07-17): the loss/irreversibility vocabulary (*remanence / irreversible / plastic / latch / dissipates / frozen*) names **two distinct moments** — PRODUCT (persistence of a latched state — winding integer / $\Gamma=-1$ cavity / retained order parameter — **LOSSLESS**, no maintenance R) vs TRANSITION (the crossing arrow, **licensed only from counting**: mode-spread or the energy-conserving click, *never a valve*). The two-reason trap (charge latched by topology, mass by the $\Gamma=-1$ wall — both lossless); the MODE-vs-SYSTEM loss generalization (Op3 common-mode-rejection worked example); the which-moment declaration rule + regime scoping table. Evidence base: the 2026-07-17 Regime-IV dissipation audit. Companion to `substrate-native-terminology.md` (the regime leak-check). |
-| [The Port Register — per-channel × per-port map](port-register.md) | NO-CLAIM register/discipline leaf (WALK-WORDING ratified by the 2026-07-20 firing): the per-channel × per-port map of the graded-vacuum medium — *whether, here and now, a configuration delivers energy out through which of the four channels*, radiative ($\mathrm{Re}(Z)>0$, port-not-valve, Ax3-legal) vs reactive (stores-and-returns) vs closed, each row tagged by provenance (axiom-forced / emergent-configurational / instrument-engineered). **14 rows** (4 inherent channels + 9 known ports + 1 explicitly-OPEN Q1). Carries the **FLAG-A** channel-3 speed split ($\sqrt2\,c$ PORT/impedance mode vs $\sqrt{10/3}\,c$ radiative P-wave) as a column, and the **DM-halo NOT-A-PORT** reactive-near-field resolution. Q1 (does the A1/bulk channel open an independent far-field radiative port for gravitating sources?) stays OPEN pending a Grant/auditor sector-ownership ruling. Promoted from `research/2026-07-20_port-register_draft.md` (#753). |
+| [The Port Register — per-channel × per-port map](port-register.md) | NO-CLAIM register/discipline leaf (WALK-WORDING ratified by the 2026-07-20 firing): the per-channel × per-port map of the graded-vacuum medium — *whether, here and now, a configuration delivers energy out through which of the four channels*, radiative ($\mathrm{Re}(Z)>0$, port-not-valve, Ax3-legal) vs reactive (stores-and-returns) vs closed, each row tagged by provenance (axiom-forced / emergent-configurational / instrument-engineered). **14 rows** (4 inherent channels + 9 known ports + 1 explicitly-OPEN Q1). Carries the **FLAG-A** channel-3 speed split ($\sqrt2\,c$ PORT/impedance mode vs $\sqrt{10/3}\,c$ radiative P-wave) as a column, and the **DM-halo NOT-A-PORT** reactive-near-field resolution. Q1 (does the A1/bulk channel open an independent far-field radiative port for gravitating sources?) stays OPEN pending a Grant/auditor sector-ownership ruling. Promoted from `research/2026-07-20_port-register_draft.md` (#753). 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]** |
 | [Genesis / Chord Falsification Ledger](genesis-chord-falsification-ledger.md) | Tagged, diagnosed, recoverable map of ~10 finished genesis/chord/motion-stability negatives (each: hypothesis / verdict / diagnostic / discrimination-check tag / pushed-branch recovery pointer) — so dead ends are not re-walked. Distinguishes GENUINE-FALSIFICATION from WRONG-CARRIER/REGIME (e.g. omega-wave) and INCONCLUSIVE (Q0-blocked). Cross-links l3-synthesis §8. |
 | [The Program Arc Map](program-arc-map.md) | Navigational meta-leaf (2026-07-10): the TEMPORAL/causal view of the corpus — which arc opened which question, what verdict killed what, what each closure unlocked. Eight-era timeline + Arc Registry + Standing-Negatives / Open-Forks indices + Methods-Evolution. Extends `ave-prereg`'s corpus-grep from the claim level to the arc level (check-before-opening-an-arc). Originates no derivation; the claim graph remains the source of truth. |
 | [FORM-Deriving / VALUE-Importing — Organizing Principle](form-deriving-value-importing.md) | The framework's current organizing principle: the substrate FORCES the dimensionless FORMS (chords); IMPORTS/CALIBRATES the dimensionful VALUES of the calibration constants {m_e, α, G} (echoes). Per-constant accounting (α = ECHO; **G = MIXED, never pure echo**; K=2G = GR-imported; E_yield = MIXED; m_e/ℓ_node = definitional). The testing consequence: AVE-distinct chords live only in FORM-EXISTENCE divergences + non-2/7-rooted forced dimensionless ratios. Consolidation umbrella; chord/echo/mixed definitions are `def-` nodes in `vocabulary-register.md`, the CI-gated per-mechanism axis in `interlock-register.md`. |
@@ -78,3 +78,67 @@ Cross-volume reference material shared across all AVE volumes. Contains the unif
 | [Foundational-Machinery Register](foundational-machinery-register.md) | Status / provenance / usage VIEW over AVE's derived-MACHINERY tier — the named theorems + universal operators + kernels (10 `clm-` members) that vol1/vol2/vol3 build on. The **second rung of the provenance ladder** (axioms → machinery → calibration-inputs → applications), companion to the axiom-register (rung 1) and `interlock-register.md` (rung 3). Per-entry DERIVED (theorem-of-axioms) / DEFINITIONAL (posit) status + axiom-provenance + solidity + citation_count, all READ from existing claim records. Audit count: **7 DERIVED / 3 DEFINITIONAL** — FORM-derives/VALUE-imports at the machinery tier. Homes the D11 `[vol3→vol4 exception]` mis-volume artifact (Op14/Theorem 3.1′/parametric-kernel filed in vol4 but foundational). Mints no new id (INVARIANT-S11 VIEW). |
 | [Theorem Thesaurus](theorem-thesaurus.md) | Cross-framework theorem-IDENTITY register (NO-CLAIM) — the **external-import counterpart** of the foundational-machinery register: where that one views AVE's *derived* machinery, this one indexes the *established* theorems the program stands on. Per row: one framework-neutral canonical statement · the names it wears across disciplines (elasticity / EE-network / lattice-dynamics / potential-theory / homogenization / metamaterials) · an **exactness class** {EXACT-same-theorem, **EXACT-same-mechanism-two-tightness-tiers** (added 2026-08-01, Grant ruling D3), structural-analogy, regime-scoped, IMPORTED-FORM} · the **ontological-silence ceiling** (mandatory on every EXACT row, inherited verbatim from `physics-lineage-map.md` T8 — *"an exact isomorphism is ontologically silent"*, so the register can never be read as a chord list) · verified corpus use sites · a regime fence. **9 rows:** Dirichlet's principle · Thomson's principle · the two-sided bracket — **two tightness tiers** (Grant ruling D3, 2026-08-01): (a) Voigt/Reuss trial-field outer bounds, scale-free, no BVP; (b) KUBC/SUBC = Hill/Huet = Dirichlet/Thomson boundary-condition bounds, size-dependent, converging to $C^{*}$; hierarchy $C^{\text{Reuss}} \le C^{\text{SUBC}} \le C^{*} \le C^{\text{KUBC}} \le C^{\text{Voigt}}$, generically strict · Kron representability + Schur reduction · singular-Laplacian solvability = KCL = self-equilibration · Born long-wave/Christoffel · the standing-mode virial identity · **Foster's reactance theorem as the regime FENCE** on the bounds (static/DC/single-sign only) · the locally-resonant $\rho_{eff}(\omega)$ form, tagged IMPORTED-FORM. Plus §6, the **homonym watch-list** (5 Thomsons, 3 Hills, 3 Dirichlets, 4 Rayleighs, 4 Borns, 2 Fosters, and — added 2026-07-31, the first **symbol** rather than surname collision — **3 $Q$ entries**: the per-resonator quality factor (impedance ledger) / the Cosserat $(2,3)$ **winding-number charge** (topology ledger) / the Theorem 3.1′ $Q_{TANK}=1/\alpha$ **Class-B echo identity** — i.e. **two quantity-ledgers plus a status entry over the first**, not three ledgers; and — added 2026-08-01 under Grant ruling D3, the first **class-label** rather than surname or symbol collision — **Voigt/Reuss bounds vs the Hill/Huet ordering**, TH-3's two tightness tiers called by each other's names, with the merged-`#802` F5/F8 correction of `#782`'s *"only `compressed r_Z = 0.466 < 0.5` is bound-robust"* as the live bound-class receipt). Cites, never duplicates, the lineage map + translation tables. Mints no new id (INVARIANT-S11). |
 | [The Transfer-Cost Theorem](transfer-cost-theorem.md) | Canonized 2026-08-04 (Grant ruling 2026-08-03, R10): **within-system reactive exchange is free however many CHANNELS it crosses; an arrow exists iff energy crosses the SYSTEM boundary into a continuum-counted port** (far-field radiation / matter detector / topology change) — *"the cost is not paid to a resistor; it is paid in countability."* The scope word is the content: the ideal LC tank is itself a channel crossing and is free, so neither *"transfer costs"* nor *"channel-crossing costs"* survives. The three delivery modes ARE the three ruled loss channels ([`substrate-native-terminology.md`](substrate-native-terminology.md):33) read in the delivery register; **$R_{rad}\equiv Z_0$ is a DELIVERY impedance, not a dissipation** (the substrate does not heat — the energy leaves intact); **Op3 is the negative control** (a channel crossing with no system crossing and correspondingly no arrow, RULING 21). Home of the SVA ENERGY-LEDGER row. Three edges stay OPEN: definition-vs-claim, the near-yield fork (out of scope), and whether it is the PRODUCT/TRANSITION split re-stated one altitude up |
+
+---
+
+## R40 batch-2a — NEEDS-RE-DERIVATION status note (2026-08-11)
+
+**Class:** status demotion under **R40**. This note mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-`,
+**moves no solidity number**, adjudicates no channel and opens no fork. Every byte of each demoted
+claim is preserved; the stamped line gains a status marker only (honesty-lag pattern, Rule 12).
+
+**The arc, in four clauses (R40's header form; clause 4 points at the LANDED artifact, not at a
+ruling record).**
+
+1. **The kill fired** — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the imported `K = 2G` elastic modulus** — the compressible far-field
+   branch was minted by a GR-imported modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the flat-direction finding: the written action
+   conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the LANDED ratified bound-sector law — Axiom 5, Substrate DC Bias**, clauses
+   **S** (deposit), **G** (bias coupling / bridge) and **Q** (quiescence), canonical at
+   [`eq_axiom_5.tex`](../../common_equations/eq_axiom_5.tex) with its register entry in
+   [`axiom-register.md`](../common/axiom-register.md) (§ *Axiom 5 — Substrate DC Bias*). Under
+   clause **G** the A1 / bulk slot is a **bound response** — $\mathbf{u}_0 =
+   -\mathcal{A}_g\nabla\varepsilon_{11}$, mechanism gloss **back-reaction** — with **no independent
+   propagating branch, no port and zero longitudinal characteristic speed**. A bulk *wave speed*, a
+   bulk *radiative port*, a bulk *band-branch* and a bulk *transit clock* therefore have **no
+   referent**, and each row below owes its re-derivation on that footing.
+   $\mathcal{A}_g$ (the **bias-coupling area**) is an `UNVALUED-RATIFIED-CONSTANT` per **R48**
+   ([`interlock-register.md`](../common/interlock-register.md), § *𝒜_g — the bias-coupling
+   area*): it is **not valued here or anywhere**, and **the calibration count stays 3**.
+
+**Standing named-open debt — the honesty rider.** The ratified axiom does **not** discharge
+everything. **THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt**, stated by the
+axiom's own phase-structure paragraph, clause **(c1)**: clause G's elliptic law is the *static
+abstraction of underived finite-speed bias dynamics*, and the $(u,\pi)$ no-signalling theorem does
+**not** cover the bias read — the bias's finite propagation speed is *owed, not held*. Every row
+tagged **⚑ BIAS-DEBT** below re-derives against the ratified axiom **with that debt standing**, never
+against a closed replacement.
+
+**Vocabulary.** Canonical nouns authored here: **the bound response** ($\mathbf{u}_0$), **the bias**
+($\varepsilon_{11}$), the **DC operating point / quiescent point (Q-point)**; **back-reaction** is
+the mechanism gloss. *"dress"*, *"grade"* as $\varepsilon_{11}$'s canonical noun, and *"halo"* for
+the physics (the physics noun is the **near-field store / added-mass**) are RETIRED by **R50**;
+*"retardation"* is retired by **R49(b)** in favour of **propagation delay / finite propagation
+speed**. Corpus text quoted below is byte-exact and is never reworded.
+
+**Rows carried in this file.**
+
+- **`:70`** — stamped at `:70`. *(family: FLAG-A-speed-split)*  ⚑ **BIAS-DEBT**
+  Quoted claim, byte-exact at HEAD:
+  ```text
+  the **FLAG-A** channel-3 speed split ($\sqrt2\,c$ PORT/impedance mode vs $\sqrt{10/3}\,c$ radiative P-wave) as a column
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Derived index-summary row carrying the FLAG-A radiative-P-wave column and the open Q1 port question; radiative half dies with the leaf, Q1 is answered no-port — row updates mechanically with port-register.md.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+**Records.** Ruling **R40** (the demotion sweep) · the banked worklist
+[`r40_sweep_worklist_verified.json`](../../../research/drivers/r40_sweep_worklist_verified.json) · batch-0
+scope verification and batch-1 execution records in `_orchestration/` · this batch's record
+`_orchestration/2026-08-12_r40-sweep-batch2a.md`.
+

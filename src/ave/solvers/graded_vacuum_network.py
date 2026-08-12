@@ -57,7 +57,7 @@ so RHO_BULK ~ 1/(8 pi alpha) and EVERY bare impedance magnitude
 This module therefore uses ONLY the DIMENSIONLESS, rho-CANCELLING impedance RATIO
 between the two MECHANICAL channels (DEC-4: bulk K + shear G):
 
-    Z_bulk / Z_shear = (rho c_L) / (rho c_T) = c_L / c_T = sqrt(10/3) = 1.825742...
+    Z_bulk / Z_shear = (rho c_L) / (rho c_T) = c_L / c_T = sqrt(10/3) = 1.825742...  [DEMOTED 2026-08-11 - R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]
 
   alpha-FREE provenance of the ratio (crystal_engine.py:27, DERIVED, not knob-set):
     c_L^2 / c_T^2 = 2(1-nu)/(1-2 nu) = (K + 4G/3)/G |_{K=2G} = 10/3  at nu_vac=2/7.
@@ -209,7 +209,7 @@ def stencil_provenance() -> dict:
 # H_couple OFF, circulator OFF (DEC-2). Bulk channel ONLY, with:
 #   * the mu-load SHORT Gamma=-1 confinement (Z_core->0): a saturated Gaussian core
 #     where S(A)->0 raises the local stiffness c_eff^2 = c0^2 / S(A), gapping a
-#     bound breathing mode above the continuum (the canonical wall,
+#     bound breathing mode above the continuum (the canonical wall,  [DEMOTED 2026-08-11 - R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]
 #     crystal_engine.gamma_bulk: Z_eff=sqrt(S)->0 => Gamma->-1).
 #   * an EM matched loss-port (Gamma_EM=0): a boundary admittance -i*sigma on the
 #     outer layer (radiative absorption), making the operator NON-HERMITIAN ->
@@ -539,3 +539,78 @@ def solve_isolation_Q(cfg: IsolationConfig) -> dict:
         "loc": best["loc"],
         "em_port_closed": cfg.em_port_closed,
     }
+# --------------------------------------------------------------------------
+# R40 batch-2a --- NEEDS-RE-DERIVATION status note (2026-08-11)
+# --------------------------------------------------------------------------
+# CLASS: status demotion under R40. Mints no clm-/def-/exp-/sup-/ilk-, moves no solidity number,
+# adjudicates no channel and opens no fork. Every byte of each demoted claim is preserved; the
+# stamped line gains a status marker only.
+#
+# THE ARC, IN FOUR CLAUSES (R40's header form; clause 4 points at the LANDED artifact, not at a
+# ruling record). (1) The kill fired --- the walk-back that closed the bulk radiative-port
+# reading. (2) The premise localized to the imported K = 2G elastic modulus: the compressible
+# far-field branch was minted by a GR-imported modulus, not forced by the axioms. (3) The axioms
+# underdetermine the bulk sector --- the flat-direction finding: the written action conserves the
+# Gauss function pointwise and never fixes its value. (4) THE REPLACEMENT IS THE LANDED RATIFIED
+# BOUND-SECTOR LAW --- AXIOM 5, SUBSTRATE DC BIAS, clauses S (deposit), G (bias coupling / bridge)
+# and Q (quiescence), canonical at manuscript/common_equations/eq_axiom_5.tex with its register
+# entry in manuscript/ave-kb/common/axiom-register.md. Under clause G the A1 / bulk slot is a
+# BOUND RESPONSE --- u_0 = -A_g grad(eps_11), mechanism gloss BACK-REACTION --- with no
+# independent propagating branch, no port and zero longitudinal characteristic speed. A bulk wave
+# speed, a bulk radiative port, a bulk band-branch and a bulk transit clock therefore have no
+# referent. A_g (the bias-coupling area) is an UNVALUED-RATIFIED-CONSTANT per R48
+# (manuscript/ave-kb/common/interlock-register.md): it is not valued here or anywhere, and THE
+# CALIBRATION COUNT STAYS 3.
+#
+# STANDING NAMED-OPEN DEBT (the honesty rider). The ratified axiom does NOT discharge everything.
+# THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt, stated by the axiom's own
+# phase-structure paragraph, clause (c1): clause G's elliptic law is the static abstraction of
+# underived finite-speed bias dynamics, and the (u,pi) no-signalling theorem does NOT cover the
+# bias read --- the bias's finite propagation speed is owed, not held. Every row tagged BIAS-DEBT
+# below re-derives against the ratified axiom WITH THAT DEBT STANDING, never against a closed
+# replacement.
+#
+# VOCABULARY. Canonical nouns authored here: the bound response (u_0), the bias (eps_11), the DC
+# operating point / quiescent point (Q-point); back-reaction is the mechanism gloss. 'dress',
+# 'grade' as eps_11's canonical noun, and 'halo' for the physics (the physics noun is the
+# near-field store / added-mass) are RETIRED by R50; 'retardation' is retired by R49(b) in favour
+# of propagation delay / finite propagation speed. Corpus text quoted below is byte-exact and is
+# never reworded.
+#
+# ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
+#
+#   :60  family: sqrt(10/3)-impedance  [BIAS-DEBT]
+#        QUOTE (byte-exact at HEAD): Z_bulk / Z_shear = (rho c_L) / (rho c_T) = c_L / c_T = sqrt(10/3) =
+#        1.825742...
+#       STAMPED AT: :60
+#        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): Z_bulk = rho*c_L
+#        formula class (the prereg's named exemplar): both channel impedances are defined FROM
+#        propagation speeds; the alpha-free ratio machinery survives, its bulk leg owes a bound-response
+#        re-derivation (also :55 Z_bulk=sqrt2*rho*c_0, :124 the compounded 2.582).
+#        RESOLUTION: the demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that
+#        slot is the bound response, so the re-derivation must be re-posed on the bound-sector
+#        constitutive law (bias eps_11, bound response u_0, mechanism gloss back-reaction) rather than on
+#        a compression wave. BIAS-DEBT: this row turns on finite-speed bias dynamics, so the resolution
+#        is the ratified axiom WITH THE BIAS PROPAGATION THEOREM STANDING (clause (c1)) --- the
+#        replacement is owed, not held.
+#
+#   :212  family: A1-cage-band  [BIAS-DEBT]
+#        QUOTE (byte-exact at HEAD): S(A)->0 raises the local stiffness c_eff^2 = c0^2 / S(A), gapping a
+#        bound breathing mode above the continuum
+#       STAMPED AT: :212
+#        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): The cold A1 'continuum'
+#        the breather is gapped above IS the free-running bulk band (phantom); the electron-Q question
+#        and the mu-load wall survive, the bulk-channel eigenproblem owes a constraint-form re-derivation
+#        (loss port is EM, not bulk-radiative).
+#        RESOLUTION: the demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that
+#        slot is the bound response, so the re-derivation must be re-posed on the bound-sector
+#        constitutive law (bias eps_11, bound response u_0, mechanism gloss back-reaction) rather than on
+#        a compression wave. BIAS-DEBT: this row turns on finite-speed bias dynamics, so the resolution
+#        is the ratified axiom WITH THE BIAS PROPAGATION THEOREM STANDING (clause (c1)) --- the
+#        replacement is owed, not held.
+#
+# RECORDS: ruling R40 (the demotion sweep); the banked worklist
+# research/drivers/r40_sweep_worklist_verified.json; the batch-0 scope verification and batch-1
+# execution records in _orchestration/; this batch's record
+# _orchestration/2026-08-12_r40-sweep-batch2a.md.
+# --------------------------------------------------------------------------

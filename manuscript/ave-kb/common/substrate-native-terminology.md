@@ -82,7 +82,71 @@ EE is closest for what the substrate **does**: energy flow, impedance, reflectio
 4. If you must borrow, **find the canonical substrate-native equivalent first** (`ave-discipline-translate` enumerates the lookup tables). This leaf is the *criterion*; those are the *tables*.
 5. Don't over-read the rule: by the TKI isomorphism, mechanical words are valid *where they don't leak*. The rule is "use the primitive that doesn't import a property the substrate lacks *in this regime*," not "EE good, mechanics bad."
 
-> **Cross-references:** axioms + the Q1=(B) sector split → [`CLAUDE.md`](../CLAUDE.md) (INVARIANT-S2); regime taxonomy → [four-regimes](../vol1/operators-and-regimes/ch7-regime-map/four-regimes.md); the TKI dictionary → [`translation-circuit.md`](translation-tables/translation-circuit.md) (clm-fy05jc; the `def-tk1xfm` node is SOLID, Grant-ratified 2026-07-21, was proposed since PR #265); the longitudinal ∇·u/∇·A split (∇·u propagates; ∇·A is gauge) + the u/A counterpart-sector mapping → [vocabulary-register](vocabulary-register.md) `def-l0ngdu` (SOLID, Grant-ratified 2026-07-20) / `def-uatk1s` (SOLID 2026-07-21, the `def-tk1xfm` ceiling lifted; transverse identity-collapse still ROUTED-OPEN); the reactance-storage taxonomy → [dual-reactance-storage-taxonomy](dual-reactance-storage-taxonomy.md); the adjudicated-term index → [vocabulary-register](vocabulary-register.md); cross-disciplinary lookup → [analytical-toolkit index](ave-analytical-toolkit-index.md).
+> **Cross-references:** axioms + the Q1=(B) sector split → [`CLAUDE.md`](../CLAUDE.md) (INVARIANT-S2); regime taxonomy → [four-regimes](../vol1/operators-and-regimes/ch7-regime-map/four-regimes.md); the TKI dictionary → [`translation-circuit.md`](translation-tables/translation-circuit.md) (clm-fy05jc; the `def-tk1xfm` node is SOLID, Grant-ratified 2026-07-21, was proposed since PR #265); the longitudinal ∇·u/∇·A split (∇·u propagates; ∇·A is gauge) + the u/A counterpart-sector mapping → [vocabulary-register](vocabulary-register.md) `def-l0ngdu` (SOLID, Grant-ratified 2026-07-20) / `def-uatk1s` (SOLID 2026-07-21, the `def-tk1xfm` ceiling lifted; transverse identity-collapse still ROUTED-OPEN); the reactance-storage taxonomy → [dual-reactance-storage-taxonomy](dual-reactance-storage-taxonomy.md); the adjudicated-term index → [vocabulary-register](vocabulary-register.md); cross-disciplinary lookup → [analytical-toolkit index](ave-analytical-toolkit-index.md). 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 > **Cross-references:** axioms + the Q1=(B) sector split → [`CLAUDE.md`](../CLAUDE.md) (INVARIANT-S2); regime taxonomy → [four-regimes](../vol1/operators-and-regimes/ch7-regime-map/four-regimes.md); the TKI dictionary → [`translation-circuit.md`](translation-tables/translation-circuit.md) (clm-fy05jc; the `def-tk1xfm` node is proposed, PR #265); the longitudinal ∇·u/∇·A split (∇·u propagates; ∇·A is gauge) + the u/A counterpart-sector mapping → [vocabulary-register](vocabulary-register.md) `def-l0ngdu` (SOLID, Grant-ratified 2026-07-20) / `def-uatk1s` (proposed, inherits `def-tk1xfm`); the envelope-sector vocabulary of the A1 breather — the fast-carrier/slow-envelope decomposition, its shear (traceless)/compression (trace) bias-field split, the bound/free (captured/non-captured) division, and the ponderomotive envelope coupling → [vocabulary-register](vocabulary-register.md) `def-envcar` / `def-satshr` (both SOLID for the definitional decomposition/split ONLY — the #767 coupling verdict is BIN-1-CONDITIONAL, not hardened) / `def-ncsatw` (proposed, walk-ratified direction) / `def-pndenv` (proposed — source structure banked per #767, coupling coefficient q1-inherited/ASSUMED); the reactance-storage taxonomy → [dual-reactance-storage-taxonomy](dual-reactance-storage-taxonomy.md); the adjudicated-term index → [vocabulary-register](vocabulary-register.md); cross-disciplinary lookup → [analytical-toolkit index](ave-analytical-toolkit-index.md).
 
 > **Cross-ref (2026-08-04, additive — nothing above is edited).** The three ruled loss channels enumerated at `:33` are read in the **delivery** register by [`transfer-cost-theorem.md`](transfer-cost-theorem.md) (`clm-xfrcst`, canonized 2026-08-04): they are the theorem's three delivery modes — far-field radiation, matter detector, topology change — and the theorem adds the scope rule that makes the enumeration bite (an arrow exists **iff** energy crosses the SYSTEM boundary into a continuum-counted port, so a channel crossing inside the boundary is free however many channels it crosses). The Op3 re-tag recorded at `:33` is that theorem's **negative control**.
+
+---
+
+## R40 batch-2a — NEEDS-RE-DERIVATION status note (2026-08-11)
+
+**Class:** status demotion under **R40**. This note mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-`,
+**moves no solidity number**, adjudicates no channel and opens no fork. Every byte of each demoted
+claim is preserved; the stamped line gains a status marker only (honesty-lag pattern, Rule 12).
+
+**The arc, in four clauses (R40's header form; clause 4 points at the LANDED artifact, not at a
+ruling record).**
+
+1. **The kill fired** — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the imported `K = 2G` elastic modulus** — the compressible far-field
+   branch was minted by a GR-imported modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the flat-direction finding: the written action
+   conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the LANDED ratified bound-sector law — Axiom 5, Substrate DC Bias**, clauses
+   **S** (deposit), **G** (bias coupling / bridge) and **Q** (quiescence), canonical at
+   [`eq_axiom_5.tex`](../../common_equations/eq_axiom_5.tex) with its register entry in
+   [`axiom-register.md`](../common/axiom-register.md) (§ *Axiom 5 — Substrate DC Bias*). Under
+   clause **G** the A1 / bulk slot is a **bound response** — $\mathbf{u}_0 =
+   -\mathcal{A}_g\nabla\varepsilon_{11}$, mechanism gloss **back-reaction** — with **no independent
+   propagating branch, no port and zero longitudinal characteristic speed**. A bulk *wave speed*, a
+   bulk *radiative port*, a bulk *band-branch* and a bulk *transit clock* therefore have **no
+   referent**, and each row below owes its re-derivation on that footing.
+   $\mathcal{A}_g$ (the **bias-coupling area**) is an `UNVALUED-RATIFIED-CONSTANT` per **R48**
+   ([`interlock-register.md`](../common/interlock-register.md), § *𝒜_g — the bias-coupling
+   area*): it is **not valued here or anywhere**, and **the calibration count stays 3**.
+
+**Standing named-open debt — the honesty rider.** The ratified axiom does **not** discharge
+everything. **THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt**, stated by the
+axiom's own phase-structure paragraph, clause **(c1)**: clause G's elliptic law is the *static
+abstraction of underived finite-speed bias dynamics*, and the $(u,\pi)$ no-signalling theorem does
+**not** cover the bias read — the bias's finite propagation speed is *owed, not held*. Every row
+tagged **⚑ BIAS-DEBT** below re-derives against the ratified axiom **with that debt standing**, never
+against a closed replacement.
+
+**Vocabulary.** Canonical nouns authored here: **the bound response** ($\mathbf{u}_0$), **the bias**
+($\varepsilon_{11}$), the **DC operating point / quiescent point (Q-point)**; **back-reaction** is
+the mechanism gloss. *"dress"*, *"grade"* as $\varepsilon_{11}$'s canonical noun, and *"halo"* for
+the physics (the physics noun is the **near-field store / added-mass**) are RETIRED by **R50**;
+*"retardation"* is retired by **R49(b)** in favour of **propagation delay / finite propagation
+speed**. Corpus text quoted below is byte-exact and is never reworded.
+
+**Rows carried in this file.**
+
+- **`:85`** — stamped at `:85`. *(family: nabla-u-propagates)*  ⚑ **BIAS-DEBT**
+  Quoted claim, byte-exact at HEAD:
+  ```text
+  the longitudinal ∇·u/∇·A split (∇·u propagates; ∇·A is gauge)
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  '∇·u propagates' is the phantom verbatim; the physical-vs-gauge distinction survives as physical-and-bound ≠ deleted — def-l0ngdu gloss owed re-derivation; duplicated at :86.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+**Records.** Ruling **R40** (the demotion sweep) · the banked worklist
+[`r40_sweep_worklist_verified.json`](../../../research/drivers/r40_sweep_worklist_verified.json) · batch-0
+scope verification and batch-1 execution records in `_orchestration/` · this batch's record
+`_orchestration/2026-08-12_r40-sweep-batch2a.md`.
+

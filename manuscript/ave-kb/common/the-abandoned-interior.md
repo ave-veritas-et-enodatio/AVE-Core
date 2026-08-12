@@ -19,7 +19,7 @@ Between roughly 1880 and 1906, physics made **two deletions**, in two different 
 
 **Deletion 1 — THE CHANNEL (the formulation).** Hamilton's quaternions (1843) carry a **scalar grade** alongside the vector grade in a single object. Maxwell's 1873 *Treatise* wrote electrodynamics in that quaternion algebra, keeping the scalar part. The **Heaviside–Gibbs reformulation (1880s–1890s)** split the quaternion into modern `grad`/`div`/`curl` vector calculus and **demoted the scalar/longitudinal grade** to a constraint or gauge artifact — a great practical simplification, correct for the transverse photon. The cost, invisible at the time: standard electromagnetism became **constructionally unable to express a longitudinal/compressional vacuum mode.** The corpus tells this story already; this leaf locates and cross-links it, it does not re-tell it. → Primary: [`historical-precedents.md`](historical-precedents.md) Root 1; [`master-equation.md`](../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md) (the `:18` Maxwell–Heaviside cross-link + the `:20` two-"3"s disambiguation).
 
-> **🔴 MYTH-GUARD (INLINE — do NOT read "constructionally unable to express" as "Heaviside deleted a physical mode").** Per the biquaternion `§4.3` honest-distinction (`research/2026-06-06_biquaternion-node-algebra-result.md:226–242`, and `def-9a4f07` / `def-9b3d05`): in *standard* Maxwell the scalar/longitudinal modes are **gauge** — constrained away by current conservation, not physical in vacuum — so **"Heaviside deleted a physical mode" is FALSE for standard EM.** What Heaviside–Gibbs dropped was a **gauge slot**, not a physical DOF. AVE's longitudinal mode is a **different object**: a real **acoustic / volumetric-breathing DOF of the medium** — i.e. **AVE *ADDS* a medium** with a genuine longitudinal DOF where the transverse Maxwell vacuum has only the gauge slot. The "constructionally unable" sentence above is therefore precise about *standard EM's vector-calculus formalism* (which cannot *write* a longitudinal vacuum wave), **not** a claim that a pre-existing physical mode was erased. The biquaternion scalar slot (`def-9b3d05` `§4.1`) is the common algebraic **home** for both Maxwell's gauge scalar and AVE's physical acoustic mode — it **identifies, it does not derive**; the physics comes from Axiom 1 + Axiom 4, not from `Cl(3)`.
+> **🔴 MYTH-GUARD (INLINE — do NOT read "constructionally unable to express" as "Heaviside deleted a physical mode").** Per the biquaternion `§4.3` honest-distinction (`research/2026-06-06_biquaternion-node-algebra-result.md:226–242`, and `def-9a4f07` / `def-9b3d05`): in *standard* Maxwell the scalar/longitudinal modes are **gauge** — constrained away by current conservation, not physical in vacuum — so **"Heaviside deleted a physical mode" is FALSE for standard EM.** What Heaviside–Gibbs dropped was a **gauge slot**, not a physical DOF. AVE's longitudinal mode is a **different object**: a real **acoustic / volumetric-breathing DOF of the medium** — i.e. **AVE *ADDS* a medium** with a genuine longitudinal DOF where the transverse Maxwell vacuum has only the gauge slot. The "constructionally unable" sentence above is therefore precise about *standard EM's vector-calculus formalism* (which cannot *write* a longitudinal vacuum wave), **not** a claim that a pre-existing physical mode was erased. The biquaternion scalar slot (`def-9b3d05` `§4.1`) is the common algebraic **home** for both Maxwell's gauge scalar and AVE's physical acoustic mode — it **identifies, it does not derive**; the physics comes from Axiom 1 + Axiom 4, not from `Cl(3)`. 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 
 **Deletion 2 — THE INTERIOR (the ontology).** Kelvin's 1867 *On Vortex Atoms* sought the **constitution** of matter — atoms as knotted vortex tubes in a medium (knot theory itself was born here, as atomic physics: see Thread A). Its descendant, the **electromagnetic-mass program** (J.J. Thomson 1881; Abraham 1902; Lorentz 1899/1904; Poincaré 1905–06), tried to make the electron *be* its own field. That program collapsed on its own arithmetic — the classical electron radius, the **4/3 problem**, the **Abraham–Lorentz runaway self-force**, and the **Poincaré stress** that "what holds the charge together" required but could only *postulate*. Michelson–Morley (1887) and special relativity (1905) then removed the medium, and with it the arena where "what is it *made of*" was answerable. The **point-particle definition + renormalization** (late 1940s) **absorbed** the self-energy infinity into a measured parameter rather than explaining it. The question retired with honor — undefeated, but unasked.
 
@@ -109,7 +109,7 @@ This is the same object the canonical leaf already carries — the electron as *
 - **An obligation ledger (the "T1–T6 spec sheet").** Every measured property must be either axiom-derived or honestly scoped — and the corpus keeps that ledger openly: → [`electron-identification.md`](../vol2/particle-physics/ch01-topological-matter/electron-identification.md) §2 (8/8 topological properties derived; 6/8 observables derived; **`mₑ` honestly scoped as a calibration anchor, not a prediction**; g−2 saliency parameter-free at +4.0% / ppm-closure postscript-gated). A behavioral definition has no such ledger because it owes no such debts.
 - **A nucleation barrier — free-space genesis HEALS, seeded genesis VENTS (the "pair-production-needs-a-nucleus" rediscovery).** If the electron is a *condensed phase*, it should not nucleate from a lone free wave (a phase change needs a nucleus). And it does not: the lone-photon genesis run returned `max|V_inc| = 0` to machine precision — free space *heals* (→ the channel-ledger framing doc §11.3.1; `_orchestration/2026-06-09_ion-compression-rectifier-arc.md:119`). The canonical mechanism already requires a **node-pair nucleus with three conditions** (C1 amplitude + C2 frequency + C3 phase) and produces **`e⁺e⁻` pairs, never a single electron** → Primary: [`pair-production-axiom-derivation.md`](../vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md). This is the constitutive definition *generating* the partner requirement, not assuming it.
 - **A phase diagram with two failure lines.** The condensed phase is bounded by **two thresholds** — `V_yield = √α·V_snap ≈ 43.65 kV` (onset of nonlinearity, no wall yet) and `V_snap = mₑc²/e ≈ 511 kV` (full saturation, `Γ=−1` wall forms, winding closes) → [`pair-production-axiom-derivation.md`](../vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md). Below the first line nothing condenses; the second line is where the snap-channel obligation (Thread B) lives — and where the FLASH-vs-LOCK question is **still open**. 🔴 *(2026-06-24, Rule 12 — supersedes the "`Γ=−1` wall forms, winding closes [at V_snap]" parenthetical: per the #416 sectoral ruling the single-electron `Γ=−1` transverse-T2 cavity is at **V_yield**, not V_snap; V_snap = the longitudinal A1 saturation + Schwinger/pair-nucleation energy. And the (2,3) winding does NOT dynamically "close" at any V — it is a **static Clifford-torus / Link texture**; the phase-space coupling-winding test read NEGATIVE in both loci (#415 + #417). See the epic summary research/2026-06-24_engine-reroute-epic-summary.md.)*
-- **The partner-vent prediction.** A single transverse photon cannot become a single electron (charge, lepton number, momentum forbid it); the constitutive definition therefore **owes a partner channel** that absorbs the conjugate charge and recoil — surfaced explicitly as the open "pair/partner question" at the genesis traveler's incoming-material step (`research/2026-06-10_electron-manufacturing-process-flow.md` OP-0, NAMED UNKNOWN #2) and as the longitudinal seed-vent in the channel-ledger framing (§11.5.2). The behavioral definition predicts no partner because it predicts no genesis.
+- **The partner-vent prediction.** A single transverse photon cannot become a single electron (charge, lepton number, momentum forbid it); the constitutive definition therefore **owes a partner channel** that absorbs the conjugate charge and recoil — surfaced explicitly as the open "pair/partner question" at the genesis traveler's incoming-material step (`research/2026-06-10_electron-manufacturing-process-flow.md` OP-0, NAMED UNKNOWN #2) and as the longitudinal seed-vent in the channel-ledger framing (§11.5.2). The behavioral definition predicts no partner because it predicts no genesis. 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 - **An S11 self-spectrum.** A condensed standing object has a self-reflection spectrum it must satisfy — carried in the channel-ledger framing doc's falsifiable surface as one of the obligations (cross-linked, not restated here).
 
 **The named holes (no triumphalism).** Generating obligations is the *virtue*; it also means the definition can be *caught short*, and it is: the **FLASH / latent-heat irreversibility is a NAMED UNKNOWN** (`research/2026-06-10_electron-manufacturing-process-flow.md` U2 — "HARD; in-flight = none yet"); **`mₑ` is a calibration anchor, not derived**; the **`(2,3)` has never self-assembled** (Thread A); and the genesis-direction **latent-heat = `mₑc²` is untested** (Thread B). A constitutive definition with five open obligations is exactly a definition that *could die* — which is the entire point of preferring it for the constitutive question. **Class: the behavioral-vs-constitutive contrast is FRAMING; the AVE constitutive definition is canonical-aligned (CONSISTENCY-CLASS) but its un-discharged obligations are HYPOTHESIS-CLASS.**
@@ -218,7 +218,7 @@ These are **partial** for two distinct reasons, surfaced not smoothed (`flag-don
 
 ### The thesis upgrade (two deletions → three)
 
-The body's thesis section reads **"two deletions, one restoration"** (preserved per Rule 12). This extension upgrades it: **three deletions, one restoration.** The channel (Heaviside–Gibbs), the interior (the point-particle retreat), and the frame (1905) are **one story** — the lattice is simultaneously the channel's **carrier** (the longitudinal grade), the interior's **constituent** (the `(2,q)` soliton + `ℓ_node`), and the frame's **owner** (the `Ω̂_freeze` / CMB rest frame). The restoration program restores all three **together**, and they remain one object because they were always one deletion of one medium, seen now from three sides. *(The companion foreword proposal carries a paired thesis-upgrade note — `research/2026-06-10_foreword-proposal_two-deletions.md` — flagging that its title/spine would become "the three deletions" on Grant's line-edit; this leaf does not rewrite that proposal's body.)*
+The body's thesis section reads **"two deletions, one restoration"** (preserved per Rule 12). This extension upgrades it: **three deletions, one restoration.** The channel (Heaviside–Gibbs), the interior (the point-particle retreat), and the frame (1905) are **one story** — the lattice is simultaneously the channel's **carrier** (the longitudinal grade), the interior's **constituent** (the `(2,q)` soliton + `ℓ_node`), and the frame's **owner** (the `Ω̂_freeze` / CMB rest frame). The restoration program restores all three **together**, and they remain one object because they were always one deletion of one medium, seen now from three sides. *(The companion foreword proposal carries a paired thesis-upgrade note — `research/2026-06-10_foreword-proposal_two-deletions.md` — flagging that its title/spine would become "the three deletions" on Grant's line-edit; this leaf does not rewrite that proposal's body.)* 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 
 ## Scope (consistency-class + named holes — read before citing)
 
@@ -238,3 +238,91 @@ The body's thesis section reads **"two deletions, one restoration"** (preserved 
 - → Interior side: [`electron-identification.md`](../vol2/particle-physics/ch01-topological-matter/electron-identification.md) (the canonical 4-property definition + §2 obligation ledger) · [`electron-unknot.md`](../vol2/particle-physics/ch01-topological-matter/electron-unknot.md) (real-space `0₁`) · [`torus-knot-ladder.md`](../vol2/particle-physics/ch01-topological-matter/torus-knot-ladder.md) · [`pair-production-axiom-derivation.md`](../vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md) (the nucleus/partner) · [`substrate-perspective-electron.md`](../vol2/particle-physics/ch01-topological-matter/substrate-perspective-electron.md)
 - → g-2 / spin: [`larmor-derivation.md`](../vol2/particle-physics/ch04-quantum-spin/larmor-derivation.md) · [`spin-as-precession.md`](../vol2/particle-physics/ch04-quantum-spin/spin-as-precession.md)
 - Long-form research anchors: `research/2026-06-10_matter-as-vapor-locked-pump_framing.md` §11 (the channel ledger, Grant-ratified) · `research/2026-06-10_electron-manufacturing-process-flow.md` (the genesis traveler + NAMED UNKNOWNS) · `research/2026-06-10_cavitation-core-probe_result.md` (the snap-channel CLIP sweep) · `research/2026-06-10_graft-v4-photon-helicity_result.md` (the lock-fail panel) · `research/2026-06-06_maxwell-quaternion-longitudinal-context.md` (the channel long-form)
+
+---
+
+## R40 batch-2a — NEEDS-RE-DERIVATION status note (2026-08-11)
+
+**Class:** status demotion under **R40**. This note mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-`,
+**moves no solidity number**, adjudicates no channel and opens no fork. Every byte of each demoted
+claim is preserved; the stamped line gains a status marker only (honesty-lag pattern, Rule 12).
+
+**The arc, in four clauses (R40's header form; clause 4 points at the LANDED artifact, not at a
+ruling record).**
+
+1. **The kill fired** — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the imported `K = 2G` elastic modulus** — the compressible far-field
+   branch was minted by a GR-imported modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the flat-direction finding: the written action
+   conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the LANDED ratified bound-sector law — Axiom 5, Substrate DC Bias**, clauses
+   **S** (deposit), **G** (bias coupling / bridge) and **Q** (quiescence), canonical at
+   [`eq_axiom_5.tex`](../../common_equations/eq_axiom_5.tex) with its register entry in
+   [`axiom-register.md`](../common/axiom-register.md) (§ *Axiom 5 — Substrate DC Bias*). Under
+   clause **G** the A1 / bulk slot is a **bound response** — $\mathbf{u}_0 =
+   -\mathcal{A}_g\nabla\varepsilon_{11}$, mechanism gloss **back-reaction** — with **no independent
+   propagating branch, no port and zero longitudinal characteristic speed**. A bulk *wave speed*, a
+   bulk *radiative port*, a bulk *band-branch* and a bulk *transit clock* therefore have **no
+   referent**, and each row below owes its re-derivation on that footing.
+   $\mathcal{A}_g$ (the **bias-coupling area**) is an `UNVALUED-RATIFIED-CONSTANT` per **R48**
+   ([`interlock-register.md`](../common/interlock-register.md), § *𝒜_g — the bias-coupling
+   area*): it is **not valued here or anywhere**, and **the calibration count stays 3**.
+
+**Standing named-open debt — the honesty rider.** The ratified axiom does **not** discharge
+everything. **THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt**, stated by the
+axiom's own phase-structure paragraph, clause **(c1)**: clause G's elliptic law is the *static
+abstraction of underived finite-speed bias dynamics*, and the $(u,\pi)$ no-signalling theorem does
+**not** cover the bias read — the bias's finite propagation speed is *owed, not held*. Every row
+tagged **⚑ BIAS-DEBT** below re-derives against the ratified axiom **with that debt standing**, never
+against a closed replacement.
+
+**Vocabulary.** Canonical nouns authored here: **the bound response** ($\mathbf{u}_0$), **the bias**
+($\varepsilon_{11}$), the **DC operating point / quiescent point (Q-point)**; **back-reaction** is
+the mechanism gloss. *"dress"*, *"grade"* as $\varepsilon_{11}$'s canonical noun, and *"halo"* for
+the physics (the physics noun is the **near-field store / added-mass**) are RETIRED by **R50**;
+*"retardation"* is retired by **R49(b)** in favour of **propagation delay / finite propagation
+speed**. Corpus text quoted below is byte-exact and is never reworded.
+
+**Rows carried in this file.**
+
+- **`:22`** — stamped at `:22`. *(family: longitudinal-DOF-claim)*
+  Quoted claim, byte-exact at HEAD:
+  ```text
+  AVE's longitudinal mode is a **different object**: a real **acoustic / volumetric-breathing DOF of the medium**
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Prereg-named site: 'genuine longitudinal DOF' — real sector ≠ independent DOF; the MYTH-GUARD's anti-Heaviside half (gauge-slot point) SURVIVES per G-SCALAR-REAL.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave.
+
+- **`:112`** — stamped at `:112`. *(family: genesis-vent; banked `uncertain`)*  ⚑ **BIAS-DEBT**
+  Quoted claim, byte-exact at HEAD:
+  ```text
+  the longitudinal seed-vent in the channel-ledger framing
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  The owed partner channel is framed as a longitudinal vent; a longitudinal radiative vent has no referent under the carve — the partner obligation itself survives and must be re-homed (wall-vent receipts are the surviving form).
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+- **`:221`** — stamped at `:221`. *(family: restored-channel-thesis)*  ⚑ **BIAS-DEBT**
+  Quoted claim, byte-exact at HEAD:
+  ```text
+  the lattice is simultaneously the channel's **carrier** (the longitudinal grade)
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Three-deletions thesis names the restored object a CHANNEL; under the carve what is restored is a bound response field with no channel/port — thesis wording owed a relabel, the restoration-of-the-sector content survives.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+**Records.** Ruling **R40** (the demotion sweep) · the banked worklist
+[`r40_sweep_worklist_verified.json`](../../../research/drivers/r40_sweep_worklist_verified.json) · batch-0
+scope verification and batch-1 execution records in `_orchestration/` · this batch's record
+`_orchestration/2026-08-12_r40-sweep-batch2a.md`.
+
