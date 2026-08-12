@@ -79,7 +79,7 @@ The scale gap is $\sim21$ orders of magnitude; the kernel is one ([universal-sat
 
 ## §5 — Rarefaction extreme: cavitation (the fourth object) — CANDIDATE
 
-Driven the other way ($\bar\rho<0$), the bulk softens and crosses zero at the **candidate cavitation floor** $\bar\rho_{cav}=(1-\sqrt5)/2=-1/\varphi\approx-0.618$ (`src/ave/core/cavitation_flow.py:26,64`). Below it $c_{bulk}^2<0$ — tensile failure, a substrate-density rarefaction pocket (the warp / propulsion object). This is the rarefaction counterpart to the compression $\Gamma=-1$ wall: same kernel, opposite sign. 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
+Driven the other way ($\bar\rho<0$), the bulk softens and crosses zero at the **candidate cavitation floor** $\bar\rho_{cav}=(1-\sqrt5)/2=-1/\varphi\approx-0.618$ (`src/ave/core/cavitation_flow.py:26,64`). Below it $c_{bulk}^2<0$ — tensile failure, a substrate-density rarefaction pocket (the warp / propulsion object). This is the rarefaction counterpart to the compression $\Gamma=-1$ wall: same kernel, opposite sign. 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]** *(cite excerpts, byte-exact at the cited lines — appended because the R40-B2a stamp modified this line and `verify-new-cite-excerpts` re-classifies its pre-existing cites as added: `ρ̄_cav = (1−√5)/2 = −1/φ ≈ −0.6180339887   (P`)*
 
 > **[Resultbox]** *Honest status — CANDIDATE / CONTESTED*
 >

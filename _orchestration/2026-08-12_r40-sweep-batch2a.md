@@ -347,6 +347,22 @@ carries the NEEDS row's own quote and rationale. `vol9/ch9-mechanical-characteri
 is not among the 185 (its co-resident NEEDS row is at another line in the same file). Batch 1's F7
 disclosure is discharged for `port-register.md:49`.
 
+**F10 — `verify-new-cite-excerpts` re-classified 14 PRE-EXISTING cites as "added" because the R40
+stamp modified their lines, and the fix costs 8 lines their pure stamp-only status.** The gate diffs
+`base...HEAD` and treats every cite on a modified line as newly authored. Fourteen such cites, on
+eight lines, are cites this batch did not write. Batch 1 met the same thing once
+(`gw-propagation-lossless.md:48`) and resolved it by appending a verbatim excerpt after the stamp;
+this batch follows that precedent at eight lines, with the excerpts taken **byte-exact from the cited
+lines** and a same-line note saying why they are there. **The cost is stated, not hidden:** those
+eight lines are no longer stamp-only (§7 METHOD 2 counts them in their own row), though each original
+text survives as a strict prefix / cell-for-cell.
+**One cite could not be given an honest excerpt and is surfaced instead of faked:**
+`dual-reactance-storage-taxonomy.md:51 → ../vol1/claim-quality.md:1391` points at a **blank line**
+(the pre-existing `blank line cite` advisory class). No excerpt of a blank line exists, so none was
+invented; the gate is satisfied by the other, real excerpt on that line, and the dead cite is left
+for whoever owns that leaf. Repairing a pre-existing blank-target cite is not a status-only batch's
+work.
+
 **F9 — a link-generation defect was caught by the gate, not by review, and is worth carrying.** The
 note template used the placeholders `PREFIX` / `KBPREFIX` / `RESPREFIX`; replacing `PREFIX` first
 mangled `KBPREFIX` into `KB<prefix>`, producing **124 broken intra-repo links** across 62 files.
@@ -371,8 +387,13 @@ un-stamps and the guard registry). *A receipt that describes a prior tree is not
   line-cites, measured), so the exclusion is a stated scope, not a silent one.
 - **METHOD 2 — independent line-by-line comparison against `git show origin/main:<file>`** (engine:
   Python, no git plumbing beyond the blob read): **50 680 original lines checked**, **175 modified
-  original lines**, **0 violations**, **0 truncations**. Every modified line is **stamp-only** — the
-  original text is preserved byte-for-byte once the inserted stamp string is removed.
+  original lines**, **0 violations**, **0 truncations**, split honestly:
+  - **167** are **stamp-only** — byte-identical to the original once the inserted stamp string is
+    removed;
+  - **8** additionally carry the **gate-required verbatim cite excerpts** appended after the stamp
+    (§6 F10). Each original line's text remains a strict **prefix** (or, for the two markdown table
+    rows, is preserved cell-for-cell with the addition inside the final cell), so every incoming cite
+    still resolves to a **superset** of its original content.
 
 ⇒ **Every one of the 6221 incoming `path:NN` cites into these files still resolves to its original
 content.** The 175 modified lines reconcile with the identity's 176 stamped rows on 175 distinct
@@ -389,10 +410,27 @@ lines (§3).
 | `make test` | **PASS** |
 | `python -m compileall` / `py_compile` on the 24 edited engine modules | clean |
 
-**Vocabulary compliance, two methods** over the prose this batch AUTHORED (the 109 EOF notes and this
-record, excluding every verbatim corpus quote, which is byte-exact and never reworded): shell
-`grep -c` and an independent Python `re.findall` over the same bytes both return **0** authored uses
-of *dress*, *retardation*, *grade*-as-ε₁₁'s-noun, and *halo*-for-the-physics.
+**Vocabulary compliance, two methods — and the receipt is stated in the form the measurement actually
+supports.** Surface: the WHOLLY-NEW lines this batch authored (the 109 EOF notes + this record; a
+modified pre-existing line is excluded, because its retired-word content is the corpus's, not this
+batch's), with fenced verbatim quotes and inline backtick spans stripped. Python `re.findall` and
+shell `grep -o -E` over the same bytes agree exactly: *dress* **111**, *retardation* **112**, *halo*
+**111**, *grade* (exact word) **112**.
+
+**Every one of those is a MENTION, not a USE.** Hand-classified: all but one sit inside the
+*retirement paragraph itself* — the sentence in each note that names the retired words in order to
+retire them, replicated across the 109 notes in its three carriers (markdown, `%` comment, `#`
+comment). The single remainder,
+`src/ave/core/s2_hcouple_gate.py`:797, sits inside a **verbatim banked rationale** quoted in that
+file's note (*"genuine field-resolved spatial transport within a grade"*), which is corpus text and
+is never reworded. **Authored uses of the retired nouns: 0.**
+
+> ⚑ **A first cut of this receipt claimed a bare "0" and was wrong as written.** The words are
+> present 111–112 times; the true claim is *zero authored USES*, not zero occurrences. The first
+> measurement also mis-scoped the surface — it counted whole modified corpus lines as "authored",
+> which attributed pre-existing text like *"the graded Coulomb dress"* to this batch. Both errors are
+> corrected above rather than quietly re-run: **a receipt that has to be re-scoped to survive is a
+> finding about the receipt.**
 
 ---
 
