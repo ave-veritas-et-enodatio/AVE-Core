@@ -12,6 +12,9 @@ classification per the brief's own fence — see §2.)*
 **Class:** records / read-only adjudication. **Verify-not-derive.** No repair, no new coupling, no
 edit to any KB leaf, register, ruling, axiom file, or manuscript file. **Mints nothing.**
 **Base:** `origin/main` @ `a23a044b`.
+⚑ **MERGE ORDER — #957 must land before or with this PR.** This document's R51 path and its
+*"DEFINITE, not under adjudication"* stamp both resolve through `analysis/dof-vs-port-ontology`;
+merging this first leaves both hanging on an unmerged branch.
 
 > **⚑ HEADLINE** *(amended 2026-08-11 after the independent §1–§8 review — verdict SURVIVES and is
 > STRENGTHENED; see §2 site 15 and §4.1).* The linearity is **LICENSED at every GR-exact observable,
@@ -19,6 +22,22 @@ edit to any KB leaf, register, ruling, axiom file, or manuscript file. **Mints n
 > (channel strain)`**, the fractions being the canonical `1/7` (clock) · `2/7` (transverse) · `9/7`
 > (matter-wave), applied to the solution of a **linear** elliptic equation with a **constant**
 > modulus. The Ax4 kernel appears **nowhere** in that chain. The kernel's licensed role is separate
+> *(⚑ **#957 (2026-08-12) — the two sevens are DIFFERENT OBJECTS; this one is K-CONDITIONAL.**
+> The **per-cell kinematic inventory** seven stands independently
+> (`vol9/ch3-pin-port-configuration/index.md`:17 — 3 **u** + 3 **ω** + 1 **A₁** breathing). The
+> **ν-denominator** seven does **not**: **`ν = (3K−2G)/(2(3K+G))` equals `2/7` only at `K = 2G`.**
+> Read as C3's `d/n` with `n = (3K+G)/G`, **both** halves slide and neither stays integral —
+> `(n, d)` = `(4, ½)` · `(7, 2)` · `(8, 5/2)` · `(10, 7/2)` for `K` = `G` · `2G` · `7G/3` · `3G`.
+> **A count cannot be ½.** ⚑ *Reconciles with #957 §11:* that record quotes the **reduced**
+> fraction at `K=G` (`ν = 1/8` → *"1 transverse polarisation, 8 modes"*); this quotes the
+> **unreduced** split (`n = 4`, `d = ½`). Same `ν`, two presentations — `(3K+G)/G` coincides with
+> the reduced denominator **only at `K = 2G`**, which is why the earlier `4 · 7 · 8 · 10`
+> tabulation was mislabelled a denominator series and is withdrawn. **Attribution:** the
+> two-sevens carve is **#957's D3 + closure §11**, *not* R51 — R51 contains no occurrence of
+> *seven* / *Poisson* / *denominator* / `2/7` / `ν`. R51 supplies **only** the `K = 2G` identity
+> re-frame that makes the denominator conditional, and is itself **Grant-ratified but WALK-LEVEL**
+> (its own preamble: *"the algebra herein is chat-walk grade, un-audited; the carve ships with its
+> own kill-checks (§5)"*), `_orchestration/docket-entries/2026-08-12-ruling-r51-a1-two-objects-carve.md`.)*
 > and second-order: it grades the *modulus*, and canon states the split in its own words at
 > `white-dwarf-gravitational-predictions.md`:44–54 (*"For Standard General Relativity, S = 1"*).
 > **So the two "laws" are not competitors for one observable — they are two roles, and `√S` is a
@@ -27,12 +46,6 @@ edit to any KB leaf, register, ruling, axiom file, or manuscript file. **Mints n
 > **That verdict holds for lensing, Shapiro, perihelion, and the static force chain. It does NOT
 > hold for the local clock.** The clock is a genuine **STUCK-POINT** (§7): canon carries **FOUR**
 > mutually exclusive clocks — the fourth found by the review at site 15 — **two Grant rulings** ride
-> *(⚑ **#957 / R51, 2026-08-12 — DEFINITE, not under adjudication.** #957 returned **ONTOLOGY-DEAD**.
-> Two sevens, different objects: the **per-cell kinematic inventory** seven stands independently
-> (`vol9/ch3-pin-port-configuration/index.md`:17 — 3 **u** + 3 **ω** + 1 **A₁** breathing); the
-> **ν-denominator** seven does not — `(3K+G)/G` = 4 · **7** · 8 · 10 for `K` = `G` · `2G` · `7G/3` ·
-> `3G`, so `mode-counting-heat-capacity.md`:14's "7" is **K-conditional**. Carve ratified at R51,
-> `_orchestration/docket-entries/2026-08-12-ruling-r51-a1-two-objects-carve.md`.)*
 > on the one the merged #951 lemma weak-field-falsifies, and the channel discipline canon used to
 > resolve the adjacent two-radii item points *at* that same falsified one. Corpus license cannot
 > settle it. **No winner is picked here.**
@@ -247,7 +260,7 @@ file.**
 Nine of the ten licensed sites in §3.1 (+ site 15) are **the same structure wearing different channel
 labels**:
 
-> ⚑ **#957 / R51 (2026-08-12) — the two sevens are DIFFERENT OBJECTS.** The **per-cell KINEMATIC INVENTORY** seven stands on independent footing (`vol9/ch3-pin-port-configuration/index.md`:17 — 3 translational **u** + 3 microrotational **ω** + 1 volumetric **A₁** breathing). The **ν-DENOMINATOR** seven does **not**: it is a sliding coefficient — `(3K+G)/G` = 4 · **7** · 8 · 10 for `K` = `G` · `2G` · `7G/3` · `3G` (independently re-derived at the adjudication) — so the "7" at `mode-counting-heat-capacity.md`:14 is **K-conditional**. #957 returned **ONTOLOGY-DEAD**; carve ratified at R51, `_orchestration/docket-entries/2026-08-12-ruling-r51-a1-two-objects-carve.md`.
+> ⚑ **#957 (2026-08-12) — the two sevens are DIFFERENT OBJECTS.** The **per-cell KINEMATIC INVENTORY** seven stands on independent footing (`vol9/ch3-pin-port-configuration/index.md`:17 — 3 translational **u** + 3 microrotational **ω** + 1 volumetric **A₁** breathing). The **ν-DENOMINATOR** seven does **not**: **`ν = (3K−2G)/(2(3K+G))` equals `2/7` only at `K = 2G`.** Read as `d/n` with `n = (3K+G)/G`, **both** halves slide and neither stays integral — `(n, d)` = `(4, ½)` · `(7, 2)` · `(8, 5/2)` · `(10, 7/2)` for `K` = `G` · `2G` · `7G/3` · `3G`; **a count cannot be ½**. So the "7" at `mode-counting-heat-capacity.md`:14 is **K-conditional**. #957 returned **ONTOLOGY-DEAD**. **Attribution:** the two-sevens carve is **#957's D3 + closure §11**, *not* R51 (which contains no occurrence of *seven* / *Poisson* / *denominator* / `2/7` / `ν`); R51 supplies **only** the `K = 2G` identity re-frame, and is **Grant-ratified but WALK-LEVEL, kill-checks live** — `_orchestration/docket-entries/2026-08-12-ruling-r51-a1-two-objects-carve.md`. See the headline pointer for the #957 §11 reduced-vs-unreduced reconciliation.
 >
 > **`observable − 1 = (channel MODE-COUNT fraction) × (channel strain)`, with the strain the solution
 > of a LINEAR elliptic equation of CONSTANT modulus.**
@@ -259,8 +272,9 @@ labels**:
 > (`1/7` clock, `2/7` transverse index, `9/7` matter-wave) — the unification is at the FIELD level,
 > **not** at the coefficient level"*
 
-⚑ **These three fractions are the ν-denominator seven, which #957/R51 rule K-conditional — see the
-pointer above. They are NOT the per-cell kinematic inventory.**
+⚑ **These three fractions are the ν-denominator seven, which #957 rules K-conditional (`ν = 2/7`
+only at `K = 2G`) — see the headline pointer. They are NOT the per-cell kinematic inventory, which
+stands independently at `vol9/ch3-pin-port-configuration/index.md`:17.**
 
 | fraction | channel | site |
 |---|---|---|
@@ -566,6 +580,12 @@ Everything else in this map follows from the answer, and nothing in the corpus a
 | **6** | The §7 clock question | **Grant** | This report. |
 | **7** | `verify-frozen-provenance.py`:210–214 — a `Prereg-file:` path beginning with `_` **silently fails to resolve** when backtick- or emphasis-wrapped | **gate defect** (hit live by this lane) | tooling. The optional emphasis group `(?:[*_\`]{1,3})?` is greedy over `{*, _, \`}`, so `` `_orchestration/…` `` is captured as `orchestration/…`, which resolves nowhere — and the doc is then reported as *"carries Frozen label(s) but no prereg resolves"*, i.e. **the wrong diagnosis**. Every brief under `_orchestration/` is affected. Worked around here with the link form; **not fixed** (out of lane scope). |
 | **8** ⚑ | `anomalous-perihelion-advance.md`:20's 2026-05-17 note calls the perihelion result **"CLOSED, substrate-native"** — which **contradicts site 6's own warningbox** (`14_macroscopic_orbital_mechanics.tex`:70–72: *"adopted as a static potential … a consistency-class re-statement (AVE = GR …), not an independent AVE derivation"*). Two live sites, opposite provenance classes, same result | **FLAG, DO NOT FIX** (§1–§8 review instruction) | **Already surfaced to Grant; not this lane's to resolve.** Recorded here only so the contradiction is not re-discovered. **No edit, no verdict, no propagation.** |
+| **9** ⚑ | **ONE GAP AT THREE SITES — route as a single question, do not adjudicate.** The
+six-count originates at **Axiom 1** (`eq_axiom_1.tex`:37, bulleted at `manuscript/ave-kb/CLAUDE.md`:70)
+and recurs at `07_saturation_characteristics.tex`:45 and `06_temperature_characteristics.tex`:29.
+#957's item (f) (the A₁ breathing mode omitted from the six-count), #957's G1 re-frame (Axiom 1
+does not point at Axiom 5, which names the gap), and #957's D1 (the dead `CLAUDE.md`:55 pointer,
+second instance at `06_temperature`:29) are **the same gap wearing three labels** | **Grant — one ruling** | Cross-linked 2026-08-12 so it is ruled once, not three times. **No adjudication here.** |
 
 **Explicitly NOT done by this lane:** no leaf/axiom/register/ruling/manuscript edit; no solidity
 moved; no claim-id minted; no `A₀` derived or estimated; no winner picked on §7; no re-litigation of
