@@ -32,11 +32,19 @@
 > carve ships with its own kill-checks (§5) and its first test is the derivation lane it launches"*
 > (see also R51 §5(ii)–(iii)). **The standing frame is standing, not settled.**
 >
-> **What this means for Grant's 3+3+1.** It **stands** — `vol9/ch3-pin-port-configuration/index.md`:17
-> counts *"seven per-cell kinematic modes — 3 translational **u** … 3 microrotational **ω** … 1
-> volumetric **A₁** breathing."* The lane's category error was the reverse of the one it alleged:
-> **it demoted a real coordinate to a port.** See §9 for the per-row verdicts and §10–§12 for what
-> survives.
+> **What this means for Grant's 3+3+1.** ⚑ **Corrected 2026-08-12 — this header previously read
+> "It stands." That asserted one side of a LIVE tension as settled and is withdrawn.** What is
+> established is narrower and sufficient: **M1's specific claim — that the volumetric coordinate is
+> not a state variable — is dead**, because the engine integrates it with its own IC and momentum.
+> The seven-count itself is **separately counted** at `vol9/ch3-pin-port-configuration/index.md`:17
+> (*"seven per-cell kinematic modes — 3 translational **u** … 3 microrotational **ω** … 1 volumetric
+> **A₁** breathing"*) and is **NOT ruled here** — it is under live tension with **#761**
+> (`research/2026-07-20_mechanical-commonmode-derivation_result.md`:46, adopted **verbatim** at
+> `vocabulary-register.md`:594): *"It is **NOT a separate scalar DOF**; it is a projection of the
+> same 3-vector `u`."* **If #761's reading holds, the seven-count double-counts — and that is
+> GRANT'S to rule, not this record's.** What is certain either way: **the lane's category error was
+> the reverse of the one it alleged — it demoted a coordinate the engine actually integrates.**
+> See §9 for the per-row verdicts and §10–§12 for what survives.
 
 **Class:** records / **chat-walk transcript, ⚑ UN-AUDITED — now ADJUDICATED, see header.** No corpus
 file is edited. Nothing is minted, no solidity moves, no axiom is amended. **This document exists to
@@ -298,13 +306,18 @@ seventh kinematic mode. **That is the live question — an omission, not a contr
 Grant's.** *(Reported this way per the frozen-criteria-travel-verbatim discipline: a paraphrase that
 becomes the pivot is the failure mode this lane has already been bitten by.)*
 
-**⚑ (f), (g) and D1 ARE ONE GAP AT THREE SITES — routed as a single question, not adjudicated.**
-The six-count originates at **Axiom 1** (`eq_axiom_1.tex`:37, bulleted at
-`manuscript/ave-kb/CLAUDE.md`:70) and recurs at `07_saturation_characteristics.tex`:45 and
-`06_temperature_characteristics.tex`:29. **(f)** is the A₁ breathing mode omitted from that count;
-**(g)** is Axiom 1 not pointing at Axiom 5, which names the gap; **D1** is the dead `CLAUDE.md`:55
-pointer that two of those sites share. **One ruling from Grant settles all three.** Mirrored at
-#955 §8 row 9. **No adjudication here.**
+**⚑ (f), (g), D1 AND #761 ARE ONE QUESTION AT ~50 SITES — routed as one, not adjudicated.**
+*(Rescoped 2026-08-12; this previously read "three sites".)* The corpus counts the per-node
+inventory **both ways, in bulk** — roughly **17 sites count seven** and **35+ count six** (relay's
+figures; this lane's own file-level sweep gave **31 / 19** on different patterns). ⚑ **Neither figure
+is published here as precise — the disagreement is the point: this needs a real sweep, not an
+estimate.** ★ `src/tests/engine_acceptance/test_facade_p0_validate_on_known.py`:118 carries **both at
+once**: `# 6 DOF/node: u (3) + omega (3) + the A1 node-field scalar (+1)` — labels six, enumerates
+seven. The four labels on one question: **(f)** the A₁ breathing mode omitted from the six-count;
+**(g)** Axiom 1 not pointing at Axiom 5, which names the gap; **D1** the dead `CLAUDE.md`:55 pointer
+two sites share; and **#761**'s *"NOT a separate scalar DOF"*, which if it holds makes the
+seven-count a double-count. **One ruling from Grant settles all four.** Mirrored at #955 §8 row 9.
+**No adjudication here.**
 
 **(g) G1 — RE-FRAMED before it goes to Grant.** Axiom 1's silence on the scalar channel is real, **but
 the axiom SET is not silent.** `manuscript/common_equations/eq_axiom_5.tex`'s preamble names exactly
