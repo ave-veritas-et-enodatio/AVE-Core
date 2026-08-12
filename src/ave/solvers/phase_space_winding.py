@@ -764,7 +764,7 @@ if __name__ == "__main__":
 # ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
 #
 #   :39  family: A1-dispersal  [banked uncertain]  [BIAS-DEBT]
-#        QUOTE (byte-exact at HEAD): toroidal φ(t) = arg( Σ_x a_A1(x,t) ) — the A1 (mass-sector) global
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): toroidal φ(t) = arg( Σ_x a_A1(x,t) ) — the A1 (mass-sector) global
 #        phase
 #       STAMPED AT: :39
 #        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): The orbit read (and the

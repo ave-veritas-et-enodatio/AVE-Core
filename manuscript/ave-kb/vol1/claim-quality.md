@@ -1935,7 +1935,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:20`** — stamped at `:20`. *(family: electron-interior-label)*  ⚑ **BIAS-DEBT** · ⚑ **PAST-WALL**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   at the saturated boundary $Z \to 0, \Gamma \to -1$, internal acoustic energy is fully reflected inward as a standing wave (= rest mass)
   ```
@@ -1947,7 +1947,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
   **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*. **⚑ PAST-WALL:** the content reaches past the saturation wall, a phase Axiom 5 explicitly does **not** write (its phase-structure paragraph puts the $D(A)\to\infty$ wall behaviour past-wall-adjacent and *not written here*, with the de-bonded and pre-freeze phase forms named-open). The demotion is therefore **scoped**: clause G resolves the cold, sub-yield side; the past-wall reading is neither discharged nor adjudicated here.
 
 - **`:445`** — stamped at `:445`. *(family: register-row)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   G_vac/ρ_bulk for the √2 c = √(K/ρ) bulk-modulus (dilatational) compression speed
   ```
@@ -1959,7 +1959,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
   **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
 
 - **`:447`** — stamped at `:447`. *(family: register-row)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   The canonical LONGITUDINAL P-WAVE speed is c_L = √((K+4G/3)/ρ) = √(10/3) c ≈ 1.83c at K=2G
   ```
@@ -1971,7 +1971,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
   **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
 
 - **`:674`** — stamped at `:674`. *(family: K-stability-argument)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   the transverse-only (zero-longitudinal) condition $\lambda + 2\mu = 0$ yields $K = -4\mu/3 < 0$ — runaway implosion.
   ```
@@ -1983,7 +1983,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
   **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
 
 - **`:1255`** — stamped at `:1255`. *(family: register-row)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   $A_1$ propagates at $c\sqrt{2}$ (bulk modulus), $T_2$ at $c$ (shear modulus).
   ```
@@ -1995,7 +1995,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
   **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
 
 - **`:1284`** — stamped at `:1284`. *(family: gauss-A1-transduction)*
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   longitudinal components ($\nabla \cdot \mathbf{E} \neq 0$) are forbidden in vacuum by Gauss's law, so any $A_1$-type excitation must dissipate.
   ```
@@ -2007,7 +2007,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
   **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave.
 
 - **`:1307`** — stamped at `:1307`. *(family: gauss-A1-transduction)*
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   the $A_1$ longitudinal sector dissipates via Gauss's law, and the surviving $T_2$ transverse triplet ... is the photon
   ```
@@ -2019,7 +2019,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
   **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave.
 
 - **`:1339`** — stamped at `:1339`. *(family: electron-interior-label)*  ⚑ **PAST-WALL**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   the electron **end-state** = the *longitudinal bulk* mode
   ```

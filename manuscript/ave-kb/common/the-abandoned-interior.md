@@ -286,7 +286,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:22`** — stamped at `:22`. *(family: longitudinal-DOF-claim)*
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   AVE's longitudinal mode is a **different object**: a real **acoustic / volumetric-breathing DOF of the medium**
   ```
@@ -298,7 +298,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
   **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave.
 
 - **`:112`** — stamped at `:112`. *(family: genesis-vent; banked `uncertain`)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   the longitudinal seed-vent in the channel-ledger framing
   ```
@@ -310,7 +310,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
   **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
 
 - **`:221`** — stamped at `:221`. *(family: restored-channel-thesis)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   the lattice is simultaneously the channel's **carrier** (the longitudinal grade)
   ```

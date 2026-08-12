@@ -188,7 +188,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:53`** — stamped at `:53`. *(family: pair-production c_local)*  ⚑ **BIAS-DEBT** · ⚑ **PAST-WALL**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   the local longitudinal phase velocity ($c_{\text{local}}$) crashes mathematically to zero. The linear propagation is abruptly paralyzed.
   ```

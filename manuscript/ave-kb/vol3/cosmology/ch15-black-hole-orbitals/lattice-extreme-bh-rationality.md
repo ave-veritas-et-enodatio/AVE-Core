@@ -170,7 +170,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:82`** — stamped at `:82`. *(family: K-backed stability argument)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   Below it c_bulk²<0 — tensile failure, a substrate-density rarefaction pocket (the warp / propulsion object).
   ```

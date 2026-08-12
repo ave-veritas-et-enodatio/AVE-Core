@@ -126,7 +126,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:70`** — stamped at `:70`. *(family: FLAG-A-speed-split)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   the **FLAG-A** channel-3 speed split ($\sqrt2\,c$ PORT/impedance mode vs $\sqrt{10/3}\,c$ radiative P-wave) as a column
   ```

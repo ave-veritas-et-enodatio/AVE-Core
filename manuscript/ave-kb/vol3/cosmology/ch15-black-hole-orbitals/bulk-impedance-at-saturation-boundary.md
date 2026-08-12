@@ -143,7 +143,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:24`** — stamped at `:24`. *(family: Z_bulk = ρc_bulk formula)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   and c_bulk the bulk dilatational speed (canonical three-speed split: c_bulk freezes at the cavitation floor; at dielectric rupture c_bulk → 0)
   ```

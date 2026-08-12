@@ -82,7 +82,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:28`** — stamped at `:28`. *(family: register-row)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   Longitudinal (P) Wave | $c_L = \sqrt{(K_{vac}+\tfrac{4}{3}G_{vac})/\rho_{bulk}} = \sqrt{10/3}\,c \approx 1.83c$ at $K=2G$
   ```

@@ -208,7 +208,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:123`** — stamped at `:123`. *(family: Z_bulk=ρc_bulk formula)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   Z_bulk=ρ_bulk c_bulk=√2 ρ_bulk c_0 at K=2G (Γ_bulk→-1) — the MASS-"3" channel (A1 dilatation)
   ```

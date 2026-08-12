@@ -771,7 +771,7 @@ if __name__ == "__main__":
 # ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
 #
 #   :141  family: A1 breather/dispersion  [BIAS-DEBT | PAST-WALL]
-#        QUOTE (byte-exact at HEAD): the A1 BULK-DILATATION breather analytic signal at node n (q +
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): the A1 BULK-DILATATION breather analytic signal at node n (q +
 #        i·p/ω; |a_A1|² = trapped bulk = MASS
 #       STAMPED AT: :141
 #        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): Gives the A1 slot its
@@ -790,7 +790,7 @@ if __name__ == "__main__":
 #        nor adjudicated.
 #
 #   :162  family: A1 breather/dispersion  [BIAS-DEBT]
-#        QUOTE (byte-exact at HEAD): H[2n, 2(n±1)] = hop_b (A1 disperses among nodes)
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): H[2n, 2(n±1)] = hop_b (A1 disperses among nodes)
 #       STAMPED AT: :162
 #        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): An independent A1
 #        inter-node transport/dispersion branch (':166 genuine field-resolved spatial transport within a

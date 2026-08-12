@@ -543,7 +543,7 @@ if __name__ == "__main__":
 # ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
 #
 #   :72  family: longitudinal-TLM-port  [banked uncertain]  [BIAS-DEBT]
-#        QUOTE (byte-exact at HEAD): the scatter lives in n-PORT amplitude space = the (V_inc,V_ref)
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): the scatter lives in n-PORT amplitude space = the (V_inc,V_ref)
 #        phasor coordinates
 #       STAMPED AT: :72
 #        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): The junction S-matrix

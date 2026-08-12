@@ -347,7 +347,7 @@ def ideal_circulator_s_matrix() -> np.ndarray:
 # ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
 #
 #   :127  family: scalar/compression passband  [banked uncertain]  [BIAS-DEBT]
-#        QUOTE (byte-exact at HEAD): the other (z-1) arms radiate power away, so the 1-port is NOT
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): the other (z-1) arms radiate power away, so the 1-port is NOT
 #        lossless
 #       STAMPED AT: :127
 #        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): X38's

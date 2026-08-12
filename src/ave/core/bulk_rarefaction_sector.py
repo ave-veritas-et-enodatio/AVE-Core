@@ -401,7 +401,7 @@ class BulkRarefactionSector:
 # ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
 #
 #   :55  family: Z_bulk=rho*c formula  [BIAS-DEBT]
-#        QUOTE (byte-exact at HEAD): Live bulk Smith read: Γ_bulk = (Z_bulk − Z_ref)/(Z_bulk + Z_ref).
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): Live bulk Smith read: Γ_bulk = (Z_bulk − Z_ref)/(Z_bulk + Z_ref).
 #        Z_bulk = ρ_bulk c_bulk with ρ_bulk = 1 + ρ̄; Z_ref = √2 ρ_bulk c₀
 #       STAMPED AT: :55
 #        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): Smith/reflection READ

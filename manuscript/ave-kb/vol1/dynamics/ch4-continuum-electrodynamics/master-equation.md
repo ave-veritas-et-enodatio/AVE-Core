@@ -163,7 +163,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:20`** — **NOT STAMPED — R39 BYTE-FENCE ROUTED** (the anchor sits inside a Rule-12 preserved body — `:40` declares *"all notes above PRESERVED unedited"* and `:36` *"bullets above PRESERVED unedited"*, so this dated note is itself fenced; this entry IS the routed ledger note and the span is byte-untouched). *(family: electron-interior-label)*  ⚑ **BIAS-DEBT** · ⚑ **PAST-WALL**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   the A1 breather; `mₑc²` = trapped acoustic compression energy
   ```
@@ -175,7 +175,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
   **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*. **⚑ PAST-WALL:** the content reaches past the saturation wall, a phase Axiom 5 explicitly does **not** write (its phase-structure paragraph puts the $D(A)\to\infty$ wall behaviour past-wall-adjacent and *not written here*, with the de-bonded and pre-freeze phase forms named-open). The demotion is therefore **scoped**: clause G resolves the cold, sub-yield side; the past-wall reading is neither discharged nor adjudicated here.
 
 - **`:26`** — **NOT STAMPED — R39 BYTE-FENCE ROUTED** (the anchor sits inside a Rule-12 preserved body — `:40` declares *"all notes above PRESERVED unedited"* and `:36` *"bullets above PRESERVED unedited"*, so this dated note is itself fenced; this entry IS the routed ledger note and the span is byte-untouched). *(family: P-branch-propagates)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   θ carries a genuine bulk restoring force (½K(∇·u)², K = 2G) on the gapless lattice-computed P-branch ... **∇·u propagates; ∇·A is gauge.**
   ```

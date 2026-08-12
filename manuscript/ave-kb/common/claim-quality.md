@@ -1801,7 +1801,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:561`** — stamped at `:561`. *(family: G-projection-label; banked `uncertain`)*
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   Verify the longitudinal-acoustic G projection inherits the Kirkwood-Frohlich angular factor cleanly
   ```
@@ -1813,7 +1813,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
   **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave.
 
 - **`:1530`** — stamped at `:1530`. *(family: Fork-rho-C-load)*
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   is trapped-energy mass acoustic inertia, or gravitating-only?
   ```
@@ -1825,7 +1825,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
   **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave.
 
 - **`:1625`** — stamped at `:1625`. *(family: band-branch-P-wave)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   $v^2=G/\rho\equiv c_{EM}^2$ (×4, the photon) and $10G/(3\rho)$ (×2, P-wave)
   ```

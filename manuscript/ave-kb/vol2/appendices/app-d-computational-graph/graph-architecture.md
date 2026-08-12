@@ -112,7 +112,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:34`** — stamped at `:34`. *(family: K-backed stability)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   without the chiral couple-stress the effective bulk modulus is not held positive, so the longitudinal modulus collapses through its instability threshold ($M = K + \frac{4}{3}G = 0$)
   ```

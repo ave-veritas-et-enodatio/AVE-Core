@@ -509,7 +509,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:59`** — stamped at `:59`. *(family: Z_bulk=ρc_bulk formula)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   rows are mechanical (Z_bulk, Z_shear — ρ×speed, Pa·s/m)
   ```

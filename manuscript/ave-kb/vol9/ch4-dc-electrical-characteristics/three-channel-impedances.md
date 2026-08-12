@@ -94,7 +94,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:22`** — stamped at `:22`. *(family: Z_bulk=ρc_bulk formula)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   Bulk-longitudinal | Z_bulk = ρ_bulk c_bulk | √2 ρ_bulk c_0 | Γ_bulk→-1
   ```

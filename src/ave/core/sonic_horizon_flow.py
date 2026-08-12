@@ -315,7 +315,7 @@ class SonicHorizonFlow2D(CavitationFlow2D):
 # ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
 #
 #   :22  family: Z_bulk=rho*c formula  [BIAS-DEBT]
-#        QUOTE (byte-exact at HEAD): A `c=0` void is automatically a `Z_bulk=ρ·c→0` pressure-release
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): A `c=0` void is automatically a `Z_bulk=ρ·c→0` pressure-release
 #        reflector (Γ→−1, the YM `Z_knot→0` mechanism, bulk channel)
 #       STAMPED AT: :22
 #        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): Reflection ROLE is the

@@ -2179,7 +2179,7 @@ def ionization_energy_e2k(Z, f_val=1.0):
 # ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
 #
 #   :1723  family: compressional-chain  [banked uncertain]  [BIAS-DEBT]
-#        QUOTE (byte-exact at HEAD): All l=0 solitons share the 2 compressional compliance modes of the
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): All l=0 solitons share the 2 compressional compliance modes of the
 #        K4 lattice
 #       STAMPED AT: :1723
 #        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): The Phase-A½ s-block

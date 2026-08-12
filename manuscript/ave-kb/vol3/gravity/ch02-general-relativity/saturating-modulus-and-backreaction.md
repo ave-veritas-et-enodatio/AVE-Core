@@ -240,7 +240,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:59`** — stamped at `:59`. *(family: K-backed stability argument)*  ⚑ **R49 4π-CONVENTION**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   BULK stiffens: D=1/S→∞ at A→1 (the modulus goes rigid, halting the collapse).
   ```
@@ -252,7 +252,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
   **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ R49:** where this row's re-derivation runs through the elliptic bias law, that law carries the **declared 4π source convention** (canonical declaration in `gordon-optical-metric.md`, claim `clm-rd9cjm`); a correction of that class is an R31-style dated correction, not a re-ratification.
 
 - **`:194`** — stamped at `:194`. *(family: Z_bulk = ρc_bulk formula)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   rigidity and c_bulk→0 hold simultaneously — speed divides by density while impedance multiplies by it: c=√(K/ρ)→0, Z=√(Kρ)→∞
   ```

@@ -763,7 +763,7 @@ if __name__ == "__main__":
 # ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
 #
 #   :11  family: A1-dispersal  [banked uncertain]
-#        QUOTE (byte-exact at HEAD): same arc's S3 is DISPERSE-FALSIFIED … "even with the winding
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): same arc's S3 is DISPERSE-FALSIFIED … "even with the winding
 #        demonstrably conserved, the coupling does not pin the core."
 #       STAMPED AT: :11
 #        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): Pincer premise records

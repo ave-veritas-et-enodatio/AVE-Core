@@ -1272,7 +1272,7 @@ def fdtd_scalar_report(engine, name: str = "", config: Optional[dict] = None) ->
 # ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
 #
 #   :539  family: K-as-dynamical-reservoir energy
-#        QUOTE (byte-exact at HEAD): lam = (4.0 / 3.0) * G # λ = K − ⅔G, with K = 2G (cfl_dt convention)
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): lam = (4.0 / 3.0) * G # λ = K − ⅔G, with K = 2G (cfl_dt convention)
 #        → (4/3)G
 #       STAMPED AT: :539
 #        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): Treats K as a DYNAMICAL

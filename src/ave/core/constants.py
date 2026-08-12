@@ -1301,7 +1301,7 @@ K_COUPLING: float = 1.0 / (1.0 - ALPHA) ** 2 - 1.0  # ≈ 0.01476 ≈ 2α
 # ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
 #
 #   :775  family: sqrt2c port/V_LONG  [BIAS-DEBT]
-#        QUOTE (byte-exact at HEAD): V_LONG below is the BULK-SOUND speed v_bulk = √(K/ρ) = √(2G/ρ) =
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): V_LONG below is the BULK-SOUND speed v_bulk = √(K/ρ) = √(2G/ρ) =
 #        √2·c — the A1-scalar/dilatational port-mode
 #       STAMPED AT: :775
 #        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): The √2c VALUE survives

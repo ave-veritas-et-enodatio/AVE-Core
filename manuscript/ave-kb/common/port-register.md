@@ -239,7 +239,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:49`** — stamped at `:49`. *(family: Z_bulk formula / port speed)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   $Z_{bulk} = \rho\,c_{bulk}$ ... $\sqrt2\,c$ ($V_{LONG}$; $K=2G$ magic-angle PORT/impedance mode) ... gapless acoustic; edge $2\sqrt2\,c/\ell_{node}$
   ```
@@ -251,7 +251,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
   **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
 
 - **`:75`** — stamped at `:75`. *(family: F6 A1 dilatation-port instrument; banked `uncertain`)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   REACTIVE when bath-coupled (stores-returns) / RADIATIVE only under a deliberate lossy $\mathrm{Re}(Z)$ friction-plant termination
   ```
@@ -263,7 +263,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
   **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
 
 - **`:76`** — stamped at `:76`. *(family: J(omega) infinite-lattice drain; banked `uncertain`)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   ∞-lattice → "RADIATIVE" only for the super-Ohmic (C2) coupling model (drains via Op3 transduction — still Ax3-lossless microscopically, not a resistor)
   ```
@@ -275,7 +275,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
   **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
 
 - **`:87`** — stamped at `:87`. *(family: Q1 Reading-A row state)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   Standing physics is now Reading A (independent far-field bulk radiative port + O(1) coupling); the banked exclusion is LIVE — excluded at 9–110σ (Hulse-Taylor)
   ```

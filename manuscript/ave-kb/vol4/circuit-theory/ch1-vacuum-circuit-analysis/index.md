@@ -121,7 +121,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:49`** — stamped at `:49`. *(family: parent-condition acoustic boundary; banked `uncertain`)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   Axiom 3 (|Γ|²-min at the internal acoustic boundary) forces the isotropic-bond ratio ρ_bond=k_a/k_s=1 knob-free
   ```

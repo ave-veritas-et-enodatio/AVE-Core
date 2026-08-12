@@ -1097,7 +1097,7 @@ if __name__ == "__main__":
 # ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
 #
 #   :36  family: A1-cage-band  [BIAS-DEBT]
-#        QUOTE (byte-exact at HEAD): the AVE-native objective is the GAPPED bound EIGENMODE of the
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): the AVE-native objective is the GAPPED bound EIGENMODE of the
 #        stiffness operator (a localized level separated from the continuum band edge)
 #       STAMPED AT: :36
 #        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): Same A1 scalar band

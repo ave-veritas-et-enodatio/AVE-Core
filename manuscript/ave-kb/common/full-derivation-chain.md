@@ -1152,7 +1152,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:302`** — stamped at `:302`. *(family: acoustic-mass-ratio-WZ; banked `uncertain`)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   pure torsional ($G_{vac}J$, longitudinal) and pure bending ($E_{vac}I$, transverse). Their mass ratio follows from the acoustic dispersion
   ```

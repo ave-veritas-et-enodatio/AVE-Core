@@ -578,7 +578,7 @@ class UnifiedEngine:
 # ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
 #
 #   :30  family: A1 DOF-slot enumeration
-#        QUOTE (byte-exact at HEAD): u ∈ R³ — 3 translational DOF ↔ E/ε₀ (2 transverse = photon; 1
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): u ∈ R³ — 3 translational DOF ↔ E/ε₀ (2 transverse = photon; 1
 #        longitudinal = the A1 dilatation MASS-"3" projection)
 #       STAMPED AT: :30
 #        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): Enumerates the
@@ -591,7 +591,7 @@ class UnifiedEngine:
 #        a compression wave.
 #
 #   :33  family: coded compressibility (engine bulk branch)  [BIAS-DEBT]
-#        QUOTE (byte-exact at HEAD): a_A1 ∈ C — the A1 bulk-dilatation breather as a NODE-ATTACHED scalar
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): a_A1 ∈ C — the A1 bulk-dilatation breather as a NODE-ATTACHED scalar
 #        field on the SAME diamond-K4 node set as ω
 #       STAMPED AT: :33
 #        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): The facade's A1 carrier

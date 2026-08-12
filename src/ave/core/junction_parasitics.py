@@ -343,7 +343,7 @@ def band_top_1d(f: float, s_L: float = 1.0, s_C: float = 1.0, n_scan: int = 2000
 # ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
 #
 #   :84  family: scalar/compression passband  [banked uncertain]  [BIAS-DEBT]
-#        QUOTE (byte-exact at HEAD): The srs vertex equivalent circuit for the scalar/compression
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): The srs vertex equivalent circuit for the scalar/compression
 #        channel.
 #       STAMPED AT: :84
 #        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): The object of X37 is

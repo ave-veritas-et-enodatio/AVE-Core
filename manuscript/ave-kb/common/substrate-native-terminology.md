@@ -134,7 +134,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:85`** — stamped at `:85`. *(family: nabla-u-propagates)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   the longitudinal ∇·u/∇·A split (∇·u propagates; ∇·A is gauge)
   ```

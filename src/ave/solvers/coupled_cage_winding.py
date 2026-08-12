@@ -599,7 +599,7 @@ def _gaussian_profile(N: int, dx: float, amplitude: float, sigma: float) -> np.n
 # ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
 #
 #   :59  family: A1-dispersal  [BIAS-DEBT]
-#        QUOTE (byte-exact at HEAD): − c_A1²·L_native·a_A1 (A1 disperses on K4)
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): − c_A1²·L_native·a_A1 (A1 disperses on K4)
 #       STAMPED AT: :59
 #        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): The coded dispersal
 #        term itself: the A1 analytic signal (q+i·p = independent flux+charge pair) with its own wave

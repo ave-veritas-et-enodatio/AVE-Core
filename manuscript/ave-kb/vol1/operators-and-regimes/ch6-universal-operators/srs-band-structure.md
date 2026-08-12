@@ -267,7 +267,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:89`** — stamped at `:89`. *(family: band-structure-longitudinal)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   the scalar arccos map does **NOT** cleanly generalize to the vector channel (3 acoustic branches, 2 distinct speeds $c_P\neq c_S$
   ```
@@ -279,7 +279,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
   **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
 
 - **`:131`** — stamped at `:131`. *(family: band-structure-longitudinal)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   Pair threshold $2\omega_C=1.022\,\text{MeV}$ opens **below** the band top ⇒ propagating lattice modes **coexist** with the pair channel
   ```

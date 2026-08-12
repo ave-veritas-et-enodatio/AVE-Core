@@ -293,7 +293,7 @@ def build_1d_impedance_profile(dx_km: float = 10.0) -> dict[str, np.ndarray]:
 # ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
 #
 #   :5  family: seismic-analogy  [banked uncertain]  [BIAS-DEBT]
-#        QUOTE (byte-exact at HEAD): Seismic waves are mechanical modes of the same LC lattice at
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): Seismic waves are mechanical modes of the same LC lattice at
 #        macroscopic scale.
 #       STAMPED AT: :5
 #        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): With :9 'P-waves:

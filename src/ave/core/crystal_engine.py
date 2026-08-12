@@ -538,7 +538,7 @@ class CrystalEngine:
 # ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
 #
 #   :8  family: electron-sector trapped-acoustic label  [PAST-WALL]
-#        QUOTE (byte-exact at HEAD): trapped LONGITUDINAL bulk-modulus acoustic resonance born by
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): trapped LONGITUDINAL bulk-modulus acoustic resonance born by
 #        TRANSVERSE-SHEAR → LONGITUDINAL-BULK mode conversion
 #       STAMPED AT: :8
 #        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): Electron-sector label
@@ -555,7 +555,7 @@ class CrystalEngine:
 #        adjudicated.
 #
 #   :27  family: coded compressibility (engine bulk branch)  [BIAS-DEBT]
-#        QUOTE (byte-exact at HEAD): c_L²/c_T² = 2(1-ν)/(1-2ν) = (K + 4G/3)/G |_{K=2G} = 10/3 (DERIVED).
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): c_L²/c_T² = 2(1-ν)/(1-2ν) = (K + 4G/3)/G |_{K=2G} = 10/3 (DERIVED).
 #       STAMPED AT: :27
 #        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): The ratio's algebra
 #        survives as static K=2G identity, but here it ties two PHYSICAL branch transit speeds in a live
@@ -570,7 +570,7 @@ class CrystalEngine:
 #        replacement is owed, not held.
 #
 #   :355  family: K-as-dynamical-reservoir energy  [BIAS-DEBT | PAST-WALL]
-#        QUOTE (byte-exact at HEAD): E_V = ½∫(∂_t V)² + ½∫c0²(∇V)² (the trapped-bulk energy = the latent
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): E_V = ½∫(∂_t V)² + ½∫c0²(∇V)² (the trapped-bulk energy = the latent
 #        heat = the candidate mₑc²)
 #       STAMPED AT: :355
 #        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): The

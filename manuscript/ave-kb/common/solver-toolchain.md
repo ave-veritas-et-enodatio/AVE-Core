@@ -643,7 +643,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:468`** — stamped at `:468`. *(family: acoustic-cavity-orbital)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   The electron is an impedance mismatch ($\Gamma=-1$) that traps a longitudinal wave, bouncing at $E=V(r)$
   ```

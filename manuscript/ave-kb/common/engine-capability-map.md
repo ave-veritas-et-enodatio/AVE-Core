@@ -536,7 +536,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:29`** — **NOT STAMPED — R39 BYTE-FENCE ROUTED** (the anchor sits inside a Rule-12 preserved body; this entry IS the routed ledger note and the span is byte-untouched). *(family: electron-sector engine labels)*  ⚑ **BIAS-DEBT** · ⚑ **PAST-WALL**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   rest mass = the self-trapped longitudinal-bulk wall; $c_{eff}\to\infty$ at the saturated core self-creates the $\Gamma=-1$ TIR cage
   ```
@@ -548,7 +548,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
   **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*. **⚑ PAST-WALL:** the content reaches past the saturation wall, a phase Axiom 5 explicitly does **not** write (its phase-structure paragraph puts the $D(A)\to\infty$ wall behaviour past-wall-adjacent and *not written here*, with the de-bonded and pre-freeze phase forms named-open). The demotion is therefore **scoped**: clause G resolves the cold, sub-yield side; the past-wall reading is neither discharged nor adjudicated here.
 
 - **`:31`** — **NOT STAMPED — R39 BYTE-FENCE ROUTED** (the anchor sits inside a Rule-12 preserved body; this entry IS the routed ledger note and the span is byte-untouched). *(family: 3-channel coupling DOF)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   the electron lives across all three impedance channels; a complete engine must carry and couple them
   ```

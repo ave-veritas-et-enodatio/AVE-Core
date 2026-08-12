@@ -139,7 +139,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:23`** — stamped at `:23`. *(family: electron-sector-label)*  ⚑ **PAST-WALL**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   `mₑc²` = trapped acoustic compression energy
   ```

@@ -236,7 +236,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:34`** — stamped at `:34`. *(family: thermal-DOF-census; banked `uncertain`)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   **Cosserat translation** $u(r)$ + velocity $\dot u(r)$: $\tfrac{1}{2} \rho |\dot u|^2 + \tfrac{1}{2} G |\varepsilon|^2$ per volume
   ```

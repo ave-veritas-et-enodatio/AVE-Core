@@ -1705,7 +1705,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:162`** — stamped at `:162`. *(family: acoustic-Higgs/breathing-mode)*
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   The empirical $125$ GeV LHC resonance is interpreted as a **transient acoustic relaxation mode** of the LC network
   ```
@@ -1717,7 +1717,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
   **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave.
 
 - **`:842`** — stamped at `:842`. *(family: bulk-acoustic matter-wave)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   the electron interacts with the vacuum's **bulk modulus** (longitudinal acoustic), not its shear modulus (transverse EM). Atomic orbitals are bulk-modulus acoustic resonances of the LC mesh.
   ```
@@ -1729,7 +1729,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
   **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
 
 - **`:1033`** — stamped at `:1033`. *(family: K-backed stability)*
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   Standard nearest-neighbour Delaunay triangulation generates Cauchy-elastic stiffness ($K = -4G/3$) which is thermodynamically unstable; the simulation must be bridged to the trace-reversed AVE ground state ($K = 2G$)
   ```
@@ -1741,7 +1741,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
   **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave.
 
 - **`:1061`** — **NOT STAMPED — R39 BYTE-FENCE ROUTED** (the anchor sits inside a Rule-12 preserved body; this entry IS the routed ledger note and the span is byte-untouched). *(family: K-backed stability)*
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   Standard Cauchy elasticity ($K = (5/3)G$) applied to the Delaunay-triangulated AVE substrate causes unbounded contraction within the first calculation frame
   ```
@@ -1753,7 +1753,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
   **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave.
 
 - **`:1159`** — stamped at `:1159`. *(family: electron end-state bulk-mode fork; banked `uncertain`)*  ⚑ **PAST-WALL**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   a separate genesis-arc line finds the electron **end-state** = the **longitudinal bulk** mode; Grant ruled these **COEXIST** (two phases — build the end-state separately)
   ```

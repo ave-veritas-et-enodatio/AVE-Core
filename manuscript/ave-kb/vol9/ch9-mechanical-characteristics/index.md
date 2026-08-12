@@ -153,7 +153,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:11`** — stamped at `:11`. *(family: √2c port-mode speed form)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   the bulk-modulus dilatational / A1-scalar port-mode v_bulk = √2 c_0 = √(K/ρ) (drops the 4G/3 shear term)
   ```
@@ -165,7 +165,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
   **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
 
 - **`:15`** — stamped at `:15`. *(family: Z_bulk=ρc_bulk formula)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   the bulk channel carries the MASS-"3" (A1 dilatation, Z_bulk = ρ_bulk c_bulk = √2 ρ_bulk c_0 at K = 2G, Γ_bulk → -1 CONFINED
   ```

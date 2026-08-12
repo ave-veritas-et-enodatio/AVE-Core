@@ -109,7 +109,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:50`** — stamped at `:50`. *(family: L3 gap finding)*
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   FINDINGS (longitudinal-bulk + Cosserat micro-rotation modes NOT carried — the L3/L4 gaps; tracked by test-id, not wired)
   ```
@@ -121,7 +121,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
   **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave.
 
 - **`:55`** — stamped at `:55`. *(family: c_bulk def-lock ledger)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   c_EM/c_shear/c_bulk DEF-LOCK carried in the suite docstrings
   ```

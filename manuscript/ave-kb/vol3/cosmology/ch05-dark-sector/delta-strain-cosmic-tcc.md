@@ -257,7 +257,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:34`** — stamped at `:34`. *(family: thermal bulk band-branch; banked `uncertain`)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   Spectrum: gapless acoustic at long wavelength; dispersion ω(k) = c_E |k| as |k| → 0. Thermal occupation at any T > 0.
   ```

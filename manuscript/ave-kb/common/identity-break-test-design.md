@@ -326,7 +326,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:59`** — stamped at `:59`. *(family: atom-Q-wall-channel; banked `uncertain`)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   the **wall channel** (longitudinal `Z_bulk` trapping walls of the graded Coulomb dress)
   ```

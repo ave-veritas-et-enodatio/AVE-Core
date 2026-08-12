@@ -88,7 +88,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:21`** — stamped at `:21`. *(family: parent-condition acoustic boundary; banked `uncertain`)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   minimizing Γ_internal(ρ_bond=k_a/k_s) lands knob-free on ρ_bond=1 to machine precision
   ```

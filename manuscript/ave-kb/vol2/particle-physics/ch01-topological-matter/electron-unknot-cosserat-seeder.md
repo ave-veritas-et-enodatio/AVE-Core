@@ -186,7 +186,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:113`** — stamped at `:113`. *(family: engine bulk-cage receipt; banked `uncertain`)*
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   **Mode I PASS** — engine autonomously hosts breathing soliton (4/4 acceptance criteria on breathing-appropriate Test 1b
   ```

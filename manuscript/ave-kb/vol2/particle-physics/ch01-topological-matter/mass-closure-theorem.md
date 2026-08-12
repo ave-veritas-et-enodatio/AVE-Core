@@ -153,7 +153,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:93`** — stamped at `:93`. *(family: acoustic-Higgs/breathing-mode)*
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   The 125 GeV LHC resonance is interpreted by the Higgs leaf as a transient acoustic mode of node relaxation
   ```

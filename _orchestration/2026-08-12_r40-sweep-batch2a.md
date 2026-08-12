@@ -66,7 +66,7 @@ verbatim: `> -\left(\frac{c^{4}}{7G}\right)\nabla^{2}\epsilon_{11}(r) = 4\pi Mc^
 and, on the same line,
 `\textbf{The $(u,\pi)$ no-signalling theorem does NOT cover the bias read}`.
 
-**147 of the 185 rows carry the rider** (row-header tag ⚑ **BIAS-DEBT**, counted from the landed
+**146 rows carry the rider in the landed corpus** (row-header tag ⚑ **BIAS-DEBT**, counted from the landed
 notes, not from the plan): their re-derivation turns on finite-speed bias dynamics, so their
 resolution is *the ratified axiom WITH that debt standing* — never a closed replacement.
 
@@ -218,7 +218,10 @@ Cross-checks:
 - **Blocked / truth-break rows = 0.**
 - **Files carrying a dated EOF note = 109** — every file holding at least one NEEDS row, including
   all four files holding a byte-fence-routed or STUCK row (whose notes ARE the routed ledger entries).
-- **Rider/scope tags, counted from the landed notes:** 147 ⚑ BIAS-DEBT · 24 ⚑ PAST-WALL · 2 ⚑ R49.
+- **Rider/scope tags, counted from the landed notes: 146 ⚑ BIAS-DEBT · 24 ⚑ PAST-WALL · 2 ⚑ R49.**
+  ⚑ *Was 147 BIAS-DEBT until 2026-08-12: the generator had emitted one on the UNACTIONED STUCK row
+  `vol4/claim-quality.md:252`, which is now stripped (§6 F12). The tag never applied to a demoted
+  row that lost it — 146 is the count over rows this batch actually demoted, and it always was.*
 
 ---
 
@@ -230,7 +233,7 @@ Cross-checks:
 | NEEDS — R39 byte-fenced | **7** | **no in-body stamp**; note routed to the governing file's EOF ledger with a pointer and the declaration quoted | §2.1 table |
 | NEEDS — STUCK-POINT | **2** | **unactioned and unstamped**; full STUCK-POINT report at §5 | `appendices-overview.md:95`, `vol4/claim-quality.md:252` |
 | — of the 176, PAST-WALL-scoped | 24 | the demotion is **scoped**: clause G resolves the cold, sub-yield side; the saturated-interior phase is one `eq_axiom_5.tex` explicitly does **not** write (*"the $D(A)\to\infty$ wall behaviour is past-wall-adjacent and \textbf{not written here}"*, with the de-bonded and pre-freeze phase forms named-open at (c3)/(c4)). Neither discharged nor adjudicated | in-note tag |
-| — of the 185, BIAS-DEBT-ridden | 147 | resolution = the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** | in-note tag |
+| — of the 183 actioned rows, BIAS-DEBT-ridden | 146 | resolution = the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** | in-note tag |
 | — of the 185, R49 4π-convention | 2 | `saturating-modulus-and-backreaction.md:59`, `vol4/claim-quality.md:369` — the elliptic bias law carries the declared 4π source convention; R31-style dated-correction class | in-note tag |
 
 ---
@@ -242,8 +245,10 @@ cut of this section was **authored by hand** rather than generated from the bank
 in two different ways, one of them severely. Both corrections are stated in the open below.
 
 > 🔴 **CORRECTION OF RECORD (2026-08-12, at review) — STUCK-1's quote was FABRICATED, and it was
-> routed to Grant in that state.** The first cut printed, under the label ***"Quote (byte-exact at
-> HEAD)"***, the string `thrust metric via acoustic steepening: ∂_t ρ + ∇·(ρ v) = 0 with c_eff =
+> routed to Grant in that state.** The first cut printed, under the retired strong label
+> ***"Quote (byte-exact-at-HEAD)"*** — rendered hyphenated here **on purpose**, so that a corpus
+> grep for the live label form returns a hard **zero** and this rider cannot be mistaken for one
+> more site carrying it (F11) — the string `thrust metric via acoustic steepening: ∂_t ρ + ∇·(ρ v) = 0 with c_eff =
 > c_0√(1 + ρ̄/(1−ρ̄²))`. **That string is at no line of any corpus file.** Re-derived at HEAD: it
 > occurs exactly once corpus-wide, in *this record*, i.e. only where I wrote it. It is neither the
 > banked quote nor the text at `appendices-overview.md:95`.
@@ -313,7 +318,8 @@ than the first cut claimed, because the corpus already answers half of it (below
 
 - **Row (banked):** family `dark-wake carrier`, `uncertain: true`, `site_verdict: VERIFIED`,
   re-verified at HEAD by both engines.
-- **Quote (byte-exact at HEAD):** `Momentum conservation closed by the "Dark Wake" — equal-and-opposite
+- **Quote — verified byte-present at `vol4/claim-quality.md`:252 (this one IS byte-identical; see the
+  §7 quote receipt):** `Momentum conservation closed by the "Dark Wake" — equal-and-opposite
   longitudinal shear strain into the lattice, propagating at $c_0$`
 - **Banked rationale, verbatim:** *"Uncertain carrier: if the wake is a compression/bulk radiated wave
   it is a bulk radiative port (dies); if it is Cosserat-shear-carried it is untouched. Wording is
@@ -354,7 +360,8 @@ than the first cut claimed, because the corpus already answers half of it (below
 
 **F1 — the forward guard's `GUARD_ADJUDICATED_FP` registry does not scale, and the batch registered
 into it anyway.** The registry keys on the full stripped line bytes. This batch's flagged lines have
-a **median length of ~718 characters** (longest **12 910**), so 56 keys is ~65 kB of literal blob in a
+a **median length of ~718 characters** (longest **12 910**) — that distribution is measured over the
+**58 flagged lines**, not over the 56 registry keys — so 56 keys is ~65 kB of literal blob in a
 678-line gate module. It is machine-correct and hand-unauditable at once: a reviewer cannot check 56
 multi-hundred-character keys, and any re-wrap of a stamped line silently re-flags. **The batch did
 not re-key the registry** — that is a gate-design change and belongs to whoever owns the gate. The
@@ -452,6 +459,73 @@ carries the NEEDS row's own quote and rationale. `vol9/ch9-mechanical-characteri
 is not among the 185 (its co-resident NEEDS row is at another line in the same file). Batch 1's F7
 disclosure is discharged for `port-register.md:49`.
 
+**F12 — 🔴 THE GENERATOR REFILLED THE SLOT IT WAS SUPPOSED TO LEAVE EMPTY. Stripped 2026-08-12 at
+review; the rule is now enforced in code.** Both STUCK rows' landed EOF notes carried the generator's
+boilerplate `**Resolution.**` paragraph — *"The demoted carrier is the propagating A1 / bulk branch;
+under Axiom 5 clause G that slot is the **bound response** …"* — i.e. **the corpus asserted the very
+pointer §5 says the batch refuses to assert**, on the very rows routed to Grant *because* the pointer
+is unsettled. `vol4/claim-quality.md:252` additionally carried a **⚑ BIAS-DEBT** tag, so the corpus
+asserted an A1/bulk demotion resolution for a row whose carrier Grant's **R5** had already placed in
+the **SHEAR** channel (§5 STUCK-2).
+
+**This is substitution-not-retraction at row level:** a slot that should have been left empty was
+refilled with boilerplate. The record said one thing and the corpus said another, and **the corpus is
+what a reader meets** — the §5 report was never the artifact at risk.
+
+**Root cause:** the note generator branched on disposition for the *header* line (`STAMP` /
+`LEDGER` / `STUCK`) but emitted the resolution paragraph and the rider/scope tags **unconditionally**.
+The STUCK branch never had a suppression path.
+
+**Fix applied:** both entries stripped to header + quote + banked rationale + an explicit
+*"Routed to Grant — no resolution is asserted here"* paragraph that states, in the corpus, that the
+entry names no pointer, carries no rider and carries no tag, and points at §5 for the full report.
+The `⚑ BIAS-DEBT` tag is removed from `:252` (rider count 147 → **146**, §3).
+
+**Fix made permanent:** the rule is now a gate —
+[`../research/drivers/r40_stuck_row_note_guard_number_check.py`](../research/drivers/r40_stuck_row_note_guard_number_check.py),
+auto-discovered by `make verify`'s lane-checks sweep. It discriminates rather than greps: a stamped
+or fence-routed row **may** assert its pointer (that is the job), a STUCK row **may not**. Proven on
+a synthetic STUCK row carrying the boilerplate (fires), a synthetic **stamped** row carrying the same
+boilerplate (silent — the control that stops this becoming a blanket ban), a cleaned STUCK row
+(silent), plus a non-empty-scan assertion and a 4-probe mutation receipt.
+
+**F11 — 🔴 THE QUOTE LABEL ON ALL 185 ROWS OVERCLAIMED, AND IT IS THE SAME DEFECT AS §5's, ONE LEVEL
+DOWN. Re-labelled 2026-08-12 at review.** Every generated row entry printed its quote under
+*"Quoted claim, byte-exact-at-HEAD"* (markdown) / *"QUOTE (byte-exact-at-HEAD)"* (comment forms) —
+**186 occurrences across 110 files at the tip, 0 on `origin/main`.** Measured against the
+**pre-stamp** cited line: of the 185 banked quotes, **95 are byte-exact substrings** of that line and
+**90 are not byte-present at it** (1 present elsewhere in the file, 9 spanning adjacent lines, 13
+markup-stripped, 14 markup+wrap, 9 ellipsis-elided, 44 other). Two concrete instances:
+`appendices-overview.md:94` printed `Weak Mixing Angle (Acoustic Mode Ratio):` where the file carries
+`**Weak Mixing Angle (Acoustic Mode Ratio):**`; `engine-capability-map.md:31` printed
+`must carry and couple them` where the file carries `must carry *and couple* them`.
+
+**Root cause, and it is mine, not the audit's.** §9's two verification engines are **reduction**
+engines by their own description — *"reduced to `[a-z0-9]` only"*, *"reduced to alphanumeric word
+tokens"*. They establish **content presence at the anchor**, which is a real and useful result and is
+what §9 claims. They do **not** establish byte-identity, and I attached a byte-identity label to
+their output. The fix-pass then certified the generated quotes *"byte-exact by construction"* — true,
+but **byte-exact to the BANK**, while the label said **HEAD**. Those are different artifacts, and the
+bank's quotes carry the audit's own markup-stripping and unmarked elisions.
+
+**This is §5's fabricated-quote defect one level down**, and this record's own diagnosis of that
+applies verbatim: *"THE LABEL WAS THE DEFECT, not the intuition"* / *"paraphrase is legitimate when
+it is called paraphrase."* It is also a **regression against merged precedent**: batch 1's landed
+note on `origin/main` at `manuscript/vol_3_macroscopic/chapters/03_macroscopic_relativity.tex`:258
+uses the neutral `:11  QUOTE:` form and claims no exactness at all.
+
+**Fix applied — the weak-but-true label (path (a)).** All 185 rows now read **"Quoted claim (content
+verified at HEAD; markup-reduced from the banked audit)"** / **"QUOTE (content verified at HEAD;
+markup-reduced from the banked audit)"**. That is exactly what the engines verified. **No quote text
+changed**, no line count changed, and the 90 non-byte-exact quotes are neither hidden nor regenerated.
+
+**The alternative was NOT taken, and why.** Path (b) — regenerate the 89–90 from file bytes and keep
+the strong label — would have produced a *stronger* artifact, but it is a **convention** question
+(which standard every future R40 batch prints under), that question is **routed to Grant** and is
+being consolidated with an identical one riding #946, and this lane does not get to set a corpus-wide
+convention inside a demotion sweep. **The weak-but-true label is correct under either ruling**; the
+strong label is correct under only one, and was not correct here.
+
 **F10 — `verify-new-cite-excerpts` re-classified 14 PRE-EXISTING cites as "added" because the R40
 stamp modified their lines, and the fix costs 8 lines their pure stamp-only status.** The gate diffs
 `base...HEAD` and treats every cite on a modified line as newly authored. Fourteen such cites, on
@@ -485,7 +559,25 @@ un-stamps and the guard registry). *A receipt that describes a prior tree is not
 
 - **METHOD 1 — `git diff --unified=0` hunk-shape analysis vs `origin/main`** (engine: `git` 2.x +
   Python `re`): over the 109 files, **171 in-place hunks** (old-count == new-count ⇒ no shift),
-  **109 EOF-append hunks**, and **0 SHIFTING hunks**. Scope, stated so it cannot be over-read: the
+  **109 EOF-append hunks**, and **0 SHIFTING hunks**.
+
+  > ⚑ **THE NORMALIZATION RULE, stated (it was used but unstated in the first cut, 2026-08-12).** A
+  > *naive* classifier — *append iff the hunk starts strictly past the old EOF* — returns
+  > **171 / 107 / 2** on this same diff, not 171 / 109 / 0. The two are not a disagreement about the
+  > corpus; they are two labellings of the same hunks. Under `--unified=0`, a stamp on a file's
+  > **last original line** and the EOF note appended right after it collapse into **one** hunk, which
+  > therefore consumes an original line (`old-count > 0`) while still being an append. This batch
+  > classifies a hunk as an EOF-append when it **reaches** the old EOF (`old_start + old_count − 1 ≥
+  > old_EOF`), not when it starts past it. **Measured: 107 pure appends (`old-count = 0`) + 2 merged
+  > appends = 109**, and the 2 are named — `saturating-modulus-and-backreaction.md` (`@@ -194,1`, old
+  > EOF 194) and `05_electroweak_gauge_theory.tex` (`@@ -185,1`, old EOF 185). Both are files whose
+  > final original line happens to be a stamped row. **The append-only property is independently
+  > confirmed by METHOD 2** (every modified original line is stamp-only or stamp+excerpt; zero
+  > original lines lost), so the claim does not rest on this labelling — but the labelling had to be
+  > said out loud, because a reader re-running the naive rule gets a different pair of numbers and
+  > has no way to tell which of us is wrong.
+
+  Scope, stated so it cannot be over-read: the
   receipt covers the 109 corpus files and **excludes** the derived
   `manuscript/ave-kb/.index/`, `_orchestration/`, and `research/drivers/`. Those carry no `path:NN`
   line anchors into themselves from the corpus (`r40_preserved_span_number_check.py` has **0** inbound
@@ -528,6 +620,7 @@ receipt closes the gap that the two hand-typed reports fell into.
 |---|---|
 | `make verify` | **PASS**, exit 0 |
 | `research/drivers/r40_preserved_span_number_check.py` | **PASS** — pinned batch-1 scan 60/24/0 unchanged; live forward guard **175 added stamped lines scanned, 0 flagged**; regression fires on the known breach; both spec extensions live |
+| `research/drivers/r40_stuck_row_note_guard_number_check.py` | **PASS** — 2 STUCK row entries scanned, **0 assert a resolution or carry a tag**; can-it-fire fires on the synthetic bad row; negative control clean; mutation receipt 4/4 |
 | …`--mutation-receipt` | **PASS** — 9/9 probes hold, including **M6d** (the FP registry is narrow: right key suppresses, wrong file or wrong bytes do not) |
 | `make verify-new-cite-excerpts CITE_BASE=origin/main` | **PASS**, run against the LANDED commits (§6 F2) |
 | `make test` | **PASS** |
@@ -595,16 +688,29 @@ is never reworded. **Authored uses of the retired nouns: 0.**
    and `]` and the pattern forbids nesting. **The stamp goes BEFORE the trailing bracket.** 2a met
    this shape once in 175 lines; 2b's 105 SURVIVES rows land in the same registers and will meet it
    again.
-2. **No quote is authored by hand.** Every quote in every report — including STUCK-POINT reports and
+2. **A STUCK row emits NO resolution clause, ever — and the rule is now CODE, not prose.**
+   2a's generator emitted its boilerplate `**Resolution.**` paragraph for every row regardless of
+   disposition, so both STUCK rows landed asserting the very pointer the batch refused to assert, and
+   one carried a `BIAS-DEBT` rider over a carrier a prior Grant ruling had already placed in a
+   different sector (§6 F12). Prose review caught it; no gate could, because no gate knew the rule.
+   It does now: [`../research/drivers/r40_stuck_row_note_guard_number_check.py`](../research/drivers/r40_stuck_row_note_guard_number_check.py)
+   is auto-discovered by `make verify`'s lane-checks sweep and enforces that a row entry marked
+   `NOT STAMPED — STUCK-POINT` carries no resolution clause and no rider/scope tag, while a **stamped**
+   or **fence-routed** row may carry both (a demoted row naming its pointer is the whole job). It
+   ships a **can-it-fire** fixture (a synthetic STUCK row carrying the boilerplate — must flag), a
+   **negative control** (the same boilerplate on a stamped row — must not flag), a cleaned-STUCK
+   fixture, a **non-empty-scan assertion**, and a 4-probe mutation receipt including row-boundary
+   integrity (a later row's resolution must not be charged to the stuck row).
+3. **No quote is authored by hand.** Every quote in every report — including STUCK-POINT reports and
    any hand-written prose — is pulled from the banked `quote` field or read out of the file, and is
    **machine-verified against HEAD** before the report is written. 2a's generated notes met this by
    construction (185/185); its two hand-typed reports did not, and one of them fabricated a quote
    under a byte-exact label (§5).
-3. **Grep the registry that owns a term before routing a vocabulary question to Grant.** 2a routed
+4. **Grep the registry that owns a term before routing a vocabulary question to Grant.** 2a routed
    *"longitudinal shear strain"* for adjudication when Grant had already ruled it
    (`dark-back-reaction-taxonomy.md`:13, R5). A phrase that "reads ambiguous" is a prompt to search,
    not a prompt to escalate.
-4. **After any `.index/`-touching pass, diff the derived index FIELD-BY-FIELD against the base**, not
+5. **After any `.index/`-touching pass, diff the derived index FIELD-BY-FIELD against the base**, not
    by record count. F6's content loss was a field going `null` inside an otherwise-present record;
    `verify-kb-metadata` passes on a faithfully-regenerated index of a broken parse.
 

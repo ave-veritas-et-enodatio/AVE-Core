@@ -173,7 +173,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:38`** — stamped at `:38`. *(family: K-static vs constitutive-fact; banked `uncertain`)*
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   The vacuum at $K = 2G$ is **definitively compressible** … **no finite $K$ is incompressible**
   ```
@@ -185,7 +185,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
   **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave.
 
 - **`:42`** — stamped at `:42`. *(family: def-l0ngdu propagating-divu)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   the mechanical dilatation $\nabla\cdot\mathbf{u}$ is **DYNAMICAL** — it carries a genuine bulk restoring force $\tfrac12 K(\nabla\cdot\mathbf{u})^2$ and rides the gapless lattice-computed P-branch
   ```

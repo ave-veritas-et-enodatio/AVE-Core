@@ -294,7 +294,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:51`** — stamped at `:51`. *(family: FLAG-A-speed-split)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   bulk/shear modulus ratio at the EMT trace-reversal operating point → √2 longitudinal/photon speed ratio
   ```

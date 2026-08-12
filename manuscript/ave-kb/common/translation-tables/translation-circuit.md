@@ -1109,7 +1109,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:326`** — stamped at `:326`. *(family: band-survey P-branch eigenvalue)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   translational $v^2 = G/\rho$ (×4, the photon) and $10G/(3\rho)$ (×2, P-wave)
   ```
@@ -1121,7 +1121,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
   **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
 
 - **`:960`** — stamped at `:960`. *(family: ch-3 compression line)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   ch-3 (the $A_1$ bulk-longitudinal / dilatation line) is the compression line. Gapless; FLAG-A two-speed split — PORT/impedance $\sqrt2\,c$ vs RADIATIVE far-field $\sqrt{10/3}\,c$
   ```

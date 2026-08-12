@@ -193,7 +193,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:54`** — stamped at `:54`. *(family: saturation-state transit speed; banked `uncertain`)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   a change in V_A propagates through the bond inductor to V_B at speed c_wave = c
   ```

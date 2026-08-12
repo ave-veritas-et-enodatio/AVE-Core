@@ -216,7 +216,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:94`** — stamped at `:94`. *(family: acoustic-mass-ratio-WZ; banked `uncertain`)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   which evaluates the Weak Mixing Angle acoustic mass ratio ($m_W / m_Z = \sqrt{7}/3 \approx 0.8819$)
   ```

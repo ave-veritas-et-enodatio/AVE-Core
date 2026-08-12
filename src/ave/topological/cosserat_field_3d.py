@@ -2538,7 +2538,7 @@ class CosseratField3D:
 # ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
 #
 #   :721  family: coded-P-branch  [BIAS-DEBT]
-#        QUOTE (byte-exact at HEAD): W_cauchy = (2.0 / 3.0) * trace_eps**2 + jnp.sum(eps_sym**2,
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): W_cauchy = (2.0 / 3.0) * trace_eps**2 + jnp.sum(eps_sym**2,
 #        axis=(-1, -2))
 #       STAMPED AT: :721
 #        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): The (2/3)(tr ε)²·G term

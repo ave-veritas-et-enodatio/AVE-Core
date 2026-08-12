@@ -258,7 +258,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:94`** — stamped at `:94`. *(family: acoustic-mass-ratio-WZ; banked `uncertain`)*
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   Weak Mixing Angle (Acoustic Mode Ratio): $\frac{m_W}{m_Z} = \frac{1}{\sqrt{1+\nu_{vac}}} = \frac{\sqrt{7}}{3}
   ```
@@ -270,7 +270,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
   **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave.
 
 - **`:95`** — **NOT STAMPED — STUCK-POINT, routed to Grant** (the resolution pointer is genuinely ambiguous; see the batch record). *(family: dark-wake-reaction-mass; banked `uncertain`)*
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   Non-Linear FDTD Acoustic Steepening PDE: $c_{eff}^2(x, y, z) = c_0^2 \left(1 + \kappa \cdot \bar{\rho}(x, y, z) \right)$
   ```
@@ -279,10 +279,10 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
   Thrust-metric 'acoustic steepening' PDE: if c_eff is the T2/EM index modulated by density it survives as refraction; if it is the compression carrier it dies — sector declaration owed.
   ```
 
-  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave.
+  **Routed to Grant — no resolution is asserted here.** This row is a STUCK-POINT: its resolution pointer is not settled, so this entry deliberately names **no** pointer, carries **no** rider and carries **no** tag. Naming Axiom 5 clause G would assert the very arm the batch refuses to pick. The full STUCK-POINT report — what is ambiguous, the readings considered, what is needed to proceed — is in `_orchestration/2026-08-12_r40-sweep-batch2a.md` §5.
 
 - **`:180`** — stamped at `:180`. *(family: K-backed-stability)*
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   enforces a strictly positive effective bulk modulus within the numerical grid, ensuring stability at all acoustic frequencies
   ```

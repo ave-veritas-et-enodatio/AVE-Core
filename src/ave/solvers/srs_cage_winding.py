@@ -546,7 +546,7 @@ class SrsCageWinding:
 # ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
 #
 #   :313  family: A1-dispersal
-#        QUOTE (byte-exact at HEAD): self.a_A1 : (n_nodes,) complex — the A1 bulk-dilatation breather
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): self.a_A1 : (n_nodes,) complex — the A1 bulk-dilatation breather
 #        (MASS).
 #       STAMPED AT: :313
 #        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): Same coupled-cage

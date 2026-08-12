@@ -688,7 +688,7 @@ def main():
 # untouched, per R39. The 56 registered below are hand-adjudicated FALSE POSITIVE.
 #
 # SCALING CAVEAT, surfaced not fixed. The registry keys on the full stripped line bytes,
-# and this batch's flagged lines have a MEDIAN length of ~718 characters (longest
+# and this batch's FLAGGED LINES (58 of them, not the 56 keys) have a MEDIAN length of ~718 (longest
 # 12910). 56 keys is therefore ~65 kB of literal blob, which is not hand-auditable by a
 # reviewer and re-flags on any re-wrap. The per-site adjudication table in
 # _orchestration/2026-08-12_r40-sweep-batch2a.md is the reviewable record; this block is

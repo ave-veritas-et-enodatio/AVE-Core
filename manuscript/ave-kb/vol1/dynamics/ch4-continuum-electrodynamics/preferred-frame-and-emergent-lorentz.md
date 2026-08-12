@@ -299,7 +299,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:54`** — stamped at `:54`. *(family: axiom3-internal-match; banked `uncertain`)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   the substrate's internal-boundary acoustic reflection $\Gamma_{internal}(\rho_{bond})$ vanishes ($\rho_{bond}=k_a/k_s=1$ to machine precision
   ```

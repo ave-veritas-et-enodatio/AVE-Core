@@ -748,7 +748,7 @@ def _to_dict(r: LoopGapResult) -> dict:
 # ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
 #
 #   :163  family: bulk gate/ledger row  [BIAS-DEBT]
-#        QUOTE (byte-exact at HEAD): f1 = bulk_on and gamma_bulk_min <= OP2_GAMMA_BULK_MAX
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): f1 = bulk_on and gamma_bulk_min <= OP2_GAMMA_BULK_MAX
 #       STAMPED AT: :163
 #        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): Gate/ledger machinery
 #        on the phantom sector: OP-2 bins and channel tags (:186-201) key on Γ_bulk (from Z_bulk=ρc_bulk)

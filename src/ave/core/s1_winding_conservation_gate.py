@@ -577,7 +577,7 @@ if __name__ == "__main__":
 # ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
 #
 #   :212  family: coded compressibility (host apparatus)  [banked uncertain]  [BIAS-DEBT | PAST-WALL]
-#        QUOTE (byte-exact at HEAD): CONTROLS need the bulk↔ω coupling LIVE: (e) the |L_ω| pump that the
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): CONTROLS need the bulk↔ω coupling LIVE: (e) the |L_ω| pump that the
 #        lock arrests
 #       STAMPED AT: :212
 #        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): Control arms ride

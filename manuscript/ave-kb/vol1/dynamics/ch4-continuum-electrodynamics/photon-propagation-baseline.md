@@ -176,7 +176,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:24`** — stamped at `:24`. *(family: A1-port-speed)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   $A_1$ (longitudinal): $c \sqrt{2} = \sqrt{K_{\text{bulk}} / \rho}$; $T_2$ (transverse photon): $c = \sqrt{G / \rho}$
   ```
@@ -188,7 +188,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
   **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
 
 - **`:38`** — stamped at `:38`. *(family: A1-port-speed)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   Bulk modulus $K_{\text{bulk}}$ governs this **pure-dilatation** scalar compression speed ... this $\sqrt{K/\rho}=\sqrt{2}\,c$ is the bulk-modulus port-mode (measured at cardinal-axis $v/c=1.45$)
   ```

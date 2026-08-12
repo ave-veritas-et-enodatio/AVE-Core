@@ -443,7 +443,7 @@ def channel_diagnostic(pos, bonds, *, k_axial=1.0, k_shear=1.0, gamma=0.0,
 # ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
 #
 #   :212  family: lattice P-branch (Born-Huang)  [banked uncertain]  [BIAS-DEBT]
-#        QUOTE (byte-exact at HEAD): Gamma_cauchy (3x3) : the effective TRANSLATIONAL acoustic matrix
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): Gamma_cauchy (3x3) : the effective TRANSLATIONAL acoustic matrix
 #        rho*c^2 … the Cauchy-reduced acoustic slopes INCLUDING the chiral back-reaction.
 #       STAMPED AT: :212
 #        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): Born-Huang

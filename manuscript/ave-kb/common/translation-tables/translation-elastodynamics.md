@@ -133,7 +133,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:31`** — stamped at `:31`. *(family: P↔S mode conversion watch; banked `uncertain`)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   Mode conversion at a boundary (P↔S at an impedance contrast) | Mode conversion at a $\Gamma$-wall (A1↔T2 at a substrate impedance boundary)
   ```

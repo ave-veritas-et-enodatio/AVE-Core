@@ -94,7 +94,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:30`** — stamped at `:30`. *(family: engine DOF requirement)*
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   The transverse-only carrier (2 DOF) cannot host mass (L3 longitudinal) or charge (L4 micro-rotation) — those need the full 6-DOF Cosserat node.
   ```

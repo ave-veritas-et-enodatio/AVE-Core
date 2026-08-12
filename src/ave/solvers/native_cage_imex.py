@@ -631,7 +631,7 @@ def energy_conservation_gate(
 # ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
 #
 #   :17  family: A1-cage-band  [BIAS-DEBT]
-#        QUOTE (byte-exact at HEAD): the bulk stiffness D=1/S DIVERGES (c_eff=c0/√S→∞) and ρ(L_native)
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): the bulk stiffness D=1/S DIVERGES (c_eff=c0/√S→∞) and ρ(L_native)
 #        GROWS during the run
 #       STAMPED AT: :17
 #        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): Time-domain wave

@@ -231,7 +231,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:24`** — stamped at `:24`. *(family: compression-channel-scoping; banked `uncertain`)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   SECTOR = bare-bond network primitive, **scalar / compression channel**; the vertex 3-port is scoped to the **lossless reciprocal class**
   ```

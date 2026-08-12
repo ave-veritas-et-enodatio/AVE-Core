@@ -603,7 +603,7 @@ if __name__ == "__main__":
 # ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
 #
 #   :28  family: A1-cage-band  [BIAS-DEBT | PAST-WALL]
-#        QUOTE (byte-exact at HEAD): H_A1 block : ω_b·I − c_A1²·L_D (L_D = adjoint_div(D ∇), D=1/S(A))
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): H_A1 block : ω_b·I − c_A1²·L_D (L_D = adjoint_div(D ∇), D=1/S(A))
 #       STAMPED AT: :28
 #        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): The A1 block gives the
 #        dilatation scalar its own kinetic dispersal term (state variable with band); the existence

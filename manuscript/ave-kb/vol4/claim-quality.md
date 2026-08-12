@@ -2032,7 +2032,7 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 **Rows carried in this file.**
 
 - **`:161`** — stamped at `:161`. *(family: parent-condition acoustic boundary; banked `uncertain`)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   applied to the srs net's internal acoustic boundary forces the isotropic-bond ratio ρ_bond=k_a/k_s=1 (k_s=k_a) knob-free
   ```
@@ -2043,8 +2043,8 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
 
   **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
 
-- **`:252`** — **NOT STAMPED — STUCK-POINT, routed to Grant** (the resolution pointer is genuinely ambiguous; see the batch record). *(family: dark-wake carrier; banked `uncertain`)*  ⚑ **BIAS-DEBT**
-  Quoted claim, byte-exact at HEAD:
+- **`:252`** — **NOT STAMPED — STUCK-POINT, routed to Grant** (the resolution pointer is genuinely ambiguous; see the batch record). *(family: dark-wake carrier; banked `uncertain`)*
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   equal-and-opposite longitudinal shear strain into the lattice, propagating at c_0
   ```
@@ -2053,10 +2053,10 @@ speed**. Corpus text quoted below is byte-exact and is never reworded.
   Uncertain carrier: if the wake is a compression/bulk radiated wave it is a bulk radiative port (dies); if it is Cosserat-shear-carried it is untouched. Wording is ambiguous ('longitudinal shear'); the dark-wake is separately banked WRONG-REGIME, but the momentum-closure mechanism as stated consumes a propagating longitudinal carrier — re-derivation owed.
   ```
 
-  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+  **Routed to Grant — no resolution is asserted here.** This row is a STUCK-POINT: its resolution pointer is not settled, so this entry deliberately names **no** pointer, carries **no** rider and carries **no** tag. Naming Axiom 5 clause G would assert the very arm the batch refuses to pick. The full STUCK-POINT report — what is ambiguous, the readings considered, what is needed to proceed — is in `_orchestration/2026-08-12_r40-sweep-batch2a.md` §5.
 
 - **`:369`** — stamped at `:369`. *(family: driven compression mechanism; banked `uncertain`)*  ⚑ **BIAS-DEBT** · ⚑ **R49 4π-CONVENTION**
-  Quoted claim, byte-exact at HEAD:
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
   ```text
   The active acoustic-metric compression mechanism (3D standing tensor shockwave producing n > 1) is proposed as the engineering pathway
   ```

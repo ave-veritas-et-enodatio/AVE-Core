@@ -580,7 +580,7 @@ def solve_isolation_Q(cfg: IsolationConfig) -> dict:
 # ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
 #
 #   :60  family: sqrt(10/3)-impedance  [BIAS-DEBT]
-#        QUOTE (byte-exact at HEAD): Z_bulk / Z_shear = (rho c_L) / (rho c_T) = c_L / c_T = sqrt(10/3) =
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): Z_bulk / Z_shear = (rho c_L) / (rho c_T) = c_L / c_T = sqrt(10/3) =
 #        1.825742...
 #       STAMPED AT: :60
 #        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): Z_bulk = rho*c_L
@@ -595,7 +595,7 @@ def solve_isolation_Q(cfg: IsolationConfig) -> dict:
 #        replacement is owed, not held.
 #
 #   :212  family: A1-cage-band  [BIAS-DEBT]
-#        QUOTE (byte-exact at HEAD): S(A)->0 raises the local stiffness c_eff^2 = c0^2 / S(A), gapping a
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): S(A)->0 raises the local stiffness c_eff^2 = c0^2 / S(A), gapping a
 #        bound breathing mode above the continuum
 #       STAMPED AT: :212
 #        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): The cold A1 'continuum'
