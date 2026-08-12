@@ -1295,8 +1295,9 @@ K_COUPLING: float = 1.0 / (1.0 - ALPHA) ** 2 - 1.0  # ≈ 0.01476 ≈ 2α
 # operating point / quiescent point (Q-point); back-reaction is the mechanism gloss. 'dress',
 # 'grade' as eps_11's canonical noun, and 'halo' for the physics (the physics noun is the
 # near-field store / added-mass) are RETIRED by R50; 'retardation' is retired by R49(b) in favour
-# of propagation delay / finite propagation speed. Corpus text quoted below is byte-exact and is
-# never reworded.
+# of propagation delay / finite propagation speed. Corpus text quoted below is reproduced
+# from the banked audit and is CONTENT-VERIFIED AT HEAD (markup-reduced, not byte-identical);
+# it is never reworded.
 #
 # ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
 #

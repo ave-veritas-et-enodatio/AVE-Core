@@ -128,7 +128,8 @@ against a closed replacement.
 the mechanism gloss. *"dress"*, *"grade"* as $\varepsilon_{11}$'s canonical noun, and *"halo"* for
 the physics (the physics noun is the **near-field store / added-mass**) are RETIRED by **R50**;
 *"retardation"* is retired by **R49(b)** in favour of **propagation delay / finite propagation
-speed**. Corpus text quoted below is byte-exact and is never reworded.
+speed**. Corpus text quoted below is reproduced from the banked audit and is
+**content-verified at HEAD (markup-reduced, not byte-identical)**; it is never reworded.
 
 **Rows carried in this file.**
 

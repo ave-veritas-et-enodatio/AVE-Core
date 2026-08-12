@@ -83,7 +83,9 @@ Canonical nouns authored in all 109 notes: **the bound response** ($\mathbf{u}_0
 mechanism gloss. *dress*, *grade*-as-canonical-noun and *halo*-for-the-physics (use the **near-field
 store / added-mass**) are retired by **R50**; ***retardation* is retired by R49(b), not R50** — the
 mis-attribution batch 1 had to correct across 42 notes. Two methods on this batch's authored prose
-confirm compliance (§7). Corpus text quoted in the notes is byte-exact and is never reworded.
+confirm compliance (§7). Corpus text quoted in the notes is reproduced from the banked audit and is
+**content-verified at HEAD (markup-reduced, not byte-identical)**; it is never reworded. *(This
+sentence itself carried the falsified byte-exact claim until 2026-08-12 — §6 F13.)*
 
 ---
 
@@ -117,7 +119,8 @@ build break where no gate could see it. The same-line stamp IS rendered in `.tex
 claim still sees the status; the note is an audit ledger. **Stated, not slipped.**
 
 **Verbatim quotes and rationales sit inside fenced blocks in `.md` notes.** They frequently contain
-`path:NN` strings from the banked audit; a fence keeps them byte-exact, keeps `verify-md-links` off
+`path:NN` strings from the banked audit; a fence keeps them **byte-identical to the bank** (which is
+not the same as byte-identical to HEAD — see F11), keeps `verify-md-links` off
 literal link syntax, and keeps `verify-new-cite-excerpts` from re-classifying quoted corpus cites as
 cites this batch authored. The batch's own artifact pointers are cited **by artifact + named clause,
 without line numbers**, in the notes — line cites with verbatim excerpts live in *this* record, which
@@ -459,6 +462,48 @@ carries the NEEDS row's own quote and rationale. `vol9/ch9-mechanical-characteri
 is not among the 185 (its co-resident NEEDS row is at another line in the same file). Batch 1's F7
 disclosure is discharged for `port-register.md:49`.
 
+**F13 — 🔴 THE SAME FALSIFIED CLAIM SAT IN THE PREAMBLE, ONE LEVEL ABOVE THE ROW LABELS F11 JUST
+FIXED. Re-worded 2026-08-12; the CLASS is now gated.** Every one of the 109 per-file notes OPENED
+with *"Corpus text quoted below is byte-exact and is never reworded"* — five to eleven lines above the
+row label F11 had just corrected. The branch introduced it: **0 files on `origin/main`, 109 at the
+pre-fix tip.** F11's own scope line — *"all 185 ROWS"* — is true, and does not reach the preamble.
+
+**This is the third instance of one defect at three levels**, and the pattern is the finding:
+(1) one hand-typed quote in this record labelled byte-exact and in fact fabricated → fixed at the
+instance; (2) all 185 generated row labels → fixed at the row level; (3) all 109 preambles → found by
+a third reviewer. **Each fix was scoped to the instance that had been found, not to the class.**
+
+**⚑ THE UNDER-COUNT THAT HID IT, recorded as a live method finding.** The preamble ships in **two
+carriers**: 62 markdown-form (one line) and 47 comment-form, where the generator's wrapper splits the
+sentence across lines with the `%`/`#` marker repeated (`… byte-exact and is` / `% never reworded.`).
+**A whitespace-flattening grep that is blind to the comment marker returns 62 and reads clean** —
+reproduced here, and hit independently by the verifying lane. 62 + 47 = 109. **2b generates
+comment-form notes and will meet this again:** any completeness count over R40 notes must normalise
+the comment marker *before* matching, or it silently under-reports by ~43%.
+
+**Fix applied:** all **109** preambles (62 md + 47 comment-form) re-worded to match the row label —
+*"reproduced from the banked audit and is content-verified at HEAD (markup-reduced, not
+byte-identical); it is never reworded"*. Safe under either outcome of the routed convention question,
+same reasoning as F11. Two-method zero-residual receipt in §7.
+
+**Fix made permanent — the CLASS is now gated, which matters more than the wording:**
+[`../research/drivers/r40_quote_claim_strength_number_check.py`](../research/drivers/r40_quote_claim_strength_number_check.py)
+asserts, per note, that **no STRONG (byte-identity) claim appears in the preamble OR in any row
+label**, and that **the preamble and the row labels agree in strength** — a note whose preamble says
+byte-exact while its rows say content-verified FAILS. It covers **both carriers** by normalising the
+comment marker before matching, and it pins the marker-blindness under-count as a live regression
+probe. Can-it-fire on synthetic drift in *each* carrier; negative controls in *each* carrier; a
+non-empty-scan assertion; a declared self-exclusion (checker modules carry both shapes as fixtures —
+measured safe: 0 of the 109 notes live under `research/drivers/`); and a 4-probe mutation receipt.
+The convention hook is deliberate: under a future ruling that regenerates quotes byte-exact,
+`ALLOW_STRONG` flips in **one** place and the strength-agreement assertion still fires.
+
+> ⚑ **A mutation probe in that new module was itself a false receipt for one run, and it is recorded
+> rather than quietly repaired.** M1's first cut rebound a back-compat *alias* rather than the
+> function `flatten()` actually calls, so it perturbed nothing while reporting a pass. **A mutation
+> probe that cannot reach the code path it claims to disable is exactly the false receipt this module
+> exists to prevent.** Re-pointed at the live path; the dead alias is removed.
+
 **F12 — 🔴 THE GENERATOR REFILLED THE SLOT IT WAS SUPPOSED TO LEAVE EMPTY. Stripped 2026-08-12 at
 review; the rule is now enforced in code.** Both STUCK rows' landed EOF notes carried the generator's
 boilerplate `**Resolution.**` paragraph — *"The demoted carrier is the propagating A1 / bulk branch;
@@ -614,12 +659,40 @@ against the artifact it cites, not read back by eye:
 The 185 in-corpus notes were already machine-verified on this axis by construction (§9) — this
 receipt closes the gap that the two hand-typed reports fell into.
 
+**★ PREAMBLE RE-WORD RECEIPT (F13), both carriers counted separately, two methods.** Engine 1 =
+Python `os.walk` over raw bytes with the comment marker normalised before matching; engine 2 = shell
+`grep -rIo`, marker-agnostic. They agree.
+
+| measure | markdown-form | comment-form | total |
+|---|---|---|---|
+| preambles at the pre-fix tip | 62 | 47 | **109** |
+| preambles on `origin/main` | 0 | 0 | **0** (the branch introduced it) |
+| **re-worded this pass** | **62** | **47** | **109** |
+| residual `Corpus text quoted below is byte-exact…` | 0 | 0 | **0** |
+| new content-verified preamble | 62 | 47 | **109** |
+
+**Zero-residual, two methods:** engine 1 returns **0** for the markdown form, **0** for the
+marker-aware wrapped comment form, and **0** for the marker-agnostic substring
+`quoted below is byte-exact`; engine 2 (`grep -rIo 'quoted below is byte-exact'`) returns **0**.
+**The naive comment-marker-blind flattening grep returns 62** — reproduced deliberately, because that
+is the number that reads clean while 47 violations stand (F13).
+
+**Surviving `byte-exact` strings are enumerated, not swept.** They fall in three classes, all true or
+all self-describing: (a) the 8 stamp-modified corpus lines' *"cite excerpts, byte-exact at the cited
+lines"* — verified true when built, §6 F10; (b) this record's F11/F13 prose, which must NAME the
+retired claim to correct it; (c) pre-existing corpus text this batch never touched (research docs,
+earlier docket entries, batch 1's own notes). **Two claims in THIS record were in neither class and
+were corrected with the 109:** §1.2's *"Corpus text quoted in the notes is byte-exact and is never
+reworded"* — the same falsified sentence, one level up again — and §2's *"a fence keeps them
+byte-exact"*, now *"byte-identical to the bank (which is not the same as byte-identical to HEAD)"*.
+
 **Gates, on the landed commits:**
 
 | Gate | Result |
 |---|---|
 | `make verify` | **PASS**, exit 0 |
 | `research/drivers/r40_preserved_span_number_check.py` | **PASS** — pinned batch-1 scan 60/24/0 unchanged; live forward guard **175 added stamped lines scanned, 0 flagged**; regression fires on the known breach; both spec extensions live |
+| `research/drivers/r40_quote_claim_strength_number_check.py` | **PASS** — 109 note-bearing files scanned, preamble seen in **62 markdown + 47 comment-form = 109 of 109**, **0 over-claims and 0 preamble/row disagreements**; can-it-fire in BOTH carriers; negative control in BOTH carriers; marker-blindness regression pinned; mutation receipt 4/4 |
 | `research/drivers/r40_stuck_row_note_guard_number_check.py` | **PASS** — 2 STUCK row entries scanned, **0 assert a resolution or carry a tag**; can-it-fire fires on the synthetic bad row; negative control clean; mutation receipt 4/4 |
 | …`--mutation-receipt` | **PASS** — 9/9 probes hold, including **M6d** (the FP registry is narrow: right key suppresses, wrong file or wrong bytes do not) |
 | `make verify-new-cite-excerpts CITE_BASE=origin/main` | **PASS**, run against the LANDED commits (§6 F2) |
@@ -713,6 +786,41 @@ is never reworded. **Authored uses of the retired nouns: 0.**
 5. **After any `.index/`-touching pass, diff the derived index FIELD-BY-FIELD against the base**, not
    by record count. F6's content loss was a field going `null` inside an otherwise-present record;
    `verify-kb-metadata` passes on a faithfully-regenerated index of a broken parse.
+
+### ★ QUEUE ITEMS FOR BATCH 2b (recorded at the 2026-08-12 delta verify; NOT fixed here)
+
+1. **★ THE NEW STUCK-ROW GUARD HAS A COMMENT-FORM BLIND SPOT — must be closed BEFORE 2b runs.**
+   `r40_stuck_row_note_guard_number_check.py`'s `violations_in()` searches the STUCK marker only in
+   the row **HEADER**. Markdown notes carry the disposition in the header, but **comment-form
+   (`.tex`/`.py`) notes carry it in the row BODY** (`STAMPED AT: NOWHERE -- STUCK-POINT …`; cf.
+   `08_gravitational_waves.tex:501`). **Both of 2a's STUCK rows are markdown, so this PR is
+   unaffected** — but **2b generates comment-form notes**, so this must close before 2b starts.
+
+   > ⚑ **RE-PROBED HERE, AND THE BLIND SPOT IS WIDER THAN REPORTED — record the wider one.** The
+   > delta verify reported it as header-vs-body: *"move the same wording to the header = 1"*.
+   > Measured, that variant still returns **0**, because the defect is upstream of position — it is
+   > **VOCABULARY**. `STUCK_MARK` is `NOT STAMPED\s*[—-]{1,2}\s*STUCK-POINT`, which matches the
+   > **markdown** generator's wording (*"NOT STAMPED — STUCK-POINT, routed to Grant"*, `True`) and
+   > **does not match the comment generator's wording at all** (*"STAMPED AT: NOWHERE -- STUCK-POINT
+   > routed to Grant"*, `False`) — in the header **or** the body. So the 2b fix is **two** changes,
+   > not one: extend the marker vocabulary to the `STAMPED AT: NOWHERE -- STUCK-POINT` form **and**
+   > search header + body. Fixing only the position, as the report implies, would leave the guard
+   > blind. *(Recorded, deliberately not fixed here per the delta-verify instruction: 2a's scope is
+   > closed and a guard change wants its own fixture delta.)*
+2. **★ THE DATE-PINNED `STAMP` IN `r40_preserved_span_number_check.py` IS A GATE-LANE ITEM, AND 2b
+   DOES NOT START UNTIL IT LANDS.** It fails **OPEN and SILENTLY** — probed at 2026-08-12, 2026-09-01
+   and 2027-01-05, every one scans **0** and flags **0**, i.e. a future-dated batch would get a clean
+   report from a gate that never looked at it. **It is no longer a future risk: it already
+   under-scans 19 live stamps today.** The measured-correct replacement pattern and the required
+   minimum-scanned assertion are in the infra-PR list below.
+3. **★ R52 HAS NOT PROPAGATED — queued for 2b.** R52 ruled that the *"ν-denominator 7 = a mode count"*
+   derivation is **NOT LICENSED**, and five-plus sites still run it, unedited on `main`:
+   `mode-counting-heat-capacity.md:14`, `g-star-derivation.md:18`, `alpha-s-derivation.md:21` and
+   `:35`, `03_geometric_inevitability.tex:417` / `:475` / `:495`,
+   `11_thermodynamics_and_entropy.tex:149`. Plus a cite drift at `03_pin_port_configuration.tex:45`
+   (cites `trampoline-framework.md:200`; the sentence is at `:204`). **Out of 2a's scope** — 2a
+   executes the banked NEEDS bin and adjudicates no other ruling — and recorded here so 2b inherits
+   it with its sites named.
 
 ### ★ ROUTED TO A SEPARATE INFRA PR — REQUIRED BEFORE BATCH 2b
 

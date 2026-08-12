@@ -337,8 +337,9 @@ def band_top_1d(f: float, s_L: float = 1.0, s_C: float = 1.0, n_scan: int = 2000
 # operating point / quiescent point (Q-point); back-reaction is the mechanism gloss. 'dress',
 # 'grade' as eps_11's canonical noun, and 'halo' for the physics (the physics noun is the
 # near-field store / added-mass) are RETIRED by R50; 'retardation' is retired by R49(b) in favour
-# of propagation delay / finite propagation speed. Corpus text quoted below is byte-exact and is
-# never reworded.
+# of propagation delay / finite propagation speed. Corpus text quoted below is reproduced
+# from the banked audit and is CONTENT-VERIFIED AT HEAD (markup-reduced, not byte-identical);
+# it is never reworded.
 #
 # ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
 #
