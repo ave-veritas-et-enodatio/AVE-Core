@@ -63,7 +63,7 @@ discharged and NOT assumed** — but §6 shows the *frequency* leg depends on it
 Frozen as ENTAILED in prereg §4 P1; the honest verb is therefore *demonstrated*. Recorded because the
 rest of the derivation is built on it, not as this lane's result.
 
-Axiom 3's action (`eq_axiom_3.tex:22`) is **curl-only in the potential**:
+Axiom 3's action (`eq_axiom_3.tex:18`) is **curl-only in the potential**:
 
 ```
 L_node = ½ ε₀ |∂_t A|²  −  (1/2μ₀) |∇ × A|²
@@ -79,7 +79,7 @@ Helmholtz-split `A = A_L + A_T` with `∇ × A_L = 0`, `∇ · A_T = 0`:
 So the longitudinal sector carries **inertia but no stiffness**. In EE dress: a **pure inductor to
 ground, no shunt capacitance** — not a tank. Equation of motion `ε₀∂²_t A_L = 0`; the Noether content
 of the residual gauge family is the pointwise conservation of the Gauss function
-`∇·(ε₀∂_tA)` — exactly as `eq_axiom_3.tex` states. **Effective `K = 0` on the receipted set**, and
+`∇·(ε₀∂_tA)` — exactly as `eq_axiom_3.tex:27` states. **Effective `K = 0` on the receipted set**, and
 Axiom 5 does not repair it: the axiom explicitly *"adds no kinetic or potential term on the flat
 direction"* (`eq_axiom_5.tex:88`). No longitudinal wave, no pole, no branch. ✔ consistent with #935.
 

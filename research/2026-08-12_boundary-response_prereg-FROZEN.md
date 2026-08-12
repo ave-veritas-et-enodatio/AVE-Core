@@ -264,3 +264,21 @@ that reaches a tank only by admitting an untagged term, a `K`-descended coeffici
 dynamical `n` has **failed**, and the honest output is `NO-RESPONSE` or a STUCK-POINT report — not
 a rescued positive. **2-attempt cap on every fork; this is exactly the terrain where compute
 spirals manufacture stiffness that isn't there.**
+
+---
+
+## ★ DATED CORRECTION-NOTE (2026-08-12) — line-anchor repoint, TYPO-CLASS
+
+**Frozen body above is PRESERVED byte-unedited.** This note is the audit trail for one stale line
+anchor caught by the lane's own citation-verification pass, run after the derivation.
+
+§0 row 5 cites the Axiom-3 curl-only potential as **`eq_axiom_3.tex:22`**. Content-verified at this
+HEAD (grepped for the string, not computed by arithmetic — the `#728` lesson): the **Lagrangian
+equation is at `:18`**; `:22` is the temporal-gauge / FORK-1 sentence (*"which clause of Axiom 5 pins
+it is deliberately left open"*), and the Gauss-function Noether statement is at `:27`. `eq_axiom_3.tex`
+is a known anchor-drift hazard — #935's result carries a VACATED-CITE note against its own `:35`
+quote of this same file.
+
+**Corrected target: `eq_axiom_3.tex:18`** for the curl-only action. **No bin, criterion, falsifier,
+expectation, or verdict is touched by this note** — the cited *content* was correct and is what the
+derivation used; only the line number was stale. The result document cites `:18` and `:27` correctly.
