@@ -294,7 +294,7 @@ hurts depends on the §7 answer, and this lane takes no position on it.
 ## §6 — Receipts
 
 **Driver:** [`research/drivers/gravity_linearity_audit_number_check.py`](drivers/gravity_linearity_audit_number_check.py) —
-**30 checks, all GREEN.** Engines: **A** = python `math` floats, **B** = sympy 1.14.0 exact/series,
+**40 checks, all GREEN** (R1–R9 = the license map; **R10–R12 = the §9 addendum, added 2026-08-11**). Engines: **A** = python `math` floats, **B** = sympy 1.14.0 exact/series,
 **C** = `decimal.Decimal` at 40 digits (headline delta only, third engine).
 
 | Receipt | Result | Consumes |
@@ -308,6 +308,9 @@ hurts depends on the §7 answer, and this lane takes no position on it.
 | **R7** | solar limb `7GM/c²R_☉ = 1.4861×10⁻⁵` ✓`:893`'s `1.486e-5`; `A² = 2.209×10⁻¹⁰` ✓ its `2.21e-10` — **that site's `A` is `ε₁₁`** | §1 |
 | **R8** | the three clocks' leading terms: **`ε₁₁²/4`** (kernel) / **`ε₁₁/7`** (lapse) / **`2ε₁₁/7`** (index); kernel/lapse at Sirius B = **0.3%** | §7 |
 | **R9** | `d ln W/dA|_{A₀} = A₀/(2(A₀²−1)) → −A₀/2` — nonzero for `A₀ ≠ 0`. **Structure only; no `A₀` value proposed** | §4.3 |
+| **R10** ⚑ | co-scaling: `ω → ω/m`, `Z` **invariant**; `m = 1/√g₀₀ = 1 + ε₁₁/7` (slope-1 `z`); `m² = 1 + (2/7)ε₁₁ = n_temporal` (slope 2) — W2's bridge falls out | §9.1 (UN-AUDITED) |
+| **R11** ⚑ | bond-break: `ω → ω√S`, `Z → Z₀√S`, `Γ → −1`; **`∂lnZ/∂m = 0`** vs **`∂lnZ/∂S = 1/2S`** — the orthogonality claim, stated so it can be refuted | §9.2 (UN-AUDITED) |
+| **R12** ⚑ | at `r_sat = 3.5 r_s`: `m = 1.183`, `S = 0` — bond-break arrives **first, from outside**, with the tank detuned only 18% | §9.2 (UN-AUDITED) |
 
 **Constant provenance.** `c`, `G`, `M_SUN` are **imported** from `src/ave/core/constants.py`, never
 hard-coded — the repo's EFT gate caught a first cut that inlined them, exactly as it did for #951.
@@ -331,6 +334,15 @@ before #951's body was read, then reconciled against it — they agree.
 ---
 
 ## §7 — ⚑ STUCK-POINT — the clock. Corpus license cannot settle it.
+
+> **⚑ CURRENT STATUS (2026-08-11, later same day): re-dispositioned STUCK → CANDIDATE RESOLUTION
+> (Γ-DISCRIMINATED REGIME SPLIT), ⚑ UN-AUDITED — see [§9](#9--dated-addendum-2026-08-11--the-grant-walk-un-audited).**
+> The §7 question below was put to Grant and he answered it. The answer is **not** one of the four
+> readings enumerated at §7(4): it is a **fifth** structure that makes the three clocks one clock in
+> two regimes. **§7 stands exactly as written** — it is the correct statement of what *corpus license*
+> alone can reach, which is what this lane was chartered to establish, and the §9 candidate is
+> **chat-walk algebra, not audited.** Read §7 as the license finding and §9 as the routed proposal.
+> **Nothing in §9 is claimed as canon, and §8's routing is unchanged by it.**
 
 **Everything above resolved. This did not.** Per the brief: *"If the two-laws collision cannot be
 settled by corpus license alone, that is a STUCK-POINT for Grant — not a coin flip, not a
@@ -428,3 +440,152 @@ Everything else in this map follows from the answer, and nothing in the corpus a
 moved; no claim-id minted; no `A₀` derived or estimated; no winner picked on §7; no re-litigation of
 W1/W2, PR #90/#91/#92, #951, or FLAG-CEFF-CITE; no position taken on whether the 17%-of-residual
 exposure (§5) helps or hurts.
+
+---
+
+## §9 — DATED ADDENDUM (2026-08-11) — the Grant walk (⚑ UN-AUDITED)
+
+**Provenance and status, stated first.** §7 posed one physical question to Grant. He answered it in
+two moves, in chat, and this section records both. **Everything here is chat-walk algebra that the
+lane ran itself in conversation — no adversarial review, no second reader, no auditor.** It is
+recorded because it is a *candidate resolution of this lane's central finding* and must not live only
+in a transcript; it is tagged **UN-AUDITED** because the load it now carries (a resolution of the
+three-clock collision + a mechanism for the two-radii split + a proposed third axis for W2) is far
+past what conversational algebra earns. **Routed for adversarial review (§10). Nothing below is
+canon, nothing below moves a solidity, and §7's license finding is unchanged by it.**
+
+Receipts for every expression here are in the driver's **R10–R12** legs, added with this addendum.
+
+### §9.1 — Grant's first move: hold the RATIO, pump the PRODUCT
+
+> *"what happens to a circuit where the amount of energy stored in an LC tank increases, but the
+> relative offset of effective reactance between L and C stays the same (effectively, until a
+> strain/yield point)?"*
+
+The question splits "more energy stored" into two readings that give **opposite** answers — which is
+the whole fork:
+
+| reading | what moves | ω₀ = 1/√(LC) | Z = √(L/C) |
+|---|---|---|---|
+| **driven harder**, components fixed | amplitude | **does not move** — a linear tank is isochronous. First motion needs `L` or `C` to go amplitude-dependent = **the kernel**, whose leading correction is **even** in `A` | fixed |
+| **components co-scale**, `L→mL`, `C→mC` | the LC **product** | **ω₀/m — LINEAR in the grading** | **invariant** |
+
+Grant's condition (*ratio fixed*) selects the second. **The impedance is the ratio; the clock is the
+product.** Hold the ratio and the product can be pumped arbitrarily: the tank detunes linearly and
+**never reflects**. This is not a saturation effect at all — and it is why the first reading, which
+is what canon's kernel-clock sites are implicitly computing, comes out first-order-empty.
+
+**The numbers close exactly** (R10): `m = 1 + ε₁₁/7 = 1/√g₀₀` reproduces the observed **slope-1**
+redshift `z = GM/c²r`; and `m² = 1 + (2/7)ε₁₁ = n_temporal`, the **slope-2** propagation index. W2's
+bridge `z = (n_t − 1)/2` stops being a stipulation and becomes bookkeeping: **the sitting clock
+re-tunes once; a traversing signal crosses re-tuned tanks and picks it up twice.**
+
+**This mechanism is already in canon, unconnected to the clock sites** —
+`14_macroscopic_orbital_mechanics.tex`:63, verbatim: *"gravity is a reactive frequency re-tuning of
+the LC network at **invariant** characteristic impedance (`Z = Z_0`, reflectionless …)"*. Frequency
+re-tuning at invariant impedance **is** product-moves / ratio-holds. (Also canonical at the ch-14 KB
+leaf and `03_macroscopic_relativity.tex`.)
+
+**What it repairs, at zero cost to the rulings.** The 2026-06-29 SUBTRACT argument is *"frequency
+down-regulates ⇒ `E = ħω` drops ⇒ matter weighs less."* That chain is **untouched**. The only
+defective step was identifying the down-regulation factor with `√S`. Substituting `m = 1/√g₀₀` makes
+it first-order-correct and reproduces the observed defect. The same substitution repairs X44's Komar
+weight (`backreaction.py`:17) — the source should carry the **co-scaling factor**, not the kernel.
+⚠ **Proposed, not applied.** Neither ruling is edited by this lane.
+
+### §9.2 — Grant's second move: μ = fabric, ε = bonds. What happens when the bonds break?
+
+Under that ontology the spring is what pushes back, so a bond going is **runaway compliance**:
+`C → ∞` at fixed `L`. The fabric persists; nothing holds it in place. Writing it as `C → C/S`
+with `S → 0` (R11):
+
+| | ω₀ = 1/√(LC) | Z = √(L/C) | Γ |
+|---|---|---|---|
+| **bonds intact** (`L→mL`, `C→mC`) | **ω₀/m** — linear | **invariant** | **0** — reflectionless |
+| **bonds break** (`C→C/S`, `L` fixed) | **ω₀√S → 0** — clock **freezes** | **Z₀√S → 0** — **shorts** | **−1** — inverting wall |
+
+> ★ **THE ORTHOGONALITY CLAIM (the load-bearing one; attack this first).** Co-scaling moves the LC
+> **product**; bond-breaking moves the **ratio**. Two independent knobs on the same two components.
+> **`Z` is blind to co-scaling and sensitive to bond-breaking, so `Γ` — not frequency — is the
+> discriminator between the two clocks.** Watching a clock slow cannot tell them apart; watching
+> whether anything reflects can.
+
+**Consequence — the three clocks become one clock in two regimes:**
+
+$$\frac{\omega_{\text{local}}}{\omega_\infty} \;=\; \underbrace{\frac{1}{m}}_{\text{ratio holds}}\;\cdot\;\underbrace{f(S)}_{\text{ratio breaks}}$$
+
+While `Γ = 0`, `m` governs and the response is **linear**. Once the springs give, `f(S)` governs and
+it goes to **zero**. **That is `white-dwarf…md`:44's product `1/(n·S)` with a mechanism under it** —
+it was never double-counting: it is *how much the tank breathed* × *how much the springs are giving
+out*. And #951's lemma is thereby **correctly scoped rather than damaging**: the kernel was never
+supposed to produce Newtonian gravity. It produces the correction and the wall. The lemma kills
+*kernel-as-the-whole-clock*, which on this reading was always a misassignment.
+
+⚠ **The exponent of `f` is NOT picked here.** This addendum writes `√S` (clock rides `c_shear`);
+`white-dwarf…md`:56 uses `1/S`. That disagreement is **already VACATED and ROUTED-NOT-RULED**
+(`operators.md` §8 FLAG-CEFF-CITE, 2026-08-07, four forms in play). **The claim is the structure
+`(1/m)·f(S)`; `f` is a pre-existing open question and stays open.**
+
+**Bond-breaking is not the endpoint of co-scaling — it arrives first, and from outside** (R12). At the
+shear wall `r_sat = 3.5 r_s` the tank has detuned by only **18%** (`m = 1.183`) while `S` has gone to
+**0**. Two failures, two quantities, two radii:
+
+| radius | what diverges | bonds | channel consequence |
+|---|---|---|---|
+| `r_sat = 3.5 r_s` | **`S → 0`** | **break** | `Γ_shear = −1` — the actual reflector |
+| `r_s` | **`m → ∞`** | **intact** | `Γ_EM = 0` — refractive singularity, no reflection |
+
+**This gives clm-ir8h78's channel table a mechanism** (§3.3 established the split by license; this
+proposes *why*). It also explains the corpus's most-repeated gravity statement: **for the EM channel
+the bonds never break** — `Γ_EM = 0` at three independent sites (`einstein-field-equation.md`:49,
+`lattice-extreme-bh-rationality.md`:37, `backreaction.md`:62) — **so EM is pure co-scaling all the way
+down, which is exactly why photons see GR exactly.**
+
+### §9.3 — Global vs local (Grant's explicit ask)
+
+The two regimes are not two candidates for one observable. **They are different *kinds* of
+observable**, and this is the sharpest content of the walk:
+
+| | **co-scaling (`m`)** | **bond-breaking (`f(S)`)** |
+|---|---|---|
+| locally detectable? | **NO** — rulers and clock co-scale; `Γ = 0` leaves no local edge | **YES** — your own springs stop pushing back; `Z` moves; neighbours go mismatched |
+| what *is* observable | only the **gradient** (tidal) | the event itself |
+| character | **RELATIONAL** — exists only in comparison to a distant reference | **ABSOLUTE** — no change of reference makes it go away |
+| canon anchor | `graded-network-response.md`:136–137, INVARIANT-S2, verbatim: *"gauge-relative; only spatial gradients of `A₀` are observable"* | `Γ = −1` wall rows (⚑ fenced, see below) |
+
+**So the linear clock is a global/relational quantity and the kernel clock is a local/absolute one.**
+The co-scaling being locally unobservable **is** the equivalence principle in circuit clothes.
+
+**This vindicates §7(4)'s reading R-D** — *"the question is malformed; 'the clock' is not one
+object"* — **but supplies the missing axis**, which is **not** bulk-vs-local. W2's carve separated
+*bulk propagation* from *local clock* and still felt one row short; the axis it was missing is
+**RELATIONAL vs ABSOLUTE**. If this survives review, W2 needs a third row, not a correction.
+
+**Ax3 note:** both regimes stay lossless. Co-scaling is reactive with **no port at all**;
+bond-breaking raises a wall but `|Γ| = 1`, so it **reflects rather than dissipates**. No resistor is
+introduced anywhere in this addendum, and no loss word is used without a port.
+
+### §9.4 — The three flags this addendum must carry
+
+1. **`f`'s exponent is not adjudicated here** — pre-existing VACATED item (FLAG-CEFF-CITE). Untouched.
+2. **`μ` = fabric / `ε` = bonds is Grant's ontology, NOT canon's declared role.** Canon carries `μ` as
+   the circulation-keyed relativistic inductor and as a **sign/spin selector**. The inductor reading
+   is compatible; *"fundamental fabric"* is **not** a canonical sector assignment and is **not
+   promoted to one here.** If §9 survives, that assignment needs its own adjudication before any leaf
+   states it.
+3. **The `Γ = −1` wall rows are inside a live Grant-fenced fork.** `backreaction.md`:194's
+   sign-relativity declaration (wall-taxonomy §10, PR #869) rules any signed `Γ` **computed-not-chosen
+   from the branch-derived indicial wall row**, and records `Z_bulk → ∞` via `ρ_eff = ρ₀/S³` where
+   this addendum's two-element tank gives `Z → 0`. **This lane does not re-litigate that fence.** The
+   orthogonality claim is stated for the **idealized two-element tank**; whether it survives the
+   graded-`ρ` wall treatment is **exactly the first thing review must attack** (§10, lens L1).
+
+---
+
+## §10 — Routed for adversarial review
+
+**Handoff brief:** [`_orchestration/2026-08-11_linearity-addendum-adversarial-review-brief.md`](../_orchestration/2026-08-11_linearity-addendum-adversarial-review-brief.md)
+— **§9 only.** §1–§8 are the license map and are reviewed as an ordinary records PR; §9 is the
+un-audited candidate and carries its own adversarial pass. **Default-to-refuted.** The single claim
+whose fall takes the rest with it is **§9.2's orthogonality claim**; every other §9 result hangs
+from it.

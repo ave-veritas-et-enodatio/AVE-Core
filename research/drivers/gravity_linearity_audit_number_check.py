@@ -163,6 +163,55 @@ check_expr("R9a dlnW/dA at A0", sp.simplify(dlnW), A0 / (2 * (A0**2 - 1)))
 check_expr("R9b small-A0 limit", sp.series(dlnW, A0, 0, 2).removeO(), -A0 / 2)
 print("       (no A0 VALUE is proposed — that is the pre-tension lane's charter)")
 
+# ======================================================================================
+# §9 ADDENDUM LEGS (⚑ UN-AUDITED candidate — see result doc §9). These recompute the
+# chat-walk algebra so it can be attacked; they assert nothing about which reading is
+# correct. R11's `f(S)` exponent is the pre-existing VACATED Op16 question, NOT settled
+# here — `sqrt(S)` below is the "clock rides c_shear" reading, written to be refutable.
+# ======================================================================================
+Lsym, Csym, msym, Ssym = sp.symbols("L C m S", positive=True)
+w_base = 1 / sp.sqrt(Lsym * Csym)
+Z_base = sp.sqrt(Lsym / Csym)
+
+print("\nR10 — §9.1 co-scaling: hold the RATIO, pump the PRODUCT")
+w_co = 1 / sp.sqrt(msym * Lsym * msym * Csym)
+Z_co = sp.sqrt(msym * Lsym / (msym * Csym))
+check_expr("R10a co-scaled omega ratio", sp.simplify(w_co / w_base), 1 / msym)
+check_expr("R10b co-scaled Z ratio", sp.simplify(Z_co / Z_base), sp.Integer(1))
+check_expr("R10c m that gives the OBSERVED slope-1 z",
+           sp.series((1 - NU_VAC * e11) ** sp.Rational(-1, 2), e11, 0, 2).removeO(), 1 + e11 / 7)
+check_expr("R10d m^2 == n_temporal (slope 2)",
+           sp.expand(sp.series((1 + e11 / 7) ** 2, e11, 0, 2).removeO()), 1 + 2 * e11 / 7)
+print("       => W2's bridge z = (n_t - 1)/2 falls out of m vs m^2, not stipulated")
+
+print("\nR11 — §9.2 bond-break: runaway compliance at fixed fabric (C -> C/S)")
+w_bb = 1 / sp.sqrt(Lsym * Csym / Ssym)
+Z_bb = sp.sqrt(Lsym * Ssym / Csym)
+check_expr("R11a bond-break omega ratio", sp.simplify(w_bb / w_base), sp.sqrt(Ssym))
+check_expr("R11b bond-break Z ratio", sp.simplify(Z_bb / Z_base), sp.sqrt(Ssym))
+check("R11c Gamma as S->0", float(sp.limit((Z_bb - Z_base) / (Z_bb + Z_base), Ssym, 0)), -1.0,
+      1e-12, "inverting wall (SHORT), two-element tank")
+# ORTHOGONALITY — the load-bearing claim. Z must be blind to m and sensitive to S.
+check("R11d dlnZ/dm  (co-scaling)", float(sp.diff(sp.log(Z_co), msym).subs(msym, 1)), 0.0, 0,
+      "Z is BLIND to co-scaling")
+ok_S = sp.simplify(sp.diff(sp.log(Z_bb), Ssym)) != 0
+print(f"  [{'PASS' if ok_S else 'FAIL'}] R11e dlnZ/dS  (bond-break)"
+      f"{'':<20s} = {sp.simplify(sp.diff(sp.log(Z_bb), Ssym))}  -> Z is SENSITIVE to bond-break")
+if not ok_S:
+    FAILURES.append("R11e")
+
+print("\nR12 — §9.2 the two failures arrive at DIFFERENT radii in DIFFERENT quantities")
+for label, r_over_rs in (("r_sat = 3.5 r_s", 3.5), ("r_s", 1.0)):
+    rs_r = 1.0 / r_over_rs
+    e_here = 3.5 * rs_r
+    m_here = 1 / math.sqrt(1 - rs_r) if rs_r < 1 else float("inf")
+    s_here = math.sqrt(1 - e_here**2) if e_here <= 1 else float("nan")
+    print(f"       {label:<16s} eps11={e_here:<6.3f} m={m_here:<8.3f} S={s_here:.3f}")
+check("R12a m at the shear wall r_sat", round(1 / math.sqrt(1 - 1 / 3.5), 3), 1.183, 1e-3,
+      "tank detuned only 18% where the springs are already gone")
+check("R12b S at the shear wall r_sat", round(math.sqrt(max(0.0, 1 - 1.0**2)), 6), 0.0, 0,
+      "bond-break arrives FIRST, and from OUTSIDE (r_sat = 3.5 r_s)")
+
 print("\n" + "=" * 90)
 if FAILURES:
     print(f"RESULT: {len(FAILURES)} FAILED -> {FAILURES}")
