@@ -23,8 +23,9 @@ merging this first leaves both hanging on an unmerged branch.
 > (matter-wave), applied to the solution of a **linear** elliptic equation with a **constant**
 > modulus. The Ax4 kernel appears **nowhere** in that chain. The kernel's licensed role is separate
 > *(⚑ **#957 (2026-08-12) — the two sevens are DIFFERENT OBJECTS; this one is K-CONDITIONAL.**
-> The **per-cell kinematic inventory** seven stands independently
-> (`vol9/ch3-pin-port-configuration/index.md`:17 — 3 **u** + 3 **ω** + 1 **A₁** breathing). The
+> ⚑ **The whole content of this pointer is (a).** **(a)** The **ν-denominator** seven is
+> **K-CONDITIONAL** — solid, #957's D3. **(b)** Separately: the per-cell **kinematic-inventory** seven is a **separately counted** inventory (`vol9/ch3-pin-port-configuration/index.md`:17 — 3 **u** + 3 **ω** + 1 **A₁** breathing). ⚑ **It is cited as COUNTED, not asserted to stand:** it is under a live tension with **#761** (`research/2026-07-20_mechanical-commonmode-derivation_result.md`:46, adopted **verbatim** at `vocabulary-register.md`:594) — *"It is **NOT a separate scalar DOF**; it is a projection of the same 3-vector `u`."* **If that reading holds the seven-count double-counts. GRANT'S TO RULE; this pointer flags it and nothing more.**
+> The
 > **ν-denominator** seven does **not**: **`ν = (3K−2G)/(2(3K+G))` equals `2/7` only at `K = 2G`.**
 > Read as C3's `d/n` with `n = (3K+G)/G`, **both** halves slide and neither stays integral —
 > `(n, d)` = `(4, ½)` · `(7, 2)` · `(8, 5/2)` · `(10, 7/2)` for `K` = `G` · `2G` · `7G/3` · `3G`.
@@ -37,7 +38,9 @@ merging this first leaves both hanging on an unmerged branch.
 > *seven* / *Poisson* / *denominator* / `2/7` / `ν`. R51 supplies **only** the `K = 2G` identity
 > re-frame that makes the denominator conditional, and is itself **Grant-ratified but WALK-LEVEL**
 > (its own preamble: *"the algebra herein is chat-walk grade, un-audited; the carve ships with its
-> own kill-checks (§5)"*), `_orchestration/docket-entries/2026-08-12-ruling-r51-a1-two-objects-carve.md`.)*
+> own kill-checks (§5)"*), `_orchestration/docket-entries/2026-08-12-ruling-r51-a1-two-objects-carve.md`
+>
+> ⚑ **R52's ruling has NOT propagated.** R52 (`_orchestration/docket-entries/2026-08-12-ruling-r52-k2g-operating-point.md`:110–112) declares the mode-count gloss the import (*"THE MODE-COUNT GLOSS IS THE IMPORT; THE KINEMATIC GLOSS IS CORRECT"*). The derivation it unlicenses is **live and unedited** at `mode-counting-heat-capacity.md`:14, `g-star-derivation.md`:18, `alpha-s-derivation.md`:21,:35, `03_geometric_inevitability.tex`:417,:475,:495 and `11_thermodynamics_and_entropy.tex`:149. **This pointer records that the propagation is OWED. It is not the repair.**)*
 > and second-order: it grades the *modulus*, and canon states the split in its own words at
 > `white-dwarf-gravitational-predictions.md`:44–54 (*"For Standard General Relativity, S = 1"*).
 > **So the two "laws" are not competitors for one observable — they are two roles, and `√S` is a
@@ -260,7 +263,7 @@ file.**
 Nine of the ten licensed sites in §3.1 (+ site 15) are **the same structure wearing different channel
 labels**:
 
-> ⚑ **#957 (2026-08-12) — the two sevens are DIFFERENT OBJECTS.** The **per-cell KINEMATIC INVENTORY** seven stands on independent footing (`vol9/ch3-pin-port-configuration/index.md`:17 — 3 translational **u** + 3 microrotational **ω** + 1 volumetric **A₁** breathing). The **ν-DENOMINATOR** seven does **not**: **`ν = (3K−2G)/(2(3K+G))` equals `2/7` only at `K = 2G`.** Read as `d/n` with `n = (3K+G)/G`, **both** halves slide and neither stays integral — `(n, d)` = `(4, ½)` · `(7, 2)` · `(8, 5/2)` · `(10, 7/2)` for `K` = `G` · `2G` · `7G/3` · `3G`; **a count cannot be ½**. So the "7" at `mode-counting-heat-capacity.md`:14 is **K-conditional**. #957 returned **ONTOLOGY-DEAD**. **Attribution:** the two-sevens carve is **#957's D3 + closure §11**, *not* R51 (which contains no occurrence of *seven* / *Poisson* / *denominator* / `2/7` / `ν`); R51 supplies **only** the `K = 2G` identity re-frame, and is **Grant-ratified but WALK-LEVEL, kill-checks live** — `_orchestration/docket-entries/2026-08-12-ruling-r51-a1-two-objects-carve.md`. See the headline pointer for the #957 §11 reduced-vs-unreduced reconciliation.
+> ⚑ **#957 (2026-08-12) — the two sevens are DIFFERENT OBJECTS.** ⚑ **The whole content of this pointer is the ν-denominator half.** Separately, the per-cell **kinematic-inventory** seven is a **separately counted** inventory (`vol9/ch3-pin-port-configuration/index.md`:17 — 3 **u** + 3 **ω** + 1 **A₁** breathing). ⚑ **It is cited as COUNTED, not asserted to stand:** it is under a live tension with **#761** (`research/2026-07-20_mechanical-commonmode-derivation_result.md`:46, adopted **verbatim** at `vocabulary-register.md`:594) — *"It is **NOT a separate scalar DOF**; it is a projection of the same 3-vector `u`."* **If that reading holds the seven-count double-counts. GRANT'S TO RULE; this pointer flags it and nothing more.** The **ν-DENOMINATOR** seven does **not**: **`ν = (3K−2G)/(2(3K+G))` equals `2/7` only at `K = 2G`.** Read as `d/n` with `n = (3K+G)/G`, **both** halves slide and neither stays integral — `(n, d)` = `(4, ½)` · `(7, 2)` · `(8, 5/2)` · `(10, 7/2)` for `K` = `G` · `2G` · `7G/3` · `3G`; **a count cannot be ½**. So the "7" at `mode-counting-heat-capacity.md`:14 is **K-conditional**. #957 returned **ONTOLOGY-DEAD**. **Attribution:** the two-sevens carve is **#957's D3 + closure §11**, *not* R51 (which contains no occurrence of *seven* / *Poisson* / *denominator* / `2/7` / `ν`); R51 supplies **only** the `K = 2G` identity re-frame, and is **Grant-ratified but WALK-LEVEL, kill-checks live** — `_orchestration/docket-entries/2026-08-12-ruling-r51-a1-two-objects-carve.md`. See the headline pointer for the #957 §11 reduced-vs-unreduced reconciliation.
 >
 > **`observable − 1 = (channel MODE-COUNT fraction) × (channel strain)`, with the strain the solution
 > of a LINEAR elliptic equation of CONSTANT modulus.**
@@ -274,7 +277,8 @@ labels**:
 
 ⚑ **These three fractions are the ν-denominator seven, which #957 rules K-conditional (`ν = 2/7`
 only at `K = 2G`) — see the headline pointer. They are NOT the per-cell kinematic inventory, which
-stands independently at `vol9/ch3-pin-port-configuration/index.md`:17.**
+is **separately counted** at `vol9/ch3-pin-port-configuration/index.md`:17 — **cited as counted, not
+asserted to stand** (live #761 tension; see the headline pointer).**
 
 | fraction | channel | site |
 |---|---|---|
@@ -580,12 +584,18 @@ Everything else in this map follows from the answer, and nothing in the corpus a
 | **6** | The §7 clock question | **Grant** | This report. |
 | **7** | `verify-frozen-provenance.py`:210–214 — a `Prereg-file:` path beginning with `_` **silently fails to resolve** when backtick- or emphasis-wrapped | **gate defect** (hit live by this lane) | tooling. The optional emphasis group `(?:[*_\`]{1,3})?` is greedy over `{*, _, \`}`, so `` `_orchestration/…` `` is captured as `orchestration/…`, which resolves nowhere — and the doc is then reported as *"carries Frozen label(s) but no prereg resolves"*, i.e. **the wrong diagnosis**. Every brief under `_orchestration/` is affected. Worked around here with the link form; **not fixed** (out of lane scope). |
 | **8** ⚑ | `anomalous-perihelion-advance.md`:20's 2026-05-17 note calls the perihelion result **"CLOSED, substrate-native"** — which **contradicts site 6's own warningbox** (`14_macroscopic_orbital_mechanics.tex`:70–72: *"adopted as a static potential … a consistency-class re-statement (AVE = GR …), not an independent AVE derivation"*). Two live sites, opposite provenance classes, same result | **FLAG, DO NOT FIX** (§1–§8 review instruction) | **Already surfaced to Grant; not this lane's to resolve.** Recorded here only so the contradiction is not re-discovered. **No edit, no verdict, no propagation.** |
-| **9** ⚑ | **ONE GAP AT THREE SITES — route as a single question, do not adjudicate.** The
-six-count originates at **Axiom 1** (`eq_axiom_1.tex`:37, bulleted at `manuscript/ave-kb/CLAUDE.md`:70)
-and recurs at `07_saturation_characteristics.tex`:45 and `06_temperature_characteristics.tex`:29.
-#957's item (f) (the A₁ breathing mode omitted from the six-count), #957's G1 re-frame (Axiom 1
-does not point at Axiom 5, which names the gap), and #957's D1 (the dead `CLAUDE.md`:55 pointer,
-second instance at `06_temperature`:29) are **the same gap wearing three labels** | **Grant — one ruling** | Cross-linked 2026-08-12 so it is ruled once, not three times. **No adjudication here.** |
+| **9** ⚑ | **ONE GAP AT ~50 SITES — route as a single question, do not adjudicate.** *(Rescoped
+2026-08-12: this row previously said "three sites" — the real spread is corpus-wide.)* The corpus
+counts the per-node inventory **both ways, in bulk**: roughly **17 sites count seven** and **35+ count
+six** (relay's figures; this lane's own file-level sweep gave **31 / 19** with different patterns —
+**the disagreement is itself the point: the count needs a real sweep, not an estimate, and neither
+figure is published here as precise**). ★ `src/tests/engine_acceptance/test_facade_p0_validate_on_known.py`:118
+carries **both at once**: `# 6 DOF/node: u (3) + omega (3) + the A1 node-field scalar (+1)` — labels
+six, enumerates seven. #957's **(f)** (the A₁ breathing mode omitted from the six-count), **(g)** (Axiom 1
+not pointing at Axiom 5, which names the gap) and **D1** (the dead `CLAUDE.md`:55 pointer, second
+instance at `06_temperature_characteristics.tex`:29) are **the same question wearing three labels**,
+and the **#761** reading (*"NOT a separate scalar DOF"*) is the fourth. | **Grant — one ruling** |
+Cross-linked so it is ruled once. **No adjudication here.** |
 
 **Explicitly NOT done by this lane:** no leaf/axiom/register/ruling/manuscript edit; no solidity
 moved; no claim-id minted; no `A₀` derived or estimated; no winner picked on §7; no re-litigation of
