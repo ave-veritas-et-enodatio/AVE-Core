@@ -35,11 +35,13 @@ THE THREE AXES
 
 SPEC EXTENSION 1 (2026-08-11, forced by an adversarial probe) — LaTeX SECTIONING.
     Without it the detector is blind wherever a Rule-12 banner governs prose that sits inside
-    NO `\\begin{}` environment.  That shape is LIVE in the corpus at
-    `manuscript/vol_1_foundations/chapters/04_continuum_electrodynamics.tex:288`: a `%` Rule-12
-    banner governing the prose below it, inside `\\subsection` (:287) and inside no environment
-    at all — the environment map around it jumps `\\end{resultbox}`@:273 -> `\\begin{figure}`@:299.
-    `SECTIONING_PROBE` below pins that site as a live regression.
+    NO `\\begin{}` environment.  That shape is LIVE in the corpus in
+    `manuscript/vol_1_foundations/chapters/04_continuum_electrodynamics.tex`, at the
+    `DEMOTED 2026-07-19 (deep-space reactive-bulk ruling, Rule 12)` banner: a `%` Rule-12
+    banner governing the prose below it, inside a `\\subsection` and inside no environment at
+    all — the environment map jumps `\\end{resultbox}` -> `\\begin{figure}` straight past it.
+    `SECTIONING_PROBE` below pins that site as a live regression, keyed on the banner's
+    BYTES rather than on its line number (REPAIR 3).
 
 SPEC EXTENSION 2 (2026-08-11, same probe) — the bare `Rule 12:` QUOTE-AND-DATE form.
     A real declaration form that carries NO `preserv`/`verbatim` token, e.g.
@@ -49,8 +51,8 @@ SPEC EXTENSION 2 (2026-08-11, same probe) — the bare `Rule 12:` QUOTE-AND-DATE
     `manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/unified-engine-design-doctrine.md:353`.
     All are FALSE POSITIVES on hand-read, but the FORM is a real marker the scan could not see.
 
-REPAIR (2026-08-11, post-merge) — THE SCAN SURFACE IS PINNED
-------------------------------------------------------------
+REPAIRS 1 & 2 (2026-08-11, post-merge) — THE SCAN SURFACE IS PINNED
+--------------------------------------------------------------------
 The first cut computed its 60/24 fixture numbers from `git diff origin/main HEAD` — a
 branch-relative surface that reproduced them ONLY on the batch-1 branch itself.  The
 moment #950 merged, that diff was empty on main (0 scanned vs fixture 60) and had a
@@ -70,6 +72,41 @@ the one scan was conflating:
     whose every line sat past the proxy's boundary.  The added-line set closes both:
     pre-existing stamps are not in it; a new file's lines all are.)  An adjudicated
     false positive is registered in `GUARD_ADJUDICATED_FP` with its reading.
+
+REPAIR 3 (2026-08-11, same day) — THE PROBE SITE IS CONTENT-ANCHORED
+--------------------------------------------------------------------
+`SECTIONING_PROBE` shipped as `(path, 288)` — a LIVE LINE NUMBER in a live corpus file.
+Any branch adding or removing a line above the banner shifted it, and the probe then
+read whatever line happened to land on :288 and reported
+`"no longer carries a Rule-12 banner — probe shape changed"`.  The banner was intact;
+only its line number had moved.  That is a third instance of this file's own recurring
+defect class — a gate whose fixture encodes an incidental property of the tree it was
+banked on — and its failure text actively MISDESCRIBED the cause, sending the reader to
+audit a preserved span that nothing had touched.  The repair: `SECTIONING_PROBE` now
+carries an ANCHOR SUBSTRING instead of a line number, the banner is LOCATED by its bytes
+at every run, and the shape assertions (inside a sectioning container, inside no
+environment, matched by `PRESERVE`) are made around wherever it was found.  Two hits are
+an AMBIGUITY failure, not a silent first-match.
+
+What the probe guards is the SHAPE, not the wording, and the shape is exactly three
+clauses: the banner resolves to SOME `\\subsection` container, to NO environment
+container, and its own text — the anchor bytes discounted — carries the `PRESERVE`
+vocabulary.  Re-flowing the banner's body prose is free; deleting it, rewriting its
+dated identity head, duplicating it, landing it where no `\\subsection` encloses it,
+wrapping it in an environment, or stripping its declaration wording all fail loudly —
+see mutations M7a-h, which drive the probe on perturbed in-memory copies of the live
+file rather than on a fixture that could itself go stale.
+
+READ THE FIRST CLAUSE LITERALLY: it is "under SOME `\\subsection`", NOT "under THIS
+one".  A relocation that happens to land under a NEIGHBOURING `\\subsection` legitimately
+PASSES, and is meant to — this probe pins the SHAPE of the site, not its address.  A move
+fails only where no `\\subsection` encloses the landing site (in this chapter, the
+`\\section`s whose only sub-structure is `\\paragraph`s), and the "NO sectioning
+container" branch is narrower still: it needs a move above the `\\chapter`, whose span
+runs to EOF.  An earlier draft of this note claimed that moving the banner out from under
+its `\\subsection` fails loudly full stop, and the PR body's on-disk receipt attributed
+the "NO sectioning container" message to a move above the `\\section`; both were measured
+false against this tree and are corrected here.
 
 RESIDUAL BLIND SPOTS — DECLARED, NOT COVERED
 --------------------------------------------
@@ -143,10 +180,29 @@ SECTIONING = [
 ]
 
 #: Live corpus site pinning SPEC EXTENSION 1 (a `%` Rule-12 banner inside a
-#: sectioning container and inside NO environment).
+#: sectioning container and inside NO environment), as (path, ANCHOR SUBSTRING).
+#: The second element is BYTES, never a line number (REPAIR 3): the banner is
+#: located at runtime, so an unrelated edit anywhere above it shifts the site
+#: without tripping the probe.  The anchor is the banner's dated identity head —
+#: its body prose stays free to be re-flowed, because what is guarded here is the
+#: SHAPE around the banner, not its wording.
+#:
+#: TWO STANDING REQUIREMENTS ON WHATEVER STRING SITS HERE:
+#:   (1) REPO-WIDE UNIQUE.  The dated head alone is carried by TWO corpus files
+#:       (vol_1 ch04 and vol_3 ch14); it is only in-file unique by luck of which
+#:       file the probe happens to read.  The anchor is extended through the
+#:       banner's first content words to `git grep -F -c` to exactly one corpus
+#:       file, so the bytes can only ever mean THIS banner.
+#:   (2) THE PRESERVE CHECK DISCOUNTS THESE BYTES.  A longer anchor sweeps up the
+#:       banner's own `Rule 12):`, which `PRESERVE` matches — so an anchor taken at
+#:       face value would SATISFY the vocabulary assertion merely by being found,
+#:       turning that branch into a tautology.  `sectioning_probe_covered` therefore
+#:       runs `PRESERVE` over the line with the anchor bytes REMOVED, and M7h is the
+#:       receipt that the branch is still fireable.  Do not drop that subtraction
+#:       when re-keying the anchor.
 SECTIONING_PROBE = (
     "manuscript/vol_1_foundations/chapters/04_continuum_electrodynamics.tex",
-    288,
+    "DEMOTED 2026-07-19 (deep-space reactive-bulk ruling, Rule 12): the dissipative",
 )
 
 # --------------------------------------------------------------------------- containers
@@ -446,14 +502,42 @@ def regression_fires_on_known_breach():
     return True, f"fires at fixture:{ln} inside [{name} {a}-{b}] via declaration at :{decl}"
 
 
-def sectioning_probe_covered():
+def locate_anchor(lines, anchor):
+    """The 1-based line carrying `anchor`, or `(None, why)`.
+
+    AMBIGUITY IS A FAILURE, not a first-match: two candidate lines mean the probe no
+    longer knows which site it pins, and silently taking the first would let a copied
+    banner move the probe onto a different span without anyone noticing."""
+    hits = [i for i, l in enumerate(lines, 1) if anchor in l]
+    if not hits:
+        return None, "is ABSENT from the file"
+    if len(hits) > 1:
+        return None, f"is AMBIGUOUS — carried by {len(hits)} lines {hits}"
+    return hits[0], ""
+
+
+def sectioning_probe_covered(lines=None):
     """SPEC EXTENSION 1 regression: the live probe-A site must resolve to a sectioning
-    container AND to no environment container."""
-    path, ln = SECTIONING_PROBE
-    full = os.path.join(REPO, path)
-    if not os.path.isfile(full):
-        return False, f"probe file missing: {path}"
-    lines = open(full, encoding="utf-8").read().split("\n")
+    container AND to no environment container.
+
+    The site is LOCATED BY ITS BYTES at every run (`SECTIONING_PROBE`'s anchor), never
+    read off a pinned line number — so the probe rides along when an unrelated edit
+    shifts the banner, and fails only when the SITE itself is gone, duplicated, or no
+    longer the declared shape (REPAIR 3).  `lines` is injectable so the mutation receipt
+    can drive this on perturbed copies in memory; the gate always calls with None, which
+    reads the live corpus file."""
+    path, anchor = SECTIONING_PROBE
+    if lines is None:
+        full = os.path.join(REPO, path)
+        if not os.path.isfile(full):
+            return False, f"probe file missing: {path}"
+        lines = open(full, encoding="utf-8").read().split("\n")
+    ln, why = locate_anchor(lines, anchor)
+    if ln is None:
+        return False, (f"{path}: the anchored Rule-12 banner {anchor!r} {why} — the probe "
+                       "SITE itself changed (NOT a line-number drift: the bytes are gone)"
+                       " — if this change was intentional, update SECTIONING_PROBE in "
+                       "research/drivers/r40_preserved_span_number_check.py")
     cs = containers_for(path, lines, ln)
     secs = [c for c in cs if c[0].startswith("sec:")]
     envs = [c for c in cs if c[0].startswith("env:")]
@@ -465,10 +549,18 @@ def sectioning_probe_covered():
         return False, f"{path}:{ln} has no \\subsection container — probe shape changed"
     if envs:
         return False, f"{path}:{ln} unexpectedly sits inside {envs} — probe shape changed"
-    if not PRESERVE.search(lines[ln - 1]):
-        return False, f"{path}:{ln} no longer carries a Rule-12 banner — probe shape changed"
-    return True, (f"{path}:{ln} covered by {subs[0]} (innermost) among {len(secs)} "
-                  f"sectioning container(s), in no environment")
+    # The anchor bytes are SUBTRACTED before the vocabulary test.  The anchor runs through
+    # the banner's own `Rule 12):`, which PRESERVE matches — testing the raw line would make
+    # this branch pass merely because the anchor was found (a tautology).  What must carry
+    # the vocabulary is the banner's DECLARATION, not the probe's choice of key.  M7h is the
+    # receipt that the branch still fires.
+    if not PRESERVE.search(lines[ln - 1].replace(anchor, " ")):
+        return False, (f"{path}:{ln} carries the anchor but its remaining text is NOT matched "
+                       "by the PRESERVE vocabulary — EITHER the banner's own declarative "
+                       "wording was stripped (the corpus changed) OR the PRESERVE vocabulary "
+                       "regressed (the detector changed); read the line to tell which")
+    return True, (f"{path}:{ln} (located by bytes) covered by {subs[0]} (innermost) among "
+                  f"{len(secs)} sectioning container(s), in no environment")
 
 
 def bare_rule12_form_seen():
@@ -637,6 +729,105 @@ def mutation_receipt():
     wrong_bytes = bool(_fp_probe(("manuscript/_probe_new_file.tex", "XXXX")))
     results.append(("M6d FP registry: right key suppresses, wrong file/bytes do not",
                     ok_key and wrong_file and wrong_bytes))
+
+    # M7 — REPAIR 3, the content-anchored probe site.  Driven on in-memory copies of the
+    # LIVE corpus file (not a fixture, which would drift out from under the thing it
+    # pins).  M7a/b are behavioral probes that must HOLD; M7c-h are perturbations that
+    # must TRIP — one per clause of the asserted shape: the bytes exist (c/d), resolve
+    # uniquely (e), sit under some `\subsection` (f), sit inside no environment (g), and
+    # carry the declaration vocabulary independently of the anchor (h).
+    probe_path, probe_anchor = SECTIONING_PROBE
+    live = open(os.path.join(REPO, probe_path), encoding="utf-8").read().split("\n")
+    at = [i for i, l in enumerate(live, 1) if probe_anchor in l]
+    blanks = [i for i in range(1, at[0]) if live[i - 1] == ""] if len(at) == 1 else []
+    setup_ok = len(at) == 1 and bool(blanks)
+    results.append(("M7-setup anchor unique in the live probe file, with a blank line above",
+                    setup_ok))
+    base = at[0] if setup_ok else 0
+
+    # M7a — an unrelated line inserted ABOVE the banner.  Under the line-number pin this
+    # was the whole defect: `make verify` red-lighted with "no longer carries a Rule-12
+    # banner" on any branch that touched the file above the site.  The probe must now
+    # PASS *and* report the SHIFTED number, which is what proves it re-located rather
+    # than merely tolerating the change.
+    shifted_down = ["% M7a: an unrelated line above the banner"] + list(live)
+    good_a, detail_a = sectioning_probe_covered(shifted_down)
+    results.append(("M7a probe rides a banner shifted DOWN by an unrelated insert",
+                    setup_ok and good_a and f"{probe_path}:{base + 1} " in detail_a))
+
+    # M7b — the same in the other direction: an unrelated blank line above it removed.
+    shifted_up = [l for i, l in enumerate(live, 1) if i != (blanks[0] if setup_ok else -1)]
+    good_b, detail_b = sectioning_probe_covered(shifted_up)
+    results.append(("M7b probe rides a banner shifted UP by an unrelated delete",
+                    setup_ok and good_b and f"{probe_path}:{base - 1} " in detail_b))
+
+    # M7c — DELETE the banner: the probe must fail, and must say the bytes are ABSENT
+    # rather than blaming whatever line inherits the number.
+    deleted = [l for i, l in enumerate(live, 1) if i != base] if setup_ok else list(live)
+    good_c, detail_c = sectioning_probe_covered(deleted)
+    results.append(("M7c delete the banner line", not good_c and "ABSENT" in detail_c))
+
+    # M7d — ALTER the banner's dated identity head, leaving the line in place.
+    altered = list(live)
+    if setup_ok:
+        altered[base - 1] = altered[base - 1].replace(
+            probe_anchor, "DEMOTED (identity head rewritten)")
+    good_d, detail_d = sectioning_probe_covered(altered)
+    results.append(("M7d alter the banner's anchored identity head",
+                    not good_d and "ABSENT" in detail_d))
+
+    # M7e — DUPLICATE the banner: two hits must fail as ambiguous, never silently
+    # first-match onto a site the probe was not pinning.
+    duped = ([live[base - 1]] + list(live)) if setup_ok else list(live)
+    good_e, detail_e = sectioning_probe_covered(duped)
+    results.append(("M7e duplicate the banner (ambiguity is not a first-match)",
+                    not good_e and "AMBIGUOUS" in detail_e))
+
+    # M7f — RELOCATE the banner to a line no `\subsection` encloses.  M7a-e perturb the
+    # banner in place (shift / delete / alter / duplicate); none of them MOVES it, so
+    # until now nothing exercised the `\subsection` clause at all.  The landing site is
+    # COMPUTED from the live file, never a pinned number, and the contract is "under SOME
+    # \subsection" — a move landing under a NEIGHBOURING subsection passes by design — so
+    # the site must be chosen rather than guessed.  It is chosen by evaluating the RESULT
+    # of each trial move at the banner's new line, so no insertion-convention off-by-one
+    # can pick a site that fails for the wrong reason, and it must land under a real
+    # `\section` (not merely under the `\chapter`), so what trips is provably the
+    # `\subsection` clause and not "outside every container".
+    without = [l for i, l in enumerate(live, 1) if i != base] if setup_ok else list(live)
+    relocated, landing = list(live), 0
+    for cand in range(1, len(without) + 1):
+        trial = without[:cand] + [live[base - 1]] + without[cand:]
+        cs = _sectioning_containers(trial, cand + 1)
+        if any(c[0] == "sec:section" for c in cs) and not any(c[0] == "sec:subsection" for c in cs):
+            relocated, landing = trial, cand + 1
+            break
+    good_f, detail_f = sectioning_probe_covered(relocated)
+    results.append(("M7f relocate the banner out from under every \\subsection",
+                    setup_ok and bool(landing) and not good_f
+                    and "has no \\subsection container" in detail_f))
+
+    # M7g — WRAP the banner in an environment, leaving it under its subsection.  The
+    # no-environment clause is the other half of the shape and was equally untested:
+    # a banner sealed inside a box is fenced by that box, not by the prose span it was
+    # pinning.
+    wrapped = (live[:base - 1] + ["\\begin{warningbox}", live[base - 1], "\\end{warningbox}"]
+               + live[base:]) if setup_ok else list(live)
+    good_g, detail_g = sectioning_probe_covered(wrapped)
+    results.append(("M7g wrap the banner in an environment",
+                    setup_ok and not good_g and "env:warningbox" in detail_g))
+
+    # M7h — the PRESERVE clause must be FIREABLE.  The anchor was lengthened for repo-wide
+    # uniqueness (F-4a) and now runs through the banner's own `Rule 12):`, which PRESERVE
+    # matches; without the anchor-subtraction in `sectioning_probe_covered` this clause
+    # would pass merely because the anchor was found.  Here the banner is replaced by the
+    # anchor plus filler carrying NO declaration vocabulary: the clause must still trip.
+    # If this mutation ever reads BROKEN, the vocabulary assertion has gone tautological.
+    novocab = list(live)
+    if setup_ok:
+        novocab[base - 1] = probe_anchor + " mechanism in this subsection is discussed below."
+    good_h, detail_h = sectioning_probe_covered(novocab)
+    results.append(("M7h PRESERVE clause still fires on an anchor-only banner (not a tautology)",
+                    setup_ok and not good_h and "PRESERVE vocabulary" in detail_h))
 
     allgood = True
     for label, tripped in results:
