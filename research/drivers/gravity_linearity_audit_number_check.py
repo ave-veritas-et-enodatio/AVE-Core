@@ -11,13 +11,24 @@ recomputed here on TWO independent engines (three where the number is load-beari
 The lane is READ-ONLY adjudication: nothing here derives new physics. It exists so the
 audit's arithmetic can be re-run against the corpus quotes it classifies.
 
-Run:  python3 research/drivers/gravity_linearity_audit_number_check.py
-Exit: 0 = all checks green.
+Run:   python3 research/drivers/gravity_linearity_audit_number_check.py
+Exit:  0 = all checks green.
+
+Mutation receipt (proves the kernel-dependent legs can actually FAIL):
+       python3 research/drivers/gravity_linearity_audit_number_check.py --mutation-receipt
+mutates the Axiom-4 kernel exponent (`1-A**2` -> `1-A**3`) and requires every detector in
+`MUTATION_DETECTORS` to trip. Exit 0 = all tripped (receipt satisfied); non-zero names the
+detectors that stayed green under a mutated kernel, i.e. are NOT actually coupled to it.
+This driver writes no tracked artifact, so a mutated run cannot dirty the tree.
+
+⚑ Added 2026-08-11 after the independent §1-§8 review found R8a hard-coded the kernel: a
+hand-run kernel mutation did NOT trip it. R8's C0 is now derived from `S_KERNEL`.
 """
 
 from __future__ import annotations
 
 import math
+import sys
 from decimal import Decimal, getcontext
 
 import sympy as sp
@@ -25,6 +36,15 @@ import sympy as sp
 getcontext().prec = 40
 
 FAILURES: list[str] = []
+
+MUTATE = "--mutation-receipt" in sys.argv
+# Detectors that MUST trip when the Ax4 kernel is mutated. Any that stays green is not
+# genuinely coupled to the kernel and is therefore not a receipt for a kernel claim.
+MUTATION_DETECTORS = (
+    "R1a kernel  sqrt(S(A)) series",
+    "R6a n = 1/sqrt(S) series",
+    "R8a kernel omega*sqrt(S)",
+)
 
 
 def check(tag: str, got: float, want: float, rtol: float, note: str = "") -> None:
@@ -47,7 +67,13 @@ def check_expr(tag: str, got, want, note: str = "") -> None:
 A = sp.symbols("A", positive=True)
 e11 = sp.symbols("varepsilon_11", positive=True)
 NU_VAC = sp.Rational(2, 7)
-S_KERNEL = sp.sqrt(1 - A**2)  # eq_axiom_4.tex:7
+NU_SCALAR = sp.Rational(1, 7)  # site 15: the 1/7 Lagrangian isotropic projection
+# eq_axiom_4.tex:7. Every kernel-dependent leg below MUST read this symbol, never a
+# re-typed literal — that is what makes the mutation receipt meaningful.
+S_KERNEL = sp.sqrt(1 - A**3) if MUTATE else sp.sqrt(1 - A**2)
+if MUTATE:
+    print("\n⚑ MUTATION RECEIPT RUN — Ax4 kernel mutated to sqrt(1 - A**3).")
+    print(f"   Detectors required to trip: {len(MUTATION_DETECTORS)}")
 
 print("\nR1 — the two functions written '√S' (result §3.2, §7)")
 kern = sp.series(sp.sqrt(S_KERNEL), A, 0, 3).removeO()
@@ -137,13 +163,16 @@ A_limb = 7 * G * MSUN / (c**2 * R_SUN)
 check("R7a 7GM/c^2 R_sun", round(A_limb, 9), 1.486e-5, 4e-4, "scoping :893 prints 1.486e-5")
 check("R7b A^2 at the limb", round(A_limb**2, 13), 2.21e-10, 5e-3, "scoping :893 prints 2.21e-10")
 
-print("\nR8 — the THREE candidate local clocks (result §7)")
-C0 = 1 - (1 - e11**2) ** sp.Rational(1, 4)          # kernel  : backreaction.md:128
+print("\nR8 — the FOUR candidate local clocks (result §7; 4th row added 2026-08-11, B-1c)")
+# ⚑ C0 is DERIVED FROM S_KERNEL (was hard-coded until 2026-08-11 — see module docstring).
+C0 = 1 - sp.sqrt(S_KERNEL).subs(A, e11)              # kernel  : backreaction.md:128
 C1 = 1 - sp.sqrt(1 - NU_VAC * e11)                   # lapse   : temporal-spatial:24 / W2
 C2 = 1 - 1 / (1 + NU_VAC * e11)                      # index   : Op19 route, op14 leaf:11
+C3 = 1 - 1 / (1 + NU_SCALAR * e11)                   # substrate-side matter : site 15 :14,:19
 for tag, ex, want_lead in (("R8a kernel omega*sqrt(S)", C0, 2),
                            ("R8b lapse  sqrt(1-r_s/r)", C1, 1),
-                           ("R8c index  omega/n", C2, 1)):
+                           ("R8c index  omega/n", C2, 1),
+                           ("R8g substrate-side omega/n_scalar", C3, 1)):
     lead = sp.series(ex, e11, 0, 3).removeO()
     deg = sp.Poly(sp.expand(lead), e11).monoms()[-1][0]
     ok = deg == want_lead
@@ -212,7 +241,33 @@ check("R12a m at the shear wall r_sat", round(1 / math.sqrt(1 - 1 / 3.5), 3), 1.
 check("R12b S at the shear wall r_sat", round(math.sqrt(max(0.0, 1 - 1.0**2)), 6), 0.0, 0,
       "bond-break arrives FIRST, and from OUTSIDE (r_sat = 3.5 r_s)")
 
+print("\nR13 — §2 site 15: the substrate-side clock AGREES with the lapse at leading order")
+print("      but is a DISTINCT FUNCTION (they part at O(eps11^2)) — result §7 fourth row")
+check_expr("R13a site-15 leading term == eps11/7",
+           sp.series(C3, e11, 0, 2).removeO(), e11 / 7)
+check_expr("R13b lapse leading term == eps11/7",
+           sp.series(C1, e11, 0, 2).removeO(), e11 / 7)
+d2 = sp.simplify(sp.series(C3 - C1, e11, 0, 3).removeO())
+ok13 = d2 != 0
+print(f"  [{'PASS' if ok13 else 'FAIL'}] R13c they DIFFER at second order"
+      f"{'':<14s} C3 - C1 = {d2}  -> distinct clocks, not one clock twice")
+if not ok13:
+    FAILURES.append("R13c")
+check_expr("R13d site-15 U_wave = m c^2 - GMm/r  (leaf :19)",
+           sp.series(1 / (1 + NU_SCALAR * e11), e11, 0, 2).removeO(), 1 - e11 / 7)
+
 print("\n" + "=" * 90)
+if MUTATE:
+    # Receipt inverted: under a mutated kernel the named detectors MUST have failed.
+    missed = [d for d in MUTATION_DETECTORS if d not in FAILURES]
+    for d in MUTATION_DETECTORS:
+        print(f"  [{'TRIPPED' if d not in missed else 'MISSED '}] {d}")
+    if missed:
+        print(f"\nMUTATION RECEIPT FAILED: {len(missed)} detector(s) NOT coupled to the kernel "
+              f"-> {missed}")
+        raise SystemExit(1)
+    print(f"\nMUTATION RECEIPT SATISFIED: all {len(MUTATION_DETECTORS)} kernel detectors tripped.")
+    raise SystemExit(0)
 if FAILURES:
     print(f"RESULT: {len(FAILURES)} FAILED -> {FAILURES}")
     raise SystemExit(1)

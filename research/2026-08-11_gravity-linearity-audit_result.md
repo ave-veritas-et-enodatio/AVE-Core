@@ -1,6 +1,6 @@
 # The gravity-sector linearity audit — the license map (2026-08-11)
 
-**Prereg-file**: [lane brief](_orchestration/2026-08-10_gravity-linearity-audit-brief.md)
+**Prereg-file**: [lane brief](../_orchestration/2026-08-10_gravity-linearity-audit-brief.md)
 **Prereg-commit**: `8a9f485f`
 *(This is a **verify-not-derive records lane**: it runs no experiment, so it has no prereg of its own.
 The frozen object is the **lane brief**, which fixed the goal, the verdict grammar
@@ -13,32 +13,42 @@ classification per the brief's own fence — see §2.)*
 edit to any KB leaf, register, ruling, axiom file, or manuscript file. **Mints nothing.**
 **Base:** `origin/main` @ `a23a044b`.
 
-> **⚑ HEADLINE.** The linearity is **LICENSED at every GR-exact observable, by ONE structure** —
-> the linear constitutive projection `n − 1 = ν_vac·(channel strain)` (Op19) applied to the solution
-> of a **linear** elliptic equation with a **constant** modulus. The Ax4 kernel appears **nowhere** in
-> that chain. The kernel's licensed role is separate and second-order: it grades the *modulus*, and
-> canon states the split in its own words at `white-dwarf-gravitational-predictions.md`:44–54
-> (*"For Standard General Relativity, S = 1"*). **So the two "laws" are not competitors for one
-> observable — they are two roles, and `√S` is a collided symbol.**
+> **⚑ HEADLINE** *(amended 2026-08-11 after the independent §1–§8 review — verdict SURVIVES and is
+> STRENGTHENED; see §2 site 15 and §4.1).* The linearity is **LICENSED at every GR-exact observable,
+> by ONE structure** — the linear projection **`observable − 1 = (channel MODE-COUNT fraction) ×
+> (channel strain)`**, the fractions being the canonical `1/7` (clock) · `2/7` (transverse) · `9/7`
+> (matter-wave), applied to the solution of a **linear** elliptic equation with a **constant**
+> modulus. The Ax4 kernel appears **nowhere** in that chain. The kernel's licensed role is separate
+> and second-order: it grades the *modulus*, and canon states the split in its own words at
+> `white-dwarf-gravitational-predictions.md`:44–54 (*"For Standard General Relativity, S = 1"*).
+> **So the two "laws" are not competitors for one observable — they are two roles, and `√S` is a
+> collided symbol.**
 >
 > **That verdict holds for lensing, Shapiro, perihelion, and the static force chain. It does NOT
-> hold for the local clock.** The clock is a genuine **STUCK-POINT** (§7): canon carries **three**
-> mutually exclusive clocks, **two Grant rulings** ride on the one the merged #951 lemma
-> weak-field-falsifies, and the channel discipline canon used to resolve the adjacent two-radii item
-> points *at* that same falsified one. Corpus license cannot settle it. **No winner is picked here.**
+> hold for the local clock.** The clock is a genuine **STUCK-POINT** (§7): canon carries **FOUR**
+> mutually exclusive clocks — the fourth found by the review at site 15 — **two Grant rulings** ride
+> on the one the merged #951 lemma weak-field-falsifies, and the channel discipline canon used to
+> resolve the adjacent two-radii item points *at* that same falsified one. Corpus license cannot
+> settle it. **No winner is picked here.**
 
 ---
 
 ## §0 — Standard Vacuum Analysis header (SVA v0.2-pilot)
 
- 1. **SECTOR / OWNERSHIP:** three channels carry gravity-sector observables and canon rules them
-    distinct (`lattice-extreme-bh-rationality.md`:96–97): **EM/transverse** (strain measure
-    `n − 1 = 2GM/c²r`; `Z_EM = Z₀`, `Γ_EM = 0`, matched) / **shear+bulk** (strain measure
-    `ε₁₁ = 7GM/c²r`; `Γ = −1` at `r_sat`) / **A1-dilatation** (the mass/source channel). The audit's
-    live cross-wiring risk is the **clock**: which channel owns an atom's proper tick. **Not resolved
-    here — routed (§7).**
- 2. **REGIME / PHASE-STATE:** static, cold, weak-field (`A ≪ 1`) for every GR-exact site audited;
-    Regime I throughout (`einstein-field-equation.md`:92–97, all GW sources `A ~ 10⁻²²`).
+ 1. **SECTOR / OWNERSHIP:** `lattice-extreme-bh-rationality.md`:96–97 is a **TWO-row** table and rules
+    exactly two channels distinct — **EM/transverse** (strain measure `n − 1 = 2GM/c²r`; `Z_EM = Z₀`,
+    `Γ_EM = 0`, matched) and **shear+bulk** (strain measure `ε₁₁ = 7GM/c²r`; `Γ = −1` at `r_sat`).
+    The **A1-dilatation** (mass/source) channel is a third channel in this audit's scope but is
+    **NOT** from that table — it is carried from `backreaction.md`:40–43. *(Attribution corrected
+    2026-08-11 per §1–§8 review: the original text attributed all three rows to `:96–97`.)* The
+    audit's live cross-wiring risk is the **clock**: which channel owns an atom's proper tick.
+    **Not resolved here — routed (§7).**
+ 2. **REGIME / PHASE-STATE:** static, cold, weak-field (`A ≪ 1`) for every GR-exact site audited.
+    `einstein-field-equation.md`:90–95 classifies its listed sources Regime I with **strain `h`
+    spanning `10⁻¹⁵` (pulsar timing) to `10⁻²²` (GW170817)** and `V_GW/V_snap` from `10⁻²²` to
+    `10⁻²⁹`; its **near-merger row (`h ~ 10⁻¹`) is the I–II boundary, not Regime I.** *(Corrected
+    2026-08-11 per §1–§8 review: the original read "all GW sources `A ~ 10⁻²²`", which matches
+    neither column and ignored the boundary row.)*
     Strong-field (`A → 1`) sites are named where they appear but are **not** the audit's target.
     ★ The collision is **regime-hidden**: the kernel clock is operative only in the strong-field
     engine, the lapse only in the weak-field observable chain. They have never been evaluated in the
@@ -69,7 +79,7 @@ edit to any KB leaf, register, ruling, axiom file, or manuscript file. **Mints n
 |---|---|---|
 | **PPN coherence audit** (PR #91, `research/2026-06-05_gravity-ppn-coherence-result.md`) | merged | **Seeds the frozen list.** Its S1–S4 are sites 1, 4, 6, 5 below. It settled COEFFICIENT coherence *while assuming the linear form* — that assumption is this lane's subject, and it is **vindicated as licensed** (§4). |
 | **W1 / W2 walk-backs** (PR #90, `temporal-spatial-lattice-decomposition.md`:26,:28) | applied at HEAD | **Not re-litigated.** Post-relabel statements classified. ★ **W2's ruled content is the slope-2-vs-slope-1 disambiguation only**; its descriptive phrases *"= √S"* and *"the c_shear clock"* are **unruled baggage inside a ruling about something else** (§7). |
-| **graded-network quadratic row** (`graded-network-response.md`:147, provenance `b56ee5df` 2026-06-22; ASYM `−¼A²` older, `vacuum-impedance-mirror.md`:122) | live | Site 9. Licenses **only** `δn ∝ +¼A²`, and labels that row *"gravity-class"* — the collision in the **index** register. |
+| **graded-network quadratic row** (`graded-network-response.md`:147, provenance `b56ee5df` 2026-06-22; ASYM `−¼A²` older, `vacuum-impedance-mirror.md`:134) | live | Site 9. Licenses **only** `δn ∝ +¼A²`, and labels that row *"gravity-class"* — the collision in the **index** register. |
 | **ALREADY-FLAGGED linear-vs-quadratic tension** (`research/2026-07-31_anisotropy-observable_scoping.md`:893) | live | **Cited and sharpened, not re-discovered.** Verbatim there: *"photoelasticity is linear in strain while the kernel's index shift is quadratic in amplitude — the two are not the same expansion."* That site also fixes `A ≡ ε₁₁` numerically (§6, R7). |
 | **failed kernel-mechanism attempt** (PR #92, two-reactance factor-2 NOT-FORCED) | merged | Consumed as a **prior negative**: the kernel route to the factor was tried and did not force. Not retried here. |
 | **`trampoline-framework.md`:113** `k_eff = k₀(1 + βu₀ + O(u₀²))` | live | Site 12. The **operating-offset** structure (Arm-1). Verdict: **licensed as a structure, NOT instantiated for gravity** (§4.3). |
@@ -82,13 +92,19 @@ edit to any KB leaf, register, ruling, axiom file, or manuscript file. **Mints n
 Enumerated by two independent grep methods (§6, R9) plus the PPN seed list. Ordered by role, not
 by verdict. **No site was added after classification began.**
 
+> **⚑ FREEZE PROVENANCE — honest scope (added 2026-08-11 per §1–§8 review).** This list's "frozen
+> before classification" status is a **single-commit self-attestation**, not a freeze-by-push: the
+> list and its classifications landed in **one** commit (`1a351bfe`), so no external artifact
+> witnesses the ordering. The claim rests on the lane's word. **Stated so a reader can discount it
+> accordingly** — a genuine freeze-by-push would have committed §2 alone, before §3 existed.
+
 | # | Site | What it states (role) |
 |---|---|---|
 | 1 | `common_equations/eq_gravity_derived.tex`:50–56 + `temporal-spatial-lattice-decomposition.md`:14–19 | the two-index decomposition (PPN **S1**) |
 | 2 | `gordon-optical-metric.md`:20–28 | the **linear** elliptic core, constant modulus `c⁴/7G` |
 | 3 | `refractive-index-of-gravity.md`:10–18 | `n = 1 + (2/7)(7GM/c²r)`; Gordon identification |
 | 4 | `02_general_relativity_and_gravity.tex`:185–206 + `double-deflection.md`:28 | the deflection derivation (PPN **S2**) |
-| 5 | `translation-gravity.md`:23 + `02_general_relativity…tex`:137 | Gordon-form lensing index (PPN **S4**) |
+| 5 | `common/translation-tables/translation-gravity.md`:23 + `02_general_relativity…tex`:137 | Gordon-form lensing index (PPN **S4**) |
 | 6 | `14_macroscopic_orbital_mechanics.tex`:66–77 (+ warningbox :70–72) | perihelion (PPN **S3**) |
 | 7 | `operators.md`:59 (**Op19**) | `n(r) = 1 + ν_vac·ε₁₁` — CANONICAL operator |
 | 8 | `saturating-modulus-and-backreaction.md`:42, :50–53, :64 | kernel on the **modulus**; weak-field recovery |
@@ -99,9 +115,34 @@ by verdict. **No site was added after classification began.**
 | 13 | `white-dwarf-gravitational-predictions.md`:42–57, :61–70 | the **only** site combining both, with numbers |
 | 14 | `eq_axiom_4.tex`:10, :24, :56–59 + `einstein-field-equation.md`:49 | the routed `ε₁₁ = 1` two-radii item |
 
+> ### ⚑ SITE 15 — DATED ADDITION (2026-08-11), KEEP-BOTH. The frozen 14 above stand as frozen.
+>
+> **The miss, disclosed.** The §1–§8 review found a site the frozen list should have caught and did
+> not: **`ponderomotive-equivalence.md`:14,:19** — `clm-rd9cjm`, in **ch03-macroscopic-relativity,
+> the same chapter and the same claim-id as sites 3 and 5.** It is added here as **site 15**, dated,
+> rather than inserted into the frozen table — the 14-site list is left byte-intact so the
+> freeze-then-classify ordering (such as it is, see the provenance note above) is not retro-edited.
+>
+> | # | Site | What it states (role) |
+> |---|---|---|
+> | **15** | `ponderomotive-equivalence.md`:14,:19 (added 2026-08-11) | **`n_scalar(r) = 1 + ε₁₁(r)/7 = 1 + GM/c²r`** — the **substrate-side matter index**, via *"the `1/7` Lagrangian isotropic projection (derived in Chapter 4)"*; yields `U_wave = m_i c²/n_scalar = m_i c² − GMm_i/r` and `F = −∇U = −GMm_i/r²r̂` |
+>
+> **Why R9's two-method sweep missed it.** Method 1 searched literal `1 + 2GM`-class and
+> `\tfrac{2}{7}` forms; method 2 searched the `nu_vac` projection. **Site 15 writes neither** — it
+> uses a bare `\epsilon_{11}(r)/7`. Both patterns were keyed to the `2/7` transverse coefficient,
+> which is precisely the assumption §4.1 is corrected for below. **This is the grep-completeness
+> false-negative failure mode, and §6's "completeness is curation, not a gate" caveat was the right
+> hedge but did not prevent the miss.** No claim of exhaustiveness is made for the amended list either.
+>
+> **What it changes** — three downstream corrections, all applied: **§4.1** (the structure is a
+> mode-count fraction, not `ν_vac`), **§7** (a fourth clock row), **§7(4) R-A** (its stated cost was
+> wrong). **It does not change any §3 verdict:** site 15 is `LICENSED` by the same structure, and its
+> presence *strengthens* the license finding rather than weakening it — the linear coupling is not
+> only licensed, it is **derived on the substrate side at this site.**
+
 **Engine sites (operative code, carried as receipts not as separate rows):**
 `src/ave/gravity/backreaction.py`:14–17, :237–252 (kernel clock, X44) and :646–678 (linear Op19);
-`src/ave/gravity/gw_propagation.py`:84–117 (linear/GR index), :270–294 (kernel shear speed);
+`src/ave/gravity/gw_propagation.py`:84–117 (**GR Schwarzschild form** `n = 1/(1−r_s/r)`, mapped through Op19 — no kernel), :270–294 (kernel shear speed);
 `src/ave/core/universal_operators.py`:1100 (`1.0 + nu_vac * epsilon_11`).
 
 ---
@@ -120,13 +161,23 @@ possible — both quoted).
 | **7** | `operators.md`:59 (**Op19**) — `n(r) = 1 + \nu_{vac}\cdot\varepsilon_{11}`, status **CANONICAL** | **LICENSED** | **Poisson-ratio kinematics.** `ν_vac = 2/7` is declared at the site as *"Poisson ratio: 2 compliance / 7 total modes"* — a **kinematic ratio** (transverse strain per longitudinal strain), not a modulus. Kinematic ratios are linear by construction; the kernel grades *moduli*, not kinematics. **This is why Op19 and Ax4 are not in conflict — they answer different questions** (§4.1). |
 | **4** | `double-deflection.md`:28 — `n_{\perp} = 1 + \nu_{vac}\,\chi_{vol} = 1 + \tfrac{2}{7}\chi_{vol}` | **LICENSED** | Op19, applied to the **transverse Cosserat** channel. Same structure as #3, different channel. |
 | **1** | `eq_gravity_derived.tex`:53 / `temporal-spatial…md`:18 — `n_{temporal} = 1 + \tfrac{2}{7}\varepsilon_{11}` | **LICENSED** | Op19 again. (The `(9/7)` companion at `:19` is a **bookkeeping sum** `n_t + ε₁₁`, per PPN result `:92`; it is linear for the same reason and its deflection attribution was already corrected by W1.) |
-| **5** | `translation-gravity.md`:23 — `n(r) = (1+r_s/2r)³/(1−r_s/2r)` | **LICENSED (by IMPORT, declared)** | The **full GR isotropic optical index**, imported whole. Not derived from the kernel; not claimed to be. |
+| **5** | `common/translation-tables/translation-gravity.md`:23 — `n(r) = (1+r_s/2r)³/(1−r_s/2r)` | **LICENSED (by IMPORT, declared)** | The **full GR isotropic optical index**, imported whole. Not derived from the kernel; not claimed to be. |
 | **6** | `14_macroscopic_orbital_mechanics.tex`:67 — `V_{tidal} = -\frac{GM}{r}(1 + \frac{3GM}{c^2 r})` | **LICENSED (by IMPORT, declared *in situ*)** | The warningbox at `:70–72` states it verbatim: *"The relativistic coefficient 3 … is General Relativity's effective-potential correction … here adopted as a static potential. It is therefore a consistency-class re-statement (AVE = GR at O(GM/c²r), no AVE-distinct observable), not an independent AVE derivation."* **Exemplary honesty — the license is written at the site.** |
 | **8** | `saturating-modulus-and-backreaction.md`:64 — *"In the weak field (`r≫r_sat`: `A→0`, `S→1`, `D→1`) the correction **vanishes** and the linear GR core is reproduced identically (**consistency**)"* | **LICENSED** | **The kernel's own weak-field limit.** This site does not *compete* with the linear chain — it explicitly **defers** to it. Ax4's `:13` says the same: `A = 0 ⇒ S = 1` (*"linear regime: … Newtonian gravity recovered"*). |
 
 **The static force chain** (`F/F_Newton = (1−r_s/r)^{−1/2}`, #951 D2) is not a separate license: #951
 adjudicated it **MERGED** as `REPRODUCES-WITH-IMPORT(κ = c⁴/7G, ν_vac = 2/7 — both GR-imported)`,
-*"DEMONSTRATED, not DERIVED. PEER-with-GR. No chord."* Carried, not re-opened.
+two fragments, **separately cited** — `result.md`:23, *"The honest verb is DEMONSTRATED, not DERIVED;
+the class is CONSISTENCY / PEER-with-GR"*; and `result.md`:170, *"No chord. PEER-with-GR"*. Carried,
+not re-opened.
+
+> **⚑ B-2 CORRECTION (2026-08-11, §1–§8 review).** This sentence previously carried the single quoted
+> span *"DEMONSTRATED, not DERIVED. PEER-with-GR. No chord."* **That string exists nowhere in the
+> corpus** — it stitched `:23` and `:170` into one quotation with invented punctuation. **A fabricated
+> quote, caught in review, not by this lane.** The two real fragments are cited separately above; the
+> substance they support is unchanged, and no verdict moved. *(Same failure class as #951's own
+> disclosed citation incidents — which is exactly why that lane shipped a committed quote gate and
+> this one did not; see §6.)*
 
 ### §3.2 — The kernel sites
 
@@ -136,7 +187,7 @@ adjudicated it **MERGED** as `REPRODUCES-WITH-IMPORT(κ = c⁴/7G, ν_vac = 2/7 
 | **9** | `graded-network-response.md`:147 — SYM co-grade row labelled **"gravity-class"**, `n = 1/\sqrt{S}`, `\delta n\approx+\tfrac14 A^2` | **UNLICENSED as a gravity index** | The row is licensed as a **graded-network** result; the *"gravity-class"* label is what fails. It gives `δn ∝ A²` where the entire chain above gives `δn = ν_vac·ε₁₁`. Quadratic ≠ linear **at every normalization** (§6 R6). The brief's fence is exact: this leaf *"licenses only `δn ∝ +¼A²`"* — and that is not the gravitational index. **Adjacent live flag already on record**: `2026-07-31_anisotropy…:893`. |
 | **10** | `backreaction.md`:128 — `\omega_{\text{local}}=\omega\sqrt{S}` | **AMBIGUOUS → STUCK-POINT** | See §7. Both readings quoted there. **Not resolved.** |
 | **11** | `temporal-spatial…md`:24 — `\sqrt{g_{00}} = \sqrt{S} \approx 1 - GM/(c^2 r)` | **AMBIGUOUS (symbol) / LICENSED (value)** | The **value** `1 − GM/c²r` is licensed (GR lapse, ratified by W2). The **symbol** `√S` is not: for the printed value to hold, `S` must be `1 − r_s/r` (#951's finding, re-derived §6 R1), which is **not** Ax4's `S = √(1−A²)`. One symbol, two functions. |
-| **13** | `white-dwarf…md`:44 — `\frac{\omega_{\text{local}}}{\omega_\infty} = \frac{1}{n(R)\cdot S(\varepsilon_{11})}` | **LICENSED as the two-factor structure; three internal defects** | ★ **The keystone.** This is canon's own statement that the clock is **lapse × kernel**, with `:54` making the split explicit: *"For Standard General Relativity, `S = 1`."* The structure is the resolution the rest of the corpus lacks. Its execution has three defects (§5). |
+| **13** | `white-dwarf…md`:44 — `\frac{\omega_{\text{local}}}{\omega_\infty} = \frac{1}{n(R)\cdot S(\varepsilon_{11})}` | **LICENSED as the two-factor structure; four internal defects** | ★ **The keystone.** This is canon's own statement that the clock is **lapse × kernel**, with `:54` making the split explicit: *"For Standard General Relativity, `S = 1`."* The structure is the resolution the rest of the corpus lacks. Its execution has four defects (§5). |
 | **12** | `trampoline-framework.md`:113 — `k_{\text{eff}}(u_0) = k_0\cdot(1 + \beta u_0 + O(u_0^2))` | **LICENSED as a structure; NOT instantiated for gravity** | See §4.3. |
 
 ### §3.3 — Site 14: the routed `ε₁₁ = 1` two-radii item — **RESOLVED by existing canon**
@@ -180,16 +231,41 @@ file.**
 
 ### §4.1 — The licenses reduce to ONE structure, plus a declared import
 
-Eight of the nine licensed sites in §3.1 are **the same structure wearing different channel labels**:
+> **⚑ RESTATED 2026-08-11 per the §1–§8 review (B-1b).** The original text gave the structure as
+> `observable − 1 = ν_vac × (channel strain)`. **That was too narrow: `ν_vac = 2/7` is the TRANSVERSE
+> channel's coefficient only.** With site 15 in view the structure generalizes, and the general form is
+> already canonical. The finding is **strengthened, not weakened** — the corrected form makes the
+> mode-count (kinematic) character explicit rather than hiding it inside one channel's constant.
 
-> **`observable − 1 = ν_vac × (channel strain)`, with the strain the solution of a LINEAR elliptic
-> equation of CONSTANT modulus.**
+Nine of the ten licensed sites in §3.1 (+ site 15) are **the same structure wearing different channel
+labels**:
 
-`n_temporal`, `n_⊥`, `n_spatial`, the Gordon index, the engine's `universal_refractive_index`
-(`universal_operators.py`:1100, `return 1.0 + nu_vac * epsilon_11`) — one relation, five prints.
-Sites 5 and 6 add a second, **declared** license: **direct GR import**, labelled as such *in situ*.
+> **`observable − 1 = (channel MODE-COUNT fraction) × (channel strain)`, with the strain the solution
+> of a LINEAR elliptic equation of CONSTANT modulus.**
 
-**So: ONE derived structure (Op19 on a linear Poisson field) + ONE declared import. Not several.**
+**The three fractions are canonical and enumerated**, verbatim at
+`research/2026-08-10_bias-propagation_prereg-FROZEN.md`:90:
+
+> *"redshift/lensing/attraction consume **three different projection coefficients** off one field
+> (`1/7` clock, `2/7` transverse index, `9/7` matter-wave) — the unification is at the FIELD level,
+> **not** at the coefficient level"*
+
+| fraction | channel | site |
+|---|---|---|
+| **`1/7`** | scalar / clock (matter) | **site 15** — *"the `1/7` Lagrangian isotropic projection"* |
+| **`2/7`** = `ν_vac` | transverse (photon) | sites 1, 3, 4, 7 |
+| **`9/7`** | matter-wave parallax (C11) | site 1 |
+
+`n_scalar`, `n_temporal`, `n_⊥`, `n_spatial`, the Gordon index, the engine's
+`universal_refractive_index` (`universal_operators.py`:1100, `return 1.0 + nu_vac * epsilon_11`) —
+**one relation, six prints, three fractions.** Sites 5 and 6 add a second, **declared** license:
+**direct GR import**, labelled as such *in situ*.
+
+**So: ONE derived structure (a mode-count projection on a linear Poisson field) + ONE declared
+import. Not several.** ⚠ The prereg's own framing is that this is *"the unification … at the FIELD
+level, not at the coefficient level"* and that the coefficients are **the GR-imported `/7` chain** —
+so *"one structure"* is a statement about **form**, and carries no claim that the three fractions are
+themselves derived. That distinction is load-bearing and is the honest limit of §4.1.
 
 **Why it does not collide with Axiom 4** — and this is the load-bearing distinction the whole
 collision has been hiding behind:
@@ -197,10 +273,12 @@ collision has been hiding behind:
 | | grades what | linear or not |
 |---|---|---|
 | **Ax4 kernel `S(A)`** | the **MODULUS** — how much strain a given stress produces (`eq_axiom_4.tex`:5, *"The substrate's **bulk response** to local strain"*; `backreaction.md`:50, `D(A)` multiplying the elliptic operator) | nonlinear, flat at the origin |
-| **Op19 `ν_vac`** | a **KINEMATIC RATIO** — declared at `operators.md`:59 as *"Poisson ratio: 2 compliance / 7 total modes"*: transverse strain per longitudinal strain, a mode-count | linear by construction |
+| **the mode-count fractions `1/7`, `2/7`, `9/7`** | **KINEMATIC RATIOS** — `ν_vac = 2/7` is declared at `operators.md`:59 as *"Poisson ratio: 2 compliance / 7 total modes"*, and site 15's `1/7` as *"the `1/7` Lagrangian isotropic projection"*: **mode-counts over a fixed 7**, not moduli | linear by construction |
 
-A Poisson ratio is not a modulus. **The strain responds nonlinearly to stress; the index responds
-linearly to strain.** Both can be true at once, and canon's own engine implements exactly that:
+A mode-count is not a modulus. **The strain responds nonlinearly to stress; the index responds
+linearly to strain.** *(Row generalized 2026-08-11 per B-1b: it previously named only Op19's `ν_vac`,
+which understated the point — all three fractions are mode-counts over the same denominator, which is
+why the linearity is channel-independent.)* Both can be true at once, and canon's own engine implements exactly that:
 `gw_propagation.py` puts the kernel in `bulk_stiffness_D` and `shear_wave_speed` and puts **no
 kernel at all** in `refractive_index` (`:84–117`) — matching `backreaction.md`:62's
 *"EM matched: `Z_EM=Z_0`, `Γ_EM=0` — `refractive_index()` is untouched (guard-tested spectator)."*
@@ -244,11 +322,11 @@ be done.** A held license would leave that charter with nothing to derive.
 
 ---
 
-## §5 — Site 13, the keystone: right structure, three defects in execution
+## §5 — Site 13, the keystone: right structure, four defects in execution
 
 `white-dwarf-gravitational-predictions.md` is the **only** place in the corpus that puts the lapse and
 the kernel in one expression, applies it in the **weak field**, and compares to **data**. It is
-therefore the single most load-bearing site for the collision — and all three of its defects push the
+therefore the single most load-bearing site for the collision — and all four of its defects push the
 kernel's apparent contribution around by orders of magnitude. All numbers §6, three engines.
 
 **F-1 — `:44` uses the slope-2 index as a local clock, against W2.** The site writes
@@ -294,7 +372,10 @@ hurts depends on the §7 answer, and this lane takes no position on it.
 ## §6 — Receipts
 
 **Driver:** [`research/drivers/gravity_linearity_audit_number_check.py`](drivers/gravity_linearity_audit_number_check.py) —
-**40 checks, all GREEN** (R1–R9 = the license map; **R10–R12 = the §9 addendum, added 2026-08-11**). Engines: **A** = python `math` floats, **B** = sympy 1.14.0 exact/series,
+**49 checks, all GREEN** (R1–R9 = the license map; R10–R12 = the §9 addendum; **R8g + R13 added
+2026-08-11 for site 15**). *(The original doc said "30", then "40"; both were miscounts — the true
+figure at review time was **44**, and the site-15 work adds 5. Counted mechanically now, not by hand.)*
+Engines: **A** = python `math` floats, **B** = sympy 1.14.0 exact/series,
 **C** = `decimal.Decimal` at 40 digits (headline delta only, third engine).
 
 | Receipt | Result | Consumes |
@@ -305,12 +386,32 @@ hurts depends on the §7 answer, and this lane takes no position on it.
 | **R4** | Sirius B: `ε₁₁ = 1.815×10⁻³` ✓`:32`; `v_GR = 77.75` ✓`:66`; `δv` = **0.493785** (`A=ε₁₁`) / **0.040309** (`A=r_s/r`) / **0.000128** (`:56` as written); dropped factor **3856.8**; kernel term = **17.0%** of the `:68` residual. **Engine C agrees to 6 d.p.** | §5 |
 | **R5** | `:44` → `z = 2p` (slope 2); `:51` → `z = p` (slope 1) | §5 F-1 |
 | **R6** | `1/√S = 1 + A²/4`; leading power of `ε₁₁` is **2** under **both** normalizations | §3.2 site 9 |
-| **R7** | solar limb `7GM/c²R_☉ = 1.4861×10⁻⁵` ✓`:893`'s `1.486e-5`; `A² = 2.209×10⁻¹⁰` ✓ its `2.21e-10` — **that site's `A` is `ε₁₁`** | §1 |
+| **R7** | solar limb `7GM/c²R_☉ = 1.4862×10⁻⁵` ✓`:893`'s `1.486e-5`; `A² = 2.209×10⁻¹⁰` ✓ **`:892`**'s `2.21e-10` — **that site's `A` is `ε₁₁`** | §1 |
 | **R8** | the three clocks' leading terms: **`ε₁₁²/4`** (kernel) / **`ε₁₁/7`** (lapse) / **`2ε₁₁/7`** (index); kernel/lapse at Sirius B = **0.3%** | §7 |
 | **R9** | `d ln W/dA|_{A₀} = A₀/(2(A₀²−1)) → −A₀/2` — nonzero for `A₀ ≠ 0`. **Structure only; no `A₀` value proposed** | §4.3 |
 | **R10** ⚑ | co-scaling: `ω → ω/m`, `Z` **invariant**; `m = 1/√g₀₀ = 1 + ε₁₁/7` (slope-1 `z`); `m² = 1 + (2/7)ε₁₁ = n_temporal` (slope 2) — W2's bridge falls out | §9.1 (UN-AUDITED) |
 | **R11** ⚑ | bond-break: `ω → ω√S`, `Z → Z₀√S`, `Γ → −1`; **`∂lnZ/∂m = 0`** vs **`∂lnZ/∂S = 1/2S`** — the orthogonality claim, stated so it can be refuted | §9.2 (UN-AUDITED) |
 | **R12** ⚑ | at `r_sat = 3.5 r_s`: `m = 1.183`, `S = 0` — bond-break arrives **first, from outside**, with the tank detuned only 18% | §9.2 (UN-AUDITED) |
+| **R8g** | site 15's clock `ω/n_scalar` — leading power **1**, coefficient **`ε₁₁/7`** | §2 site 15, §7 row 4 |
+| **R13** | site 15 vs lapse: **same** leading term `ε₁₁/7`, **different** functions — `C₃ − C₁ = −3ε₁₁²/98 ≠ 0`. Distinct clocks, not one clock twice. Plus `U_wave = mc² − GMm/r` (leaf `:19`) | §7 row 4 |
+
+**★ MUTATION RECEIPT (new 2026-08-11 — the review's finding, fixed).** The review hand-mutated the
+Ax4 kernel and **R8a did not trip**: it had the kernel **hard-coded** rather than read from
+`S_KERNEL`, so it was not a receipt for any kernel claim. Fixed — `C0` is now derived from
+`S_KERNEL` — and the driver ships a `--mutation-receipt` mode that mutates the kernel
+(`1−A²` → `1−A³`) and **requires** every detector in `MUTATION_DETECTORS` to fail:
+
+```
+python3 research/drivers/gravity_linearity_audit_number_check.py --mutation-receipt
+  [TRIPPED] R1a kernel  sqrt(S(A)) series
+  [TRIPPED] R6a n = 1/sqrt(S) series
+  [TRIPPED] R8a kernel omega*sqrt(S)     <-- did NOT trip before this fix
+MUTATION RECEIPT SATISFIED: all 3 kernel detectors tripped.
+```
+
+The driver writes no tracked artifact, so a mutated run cannot dirty the tree (the #951 F8 hazard).
+⚠ **Scope:** the receipt covers the three **kernel-dependent** legs only. R11's bond-break legs are
+symbolic in `S` by construction and are deliberately **not** in the detector set.
 
 **Constant provenance.** `c`, `G`, `M_SUN` are **imported** from `src/ave/core/constants.py`, never
 hard-coded — the repo's EFT gate caught a first cut that inlined them, exactly as it did for #951.
@@ -326,9 +427,18 @@ surfaced three sites method 1 missed (`double-deflection.md`:28, `transverse-ref
 `universal_operators.py`:1100) — **all three are the same Op19 structure**, changing no verdict.
 Seeded additionally by the PPN audit's S1–S4. ⚠ **Completeness is curation, not a gate**: the list
 is frozen and enumerated, but no machine check asserts it is exhaustive.
+**★ And it was not exhaustive** — the §1–§8 review found **site 15** (§2), which both patterns missed
+because both were keyed to the `2/7` coefficient while site 15 writes a bare `ε₁₁/7`. **The caveat
+above was correct and insufficient: it disclosed the risk without reducing it.** No exhaustiveness
+claim is made for the amended list either.
 
-**Quote receipts.** Every verbatim span in §3–§5 was read from the worktree at `a23a044b`, not from
-a summary. The `√S` collision and the `eq_axiom_4` `ν_vac` gap were **independently found here**
+**Quote receipts — SCOPE, stated exactly.** Every verbatim span in **§3–§5** was read from the
+worktree at `a23a044b`, not from a summary. ⚠ **That scope did not cover §3.1's closing paragraph at
+`:129`, and a fabricated span got through there** — see the B-2 correction at that site. The scope
+sentence is left narrow-and-true rather than widened after the fact; the honest reading is that
+**this lane had no quote gate**, only a scoped manual pass, and a span outside the scope failed.
+A committed quote gate (the #951 F8a pattern) is what would actually hold this, and is **not**
+present here. The `√S` collision and the `eq_axiom_4` `ν_vac` gap were **independently found here**
 before #951's body was read, then reconciled against it — they agree.
 
 ---
@@ -358,9 +468,17 @@ not coefficient (R8):
 | **kernel** `ω_local = ω√S` | `saturating-modulus-and-backreaction.md`:128 · `op14-local-clock-modulation.md`:20 (`τ = τ₀/(1−A²)^{1/4}`) · `backreaction.py`:17,:252 | **`ε₁₁²/4`** |
 | **lapse** `√g₀₀` | `temporal-spatial-lattice-decomposition.md`:24 · W2 `:28` | **`ε₁₁/7`** |
 | **index** `ω/n` | Op19 route · `op14-local-clock-modulation.md`:11 (*"`τ_local = n(r)·τ_unstrained`"*) | **`2ε₁₁/7`** |
+| ⚑ **substrate-side matter** `ω/n_scalar` **(FOURTH ROW, added 2026-08-11 — B-1c)** | **site 15**, `ponderomotive-equivalence.md`:14,:19 — `n_scalar = 1 + ε₁₁/7`, via *"the `1/7` Lagrangian isotropic projection (derived in Chapter 4)"* | **`ε₁₁/7`** |
 
-**W2 ruled between the second and third only.** The kernel clock was **not on that ballot** — it has
-no linear term to compare (R1c, R2). Nothing in canon has ever ruled kernel-vs-lapse.
+**The fourth row changes the shape of this stuck-point** (and was missed by the frozen sweep, §2).
+It agrees with the **lapse** row at leading order — `ε₁₁/7` — but is a **distinct function**
+(`1/(1+ε₁₁/7)` vs `√(1−2ε₁₁/7)`; they part at `O(ε₁₁²)`, R13), and unlike the lapse it is **not a GR
+import**: it is a substrate-side projection with a stated derivation. **So canon holds FOUR clocks,
+and the two slope-1 rows now come from two independent directions — one imported, one substrate-derived.**
+
+**W2 ruled between the lapse and index rows only.** The kernel clock was **not on that ballot** — it
+has no linear term to compare (R1c, R2) — **and neither was the substrate-side row.** Nothing in canon
+has ever ruled kernel-vs-lapse, nor lapse-vs-substrate-side.
 
 **And the kernel clock is not a dead branch — it is load-bearing at three live sites:**
 
@@ -385,7 +503,7 @@ kernel, *"For Standard General Relativity, `S = 1`"*). **FAILED: the product is 
 site and contradicted at two.** `op14-local-clock-modulation.md`:74 derives the clock from the
 wave-crossing time — *"a wave needs `τ = ℓ/c_eff` to cross a cell"* — which yields the **kernel alone,
 no lapse factor**; `backreaction.py`'s Komar source likewise weights by `√S` alone. **No site derives
-the product**, and the one site that prints it fails its own arithmetic three ways (§5).
+the product**, and the one site that prints it fails its own arithmetic three ways plus a normalization ambiguity (§5, F-1…F-4).
 
 **Attempt 2 — apply the channel-split discipline that resolved the adjacent two-radii item**
 (clm-ir8h78, §3.3). **FAILED — it points the wrong way.** That discipline assigns each observable the
@@ -415,7 +533,7 @@ Everything else in this map follows from the answer, and nothing in the corpus a
 
 ### (4) Candidate readings — one line each, none endorsed
 
-- **R-A — LAPSE.** The kernel is modulus-only; `:128` and the X44 weight are sector mis-assignments. *Cost:* two rulings lose their stated mechanism, the Stage-4 peel target loses content, and the linear coupling stays **GR-imported with the substrate derivation OWED**.
+- **R-A — LAPSE.** The kernel is modulus-only; `:128` and the X44 weight are sector mis-assignments. *Cost:* two rulings lose their stated mechanism and the Stage-4 peel target loses content. ⚑ **COST RE-STATED 2026-08-11 (B-1d): the original clause — *"the linear coupling stays GR-imported with the substrate derivation OWED"* — was WRONG.** The substrate derivation of the slope-1 matter clock is **PRINTED at site 15** (`ponderomotive-equivalence.md`:14,:19, via the `1/7` Lagrangian isotropic projection, *"derived in Chapter 4"*), and it derives `F = −GMm_i/r²` and the weak equivalence principle from it. **Nothing is owed on that leg.** R-A's true cost is therefore *only* the two rulings' mechanism and the peel target — **materially cheaper than stated**, which makes R-A the reading this correction most favours. *(Favouring is not selecting: §7 still picks nothing.)*
 - **R-B — KERNEL.** Then the observed linear redshift is unexplained at leading order, and only a nonzero `A₀` restores it (R9). *Cost:* the pre-tension lane goes from contingent to **make-or-break**, and its charter item 2 becomes the gate on the whole gravity sector.
 - **R-C — BOTH, as `white-dwarf…md`:44 prints.** Two physically distinct effects that multiply. *Cost:* the product needs a derivation nobody has written, and `op14…`:74 must be re-scoped — it currently claims the whole clock.
 - **R-D — the question is malformed.** *"The clock"* is not one object; a matter clock and an EM clock are different observables. *Cost:* W2's bulk-vs-local carve needs a **third row**, and every *"the local clock"* site in the corpus needs a channel subscript.
@@ -431,9 +549,10 @@ Everything else in this map follows from the answer, and nothing in the corpus a
 | **1** | `eq_axiom_4.tex`:24, `:56–59`, `einstein-field-equation.md`:49 — `ε₁₁ = 1` at `r_s` | **propagation gap** (physics settled 2026-06-14 at `lattice-extreme…`:99) | auditor lane. ⚠ `:24` is one of Axiom 4's **three validated zero-free-parameter anchors** — the anchor count is downstream of the fix. |
 | **2** | `white-dwarf…md` F-1…F-4 (§5) | **arithmetic + un-propagated W2** | auditor lane; `clm-at7x0y` solidity is downstream. Blocked on nothing. |
 | **3** | `graded-network-response.md`:147 *"gravity-class"* label | **mislabel** — the row's physics is fine, its gravity attribution is not | auditor lane; adjacent to the live `:893` flag. |
-| **4** | `operators.md`:56 — *"`c·√(1−A²)` ≡ Schwarzschild `c·√(1−r_s/r)`"* | **a fourth face of the collision** | ⚑ **do not action separately.** The cell is **already VACATED** (FLAG-CEFF-CITE, 2026-08-07, ROUTED-NOT-RULED). §8 there flags the *exponent* disagreement; it does **not** flag that no power of `S` can equal `√(1−r_s/r)` at first order. **This lane adds that second, orthogonal defect to the existing flag.** |
+| **4** | `operators.md`:56 — *"`c·√(1−A²)` ≡ Schwarzschild `c·√(1−r_s/r)`"* | **a fourth face of the collision** | ⚑ **do not action separately.** The cell is **already VACATED** (FLAG-CEFF-CITE, 2026-08-07, ROUTED-NOT-RULED). §8 there flags the *exponent* disagreement; it does **not** flag that no power of `S` can equal `√(1−r_s/r)` at first order. **This lane ROUTES that second, orthogonal defect to the existing flag — no edit was made to `operators.md`.** |
 | **5** | Arm-1 charter re-scope (§4.2) | **brief amendment** | `_orchestration/2026-08-10_pretension-brief.md` — its necessity is contingent on §7. Worth reading before that lane runs. |
 | **6** | The §7 clock question | **Grant** | This report. |
+| **8** ⚑ | `anomalous-perihelion-advance.md`:20's 2026-05-17 note calls the perihelion result **"CLOSED, substrate-native"** — which **contradicts site 6's own warningbox** (`14_macroscopic_orbital_mechanics.tex`:70–72: *"adopted as a static potential … a consistency-class re-statement (AVE = GR …), not an independent AVE derivation"*). Two live sites, opposite provenance classes, same result | **FLAG, DO NOT FIX** (§1–§8 review instruction) | **Already surfaced to Grant; not this lane's to resolve.** Recorded here only so the contradiction is not re-discovered. **No edit, no verdict, no propagation.** |
 | **7** | `verify-frozen-provenance.py`:210–214 — a `Prereg-file:` path beginning with `_` **silently fails to resolve** when backtick- or emphasis-wrapped | **gate defect** (hit live by this lane) | tooling. The optional emphasis group `(?:[*_\`]{1,3})?` is greedy over `{*, _, \`}`, so `` `_orchestration/…` `` is captured as `orchestration/…`, which resolves nowhere — and the doc is then reported as *"carries Frozen label(s) but no prereg resolves"*, i.e. **the wrong diagnosis**. Every brief under `_orchestration/` is affected. Worked around here with the link form; **not fixed** (out of lane scope). |
 
 **Explicitly NOT done by this lane:** no leaf/axiom/register/ruling/manuscript edit; no solidity

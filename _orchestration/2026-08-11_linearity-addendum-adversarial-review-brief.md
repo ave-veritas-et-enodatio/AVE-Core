@@ -116,3 +116,44 @@ license map (§1–§8) does not depend on §9 in any way.**
 `ave-adversarial-pr-review` skill fits this shape directly:
 `args = {pr: 955, context: "§9 only; default-to-refuted; orthogonality is the load-bearing claim",
 lenses: [L1…L7 above]}`. L1 and L2 are the ones worth the most compute; L7 is mechanical.
+
+---
+
+## ⚑ DATED INPUT-AMENDMENT (2026-08-11) — L3 gains a MANDATORY CONSUME
+
+**Origin:** the independent §1–§8 review of PR #955 (blocker B-1). It found a site the lane's frozen
+sweep missed, and that site **bears directly on L3**.
+
+**MANDATORY CONSUME for L3:** [`ponderomotive-equivalence.md`](../manuscript/ave-kb/vol3/gravity/ch03-macroscopic-relativity/ponderomotive-equivalence.md)`:14`,`:19`
+(`clm-rd9cjm`), verbatim at `:14`:
+
+> *"Because a massive topological wave-packet acts as a 3D isotropic defect, it couples to the spatial
+> volume via the `1/7` Lagrangian isotropic projection (derived in Chapter 4). The effective scalar
+> refractive index perceived by mass is `n_scalar(r) = 1 + ε₁₁(r)/7 = 1 + GM/c²r`."*
+
+**Why this is L3's question and not a side note.** L3 asks whether §9.1's `m = 1 + ε₁₁/7` is
+**derived or back-fitted**. The lane obtained `m` by *solving for the value that reproduces the known
+slope-1 redshift* — textbook back-fit. **This site prints the same expression, from a stated
+derivation (a `1/7` mode-count projection, sourced to Chapter 4), and takes it to `F = −GMm_i/r²`
+and the weak equivalence principle.** So there is a **candidate canonical fixing of `m` that is
+independent of the observable §9.1 fitted to.**
+
+**L3 must therefore decide, and say which:**
+
+- **`m` IS canonically fixed** by the `1/7` projection ⇒ §9.1 is a **rediscovery**, not a back-fit,
+  and its status rises accordingly. Then verify the Chapter-4 derivation of the `1/7` **actually
+  exists and is independent** — do not accept *"derived in Chapter 4"* on the leaf's word. ⚠ Note the
+  prereg's own counter-pressure (`2026-08-10_bias-propagation_prereg-FROZEN.md`:90): the `/7` chain is
+  called **GR-imported**, and `ε₁₁ = 7GM/c²r` was *"constructed … so that the `/7` chain reproduces
+  the Newtonian potential."* **If the `1/7` inherits that construction, site 15 is not an independent
+  fixing and §9.1's back-fit charge stands.** That reconciliation is the deliverable.
+- **`m` is NOT independently fixed** ⇒ L3's back-fit finding stands, and site 15 is a **second print
+  of the same import**, not a derivation.
+
+**Do not treat the two as mutually reinforcing without settling which.** Two sites printing
+`1 + ε₁₁/7` is one fact, not two, if both descend from the same constructed `/7` chain — the
+orphan-marries-orphan failure in a different costume.
+
+**Also amended:** §9's clock table now carries a **fourth row** (site 15) and §7(4) R-A's cost is
+**re-stated** — its claim that the substrate derivation was "OWED" was **wrong**, since it is printed
+at this site. Reviewers working from the pre-amendment PR body should re-pull the result doc.
