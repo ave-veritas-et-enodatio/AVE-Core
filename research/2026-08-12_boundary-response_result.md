@@ -25,7 +25,28 @@ step tagged in §3; **no `K` and no `K = 2G` anywhere in the chain**.
 
 ---
 
-## HEADLINE
+> # 🔴 SUPERSEDED HEADLINE — DEMOTED TO `STUCK-POINT-ON-FORK-1` (2026-08-12, Tier-2 adversarial pass)
+>
+> **The `RESPONSE-EXISTS` verdict below is WITHDRAWN. The body of this document is PRESERVED
+> byte-unedited per Rule 12; §9 is the current-status record and governs.**
+>
+> **The algebra was CONFIRMED** by independent sympy re-derivation (no arithmetic error), and four of
+> the recorded negatives were confirmed real. **What fell is the SECTOR ASSIGNMENT.** Term 2's energy
+> is built on `D = 𝒞∂_tA` — a **MOMENTUM-class** object. Merged canon scores the A1 dilatation deposit
+> **CONFIGURATION-embedded**: `research/2026-08-10_bound-constitutive_result.md:129` names this exact
+> distinction as the **C16 embedding disanalogy** — *"unlike Maxwell — whose Coulomb state is
+> MOMENTUM-embedded (`Π_L = −ε₀E_L ≠ 0` … Coulomb energy IN the written kinetic term) — BC-SRC's dress
+> is CONFIGURATION-embedded (`π = 0` on the static dress; the deposit lives in `∇·u`)"* — and `:37`:
+> *"the bare curl-only Hamiltonian genuinely scores ZERO on a static dress."*
+>
+> **Under the sector this lane itself declared, `b ≡ 0`, and the frozen grammar returns
+> `NO-RESPONSE`.** The §3 claim that the derivation is *"FORK-1-invariant"* is **backwards: FORK-1
+> decides `b`.** The lane therefore closes as **`STUCK-POINT-ON-FORK-1`** — the question cannot be
+> settled without resolving a fork canon holds DEFERRED. **This is an honest negative-and-stuck-point
+> record, not a failed lane.** See §9 for the full closure, including four items retracted or
+> re-scoped and the list of what survives.
+
+## HEADLINE *(SUPERSEDED — see the 🔴 block above and §9)*
 
 > ### **VERDICT: `RESPONSE-EXISTS(E = a·R + b·R⁻¹)`**
 >
@@ -343,3 +364,142 @@ needs `K`**, and the answer is no.
 **ADJUDICATED** (fireable, could have gone SERIES). §3 existence + exponents: **DERIVED (Class-C
 CONSISTENCY** — form-level, peer phenomenology per §7). §6 frequency: **DERIVED-CONDITIONAL** on
 FLAG-3. §7: no chord. **No solidity moves anywhere.**
+
+---
+
+# §9 — CLOSURE RECORD (2026-08-12, Tier-2 adversarial pass) — CURRENT STATUS, GOVERNS
+
+**Everything above is PRESERVED byte-unedited (Rule 12). This section supersedes it where they
+conflict.** CLEARED-eligible: **NO.** Final verdict: **`STUCK-POINT-ON-FORK-1`**.
+
+## §9.1 — The headline demotion (blocking item 1)
+
+**`RESPONSE-EXISTS(E = a·R + b·R⁻¹)` → `STUCK-POINT-ON-FORK-1`.**
+
+The algebra is confirmed exactly; the **sector assignment** is what failed. Term 2 (§3) computes
+`E_A1 = ∫ ½𝒞_A1⁻¹|D|²` with `D = 𝒞_A1 ∂_tA` — a **momentum-class** object, the Maxwell route where
+the Coulomb energy sits *inside the written kinetic term*. Merged canon scores the A1 dilatation
+deposit on the **other side of a distinction it draws by name**:
+
+> `research/2026-08-10_bound-constitutive_result.md:129` — *"unlike Maxwell — whose Coulomb state is
+> MOMENTUM-embedded (`Π_L = −ε₀E_L ≠ 0`, charge = the Noether-protected `∇·Π`, Coulomb energy IN the
+> written kinetic term) — BC-SRC's dress is CONFIGURATION-embedded (`π = 0` on the static dress; the
+> deposit lives in `∇·u`)."*
+>
+> `:37` — *"the bare curl-only Hamiltonian genuinely scores **ZERO** on a static dress."*
+
+On the static dress `π = 0`, so `D = 0`, so **`b ≡ 0`**. With `b = 0`, `E(R) = a·R` is monotone,
+**falsifier F1 fires, and this lane's own frozen grammar returns `NO-RESPONSE`.**
+
+**§3's claim that the derivation is "FORK-1-invariant" is exactly backwards — FORK-1 *decides* `b`.**
+Whether the A1 monopole content is momentum-class (Gauss function on `∂_tA`) or configuration-class
+(`∇·u`) is precisely the deferred fork, and it is the whole question. The lane cannot close without
+it. Hence `STUCK-POINT-ON-FORK-1` rather than a bare `NO-RESPONSE`: under the declared sector the
+answer is NO, but the sector itself is the open fork.
+
+*(Recorded, not pursued — `bound-constitutive:37` does carry a Coulomb-class dress energy, but via the
+Dirichlet functional `∫½κD(A)|∇ε₁₁|²` with `κ = c⁴/7G` **imported**. That route is noted only to show
+the fork is live on both sides; **this lane does not take it, does not re-derive, and claims nothing
+from it.**)*
+
+## §9.2 — FLAG-1 RETRACTED to NOT-EVALUATED (blocking item 2)
+
+**The FLAG-1 claim — *"the medium's bulk compliance is infinite and contributes nothing"* — is
+WITHDRAWN as unestablished.** R51 item 2 names the compliance *"seen **at the defect boundary**"*, an
+**interior** quantity. This lane's integral is `∫_R^∞` — the **exterior** — and
+`∇·(B r̂/r²) ≡ 0` for `r > 0`, so that integral returns zero **for any `K` whatsoever**. It cannot
+discriminate, and therefore never evaluated the quantity R51 was talking about.
+
+**Status: R51 item 2's boundary compliance is NOT EVALUATED by this lane.** No claim is made about it
+in either direction. **No correction note is opened against the merged ruling**, and none is
+warranted — the error was this lane's, not R51's. The §8 FLAG-1 text and the HEADLINE's
+*"mechanism attribution is WRONG"* sentence are both superseded by this paragraph.
+
+## §9.3 — The clause-S attribution of `𝒬` is DELETED (blocking item 3)
+
+Two sites — `research/2026-08-12_boundary-response_result.md` §4 F3 row and
+`_orchestration/2026-08-12_k-identity-adjudication-brief.md` §3(ii) — attributed `𝒬` to **Axiom 5
+clause S**. **That reinstated a narrowing canon explicitly withdrew:**
+
+> `manuscript/common_equations/eq_axiom_3.tex:75-81` — *"the first cut of this batch narrowed it to
+> 'BC-SRC clause S'. That was an **UNRATIFIED narrowing and is WITHDRAWN at all seven sites it
+> reached**. It was also wrong on the physics: clause S is an A1 dilatation-MASS deposit law, while
+> `:22`'s object is the EM Gauss function … It further presumed an answer on FORK-1, which the ruling
+> keeps DEFERRED."*
+
+**Deleted at both sites** (§9.6 lists the edits). Which clause pins the Gauss function is **OPEN,
+riding FORK-1** — and this lane's having presumed otherwise is the same error as §9.1, surfacing a
+second time.
+
+## §9.4 — Frozen expectations not discharged, and a control not run (blocking items 4, 5)
+
+**(4) The `R⁻²` check was never discharged.** Prereg `:184-187` froze: *"Its `R⁻²` A1-gradient term is
+the one I predict to be **absent** under the curl-only potential — if it survives my provenance audit,
+my picture is wrong and I say so."* **Reported now, as owed:** the term did not stay absent. This
+lane's own Term 2 **is** a fixed-content A1 self-energy term of that class, at exponent `−1` rather
+than `−2` (the exponent difference is the ensemble choice, §9.5). **By the frozen criterion's own
+wording, the picture was wrong, and the result document never said so.**
+
+**(5) The mandatory positive control was NOT RUN.** Prereg `:219-224` made it a hard gate — *"If the
+machinery returns 'no response' there, the machinery is broken and **no null from this lane is
+bookable**."* §5 of this document **asserted** the pass in two sentences without exercising the
+machinery. Worse: on the dress actually used, `∇·u ≡ 0` in the exterior, so **the control would FAIL
+if run.** **Recorded plainly: NOT RUN. No null from this lane is bookable**, which is independently
+consistent with the `STUCK-POINT` verdict rather than a `NO-RESPONSE` one. The negative control
+(`n=0, 𝒬=0 ⇒ E ≡ 0`) was run and passes, but a passing negative control does not substitute for the
+frozen positive one.
+
+## §9.5 — The ensemble was a CHOICE, declared and routed (blocking item 6)
+
+Term 2's `R⁻¹` exponent is **not forced** — it follows from choosing a **fixed-flux** ensemble. Canon
+already flags this as load-bearing:
+
+> `research/2026-07-01_electron-unifier-cocompress_result.md:201` §4.0 — *"**The entire brace-vs-pull
+> SIGN assignment is CONDITIONED on fixed-reactive-charge normalization.**"*
+
+| ensemble | A1 term exponent | consequence here |
+|---|---|---|
+| fixed **flux** | `R⁻¹` | the choice this lane made — outward, gives the minimum |
+| fixed **volume charge** | `R⁻²` | outward; the co-compress lane's convention |
+| fixed **amplitude** | `R⁺¹` | **inward** — both terms collapse ⇒ monotone ⇒ **F1 fires** |
+
+**The third row would have returned `NO-RESPONSE` on its own.** The ensemble is therefore a
+load-bearing undeclared choice, now declared. **ROUTED to Grant / the successor lane; this lane does
+not adjudicate which ensemble is physical.**
+
+## §9.6 — Scope corrections (blocking item 7)
+
+- **`ℓ_c` bracket propagates as ~34.8×, not "magnitude only."** §3's `γ_c = G_vac·ℓ_c²` is the **R1a
+  CROSS-MODULUS HYBRID** branch (`common-mode-twist-ledger.md:186`), whose self-consistent alternative
+  R1b differs by **10.667×** (`:274`). Since `R* ∝ 1/ℓ_c`, `ω_tank ∝ ℓ_c/R*² ∝ ℓ_c³`, so the bracket
+  propagates as `10.667^{3/2} ≈ **34.8×** on any `ω_tank` numeric. §3's placement of this in the
+  "supplementary, not booked" rung **understated it** and is corrected here.
+- **`𝒞_A1` is ASSERTED-UNCITED.** §3 calls it *"Axiom-1 native"* with no `file:line`. No citation was
+  produced; **tagged ASSERTED-UNCITED**, not DERIVED.
+
+## §9.7 — WHAT SURVIVES (confirmed at the adversarial pass)
+
+- **The four refused-stabilizer negatives — ALL CONFIRMED REAL.** Faddeev–Skyrme not used (untagged
+  import, and not needed); Axiom-4 small-`A` expansion does not counter (field powers ≠ derivative
+  powers); bilateral-chiral does not counter (Derrick is blind to field multiplicity); lattice floor
+  and saturation divergence are walls, not tanks. **These stand as the lane's durable content.**
+- **P1 (the bulk A1 channel has no restoring force) — DEMONSTRATED**, as frozen. Untouched.
+- **FLAG-2 — STANDS, both sites, with corrected anchors and SHARPENED.** The stale sector-dynamics tag
+  is at **`master-equation.md:26`** (not `:20` — `:20` is the TWO-"3"s fence, correctly cited
+  elsewhere). And `vocabulary-register.md:877` carries a **"VERIFIED two-method (`grep -F` + direct
+  read) at HEAD"** stamp, graded SOLID, **on now-stale content** — a verification stamp certifying
+  freshness of a claim #935 superseded. That is worse than staleness and is the sharper finding.
+- **FLAG-4 — STANDS and is SHARPENED to a dimensional exclusion.** `[ρΩ²r²] = Pa`, so `K₀` in
+  `u₀ = ρΩ²_freeze r²_node/(2K₀)` **is a MODULUS** — the benign "it's really the bond stiffness `k₀`"
+  reading is **dimensionally excluded**. The freeze-in formula therefore does consume a bulk modulus,
+  and R51 §3 reading (ii) inherits that as a live problem, not an ambiguity.
+- **The `K_discrete` routing** (brief §5) — unaffected and still the clean separator.
+- **The freeze discipline** — prereg `b05ec6bd` alone and pushed before any derivation content;
+  ordering auditable. Confirmed.
+
+## §9.8 — Ledger
+
+**Verdict: `STUCK-POINT-ON-FORK-1`.** Nothing minted; no leaf, register, ledger, axiom, or ruling
+edited; no solidity moved; engine byte-untouched. **No null is bookable from this lane** (§9.4).
+R51 item 2 is **neither confirmed nor killed** by this lane — its §5(ii) kill-check remains **OPEN**,
+and the earlier claim that it "survives" is withdrawn along with the headline.

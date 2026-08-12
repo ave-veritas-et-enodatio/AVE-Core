@@ -7,6 +7,26 @@
 **Posture:** options with evidence. **No recommendation**, because the math does not force one
 (§4 states exactly what it *does* force).
 
+> # 🔴 STATUS 2026-08-12 (Tier-2 adversarial pass) — READ BEFORE §1
+>
+> **The source result was DEMOTED to `STUCK-POINT-ON-FORK-1`.** Its algebra was confirmed exactly, but
+> its **sector assignment** fell: Term 2 used a **momentum-class** object where merged canon scores the
+> A1 deposit **configuration-embedded** (`2026-08-10_bound-constitutive_result.md:129`, `:37`), giving
+> `b ≡ 0` on the declared sector. **FORK-1 decides `b`** — the fork this brief treats as background is
+> the thing the result turned on.
+>
+> **What this does to the brief:**
+> - **§4's two "unhedged" statements are DOWNGRADED.** Statement 1 (*"whatever K is, it is not the
+>   compliance the tank runs on"*) rested on FLAG-1, now **RETRACTED to NOT-EVALUATED** — the lane's
+>   `∫_R^∞` integral returns zero for **any** `K` and so evaluated nothing. Statement 2 (*"the cold
+>   vacuum's longitudinal stiffness is exactly zero on the receipted continuum set"*) **STANDS** — it
+>   rests on P1, which was confirmed.
+> - **Reading (ii) loses its supporting bullet** (§3(ii), struck below) and **gains a live problem**
+>   via the sharpened FLAG-4.
+> - **§5's `K_discrete` test STANDS unaffected** and is now the lane's main forward product.
+>
+> The rest of the brief is preserved as written; where it conflicts with this block, this block governs.
+
 ---
 
 ## §1 — What the lane found, in one paragraph
@@ -61,9 +81,16 @@ is genuinely not central-force in the longitudinal sector and `K = 0` is correct
 ### (ii) QUENCH INITIAL CONDITION — frozen in at genesis, measured-not-derived (your lean)
 
 **For:**
-- The lane's own result carries an IC dependence, and it is explicit: the tank's **scale** `R*` rides
+- ~~The lane's own result carries an IC dependence, and it is explicit: the tank's **scale** `R*` rides
   `𝒬`, and `𝒬` is **genesis-deposited boundary data** by Axiom 5 clause S's own wording
-  (*"it states that the flux is written, not how"*). Existence is derived; scale is deposited.
+  (*"it states that the flux is written, not how"*). Existence is derived; scale is deposited.~~
+  🔴 **DELETED 2026-08-12 (Tier-2, blocking item 3).** This attributed `𝒬` to **clause S**, reinstating
+  a narrowing canon **explicitly withdrew**: `eq_axiom_3.tex:75-81` — *"an UNRATIFIED narrowing …
+  WITHDRAWN at all seven sites it reached … clause S is an A1 dilatation-MASS deposit law, while
+  `:22`'s object is the EM Gauss function … It further presumed an answer on FORK-1, which the ruling
+  keeps DEFERRED."* Which clause pins the Gauss function is **OPEN, riding FORK-1**. With the bullet
+  gone, **this reading has no surviving support from this lane's result** — and the result itself is
+  now demoted to `STUCK-POINT-ON-FORK-1` on the same underlying error (see the header block).
 - That is the **FORM-derived / VALUE-imported** signature landing again — consonant with the standing
   meta-finding and with the freeze-in thread (`trampoline-framework.md:95-125`, where `u₀` and
   therefore `G` are anchored to one cosmological parameter `Ω_freeze`).
@@ -78,7 +105,13 @@ is genuinely not central-force in the longitudinal sector and `K = 0` is correct
   bond network. Pre-tension classically supplies **transverse** stiffness (that is already the
   `T_EM → G` route in canon); whether it supplies **longitudinal** stiffness is exactly the discrete
   central-force question in (i)'s repair route. **(ii) and (i)-repaired collapse onto the same test.**
-- ⚠ **FLAG-4, load-bearing for this reading:** the freeze-in formula itself consumes a nonzero `K₀` —
+- 🔴 **FLAG-4 — SHARPENED 2026-08-12 (Tier-2) from an ambiguity to a DIMENSIONAL EXCLUSION.**
+  `[ρΩ²r²] = Pa`, so for `u₀ = ρΩ²_freeze r²_node/(2K₀)` to be dimensionless, **`K₀` must be a
+  MODULUS (Pa)** — the benign *"it's really the bond stiffness `k₀`"* reading is **dimensionally
+  excluded**, not merely unlikely. The freeze-in formula therefore **does** consume a bulk modulus,
+  and reading (ii) inherits that as a **live problem, not an open question.** The original bullet is
+  preserved below for the record.
+- ⚠ *(original wording, preserved)* **FLAG-4, load-bearing for this reading:** the freeze-in formula itself consumes a nonzero `K₀` —
   `u₀ = ρΩ²_freeze r²_node/(2K₀)` (`trampoline-framework.md`). If that `K₀` is the bulk modulus, the
   freeze-in derivation **consumes the very object #935 removed**, and reading (ii) is circular as
   currently written. If it is the bond stiffness `k₀` — which the same passage distinguishes
@@ -147,7 +180,11 @@ network does not have; if `K_discrete ≠ 0`, the freeze-in route becomes assess
 
 - **The `K_discrete` test (§5)** — run it as the successor lane, or hold? It is cheap, it is the only
   clean separator identified, and it directly closes #261's open item.
-- **FLAG-4, `K₀` vs `k₀` in `trampoline-framework.md:95-125`** — which symbol is that? Reading (ii)
+- 🔴 **FLAG-4 is now ANSWERED by dimensions, and the question changes.** `K₀` **must** be a modulus
+  (Pa); the clean `k₀` reading is excluded. The decision is no longer *"which symbol is it?"* but
+  **"the freeze-in derivation consumes a bulk modulus — does reading (ii) survive that, and does the
+  `u₀ → T_EM → G` chain inherit it?"** *(The original question is preserved below.)*
+- *(original)* **FLAG-4, `K₀` vs `k₀` in `trampoline-framework.md:95-125`** — which symbol is that? Reading (ii)
   cannot be assessed until this is disambiguated, and only you can say what was meant.
 - **FLAG-1, R51 item 2's mechanism wording** — item 2's *conclusion* survives; its stated mechanism
   (*"C is the medium's bulk compliance"*) does not. Correct the record, or leave it and let this
