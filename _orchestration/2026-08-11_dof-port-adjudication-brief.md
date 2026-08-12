@@ -120,3 +120,46 @@ equivocation, and a receipted non-invariance. Those do not depend on M1.
 `ave-adversarial-pr-review` fits: `args = {pr: <this PR>, context: "walk record §1 ledger; adjudicate
 M1-M5 + G1-G3; default-to-refuted; M1 is load-bearing", lenses: [L1…L7]}`. **L1 and L6 are worth the
 most compute; L7 is mechanical but non-optional given this lane's quote history.**
+
+---
+
+## 🔴 CLOSED 2026-08-12 — verdict returned: **ONTOLOGY-DEAD**
+
+The adjudication executed this brief as frozen. **M1 REFUTED on its own stated criterion** —
+refutation condition 1 fired: `master_equation_fdtd.py`:112–113, :219, :265–267 carry an independent
+initial condition **and** a conjugate momentum (`V_prev`) for the scalar `V`, identified as the A₁
+dilatation (`master-equation.md`:20). Second, independent refutation: `V_4-port = A₁ ⊕ T₂`
+(`k4-port-irrep-decomposition.md`:11,:21,:22) — a **four**-port node, so M1's three-wire analogy had
+the wrong premise.
+
+**Per-row:** M1 REFUTED · M2 refuted-as-stated (D3 survives alone) · M3 MOOT · M4 DOWNGRADED
+(already canon verbatim) · M5 DOWNGRADED-unfalsifiable. Full ledger at the walk record §9.
+
+**The record itself CLEARS as a record** — honest provenance, retractions recorded not buried, fences
+held, and it shipped its own kill switch, which fired. **`ONTOLOGY-DEAD` was pre-declared in this
+brief's outcome grammar as a clean and more consequential outcome; it is.**
+
+**Walk-level resolution:** the ring-or-sit stuck-point the adjudication surfaced is settled by **R51**
+(`_orchestration/docket-entries/2026-08-12-ruling-r51-a1-two-objects-carve.md`) — the bias **sits**,
+the common-mode tank **rings defect-locally**, the engine's vacuum-wide gapless `V` is
+**phantom-in-form**. Standing frame.
+
+**Lens L1's own tool failed with it:** the driver is **QUARANTINED, NOT CITABLE** (walk record §10) —
+placement-blind, matched two different sixes, three unfireable checks. **L6 was the right lens and it
+under-fired**: it caught R1/R2 but not the driver's C2.
+
+### Amendments carried out of the adjudication
+
+- **G1 RE-FRAMED before it reaches Grant.** Axiom 1's silence is real, **but the axiom SET is not
+  silent** — `eq_axiom_5.tex`'s preamble names exactly this gap: *"never write the source coupling
+  that pins the bound (A1 dilatation) sector's absolute state."* **G1 is therefore a
+  cross-reference question (Axiom 1 does not point at Axiom 5), not a coverage gap.** **G2 unchanged,
+  still Grant's.**
+- **⚑ Item (f) is re-stated, not reproduced.** The closing relay paired
+  `vol9/ch3-pin-port-configuration/index.md`:17 (*"seven per-cell kinematic modes"*) against
+  `01_general_description.tex`:18 (*"not a seventh spatial DOF"*) as an intra-volume contradiction.
+  **That pairing does not hold** — at `:18` the phrase attaches to the **saturation state `A`**, not
+  to the breathing mode, and `03_pin_port_configuration.tex`:111 draws that line explicitly. **The
+  real, narrower flag:** `:18` enumerates *"six degrees of freedom"* and **never mentions the A₁
+  breathing mode**, which `index.md`:17 counts as the seventh. An **omission**, not a contradiction —
+  **Grant's to rule.**

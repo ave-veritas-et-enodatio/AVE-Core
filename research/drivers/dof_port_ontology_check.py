@@ -1,6 +1,39 @@
 #!/usr/bin/env python3
 """Receipts for the 2026-08-11 DoF-vs-PORT ontology walk (records-class).
 
+🔴 ============================================================================ 🔴
+   NOT CITABLE as a receipt for ANYTHING about DoF counts. QUARANTINED 2026-08-12
+   by the #957 adjudication (M1 REFUTED, ONTOLOGY-DEAD). Preserved under Rule 12
+   as the record of a check that did not work. Three independent reasons:
+
+   1. IT MATCHES TWO DIFFERENT SIXES. Check `C2` claims the engine's 6 storage
+      slots "match eq_axiom_1.tex:37 'six intrinsic degrees of freedom'". They do
+      not. The engine's six is 3 translational DoF x 2 phase-space slots (an L and
+      a C per direction); Axiom 1's six is 3 translations + 3 microrotations. The
+      module under test says so itself at vacuum_node_circuit.py:12-25 — the
+      per-DOF (L_i, C_i) is the MECHANICAL displacement-direction layer of the
+      TRANSVERSE/EM-translation sector and "is NOT ... the A1 (V_inc, V_ref)
+      dilatation-MASS phasor". C2 was a coincidence of the integer 6.
+
+   2. THREE OF FOURTEEN CHECKS CANNOT FAIL: B1 (hardcoded 1+5 == 6), B2 (literal
+      2 == 2), B3 (literal True). Unfireable gates dressed as receipts.
+
+   3. IT IS PLACEMENT-BLIND. A live probe injected a genuine seventh slot
+      (theta + pi_theta + K_bulk) into the REAL engine and this driver still
+      reported "all receipts GREEN" — including "C3 NO seventh storage slot".
+      It reads ONE function signature in ONE file. The family-D anti-tautology leg
+      proved the PARSER can count to seven; it never proved the CHECK can find a
+      seventh slot where one actually lives.
+
+   THE LESSON: a probe that validates the parser is not a probe that validates the
+   gate. The injection has to land where the real object lives.
+
+   The killing fact for M1 is in master_equation_fdtd.py:112-113, :219, :265-267 —
+   the scalar V carries its own initial condition AND its own conjugate momentum
+   (V_prev), i.e. M1's own membership test, failed on its own terms.
+🔴 ============================================================================ 🔴
+
+
 The walk's load-bearing claim (M1) is that the longitudinal bulk scalar
 (dilatation) is a PORT — an irreducible storage channel built from the three
 translational coordinates — and NOT a seventh degree of freedom (state variable).
@@ -120,8 +153,13 @@ check("D1 detector reports 7 on a synthetic 7-slot node", fake_n == 7,
       "so C2/C3 are falsifiable, not vacuous")
 
 print("\n" + "=" * 92)
+print("🔴 QUARANTINED 2026-08-12 — NOT CITABLE for any DoF-count claim. M1 was REFUTED by the")
+print("   #957 adjudication (master_equation_fdtd.py:112-113,:219,:265-267 — V has its own IC and")
+print("   its own conjugate momentum V_prev). This driver's C-family is placement-blind and its")
+print("   C2 matches two DIFFERENT sixes; B1/B2/B3 cannot fail. See the module docstring.")
+print("=" * 92)
 if FAILURES:
     print(f"RESULT: {len(FAILURES)} FAILED -> {FAILURES}")
     raise SystemExit(1)
-print("RESULT: all receipts GREEN. NOTE: green here means M1 is NOT REFUTED by the engine;")
-print("        it does NOT establish M1 as canon. Adjudication is the auditor's, not this driver's.")
+print("RESULT: checks green — AND THAT MEANS NOTHING ABOUT DoF COUNTS. Green here was green")
+print("        while a real seventh slot sat in the engine. Preserved as a record, not a receipt.")

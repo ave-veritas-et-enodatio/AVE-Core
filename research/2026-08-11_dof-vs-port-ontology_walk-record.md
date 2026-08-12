@@ -1,8 +1,43 @@
 # Walk record — DoF vs PORT: is the longitudinal bulk scalar a degree of freedom? (2026-08-11)
 
-**Class:** records / **chat-walk transcript, ⚑ UN-AUDITED.** No corpus file is edited. Nothing is
-minted, no solidity moves, no axiom is amended. **This document exists to be adjudicated, not to be
-believed.**
+> ## 🔴 ADJUDICATED 2026-08-12 — **M1 IS REFUTED. ONTOLOGY-DEAD.**
+>
+> **Rule 12: everything below this header is PRESERVED UNEDITED.** No new hypothesis is substituted
+> into M1's slot. The walk was built to be killed and it was killed **on its own frozen criterion**;
+> that is the record, and the record is what this document is for.
+>
+> **The killing fact.** M1's own membership test was *"no independent initial condition, no conjugate
+> momentum."* The scalar `V` has **both**: `src/ave/core/master_equation_fdtd.py`:112–113 allocates
+> `self.V` **and** `self.V_prev` as state arrays; `:219` steps them as a leapfrog pair
+> (`V_new = 2·V − V_prev + dt²·c_eff²·L`, so `V_prev` **is** the conjugate momentum); `:265–267`
+> sets `self.V_prev = self.V.copy()` under the comment *"Set V_prev = V to give zero initial time
+> derivative (stationary initial state)"* — **an explicit initial condition on that momentum.**
+> `V` is identified as the **A₁ dilatation** by the Grant-ratified
+> [`master-equation.md`](../manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20,
+> and `03_pin_port_configuration.tex`:111 states it outright: *"The breathing mode … **is a genuine
+> kinematic coordinate the Master Equation integrates.** … A mode is a coordinate; `A` is an operating
+> point. Distinct objects."*
+>
+> **Second, independent refutation.** `k4-port-irrep-decomposition.md`:11,:21,:22 (clm-j550uh) derives
+> `V_4-port = A₁ ⊕ T₂` — **four ports = 1 + 3**. M1's three-wire common-mode analogy (§2) was run on a
+> **four-port node**, so the analogy's premise was wrong independently of the state-vector question.
+>
+> **Authority:** the #957 adjudication, executing this document's own frozen brief. **The walk-level
+> stuck-point it surfaced (ring-or-sit) is RESOLVED by R51**,
+> [`2026-08-12-ruling-r51-a1-two-objects-carve.md`](../_orchestration/docket-entries/2026-08-12-ruling-r51-a1-two-objects-carve.md)
+> — the bias **sits**, the common-mode tank **rings defect-locally**, and the engine's vacuum-wide
+> gapless `V` is **phantom-in-form**. That carve is now the standing frame; this record is closed
+> beneath it.
+>
+> **What this means for Grant's 3+3+1.** It **stands** — `vol9/ch3-pin-port-configuration/index.md`:17
+> counts *"seven per-cell kinematic modes — 3 translational **u** … 3 microrotational **ω** … 1
+> volumetric **A₁** breathing."* The lane's category error was the reverse of the one it alleged:
+> **it demoted a real coordinate to a port.** See §9 for the per-row verdicts and §10–§12 for what
+> survives.
+
+**Class:** records / **chat-walk transcript, ⚑ UN-AUDITED — now ADJUDICATED, see header.** No corpus
+file is edited. Nothing is minted, no solidity moves, no axiom is amended. **This document exists to
+be adjudicated, not to be believed.**
 
 **Adjudication brief:** [`_orchestration/2026-08-11_dof-port-adjudication-brief.md`](../_orchestration/2026-08-11_dof-port-adjudication-brief.md)
 **Receipts:** [`research/drivers/dof_port_ontology_check.py`](drivers/dof_port_ontology_check.py) — 14 checks, incl. an anti-tautology leg.
@@ -185,3 +220,86 @@ No corpus file edited. No axiom amended. No claim-id minted. No solidity moved. 
 asserted as findings** — they are entered so they can be killed. `ρ*` is not derived or estimated.
 PR #955 is untouched by this branch. The `Γ`-sign fence (`backreaction.md`:194, wall-taxonomy §10)
 is not entered.
+
+---
+
+# ADJUDICATION CLOSURE (2026-08-12) — appended below the preserved body
+
+## §9 — M-row verdicts (from the #957 adjudication; §1's ledger rows stand as written)
+
+| row | verdict | basis |
+|---|---|---|
+| **M1** | **REFUTED** | Failed **its own** membership test. `master_equation_fdtd.py`:112–113, :219, :265–267 — `V` carries an independent IC **and** a conjugate momentum (`V_prev`). Second, independent refutation: `k4-port-irrep-decomposition.md`:11,:21,:22 — `V_4-port = A₁ ⊕ T₂`, **four** ports, so §2's three-wire analogy had the wrong node. |
+| **M2** | **refuted as stated** | `3+3+1` is **not** a category error — the volumetric A₁ breathing **is** a coordinate (`03_pin_port_configuration.tex`:111). ⚑ **The underlying defect survives, but on D3 alone**: the ν-denominator 7 is K-conditional. The *arithmetic* complaint stands; the *ontological* one does not. |
+| **M3** | **MOOT** | R2's retraction dissolved its premise. Nothing to adjudicate. |
+| **M4** | **DOWNGRADED** | The state-vs-operating-point carve is **already canon, verbatim**: `01_general_description.tex`:18 (*"which is **not** a seventh spatial DOF"*, of the saturation state `A`) and `03_pin_port_configuration.tex`:111 (*"A mode is a coordinate; `A` is an operating point. Distinct objects."*). The four-category ladder is a **useful consolidation, not a new distinction.** |
+| **M5** | **DOWNGRADED — unfalsifiable as posed** | Two engines found **zero** corpus sites stating a before/after DoF count across a phase transition. With no site to check against, *"DoF count is a PHASE property"* cannot currently be failed. |
+
+## §10 — ⚑ THE DRIVER IS **NOT CITABLE** as a receipt for anything about DoF counts
+
+`research/drivers/dof_port_ontology_check.py` is quarantined. **Three independent reasons, all
+confirmed at the adjudication:**
+
+1. **It declares a match between two DIFFERENT sixes.** Check `C2` reads *"3 L + 3 C = 6 storage slots
+   … matches `eq_axiom_1.tex`:37 'six intrinsic degrees of freedom'."* It does not. The engine's six is
+   **3 translational DoF × 2 phase-space slots (an L and a C per direction)**; Axiom 1's six is
+   **3 translations + 3 microrotations.** The module says so itself at `vacuum_node_circuit.py`:12–25
+   — the per-DOF `(L_i, C_i)` is *"the MECHANICAL displacement-direction constitutive layer of the
+   TRANSVERSE / EM-translation sector (the cell's three translational u → E modes)"* and explicitly
+   **"is NOT … the A1 (V_inc, V_ref) dilatation-MASS phasor."** The check was a coincidence of the
+   integer 6.
+2. **Three of its fourteen checks cannot fail** — `B1` (hardcoded `1+5 == 6`), `B2` (literal `2 == 2`),
+   `B3` (literal `True`). Unfireable gates dressed as receipts.
+3. **It is PLACEMENT-BLIND.** A live probe injected a genuine seventh slot (`theta` + `pi_theta` +
+   `K_bulk`) into the **real engine** and the driver still reported *"all receipts GREEN"* — including
+   **`C3 NO seventh storage slot`**. It only ever read one function signature in one file, so the
+   family-D anti-tautology leg proved the *parser* could count to seven, **not** that the *check* could
+   find a seventh slot where one actually lives.
+
+> **The lesson worth keeping.** The driver had an anti-tautology leg and still could not fire. A probe
+> that validates the parser is not a probe that validates the gate — the injection has to land where
+> the real object lives. This is the self-referential-gate class again, one layer deeper.
+
+## §11 — Standalone defects: ROUTED, all M1-independent, all confirmed
+
+| id | defect | scope correction from the adjudication |
+|---|---|---|
+| **D1** | Dead cite at `delta-strain-cosmic-tcc.md`:32 | ⚑ **UNDER-SCOPED as this record wrote it.** `ave-kb/CLAUDE.md`:55 is blank ✓ and INVARIANT-S2 is at `:66` ✓ — **but the correct target is `:70`** (the Axiom-1 bullet, which does carry the 6-DoF text), and the quoted pointer also **drops the `manuscript/` prefix**. **And there is a SECOND instance of the same dead cite**: `manuscript/vol_9_vacuum_datasheet/chapters/06_temperature_characteristics.tex`:29 — *"Per Axiom~1 (CLAUDE.md INVARIANT-S2 verbatim), the substrate K4 lattice carries six degrees of freedom per node"*. Two sites, one bad pointer. |
+| **D2** | Four-line equivocation, `mode-counting-heat-capacity.md` | Confirmed, with the reading tightened: `:14` *"compliance **modes**"* · `:16`,`:17` *"degrees of freedom"* (plural) · `:18` *"degree of freedom"* (**singular**). |
+| **D3** | The sliding 7 | Confirmed and **independently re-derived**. ⚑ **Extended: the NUMERATOR slides too.** At `K = G`, `ν = 1/8` — which on C3's reading would have to be read as *"1 transverse polarisation, 8 modes."* Both halves of the fraction move with the moduli, so neither is a count. **D3 is the surviving core of M2.** |
+
+## §12 — Routed, NOT repaired
+
+**(e) `g_*` — flag only, no solidity moves.** `g_* = n³/N_{K4} = 7³/4 = 85.75`
+(`vol3/claim-quality.md`:504–514, value at `:507`) is sourced **through the ν route** — i.e. the seven
+that slides (D3). ⚑ Its claim-id `clm-uu6dl5` is the **same** id carried in
+`mode-counting-heat-capacity.md`'s frontmatter: **one node, not two.** The claim already caveats
+itself at `:513` (*"a multi-factor formula with several lat…"*) and `:514` (*"Does NOT claim
+`g_* = 85.75` is a separately measurable cosmological observable; the validation is via the
+downstream baryon ratio"*). **Flagged. No repair, no solidity change.**
+
+**(f) FLAG for Grant — ⚑ but the pairing in the closing relay does not hold, and the lane will not
+reproduce a mis-paired contradiction.** The relay poses
+`vol9/ch3-pin-port-configuration/index.md`:17 (*"seven per-cell kinematic modes"*) against
+`01_general_description.tex`:18 (*"not a seventh spatial DOF"*) as a 6-vs-7 contradiction inside one
+volume. **Those two phrases are about different objects, and the same volume says so.** At `:18` the
+*"not a seventh spatial DOF"* clause attaches to **the saturation state `A`** (*"an operating point —
+the saturation state `A`, a DC bias on the node's own nonlinearity … which is not a seventh spatial
+DOF"*), **not** to the volumetric breathing mode; `03_pin_port_configuration.tex`:111 draws exactly
+that line, and `index.md`:17's own clause (i) cites the same disambiguation. **What DOES survive as a
+real flag, stated accurately:** `01_general_description.tex`:18 says nodes carry *"six degrees of
+freedom"* and **never mentions the A₁ breathing mode at all**, while `index.md`:17 counts it as the
+seventh kinematic mode. **That is the live question — an omission, not a contradiction — and it is
+Grant's.** *(Reported this way per the frozen-criteria-travel-verbatim discipline: a paraphrase that
+becomes the pivot is the failure mode this lane has already been bitten by.)*
+
+**(g) G1 — RE-FRAMED before it goes to Grant.** Axiom 1's silence on the scalar channel is real, **but
+the axiom SET is not silent.** `manuscript/common_equations/eq_axiom_5.tex`'s preamble names exactly
+that gap: *"never write the source coupling that pins the bound (A1 dilatation) sector's absolute
+state."* **So G1 is not "the axioms don't cover this" — it is "Axiom 5 is the specification, and
+Axiom 1 does not point at it."** A cross-reference question, not a gap. **G2 unchanged, still Grant's.**
+
+## §13 — What this closure does NOT do
+
+No corpus file edited. No axiom amended. `g_*` untouched. D1/D2/D3 routed, not fixed. The `Γ`-sign
+fence not entered. **M1's slot is not refilled** — the body above stands as written, wrong, and dated.
