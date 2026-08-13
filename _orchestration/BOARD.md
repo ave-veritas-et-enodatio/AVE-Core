@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **cd97c430** (2026-08-13) · 460 index records · 330 claims · 1 PR open
+Scanned tree **96a2af1f** (2026-08-13) · 460 index records · 330 claims · 1 PR open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`7d361e96`). Every count below describes **cd97c430**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`7d361e96`). Every count below describes **96a2af1f**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -30,15 +30,21 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## What we are waiting on
 
-**12 of 29 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
+**18 of 35 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
 
 *Scope: this is a census of `open-items/`. `_orchestration/2026-07-10_rulings-docket.md` is the **paper timeline** — a dated continuation log, frozen at its 2026-07-21 tail per `docket-entries/README.md`, and the historical record of how each ruling was reached. It is read chronologically, not harvested; anything still live in it belongs here as its own file.*
 
 | item | status | owner | open since |
 |---|---|---|---|
+| [The 2026-06-13 engine-platform ratification block — sign-off still OWED, downstream proceeded as-if-YES](open-items/2026-06-13-engine-platform-ratification.md) | ROUTED-TO-GRANT | grant | 2026-06-13 |
+| [A Rule-12 retraction is stranded on an unmerged branch, and main still shows the stale result](open-items/2026-06-16-stage16-rerun-amendments-unmerged.md) | ROUTED-TO-GRANT | grant | 2026-06-16 |
+| [Engines-on-spine — keep the kbleaf default, or mint a code-provenance node type](open-items/2026-06-17-engines-on-spine-schema.md) | ROUTED-TO-GRANT | grant | 2026-06-17 |
+| [L5-scope — is L5-genesis in scope, with no solid precursor to validate against?](open-items/2026-06-17-l5-scope.md) | ROUTED-TO-GRANT | grant | 2026-06-17 |
+| [The S-exponent fork — n=S^0.25 vs n=S^0.5 disagree, and it BLOCKS every L3/L4 build](open-items/2026-06-17-s-exponent-fork.md) | ROUTED-TO-GRANT | grant | 2026-06-17 |
 | [Collider-compositeness / LEP-Λ coverage — the single sharpest documented falsification exposure](open-items/2026-07-03-collider-compositeness-gap.md) | ROUTED-TO-GRANT | grant | 2026-07-03 |
 | [The terminal charge-framing fork — net-monopole ∇·E vs harmonic/winding holonomy](open-items/2026-07-03-terminal-charge-framing-fork.md) | ROUTED-TO-GRANT | grant | 2026-07-03 |
 | [The two varactor sector-keying forks — ADJUDICATION-PENDING](open-items/2026-07-03-varactor-sector-keying-forks.md) | ROUTED-TO-GRANT | grant | 2026-07-03 |
+| [X36 / X38 / X41 — three PENDING-GRANT rows from the vertex arc](open-items/2026-07-11-x36-x38-x41-pending-grant.md) | ROUTED-TO-GRANT | grant | 2026-07-11 |
 | [The yield fork (Flag F) — resolved to DEGENERATE, with the 0D-cell reading ASSERTED and routed to Grant](open-items/2026-07-20-yield-fork-flag-f-disposition.md) | ROUTED-TO-GRANT | grant | 2026-07-20 |
 | [The merge=ours corpus-wide correction sweep — ROUTED to Grant, and half-executed without his call](open-items/2026-08-13-merge-ours-corpus-sweep.md) | ROUTED-TO-GRANT | grant | 2026-07-20 |
 | [The factor-2 normalization fork — leaf :47 vs :48 (a normalization-ledger lane awaits GO)](open-items/2026-08-03-factor-2-normalization-fork.md) | ROUTED-TO-GRANT | grant | 2026-08-03 |
