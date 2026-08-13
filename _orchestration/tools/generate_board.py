@@ -454,6 +454,13 @@ def main() -> int:
       f"Nothing fires on those without his word — including the PARKED ones, which "
       f"need an explicit word to unpark.")
     A("")
+    A("*Scope: this is a census of `open-items/`. "
+      "`_orchestration/2026-07-10_rulings-docket.md` is the **paper timeline** — a "
+      "dated continuation log, frozen at its 2026-07-21 tail per "
+      "`docket-entries/README.md`, and the historical record of how each ruling was "
+      "reached. It is read chronologically, not harvested; anything still live in it "
+      "belongs here as its own file.*")
+    A("")
     A("| item | status | owner | open since |")
     A("|---|---|---|---|")
     for i in sorted(open_items, key=lambda i: (STATUS_ORDER.index(i["status"]),
