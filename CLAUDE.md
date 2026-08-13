@@ -12,7 +12,7 @@ This is the canonical engine + manuscript + KB repo for the AVE (Applied Vacuum 
 
 Before doing anything substantive, read these in order:
 
-1. **[`_orchestration/index.md`](_orchestration/index.md)** — current orchestration state: priority ladder, open decisions, active-epic table, last-updated HEAD + tag count.
+1. **[`_orchestration/BOARD.md`](_orchestration/BOARD.md)** — the live program board: what is experimentally supported, claim-solidity distribution, what we are waiting on, open PRs, and ruling-propagation debt. **Generated** — regenerate with `python3 _orchestration/tools/generate_board.py` if its header's scanned-tree SHA is not current, or it shows a divergence banner is behind. Open decisions live one-per-file in [`_orchestration/open-items/`](_orchestration/open-items/). *(`_orchestration/index.md` was FROZEN 2026-08-13 — historical session-focus record only.)*
 2. **The active epic doc(s)** at `_orchestration/<epic-slug>.md` — current phase log for each active workstream.
 3. **[`manuscript/ave-kb/CLAUDE.md`](manuscript/ave-kb/CLAUDE.md)** — cross-volume KB invariants (notation rules, tcolorbox environments, vacuum-medium notation, operator-numbering convention). Required reading before editing any manuscript file.
 

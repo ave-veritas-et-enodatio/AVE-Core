@@ -16,4 +16,15 @@ Separate files per lane = zero textual overlap = no server-side conflicts **for 
 - `research/2026-07-17_regime-iv-dissipation-audit.md` (`merge=union`) — same conflict class, last append 2026-07-19; unmigrated.
 - Both look to be winding-down append batteries; migrate to a per-lane fragment dir if either goes hot again.
 
+> ★**CORRECTION 2026-08-13 — the hazard described in the next paragraph does not exist.**
+> The `merge=ours` *silent-drop* mechanism was withdrawn in-corpus on 2026-08-03 at
+> [`../2026-07-20_pending-rulings-and-frontier-queue.md`](../2026-07-20_pending-rulings-and-frontier-queue.md) — search **`Merge note, CORRECTED 2026-08-03`**:
+> `.gitattributes:9` does set `*.md merge=ours`, but the attribute is **inert** with no
+> `merge.ours.driver` configured (`git config --get-regexp '^merge\.ours\.'` returns empty,
+> local and `--global`), so git falls back to the default 3-way text merge. A first-party
+> receipt shows a real collision on a `.md` file surfacing as a **loud conflict**.
+> The paragraph is preserved unrewritten per Rule 12 — **but do not cite it.** It misled a
+> reader as recently as 2026-08-13. The queue it names is now frozen; open items live in
+> [`../open-items/`](../open-items/), moved for machine-readability, not for safety.
+
 **Distinct hazard, on record (needs its own treatment, not this convention):** `_orchestration/2026-07-20_pending-rulings-and-frontier-queue.md` falls under the blanket `*.md merge=ours` and is the highest-frequency shared-edit target (mid-file status-flips + tail appends). Under `merge=ours` a concurrent lane's discharge can be **silently dropped** (data loss, not a visible conflict). The fragment tool is the wrong shape for its status-flip pattern — routed as a separate follow-on.
