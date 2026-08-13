@@ -28,10 +28,13 @@ import argparse
 import re
 import sys
 
+from pathlib import Path
+
 import yaml
 
 from scripts.predictions_manifest_validator import (
     MANIFEST_PATH,
+    POSTDICTIONS_PATH,
     collect_dependency_edges,
     derive_axioms_used,
 )
@@ -48,9 +51,17 @@ def _fmt_axioms(axioms: list[int]) -> str:
     return "[" + ", ".join(str(a) for a in axioms) + "]"
 
 
-def refresh(dry_run: bool = False) -> int:
+def refresh(dry_run: bool = False, manifest_path: Path | None = None) -> int:
     """Rewrite axioms_used for bridged entries. Returns the number of entries
-    whose axioms_used changed (or would change, in dry-run)."""
+    whose axioms_used changed (or would change, in dry-run).
+
+    `manifest_path` defaults to MANIFEST_PATH. Since the 2026-08-13 forward/
+    postdiction split there are TWO manifests, and `refresh_all()` drives both --
+    a path this script did not know about would silently stop regenerating
+    axioms_used for every row in it, which is drift the `axioms` check then gates
+    on at critical. Keep the two in step.
+    """
+    target = manifest_path or MANIFEST_PATH
     adjacency = collect_dependency_edges()
     if not adjacency:
         print(
@@ -60,14 +71,14 @@ def refresh(dry_run: bool = False) -> int:
         return -1
 
     # Map id -> derived axioms (only for bridged entries).
-    manifest = yaml.safe_load(MANIFEST_PATH.read_text(encoding="utf-8"))
+    manifest = yaml.safe_load(target.read_text(encoding="utf-8"))
     derived: dict[str, list[int]] = {}
     for entry in manifest.get("predictions", []):
         clm = entry.get("clm")
         if clm:
             derived[entry["id"]] = derive_axioms_used(clm, adjacency)
 
-    lines = MANIFEST_PATH.read_text(encoding="utf-8").split("\n")
+    lines = target.read_text(encoding="utf-8").split("\n")
     out: list[str] = []
     changes: list[tuple[str, object, list[int]]] = []
     cur_id: str | None = None
@@ -120,16 +131,30 @@ def refresh(dry_run: bool = False) -> int:
         print(f"[refresh] DRY-RUN: {len(changes)} bridged entries would change axioms_used.")
         return len(changes)
 
-    MANIFEST_PATH.write_text("\n".join(out), encoding="utf-8")
+    target.write_text("\n".join(out), encoding="utf-8")
     print(f"[refresh] wrote axioms_used for bridged entries; {len(changes)} changed.")
     return len(changes)
+
+
+def refresh_all(dry_run: bool = False) -> int:
+    """Refresh BOTH manifests. Returns the summed change count, or -1 on failure."""
+    total = 0
+    for path in (MANIFEST_PATH, POSTDICTIONS_PATH):
+        if not path.is_file():
+            continue
+        print(f"[refresh] {path.relative_to(path.parents[1])}")
+        rc = refresh(dry_run=dry_run, manifest_path=path)
+        if rc < 0:
+            return rc
+        total += rc
+    return total
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Refresh derived fields in predictions.yaml (axioms_used).")
     parser.add_argument("--dry-run", action="store_true", help="Show what would change; do not write.")
     args = parser.parse_args(argv)
-    rc = refresh(dry_run=args.dry_run)
+    rc = refresh_all(dry_run=args.dry_run)
     return 2 if rc < 0 else 0
 
 

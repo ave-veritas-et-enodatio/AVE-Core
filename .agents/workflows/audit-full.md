@@ -52,7 +52,7 @@ To add a new rule, edit [`src/scripts/defense_context_checker.py`](../../src/scr
 python src/scripts/predictions_manifest_validator.py
 ```
 
-Structural validator for [`manuscript/predictions.yaml`](../../manuscript/predictions.yaml) — the authoritative manifest of every public-facing prediction. Four checks:
+Structural validator for [`manuscript/predictions.yaml`](../../manuscript/predictions.yaml) — the authoritative manifest of every public-facing prediction. Eight checks:
 
 1. **schema** — every entry has required fields; types are in the allowed set; IDs unique.
 2. **label** — every `derivation_label` resolves to a real `\label{}` target in `manuscript/**/*.tex`.

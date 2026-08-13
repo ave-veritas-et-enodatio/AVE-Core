@@ -241,6 +241,19 @@ The tool (`tools/lint_status_markers.py`, also not built here) walks the scope, 
 ## (f) Badge / manifest accounting rule
 
 **The split (verified at HEAD).** Three public surfaces count "predictions" on **three different bases**, and the split was flagged in PR #501 but never reconciled into a rule:
+> ★ **CORRECTED 2026-08-13 (forward/postdiction split).** Three factual claims in §(f) below
+> had gone stale and are corrected here rather than rewritten in place (Rule 12):
+> 1. The `predictions-47_derived` badge **no longer exists**. `README.md:6-7` now carry
+>    `forward_falsifier-1_armed` and `consistency--class_entries-45`.
+> 2. The Master Prediction Table is at **`README.md:213`**, not `:181`.
+> 3. It displays **33** rows, not 40 (47 numbers minus the 14 absorbed by 7 compound ranges).
+>
+> The RATIFIED rule at the end of §(f) — *"any `predictions.yaml` edit must preserve its
+> totals"* — **still holds and was preserved**: the 36 entries split 35 postdiction + 1 forward
+> (`P_A034_solar_flare`, which was never one of the 47 table slots), plus 1 NEW forward row
+> (`P_biref_coefficient`). The 33 numbered entries that expand to 1–47 all moved together to
+> `manuscript/postdictions.yaml`, so the disposition table still resolves against one file.
+
 - **README badge** (`README.md:6`): `![Predictions](.../badge/predictions-47_derived-orange)` — counts **47** (individual numbered predictions).
 - **README Master Prediction Table** (`README.md:181`+): rows numbered **1–47**, some rows compound (`11–12`, `17–18`, `20–21`, `26–28`, `29–32`, `33–38`, `44–45`) — same 47-individual basis, displayed as 40 rows.
 - **`manuscript/predictions.yaml`**: **36 entries** (`id:` count), validated by `src/scripts/predictions_manifest_validator.py` (+ `src/tests/test_predictions_manifest_validator.py`). The manifest counts **entries**, where an entry may cover a numbered range.

@@ -31,7 +31,7 @@ Four audit questions: Q1 (does Chain B use $R_H$?), Q2 (algebraic identity check
 - KB derivation chain: [`optical-refraction-gravity.md:50-64`](../manuscript/ave-kb/vol3/gravity/ch01-gravity-yield/optical-refraction-gravity.md)
 - LaTeX canonical equation: [`01_gravity_and_yield.tex:113-117`](../manuscript/vol_3_macroscopic/chapters/01_gravity_and_yield.tex)
 - Consistency-proof prose: [`01_gravity_and_yield.tex:120`](../manuscript/vol_3_macroscopic/chapters/01_gravity_and_yield.tex)
-- Predictions registry: [`predictions.yaml:126-142`](../manuscript/predictions.yaml) — P23, type `derived_prediction`, axioms_used `[1, 3, 4]`, headline `"a priori prediction that Hubble tension is a regime artifact"`
+- Predictions registry: [`postdictions.yaml` P23](../manuscript/postdictions.yaml) — P23, type `derived_prediction`, axioms_used `[1, 3, 4]`, headline `"a priori prediction that Hubble tension is a regime artifact"`
 - Engine: [`src/ave/core/constants.py:533-537`](../src/ave/core/constants.py)
    ```python
    H_INFINITY: float = (28.0 * pi * M_E**3 * C_0 * G) / (HBAR**2 * ALPHA**2)
@@ -283,7 +283,7 @@ Three documents on `analysis/integration` HEAD claim **directly contradictory** 
 | [`01_gravity_and_yield.tex:120`](../manuscript/vol_3_macroscopic/chapters/01_gravity_and_yield.tex) | "does not 'predict'... consistency proof" |
 | [`lattice-genesis-hubble-tension.md:24`](../manuscript/ave-kb/vol3/cosmology/ch04-generative-cosmology/lattice-genesis-hubble-tension.md) | **"First principles"** |
 | [`04_generative_cosmology.tex:42`](../manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex) | **"First principles"** |
-| [`predictions.yaml:142`](../manuscript/predictions.yaml) | **"a priori prediction"** |
+| [`postdictions.yaml` P23](../manuscript/postdictions.yaml) | **"a priori prediction"** |
 | [`hubble-tension.md:15-33`](../manuscript/ave-kb/vol2/nuclear-field/ch10-open-problems/hubble-tension.md) | **"prediction... not a fit"** |
 | [`cosmological-constant-closure.md:97-101`](../manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md) | "**Tier-A prediction**" but qualifies with "structural closure at WKB/Friedmann level... blocking on quantitative derivation of crystallization thermodynamics" |
 
@@ -328,7 +328,7 @@ Read full diff via `git show 912dd88`. Author: Benn Herrera, 2026-04-28. Files c
 - §6.4 — observation that Vol 3 Ch 1 has ALREADY self-stated "consistency proof" — this is the most load-bearing point because it means the corpus on `analysis/integration` HEAD ALREADY contradicts itself (Vol 3 Ch 1 vs Vol 3 Ch 4 vs Vol 2 Ch 10 vs predictions.yaml), and 912dd88's edits would harmonize the others to match the self-statement that's already canonical at Vol 3 Ch 1
 
 **Where this audit slightly extends 912dd88:**
-- 912dd88's edit makes the four chosen files internally consistent ("Geometric consistency"). It does NOT touch [`predictions.yaml:127-142`](../manuscript/predictions.yaml) (P23 still labeled `derived_prediction` with notes claiming "a priori prediction") or [`hubble-tension.md`](../manuscript/ave-kb/vol2/nuclear-field/ch10-open-problems/hubble-tension.md) (Vol 2 Ch 10 still labeled "prediction... not a fit") or the `axioms_used: [1, 3, 4]` field in P23. If 912dd88's framing is correct, these are downstream walk-back surfaces.
+- 912dd88's edit makes the four chosen files internally consistent ("Geometric consistency"). It does NOT touch [`postdictions.yaml` P23](../manuscript/postdictions.yaml) (P23 still labeled `derived_prediction` with notes claiming "a priori prediction") or [`hubble-tension.md`](../manuscript/ave-kb/vol2/nuclear-field/ch10-open-problems/hubble-tension.md) (Vol 2 Ch 10 still labeled "prediction... not a fit") or the `axioms_used: [1, 3, 4]` field in P23. If 912dd88's framing is correct, these are downstream walk-back surfaces.
 
 ---
 
@@ -445,3 +445,13 @@ This audit's Class C verdict (§8 verdict line + §8 secondary class) was canoni
 **Per Rule 12 (preserve body, add header)**: this audit's Class C verdict is preserved as historical record — it WAS the correct verdict per the v1.0 taxonomy and surfaced the missing class as part of its work. The h-infinity-downstream-cascade epic (Phase 2, branch `analysis/h-infinity-downstream-cascade`) applies the Class C → Class E refinement EXTENSION (not replacement) across the 13 corpus files identified in this audit's §9 implication matrix + Phase 2 cascade-grep additions. Class C is true (CODATA $G$ → SI substitution recovers $H_\infty$); Class E is also true and stronger (joint-constraint structure defines actual falsifiability surface). The honest framing is "Class E operating-point projection (which includes Class C consistency-check sub-structure)."
 
 **Cross-reference for current corpus-state**: `manuscript/ave-kb/claim-quality-closure-roadmap.md:37` (framing-forward entry + Class E refinement annotation) + `manuscript/predictions.yaml` P23 (`type: operating_point_projection` post-2026-05-19 EOD).
+
+---
+
+> ★ **CITE REPOINT 2026-08-13 (forward/postdiction split).** The three `predictions.yaml:1xx`
+> line pins above now read `postdictions.yaml` P23, cited by ENTRY ID rather than line —
+> the 36 entries moved to `manuscript/postdictions.yaml` when `predictions.yaml` became
+> forward-only. Recorded honestly: those pins had **already drifted before the move** — the
+> prose named P23 while `:126-142` resolved to P05/P06 on the pre-split file. The vacated-cite
+> rule applies: the line numbers argued about a file state that no longer existed, so they are
+> re-derived fresh against the entry id, not re-adjudicated. Prose unchanged.

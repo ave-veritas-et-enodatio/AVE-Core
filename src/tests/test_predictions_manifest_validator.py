@@ -778,6 +778,7 @@ FROZEN_MARKER_TABLE: tuple[tuple[str, str, tuple[str, ...]], ...] = (
     ("VALUE_FITTED", r"\brefined post-hoc\b|\bpost-hoc against\b", ("chord",)),
     ("VALUE_FITTED", r"back-reaction fit\b", ("chord",)),
     ("FORM_VS_VALUE_SPLIT", r"FORM[^.]{0,220}is derived but the VALUE", ("chord",)),
+    ("VALUE_ECHOED", r"echo\s+at\s+the\s+value\s+level", ("chord",)),
     ("CONSISTENCY_CLASS", r"consistency check", ("chord", "forward-prediction")),
     ("CONSISTENCY_CLASS", r"category \(iii\)", ("chord", "forward-prediction")),
     ("CONSISTENCY_CLASS", r"consistency-class", ("chord", "forward-prediction")),

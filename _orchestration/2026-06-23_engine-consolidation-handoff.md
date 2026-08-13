@@ -52,7 +52,7 @@ Every claim/landing passes a **refute-by-default** adversarial audit, not a veri
 
 ## 5. Constraints (standing, non-negotiable)
 - `main` PROTECTED; **NO self-merge.** Self-isolate git-mutating work in a `/tmp` worktree off `origin/main` (workspace root is not a git repo; AVE-Core is one level down).
-- **NEVER put the substring `build` in a worktree/branch name** (trips `predictions_manifest_validator.py:136`).
+- **NEVER put the substring `build` in a worktree/branch name** (trips `predictions_manifest_validator.py `load_manifest``).
 - verify-before-cite (re-confirm every file:line against current HEAD; pins drift as files grow). Run the local verify/precommit gate before committing.
 - PURE-AVE-CORPUS (physics only — no investors/funds/external context). audit-trail-in-git: do NOT edit `_archive`, `*_FROZEN` preregs, SESSION_STATE, or result/walk-back docs.
 - `ave-canonical-source` (import constants from `src/ave/core/constants.py`, never hard-code). Flag-don't-fix for physics-labeling judgments (D2b).

@@ -62,6 +62,13 @@ import yaml
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 MANIFEST_PATH = REPO_ROOT / "manuscript" / "predictions.yaml"
+# The forward/postdiction split (2026-08-13, Grant: "the predictions yaml should be
+# forward only, we should make a postdiction yaml"). ONE public table, TWO backing
+# files: the parity checks read the UNION of both, so every one of the 47 table rows
+# still resolves. Membership is by FILE, never by `calibration_role` -- that axis was
+# ruled value-provenance and "orthogonal to `type`" (Grant 2026-08-05, P42).
+# Shape follows the .index/ precedent: one constant + one loader per file.
+POSTDICTIONS_PATH = REPO_ROOT / "manuscript" / "postdictions.yaml"
 CONSTANTS_PY = REPO_ROOT / "src" / "ave" / "core" / "constants.py"
 README_PATH = REPO_ROOT / "README.md"
 LIVING_REFERENCE_PATH = REPO_ROOT / "LIVING_REFERENCE.md"
@@ -134,6 +141,21 @@ class Finding:
 def load_manifest(path: Path = MANIFEST_PATH) -> dict:
     with path.open(encoding="utf-8") as f:
         return yaml.safe_load(f)
+
+
+def load_all_manifest_entries() -> list[dict]:
+    """Every entry across BOTH manifests, for the parity checks.
+
+    A public table row may be backed by either file. Reading only one would report
+    every row of the other as unmatched -- a false parity failure, and `make test`
+    asserts parity warns are empty, so that would red the build.
+    """
+    entries: list[dict] = []
+    for path in (MANIFEST_PATH, POSTDICTIONS_PATH):
+        if not path.is_file():
+            continue
+        entries.extend(load_manifest(path).get("predictions", []))
+    return entries
 
 
 def collect_manuscript_labels(root: Path = REPO_ROOT) -> set[str]:
@@ -1001,6 +1023,31 @@ PROVENANCE_MARKERS: tuple[ProvenanceMarker, ...] = (
         "verified firing); the axis itself is "
         "common/form-deriving-value-importing.md",
     ),
+    # ── VALUE_ECHOED ── the card declares, in the corpus's own house phrasing,
+    # that the row's MAGNITUDE is an echo at the value level. Same content as
+    # FORM_VS_VALUE_SPLIT, different sentence shape, so it forbids `chord` for the
+    # same reason: an echoed value is exactly what `chord` denies.
+    #
+    # AUDIT NOTE (2026-08-13). Added because the table had a hole on the one card
+    # that matters most. Of the 20 markers then defined, NONE matched the word
+    # "echo" -- so clm-pp3qwf (the armed birefringence falsifier) scanned to ZERO
+    # markers and reported UNRECONCILED, meaning a `chord` declaration on it would
+    # have passed the critical gate. Its card says the opposite verbatim: "the
+    # MAGNITUDE $1.93\times10^7=7.5/\alpha^3$ is an $\alpha$-echo at the value
+    # level". The gate would have passed it because the regex missed, not because
+    # the corpus agreed -- the failure mode this whole check exists to kill.
+    #
+    # Scope measured before landing: fires on 2 live cards (clm-pp3qwf,
+    # clm-rtdmsn); full census re-run across BOTH manifests with it registered at
+    # severity="critical" gives CONTRADICTED = 0, so the gate stays green on merge.
+    ProvenanceMarker(
+        "VALUE_ECHOED",
+        r"echo\s+at\s+the\s+value\s+level",
+        frozenset({"chord"}),
+        "vol4/claim-quality.md clm-pp3qwf (the armed birefringence falsifier, "
+        "verified firing); also clm-rtdmsn. The axis itself is "
+        "common/form-deriving-value-importing.md",
+    ),
     # ── CONSISTENCY_CLASS ── the card grades the claim as reproducing a known
     # result. Forbids `chord` (not AVE-forced-novel) and `forward-prediction`
     # (predictions.yaml:35 — 'untested, divergent-from-SM, AVE-distinct').
@@ -1480,7 +1527,8 @@ def check_readme_parity(manifest: dict) -> list[Finding]:
         ]
 
     # Index manifest by id and by normalized id
-    entries_by_id: dict[str, dict] = {e["id"]: e for e in manifest.get("predictions", []) if "id" in e}
+    # UNION across both manifests -- see load_all_manifest_entries().
+    entries_by_id: dict[str, dict] = {e["id"]: e for e in load_all_manifest_entries() if "id" in e}
 
     def normalize_row_id(raw: str) -> str:
         # Remove markdown emphasis / whitespace
@@ -1550,7 +1598,8 @@ def check_living_reference_parity(manifest: dict) -> list[Finding]:
             )
         ]
 
-    entries_by_id: dict[str, dict] = {e["id"]: e for e in manifest.get("predictions", []) if "id" in e}
+    # UNION across both manifests -- see load_all_manifest_entries().
+    entries_by_id: dict[str, dict] = {e["id"]: e for e in load_all_manifest_entries() if "id" in e}
 
     def candidate_ids(raw: str) -> list[str]:
         cleaned = raw.strip().replace("–", "-").replace("—", "-")
