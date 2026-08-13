@@ -83,7 +83,7 @@ LEGACY_LANE_CHECK_ALIASES = \
 	verify-approach-leak-number-check \
 	verify-approach-leak-v2-number-check
 
-.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks refresh-provenance-baseline framing-audit verify-anchor-content verify-new-cite-excerpts test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup gamma-census $(LEGACY_LANE_CHECK_ALIASES)
+.PHONY: verify-cite-stability all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks refresh-provenance-baseline framing-audit verify-anchor-content verify-new-cite-excerpts test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup gamma-census $(LEGACY_LANE_CHECK_ALIASES)
 
 help:
 	@echo "Applied Vacuum Engineering (AVE-Core) Build System"
@@ -559,6 +559,10 @@ gamma-census:
 # canonical-authority surface without an adjacent verbatim excerpt. Override
 # the base with `make verify-new-cite-excerpts CITE_BASE=<ref>`.
 CITE_BASE ?= origin/main
+verify-cite-stability:
+	@echo "Checking no line-pin that resolved at $(CITE_BASE) is now dead (gating, PR-only)..."
+	$(PYTHON) $(KB_TOOLS_DIR)/verify-cite-stability.py --base $(CITE_BASE)
+
 verify-new-cite-excerpts:
 	@echo "Checking every line-cite added vs $(CITE_BASE) carries an adjacent verbatim excerpt (gating)..."
 	$(PYTHON) $(KB_TOOLS_DIR)/verify-anchor-content.py --new-cites $(CITE_BASE)

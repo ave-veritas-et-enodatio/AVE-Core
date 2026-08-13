@@ -112,7 +112,7 @@ Per `ave-walk-back` skill discipline. Files to update (in scope):
 
 2. **`manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex:42`** — Same table-cell change in LaTeX (`textbf{First principles}` → `textbf{Geometric consistency}`). Update the objectivebox at line ~9 + prose at line ~50 to match.
 
-3. **`manuscript/predictions.yaml:142`** — entry P23: reframe `"a priori prediction that Hubble tension is a regime artifact"` → `"geometric consistency identity that lands in the Planck-SH0ES tension band; structurally tied to G via R_H = c/H_∞ substitution in the Machian impedance integration"`. Also update `axioms_used: [1, 3, 4]` if it remains misleading (the formula uses CODATA $G$, not just substrate axioms — may need an `inputs_used` field or annotation).
+3. **`manuscript/consistency-manifest.yaml` P23** — entry P23: reframe `"a priori prediction that Hubble tension is a regime artifact"` → `"geometric consistency identity that lands in the Planck-SH0ES tension band; structurally tied to G via R_H = c/H_∞ substitution in the Machian impedance integration"`. Also update `axioms_used: [1, 3, 4]` if it remains misleading (the formula uses CODATA $G$, not just substrate axioms — may need an `inputs_used` field or annotation).
 
 4. **`manuscript/ave-kb/vol2/nuclear-field/ch10-open-problems/hubble-tension.md:21`** — the Chain B'-flavored prose ("lattice-genesis model balances node generation against the holographic thermal capacity") was attributed to what is mathematically Chain A. Reframe to match Vol 3 Ch 1 framing: this is the consistency identity, not an independent derivation. Cross-reference to `mathematical-closure.md` open Chain B' gap.
 
