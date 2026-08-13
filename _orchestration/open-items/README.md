@@ -55,6 +55,36 @@ put comments on their own line. Quote any value containing a `:`.
 | `QUEUED` | authorized in principle, waiting its turn |
 | `PARKED` | deliberately held; needs an explicit word to unpark |
 
+## How items get INTO this directory — read, don't grep
+
+**A source document is read END TO END before anything is migrated out of it, and before any
+claim about what it contains.** This directory was first built by grepping a source for status
+tokens (`⚑ ✅ OPEN HELD RULED PENDING`) and migrating the hits. That method has a structural
+blind spot, and it is exactly the wrong one:
+
+> **Items that announce themselves are the ones already tracked.** The untracked ones are
+> untracked *because* they do not announce. A status-token sweep is systematically blind to
+> precisely the population it is hunting.
+
+Measured on 2026-08-13: five audit rounds of grep-and-probe found **zero** of six live
+Grant-gated items; one end-to-end read of two documents found **all six**. Two of them —
+the constituent-cage-ensemble fork and the yield fork (Flag F) — contain no status word at
+all. One was reachable only by following a four-entry arc across a 2768-line log.
+
+**The operating split:**
+
+| question | instrument |
+|---|---|
+| *what X's exist here?* — discovery, completeness | **read**, end to end |
+| *what is the state of X?* — an already-enumerated item | grep / `gh` / `git`, cheap and correct |
+
+That split is also the dispatch boundary: **reading to enumerate is the orchestrator's job;
+verifying an enumerated list is a lane's.**
+
+**And report the method.** *"I searched for status tokens and found 15"* is a statement about
+the search. *"There are 15"* is a statement about the corpus, and only an end-to-end read earns
+it. Never write "all", "complete", or "nothing dropped" about a document you have not read.
+
 ## The rules
 
 1. **The fragment is a pointer, not the record.** Full evidence, receipts, and options stay
