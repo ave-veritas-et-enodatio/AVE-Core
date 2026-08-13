@@ -3,7 +3,7 @@
 **Grant, verbatim `[sic]`:** *"the predictions yaml should be forward only, we should make a postdiction yaml, and make sure all tooling/gates are consistent and planned out well."*
 
 **What landed.** `manuscript/predictions.yaml` is now FORWARD-ONLY (2 entries); the 35 postdiction
-entries moved wholesale and unedited to the new `manuscript/postdictions.yaml`. One public table,
+entries moved wholesale and unedited to the new `manuscript/consistency-manifest.yaml`. One public table,
 two backing files: the validator's parity checks read the UNION, so all 47 table rows still resolve.
 
 **Why the split was mostly already made.** `README.md:41` had ruled it in prose — of 47 slots,
@@ -62,3 +62,12 @@ README badge md5 unchanged · board `--check` green.
 **Routed, not closed:** `open-items/manifest-type-retyping` (the four rows) and
 `open-items/postdiction-vocabulary` (the term now sits in a tracked filename with no `def-` node,
 while `chord`/`echo`/`mixed` each have one plus an ambiguity flag).
+
+**★ RULING 2026-08-13 (Grant, verbatim `[sic]`): *"i like consistency manifest"*.** The postdiction
+manifest is named **`manuscript/consistency-manifest.yaml`**, matching the README's own *"45
+consistency-class entries"*. This DISCHARGES the vocabulary question the split raised: "postdiction"
+is used in ~15 Rule-12 walk-backs but has never been minted as a `def-` node, while its siblings
+`chord`/`echo`/`mixed` each have one plus an `open-ambiguity-flag`. Naming the file for what it
+GATES rather than for an unminted term avoids minting vocabulary by filename. The
+`open-items/postdiction-vocabulary` fragment is deleted accordingly (closing an item deletes its
+file; git holds the history, this entry holds the ruling).

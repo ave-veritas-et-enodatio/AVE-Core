@@ -252,7 +252,7 @@ The tool (`tools/lint_status_markers.py`, also not built here) walks the scope, 
 > totals"* — **still holds and was preserved**: the 36 entries split 35 postdiction + 1 forward
 > (`P_A034_solar_flare`, which was never one of the 47 table slots), plus 1 NEW forward row
 > (`P_biref_coefficient`). The 33 numbered entries that expand to 1–47 all moved together to
-> `manuscript/postdictions.yaml`, so the disposition table still resolves against one file.
+> `manuscript/consistency-manifest.yaml`, so the disposition table still resolves against one file.
 
 - **README badge** (`README.md:6`): `![Predictions](.../badge/predictions-47_derived-orange)` — counts **47** (individual numbered predictions).
 - **README Master Prediction Table** (`README.md:181`+): rows numbered **1–47**, some rows compound (`11–12`, `17–18`, `20–21`, `26–28`, `29–32`, `33–38`, `44–45`) — same 47-individual basis, displayed as 40 rows.

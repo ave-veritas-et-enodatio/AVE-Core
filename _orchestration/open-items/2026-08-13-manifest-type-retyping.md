@@ -4,7 +4,7 @@ title: The manifest `type` axis was never ruled — four rows carry derived_pred
 status: ROUTED-TO-GRANT
 owner: grant
 opened: 2026-08-05
-source: manuscript/postdictions.yaml
+source: manuscript/consistency-manifest.yaml
 anchor: "The `type` axis was not ruled."
 ---
 
@@ -20,7 +20,7 @@ Recorded in the P42 ruling's own OUT-OF-RULED-SCOPE block, verbatim:
 **Named rows:** P42, P47, P20_21, P44_45.
 
 **Why it still matters after the 2026-08-13 forward/postdiction split.** The split moved these rows
-into `manuscript/postdictions.yaml`, so their *file* now states what they are. Their `type` field
+into `manuscript/consistency-manifest.yaml`, so their *file* now states what they are. Their `type` field
 still says `derived_prediction` — defined in the schema as *"genuine forward prediction (Class D)"*.
 File and field now disagree, visibly, which is better than the previous state (both wrong) but is
 not resolved. The split deliberately did **not** pre-empt this ruling.

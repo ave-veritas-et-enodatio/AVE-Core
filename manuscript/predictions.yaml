@@ -2,12 +2,12 @@
 #
 # Structured claim graph for Tier-2 rigor. Every row of the public README and
 # LIVING_REFERENCE Master Prediction Table maps to an entry in EITHER this file
-# or manuscript/postdictions.yaml; the validator's parity checks read the UNION.
+# or manuscript/consistency-manifest.yaml; the validator's parity checks read the UNION.
 #
 # SCOPE (split 2026-08-13, Grant: "the predictions yaml should be forward only,
 # we should make a postdiction yaml"). This file holds claims that predict
 # something NOT YET MEASURED. Claims reproduced against an already-known value
-# moved to manuscript/postdictions.yaml -- that was 35 of the previous 36 rows.
+# moved to manuscript/consistency-manifest.yaml -- that was 35 of the previous 36 rows.
 #
 # READ THE HARD FACT FIRST. Every clm- node in this corpus carries
 # experimental_solidity: null. "Forward prediction" here means UNTESTED BY

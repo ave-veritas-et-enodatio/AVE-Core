@@ -34,7 +34,7 @@ import yaml
 
 from scripts.predictions_manifest_validator import (
     MANIFEST_PATH,
-    POSTDICTIONS_PATH,
+    CONSISTENCY_MANIFEST_PATH,
     collect_dependency_edges,
     derive_axioms_used,
 )
@@ -139,7 +139,7 @@ def refresh(dry_run: bool = False, manifest_path: Path | None = None) -> int:
 def refresh_all(dry_run: bool = False) -> int:
     """Refresh BOTH manifests. Returns the summed change count, or -1 on failure."""
     total = 0
-    for path in (MANIFEST_PATH, POSTDICTIONS_PATH):
+    for path in (MANIFEST_PATH, CONSISTENCY_MANIFEST_PATH):
         if not path.is_file():
             continue
         print(f"[refresh] {path.relative_to(path.parents[1])}")

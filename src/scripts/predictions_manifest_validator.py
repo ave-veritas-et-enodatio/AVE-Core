@@ -68,7 +68,7 @@ MANIFEST_PATH = REPO_ROOT / "manuscript" / "predictions.yaml"
 # still resolves. Membership is by FILE, never by `calibration_role` -- that axis was
 # ruled value-provenance and "orthogonal to `type`" (Grant 2026-08-05, P42).
 # Shape follows the .index/ precedent: one constant + one loader per file.
-POSTDICTIONS_PATH = REPO_ROOT / "manuscript" / "postdictions.yaml"
+CONSISTENCY_MANIFEST_PATH = REPO_ROOT / "manuscript" / "consistency-manifest.yaml"
 CONSTANTS_PY = REPO_ROOT / "src" / "ave" / "core" / "constants.py"
 README_PATH = REPO_ROOT / "README.md"
 LIVING_REFERENCE_PATH = REPO_ROOT / "LIVING_REFERENCE.md"
@@ -151,7 +151,7 @@ def load_all_manifest_entries() -> list[dict]:
     asserts parity warns are empty, so that would red the build.
     """
     entries: list[dict] = []
-    for path in (MANIFEST_PATH, POSTDICTIONS_PATH):
+    for path in (MANIFEST_PATH, CONSISTENCY_MANIFEST_PATH):
         if not path.is_file():
             continue
         entries.extend(load_manifest(path).get("predictions", []))
