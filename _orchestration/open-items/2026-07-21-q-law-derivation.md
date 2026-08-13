@@ -4,7 +4,8 @@ title: Q-law derivation — why the standing-v1 mΩ τ lands at −5.4 %
 status: QUEUED
 owner: unassigned
 opened: 2026-07-21
-source: _orchestration/2026-07-20_pending-rulings-and-frontier-queue.md:262
+source: _orchestration/2026-07-20_pending-rulings-and-frontier-queue.md
+anchor: "**Q-law derivation** (why the standing-v1 mΩ τ lands at −5.4%"
 ---
 
 The `r_Ω = r_ph·√(1+ν_vac)` / `ν_vac` factor / mapping — the named next ringdown work banked by

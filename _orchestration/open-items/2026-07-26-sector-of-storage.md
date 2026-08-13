@@ -4,7 +4,8 @@ title: Sector-of-storage — where the compression store lives (A1 canon vs the 
 status: OPEN-IN-WALK
 owner: grant
 opened: 2026-07-26
-source: _orchestration/2026-07-20_pending-rulings-and-frontier-queue.md:30
+source: _orchestration/2026-07-20_pending-rulings-and-frontier-queue.md
+anchor: "13. **Sector-of-storage — WHERE the compression store lives"
 ---
 
 Grant is walking it; **not ruled**. No lane fired, and no default is admissible — per the

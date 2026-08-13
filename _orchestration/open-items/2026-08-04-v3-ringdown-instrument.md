@@ -4,7 +4,8 @@ title: The v3 ringdown instrument — the DISCRETE near-wall chain
 status: REGISTERED
 owner: unassigned
 opened: 2026-08-04
-source: _orchestration/2026-07-20_pending-rulings-and-frontier-queue.md:283
+source: _orchestration/2026-07-20_pending-rulings-and-frontier-queue.md
+anchor: "25. **The v3 ringdown instrument — the DISCRETE near-wall chain"
 ---
 
 Both cold-Q instrument-class failures of 2026-08 are the continuum inheriting its own singular

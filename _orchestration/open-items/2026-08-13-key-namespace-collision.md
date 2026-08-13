@@ -4,7 +4,8 @@ title: Decision keys are colliding — four distinct things are named "D1"
 status: OPEN
 owner: unassigned
 opened: 2026-08-13
-source: _orchestration/2026-07-20_pending-rulings-and-frontier-queue.md:123
+source: _orchestration/2026-07-20_pending-rulings-and-frontier-queue.md
+anchor: "★**D1 = srs-vs-diamond — the LATTICE-IDENTITY question."
 ---
 
 Four different decisions in this corpus carry the label **D1**:

@@ -4,7 +4,8 @@ title: u/A transverse identity-collapse candidate — are the EM and mechanical-
 status: QUEUED
 owner: unassigned
 opened: 2026-07-20
-source: _orchestration/2026-07-20_pending-rulings-and-frontier-queue.md:258
+source: _orchestration/2026-07-20_pending-rulings-and-frontier-queue.md
+anchor: "**u/A transverse identity-collapse candidate**"
 ---
 
 Trigger-7 (identity-collapse) class. **★Frozen observational gate:** GW170817 two-distinct-signals

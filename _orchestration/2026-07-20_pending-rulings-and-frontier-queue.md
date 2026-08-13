@@ -1,20 +1,4 @@
-# PENDING GRANT RULINGS + FRONTIER QUEUE — state as of 2026-07-20 (post-#761-review)
-
-> # ⛔ FROZEN 2026-08-13 — open items moved to `open-items/`
->
-> Every item in §1/§2 that was still **OPEN / ROUTED / REGISTERED / QUEUED / PARKED** on
-> 2026-08-13 now has its own file in [`open-items/`](open-items/), where the board reads it.
-> Those fragments are **pointers** — the full evidence, receipts, and options stay here.
->
-> **Why the move.** Not the merge hazard: that story was withdrawn in-corpus at `:170-181`
-> below and is false. The reasons are (1) a hand-maintained status list goes stale, and
-> (2) mid-file status flips in one shared document are a permanent collision target — the
-> docket beat exactly this shape on 2026-07-21 with one-file-per-lane.
->
-> **Nothing below is deleted or rewritten** (Rule 12). **Do not append to it** — add a file
-> to `open-items/` instead.
-
-
+# PENDING GRANT RULINGS + FRONTIER QUEUE — state as of 2026-07-20 (post-#761-review)  ⛔ **FROZEN 2026-08-13** — superseded by [`BOARD.md`](BOARD.md); full notice at end of file.
 
 **Class: orchestration state doc.** Repo-tracked per the multi-agent ruling (2026-07-20: anything multi-agent-usable must be repo-tracked; model-local memory is not a shared surface). Supersede by dated edit or successor doc; do not silently rewrite.
 
@@ -297,3 +281,16 @@ Six carry a pre-existing repo receipt and were re-read from it rather than from 
 - Candidate 5th instance for the mechanism-claims history (routed to the AVE-Skills doc, not edited here): the orchestrator's mid-review provisional relay on #761 ("UNDETERMINED-on-the-fork, crisis doesn't fire") reversed by the verify pass — hedged as provisional at the time, still a relay of pre-verify lens findings; corrected to Grant explicitly.
 
 25. **The v3 ringdown instrument — the DISCRETE near-wall chain. ⚑ REGISTERED / awaits the ringdown arc's resumption.** Both cold-Q instrument-class failures of 2026-08 are the continuum inheriting its own singular structure: the polar lane's beyond-all-orders bulk-outgoing suppression (irregular point at the wall) and the axial-RHO-B lane's log-divergent optical distance (regular-singular wall) are theorems of the CONTINUUM LIMIT, not of the substrate — the physical lattice has finitely many nodes and no singularity is possible there (Grant carve, 2026-08-04, recorded on PR #876's result doc). The substrate-native fix is therefore NOT exterior complex scaling (the continuum repair named by FLAG-ROWCLASS: the axial-rhob lane + polar §6.2 + v2.4 FLAG-10) but a **hybrid instrument: exactly diagonalize the finite graded LC chain over the near-wall region (discrete, no continuum limit taken, both channels) and match to the certified continuum far field at a declared reference plane** (wall-taxonomy §10 discipline). KEEP-BOTH: the exterior-complex-scaling route stays registered as the continuum-class alternative; the discrete chain is the EE-first-native primary candidate. Prerequisites before build: the echo-delay lane's turning-point verdict (band-edge vs node-governed sets the chain's required extent) and the FORK-3(b) status (the chain must run both density branches). Not scoped, not dispatched — registered so the arc resumes on the right instrument instead of another continuum patch.
+
+
+---
+
+## ⛔ FROZEN 2026-08-13 — open items moved to `open-items/`
+
+Every item still OPEN / ROUTED / REGISTERED / QUEUED / PARKED on 2026-08-13 has its own file in [`open-items/`](open-items/), where the board reads it. Those fragments point back here by **anchor text, not line number** — the full evidence stays here.
+
+**Why the move.** Not the merge hazard: that story was withdrawn in-corpus in this very file (search `Merge note, CORRECTED 2026-08-03`) and is false. The reasons are that a hand-maintained status list goes stale, and mid-file status flips in one shared document are a permanent collision target — the docket beat exactly this shape on 2026-07-21 with one-file-per-lane.
+
+**★ Placed at the BOTTOM so no line number shifts** — this file is cited by line elsewhere in the corpus.
+
+**Nothing above is deleted or rewritten** (Rule 12). **Do not append to it** — add a file to `open-items/` instead.

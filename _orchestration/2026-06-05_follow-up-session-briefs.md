@@ -10,7 +10,7 @@ Spawn-ready briefs for each follow-up from the gravity-sector session. Companion
 - **Goal:** land #91 → #92 → #90 to `main`.
 - **Gating:** Grant/coworker approves each PR diff.
 - **Steps (per AVE-Core audit-tag+merge discipline), in order #91, #92, #90:** review diff → tag `audit/2026-06-05_<topic>` at branch tip → `gh pr merge --no-ff` → push tag → delete branch (local+remote) after tag verifies on origin. **Order is load-bearing:** #91/#92 carry the result docs #90's walk-backs cite; merging #90 first → dangling citations (verify-md-links fail).
-- **After:** update `_orchestration/index.md` to log the arc closure (tracked edit, fold into a trailing commit).
+- **After:** update `_orchestration/index.md` to log the arc closure (tracked edit, fold into a trailing commit). ⛔ **(2026-08-13: index.md is FROZEN — do NOT append. Log arc closure as a `docket-entries/` fragment; open decisions go in `open-items/`.)**
 - **Skills:** verify-before-cite (confirm #90's basis-citations resolve once #91/#92 are on main), ave-evidence-framing.
 - **Return:** 3 merges + 3 audit tags on origin + branches deleted + index.md updated.
 

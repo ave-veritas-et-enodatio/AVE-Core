@@ -4,7 +4,8 @@ title: Vessel-state shell → γ_c couple-stress → (2,3) winding — the wall-
 status: PARKED
 owner: grant
 opened: 2026-07-20
-source: _orchestration/2026-07-20_pending-rulings-and-frontier-queue.md:263
+source: _orchestration/2026-07-20_pending-rulings-and-frontier-queue.md
+anchor: "★ WALK-CLASS PARKED"
 ---
 
 ★ WALK-CLASS PARKED. Grant, verbatim `[sic]`: *"lets not lose sight of the later walks"*.

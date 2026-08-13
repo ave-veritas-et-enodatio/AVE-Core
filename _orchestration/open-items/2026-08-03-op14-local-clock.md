@@ -4,7 +4,8 @@ title: Op14 local-clock modulation of the retardation — the driver retards by 
 status: ROUTED-TO-GRANT
 owner: grant
 opened: 2026-08-03
-source: _orchestration/2026-07-20_pending-rulings-and-frontier-queue.md:230
+source: _orchestration/2026-07-20_pending-rulings-and-frontier-queue.md
+anchor: "24. **Op14 local-clock modulation of the retardation"
 ---
 
 **The ask (one line):** *should $\tau_{retard}$ be one Compton transit of the **coordinate**

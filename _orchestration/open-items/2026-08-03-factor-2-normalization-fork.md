@@ -4,7 +4,8 @@ title: The factor-2 normalization fork — leaf :47 vs :48 (a normalization-ledg
 status: ROUTED-TO-GRANT
 owner: grant
 opened: 2026-08-03
-source: _orchestration/2026-07-20_pending-rulings-and-frontier-queue.md:199
+source: _orchestration/2026-07-20_pending-rulings-and-frontier-queue.md
+anchor: "22. **The factor-2 normalization fork — leaf `:47` vs `:48`"
 ---
 
 **The ask (one line):** *which prefactor on $\langle (S_d-S_q)(-\dot\Sigma_{near})\rangle$ is

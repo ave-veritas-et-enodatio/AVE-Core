@@ -4,7 +4,8 @@ title: The falsifier-precision decision — leaf :236 asserts a threshold the in
 status: ROUTED-TO-GRANT
 owner: grant
 opened: 2026-08-03
-source: _orchestration/2026-07-20_pending-rulings-and-frontier-queue.md:222
+source: _orchestration/2026-07-20_pending-rulings-and-frontier-queue.md
+anchor: "23. **The falsifier-precision decision — leaf `:236` asserts a threshold"
 ---
 
 **The ask (one line):** *once no ppm label on $C_2$ is defensible, what precision does the

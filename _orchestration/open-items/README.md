@@ -19,20 +19,31 @@ target. Separate files do not collide at all — there is nothing to resolve.
 
 ## The schema
 
-Every file is `<status-year>-<short-slug>.md` with this frontmatter. The generator validates
-it and **fails loud** on a bad field rather than skipping the file — a silently-skipped open
+Every file is `<date>-<short-slug>.md` with this frontmatter. The generator validates it and
+**fails loud** on a bad field, a stray non-`.md` file, a duplicate key, or an anchor that no
+longer resolves — rather than skipping the file — a silently-skipped open
 item is exactly the failure this directory exists to prevent.
 
 ```yaml
 ---
-id: sector-of-storage           # unique, kebab-case, stable (never renumber)
-title: One line, plain English  # what appears on the board
-status: OPEN-IN-WALK            # see the table below
-owner: grant                    # grant | lane | unassigned
-opened: 2026-07-26              # ISO date the item became open
-source: path/to/file.md:30      # where the full record lives; the fragment is a POINTER
+id: sector-of-storage
+title: One line, plain English
+status: OPEN-IN-WALK
+owner: grant
+opened: 2026-07-26
+source: _orchestration/2026-07-20_pending-rulings-and-frontier-queue.md
+anchor: "13. **Sector-of-storage — WHERE the compression store lives"
 ---
 ```
+
+**`source` names a FILE. `anchor` is verbatim text the generator must find inside it.**
+Never a line number. v1 of this directory pinned lines and broke 14 of its 15 pointers in
+the same commit that created them, by prepending a header to the file they pointed into.
+An anchor survives insertions, and if the source is rewritten the generator **fails loud**
+instead of pointing at whatever now occupies that line.
+
+**No inline comments.** Values routinely contain `#` (issue numbers, markdown headings);
+put comments on their own line. Quote any value containing a `:`.
 
 | `status` | meaning |
 |---|---|

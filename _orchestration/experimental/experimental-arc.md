@@ -265,7 +265,7 @@ Per `_orchestration/README.md` orchestration discipline + the relevant skill eco
 - `~/.claude/skills/verify-before-cite/SKILL.md` v1.4 — citation accuracy + cross-branch + merge-empirical
 
 ### Parent index
-- [`_orchestration/index.md`](index.md) — master orchestration state; references this epic in Active Epics table
+- [`_orchestration/index.md`](index.md) — master orchestration state; references this epic in Active Epics table ⛔ **(2026-08-13: FROZEN — no longer master. Live board: [`../BOARD.md`](../BOARD.md), generated.)**
 
 ## Audit trail
 

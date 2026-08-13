@@ -4,7 +4,8 @@ title: The anisotropy observable — direction-dependent long-wave P-speed of a 
 status: OPEN
 owner: unassigned
 opened: 2026-07-28
-source: _orchestration/2026-07-20_pending-rulings-and-frontier-queue.md:84
+source: _orchestration/2026-07-20_pending-rulings-and-frontier-queue.md
+anchor: "### 21. The anisotropy observable — direction-dependent long-wave P-speed"
 ---
 
 Frontier candidate. **NOT fired; no claim minted.** Candidate for a scoping lane
