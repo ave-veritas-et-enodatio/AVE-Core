@@ -20,6 +20,18 @@ Four different decisions in this corpus carry the label **D1**:
 The queue documents the collision and records a **count correction it forced** — the 2026-08-02
 enumeration was internally inconsistent and had to be withdrawn under Rule 12.
 
+★ **UNDERSTATED — corrected 2026-08-13 after reading the queue end to end.** This fragment
+originally said "four distinct things." The queue's own sweep says its table is
+**"REPRESENTATIVE, NOT EXHAUSTIVE"** and that `grep -rl '\bD1\b'` over `_orchestration/` +
+`research/` + `manuscript/` returned **165 files** — re-measured today at **204** (grep) / **203**
+(ripgrep). Beyond the four above, the label also carries: `D1-CHSH` (a Tier-D divergence-map row),
+the field-definition **lane name**, a standing-decisions audit item, discriminator labels in the
+genesis node-birth fork (`D1–D4`), collapse-batch item labels, and engine-DAG lane labels.
+The queue's own conclusion: *"the hazard it documents is worse than the sample shows."*
+
+**The interim rule already ruled:** *"The disambiguator is the DATE, not the letter. A bare 'D1' in
+this corpus does not resolve; `D1 (2026-08-01)` does. Cite the date or cite the executing PR."*
+
 **No document discipline fixes this.** It is a key-namespace failure and needs a registry with
 uniqueness enforcement — the same shape as `verify-docket-keys.py`, which already does this job
 for docket keys. Scoping that reuse is the work.

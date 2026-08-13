@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **96a2af1f** (2026-08-13) · 460 index records · 330 claims · 1 PR open
+Scanned tree **f12f591f** (2026-08-13) · 460 index records · 330 claims · 1 PR open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`7d361e96`). Every count below describes **96a2af1f**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`7d361e96`). Every count below describes **f12f591f**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -30,7 +30,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## What we are waiting on
 
-**18 of 35 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
+**19 of 36 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
 
 *Scope: this is a census of `open-items/`. `_orchestration/2026-07-10_rulings-docket.md` is the **paper timeline** — a dated continuation log, frozen at its 2026-07-21 tail per `docket-entries/README.md`, and the historical record of how each ruling was reached. It is read chronologically, not harvested; anything still live in it belongs here as its own file.*
 
@@ -47,6 +47,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [X36 / X38 / X41 — three PENDING-GRANT rows from the vertex arc](open-items/2026-07-11-x36-x38-x41-pending-grant.md) | ROUTED-TO-GRANT | grant | 2026-07-11 |
 | [The yield fork (Flag F) — resolved to DEGENERATE, with the 0D-cell reading ASSERTED and routed to Grant](open-items/2026-07-20-yield-fork-flag-f-disposition.md) | ROUTED-TO-GRANT | grant | 2026-07-20 |
 | [The merge=ours corpus-wide correction sweep — ROUTED to Grant, and half-executed without his call](open-items/2026-08-13-merge-ours-corpus-sweep.md) | ROUTED-TO-GRANT | grant | 2026-07-20 |
+| [Three freeze-time obligations declared "binding on every future prereg" now live in a frozen file](open-items/2026-07-28-standing-design-lessons-home.md) | ROUTED-TO-GRANT | grant | 2026-07-28 |
 | [The factor-2 normalization fork — leaf :47 vs :48 (a normalization-ledger lane awaits GO)](open-items/2026-08-03-factor-2-normalization-fork.md) | ROUTED-TO-GRANT | grant | 2026-08-03 |
 | [The falsifier-precision decision — leaf :236 asserts a threshold the instrument cannot resolve](open-items/2026-08-03-falsifier-precision.md) | ROUTED-TO-GRANT | grant | 2026-08-03 |
 | [Op14 local-clock modulation of the retardation — the driver retards by COORDINATE phase](open-items/2026-08-03-op14-local-clock.md) | ROUTED-TO-GRANT | grant | 2026-08-03 |
