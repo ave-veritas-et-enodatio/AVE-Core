@@ -59,6 +59,51 @@ SCAN_SUFFIXES = {".md", ".py", ".tex", ".yaml", ".yml"}
 # verify-anchor-content.SKIP_SEGMENT_RUNS and verify-md-links.SKIP_SEGMENT_RUNS.
 SKIP_SEGMENT_RUNS: tuple[tuple[str, ...], ...] = (("tests", "fixtures"),)
 
+# ── FROZEN-TEXT EXEMPTION (the gate's one false-positive class, and it is a real
+# collision, not a nuisance) ──────────────────────────────────────────────────
+# Rule 12 forbids REWRITING frozen text. A pin inside a frozen prereg therefore
+# CANNOT be repointed — so gating on it would wedge an author between a red CI
+# check and a preservation rule, which is exactly how gates get disabled.
+# Measured on this repo: 129 FROZEN documents, 92 of them carrying line pins,
+# 1074 pins total inside frozen text. That is the blast radius of getting this
+# wrong. `verify-anchor-content.py` stays non-gating for the same family of
+# reason; this gate stays gating but EXEMPTS the citing side when it is frozen,
+# and reports those advisorily so they are visible rather than silently dropped.
+#
+# ANTI-SELF-REFERENCE: freeze detection is restricted to `.md`, so THIS `.py`
+# file — which necessarily contains the marker strings below — cannot classify
+# itself as frozen and exempt its own pins. (Checklist item: does the gate scan
+# its own source, and what happens when it does?)
+_FREEZE_MARKERS = ("FROZEN", "Do not append to it", "frozen-by-push")
+# Frozen by a declaration that lives in a SIBLING file, so the doc does not
+# self-declare and head-scanning cannot see it. Listed explicitly WITH its receipt
+# rather than fixed by editing the document -- prepending a header to a 2768-line
+# historical record would shift every line in it and break the pins pointing IN,
+# which is the exact trap this checker exists to catch.
+# Receipt: `_orchestration/docket-entries/README.md` -- "The monolithic docket
+# (2026-07-10_rulings-docket.md) is frozen at its 2026-07-21 tail -- no new
+# appends; it remains the historical record."
+_FROZEN_BY_SIBLING_DECLARATION = ("_orchestration/2026-07-10_rulings-docket.md",)
+_FREEZE_SCAN_LINES = 40
+
+
+def is_frozen_citer(root: Path, path: str) -> bool:
+    """True if the CITING document is preserved text whose pins must not be edited."""
+    parts = Path(path).parts
+    if "_archive" in parts:
+        return True
+    if path in _FROZEN_BY_SIBLING_DECLARATION:
+        return True
+    if Path(path).suffix != ".md":
+        return False          # see ANTI-SELF-REFERENCE above
+    if "FROZEN" in Path(path).name:
+        return True
+    p = root / path
+    if not p.is_file():
+        return False
+    head = "\n".join(p.read_text(encoding="utf-8", errors="replace").split("\n")[:_FREEZE_SCAN_LINES])
+    return any(m in head for m in _FREEZE_MARKERS)
+
 
 def _contains_run(parts: tuple[str, ...], run: tuple[str, ...]) -> bool:
     return any(parts[i : i + len(run)] == run for i in range(len(parts) - len(run) + 1))
@@ -126,11 +171,15 @@ def check(root: Path, base: str) -> list[dict]:
         return cache[path]
 
     broken: list[dict] = []
+    frozen_cache: dict[str, bool] = {}
     for (citing, cited, line) in collect_cites(root, None):
         # only judge pins that still exist in the CURRENT text of the citing file
         if not resolves(at(head_cache, None, cited), line):
             if resolves(at(base_cache, base, cited), line):
-                broken.append({"citing_file": citing, "cited_path": cited, "line": line})
+                if citing not in frozen_cache:
+                    frozen_cache[citing] = is_frozen_citer(root, citing)
+                broken.append({"citing_file": citing, "cited_path": cited,
+                               "line": line, "frozen_citer": frozen_cache[citing]})
     return sorted(broken, key=lambda d: (d["citing_file"], d["cited_path"], d["line"]))
 
 
@@ -187,20 +236,37 @@ def main(argv: list[str] | None = None) -> int:
         print(f"[cite-stability] FATAL: base ref {a.base!r} does not resolve", file=sys.stderr)
         return 2
 
-    broken = check(a.root, a.base)
+    all_broken = check(a.root, a.base)
+    gating = [b for b in all_broken if not b["frozen_citer"]]
+    advisory = [b for b in all_broken if b["frozen_citer"]]
+
     if a.json:
-        print(json.dumps({"base": a.base, "broken": broken}, indent=2))
-    elif not broken:
-        print(f"[cite-stability] no line-pin regressions vs {a.base}.")
-    else:
+        print(json.dumps({"base": a.base, "gating": gating, "advisory": advisory}, indent=2))
+        return 1 if gating else 0
+
+    if advisory:
         print(
-            f"[cite-stability] {len(broken)} line-pin(s) RESOLVED at {a.base} and are "
-            f"now dead. Repoint them — preferably to an anchor/symbol/entry-id rather "
-            f"than a new line number, which will drift again:\n"
+            f"[cite-stability] {len(advisory)} pin(s) in FROZEN/archived text also went dead. "
+            f"ADVISORY ONLY — Rule 12 forbids rewriting preserved text, so these are not "
+            f"repointable and do not gate. Surface them in a dated note beside the frozen "
+            f"block if they matter:"
         )
-        for b in broken:
-            print(f"  {b['citing_file']}  ->  {b['cited_path']}:{b['line']}")
-    return 1 if broken else 0
+        for b in advisory:
+            print(f"    · {b['citing_file']}  ->  {b['cited_path']}:{b['line']}")
+        print()
+
+    if not gating:
+        print(f"[cite-stability] no line-pin regressions in live text vs {a.base}.")
+        return 0
+
+    print(
+        f"[cite-stability] {len(gating)} line-pin(s) RESOLVED at {a.base} and are now "
+        f"dead. Repoint them — preferably to an anchor/symbol/entry-id rather than a "
+        f"new line number, which will drift again:\n"
+    )
+    for b in gating:
+        print(f"  {b['citing_file']}  ->  {b['cited_path']}:{b['line']}")
+    return 1
 
 
 if __name__ == "__main__":
