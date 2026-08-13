@@ -1135,8 +1135,7 @@ def report_advisory_cites(
             # point, where someone about to diff it is looking.
             print("     ⚠ SAMPLE, NOT A COMPLETE LIST — do NOT diff this output to")
             print("       decide whether a change added errors. Use")
-            print("       `--advisory-cites report` (full), or `verify-cite-stability.py")
-            print("       --base <ref>`, which does the before/after comparison for you.")
+            print("       `--advisory-cites report`, which prints the complete list.")
 
 
 def main(argv: list[str] | None = None) -> int:

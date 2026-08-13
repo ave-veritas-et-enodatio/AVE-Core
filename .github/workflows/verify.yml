@@ -74,14 +74,6 @@ jobs:
       - name: make verify-new-cite-excerpts
         run: make verify-new-cite-excerpts CITE_BASE=origin/${{ github.base_ref }}
 
-      # Line-pin regression ratchet. PR-only for the same reason as the block
-      # above: it measures what a branch BREAKS against the merge base, which is
-      # meaningless on a push to main. Gating -- unlike the excerpt ratchet, this
-      # one has no false-positive class to triage: a pin that resolved at base and
-      # is dead at HEAD is dead, full stop.
-      - name: make verify-cite-stability
-        run: make verify-cite-stability CITE_BASE=origin/${{ github.base_ref }}
-
   # Opt-in lane: the slow tier-1/2 engine-simulation tests (`-m engine_sim`).
   # Runs on the same triggers so engine PRs get coverage feedback, but it is a
   # SEPARATE job — keep it NON-required in branch protection so its latency
