@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **d52f531e** (2026-08-13) · 460 index records · 330 claims · 1 PR open
+Scanned tree **ae4d2df5** (2026-08-13) · 460 index records · 330 claims · 1 PR open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`7d361e96`). Every count below describes **d52f531e**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`7d361e96`). Every count below describes **ae4d2df5**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -30,12 +30,23 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## What we are waiting on
 
-**19 of 36 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
+**31 of 53 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
 
 *Scope: this is a census of `open-items/`. `_orchestration/2026-07-10_rulings-docket.md` is the **paper timeline** — a dated continuation log, frozen at its 2026-07-21 tail per `docket-entries/README.md`, and the historical record of how each ruling was reached. It is read chronologically, not harvested; anything still live in it belongs here as its own file.*
 
 | item | status | owner | open since |
 |---|---|---|---|
+| [Two Section-E adjudications that jointly block Observables 5/6/7 and the joint constraint](open-items/2026-05-19-c5-cascade-adjudications.md) | ROUTED-TO-GRANT | grant | 2026-05-19 |
+| [Neptune spin-axis class-mismatch — Path A sub-class refinement vs Path B granularity limit](open-items/2026-05-19-neptune-spin-axis-fork.md) | ROUTED-TO-GRANT | grant | 2026-05-19 |
+| [C11 facility outreach and C15 KiCad — two bench gates that are Grant-manual, plus a rescope](open-items/2026-05-20-bench-execution-gates.md) | ROUTED-TO-GRANT | grant | 2026-05-20 |
+| [A1-HOPF Phase 0b — ordering the board as drawn does NOT buy the surviving discriminator](open-items/2026-05-20-hopf-phase0b-hardware-mismatch.md) | ROUTED-TO-GRANT | grant | 2026-05-20 |
+| [Ten uncommitted files sitting in two sibling repos, unchanged for three months](open-items/2026-05-20-sibling-repo-uncommitted.md) | ROUTED-TO-GRANT | grant | 2026-05-20 |
+| [Five dormant epics need a keep-or-retire call, not execution](open-items/2026-05-28-dormant-epics-keep-or-retire.md) | ROUTED-TO-GRANT | grant | 2026-05-28 |
+| [Q-LCR-1/2 — is Z₀ = 376.73 Ω derivable from K4, or fixed by SI μ₀/ε₀?](open-items/2026-05-31-q-lcr-adjudication.md) | ROUTED-TO-GRANT | grant | 2026-05-31 |
+| [The §45 fork and soliton-size mint — FORM ruled 2026-07-14, VALUE axis still gated](open-items/2026-06-08-fork-45-value-axis.md) | ROUTED-TO-GRANT | grant | 2026-06-08 |
+| [cold-vs-thermal κ_FS — three different baryon-asymmetry numbers ship depending on convention](open-items/2026-06-08-kappa-fs-convention.md) | ROUTED-TO-GRANT | grant | 2026-06-08 |
+| [Multi-node vs single-node proton — a .tex sentence and an engine docstring assert opposite geometry](open-items/2026-06-08-proton-node-span.md) | ROUTED-TO-GRANT | grant | 2026-06-08 |
+| [√(3/7) — labelled torsion-shear, but it is the dilatational/bulk signature](open-items/2026-06-08-sqrt37-label.md) | ROUTED-TO-GRANT | grant | 2026-06-08 |
 | [The 2026-06-13 engine-platform ratification block — sign-off still OWED, downstream proceeded as-if-YES](open-items/2026-06-13-engine-platform-ratification.md) | ROUTED-TO-GRANT | grant | 2026-06-13 |
 | [A Rule-12 retraction is stranded on an unmerged branch, and main still shows the stale result](open-items/2026-06-16-stage16-rerun-amendments-unmerged.md) | ROUTED-TO-GRANT | grant | 2026-06-16 |
 | [Engines-on-spine — keep the kbleaf default, or mint a code-provenance node type](open-items/2026-06-17-engines-on-spine-schema.md) | ROUTED-TO-GRANT | grant | 2026-06-17 |
@@ -52,6 +63,12 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [The falsifier-precision decision — leaf :236 asserts a threshold the instrument cannot resolve](open-items/2026-08-03-falsifier-precision.md) | ROUTED-TO-GRANT | grant | 2026-08-03 |
 | [Op14 local-clock modulation of the retardation — the driver retards by COORDINATE phase](open-items/2026-08-03-op14-local-clock.md) | ROUTED-TO-GRANT | grant | 2026-08-03 |
 | [Sector-of-storage — where the compression store lives (A1 canon vs the T2/swing label)](open-items/2026-07-26-sector-of-storage.md) | OPEN-IN-WALK | grant | 2026-07-26 |
+| [A RESOLVED stamp asserts its own propagation, and the propagation never happened (Row 11 MOND)](open-items/2026-05-19-row11-mond-propagation.md) | OPEN | unassigned | 2026-05-19 |
+| [Two infra gaps still open — no conflict-marker hook, and no structural worktree-leak fix](open-items/2026-05-28-infra-hygiene-gaps.md) | OPEN | unassigned | 2026-05-28 |
+| [Means-test corpus extensions — the corpus grew, but in a different direction](open-items/2026-05-28-means-test-corpus-extensions.md) | OPEN | unassigned | 2026-05-28 |
+| [Q-OP21-BARDEEN-1 — the Q = ℓ → 1/ln(Z₁/Z₀) reduction is stated as NOT derived](open-items/2026-05-28-op21-bardeen-reduction.md) | OPEN | unassigned | 2026-05-28 |
+| [The .tex per-node-conflation sweep — the 13 files were never enumerated, and the premise moved](open-items/2026-06-04-per-node-conflation-tex-sweep.md) | OPEN | unassigned | 2026-06-04 |
+| [m_p/m_e classification — the original disagreement was vacated by drift, not adjudicated](open-items/2026-06-08-mp-me-classification.md) | OPEN | grant | 2026-06-08 |
 | [The exterior ℓ_node/r field-profile derivation — the Coulomb tail itself is asserted, not derived](open-items/2026-07-03-exterior-field-profile-derivation.md) | OPEN | unassigned | 2026-07-03 |
 | [The crystalline-vs-amorphous isotropy seam — plus an owed anisotropy/dispersion campaign](open-items/2026-07-03-isotropy-crystalline-amorphous-seam.md) | OPEN | unassigned | 2026-07-03 |
 | [Longitudinal energy budget — a LIVE unresolved contradiction with the transverse-shear canon](open-items/2026-07-03-longitudinal-energy-budget-gap.md) | OPEN | unassigned | 2026-07-03 |
