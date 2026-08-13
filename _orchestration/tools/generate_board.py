@@ -8,8 +8,12 @@ became a Claude report. The fix is structural, not disciplinary: the board is
 GENERATED from artifacts that cannot drift, because they ARE the state.
 
   claims.jsonl  -> what we know and how solid it is
+  open-items/   -> what we are waiting on (one file per item, frontmatter)
   gh pr list    -> what is in flight
   git           -> where main is
+
+There is no hand-written section. Anything the board should show has to become one of
+those inputs first -- that is the forcing function that keeps it from rotting.
 
 FAIL-LOUD CONTRACT
 ------------------
@@ -48,6 +52,14 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[2]
 CLAIMS = REPO / "manuscript/ave-kb/.index/claims.jsonl"
 BOARD = REPO / "_orchestration/BOARD.md"
+OPEN_ITEMS = REPO / "_orchestration/open-items"
+
+# Display order, most-blocking first. An item whose status is not in this list is a
+# FATAL error, not a skipped row -- a silently-dropped open item is precisely the
+# failure this directory exists to prevent.
+STATUS_ORDER = ["ROUTED-TO-GRANT", "OPEN-IN-WALK", "OPEN", "REGISTERED",
+                "QUEUED", "PARKED"]
+REQUIRED_KEYS = ["id", "title", "status", "owner", "opened", "source"]
 
 # Rulings that must reach the claims register, not just the docket. Each entry
 # is (label, token to search for in the register + claim-quality leaves).
@@ -98,11 +110,54 @@ def load_claims() -> list[dict]:
     return rows
 
 
+def load_open_items() -> list[dict]:
+    """Parse one-file-per-item frontmatter. Deliberately a 20-line parser, not PyYAML:
+    the schema is six flat string keys, and a dependency is a thing that can be missing
+    on someone else's machine."""
+    if not OPEN_ITEMS.is_dir():
+        die(f"open-items directory not found at {OPEN_ITEMS}")
+    items, seen = [], {}
+    for f in sorted(OPEN_ITEMS.glob("*.md")):
+        if f.name == "README.md":
+            continue
+        lines = f.read_text(encoding="utf-8").splitlines()
+        if not lines or lines[0].strip() != "---":
+            die(f"{f.name}: no frontmatter (first line must be '---')")
+        try:
+            end = lines.index("---", 1)
+        except ValueError:
+            die(f"{f.name}: frontmatter is never closed")
+        meta = {}
+        for raw in lines[1:end]:
+            if not raw.strip() or raw.lstrip().startswith("#"):
+                continue
+            if ":" not in raw:
+                die(f"{f.name}: frontmatter line is not 'key: value' -> {raw!r}")
+            k, _, v = raw.partition(":")
+            meta[k.strip()] = v.strip()
+        for k in REQUIRED_KEYS:
+            if not meta.get(k):
+                die(f"{f.name}: frontmatter is missing required key '{k}'")
+        if meta["status"] not in STATUS_ORDER:
+            die(f"{f.name}: status {meta['status']!r} is not one of {STATUS_ORDER}. "
+                f"Fix the file or add the status -- items are never silently skipped.")
+        if meta["id"] in seen:
+            die(f"{f.name}: duplicate id {meta['id']!r} (also in {seen[meta['id']]})")
+        seen[meta["id"]] = f.name
+        meta["_file"] = f.name
+        items.append(meta)
+    if not items:
+        die("open-items/ contains no items. If the program truly has zero open "
+            "decisions, say so explicitly by adding a file that says that.")
+    return items
+
+
 def main() -> int:
     check_only = "--check" in sys.argv
 
     # ---- inputs (all required) -------------------------------------------
     rows = load_claims()
+    open_items = load_open_items()
     claims = [r for r in rows if r.get("node_type") == "claim"]
     experiments = [r for r in rows if r.get("node_type") == "experiment"]
     if not claims:
@@ -159,7 +214,7 @@ def main() -> int:
     A = L.append
     A("<!-- GENERATED FILE - DO NOT EDIT BY HAND.")
     A("     Regenerate: python3 _orchestration/tools/generate_board.py")
-    A("     Hand edits are overwritten and will fail `--check` in CI. -->")
+    A("     Hand edits are overwritten. Verify with --check before committing. -->")
     A("")
     A("# AVE program board")
     A("")
@@ -189,6 +244,20 @@ def main() -> int:
       f"self-disclaim** as definitional, catalog, notation, or consistency-class "
       f"in their own rationale. Read the top of the ranking with that in mind.")
     A("")
+    A("## What we are waiting on")
+    A("")
+    grant_owed = [i for i in open_items
+                  if i["status"] in ("ROUTED-TO-GRANT", "OPEN-IN-WALK")]
+    A(f"**{len(grant_owed)} of {len(open_items)} open items need Grant's word.** "
+      f"Nothing fires on those without it.")
+    A("")
+    A("| item | status | owner | open since |")
+    A("|---|---|---|---|")
+    for i in sorted(open_items, key=lambda i: (STATUS_ORDER.index(i["status"]),
+                                               i["opened"])):
+        A(f"| [{i['title']}](open-items/{i['_file']}) | {i['status']} | "
+          f"{i['owner']} | {i['opened']} |")
+    A("")
     A("## In flight")
     A("")
     if prs:
@@ -212,8 +281,10 @@ def main() -> int:
     A("")
     A("---")
     A("")
-    A("*Generated from `claims.jsonl`, `gh pr list`, and `git`. Every input is "
-      "required; this file is not written at all if any input fails.*")
+    A("*Generated from `claims.jsonl`, `open-items/`, `gh pr list`, and `git`. "
+      "Every input is required; this file is not written at all if any input fails. "
+      "There is no hand-written section \u2014 to add something to this board, make it "
+      "derivable first.*")
 
     out = "\n".join(L) + "\n"
 

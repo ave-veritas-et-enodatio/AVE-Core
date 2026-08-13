@@ -1,5 +1,26 @@
 # AVE-Core Orchestration Index
 
+> # ⛔ FROZEN 2026-08-13 — this file is no longer the board.
+>
+> **The live board is [`BOARD.md`](BOARD.md)**, and it is *generated* — read it there.
+>
+> **Why this one was frozen.** It was declared stale three times and kept being appended to:
+> Benn's 2026-05-23 banner (*"document deprecated"*), then staleness notices stamped
+> 2026-06-16, re-stamped 2026-07-11, addended 2026-07-12. That is not a discipline failure,
+> it is a *shape* failure — nothing in this file is derived, so nothing in it can be
+> **wrong-and-caught**; it can only be **stale-and-believed**. Git already does append-only
+> history better than a 962-line markdown file does.
+>
+> **What moved where.** Open decisions → [`open-items/`](open-items/) (one file per item,
+> machine-read by the generator). Rulings → [`docket-entries/`](docket-entries/). Claim
+> state → `manuscript/ave-kb/.index/claims.jsonl`. The board is the single *view* over all
+> three, and the only place their disagreement is visible.
+>
+> **Nothing below is deleted or rewritten** (Rule 12). It remains the session-focus record
+> for 2026-05 through 2026-08-02. **Do not append to it.**
+
+
+
 **Audit trail (2026-05-23 Benn → 2026-05-25 merge):** This directory was ported from `analysis/integration` (D7 curation, KB claim-DAG integration) on 2026-05-23, and completed-work snapshots were moved to [`_archive/index-stale.md`](_archive/index-stale.md). Merged with integration live state on 2026-05-25 — treat this doc as the current live tracker; consult git log for recent updates.
 **EDIT** - 2026-05-23 Benn - document deprecated. Do not do any sweeping work from this document without evaluating current repo state. KB claim DAG has received many improvements and the KB has had many fixups in the process. This directory was ported over from `analysis/integration` branch, which has now been superseded. Work that was clearly already done has been extracted and moved to _archive/. What remains may still be relevant, but again, *check first*.
 

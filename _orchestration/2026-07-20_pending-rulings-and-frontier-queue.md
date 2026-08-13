@@ -1,5 +1,21 @@
 # PENDING GRANT RULINGS + FRONTIER QUEUE — state as of 2026-07-20 (post-#761-review)
 
+> # ⛔ FROZEN 2026-08-13 — open items moved to `open-items/`
+>
+> Every item in §1/§2 that was still **OPEN / ROUTED / REGISTERED / QUEUED / PARKED** on
+> 2026-08-13 now has its own file in [`open-items/`](open-items/), where the board reads it.
+> Those fragments are **pointers** — the full evidence, receipts, and options stay here.
+>
+> **Why the move.** Not the merge hazard: that story was withdrawn in-corpus at `:170-181`
+> below and is false. The reasons are (1) a hand-maintained status list goes stale, and
+> (2) mid-file status flips in one shared document are a permanent collision target — the
+> docket beat exactly this shape on 2026-07-21 with one-file-per-lane.
+>
+> **Nothing below is deleted or rewritten** (Rule 12). **Do not append to it** — add a file
+> to `open-items/` instead.
+
+
+
 **Class: orchestration state doc.** Repo-tracked per the multi-agent ruling (2026-07-20: anything multi-agent-usable must be repo-tracked; model-local memory is not a shared surface). Supersede by dated edit or successor doc; do not silently rewrite.
 
 ## §1 — Rulings Grant owes (each fires a routed lane on his word; nothing executes without it)
