@@ -56,10 +56,12 @@ things here are unstable for reasons that have nothing to do with a hand edit,
 and both made an earlier `--check` red on arrival:
   * the open-PR list changes whenever anyone touches any PR, including this
     board's own PR -- so that section is excluded entirely;
-  * the scanned-tree SHA is SELF-REFERENTIAL. A board committed in commit X can
-    only ever name X's parent, because the SHA is read before the commit
-    containing the board exists. So a committed board is permanently one SHA
-    behind, forever, by construction.
+  * the scanned-tree SHA **and its date** are SELF-REFERENTIAL. A board committed
+    in commit X can only ever name X's parent -- both its hash and its timestamp --
+    because they are read before the commit containing the board exists. So a
+    committed board is permanently one commit behind, forever, by construction.
+    (The date was missed the first time and made `--check` red on arrival a third
+    time, when two commits straddled midnight.)
 A check that cries wolf gets disabled, and a disabled gate is a lie -- so SHAs
 are normalized before comparison and everything else must match byte-for-byte.
 This is a LOCAL guard against hand edits, not a CI gate.
@@ -94,6 +96,10 @@ OWNERS = ["grant", "lane", "unassigned"]
 
 PR_LIMIT = 200
 VOLATILE_HEADING = "## In flight"   # excluded from --check; see module docstring
+# The volatile region ENDS here. Splitting to end-of-file left the trailing
+# provenance footer unguarded -- a fabricated PR row AND spliced text in the footer
+# both passed --check clean. Guard everything outside [heading, marker].
+VOLATILE_END = "<!-- /volatile -->"
 
 # HAND-CURATED HEURISTIC, and the board prints "~" because of it. A claim that
 # disclaims itself in words outside this list is NOT counted and nothing fails --
@@ -161,7 +167,12 @@ def load_open_items() -> list[dict]:
             f"Rename to .md or move out -- items are never silently skipped.")
 
     items, seen = [], {}
-    for f in sorted(OPEN_ITEMS.rglob("*.md")):
+    # rglob("*.md") is CASE-SENSITIVE, and the stray guard above tested
+    # suffix.lower() != ".md" -- so a fragment saved as `.MD` was NEITHER loaded NOR
+    # flagged and vanished with exit 0. Select case-insensitively so inclusion and
+    # the stray guard use the same predicate and nothing can fall between them.
+    for f in sorted(q for q in OPEN_ITEMS.rglob("*")
+                    if q.is_file() and q.suffix.lower() == ".md"):
         if f.name == "README.md":
             continue
         rel = f.relative_to(OPEN_ITEMS)
@@ -371,7 +382,10 @@ def main() -> int:
 
     # ---- propagation debt: docketed rulings absent from the claims register -
     register_text = CLAIMS.read_text(encoding="utf-8")
-    leaves = list(REPO.glob("manuscript/ave-kb/**/claim-quality.md"))
+    # Exclude test fixtures: a fixture mentioning a ruling number would silently
+    # clear real corpus debt. (None do today; the exposure is the point.)
+    leaves = [p for p in REPO.glob("manuscript/ave-kb/**/claim-quality.md")
+              if "tests/fixtures" not in str(p)]
     if not leaves:
         die("no claim-quality.md leaves found -- the propagation scan would be "
             "red-by-construction rather than red-by-fact")
@@ -447,25 +461,38 @@ def main() -> int:
         A(f"| [{i['title']}](open-items/{i['_file']}) | {i['status']} | "
           f"{i['owner']} | {i['opened']} |")
     A("")
-    A("## Propagation debt")
+    A("## Ruling-token coverage")
     A("")
-    A(f"**{len(unpropagated)} of {len(rulings)} docketed rulings appear nowhere in "
-      f"the claims register.**")
+    A(f"**{len(unpropagated)} of {len(rulings)} docketed ruling numbers have no "
+      f"word-boundary occurrence anywhere in the claims register.**")
     A("")
     if unpropagated:
         A(", ".join(unpropagated))
         A("")
-        A("A ruling that lives only in the docket has changed the change-log, not "
-          "the state. Claims still carry scores earned under the superseded "
-          "reading. The scan is word-boundary over `claims.jsonl` plus "
-          f"{len(leaves)} `claim-quality.md` leaves.")
+        A("> ⚑ **Read this as token coverage, not as physics debt.** It was headlined "
+          "as \"propagation debt\" and that was wrong in both directions:")
+        A(">")
+        A("> * **It UNDER-reports.** The scan cannot tell ruling `R4` from `Route R4`, "
+          "`Registry §5 R2`, a review repair-ID `R1`, or a varactor operating point — "
+          "at least five live `R<N>` namespaces share the glyph in the scanned text. "
+          "Every such collision reads as *propagated*. R1–R4 are known false clears, "
+          "so the true floor is higher than the number above.")
+        A("> * **It OVER-reports.** The denominator mixes physics rulings with process "
+          "ones that can never appear in a claims register — `R12 records-class merge "
+          "convention`, `R25 frozen-note surface-notes: GO`, `R33 classify_sign: "
+          "CENSUS-SCRIPT FIX`. Two entries inside it **self-declare they are not "
+          "rulings** (`R8 … leans and routings, NOT rulings`; `R19 … Grant LEAN "
+          "recorded (NOT a ruling)`).")
+        A(">")
+        A("> A physics ruling absent from the register means claims may still carry "
+          "scores earned under a superseded reading. A process ruling absent from it "
+          "means nothing at all. **This line cannot currently tell you which** — see "
+          "`open-items/` → *ruling-class-field*. Lengthening the regex will not fix "
+          "it; the failure is namespace, not syntax.")
         A("")
-    if unclassified_filenames:
-        A(f"> ⚑ **{len(unclassified_filenames)} `R<N>` token(s) sit in a docket "
-          f"FILENAME outside a `ruling-`/`rulings-` segment and are not counted "
-          f"above: {', '.join(sorted(unclassified_filenames, key=lambda t: int(t[1:])))}. "
-          f"Classify them — rename into the convention, or confirm they are not "
-          f"rulings.")
+        A(f"Scan surface: `claims.jsonl` plus {len(leaves)} `claim-quality.md` leaves "
+          f"(test fixtures excluded). Ruling set: `docket-entries/` filenames ∪ "
+          f"`## R<N> — ` headings.")
         A("")
     A(VOLATILE_HEADING)
     A("")
@@ -479,6 +506,8 @@ def main() -> int:
             A(f"| #{p['number']} | {state(p['title'])} | {p['title'][:80]} |")
     else:
         A("No open PRs.")
+    A("")
+    A(VOLATILE_END)
     A("")
     A("---")
     A("")
@@ -505,8 +534,11 @@ def main() -> int:
         # is red on every commit of BOARD.md -- which is how this defect recurred
         # three times.
         def split(text: str) -> str:
-            stable = re.split(rf"^{re.escape(VOLATILE_HEADING)}$", text, flags=re.M)[0]
-            return re.sub(r"\b[0-9a-f]{7,40}\b", "<sha>", stable)
+            parts = re.split(rf"^{re.escape(VOLATILE_HEADING)}$", text, flags=re.M)
+            tail = parts[1].split(VOLATILE_END, 1)
+            stable = parts[0] + (tail[1] if len(tail) > 1 else "")
+            stable = re.sub(r"\b[0-9a-f]{7,40}\b", "<sha>", stable)
+            return re.sub(r"\b20\d\d-\d\d-\d\d\b", "<date>", stable)
         if stable_guard_count != 1:
             die(f"{VOLATILE_HEADING!r} occurs {stable_guard_count} times as a line in "
                 f"the rendered board; the --check split would be ambiguous. An "

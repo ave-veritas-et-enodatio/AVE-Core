@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **71230e02** (2026-08-12) · 460 index records · 330 claims · 1 PR open
+Scanned tree **ac11b475** (2026-08-13) · 460 index records · 330 claims · 1 PR open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`7d361e96`). Every count below describes **71230e02**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`7d361e96`). Every count below describes **ac11b475**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -30,7 +30,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## What we are waiting on
 
-**11 of 26 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
+**11 of 28 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
 
 | item | status | owner | open since |
 |---|---|---|---|
@@ -46,9 +46,11 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [The crystalline-vs-amorphous isotropy seam — plus an owed anisotropy/dispersion campaign](open-items/2026-07-03-isotropy-crystalline-amorphous-seam.md) | OPEN | unassigned | 2026-07-03 |
 | [Longitudinal energy budget — a LIVE unresolved contradiction with the transverse-shear canon](open-items/2026-07-03-longitudinal-energy-budget-gap.md) | OPEN | unassigned | 2026-07-03 |
 | [Ω_freeze — CMB-isotropy / Bianchi bounds are nowhere addressed](open-items/2026-07-03-omega-freeze-isotropy-bounds.md) | OPEN | unassigned | 2026-07-03 |
+| [The constituent-cage-ensemble fork — unadjudicated both ways and potentially verdict-flipping](open-items/2026-07-20-constituent-cage-ensemble-fork.md) | OPEN | unassigned | 2026-07-20 |
 | [The F6 attribution — the #796 bench's two contradicting mechanism strings](open-items/2026-07-26-f6-attribution.md) | OPEN | unassigned | 2026-07-26 |
 | [The anisotropy observable — direction-dependent long-wave P-speed of a single-crystal vacuum](open-items/2026-07-28-anisotropy-observable.md) | OPEN | unassigned | 2026-07-28 |
 | [Decision keys are colliding — four distinct things are named "D1"](open-items/2026-08-13-key-namespace-collision.md) | OPEN | unassigned | 2026-08-13 |
+| [Docket rulings need a physics-vs-process class field — the coverage number can't distinguish them](open-items/2026-08-13-ruling-class-field.md) | OPEN | unassigned | 2026-08-13 |
 | [Docket ruling records should declare their number in one convention, not two](open-items/2026-08-13-ruling-selection-rule.md) | OPEN | unassigned | 2026-08-13 |
 | [Sibling-repo debts — AVE-Fusion yield cross-wire + AVE-Bench-FemtoElectrometer stale sites](open-items/2026-07-03-sibling-repo-debts.md) | REGISTERED | unassigned | 2026-07-03 |
 | [The v3 ringdown instrument — the DISCRETE near-wall chain](open-items/2026-08-04-v3-ringdown-instrument.md) | REGISTERED | unassigned | 2026-08-04 |
@@ -61,13 +63,20 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [Vessel-state shell → γ_c couple-stress → (2,3) winding — the wall-asymmetry carrier candidate](open-items/2026-07-20-vessel-state-shell-walk.md) | PARKED | grant | 2026-07-20 |
 | [D5 — the WD / Q=ℓ tag question, deliberately held by ruling](open-items/2026-08-04-d5-wd-qell-tag-hold.md) | PARKED | grant | 2026-08-02 |
 
-## Propagation debt
+## Ruling-token coverage
 
-**40 of 53 docketed rulings appear nowhere in the claims register.**
+**40 of 53 docketed ruling numbers have no word-boundary occurrence anywhere in the claims register.**
 
 R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20, R21, R22, R23, R24, R25, R26, R27, R28, R29, R30, R32, R33, R34, R35, R36, R37, R38, R41, R45, R46, R47, R51, R52, R53
 
-A ruling that lives only in the docket has changed the change-log, not the state. Claims still carry scores earned under the superseded reading. The scan is word-boundary over `claims.jsonl` plus 11 `claim-quality.md` leaves.
+> ⚑ **Read this as token coverage, not as physics debt.** It was headlined as "propagation debt" and that was wrong in both directions:
+>
+> * **It UNDER-reports.** The scan cannot tell ruling `R4` from `Route R4`, `Registry §5 R2`, a review repair-ID `R1`, or a varactor operating point — at least five live `R<N>` namespaces share the glyph in the scanned text. Every such collision reads as *propagated*. R1–R4 are known false clears, so the true floor is higher than the number above.
+> * **It OVER-reports.** The denominator mixes physics rulings with process ones that can never appear in a claims register — `R12 records-class merge convention`, `R25 frozen-note surface-notes: GO`, `R33 classify_sign: CENSUS-SCRIPT FIX`. Two entries inside it **self-declare they are not rulings** (`R8 … leans and routings, NOT rulings`; `R19 … Grant LEAN recorded (NOT a ruling)`).
+>
+> A physics ruling absent from the register means claims may still carry scores earned under a superseded reading. A process ruling absent from it means nothing at all. **This line cannot currently tell you which** — see `open-items/` → *ruling-class-field*. Lengthening the regex will not fix it; the failure is namespace, not syntax.
+
+Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures excluded). Ruling set: `docket-entries/` filenames ∪ `## R<N> — ` headings.
 
 ## In flight
 
@@ -76,6 +85,8 @@ A ruling that lives only in the docket has changed the change-log, not the state
 | PR | state | title |
 |---|---|---|
 | #965 | records-class | [REVIEW: records-class] infra — one source of truth: generated BOARD.md + open-i |
+
+<!-- /volatile -->
 
 ---
 

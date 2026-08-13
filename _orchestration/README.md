@@ -150,6 +150,14 @@ All files in this directory are tracked / public-facing. They MUST follow the pu
 
 ## How orchestration sessions interact with this directory
 
+> ⛔ **UPDATED 2026-08-13 — `index.md` is FROZEN; the steps below are superseded.**
+> Start of session: read **[`BOARD.md`](BOARD.md)** (generated). During session: add or
+> close a file in **[`open-items/`](open-items/)** and let the board derive from it —
+> do NOT append to `index.md`, which now says "Do not append to it." Rulings go to
+> **[`docket-entries/`](docket-entries/)**, one file per lane. Regenerate with
+> `python3 _orchestration/tools/generate_board.py`.
+> *(The original steps are preserved unrewritten below, per Rule 12.)*
+
 1. **Start of orchestration session**: read `index.md` for cross-cutting state; read the active-epic doc(s) for current phase status.
 2. **During session**: update active epic doc(s) as phases close + new phases append. Update `index.md` if cross-cutting state changes (priority ladder shifts, open decisions resolve / appear).
 3. **End of session**: commit the updated state on `analysis/integration` (or appropriate branch); audit-tag if landing alongside an implementor merge.
