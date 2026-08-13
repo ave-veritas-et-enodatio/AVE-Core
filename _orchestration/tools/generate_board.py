@@ -86,6 +86,11 @@ DOCKET = REPO / "_orchestration/docket-entries"
 STATUS_ORDER = ["ROUTED-TO-GRANT", "OPEN-IN-WALK", "OPEN", "REGISTERED",
                 "QUEUED", "PARKED"]
 REQUIRED_KEYS = ["id", "title", "status", "owner", "opened", "source", "anchor"]
+# `owner` DRIVES A PRINTED HEADLINE ("N of M open items are owned by Grant"), so it
+# gets the same enum gate `status` has. It shipped as free text: `owner: grant
+# (walking it)` -- a human-plausible annotation -- silently dropped an item out of
+# the Grant-owned count with exit 0. Same silently-skipped class, different field.
+OWNERS = ["grant", "lane", "unassigned"]
 
 PR_LIMIT = 200
 VOLATILE_HEADING = "## In flight"   # excluded from --check; see module docstring
@@ -196,6 +201,9 @@ def load_open_items() -> list[dict]:
         for k in REQUIRED_KEYS:
             if not meta.get(k):
                 die(f"{rel}: frontmatter is missing required key '{k}'")
+        if meta["owner"].lower() not in OWNERS:
+            die(f"{rel}: owner {meta['owner']!r} is not one of {OWNERS}. It drives "
+                f"a printed headline -- annotations belong in the body, not here.")
         if meta["status"] not in STATUS_ORDER:
             die(f"{rel}: status {meta['status']!r} is not one of {STATUS_ORDER}. "
                 f"Fix the file or add the status -- items are never silently skipped.")
@@ -239,59 +247,56 @@ def load_open_items() -> list[dict]:
 
 
 def docketed_rulings() -> tuple[set[str], set[str]]:
-    """Return (recorded, unclassified).
+    """Return (recorded, unclassified_filenames) -- two sets.
 
-    `recorded` is derived from docket FILENAMES under the repo's own convention --
-    `...-ruling-r52-...` and `...-rulings-r45-r47.md`, the latter expanded as an
-    inclusive range. That set is precise and convention-backed.
+    `recorded` is the UNION of two conventions the corpus actually uses:
+      * docket FILENAMES  -- `...-ruling-r52-...`, `...-rulings-r45-r47.md` (ranges
+        expanded inclusively);
+      * `## R<N> — ` HEADINGS inside any `*ruling*` docket file.
 
-    `unclassified` is every other R-number appearing in a docket BODY. Those may be
-    rulings recorded in a batch file that names no numbers (e.g.
-    `2026-08-06-rulings-final-batch.md`) or merely cross-references to rulings
-    recorded elsewhere -- from the text alone the two are not separable.
+    THE HEADING RULE IS THE ONE THAT MATTERS. R1-R22 are all real rulings recorded
+    under headings in five `rulings-*.md` files whose filenames carry no number at
+    all (`2026-08-06-rulings-final-batch.md` etc.), and the corpus cites them as
+    rulings in prose. A filename-only derivation missed every one, printed a debt
+    ~1.8x too low, and -- worse -- shipped a disclosure telling the reader those
+    numbers were "probably not rulings at all". They were.
 
-    THE SELECTION RULE IS AN OPEN QUESTION, not a solved one. This function reports
-    both sets and the board says so, rather than printing one confident number over
-    an ambiguity. See open-items/ `ruling-selection-rule`."""
+    The union is decidable and it closes cleanly: R1-R53, no gaps, no duplicates,
+    no file claiming a number another file claims. An earlier version of this
+    function called the selection rule undecidable. It is not; nobody had grepped
+    for the heading convention."""
     if not DOCKET.is_dir():
         die(f"docket-entries directory not found at {DOCKET}")
     files = [f for f in sorted(DOCKET.glob("*.md")) if f.name != "README.md"]
     if not files:
         die("docket-entries/ is empty -- an empty scan is not a clean scan")
 
-    # The rN must sit inside a `ruling-`/`rulings-` filename segment. A bare rN
-    # anywhere in a filename minted phantom rulings -- `...-bench-r999-calib.md`
-    # was printed as an unpropagated ruling. Verified against the current corpus:
-    # this strict rule yields the identical set, so it costs nothing.
     recorded: set[str] = set()
     for f in files:
+        # filename convention: the number must sit in a `ruling-`/`rulings-` segment
         for m in re.finditer(r"\brulings?-((?:r\d{1,3}-?)+)", f.name.lower()):
             nums = [int(n) for n in re.findall(r"r(\d{1,3})", m.group(1))]
             if len(nums) == 2 and nums[1] > nums[0] + 1:
                 recorded |= {f"R{n}" for n in range(nums[0], nums[1] + 1)}
             else:
                 recorded |= {f"R{n}" for n in nums}
-
-    in_bodies: set[str] = set()
-    for f in files:
-        in_bodies |= {f"R{int(n)}" for n in
-                      re.findall(r"\bR(\d{1,3})\b", f.read_text(errors="replace"))}
+        # heading convention, inside any ruling-ish docket file
+        if "ruling" in f.name.lower():
+            recorded |= {f"R{int(n)}" for n in re.findall(
+                r"^#{1,4} R(\d{1,3}) [-\u2014]", f.read_text(errors="replace"), re.M)}
 
     if not recorded:
-        die("no ruling identifiers found in docket-entries/ filenames -- the "
-            "naming convention changed and the propagation scan is now blind")
-    # P2: the strict rule can DROP a real ruling under a filename shape already in
-    # the corpus (`2026-08-07-r27-infra-batch.md`, `...-under-r43.md`). R27 survives
-    # today only because a sibling range file names it -- coincidence, not
-    # convention. Surface the delta loudly rather than under-report debt silently,
-    # which is the direction of the original defect.
+        die("no ruling identifiers found in docket-entries/ by EITHER the filename "
+            "or the heading convention -- both changed and the scan is now blind")
+
+    # Surfaced, not absorbed: a bare rN in a filename outside a `ruling-` segment.
     loose: set[str] = set()
     for f in files:
         for a, b in re.findall(r"\br(\d{1,3})-r(\d{1,3})\b", f.name.lower()):
             lo, hi = sorted((int(a), int(b)))
             loose |= {f"R{n}" for n in range(lo, hi + 1)}
         loose |= {f"R{int(n)}" for n in re.findall(r"\br(\d{1,3})\b", f.name.lower())}
-    return recorded, in_bodies - recorded, loose - recorded
+    return recorded, loose - recorded
 
 
 def main() -> int:
@@ -300,7 +305,7 @@ def main() -> int:
     # ---- inputs (all required) -------------------------------------------
     rows = load_claims()
     open_items = load_open_items()
-    rulings, unclassified, unclassified_filenames = docketed_rulings()
+    rulings, unclassified_filenames = docketed_rulings()
 
     claims = [r for r in rows if r.get("node_type") == "claim"]
     experiments = [r for r in rows if r.get("node_type") == "experiment"]
@@ -457,26 +462,10 @@ def main() -> int:
         A("")
     if unclassified_filenames:
         A(f"> ⚑ **{len(unclassified_filenames)} `R<N>` token(s) sit in a docket "
-          f"FILENAME outside a `ruling-`/`rulings-` segment and are NOT counted "
+          f"FILENAME outside a `ruling-`/`rulings-` segment and are not counted "
           f"above: {', '.join(sorted(unclassified_filenames, key=lambda t: int(t[1:])))}. "
-          f"If any of those is a ruling, this count under-reports the debt. "
-          f"Classify them — rename the file into the convention, or confirm they "
-          f"are not rulings.")
-        A("")
-    if unclassified:
-        A(f"> ⚑ **The ruling set is a derived approximation, and the selection rule "
-          f"is an OPEN QUESTION.** The {len(rulings)} above come from docket "
-          f"*filenames*, requiring the number to sit in a `ruling-`/`rulings-` "
-          f"segment, with `rN-rM` ranges expanded. A further **{len(unclassified)}** "
-          f"`R<N>` tokens appear only in docket *bodies* "
-          f"({', '.join(sorted(unclassified, key=lambda t: int(t[1:])))}). "
-          f"**Most of those are probably not rulings at all** — sampling shows the "
-          f"`R<N>` glyph is shared with charter-requirement, review-finding, and "
-          f"census namespaces (`R0` = a route option; `R5(b)` = a charter "
-          f"requirement; `R3 (WARN-4)` = a review finding). Read this line as *the "
-          f"glyph is overloaded*, not as *up to {len(unclassified)} more unpropagated "
-          f"rulings*. Same class as the four distinct decisions all named `D1`. "
-          f"See `open-items/` → *ruling-selection-rule* and *key-namespace-collision*.")
+          f"Classify them — rename into the convention, or confirm they are not "
+          f"rulings.")
         A("")
     A(VOLATILE_HEADING)
     A("")
