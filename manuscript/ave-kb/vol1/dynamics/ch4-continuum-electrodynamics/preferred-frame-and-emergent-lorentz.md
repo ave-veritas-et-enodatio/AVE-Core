@@ -51,7 +51,7 @@ The argument (per AVE-QED [`2026-05-13_lorentz_violation_constraints.md:44-69`](
 
 > **↗ CARRIER-NATIVE — the suppression is a CUBIC-POINT-GROUP fact, not diamond-specific (2026-07-04, PR #515, Lorentz-on-srs P1 gate).** The "first anisotropic invariant for a cubic point group is quartic" statement is a property of the cubic point group as such, and the ratified chiral srs-z3 carrier (point group **432**, which is cubic) delivers it identically: the genuine srs Bloch bond-moment sum gives $\langle(\hat q\cdot\hat d)^2\rangle$ isotropic and $\langle(\hat q\cdot\hat d)^4\rangle$ the pure cubic harmonic ($\kappa_{srs}=-1/12$), exactly as diamond ($Fd\bar3m$, i.e. point group $m\bar3m$, gives $\kappa_{diamond}=-2/9$). The **"diamond-cubic" phrasing above over-specifies** — the load-bearing fact is "cubic point group," and **432 ∈ cubic**, so the isotropy defense is carrier-native on the migrated substrate (diamond was an equivalent-order instrument, not the sole host). The $\delta_{aniso}\approx2.2\times10^{-22}$ optical number is an ECHO either way, below the SME bounds. (The raw eigensolve band-edge anisotropy is $\mathcal O(k^2)$ on BOTH carriers, so the distinctive $(q\ell)^4$ photon-DISPERSION tell stays conditional on weak-C, gate `wejkhvnfb` OPEN — unchanged; see §4.1 + the 🔴 blocks below.) Provenance: `research/2026-07-04_lorentz-on-srs_result.md` §4 (S2).
 
-> **↗ STRENGTHEN — leading-order isotropy is DOUBLY protected: cubic-symmetry-automatic AND Axiom-3-forced (2026-07-04, PR #516 MERGED — the parent-condition derivation).** The emergent-Lorentz leading-order isotropy this leaf rests on (the $q^0$/$q^2$ corrections are isotropic for a cubic point group, §2 table above) holds at the srs net's isotropic-bond operating point $k_s=k_a$ — and that operating point is now **Axiom-3-FORCED knob-free**: it is the UNIQUE bond-stiffness ratio where the substrate's internal-boundary acoustic reflection $\Gamma_{internal}(\rho_{bond})$ vanishes ($\rho_{bond}=k_a/k_s=1$ to machine precision; the ½/¼ knife passes, no tuned ratio supplied). So the emergent-Lorentz isotropy is now protected **two independent ways** — the cubic point group forces the leading-order velocity tensor isotropic (the standing §2 argument), AND Axiom 3 (the Minimum Reflection Principle) forces the substrate to sit at the unique zero-internal-reflection point where that isotropy holds. **SCOPE (KEEP-BOTH — un-demotes nothing):** this strengthens the LEADING-ORDER ISOTROPY / emergent-Lorentz statement ONLY. The 🟡 weak-C-conditional $(q\ell)^4$ photon-DISPERSION horn (§4.1, gate `wejkhvnfb`, OPEN) is **UNCHANGED** — the parent-condition arc derives the isotropy/MATCH pinning, not the zone-edge decoupling; this is exactly the low-$k$ Lorentz emergence the §4.1 "📌 SCOPE-NARROWING NOTE" already holds separate from the demoted quartic-tell. Provenance: `research/2026-07-04_parent-condition-match-forces-balance_result.md` (VERDICT BOX §1–§2 + §5), driver `src/scripts/vol_4_engineering/parent_condition_match_forces_balance.py`.
+> **↗ STRENGTHEN — leading-order isotropy is DOUBLY protected: cubic-symmetry-automatic AND Axiom-3-forced (2026-07-04, PR #516 MERGED — the parent-condition derivation).** The emergent-Lorentz leading-order isotropy this leaf rests on (the $q^0$/$q^2$ corrections are isotropic for a cubic point group, §2 table above) holds at the srs net's isotropic-bond operating point $k_s=k_a$ — and that operating point is now **Axiom-3-FORCED knob-free**: it is the UNIQUE bond-stiffness ratio where the substrate's internal-boundary acoustic reflection $\Gamma_{internal}(\rho_{bond})$ vanishes ($\rho_{bond}=k_a/k_s=1$ to machine precision; the ½/¼ knife passes, no tuned ratio supplied). So the emergent-Lorentz isotropy is now protected **two independent ways** — the cubic point group forces the leading-order velocity tensor isotropic (the standing §2 argument), AND Axiom 3 (the Minimum Reflection Principle) forces the substrate to sit at the unique zero-internal-reflection point where that isotropy holds. **SCOPE (KEEP-BOTH — un-demotes nothing):** this strengthens the LEADING-ORDER ISOTROPY / emergent-Lorentz statement ONLY. The 🟡 weak-C-conditional $(q\ell)^4$ photon-DISPERSION horn (§4.1, gate `wejkhvnfb`, OPEN) is **UNCHANGED** — the parent-condition arc derives the isotropy/MATCH pinning, not the zone-edge decoupling; this is exactly the low-$k$ Lorentz emergence the §4.1 "📌 SCOPE-NARROWING NOTE" already holds separate from the demoted quartic-tell. Provenance: `research/2026-07-04_parent-condition-match-forces-balance_result.md` (VERDICT BOX §1–§2 + §5), driver `src/scripts/vol_4_engineering/parent_condition_match_forces_balance.py`. 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 
 **Optical scale ($\lambda = 633$ nm HeNe, $q = 2\pi/\lambda \approx 10^7$ m$^{-1}$):**
 
@@ -251,3 +251,68 @@ The Standard Model offers NO prediction for cosmic velocities — they are initi
 - **KB cross-cutting:**
   - [`common/divergence-test-substrate-map.md`](../../../common/divergence-test-substrate-map.md) rows A2, C7, C17, C18 — matrix-level application of this framework
   - [`vol4/falsification/ch12-falsifiable-predictions/binary-kill-switches.md`](../../../vol4/falsification/ch12-falsifiable-predictions/binary-kill-switches.md) — ~~Trans-Planckian GRB dispersion as surviving preferred-frame probe~~ → weak-C 2026-06-15 (Rule 12): GRB dispersion is a **corroborated NULL** (continuum photon has no zone-edge dispersion), NOT a forward prediction; the kill-switch leaf now carries the weak-C reconciliation + honest-scope note (§4.1 here)
+
+---
+
+## R40 batch-2a — NEEDS-RE-DERIVATION status note (2026-08-11)
+
+**Class:** status demotion under **R40**. This note mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-`,
+**moves no solidity number**, adjudicates no channel and opens no fork. Every byte of each demoted
+claim is preserved; the stamped line gains a status marker only (honesty-lag pattern, Rule 12).
+
+**The arc, in four clauses (R40's header form; clause 4 points at the LANDED artifact, not at a
+ruling record).**
+
+1. **The kill fired** — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the imported `K = 2G` elastic modulus** — the compressible far-field
+   branch was minted by a GR-imported modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the flat-direction finding: the written action
+   conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the LANDED ratified bound-sector law — Axiom 5, Substrate DC Bias**, clauses
+   **S** (deposit), **G** (bias coupling / bridge) and **Q** (quiescence), canonical at
+   [`eq_axiom_5.tex`](../../../../common_equations/eq_axiom_5.tex) with its register entry in
+   [`axiom-register.md`](../../../common/axiom-register.md) (§ *Axiom 5 — Substrate DC Bias*). Under
+   clause **G** the A1 / bulk slot is a **bound response** — $\mathbf{u}_0 =
+   -\mathcal{A}_g\nabla\varepsilon_{11}$, mechanism gloss **back-reaction** — with **no independent
+   propagating branch, no port and zero longitudinal characteristic speed**. A bulk *wave speed*, a
+   bulk *radiative port*, a bulk *band-branch* and a bulk *transit clock* therefore have **no
+   referent**, and each row below owes its re-derivation on that footing.
+   $\mathcal{A}_g$ (the **bias-coupling area**) is an `UNVALUED-RATIFIED-CONSTANT` per **R48**
+   ([`interlock-register.md`](../../../common/interlock-register.md), § *𝒜_g — the bias-coupling
+   area*): it is **not valued here or anywhere**, and **the calibration count stays 3**.
+
+**Standing named-open debt — the honesty rider.** The ratified axiom does **not** discharge
+everything. **THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt**, stated by the
+axiom's own phase-structure paragraph, clause **(c1)**: clause G's elliptic law is the *static
+abstraction of underived finite-speed bias dynamics*, and the $(u,\pi)$ no-signalling theorem does
+**not** cover the bias read — the bias's finite propagation speed is *owed, not held*. Every row
+tagged **⚑ BIAS-DEBT** below re-derives against the ratified axiom **with that debt standing**, never
+against a closed replacement.
+
+**Vocabulary.** Canonical nouns authored here: **the bound response** ($\mathbf{u}_0$), **the bias**
+($\varepsilon_{11}$), the **DC operating point / quiescent point (Q-point)**; **back-reaction** is
+the mechanism gloss. *"dress"*, *"grade"* as $\varepsilon_{11}$'s canonical noun, and *"halo"* for
+the physics (the physics noun is the **near-field store / added-mass**) are RETIRED by **R50**;
+*"retardation"* is retired by **R49(b)** in favour of **propagation delay / finite propagation
+speed**. Corpus text quoted below is reproduced from the banked audit and is
+**content-verified at HEAD (markup-reduced, not byte-identical)**; it is never reworded.
+
+**Rows carried in this file.**
+
+- **`:54`** — stamped at `:54`. *(family: axiom3-internal-match; banked `uncertain`)*  ⚑ **BIAS-DEBT**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  the substrate's internal-boundary acoustic reflection $\Gamma_{internal}(\rho_{bond})$ vanishes ($\rho_{bond}=k_a/k_s=1$ to machine precision
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  UNCERTAIN: the reflection/matching role is surviving-class and the emergent-Lorentz isotropy conclusion is transverse/EM (untouched); but the parent-condition Gamma_internal computation scatters bond acoustic waves whose census includes the longitudinal channel — whether the zero-reflection operating point is derivable without longitudinal incidence is owed a check (PR #516 provenance).
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+**Records.** Ruling **R40** (the demotion sweep) · the banked worklist
+[`r40_sweep_worklist_verified.json`](../../../../../research/drivers/r40_sweep_worklist_verified.json) · batch-0
+scope verification and batch-1 execution records in `_orchestration/` · this batch's record
+`_orchestration/2026-08-12_r40-sweep-batch2a.md`.
+

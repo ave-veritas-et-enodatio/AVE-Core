@@ -148,11 +148,11 @@ Each channel is one substrate grade. The impedances and saturation $\Gamma$ valu
 |---|---|---|---|---|
 | $Z_{\mathrm{EM}}$ | T2 transverse field | $Z_{\mathrm{EM}}\equiv Z_0=\sqrt{\mu_0/\varepsilon_0}\approx376.73\,\Omega$ | $\Gamma_{\mathrm{EM}}=0$ — **MATCHED / radiative PORT** | — (matched port, not a hair-sector) |
 | $Z_{\mathrm{shear}}$ | deviatoric $G$ | $Z_{\mathrm{shear}}=\rho_{\mathrm{bulk}}\,c_{\mathrm{shear}}$ | $\Gamma_{\mathrm{shear}}\to-1$ — CONFINED | **CHARGE-"3"** (Cosserat micro-rotation winding) ⚑ **CHANNEL-TAG CONFLICT (2026-08-07) — PENDING-GRANT; see the dated flag at the end of this leaf before citing this tag** |
-| $Z_{\mathrm{bulk}}$ | dilatation $K$ | $Z_{\mathrm{bulk}}=\rho_{\mathrm{bulk}}\,c_{\mathrm{bulk}}=\sqrt2\,\rho_{\mathrm{bulk}}\,c_0$ at $K=2G$ (i.e. $c_{\mathrm{bulk}}=\sqrt2\,c_0$) — a MECHANICAL/acoustic impedance ($\rho\times$speed), **NOT** in $Z_0$ units | $\Gamma_{\mathrm{bulk}}\to-1$ — CONFINED | **MASS-"3"** (A1 dilatation) |
+| $Z_{\mathrm{bulk}}$ | dilatation $K$ | $Z_{\mathrm{bulk}}=\rho_{\mathrm{bulk}}\,c_{\mathrm{bulk}}=\sqrt2\,\rho_{\mathrm{bulk}}\,c_0$ at $K=2G$ (i.e. $c_{\mathrm{bulk}}=\sqrt2\,c_0$) — a MECHANICAL/acoustic impedance ($\rho\times$speed), **NOT** in $Z_0$ units | $\Gamma_{\mathrm{bulk}}\to-1$ — CONFINED | **MASS-"3"** (A1 dilatation) 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]** |
 
 **Naming discipline (do NOT rename the channels).** Keep $Z_{\mathrm{EM}}$ named $Z_{\mathrm{EM}}$ — do **not** rename it to $Z_{\mathrm{transverse}}$: BOTH EM and shear are transverse waves, so "transverse" is ambiguous; $Z_{\mathrm{EM}}\equiv Z_0$ is the native label because $Z_0=\sqrt{\mu_0/\varepsilon_0}$ is a vacuum constant. Keep this three-grade wave-channel set DISTINCT from the coarser **Electric / Magnetic / Either** per-element constitutive tags of the `AVE_VACUUM_CELL` (§1) — those are a different (per-element constitutive) classification, not the wave-channel set.
 
-**Two-"3"s grade tag (the AMENDMENT this leaf adds).** Per the two-"3"s disambiguation ([`master-equation.md`](../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20, Grant-ratified): the **bulk** channel carries the MASS-"3" (the A1 Heaviside-excised longitudinal dilatation scalar — $m_e c^2$ = trapped acoustic compression energy), and the **shear** channel carries the CHARGE-"3" (the orthogonal Cosserat $(2,3)$ micro-rotation winding — charge = Beltrami helicity). $A1\perp T2$: the two grades are orthogonal, never wired into one shared $(V_{\mathrm{inc}},V_{\mathrm{ref}})$ phasor (the genesis-24 / $w_{\mathrm{pol}}=0$ double-count guard). The EM channel is the matched radiative PORT, **not** a hair-sector — it is how the interior couples to the far field, not where an observable lives (see the M, J, Q honest map, §6.4).
+**Two-"3"s grade tag (the AMENDMENT this leaf adds).** Per the two-"3"s disambiguation ([`master-equation.md`](../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20, Grant-ratified): the **bulk** channel carries the MASS-"3" (the A1 Heaviside-excised longitudinal dilatation scalar — $m_e c^2$ = trapped acoustic compression energy), and the **shear** channel carries the CHARGE-"3" (the orthogonal Cosserat $(2,3)$ micro-rotation winding — charge = Beltrami helicity). $A1\perp T2$: the two grades are orthogonal, never wired into one shared $(V_{\mathrm{inc}},V_{\mathrm{ref}})$ phasor (the genesis-24 / $w_{\mathrm{pol}}=0$ double-count guard). The EM channel is the matched radiative PORT, **not** a hair-sector — it is how the interior couples to the far field, not where an observable lives (see the M, J, Q honest map, §6.4). 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]** *(cite excerpts, byte-exact at the cited lines — appended because the R40-B2a stamp modified this line and `verify-new-cite-excerpts` re-classifies its pre-existing cites as added: `**🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVE`)*
 
 #### 6.2 The confinement surface (Γ=−1 cage-wall, status OPEN)
 
@@ -198,7 +198,7 @@ These are **TWO INDEPENDENT AXES**. The Stokes axis counts integration dimension
 
 #### 6.5 Forks and open gates
 
-> **↗ Electrical-vs-mechanical projection-conflation map** (`research/2026-06-19_electrical-mechanical-projection-map.md`): the EM (Ω) ↔ mechanical (ρc) seams in this section are **NOT one artifact to dissolve** — 1 fixed units-conflation (`Z_bulk` mis-scope, #296) + 6 genuine distinctions the corpus holds. EM↔mechanical is a real impedance-DOMAIN boundary the ξ_topo transducer BRIDGES (units change), not a separation to resolve away; bulk↔shear is same-domain ($H_{\mathrm{couple}}$). The unified network buys HYGIENE, not a derivation; α stays echo. The 1.826-vs-2.582 ratio (seam 4) is OPEN pending Grant.
+> **↗ Electrical-vs-mechanical projection-conflation map** (`research/2026-06-19_electrical-mechanical-projection-map.md`): the EM (Ω) ↔ mechanical (ρc) seams in this section are **NOT one artifact to dissolve** — 1 fixed units-conflation (`Z_bulk` mis-scope, #296) + 6 genuine distinctions the corpus holds. EM↔mechanical is a real impedance-DOMAIN boundary the ξ_topo transducer BRIDGES (units change), not a separation to resolve away; bulk↔shear is same-domain ($H_{\mathrm{couple}}$). The unified network buys HYGIENE, not a derivation; α stays echo. The 1.826-vs-2.582 ratio (seam 4) is OPEN pending Grant. 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 
 **The Q slot stays EMPTY (strict anti-substitution).** The TARGET of the network is to derive the electron $Q$ from channel impedances + couplings (the **channel-impedance-mismatch $Q$**). That target is **NOT achieved**: the $\alpha$-free cold-cage Q is $\approx30.8$, **NOT** 137 (`src/tests/engine_acceptance/test_l3_mass_cage.py`:702-703; RUNG-1 T3.4b `sup-wuy333`). This is the corpus **clean NEGATIVE** corroborating that the corpus $Q=1/\alpha$ is an instance-baked ECHO ([`theorem-3-1-q-factor.md`](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md):19, value-scoped; `src/scripts/vol_9_device/cvr_ee_sweep/cvr_model.py`:72 $Q_{\mathrm{TANK}}=1/\alpha$ baked at the instance). **Preserve it. Do NOT refill the slot, do NOT narrate it away.** (Plotting more instruments does not escape the echo: every display reads the same baked $Q$ — [`theorem-3-1-q-factor.md`](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md):21.)
 
@@ -252,7 +252,7 @@ provisional slot.**
 
 | Slot | Figure | Status | Caption spec |
 |---|---|---|---|
-| (i) | `fig:vol9_graded_network_schematic` | **GENERATED (#309)** — `figures/graded_network/vol9_graded_network_schematic.png` | **Graded vacuum impedance network schematic** — three reactance branches ($Z_{\mathrm{EM}}$, $Z_{\mathrm{shear}}$, $Z_{\mathrm{bulk}}$) wired through the chiral circulator (inter-tank, §6.3) with confinement-surface terminations on the two CONFINED channels ($\Gamma=-1$) and the open matched port on $Z_{\mathrm{EM}}$ ($\Gamma=0$). Line-art, labelled with the LIVE channel numbers pulled from the engine ($c_L/c_T$ ratio, radiative floor, the $\Gamma$ map). |
+| (i) | `fig:vol9_graded_network_schematic` | **GENERATED (#309)** — `figures/graded_network/vol9_graded_network_schematic.png` | **Graded vacuum impedance network schematic** — three reactance branches ($Z_{\mathrm{EM}}$, $Z_{\mathrm{shear}}$, $Z_{\mathrm{bulk}}$) wired through the chiral circulator (inter-tank, §6.3) with confinement-surface terminations on the two CONFINED channels ($\Gamma=-1$) and the open matched port on $Z_{\mathrm{EM}}$ ($\Gamma=0$). Line-art, labelled with the LIVE channel numbers pulled from the engine ($c_L/c_T$ ratio, radiative floor, the $\Gamma$ map). 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]** |
 | (ii) | `fig:vol9_graded_network_smith` | **GENERATED (#309)** — `figures/graded_network/vol9_graded_network_smith.png` | **Per-channel Smith / impedance** — $Z_{\mathrm{EM}}$ matched at $\Gamma=0$ (origin of the Smith chart); $Z_{\mathrm{shear}}$ and $Z_{\mathrm{bulk}}$ trajectories running toward $\Gamma=-1$ (the short-circuit point) as $S(A)\to0$. Generated from the live varactor operator (`vacuum_varactor_scatter.py`, $Z_{\mathrm{bond}}=Z_0\sqrt{S(A)}$). |
 | (iii) | `fig:vol9_forkA_discriminator` | **GENERATED (#309), isolated arm only** — `figures/graded_network/vol9_forkA_discriminator.png` | **Fork-A discriminator sweep** — $Q$ vs coupling strength. The **ISOLATED arm is real** (live engines): the graded-vacuum-network isolation eigensolver (intrinsic $Q\to\infty$) AND the $\alpha$-FREE cold-cage FDTD ringdown ($Q_{\mathrm{ringdown}}\approx30.8$, the canonical $N{=}72/6000$ anchor — annotated NOT 137, the baked echo). The **COUPLED-arm mode-splitting / avoided-crossing is honestly DEFERRED-pending-$H_{\mathrm{couple}}$** — it is the coupled-eigensolve (Build-B, not yet built per PR #308), drawn only as a dashed SCHEMATIC placeholder, NOT computed, NOT faked. |
 | (iv) | `fig:vol9_graded_network_op_sweep` | **GENERATED (#309)** — `figures/graded_network/vol9_graded_network_op_sweep.png` | **Operating-point sweep** — channel impedances vs saturation $S$: $Z_{\mathrm{EM}}$ flat (matched), $Z_{\mathrm{bulk}}=\sqrt2\,\rho_{\mathrm{bulk}}\,c_0\to0$ and $Z_{\mathrm{shear}}\to0$ as $A\to1$ (plotted on the mechanical $\rho\,c$ axis, NOT against $Z_0$). From the live varactor map ($Z=Z_0\sqrt{S}$). |
@@ -285,3 +285,104 @@ provisional slot.**
 **Adjacent datum — surfaced because it is the likely ROOT, not because it settles anything.** The authority this leaf cites for the grade tag, [`master-equation.md`](../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20 (the Grant-ratified 🔴 TWO-"3"s banner), itself calls the Cosserat winding *"T2 couple-stress"* — carrying **both** labels on one object ($T_2$ is the shear irrep; couple-stress is the ch-4 grade). So the conflation may be **inherited from the ratified line** rather than introduced here. Both readings are quoted verbatim; **neither is reframed to match the other.**
 
 **NOT FIXED HERE.** No channel renamed, no tag moved, no row's physics edited. The sector-ownership question — *does the CHARGE-"3" own ch-2, ch-4, or a projection across both?* — is Grant's call. A twin flag is carried at `research/2026-06-20_node-2domain-nport.md` (the `shear-Cosserat` compound). **Until it is ruled, do not cite the `:150` grade tag as settling which channel the $(2,3)$ winding rides.**
+
+---
+
+## R40 batch-2a — NEEDS-RE-DERIVATION status note (2026-08-11)
+
+**Class:** status demotion under **R40**. This note mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-`,
+**moves no solidity number**, adjudicates no channel and opens no fork. Every byte of each demoted
+claim is preserved; the stamped line gains a status marker only (honesty-lag pattern, Rule 12).
+
+**The arc, in four clauses (R40's header form; clause 4 points at the LANDED artifact, not at a
+ruling record).**
+
+1. **The kill fired** — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the imported `K = 2G` elastic modulus** — the compressible far-field
+   branch was minted by a GR-imported modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the flat-direction finding: the written action
+   conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the LANDED ratified bound-sector law — Axiom 5, Substrate DC Bias**, clauses
+   **S** (deposit), **G** (bias coupling / bridge) and **Q** (quiescence), canonical at
+   [`eq_axiom_5.tex`](../../../common_equations/eq_axiom_5.tex) with its register entry in
+   [`axiom-register.md`](../../common/axiom-register.md) (§ *Axiom 5 — Substrate DC Bias*). Under
+   clause **G** the A1 / bulk slot is a **bound response** — $\mathbf{u}_0 =
+   -\mathcal{A}_g\nabla\varepsilon_{11}$, mechanism gloss **back-reaction** — with **no independent
+   propagating branch, no port and zero longitudinal characteristic speed**. A bulk *wave speed*, a
+   bulk *radiative port*, a bulk *band-branch* and a bulk *transit clock* therefore have **no
+   referent**, and each row below owes its re-derivation on that footing.
+   $\mathcal{A}_g$ (the **bias-coupling area**) is an `UNVALUED-RATIFIED-CONSTANT` per **R48**
+   ([`interlock-register.md`](../../common/interlock-register.md), § *𝒜_g — the bias-coupling
+   area*): it is **not valued here or anywhere**, and **the calibration count stays 3**.
+
+**Standing named-open debt — the honesty rider.** The ratified axiom does **not** discharge
+everything. **THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt**, stated by the
+axiom's own phase-structure paragraph, clause **(c1)**: clause G's elliptic law is the *static
+abstraction of underived finite-speed bias dynamics*, and the $(u,\pi)$ no-signalling theorem does
+**not** cover the bias read — the bias's finite propagation speed is *owed, not held*. Every row
+tagged **⚑ BIAS-DEBT** below re-derives against the ratified axiom **with that debt standing**, never
+against a closed replacement.
+
+**Vocabulary.** Canonical nouns authored here: **the bound response** ($\mathbf{u}_0$), **the bias**
+($\varepsilon_{11}$), the **DC operating point / quiescent point (Q-point)**; **back-reaction** is
+the mechanism gloss. *"dress"*, *"grade"* as $\varepsilon_{11}$'s canonical noun, and *"halo"* for
+the physics (the physics noun is the **near-field store / added-mass**) are RETIRED by **R50**;
+*"retardation"* is retired by **R49(b)** in favour of **propagation delay / finite propagation
+speed**. Corpus text quoted below is reproduced from the banked audit and is
+**content-verified at HEAD (markup-reduced, not byte-identical)**; it is never reworded.
+
+**Rows carried in this file.**
+
+- **`:151`** — stamped at `:151`. *(family: Z_bulk=ρc_bulk formula)*  ⚑ **BIAS-DEBT**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  Z_bulk=ρ_bulk c_bulk=√2 ρ_bulk c_0 at K=2G (i.e. c_bulk=√2 c_0) — a MECHANICAL/acoustic impedance (ρ×speed), NOT in Z_0 units
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Canonical N-port formula site (also :101, :145); Γ_bulk→-1 CONFINED half survives; ρ×speed form consumes the phantom speed.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+- **`:155`** — stamped at `:155`. *(family: electron-sector label (past-wall))*  ⚑ **PAST-WALL**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  the A1 Heaviside-excised longitudinal dilatation scalar — m_e c² = trapped acoustic compression energy
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Prereg-named electron-sector label class: 'trapped acoustic compression energy' → re-label at label level with past-wall scope declared; the anti-Heaviside physical-scalar content and the mass accounting survive re-homed on the bound field.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ PAST-WALL:** the content reaches past the saturation wall, a phase Axiom 5 explicitly does **not** write (its phase-structure paragraph puts the $D(A)\to\infty$ wall behaviour past-wall-adjacent and *not written here*, with the de-bonded and pre-freeze phase forms named-open). The demotion is therefore **scoped**: clause G resolves the cold, sub-yield side; the past-wall reading is neither discharged nor adjudicated here.
+
+- **`:201`** — stamped at `:201`. *(family: two-speed seam ledger)*  ⚑ **BIAS-DEBT**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  The 1.826-vs-2.582 ratio (seam 4) is OPEN pending Grant.
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Ledger row recording the √(10/3)-vs-√2 speed incoherence as an open seam; under the carve neither is a propagation speed and the seam is explained/dissolved, not open — register re-read owed (prereg register-row class).
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+- **`:255`** — stamped at `:255`. *(family: figure spec consuming c_L/c_T; banked `uncertain`)*  ⚑ **BIAS-DEBT**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  labelled with the LIVE channel numbers pulled from the engine (c_L/c_T ratio, radiative floor, the Γ map)
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Figure specification imports the P-wave ratio c_L/c_T (and a radiative floor whose channel is unstated) as live labels; re-route under the carve. Uncertain on which channel the radiative floor belongs to.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+**Records.** Ruling **R40** (the demotion sweep) · the banked worklist
+[`r40_sweep_worklist_verified.json`](../../../../research/drivers/r40_sweep_worklist_verified.json) · batch-0
+scope verification and batch-1 execution records in `_orchestration/` · this batch's record
+`_orchestration/2026-08-12_r40-sweep-batch2a.md`.
+

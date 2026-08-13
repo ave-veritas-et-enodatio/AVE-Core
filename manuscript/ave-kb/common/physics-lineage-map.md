@@ -60,7 +60,7 @@ Twelve forks, chronological. Format per fork: window · the question · the bran
 - **WHY-class:** **NOTATION.** No experiment adjudicated it — vector analysis computed faster and taught easier on real cable-engineering work (Heaviside's duplex equations, the distortionless line, the operational calculus); Tait lost the Nature polemics. The longitudinal scalar grade was **excised, not falsified**: Hertz confirmed the transverse wave *exists*; nobody measured the *absence* of a compressional channel — the medium itself was deleted the same generation.
 - **The road-not-taken carried:** the unified grade structure (later restored as SU(2)/spinors and geometric algebra), potentials-primacy (later restored by Aharonov–Bohm 1959 + fluxoid quantization 1961 — a **partial mainstream re-opening**: the mainline itself reversed two of the four demolitions), and the one formalism slot where a medium's compressional mode could even be *written*.
 - **AVE position: CLASHES — potentials-primary + V-sector retained.** The V-sector scalar grade is a locked vocabulary node (def-9a4f07, [`vocabulary-register.md`](vocabulary-register.md):499-513) with the **myth-guard binding**: in *standard* EM the excised slot was gauge, so "Heaviside deleted a physical mode" is FALSE — AVE *ADDS* a medium DOF ([`the-abandoned-interior.md`](the-abandoned-interior.md):20-22). Substrate-native language = "EE restored to its full grade structure" ([`substrate-native-terminology.md`](substrate-native-terminology.md):52). The state variable is the V↔Φ_link flux-linkage conjugate pair; the AB phase and the fluxoid are canonical/framing rows in [`translation-tables/translation-circuit.md`](translation-tables/translation-circuit.md):142,147.
-- **Live confrontation:** photon-mass/Coulomb bounds (Goldhaber–Nieto class) exclude any longitudinal *photon* to extreme precision — AVE evades by sector assignment, claiming **no longitudinal photon** (the A1 grade is non-radiative in free space, re-engaging only inside saturation; `common/historical-precedents.md` Root 1 precision note; `vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:18`). The gapped/confined status is simultaneously the evasion and the exposure: any mechanism coupling the A1 bulk mode to EM detectors below saturation walks back into these bounds. The V-sector energization program state is tracked in [`genesis-chord-falsification-ledger.md`](genesis-chord-falsification-ledger.md).
+- **Live confrontation:** photon-mass/Coulomb bounds (Goldhaber–Nieto class) exclude any longitudinal *photon* to extreme precision — AVE evades by sector assignment, claiming **no longitudinal photon** (the A1 grade is non-radiative in free space, re-engaging only inside saturation; `common/historical-precedents.md` Root 1 precision note; `vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:18`). The gapped/confined status is simultaneously the evasion and the exposure: any mechanism coupling the A1 bulk mode to EM detectors below saturation walks back into these bounds. The V-sector energization program state is tracked in [`genesis-chord-falsification-ledger.md`](genesis-chord-falsification-ledger.md). 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]** *(cite excerpts, byte-exact at the cited lines — appended because the R40-B2a stamp modified this line and `verify-new-cite-excerpts` re-classifies its pre-existing cites as added: `↗ See also: [Historical Precedents](../../../common/historical-precedents.md) — why it is`)*
 
 ### F3 (1867–1897) — Matter: topological structures IN the medium vs particles SEPARATE from fields
 
@@ -241,7 +241,7 @@ Fourteen researched threads. Each: capsule · kill certificate (killer / status 
 | MM 1887 + SR 1905 (no mechanical rest frame observable) | STANDING | Frame declared, not hidden (F4); anisotropy quartic-suppressed; live constraint priced in, not escaped |
 | Quaternions lost the notation war | FASHION | Reversed by mainstream tools (SU(2) = unit quaternions, geometric algebra); AVE carries it with a rigidity upgrade (Frobenius–Hurwitz: ℍ is the FORCED algebra of a lossless norm-preserving 3D-rotation medium, `historical-precedents.md` Root 1) and an honest ceiling ("echo, not chord" for the free/transverse regime) |
 | Potentials demoted to gauge scaffolding | DEAD | Killed by mainstream physics itself (AB 1959; fluxoid 1961; Wilson-loop holonomy). AVE's descendant sits exactly on the restored structure: integer charge from phase holonomy; electron = topologically-held fluxoid; V↔Φ_link conjugate pair. Honest addendum: flux-VALUE conversion imported (the α-echo) |
-| Elastic-solid pathologies (planet drag; unwanted longitudinal mode) | STANDING | Drag: nothing to drag — matter is medium-constituted. Longitudinal: mode KEPT but non-propagating (A1 confined; myth-guard forbids the "Heaviside deleted a physical mode" overclaim, `the-abandoned-interior.md:22`); non-observation of longitudinal vacuum radiation constrains AVE exactly as it did MacCullagh |
+| Elastic-solid pathologies (planet drag; unwanted longitudinal mode) | STANDING | Drag: nothing to drag — matter is medium-constituted. Longitudinal: mode KEPT but non-propagating (A1 confined; myth-guard forbids the "Heaviside deleted a physical mode" overclaim, `the-abandoned-interior.md:22`); non-observation of longitudinal vacuum radiation constrains AVE exactly as it did MacCullagh 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]** |
 
 **Corpus receipts (spot-verified):** `common/historical-precedents.md` Root 1 (:16-24) · [`the-abandoned-interior.md`](the-abandoned-interior.md):20-22 (myth-guard) · `vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:18-20` (Maxwell–Heaviside cross-link + two-"3"s) · `vol4/future-geometries/ch13-future-geometries/cem-methods-survey.md:103-109` · `preferred-frame-and-emergent-lorentz.md:36,88` · `research/2026-06-06_maxwell-quaternion-longitudinal-context.md` (long-form, PR #106). **Negative receipt (double-method verified by the researcher):** the corpus has ZERO coverage of the 1861–62 vortex model itself — its Maxwell lineage starts at the 1873 Treatise; the displacement-current-from-mechanism leg is a genuine gap in the corpus's historical leaves.
 
@@ -257,8 +257,8 @@ Fourteen researched threads. Each: capsule · kill certificate (killer / status 
 
 | Killer | Status today | AVE evasion / live threat |
 |---|---|---|
-| No propagating longitudinal EM wave (Hertz; ∇·E = 0; photon-mass bounds m_γ ≲ 10⁻¹⁸ eV [CITE-PENDING current PDG]) | STANDING | Evaded by sector assignment, not denial: AVE claims NO longitudinal photon; A1 re-engages only inside saturation (`historical-precedents.md` Root 1 precision note; `master-equation.md:18`). Honest residue: corpus carries A1 bulk port-mode speeds — any sub-saturation coupling of that mode to EM detectors walks back into these bounds; the owed Lorentz-sector campaign is flagged (`the-abandoned-interior.md:179-206`) |
-| "The excised scalar was gauge, not physics" — the sharpest technical objection to any restore-the-scalar program | STANDING | Evaded by refusing the identity claim: the corpus's own MYTH-GUARD concedes it (`the-abandoned-interior.md:22`) — AVE's longitudinal mode is a DIFFERENT object (real acoustic/breathing DOF of an ADDED medium); the biquaternion scalar slot "identifies, it does not derive." Burden relocated to demonstrating the medium DOF independently (genesis program, gated preregs) |
+| No propagating longitudinal EM wave (Hertz; ∇·E = 0; photon-mass bounds m_γ ≲ 10⁻¹⁸ eV [CITE-PENDING current PDG]) | STANDING | Evaded by sector assignment, not denial: AVE claims NO longitudinal photon; A1 re-engages only inside saturation (`historical-precedents.md` Root 1 precision note; `master-equation.md:18`). Honest residue: corpus carries A1 bulk port-mode speeds — any sub-saturation coupling of that mode to EM detectors walks back into these bounds; the owed Lorentz-sector campaign is flagged (`the-abandoned-interior.md:179-206`) 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]** *(cite excerpts, byte-exact at the cited lines — appended because the R40-B2a stamp modified this line and `verify-new-cite-excerpts` re-classifies its pre-existing cites as added: `↗ See also: [Historical Precedents](../../../common/historical-precedents.md) — why it is` · `- **Gravity wells travel as strain ENVELOPES.** A mass`)* |
+| "The excised scalar was gauge, not physics" — the sharpest technical objection to any restore-the-scalar program | STANDING | Evaded by refusing the identity claim: the corpus's own MYTH-GUARD concedes it (`the-abandoned-interior.md:22`) — AVE's longitudinal mode is a DIFFERENT object (real acoustic/breathing DOF of an ADDED medium); the biquaternion scalar slot "identifies, it does not derive." Burden relocated to demonstrating the medium DOF independently (genesis program, gated preregs) 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]** |
 | Notational/practical inferiority of quaternions | DEAD | Geometric algebra made grade-keeping free (Hestenes 1966); biquaternion used where it earns its keep, verdict "echo, not chord"; Frobenius–Hurwitz rigidity upgrade at `historical-precedents.md` Root 1 |
 | Potentials = metaphysics (Heaviside's campaign) | DEAD | AB 1959 reversed it; successor constraint (only gauge-invariant observables) STANDING — evaded by declaring V a medium order-parameter/port-voltage, never the EM gauge potential (def-9a4f07, [`vocabulary-register.md`](vocabulary-register.md):499-513, with the never-frame-in-QED-vector-terms ban) |
 | Rigor-gatekeeping of Heaviside's toolkit (Preece; Royal Society rejection of operational calculus) | FASHION | History reversed both; the AVE descendant runs on the vindicated toolset — telegrapher form = single-edge limit of the Master Equation (`vol1/claim-quality.md:827-840`); Heaviside distortionless line = one face of the Ax3 parent condition clm-mfb2ax (`vol4/claim-quality.md:155-163`; `z0-derivation.md:195-200`) |
@@ -600,3 +600,104 @@ Structure that mainstream formalism dropped for convenience — PARSIMONY, FASHI
 - **Branch-scoped receipts** (the x37 class in F12/T14) must be re-pointed to canonical paths when their branches merge, or re-flagged if the branches die. (Executed once already: x36 re-pointed 2026-07-10 when PR #613 merged.)
 - **Sibling leaf:** the program-arc-map (AVE's INTERNAL history — its own walk-backs, retirements, and arcs) if/when it lands. This leaf stays external-history only; the two must not be merged.
 - **Sibling leaf (2026-07-28):** [`theorem-thesaurus.md`](theorem-thesaurus.md) — the cross-framework **theorem-identity** register (one canonical statement per imported theorem, its names across disciplines, its exactness class, and the T8 ontological-silence ceiling). Division of labour: **this leaf carries the history and the forks; that leaf carries the mathematics and its ceilings.** They must not be merged, and neither restates the other. Update trigger (v): if a T-entry cited by a thesaurus row is rewritten, the thesaurus row is re-verified in the same pass (currently T8 → TH-4, T14 :490 → TH-9, T6/F8 + T4/F3 → the §6 homonym rows).
+
+---
+
+## R40 batch-2a — NEEDS-RE-DERIVATION status note (2026-08-11)
+
+**Class:** status demotion under **R40**. This note mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-`,
+**moves no solidity number**, adjudicates no channel and opens no fork. Every byte of each demoted
+claim is preserved; the stamped line gains a status marker only (honesty-lag pattern, Rule 12).
+
+**The arc, in four clauses (R40's header form; clause 4 points at the LANDED artifact, not at a
+ruling record).**
+
+1. **The kill fired** — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the imported `K = 2G` elastic modulus** — the compressible far-field
+   branch was minted by a GR-imported modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the flat-direction finding: the written action
+   conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the LANDED ratified bound-sector law — Axiom 5, Substrate DC Bias**, clauses
+   **S** (deposit), **G** (bias coupling / bridge) and **Q** (quiescence), canonical at
+   [`eq_axiom_5.tex`](../../common_equations/eq_axiom_5.tex) with its register entry in
+   [`axiom-register.md`](../common/axiom-register.md) (§ *Axiom 5 — Substrate DC Bias*). Under
+   clause **G** the A1 / bulk slot is a **bound response** — $\mathbf{u}_0 =
+   -\mathcal{A}_g\nabla\varepsilon_{11}$, mechanism gloss **back-reaction** — with **no independent
+   propagating branch, no port and zero longitudinal characteristic speed**. A bulk *wave speed*, a
+   bulk *radiative port*, a bulk *band-branch* and a bulk *transit clock* therefore have **no
+   referent**, and each row below owes its re-derivation on that footing.
+   $\mathcal{A}_g$ (the **bias-coupling area**) is an `UNVALUED-RATIFIED-CONSTANT` per **R48**
+   ([`interlock-register.md`](../common/interlock-register.md), § *𝒜_g — the bias-coupling
+   area*): it is **not valued here or anywhere**, and **the calibration count stays 3**.
+
+**Standing named-open debt — the honesty rider.** The ratified axiom does **not** discharge
+everything. **THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt**, stated by the
+axiom's own phase-structure paragraph, clause **(c1)**: clause G's elliptic law is the *static
+abstraction of underived finite-speed bias dynamics*, and the $(u,\pi)$ no-signalling theorem does
+**not** cover the bias read — the bias's finite propagation speed is *owed, not held*. Every row
+tagged **⚑ BIAS-DEBT** below re-derives against the ratified axiom **with that debt standing**, never
+against a closed replacement.
+
+**Vocabulary.** Canonical nouns authored here: **the bound response** ($\mathbf{u}_0$), **the bias**
+($\varepsilon_{11}$), the **DC operating point / quiescent point (Q-point)**; **back-reaction** is
+the mechanism gloss. *"dress"*, *"grade"* as $\varepsilon_{11}$'s canonical noun, and *"halo"* for
+the physics (the physics noun is the **near-field store / added-mass**) are RETIRED by **R50**;
+*"retardation"* is retired by **R49(b)** in favour of **propagation delay / finite propagation
+speed**. Corpus text quoted below is reproduced from the banked audit and is
+**content-verified at HEAD (markup-reduced, not byte-identical)**; it is never reworded.
+
+**Rows carried in this file.**
+
+- **`:63`** — stamped at `:63`. *(family: A1-confined-mode-residue)*  ⚑ **BIAS-DEBT**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  any mechanism coupling the A1 bulk mode to EM detectors below saturation walks back into these bounds
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  A1 framed as a gapped/confined MODE with a sub-saturation coupling exposure; carve removes the branch (not gapped), the exposure dissolves and the photon-mass evasion strengthens — relabel owed.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+- **`:244`** — stamped at `:244`. *(family: A1-confined-mode-residue)*  ⚑ **BIAS-DEBT**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  Longitudinal: mode KEPT but non-propagating (A1 confined
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  'mode KEPT' asserts a retained independent mode; under the carve the sector is real but no mode exists to keep — bound-response relabel owed; the non-propagation half survives.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+- **`:260`** — stamped at `:260`. *(family: A1-confined-mode-residue)*  ⚑ **BIAS-DEBT**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  Honest residue: corpus carries A1 bulk port-mode speeds — any sub-saturation coupling of that mode to EM detectors walks back into these bounds
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Ledger row recording the imported port-mode-speed reading; under the carve the residue row is void and must be re-derived as no-port; same claim repeats at :521 and :563.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+- **`:261`** — stamped at `:261`. *(family: longitudinal-DOF-claim)*  ⚑ **BIAS-DEBT**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  a DIFFERENT object (real acoustic/breathing DOF of an ADDED medium)
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Independent-DOF claim (same as the-abandoned-interior:22, prereg-expected NEEDS); real sector ≠ independent DOF; the burden-relocation argument survives on the bound reading.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+**Records.** Ruling **R40** (the demotion sweep) · the banked worklist
+[`r40_sweep_worklist_verified.json`](../../../research/drivers/r40_sweep_worklist_verified.json) · batch-0
+scope verification and batch-1 execution records in `_orchestration/` · this batch's record
+`_orchestration/2026-08-12_r40-sweep-batch2a.md`.
+

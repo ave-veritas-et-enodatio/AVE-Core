@@ -115,3 +115,80 @@ This single line of non-linear differential topology formally replaces the fragm
 3. **Gravity:** The trapped topological knot permanently strains the surrounding $\varepsilon_{eff}$ and $\mu_{eff}$ fields symmetrically ($n(r) = 1 + 2GM/rc^2$). This produces a continuous refractive gradient radially outward while preserving $Z_0$. Test photons propagating through this gradient refract toward the knot, executing the macroscopic acceleration attributed to gravity.
 
 ---
+
+---
+
+## R40 batch-2a — NEEDS-RE-DERIVATION status note (2026-08-11)
+
+**Class:** status demotion under **R40**. This note mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-`,
+**moves no solidity number**, adjudicates no channel and opens no fork. Every byte of each demoted
+claim is preserved; the stamped line gains a status marker only (honesty-lag pattern, Rule 12).
+
+**The arc, in four clauses (R40's header form; clause 4 points at the LANDED artifact, not at a
+ruling record).**
+
+1. **The kill fired** — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the imported `K = 2G` elastic modulus** — the compressible far-field
+   branch was minted by a GR-imported modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the flat-direction finding: the written action
+   conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the LANDED ratified bound-sector law — Axiom 5, Substrate DC Bias**, clauses
+   **S** (deposit), **G** (bias coupling / bridge) and **Q** (quiescence), canonical at
+   [`eq_axiom_5.tex`](../../../../common_equations/eq_axiom_5.tex) with its register entry in
+   [`axiom-register.md`](../../../common/axiom-register.md) (§ *Axiom 5 — Substrate DC Bias*). Under
+   clause **G** the A1 / bulk slot is a **bound response** — $\mathbf{u}_0 =
+   -\mathcal{A}_g\nabla\varepsilon_{11}$, mechanism gloss **back-reaction** — with **no independent
+   propagating branch, no port and zero longitudinal characteristic speed**. A bulk *wave speed*, a
+   bulk *radiative port*, a bulk *band-branch* and a bulk *transit clock* therefore have **no
+   referent**, and each row below owes its re-derivation on that footing.
+   $\mathcal{A}_g$ (the **bias-coupling area**) is an `UNVALUED-RATIFIED-CONSTANT` per **R48**
+   ([`interlock-register.md`](../../../common/interlock-register.md), § *𝒜_g — the bias-coupling
+   area*): it is **not valued here or anywhere**, and **the calibration count stays 3**.
+
+**Standing named-open debt — the honesty rider.** The ratified axiom does **not** discharge
+everything. **THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt**, stated by the
+axiom's own phase-structure paragraph, clause **(c1)**: clause G's elliptic law is the *static
+abstraction of underived finite-speed bias dynamics*, and the $(u,\pi)$ no-signalling theorem does
+**not** cover the bias read — the bias's finite propagation speed is *owed, not held*. Every row
+tagged **⚑ BIAS-DEBT** below re-derives against the ratified axiom **with that debt standing**, never
+against a closed replacement.
+
+**Vocabulary.** Canonical nouns authored here: **the bound response** ($\mathbf{u}_0$), **the bias**
+($\varepsilon_{11}$), the **DC operating point / quiescent point (Q-point)**; **back-reaction** is
+the mechanism gloss. *"dress"*, *"grade"* as $\varepsilon_{11}$'s canonical noun, and *"halo"* for
+the physics (the physics noun is the **near-field store / added-mass**) are RETIRED by **R50**;
+*"retardation"* is retired by **R49(b)** in favour of **propagation delay / finite propagation
+speed**. Corpus text quoted below is reproduced from the banked audit and is
+**content-verified at HEAD (markup-reduced, not byte-identical)**; it is never reworded.
+
+**Rows carried in this file.**
+
+- **`:20`** — **NOT STAMPED — R39 BYTE-FENCE ROUTED** (the anchor sits inside a Rule-12 preserved body — `:40` declares *"all notes above PRESERVED unedited"* and `:36` *"bullets above PRESERVED unedited"*, so this dated note is itself fenced; this entry IS the routed ledger note and the span is byte-untouched). *(family: electron-interior-label)*  ⚑ **BIAS-DEBT** · ⚑ **PAST-WALL**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  the A1 breather; `mₑc²` = trapped acoustic compression energy
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Prereg-named electron-sector label class: 'trapped acoustic compression energy' names the saturated interior in propagating-wave vocabulary; past-wall is out of the cold-linear carve scope — label-level re-derivation owed, scope declared (:42 repeats it).
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*. **⚑ PAST-WALL:** the content reaches past the saturation wall, a phase Axiom 5 explicitly does **not** write (its phase-structure paragraph puts the $D(A)\to\infty$ wall behaviour past-wall-adjacent and *not written here*, with the de-bonded and pre-freeze phase forms named-open). The demotion is therefore **scoped**: clause G resolves the cold, sub-yield side; the past-wall reading is neither discharged nor adjudicated here.
+
+- **`:26`** — **NOT STAMPED — R39 BYTE-FENCE ROUTED** (the anchor sits inside a Rule-12 preserved body — `:40` declares *"all notes above PRESERVED unedited"* and `:36` *"bullets above PRESERVED unedited"*, so this dated note is itself fenced; this entry IS the routed ledger note and the span is byte-untouched). *(family: P-branch-propagates)*  ⚑ **BIAS-DEBT**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  θ carries a genuine bulk restoring force (½K(∇·u)², K = 2G) on the gapless lattice-computed P-branch ... **∇·u propagates; ∇·A is gauge.**
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Prereg-named: the anti-Heaviside real-scalar point SURVIVES (G-SCALAR-REAL — the sector is real, not gauge), but 'gapless lattice-computed P-branch' + 'propagates' is exactly the phantom; the real-not-independent distinction is the owed re-derivation.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+**Records.** Ruling **R40** (the demotion sweep) · the banked worklist
+[`r40_sweep_worklist_verified.json`](../../../../../research/drivers/r40_sweep_worklist_verified.json) · batch-0
+scope verification and batch-1 execution records in `_orchestration/` · this batch's record
+`_orchestration/2026-08-12_r40-sweep-batch2a.md`.
+

@@ -119,7 +119,7 @@ Three K4-substrate wave speeds live near this result. **Two of them are numerica
 
 | Claim | Sector | Mode | Modulus | Speed | Source operator / origin |
 |---|---|---|---|---|---|
-| **`clm-uu1qbo`** | **A1 / bulk** | dilatational scalar (longitudinal compression) | bulk $K$ ($K = 2G$ magic angle) | $\sqrt{2}\,c_0 = \sqrt{K_{\text{bulk}}/\rho}$ | macroscopic-moduli $K/G = 2$ ratio; the A1 port-mode of `clm-j550uh` |
+| **`clm-uu1qbo`** | **A1 / bulk** | dilatational scalar (longitudinal compression) | bulk $K$ ($K = 2G$ magic angle) | $\sqrt{2}\,c_0 = \sqrt{K_{\text{bulk}}/\rho}$ | macroscopic-moduli $K/G = 2$ ratio; the A1 port-mode of `clm-j550uh` 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]** |
 | **`clm-j550uh`** | **T2 / $\omega$** | transverse **SHEAR** (the photon) | shear $G$ | $c = \sqrt{G/\rho} = 1$ | $W_{\text{cauchy}}$ shear / micropolar; V1 of PR #392 (`c = 1`, rel-err 3.6e-8) |
 | **`clm-kmliqx`** | **T2 / $\omega$** | **CURVATURE / wryness** twist-gradient $\kappa = \nabla\omega$ | curvature $\gamma$ | $\sqrt{2} = \sqrt{2\gamma/I_\omega}$ | no-$\tfrac{1}{2}$ $W_\kappa = \gamma\,\Sigma\kappa^2$ (`cosserat_field_3d.py:704`, copy `:739`); V2 of PR #392 (`√2`, rel-err 2.0e-9) |
 
@@ -156,7 +156,7 @@ The Cosserat $\rho$ and $I_\omega$ set the **mass scale of the rotational sector
 > - **The inversion:** at :145 the photon is the massless-$A_1$ sector; at photon-identification:11 the photon is the $T_2$ sector and $A_1$ is the dissipating (non-photon) sector. This is the corpus-flagged **GAP G2** ("ORCHESTRATOR CHANNEL→DOF MAPPING INVERTED", `_orchestration/2026-06-07_electron-synthesis-epic.md:319`). The Rule-12 note at :147 reads :145 as PROVENANCE-vs-STATE, which explains the *mass*-status ($A_1$ "separately massless" only in the unbroken free-wave phase) but does **not** resolve the *photon-label* inversion (which sector IS the photon). **The physics ruling stays OPEN — surfaced here per flag-don't-fix; not adjudicated. Grant rules whether the photon is the $T_2$ transverse triplet (photon-identification's canonical form) and this line's "massless $A_1$ = the photon" phrasing is the stale/inverted one, or whether both are the same object read on two phases.**
 
 > **✅ G2 RESOLVED (2026-07-03, Grant-adjudicated — the ADJUDICATION-PENDING note above + the line-145 body are PRESERVED unedited per Rule 12; ruling `research/2026-07-03_g2-photon-relabel_note.md`, verified by the Step-1 eigenvector-composition rider).** Grant's ruling (verbatim): *"the photon = the two massless transverse-TRANSLATIONAL branches (u-family); its magnetic content = the EM-inductive circulation of the u-wave (bond-level curl content), NOT the node micro-rotation; the node ω = the GAPPED mechanical Cosserat sector (home of the static winding topology, Yukawa-screened, short-range)."*
-> - **Which side is canonical:** the photon is the **massless transverse-TRANSLATIONAL $u$** family — so **line 145's "$A_1$ (scalar/longitudinal/translational $u$) is massless" had the RIGHT sector-family (translational)**; the *inversion the note flags* is resolved in favor of "photon = translational-$u$", NOT the microrotational-$\omega$ side. The one refinement: the photon is the **transverse** subset of the translational branches (the massless shear pair at $c=\sqrt{G/\rho}$), NOT the $A_1$ *longitudinal* mode (which dissipates via Gauss). So :145's "$A_1$ … translational $u$ … massless … the photon" is **corrected to** "the massless *transverse*-translational $u$ pair is the photon; $A_1$ longitudinal dissipates". The "$T_2$ (microrotational $\omega$) carries the mass-gap" half of :145 is likewise re-read: the **gapped $\omega$ is the mechanical Cosserat sector** (the winding's home), which is consistent — it was never the photon.
+> - **Which side is canonical:** the photon is the **massless transverse-TRANSLATIONAL $u$** family — so **line 145's "$A_1$ (scalar/longitudinal/translational $u$) is massless" had the RIGHT sector-family (translational)**; the *inversion the note flags* is resolved in favor of "photon = translational-$u$", NOT the microrotational-$\omega$ side. The one refinement: the photon is the **transverse** subset of the translational branches (the massless shear pair at $c=\sqrt{G/\rho}$), NOT the $A_1$ *longitudinal* mode (which dissipates via Gauss). So :145's "$A_1$ … translational $u$ … massless … the photon" is **corrected to** "the massless *transverse*-translational $u$ pair is the photon; $A_1$ longitudinal dissipates". The "$T_2$ (microrotational $\omega$) carries the mass-gap" half of :145 is likewise re-read: the **gapped $\omega$ is the mechanical Cosserat sector** (the winding's home), which is consistent — it was never the photon. 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 > - **Decisive numbers (Step-1 rider on the genuine two-sublattice bond operator, `g2_photon_eigvec_composition.json`):** massless transverse branches $u$-DOMINATED ($\omega$-fraction max $=2.5\times10^{-7}$, $u$-fraction $=1.000000$); gapped branches $\omega$-DOMINATED ($1.000000$). The gap VALUE ($m^2=4G_c/I_\omega$, bit-exact V3) is **unchanged** — only the family attribution of "the photon" is settled onto the translational-$u$ sector.
 > - The mirror-site tag at [`vol1/claim-quality.md:1136`](../../claim-quality.md) (`clm-g0mkne`) is likewise marked RESOLVED with this ruling.
 
@@ -226,3 +226,80 @@ deposit is **the bound response**, mechanism gloss **back-reaction**; ε₁₁ i
 renamed **THE BIAS PROPAGATION THEOREM**) · vocabulary **R49(b)** `_orchestration/docket-entries/2026-08-10-rulings-r48-r49.md` (*"retardation"
 is RETIRED from this role. The canonical term is **propagation delay / finite propagation speed*** —
 the retardation retirement is R49(b)'s, NOT R50's; corrected 2026-08-11 at review).
+
+---
+
+## R40 batch-2a — NEEDS-RE-DERIVATION status note (2026-08-11)
+
+**Class:** status demotion under **R40**. This note mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-`,
+**moves no solidity number**, adjudicates no channel and opens no fork. Every byte of each demoted
+claim is preserved; the stamped line gains a status marker only (honesty-lag pattern, Rule 12).
+
+**The arc, in four clauses (R40's header form; clause 4 points at the LANDED artifact, not at a
+ruling record).**
+
+1. **The kill fired** — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the imported `K = 2G` elastic modulus** — the compressible far-field
+   branch was minted by a GR-imported modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the flat-direction finding: the written action
+   conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the LANDED ratified bound-sector law — Axiom 5, Substrate DC Bias**, clauses
+   **S** (deposit), **G** (bias coupling / bridge) and **Q** (quiescence), canonical at
+   [`eq_axiom_5.tex`](../../../../common_equations/eq_axiom_5.tex) with its register entry in
+   [`axiom-register.md`](../../../common/axiom-register.md) (§ *Axiom 5 — Substrate DC Bias*). Under
+   clause **G** the A1 / bulk slot is a **bound response** — $\mathbf{u}_0 =
+   -\mathcal{A}_g\nabla\varepsilon_{11}$, mechanism gloss **back-reaction** — with **no independent
+   propagating branch, no port and zero longitudinal characteristic speed**. A bulk *wave speed*, a
+   bulk *radiative port*, a bulk *band-branch* and a bulk *transit clock* therefore have **no
+   referent**, and each row below owes its re-derivation on that footing.
+   $\mathcal{A}_g$ (the **bias-coupling area**) is an `UNVALUED-RATIFIED-CONSTANT` per **R48**
+   ([`interlock-register.md`](../../../common/interlock-register.md), § *𝒜_g — the bias-coupling
+   area*): it is **not valued here or anywhere**, and **the calibration count stays 3**.
+
+**Standing named-open debt — the honesty rider.** The ratified axiom does **not** discharge
+everything. **THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt**, stated by the
+axiom's own phase-structure paragraph, clause **(c1)**: clause G's elliptic law is the *static
+abstraction of underived finite-speed bias dynamics*, and the $(u,\pi)$ no-signalling theorem does
+**not** cover the bias read — the bias's finite propagation speed is *owed, not held*. Every row
+tagged **⚑ BIAS-DEBT** below re-derives against the ratified axiom **with that debt standing**, never
+against a closed replacement.
+
+**Vocabulary.** Canonical nouns authored here: **the bound response** ($\mathbf{u}_0$), **the bias**
+($\varepsilon_{11}$), the **DC operating point / quiescent point (Q-point)**; **back-reaction** is
+the mechanism gloss. *"dress"*, *"grade"* as $\varepsilon_{11}$'s canonical noun, and *"halo"* for
+the physics (the physics noun is the **near-field store / added-mass**) are RETIRED by **R50**;
+*"retardation"* is retired by **R49(b)** in favour of **propagation delay / finite propagation
+speed**. Corpus text quoted below is reproduced from the banked audit and is
+**content-verified at HEAD (markup-reduced, not byte-identical)**; it is never reworded.
+
+**Rows carried in this file.**
+
+- **`:122`** — stamped at `:122`. *(family: A1-port-speed)*  ⚑ **BIAS-DEBT**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  dilatational scalar (longitudinal compression) | bulk $K$ ($K = 2G$ magic angle) | $\sqrt{2}\,c_0 = \sqrt{K_{\text{bulk}}/\rho}$
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  clm-uu1qbo taxonomy row: the A1 sector/port identity survives as a bound-response object, but the sqrt(2)c0 propagation-speed formula (rho*c-class) consumes the phantom branch; :127 restates it.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+- **`:159`** — stamped at `:159`. *(family: gauss-A1-transduction)*  ⚑ **BIAS-DEBT**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  the $A_1$ *longitudinal* mode (which dissipates via Gauss)
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  The no-longitudinal-far-field ROLE survives (becomes kinematic under the carve), but 'dissipates' presumes an independent propagating A1 excitation that dynamically empties — mechanism owed re-derivation (mirror of the k4-port ruling sites; :145 same family).
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+**Records.** Ruling **R40** (the demotion sweep) · the banked worklist
+[`r40_sweep_worklist_verified.json`](../../../../../research/drivers/r40_sweep_worklist_verified.json) · batch-0
+scope verification and batch-1 execution records in `_orchestration/` · this batch's record
+`_orchestration/2026-08-12_r40-sweep-batch2a.md`.
+

@@ -156,7 +156,7 @@ Each row in §4 carries seven fields.
 
 ### TH-6 — Born long-wave / acoustic Christoffel = the acoustic limit of periodic homogenization
 
-- **Canonical statement.** Expanding a periodic lattice's force-constant (dynamical) matrix about $k=0$ and eliminating the internal (optic / relative-sublattice, and where present micro-rotational) degrees of freedom by a Schur complement yields an effective elastic tensor whose acoustic eigenproblem is $\Gamma_{ij}(\hat q)\,=\,\rho c^2$; the tensor so obtained is the same one periodic homogenization returns in its long-wave limit.
+- **Canonical statement.** Expanding a periodic lattice's force-constant (dynamical) matrix about $k=0$ and eliminating the internal (optic / relative-sublattice, and where present micro-rotational) degrees of freedom by a Schur complement yields an effective elastic tensor whose acoustic eigenproblem is $\Gamma_{ij}(\hat q)\,=\,\rho c^2$; the tensor so obtained is the same one periodic homogenization returns in its long-wave limit. 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 - **Names across disciplines.** *Lattice dynamics:* the **Born (Born–Huang) long-wave method**, with the internal-DOF elimination known as **internal-strain (Kleinman) relaxation**. *Continuum elastodynamics:* the **Christoffel equation** / acoustic tensor. *Homogenization:* the **acoustic ($k\to0$) limit** of the periodic cell problem. *EE / TLM:* the low-frequency limit of the network's own dispersion relation. *Numerics:* static condensation of the interior DOF (an instance of **TH-4**).
 - **Exactness class.** **regime-scoped.** Exactly the same tensor in the $k\to0$ acoustic limit; not the same object away from it.
 - **Ceiling.** Kron-class silence on the network leg — **and a second, sharper one specific to this row:** the tensor extracted is a property of the **shipped bond model**, not of the vacuum. The corpus's own headline numbers off this method ($\nu_{\text{Hill}} = 2/7$, $K = 2G$) are **GR-imported, not lattice-emergent** ([`srs-band-structure.md`](../vol1/operators-and-regimes/ch6-universal-operators/srs-band-structure.md):116: a *"K=2G RE-EXPRESSION (GR-imported, PR #261), **NOT lattice-emergent***"). The method is exact; what it is fed is an import.
@@ -229,7 +229,7 @@ A thesaurus is as much about **names that collide** as about names that agree. E
 | **Hill (1963) apparent-modulus ORDERING** — the theorem (**TH-3**) | `research/2026-07-28_subc-kubc-bracket_prereg-FROZEN.md`:65 (§1.3 *"The pair"* bullet, **`#802`** merged 2026-07-28) · [`translation-tables/translation-circuit.md`](translation-tables/translation-circuit.md):334 (§4.7.2 row **F**, **`#804`** merged 2026-07-30) | The bound proper. *(Carried the unmerged flag at draft time; flipped 2026-08-02.)* |
 | **Hill's lemma** — the macroscopic-stress identification from the load set | `research/2026-07-28_subc-kubc-bracket_prereg-FROZEN.md`:46 (§1.1, **`#802`**) · [`translation-tables/translation-circuit.md`](translation-tables/translation-circuit.md):348 (§4.7.2 object dictionary, **`#804`**) | §5. *(Carried the unmerged flag at draft time; flipped 2026-08-02 — and see §5's fired-trigger note: criterion (c) is now satisfied, re-admission NOT taken here.)* |
 
-> ★**The live hazard, stated plainly:** $\nu_{\text{Hill}} = 2/7$ is **GR-imported** ([`srs-band-structure.md`](../vol1/operators-and-regimes/ch6-universal-operators/srs-band-structure.md):116, PR #261) — a *number fed into* the Born-Huang extraction (TH-6). **The feed-in itself is at :81**, verbatim: the 12-band vector survey runs *"at the canonical bond ratio $\rho^*=9.77337$, **DERIVED from** $\nu_{\text{Hill}}=$`N_NU`$=2/7$"* — cite both lines, since :116's own literal subject is $\sqrt{10/3}$ and it carries the import label, while :81 is where the imported number actually enters the extraction. If a future reading lets "Hill" drift from the **average** to the **bound**, an imported calibration input would acquire the standing of a variational theorem. Nothing in the corpus does this today; the row exists so nothing does it tomorrow.
+> ★**The live hazard, stated plainly:** $\nu_{\text{Hill}} = 2/7$ is **GR-imported** ([`srs-band-structure.md`](../vol1/operators-and-regimes/ch6-universal-operators/srs-band-structure.md):116, PR #261) — a *number fed into* the Born-Huang extraction (TH-6). **The feed-in itself is at :81**, verbatim: the 12-band vector survey runs *"at the canonical bond ratio $\rho^*=9.77337$, **DERIVED from** $\nu_{\text{Hill}}=$`N_NU`$=2/7$"* — cite both lines, since :116's own literal subject is $\sqrt{10/3}$ and it carries the import label, while :81 is where the imported number actually enters the extraction. If a future reading lets "Hill" drift from the **average** to the **bound**, an imported calibration input would acquire the standing of a variational theorem. Nothing in the corpus does this today; the row exists so nothing does it tomorrow. 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 
 ### Dirichlet — three distinct objects
 
@@ -344,4 +344,81 @@ The rows above collide on a **surname**; this one collides on a **glyph**. ★**
 - **Two open items surfaced by this pass, routed not taken:** (i) the **§1 path deviation** (this leaf sits in `common/` rather than `common/translation-tables/`, for the hub-and-spoke reason given) — auditor-lane call; (ii) the **TH-7 precision flag** on [`mass-closure-theorem.md`](../vol2/particle-physics/ch01-topological-matter/mass-closure-theorem.md):54 (*"at every instant"* for a quadrature-phased LC pair) — flagged with both line numbers, **not** edited. ★**BOTH NOW DISCHARGED; text above preserved per Rule 12.** (i) **CLOSED 2026-08-01 by Grant ruling D2** (verbatim [sic]: *"D2: follow rec"*): the leaf **stays in `common/`** and the *carve-out* half landed instead — [`translation-tables/README-architecture.md`](translation-tables/README-architecture.md) §3 now names it a deliberate OUTSIDE-SCOPE sibling (see the §1 resolution stamp). No `git mv`; the subtree's ratified hub-and-spoke rule is unchanged for every actual spoke. (ii) **CLOSED 2026-07-30** — the resolution is recorded in-row at TH-7 and the `:54` parenthetical now reads the peak-amplitude / cycle-average form with the quadrature caveat (verified at HEAD; landed via `#807`).
 
 
+
+
+---
+
+## R40 batch-2a — NEEDS-RE-DERIVATION status note (2026-08-11)
+
+**Class:** status demotion under **R40**. This note mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-`,
+**moves no solidity number**, adjudicates no channel and opens no fork. Every byte of each demoted
+claim is preserved; the stamped line gains a status marker only (honesty-lag pattern, Rule 12).
+
+**The arc, in four clauses (R40's header form; clause 4 points at the LANDED artifact, not at a
+ruling record).**
+
+1. **The kill fired** — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the imported `K = 2G` elastic modulus** — the compressible far-field
+   branch was minted by a GR-imported modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the flat-direction finding: the written action
+   conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the LANDED ratified bound-sector law — Axiom 5, Substrate DC Bias**, clauses
+   **S** (deposit), **G** (bias coupling / bridge) and **Q** (quiescence), canonical at
+   [`eq_axiom_5.tex`](../../common_equations/eq_axiom_5.tex) with its register entry in
+   [`axiom-register.md`](../common/axiom-register.md) (§ *Axiom 5 — Substrate DC Bias*). Under
+   clause **G** the A1 / bulk slot is a **bound response** — $\mathbf{u}_0 =
+   -\mathcal{A}_g\nabla\varepsilon_{11}$, mechanism gloss **back-reaction** — with **no independent
+   propagating branch, no port and zero longitudinal characteristic speed**. A bulk *wave speed*, a
+   bulk *radiative port*, a bulk *band-branch* and a bulk *transit clock* therefore have **no
+   referent**, and each row below owes its re-derivation on that footing.
+   $\mathcal{A}_g$ (the **bias-coupling area**) is an `UNVALUED-RATIFIED-CONSTANT` per **R48**
+   ([`interlock-register.md`](../common/interlock-register.md), § *𝒜_g — the bias-coupling
+   area*): it is **not valued here or anywhere**, and **the calibration count stays 3**.
+
+**Standing named-open debt — the honesty rider.** The ratified axiom does **not** discharge
+everything. **THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt**, stated by the
+axiom's own phase-structure paragraph, clause **(c1)**: clause G's elliptic law is the *static
+abstraction of underived finite-speed bias dynamics*, and the $(u,\pi)$ no-signalling theorem does
+**not** cover the bias read — the bias's finite propagation speed is *owed, not held*. Every row
+tagged **⚑ BIAS-DEBT** below re-derives against the ratified axiom **with that debt standing**, never
+against a closed replacement.
+
+**Vocabulary.** Canonical nouns authored here: **the bound response** ($\mathbf{u}_0$), **the bias**
+($\varepsilon_{11}$), the **DC operating point / quiescent point (Q-point)**; **back-reaction** is
+the mechanism gloss. *"dress"*, *"grade"* as $\varepsilon_{11}$'s canonical noun, and *"halo"* for
+the physics (the physics noun is the **near-field store / added-mass**) are RETIRED by **R50**;
+*"retardation"* is retired by **R49(b)** in favour of **propagation delay / finite propagation
+speed**. Corpus text quoted below is reproduced from the banked audit and is
+**content-verified at HEAD (markup-reduced, not byte-identical)**; it is never reworded.
+
+**Rows carried in this file.**
+
+- **`:159`** — stamped at `:159`. *(family: Christoffel-extraction; banked `uncertain`)*  ⚑ **BIAS-DEBT**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  yields an effective elastic tensor whose acoustic eigenproblem is
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  TH-6 Born/Christoffel method is generic math, but applied to the vacuum its acoustic eigenproblem emits a longitudinal branch the constraint removes — the row's ceiling note needs a carve-scoped fence for vacuum use.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+- **`:232`** — stamped at `:232`. *(family: Christoffel-extraction)*  ⚑ **BIAS-DEBT**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  a *number fed into* the Born-Huang extraction (TH-6)
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Hazard/ledger row recording GR-imported ν_Hill=2/7 feeding the wave extraction whose literal subject at srs-band-structure:116 is √(10/3) — the recorded reading's P-side output is void under the carve, row owes an update.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+**Records.** Ruling **R40** (the demotion sweep) · the banked worklist
+[`r40_sweep_worklist_verified.json`](../../../research/drivers/r40_sweep_worklist_verified.json) · batch-0
+scope verification and batch-1 execution records in `_orchestration/` · this batch's record
+`_orchestration/2026-08-12_r40-sweep-batch2a.md`.
 

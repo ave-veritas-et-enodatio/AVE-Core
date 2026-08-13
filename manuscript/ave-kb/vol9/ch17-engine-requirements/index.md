@@ -27,7 +27,7 @@ The chapter content is **Class B/C synthesis** per `consistency-vs-emergence` v1
 Five requirement rows added from the ground-up engine-acceptance arc (the suite at `src/tests/engine_acceptance/`, wired into the claim-DAG by [`engine-acceptance-suite.md`](engine-acceptance-suite.md)). Each ← a documented engine-failure lesson from THIS arc, citing its canonical home:
 
 - **(11) Chiral / optical-activity rotation must be unitary (copy-first, no NumPy view-aliasing); the losslessness gate must run rotation-ON.** In-place $2\times2$ rotation on NumPy views (`src/ave/core/chiral_lattice_vector.py:49-58`, pre-fix) makes the rotation non-orthogonal → ~O(1) energy drift (Axiom-3 leak); the $\kappa=0$ free-photon gates never hit it, but an energy gate WITH rotation ON (A1b / T1.5) does. Discipline `substrate-native-check`.
-- **(12) The medium must carry the DOF the excitation needs.** The transverse-only carrier (2 DOF) cannot host mass (L3 longitudinal) or charge (L4 micro-rotation) — those need the full 6-DOF Cosserat node. A1a reports `carried_dof==2` vs `axiom_dof==6`; "No single engine carries more than one or two" (`common/engine-capability-map.md:19`). Discipline `ave-representation-capability-check`.
+- **(12) The medium must carry the DOF the excitation needs.** The transverse-only carrier (2 DOF) cannot host mass (L3 longitudinal) or charge (L4 micro-rotation) — those need the full 6-DOF Cosserat node. A1a reports `carried_dof==2` vs `axiom_dof==6`; "No single engine carries more than one or two" (`common/engine-capability-map.md:19`). Discipline `ave-representation-capability-check`. 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 - **(13) The $S$-exponent must be single-sourced — RESOLVED (Grant F1 ruling).** The exponent defect is now **FIXED IN CODE**: `src/ave/core/master_equation_fdtd.py:184-188` (`n_em_index()`) returns $n_{EM}=S^{0.5}$ — the internally-consistent $c_{eff}^2=c_0^2/S$ form (`:148-151`) — with the in-code correction note at `:172-183` ("Legacy magnitude was $S^{1/4}$ … an exponent defect — half the physical power; corrected to ½ here"), mirrored in `src/ave/core/crystal_engine.py:431-432` ("The legacy magnitude was S^{1/4} … Corrected to ½ here"). Resolved by **Grant's F1 ruling** (`research/2026-07-07_electron-lock_design-note.md:316-319`: "the apparent √S-vs-$S^{1/4}$ ambiguity was an already-corrected code defect … resolved by Grant's F1 ruling"; canonical $S^{0.5}$ per `research/2026-06-30_electron-portmap-derivation_result.md:550`). A4 verifies the $c_{eff}^2=c_0^2/S$ form; the old `:165-169` line-anchors have drifted. Discipline `ave-canonical-source`.
 - **(13a) The KB symbol $n_{eff}$ is OVERLOADED (√S EM vs 1/√S gravitational) — LIVE (KB-owner decision).** Distinct from the closed exponent defect above: the engine itself surfaces, and declines to silently reconcile, that $n_{eff}$ denotes $\sqrt{S}$ EM-transverse ($\delta n_{iso}=\sqrt{S}-1$ content at `vacuum-birefringence-e4.md:108-110`) but $1/\sqrt{S}$ gravitational (the $n_{eff}=c_0/c_{eff}=1/\sqrt{S}$ row at `substrate-perspective-electron.md:60`) — flagged in code at `master_equation_fdtd.py:178-180` + `crystal_engine.py:433-435`. ⚠ **The SOURCE comments at `master_equation_fdtd.py:178-179` carry STALE anchors** (`vacuum-birefringence-e4.md:12` / `substrate-perspective-electron.md:58`) — flag-only; the engine module stays untouched in this PR. **flag-don't-fix:** a KB-owner symbol decision; the code names the overload and picks no symbol. Discipline `ave-canonical-source`.
 - **(14) Achromatic deflection ($\Gamma=0$) under a SYM bias must reproduce.** A co-scaled $\varepsilon\cdot\mu$ gradient keeps $Z=Z_0$ ($\Gamma\to0$) and bends light frequency-INDEPENDENTLY — the AVE-distinct gravitational-lensing mechanism (T2.2; `clm-k9up5c` "Achromatic Impedance Lens"). The deflection MAGNITUDE rides the input $A_0(x)$ — chord-vs-echo of the magnitude left OPEN, not headlined. Discipline `ave-discrimination-check`.
@@ -46,3 +46,68 @@ Three requirement rows added from the RUNG-1 EXISTENCE arc (T3.3/T3.4 of `src/te
 `manuscript/vol_9_vacuum_datasheet/chapters/17_engine_requirements.tex` (canonical Vol 9 chapter file)
 
 ---
+
+---
+
+## R40 batch-2a — NEEDS-RE-DERIVATION status note (2026-08-11)
+
+**Class:** status demotion under **R40**. This note mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-`,
+**moves no solidity number**, adjudicates no channel and opens no fork. Every byte of each demoted
+claim is preserved; the stamped line gains a status marker only (honesty-lag pattern, Rule 12).
+
+**The arc, in four clauses (R40's header form; clause 4 points at the LANDED artifact, not at a
+ruling record).**
+
+1. **The kill fired** — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the imported `K = 2G` elastic modulus** — the compressible far-field
+   branch was minted by a GR-imported modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the flat-direction finding: the written action
+   conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the LANDED ratified bound-sector law — Axiom 5, Substrate DC Bias**, clauses
+   **S** (deposit), **G** (bias coupling / bridge) and **Q** (quiescence), canonical at
+   [`eq_axiom_5.tex`](../../../common_equations/eq_axiom_5.tex) with its register entry in
+   [`axiom-register.md`](../../common/axiom-register.md) (§ *Axiom 5 — Substrate DC Bias*). Under
+   clause **G** the A1 / bulk slot is a **bound response** — $\mathbf{u}_0 =
+   -\mathcal{A}_g\nabla\varepsilon_{11}$, mechanism gloss **back-reaction** — with **no independent
+   propagating branch, no port and zero longitudinal characteristic speed**. A bulk *wave speed*, a
+   bulk *radiative port*, a bulk *band-branch* and a bulk *transit clock* therefore have **no
+   referent**, and each row below owes its re-derivation on that footing.
+   $\mathcal{A}_g$ (the **bias-coupling area**) is an `UNVALUED-RATIFIED-CONSTANT` per **R48**
+   ([`interlock-register.md`](../../common/interlock-register.md), § *𝒜_g — the bias-coupling
+   area*): it is **not valued here or anywhere**, and **the calibration count stays 3**.
+
+**Standing named-open debt — the honesty rider.** The ratified axiom does **not** discharge
+everything. **THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt**, stated by the
+axiom's own phase-structure paragraph, clause **(c1)**: clause G's elliptic law is the *static
+abstraction of underived finite-speed bias dynamics*, and the $(u,\pi)$ no-signalling theorem does
+**not** cover the bias read — the bias's finite propagation speed is *owed, not held*. Every row
+tagged **⚑ BIAS-DEBT** below re-derives against the ratified axiom **with that debt standing**, never
+against a closed replacement.
+
+**Vocabulary.** Canonical nouns authored here: **the bound response** ($\mathbf{u}_0$), **the bias**
+($\varepsilon_{11}$), the **DC operating point / quiescent point (Q-point)**; **back-reaction** is
+the mechanism gloss. *"dress"*, *"grade"* as $\varepsilon_{11}$'s canonical noun, and *"halo"* for
+the physics (the physics noun is the **near-field store / added-mass**) are RETIRED by **R50**;
+*"retardation"* is retired by **R49(b)** in favour of **propagation delay / finite propagation
+speed**. Corpus text quoted below is reproduced from the banked audit and is
+**content-verified at HEAD (markup-reduced, not byte-identical)**; it is never reworded.
+
+**Rows carried in this file.**
+
+- **`:30`** — stamped at `:30`. *(family: engine DOF requirement)*
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  The transverse-only carrier (2 DOF) cannot host mass (L3 longitudinal) or charge (L4 micro-rotation) — those need the full 6-DOF Cosserat node.
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Requirement 12 states mass-hosting needs the engine to CARRY the longitudinal DOF; under the carve there is no independent bulk DOF — the requirement re-derives as constraint/projection machinery + A1 accounting, not an evolved DOF.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave.
+
+**Records.** Ruling **R40** (the demotion sweep) · the banked worklist
+[`r40_sweep_worklist_verified.json`](../../../../research/drivers/r40_sweep_worklist_verified.json) · batch-0
+scope verification and batch-1 execution records in `_orchestration/` · this batch's record
+`_orchestration/2026-08-12_r40-sweep-batch2a.md`.
+

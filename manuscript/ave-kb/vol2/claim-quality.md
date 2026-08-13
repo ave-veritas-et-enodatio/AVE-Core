@@ -159,7 +159,7 @@
 
 - _Specific Claims_
   - AVE identifies the Standard Model VEV $v = 246$ GeV with the **characteristic impedance of free space** $Z_0 = \sqrt{\mu_0/\varepsilon_0} \approx 376.73\,\Omega$. Inertial mass is reinterpreted as Lenz's-law induction drag against this baseline impedance.
-  - The empirical $125$ GeV LHC resonance is interpreted as a **transient acoustic relaxation mode** of the LC network, not a fundamental scalar field excitation.
+  - The empirical $125$ GeV LHC resonance is interpreted as a **transient acoustic relaxation mode** of the LC network, not a fundamental scalar field excitation. 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
   - $m_H/v = 1/\sqrt{N_{K4}}$ with $N_{K4} = 4$ (K4 cell breathing), consistent with Master Prediction Table #25 ($-0.55\%$).
 - _Specific Non-Claims and Caveats_
   - This is an **ontological reinterpretation**: the same numerical $v = 246$ GeV underlies all SM electroweak predictions. AVE does not produce a Higgs-free Standard Model with different observable predictions at the EW scale.
@@ -839,7 +839,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - The time-independent Schrödinger equation is algebraically identical to the Helmholtz acoustic-cavity equation with a spatially varying sound speed $c_{eff}(r) = \omega/k(r)$. Under AVE, $\Psi$ is reinterpreted as the spatial amplitude of the LC pressure field rather than a probability amplitude. Classically forbidden regions ($E < V(r)$) correspond to imaginary acoustic impedance and evanescent decay; orbital boundaries are physical impedance discontinuities.
   - The Bohr radius is recovered as $a_0 = \ell_{node}/\alpha = \hbar/(m_e c\,\alpha) = 137\,\ell_{node}$ — the cavity size at which the de Broglie standing-wave condition $2\pi r = n\lambda$ is satisfied for the LC phase-locking of the unknot's inductive angular momentum against the proton's static impedance gradient.
   - Hydrogen energy levels $E_n = -m_e c^2 \alpha^2/(2n^2)$ are recovered exactly (sub-1 ppm vs CODATA), with the formula carrying the ontological reinterpretation rather than numerical novelty.
-  - The matter-wave / acoustic-cavity distinction is sharp: the electron interacts with the vacuum's **bulk modulus** (longitudinal acoustic), not its shear modulus (transverse EM). Atomic orbitals are bulk-modulus acoustic resonances of the LC mesh.
+  - The matter-wave / acoustic-cavity distinction is sharp: the electron interacts with the vacuum's **bulk modulus** (longitudinal acoustic), not its shear modulus (transverse EM). Atomic orbitals are bulk-modulus acoustic resonances of the LC mesh. 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
   - Falsification proposal: a topological-matter-interferometry (Mach-Zehnder electron interferometer) parallax test predicts a deterministic differential phase shift $\Delta\Phi$ from the local gravitational impedance gradient ($n_s = 1 + (9/7)\varepsilon_{11}$, $n_t = 1 + (2/7)\varepsilon_{11}$).
 - _Specific Non-Claims and Caveats_
   - This is a **category (i) ontological reinterpretation**. At the formula level, AVE recovers the standard Bohr/Schrödinger spectrum exactly; observable predictions for hydrogen are unchanged. The novelty is the bulk-modulus acoustic-cavity ontology, not new numerics.
@@ -1030,7 +1030,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 - Poisson-Disk hard-sphere genesis (exclusion radius $r_{min} = \ell_{node}$) achieves $p_c \approx 0.17$–$0.18$ vs Cauchy-implosion $0.31$. Chiral LC Over-Bracing (interaction radius $C_{ratio} \approx 1.187\,\ell_{node}$, spanning to next-nearest-neighbours) drives $K \to 2G$ trace-reversed elastic state.
 - _Specific Claims_
   - **Genesis Algorithm.** Unconstrained-random-noise lattice generation produces a Cauchy-Cauchy-elastic packing fraction $\approx 0.31$, which is unstable. Poisson-Disk hard-sphere sampling with exclusion radius $r_{min} = \ell_{node}$ converges to packing fraction $\approx 0.17$–$0.18$, matching the QED-derived $p_c \approx 0.1834$. This is a **constructive** match of computational genesis to the analytical bound.
-  - **Chiral LC Over-Bracing.** Standard nearest-neighbour Delaunay triangulation generates Cauchy-elastic stiffness ($K = -4G/3$) which is thermodynamically unstable; the simulation must be bridged to the trace-reversed AVE ground state ($K = 2G$) by Chiral LC Over-Bracing — extending interaction edges to next-nearest-neighbours at radius $C_{ratio} = (p_{cauchy}/p_c)^{1/3} \approx 1.187\,\ell_{node}$. This generates the $G_{vac}/3$ ambient transverse couple-stress required by micropolar elasticity.
+  - **Chiral LC Over-Bracing.** Standard nearest-neighbour Delaunay triangulation generates Cauchy-elastic stiffness ($K = -4G/3$) which is thermodynamically unstable; the simulation must be bridged to the trace-reversed AVE ground state ($K = 2G$) by Chiral LC Over-Bracing — extending interaction edges to next-nearest-neighbours at radius $C_{ratio} = (p_{cauchy}/p_c)^{1/3} \approx 1.187\,\ell_{node}$. This generates the $G_{vac}/3$ ambient transverse couple-stress required by micropolar elasticity. 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
   - **Symplectic Discrete Kirchhoff Updates.** Capacitive node updates $\Delta V_i = (dt/C)(\sum I_{in} - \sum I_{out})$ and inductive edge updates $\Delta I_e = (dt/L)(V_{start} - V_{end})$ implement the engine's Symplectic Euler integration loop while preserving energy conservation and charge conservation across the 3D computational boundaries.
 - _Specific Non-Claims and Caveats_
   - The Poisson-Disk-to-$p_c$ match is asserted as a **simulation/analytical agreement**, not as a derivation of $p_c$ from genesis dynamics. The QED-derived $p_c \approx 0.1834$ is the analytic constraint; the simulation reproduces it given the right exclusion radius. The two arguments are mutually consistent rather than independently derived.
@@ -1156,7 +1156,7 @@ AVE-native canonical identification of the electron as a self-trapped photon —
   - g-2 closure is partial, pending K4-Cosserat numerical confirmation.
   - 🔴 **Rule-12 scope-note (2026-06-21, workflow wwpskpweb):** distinguish two separate items the prior wording conflated. (i) The **leading $g = 2$** value is **POSITED** (the imported Dirac value), NOT axiom-derived — the $2\pi$/$4\pi$ double-cover forces **spin-½** — STRUCTURE only; the SELECTION is posited/import ($\pi_1 = \mathbb{Z}_2$ admits both), PEER-WITH-SM ([SPIN-HALF-POSITED], clm-rkisb8) — not the $\mu/S$ ratio (proton $g_p \approx 5.586$ / neutron $g_n \approx -3.826$ are also spin-½ with the same double-cover yet $g \neq 2$). (ii) The separate **anomalous** part $a_e = g{-}2$ Petermann coefficient is the partial-closure / $n_q$-additivity item (Q-G27 thread). The "6/8 observables axiom-derived" tally above counted the leading $g = 2$ as derived; the corrected tally is **5/8 axiom-derived** (spin-½ stays derived; leading $g = 2$ → posited) per [`electron-identification.md`](./particle-physics/ch01-topological-matter/electron-identification.md) §2 honest-scoping summary.
   - Flagged corpus citation issue (sm-translation-toolchain.md:22 "longitudinal wave" vs canonical transverse).
-  - **Transverse-precursor framing = disclosed precursor picture; precursor-vs-end-state sub-fork stays OPEN (do not silently resolve).** This entry's "self-trapped photon / same K4 transverse-Cosserat-microrotation wave above yield" identification (heading + Specific Claim 1) is the **transverse trapped-standing-wave** picture. Per the `clm-i4p11y` COEXIST flag (vol1, 2026-06-10 Grant adjudication), that trapped transverse standing wave is the **photon precursor**, while a separate genesis-arc line finds the electron **end-state** = the **longitudinal bulk** mode; Grant ruled these **COEXIST** (two phases — build the end-state separately), NOT a contradiction. **The task-27 D3 ruling (core/far-field COEXIST-with-justification) did NOT resolve this precursor-vs-end-state sub-fork** — it stays OPEN (the graft-v3/v4 end-state build is Outcome LOCK-FAIL to date). Read the transverse-wave identification here as the disclosed precursor picture, not as a closed end-state claim. See vol1 `clm-i4p11y`.
+  - **Transverse-precursor framing = disclosed precursor picture; precursor-vs-end-state sub-fork stays OPEN (do not silently resolve).** This entry's "self-trapped photon / same K4 transverse-Cosserat-microrotation wave above yield" identification (heading + Specific Claim 1) is the **transverse trapped-standing-wave** picture. Per the `clm-i4p11y` COEXIST flag (vol1, 2026-06-10 Grant adjudication), that trapped transverse standing wave is the **photon precursor**, while a separate genesis-arc line finds the electron **end-state** = the **longitudinal bulk** mode; Grant ruled these **COEXIST** (two phases — build the end-state separately), NOT a contradiction. **The task-27 D3 ruling (core/far-field COEXIST-with-justification) did NOT resolve this precursor-vs-end-state sub-fork** — it stays OPEN (the graft-v3/v4 end-state build is Outcome LOCK-FAIL to date). Read the transverse-wave identification here as the disclosed precursor picture, not as a closed end-state claim. See vol1 `clm-i4p11y`. 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 
 > **Leaf references:** [electron-identification](./particle-physics/ch01-topological-matter/electron-identification.md).
 
@@ -1657,3 +1657,116 @@ The FORM-DERIVED half of GR-QED Stage-2 (2026-06-29): the discrete lattice pitch
   - **Price the term on the engine as a READOUT, not a relaxation** — `cosserat_field_3d.py`'s `gamma kappa · kappa` (`:713`) on a **topologically-imposed** $(2,3)$, calibrated off natural units onto both $\gamma_c$ readings. Canon has already closed basin-trapping negative for this object ([`electron-identification.md`](./particle-physics/ch01-topological-matter/electron-identification.md):64), so a gradient-descent driver would re-run a closed negative.
 
 ---
+
+---
+
+## R40 batch-2a — NEEDS-RE-DERIVATION status note (2026-08-11)
+
+**Class:** status demotion under **R40**. This note mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-`,
+**moves no solidity number**, adjudicates no channel and opens no fork. Every byte of each demoted
+claim is preserved; the stamped line gains a status marker only (honesty-lag pattern, Rule 12).
+
+**The arc, in four clauses (R40's header form; clause 4 points at the LANDED artifact, not at a
+ruling record).**
+
+1. **The kill fired** — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the imported `K = 2G` elastic modulus** — the compressible far-field
+   branch was minted by a GR-imported modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the flat-direction finding: the written action
+   conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the LANDED ratified bound-sector law — Axiom 5, Substrate DC Bias**, clauses
+   **S** (deposit), **G** (bias coupling / bridge) and **Q** (quiescence), canonical at
+   [`eq_axiom_5.tex`](../../common_equations/eq_axiom_5.tex) with its register entry in
+   [`axiom-register.md`](../common/axiom-register.md) (§ *Axiom 5 — Substrate DC Bias*). Under
+   clause **G** the A1 / bulk slot is a **bound response** — $\mathbf{u}_0 =
+   -\mathcal{A}_g\nabla\varepsilon_{11}$, mechanism gloss **back-reaction** — with **no independent
+   propagating branch, no port and zero longitudinal characteristic speed**. A bulk *wave speed*, a
+   bulk *radiative port*, a bulk *band-branch* and a bulk *transit clock* therefore have **no
+   referent**, and each row below owes its re-derivation on that footing.
+   $\mathcal{A}_g$ (the **bias-coupling area**) is an `UNVALUED-RATIFIED-CONSTANT` per **R48**
+   ([`interlock-register.md`](../common/interlock-register.md), § *𝒜_g — the bias-coupling
+   area*): it is **not valued here or anywhere**, and **the calibration count stays 3**.
+
+**Standing named-open debt — the honesty rider.** The ratified axiom does **not** discharge
+everything. **THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt**, stated by the
+axiom's own phase-structure paragraph, clause **(c1)**: clause G's elliptic law is the *static
+abstraction of underived finite-speed bias dynamics*, and the $(u,\pi)$ no-signalling theorem does
+**not** cover the bias read — the bias's finite propagation speed is *owed, not held*. Every row
+tagged **⚑ BIAS-DEBT** below re-derives against the ratified axiom **with that debt standing**, never
+against a closed replacement.
+
+**Vocabulary.** Canonical nouns authored here: **the bound response** ($\mathbf{u}_0$), **the bias**
+($\varepsilon_{11}$), the **DC operating point / quiescent point (Q-point)**; **back-reaction** is
+the mechanism gloss. *"dress"*, *"grade"* as $\varepsilon_{11}$'s canonical noun, and *"halo"* for
+the physics (the physics noun is the **near-field store / added-mass**) are RETIRED by **R50**;
+*"retardation"* is retired by **R49(b)** in favour of **propagation delay / finite propagation
+speed**. Corpus text quoted below is reproduced from the banked audit and is
+**content-verified at HEAD (markup-reduced, not byte-identical)**; it is never reworded.
+
+**Rows carried in this file.**
+
+- **`:162`** — stamped at `:162`. *(family: acoustic-Higgs/breathing-mode)*
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  The empirical $125$ GeV LHC resonance is interpreted as a **transient acoustic relaxation mode** of the LC network
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Register row (clm-p7rfkb) recording a bound bulk-oscillation mechanism — the :163 K4-cell BREATHING mode is a dilatational eigenmode requiring the A1 restoring force; the resonance-exists content survives, the acoustic-relaxation mechanism owes re-derivation (register/ledger-row class).
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave.
+
+- **`:842`** — stamped at `:842`. *(family: bulk-acoustic matter-wave)*  ⚑ **BIAS-DEBT**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  the electron interacts with the vacuum's **bulk modulus** (longitudinal acoustic), not its shear modulus (transverse EM). Atomic orbitals are bulk-modulus acoustic resonances of the LC mesh.
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Register row (clm-qde5gn) recording the de-broglie bulk-acoustic ontology; its own strengthen-by (:864) already tags the bulk-modulus amplitude as asserted-not-derived. Register/ledger-row class — re-derivation routed with the leaf.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+- **`:1033`** — stamped at `:1033`. *(family: K-backed stability)*
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  Standard nearest-neighbour Delaunay triangulation generates Cauchy-elastic stiffness ($K = -4G/3$) which is thermodynamically unstable; the simulation must be bridged to the trace-reversed AVE ground state ($K = 2G$)
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Register row (clm-pf84ng) of the over-bracing stability argument — K as dynamical reservoir governing implosion; same family as graph-architecture.md:34, register-row half.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave.
+
+- **`:1061`** — **NOT STAMPED — R39 BYTE-FENCE ROUTED** (the anchor sits inside a Rule-12 preserved body; this entry IS the routed ledger note and the span is byte-untouched). *(family: K-backed stability)*
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  Standard Cauchy elasticity ($K = (5/3)G$) applied to the Delaunay-triangulated AVE substrate causes unbounded contraction within the first calculation frame
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Register row (clm-o3q9ul) of the micropolar-stability K-backed argument; the :1062 honesty tag (K=2G stays GR-imported, kappa_rot a spectator) SURVIVES as provenance receipt — only the stability mechanism consumes the phantom.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave.
+
+- **`:1159`** — stamped at `:1159`. *(family: electron end-state bulk-mode fork; banked `uncertain`)*  ⚑ **PAST-WALL**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  a separate genesis-arc line finds the electron **end-state** = the **longitudinal bulk** mode; Grant ruled these **COEXIST** (two phases — build the end-state separately)
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Ledger row keeping an OPEN fork whose end-state arm is a bound longitudinal-bulk MODE — no independent channel to live on under the carve; electron interior is past-wall so the cold-linear carve does not adjudicate the saturated phase — uncertain on scope routing, included per err-toward-inclusion.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ PAST-WALL:** the content reaches past the saturation wall, a phase Axiom 5 explicitly does **not** write (its phase-structure paragraph puts the $D(A)\to\infty$ wall behaviour past-wall-adjacent and *not written here*, with the de-bonded and pre-freeze phase forms named-open). The demotion is therefore **scoped**: clause G resolves the cold, sub-yield side; the past-wall reading is neither discharged nor adjudicated here.
+
+**Records.** Ruling **R40** (the demotion sweep) · the banked worklist
+[`r40_sweep_worklist_verified.json`](../../../research/drivers/r40_sweep_worklist_verified.json) · batch-0
+scope verification and batch-1 execution records in `_orchestration/` · this batch's record
+`_orchestration/2026-08-12_r40-sweep-batch2a.md`.
+

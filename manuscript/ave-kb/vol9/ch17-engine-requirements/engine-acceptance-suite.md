@@ -116,7 +116,7 @@ positive claim to strengthen — tracked by test-id in the plan §9, not wired h
 - **A1a** (6-DOF/node + srs connectivity) — a STRUCTURE check whose load-bearing output
   is the HONEST DOF-capability FINDING (`carried_dof == 2` vs `axiom_dof == 6`); it
   records a gap, it does not strengthen a positive claim.
-- **T1.7** (longitudinal-bulk wave) and **T1.8** (Cosserat micro-rotation wave) —
+- **T1.7** (longitudinal-bulk wave) and **T1.8** (Cosserat micro-rotation wave) — 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
   STOP-and-report MEDIUM-EXTENSION FINDINGS (the mode is NOT carried). A finding that a
   mode is absent records the precise L3/L4 medium-extension gap; it does not strengthen
   the precursor's derivation. Wiring a `sup-` to a precursor from an absence-finding
@@ -174,7 +174,7 @@ never read charge/spin/μ off the scalar cage). The companion property×bucket s
 - **T3.1 → sup-3kq9w7 → clm-crbl60** [CHORD — AVE-distinct existence vs QED — 🔴 TAG DEMOTED 2026-08-11 per R42 → engine-artifact-pending-constitutive-law]. A
   propagating longitudinal-BULK (A1 dilatation) compression mode IS REAL on the extended
   medium — it is the Heaviside-Gibbs-EXCISED scalar grade (def-9a4f07) that QED
-  gauge-DELETES (Gupta-Bleuler leaves 2 transverse on-shell), and AVE KEEPS as a physical
+  gauge-DELETES (Gupta-Bleuler leaves 2 transverse on-shell), and AVE KEEPS as a physical 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
   acoustic branch. Measured (not asserted): the launched compression PROPAGATES (one-way
   pulse-peak speed > 0.3·c₀ on the PML-excluded interior), has a RISING acoustic dispersion
   ω(k) (dω/dk > 0), and runs at the K=2G dilatation speed `c_bulk = √(2G/ρ) = √2·c₀`
@@ -187,7 +187,7 @@ never read charge/spin/μ off the scalar cage). The companion property×bucket s
   the empirical confirmation of that bulk-modulus → bulk-speed cross-check, α-FREE). The
   "chord" tag is AVE-DISTINCT EXISTENCE (the QED-counterfactual), NOT a forced-number chord.
 - **T3.2 → sup-mz4t0p → clm-gz7ryg** [Axiom-4 MANIFESTATION / consistency]. The
-  longitudinal-bulk effective speed STIFFENS, `c_eff(V) = c₀·S^(−1/2) → ∞` as A → A_yield
+  longitudinal-bulk effective speed STIFFENS, `c_eff(V) = c₀·S^(−1/2) → ∞` as A → A_yield 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
   (S → 0), driven by the canonical Axiom-4 kernel `S(A) = √(1−A²)` read DIRECTLY from the
   engine's authoritative `c_eff_squared` (`master_equation_fdtd.py:148-151`, the
   #278-corrected ½-power form). Measured across the sweep A ∈ {0…0.99}: cold limit
@@ -299,3 +299,92 @@ deposit is **the bound response**, mechanism gloss **back-reaction**; ε₁₁ i
 renamed **THE BIAS PROPAGATION THEOREM**) · vocabulary **R49(b)** `_orchestration/docket-entries/2026-08-10-rulings-r48-r49.md` (*"retardation"
 is RETIRED from this role. The canonical term is **propagation delay / finite propagation speed*** —
 the retardation retirement is R49(b)'s, NOT R50's; corrected 2026-08-11 at review).
+
+---
+
+## R40 batch-2a — NEEDS-RE-DERIVATION status note (2026-08-11)
+
+**Class:** status demotion under **R40**. This note mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-`,
+**moves no solidity number**, adjudicates no channel and opens no fork. Every byte of each demoted
+claim is preserved; the stamped line gains a status marker only (honesty-lag pattern, Rule 12).
+
+**The arc, in four clauses (R40's header form; clause 4 points at the LANDED artifact, not at a
+ruling record).**
+
+1. **The kill fired** — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the imported `K = 2G` elastic modulus** — the compressible far-field
+   branch was minted by a GR-imported modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the flat-direction finding: the written action
+   conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the LANDED ratified bound-sector law — Axiom 5, Substrate DC Bias**, clauses
+   **S** (deposit), **G** (bias coupling / bridge) and **Q** (quiescence), canonical at
+   [`eq_axiom_5.tex`](../../../common_equations/eq_axiom_5.tex) with its register entry in
+   [`axiom-register.md`](../../common/axiom-register.md) (§ *Axiom 5 — Substrate DC Bias*). Under
+   clause **G** the A1 / bulk slot is a **bound response** — $\mathbf{u}_0 =
+   -\mathcal{A}_g\nabla\varepsilon_{11}$, mechanism gloss **back-reaction** — with **no independent
+   propagating branch, no port and zero longitudinal characteristic speed**. A bulk *wave speed*, a
+   bulk *radiative port*, a bulk *band-branch* and a bulk *transit clock* therefore have **no
+   referent**, and each row below owes its re-derivation on that footing.
+   $\mathcal{A}_g$ (the **bias-coupling area**) is an `UNVALUED-RATIFIED-CONSTANT` per **R48**
+   ([`interlock-register.md`](../../common/interlock-register.md), § *𝒜_g — the bias-coupling
+   area*): it is **not valued here or anywhere**, and **the calibration count stays 3**.
+
+**Standing named-open debt — the honesty rider.** The ratified axiom does **not** discharge
+everything. **THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt**, stated by the
+axiom's own phase-structure paragraph, clause **(c1)**: clause G's elliptic law is the *static
+abstraction of underived finite-speed bias dynamics*, and the $(u,\pi)$ no-signalling theorem does
+**not** cover the bias read — the bias's finite propagation speed is *owed, not held*. Every row
+tagged **⚑ BIAS-DEBT** below re-derives against the ratified axiom **with that debt standing**, never
+against a closed replacement.
+
+**Vocabulary.** Canonical nouns authored here: **the bound response** ($\mathbf{u}_0$), **the bias**
+($\varepsilon_{11}$), the **DC operating point / quiescent point (Q-point)**; **back-reaction** is
+the mechanism gloss. *"dress"*, *"grade"* as $\varepsilon_{11}$'s canonical noun, and *"halo"* for
+the physics (the physics noun is the **near-field store / added-mass**) are RETIRED by **R50**;
+*"retardation"* is retired by **R49(b)** in favour of **propagation delay / finite propagation
+speed**. Corpus text quoted below is reproduced from the banked audit and is
+**content-verified at HEAD (markup-reduced, not byte-identical)**; it is never reworded.
+
+**Rows carried in this file.**
+
+- **`:119`** — stamped at `:119`. *(family: L3 gap finding)*  ⚑ **BIAS-DEBT**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  T1.7 (longitudinal-bulk wave) and T1.8 (Cosserat micro-rotation wave) — STOP-and-report MEDIUM-EXTENSION FINDINGS (the mode is NOT carried).
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Same as ch5:50 — the T1.7 absence is correct-by-constraint under the carve; the medium-extension-gap framing consumes the phantom and needs re-labeling.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+- **`:177`** — stamped at `:177`. *(family: anti-Heaviside scalar duty)*  ⚑ **BIAS-DEBT**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  QED gauge-DELETES (Gupta-Bleuler leaves 2 transverse on-shell), and AVE KEEPS as a physical acoustic branch
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  The anti-Heaviside half survives (physical-and-bound ≠ deleted, G-SCALAR-REAL) but 'as a physical acoustic BRANCH' consumes the phantom — the scalar's reality must re-derive as bound response, mirroring the prereg's the-abandoned-interior ruling (real sector ≠ independent DOF).
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+- **`:190`** — stamped at `:190`. *(family: c_eff bulk speed law)*  ⚑ **BIAS-DEBT**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  longitudinal-bulk effective speed STIFFENS, c_eff(V) = c₀·S^(−1/2) → ∞ as A → A_yield
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Surviving content is the Axiom-4 kernel in the A1 compliance (the same passage's 'the bond stiffens C_eff=C₀/S→∞ at yield'); the SPEED expression treats the bulk sector as a wave with a stiffening propagation speed — re-derive on the compliance footing.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+**Records.** Ruling **R40** (the demotion sweep) · the banked worklist
+[`r40_sweep_worklist_verified.json`](../../../../research/drivers/r40_sweep_worklist_verified.json) · batch-0
+scope verification and batch-1 execution records in `_orchestration/` · this batch's record
+`_orchestration/2026-08-12_r40-sweep-batch2a.md`.
+

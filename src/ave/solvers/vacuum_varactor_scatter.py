@@ -69,7 +69,7 @@ SUBSTRATE-NATIVE-CHECK (walked BEFORE any numerical code, operating principle 1)
   * Cosserat     : the varactor reads the A1 DILATATION saturation S(A) (bulk /
                    longitudinal sector). The (2,3) WINDING (charge-3) is NOT wired
                    in -- A1 ⊥ T2 honoured (master-equation.md:20).
-  * phase vs real: the scatter lives in n-PORT amplitude space = the (V_inc,V_ref)
+  * phase vs real: the scatter lives in n-PORT amplitude space = the (V_inc,V_ref)  [DEMOTED 2026-08-11 - R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]
                    phasor coordinates, the MATCHING coordinates for the impedance.
                    S enters as a dimensionless per-bond admittance weight, NOT a
                    real-space Cartesian field compared against phi^2.
@@ -502,3 +502,64 @@ if __name__ == "__main__":
     if result["status"] == "HALT":
         for r in result["halt_reasons"]:
             print(f"  HALT: {r}")
+# --------------------------------------------------------------------------
+# R40 batch-2a --- NEEDS-RE-DERIVATION status note (2026-08-11)
+# --------------------------------------------------------------------------
+# CLASS: status demotion under R40. Mints no clm-/def-/exp-/sup-/ilk-, moves no solidity number,
+# adjudicates no channel and opens no fork. Every byte of each demoted claim is preserved; the
+# stamped line gains a status marker only.
+#
+# THE ARC, IN FOUR CLAUSES (R40's header form; clause 4 points at the LANDED artifact, not at a
+# ruling record). (1) The kill fired --- the walk-back that closed the bulk radiative-port
+# reading. (2) The premise localized to the imported K = 2G elastic modulus: the compressible
+# far-field branch was minted by a GR-imported modulus, not forced by the axioms. (3) The axioms
+# underdetermine the bulk sector --- the flat-direction finding: the written action conserves the
+# Gauss function pointwise and never fixes its value. (4) THE REPLACEMENT IS THE LANDED RATIFIED
+# BOUND-SECTOR LAW --- AXIOM 5, SUBSTRATE DC BIAS, clauses S (deposit), G (bias coupling / bridge)
+# and Q (quiescence), canonical at manuscript/common_equations/eq_axiom_5.tex with its register
+# entry in manuscript/ave-kb/common/axiom-register.md. Under clause G the A1 / bulk slot is a
+# BOUND RESPONSE --- u_0 = -A_g grad(eps_11), mechanism gloss BACK-REACTION --- with no
+# independent propagating branch, no port and zero longitudinal characteristic speed. A bulk wave
+# speed, a bulk radiative port, a bulk band-branch and a bulk transit clock therefore have no
+# referent. A_g (the bias-coupling area) is an UNVALUED-RATIFIED-CONSTANT per R48
+# (manuscript/ave-kb/common/interlock-register.md): it is not valued here or anywhere, and THE
+# CALIBRATION COUNT STAYS 3.
+#
+# STANDING NAMED-OPEN DEBT (the honesty rider). The ratified axiom does NOT discharge everything.
+# THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt, stated by the axiom's own
+# phase-structure paragraph, clause (c1): clause G's elliptic law is the static abstraction of
+# underived finite-speed bias dynamics, and the (u,pi) no-signalling theorem does NOT cover the
+# bias read --- the bias's finite propagation speed is owed, not held. Every row tagged BIAS-DEBT
+# below re-derives against the ratified axiom WITH THAT DEBT STANDING, never against a closed
+# replacement.
+#
+# VOCABULARY. Canonical nouns authored here: the bound response (u_0), the bias (eps_11), the DC
+# operating point / quiescent point (Q-point); back-reaction is the mechanism gloss. 'dress',
+# 'grade' as eps_11's canonical noun, and 'halo' for the physics (the physics noun is the
+# near-field store / added-mass) are RETIRED by R50; 'retardation' is retired by R49(b) in favour
+# of propagation delay / finite propagation speed. Corpus text quoted below is reproduced
+# from the banked audit and is CONTENT-VERIFIED AT HEAD (markup-reduced, not byte-identical);
+# it is never reworded.
+#
+# ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
+#
+#   :72  family: longitudinal-TLM-port  [banked uncertain]  [BIAS-DEBT]
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): the scatter lives in n-PORT amplitude space = the (V_inc,V_ref)
+#        phasor coordinates
+#       STAMPED AT: :72
+#        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): The junction S-matrix
+#        presumes incident/reflected wave amplitudes ON the A1/longitudinal channel (:69 'reads the A1
+#        DILATATION saturation … bulk / longitudinal sector'); the C_eff=C0/S bond-compliance reactance
+#        (:85) is the surviving object; the bulk-wave carrier owes re-derivation.
+#        RESOLUTION: the demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that
+#        slot is the bound response, so the re-derivation must be re-posed on the bound-sector
+#        constitutive law (bias eps_11, bound response u_0, mechanism gloss back-reaction) rather than on
+#        a compression wave. BIAS-DEBT: this row turns on finite-speed bias dynamics, so the resolution
+#        is the ratified axiom WITH THE BIAS PROPAGATION THEOREM STANDING (clause (c1)) --- the
+#        replacement is owed, not held.
+#
+# RECORDS: ruling R40 (the demotion sweep); the banked worklist
+# research/drivers/r40_sweep_worklist_verified.json; the batch-0 scope verification and batch-1
+# execution records in _orchestration/; this batch's record
+# _orchestration/2026-08-12_r40-sweep-batch2a.md.
+# --------------------------------------------------------------------------

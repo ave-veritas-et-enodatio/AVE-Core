@@ -120,7 +120,7 @@ The LC-tank picture above can be factored into a **class-invariant form** plus a
 The BoundResonator does not sit in a structureless vacuum — it terminates the **graded vacuum impedance network** ([def-gv1net](../../../common/vocabulary-register.md)), the equivalent-circuit MODEL of the medium drawn as three WIRED reactance channels (one per substrate grade). This is a **CONSISTENCY re-expression** of the three-impedance law ([three-channel-impedances.md](../../../vol9/ch4-dc-electrical-characteristics/three-channel-impedances.md):20-22, registry §3.11), NOT a new substrate primitive (INVARIANT-N1 — the network is the circuit MODEL, not a substrate-object noun). The wired-network leaf is [`device-circuit-models.md`](../../../vol9/ch3-pin-port-configuration/device-circuit-models.md) §6.
 
 - **$Z_{\mathrm{EM}}\equiv Z_0$** (T2 transverse field, $\Gamma_{\mathrm{EM}}=0$) — the **MATCHED / radiative PORT**: how the BoundResonator couples to the far field (the per-cycle $\alpha$ leak, $|\Gamma_{EM}|^2=1-\alpha$ above). NOT a hair-sector.
-- **$Z_{\mathrm{bulk}}=\rho_{\mathrm{bulk}}\,c_{\mathrm{bulk}}=\sqrt2\,\rho_{\mathrm{bulk}}\,c_0$** at $K=2G$ ($\Gamma_{\mathrm{bulk}}\to-1$) — the **MASS-"3"** channel (A1 dilatation); its confinement surface ([def-cf1srf](../../../common/vocabulary-register.md)) is the $\Gamma=-1$ cage-wall derived above ($Z_{core}\to0$).
+- **$Z_{\mathrm{bulk}}=\rho_{\mathrm{bulk}}\,c_{\mathrm{bulk}}=\sqrt2\,\rho_{\mathrm{bulk}}\,c_0$** at $K=2G$ ($\Gamma_{\mathrm{bulk}}\to-1$) — the **MASS-"3"** channel (A1 dilatation); its confinement surface ([def-cf1srf](../../../common/vocabulary-register.md)) is the $\Gamma=-1$ cage-wall derived above ($Z_{core}\to0$). 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 - **$Z_{\mathrm{shear}}=\rho_{\mathrm{bulk}}\,c_{\mathrm{shear}}$** (deviatoric $G$, $\Gamma_{\mathrm{shear}}\to-1$) — the **CHARGE-"3"** channel (the Cosserat $(2,3)$ micro-rotation winding).
 
 > **[Resultbox — ADDITIVE, KEEP-BOTH] Carrier vs charge vs mass: the three channels' ROLES (engine-reroute 2026-06-24; CONSISTENCY-class, NOT a chord; Grant-gated where the V_yield fork below applies).** The three channels above already carry the grade map (mass=bulk/A1, charge=shear/T2); the engine-reroute epic adds the explicit ROLE label on each, and the static-no-work-charge-boundary statement (which was absent from this chapter — grep-confirmed 0 hits for "no work"/"pure reactance" before this edit). Nothing above is overwritten.
@@ -160,3 +160,68 @@ A candidate refinement of the self-biased Q-point above asked whether the electr
 > - **What is UNTOUCHED.** The #518 §7 radiation null STANDS on both legs (the $\langle A\rangle=0$ field-mean leg AND the $\langle A^2\rangle$ channel-symmetry leg). The electron's self-biased Q-point (static $A=\sqrt\alpha$) is UNAFFECTED — this negative kills a *hum-tension discriminator*, not the self-bias picture. No VALUE moves (2/7, 9.7734 stay GR-imported); CONSISTENCY/DC-internal class throughout.
 
 ---
+
+---
+
+## R40 batch-2a — NEEDS-RE-DERIVATION status note (2026-08-11)
+
+**Class:** status demotion under **R40**. This note mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-`,
+**moves no solidity number**, adjudicates no channel and opens no fork. Every byte of each demoted
+claim is preserved; the stamped line gains a status marker only (honesty-lag pattern, Rule 12).
+
+**The arc, in four clauses (R40's header form; clause 4 points at the LANDED artifact, not at a
+ruling record).**
+
+1. **The kill fired** — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the imported `K = 2G` elastic modulus** — the compressible far-field
+   branch was minted by a GR-imported modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the flat-direction finding: the written action
+   conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the LANDED ratified bound-sector law — Axiom 5, Substrate DC Bias**, clauses
+   **S** (deposit), **G** (bias coupling / bridge) and **Q** (quiescence), canonical at
+   [`eq_axiom_5.tex`](../../../../common_equations/eq_axiom_5.tex) with its register entry in
+   [`axiom-register.md`](../../../common/axiom-register.md) (§ *Axiom 5 — Substrate DC Bias*). Under
+   clause **G** the A1 / bulk slot is a **bound response** — $\mathbf{u}_0 =
+   -\mathcal{A}_g\nabla\varepsilon_{11}$, mechanism gloss **back-reaction** — with **no independent
+   propagating branch, no port and zero longitudinal characteristic speed**. A bulk *wave speed*, a
+   bulk *radiative port*, a bulk *band-branch* and a bulk *transit clock* therefore have **no
+   referent**, and each row below owes its re-derivation on that footing.
+   $\mathcal{A}_g$ (the **bias-coupling area**) is an `UNVALUED-RATIFIED-CONSTANT` per **R48**
+   ([`interlock-register.md`](../../../common/interlock-register.md), § *𝒜_g — the bias-coupling
+   area*): it is **not valued here or anywhere**, and **the calibration count stays 3**.
+
+**Standing named-open debt — the honesty rider.** The ratified axiom does **not** discharge
+everything. **THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt**, stated by the
+axiom's own phase-structure paragraph, clause **(c1)**: clause G's elliptic law is the *static
+abstraction of underived finite-speed bias dynamics*, and the $(u,\pi)$ no-signalling theorem does
+**not** cover the bias read — the bias's finite propagation speed is *owed, not held*. Every row
+tagged **⚑ BIAS-DEBT** below re-derives against the ratified axiom **with that debt standing**, never
+against a closed replacement.
+
+**Vocabulary.** Canonical nouns authored here: **the bound response** ($\mathbf{u}_0$), **the bias**
+($\varepsilon_{11}$), the **DC operating point / quiescent point (Q-point)**; **back-reaction** is
+the mechanism gloss. *"dress"*, *"grade"* as $\varepsilon_{11}$'s canonical noun, and *"halo"* for
+the physics (the physics noun is the **near-field store / added-mass**) are RETIRED by **R50**;
+*"retardation"* is retired by **R49(b)** in favour of **propagation delay / finite propagation
+speed**. Corpus text quoted below is reproduced from the banked audit and is
+**content-verified at HEAD (markup-reduced, not byte-identical)**; it is never reworded.
+
+**Rows carried in this file.**
+
+- **`:123`** — stamped at `:123`. *(family: Z_bulk=ρc_bulk formula)*  ⚑ **BIAS-DEBT**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  Z_bulk=ρ_bulk c_bulk=√2 ρ_bulk c_0 at K=2G (Γ_bulk→-1) — the MASS-"3" channel (A1 dilatation)
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Formula-level phantom (also :133); the Γ_bulk→-1 confinement-surface half of the same line survives as the wall receipt.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+**Records.** Ruling **R40** (the demotion sweep) · the banked worklist
+[`r40_sweep_worklist_verified.json`](../../../../../research/drivers/r40_sweep_worklist_verified.json) · batch-0
+scope verification and batch-1 execution records in `_orchestration/` · this batch's record
+`_orchestration/2026-08-12_r40-sweep-batch2a.md`.
+

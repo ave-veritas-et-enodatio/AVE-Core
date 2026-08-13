@@ -56,7 +56,7 @@ The kernel $S(A)=(1-A^2)^{1/2}$ is the **one** canonical Op14 saturation kernel 
 `graded_vacuum_network`, not minted. The per-channel **sign-lock** (INVARIANT-S2) keeps the three channels
 physically distinct:
 
-- **BULK stiffens:** $D=1/S\to\infty$ at $A\to1$ (the modulus goes rigid, halting the collapse).
+- **BULK stiffens:** $D=1/S\to\infty$ at $A\to1$ (the modulus goes rigid, halting the collapse). 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 - **SHEAR softens:** $c_{\text{shear}}=c_0\sqrt{S}=c_0(1-A^2)^{1/4}\to0$ — a **derived** $\sqrt{S}$ projection,
   NOT a second kernel.
 - **EM matched:** $Z_{EM}=Z_0$, $\Gamma_{EM}=0$ — `refractive_index()` is untouched (guard-tested spectator).
@@ -191,4 +191,81 @@ stage**, NOT attempted here.
 
 ---
 
-> **⚑ Sign-relativity declaration (Grant ruling 2026-08-04; [`wall-taxonomy.md`](../../../common/wall-taxonomy.md) §10; PR #869 FLAG-W).** The BULK-stiffens line (:59), read as a wall reflection, is the **SERIES-graded projection at the LOAD plane**. With this leaf's own $\rho_{eff}=\rho_0/S^3$ (:73), rigidity and $c_{bulk}\to0$ hold **simultaneously** — speed divides by density while impedance multiplies by it: $c=\sqrt{K/\rho}\to0$, $Z=\sqrt{K\rho}\to\infty$. The apparent conflict with [`bulk-impedance-at-saturation-boundary.md`](../../cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md):39 and its channel table ($\Gamma_{bulk}\to-1$) — **three rows when this declaration was written 2026-08-04; FOUR since 2026-08-05**, row 4 being the Cosserat micro-rotation channel, which is *unwalled* at $r_{sat}$ **on the separate-kernel (L∞-across-grades) member of an open fork — canon records the cross-grade combine rule as underdetermined at $O(\alpha)$ ([`common/axiom-register.md`](../../../common/axiom-register.md):190,:232), and on the normalized-L2 member row 4 does not stand; fence added by the doc lane 2026-08-05, not in the ruled text ([`2026-08-05-ruling-kernel-collapse-rescope.md`](../../../../../_orchestration/docket-entries/2026-08-05-ruling-kernel-collapse-rescope.md)`:10`–`:21`, PR #897, landed), routed to Grant; full statement at [`wall-taxonomy.md`](../../../common/wall-taxonomy.md) §10.2** — is plane/projection/profile relativity, not a contradiction; any signed $\Gamma$ is **computed-not-chosen** from the branch-derived indicial wall row. Open physics: the constitutive grading near the wall ($\rho(A)$: FORK-3(b), axial run in flight; $K(A)$). Body above preserved per Rule 12. **⚑ FENCE RE-POINT, 2026-08-06 — this routing note now points at the v2 record.** The citable ruled text is the versioned re-issue [`2026-08-06-ruling-kernel-collapse-rescope-v2.md`](../../../../../_orchestration/docket-entries/2026-08-06-ruling-kernel-collapse-rescope-v2.md):13–29, which **carries the cross-grade combine-member fence inside the ruled text itself**; the 2026-08-05 v1 record is preserved and gains a dated pointer to it. **The earlier *"the omission is at the RULING … routed to Grant for a possible re-issue"* language is RESOLVED — the re-issue happened**, so the fence is now carried AT THE RULING and no print site has to supply it. **Nothing about the physics moves:** the carve-out is still conditional on the per-grade (L∞-across-grades) member, and the cross-grade combine rule is still canon-OPEN. Delta declaration (three deltas from v1, all declared) and the CORRECTED engine-residence map: [`2026-08-06-ruling-kernel-collapse-rescope-v2-correction.md`](../../../../../_orchestration/docket-entries/2026-08-06-ruling-kernel-collapse-rescope-v2-correction.md) C1/C2 — the engine codes the saturation amplitude **three** ways across two live functionals plus a separate objective, so *"the member the engine actually codes"* is over-broad; the carve-out's receipt is STRUCTURAL, not numerical.
+> **⚑ Sign-relativity declaration (Grant ruling 2026-08-04; [`wall-taxonomy.md`](../../../common/wall-taxonomy.md) §10; PR #869 FLAG-W).** The BULK-stiffens line (:59), read as a wall reflection, is the **SERIES-graded projection at the LOAD plane**. With this leaf's own $\rho_{eff}=\rho_0/S^3$ (:73), rigidity and $c_{bulk}\to0$ hold **simultaneously** — speed divides by density while impedance multiplies by it: $c=\sqrt{K/\rho}\to0$, $Z=\sqrt{K\rho}\to\infty$. The apparent conflict with [`bulk-impedance-at-saturation-boundary.md`](../../cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md):39 and its channel table ($\Gamma_{bulk}\to-1$) — **three rows when this declaration was written 2026-08-04; FOUR since 2026-08-05**, row 4 being the Cosserat micro-rotation channel, which is *unwalled* at $r_{sat}$ **on the separate-kernel (L∞-across-grades) member of an open fork — canon records the cross-grade combine rule as underdetermined at $O(\alpha)$ ([`common/axiom-register.md`](../../../common/axiom-register.md):190,:232), and on the normalized-L2 member row 4 does not stand; fence added by the doc lane 2026-08-05, not in the ruled text ([`2026-08-05-ruling-kernel-collapse-rescope.md`](../../../../../_orchestration/docket-entries/2026-08-05-ruling-kernel-collapse-rescope.md)`:10`–`:21`, PR #897, landed), routed to Grant; full statement at [`wall-taxonomy.md`](../../../common/wall-taxonomy.md) §10.2** — is plane/projection/profile relativity, not a contradiction; any signed $\Gamma$ is **computed-not-chosen** from the branch-derived indicial wall row. Open physics: the constitutive grading near the wall ($\rho(A)$: FORK-3(b), axial run in flight; $K(A)$). Body above preserved per Rule 12. **⚑ FENCE RE-POINT, 2026-08-06 — this routing note now points at the v2 record.** The citable ruled text is the versioned re-issue [`2026-08-06-ruling-kernel-collapse-rescope-v2.md`](../../../../../_orchestration/docket-entries/2026-08-06-ruling-kernel-collapse-rescope-v2.md):13–29, which **carries the cross-grade combine-member fence inside the ruled text itself**; the 2026-08-05 v1 record is preserved and gains a dated pointer to it. **The earlier *"the omission is at the RULING … routed to Grant for a possible re-issue"* language is RESOLVED — the re-issue happened**, so the fence is now carried AT THE RULING and no print site has to supply it. **Nothing about the physics moves:** the carve-out is still conditional on the per-grade (L∞-across-grades) member, and the cross-grade combine rule is still canon-OPEN. Delta declaration (three deltas from v1, all declared) and the CORRECTED engine-residence map: [`2026-08-06-ruling-kernel-collapse-rescope-v2-correction.md`](../../../../../_orchestration/docket-entries/2026-08-06-ruling-kernel-collapse-rescope-v2-correction.md) C1/C2 — the engine codes the saturation amplitude **three** ways across two live functionals plus a separate objective, so *"the member the engine actually codes"* is over-broad; the carve-out's receipt is STRUCTURAL, not numerical. 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
+
+---
+
+## R40 batch-2a — NEEDS-RE-DERIVATION status note (2026-08-11)
+
+**Class:** status demotion under **R40**. This note mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-`,
+**moves no solidity number**, adjudicates no channel and opens no fork. Every byte of each demoted
+claim is preserved; the stamped line gains a status marker only (honesty-lag pattern, Rule 12).
+
+**The arc, in four clauses (R40's header form; clause 4 points at the LANDED artifact, not at a
+ruling record).**
+
+1. **The kill fired** — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the imported `K = 2G` elastic modulus** — the compressible far-field
+   branch was minted by a GR-imported modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the flat-direction finding: the written action
+   conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the LANDED ratified bound-sector law — Axiom 5, Substrate DC Bias**, clauses
+   **S** (deposit), **G** (bias coupling / bridge) and **Q** (quiescence), canonical at
+   [`eq_axiom_5.tex`](../../../../common_equations/eq_axiom_5.tex) with its register entry in
+   [`axiom-register.md`](../../../common/axiom-register.md) (§ *Axiom 5 — Substrate DC Bias*). Under
+   clause **G** the A1 / bulk slot is a **bound response** — $\mathbf{u}_0 =
+   -\mathcal{A}_g\nabla\varepsilon_{11}$, mechanism gloss **back-reaction** — with **no independent
+   propagating branch, no port and zero longitudinal characteristic speed**. A bulk *wave speed*, a
+   bulk *radiative port*, a bulk *band-branch* and a bulk *transit clock* therefore have **no
+   referent**, and each row below owes its re-derivation on that footing.
+   $\mathcal{A}_g$ (the **bias-coupling area**) is an `UNVALUED-RATIFIED-CONSTANT` per **R48**
+   ([`interlock-register.md`](../../../common/interlock-register.md), § *𝒜_g — the bias-coupling
+   area*): it is **not valued here or anywhere**, and **the calibration count stays 3**.
+
+**Standing named-open debt — the honesty rider.** The ratified axiom does **not** discharge
+everything. **THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt**, stated by the
+axiom's own phase-structure paragraph, clause **(c1)**: clause G's elliptic law is the *static
+abstraction of underived finite-speed bias dynamics*, and the $(u,\pi)$ no-signalling theorem does
+**not** cover the bias read — the bias's finite propagation speed is *owed, not held*. Every row
+tagged **⚑ BIAS-DEBT** below re-derives against the ratified axiom **with that debt standing**, never
+against a closed replacement.
+
+**Vocabulary.** Canonical nouns authored here: **the bound response** ($\mathbf{u}_0$), **the bias**
+($\varepsilon_{11}$), the **DC operating point / quiescent point (Q-point)**; **back-reaction** is
+the mechanism gloss. *"dress"*, *"grade"* as $\varepsilon_{11}$'s canonical noun, and *"halo"* for
+the physics (the physics noun is the **near-field store / added-mass**) are RETIRED by **R50**;
+*"retardation"* is retired by **R49(b)** in favour of **propagation delay / finite propagation
+speed**. Corpus text quoted below is reproduced from the banked audit and is
+**content-verified at HEAD (markup-reduced, not byte-identical)**; it is never reworded.
+
+**Rows carried in this file.**
+
+- **`:59`** — stamped at `:59`. *(family: K-backed stability argument)*  ⚑ **R49 4π-CONVENTION**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  BULK stiffens: D=1/S→∞ at A→1 (the modulus goes rigid, halting the collapse).
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Same class as the prereg's cauchy-implosion expectation: stability delivered by a divergent bulk-modulus reservoir; under the carve stability is kinematic (no compression DOF to implode). The static elliptic D(A) dress profile itself survives (bound-response FORM); mirrored at vol3/claim-quality.md:1258.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ R49:** where this row's re-derivation runs through the elliptic bias law, that law carries the **declared 4π source convention** (canonical declaration in `gordon-optical-metric.md`, claim `clm-rd9cjm`); a correction of that class is an R31-style dated correction, not a re-ratification.
+
+- **`:194`** — stamped at `:194`. *(family: Z_bulk = ρc_bulk formula)*  ⚑ **BIAS-DEBT**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  rigidity and c_bulk→0 hold simultaneously — speed divides by density while impedance multiplies by it: c=√(K/ρ)→0, Z=√(Kρ)→∞
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  c_bulk=√(K/ρ) used as a formula treats K as a dynamical wave reservoir; the FLAG-W plane/projection/profile-relativity content (|Γ|=1 wall, sign computed-not-chosen) survives, the speed/impedance formula pair is the import's and is owed re-derivation.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+**Records.** Ruling **R40** (the demotion sweep) · the banked worklist
+[`r40_sweep_worklist_verified.json`](../../../../../research/drivers/r40_sweep_worklist_verified.json) · batch-0
+scope verification and batch-1 execution records in `_orchestration/` · this batch's record
+`_orchestration/2026-08-12_r40-sweep-batch2a.md`.
+

@@ -14,7 +14,7 @@ WHY THIS EXISTS (the Rule-10 finding the explicit stepper hit)
 The explicit nonlinear leapfrog (native_cage_fdtd.NativeCageFDTD — historical,
 git 050f1088, absent at HEAD) goes SECULARLY
 UNSTABLE in deep saturation: as the core self-focuses toward A→1, S=(1−A²)^p→0
-so the bulk stiffness D=1/S DIVERGES (c_eff=c0/√S→∞) and ρ(L_native) GROWS during
+so the bulk stiffness D=1/S DIVERGES (c_eff=c0/√S→∞) and ρ(L_native) GROWS during  [DEMOTED 2026-08-11 - R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]
 the run — the seed-measured explicit CFL dt becomes invalid mid-run and the
 leapfrog blows up (peak 5.5→15.6 as dt refines, results JSON dt_robustness). The
 LINEAR (amp 0.02) and non-focusing GAUSSIAN runs stay bounded at the same dt, so
@@ -590,3 +590,64 @@ def energy_conservation_gate(
         "canary_slope_tol": CANARY_SLOPE,
         "passed": bool(passed),
     }
+# --------------------------------------------------------------------------
+# R40 batch-2a --- NEEDS-RE-DERIVATION status note (2026-08-11)
+# --------------------------------------------------------------------------
+# CLASS: status demotion under R40. Mints no clm-/def-/exp-/sup-/ilk-, moves no solidity number,
+# adjudicates no channel and opens no fork. Every byte of each demoted claim is preserved; the
+# stamped line gains a status marker only.
+#
+# THE ARC, IN FOUR CLAUSES (R40's header form; clause 4 points at the LANDED artifact, not at a
+# ruling record). (1) The kill fired --- the walk-back that closed the bulk radiative-port
+# reading. (2) The premise localized to the imported K = 2G elastic modulus: the compressible
+# far-field branch was minted by a GR-imported modulus, not forced by the axioms. (3) The axioms
+# underdetermine the bulk sector --- the flat-direction finding: the written action conserves the
+# Gauss function pointwise and never fixes its value. (4) THE REPLACEMENT IS THE LANDED RATIFIED
+# BOUND-SECTOR LAW --- AXIOM 5, SUBSTRATE DC BIAS, clauses S (deposit), G (bias coupling / bridge)
+# and Q (quiescence), canonical at manuscript/common_equations/eq_axiom_5.tex with its register
+# entry in manuscript/ave-kb/common/axiom-register.md. Under clause G the A1 / bulk slot is a
+# BOUND RESPONSE --- u_0 = -A_g grad(eps_11), mechanism gloss BACK-REACTION --- with no
+# independent propagating branch, no port and zero longitudinal characteristic speed. A bulk wave
+# speed, a bulk radiative port, a bulk band-branch and a bulk transit clock therefore have no
+# referent. A_g (the bias-coupling area) is an UNVALUED-RATIFIED-CONSTANT per R48
+# (manuscript/ave-kb/common/interlock-register.md): it is not valued here or anywhere, and THE
+# CALIBRATION COUNT STAYS 3.
+#
+# STANDING NAMED-OPEN DEBT (the honesty rider). The ratified axiom does NOT discharge everything.
+# THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt, stated by the axiom's own
+# phase-structure paragraph, clause (c1): clause G's elliptic law is the static abstraction of
+# underived finite-speed bias dynamics, and the (u,pi) no-signalling theorem does NOT cover the
+# bias read --- the bias's finite propagation speed is owed, not held. Every row tagged BIAS-DEBT
+# below re-derives against the ratified axiom WITH THAT DEBT STANDING, never against a closed
+# replacement.
+#
+# VOCABULARY. Canonical nouns authored here: the bound response (u_0), the bias (eps_11), the DC
+# operating point / quiescent point (Q-point); back-reaction is the mechanism gloss. 'dress',
+# 'grade' as eps_11's canonical noun, and 'halo' for the physics (the physics noun is the
+# near-field store / added-mass) are RETIRED by R50; 'retardation' is retired by R49(b) in favour
+# of propagation delay / finite propagation speed. Corpus text quoted below is reproduced
+# from the banked audit and is CONTENT-VERIFIED AT HEAD (markup-reduced, not byte-identical);
+# it is never reworded.
+#
+# ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
+#
+#   :17  family: A1-cage-band  [BIAS-DEBT]
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): the bulk stiffness D=1/S DIVERGES (c_eff=c0/√S→∞) and ρ(L_native)
+#        GROWS during the run
+#       STAMPED AT: :17
+#        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): Time-domain wave
+#        stepper on the A1 scalar (V̈ = −c0²L_D·V, Crank–Nicolson) with c_eff as a bulk wave speed — the
+#        coded compressibility; self-focusing/dispersal physics rides the free branch; K-backed stability
+#        (CFL) argument class.
+#        RESOLUTION: the demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that
+#        slot is the bound response, so the re-derivation must be re-posed on the bound-sector
+#        constitutive law (bias eps_11, bound response u_0, mechanism gloss back-reaction) rather than on
+#        a compression wave. BIAS-DEBT: this row turns on finite-speed bias dynamics, so the resolution
+#        is the ratified axiom WITH THE BIAS PROPAGATION THEOREM STANDING (clause (c1)) --- the
+#        replacement is owed, not held.
+#
+# RECORDS: ruling R40 (the demotion sweep); the banked worklist
+# research/drivers/r40_sweep_worklist_verified.json; the batch-0 scope verification and batch-1
+# execution records in _orchestration/; this batch's record
+# _orchestration/2026-08-12_r40-sweep-batch2a.md.
+# --------------------------------------------------------------------------

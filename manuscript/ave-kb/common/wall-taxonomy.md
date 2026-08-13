@@ -12,7 +12,7 @@ path-stable: "canonical routing home for the cross-axis wall taxonomy walked wit
 
 > **Sector / regime declaration (substrate-native-first).**
 > **MODE:** static / quasi-static reading of already-canonical boundaries. No solver is run here; no driver output is reported; nothing is measured.
-> **SECTOR:** **all four channels appear, and the rows are per-channel** — EM-transverse ($Z_{EM}\equiv Z_0$), shear/$T_2$ ($Z_{shear}=\rho c_{shear}$), bulk/A1-longitudinal ($Z_{bulk}=\rho c_{bulk}$), and the Cosserat rotational-$\mu$ grade. A row's wall is a wall **for its own channel only**; the other channels may pass straight through it (see §4).
+> **SECTOR:** **all four channels appear, and the rows are per-channel** — EM-transverse ($Z_{EM}\equiv Z_0$), shear/$T_2$ ($Z_{shear}=\rho c_{shear}$), bulk/A1-longitudinal ($Z_{bulk}=\rho c_{bulk}$), and the Cosserat rotational-$\mu$ grade. A row's wall is a wall **for its own channel only**; the other channels may pass straight through it (see §4). 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 > **PHASE-STATE:** rows 1–3 are **saturated / at-yield** loci ($S(A)\to0$). Rows 4–6 are **cold, sub-yield, lossless-reactive** cutoffs — they are *dispersion* and *cutoff* conditions, not amplitude thresholds. Rows 7–8 are neither: row 7 is a cosmological **termination**, row 8 is an **anti-wall** (a match). Declaring the phase-state matters: a cutoff at cold amplitude and a rupture at $A\to1$ are different objects that both read $\lvert\Gamma\rvert\to1$.
 
 ## Scope — what class of document this is
@@ -430,7 +430,7 @@ Four places where the walk's recollection did not survive the grep. In every cas
 > 2. **Projection.** $Z_0=\sqrt{\mathrm{series}/\mathrm{shunt}}$: the same cutoff presents $Z\to\infty$ when the saturation grading loads the SERIES branch (mass / modulus divergence) and $Z\to0$ when it loads the SHUNT branch (compliance divergence). Standard-EE instance: at one waveguide cutoff, $Z_{TE}\to\infty$ while $Z_{TM}\to0$. ⚠ The operator-level decomposition for the $r_{sat}$ wall is routed to the axial RHO-B lane's derived-consequence appendix — analogy-status until that lands.
 > 3. **Computed, not chosen.** The authority for a wall's $\Gamma$ phase is the branch-derived indicial wall row of a certified instrument. Hand-setting a sign is an import (the hand-set-perihelion pattern). Axiom 3 forces only $|\Gamma|=1$.
 >
-> **FLAG-W dissolution.** [`bulk-impedance-at-saturation-boundary.md`](../vol3/cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md):39,:48–55 ($\Gamma_{bulk}\to-1$) and [`saturating-modulus-and-backreaction.md`](../vol3/gravity/ch02-general-relativity/saturating-modulus-and-backreaction.md):59 (bulk rigid) are plane/projection/profile-relative statements, **not a contradiction**. The ch15 step $Z_{bulk}=\rho_{bulk}c_{bulk}\to0$ multiplies a vanishing speed by the CONSTANT density — valid only under the RHO-A profile; under canon's $\rho_{eff}=\rho_0/S^3$ (that leaf's own :73; FORK-3(b), fenced, un-adjudicated) the same $c_{bulk}\to0$ coexists with $Z_{bulk}=\sqrt{K\rho_{eff}}\to\infty$. Open physics = the constitutive grading near the wall ($\rho(A)$: FORK-3(b) — **its axial run has now LANDED (2026-08-05) and returned `ROOT-NOT-CERTIFIED` with NO physics bin adjudicated, so the fork is still OPEN and none of that lane's figures may be quoted**; $K(A)$). Declaration blocks sit at the foot of both leaves.
+> **FLAG-W dissolution.** [`bulk-impedance-at-saturation-boundary.md`](../vol3/cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md):39,:48–55 ($\Gamma_{bulk}\to-1$) and [`saturating-modulus-and-backreaction.md`](../vol3/gravity/ch02-general-relativity/saturating-modulus-and-backreaction.md):59 (bulk rigid) are plane/projection/profile-relative statements, **not a contradiction**. The ch15 step $Z_{bulk}=\rho_{bulk}c_{bulk}\to0$ multiplies a vanishing speed by the CONSTANT density — valid only under the RHO-A profile; under canon's $\rho_{eff}=\rho_0/S^3$ (that leaf's own :73; FORK-3(b), fenced, un-adjudicated) the same $c_{bulk}\to0$ coexists with $Z_{bulk}=\sqrt{K\rho_{eff}}\to\infty$. Open physics = the constitutive grading near the wall ($\rho(A)$: FORK-3(b) — **its axial run has now LANDED (2026-08-05) and returned `ROOT-NOT-CERTIFIED` with NO physics bin adjudicated, so the fork is still OPEN and none of that lane's figures may be quoted**; $K(A)$). Declaration blocks sit at the foot of both leaves. 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 >
 > **⚑ coldQ clause RE-ISSUED (2026-08-05) — and it does not move this dissolution.** The FORK-3(b) status inside the paragraph above is the **re-issued** form of the ruled three-clause coldQ note, whose second clause was staged as *"FORK-3(b) is owed an axial run"* and had already been overtaken when it first printed. Read at the certification lines: the axial FORK-3(b) run is **not owed — it has RUN**, and its line reads `ROOT-NOT-CERTIFIED` **on every configuration that has a root**, thresholds not retuned, **no physics bin adjudicated** ([`research/2026-08-04_coldq-axial-rhob_result.md`](../../../research/2026-08-04_coldq-axial-rhob_result.md)); the polar family is un-adjudicated for an **instrument-class** reason, `SOLVER-NOT-CERTIFIED` with no bin adjudicated at any precedence level ([`research/2026-08-03_coldq-polar-family_result.md`](../../../research/2026-08-03_coldq-polar-family_result.md)); and the one **certified** axial toroidal instrument (`ROOT-CERTIFIED`) computes a pole that does **not** land on the printed eigenvalue ([`research/2026-08-03_coldq-pole-v2.4-root_result.md`](../../../research/2026-08-03_coldq-pole-v2.4-root_result.md)). **The fork is open because the run adjudicated nothing, not because a run is outstanding** — which is exactly what item 3 above requires before any signed wall row is read off this branch.
 >
@@ -677,3 +677,80 @@ Four places where the walk's recollection did not survive the grep. In every cas
 > deliberately absent from this leaf. **Regime IV stays fenced out for every mirrored channel** — the
 > $A \ge 1$ region enters only as an arbitrary passive load, never as a solved domain
 > ([`research/2026-08-05_last-bond-kernel-collapse_result.md`](../../../research/2026-08-05_last-bond-kernel-collapse_result.md):`16`).
+
+---
+
+## R40 batch-2a — NEEDS-RE-DERIVATION status note (2026-08-11)
+
+**Class:** status demotion under **R40**. This note mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-`,
+**moves no solidity number**, adjudicates no channel and opens no fork. Every byte of each demoted
+claim is preserved; the stamped line gains a status marker only (honesty-lag pattern, Rule 12).
+
+**The arc, in four clauses (R40's header form; clause 4 points at the LANDED artifact, not at a
+ruling record).**
+
+1. **The kill fired** — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the imported `K = 2G` elastic modulus** — the compressible far-field
+   branch was minted by a GR-imported modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the flat-direction finding: the written action
+   conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the LANDED ratified bound-sector law — Axiom 5, Substrate DC Bias**, clauses
+   **S** (deposit), **G** (bias coupling / bridge) and **Q** (quiescence), canonical at
+   [`eq_axiom_5.tex`](../../common_equations/eq_axiom_5.tex) with its register entry in
+   [`axiom-register.md`](../common/axiom-register.md) (§ *Axiom 5 — Substrate DC Bias*). Under
+   clause **G** the A1 / bulk slot is a **bound response** — $\mathbf{u}_0 =
+   -\mathcal{A}_g\nabla\varepsilon_{11}$, mechanism gloss **back-reaction** — with **no independent
+   propagating branch, no port and zero longitudinal characteristic speed**. A bulk *wave speed*, a
+   bulk *radiative port*, a bulk *band-branch* and a bulk *transit clock* therefore have **no
+   referent**, and each row below owes its re-derivation on that footing.
+   $\mathcal{A}_g$ (the **bias-coupling area**) is an `UNVALUED-RATIFIED-CONSTANT` per **R48**
+   ([`interlock-register.md`](../common/interlock-register.md), § *𝒜_g — the bias-coupling
+   area*): it is **not valued here or anywhere**, and **the calibration count stays 3**.
+
+**Standing named-open debt — the honesty rider.** The ratified axiom does **not** discharge
+everything. **THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt**, stated by the
+axiom's own phase-structure paragraph, clause **(c1)**: clause G's elliptic law is the *static
+abstraction of underived finite-speed bias dynamics*, and the $(u,\pi)$ no-signalling theorem does
+**not** cover the bias read — the bias's finite propagation speed is *owed, not held*. Every row
+tagged **⚑ BIAS-DEBT** below re-derives against the ratified axiom **with that debt standing**, never
+against a closed replacement.
+
+**Vocabulary.** Canonical nouns authored here: **the bound response** ($\mathbf{u}_0$), **the bias**
+($\varepsilon_{11}$), the **DC operating point / quiescent point (Q-point)**; **back-reaction** is
+the mechanism gloss. *"dress"*, *"grade"* as $\varepsilon_{11}$'s canonical noun, and *"halo"* for
+the physics (the physics noun is the **near-field store / added-mass**) are RETIRED by **R50**;
+*"retardation"* is retired by **R49(b)** in favour of **propagation delay / finite propagation
+speed**. Corpus text quoted below is reproduced from the banked audit and is
+**content-verified at HEAD (markup-reduced, not byte-identical)**; it is never reworded.
+
+**Rows carried in this file.**
+
+- **`:15`** — stamped at `:15`. *(family: Z_bulk formula (sector header))*  ⚑ **BIAS-DEBT**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  bulk/A1-longitudinal ($Z_{bulk}=\rho c_{bulk}$)
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Formula-level only (prereg-explicit Z_bulk=rho*c_bulk class); the header's per-channel wall-taxonomy role survives — the taxonomy is boundary/reflection bookkeeping, the surviving class.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+- **`:433`** — stamped at `:433`. *(family: FLAG-W dissolution machinery)*  ⚑ **BIAS-DEBT**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  The ch15 step $Z_{bulk}=\rho_{bulk}c_{bulk}\to0$ multiplies a vanishing speed by the CONSTANT density — valid only under the RHO-A profile
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  The dissolution CONCLUSION (only relativized wall-sign statements derivable) survives and is carve-explained (provenance case (c)); the mechanics — c_bulk as a speed, K in Z_bulk=sqrt(K*rho_eff) — consume the phantom at formula level and owe re-expression; the shear-channel receipts :443-:446 are untouched (T2).
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+**Records.** Ruling **R40** (the demotion sweep) · the banked worklist
+[`r40_sweep_worklist_verified.json`](../../../research/drivers/r40_sweep_worklist_verified.json) · batch-0
+scope verification and batch-1 execution records in `_orchestration/` · this batch's record
+`_orchestration/2026-08-12_r40-sweep-batch2a.md`.
+

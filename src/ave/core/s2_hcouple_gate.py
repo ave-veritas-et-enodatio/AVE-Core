@@ -138,7 +138,7 @@ def build_hcouple(
     """Assemble the FIELD-RESOLVED Hermitian generator H_couple on an M-node chain.
 
     STATE LAYOUT (field-resolved): ψ ∈ C^{2M}, interleaved per node n=0..M-1:
-        ψ[2n]   = a_A1(n)  — the A1 BULK-DILATATION breather analytic signal at
+        ψ[2n]   = a_A1(n)  — the A1 BULK-DILATATION breather analytic signal at  [DEMOTED 2026-08-11 - R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]
                              node n (q + i·p/ω; |a_A1|² = trapped bulk = MASS,
                              crystal_engine.py:354; the longitudinal "3").
         ψ[2n+1] = a_ω(n)   — the LOCAL Cosserat (ω, π_ω) LC-quadrature analytic
@@ -159,7 +159,7 @@ def build_hcouple(
             phase), NOT by reading ω off V (genesis-24 guard, master-equation.md:20).
       • intra-grade NEAREST-NEIGHBOUR hops (the field structure of each grade —
         each grade disperses on its OWN lattice, the field-resolved content):
-                         H[2n, 2(n±1)]     = hop_b   (A1 disperses among nodes)
+                         H[2n, 2(n±1)]     = hop_b   (A1 disperses among nodes)  [DEMOTED 2026-08-11 - R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]
                          H[2n+1, 2(n±1)+1] = hop_s   (ω disperses among nodes)
         hop_b/hop_s default 0 ⇒ the on-node 2×2 blocks DECOUPLE across nodes ⇒
         each node is an independent node_circulator (the REDUCED-LIMIT bridge);
@@ -730,3 +730,82 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+# --------------------------------------------------------------------------
+# R40 batch-2a --- NEEDS-RE-DERIVATION status note (2026-08-11)
+# --------------------------------------------------------------------------
+# CLASS: status demotion under R40. Mints no clm-/def-/exp-/sup-/ilk-, moves no solidity number,
+# adjudicates no channel and opens no fork. Every byte of each demoted claim is preserved; the
+# stamped line gains a status marker only.
+#
+# THE ARC, IN FOUR CLAUSES (R40's header form; clause 4 points at the LANDED artifact, not at a
+# ruling record). (1) The kill fired --- the walk-back that closed the bulk radiative-port
+# reading. (2) The premise localized to the imported K = 2G elastic modulus: the compressible
+# far-field branch was minted by a GR-imported modulus, not forced by the axioms. (3) The axioms
+# underdetermine the bulk sector --- the flat-direction finding: the written action conserves the
+# Gauss function pointwise and never fixes its value. (4) THE REPLACEMENT IS THE LANDED RATIFIED
+# BOUND-SECTOR LAW --- AXIOM 5, SUBSTRATE DC BIAS, clauses S (deposit), G (bias coupling / bridge)
+# and Q (quiescence), canonical at manuscript/common_equations/eq_axiom_5.tex with its register
+# entry in manuscript/ave-kb/common/axiom-register.md. Under clause G the A1 / bulk slot is a
+# BOUND RESPONSE --- u_0 = -A_g grad(eps_11), mechanism gloss BACK-REACTION --- with no
+# independent propagating branch, no port and zero longitudinal characteristic speed. A bulk wave
+# speed, a bulk radiative port, a bulk band-branch and a bulk transit clock therefore have no
+# referent. A_g (the bias-coupling area) is an UNVALUED-RATIFIED-CONSTANT per R48
+# (manuscript/ave-kb/common/interlock-register.md): it is not valued here or anywhere, and THE
+# CALIBRATION COUNT STAYS 3.
+#
+# STANDING NAMED-OPEN DEBT (the honesty rider). The ratified axiom does NOT discharge everything.
+# THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt, stated by the axiom's own
+# phase-structure paragraph, clause (c1): clause G's elliptic law is the static abstraction of
+# underived finite-speed bias dynamics, and the (u,pi) no-signalling theorem does NOT cover the
+# bias read --- the bias's finite propagation speed is owed, not held. Every row tagged BIAS-DEBT
+# below re-derives against the ratified axiom WITH THAT DEBT STANDING, never against a closed
+# replacement.
+#
+# VOCABULARY. Canonical nouns authored here: the bound response (u_0), the bias (eps_11), the DC
+# operating point / quiescent point (Q-point); back-reaction is the mechanism gloss. 'dress',
+# 'grade' as eps_11's canonical noun, and 'halo' for the physics (the physics noun is the
+# near-field store / added-mass) are RETIRED by R50; 'retardation' is retired by R49(b) in favour
+# of propagation delay / finite propagation speed. Corpus text quoted below is reproduced
+# from the banked audit and is CONTENT-VERIFIED AT HEAD (markup-reduced, not byte-identical);
+# it is never reworded.
+#
+# ROWS CARRIED IN THIS FILE (verbatim quote + verbatim banked rationale):
+#
+#   :141  family: A1 breather/dispersion  [BIAS-DEBT | PAST-WALL]
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): the A1 BULK-DILATATION breather analytic signal at node n (q +
+#        i·p/ω; |a_A1|² = trapped bulk = MASS
+#       STAMPED AT: :141
+#        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): Gives the A1 slot its
+#        own oscillator (breather frequency ω_b :150) — a state variable with its own L-C pair, which the
+#        carve forbids; the mass-accounting duty survives (re-homed per R38), the breather ontology and
+#        label are owed re-derivation with past-wall scope declared.
+#        RESOLUTION: the demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that
+#        slot is the bound response, so the re-derivation must be re-posed on the bound-sector
+#        constitutive law (bias eps_11, bound response u_0, mechanism gloss back-reaction) rather than on
+#        a compression wave. BIAS-DEBT: this row turns on finite-speed bias dynamics, so the resolution
+#        is the ratified axiom WITH THE BIAS PROPAGATION THEOREM STANDING (clause (c1)) --- the
+#        replacement is owed, not held. PAST-WALL: the content reaches past the saturation wall, a phase
+#        Axiom 5 explicitly does NOT write (the D(A)->infinity wall behaviour is past-wall-adjacent and
+#        'not written here'; the de-bonded and pre-freeze phase forms are named-open). The demotion is
+#        SCOPED: clause G resolves the cold, sub-yield side; the past-wall reading is neither discharged
+#        nor adjudicated.
+#
+#   :162  family: A1 breather/dispersion  [BIAS-DEBT]
+#        QUOTE (content verified at HEAD; markup-reduced from the banked audit): H[2n, 2(n±1)] = hop_b (A1 disperses among nodes)
+#       STAMPED AT: :162
+#        RATIONALE (verbatim, research/drivers/r40_sweep_worklist_verified.json): An independent A1
+#        inter-node transport/dispersion branch (':166 genuine field-resolved spatial transport within a
+#        grade'), run LIVE at hop_b=0.05 in criteria (:511, :533, :571) — a propagating bulk lattice
+#        branch as mechanism inside a gate whose conservative-lock content survives.
+#        RESOLUTION: the demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that
+#        slot is the bound response, so the re-derivation must be re-posed on the bound-sector
+#        constitutive law (bias eps_11, bound response u_0, mechanism gloss back-reaction) rather than on
+#        a compression wave. BIAS-DEBT: this row turns on finite-speed bias dynamics, so the resolution
+#        is the ratified axiom WITH THE BIAS PROPAGATION THEOREM STANDING (clause (c1)) --- the
+#        replacement is owed, not held.
+#
+# RECORDS: ruling R40 (the demotion sweep); the banked worklist
+# research/drivers/r40_sweep_worklist_verified.json; the batch-0 scope verification and batch-1
+# execution records in _orchestration/; this batch's record
+# _orchestration/2026-08-12_r40-sweep-batch2a.md.
+# --------------------------------------------------------------------------

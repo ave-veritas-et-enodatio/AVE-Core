@@ -17,7 +17,7 @@ The electron's intrinsic body in physical 3D space is a $0_1$ unknot — a singl
   - Mass formula: $m_e = T_{EM} \cdot \ell_{node}/c^2 = \hbar/(c \cdot \ell_{node})$, from the unknot's 2π ropelength × the EM tension $T_{EM}$.
   - Spin-1/2 arises from the AVE-native $SU(2) \to SO(3)$ 2-to-1 cover: K4 rotation group $T = A_4$ → double cover $2T \subset SU(2)$ → the Finkelstein–Misner / Dirac-belt-trick mechanism acting on the extended $0_1$ unknot defect (Vol 1 Ch 8 §Topological identity of the electron; Ch 1 k4-rotation-group). **Scope (STRUCTURE-derived / SELECTION-imported, PEER-WITH-SM):** the double-cover *structure* is substrate-native; the fermionic *selection* is imported — see the spin-½ selection-import caveat below.
   - The three lepton generations (electron, muon, tau) arise from Cosserat-sector excitations (translation, torsion, curvature-twist) of this unknot geometry.
-  - Stability comes from impedance mismatch: at the saturated boundary $Z \to 0, \Gamma \to -1$, internal acoustic energy is fully reflected inward as a standing wave (= rest mass).
+  - Stability comes from impedance mismatch: at the saturated boundary $Z \to 0, \Gamma \to -1$, internal acoustic energy is fully reflected inward as a standing wave (= rest mass). 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 
 - _Specific Non-Claims and Caveats_
   - **Topological protection is established at the phase-space level, scope-correct (closed 2026-05-25 Phase 2 sub-item 4).** The $0_1$ unknot real-space body is trivially knotted — no real-space knot-theoretic invariant to preserve. Genuine topological protection comes from the $(2,3)$ phase-space winding numbers on the Clifford torus, which ARE bona-fide topological invariants. K4-TLM lattice simulation (32³ Diamond lattice with two saturated walls + $2\pi$ phase-wound thread, canonical at [`phase-locked-topological-thread.md`](./dynamics/ch3-quantum-signal-dynamics/phase-locked-topological-thread.md), clm-zuf7g1) empirically demonstrates that vacuum and $T \ll T_{pair}$ noise scenarios are statistically indistinguishable — the winding is topologically protected against continuous deformations. Topology change above the Schwinger pair-creation threshold ($T \gg T_{pair} \approx 1.19 \times 10^{10}$ K, $V \to V_{snap} \approx 511$ kV) occurs via the canonical AVE pair-creation mechanism (clm-ezai5b); above that threshold the substrate undergoes a phase transition rather than a continuous deformation, so the topological invariant is broken by topology change, not by violation. Read leaves' "topologically protected soliton" language at the phase-space level, scoped to sub-pair-threshold dynamics.
@@ -442,9 +442,9 @@ Vol 1 Ch.4.5 contains the original $H_\infty = 28\pi m_e^3 cG/(\hbar^2\alpha^2) 
 - depends-on:
   - clm-0ktpcn — Golden Torus α Derivation [α^-2 factor in H_∞]
   - clm-5xon03 — Zero-Parameter Closure Status [consistency-proof framing of H_∞]
-  - clm-crbl60 — Vacuum Bulk Mass Density and Shear Modulus [G_vac/ρ_bulk for the √2 c = √(K/ρ) bulk-modulus (dilatational) compression speed; per 2026-06-08 c_L reconciliation this √2 c is the bulk-modulus speed, NOT the longitudinal P-wave √(10/3) c = √((K+4G/3)/ρ)]
+  - clm-crbl60 — Vacuum Bulk Mass Density and Shear Modulus 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]** [G_vac/ρ_bulk for the √2 c = √(K/ρ) bulk-modulus (dilatational) compression speed; per 2026-06-08 c_L reconciliation this √2 c is the bulk-modulus speed, NOT the longitudinal P-wave √(10/3) c = √((K+4G/3)/ρ)]
 - solidity: 0.55 (use as input only, don't build deeper) [= min(0.55, 0.62)]
-- rationale: The leaf now honestly discloses H_∞ = 28π m_e^3 cG/(ℏ^2 α^2) as a Class E operating-point projection / geometric-consistency identity (G taken as CODATA input; the Machian ξ embeds R_H in G) rather than an ab-initio prediction, and a_0 = cH_∞/(2π) inherits Class E status via the Hoop-Stress projection. The MOND a_0 carries a real -10.7% deficit, and the 1/(2π) hoop-stress factor is imported from classical continuum mechanics rather than derived from AVE micropolar dynamics; ~~the prior √2-vs-√(10/3) longitudinal-speed flag is resolved here as v_longitudinal = √(2G_vac/ρ_bulk) = √2 c, consistent with the K=2G operating point.~~ **[2026-06-08 c_L reconciliation — Rule 12 reversal, Grant-accepted: the √2-vs-√(10/3) flag is REVERSED. The canonical LONGITUDINAL P-WAVE speed is c_L = √((K+4G/3)/ρ) = √(10/3) c ≈ 1.83c at K=2G (Poisson ν=2/7; canonical vol_2 Ch 7, eq cp_from_nu). The √2 c = √(K/ρ) = √(2G/ρ) form is the BULK-MODULUS (dilatational/fluid) speed, which DROPS the 4G/3 shear term and is NOT the solid P-wave; it is retained only as the bulk-modulus quantity — e.g. the K4 A_1 scalar port-mode (clm-uu1qbo) measured at cardinal-axis v/c=1.45. This rescope does NOT touch the MOND a_0 result (a_0 = c·H_∞/2π never used the longitudinal speed) nor the cardinal-axis measurement (which is the bulk-modulus A_1 mode, not the P-wave).]** Two imported/identity steps (CODATA G + the classical 1/(2π) hoop-stress projection) plus the unresolved −10.7% a_0 deficit place the local rigor in the 0.5 band — just below the prior 0.60.
+- rationale: The leaf now honestly discloses H_∞ = 28π m_e^3 cG/(ℏ^2 α^2) as a Class E operating-point projection / geometric-consistency identity (G taken as CODATA input; the Machian ξ embeds R_H in G) rather than an ab-initio prediction, and a_0 = cH_∞/(2π) inherits Class E status via the Hoop-Stress projection. The MOND a_0 carries a real -10.7% deficit, and the 1/(2π) hoop-stress factor is imported from classical continuum mechanics rather than derived from AVE micropolar dynamics; ~~the prior √2-vs-√(10/3) longitudinal-speed flag is resolved here as v_longitudinal = √(2G_vac/ρ_bulk) = √2 c, consistent with the K=2G operating point.~~ **[2026-06-08 c_L reconciliation — Rule 12 reversal, Grant-accepted: the √2-vs-√(10/3) flag is REVERSED. The canonical LONGITUDINAL P-WAVE speed is c_L = √((K+4G/3)/ρ) = √(10/3) c ≈ 1.83c at K=2G (Poisson ν=2/7; canonical vol_2 Ch 7, eq cp_from_nu). The √2 c = √(K/ρ) = √(2G/ρ) form is the BULK-MODULUS (dilatational/fluid) speed, which DROPS the 4G/3 shear term and is NOT the solid P-wave; it is retained only as the bulk-modulus quantity — e.g. the K4 A_1 scalar port-mode (clm-uu1qbo) measured at cardinal-axis v/c=1.45. This rescope does NOT touch the MOND a_0 result (a_0 = c·H_∞/2π never used the longitudinal speed) nor the cardinal-axis measurement (which is the bulk-modulus A_1 mode, not the P-wave).]** Two imported/identity steps (CODATA G + the classical 1/(2π) hoop-stress projection) plus the unresolved −10.7% a_0 deficit place the local rigor in the 0.5 band — just below the prior 0.60. 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 - strengthen-by:
   - Derive the 1/(2π) hoop-stress projection from AVE micropolar dynamics rather than importing the classical T = F_r/(2π) result
   - Close the cosmic-scale 2π via explicit de Sitter-horizon Hoop-Stress closed-loop integration (Step 5 of the rigorous-derivation prereg, still open) instead of routing through Unruh-Hawking
@@ -671,7 +671,7 @@ The Ch.7.2 domain catalog tabulates $r$ values across EM, gravitational, BCS, ma
 <!-- id: clm-9gh0a1 -->
 
 - _Specific Claims_
-  - A classical Cauchy elastic solid satisfying the transverse-only (zero-longitudinal) condition $\lambda + 2\mu = 0$ yields $K = -4\mu/3 < 0$ — runaway implosion.
+  - A classical Cauchy elastic solid satisfying the transverse-only (zero-longitudinal) condition $\lambda + 2\mu = 0$ yields $K = -4\mu/3 < 0$ — runaway implosion. 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
   - This forces the substrate to be a **Chiral LC (Micropolar) Continuum** with independent rotational degrees of freedom, decoupling transverse-wave propagation from the bulk modulus and permitting $K > 0$ alongside pure transverse gauge-boson propagation.
 - _Specific Non-Claims and Caveats_
   - This is a **structural / no-go argument**: it rules out a Cauchy substrate, motivating the micropolar Chiral LC continuum. It does not derive the chiral SRS lattice geometry (that comes from the K4 packing / EMT closure separately).
@@ -1252,7 +1252,7 @@ Under the tetrahedral group $T_d$, the K4 4-port amplitude space decomposes as $
   - The K4 4-port space decomposes under $T_d$ as $A_1$ (totally symmetric, 1D, basis $(1,1,1,1)/2$, scalar/longitudinal) plus $T_2$ (3D triplet, traceless subspace $\sum_i v_i = 0$, vector-like/transverse).
   - The scattering matrix $S_{ij} = (1/2) - \delta_{ij}$ (for $z_{\text{local}} = 1$) has eigenvalue $+1$ on $A_1$ and $-1$ (triply degenerate) on $T_2$; the eigenvalue sum is $4$.
   - The empirical port-correlation eigenvalues (`phasor_discovery.py`, $N=64$, steps 100/200/300) are $\{1.65, 1.22, 1.13, 0.00\}$ — the smallest eigenvalue is exactly zero and stable, confirming the soliton's port-space lives in the 3D $T_2$ subspace.
-  - $A_1$ maps to the Cosserat translational sector $u$; $T_2$ maps to the microrotational sector $\omega$. $A_1$ propagates at $c\sqrt{2}$ (bulk modulus), $T_2$ at $c$ (shear modulus).
+  - $A_1$ maps to the Cosserat translational sector $u$; $T_2$ maps to the microrotational sector $\omega$. $A_1$ propagates at $c\sqrt{2}$ (bulk modulus), $T_2$ at $c$ (shear modulus). 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 - _Specific Non-Claims and Caveats_
   - Does NOT claim a new group-theory result — $A_1 \oplus T_2$ is the standard $T_d$ reduction of a 4-element permutation-like representation; the claim is its application to the K4 port space.
   - The empirical $\lambda_4 = 0$ is measured under one specific seeded $(2,3)$ Golden-Torus ansatz at amplitude $0.5$; it is the observed steady state of that run, not an analytic proof that $A_1$ must vanish for every initial condition.
@@ -1281,7 +1281,7 @@ The bond-level Op3 reflection dissipates the $A_1$ sector to zero while the $T_2
 - _Specific Claims_
   - The bond-level Op3 reflection adds an impedance mismatch $Z_{\text{eff}} = Z_0/\sqrt{S_{\text{sat}}}$ ($S_{\text{sat}}$ the Axiom-4 saturation factor) at each bond, breaking the bare-scattering unitarity.
   - The dissipation is asymmetric: $A_1$ (common-mode, no spatial gradient in port space) loses energy monotonically to zero via destructive interference; $T_2$ (spatially structured) dissipates more slowly and settles into a quasi-stable standing-wave configuration.
-  - This asymmetry is physically correct for EM waves on a Maxwell-substrate: longitudinal components ($\nabla \cdot \mathbf{E} \neq 0$) are forbidden in vacuum by Gauss's law, so any $A_1$-type excitation must dissipate. The K4 scattering enforces this automatically through $T_d$ symmetry, with no additional postulate.
+  - This asymmetry is physically correct for EM waves on a Maxwell-substrate: longitudinal components ($\nabla \cdot \mathbf{E} \neq 0$) are forbidden in vacuum by Gauss's law, so any $A_1$-type excitation must dissipate. The K4 scattering enforces this automatically through $T_d$ symmetry, with no additional postulate. 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 - _Specific Non-Claims and Caveats_
   - Does NOT claim a quantitative dissipation-rate law for either sector; the claim is the qualitative monotone-to-zero ($A_1$) vs quasi-stable ($T_2$) split, supported by the empirical $\lambda_4 = 0$ observation.
   - Does NOT derive Gauss's law from the four axioms; it observes that the $T_d$-symmetric K4 scattering reproduces the Gauss's-law constraint's consequence (longitudinal sector dissipates), an internal-consistency match rather than an independent derivation of Maxwell's equations.
@@ -1304,7 +1304,7 @@ The bond-level Op3 reflection dissipates the $A_1$ sector to zero while the $T_2
 ## Photon Identification — the $T_2$-Only Cosserat Microrotation (Four Tightly-Coupled Properties)
 <!-- id: clm-3npynp -->
 
-The AVE-native photon is the K4-TLM's stable $T_2$-only bound state: under $T_d$ the 4-port space is $A_1 \oplus T_2$, the $A_1$ longitudinal sector dissipates via Gauss's law, and the surviving $T_2$ transverse triplet — a Cosserat microrotation with $u=0$, $\omega\neq0$ — is the photon.
+The AVE-native photon is the K4-TLM's stable $T_2$-only bound state: under $T_d$ the 4-port space is $A_1 \oplus T_2$, the $A_1$ longitudinal sector dissipates via Gauss's law, and the surviving $T_2$ transverse triplet — a Cosserat microrotation with $u=0$, $\omega\neq0$ — is the photon. 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 
 - _Specific Claims_
   - The photon is the stable $T_2$-only configuration with **four tightly-coupled properties** (equivalent statements; any one implies the others): (1) purely transverse, (2) microrotation sector only ($u=0$, $\omega\neq0$), (3) sub-saturation ($\Delta\phi \ll \alpha$, lattice stays linear, no Axiom 4 kernel engagement), (4) impedance-matched at $Z_0$ ($Z_{\text{local}} = Z_0 \approx 376.7$ Ω perfectly matched everywhere; $\Gamma = 0$ at every bond; the wave-engineer's restatement of property 3).
@@ -1336,7 +1336,7 @@ The AVE-native photon is the K4-TLM's stable $T_2$-only bound state: under $T_d$
 
 The electron is a self-trapped photon: when a $T_2$ photon's amplitude crosses $V_{\text{yield}}$, Axiom 4 drives $C_{\text{eff}}\to\infty$, $Z\to0$, $\Gamma\to-1$, and the lattice self-creates a total-internal-reflection cavity that traps the photon into a standing wave.
 
-> **🟡 COEXIST FLAG (2026-06-10, Rule 12 — this claim is PRESERVED UNEDITED per the Grant adjudication "do NOT edit clm-i4p11y"; this is a flag-for-the-auditor note, not a claim edit).** Grant adjudicated the apparent tension between this leaf (electron = the *trapped transverse standing wave*) and the genesis-arc finding (electron *end-state* = the *longitudinal bulk* mode) as **COEXIST**, not contradiction: clm-i4p11y's trapped transverse standing wave is the **photon precursor**; the electron **end-state** is the longitudinal bulk mode. The directive was to **build the end-state separately** (do not rewrite this claim) and flag it here. Adjudication recorded at the crystal-graft-v2 verdict, `_orchestration/2026-06-09_ion-compression-rectifier-arc.md:139` ("TENSION 1 = COEXIST … the photon *precursor* … the electron *end-state* = the longitudinal bulk mode — … do NOT edit clm-i4p11y, flag it for the auditor"); the end-state build is the graft-v3/v4 line (`analysis/2026-06-10-graft-v4-photon-helicity`, Outcome LOCK-FAIL — the end-state is not yet realized). *(Verify-before-cite note: Deliverable-3 brief said "v4 prereg record"; the actual COEXIST adjudication record is the graft-v2 verdict cited above — the v4 prereg does not restate it.)*
+> **🟡 COEXIST FLAG (2026-06-10, Rule 12 — this claim is PRESERVED UNEDITED per the Grant adjudication "do NOT edit clm-i4p11y"; this is a flag-for-the-auditor note, not a claim edit).** Grant adjudicated the apparent tension between this leaf (electron = the *trapped transverse standing wave*) and the genesis-arc finding (electron *end-state* = the *longitudinal bulk* mode) as **COEXIST**, not contradiction: clm-i4p11y's trapped transverse standing wave is the **photon precursor**; the electron **end-state** is the longitudinal bulk mode. The directive was to **build the end-state separately** (do not rewrite this claim) and flag it here. Adjudication recorded at the crystal-graft-v2 verdict, `_orchestration/2026-06-09_ion-compression-rectifier-arc.md:139` ("TENSION 1 = COEXIST … the photon *precursor* … the electron *end-state* = the longitudinal bulk mode — … do NOT edit clm-i4p11y, flag it for the auditor"); the end-state build is the graft-v3/v4 line (`analysis/2026-06-10-graft-v4-photon-helicity`, Outcome LOCK-FAIL — the end-state is not yet realized). *(Verify-before-cite note: Deliverable-3 brief said "v4 prereg record"; the actual COEXIST adjudication record is the graft-v2 verdict cited above — the v4 prereg does not restate it.)* 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 
 > **🟡 OBSERVABLE-PROJECTION GATE-SUPPORT NOTE (2026-06-20, Rule 12 — flag-for-the-auditor, NOT a claim/rationale edit; the "do NOT edit clm-i4p11y" directive above is held).** The claim's observable-projection list (Specific Claim 3, "charge = topological winding, spin-½ = Finkelstein–Misner 4π double-cover") now has merged gate support for two of its projections — recorded here as a flag, **at exact honest scope, not promoted to "derived":**
 > - **spin-½ = 4π double-cover → REPRESENTABILITY** (#299, `research/2026-06-19_spin-doublecover-gate_result.md`): the substrate ADMITS the 2T⊂SU(2) double-cover action (SU(2)-lift holonomy −I@2π / +I@4π, distinct from the SO(3) baseline, stable R=4,6,8). This is the *representability* condition, Class-D — **NOT dynamics-selection** (kinematic gate; it does not show the field dynamically settles into 2T). See clm-rkisb8 (same gate, upgraded there).
@@ -1887,3 +1887,152 @@ Applying Universal Operator #6 ($\lambda_{\min}(S^\dagger S)\to0$, `clm-gdd70j`)
 - strengthen-by:
   - A Grant ruling on the bare-bond transverse extent $f$ (tube radius $\approx0.159$ / core-tube thickness $\approx1$ / neither) would adjudicate branch (i) on the $(2,3)$ locus and either fix or dissolve the bore
   - A fuller (still reciprocal) vertex model would test whether the broadband point-junction selection survives beyond the leading-order lumped class (any reciprocal extension is theorem-bound to the same $1/3$ floor; only non-reciprocity escapes)
+
+---
+
+## R40 batch-2a — NEEDS-RE-DERIVATION status note (2026-08-11)
+
+**Class:** status demotion under **R40**. This note mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-`,
+**moves no solidity number**, adjudicates no channel and opens no fork. Every byte of each demoted
+claim is preserved; the stamped line gains a status marker only (honesty-lag pattern, Rule 12).
+
+**The arc, in four clauses (R40's header form; clause 4 points at the LANDED artifact, not at a
+ruling record).**
+
+1. **The kill fired** — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the imported `K = 2G` elastic modulus** — the compressible far-field
+   branch was minted by a GR-imported modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the flat-direction finding: the written action
+   conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the LANDED ratified bound-sector law — Axiom 5, Substrate DC Bias**, clauses
+   **S** (deposit), **G** (bias coupling / bridge) and **Q** (quiescence), canonical at
+   [`eq_axiom_5.tex`](../../common_equations/eq_axiom_5.tex) with its register entry in
+   [`axiom-register.md`](../common/axiom-register.md) (§ *Axiom 5 — Substrate DC Bias*). Under
+   clause **G** the A1 / bulk slot is a **bound response** — $\mathbf{u}_0 =
+   -\mathcal{A}_g\nabla\varepsilon_{11}$, mechanism gloss **back-reaction** — with **no independent
+   propagating branch, no port and zero longitudinal characteristic speed**. A bulk *wave speed*, a
+   bulk *radiative port*, a bulk *band-branch* and a bulk *transit clock* therefore have **no
+   referent**, and each row below owes its re-derivation on that footing.
+   $\mathcal{A}_g$ (the **bias-coupling area**) is an `UNVALUED-RATIFIED-CONSTANT` per **R48**
+   ([`interlock-register.md`](../common/interlock-register.md), § *𝒜_g — the bias-coupling
+   area*): it is **not valued here or anywhere**, and **the calibration count stays 3**.
+
+**Standing named-open debt — the honesty rider.** The ratified axiom does **not** discharge
+everything. **THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt**, stated by the
+axiom's own phase-structure paragraph, clause **(c1)**: clause G's elliptic law is the *static
+abstraction of underived finite-speed bias dynamics*, and the $(u,\pi)$ no-signalling theorem does
+**not** cover the bias read — the bias's finite propagation speed is *owed, not held*. Every row
+tagged **⚑ BIAS-DEBT** below re-derives against the ratified axiom **with that debt standing**, never
+against a closed replacement.
+
+**Vocabulary.** Canonical nouns authored here: **the bound response** ($\mathbf{u}_0$), **the bias**
+($\varepsilon_{11}$), the **DC operating point / quiescent point (Q-point)**; **back-reaction** is
+the mechanism gloss. *"dress"*, *"grade"* as $\varepsilon_{11}$'s canonical noun, and *"halo"* for
+the physics (the physics noun is the **near-field store / added-mass**) are RETIRED by **R50**;
+*"retardation"* is retired by **R49(b)** in favour of **propagation delay / finite propagation
+speed**. Corpus text quoted below is reproduced from the banked audit and is
+**content-verified at HEAD (markup-reduced, not byte-identical)**; it is never reworded.
+
+**Rows carried in this file.**
+
+- **`:20`** — stamped at `:20`. *(family: electron-interior-label)*  ⚑ **BIAS-DEBT** · ⚑ **PAST-WALL**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  at the saturated boundary $Z \to 0, \Gamma \to -1$, internal acoustic energy is fully reflected inward as a standing wave (= rest mass)
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Two halves: the |Gamma|=1 wall reflection survives; 'internal acoustic energy' names the saturated interior in propagating-wave vocabulary — past-wall out of carve scope, label-level re-derivation with scope declared.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*. **⚑ PAST-WALL:** the content reaches past the saturation wall, a phase Axiom 5 explicitly does **not** write (its phase-structure paragraph puts the $D(A)\to\infty$ wall behaviour past-wall-adjacent and *not written here*, with the de-bonded and pre-freeze phase forms named-open). The demotion is therefore **scoped**: clause G resolves the cold, sub-yield side; the past-wall reading is neither discharged nor adjudicated here.
+
+- **`:445`** — stamped at `:445`. *(family: register-row)*  ⚑ **BIAS-DEBT**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  G_vac/ρ_bulk for the √2 c = √(K/ρ) bulk-modulus (dilatational) compression speed
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  clm-crbl60 dependency annotation records the sqrt(2)c as a compression SPEED — register row of the imported reading.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+- **`:447`** — stamped at `:447`. *(family: register-row)*  ⚑ **BIAS-DEBT**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  The canonical LONGITUDINAL P-WAVE speed is c_L = √((K+4G/3)/ρ) = √(10/3) c ≈ 1.83c at K=2G
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  The 2026-06-08 c_L-reconciliation ledger entry canonizing the P-wave speed — register row recording the imported reading's state; the reversal's history is preserved, its 'canonical speed' assertion is what re-routes.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+- **`:674`** — stamped at `:674`. *(family: K-stability-argument)*  ⚑ **BIAS-DEBT**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  the transverse-only (zero-longitudinal) condition $\lambda + 2\mu = 0$ yields $K = -4\mu/3 < 0$ — runaway implosion.
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  clm-9gh0a1, the register mirror of the cauchy-implosion class the prereg names: its JOB (rule out a Cauchy substrate) survives, but the mechanism frames longitudinal-deletion as a constitutive condition needing K<0 — the carve deletes the branch by constraint with K never a dynamical reservoir, so the stability argument is the import's, not the substrate's.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+- **`:1255`** — stamped at `:1255`. *(family: register-row)*  ⚑ **BIAS-DEBT**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  $A_1$ propagates at $c\sqrt{2}$ (bulk modulus), $T_2$ at $c$ (shear modulus).
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  clm-j550uh register entry recording the A1 propagation-speed half of the speed split (:1259 'A_1 would propagate forever' same entry); T2 half untouched.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+- **`:1284`** — stamped at `:1284`. *(family: gauss-A1-transduction)*
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  longitudinal components ($\nabla \cdot \mathbf{E} \neq 0$) are forbidden in vacuum by Gauss's law, so any $A_1$-type excitation must dissipate.
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  clm-9kd2t3 register entry: the Gauss-constraint role survives (kinematic under the carve); the dissipate/transduce-an-independent-A1-excitation mechanism consumes the phantom.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave.
+
+- **`:1307`** — stamped at `:1307`. *(family: gauss-A1-transduction)*
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  the $A_1$ longitudinal sector dissipates via Gauss's law, and the surviving $T_2$ transverse triplet ... is the photon
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  clm-i4p11y register entry: the T2-photon identification is untouched; the A1-dissipation mechanism (and the :1311 'zero longitudinal amplitude' empirical anchor, measured on an engine carrying the phantom DOF) re-routes.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave.
+
+- **`:1339`** — stamped at `:1339`. *(family: electron-interior-label)*  ⚑ **PAST-WALL**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  the electron **end-state** = the *longitudinal bulk* mode
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  COEXIST flag names the electron end-state as THE longitudinal bulk mode — an independent-mode reading of the bound sector; past-wall scope declared, label-level re-read of the Grant COEXIST adjudication owed (flag, not a leaf edit — clm-i4p11y is do-not-edit).
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ PAST-WALL:** the content reaches past the saturation wall, a phase Axiom 5 explicitly does **not** write (its phase-structure paragraph puts the $D(A)\to\infty$ wall behaviour past-wall-adjacent and *not written here*, with the de-bonded and pre-freeze phase forms named-open). The demotion is therefore **scoped**: clause G resolves the cold, sub-yield side; the past-wall reading is neither discharged nor adjudicated here.
+
+**Records.** Ruling **R40** (the demotion sweep) · the banked worklist
+[`r40_sweep_worklist_verified.json`](../../../research/drivers/r40_sweep_worklist_verified.json) · batch-0
+scope verification and batch-1 execution records in `_orchestration/` · this batch's record
+`_orchestration/2026-08-12_r40-sweep-batch2a.md`.
+

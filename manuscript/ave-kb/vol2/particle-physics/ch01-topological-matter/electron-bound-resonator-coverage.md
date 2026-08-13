@@ -37,7 +37,7 @@ defended).
 
 ## Bucket legend + consistency-vs-emergence tags
 
-- **A** — testable-now on the rung-1 longitudinal-bulk (A1 scalar) cage.
+- **A** — testable-now on the rung-1 longitudinal-bulk (A1 scalar) cage. 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 - **B** — DERIVED but needs the WINDING sector (L4, structural deferral — NOT a gap).
 - **C** — NOT-DERIVED-NATIVELY = a genuine gap (flagged not-derived, NEVER a claim).
 
@@ -187,14 +187,14 @@ duplicated. Each carries a status + the defined test where one exists.
 
 | # | Gate | Bucket | Status | Defined test / cross-ref |
 |---|------|--------|--------|--------------------------|
-| E.1 | **bulk/shear impedance-ratio projection-split** — `1.826 = √(10/3)` (channel-correct, two mechanical channels on their own ρc axis) vs `2.582 = √2·√(10/3)` (frozen prereg; the `√2` is the EM-photon `√(K/G)` reference compounded into the mechanical-shear arm). Both **α-free**, both **α-invariant** | — | **RESOLVED (Grant-ratified 2026-06-19)** — the network bulk/shear coupling uses `1.826 = √(10/3)` (channel-correct, two mechanical channels). Frozen prereg `2.582 = √2·√(10/3)` PRESERVED verbatim per Rule-12 (the `√2` compounds the EM-photon `√(K/G)` reference; superseded for the network-coupling use by `1.826`, NOT deleted) | moves NO chord/echo bin, only the bulk/shear gap LOCATION. Solver primary already `RATIO_BULK_SHEAR_MECH = √(10/3)` (`graded_vacuum_network.py:122`, default at `:178`); `2.582` retained as `RATIO_BULK_SHEAR_PHOTON` sensitivity (`:124`). `2026-06-19_electron-Q-coupled-network_result.md`:112–142 (FLAG 1); projection-map seam 4 = RESOLVED=1.826 |
+| E.1 | **bulk/shear impedance-ratio projection-split** — `1.826 = √(10/3)` (channel-correct, two mechanical channels on their own ρc axis) vs `2.582 = √2·√(10/3)` (frozen prereg; the `√2` is the EM-photon `√(K/G)` reference compounded into the mechanical-shear arm). Both **α-free**, both **α-invariant** | — | **RESOLVED (Grant-ratified 2026-06-19)** — the network bulk/shear coupling uses `1.826 = √(10/3)` (channel-correct, two mechanical channels). Frozen prereg `2.582 = √2·√(10/3)` PRESERVED verbatim per Rule-12 (the `√2` compounds the EM-photon `√(K/G)` reference; superseded for the network-coupling use by `1.826`, NOT deleted) | moves NO chord/echo bin, only the bulk/shear gap LOCATION. Solver primary already `RATIO_BULK_SHEAR_MECH = √(10/3)` (`graded_vacuum_network.py:122`, default at `:178`); `2.582` retained as `RATIO_BULK_SHEAR_PHOTON` sensitivity (`:124`). `2026-06-19_electron-Q-coupled-network_result.md`:112–142 (FLAG 1); projection-map seam 4 = RESOLVED=1.826 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]** |
 | E.2 | **TKI-transducer WIRING GATE** — `def-tk1xfm` (the EM↔mechanical transducer candidate, seam 2) must clear two preconditions before being wired into any compute path: (a) `status:proposed → SOLID` (Grant ratify); (b) the *"identity-by-translation, NOT a derivation"* (lossless/gain-1/pole-less) ceiling ported into `isomorphism.py`'s docstring — **CONFIRMED ABSENT today** (module docstring says only "exact dimensional conversion functions") | — | OPEN — gated; until cleared, **DEC-4's route-around (EM-as-bare-loss-port) is correct discipline** | `isomorphism.py` module docstring (lines 1–14); `device-circuit-models.md`:204 (def-tk1xfm FLAG); projection-map "TKI bridge state / WIRING GATE" |
 
 *(All 12 original gates preserved: load-bearing step = old #10 Fork-A's $Q$-leg fused with old #1/#5 the Cartesian-wall crack; A.1=old #1, A.2=old #5, A.3=old #10, B.1=old #2, C.1=old #7, C.2=old #6, C.3=old #8, D.1=old #3, D.2=old #4, D.3=old #9, D.4=old #11, D.5=old #12. Re-ranked, not dropped. **E.1/E.2 are NEW additions** from the 2026-06-19 projection-conflation audit, not re-ranked originals.)*
 
 **M, J, Q honest-map note (refuted bijection).** The clean "3 hairs = 3 channels" bijection is
 REFUTED: the Stokes-dimension triple ($\mathcal{M}/\mathcal{J}/\mathcal{Q}$ = 3D/2D/1D,
-`boundary-observables-m-q-j.md`:19-23) and the wave-channel triple (EM/shear/bulk,
+`boundary-observables-m-q-j.md`:19-23) and the wave-channel triple (EM/shear/bulk, 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
 `three-channel-impedances.md`:20-22) are TWO INDEPENDENT AXES no leaf cross-identifies; the same
 unproven Stokes triple also props $\alpha^{-1}=4\pi^3+\pi^2+\pi$ ($\alpha$=echo) — double duty.
 HONEST: $\mathcal{M}$=bulk/A1 (forced); $\{\mathcal{J},\mathcal{Q}\}$ CO-LOCATE in the
@@ -279,3 +279,92 @@ deposit is **the bound response**, mechanism gloss **back-reaction**; ε₁₁ i
 renamed **THE BIAS PROPAGATION THEOREM**) · vocabulary **R49(b)** `_orchestration/docket-entries/2026-08-10-rulings-r48-r49.md` (*"retardation"
 is RETIRED from this role. The canonical term is **propagation delay / finite propagation speed*** —
 the retardation retirement is R49(b)'s, NOT R50's; corrected 2026-08-11 at review).
+
+---
+
+## R40 batch-2a — NEEDS-RE-DERIVATION status note (2026-08-11)
+
+**Class:** status demotion under **R40**. This note mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-`,
+**moves no solidity number**, adjudicates no channel and opens no fork. Every byte of each demoted
+claim is preserved; the stamped line gains a status marker only (honesty-lag pattern, Rule 12).
+
+**The arc, in four clauses (R40's header form; clause 4 points at the LANDED artifact, not at a
+ruling record).**
+
+1. **The kill fired** — the walk-back that closed the bulk radiative-port reading.
+2. **The premise localized to the imported `K = 2G` elastic modulus** — the compressible far-field
+   branch was minted by a GR-imported modulus, not forced by the axioms.
+3. **The axioms underdetermine the bulk sector** — the flat-direction finding: the written action
+   conserves the Gauss function pointwise and never fixes its value.
+4. **The replacement is the LANDED ratified bound-sector law — Axiom 5, Substrate DC Bias**, clauses
+   **S** (deposit), **G** (bias coupling / bridge) and **Q** (quiescence), canonical at
+   [`eq_axiom_5.tex`](../../../../common_equations/eq_axiom_5.tex) with its register entry in
+   [`axiom-register.md`](../../../common/axiom-register.md) (§ *Axiom 5 — Substrate DC Bias*). Under
+   clause **G** the A1 / bulk slot is a **bound response** — $\mathbf{u}_0 =
+   -\mathcal{A}_g\nabla\varepsilon_{11}$, mechanism gloss **back-reaction** — with **no independent
+   propagating branch, no port and zero longitudinal characteristic speed**. A bulk *wave speed*, a
+   bulk *radiative port*, a bulk *band-branch* and a bulk *transit clock* therefore have **no
+   referent**, and each row below owes its re-derivation on that footing.
+   $\mathcal{A}_g$ (the **bias-coupling area**) is an `UNVALUED-RATIFIED-CONSTANT` per **R48**
+   ([`interlock-register.md`](../../../common/interlock-register.md), § *𝒜_g — the bias-coupling
+   area*): it is **not valued here or anywhere**, and **the calibration count stays 3**.
+
+**Standing named-open debt — the honesty rider.** The ratified axiom does **not** discharge
+everything. **THE BIAS PROPAGATION THEOREM is Axiom 5's standing named-open debt**, stated by the
+axiom's own phase-structure paragraph, clause **(c1)**: clause G's elliptic law is the *static
+abstraction of underived finite-speed bias dynamics*, and the $(u,\pi)$ no-signalling theorem does
+**not** cover the bias read — the bias's finite propagation speed is *owed, not held*. Every row
+tagged **⚑ BIAS-DEBT** below re-derives against the ratified axiom **with that debt standing**, never
+against a closed replacement.
+
+**Vocabulary.** Canonical nouns authored here: **the bound response** ($\mathbf{u}_0$), **the bias**
+($\varepsilon_{11}$), the **DC operating point / quiescent point (Q-point)**; **back-reaction** is
+the mechanism gloss. *"dress"*, *"grade"* as $\varepsilon_{11}$'s canonical noun, and *"halo"* for
+the physics (the physics noun is the **near-field store / added-mass**) are RETIRED by **R50**;
+*"retardation"* is retired by **R49(b)** in favour of **propagation delay / finite propagation
+speed**. Corpus text quoted below is reproduced from the banked audit and is
+**content-verified at HEAD (markup-reduced, not byte-identical)**; it is never reworded.
+
+**Rows carried in this file.**
+
+- **`:40`** — stamped at `:40`. *(family: engine bulk-cage receipt)*  ⚑ **BIAS-DEBT** · ⚑ **PAST-WALL**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  A — testable-now on the rung-1 longitudinal-bulk (A1 scalar) cage.
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  The whole bucket-A test platform runs an independent A1 scalar wave equation (T3.4a: oscillating gapped bound mode, 23 zero-crossings) — the coded phantom DOF; the FORM claims (mass=cutoff, persistence) have surviving content but their engine mechanism consumes it. Electron-sector, per-prereg label-level re-derivation with past-wall scope.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*. **⚑ PAST-WALL:** the content reaches past the saturation wall, a phase Axiom 5 explicitly does **not** write (its phase-structure paragraph puts the $D(A)\to\infty$ wall behaviour past-wall-adjacent and *not written here*, with the de-bonded and pre-freeze phase forms named-open). The demotion is therefore **scoped**: clause G resolves the cold, sub-yield side; the past-wall reading is neither discharged nor adjudicated here.
+
+- **`:190`** — stamped at `:190`. *(family: Z_bulk/channel-table formula)*  ⚑ **BIAS-DEBT**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  bulk/shear impedance-ratio projection-split — `1.826 = √(10/3)` (channel-correct, two mechanical channels on their own ρc axis)
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Grant-ratified E.1 network coupling built as rho*c_P/rho*c_S — the Z_bulk=rho*c_bulk formula class; the network-coupling role may survive but the formula consumes c_P as a wave speed and is owed a re-derivation.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+- **`:197`** — stamped at `:197`. *(family: Z_bulk/channel-table formula)*  ⚑ **BIAS-DEBT**
+  Quoted claim (content verified at HEAD; markup-reduced from the banked audit):
+  ```text
+  the wave-channel triple (EM/shear/bulk, `three-channel-impedances.md`:20-22)
+  ```
+  Audited rationale, verbatim from the banked worklist:
+  ```text
+  Honest-map note consumes the three-WAVE-channel axis with bulk as a wave channel (canonical home three-channel-impedances.md is out of slice); the co-located M=bulk/A1 accounting half survives.
+  ```
+
+  **Resolution.** The demoted carrier is the propagating A1 / bulk branch; under Axiom 5 clause G that slot is the **bound response**, so the re-derivation must be re-posed on the bound-sector constitutive law (bias $\varepsilon_{11}$, bound response $\mathbf{u}_0$, mechanism gloss back-reaction) rather than on a compression wave. **⚑ BIAS-DEBT:** this row's re-derivation turns on finite-speed bias dynamics, so the resolution is the ratified axiom **with THE BIAS PROPAGATION THEOREM standing** (clause (c1)) — the replacement is *owed, not held*.
+
+**Records.** Ruling **R40** (the demotion sweep) · the banked worklist
+[`r40_sweep_worklist_verified.json`](../../../../../research/drivers/r40_sweep_worklist_verified.json) · batch-0
+scope verification and batch-1 execution records in `_orchestration/` · this batch's record
+`_orchestration/2026-08-12_r40-sweep-batch2a.md`.
+
