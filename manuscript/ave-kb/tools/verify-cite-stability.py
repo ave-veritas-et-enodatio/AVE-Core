@@ -29,6 +29,11 @@ A line whose *content* changed is NOT flagged — that is anchor-content drift, 
 `verify-anchor-content.py` already owns. This gate is about pins that no longer
 point at anything at all.
 
+⚠ TESTING THIS CHECKER: `tracked_files()` uses `git ls-files`, so an UNCOMMITTED
+file is invisible to it. Running the gate against a dirty tree therefore does NOT
+scan the change under test -- which is how this file's own bad fixture passed
+locally and failed in CI. Commit first, then run.
+
 USAGE
     python3 verify-cite-stability.py --base origin/main
     python3 verify-cite-stability.py --base origin/main --json
@@ -50,6 +55,13 @@ CITE_RE = re.compile(
     r":(?P<start>\d+)(?:-(?P<end>\d+))?\b"
 )
 SCAN_SUFFIXES = {".md", ".py", ".tex", ".yaml", ".yml"}
+# `tests/fixtures` holds DELIBERATELY broken cites. Same run, same reason, as
+# verify-anchor-content.SKIP_SEGMENT_RUNS and verify-md-links.SKIP_SEGMENT_RUNS.
+SKIP_SEGMENT_RUNS: tuple[tuple[str, ...], ...] = (("tests", "fixtures"),)
+
+
+def _contains_run(parts: tuple[str, ...], run: tuple[str, ...]) -> bool:
+    return any(parts[i : i + len(run)] == run for i in range(len(parts) - len(run) + 1))
 
 
 def sh(args: list[str]) -> tuple[int, str]:
@@ -62,7 +74,14 @@ def tracked_files(root: Path) -> list[str]:
     if rc != 0:
         print("[cite-stability] FATAL: git ls-files failed", file=sys.stderr)
         sys.exit(2)
-    return [f for f in out.split("\n") if f and Path(f).suffix in SCAN_SUFFIXES]
+    keep = []
+    for f in out.split("\n"):
+        if not f or Path(f).suffix not in SCAN_SUFFIXES:
+            continue
+        if any(_contains_run(Path(f).parts, r) for r in SKIP_SEGMENT_RUNS):
+            continue
+        keep.append(f)
+    return keep
 
 
 def read_at(root: Path, ref: str | None, path: str) -> list[str] | None:
@@ -131,9 +150,15 @@ def self_test() -> int:
         if got != want:
             ok = False
         print(f"  [{status}] {name}")
-    pins = list(CITE_RE.finditer("see `manuscript/predictions.yaml:295` and foo.py:12-14"))
+    # ANTI-SELF-REFERENCE: assembled at runtime so this file's SOURCE never contains
+    # a contiguous `path.ext:NN` literal. It did, and CI caught it -- this checker
+    # flagged its own test fixture as a dead pin and red-gated its own PR. Ninth
+    # instance of the self-referential-gate class in one day; the fixture must not
+    # be the thing under test.
+    _p, _n = "manuscript/predictions" + ".yaml", "295"
+    pins = list(CITE_RE.finditer(f"see `{_p}:{_n}` and foo" + ".py:12-14"))
     got = [(m.group("path"), m.group("start")) for m in pins]
-    want = [("manuscript/predictions.yaml", "295"), ("foo.py", "12")]
+    want = [(_p, _n), ("foo" + ".py", "12")]
     print(f"  [{'ok ' if got == want else 'FAIL'}] pin extraction {got}")
     if got != want:
         ok = False
