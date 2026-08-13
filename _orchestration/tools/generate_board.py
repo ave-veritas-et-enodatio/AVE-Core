@@ -20,8 +20,10 @@ that is the forcing function that keeps it from rotting.
 The honest exceptions, all in this file and all disclosed at their definition:
 SELF_DISCLAIM (a hand-curated phrase list -- a HEURISTIC, which is why the board
 prints "~"), STATUS_ORDER and REQUIRED_KEYS (schema vocabularies, fail-loud so a
-gap is caught not absorbed), PR_LIMIT, and the 0.80 top-tier threshold. An
-earlier draft claimed "no hand-maintained list ANYWHERE", which was false.
+gap is caught not absorbed), PR_LIMIT, the 0.80 top-tier threshold, and the
+12-char anchor floor. An earlier draft claimed "no hand-maintained list ANYWHERE",
+which was false -- and its replacement enumerated the exceptions as a closed set
+while the same commit added a sixth. Add to this list when you add a constant.
 
 FAIL-LOUD CONTRACT
 ------------------
@@ -49,12 +51,18 @@ USAGE
     python3 _orchestration/tools/generate_board.py            # write BOARD.md
     python3 _orchestration/tools/generate_board.py --check    # fail if hand-edited
 
-`--check` compares only the STABLE sections. The open-PR list changes whenever
-anyone opens, merges, or retitles a PR -- including this board's own PR, which
-made v1's `--check` red on arrival. Comparing the volatile section would make
-the check cry wolf, and a check that cries wolf gets disabled. It is a LOCAL
-guard against hand edits, not a CI gate. Freshness rides on the SHA in the
-header: if it does not match `origin/main`, regenerate.
+`--check` compares the stable sections with commit SHAs normalized out. TWO
+things here are unstable for reasons that have nothing to do with a hand edit,
+and both made an earlier `--check` red on arrival:
+  * the open-PR list changes whenever anyone touches any PR, including this
+    board's own PR -- so that section is excluded entirely;
+  * the scanned-tree SHA is SELF-REFERENTIAL. A board committed in commit X can
+    only ever name X's parent, because the SHA is read before the commit
+    containing the board exists. So a committed board is permanently one SHA
+    behind, forever, by construction.
+A check that cries wolf gets disabled, and a disabled gate is a lie -- so SHAs
+are normalized before comparison and everything else must match byte-for-byte.
+This is a LOCAL guard against hand edits, not a CI gate.
 """
 from __future__ import annotations
 
@@ -210,9 +218,15 @@ def load_open_items() -> list[dict]:
         if hits > 1:
             die(f"{rel}: anchor occurs {hits} times in {meta['source']} -- it must "
                 f"identify ONE place. Lengthen it.\n         anchor: {meta['anchor']!r}")
-        if len(meta["anchor"]) < 12:
+        # A corpus node id (clm-/def-/sup-/exp-/ilk- + 6 chars = 10) is the most
+        # rewrite-stable pointer available -- it survives rewording, which quoted
+        # prose does not. A blunt 12-char floor rejected exactly those and pushed
+        # authors toward prose, i.e. toward the thing that goes stale.
+        is_node_id = re.fullmatch(r"(clm|def|sup|exp|ilk)-[a-z0-9]{6}", meta["anchor"])
+        if not is_node_id and len(meta["anchor"]) < 12:
             die(f"{rel}: anchor {meta['anchor']!r} is too short to be a stable "
-                f"pointer (min 12 chars). Quote more of the source line.")
+                f"pointer (min 12 chars, or a bare clm-/def-/sup-/exp-/ilk- node "
+                f"id). Quote more of the source line.")
 
         seen[meta["id"]] = str(rel)
         meta["_file"] = str(rel)
@@ -266,7 +280,18 @@ def docketed_rulings() -> tuple[set[str], set[str]]:
     if not recorded:
         die("no ruling identifiers found in docket-entries/ filenames -- the "
             "naming convention changed and the propagation scan is now blind")
-    return recorded, in_bodies - recorded
+    # P2: the strict rule can DROP a real ruling under a filename shape already in
+    # the corpus (`2026-08-07-r27-infra-batch.md`, `...-under-r43.md`). R27 survives
+    # today only because a sibling range file names it -- coincidence, not
+    # convention. Surface the delta loudly rather than under-report debt silently,
+    # which is the direction of the original defect.
+    loose: set[str] = set()
+    for f in files:
+        for a, b in re.findall(r"\br(\d{1,3})-r(\d{1,3})\b", f.name.lower()):
+            lo, hi = sorted((int(a), int(b)))
+            loose |= {f"R{n}" for n in range(lo, hi + 1)}
+        loose |= {f"R{int(n)}" for n in re.findall(r"\br(\d{1,3})\b", f.name.lower())}
+    return recorded, in_bodies - recorded, loose - recorded
 
 
 def main() -> int:
@@ -275,7 +300,7 @@ def main() -> int:
     # ---- inputs (all required) -------------------------------------------
     rows = load_claims()
     open_items = load_open_items()
-    rulings, unclassified = docketed_rulings()
+    rulings, unclassified, unclassified_filenames = docketed_rulings()
 
     claims = [r for r in rows if r.get("node_type") == "claim"]
     experiments = [r for r in rows if r.get("node_type") == "experiment"]
@@ -314,9 +339,10 @@ def main() -> int:
                      "--date=short", "HEAD"], "git log HEAD").strip()
     main_sha = run(["git", "-C", str(REPO), "rev-parse", "--short", "origin/main"],
                    "git rev-parse origin/main").strip()
-    diverged = subprocess.run(
-        ["git", "-C", str(REPO), "merge-base", "--is-ancestor", "origin/main", "HEAD"],
-        capture_output=True).returncode != 0
+    # Match the banner's WORDING exactly: "a tree that is not origin/main".
+    # An ancestry predicate said something different and stayed silent when HEAD
+    # was AHEAD of main -- a genuinely different tree, no banner.
+    diverged = head_sha != main_sha
 
     # ---- the headline: is anything experimentally supported? --------------
     exp_solid = [c for c in claims if c.get("experimental_solidity") is not None]
@@ -429,6 +455,14 @@ def main() -> int:
           "reading. The scan is word-boundary over `claims.jsonl` plus "
           f"{len(leaves)} `claim-quality.md` leaves.")
         A("")
+    if unclassified_filenames:
+        A(f"> ⚑ **{len(unclassified_filenames)} `R<N>` token(s) sit in a docket "
+          f"FILENAME outside a `ruling-`/`rulings-` segment and are NOT counted "
+          f"above: {', '.join(sorted(unclassified_filenames, key=lambda t: int(t[1:])))}. "
+          f"If any of those is a ruling, this count under-reports the debt. "
+          f"Classify them — rename the file into the convention, or confirm they "
+          f"are not rulings.")
+        A("")
     if unclassified:
         A(f"> ⚑ **The ruling set is a derived approximation, and the selection rule "
           f"is an OPEN QUESTION.** The {len(rulings)} above come from docket "
@@ -461,12 +495,15 @@ def main() -> int:
     A("")
     A("*Generated from `claims.jsonl`, `open-items/`, `docket-entries/`, "
       "`gh pr list`, and `git`. Every input is required; this file is not written "
-      "at all if any input fails. There is no hand-written section and no "
-      "hand-maintained list — to add something to this board, make it derivable "
-      "first.*")
+      "at all if any input fails. No section here is hand-written — to add "
+      "something to this board, make it derivable first. The generator does carry "
+      "a few hand-curated constants, enumerated and disclosed in its docstring; "
+      "the `~` on the self-disclaim figure is one of them showing through.*")
 
     out = "\n".join(L) + "\n"
-    stable_guard_count = sum(1 for ln in L if ln == VOLATILE_HEADING)
+    # Rendered lines, not list elements: a value carrying an embedded newline
+    # produces two heading lines from one element, which the element count missed.
+    stable_guard_count = sum(1 for ln in out.splitlines() if ln == VOLATILE_HEADING)
 
     if check_only:
         if not BOARD.is_file():
@@ -474,8 +511,13 @@ def main() -> int:
         # Line-anchored, not substring: open-item TITLES are author-controlled and
         # render above this point, so a title containing the heading text would move
         # the split upward and drop the propagation number out of the guarded region.
-        split = lambda s: re.split(rf"^{re.escape(VOLATILE_HEADING)}$", s,  # noqa: E731
-                                   flags=re.M)[0]
+        # Normalize SHAs: see the module docstring. A committed board names its
+        # own parent commit and can never name itself, so an un-normalized compare
+        # is red on every commit of BOARD.md -- which is how this defect recurred
+        # three times.
+        def split(text: str) -> str:
+            stable = re.split(rf"^{re.escape(VOLATILE_HEADING)}$", text, flags=re.M)[0]
+            return re.sub(r"\b[0-9a-f]{7,40}\b", "<sha>", stable)
         if stable_guard_count != 1:
             die(f"{VOLATILE_HEADING!r} occurs {stable_guard_count} times as a line in "
                 f"the rendered board; the --check split would be ambiguous. An "

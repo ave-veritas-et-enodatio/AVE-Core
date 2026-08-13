@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **b3bc6ace** (2026-08-12) · 460 index records · 330 claims · 1 PR open
+Scanned tree **fe133e2c** (2026-08-12) · 460 index records · 330 claims · 1 PR open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`7d361e96`). Every count below describes **b3bc6ace**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`7d361e96`). Every count below describes **fe133e2c**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -71,4 +71,4 @@ A ruling that lives only in the docket has changed the change-log, not the state
 
 ---
 
-*Generated from `claims.jsonl`, `open-items/`, `docket-entries/`, `gh pr list`, and `git`. Every input is required; this file is not written at all if any input fails. There is no hand-written section and no hand-maintained list — to add something to this board, make it derivable first.*
+*Generated from `claims.jsonl`, `open-items/`, `docket-entries/`, `gh pr list`, and `git`. Every input is required; this file is not written at all if any input fails. No section here is hand-written — to add something to this board, make it derivable first. The generator does carry a few hand-curated constants, enumerated and disclosed in its docstring; the `~` on the self-disclaim figure is one of them showing through.*

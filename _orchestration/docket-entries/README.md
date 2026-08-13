@@ -18,7 +18,7 @@ Separate files per lane = zero textual overlap = no server-side conflicts **for 
 
 > ★**CORRECTION 2026-08-13 — the hazard described in the next paragraph does not exist.**
 > The `merge=ours` *silent-drop* mechanism was withdrawn in-corpus on 2026-08-03 at
-> [`../2026-07-20_pending-rulings-and-frontier-queue.md`](../2026-07-20_pending-rulings-and-frontier-queue.md)`:170-181`:
+> [`../2026-07-20_pending-rulings-and-frontier-queue.md`](../2026-07-20_pending-rulings-and-frontier-queue.md) — search **`Merge note, CORRECTED 2026-08-03`**:
 > `.gitattributes:9` does set `*.md merge=ours`, but the attribute is **inert** with no
 > `merge.ours.driver` configured (`git config --get-regexp '^merge\.ours\.'` returns empty,
 > local and `--global`), so git falls back to the default 3-way text merge. A first-party
