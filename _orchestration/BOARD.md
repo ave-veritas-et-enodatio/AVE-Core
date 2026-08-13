@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **9361cd38** (2026-08-13) · 460 index records · 330 claims · 1 PR open
+Scanned tree **096bf901** (2026-08-13) · 460 index records · 330 claims · 1 PR open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`ecc65077`). Every count below describes **9361cd38**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`ecc65077`). Every count below describes **096bf901**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -30,7 +30,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## What we are waiting on
 
-**32 of 54 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
+**31 of 53 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
 
 *Scope: this is a census of `open-items/`. `_orchestration/2026-07-10_rulings-docket.md` is the **paper timeline** — a dated continuation log, frozen at its 2026-07-21 tail per `docket-entries/README.md`, and the historical record of how each ruling was reached. It is read chronologically, not harvested; anything still live in it belongs here as its own file.*
 
@@ -62,7 +62,6 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [The factor-2 normalization fork — leaf :47 vs :48 (a normalization-ledger lane awaits GO)](open-items/2026-08-03-factor-2-normalization-fork.md) | ROUTED-TO-GRANT | grant | 2026-08-03 |
 | [The falsifier-precision decision — leaf :236 asserts a threshold the instrument cannot resolve](open-items/2026-08-03-falsifier-precision.md) | ROUTED-TO-GRANT | grant | 2026-08-03 |
 | [Op14 local-clock modulation of the retardation — the driver retards by COORDINATE phase](open-items/2026-08-03-op14-local-clock.md) | ROUTED-TO-GRANT | grant | 2026-08-03 |
-| [The manifest `type` axis was never ruled — four rows carry derived_prediction while meaning consistency_check](open-items/2026-08-13-manifest-type-retyping.md) | ROUTED-TO-GRANT | grant | 2026-08-05 |
 | [Sector-of-storage — where the compression store lives (A1 canon vs the T2/swing label)](open-items/2026-07-26-sector-of-storage.md) | OPEN-IN-WALK | grant | 2026-07-26 |
 | [A RESOLVED stamp asserts its own propagation, and the propagation never happened (Row 11 MOND)](open-items/2026-05-19-row11-mond-propagation.md) | OPEN | unassigned | 2026-05-19 |
 | [Two infra gaps still open — no conflict-marker hook, and no structural worktree-leak fix](open-items/2026-05-28-infra-hygiene-gaps.md) | OPEN | unassigned | 2026-05-28 |

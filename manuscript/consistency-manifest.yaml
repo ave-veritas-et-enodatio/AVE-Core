@@ -216,7 +216,7 @@ predictions:
   - id: P47
     clm: clm-009nkt
     name: "α thermal running (δ_strain)"
-    type: derived_prediction
+    type: consistency_check
     calibration_role: consistency
     derivation_label: "sec:alpha_thermal_running"
     constants_py_symbol: "DELTA_STRAIN"
@@ -229,6 +229,15 @@ predictions:
     public_in_readme: true
     public_in_living_ref: true
     notes: |
+      ★ type derived_prediction → consistency_check, 2026-08-13 (Grant: "fold into 966").
+      Discharges the re-typing routed by the P42 ruling as owed "across four rows, not a
+      rider on this one" — P42, P47, P20_21, P44_45, all four flipped in this one pass.
+      Basis, from that ruling verbatim: `type: derived_prediction` is defined in this
+      file's header as "genuine forward prediction (Class D)" while `consistency_check`
+      ("reproduces a known result (Class C)") "is the closer fit". The row already
+      carried calibration_role: consistency, so field and type now agree.
+      Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
+
       CMB thermal expansion of the spatial metric. Distinct from QED vacuum
       polarization and from the proton Skyrme thermal correction. δ_strain is
       defined by the relation, so predicted == observed by construction —
@@ -725,7 +734,7 @@ predictions:
     public_in_living_ref: true
     notes: |
       ★ calibration_role forward-prediction → consistency, 2026-08-13 —
-      PENDING-GRANT-CONFIRM, applied on the P42 precedent, NOT on a new ruling.
+      CONFIRMED by Grant 2026-08-13 ("1. confirmed"). Applied on the P42 precedent.
       P42 carried this same label and Grant struck it 2026-08-05 as "wrong on
       all three axes" (untested / divergent-from-SM / AVE-distinct). P19 fails
       the same three: this row carries error_percent: 1.6 against measured
@@ -751,13 +760,22 @@ predictions:
   - id: P20_21
     clm: clm-3kmt3p
     name: "Magnetopause (Earth, Jupiter)"
-    type: derived_prediction
+    type: consistency_check
     calibration_role: consistency
     derivation_label: "sec:planetary_magnetosphere"
     axioms_used: [1, 2, 3, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
+      ★ type derived_prediction → consistency_check, 2026-08-13 (Grant: "fold into 966").
+      Discharges the re-typing routed by the P42 ruling as owed "across four rows, not a
+      rider on this one" — P42, P47, P20_21, P44_45, all four flipped in this one pass.
+      Basis, from that ruling verbatim: `type: derived_prediction` is defined in this
+      file's header as "genuine forward prediction (Class D)" while `consistency_check`
+      ("reproduces a known result (Class C)") "is the closer fit". The row already
+      carried calibration_role: consistency, so field and type now agree.
+      Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
+
       Chapman-Ferraro standoff derived in Vol 3 Ch 6 from vacuum magnetic
       pressure balance. The derivation is pure transmission-line impedance
       matching: B²/(2μ₀) = ½ρ_sw v_sw² with reflection coefficient Γ.
@@ -892,13 +910,22 @@ predictions:
   - id: P42
     clm: clm-3zz0f6
     name: "α invariance under gravity"
-    type: derived_prediction
+    type: consistency_check
     calibration_role: consistency
     derivation_label: "sec:galactic_saturation"
     axioms_used: [1, 3, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
+      ★ type derived_prediction → consistency_check, 2026-08-13 (Grant: "fold into 966").
+      Discharges the re-typing routed by the P42 ruling as owed "across four rows, not a
+      rider on this one" — P42, P47, P20_21, P44_45, all four flipped in this one pass.
+      Basis, from that ruling verbatim: `type: derived_prediction` is defined in this
+      file's header as "genuine forward prediction (Class D)" while `consistency_check`
+      ("reproduces a known result (Class C)") "is the closer fit". The row already
+      carried calibration_role: consistency, so field and type now agree.
+      Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
+
       Substrate-level prediction: ε_local and c_local carry the same n·S factor
       which cancels in α = e²/(4πε₀ℏc).
 
@@ -1069,13 +1096,22 @@ predictions:
   - id: P44_45
     clm: clm-d9ivj1
     name: "BH interior, Regime IV"
-    type: derived_prediction
+    type: consistency_check
     calibration_role: consistency
     derivation_label: "ch:bh_interior"
     axioms_used: [1, 2, 3, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
+      ★ type derived_prediction → consistency_check, 2026-08-13 (Grant: "fold into 966").
+      Discharges the re-typing routed by the P42 ruling as owed "across four rows, not a
+      rider on this one" — P42, P47, P20_21, P44_45, all four flipped in this one pass.
+      Basis, from that ruling verbatim: `type: derived_prediction` is defined in this
+      file's header as "genuine forward prediction (Class D)" while `consistency_check`
+      ("reproduces a known result (Class C)") "is the closer fit". The row already
+      carried calibration_role: consistency, so field and type now agree.
+      Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
+
       R-1 audit (2026-04-19): derivation_label corrected
       ch:cosmology_v7 → ch:bh_interior (the dedicated chapter at
       vol_3_macroscopic/chapters/21_black_hole_interior_regime_iv.tex).

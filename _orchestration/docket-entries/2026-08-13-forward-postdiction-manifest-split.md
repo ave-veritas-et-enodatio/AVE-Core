@@ -71,3 +71,26 @@ is used in ~15 Rule-12 walk-backs but has never been minted as a `def-` node, wh
 GATES rather than for an unminted term avoids minting vocabulary by filename. The
 `open-items/postdiction-vocabulary` fragment is deleted accordingly (closing an item deletes its
 file; git holds the history, this entry holds the ruling).
+
+**★ RULINGS 2026-08-13 (Grant), folded into this PR.**
+- **"1. confirmed"** — P19's `calibration_role: forward-prediction → consistency` is RATIFIED. The
+  PENDING-GRANT-CONFIRM stamp is lifted; the row now reads CONFIRMED.
+- **"3. fold into 966"** — the `type` re-typing owed *"across four rows, not a rider on this one"*
+  is DISCHARGED. P42, P47, P20_21, P44_45 all flip `type: derived_prediction → consistency_check`
+  in one pass, on the basis the P42 ruling itself stated: the schema defines `derived_prediction`
+  as *"genuine forward prediction (Class D)"* while `consistency_check` (*"reproduces a known
+  result (Class C)"*) *"is the closer fit"*. All four already carried `calibration_role:
+  consistency`, so field and type now agree. Mechanism-class relabel only — no value, axiom,
+  bridge or solidity moved. `open-items/manifest-type-retyping` is deleted accordingly.
+- **"2. lets add the 7th in a new PR"** — a SEVENTH `calibration_role` is authorized, in its own PR,
+  for the class this split exposed: **form forced by the substrate + value computed from a declared
+  calibration input measured in a DIFFERENT experiment + output never fit to the observable being
+  predicted**. That is a genuine forward value and the current vocabulary has no slot for it —
+  `echo`/`mixed` collapse it together with the definitional case. The discriminator is *"was the
+  observable being predicted used to set any input?"*, not *"does α appear?"*. Symmetric-standard
+  note: every SM prediction consumes measured inputs (α, G_F, m_Z) and is called predictive;
+  applying `echo` to ourselves for the same structure is the consensus-bias trap.
+  ⚠ Scoped explicitly: **this row (`P_biref_coefficient`) does NOT qualify** and stays `mixed`.
+  `E_YIELD ≡ √α·E_CRIT` by definition (`constants.py:499`), so `(E_CRIT/E_YIELD)² = 1/α` holds to
+  **0.00e+00 relative error** — the α-power in its magnitude ratio is algebra, not prediction. The
+  chord is the FORM (tree-level saturation vs QED's α² loop), which is what HIBEF would test.
