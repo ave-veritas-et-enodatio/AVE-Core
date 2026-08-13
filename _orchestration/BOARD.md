@@ -4,7 +4,9 @@
 
 # AVE program board
 
-`origin/main` **7d361e96** (2026-08-12) · 460 index records · 330 claims · 1 PRs open
+Scanned tree **b3bc6ace** (2026-08-12) · 460 index records · 330 claims · 1 PR open
+
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`7d361e96`). Every count below describes **b3bc6ace**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -57,7 +59,7 @@ R23, R24, R25, R26, R27, R28, R29, R30, R32, R33, R34, R35, R36, R37, R38, R41, 
 
 A ruling that lives only in the docket has changed the change-log, not the state. Claims still carry scores earned under the superseded reading. The scan is word-boundary over `claims.jsonl` plus 11 `claim-quality.md` leaves.
 
-> ⚑ **The ruling set is a derived approximation, and the selection rule is an OPEN QUESTION.** The 31 above come from docket *filenames* (with `rN-rM` ranges expanded) — precise and convention-backed. A further **23** R-numbers appear only in docket *bodies* (R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20, R21, R22). From the text alone there is no way to tell a ruling recorded in an unnumbered batch file from a cross-reference to a ruling recorded elsewhere, so they are counted separately rather than folded in either direction. See `open-items/` → *ruling-selection-rule*.
+> ⚑ **The ruling set is a derived approximation, and the selection rule is an OPEN QUESTION.** The 31 above come from docket *filenames*, requiring the number to sit in a `ruling-`/`rulings-` segment, with `rN-rM` ranges expanded. A further **23** `R<N>` tokens appear only in docket *bodies* (R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20, R21, R22). **Most of those are probably not rulings at all** — sampling shows the `R<N>` glyph is shared with charter-requirement, review-finding, and census namespaces (`R0` = a route option; `R5(b)` = a charter requirement; `R3 (WARN-4)` = a review finding). Read this line as *the glyph is overloaded*, not as *up to 23 more unpropagated rulings*. Same class as the four distinct decisions all named `D1`. See `open-items/` → *ruling-selection-rule* and *key-namespace-collision*.
 
 ## In flight
 

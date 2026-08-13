@@ -13,9 +13,15 @@ GENERATED from artifacts that cannot drift, because they ARE the state.
   gh pr list        -> what is in flight
   git               -> where main is
 
-There is no hand-written section and no hand-maintained list ANYWHERE in this
-file. Anything the board should show has to become one of those inputs first --
+No section of the OUTPUT is hand-written: every figure is read at run time from
+those inputs. Anything the board should show has to become one of them first --
 that is the forcing function that keeps it from rotting.
+
+The honest exceptions, all in this file and all disclosed at their definition:
+SELF_DISCLAIM (a hand-curated phrase list -- a HEURISTIC, which is why the board
+prints "~"), STATUS_ORDER and REQUIRED_KEYS (schema vocabularies, fail-loud so a
+gap is caught not absorbed), PR_LIMIT, and the 0.80 top-tier threshold. An
+earlier draft claimed "no hand-maintained list ANYWHERE", which was false.
 
 FAIL-LOUD CONTRACT
 ------------------
@@ -76,8 +82,11 @@ REQUIRED_KEYS = ["id", "title", "status", "owner", "opened", "source", "anchor"]
 PR_LIMIT = 200
 VOLATILE_HEADING = "## In flight"   # excluded from --check; see module docstring
 
-# Rationale language a claim uses when it disclaims physical content. Used only
-# to COUNT how much of the top tier is bookkeeping -- never to reclassify.
+# HAND-CURATED HEURISTIC, and the board prints "~" because of it. A claim that
+# disclaims itself in words outside this list is NOT counted and nothing fails --
+# demonstrated: 31 rationales rewritten to "BOOKKEEPING-ONLY, asserts no physical
+# content" still reported the same figure. Treat the number as a floor, not a
+# census. Used only to COUNT bookkeeping in the top tier -- never to reclassify.
 SELF_DISCLAIM = [
     "definitional", "identity-grade", "true by construction",
     "zero predictive content", "not a physics prediction", "not a prediction",
@@ -132,7 +141,8 @@ def load_open_items() -> list[dict]:
         die(f"open-items directory not found at {OPEN_ITEMS}")
 
     strays = [p for p in OPEN_ITEMS.rglob("*")
-              if p.is_file() and p.suffix.lower() != ".md"]
+              if p.is_file() and p.suffix.lower() != ".md"
+              and not p.name.startswith(".")]   # Finder drops .DS_Store in here
     if strays:
         die(f"non-.md file(s) in open-items/: {[s.name for s in strays]}. "
             f"Rename to .md or move out -- items are never silently skipped.")
@@ -189,11 +199,20 @@ def load_open_items() -> list[dict]:
         src = REPO / meta["source"]
         if not src.is_file():
             die(f"{rel}: source {meta['source']!r} does not exist")
-        if meta["anchor"] not in src.read_text(encoding="utf-8", errors="replace"):
+        body = src.read_text(encoding="utf-8", errors="replace")
+        hits = body.count(meta["anchor"])
+        if hits == 0:
             die(f"{rel}: anchor text not found in {meta['source']}.\n"
                 f"         anchor: {meta['anchor']!r}\n"
                 f"         The source moved or was rewritten. Repoint the anchor; "
                 f"do NOT convert it back to a line number.")
+        # Membership alone is not a pointer: `anchor: the` resolves and pins nothing.
+        if hits > 1:
+            die(f"{rel}: anchor occurs {hits} times in {meta['source']} -- it must "
+                f"identify ONE place. Lengthen it.\n         anchor: {meta['anchor']!r}")
+        if len(meta["anchor"]) < 12:
+            die(f"{rel}: anchor {meta['anchor']!r} is too short to be a stable "
+                f"pointer (min 12 chars). Quote more of the source line.")
 
         seen[meta["id"]] = str(rel)
         meta["_file"] = str(rel)
@@ -226,13 +245,18 @@ def docketed_rulings() -> tuple[set[str], set[str]]:
     if not files:
         die("docket-entries/ is empty -- an empty scan is not a clean scan")
 
+    # The rN must sit inside a `ruling-`/`rulings-` filename segment. A bare rN
+    # anywhere in a filename minted phantom rulings -- `...-bench-r999-calib.md`
+    # was printed as an unpropagated ruling. Verified against the current corpus:
+    # this strict rule yields the identical set, so it costs nothing.
     recorded: set[str] = set()
     for f in files:
-        stem = f.name.lower()
-        for a, b in re.findall(r"\br(\d{1,3})-r(\d{1,3})\b", stem):
-            lo, hi = sorted((int(a), int(b)))
-            recorded |= {f"R{n}" for n in range(lo, hi + 1)}
-        recorded |= {f"R{int(n)}" for n in re.findall(r"\br(\d{1,3})\b", stem)}
+        for m in re.finditer(r"\brulings?-((?:r\d{1,3}-?)+)", f.name.lower()):
+            nums = [int(n) for n in re.findall(r"r(\d{1,3})", m.group(1))]
+            if len(nums) == 2 and nums[1] > nums[0] + 1:
+                recorded |= {f"R{n}" for n in range(nums[0], nums[1] + 1)}
+            else:
+                recorded |= {f"R{n}" for n in nums}
 
     in_bodies: set[str] = set()
     for f in files:
@@ -262,9 +286,11 @@ def main() -> int:
             "Reporting '0 of 0 experiments run' would read as reassuring news "
             "about a broken index.")
 
-    run(["git", "-C", str(REPO), "fetch", "--quiet", "origin", "main"],
-        "git fetch origin main (the header SHA is the freshness signal; "
-        "reading a stale ref would make it circular)")
+    # Best-effort refresh so the origin/main comparison is meaningful. NOT fatal:
+    # the board must stay readable offline. See the divergence check below -- that,
+    # not the fetch, is what makes the header honest.
+    subprocess.run(["git", "-C", str(REPO), "fetch", "--quiet", "origin", "main"],
+                   capture_output=True, timeout=180)
 
     pr_json = run(
         ["gh", "pr", "list", "--json", "number,title", "--limit", str(PR_LIMIT)],
@@ -278,10 +304,19 @@ def main() -> int:
         die(f"gh returned {len(prs)} PRs, at the --limit of {PR_LIMIT}; the list "
             f"may be truncated. Raise PR_LIMIT rather than under-report.")
 
+    # THE SCANNED TREE IS HEAD, NOT origin/main. Every tracked-file input above was
+    # read from the checkout. v2 printed origin/main's SHA beside numbers derived
+    # from the branch -- so the board could print a count that was wrong for the SHA
+    # printed next to it. Report what was actually scanned, and disclose divergence.
+    head_sha = run(["git", "-C", str(REPO), "rev-parse", "--short", "HEAD"],
+                   "git rev-parse HEAD").strip()
+    head_when = run(["git", "-C", str(REPO), "log", "-1", "--format=%ad",
+                     "--date=short", "HEAD"], "git log HEAD").strip()
     main_sha = run(["git", "-C", str(REPO), "rev-parse", "--short", "origin/main"],
                    "git rev-parse origin/main").strip()
-    main_when = run(["git", "-C", str(REPO), "log", "-1", "--format=%ad",
-                     "--date=short", "origin/main"], "git log origin/main").strip()
+    diverged = subprocess.run(
+        ["git", "-C", str(REPO), "merge-base", "--is-ancestor", "origin/main", "HEAD"],
+        capture_output=True).returncode != 0
 
     # ---- the headline: is anything experimentally supported? --------------
     exp_solid = [c for c in claims if c.get("experimental_solidity") is not None]
@@ -289,9 +324,10 @@ def main() -> int:
 
     # ---- solidity distribution (band names derived, never hardcoded) -------
     bands = Counter(c.get("build_band") or "unknown" for c in claims)
-    if sum(bands.values()) != len(claims):
-        die("build-band tally does not equal the claim count -- refusing to print "
-            "a table that silently drops rows")
+    # (No tally guard here: `bands` is built by one increment per claim, so
+    # sum(bands.values()) == len(claims) is an identity and a guard on it could
+    # never fire. The real fix for the dropped-row defect is that the table below
+    # renders every band NAME found in the data, plus an explicit total row.)
     top = sorted(
         (c for c in claims if isinstance(c.get("solidity"), (int, float))
          and c["solidity"] >= 0.80),
@@ -336,9 +372,14 @@ def main() -> int:
     A("")
     A("# AVE program board")
     A("")
-    A(f"`origin/main` **{main_sha}** ({main_when}) · "
-      f"{len(rows)} index records · {len(claims)} claims · {len(prs)} PRs open")
+    A(f"Scanned tree **{head_sha}** ({head_when}) · {len(rows)} index records · "
+      f"{len(claims)} claims · {len(prs)} PR{'' if len(prs) == 1 else 's'} open")
     A("")
+    if diverged:
+        A(f"> ⚑ **This board was generated from a tree that is not `origin/main`** "
+          f"(`{main_sha}`). Every count below describes **{head_sha}**. Regenerate "
+          f"on main before reading these as program state.")
+        A("")
     A("## The number that frames everything")
     A("")
     A(f"**{len(exp_solid)} of {len(claims)} claims carry any experimental support. "
@@ -391,14 +432,17 @@ def main() -> int:
     if unclassified:
         A(f"> ⚑ **The ruling set is a derived approximation, and the selection rule "
           f"is an OPEN QUESTION.** The {len(rulings)} above come from docket "
-          f"*filenames* (with `rN-rM` ranges expanded) — precise and "
-          f"convention-backed. A further **{len(unclassified)}** R-numbers appear "
-          f"only in docket *bodies* "
-          f"({', '.join(sorted(unclassified, key=lambda t: int(t[1:])))}). From the "
-          f"text alone there is no way to tell a ruling recorded in an unnumbered "
-          f"batch file from a cross-reference to a ruling recorded elsewhere, so "
-          f"they are counted separately rather than folded in either direction. "
-          f"See `open-items/` → *ruling-selection-rule*.")
+          f"*filenames*, requiring the number to sit in a `ruling-`/`rulings-` "
+          f"segment, with `rN-rM` ranges expanded. A further **{len(unclassified)}** "
+          f"`R<N>` tokens appear only in docket *bodies* "
+          f"({', '.join(sorted(unclassified, key=lambda t: int(t[1:])))}). "
+          f"**Most of those are probably not rulings at all** — sampling shows the "
+          f"`R<N>` glyph is shared with charter-requirement, review-finding, and "
+          f"census namespaces (`R0` = a route option; `R5(b)` = a charter "
+          f"requirement; `R3 (WARN-4)` = a review finding). Read this line as *the "
+          f"glyph is overloaded*, not as *up to {len(unclassified)} more unpropagated "
+          f"rulings*. Same class as the four distinct decisions all named `D1`. "
+          f"See `open-items/` → *ruling-selection-rule* and *key-namespace-collision*.")
         A("")
     A(VOLATILE_HEADING)
     A("")
@@ -422,12 +466,21 @@ def main() -> int:
       "first.*")
 
     out = "\n".join(L) + "\n"
+    stable_guard_count = sum(1 for ln in L if ln == VOLATILE_HEADING)
 
     if check_only:
         if not BOARD.is_file():
             die("BOARD.md does not exist -- run the generator")
-        stable = lambda s: s.split(VOLATILE_HEADING)[0]  # noqa: E731
-        if stable(BOARD.read_text(encoding="utf-8")) != stable(out):
+        # Line-anchored, not substring: open-item TITLES are author-controlled and
+        # render above this point, so a title containing the heading text would move
+        # the split upward and drop the propagation number out of the guarded region.
+        split = lambda s: re.split(rf"^{re.escape(VOLATILE_HEADING)}$", s,  # noqa: E731
+                                   flags=re.M)[0]
+        if stable_guard_count != 1:
+            die(f"{VOLATILE_HEADING!r} occurs {stable_guard_count} times as a line in "
+                f"the rendered board; the --check split would be ambiguous. An "
+                f"open-item title is probably colliding with it.")
+        if split(BOARD.read_text(encoding="utf-8")) != split(out):
             print("[board] STALE: BOARD.md's stable sections do not match "
                   "generated content.", file=sys.stderr)
             print("[board] fix: python3 _orchestration/tools/generate_board.py",

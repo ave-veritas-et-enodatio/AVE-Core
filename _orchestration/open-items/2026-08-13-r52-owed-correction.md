@@ -5,7 +5,7 @@ status: OPEN
 owner: lane
 opened: 2026-08-13
 source: _orchestration/docket-entries/2026-08-12-ruling-r52-k2g-operating-point.md
-anchor: "R52"
+anchor: "# R52 — K/G = 2 is an OPERATING POINT, not an identity"
 ---
 
 Owed by the orchestrator, on a merged ruling of its own authorship. Both were caught when the

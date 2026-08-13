@@ -12,7 +12,8 @@ target. Separate files do not collide at all — there is nothing to resolve.
 
 > **A hazard note that is NOT the reason.** The `merge=ours` "silent drop" story attached to
 > the old queue was **withdrawn in-corpus on 2026-08-03**
-> (`../2026-07-20_pending-rulings-and-frontier-queue.md:170-181`): `.gitattributes:9` does set
+> (`../2026-07-20_pending-rulings-and-frontier-queue.md`, search **`Merge note, CORRECTED
+> 2026-08-03`**): `.gitattributes` does set
 > `*.md merge=ours`, but the attribute is inert with no `merge.ours.driver` configured, and a
 > first-party receipt shows real collisions surfacing as loud conflicts. Data loss was never
 > the problem. **Machine-readability is** — and hand-maintained state going stale is.
