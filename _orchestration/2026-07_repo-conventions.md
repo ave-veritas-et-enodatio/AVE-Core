@@ -247,7 +247,7 @@ The tool (`tools/lint_status_markers.py`, also not built here) walks the scope, 
 >    `forward_falsifier-1_armed` and `consistency--class_entries-45`.
 > 2. The Master Prediction Table is at **`README.md:213`**, not `:181`.
 > 3. It displays **33** rows, not 40 (47 numbers minus the 14 absorbed by 7 compound ranges).
-> 4. `:259`'s *"`manuscript/predictions.yaml`: **36 entries**"* is stale post-split — the 36
+> 4. The *"`manuscript/predictions.yaml`: **36 entries**"* bullet below is stale post-split — the 36
 >    became 35 in `consistency-manifest.yaml` + 1 moved forward, plus 1 new forward row.
 >
 > The RATIFIED rule at the end of §(f) — *"any `predictions.yaml` edit must preserve its

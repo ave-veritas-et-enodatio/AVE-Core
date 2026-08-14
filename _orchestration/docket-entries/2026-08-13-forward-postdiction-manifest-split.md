@@ -3,8 +3,16 @@
 **Grant, verbatim `[sic]`:** *"the predictions yaml should be forward only, we should make a postdiction yaml, and make sure all tooling/gates are consistent and planned out well."*
 
 **What landed.** `manuscript/predictions.yaml` is now FORWARD-ONLY (2 entries); the 35 postdiction
-entries moved wholesale and unedited to the new `manuscript/consistency-manifest.yaml`. One public table,
+entries moved to the new `manuscript/consistency-manifest.yaml`. One public table,
 two backing files: the validator's parity checks read the UNION, so all 47 table rows still resolve.
+
+> ★ **CORRECTION 2026-08-13.** An earlier version of the sentence above said the 35 entries moved
+> "wholesale and unedited". **That was false and is withdrawn.** Six rows were edited in the move:
+> `P47`, `P19`, `P20_21`, `P42`, `P44_45` (each `type` and/or `calibration_role` plus notes) and
+> `P04` (notes). Field-level base→tip diff, not an eyeball. The withdrawal originally landed only in
+> the manifest header, leaving this entry — the durable timeline record — still asserting the
+> receipt. Recorded here because a receipt that is corrected somewhere else is still wrong where a
+> reader will find it.
 
 **Why the split was mostly already made.** `README.md:41` had ruled it in prose — of 47 slots,
 *"leaving **45 consistency-class entries**; the **1 armed forward falsifier** (the birefringence
@@ -48,7 +56,7 @@ writes back, so a missed path would have silently stopped regenerating `axioms_u
 `axioms` check then gates on at critical). `Makefile` runs the validator twice. Both manifest
 headers corrected: they named `claim_graph_validator.py` (renamed away) and claimed 4 checks (8).
 
-**Cite repointing.** Shrinking `predictions.yaml` 1110 → 138 lines killed 5 line-pinned citations
+**Cite repointing.** Shrinking `predictions.yaml` 1110 → 148 lines killed 5 line-pinned citations
 into it. All repointed by ENTRY ID rather than line. Recorded honestly: three of them had **already
 drifted before the move** — the prose named P23 while `:126-142` resolved to P05/P06 — so the
 vacated-cite rule applied and they were re-derived fresh, not re-adjudicated. Two more line pins

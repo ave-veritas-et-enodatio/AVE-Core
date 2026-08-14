@@ -1006,10 +1006,11 @@ predictions:
 
       That non-claim is what forbids forward-prediction, and the inference is
       stated in-repo rather than imported: the DEVIATION_DISCLAIMED marker's
-      rationale at src/scripts/predictions_manifest_validator.py:1046-1053,
-      verbatim at :1049-1050 — "a card that refuses to predict a departure is
-      stating a null that matches the standard expectation, so it cannot be
-      divergent-from-SM." P42 is that marker's sole live site. So this row is
+      rationale in the `DEVIATION_DISCLAIMED` comment block of
+      src/scripts/predictions_manifest_validator.py, verbatim — "a card that
+      refuses to predict a departure is stating a null that matches the
+      standard expectation, so it cannot be divergent-from-SM." P42 is that
+      marker's sole live site. So this row is
       not a discriminator, and each axis of the old label fails:
         - NOT untested — multi-species clock comparisons across gravitational
           potentials exist and the leaf states the prediction is "consistent
@@ -1100,8 +1101,8 @@ predictions:
             the standard expectation. No gate will ever catch this: the parity
             checks map by id and never read the claim text —
             src/scripts/predictions_manifest_validator.py `check_readme_parity`, "Mapping is by
-            id", and :1516-1518, "Matches via (a) exact ID, (b) zero-padded ID,
-            or (c) range-inclusion".
+            id", and `check_living_reference_parity`, "Matches via (a) exact
+            ID, (b) zero-padded ID, or (c) range-inclusion".
         (c) The R-1 audit prose above is stale against the field it describes.
             It says axioms_used was corrected to [1, 2, 3, 4]; the field reads
             [1, 3, 4]. predictions_manifest_refresh.py --dry-run reports "0

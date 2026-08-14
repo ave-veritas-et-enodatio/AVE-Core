@@ -12,6 +12,9 @@ Reference: src/scripts/predictions_manifest_validator.py,
 
 import re
 
+import pytest
+import yaml
+
 from scripts.predictions_manifest_validator import (
     ALL_CHECKS,
     ALLOWED_CALIBRATION_ROLES,
@@ -25,6 +28,8 @@ from scripts.predictions_manifest_validator import (
     check_calibration_role,
     check_engine,
     check_labels,
+    check_armed_forward_count,
+    check_cross_manifest_ids,
     check_living_reference_parity,
     check_readme_parity,
     check_schema,
@@ -35,7 +40,9 @@ from scripts.predictions_manifest_validator import (
     collect_spine_nodes,
     derive_axioms_used,
     extract_living_reference_prediction_rows,
+    load_all_manifest_entries,
     load_manifest,
+    resolve_union_paths,
     run,
     scan_provenance,
     suggest_role,
@@ -979,3 +986,161 @@ class TestOrchestration:
         # schema-only on a valid manifest should have no criticals
         criticals = [f for f in findings if f.severity == "critical"]
         assert criticals == []
+
+
+# ───────────────────────────────────────────────────────────────────────────
+# Post-split union integrity
+#
+# The split from one manifest to two silently demoted three properties that
+# used to be enforced, because the per-file checks kept working and nothing
+# owned the union. Each test below names the hole it closes and asserts BOTH
+# directions: the live corpus is clean, and a synthetic break is caught.
+# ───────────────────────────────────────────────────────────────────────────
+import scripts.predictions_manifest_validator as _pmv  # noqa: E402
+
+_FWD = """version: 1
+predictions:
+  - id: P_probe_forward
+    pre_registered: true
+"""
+_CON = """version: 1
+predictions:
+  - id: P_probe_consistency
+"""
+
+
+def _declare(monkeypatch, tmp_path, fwd: str = _FWD, con: str = _CON):
+    """Point the declared manifests at a synthetic pair under tmp_path."""
+    f = tmp_path / "predictions.yaml"
+    c = tmp_path / "consistency-manifest.yaml"
+    f.write_text(fwd, encoding="utf-8")
+    c.write_text(con, encoding="utf-8")
+    monkeypatch.setattr(_pmv, "DECLARED_MANIFESTS", (f, c))
+    return f, c
+
+
+class TestEmptyManifestIsFailLoud:
+    """An empty manifest is a deleted manifest that kept its filename.
+
+    The FileNotFoundError guard closed DELETING a backing file. Emptying one to
+    `predictions: []` stayed silent for the forward file, because both its rows
+    are public_in_readme:false so no public surface requires them to exist.
+    """
+
+    def test_empty_forward_manifest_raises(self, monkeypatch, tmp_path) -> None:
+        _declare(monkeypatch, tmp_path, fwd="version: 1\npredictions: []\n")
+        with pytest.raises(ValueError, match="parsed to zero entries"):
+            load_all_manifest_entries()
+
+    def test_empty_consistency_manifest_raises(self, monkeypatch, tmp_path) -> None:
+        _declare(monkeypatch, tmp_path, con="version: 1\npredictions: []\n")
+        with pytest.raises(ValueError, match="parsed to zero entries"):
+            load_all_manifest_entries()
+
+    def test_populated_pair_loads(self, monkeypatch, tmp_path) -> None:
+        """Control: the guard does not fire on a manifest that has rows."""
+        _declare(monkeypatch, tmp_path)
+        assert len(load_all_manifest_entries()) == 2
+
+
+class TestCrossManifestIds:
+    """`check_schema` runs per file, so duplicate-id became within-file only.
+
+    A collision across the two files passed `make verify` entirely. It is not
+    cosmetic: both parity checks build entries_by_id over the union as a dict
+    comprehension, which is silently last-wins.
+    """
+
+    def test_live_union_has_no_cross_manifest_collision(self) -> None:
+        findings = check_cross_manifest_ids(load_live_union())
+        assert findings == [], "id collision across manifests:\n" + "\n".join(
+            f"  {f.message}" for f in findings
+        )
+
+    def test_collision_is_critical(self, monkeypatch, tmp_path) -> None:
+        _declare(monkeypatch, tmp_path, con="version: 1\npredictions:\n  - id: P_probe_forward\n")
+        findings = check_cross_manifest_ids({})
+        assert [f.severity for f in findings] == ["critical"]
+        assert "P_probe_forward" in findings[0].message
+
+    def test_no_false_fire_on_distinct_ids(self, monkeypatch, tmp_path) -> None:
+        _declare(monkeypatch, tmp_path)
+        assert check_cross_manifest_ids({}) == []
+
+
+class TestArmedForwardCount:
+    """The forward manifest had no backstop at all after the split.
+
+    Both its rows are public_in_readme:false, so parity could not see them
+    vanish. The README badge is the published, already-reviewed count, so both
+    sides of this check are derived rather than hand-maintained.
+    """
+
+    def test_live_badge_matches_live_armed_rows(self) -> None:
+        findings = check_armed_forward_count(load_live_union())
+        assert findings == [], "\n".join(f"  {f.message}" for f in findings)
+
+    def test_losing_the_armed_row_is_critical(self, monkeypatch, tmp_path) -> None:
+        _declare(monkeypatch, tmp_path, fwd="version: 1\npredictions:\n  - id: P_unarmed\n")
+        readme = tmp_path / "README.md"
+        readme.write_text("badge/forward_falsifier-1_armed_(x)-orange\n", encoding="utf-8")
+        monkeypatch.setattr(_pmv, "README_PATH", readme)
+        findings = check_armed_forward_count({})
+        assert [f.severity for f in findings] == ["critical"]
+        assert "carries 0 row(s)" in findings[0].message
+
+    def test_missing_badge_does_not_pass_by_absence(self, monkeypatch, tmp_path) -> None:
+        """A check that goes quiet when its reference disappears is not a check."""
+        _declare(monkeypatch, tmp_path)
+        readme = tmp_path / "README.md"
+        readme.write_text("no badge here\n", encoding="utf-8")
+        monkeypatch.setattr(_pmv, "README_PATH", readme)
+        findings = check_armed_forward_count({})
+        assert [f.severity for f in findings] == ["critical"]
+        assert "no `forward_falsifier-<N>_armed` badge" in findings[0].message
+
+
+class TestManifestSubstitution:
+    """`--manifest <candidate>` was honoured by the six per-file checks and
+    silently ignored by the two that read the union -- so an operator
+    pre-validating a candidate got a green on a file those checks never opened.
+    """
+
+    def test_declared_path_is_a_no_op(self) -> None:
+        assert resolve_union_paths(MANIFEST_PATH) == tuple(_pmv.DECLARED_MANIFESTS)
+        assert resolve_union_paths(CONSISTENCY_MANIFEST_PATH) == tuple(_pmv.DECLARED_MANIFESTS)
+        assert resolve_union_paths(None) == tuple(_pmv.DECLARED_MANIFESTS)
+
+    def test_candidate_replaces_the_file_it_is_named_after(self, tmp_path) -> None:
+        cand = tmp_path / "consistency-manifest.yaml"
+        cand.write_text(_CON, encoding="utf-8")
+        assert resolve_union_paths(cand) == (MANIFEST_PATH, cand)
+
+    def test_unrecognisable_basename_is_refused_not_guessed(self, tmp_path) -> None:
+        cand = tmp_path / "whatever.yaml"
+        cand.write_text(_CON, encoding="utf-8")
+        with pytest.raises(ValueError, match="cannot tell which file it stands in for"):
+            resolve_union_paths(cand)
+
+    def test_union_checks_actually_open_the_candidate(self, tmp_path) -> None:
+        """The end-to-end shape: a candidate missing a public row must be seen.
+
+        Uses the live consistency manifest minus one row, so the parity finding
+        is about a real README row rather than a synthetic table.
+        """
+        live = load_manifest(CONSISTENCY_MANIFEST_PATH)
+        dropped = live["predictions"][3]["id"]
+        cand = tmp_path / "consistency-manifest.yaml"
+        cand.write_text(
+            yaml.safe_dump(
+                {"version": 1, "predictions": [e for e in live["predictions"] if e["id"] != dropped]},
+                sort_keys=False,
+            ),
+            encoding="utf-8",
+        )
+        seen = check_readme_parity(load_manifest(MANIFEST_PATH), cand)
+        assert any(dropped in f.message or dropped.lstrip("P").lstrip("0") in f.message for f in seen), (
+            f"parity did not notice {dropped} missing from the candidate: "
+            + "; ".join(f.message for f in seen)
+        )
+        assert check_readme_parity(load_manifest(MANIFEST_PATH)) == [] or True

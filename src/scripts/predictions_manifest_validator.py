@@ -143,7 +143,40 @@ def load_manifest(path: Path = MANIFEST_PATH) -> dict:
         return yaml.safe_load(f)
 
 
-def load_all_manifest_entries() -> list[dict]:
+DECLARED_MANIFESTS = (MANIFEST_PATH, CONSISTENCY_MANIFEST_PATH)
+
+
+def resolve_union_paths(substitute: Path | None = None) -> tuple[Path, ...]:
+    """The declared manifest paths, with `substitute` standing in for one of them.
+
+    Exists so `--manifest <candidate>` actually parity-checks the candidate. The
+    parity checks used to call the union loader with no argument, so `--manifest`
+    was honoured by the six per-file checks and silently ignored by the two that
+    read the union: an operator pre-validating a candidate file before landing it
+    got a green on a file those checks never opened.
+
+    Substitution is by BASENAME, and it fails loud rather than guessing. A
+    candidate has to be recognisable as standing in for one of the declared
+    files; "add it as a third manifest" is not a thing this tool supports, and
+    silently doing that would report every row of the file it was meant to
+    replace as an extra.
+    """
+    declared = list(DECLARED_MANIFESTS)
+    if substitute is None:
+        return tuple(declared)
+    if substitute.resolve() in {p.resolve() for p in declared}:
+        return tuple(declared)
+    matches = [p for p in declared if p.name == substitute.name]
+    if len(matches) != 1:
+        raise ValueError(
+            f"--manifest {substitute} is not one of the declared manifests "
+            f"({', '.join(p.name for p in declared)}) and its basename matches "
+            f"none of them, so the tool cannot tell which file it stands in for. "
+            f"Name the candidate after the file it replaces.")
+    return tuple(substitute if p is matches[0] else p for p in declared)
+
+
+def load_all_manifest_entries(substitute: Path | None = None) -> list[dict]:
     """Every entry across BOTH manifests, for the parity checks.
 
     A public table row may be backed by either file. Reading only one would report
@@ -151,7 +184,7 @@ def load_all_manifest_entries() -> list[dict]:
     asserts parity warns are empty, so that would red the build.
     """
     entries: list[dict] = []
-    for path in (MANIFEST_PATH, CONSISTENCY_MANIFEST_PATH):
+    for path in resolve_union_paths(substitute):
         if not path.is_file():
             # FAIL LOUD. `continue` here turned a missing backing file into a
             # silent 33-warn parity report that `make verify` still exits 0 on --
@@ -161,7 +194,21 @@ def load_all_manifest_entries() -> list[dict]:
             raise FileNotFoundError(
                 f"declared manifest {path} is missing; parity would silently "
                 f"report every row of it as unmatched")
-        entries.extend(load_manifest(path).get("predictions", []))
+        rows = load_manifest(path).get("predictions", [])
+        if not rows:
+            # The SAME hole one step in. The FileNotFoundError above closes
+            # DELETING a manifest; an audit then showed EMPTYING one to
+            # `predictions: []` was still silent for the forward file, because
+            # both its rows are public_in_readme:false and so no public surface
+            # requires them to exist. That made the armed falsifier -- the one
+            # AVE-distinct forward claim in the corpus -- the least-protected
+            # row in it. A declared manifest with zero rows is a deleted
+            # manifest that kept its filename.
+            raise ValueError(
+                f"declared manifest {path} parsed to zero entries. If a manifest "
+                f"is genuinely empty, remove it from DECLARED_MANIFESTS and say "
+                f"why -- do not leave an empty file standing in for a surface.")
+        entries.extend(rows)
     return entries
 
 
@@ -1521,7 +1568,7 @@ def check_calibration_role(
     return findings
 
 
-def check_readme_parity(manifest: dict) -> list[Finding]:
+def check_readme_parity(manifest: dict, substitute: Path | None = None) -> list[Finding]:
     """
     Every row in the README Master Prediction Table maps to a manifest
     entry. Mapping is by id: the README '#' column '14–16' maps to entry
@@ -1541,7 +1588,7 @@ def check_readme_parity(manifest: dict) -> list[Finding]:
 
     # Index manifest by id and by normalized id
     # UNION across both manifests -- see load_all_manifest_entries().
-    entries_by_id: dict[str, dict] = {e["id"]: e for e in load_all_manifest_entries() if "id" in e}
+    entries_by_id: dict[str, dict] = {e["id"]: e for e in load_all_manifest_entries(substitute) if "id" in e}
 
     def normalize_row_id(raw: str) -> str:
         # Remove markdown emphasis / whitespace
@@ -1574,7 +1621,8 @@ def check_readme_parity(manifest: dict) -> list[Finding]:
                     entry_id=None,
                     message=(
                         f"README prediction row '{row_id}' ({name!r}) has no "
-                        f"matching entry in manuscript/predictions.yaml"
+                        f"matching entry in EITHER manuscript/predictions.yaml "
+                        f"or manuscript/consistency-manifest.yaml"
                     ),
                     details={"row_id": row_id, "name": name},
                 )
@@ -1592,7 +1640,7 @@ def _id_range_contains(eid: str, row_num: int) -> bool:
     return lo <= row_num <= hi
 
 
-def check_living_reference_parity(manifest: dict) -> list[Finding]:
+def check_living_reference_parity(manifest: dict, substitute: Path | None = None) -> list[Finding]:
     """
     Every row in the LIVING_REFERENCE.md Master Prediction Table maps to a
     manifest entry. Matches via (a) exact ID, (b) zero-padded ID, or
@@ -1612,7 +1660,7 @@ def check_living_reference_parity(manifest: dict) -> list[Finding]:
         ]
 
     # UNION across both manifests -- see load_all_manifest_entries().
-    entries_by_id: dict[str, dict] = {e["id"]: e for e in load_all_manifest_entries() if "id" in e}
+    entries_by_id: dict[str, dict] = {e["id"]: e for e in load_all_manifest_entries(substitute) if "id" in e}
 
     def candidate_ids(raw: str) -> list[str]:
         cleaned = raw.strip().replace("–", "-").replace("—", "-")
@@ -1639,8 +1687,9 @@ def check_living_reference_parity(manifest: dict) -> list[Finding]:
                     entry_id=None,
                     message=(
                         f"LIVING_REFERENCE prediction row '{row_id}' "
-                        f"({name!r}) has no matching entry in "
-                        f"manuscript/predictions.yaml"
+                        f"({name!r}) has no matching entry in EITHER "
+                        f"manuscript/predictions.yaml or "
+                        f"manuscript/consistency-manifest.yaml"
                     ),
                     details={
                         "row_id": row_id,
@@ -1653,10 +1702,125 @@ def check_living_reference_parity(manifest: dict) -> list[Finding]:
     return findings
 
 
+def check_cross_manifest_ids(manifest: dict, substitute: Path | None = None) -> list[Finding]:
+    """No id appears in more than one manifest.
+
+    `check_schema` runs per FILE, so after the split "no duplicate ids" became a
+    within-file property and a collision ACROSS the two manifests passed `make
+    verify` entirely -- only `make test` caught it. Pre-split this was a verify
+    critical, so the split silently demoted it.
+
+    A collision is not cosmetic: both parity checks build `entries_by_id` as a
+    dict comprehension over the union, which is silently last-wins (consistency
+    file loaded second, so it wins). A public table row would resolve to the
+    wrong entry's axioms and flags, and report parity-clean while doing it.
+    """
+    findings: list[Finding] = []
+    seen: dict[str, str] = {}
+    for path in resolve_union_paths(substitute):
+        for entry in load_manifest(path).get("predictions", []):
+            eid = entry.get("id")
+            if eid is None:
+                continue  # check_schema owns missing-id, per file
+            if eid in seen and seen[eid] != path.name:
+                findings.append(
+                    Finding(
+                        check="cross_manifest_ids",
+                        severity="critical",
+                        entry_id=eid,
+                        message=(
+                            f"id {eid!r} appears in BOTH {seen[eid]} and "
+                            f"{path.name}. The parity checks resolve ids against "
+                            f"the union with last-wins, so one of the two entries "
+                            f"is unreachable and the public row silently binds to "
+                            f"the other."
+                        ),
+                        details={"id": eid, "files": [seen[eid], path.name]},
+                    )
+                )
+            seen.setdefault(eid, path.name)
+    return findings
+
+
+def check_armed_forward_count(manifest: dict, substitute: Path | None = None) -> list[Finding]:
+    """The README's armed-falsifier badge equals the count of armed forward rows.
+
+    THE HOLE THIS CLOSES. Both forward rows carry `public_in_readme: false` by
+    design, so no public surface requires them to exist. Pre-split, any vanished
+    manifest row broke README parity; post-split the forward file had no backstop
+    at all, which made `P_biref_coefficient` -- the framework's one armed forward
+    falsifier -- the least-protected row in the corpus. The non-empty guard in
+    load_all_manifest_entries() catches emptying the file; it does not catch
+    2 -> 1.
+
+    WHY THE BADGE AND NOT A CONSTANT. A hard-coded expected count is a
+    hand-maintained number, which is the thing this program keeps removing. The
+    README badge is already published, already reviewed, and already the number a
+    reader trusts. Both sides are derived, so the check fires if either drifts:
+    delete the armed row and the badge over-claims; arm a second one and the
+    badge under-claims. Either way a human decides which side is wrong.
+
+    NOTE the consistency badge is deliberately NOT wired up the same way: it
+    reads 45 against 35 rows because it counts public TABLE SLOTS (compound
+    ranges absorb 14), not manifest rows. Those two numbers are not the same
+    quantity and asserting equality between them would be a false gate.
+    """
+    # [0] is the forward slot of DECLARED_MANIFESTS, with `--manifest <candidate>`
+    # already substituted in by resolve_union_paths -- so a candidate forward file
+    # is checked against the badge rather than the live one being checked twice.
+    forward_path = resolve_union_paths(substitute)[0]
+    armed = [
+        e for e in load_manifest(forward_path).get("predictions", [])
+        if e.get("pre_registered") is True
+    ]
+    text = README_PATH.read_text(encoding="utf-8")
+    m = re.search(r"forward_falsifier-(\d+)_armed", text)
+    if m is None:
+        return [
+            Finding(
+                check="armed_forward_count",
+                severity="critical",
+                entry_id=None,
+                message=(
+                    "README.md carries no `forward_falsifier-<N>_armed` badge, so "
+                    "the armed-forward count has no published value to check the "
+                    "manifest against. Restore the badge or retire this check "
+                    "deliberately -- do not let it pass by absence."
+                ),
+                details={"readme": str(README_PATH)},
+            )
+        ]
+    claimed = int(m.group(1))
+    if claimed != len(armed):
+        return [
+            Finding(
+                check="armed_forward_count",
+                severity="critical",
+                entry_id=None,
+                message=(
+                    f"README badge claims {claimed} armed forward falsifier(s); "
+                    f"{MANIFEST_PATH.name} carries {len(armed)} row(s) with "
+                    f"`pre_registered: true` "
+                    f"({', '.join(e.get('id', '?') for e in armed) or 'none'}). "
+                    f"One of the two is wrong."
+                ),
+                details={"badge": claimed, "armed": [e.get("id") for e in armed]},
+            )
+        ]
+    return []
+
+
 # ───────────────────────────────────────────────────────────────────────────
 # Orchestration
 # ───────────────────────────────────────────────────────────────────────────
+# Checks that read the UNION of both manifests rather than the single file they
+# are handed. They take an optional `substitute` so `--manifest <candidate>`
+# reaches them too -- see resolve_union_paths().
+UNION_CHECKS = frozenset({"parity", "lr_parity", "cross_manifest_ids", "armed_forward_count"})
+
 ALL_CHECKS = {
+    "cross_manifest_ids": check_cross_manifest_ids,
+    "armed_forward_count": check_armed_forward_count,
     "schema": check_schema,
     "label": check_labels,
     "engine": check_engine,
@@ -1684,7 +1848,14 @@ def run(
     for check_name in checks:
         if check_name not in ALL_CHECKS:
             raise ValueError(f"Unknown check: {check_name}")
-        findings.extend(ALL_CHECKS[check_name](manifest))
+        check = ALL_CHECKS[check_name]
+        if check_name in UNION_CHECKS:
+            # Union-reading checks get the path too, so `--manifest <candidate>`
+            # substitutes the candidate into the union instead of being silently
+            # ignored by exactly the checks that span both files.
+            findings.extend(check(manifest, manifest_path))
+        else:
+            findings.extend(check(manifest))
     return findings
 
 
@@ -1741,7 +1912,14 @@ def main(argv: list[str] | None = None) -> int:
         "--manifest",
         type=Path,
         default=MANIFEST_PATH,
-        help="Path to predictions.yaml (default: manuscript/predictions.yaml)",
+        help=(
+            "Manifest to validate (default: manuscript/predictions.yaml). The "
+            "per-file checks run against it; the union checks (parity, "
+            "lr_parity, cross_manifest_ids, armed_forward_count) substitute it "
+            "for the declared manifest of the same basename, so a candidate file "
+            "is genuinely parity-checked. A candidate whose basename matches "
+            "neither declared manifest is refused, not guessed at."
+        ),
     )
     parser.add_argument(
         "--check",

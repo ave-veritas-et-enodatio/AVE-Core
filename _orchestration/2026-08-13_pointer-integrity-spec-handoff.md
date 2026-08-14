@@ -30,6 +30,11 @@ Four incidents, all 2026-08-13, all in AVE-Core. Each is checkable in git histor
 2. **`manuscript/predictions.yaml` shrank 1110 → 138 lines** during a manifest split; 5 citations
    into it died. Detected by a checker, then repaired by hand — and the hand repair **missed 2 more**
    in `_orchestration/_archive/`.
+   > ★ **SURFACE NOTE 2026-08-13, added after dispatch.** The file is **148** lines, not 138 — it
+   > grew by 10 in a later commit on the same branch. The brief is left as written because it was
+   > already dispatched and a lane worked from it; rewriting it would falsify the record of what
+   > that lane was told. A reader checking `wc -l` at HEAD gets 148 and the brief is right about
+   > everything else in this incident.
 3. **A stitched quote reached Grant as fact.** The orchestrator wrote *"the kinematic inventory 7
    stands on its own footing"* as a verbatim quote of a merged ruling. The source
    (`_orchestration/docket-entries/2026-08-12-ruling-r52-k2g-operating-point.md`, ~:113-115) reads

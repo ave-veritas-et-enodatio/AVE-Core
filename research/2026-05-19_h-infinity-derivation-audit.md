@@ -450,7 +450,7 @@ This audit's Class C verdict (§8 verdict line + §8 secondary class) was canoni
 
 > ★ **CITE REPOINT 2026-08-13 (forward/postdiction split).** The four `predictions.yaml:1xx`
 > line pins above now read `consistency-manifest.yaml` P23, cited by ENTRY ID rather than line —
-> the 36 entries moved to `manuscript/consistency-manifest.yaml` when `predictions.yaml` became
+> the 35 postdiction entries moved to `manuscript/consistency-manifest.yaml` when `predictions.yaml` became
 > forward-only. Recorded honestly: those pins had **already drifted before the move** — the
 > prose named P23 while `:126-142` resolved to P05/P06 on the pre-split file. The vacated-cite
 > rule applies: the line numbers argued about a file state that no longer existed, so they are
