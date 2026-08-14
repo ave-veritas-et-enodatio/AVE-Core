@@ -643,12 +643,20 @@ def main() -> int:
             # vanish from the compare -- turning a normalization into a place to
             # hide a hand edit. SHAs are already <sha> by this point, so the
             # expected line is fully literal and can be pinned exactly.
+            # count=1, NOT a bare sub. The generator renders AT MOST ONE banner,
+            # so stripping more than one can only ever be stripping something a
+            # hand edit put there. A bare `re.sub` removes every match, which
+            # meant an exact CLONE of the banner line vanished from the compare:
+            # arbitrary text still could not hide (the pattern is the whole
+            # literal line), but a duplicate of that one sentence could. Found by
+            # an independent re-review attacking this exclusion; one token, and
+            # it is the sibling hole to the `.*` tail this pattern already closes.
             return re.sub(
                 r"^> ⚑ \*\*This board was generated from a tree that is not "
                 r"`origin/main`\*\* \(`<sha>`\)\. Every count below describes "
                 r"\*\*<sha>\*\*\. Regenerate on main before reading these as "
                 r"program state\.\n\n?",
-                "", stable, flags=re.M)
+                "", stable, count=1, flags=re.M)
         if stable_guard_count != 1:
             die(f"{VOLATILE_HEADING!r} occurs {stable_guard_count} times as a line in "
                 f"the rendered board; the --check split would be ambiguous. An "
