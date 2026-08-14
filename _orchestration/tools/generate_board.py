@@ -51,9 +51,16 @@ USAGE
     python3 _orchestration/tools/generate_board.py            # write BOARD.md
     python3 _orchestration/tools/generate_board.py --check    # fail if hand-edited
 
-`--check` compares the stable sections with commit SHAs normalized out. THREE
+`--check` compares the stable sections with commit SHAs normalized out. FOUR
 things here are unstable for reasons that have nothing to do with a hand edit,
-and every one of them made an earlier `--check` red on arrival:
+and every one of them made an earlier `--check` red on arrival.
+
+THIS LIST HAS BEEN WRONG AT EVERY LENGTH IT HAS EVER HAD -- it read "one", then
+"two", then "three", and each time the next field was found the same way: by
+`--check` going red for a reason no hand edit caused. Treat it as a floor, not
+an inventory. If you are reading this because it went red again, the question to
+ask is "which OTHER derived-from-git field did we render into the stable
+region", not "who edited the board":
   * the open-PR list changes whenever anyone touches any PR, including this
     board's own PR -- so that section is excluded entirely;
   * the header's open-PR COUNT is the same quantity, but it lives on the
@@ -67,7 +74,16 @@ and every one of them made an earlier `--check` red on arrival:
     because they are read before the commit containing the board exists. So a
     committed board is permanently one commit behind, forever, by construction.
     (The date was missed the first time and made `--check` red on arrival a third
-    time, when two commits straddled midnight.)
+    time, when two commits straddled midnight.);
+  * the DIVERGENCE BANNER, which is the same self-reference one level up and the
+    only one that cannot be seen before commit time. It renders when HEAD differs
+    from origin/main -- but COMMITTING a board generated on main is itself what
+    makes HEAD differ. So a board committed on any branch can never contain the
+    banner its own regeneration produces, and `--check` is red BY CONSTRUCTION on
+    exactly the commit whose purpose is updating the board. Excluded from the
+    compare, and matched as the WHOLE literal line rather than a prefix plus a
+    wildcard tail -- a wildcard would let arbitrary text ride along behind the
+    banner opener and vanish, turning a normalization into a hiding place.
 A check that cries wolf gets disabled, and a disabled gate is a lie -- so SHAs
 are normalized before comparison and everything else must match byte-for-byte.
 This is a LOCAL guard against hand edits, not a CI gate.
@@ -603,6 +619,7 @@ def main() -> int:
             stable = re.sub(r"\b[0-9a-f]{7,40}\b", "<sha>", stable)
             stable = re.sub(r"\b20\d\d-\d\d-\d\d\b", "<date>", stable)
             # THIRD volatile thing in the header, and the one that got missed.
+            # (Docstring above: item 2 of 4. Keep the two in step.)
             # The open-PR SECTION is excluded by the volatile bounds, but the
             # header's PR COUNT sits in the stable region beside the SHA and the
             # date -- so `--check` went red on main the instant any PR anywhere
