@@ -742,14 +742,17 @@ predictions:
       "validated" — a comparison to a known value is a postdiction. It was the
       LAST row still carrying the struck label; it survived the 2026-08-05
       sweep because that ruling was scoped to P42 by name.
-      ★ `type` derived_prediction → consistency_check, same pass, 2026-08-13.
-      PENDING-GRANT-CONFIRM — this is a FIFTH row, and Grant's "fold into 966"
-      named four (P42, P47, P20_21, P44_45). P19 was not in that set only because
-      its `calibration_role: consistency` was created by THIS PR, minutes earlier;
-      it now sits in exactly the position those four were in, and leaving it would
-      make it the sole type/role mismatch in the union. Same basis, same day, one
-      word reverts it. Flagged rather than folded in silently: the ruling did not
-      name this row.
+      ★ `type` derived_prediction → consistency_check, 2026-08-13 — CONFIRMED by
+      Grant ("lets label it correctly"), extending the same-day four-row ruling to
+      this fifth row. P19 was outside that set only because its
+      `calibration_role: consistency` was created by THIS PR minutes before the
+      ruling, so it could not have been named. The union now carries zero
+      type/role mismatches.
+      ⚠ THE LABEL IS SETTLED; THE CLAIM IS NOT. Grant, same word: "add it to our
+      followups/backlog to readjudicate". Correct labelling of a weak row is not
+      an endorsement of it — see `open-items/p19-flyby-readjudication` for the
+      substantive question, which is whether this row belongs in the public
+      47-slot table at all.
       Prior label preserved in this note per Rule 12; the field itself moved.
 
       Geometry-modulated; NEAR-shape prediction validated, others nulls.
