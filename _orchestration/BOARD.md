@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **7008d949** (2026-08-13) · 460 index records · 330 claims · 2 PRs open
+Scanned tree **0d7948f3** (2026-08-13) · 460 index records · 330 claims · 1 PR open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`ecc65077`). Every count below describes **7008d949**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`b3947d98`). Every count below describes **0d7948f3**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -113,8 +113,7 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 | PR | state | title |
 |---|---|---|
-| #967 | pending-review | [REVIEW: pending-orchestrator] infra — fix the anchor whitespace bug (R2) + exte |
-| #966 | pending-review | [REVIEW: pending-orchestrator] manifest — split predictions.yaml into forward +  |
+| #966 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] manifest — split predictions.yaml i |
 
 <!-- /volatile -->
 
