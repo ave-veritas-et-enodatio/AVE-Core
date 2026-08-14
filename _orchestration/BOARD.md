@@ -4,9 +4,7 @@
 
 # AVE program board
 
-Scanned tree **0d7948f3** (2026-08-13) · 460 index records · 330 claims · 1 PR open
-
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`b3947d98`). Every count below describes **0d7948f3**. Regenerate on main before reading these as program state.
+Scanned tree **7571ce07** (2026-08-14) · 460 index records · 330 claims · 0 PRs open
 
 ## The number that frames everything
 
@@ -111,9 +109,7 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 *(volatile — excluded from `--check`, since any PR retitle would otherwise make the check cry wolf)*
 
-| PR | state | title |
-|---|---|---|
-| #966 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] manifest — split predictions.yaml i |
+No open PRs.
 
 <!-- /volatile -->
 
