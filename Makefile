@@ -189,8 +189,10 @@ verify: $(KB_VERIFY) verify-md-links verify-provenance-stamps verify-frozen-prov
 	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/verify_atomic_ie_manuscript_table.py
 	@echo "\n[Verify] Running defense-context checker (critical-tier gate)..."
 	$(PYTHON) $(SCRIPT_DIR)/defense_context_checker.py --severity critical
-	@echo "\n[Verify] Running predictions-manifest validator..."
+	@echo "\n[Verify] Running predictions-manifest validator (forward)..."
 	$(PYTHON) $(SCRIPT_DIR)/predictions_manifest_validator.py
+	@echo "\n[Verify] Running predictions-manifest validator (consistency)..."
+	$(PYTHON) $(SCRIPT_DIR)/predictions_manifest_validator.py --manifest manuscript/consistency-manifest.yaml
 	@echo "\n[Verify] Running ξ namespace collision guard..."
 	$(PYTHON) $(SCRIPT_DIR)/verify_xi_namespace.py
 	@echo "\n[Verify][advisory] Running anchor-content drift check (WARN-CLASS, non-gating)..."

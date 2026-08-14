@@ -1128,6 +1128,14 @@ def report_advisory_cites(
             print(f"     · {rel}:{finding.line}  ->  {finding.target}{suffix}")
         if mode != "report" and len(err) > sample:
             print(f"     … {len(err) - sample} more error-source; --advisory-cites report for all")
+            # ⚠ TRUNCATION HONESTY (2026-08-13). This console list is a SAMPLE.
+            # Diffing it against another run reports far fewer changes than exist:
+            # measured, a before/after diff of this truncated text said "0 new
+            # errors" when the full report showed EIGHT. Say so at the truncation
+            # point, where someone about to diff it is looking.
+            print("     ⚠ SAMPLE, NOT A COMPLETE LIST — do NOT diff this output to")
+            print("       decide whether a change added errors. Use")
+            print("       `--advisory-cites report`, which prints the complete list.")
 
 
 def main(argv: list[str] | None = None) -> int:

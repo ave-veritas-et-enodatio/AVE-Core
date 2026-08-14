@@ -12,10 +12,14 @@ Reference: src/scripts/predictions_manifest_validator.py,
 
 import re
 
+import pytest
+import yaml
+
 from scripts.predictions_manifest_validator import (
     ALL_CHECKS,
     ALLOWED_CALIBRATION_ROLES,
     ALLOWED_TYPES,
+    CONSISTENCY_MANIFEST_PATH,
     MANIFEST_PATH,
     PROVENANCE_MARKERS,
     REPO_ROOT,
@@ -24,6 +28,8 @@ from scripts.predictions_manifest_validator import (
     check_calibration_role,
     check_engine,
     check_labels,
+    check_armed_forward_count,
+    check_cross_manifest_ids,
     check_living_reference_parity,
     check_readme_parity,
     check_schema,
@@ -34,7 +40,9 @@ from scripts.predictions_manifest_validator import (
     collect_spine_nodes,
     derive_axioms_used,
     extract_living_reference_prediction_rows,
+    load_all_manifest_entries,
     load_manifest,
+    resolve_union_paths,
     run,
     scan_provenance,
     suggest_role,
@@ -402,7 +410,7 @@ class TestCalibrationRole:
         assert check_calibration_role(m, cards=cards) == []
 
     def test_undeclared_role_is_skipped(self) -> None:
-        # calibration_role is optional (predictions.yaml:29). Absent -> nothing
+        # calibration_role is optional (the `calibration_role` schema comment). Absent -> nothing
         # to reconcile, not a failure.
         cards = self._cards(aaaaaa="- The value is GR-imported.")
         m = _manifest([{"id": "P01", "clm": "clm-aaaaaa"}])
@@ -702,7 +710,7 @@ class TestCalibrationRole:
     def test_deviation_disclaimed_forbids_only_forward_prediction(self) -> None:
         # A card that refuses to predict a non-zero deviation is stating a NULL
         # matching the standard expectation, so it cannot be
-        # "divergent-from-SM" (predictions.yaml:35). But a null can still be a
+        # "divergent-from-SM" (the `forward-prediction` line of the `calibration_role` schema comment). But a null can still be a
         # forced FORM — α-invariance under symmetric gravity IS a forced
         # cancellation — so the marker must leave every other role alone.
         body = "  - Does NOT claim the framework predicts $\\Delta\\alpha \\neq 0$ in any gravitational regime."
@@ -718,7 +726,7 @@ class TestCalibrationRole:
 
     def test_live_manifest_has_no_unknown_roles(self) -> None:
         # The reconciler's precondition holds on the live manifest.
-        m = load_manifest(MANIFEST_PATH)
+        m = load_live_union()
         criticals = [f for f in check_calibration_role(m) if f.severity == "critical"]
         assert criticals == [], "Live manifest declares a calibration_role outside the taxonomy:\n" + "\n".join(
             f"  P={f.entry_id} {f.message}" for f in criticals
@@ -741,7 +749,7 @@ class TestCalibrationRole:
     def test_live_manifest_has_no_contradicted_roles(self) -> None:
         # The flip's precondition, asserted as a standing gate rather than a
         # one-off census: a CONTRADICTED row would now red-gate `make verify`.
-        m = load_manifest(MANIFEST_PATH)
+        m = load_live_union()
         contradicted = [
             f for f in check_calibration_role(m) if f.details.get("verdict") == "CONTRADICTED"
         ]
@@ -751,6 +759,19 @@ class TestCalibrationRole:
 
 
 # ───────────────────────────────────────────────────────────────────────────
+# ── UNION LOADER FOR THE LIVE-MANIFEST TESTS ──────────────────────────────
+# The 2026-08-13 forward/consistency split left MANIFEST_PATH holding 2 entries
+# and CONSISTENCY_MANIFEST_PATH holding 35. Every live-manifest test below used
+# to see all 36 through MANIFEST_PATH alone; after the split they would have
+# silently covered 2 -- a 94% coverage drop with every test still green, which is
+# the degrades-to-a-pass shape these tests exist to catch. Load BOTH.
+def load_live_union() -> dict:
+    entries = []
+    for _p in (MANIFEST_PATH, CONSISTENCY_MANIFEST_PATH):
+        entries.extend(load_manifest(_p).get("predictions", []))
+    return {"predictions": entries}
+
+
 # The marker table is FROZEN — snapshot, not blocklist
 # ───────────────────────────────────────────────────────────────────────────
 # The table is described as "frozen" throughout this branch. Before this class
@@ -778,6 +799,7 @@ FROZEN_MARKER_TABLE: tuple[tuple[str, str, tuple[str, ...]], ...] = (
     ("VALUE_FITTED", r"\brefined post-hoc\b|\bpost-hoc against\b", ("chord",)),
     ("VALUE_FITTED", r"back-reaction fit\b", ("chord",)),
     ("FORM_VS_VALUE_SPLIT", r"FORM[^.]{0,220}is derived but the VALUE", ("chord",)),
+    ("VALUE_ECHOED", r"echo\s+at\s+the\s+value\s+level", ("chord",)),
     ("CONSISTENCY_CLASS", r"consistency check", ("chord", "forward-prediction")),
     ("CONSISTENCY_CLASS", r"category \(iii\)", ("chord", "forward-prediction")),
     ("CONSISTENCY_CLASS", r"consistency-class", ("chord", "forward-prediction")),
@@ -876,13 +898,13 @@ class TestMarkerReceipts:
 # ───────────────────────────────────────────────────────────────────────────
 class TestLiveManifest:
     def test_manifest_loads(self) -> None:
-        m = load_manifest(MANIFEST_PATH)
+        m = load_live_union()
         assert "predictions" in m
         assert isinstance(m["predictions"], list)
         assert len(m["predictions"]) > 0
 
     def test_manifest_schema_clean(self) -> None:
-        m = load_manifest(MANIFEST_PATH)
+        m = load_live_union()
         findings = check_schema(m)
         criticals = [f for f in findings if f.severity == "critical"]
         assert criticals == [], "Live manifest has schema violations:\n" + "\n".join(
@@ -890,7 +912,7 @@ class TestLiveManifest:
         )
 
     def test_manifest_labels_resolve(self) -> None:
-        m = load_manifest(MANIFEST_PATH)
+        m = load_live_union()
         labels = collect_manuscript_labels(REPO_ROOT)
         findings = check_labels(m, labels=labels)
         criticals = [f for f in findings if f.severity == "critical"]
@@ -899,7 +921,7 @@ class TestLiveManifest:
         )
 
     def test_manifest_engine_agrees(self) -> None:
-        m = load_manifest(MANIFEST_PATH)
+        m = load_live_union()
         constants = collect_constants_symbols()
         findings = check_engine(m, constants=constants)
         criticals = [f for f in findings if f.severity == "critical"]
@@ -908,7 +930,7 @@ class TestLiveManifest:
         )
 
     def test_readme_parity(self) -> None:
-        m = load_manifest(MANIFEST_PATH)
+        m = load_live_union()
         findings = check_readme_parity(m)
         warns = [f for f in findings if f.severity == "warn"]
         # Parity is WARN level — if a README row has no entry it should be
@@ -919,7 +941,7 @@ class TestLiveManifest:
         )
 
     def test_living_reference_parity(self) -> None:
-        m = load_manifest(MANIFEST_PATH)
+        m = load_live_union()
         findings = check_living_reference_parity(m)
         warns = [f for f in findings if f.severity == "warn"]
         # Same semantics as README parity, but checks LIVING_REFERENCE.md
@@ -940,12 +962,12 @@ class TestLiveManifest:
             assert name, "name should not be empty"
 
     def test_all_entries_use_allowed_types(self) -> None:
-        m = load_manifest(MANIFEST_PATH)
+        m = load_live_union()
         for entry in m["predictions"]:
             assert entry["type"] in ALLOWED_TYPES, f"Entry {entry['id']} uses unknown type: {entry['type']}"
 
     def test_all_entries_have_unique_ids(self) -> None:
-        m = load_manifest(MANIFEST_PATH)
+        m = load_live_union()
         ids = [e["id"] for e in m["predictions"]]
         assert len(ids) == len(set(ids)), f"Duplicate IDs: {ids}"
 
@@ -964,3 +986,311 @@ class TestOrchestration:
         # schema-only on a valid manifest should have no criticals
         criticals = [f for f in findings if f.severity == "critical"]
         assert criticals == []
+
+
+# ───────────────────────────────────────────────────────────────────────────
+# Post-split union integrity
+#
+# The split from one manifest to two silently demoted three properties that
+# used to be enforced, because the per-file checks kept working and nothing
+# owned the union. Each test below names the hole it closes and asserts BOTH
+# directions: the live corpus is clean, and a synthetic break is caught.
+# ───────────────────────────────────────────────────────────────────────────
+import scripts.predictions_manifest_validator as _pmv  # noqa: E402
+
+_FWD = """version: 1
+predictions:
+  - id: P_probe_forward
+    pre_registered: true
+"""
+_CON = """version: 1
+predictions:
+  - id: P_probe_consistency
+"""
+
+
+def _declare(monkeypatch, tmp_path, fwd: str = _FWD, con: str = _CON):
+    """Point the declared manifests at a synthetic pair under tmp_path."""
+    f = tmp_path / "predictions.yaml"
+    c = tmp_path / "consistency-manifest.yaml"
+    f.write_text(fwd, encoding="utf-8")
+    c.write_text(con, encoding="utf-8")
+    monkeypatch.setattr(_pmv, "DECLARED_MANIFESTS", (f, c))
+    return f, c
+
+
+class TestEmptyManifestIsFailLoud:
+    """An empty manifest is a deleted manifest that kept its filename.
+
+    The FileNotFoundError guard closed DELETING a backing file. Emptying one to
+    `predictions: []` stayed silent for the forward file, because both its rows
+    are public_in_readme:false so no public surface requires them to exist.
+    """
+
+    def test_empty_forward_manifest_raises(self, monkeypatch, tmp_path) -> None:
+        _declare(monkeypatch, tmp_path, fwd="version: 1\npredictions: []\n")
+        with pytest.raises(ValueError, match="parsed to zero entries"):
+            load_all_manifest_entries()
+
+    def test_empty_consistency_manifest_raises(self, monkeypatch, tmp_path) -> None:
+        _declare(monkeypatch, tmp_path, con="version: 1\npredictions: []\n")
+        with pytest.raises(ValueError, match="parsed to zero entries"):
+            load_all_manifest_entries()
+
+    def test_populated_pair_loads(self, monkeypatch, tmp_path) -> None:
+        """Control: the guard does not fire on a manifest that has rows."""
+        _declare(monkeypatch, tmp_path)
+        assert len(load_all_manifest_entries()) == 2
+
+
+class TestCrossManifestIds:
+    """`check_schema` runs per file, so duplicate-id became within-file only.
+
+    A collision across the two files passed `make verify` entirely. It is not
+    cosmetic: both parity checks build entries_by_id over the union as a dict
+    comprehension, which is silently last-wins.
+    """
+
+    def test_live_union_has_no_cross_manifest_collision(self) -> None:
+        findings = check_cross_manifest_ids(load_live_union())
+        assert findings == [], "id collision across manifests:\n" + "\n".join(
+            f"  {f.message}" for f in findings
+        )
+
+    def test_collision_is_critical(self, monkeypatch, tmp_path) -> None:
+        _declare(monkeypatch, tmp_path, con="version: 1\npredictions:\n  - id: P_probe_forward\n")
+        findings = check_cross_manifest_ids({})
+        assert [f.severity for f in findings] == ["critical"]
+        assert "P_probe_forward" in findings[0].message
+
+    def test_no_false_fire_on_distinct_ids(self, monkeypatch, tmp_path) -> None:
+        _declare(monkeypatch, tmp_path)
+        assert check_cross_manifest_ids({}) == []
+
+
+class TestArmedForwardCount:
+    """The forward manifest had no backstop at all after the split.
+
+    Both its rows are public_in_readme:false, so parity could not see them
+    vanish. The README badge is the published, already-reviewed count, so both
+    sides of this check are derived rather than hand-maintained.
+    """
+
+    def test_live_badge_matches_live_armed_rows(self) -> None:
+        findings = check_armed_forward_count(load_live_union())
+        assert findings == [], "\n".join(f"  {f.message}" for f in findings)
+
+    def test_losing_the_armed_row_is_critical(self, monkeypatch, tmp_path) -> None:
+        _declare(monkeypatch, tmp_path, fwd="version: 1\npredictions:\n  - id: P_unarmed\n")
+        readme = tmp_path / "README.md"
+        readme.write_text("badge/forward_falsifier-1_armed_(x)-orange\n", encoding="utf-8")
+        monkeypatch.setattr(_pmv, "README_PATH", readme)
+        findings = check_armed_forward_count({})
+        assert [f.severity for f in findings] == ["critical"]
+        assert "carries 0 row(s)" in findings[0].message
+
+    def test_missing_badge_does_not_pass_by_absence(self, monkeypatch, tmp_path) -> None:
+        """A check that goes quiet when its reference disappears is not a check."""
+        _declare(monkeypatch, tmp_path)
+        readme = tmp_path / "README.md"
+        readme.write_text("no badge here\n", encoding="utf-8")
+        monkeypatch.setattr(_pmv, "README_PATH", readme)
+        findings = check_armed_forward_count({})
+        assert [f.severity for f in findings] == ["critical"]
+        assert "no `forward_falsifier-<N>_armed` badge" in findings[0].message
+
+
+class TestManifestSubstitution:
+    """`--manifest <candidate>` was honoured by the six per-file checks and
+    silently ignored by the two that read the union -- so an operator
+    pre-validating a candidate got a green on a file those checks never opened.
+    """
+
+    def test_declared_path_is_a_no_op(self) -> None:
+        assert resolve_union_paths(MANIFEST_PATH) == tuple(_pmv.DECLARED_MANIFESTS)
+        assert resolve_union_paths(CONSISTENCY_MANIFEST_PATH) == tuple(_pmv.DECLARED_MANIFESTS)
+        assert resolve_union_paths(None) == tuple(_pmv.DECLARED_MANIFESTS)
+
+    def test_candidate_replaces_the_file_it_is_named_after(self, tmp_path) -> None:
+        cand = tmp_path / "consistency-manifest.yaml"
+        cand.write_text(_CON, encoding="utf-8")
+        assert resolve_union_paths(cand) == (MANIFEST_PATH, cand)
+
+    def test_unrecognisable_basename_is_refused_not_guessed(self, tmp_path) -> None:
+        cand = tmp_path / "whatever.yaml"
+        cand.write_text(_CON, encoding="utf-8")
+        with pytest.raises(ValueError, match="cannot tell which file it stands in for"):
+            resolve_union_paths(cand)
+
+    def test_union_checks_actually_open_the_candidate(self, tmp_path) -> None:
+        """The end-to-end shape: a candidate missing a public row must be seen.
+
+        Uses the live consistency manifest minus one row, so the parity finding
+        is about a real README row rather than a synthetic table.
+        """
+        live = load_manifest(CONSISTENCY_MANIFEST_PATH)
+        dropped = live["predictions"][3]["id"]
+        cand = tmp_path / "consistency-manifest.yaml"
+        cand.write_text(
+            yaml.safe_dump(
+                {"version": 1, "predictions": [e for e in live["predictions"] if e["id"] != dropped]},
+                sort_keys=False,
+            ),
+            encoding="utf-8",
+        )
+        seen = check_readme_parity(load_manifest(MANIFEST_PATH), cand)
+        assert any(dropped in f.message or dropped.lstrip("P").lstrip("0") in f.message for f in seen), (
+            f"parity did not notice {dropped} missing from the candidate: "
+            + "; ".join(f.message for f in seen)
+        )
+        # Control, and it has to be a REAL assertion: the same call without the
+        # substitute must be clean, or the finding above proves nothing about
+        # the candidate. (The previous line here read `== [] or True`, which is
+        # unconditionally true and asserted nothing. An audit's AST scan found
+        # it; it was the only such node in the file.)
+        assert check_readme_parity(load_manifest(MANIFEST_PATH)) == []
+
+
+class TestUnionCheckWiring:
+    """The F2 delivery is `UNION_CHECKS` + the dispatch branch in `run()`, NOT
+    `resolve_union_paths()`.
+
+    An audit proved the distinction: with `UNION_CHECKS = frozenset()`, or with
+    the `run()` branch turned to `if False:`, the substitution mechanism is
+    entirely reverted and the whole suite stayed green. The helper was covered
+    four ways; the wire to the helper was covered zero ways. The guard bound and
+    the wire to the guard did not.
+    """
+
+    def test_union_checks_is_derived_from_the_signatures(self) -> None:
+        """`UNION_CHECKS` must equal the checks that actually accept a substitute.
+
+        Derived on both sides. A hand-maintained registry beside a hand-maintained
+        set of signatures drifts silently: rename a key in ALL_CHECKS and the
+        check falls out of UNION_CHECKS, run() calls it with substitute=None, and
+        `--manifest` is quietly ignored again by exactly that check.
+        """
+        import functools
+        import inspect
+
+        def accepts_substitute(fn) -> bool:
+            base = fn.func if isinstance(fn, functools.partial) else fn
+            return "substitute" in inspect.signature(inspect.unwrap(base)).parameters
+
+        derived = {name for name, fn in ALL_CHECKS.items() if accepts_substitute(fn)}
+        assert _pmv.UNION_CHECKS == derived, (
+            f"UNION_CHECKS={sorted(_pmv.UNION_CHECKS)} but the checks accepting a "
+            f"`substitute` parameter are {sorted(derived)}. A check in one and not "
+            f"the other silently ignores --manifest."
+        )
+
+    def test_run_passes_the_substitute_through_to_the_union_checks(self, tmp_path) -> None:
+        """End-to-end through `run()` — the actual delivery path, not the helper.
+
+        A candidate forward manifest whose id collides with a consistency row can
+        only be seen if run() handed the path to a union check.
+        """
+        live = load_manifest(CONSISTENCY_MANIFEST_PATH)
+        collide = live["predictions"][0]["id"]
+        cand = tmp_path / "predictions.yaml"
+        cand.write_text(
+            yaml.safe_dump({"version": 1, "predictions": [{"id": collide}]}, sort_keys=False),
+            encoding="utf-8",
+        )
+        findings = run(manifest_path=cand, checks=["cross_manifest_ids"])
+        assert [f.severity for f in findings] == ["critical"], (
+            "run() did not route the --manifest candidate into the union check; "
+            f"got {findings}"
+        )
+        assert collide in findings[0].message
+
+    def test_run_on_the_declared_manifest_is_clean(self) -> None:
+        """Control: the same path with no substitution finds nothing."""
+        assert run(manifest_path=MANIFEST_PATH, checks=["cross_manifest_ids"]) == []
+
+    def test_main_honours_manifest_end_to_end(self, tmp_path, capsys) -> None:
+        """Through `main()` and argparse — the operator-facing path from the brief."""
+        live = load_manifest(CONSISTENCY_MANIFEST_PATH)
+        collide = live["predictions"][0]["id"]
+        cand = tmp_path / "predictions.yaml"
+        cand.write_text(
+            yaml.safe_dump({"version": 1, "predictions": [{"id": collide}]}, sort_keys=False),
+            encoding="utf-8",
+        )
+        rc = _pmv.main(["--manifest", str(cand), "--check", "cross_manifest_ids"])
+        assert rc != 0, "main() exited 0 on a candidate that collides with a live id"
+
+
+class TestArmedIsNotTheLifecycleFlag:
+    """`armed:` and `pre_registered:` are different properties.
+
+    The first version of check_armed_forward_count keyed on `pre_registered`,
+    which :110-115 documents as a lifecycle stage a row SHEDS on promotion to a
+    manuscript chapter. So the documented happy path fired the gate critical.
+    And on the merge base the README badge already read `1_armed` with zero rows
+    carrying `pre_registered: true` — the predicate never matched the badge's
+    meaning; it agreed only because the same PR added the flag.
+    """
+
+    def test_promotion_does_not_trip_the_gate(self, monkeypatch, tmp_path) -> None:
+        """Shed `pre_registered`, gain `derivation_label` — the documented path."""
+        _declare(
+            monkeypatch,
+            tmp_path,
+            fwd=(
+                "version: 1\npredictions:\n  - id: P_promoted\n"
+                "    armed: true\n    derivation_label: sec:promoted\n"
+            ),
+        )
+        readme = tmp_path / "README.md"
+        readme.write_text("badge/forward_falsifier-1_armed_(x)-orange\n", encoding="utf-8")
+        monkeypatch.setattr(_pmv, "README_PATH", readme)
+        assert check_armed_forward_count({}) == []
+
+    def test_pre_registered_alone_does_not_count_as_armed(self, monkeypatch, tmp_path) -> None:
+        """The old predicate would have passed this; the new one must not."""
+        _declare(
+            monkeypatch,
+            tmp_path,
+            fwd="version: 1\npredictions:\n  - id: P_lifecycle\n    pre_registered: true\n",
+        )
+        readme = tmp_path / "README.md"
+        readme.write_text("badge/forward_falsifier-1_armed_(x)-orange\n", encoding="utf-8")
+        monkeypatch.setattr(_pmv, "README_PATH", readme)
+        findings = check_armed_forward_count({})
+        assert [f.severity for f in findings] == ["critical"]
+
+    def test_armed_row_in_the_consistency_manifest_is_a_category_error(
+        self, monkeypatch, tmp_path
+    ) -> None:
+        _declare(
+            monkeypatch,
+            tmp_path,
+            fwd="version: 1\npredictions:\n  - id: P_fwd\n    armed: true\n",
+            con="version: 1\npredictions:\n  - id: P_con\n    armed: true\n",
+        )
+        readme = tmp_path / "README.md"
+        readme.write_text("badge/forward_falsifier-1_armed_(x)-orange\n", encoding="utf-8")
+        monkeypatch.setattr(_pmv, "README_PATH", readme)
+        findings = check_armed_forward_count({})
+        assert any("category" in f.message or "belongs in" in f.message for f in findings)
+        assert any(f.entry_id == "P_con" for f in findings)
+
+    def test_two_disagreeing_badges_do_not_silently_first_match(
+        self, monkeypatch, tmp_path
+    ) -> None:
+        _declare(monkeypatch, tmp_path, fwd="version: 1\npredictions:\n  - id: P_f\n    armed: true\n")
+        readme = tmp_path / "README.md"
+        readme.write_text(
+            "forward_falsifier-1_armed_(a)\nforward_falsifier-3_armed_(b)\n", encoding="utf-8"
+        )
+        monkeypatch.setattr(_pmv, "README_PATH", readme)
+        findings = check_armed_forward_count({})
+        assert [f.severity for f in findings] == ["critical"]
+        assert "badges claiming different counts" in findings[0].message
+
+    def test_live_forward_manifest_declares_its_armed_row(self) -> None:
+        """The live corpus carries the field, not just the prose."""
+        rows = load_manifest(MANIFEST_PATH).get("predictions", [])
+        armed = [e["id"] for e in rows if e.get("armed") is True]
+        assert armed, "no forward row declares `armed: true`; the badge has nothing to check"

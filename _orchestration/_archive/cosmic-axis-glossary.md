@@ -34,7 +34,7 @@ Beyond the dipole-vs-axis-of-evil distinction, **eight cosmic-axis observables s
 | G2 | Run before or after E1b-prime? | **BEFORE** — clean glossary anchors the Pantheon+ result doc |
 | G3 | Path-stable annotation on the new leaf? | **YES** — `<!-- path-stable: referenced from vol3, vol6 as canonical cosmic-direction definitions -->` on line 3 |
 | G4 | Naming convention for the new leaf | **`common/cosmic-axes-and-frames-glossary.md`** (sibling to `boundary-observables-m-q-j.md`) |
-| G5 | Fold in the 2 H_∞ framing hygiene items surfaced during scoping? | **YES** — `lattice-genesis-hubble-tension.md:24` partial reversion + `predictions.yaml:142` framing inconsistency added as Phase 4 |
+| G5 | Fold in the 2 H_∞ framing hygiene items surfaced during scoping? | **YES** — `lattice-genesis-hubble-tension.md:24` partial reversion + `consistency-manifest.yaml` P23 framing inconsistency added as Phase 4 |
 
 ## What would be defined in scope B (new leaf content)
 
@@ -165,7 +165,7 @@ Apply `ave-walk-back` skill discipline. Per-file action:
 Surfaced during scoping as side-effect of post-912dd88 framing-walk-back audit:
 
 - `manuscript/ave-kb/vol3/cosmology/ch04-generative-cosmology/lattice-genesis-hubble-tension.md:24` — the table-cell "Method" column for AVE H_∞ currently shows `"First principles"`, inconsistent with the explanatory paragraph below and the parallel LaTeX `vol_3_macroscopic/chapters/04_generative_cosmology.tex` which both carry the post-912dd88 `"Geometric consistency"` framing. Fix the table cell to match (revert what appears to be an editing oversight).
-- `manuscript/predictions.yaml:142` — entry P23 carries `"a priori prediction that Hubble tension is a regime artifact"` framing. Inconsistent with the post-912dd88 walk-back applied elsewhere. Reframe as `"geometric consistency identity that lands in the Planck-SH0ES tension band"` (matching the post-912dd88 framing at `mathematical-closure.md:141` and `04_generative_cosmology.tex` objectivebox).
+- `manuscript/consistency-manifest.yaml` P23 — entry P23 carries `"a priori prediction that Hubble tension is a regime artifact"` framing. Inconsistent with the post-912dd88 walk-back applied elsewhere. Reframe as `"geometric consistency identity that lands in the Planck-SH0ES tension band"` (matching the post-912dd88 framing at `mathematical-closure.md:141` and `04_generative_cosmology.tex` objectivebox).
 - Verify cascade: grep for any OTHER `"First principles"` / `"a priori"` Hubble framing in corpus that may have been missed by the 912dd88 sweep
 - Commit: `kb+predictions(hygiene): apply post-912dd88 H_∞ "geometric consistency" framing to remaining 2 stale-language instances`
 

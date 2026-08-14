@@ -52,12 +52,16 @@ To add a new rule, edit [`src/scripts/defense_context_checker.py`](../../src/scr
 python src/scripts/predictions_manifest_validator.py
 ```
 
-Structural validator for [`manuscript/predictions.yaml`](../../manuscript/predictions.yaml) — the authoritative manifest of every public-facing prediction. Four checks:
+Structural validator for [`manuscript/predictions.yaml`](../../manuscript/predictions.yaml) — the FORWARD manifest; `manuscript/consistency-manifest.yaml` holds the consistency-class entries — the validator's parity checks read the UNION of both. Eight checks:
 
 1. **schema** — every entry has required fields; types are in the allowed set; IDs unique.
 2. **label** — every `derivation_label` resolves to a real `\label{}` target in `manuscript/**/*.tex`.
 3. **engine** — every `constants_py_symbol` resolves in `src/ave/core/constants.py`; live numeric value agrees with `predicted_value` to rtol 1e-5.
-4. **parity** — every row in the README Master Prediction Table maps to a manifest entry (no undocumented public claims).
+4. **bridge** — every entry bridges into the KB claim DAG via `clm:`/`exp:` (INVARIANT-S11); unbridged is critical.
+5. **axioms** — `axioms_used` equals the recomputed transitive axiom cone of the `clm:` bridge.
+6. **calibration_role** — the declared role is reconciled against the bridged claim card's own prose. **GATING at severity=critical** since 2026-08-05.
+7. **parity** — every row in the README Master Prediction Table maps to an entry in EITHER manifest (no undocumented public claims).
+8. **lr_parity** — the same for LIVING_REFERENCE.
 
 Unlike the framing checker, the predictions-manifest validator is **enforced in `make verify`** — critical findings fail the build. This is the right stance because unresolved labels or engine drift are structural errors, not framing choices.
 

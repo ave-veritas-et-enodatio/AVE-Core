@@ -20,7 +20,7 @@ GR's weak-field PPN across its THREE coefficient-bearing canonical statements:
   (S2) The canonical light-deflection derivation
        (manuscript/vol_3_macroscopic/chapters/02_general_relativity_and_gravity.tex
         sec:double_deflection, lines 167-206; cross-validated
-        03_macroscopic_relativity.tex:146-153; predictions.yaml P10):
+        03_macroscopic_relativity.tex:146-153; consistency-manifest.yaml P10):
            photon couples to  n_perp = 1 + (2/7) eps_11 = 1 + 2GM/rc^2
            -> delta_light = 4 G M / (b c^2)   (claimed = Einstein/GR)
        NOTE: this uses the (2/7) transverse index, NOT the (9/7) "spatial" index.

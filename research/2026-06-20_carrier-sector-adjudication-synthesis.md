@@ -71,7 +71,7 @@ Two anchors in the orchestrating prose were stale; corrected here, not silently 
   sector adds nothing.
 - **Matter-excess IS corpus-established, NOT a new claim.** The matter/antimatter asymmetry is
   already in the corpus at `manuscript/ave-kb/vol2/nuclear-field/ch10-open-problems/baryon-asymmetry.md`
-  (claim `clm-4vwsjc`, registered in `manuscript/predictions.yaml:667`; orchestration thread
+  (claim `clm-4vwsjc`, registered in `manuscript/consistency-manifest.yaml` P22; orchestration thread
   `clm-4vwsjc` is the registry id). The carrier-sector work does not introduce matter-excess; it
   cites the existing claim.
 - **Class:** echo / peer-with-SM. The SM also imposes parity violation (it is built into the
