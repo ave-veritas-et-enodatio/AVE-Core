@@ -16,6 +16,7 @@ from scripts.predictions_manifest_validator import (
     ALL_CHECKS,
     ALLOWED_CALIBRATION_ROLES,
     ALLOWED_TYPES,
+    CONSISTENCY_MANIFEST_PATH,
     MANIFEST_PATH,
     PROVENANCE_MARKERS,
     REPO_ROOT,
@@ -718,7 +719,7 @@ class TestCalibrationRole:
 
     def test_live_manifest_has_no_unknown_roles(self) -> None:
         # The reconciler's precondition holds on the live manifest.
-        m = load_manifest(MANIFEST_PATH)
+        m = load_live_union()
         criticals = [f for f in check_calibration_role(m) if f.severity == "critical"]
         assert criticals == [], "Live manifest declares a calibration_role outside the taxonomy:\n" + "\n".join(
             f"  P={f.entry_id} {f.message}" for f in criticals
@@ -741,7 +742,7 @@ class TestCalibrationRole:
     def test_live_manifest_has_no_contradicted_roles(self) -> None:
         # The flip's precondition, asserted as a standing gate rather than a
         # one-off census: a CONTRADICTED row would now red-gate `make verify`.
-        m = load_manifest(MANIFEST_PATH)
+        m = load_live_union()
         contradicted = [
             f for f in check_calibration_role(m) if f.details.get("verdict") == "CONTRADICTED"
         ]
@@ -751,6 +752,19 @@ class TestCalibrationRole:
 
 
 # ───────────────────────────────────────────────────────────────────────────
+# ── UNION LOADER FOR THE LIVE-MANIFEST TESTS ──────────────────────────────
+# The 2026-08-13 forward/consistency split left MANIFEST_PATH holding 2 entries
+# and CONSISTENCY_MANIFEST_PATH holding 35. Every live-manifest test below used
+# to see all 36 through MANIFEST_PATH alone; after the split they would have
+# silently covered 2 -- a 94% coverage drop with every test still green, which is
+# the degrades-to-a-pass shape these tests exist to catch. Load BOTH.
+def load_live_union() -> dict:
+    entries = []
+    for _p in (MANIFEST_PATH, CONSISTENCY_MANIFEST_PATH):
+        entries.extend(load_manifest(_p).get("predictions", []))
+    return {"predictions": entries}
+
+
 # The marker table is FROZEN — snapshot, not blocklist
 # ───────────────────────────────────────────────────────────────────────────
 # The table is described as "frozen" throughout this branch. Before this class
@@ -877,13 +891,13 @@ class TestMarkerReceipts:
 # ───────────────────────────────────────────────────────────────────────────
 class TestLiveManifest:
     def test_manifest_loads(self) -> None:
-        m = load_manifest(MANIFEST_PATH)
+        m = load_live_union()
         assert "predictions" in m
         assert isinstance(m["predictions"], list)
         assert len(m["predictions"]) > 0
 
     def test_manifest_schema_clean(self) -> None:
-        m = load_manifest(MANIFEST_PATH)
+        m = load_live_union()
         findings = check_schema(m)
         criticals = [f for f in findings if f.severity == "critical"]
         assert criticals == [], "Live manifest has schema violations:\n" + "\n".join(
@@ -891,7 +905,7 @@ class TestLiveManifest:
         )
 
     def test_manifest_labels_resolve(self) -> None:
-        m = load_manifest(MANIFEST_PATH)
+        m = load_live_union()
         labels = collect_manuscript_labels(REPO_ROOT)
         findings = check_labels(m, labels=labels)
         criticals = [f for f in findings if f.severity == "critical"]
@@ -900,7 +914,7 @@ class TestLiveManifest:
         )
 
     def test_manifest_engine_agrees(self) -> None:
-        m = load_manifest(MANIFEST_PATH)
+        m = load_live_union()
         constants = collect_constants_symbols()
         findings = check_engine(m, constants=constants)
         criticals = [f for f in findings if f.severity == "critical"]
@@ -909,7 +923,7 @@ class TestLiveManifest:
         )
 
     def test_readme_parity(self) -> None:
-        m = load_manifest(MANIFEST_PATH)
+        m = load_live_union()
         findings = check_readme_parity(m)
         warns = [f for f in findings if f.severity == "warn"]
         # Parity is WARN level — if a README row has no entry it should be
@@ -920,7 +934,7 @@ class TestLiveManifest:
         )
 
     def test_living_reference_parity(self) -> None:
-        m = load_manifest(MANIFEST_PATH)
+        m = load_live_union()
         findings = check_living_reference_parity(m)
         warns = [f for f in findings if f.severity == "warn"]
         # Same semantics as README parity, but checks LIVING_REFERENCE.md
@@ -941,12 +955,12 @@ class TestLiveManifest:
             assert name, "name should not be empty"
 
     def test_all_entries_use_allowed_types(self) -> None:
-        m = load_manifest(MANIFEST_PATH)
+        m = load_live_union()
         for entry in m["predictions"]:
             assert entry["type"] in ALLOWED_TYPES, f"Entry {entry['id']} uses unknown type: {entry['type']}"
 
     def test_all_entries_have_unique_ids(self) -> None:
-        m = load_manifest(MANIFEST_PATH)
+        m = load_live_union()
         ids = [e["id"] for e in m["predictions"]]
         assert len(ids) == len(set(ids)), f"Duplicate IDs: {ids}"
 

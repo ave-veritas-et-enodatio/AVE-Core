@@ -241,12 +241,14 @@ The tool (`tools/lint_status_markers.py`, also not built here) walks the scope, 
 ## (f) Badge / manifest accounting rule
 
 **The split (verified at HEAD).** Three public surfaces count "predictions" on **three different bases**, and the split was flagged in PR #501 but never reconciled into a rule:
-> ★ **CORRECTED 2026-08-13 (forward/postdiction split).** Three factual claims in §(f) below
+> ★ **CORRECTED 2026-08-13 (forward/postdiction split).** Four factual claims in §(f) below
 > had gone stale and are corrected here rather than rewritten in place (Rule 12):
 > 1. The `predictions-47_derived` badge **no longer exists**. `README.md:6-7` now carry
 >    `forward_falsifier-1_armed` and `consistency--class_entries-45`.
 > 2. The Master Prediction Table is at **`README.md:213`**, not `:181`.
 > 3. It displays **33** rows, not 40 (47 numbers minus the 14 absorbed by 7 compound ranges).
+> 4. `:259`'s *"`manuscript/predictions.yaml`: **36 entries**"* is stale post-split — the 36
+>    became 35 in `consistency-manifest.yaml` + 1 moved forward, plus 1 new forward row.
 >
 > The RATIFIED rule at the end of §(f) — *"any `predictions.yaml` edit must preserve its
 > totals"* — **still holds and was preserved**: the 36 entries split 35 postdiction + 1 forward

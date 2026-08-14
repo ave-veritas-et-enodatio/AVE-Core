@@ -122,10 +122,20 @@ predictions:
         - the CHORD is that the vacuum saturates AT TREE LEVEL -- an O(1) existence
           claim -- against QED's alpha^2-loop birefringence. Structural, two-sided,
           field-independent, reachable at HIBEF-class fields.
-        - the MAGNITUDE is NOT the bankable content. The card states it verbatim:
-          "the MAGNITUDE $1.93\times10^7=7.5/\alpha^3$ is an $\alpha$-echo at the
-          value level". (That ratio also carries a 2026-07-03 QED-normalization
-          correction to 7.5*pi/alpha^2 ~ 4.42e5.)
+        - the MAGNITUDE is NOT the bankable content, and it has been re-normalized
+          TWICE. The CURRENT canonical ratio is v3, on the consistent instantaneous
+          footing (vacuum-birefringence-e4.md, the "delta n_AVE / delta n_QED" display):
+              15*pi/(4*alpha^2) = 3.75*pi/alpha^2 ~ 2.2e5
+          using E_crit = alpha^(-1/2) * E_yield, so (E_crit/E_yield)^2 = 1/alpha.
+          Convention history, from that leaf: v1 = 7.5/alpha^3 ~ 1.93e7 (instantaneous
+          SVE kernel against the AVE-side differenced (3/45)alpha^2); v2 = 7.5*pi/alpha^2
+          ~ 4.42e5 (QED-normalized but MIXED footing); v3 is exactly half v2, the
+          <cos^2> = 1/2 carrier average removed.
+          ⚠ An earlier draft of this row quoted the v1 figure as "the card states it
+          verbatim". That sentence is real but sits inside the card's PRESERVED
+          historical note, not its live headline (the 2026-07-07 OPTION-B FOOTING
+          CONSOLIDATION boxes v3). Quoting preserved history as current is the
+          vacated-cite pattern; corrected here rather than carried.
 
       calibration_role: mixed -- NOT chord. Form derived, value rides an echo, which
       is def-fmv001's shape exactly. Declaring `chord` would re-open the axis Grant

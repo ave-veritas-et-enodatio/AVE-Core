@@ -284,7 +284,7 @@ predictions:
 
       RULED 2026-08-05 (Grant): calibration_role chord → mixed. The FORM is
       derived and the VALUE is imported — the exact shape `mixed` is defined
-      for at line 32 of this file. FORM: sin²θ_W = ν_vac/(1+ν_vac) is the
+      for at this file's `calibration_role: mixed` schema comment. FORM: sin²θ_W = ν_vac/(1+ν_vac) is the
       two-channel diagonalization fraction — a divider ratio — where ν_vac is
       the lattice's cross-channel elastic coupling. VALUE: ν_vac =
       (3K−2G)/(2(3K+G)) evaluates to 2/7 only under K = 2G, which the corpus
@@ -725,7 +725,7 @@ predictions:
   - id: P19
     clm: clm-a71inj
     name: "Flyby anomaly (NEAR)"
-    type: derived_prediction
+    type: consistency_check
     calibration_role: consistency
     derivation_label: "ch:orbital_mechanics"
     error_percent: 1.6
@@ -742,9 +742,14 @@ predictions:
       "validated" — a comparison to a known value is a postdiction. It was the
       LAST row still carrying the struck label; it survived the 2026-08-05
       sweep because that ruling was scoped to P42 by name.
-      Scope limit: `type` is UNCHANGED (still derived_prediction). Re-typing is
-      the separate routed item owed across four rows — see open-items/
-      manifest-type-retyping. One word from Grant reverts this.
+      ★ `type` derived_prediction → consistency_check, same pass, 2026-08-13.
+      PENDING-GRANT-CONFIRM — this is a FIFTH row, and Grant's "fold into 966"
+      named four (P42, P47, P20_21, P44_45). P19 was not in that set only because
+      its `calibration_role: consistency` was created by THIS PR, minutes earlier;
+      it now sits in exactly the position those four were in, and leaving it would
+      make it the sole type/role mismatch in the union. Same basis, same day, one
+      word reverts it. Flagged rather than folded in silently: the ruling did not
+      name this row.
       Prior label preserved in this note per Rule 12; the field itself moved.
 
       Geometry-modulated; NEAR-shape prediction validated, others nulls.
@@ -937,10 +942,10 @@ predictions:
 
       RULED 2026-08-05 (Grant): calibration_role forward-prediction →
       consistency. calibration_role is the VALUE-PROVENANCE axis and is
-      "orthogonal to `type`" by this file's own header at line 29; `type`
+      "orthogonal to `type`" by this file's own `calibration_role` schema comment; `type`
       already owns the mechanism class, and it is unchanged. The prior label
       read "untested, divergent-from-SM, AVE-distinct" (the definition at line
-      35 of this file) and was wrong on all three axes. Both branches of the
+      this file's `calibration_role: forward-prediction` schema comment) and was wrong on all three axes. Both branches of the
       α-vs-loading question are recorded below, because the row is only honest
       with both.
 
@@ -1068,8 +1073,8 @@ predictions:
       OUT-OF-RULED-SCOPE — three channels through which the retracted claim
       could re-inflate. Routed, not fixed here:
         (a) The `type` axis was not ruled. This row keeps type:
-            derived_prediction, defined at line 20 of this file as "genuine
-            forward prediction (Class D)", while consistency_check (line 23,
+            derived_prediction, defined in this file's `type` schema comment as "genuine
+            forward prediction (Class D)", while consistency_check (same comment,
             "reproduces a known result (Class C)") is the closer fit to what
             these notes establish. MITIGATING: this is a manifest-wide pattern,
             not a P42 defect — all three other `consistency` rows (P47, P20_21,
@@ -1082,7 +1087,7 @@ predictions:
             4)". Neither tells a reader the ✅ is a null that coincides with
             the standard expectation. No gate will ever catch this: the parity
             checks map by id and never read the claim text —
-            src/scripts/predictions_manifest_validator.py:1446, "Mapping is by
+            src/scripts/predictions_manifest_validator.py `check_readme_parity`, "Mapping is by
             id", and :1516-1518, "Matches via (a) exact ID, (b) zero-padded ID,
             or (c) range-inclusion".
         (c) The R-1 audit prose above is stale against the field it describes.

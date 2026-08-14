@@ -16,7 +16,7 @@ file structure now matches the sentence the README already shipped.
   value-provenance and *"orthogonal to `type`"*. Membership is by FILE.
 - It does **not** re-type the four rows whose `type` says `derived_prediction` while they mean
   `consistency_check`. That was routed *"across four rows, not a rider on this one"* and stays
-  routed → `open-items/manifest-type-retyping`.
+  routed → the P19 note in `consistency-manifest.yaml` (the routed item was RULED and EXECUTED the same day, so no tracker was ever created — see the rulings block below).
 
 **Accounting (RATIFIED rule preserved).** 36 → 35 postdiction + 1 moved (`P_A034_solar_flare`,
 never one of the 47 slots) + 1 NEW (`P_biref_coefficient`) = 37. The 33 numbered entries that
@@ -59,7 +59,7 @@ manifests validate independently with 0 criticals · `verify-md-links` EXIT=0 wi
 errors** vs clean `origin/main` (verified by full-report diff, not the truncated console output) ·
 README badge md5 unchanged · board `--check` green.
 
-**Routed, not closed:** `open-items/manifest-type-retyping` (the four rows) and
+**Routed, not closed:** the P19 note in `consistency-manifest.yaml` (the routed item was RULED and EXECUTED the same day, so no tracker was ever created — see the rulings block below) (the four rows) and
 `open-items/postdiction-vocabulary` (the term now sits in a tracked filename with no `def-` node,
 while `chord`/`echo`/`mixed` each have one plus an ambiguity flag).
 
@@ -81,7 +81,7 @@ file; git holds the history, this entry holds the ruling).
   as *"genuine forward prediction (Class D)"* while `consistency_check` (*"reproduces a known
   result (Class C)"*) *"is the closer fit"*. All four already carried `calibration_role:
   consistency`, so field and type now agree. Mechanism-class relabel only — no value, axiom,
-  bridge or solidity moved. `open-items/manifest-type-retyping` is deleted accordingly.
+  bridge or solidity moved. the P19 note in `consistency-manifest.yaml` (the routed item was RULED and EXECUTED the same day, so no tracker was ever created — see the rulings block below) is deleted accordingly.
 - **"2. lets add the 7th in a new PR"** — a SEVENTH `calibration_role` is authorized, in its own PR,
   for the class this split exposed: **form forced by the substrate + value computed from a declared
   calibration input measured in a DIFFERENT experiment + output never fit to the observable being
@@ -91,6 +91,28 @@ file; git holds the history, this entry holds the ruling).
   note: every SM prediction consumes measured inputs (α, G_F, m_Z) and is called predictive;
   applying `echo` to ourselves for the same structure is the consensus-bias trap.
   ⚠ Scoped explicitly: **this row (`P_biref_coefficient`) does NOT qualify** and stays `mixed`.
-  `E_YIELD ≡ √α·E_CRIT` by definition (`constants.py:499`), so `(E_CRIT/E_YIELD)² = 1/α` holds to
+  `E_YIELD ≡ √α·E_CRIT` by definition (`constants.py`, the `E_YIELD` definition), so `(E_CRIT/E_YIELD)² = 1/α` holds to
   **0.00e+00 relative error** — the α-power in its magnitude ratio is algebra, not prediction. The
   chord is the FORM (tree-level saturation vs QED's α² loop), which is what HIBEF would test.
+
+**★ CORRECTIONS 2026-08-13, from the cold read of this PR (findings F6–F9, F11).** Recorded rather
+than silently amended:
+- **F6 — five self-referential line pins broke inside the manifest this PR created**, including the
+  two the re-typing decision cites as its basis (*"line 29"*, *"line 35"*). All repointed to the
+  **content** they name (`calibration_role` / `type` schema comments) rather than to new line
+  numbers, which would drift again. Two validator pins repointed to function names.
+- **F7 — the birefringence row recorded a SUPERSEDED magnitude.** It quoted v1
+  (`7.5/α³ ≈ 1.93×10⁷`) as *"the card states it verbatim"*; that sentence is real but sits inside the
+  card's **preserved historical note**, and the live headline is **v3 = `3.75π/α² ≈ 2.2×10⁵`** (the
+  2026-07-07 OPTION-B footing consolidation). Corrected to v3 with the full convention history.
+  Quoting preserved history as current is the vacated-cite pattern.
+- **F8 — `make test` manifest coverage silently fell 36 → 2.** Ten live-manifest tests loaded
+  `MANIFEST_PATH` alone, which the split left holding 2 entries. A 94% coverage drop with every test
+  still green — the degrades-to-a-pass shape those tests exist to catch. They now load the union
+  (37 entries, asserted by a receipt, not by eye).
+- **F9 — P19 was left the sole `type`/`role` mismatch in the union**, routing to a tracker that was
+  never created. `type` flipped to `consistency_check` and stamped **PENDING-GRANT-CONFIRM**: this is
+  a FIFTH row and Grant's *"fold into 966"* named four. Flagged, not folded in silently.
+- **F11 — the `constants.py:499` receipt named the wrong symbol.** The physics is right
+  (`(E_CRIT/E_YIELD)² · α = 1.0` exactly), but `:499` is `E_YIELD_KINETIC` (Joules); `E_YIELD` (V/m)
+  is elsewhere in that file. Now cited by symbol, not line.
