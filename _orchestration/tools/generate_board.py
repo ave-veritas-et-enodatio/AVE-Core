@@ -148,6 +148,80 @@ def load_claims() -> list[dict]:
     return rows
 
 
+def validate_anchor(who: str, source: str, anchor: str) -> None:
+    """Fail loud unless `anchor` occurs EXACTLY ONCE in `source`.
+
+    A pointer that does not resolve is worse than no pointer: it reads as
+    evidence and is not. Called by load_open_items(); extracted so the matching
+    rule and the limits below live in one place rather than inline in a loop.
+
+    WHAT THIS FIXES. The shipped version compared `anchor` to the raw file with
+    `body.count()`, so an anchor copied from a source line that WRAPS could never
+    match -- the file has a newline where the anchor has a space. Matching now
+    normalizes whitespace on both sides, per block (blocks split on blank lines),
+    so a wrapped quote resolves.
+
+    PROPHYLACTIC, NOT A LIVE REPAIR. All 53 current open-item anchors match
+    within a single line, so none of them was hitting the false-die. This closes
+    a latent trap for the next author, and the die message it replaces was
+    actively misleading -- it says "the source moved or was rewritten" when the
+    real cause was that the source line wrapped.
+
+    TWO LIMITS, STATED RATHER THAN CLAIMED AWAY:
+
+    1. An anchor can still stitch two ADJACENT lines inside one block -- e.g. two
+       consecutive table rows. Not removable by whitespace normalization, because
+       a wrapped sentence and two adjacent table rows are textually identical:
+       two lines, no blank between. Per-line matching would re-break the wrap
+       case, which is the accidental one this exists for. The exactly-once rule
+       still means a stitched anchor points at ONE deterministic place.
+    2. Wrapping inside a BLOCKQUOTE or list item is still not tolerated: the `> `
+       / `- ` prefix survives whitespace normalization and lands mid-needle. So
+       the wrap tolerance covers plain prose lines only. Deliberately not fixed
+       -- stripping line prefixes would loosen matching further for a case no
+       live anchor needs, and this validator is fail-loud, so every widening is
+       paid for by everyone.
+    """
+    # A `source:` is a repo-relative path by contract. Absolute or parent-
+    # traversing paths escape the repo entirely and would validate an anchor
+    # against a file no reader of the item can see.
+    if Path(source).is_absolute() or ".." in Path(source).parts:
+        die(f"{who}: source {source!r} must be a repo-relative path inside the "
+            f"repo.")
+    src = REPO / source
+    if not src.is_file():
+        die(f"{who}: source {source!r} does not exist")
+
+    needle = " ".join(anchor.split())
+    # A corpus node id (clm-/def-/sup-/exp-/ilk- + 6 chars = 10) is the most
+    # rewrite-stable pointer available -- it survives rewording, which quoted
+    # prose does not. A blunt 12-char floor rejected exactly those and pushed
+    # authors toward prose, i.e. toward the thing that goes stale.
+    #
+    # The floor measures the NORMALIZED needle: measuring the raw string would
+    # let whitespace padding buy length that the matcher then discards.
+    is_node_id = re.fullmatch(r"(clm|def|sup|exp|ilk)-[a-z0-9]{6}", needle)
+    if not is_node_id and len(needle) < 12:
+        die(f"{who}: anchor {anchor!r} normalizes to {needle!r} ({len(needle)} "
+            f"chars) -- too short to be a stable pointer (min 12 chars, or a "
+            f"bare clm-/def-/sup-/exp-/ilk- node id). Quote more of the line.")
+
+    raw = src.read_text(encoding="utf-8", errors="replace")
+    blocks = [" ".join(b.split()) for b in re.split(r"\n\s*\n", raw)]
+    hits = sum(b.count(needle) for b in blocks)
+    if hits == 0:
+        die(f"{who}: anchor text not found in {source}.\n"
+            f"         anchor: {anchor!r}\n"
+            f"         Repoint the anchor; do NOT convert it back to a line "
+            f"number. (Matching is per paragraph and whitespace-normalized: an "
+            f"anchor may wrap plain lines, but may not span a blank line, and a "
+            f"'> ' or '- ' line prefix is NOT stripped.)")
+    # Membership alone is not a pointer: `anchor: the` resolves and pins nothing.
+    if hits > 1:
+        die(f"{who}: anchor occurs {hits} times in {source} -- it must identify "
+            f"ONE place. Lengthen it.\n         anchor: {anchor!r}")
+
+
 def load_open_items() -> list[dict]:
     """Parse one-file-per-item frontmatter. Deliberately a small hand parser, not
     PyYAML: the schema is seven flat string keys, and a dependency is a thing that
@@ -221,31 +295,7 @@ def load_open_items() -> list[dict]:
         if meta["id"] in seen:
             die(f"{rel}: duplicate id {meta['id']!r} (also in {seen[meta['id']]})")
 
-        # ANCHOR VALIDATION -- the whole point of `anchor:`. A pointer that does not
-        # resolve is worse than no pointer: it reads as evidence and is not.
-        src = REPO / meta["source"]
-        if not src.is_file():
-            die(f"{rel}: source {meta['source']!r} does not exist")
-        body = src.read_text(encoding="utf-8", errors="replace")
-        hits = body.count(meta["anchor"])
-        if hits == 0:
-            die(f"{rel}: anchor text not found in {meta['source']}.\n"
-                f"         anchor: {meta['anchor']!r}\n"
-                f"         The source moved or was rewritten. Repoint the anchor; "
-                f"do NOT convert it back to a line number.")
-        # Membership alone is not a pointer: `anchor: the` resolves and pins nothing.
-        if hits > 1:
-            die(f"{rel}: anchor occurs {hits} times in {meta['source']} -- it must "
-                f"identify ONE place. Lengthen it.\n         anchor: {meta['anchor']!r}")
-        # A corpus node id (clm-/def-/sup-/exp-/ilk- + 6 chars = 10) is the most
-        # rewrite-stable pointer available -- it survives rewording, which quoted
-        # prose does not. A blunt 12-char floor rejected exactly those and pushed
-        # authors toward prose, i.e. toward the thing that goes stale.
-        is_node_id = re.fullmatch(r"(clm|def|sup|exp|ilk)-[a-z0-9]{6}", meta["anchor"])
-        if not is_node_id and len(meta["anchor"]) < 12:
-            die(f"{rel}: anchor {meta['anchor']!r} is too short to be a stable "
-                f"pointer (min 12 chars, or a bare clm-/def-/sup-/exp-/ilk- node "
-                f"id). Quote more of the source line.")
+        validate_anchor(str(rel), meta["source"], meta["anchor"])
 
         seen[meta["id"]] = str(rel)
         meta["_file"] = str(rel)
