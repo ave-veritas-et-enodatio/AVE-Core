@@ -403,7 +403,7 @@ class TestCalibrationRole:
         assert check_calibration_role(m, cards=cards) == []
 
     def test_undeclared_role_is_skipped(self) -> None:
-        # calibration_role is optional (predictions.yaml:29). Absent -> nothing
+        # calibration_role is optional (the `calibration_role` schema comment). Absent -> nothing
         # to reconcile, not a failure.
         cards = self._cards(aaaaaa="- The value is GR-imported.")
         m = _manifest([{"id": "P01", "clm": "clm-aaaaaa"}])
@@ -703,7 +703,7 @@ class TestCalibrationRole:
     def test_deviation_disclaimed_forbids_only_forward_prediction(self) -> None:
         # A card that refuses to predict a non-zero deviation is stating a NULL
         # matching the standard expectation, so it cannot be
-        # "divergent-from-SM" (predictions.yaml:35). But a null can still be a
+        # "divergent-from-SM" (the `forward-prediction` line of the `calibration_role` schema comment). But a null can still be a
         # forced FORM — α-invariance under symmetric gravity IS a forced
         # cancellation — so the marker must leave every other role alone.
         body = "  - Does NOT claim the framework predicts $\\Delta\\alpha \\neq 0$ in any gravitational regime."

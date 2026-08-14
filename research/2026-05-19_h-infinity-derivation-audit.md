@@ -406,7 +406,7 @@ For orchestration's awareness during adjudication:
 
 2. **Engine code line 432 is literally circular** (§4.4). `XI_MACHIAN = HBAR * C_0 / (7.0 * G * M_E**2)` with the comment "computed from G via $G = ℏc/(7ξ m_e^2)$" — the engine cannot compute $\xi$ from substrate primitives because $\xi$'s "definition" $4\pi(R_H/\ell_{node})\alpha^{-2}$ contains $R_H$ which contains $H_\infty$ which contains $G$. The code's solution: invert. This is circularity visible in source code.
 
-3. **Predictions.yaml P23 has `axioms_used: [1, 3, 4]`** ([`predictions.yaml:136`](../manuscript/predictions.yaml)). If 912dd88's framing is correct, this field is misleading — the formula uses $G$ (CODATA input) not just substrate axioms. Worth noting but out of audit scope to modify.
+3. **Predictions.yaml P23 has `axioms_used: [1, 3, 4]`** ([`consistency-manifest.yaml` P23](../manuscript/consistency-manifest.yaml)). If 912dd88's framing is correct, this field is misleading — the formula uses $G$ (CODATA input) not just substrate axioms. Worth noting but out of audit scope to modify.
 
 4. **`closure-roadmap.md:37` says "ALREADY CLOSED"** for the Vol 3 Ch 1 ξ-derivation chain. If 912dd88's framing is correct, "closed" here means "the derivation chain is present and consistent" but not "the H_∞ value is emergence-class." Roadmap may benefit from clarification, but that's downstream of Grant's adjudication.
 
@@ -444,11 +444,11 @@ This audit's Class C verdict (§8 verdict line + §8 secondary class) was canoni
 
 **Per Rule 12 (preserve body, add header)**: this audit's Class C verdict is preserved as historical record — it WAS the correct verdict per the v1.0 taxonomy and surfaced the missing class as part of its work. The h-infinity-downstream-cascade epic (Phase 2, branch `analysis/h-infinity-downstream-cascade`) applies the Class C → Class E refinement EXTENSION (not replacement) across the 13 corpus files identified in this audit's §9 implication matrix + Phase 2 cascade-grep additions. Class C is true (CODATA $G$ → SI substitution recovers $H_\infty$); Class E is also true and stronger (joint-constraint structure defines actual falsifiability surface). The honest framing is "Class E operating-point projection (which includes Class C consistency-check sub-structure)."
 
-**Cross-reference for current corpus-state**: `manuscript/ave-kb/claim-quality-closure-roadmap.md:37` (framing-forward entry + Class E refinement annotation) + `manuscript/predictions.yaml` P23 (`type: operating_point_projection` post-2026-05-19 EOD).
+**Cross-reference for current corpus-state**: `manuscript/ave-kb/claim-quality-closure-roadmap.md:37` (framing-forward entry + Class E refinement annotation) + `manuscript/consistency-manifest.yaml` P23 (`type: operating_point_projection` post-2026-05-19 EOD).
 
 ---
 
-> ★ **CITE REPOINT 2026-08-13 (forward/postdiction split).** The three `predictions.yaml:1xx`
+> ★ **CITE REPOINT 2026-08-13 (forward/postdiction split).** The four `predictions.yaml:1xx`
 > line pins above now read `consistency-manifest.yaml` P23, cited by ENTRY ID rather than line —
 > the 36 entries moved to `manuscript/consistency-manifest.yaml` when `predictions.yaml` became
 > forward-only. Recorded honestly: those pins had **already drifted before the move** — the

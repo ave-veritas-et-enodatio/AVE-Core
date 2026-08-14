@@ -6,11 +6,20 @@
 #
 # SCOPE (split 2026-08-13, Grant: "the predictions yaml should be forward only,
 # we should make a postdiction yaml"). This file holds claims REPRODUCED against
-# a value that was already known -- what README.md:41 calls the "45
-# consistency-class entries". Forward predictions -- untested by construction --
+# a value that was already known. NOTE the two counts are different objects and an
+# earlier draft conflated them: README.md's "45 consistency-class entries" counts
+# public TABLE SLOTS (47 minus 2 flagged); this file counts MANIFEST ROWS (35,
+# covering all 47 slots including both flagged ones). 45 != 35.
+#
+# Forward predictions -- untested by construction --
 # live in manuscript/predictions.yaml. The 47<->36 accounting ratified at
-# _orchestration/2026-07_repo-conventions.md sec.(f) is preserved here: all 36
-# entries moved wholesale and unedited, so the disposition table still resolves.
+# _orchestration/2026-07_repo-conventions.md sec.(f) is preserved: the 33 numbered
+# entries that expand to slots 1-47 all moved together, so the disposition table
+# still resolves against ONE file.
+# Precisely: this file holds 35 rows. The 36th (P_A034_solar_flare) went to the
+# forward manifest, and it was never one of the 47 slots. Six rows were EDITED in
+# the same PR -- P42/P47/P20_21/P44_45 (type+notes), P19 (type+role+notes), P04
+# (notes) -- so "moved wholesale and unedited" was false and is withdrawn.
 #
 # The split does NOT key on `calibration_role`: Grant ruled 2026-08-05 that that
 # axis is value-provenance and "orthogonal to `type`". Membership is by FILE.
@@ -947,7 +956,7 @@ predictions:
       consistency. calibration_role is the VALUE-PROVENANCE axis and is
       "orthogonal to `type`" by this file's own `calibration_role` schema comment; `type`
       already owns the mechanism class, and it is unchanged. The prior label
-      read "untested, divergent-from-SM, AVE-distinct" (the definition at line
+      read "untested, divergent-from-SM, AVE-distinct" (the definition in
       this file's `calibration_role: forward-prediction` schema comment) and was wrong on all three axes. Both branches of the
       α-vs-loading question are recorded below, because the row is only honest
       with both.

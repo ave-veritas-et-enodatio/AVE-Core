@@ -14,9 +14,9 @@ file structure now matches the sentence the README already shipped.
 **What it deliberately did NOT do.**
 - It does **not** key on `calibration_role`. Grant ruled 2026-08-05 that that axis is
   value-provenance and *"orthogonal to `type`"*. Membership is by FILE.
-- It does **not** re-type the four rows whose `type` says `derived_prediction` while they mean
-  `consistency_check`. That was routed *"across four rows, not a rider on this one"* and stays
-  routed → the P19 note in `consistency-manifest.yaml` (the routed item was RULED and EXECUTED the same day, so no tracker was ever created — see the rulings block below).
+- It did **not** re-type those four rows *as first written*. ⚠ **SUPERSEDED LATER IN THIS SAME
+  PR**: Grant ruled *"fold into 966"* and all four flipped to `consistency_check`. Preserved for
+  the sequence, not as current state — see the rulings block below.
 
 **Accounting (RATIFIED rule preserved).** 36 → 35 postdiction + 1 moved (`P_A034_solar_flare`,
 never one of the 47 slots) + 1 NEW (`P_biref_coefficient`) = 37. The 33 numbered entries that
@@ -81,7 +81,7 @@ file; git holds the history, this entry holds the ruling).
   as *"genuine forward prediction (Class D)"* while `consistency_check` (*"reproduces a known
   result (Class C)"*) *"is the closer fit"*. All four already carried `calibration_role:
   consistency`, so field and type now agree. Mechanism-class relabel only — no value, axiom,
-  bridge or solidity moved. the P19 note in `consistency-manifest.yaml` (the routed item was RULED and EXECUTED the same day, so no tracker was ever created — see the rulings block below) is deleted accordingly.
+  bridge or solidity moved. the routed item was RULED and EXECUTED the same day, so no tracker was ever created.
 - **"2. lets add the 7th in a new PR"** — a SEVENTH `calibration_role` is authorized, in its own PR,
   for the class this split exposed: **form forced by the substrate + value computed from a declared
   calibration input measured in a DIFFERENT experiment + output never fit to the observable being
@@ -111,8 +111,14 @@ than silently amended:
   still green — the degrades-to-a-pass shape those tests exist to catch. They now load the union
   (37 entries, asserted by a receipt, not by eye).
 - **F9 — P19 was left the sole `type`/`role` mismatch in the union**, routing to a tracker that was
-  never created. `type` flipped to `consistency_check` and stamped **PENDING-GRANT-CONFIRM**: this is
+  never created. `type` flipped to `consistency_check`, initially stamped PENDING-GRANT-CONFIRM and since **CONFIRMED** by Grant (*"lets label it correctly"*): this is
   a FIFTH row and Grant's *"fold into 966"* named four. Flagged, not folded in silently.
 - **F11 — the `constants.py:499` receipt named the wrong symbol.** The physics is right
   (`(E_CRIT/E_YIELD)² · α = 1.0` exactly), but `:499` is `E_YIELD_KINETIC` (Joules); `E_YIELD` (V/m)
   is elsewhere in that file. Now cited by symbol, not line.
+
+**★ RULING 2026-08-13 (Grant, verbatim `[sic]`): *"lets label it correctly but add it to our
+followups/backlog to readjudicate"*.** P19's `type: derived_prediction → consistency_check` is
+CONFIRMED — a fifth row beyond the four named in *"fold into 966"*, ruled explicitly because it was
+outside that set only by minutes. The CLAIM is separately routed to
+`open-items/p19-flyby-readjudication`: correct labelling of a weak row is not an endorsement of it.

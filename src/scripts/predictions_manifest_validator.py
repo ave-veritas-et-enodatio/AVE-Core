@@ -153,7 +153,14 @@ def load_all_manifest_entries() -> list[dict]:
     entries: list[dict] = []
     for path in (MANIFEST_PATH, CONSISTENCY_MANIFEST_PATH):
         if not path.is_file():
-            continue
+            # FAIL LOUD. `continue` here turned a missing backing file into a
+            # silent 33-warn parity report that `make verify` still exits 0 on --
+            # converting a loud FileNotFoundError (the pre-split behaviour) into a
+            # silent one for one of the two manifests. An audit demonstrated the
+            # whole consistency manifest could be deleted with verify still green.
+            raise FileNotFoundError(
+                f"declared manifest {path} is missing; parity would silently "
+                f"report every row of it as unmatched")
         entries.extend(load_manifest(path).get("predictions", []))
     return entries
 
@@ -761,7 +768,7 @@ def check_axioms(
 # ───────────────────────────────────────────────────────────────────────────
 # calibration_role reconciler — declared provenance vs CORPUS-DERIVED truth
 # ───────────────────────────────────────────────────────────────────────────
-# WHY THIS EXISTS. `calibration_role` (manuscript/predictions.yaml:29-35) is a
+# WHY THIS EXISTS. `calibration_role` (the `calibration_role` schema comment in manuscript/predictions.yaml) is a
 # self-declared honesty field. Before this check it had ZERO consumers
 # corpus-wide: checks 1-5 gate schema / labels / engine / bridge / parity but
 # none of them read it, so it was free to drift from the corpus grading forever.
@@ -838,7 +845,7 @@ def check_axioms(
 
 KB_ROOT = REPO_ROOT / "manuscript" / "ave-kb"
 
-# The taxonomy declared at manuscript/predictions.yaml:30-35. An entry outside
+# The taxonomy declared at the `calibration_role` schema comment in manuscript/predictions.yaml. An entry outside
 # this set is a precondition failure (the reconciler cannot reason about an
 # unknown role) — NOT a reconciliation verdict.
 ALLOWED_CALIBRATION_ROLES = {
@@ -927,7 +934,7 @@ _ENUM_WINDOW = 40
 PROVENANCE_MARKERS: tuple[ProvenanceMarker, ...] = (
     # ── VALUE_IMPORTED ── the card states the row's value comes from outside
     # the substrate. Forbids `chord` only: an imported value is by definition
-    # not "a FORM/ratio/selection-rule AVE genuinely forces" (predictions.yaml:30).
+    # not "a FORM/ratio/selection-rule AVE genuinely forces" (the `chord` line of the `calibration_role` schema comment).
     ProvenanceMarker(
         "VALUE_IMPORTED",
         r"\bGR-imported\b",
@@ -1003,7 +1010,7 @@ PROVENANCE_MARKERS: tuple[ProvenanceMarker, ...] = (
         "vol3/claim-quality.md clm-395gps rationale",
     ),
     # ── FORM_VS_VALUE_SPLIT ── the card states the FORM/VALUE split verbatim.
-    # This is the `mixed` definition (predictions.yaml:32) written out longhand,
+    # This is the `mixed` definition (the `mixed` line of the `calibration_role` schema comment) written out longhand,
     # so it forbids `chord` and drives the `mixed` suggestion.
     #
     # AUDIT NOTE (2026-08-04). This marker shipped DEAD: it fired on 0 of 329
@@ -1032,9 +1039,12 @@ PROVENANCE_MARKERS: tuple[ProvenanceMarker, ...] = (
     # that matters most. Of the 20 markers then defined, NONE matched the word
     # "echo" -- so clm-pp3qwf (the armed birefringence falsifier) scanned to ZERO
     # markers and reported UNRECONCILED, meaning a `chord` declaration on it would
-    # have passed the critical gate. Its card says the opposite verbatim: "the
-    # MAGNITUDE $1.93\times10^7=7.5/\alpha^3$ is an $\alpha$-echo at the value
-    # level". The gate would have passed it because the regex missed, not because
+    # have passed the critical gate. # Its card states a value-level echo verbatim; the marker keys on
+    # that phrasing. NOTE the card's numeric figure has been re-normalized twice
+    # (v1 -> v2 -> v3); the marker matches the ECHO DECLARATION, not any figure,
+    # and the sentence it matches sits inside the card's PRESERVED historical
+    # note -- so if that note is ever pruned this row degrades CONTRADICTED ->
+    # UNRECONCILED and TestMarkerReceipts reds. Recorded, not designed around. The gate would have passed it because the regex missed, not because
     # the corpus agreed -- the failure mode this whole check exists to kill.
     #
     # Scope measured before landing: fires on 2 live cards (clm-pp3qwf,
@@ -1050,7 +1060,7 @@ PROVENANCE_MARKERS: tuple[ProvenanceMarker, ...] = (
     ),
     # ── CONSISTENCY_CLASS ── the card grades the claim as reproducing a known
     # result. Forbids `chord` (not AVE-forced-novel) and `forward-prediction`
-    # (predictions.yaml:35 — 'untested, divergent-from-SM, AVE-distinct').
+    # (the `forward-prediction` line of the `calibration_role` schema comment — 'untested, divergent-from-SM, AVE-distinct').
     ProvenanceMarker(
         "CONSISTENCY_CLASS",
         r"consistency check",
@@ -1098,7 +1108,7 @@ PROVENANCE_MARKERS: tuple[ProvenanceMarker, ...] = (
     ),
     # ── DEVIATION_DISCLAIMED ── the card explicitly disclaims predicting a
     # NON-ZERO deviation. `forward-prediction` is defined at
-    # predictions.yaml:35 as "untested, divergent-from-SM, AVE-distinct"; a card
+    # the `forward-prediction` line of the `calibration_role` schema comment as "untested, divergent-from-SM, AVE-distinct"; a card
     # that refuses to predict a departure is stating a null that matches the
     # standard expectation, so it cannot be divergent-from-SM. Forbids ONLY
     # `forward-prediction` — a null can still be a forced form (α-invariance
@@ -1249,13 +1259,16 @@ def suggest_role(signals: set[str]) -> str | None:
     """ADVISORY only — never a verdict input, never auto-applied.
 
     Reads the corpus signal set and names the taxonomy value it most nearly
-    matches (predictions.yaml:30-35). `mixed` = "form-derived but value rides
+    matches (the `calibration_role` schema comment). `mixed` = "form-derived but value rides
     echoes ± a fitted scalar", so a card carrying BOTH a forced form and an
     imported/fitted value maps there; an import/fit with no forced form maps to
     `echo`; a consistency/identity grading maps to `consistency`.
     """
     imported_or_fitted = signals & {"VALUE_IMPORTED", "VALUE_FITTED"}
-    if "FORM_VS_VALUE_SPLIT" in signals:
+    # VALUE_ECHOED is FORM_VS_VALUE_SPLIT's content in a different sentence shape,
+    # so it selects the same role. Adding the marker without adding it here made
+    # the reconciler print "no suggestion" on the one card it was added for.
+    if signals & {"FORM_VS_VALUE_SPLIT", "VALUE_ECHOED"}:
         return "mixed"
     if imported_or_fitted and "FORM_FORCED" in signals:
         return "mixed"
@@ -1346,7 +1359,7 @@ def check_calibration_role(
            "Multi-species $\\Delta\\alpha/\\alpha = 0$", and "Does NOT claim
            the framework predicts $\\Delta\\alpha \\neq 0$ in any
            gravitational regime" — a null matching the standard expectation,
-           which is the opposite of predictions.yaml:35's "untested,
+           which is the opposite of the `forward-prediction` line of the `calibration_role` schema comment's "untested,
            divergent-from-SM, AVE-distinct". The ruling carried a MANDATORY
            condition, an independent Tier-1 language-and-logic read of the
            replacement wording BEFORE it landed; that read returned role
@@ -1404,7 +1417,7 @@ def check_calibration_role(
                     message=(
                         f"calibration_role '{declared}' is not in the declared "
                         f"taxonomy {sorted(ALLOWED_CALIBRATION_ROLES)} "
-                        f"(manuscript/predictions.yaml:30-35) — the reconciler "
+                        f"(the `calibration_role` schema comment in manuscript/predictions.yaml) — the reconciler "
                         f"cannot reason about an unknown role"
                     ),
                     details={"declared": declared, "verdict": "UNKNOWN_ROLE"},

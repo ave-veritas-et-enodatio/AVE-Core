@@ -141,7 +141,12 @@ def refresh_all(dry_run: bool = False) -> int:
     total = 0
     for path in (MANIFEST_PATH, CONSISTENCY_MANIFEST_PATH):
         if not path.is_file():
-            continue
+            # Same reason as the validator: skipping a declared manifest silently
+            # stops regenerating axioms_used for every row in it -- the exact
+            # drift this script exists to prevent.
+            print(f"[refresh] FATAL: declared manifest {path} is missing",
+                  file=sys.stderr)
+            return -1
         print(f"[refresh] {path.relative_to(path.parents[1])}")
         rc = refresh(dry_run=dry_run, manifest_path=path)
         if rc < 0:

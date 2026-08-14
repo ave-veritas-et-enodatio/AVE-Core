@@ -94,7 +94,7 @@ This arc **competes for budget with weak-C slope resolution** — the 4-OOM leve
 - **PURE-AVE-CORPUS:** never mention investors, funds, interviews, external pitches, or any non-physics external context anywhere — not in docs, code, commits, or branch names. Translate any external rationale into pure physics/engineering before writing.
 - **`main` is PROTECTED:** Grant merges via reviewed PR. **NEVER self-merge.**
 - **Self-isolate git-mutating work** in a `/tmp` worktree off `origin/main` (the workspace root is not a git repo; `AVE-Core` is one level down — `cd` into it or target it explicitly).
-- **NEVER put the substring `build` in a worktree or branch name** (trips `predictions_manifest_validator.py `load_manifest``).
+- **NEVER put the substring `build` in a worktree or branch name** (trips `predictions_manifest_validator.py` → `load_manifest`).
 - **Flag-don't-fix:** surface contradictions with verbatim file:line evidence; let Grant's physical intuition resolve framing-level physics questions. Ask Grant first on framing-level calls (inline prose questions with bulleted options — NOT multi-choice UI).
 - **Substrate-first for every number:** derive from the canonical chain or honestly tag as engineering-choice; never default to SM / EE / textbook convention.
 - **Verify-before-cite** + grep-completeness second-pattern cross-check (the auditor is not exempt). RESOLVED/status stamps are verify-don't-trust.
