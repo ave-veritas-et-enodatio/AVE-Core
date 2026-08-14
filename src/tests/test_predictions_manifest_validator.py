@@ -1143,4 +1143,154 @@ class TestManifestSubstitution:
             f"parity did not notice {dropped} missing from the candidate: "
             + "; ".join(f.message for f in seen)
         )
-        assert check_readme_parity(load_manifest(MANIFEST_PATH)) == [] or True
+        # Control, and it has to be a REAL assertion: the same call without the
+        # substitute must be clean, or the finding above proves nothing about
+        # the candidate. (The previous line here read `== [] or True`, which is
+        # unconditionally true and asserted nothing. An audit's AST scan found
+        # it; it was the only such node in the file.)
+        assert check_readme_parity(load_manifest(MANIFEST_PATH)) == []
+
+
+class TestUnionCheckWiring:
+    """The F2 delivery is `UNION_CHECKS` + the dispatch branch in `run()`, NOT
+    `resolve_union_paths()`.
+
+    An audit proved the distinction: with `UNION_CHECKS = frozenset()`, or with
+    the `run()` branch turned to `if False:`, the substitution mechanism is
+    entirely reverted and the whole suite stayed green. The helper was covered
+    four ways; the wire to the helper was covered zero ways. The guard bound and
+    the wire to the guard did not.
+    """
+
+    def test_union_checks_is_derived_from_the_signatures(self) -> None:
+        """`UNION_CHECKS` must equal the checks that actually accept a substitute.
+
+        Derived on both sides. A hand-maintained registry beside a hand-maintained
+        set of signatures drifts silently: rename a key in ALL_CHECKS and the
+        check falls out of UNION_CHECKS, run() calls it with substitute=None, and
+        `--manifest` is quietly ignored again by exactly that check.
+        """
+        import functools
+        import inspect
+
+        def accepts_substitute(fn) -> bool:
+            base = fn.func if isinstance(fn, functools.partial) else fn
+            return "substitute" in inspect.signature(inspect.unwrap(base)).parameters
+
+        derived = {name for name, fn in ALL_CHECKS.items() if accepts_substitute(fn)}
+        assert _pmv.UNION_CHECKS == derived, (
+            f"UNION_CHECKS={sorted(_pmv.UNION_CHECKS)} but the checks accepting a "
+            f"`substitute` parameter are {sorted(derived)}. A check in one and not "
+            f"the other silently ignores --manifest."
+        )
+
+    def test_run_passes_the_substitute_through_to_the_union_checks(self, tmp_path) -> None:
+        """End-to-end through `run()` — the actual delivery path, not the helper.
+
+        A candidate forward manifest whose id collides with a consistency row can
+        only be seen if run() handed the path to a union check.
+        """
+        live = load_manifest(CONSISTENCY_MANIFEST_PATH)
+        collide = live["predictions"][0]["id"]
+        cand = tmp_path / "predictions.yaml"
+        cand.write_text(
+            yaml.safe_dump({"version": 1, "predictions": [{"id": collide}]}, sort_keys=False),
+            encoding="utf-8",
+        )
+        findings = run(manifest_path=cand, checks=["cross_manifest_ids"])
+        assert [f.severity for f in findings] == ["critical"], (
+            "run() did not route the --manifest candidate into the union check; "
+            f"got {findings}"
+        )
+        assert collide in findings[0].message
+
+    def test_run_on_the_declared_manifest_is_clean(self) -> None:
+        """Control: the same path with no substitution finds nothing."""
+        assert run(manifest_path=MANIFEST_PATH, checks=["cross_manifest_ids"]) == []
+
+    def test_main_honours_manifest_end_to_end(self, tmp_path, capsys) -> None:
+        """Through `main()` and argparse — the operator-facing path from the brief."""
+        live = load_manifest(CONSISTENCY_MANIFEST_PATH)
+        collide = live["predictions"][0]["id"]
+        cand = tmp_path / "predictions.yaml"
+        cand.write_text(
+            yaml.safe_dump({"version": 1, "predictions": [{"id": collide}]}, sort_keys=False),
+            encoding="utf-8",
+        )
+        rc = _pmv.main(["--manifest", str(cand), "--check", "cross_manifest_ids"])
+        assert rc != 0, "main() exited 0 on a candidate that collides with a live id"
+
+
+class TestArmedIsNotTheLifecycleFlag:
+    """`armed:` and `pre_registered:` are different properties.
+
+    The first version of check_armed_forward_count keyed on `pre_registered`,
+    which :110-115 documents as a lifecycle stage a row SHEDS on promotion to a
+    manuscript chapter. So the documented happy path fired the gate critical.
+    And on the merge base the README badge already read `1_armed` with zero rows
+    carrying `pre_registered: true` — the predicate never matched the badge's
+    meaning; it agreed only because the same PR added the flag.
+    """
+
+    def test_promotion_does_not_trip_the_gate(self, monkeypatch, tmp_path) -> None:
+        """Shed `pre_registered`, gain `derivation_label` — the documented path."""
+        _declare(
+            monkeypatch,
+            tmp_path,
+            fwd=(
+                "version: 1\npredictions:\n  - id: P_promoted\n"
+                "    armed: true\n    derivation_label: sec:promoted\n"
+            ),
+        )
+        readme = tmp_path / "README.md"
+        readme.write_text("badge/forward_falsifier-1_armed_(x)-orange\n", encoding="utf-8")
+        monkeypatch.setattr(_pmv, "README_PATH", readme)
+        assert check_armed_forward_count({}) == []
+
+    def test_pre_registered_alone_does_not_count_as_armed(self, monkeypatch, tmp_path) -> None:
+        """The old predicate would have passed this; the new one must not."""
+        _declare(
+            monkeypatch,
+            tmp_path,
+            fwd="version: 1\npredictions:\n  - id: P_lifecycle\n    pre_registered: true\n",
+        )
+        readme = tmp_path / "README.md"
+        readme.write_text("badge/forward_falsifier-1_armed_(x)-orange\n", encoding="utf-8")
+        monkeypatch.setattr(_pmv, "README_PATH", readme)
+        findings = check_armed_forward_count({})
+        assert [f.severity for f in findings] == ["critical"]
+
+    def test_armed_row_in_the_consistency_manifest_is_a_category_error(
+        self, monkeypatch, tmp_path
+    ) -> None:
+        _declare(
+            monkeypatch,
+            tmp_path,
+            fwd="version: 1\npredictions:\n  - id: P_fwd\n    armed: true\n",
+            con="version: 1\npredictions:\n  - id: P_con\n    armed: true\n",
+        )
+        readme = tmp_path / "README.md"
+        readme.write_text("badge/forward_falsifier-1_armed_(x)-orange\n", encoding="utf-8")
+        monkeypatch.setattr(_pmv, "README_PATH", readme)
+        findings = check_armed_forward_count({})
+        assert any("category" in f.message or "belongs in" in f.message for f in findings)
+        assert any(f.entry_id == "P_con" for f in findings)
+
+    def test_two_disagreeing_badges_do_not_silently_first_match(
+        self, monkeypatch, tmp_path
+    ) -> None:
+        _declare(monkeypatch, tmp_path, fwd="version: 1\npredictions:\n  - id: P_f\n    armed: true\n")
+        readme = tmp_path / "README.md"
+        readme.write_text(
+            "forward_falsifier-1_armed_(a)\nforward_falsifier-3_armed_(b)\n", encoding="utf-8"
+        )
+        monkeypatch.setattr(_pmv, "README_PATH", readme)
+        findings = check_armed_forward_count({})
+        assert [f.severity for f in findings] == ["critical"]
+        assert "badges claiming different counts" in findings[0].message
+
+    def test_live_forward_manifest_declares_its_armed_row(self) -> None:
+        """The live corpus carries the field, not just the prose."""
+        rows = load_manifest(MANIFEST_PATH).get("predictions", [])
+        armed = [e["id"] for e in rows if e.get("armed") is True]
+        assert armed, "no forward row declares `armed: true`; the badge has nothing to check"

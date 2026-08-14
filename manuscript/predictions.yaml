@@ -66,6 +66,15 @@
 # observed_source:       (optional) e.g. "CODATA 2022", "PDG 2022"
 # error_percent:         (optional) |pred - obs| / obs × 100
 # axioms_used:           list of axiom numbers (1-4) the derivation depends on
+# armed:                 (optional) true = an ARMED forward falsifier: a kill
+#                        criterion pre-committed before data, live and unfired.
+#                        Counted against README.md's `forward_falsifier-<N>_armed`
+#                        badge by check_armed_forward_count. INDEPENDENT of
+#                        `pre_registered`, which is a LIFECYCLE stage a row sheds
+#                        when its derivation is promoted to a manuscript chapter.
+#                        Promotion must not shed `armed`. Only valid in this
+#                        (forward) manifest -- an armed row in
+#                        consistency-manifest.yaml is a category error and gates.
 # public_in_readme:      true if appears in README master table
 # public_in_living_ref:  true if appears in LIVING_REFERENCE master table
 # notes:                 free-form explanation
@@ -106,6 +115,7 @@ predictions:
     name: "E-route vacuum birefringence COEFFICIENT (tree-level saturation vs QED's alpha^2 loop)"
     type: derived_prediction
     calibration_role: mixed
+    armed: true
     pre_registered: true
     research_doc: "research/2026-06-21_birefringence-coefficient-bankable-falsifier.md"
     test_file: "src/tests/test_birefringence_v3_chain.py"

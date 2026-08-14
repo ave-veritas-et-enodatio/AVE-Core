@@ -1710,10 +1710,22 @@ def check_cross_manifest_ids(manifest: dict, substitute: Path | None = None) -> 
     verify` entirely -- only `make test` caught it. Pre-split this was a verify
     critical, so the split silently demoted it.
 
-    A collision is not cosmetic: both parity checks build `entries_by_id` as a
-    dict comprehension over the union, which is silently last-wins (consistency
-    file loaded second, so it wins). A public table row would resolve to the
-    wrong entry's axioms and flags, and report parity-clean while doing it.
+    THE HARM, STATED AS IT ACTUALLY IS. An earlier version of this docstring
+    said a collision makes a public row "resolve to the wrong entry's axioms and
+    flags". An audit checked and that is NOT true of this code: `entries_by_id`
+    is read at three sites and all three are key-membership tests
+    (`if cand in entries_by_id`, `for eid in entries_by_id`) -- the dict VALUES
+    are never consumed. Withdrawn rather than left standing, because a
+    load-bearing justification citing a mechanism that does not exist is worse
+    than no justification.
+
+    The real harm is ambiguous identity. `predictions_manifest_refresh.py`
+    imports the two manifest paths separately and writes back per file, so a
+    colliding id means two rows answer to one name and which one a tool edits
+    depends on which file it opened. It is also prospective: the moment any
+    consumer reads the VALUE rather than the key, last-wins becomes a silent
+    wrong answer. Enforced at critical because the cost of the collision is
+    paid by whoever discovers it much later, not by the author who made it.
     """
     findings: list[Finding] = []
     seen: dict[str, str] = {}
@@ -1743,22 +1755,43 @@ def check_cross_manifest_ids(manifest: dict, substitute: Path | None = None) -> 
 
 
 def check_armed_forward_count(manifest: dict, substitute: Path | None = None) -> list[Finding]:
-    """The README's armed-falsifier badge equals the count of armed forward rows.
+    """The README's armed-falsifier badge agrees with the manifest's `armed:` rows.
 
-    THE HOLE THIS CLOSES. Both forward rows carry `public_in_readme: false` by
-    design, so no public surface requires them to exist. Pre-split, any vanished
-    manifest row broke README parity; post-split the forward file had no backstop
-    at all, which made `P_biref_coefficient` -- the framework's one armed forward
-    falsifier -- the least-protected row in the corpus. The non-empty guard in
-    load_all_manifest_entries() catches emptying the file; it does not catch
-    2 -> 1.
+    WHAT THIS IS, STATED NARROWLY. It is DRIFT DETECTION between two declared
+    numbers -- the published badge and the count of forward rows flagged
+    `armed: true`. It is not row protection. An audit made that distinction the
+    hard way: an earlier version of this docstring said the check protected
+    `P_biref_coefficient` specifically, and the audit then deleted that row,
+    armed the other forward row instead, and got a fully green run. A
+    count-equality check protects a number, not a row. Swapping which row is
+    armed is a deliberate edit to an explicit field, and the badge stays true,
+    so that is arguably correct behaviour -- but it is NOT what "protects the
+    armed falsifier" means, and the docstring said so for a while.
 
-    WHY THE BADGE AND NOT A CONSTANT. A hard-coded expected count is a
-    hand-maintained number, which is the thing this program keeps removing. The
-    README badge is already published, already reviewed, and already the number a
-    reader trusts. Both sides are derived, so the check fires if either drifts:
-    delete the armed row and the badge over-claims; arm a second one and the
-    badge under-claims. Either way a human decides which side is wrong.
+    WHY `armed:` AND NOT `pre_registered:`. The first version keyed on
+    `pre_registered: true`. That was wrong twice over:
+
+      1. `pre_registered` is a LIFECYCLE STAGE, not armed-ness. Per :110-115, an
+         entry "sheds `pre_registered` and gains a real `derivation_label`" once
+         its derivation is promoted to a manuscript chapter. So the documented
+         happy path fired this gate CRITICAL on a corpus where nothing was
+         wrong -- the falsifier still armed, the kill criterion still
+         pre-committed, the row merely promoted.
+      2. It never matched the badge's meaning anyway. On the merge base
+         `ecc65077`, README.md already read `forward_falsifier-1_armed` while
+         `predictions.yaml` carried ZERO rows with `pre_registered: true`. The
+         predicate agreed with the badge only because the same PR that added
+         this check also added that flag to the birefringence row. A gate that
+         passes by coincidence is not passing.
+
+    `armed:` is an explicit field that means one thing. Retiring a falsifier or
+    arming a new one is now an edit to it, which is what a reviewer should see.
+
+    HOW DERIVED EACH SIDE ACTUALLY IS. The manifest side is derived. The badge
+    side is a hand-typed literal in README.md -- so this makes two
+    hand-maintained numbers agree rather than deriving one from the other. That
+    is the same shape as the README-parity checks this file already runs, and it
+    is worth having, but "both sides derived" would overstate it.
 
     NOTE the consistency badge is deliberately NOT wired up the same way: it
     reads 45 against 35 rows because it counts public TABLE SLOTS (compound
@@ -1768,15 +1801,37 @@ def check_armed_forward_count(manifest: dict, substitute: Path | None = None) ->
     # [0] is the forward slot of DECLARED_MANIFESTS, with `--manifest <candidate>`
     # already substituted in by resolve_union_paths -- so a candidate forward file
     # is checked against the badge rather than the live one being checked twice.
-    forward_path = resolve_union_paths(substitute)[0]
+    forward_path, consistency_path = resolve_union_paths(substitute)
     armed = [
         e for e in load_manifest(forward_path).get("predictions", [])
-        if e.get("pre_registered") is True
+        if e.get("armed") is True
     ]
+    findings: list[Finding] = []
+
+    # An armed falsifier in the CONSISTENCY manifest is a category error: that
+    # file is by definition reproduced-against-a-known-value. Cheap to check and
+    # it closes the direction the count comparison cannot see.
+    for entry in load_manifest(consistency_path).get("predictions", []):
+        if entry.get("armed") is True:
+            findings.append(
+                Finding(
+                    check="armed_forward_count",
+                    severity="critical",
+                    entry_id=entry.get("id"),
+                    message=(
+                        f"{entry.get('id')!r} declares `armed: true` but lives in "
+                        f"{consistency_path.name}, which is the "
+                        f"reproduced-against-a-known-value surface. An armed "
+                        f"forward falsifier belongs in {forward_path.name}."
+                    ),
+                    details={"id": entry.get("id"), "file": consistency_path.name},
+                )
+            )
+
     text = README_PATH.read_text(encoding="utf-8")
-    m = re.search(r"forward_falsifier-(\d+)_armed", text)
-    if m is None:
-        return [
+    matches = re.findall(r"forward_falsifier-(\d+)_armed", text)
+    if not matches:
+        findings.append(
             Finding(
                 check="armed_forward_count",
                 severity="critical",
@@ -1789,25 +1844,47 @@ def check_armed_forward_count(manifest: dict, substitute: Path | None = None) ->
                 ),
                 details={"readme": str(README_PATH)},
             )
-        ]
-    claimed = int(m.group(1))
+        )
+        return findings
+    # Two badges disagreeing is drift the first-match-wins read would hide.
+    if len(set(matches)) > 1:
+        findings.append(
+            Finding(
+                check="armed_forward_count",
+                severity="critical",
+                entry_id=None,
+                message=(
+                    f"README.md carries {len(matches)} `forward_falsifier-<N>_armed` "
+                    f"badges claiming different counts {sorted(set(matches))}. "
+                    f"Reading the first would pick one arbitrarily."
+                ),
+                details={"badges": matches},
+            )
+        )
+        return findings
+
+    claimed = int(matches[0])
     if claimed != len(armed):
-        return [
+        findings.append(
             Finding(
                 check="armed_forward_count",
                 severity="critical",
                 entry_id=None,
                 message=(
                     f"README badge claims {claimed} armed forward falsifier(s); "
-                    f"{MANIFEST_PATH.name} carries {len(armed)} row(s) with "
-                    f"`pre_registered: true` "
+                    f"{forward_path.name} carries {len(armed)} row(s) with "
+                    f"`armed: true` "
                     f"({', '.join(e.get('id', '?') for e in armed) or 'none'}). "
-                    f"One of the two is wrong."
+                    f"Three things to check, not two: the badge may be stale, a "
+                    f"row may have lost its `armed:` flag, or a newly armed row "
+                    f"may not have gained one. `armed:` is independent of "
+                    f"`pre_registered:` -- promoting a derivation sheds "
+                    f"`pre_registered` and must NOT shed `armed`."
                 ),
                 details={"badge": claimed, "armed": [e.get("id") for e in armed]},
             )
-        ]
-    return []
+        )
+    return findings
 
 
 # ───────────────────────────────────────────────────────────────────────────
