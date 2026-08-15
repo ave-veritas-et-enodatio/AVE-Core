@@ -141,7 +141,28 @@ claim owes the heavier leptons; (iii) do not smuggle T2 bookkeeping into A1
 
 ---
 
-## §5 — What this record does not do
+## §6 — How existing physics is manufactured from the medium (WALK, 2026-08-14)
+
+**Grant (this session):** *How do we manufacture existing physics from a physical vacuum medium?*
+
+Not a new axiom. The corpus already has the recipe; the electron kills clarify what the recipe is **not**.
+
+**You do not cook particles and then read SM off them.** Genesis failed (K3). \(Q=137\) is not a name (K4). Remanence is not a hold (K1). The manufacturing process is: **specify the medium, then take its projections.**
+
+1. **Specify the medium.** Five axioms (K4 Cosserat LC; charge≡winding; min-\(|\Gamma|\); \(S=\sqrt{1-A^2}\); DC bias) plus three imported values \(\{m_e,\alpha,G\}\). Everything else is a geometric ratio of \(\ell_{\mathrm{node}}\) or a spoke-projection. FORM/VALUE: the geometry forces dimensionless *structure*; the dimensionful *scales* are inputs (`form-deriving-value-importing.md`).
+2. **Linear wave first.** Sub-yield \(T_2\), \(Z=Z_0\), \(\Gamma=0\), long-wavelength limit = Maxwell (`photon-identification.md` weak-C). \(\varepsilon_0,\mu_0,Z_0,c\) were measured off empty space — EE already *is* vacuum theory (`translation-circuit.md` §2). This is existing electromagnetism as the medium's small-signal.
+3. **Walls, not interiors.** Saturated bonds seal \(\Gamma=-1\). From outside only three integer-counted observables: \(\mathcal{M},\mathcal{Q},\mathcal{J}\) (`trampoline-framework.md` §0.3). Existing particle physics is the **boundary projection** of the medium's response, not a map of the core. Mechanical→EM transduction at that wall is still OPEN (K2 amend).
+4. **Saturation is the one nonlinear.** Same kernel at every scale (electron wall, nucleus, Schwarzschild, \(R_H\)). Existence of yield is a chord; the \(\sqrt{\alpha}\) magnitude is an echo. Gravity in this picture is impedance grading (Op14), not a second medium.
+5. **Topology forces integers, not SI units.** \(Q=\mathrm{Link}(\partial\Omega,F)\in\mathbb{Z}\) is FORM; the flux quantum rides \(\xi_{\mathrm{topo}}=e/\ell_{\mathrm{node}}\) (α-echo). Spin-½ *structure* is the double cover; fermionic *selection* and \(g=2\) are imported.
+6. **Hub, not SM→QED.** Each discipline maps only to the substrate (`translation-tables/README-architecture.md`). Existing physics is a **spoke**. You never manufacture QED from the SM or gravity from fluids; you manufacture each as a projection of the same LC/Cosserat hub. EE is the privileged operational spoke (no extra DOFs).
+7. **Axiom 5 S-clause.** Matter is a deposited A1 dilatation flux — genesis-deposited boundary data, **mechanism-agnostic**. That is the honest substitute for "cook an electron": the defect is given; the medium's job is the *response* (linear Maxwell, wall M/Q/J, saturation grading).
+8. **The tests that existing electron physics was actually manufactured.** LC-5 form factor vs LEP, then exterior \(1/r\) (epic Phase D). Interior SM-peer is AC structure (`clm-acdc07`); the AVE-distinct chord is forward, not a better electron interior.
+
+**Engineering process for any one existing-physics target:** Standard Vacuum Analysis header (`standard-vacuum-analysis.md` §0) — sector, regime, circuit statement first, constitutive provenance tagged DERIVED/IMPORTED/FORKED.
+
+**What this is not:** LOOP GAP ranks, genesis \(vN\), algebra-first biquaternions, Nyquist=electron, or treating a planted cage ringdown as \(m_e\).
+
+## §7 — What this record does not do
 
 - Does not sign FLAG-W (vent vs dead-end). That stays Grant, already routed
   from the cold-Q polar family.
@@ -150,3 +171,5 @@ claim owes the heavier leptons; (iii) do not smuggle T2 bookkeeping into A1
 - Does not edit canon leaves.
 - Does not treat the 2026-08-04 "light that caught itself" sentence as
   dispatchable (still un-audited).
+- §4–§6 are walk-level methodology restatements of canon, not a new axiom and
+  not a Phase D dispatch.

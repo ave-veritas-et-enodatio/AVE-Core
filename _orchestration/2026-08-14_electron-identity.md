@@ -124,6 +124,7 @@ S-exponent + engine-platform YES/NO only if an engine lane is still wanted. E1 \
 
 - Checkpoint 1: **signed with amends** (2026-08-14). Remaining Grant words on the *amends* are FLAG-W (already routed, not this item) and whether to open cosmic injection (default: no).
 - Smallest-wave question (walk, RECORD §4): start from the linear photon, not a unique "smallest" wave. Not a phase until Grant says so.
+- Existing-physics manufacture (walk, RECORD §6): specify the medium, take projections (linear Maxwell → walls M/Q/J → saturation). Not a cook. Not a phase until Grant says so.
 - Phase A runs on this branch / after this PR merges — orchestrator will say which. B/C wait on the Phase A ledger + the signed fence (not on a second Checkpoint 1).
 - 21 leftover worktrees: local chore, not this epic.
 - AVE-Skills README 19 vs 49: wrong repo; not this epic.
