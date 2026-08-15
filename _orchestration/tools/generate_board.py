@@ -51,17 +51,39 @@ USAGE
     python3 _orchestration/tools/generate_board.py            # write BOARD.md
     python3 _orchestration/tools/generate_board.py --check    # fail if hand-edited
 
-`--check` compares the stable sections with commit SHAs normalized out. TWO
+`--check` compares the stable sections with commit SHAs normalized out. FOUR
 things here are unstable for reasons that have nothing to do with a hand edit,
-and both made an earlier `--check` red on arrival:
+and every one of them made an earlier `--check` red on arrival.
+
+THIS LIST HAS BEEN WRONG AT EVERY LENGTH IT HAS EVER HAD -- it read "one", then
+"two", then "three", and each time the next field was found the same way: by
+`--check` going red for a reason no hand edit caused. Treat it as a floor, not
+an inventory. If you are reading this because it went red again, the question to
+ask is "which OTHER derived-from-git field did we render into the stable
+region", not "who edited the board":
   * the open-PR list changes whenever anyone touches any PR, including this
     board's own PR -- so that section is excluded entirely;
+  * the header's open-PR COUNT is the same quantity, but it lives on the
+    "Scanned tree" line in the STABLE region, so excluding the section did not
+    cover it. Missed until two PRs merged and turned `--check` red on main for
+    a reason no hand edit caused. Normalized. The index-record and claim counts
+    on that same line are deliberately NOT normalized -- they are real program
+    state, and catching a change in them is the point;
   * the scanned-tree SHA **and its date** are SELF-REFERENTIAL. A board committed
     in commit X can only ever name X's parent -- both its hash and its timestamp --
     because they are read before the commit containing the board exists. So a
     committed board is permanently one commit behind, forever, by construction.
     (The date was missed the first time and made `--check` red on arrival a third
-    time, when two commits straddled midnight.)
+    time, when two commits straddled midnight.);
+  * the DIVERGENCE BANNER, which is the same self-reference one level up and the
+    only one that cannot be seen before commit time. It renders when HEAD differs
+    from origin/main -- but COMMITTING a board generated on main is itself what
+    makes HEAD differ. So a board committed on any branch can never contain the
+    banner its own regeneration produces, and `--check` is red BY CONSTRUCTION on
+    exactly the commit whose purpose is updating the board. Excluded from the
+    compare, and matched as the WHOLE literal line rather than a prefix plus a
+    wildcard tail -- a wildcard would let arbitrary text ride along behind the
+    banner opener and vanish, turning a normalization into a hiding place.
 A check that cries wolf gets disabled, and a disabled gate is a lie -- so SHAs
 are normalized before comparison and everything else must match byte-for-byte.
 This is a LOCAL guard against hand edits, not a CI gate.
@@ -595,7 +617,46 @@ def main() -> int:
             tail = parts[1].split(VOLATILE_END, 1)
             stable = parts[0] + (tail[1] if len(tail) > 1 else "")
             stable = re.sub(r"\b[0-9a-f]{7,40}\b", "<sha>", stable)
-            return re.sub(r"\b20\d\d-\d\d-\d\d\b", "<date>", stable)
+            stable = re.sub(r"\b20\d\d-\d\d-\d\d\b", "<date>", stable)
+            # THIRD volatile thing in the header, and the one that got missed.
+            # (Docstring above: item 2 of 4. Keep the two in step.)
+            # The open-PR SECTION is excluded by the volatile bounds, but the
+            # header's PR COUNT sits in the stable region beside the SHA and the
+            # date -- so `--check` went red on main the instant any PR anywhere
+            # in the repo opened or merged. Same "cries wolf" failure the SHA and
+            # date normalizations exist to prevent, one field over. The index and
+            # claim counts on the same line are NOT normalized: those are real
+            # program state and a change in them is exactly what this should catch.
+            stable = re.sub(r"\b\d+ PRs? open\b", "<prs> open", stable)
+            # FOURTH self-referential field, and the one that only shows up at
+            # commit time. The divergence banner is rendered when HEAD differs
+            # from origin/main -- but COMMITTING a board generated on main is
+            # itself what makes HEAD differ. So a board committed on any branch
+            # can never contain the banner its own regeneration produces, and
+            # `--check` is red by construction on exactly the commit whose
+            # purpose is updating the board. Same shape as the SHA and the date:
+            # the board cannot describe the commit that contains it. Rendered for
+            # readers, excluded from the byte compare.
+            #
+            # Matched as the WHOLE rendered line, not a prefix + `.*`. A `.*`
+            # tail would let any text ride along behind the banner opener and
+            # vanish from the compare -- turning a normalization into a place to
+            # hide a hand edit. SHAs are already <sha> by this point, so the
+            # expected line is fully literal and can be pinned exactly.
+            # count=1, NOT a bare sub. The generator renders AT MOST ONE banner,
+            # so stripping more than one can only ever be stripping something a
+            # hand edit put there. A bare `re.sub` removes every match, which
+            # meant an exact CLONE of the banner line vanished from the compare:
+            # arbitrary text still could not hide (the pattern is the whole
+            # literal line), but a duplicate of that one sentence could. Found by
+            # an independent re-review attacking this exclusion; one token, and
+            # it is the sibling hole to the `.*` tail this pattern already closes.
+            return re.sub(
+                r"^> ⚑ \*\*This board was generated from a tree that is not "
+                r"`origin/main`\*\* \(`<sha>`\)\. Every count below describes "
+                r"\*\*<sha>\*\*\. Regenerate on main before reading these as "
+                r"program state\.\n\n?",
+                "", stable, count=1, flags=re.M)
         if stable_guard_count != 1:
             die(f"{VOLATILE_HEADING!r} occurs {stable_guard_count} times as a line in "
                 f"the rendered board; the --check split would be ambiguous. An "
