@@ -4,7 +4,9 @@
 
 # AVE program board
 
-Scanned tree **91ca3db2** (2026-08-14) · 460 index records · 330 claims · 0 PRs open
+Scanned tree **ffa60049** (2026-08-14) · 460 index records · 330 claims · 1 PR open
+
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`91ca3db2`). Every count below describes **ffa60049**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -62,7 +64,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [Op14 local-clock modulation of the retardation — the driver retards by COORDINATE phase](open-items/2026-08-03-op14-local-clock.md) | ROUTED-TO-GRANT | grant | 2026-08-03 |
 | [19 of 37 rows have a `type` that contradicts the manifest they now live in](open-items/2026-08-13-manifest-type-residue.md) | ROUTED-TO-GRANT | grant | 2026-08-13 |
 | [P19 flyby anomaly — the label is settled, the claim is not; does it belong in the public table?](open-items/2026-08-13-p19-flyby-readjudication.md) | ROUTED-TO-GRANT | grant | 2026-08-13 |
-| [Electron-identity Checkpoint 1 — six kill-list rows unsigned (yes / no / amend)](open-items/2026-08-14-electron-identity-kill-list.md) | ROUTED-TO-GRANT | grant | 2026-08-14 |
+| [Electron-identity Checkpoint 1 — signed with two amends (Poincaré/FLAG-W and cosmic injection held out)](open-items/2026-08-14-electron-identity-kill-list.md) | ROUTED-TO-GRANT | grant | 2026-08-14 |
 | [A 7th `calibration_role` is authorized and unbuilt — the schema still lists six](open-items/2026-08-14-seventh-calibration-role.md) | ROUTED-TO-GRANT | grant | 2026-08-14 |
 | [Sector-of-storage — where the compression store lives (A1 canon vs the T2/swing label)](open-items/2026-07-26-sector-of-storage.md) | OPEN-IN-WALK | grant | 2026-07-26 |
 | [A RESOLVED stamp asserts its own propagation, and the propagation never happened (Row 11 MOND)](open-items/2026-05-19-row11-mond-propagation.md) | OPEN | unassigned | 2026-05-19 |
@@ -113,7 +115,9 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 *(volatile — excluded from `--check`, since any PR retitle would otherwise make the check cry wolf)*
 
-No open PRs.
+| PR | state | title |
+|---|---|---|
+| #969 | unlabelled | orchestration: open the electron-identity program (Phase 0) |
 
 <!-- /volatile -->
 
