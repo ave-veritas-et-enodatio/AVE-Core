@@ -1,6 +1,6 @@
 # Full-electron Option B — (2,3)-emergence on the DISCRETE engine (the real test)
 
-**Status:** PENDING — implementor dispatch (worktree-isolated). Follows Option C (Mode II,
+**Status:** SUPERSEDED 2026-08-15 — not an undispatched genesis brief (electron-identity Phase B; ledger B12). Body preserved (Rule 12). Was: PENDING — implementor dispatch (worktree-isolated). Follows Option C (Mode II,
 `2026-06-04_full-electron-binding-reseed-probe.md` §RESULT): the continuum Maxwell engine
 self-traps a transverse photon into mass but has **no carrier** for the (2,3) winding (the
 SU(2) U(1)-fibre poloidal-"3" is projected out per `06_winding_index_projection.md` §4). Option B

@@ -1,6 +1,6 @@
 # Genesis v13 — OP-2 eigen-cavity / bulk-wall confinement (pre-registration DRAFT)
 
-**Status:** DRAFT — Grant freeze pending  
+**Status:** SUPERSEDED 2026-08-15 — not awaiting freeze (electron-identity Phase B; ledger B15). Body preserved (Rule 12). Was: DRAFT — Grant freeze pending. Epic Phase E: no genesis \(vN\).  
 **Platform:** discrete srs vector-TLM (v11 memristive kernel)  
 **Parent:** LOOP GAP rank-1 (OP-2 container)  
 **Charter:** `_orchestration/2026-06-12_loop-gap-v13-charter.md`

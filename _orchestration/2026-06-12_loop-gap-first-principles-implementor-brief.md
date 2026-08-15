@@ -1,6 +1,6 @@
 # LOOP GAP — Orchestrator plan update + implementor brief (2026-06-12)
 
-**Status:** ACTIVE — canonical handoff for orchestration + implementor sessions  
+**Status:** SUPERSEDED 2026-08-15 — not a dispatchable implementor brief (electron-identity Phase B; ledger B4). Body preserved (Rule 12). Was: ACTIVE — canonical handoff for orchestration + implementor sessions  
 **Audience:** Orchestrator (Grant / orchestration agent) **and** implementor agents  
 **Session:** 2026-06-12 audit — engine architecture, first-principles gap map, uncommitted-tree review, pytest verification  
 **Parent plan:** [`2026-06-12_loop-gap-orchestration-plan.md`](2026-06-12_loop-gap-orchestration-plan.md)  

@@ -1,7 +1,7 @@
 # LOOP GAP — v15 charter: nucleation from latent heat (Lane A) (2026-06-12)
 
 **Epic:** genesis three-lane program  
-**Status:** CHARTER ACTIVE — Phase 1 COMPLETE (HEAL-CONFIRMED); Phase 1b ablation PENDING  
+**Status:** SUPERSEDED 2026-08-15 — Phase 1b is not a live ablation (electron-identity Phase B; ledger B9). Body preserved (Rule 12). Was: CHARTER ACTIVE — Phase 1 COMPLETE (HEAL-CONFIRMED); Phase 1b ablation PENDING  
 **Program ledger:** `research/2026-06-12_genesis-program-status.md`  
 **Parameter audit:** `research/2026-06-12_genesis-parameter-provenance-audit.md`  
 **Context doc:** `research/2026-06-12_three-lane-genesis-context.md`  

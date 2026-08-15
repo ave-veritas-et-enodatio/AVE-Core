@@ -1,7 +1,7 @@
 # LOOP GAP — v12 charter: boost-covariant transport (2026-06-12)
 
 **Epic:** genesis voxel translation / dynamical program  
-**Status:** CHARTER ACTIVE — prereg DRAFT; implementor in-session  
+**Status:** SUPERSEDED 2026-08-15 — not work in flight (electron-identity Phase B; ledger B6). Body preserved (Rule 12). Was: CHARTER ACTIVE — prereg DRAFT; implementor in-session  
 **Parent:** v11 charter `_orchestration/2026-06-12_loop-gap-v11-charter.md`  
 **Prereg:** `research/2026-06-12_genesis-v12-boost-transport_prereg_DRAFT.md`
 

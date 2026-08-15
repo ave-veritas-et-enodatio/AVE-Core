@@ -1,6 +1,6 @@
 # LOOP GAP — engine capability DAG
 
-**Status:** LIVE — **loop-gap-platform manifest** for K4⊗Cosserat electron closure (the loop-gap harness capability graph; its Platform-rule table names only CoupledK4Cosserat / VacuumEngine3D + frozen srs). The **whole-engine** manifest is [`manuscript/ave-kb/common/engine-capability-map.md`](../manuscript/ave-kb/common/engine-capability-map.md) — the N-engine home. (Two homes with the same "capability manifest" label was a drift generator; this re-scope disambiguates: DAG = loop-gap platform, map = whole engine.)  
+**Status:** SUPERSEDED 2026-08-15 — not a current rank-closure dispatch (electron-identity Phase B; ledger B2). Body preserved (Rule 12). Was: LIVE — **loop-gap-platform manifest** for K4⊗Cosserat electron closure (the loop-gap harness capability graph; its Platform-rule table names only CoupledK4Cosserat / VacuumEngine3D + frozen srs). The **whole-engine** manifest is [`manuscript/ave-kb/common/engine-capability-map.md`](../manuscript/ave-kb/common/engine-capability-map.md) — the N-engine home. (Two homes with the same "capability manifest" label was a drift generator; this re-scope disambiguates: DAG = loop-gap platform, map = whole engine.)  
 **Physics order:** [`manuscript/ave-kb/common/loop-gap-electron-resonator-closure-doctrine.md`](../manuscript/ave-kb/common/loop-gap-electron-resonator-closure-doctrine.md) §2  
 **Harness:** `src/ave/core/loop_gap_harness.py` + `src/scripts/vol_1_foundations/loop_gap_harness_genesis.py`  
 **Epic log:** [`2026-06-12_loop-gap-unified-harness.md`](2026-06-12_loop-gap-unified-harness.md)
@@ -11,7 +11,7 @@
 
 | Platform | Status | Use |
 |:---|:---|:---|
-| **CoupledK4Cosserat** via **VacuumEngine3D** | **ACTIVE** | All rank-1–4 closure work |
+| **CoupledK4Cosserat** via **VacuumEngine3D** | **SUPERSEDED 2026-08-15** (historical traveler; not current rank-closure work) | All rank-1–4 closure work |
 | Discrete **srs** `chiral_lattice_v{9..17}` | **FROZEN** | Falsifiers only; no new srs engines |
 
 **Do not** open `chiral_lattice_v19.py` or new per-version genesis engines. Advance **ranks** on the unified harness.

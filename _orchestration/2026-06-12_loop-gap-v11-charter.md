@@ -1,7 +1,7 @@
 # LOOP GAP — v11 charter + implementation audit (2026-06-12)
 
 **Epic:** genesis loop closure (electron manufacture)  
-**Status:** CHARTER ACTIVE — prereg DRAFT; implementor **PENDING** freeze  
+**Status:** SUPERSEDED 2026-08-15 — not queued work (electron-identity Phase B; ledger B5). Body preserved (Rule 12). Was: CHARTER ACTIVE — prereg DRAFT; implementor **PENDING** freeze  
 **Parent synthesis:** `research/2026-06-12_loop-gap-electron-resonator-synthesis.md`  
 **KB:** `manuscript/ave-kb/common/loop-gap-electron-resonator-closure-doctrine.md`  
 **Prereg:** `research/2026-06-12_genesis-v11-loop-closure_prereg_DRAFT.md`

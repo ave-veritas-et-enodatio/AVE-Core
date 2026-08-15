@@ -3,7 +3,7 @@
 **Status:** ACTIVE
 **Opened:** 2026-08-14
 **Goal:** Stop the corpus from offering killed electron mechanisms as current, then put the identification on a test that can fail — LC-5 form factor vs LEP, then the exterior Coulomb tail.
-**Last updated:** 2026-08-15 (Phase A CLOSED — ledger on `main` via #970; Phase B is the next lane)
+**Last updated:** 2026-08-15 (Phase B CLOSED — tracker Status flips; Phase C is the next lane)
 
 Filter for every phase: *does this stop a killed mechanism from being offered as current, or add one sentence to what an electron is?* If neither, stop.
 
@@ -102,15 +102,17 @@ Read-only. No canon edits. No tracker Status flips. Do not banner a held-out ame
 
 **Closed by #970.** Deliverable: `_orchestration/2026-08-14_electron-identity-kill-list-ledger.md`. Outcome lives at the bottom of that file (not duplicated here). Orchestrator picks on ledger §5 (2026-08-15 review of #970): 5.1–5.3 are Q1; 5.4 is not a K-row. K2 is *not* fully retired — Phase C still owes C7/C8.
 
-### Phase B (PENDING) — Tracker supersede
+### Phase B (CLOSED 2026-08-15) — Tracker supersede
 
 Read-only Status language on the Phase A ledger's 17 tracker rows (B1–B17). No physics-body rewrite. No Type D canon banners (that is Phase C).
 
 LOOP GAP unified-harness epic SUPERSEDED; genesis-program-status SUPERSEDED; compositeness open-item text aligned to Gate-0 split (honesty, not a pick of F₁); coverage-matrix "do this ONE thing first" demoted as *priority*, not as a K4 kill. AVE-Skills loop-gap pointer in a **separate** repo PR. No canon identity rewrite.
 
-**Kickoff:** branch off this close-out once it is on `origin/main`, or stack on the close-out branch. `isolation: worktree`. Do not checkout on the orchestrator tree. **Do not merge. Push + PR.** `[REVIEW: pending-orchestrator]`.
+**Kickoff (historical):** stacked on the Phase A close-out. Bodies preserved (Rule 12). AVE-Skills loop-gap pointer remains a **separate** repo PR.
 
-### Phase C (DEFERRED — gated on B + signed kill list) — Canon banners
+**Closed:** ledger B1–B17 Status SUPERSEDED; compositeness item aligned to Gate-0 (F₁ not picked); coverage "ONE thing first" demoted as priority. Canon Type D banners are Phase C.
+
+### Phase C (PENDING) — Canon banners
 
 Type D Rule-12 banners on signed live-wrong sites. Exhaustive walk-back grep. **Audit 1** (adversarial PR + `ave-audit`): no residue, no substitution-not-retraction, Rule 12 bodies intact.
 
@@ -133,7 +135,7 @@ S-exponent + engine-platform YES/NO only if an engine lane is still wanted. E1 \
 - **Calibration set (Grant 2026-08-14):** \(\{m_e,\alpha,G\}\) are the inputs and the minimum set. This epic does not derive them. Layer-8 is not a lane. Canon G MIXED form (`/7`) stands; Chain B′ (forward G) is not an electron-identity lane — whether to close that OPEN tag on the gravity register is a separate word, not this epic.
 - Smallest-wave question (walk, RECORD §4): start from the linear photon, not a unique "smallest" wave. Not a phase until Grant says so. RECORD §4 unpaid (i) (which SI length replaces Compton if Layer-8 runs) is **moot**.
 - Existing-physics manufacture (walk, RECORD §6): specify the medium, take projections (linear Maxwell → walls M/Q/J → saturation). Not a cook. Not a phase until Grant says so.
-- Phase A: **CLOSED** (#970). Ledger is on `main`. Phase B is the next lane (17 Status flips + named tracker alignments). Phase C waits on B.
+- Phase A: **CLOSED** (#970). Phase B: **CLOSED** (this PR — 17 Status flips). Phase C is the next lane (Type D banners on ledger C1–C10; C7/C8 are K2 residue).
 - Audit tags (close-out): `audit/2026-08-15_electron-identity-phase-0` @ `554c5ec0`; `audit/2026-08-15_electron-identity-phase-a` @ `869c11cf`.
 - 21 leftover worktrees: local chore, not this epic.
 - AVE-Skills README 19 vs 49: wrong repo; not this epic.

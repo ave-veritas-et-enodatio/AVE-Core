@@ -1,6 +1,6 @@
 # LOOP GAP — Orchestration plan (pedantic, 2026-06-12)
 
-**Status:** ACTIVE — authoritative execution sequence for the K4 harness pivot  
+**Status:** SUPERSEDED 2026-08-15 — not an authoritative live sequence (electron-identity Phase B; ledger B3). Body preserved (Rule 12). Was: ACTIVE — authoritative execution sequence for the K4 harness pivot  
 **Supersedes for execution order:** `_orchestration/index.md` §2026-06-11 Grant decision stack (D1/D2 rows — see §2 below)  
 **Physics anchor:** `manuscript/ave-kb/common/loop-gap-electron-resonator-closure-doctrine.md`  
 **Program ledger:** `research/2026-06-12_genesis-program-status.md`  

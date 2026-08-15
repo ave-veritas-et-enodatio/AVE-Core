@@ -1,9 +1,9 @@
 # Epic — LOOP GAP unified harness (K4 platform pivot)
 
-**Status:** ACTIVE  
+**Status:** SUPERSEDED 2026-08-15 — not a current manufacture path (electron-identity Phase B; ledger B1). Body preserved (Rule 12). Was: ACTIVE.  
 **Opened:** 2026-06-12  
 **Harness land:** PR **#207** merged → `main` @ `98ec9270` (2026-06-12)  
-**Next work:** D-lite (`analysis/2026-06-12-loop-gap-phase-d`) → C′ scalar restoration (`analysis/2026-06-13-loop-gap-scalar-grade`)  
+**Next work:** SUPERSEDED 2026-08-15 — D-lite / C′ are not a live dispatch (ledger B1). Was: D-lite (`analysis/2026-06-12-loop-gap-phase-d`) → C′ scalar restoration (`analysis/2026-06-13-loop-gap-scalar-grade`)  
 **DAG:** [`2026-06-12_loop-gap-engine-dag.md`](2026-06-12_loop-gap-engine-dag.md)  
 **Ledger:** [`research/2026-06-12_genesis-program-status.md`](../research/2026-06-12_genesis-program-status.md)  
 **Execution plan (authoritative order):** [`2026-06-12_loop-gap-orchestration-plan.md`](2026-06-12_loop-gap-orchestration-plan.md)  

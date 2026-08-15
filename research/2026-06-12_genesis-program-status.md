@@ -1,6 +1,6 @@
 # Genesis program status — v9–v15 (2026-06-12)
 
-**Status:** LIVE LEDGER — single routing doc for discrete srs genesis stack  
+**Status:** SUPERSEDED 2026-08-15 — not a live routing doc for genesis manufacture (electron-identity Phase B; ledger B13). Body preserved (Rule 12). Was: LIVE LEDGER — single routing doc for discrete srs genesis stack  
 **Lanes:** `research/2026-06-12_three-lane-genesis-context.md`  
 **LOOP GAP doctrine:** `manuscript/ave-kb/common/loop-gap-electron-resonator-closure-doctrine.md`  
 **Parameter discipline:** `research/2026-06-12_genesis-parameter-provenance-audit.md`  
