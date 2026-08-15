@@ -3,7 +3,7 @@
 **Status:** ACTIVE
 **Opened:** 2026-08-14
 **Goal:** Stop the corpus from offering killed electron mechanisms as current, then put the identification on a test that can fail — LC-5 form factor vs LEP, then the exterior Coulomb tail.
-**Last updated:** 2026-08-14 (Checkpoint 1 signed with two amends; walk RECORD landed)
+**Last updated:** 2026-08-14 (Grant: \(\{m_e,\alpha,G\}\) are the minimum calibration set; this epic does not derive them)
 
 Filter for every phase: *does this stop a killed mechanism from being offered as current, or add one sentence to what an electron is?* If neither, stop.
 
@@ -15,7 +15,9 @@ CHECKPOINT-1-KILL-LIST: signed with amends 2026-08-14 (Poincaré and cosmic inje
 
 ---
 
-## Current state at HEAD `91ca3db2`
+## Current state at branch tip (Phase 0 + Checkpoint 1 + calibration ruling)
+
+Base of this branch is `origin/main` @ `91ca3db2`. Do not treat that SHA as the epic tip.
 
 The catalog exists (`electron-identification.md`: \(0_1\) unknot, phase-space \((2,3)\), \(\Gamma=-1\) TIR *boundary* cavity, T₂ core). The object does not: no assembled electron, Coulomb \(1/r\) asserted, charge-channel form factor ill-defined.
 
@@ -36,7 +38,7 @@ bulk cohesion (K1 amend; gated on FLAG-W + Coulomb); cosmic node-injection as a
 | K1 | Dynamical lock / remanence / reactive binding holds the electron | `research/2026-07-08_electron-lock-arc_CLOSE.md` CLOSED NEGATIVE | Type D banner; trackers SUPERSEDED | Poincaré-class bulk cohesion (FLAG-W + Coulomb) |
 | K2 | Bulk self-trap as localizer | Stage-2 native-cage MODE-III DISPERSE; 2026-07-03 exposure sweep does **not** revive it | Confirm banners; grep unscope'd self-focus | — |
 | K3 | Genesis from free precursor as manufacture path | Five self-assembly routes FAILED | Ledger SUPERSEDED, not deleted | Cosmic node-injection (not this epic) |
-| K4 | \(Q=137\) as cage-emergent identity | T3.4b \(Q_\text{ringdown}\approx 30.8\), not \(\alpha^{-1}\) | Echo already in coverage matrix; grep identity-use | \(\ell_{\mathrm{node}}\) posit / Layer-8 OPEN (not a kill) |
+| K4 | \(Q=137\) as cage-emergent identity | T3.4b \(Q_\text{ringdown}\approx 30.8\), not \(\alpha^{-1}\) | Echo already in coverage matrix; grep identity-use | \(\ell_{\mathrm{node}}\) posit stands; Layer-8 is **not a program** (Grant 2026-08-14: do not derive \(\{m_e,\alpha,G\}\)) |
 | K5 | LOOP GAP ranks as current manufacture path | Doctrine + lock-NEGATIVE | Epic/doctrine Status SUPERSEDED (historical ledger kept) | — |
 | K6 | \((2,3)\) winding as dynamical mass-pin | S3 / #417; winding rides as static Link | Relabel banners exist; grep residue | Static Link + tank winding stand; `clm-satnec` OPEN |
 
@@ -73,7 +75,7 @@ Read-only. No canon edits. No tracker Status flips. Do not banner a held-out ame
 
 **Goal:** a kill-list ledger that classifies every HEAD hit of K1–K6 as Q1 historical / Q2 frozen journal / **live-wrong**.
 
-**Kickoff:** read this Phase A section. Branch off `origin/main` (or this PR once merged — orchestrator will say which). `isolation: worktree`. Do not checkout on the orchestrator tree.
+**Kickoff:** read this Phase A section. After #969 merges, branch off `origin/main`. `isolation: worktree`. Do not checkout on the orchestrator tree.
 
 **Assumptions**
 
@@ -81,6 +83,7 @@ Read-only. No canon edits. No tracker Status flips. Do not banner a held-out ame
 - A2. Rule 12: the ledger quotes; it does not rewrite.
 - A3. `verify-before-cite`: every live-wrong row has a file path + verbatim fragment + why it is offered as *current*.
 - A4. Two-method grep (fixed-string + word-fragment). Report the commands.
+- A5. Grant 2026-08-14: \(\{m_e,\alpha,G\}\) are calibration inputs and the **minimum set**. This epic does **not** derive them. Layer-8 is closed as a program target, not a signed kill. Do **not** inventory "Layer-8 OPEN" / "derive \(m_e\)" as a K4 corpse unless the page sells \(Q=137\) as the cage name. Do **not** walk back G's MIXED `/7` FORM in this lane.
 
 **Scope boundary**
 
@@ -118,12 +121,13 @@ Type D Rule-12 banners on signed live-wrong sites. Exhaustive walk-back grep. **
 
 ### Phase E (DEFERRED) — Modeling that needs Grant
 
-S-exponent + engine-platform YES/NO only if an engine lane is still wanted. E1 \(|\Gamma|=1\) self-closure in circuit language after C3. No lock re-run. No \(Q=137\) closure. No Letter submit. No genesis \(vN\).
+S-exponent + engine-platform YES/NO only if an engine lane is still wanted. E1 \(|\Gamma|=1\) self-closure in circuit language after C3. No lock re-run. No \(Q=137\) closure. No derivation of \(\{m_e,\alpha,G\}\). No Letter submit. No genesis \(vN\).
 
 ## Open decisions
 
 - Checkpoint 1: **signed with amends** (2026-08-14). Remaining Grant words on the *amends* are FLAG-W (already routed, not this item) and whether to open cosmic injection (default: no).
-- Smallest-wave question (walk, RECORD §4): start from the linear photon, not a unique "smallest" wave. Not a phase until Grant says so.
+- **Calibration set (Grant 2026-08-14):** \(\{m_e,\alpha,G\}\) are the inputs and the minimum set. This epic does not derive them. Layer-8 is not a lane. Canon G MIXED form (`/7`) stands; Chain B′ (forward G) is not an electron-identity lane — whether to close that OPEN tag on the gravity register is a separate word, not this epic.
+- Smallest-wave question (walk, RECORD §4): start from the linear photon, not a unique "smallest" wave. Not a phase until Grant says so. RECORD §4 unpaid (i) (which SI length replaces Compton if Layer-8 runs) is **moot**.
 - Existing-physics manufacture (walk, RECORD §6): specify the medium, take projections (linear Maxwell → walls M/Q/J → saturation). Not a cook. Not a phase until Grant says so.
 - Phase A runs on this branch / after this PR merges — orchestrator will say which. B/C wait on the Phase A ledger + the signed fence (not on a second Checkpoint 1).
 - 21 leftover worktrees: local chore, not this epic.

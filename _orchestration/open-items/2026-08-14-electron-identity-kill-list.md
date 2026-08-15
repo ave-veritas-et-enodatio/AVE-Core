@@ -17,8 +17,10 @@ LOOP GAP ranks as current manufacture path; (2,3) as dynamical mass-pin.
 
 **Held out (do not banner as killed):** Poincaré-class bulk cohesion (K1;
 gated on FLAG-W + Coulomb); cosmic node-injection (K3; different hypothesis,
-not this epic). \(\ell_{\mathrm{node}}\) as posit (K4) is OPEN Layer-8, not a
-kill. Static Link / tank (2,3) stands (K6 amend).
+not this epic). \(\ell_{\mathrm{node}}\) as posit (K4) stands; Layer-8 is
+**not a program** (Grant 2026-08-14: \(\{m_e,\alpha,G\}\) are the minimum
+calibration set — do not derive them). Static Link / tank (2,3) stands
+(K6 amend).
 
 This item stays Grant-owned because FLAG-W (the K1 amend's gate) is still
 his word. Phase A inventories the signed kills. Phase B/C wait on the

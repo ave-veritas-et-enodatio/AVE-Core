@@ -34,11 +34,11 @@ still inventory *candidate* live-wrong hits of the original K-rows.
 | **K1** | Dynamical lock / remanence / reactive LC-binding | **Poincaré-class bulk cohesion** — elastic back-stress in the A1 / \(\mathbf{u}\) common-mode channel, read out at the wall. Gated on FLAG-W (compression line: vent vs dead-end) and on the underived exterior Coulomb. Not remanence; not biquaternion-scalar physics (algebra identifies, does not derive; A1 = \(\nabla\cdot\mathbf{u}\), #761). |
 | **K2** | Bulk self-trap as localizer (Cartesian-grid well) | — (Grant agrees.) Boundary as **transducer** is the right *category*; the mechanical→EM hop is **OPEN** in canon (`translation-circuit.md` G4/G6 fence). Do not assert that hop derived. |
 | **K3** | Genesis from a free precursor as manufacture path | **Cosmic node-synthesis as electron injection** is a *different* hypothesis, not in this kill. Corpus node-heat is the \(G\)/\(H_\infty\) gloss, not \(e^-\) minting. If opened later: flag-don't-fix two-node pair-production leaf vs \(0_1\) identification; pairs not lone electrons. |
-| **K4** | \(Q=137\) as cage-emergent identity | **\(\ell_{\mathrm{node}}\) as spatial cutoff is a posit**, not a derivation. Layer-8 (smallest stable soliton from K4+Ax4 with \(m_e\) nowhere in inputs) is OPEN. Nyquist-binding route CLOSED. Planted-cage eigenmode (T3.4a) does not solve \(m_e\). |
+| **K4** | \(Q=137\) as cage-emergent identity | **\(\ell_{\mathrm{node}}\) as spatial cutoff is a posit**, not a derivation. **Grant 2026-08-14 (after the fence table):** \(\{m_e,\alpha,G\}\) are the calibration inputs and the **minimum set**; this program does **not** derive them. Layer-8 (smallest stable soliton from K4+Ax4 with \(m_e\) nowhere in inputs) is **closed as a program target**, not a signed kill of a mechanism. Nyquist-binding route CLOSED. Planted-cage eigenmode (T3.4a) does not solve \(m_e\) — and we will not ask it to. |
 | **K5** | LOOP GAP ranks as *current manufacture path* | Historical QC traveler kept. Ranks are not identity physics. Grant: does not need them as a live path. |
 | **K6** | \((2,3)\) as dynamical mass-pin | **\((2,3)\) as bond-pair phase-space winding**, imposed as static `Link(\(\partial\Omega\), F)` on the real-space wall, stands. Three "boundaries" (real-space \(\partial\Omega\); \((V_{\mathrm{inc}},V_{\mathrm{ref}})\) torus; per-mode saturation rim) are not one object. `clm-satnec` (impose winding, relax, does the core rail?) remains OPEN — static existence, not genesis. |
 
-**Still stands (untouched by this sign):** `charge = Link ∈ ℤ` (static); `mass = A1` (calibration, #260); \(\Gamma=-1\) as Axiom-4 *boundary* form; photon/electron two-amplitude-phase identification as *catalog architecture*.
+**Still stands (untouched by this sign):** `charge = Link ∈ ℤ` (static); `mass = A1` (calibration, #260); \(\Gamma=-1\) as Axiom-4 *boundary* form; photon/electron two-amplitude-phase identification as *catalog architecture*. The three imported values remain \(\{m_e,\alpha,G\}\) (`form-deriving-value-importing.md`; `expected-independent-count: 3`). Grant 2026-08-14: that set is the minimum, and this program does not derive the values. G's MIXED `/7` FORM is not walked back here.
 
 **Do not delete:** L3 archive, genesis result docs, lock-arc negatives.
 
@@ -67,12 +67,13 @@ made, possibly injected at new-node synthesis (cosmic expansion). Walk-level
 only. Constitutive ledger already: free space heals; nucleation wants a
 nucleus; output is pairs.
 
-**K4.** \(Q=137\) false as identity. Open: how the spatial cutoff of the medium
-ties to the electron; we posited it; \(\ell_{\mathrm{node}}\) *is* that posit;
-feels eigenmode/cavity-related. Honest: one SI length is mandatory;
-\(\{m_e,\ell_{\mathrm{node}}\}\) is one scale; Layer-8 is the only named
-dissolve; T3.4a rings a planted cage and refuses to read \(m_e\) off
-\(\omega_{\mathrm{cutoff}}\).
+**K4.** \(Q=137\) false as identity. The spatial cutoff of the medium is a
+posit; \(\ell_{\mathrm{node}}\) *is* that posit; it feels eigenmode/cavity-related.
+Honest: one SI length is mandatory; \(\{m_e,\ell_{\mathrm{node}}\}\) is one
+scale. **Closed as a program (Grant 2026-08-14):** Layer-8 is not the dissolve
+of the input-scale. T3.4a rings a planted cage and refuses to read \(m_e\) off
+\(\omega_{\mathrm{cutoff}}\) — that is the right refusal, not a prompt to try
+again without putting \(m_e\) in the inputs.
 
 **K5.** Ranks unread; smelled like a QED rabbit hole. They are a June-12
 manufacture traveler (container → Compton drive → lock → remanence), not QED.
@@ -121,23 +122,24 @@ the calibration.
 ### What would actually follow from "start with the wave"
 
 Characterize the **linear medium** first (matched line, Maxwell continuum,
-no core). Then ask — without putting \(m_e\) in the inputs — whether Axiom 4
-plus K4 admits a **bound** excitation at all, and what its energy is. That
-*is* Layer-8. It is the opposite of planting a Compton-sized cage and
-reading the ringdown. Genesis-from-a-free-photon (K3) already failed as a
-*manufacture* path; Layer-8 is not manufacture, it is "does a ground-state
-soliton exist on this constitutive law, with the length taken from somewhere
-that is not Compton."
+no core). That order of teaching stands. The next sentence in this walk
+was Layer-8 (ask, without putting \(m_e\) in the inputs, whether Axiom 4
+plus K4 admits a bound excitation). **Grant 2026-08-14 closed that as a
+program:** \(m_e\) is Input 1 by construction; do not try to derive it.
+Genesis-from-a-free-photon (K3) already failed as a *manufacture* path;
+Layer-8 is also not a manufacture path, and it is no longer an identity
+lane.
 
 Photon-identification §4.1 still writes the electron as "take a photon at
 \(\omega=\omega_C\)" then saturate. That recipe **uses** the posit. The
 walk's useful correction is: the *order of teaching* (wave then wall) is
 right; the *order of solving* (Compton photon then electron) is the circle.
 
-**Unpaid if this walk is ever promoted:** (i) which SI length replaces
-Compton if Layer-8 runs; (ii) ontology C3 (muon/tau) — a "smallest massive"
-claim owes the heavier leptons; (iii) do not smuggle T2 bookkeeping into A1
-(C4 of the 2026-08-04 ontology walk).
+**Unpaid if this walk is ever promoted:** (i) **MOOT** — which SI length
+replaces Compton if Layer-8 runs: Layer-8 is not a program (Grant 2026-08-14);
+(ii) ontology C3 (muon/tau) — a "smallest massive" claim owes the heavier
+leptons; (iii) do not smuggle T2 bookkeeping into A1 (C4 of the 2026-08-04
+ontology walk).
 
 ---
 
@@ -171,5 +173,7 @@ Not a new axiom. The corpus already has the recipe; the electron kills clarify w
 - Does not edit canon leaves.
 - Does not treat the 2026-08-04 "light that caught itself" sentence as
   dispatchable (still un-audited).
+- Does not derive \(\{m_e,\alpha,G\}\) and does not dispatch Layer-8
+  (Grant 2026-08-14, after the fence table).
 - §4–§6 are walk-level methodology restatements of canon, not a new axiom and
   not a Phase D dispatch.
