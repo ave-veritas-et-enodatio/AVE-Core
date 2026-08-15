@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **429ec423** (2026-08-14) · 460 index records · 330 claims · 1 PR open
+Scanned tree **e149080e** (2026-08-14) · 460 index records · 330 claims · 1 PR open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`7571ce07`). Every count below describes **429ec423**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`7571ce07`). Every count below describes **e149080e**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -30,7 +30,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## What we are waiting on
 
-**34 of 56 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
+**34 of 57 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
 
 *Scope: this is a census of `open-items/`. `_orchestration/2026-07-10_rulings-docket.md` is the **paper timeline** — a dated continuation log, frozen at its 2026-07-21 tail per `docket-entries/README.md`, and the historical record of how each ruling was reached. It is read chronologically, not harvested; anything still live in it belongs here as its own file.*
 
@@ -82,6 +82,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [Decision keys are colliding — four distinct things are named "D1"](open-items/2026-08-13-key-namespace-collision.md) | OPEN | unassigned | 2026-08-13 |
 | [Docket rulings need a physics-vs-process class field — the coverage number can't distinguish them](open-items/2026-08-13-ruling-class-field.md) | OPEN | unassigned | 2026-08-13 |
 | [Docket ruling records should declare their number in one convention, not two](open-items/2026-08-13-ruling-selection-rule.md) | OPEN | unassigned | 2026-08-13 |
+| [`--check` blanks every date in the stable region — 1 legitimate target, 57 lines of collateral](open-items/2026-08-14-board-check-date-blanking.md) | OPEN | unassigned | 2026-08-14 |
 | [Sibling-repo debts — AVE-Fusion yield cross-wire + AVE-Bench-FemtoElectrometer stale sites](open-items/2026-07-03-sibling-repo-debts.md) | REGISTERED | unassigned | 2026-07-03 |
 | [The v3 ringdown instrument — the DISCRETE near-wall chain](open-items/2026-08-04-v3-ringdown-instrument.md) | REGISTERED | unassigned | 2026-08-04 |
 | [Hygiene backlog — Bell-arc citation follow-ups, FPR provenance re-grep, auditor-landing queue](open-items/2026-07-03-hygiene-backlog.md) | QUEUED | unassigned | 2026-07-03 |
