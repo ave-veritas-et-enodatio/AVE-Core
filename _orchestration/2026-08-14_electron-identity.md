@@ -3,7 +3,7 @@
 **Status:** ACTIVE
 **Opened:** 2026-08-14
 **Goal:** Stop the corpus from offering killed electron mechanisms as current, then put the identification on a test that can fail — LC-5 form factor vs LEP, then the exterior Coulomb tail.
-**Last updated:** 2026-08-14 (Grant: \(\{m_e,\alpha,G\}\) are the minimum calibration set; this epic does not derive them)
+**Last updated:** 2026-08-15 (Phase A CLOSED — ledger on `main` via #970; Phase B is the next lane)
 
 Filter for every phase: *does this stop a killed mechanism from being offered as current, or add one sentence to what an electron is?* If neither, stop.
 
@@ -15,9 +15,9 @@ CHECKPOINT-1-KILL-LIST: signed with amends 2026-08-14 (Poincaré and cosmic inje
 
 ---
 
-## Current state at branch tip (Phase 0 + Checkpoint 1 + calibration ruling)
+## Current state at `origin/main` `ce55c881`
 
-Base of this branch is `origin/main` @ `91ca3db2`. Do not treat that SHA as the epic tip.
+Phase 0 (#969) and Phase A (#970) are merged. The fence and the kill-list ledger are on `main`. Canon still offers K1/K3/K5 corpses as current; that is Phase B then C.
 
 The catalog exists (`electron-identification.md`: \(0_1\) unknot, phase-space \((2,3)\), \(\Gamma=-1\) TIR *boundary* cavity, T₂ core). The object does not: no assembled electron, Coulomb \(1/r\) asserted, charge-channel form factor ill-defined.
 
@@ -27,7 +27,7 @@ Walk-level (un-audited, not dispatchable): `research/2026-08-04_electron-ontolog
 
 Grant in-session 2026-08-14 signed each row yes / amend. Durable fence:
 `research/2026-08-14_electron-identity-checkpoint1-walk_RECORD.md` §2.
-**Phase A (inventory) may run.** It inventories live-wrong hits of the
+**Phase A (inventory) is CLOSED** (#970). The ledger inventories live-wrong hits of the
 **signed kills**. It does **not** treat a held-out amend as killed.
 **Phase B/C rewrite only the signed kills.** Held out of the kill: Poincaré-class
 bulk cohesion (K1 amend; gated on FLAG-W + Coulomb); cosmic node-injection as a
@@ -69,7 +69,7 @@ Two consecutive PRs that fail 1 and 2 → stop and re-ask Grant.
 - `BOARD.md` regenerated on this branch (so the front door lists this program and is not the stale `e149080e` / 1-PR-open tree).
 - **Out of scope for Phase 0:** 21 leftover worktrees (local chore), AVE-Skills README 19 vs 49 (wrong repo), the 34 other Grant-owned items, Letter submit, canon leaf edits.
 
-### Phase A (PENDING) — Inventory ledger (implementor)
+### Phase A (CLOSED 2026-08-15, #970) — Inventory ledger
 
 Read-only. No canon edits. No tracker Status flips. Do not banner a held-out amend as killed.
 
@@ -100,11 +100,15 @@ Read-only. No canon edits. No tracker Status flips. Do not banner a held-out ame
 
 **Verification:** `make verify` still green (no physics change expected). `generate_board.py --check` green if BOARD is untouched; if this phase does not edit BOARD, leave it.
 
-**Do not merge. Push + PR.** `[REVIEW: pending-orchestrator]`.
+**Closed by #970.** Deliverable: `_orchestration/2026-08-14_electron-identity-kill-list-ledger.md`. Outcome lives at the bottom of that file (not duplicated here). Orchestrator picks on ledger §5 (2026-08-15 review of #970): 5.1–5.3 are Q1; 5.4 is not a K-row. K2 is *not* fully retired — Phase C still owes C7/C8.
 
-### Phase B (DEFERRED — gated on Phase A ledger + signed fence) — Tracker supersede
+### Phase B (PENDING) — Tracker supersede
 
-LOOP GAP unified-harness epic SUPERSEDED; genesis-program-status SUPERSEDED; compositeness open-item text aligned to Gate-0 split; coverage-matrix "do this ONE thing first" demoted; AVE-Skills loop-gap pointer in a **separate** repo PR. No canon identity rewrite.
+Read-only Status language on the Phase A ledger's 17 tracker rows (B1–B17). No physics-body rewrite. No Type D canon banners (that is Phase C).
+
+LOOP GAP unified-harness epic SUPERSEDED; genesis-program-status SUPERSEDED; compositeness open-item text aligned to Gate-0 split (honesty, not a pick of F₁); coverage-matrix "do this ONE thing first" demoted as *priority*, not as a K4 kill. AVE-Skills loop-gap pointer in a **separate** repo PR. No canon identity rewrite.
+
+**Kickoff:** branch off this close-out once it is on `origin/main`, or stack on the close-out branch. `isolation: worktree`. Do not checkout on the orchestrator tree. **Do not merge. Push + PR.** `[REVIEW: pending-orchestrator]`.
 
 ### Phase C (DEFERRED — gated on B + signed kill list) — Canon banners
 
@@ -129,7 +133,8 @@ S-exponent + engine-platform YES/NO only if an engine lane is still wanted. E1 \
 - **Calibration set (Grant 2026-08-14):** \(\{m_e,\alpha,G\}\) are the inputs and the minimum set. This epic does not derive them. Layer-8 is not a lane. Canon G MIXED form (`/7`) stands; Chain B′ (forward G) is not an electron-identity lane — whether to close that OPEN tag on the gravity register is a separate word, not this epic.
 - Smallest-wave question (walk, RECORD §4): start from the linear photon, not a unique "smallest" wave. Not a phase until Grant says so. RECORD §4 unpaid (i) (which SI length replaces Compton if Layer-8 runs) is **moot**.
 - Existing-physics manufacture (walk, RECORD §6): specify the medium, take projections (linear Maxwell → walls M/Q/J → saturation). Not a cook. Not a phase until Grant says so.
-- Phase A runs on this branch / after this PR merges — orchestrator will say which. B/C wait on the Phase A ledger + the signed fence (not on a second Checkpoint 1).
+- Phase A: **CLOSED** (#970). Ledger is on `main`. Phase B is the next lane (17 Status flips + named tracker alignments). Phase C waits on B.
+- Audit tags (close-out): `audit/2026-08-15_electron-identity-phase-0` @ `554c5ec0`; `audit/2026-08-15_electron-identity-phase-a` @ `869c11cf`.
 - 21 leftover worktrees: local chore, not this epic.
 - AVE-Skills README 19 vs 49: wrong repo; not this epic.
 
@@ -143,4 +148,5 @@ S-exponent + engine-platform YES/NO only if an engine lane is still wanted. E1 \
 - Lorentz arc / LC-5: `_orchestration/2026-08-04_lorentz-compliance-arc-brief.md`
 - LOOP GAP doctrine: `manuscript/ave-kb/common/loop-gap-electron-resonator-closure-doctrine.md`
 - Compositeness: `research/2026-07-03_compositeness-defense-gate0_result.md` + engine-leg result
+- Kill-list ledger: `_orchestration/2026-08-14_electron-identity-kill-list-ledger.md`
 - Exterior field: `open-items/2026-07-03-exterior-field-profile-derivation.md`
