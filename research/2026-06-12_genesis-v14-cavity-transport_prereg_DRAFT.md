@@ -1,6 +1,6 @@
 # Genesis v14 — cavity + comoving transport stack (pre-registration DRAFT)
 
-**Status:** DRAFT — Grant freeze pending  
+**Status:** SUPERSEDED 2026-08-15 — not awaiting freeze (electron-identity Phase B; ledger B16). Body preserved (Rule 12). Was: DRAFT — Grant freeze pending. Epic Phase E: no genesis \(vN\).  
 **Platform:** discrete srs vector-TLM (v13 bulk-wall + v12 Galilean hop)  
 **Parent:** v13 LOCALIZATION-LANDED + v12 ENGINE-GAP (open srs)  
 **Charter:** `_orchestration/2026-06-12_loop-gap-v14-charter.md`

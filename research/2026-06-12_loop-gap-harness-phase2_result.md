@@ -1,7 +1,7 @@
 # LOOP GAP harness — Phase 2 seed + ∇A₀ protocols
 
 **Date:** 2026-06-12  
-**Status:** IMPLEMENTOR — pending production battery fill  
+**Status:** SUPERSEDED 2026-08-15 — not an unfinished live run (electron-identity Phase B; ledger B14). Body preserved (Rule 12). Was: IMPLEMENTOR — pending production battery fill  
 **Epic:** `_orchestration/2026-06-12_loop-gap-unified-harness.md`  
 **DAG:** `_orchestration/2026-06-12_loop-gap-engine-dag.md`  
 **Harness:** `src/ave/core/loop_gap_harness.py` + `loop_gap_seeds.py`  

@@ -4,7 +4,9 @@
 
 # AVE program board
 
-Scanned tree **ce55c881** (2026-08-15) · 460 index records · 330 claims · 0 PRs open
+Scanned tree **c4b4cf8e** (2026-08-15) · 460 index records · 330 claims · 1 PR open
+
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`ce55c881`). Every count below describes **c4b4cf8e**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -28,7 +30,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## What we are waiting on
 
-**35 of 59 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
+**34 of 59 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
 
 *Scope: this is a census of `open-items/`. `_orchestration/2026-07-10_rulings-docket.md` is the **paper timeline** — a dated continuation log, frozen at its 2026-07-21 tail per `docket-entries/README.md`, and the historical record of how each ruling was reached. It is read chronologically, not harvested; anything still live in it belongs here as its own file.*
 
@@ -50,7 +52,6 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [Engines-on-spine — keep the kbleaf default, or mint a code-provenance node type](open-items/2026-06-17-engines-on-spine-schema.md) | ROUTED-TO-GRANT | grant | 2026-06-17 |
 | [L5-scope — is L5-genesis in scope, with no solid precursor to validate against?](open-items/2026-06-17-l5-scope.md) | ROUTED-TO-GRANT | grant | 2026-06-17 |
 | [The S-exponent fork — n=S^0.25 vs n=S^0.5 disagree, and it BLOCKS every L3/L4 build](open-items/2026-06-17-s-exponent-fork.md) | ROUTED-TO-GRANT | grant | 2026-06-17 |
-| [Collider-compositeness / LEP-Λ coverage — the single sharpest documented falsification exposure](open-items/2026-07-03-collider-compositeness-gap.md) | ROUTED-TO-GRANT | grant | 2026-07-03 |
 | [The terminal charge-framing fork — net-monopole ∇·E vs harmonic/winding holonomy](open-items/2026-07-03-terminal-charge-framing-fork.md) | ROUTED-TO-GRANT | grant | 2026-07-03 |
 | [The two varactor sector-keying forks — ADJUDICATION-PENDING](open-items/2026-07-03-varactor-sector-keying-forks.md) | ROUTED-TO-GRANT | grant | 2026-07-03 |
 | [X36 / X38 / X41 — three PENDING-GRANT rows from the vertex arc](open-items/2026-07-11-x36-x38-x41-pending-grant.md) | ROUTED-TO-GRANT | grant | 2026-07-11 |
@@ -71,6 +72,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [Q-OP21-BARDEEN-1 — the Q = ℓ → 1/ln(Z₁/Z₀) reduction is stated as NOT derived](open-items/2026-05-28-op21-bardeen-reduction.md) | OPEN | unassigned | 2026-05-28 |
 | [The .tex per-node-conflation sweep — the 13 files were never enumerated, and the premise moved](open-items/2026-06-04-per-node-conflation-tex-sweep.md) | OPEN | unassigned | 2026-06-04 |
 | [m_p/m_e classification — the original disagreement was vacated by drift, not adjudicated](open-items/2026-06-08-mp-me-classification.md) | OPEN | grant | 2026-06-08 |
+| [Collider-compositeness — wall channel closed (Gate-0); charge channel is the exterior 1/r fork](open-items/2026-07-03-collider-compositeness-gap.md) | OPEN | unassigned | 2026-07-03 |
 | [The exterior ℓ_node/r field-profile derivation — the Coulomb tail itself is asserted, not derived](open-items/2026-07-03-exterior-field-profile-derivation.md) | OPEN | unassigned | 2026-07-03 |
 | [The crystalline-vs-amorphous isotropy seam — plus an owed anisotropy/dispersion campaign](open-items/2026-07-03-isotropy-crystalline-amorphous-seam.md) | OPEN | unassigned | 2026-07-03 |
 | [Longitudinal energy budget — a LIVE unresolved contradiction with the transverse-shear canon](open-items/2026-07-03-longitudinal-energy-budget-gap.md) | OPEN | unassigned | 2026-07-03 |
@@ -82,7 +84,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [Docket rulings need a physics-vs-process class field — the coverage number can't distinguish them](open-items/2026-08-13-ruling-class-field.md) | OPEN | unassigned | 2026-08-13 |
 | [Docket ruling records should declare their number in one convention, not two](open-items/2026-08-13-ruling-selection-rule.md) | OPEN | unassigned | 2026-08-13 |
 | [`--check` blanks every date in the stable region — 1 legitimate target, 57 lines of collateral](open-items/2026-08-14-board-check-date-blanking.md) | OPEN | unassigned | 2026-08-14 |
-| [Electron-identity program is ACTIVE — Phase B tracker supersede is the next lane](open-items/2026-08-14-electron-identity-program.md) | OPEN | unassigned | 2026-08-14 |
+| [Electron-identity program is ACTIVE — Phase C canon banners is the next lane](open-items/2026-08-14-electron-identity-program.md) | OPEN | unassigned | 2026-08-14 |
 | [Sibling-repo debts — AVE-Fusion yield cross-wire + AVE-Bench-FemtoElectrometer stale sites](open-items/2026-07-03-sibling-repo-debts.md) | REGISTERED | unassigned | 2026-07-03 |
 | [The v3 ringdown instrument — the DISCRETE near-wall chain](open-items/2026-08-04-v3-ringdown-instrument.md) | REGISTERED | unassigned | 2026-08-04 |
 | [Hygiene backlog — Bell-arc citation follow-ups, FPR provenance re-grep, auditor-landing queue](open-items/2026-07-03-hygiene-backlog.md) | QUEUED | unassigned | 2026-07-03 |
@@ -113,7 +115,9 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 *(volatile — excluded from `--check`, since any PR retitle would otherwise make the check cry wolf)*
 
-No open PRs.
+| PR | state | title |
+|---|---|---|
+| #971 | unlabelled | orchestration: close electron-identity Phase A, point the board at Phase B |
 
 <!-- /volatile -->
 

@@ -1,6 +1,6 @@
 # Remanence R10 fixed-\(N\) discriminator
 
-**Status.** CHARTER + FREEZE — no driver yet.  
+**Status.** SUPERSEDED 2026-08-15 — remanence is not queued (electron-identity Phase B; ledger B11). Body preserved (Rule 12). Was: CHARTER + FREEZE — no driver yet.  
 **Gate.** ★PROPOSED-RULED G-PERSIST (#661) — pending Grant confirmation; G-PERSIST's banked bin (ii) is under #655 re-adjudication (repair R9). The R10 remanence question this charter addresses is a **standing gap independent of #655's D2** — motivation survives either bin outcome. KEEP-BOTH: superseded line read "★RULED G-PERSIST (#661)".  
 **Merge policy.** HOLD / do-not-merge.
 

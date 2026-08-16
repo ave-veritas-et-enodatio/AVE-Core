@@ -1,7 +1,7 @@
 # LOOP GAP — v13 charter: OP-2 eigen-cavity confinement (2026-06-12)
 
 **Epic:** genesis electron resonator closure  
-**Status:** CHARTER ACTIVE — prereg DRAFT; implementor in-session  
+**Status:** SUPERSEDED 2026-08-15 — not work in flight (electron-identity Phase B; ledger B7). Body preserved (Rule 12). Was: CHARTER ACTIVE — prereg DRAFT; implementor in-session  
 **Parent:** v12 charter `_orchestration/2026-06-12_loop-gap-v12-charter.md` (v12b scope)  
 **Prereg:** `research/2026-06-12_genesis-v13-eigen-cavity_prereg_DRAFT.md`
 

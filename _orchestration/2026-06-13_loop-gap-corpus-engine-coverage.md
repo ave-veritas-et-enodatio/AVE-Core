@@ -1,6 +1,6 @@
 # LOOP GAP — corpus ↔ engine ↔ test coverage ledger
 
-**Status:** LIVE — orchestrator-maintained belief map  
+**Status:** SUPERSEDED 2026-08-15 — not a live belief map for rank-closure (electron-identity Phase B; ledger B10). Body preserved (Rule 12). Was: LIVE — orchestrator-maintained belief map  
 **Opened:** 2026-06-13  
 **Parent plan:** [`2026-06-12_loop-gap-orchestration-plan.md`](2026-06-12_loop-gap-orchestration-plan.md)  
 **Harness DAG:** [`2026-06-12_loop-gap-engine-dag.md`](2026-06-12_loop-gap-engine-dag.md)  

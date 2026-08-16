@@ -1,6 +1,6 @@
 # Genesis v15 — nucleation from latent heat / crystallization (pre-registration DRAFT)
 
-**Status:** DRAFT — Grant freeze pending  
+**Status:** SUPERSEDED 2026-08-15 — not awaiting freeze (electron-identity Phase B; ledger B17). Body preserved (Rule 12). Was: DRAFT — Grant freeze pending. Epic Phase E: no genesis \(vN\).  
 **Context:** `research/2026-06-12_three-lane-genesis-context.md` (§7 — Lane A)  
 **Charter:** `_orchestration/2026-06-12_loop-gap-v15-charter.md`  
 **Parent:** v13 LOCALIZATION-LANDED (container); v14 CAVITY-BREAK (manufacture transport)

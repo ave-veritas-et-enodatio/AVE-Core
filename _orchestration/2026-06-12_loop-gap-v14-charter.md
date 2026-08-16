@@ -1,7 +1,7 @@
 # LOOP GAP — v14 charter: cavity + comoving transport stack (2026-06-12)
 
 **Epic:** genesis electron resonator closure  
-**Status:** CHARTER COMPLETE — CAVITY-BREAK landed; v14b pocket-frame peak OPEN  
+**Status:** SUPERSEDED 2026-08-15 — v14b is not a live successor (electron-identity Phase B; ledger B8). Body preserved (Rule 12). Was: CHARTER COMPLETE — CAVITY-BREAK landed; v14b pocket-frame peak OPEN  
 **Program ledger:** `research/2026-06-12_genesis-program-status.md`  
 **Parent:** v13 charter `_orchestration/2026-06-12_loop-gap-v13-charter.md`  
 **Prereg:** `research/2026-06-12_genesis-v14-cavity-transport_prereg_DRAFT.md`

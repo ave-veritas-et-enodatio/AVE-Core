@@ -102,6 +102,12 @@ duplicated. Each carries a status + the defined test where one exists.
 
 ### THE load-bearing next step (do this ONE thing first)
 
+> 🟡 **DEMOTED 2026-08-15 — electron-identity Phase B (priority-ordering, not a K-row).**
+> This heading is **not** a signed-kill corpse (the note below already disavows baked \(Q=137\);
+> ledger §5.4). It is demoted as *the one thing the whole network does first*. Identity
+> cleanup (Phase B/C) precedes a new coupled-network \(Q\) derivation. Fork-A body
+> preserved (Rule 12).
+
 > **★ Substrate-native coupled-network $Q$ derivation (Fork-A) on the chiral K4 / Cosserat lattice.**
 > This is the **single load-bearing next move** for the whole network. Everything else below is
 > **subordinate to it** — supporting, downstream, or gated behind it. It is load-bearing because
