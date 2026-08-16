@@ -4,9 +4,7 @@
 
 # AVE program board
 
-Scanned tree **ffa60049** (2026-08-14) · 460 index records · 330 claims · 1 PR open
-
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`91ca3db2`). Every count below describes **ffa60049**. Regenerate on main before reading these as program state.
+Scanned tree **ce55c881** (2026-08-15) · 460 index records · 330 claims · 0 PRs open
 
 ## The number that frames everything
 
@@ -84,7 +82,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [Docket rulings need a physics-vs-process class field — the coverage number can't distinguish them](open-items/2026-08-13-ruling-class-field.md) | OPEN | unassigned | 2026-08-13 |
 | [Docket ruling records should declare their number in one convention, not two](open-items/2026-08-13-ruling-selection-rule.md) | OPEN | unassigned | 2026-08-13 |
 | [`--check` blanks every date in the stable region — 1 legitimate target, 57 lines of collateral](open-items/2026-08-14-board-check-date-blanking.md) | OPEN | unassigned | 2026-08-14 |
-| [Electron-identity program is ACTIVE — Phase A inventory is the next lane](open-items/2026-08-14-electron-identity-program.md) | OPEN | unassigned | 2026-08-14 |
+| [Electron-identity program is ACTIVE — Phase B tracker supersede is the next lane](open-items/2026-08-14-electron-identity-program.md) | OPEN | unassigned | 2026-08-14 |
 | [Sibling-repo debts — AVE-Fusion yield cross-wire + AVE-Bench-FemtoElectrometer stale sites](open-items/2026-07-03-sibling-repo-debts.md) | REGISTERED | unassigned | 2026-07-03 |
 | [The v3 ringdown instrument — the DISCRETE near-wall chain](open-items/2026-08-04-v3-ringdown-instrument.md) | REGISTERED | unassigned | 2026-08-04 |
 | [Hygiene backlog — Bell-arc citation follow-ups, FPR provenance re-grep, auditor-landing queue](open-items/2026-07-03-hygiene-backlog.md) | QUEUED | unassigned | 2026-07-03 |
@@ -115,9 +113,7 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 *(volatile — excluded from `--check`, since any PR retitle would otherwise make the check cry wolf)*
 
-| PR | state | title |
-|---|---|---|
-| #969 | unlabelled | orchestration: open the electron-identity program (Phase 0) |
+No open PRs.
 
 <!-- /volatile -->
 
