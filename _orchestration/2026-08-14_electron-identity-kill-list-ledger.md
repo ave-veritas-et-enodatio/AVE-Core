@@ -460,3 +460,37 @@ current?* — **not yet; this PR is the map, and it commits nothing to canon.** 
 add a sentence about what an electron is, or an honest negative?* — **an honest negative:
 the K1 close never reached canon, and K2/K4/K6 need no work.** (3) *did we open a new
 surface?* — **no.**
+
+---
+
+## Phase C outcome (2026-08-16) — banners, not a rewrite of this inventory
+
+Phase C stamps Type D Rule-12 banners on **C1–C10** in `manuscript/ave-kb/`
+only. The quoted fragments above stay. Poincaré-class bulk cohesion, cosmic
+node-injection, \(\Gamma=-1\) *boundary* self-trap, static Link `(2,3)`, and
+\(\{m_e,\alpha,G\}\) stay out. Audit 1 / Checkpoint 2 are the remaining Phase C
+gate; this section does not close the phase.
+
+**Grep (precision set, `manuscript/ave-kb/` only, 2026-08-16 this PR).** Every
+C1–C10 live-offer fragment is stamped (clause-not-page; YAML comments on C8).
+Inline stamps added on C3 §6 v11 upgrades and C4 "LOOP GAP remains open" so those
+sentences do not outrun the block banner. Extra hits **not** folded into new
+C-rows (Q1 / fence):
+
+- `program-arc-map.md` ARC-08 / N1 — genesis-from-precursor named **NEGATIVE**.
+- `genesis-chord-falsification-ledger.md` — negatives ledger.
+- `vol4/circuit-theory/ch1-vacuum-circuit-analysis/unified-engine-design-doctrine.md:326`
+  — "job is NOT watch the electron form" (honest residual, not a promotion gate).
+- `the-abandoned-interior.md` "never self-assembled" named hole (honest residual).
+- Cosmological node-creation / pair-production "cosmological front" — held-out K3
+  amend.
+- `physics-lineage-map.md` other LIVE THREAT rows (Hertz, BCS, partons, KS,
+  analog-gravity) — not K1–K6 corpses.
+
+No extra F-row beyond the seed. LaTeX/README reads stay PENDING-READ.
+
+Filter check for the Phase C PR: (1) *stop a killed mechanism offered as current?*
+— **yes, at the ten ledger sites.** (2) *sentence about what an electron is, or
+an honest negative?* — **honest negative: those signed kills are not current;
+no new electron.** (3) *new surface?* — **no** (LaTeX/README F-rows PENDING-READ,
+not started).

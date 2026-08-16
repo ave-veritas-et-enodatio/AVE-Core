@@ -29,6 +29,9 @@ dof:
   - key: a1_cage
     name: "A1 mass-cage (stiffening c_eff->inf)"
     why: "rest mass = self-trapped LONGITUDINAL-bulk wall; c_eff->inf at the saturated core self-creates the Gamma=-1 TIR cage"
+    # 🔴 SUPERSEDED 2026-08-16 (electron-identity Phase C, Type D, Rule 12 — body string preserved).
+    # Bulk self-trap as localizer is not current (K2). Read as Γ=-1 BOUNDARY cavity, not bulk well.
+    # Checkpoint 1 fence: research/2026-08-14_electron-identity-checkpoint1-walk_RECORD.md §2.
   - key: winding
     name: "Cosserat winding (charge)"
     why: "charge = the (2,3) Beltrami micro-rotation helicity the cage must carry"
@@ -38,6 +41,9 @@ dof:
   - key: loop
     name: "constitutive loop (remanence)"
     why: "mass persists at zero drive (ferrite B_r analogue); the canonical kernel is anhysteretic, so this is the open R10 gap"
+    # 🔴 SUPERSEDED 2026-08-16 (electron-identity Phase C, Type D, Rule 12 — body string preserved).
+    # Remanence as the current hold is not current (K1; lock-arc CLOSED NEGATIVE 2026-07-08).
+    # Anhysteretic-kernel fact is not killed.
   - key: boost
     name: "boost-covariance (motion)"
     why: "a moving electron must Lorentz-transform; transport/boost is absent from every engine"

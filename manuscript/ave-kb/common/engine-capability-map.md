@@ -24,12 +24,14 @@ A complete, stable, moving, charged electron requires all seven at once. No sing
 
 > 🟡 **EVIDENTIARY-EXPOSURE POINTER (2026-07-03, verdict-exposure sweep — status-demotion, NOT retraction).** The Stage-2 / S3 / #415 / #417 evidence the two reframe banners above lean on is now **HIGH/MEDIUM-exposed** (diamond `TETRA_OFFSETS` `L_D` nullspace-heavy / sublattice-decoupled; DISPERSE positive control on the *Cartesian* engine; #417 (2,3) verdict on an achiral host) and **UNDER RE-ADJUDICATION**. This affects only the empirical basis for *which localizer wins*; **mass = A1 (#260) untouched.** See [`research/2026-07-03_engine-verdict-exposure-sweep_result.md`](../../../research/2026-07-03_engine-verdict-exposure-sweep_result.md).
 
+> **🔴 SUPERSEDED 2026-08-16 (electron-identity Phase C, Type D, Rule 12 — body preserved).** (i) Constitutive **remanence as the open retention mechanism the engine must still close** is **not current** (K1; lock-arc CLOSED NEGATIVE 2026-07-08, [`research/2026-07-08_electron-lock-arc_CLOSE.md`](../../../research/2026-07-08_electron-lock-arc_CLOSE.md)). Anhysteretic-kernel *fact* is not killed. (ii) **§5** "seed photon precursor → self-trap" as staged manufacture is **not current** (K2 bulk localizer + K3 genesis-from-precursor). Surviving localizer is the **Γ=−1 boundary cavity**. (iii) Cosmological **node-creation** on this page is a Checkpoint 1 **amend, held out**. Fence: [`research/2026-08-14_electron-identity-checkpoint1-walk_RECORD.md`](../../../research/2026-08-14_electron-identity-checkpoint1-walk_RECORD.md) §2.
+
 | DOF | Why the electron needs it |
 |---|---|
 | **A1 mass-cage** (stiffening $c_{\text{eff}}\to\infty$) | rest mass = the self-trapped longitudinal-bulk wall; $c_{\text{eff}}\to\infty$ at the saturated core self-creates the $\Gamma=-1$ TIR cage 🔴 *(2026-06-24: the BULK self-focus reading is the FALSIFIED route — see the reframe banner above; the surviving localizer is the **Γ=−1 boundary CAVITY-eigenmode** — NOT the winding. Second pass (#415 + #417 both NEGATIVE): the (2,3) winding does NOT pin the A1 core, it RIDES the cage as static charge (Link); mass = A1 untouched)* |
 | **Cosserat winding** (charge) | charge = the $(2,3)$ Beltrami micro-rotation helicity the cage must carry |
 | **3-channel coupling** (EM / shear / bulk) | the electron lives across all three impedance channels; a complete engine must carry *and couple* them |
-| **constitutive loop** (remanence) | mass persists at zero drive (ferrite $B_r$ analogue); the canonical kernel is anhysteretic, so this is the open R10 gap |
+| **constitutive loop** (remanence) | mass persists at zero drive (ferrite $B_r$ analogue); the canonical kernel is anhysteretic, so this is the open R10 gap 🔴 **SUPERSEDED 2026-08-16 (Phase C):** remanence is not the current hold |
 | **boost-covariance** (motion) | a moving electron must Lorentz-transform; transport/boost is absent from every engine |
 | **chiral grid** (srs handedness) | structural parity is set by the $I4_1 32$ srs grid; a cubic grid is achiral and cannot carry it |
 | **node-creation** (genesis) | pair production / lattice-node birth; no engine hosts it (cosmological front) |
@@ -64,7 +66,7 @@ The engines do not merely *happen* to split the DOF — three of the splits are 
 
 1. **Irrotational ↮ winding.** The stiffening-cage engine is a scalar potential, and `∇×∇V ≡ 0` — *irrotational, so it cannot host circulation* (`cavitation_flow.py:10-19`, verbatim). The cage engine therefore cannot carry the Cosserat winding; the winding needs a vector/rotational sector.
 2. **Cubic ↮ self-trap, and cubic ↮ chirality.** The K4-TLM cubic grid implements $Z(V)$ but **not** $c_{\text{eff}}(V)$ — *"without c_eff(V) the wave cannot self-trap at A→1, which is why v14a-e all returned Mode III"* (`master_equation_fdtd.py:15-18`; `two-engine-architecture-a027.md:24`). A cubic grid is also achiral. So the cubic engines can neither self-trap the cage **nor** carry structural handedness — the winding's handedness needs the srs grid (v9). 🔴 *(2026-06-24: the "without c_eff(V) ⇒ Mode III" escape-hatch — i.e. that ADDING c_eff(V) would recover the self-trap — is **REFUTED**: the native K4 stencil **WITH** c_eff(V) STILL returned Mode-III DISPERSE, energy-certified ([`research/2026-06-24_engine-stage2-native-cage_result.md`](../../../research/2026-06-24_engine-stage2-native-cage_result.md)). So Mode-III is the **substrate's verdict, not a missing-modulation artifact** — the bulk self-trap is a Cartesian-grid artifact (RULED OUT); boundary/topological localization STANDS; mass = A1 untouched.)*
-3. **Anhysteretic ↮ loop.** The canonical kernel $S(A)=\sqrt{1-A^2}$ is anhysteretic — zero enclosed loop area ⇒ **no remanence** (`loop-gap-electron-resonator-closure-doctrine.md:18`). Every attempt to get retention imposes a latch by hand (the [#215] IMPOSED-LATCH). The loop is the deepest open gap (R10).
+3. **Anhysteretic ↮ loop.** The canonical kernel $S(A)=\sqrt{1-A^2}$ is anhysteretic — zero enclosed loop area ⇒ **no remanence** (`loop-gap-electron-resonator-closure-doctrine.md:20`, *"anhysteretic — zero enclosed loop area"*). Every attempt to get retention imposes a latch by hand (the [#215] IMPOSED-LATCH). The loop is the deepest open gap (R10). 🔴 **SUPERSEDED 2026-08-16 (Phase C):** remanence-as-current-hold is not current; the anhysteretic-kernel fact stands.
 
 **Underlying firewall — stiffening vs softening.** The A1 dilatation's *own* wall is the **stiffening** branch (`c_eff→∞`, the BULK-TRAP, `crystal_engine.py:18-20`). The `bulk_rarefaction_sector` / `cavitation_flow` pocket is the **softening** branch (`c_bulk→0` at ρ̄_cav) — canon flags it *"a FOURTH object — NOT Γ=−1"* (`cavitation_flow.py:28`). The electron cage is the **stiffening** wall; the softening pocket is a distinct (candidate) object. Conflating them is the firewall violation.
 
@@ -79,7 +81,7 @@ The engines do not merely *happen* to split the DOF — three of the splits are 
 > - **The §4 load-bearing engineering challenge is the TWO-GRID RECONCILIATION** — the continuum-scalar-FDTD grid the `c_eff(V)` cage lives on vs the K4-tetrahedral grid the Cosserat ω lives on. The "union of pieces" below is buildable; this grid-bridge is the hard part.
 > - **The stiffening⊥softening firewall (`:61`) is IMPLEMENTATION, not fundamental:** per INVARIANT-S2 Q1=(B) (Grant-ratified) every real node carries BOTH the A1-stiffening (C_eff→∞, Z→0) AND the T2-softening (ε_eff→0, Z→∞) as **orthogonal reactances driven by the same S** — the engines split what the substrate unifies; coupling them is faithful, not a violation. (Firewall §3.1, ∇×∇V≡0, still holds: the scalar cage needs a SEPARATE coupled vector sector — which the Cosserat engine provides.)
 > - **SUCCESS CRITERION for the §4 engine (chord/echo audit):** "it works" = it DEMONSTRATES **α-free FORM-emergence** (the (2,3) winding self-forms from generic IC, α-free, the α-free Q emerges), **NOT** a 𝓜/𝓠/𝓙 magnitude readout — m_e is a calibration input, |Q|=1 is generic-for-any-soliton, and the α=𝓜+𝓙+𝓠 decomposition is Class-B echo (`../vol1/ch8-alpha-golden-torus.md:135`; `boundary-observables-m-q-j.md:70`).
-> - **R10 (anhysteretic↔loop / remanence, §3.3) stays the SEPARATE retention wall** — whether the formed electron STAYS, not whether it forms. Parked from the existence test.
+> - **R10 (anhysteretic↔loop / remanence, §3.3) stays the SEPARATE retention wall** — whether the formed electron STAYS, not whether it forms. Parked from the existence test. 🔴 **SUPERSEDED 2026-08-16 (Phase C):** remanence is not the current retention mechanism.
 
 A single K4-Cosserat engine that simultaneously:
 - runs on the **chiral srs grid** (hosts handedness — from v9),
@@ -106,10 +108,10 @@ chiral srs grid (v9)
 add c_eff(V) stiffening kernel        ← cage channel on the chiral grid
       │
       ▼
-seed photon precursor → self-trap     ← cage AND winding emerge together (not planted)
+seed photon precursor → self-trap     ← cage AND winding emerge together (not planted)  🔴 SUPERSEDED 2026-08-16 (Phase C): bulk self-trap / precursor cook not current; Γ=-1 boundary cavity stands
       │
       ▼
-add constitutive loop (remanence)     ← OPEN: must be emergent, not an imposed latch
+add constitutive loop (remanence)     ← OPEN: must be emergent, not an imposed latch  🔴 SUPERSEDED 2026-08-16 (Phase C): remanence not current hold
       │
       ▼
 add boost-covariance (motion)         ← OPEN
@@ -124,7 +126,7 @@ Big-bang assembly is rejected: a single all-DOF engine that fails gives an ambig
 
 ## §6 — Open frontier (the genuine missing physics)
 
-- **Loop, boost, node-creation are absent from *every* engine.** These are not engine-choice gaps; they are unbuilt physics. The loop (R10 remanence) is the deepest: the kernel is anhysteretic, and every "retention" so far is imposed (§3.3).
+- **Loop, boost, node-creation are absent from *every* engine.** These are not engine-choice gaps; they are unbuilt physics. The loop (R10 remanence) is the deepest: the kernel is anhysteretic, and every "retention" so far is imposed (§3.3). 🔴 **SUPERSEDED 2026-08-16 (Phase C):** remanence-as-current-hold is not current; node-creation cosmological is held out.
 - **The cage magnitude is not yet demonstrated to reach $\Gamma=-1$.** graft-v2's `Γ_min=−0.849` is the deepest **static-seed** read on **non-binding clips** — it sits *exactly on the clip floor* in all 10 sweep cells (corr 1.0000, residual 0.0000); the deepest *dynamical* wall at the standard `A_cap=0.999` is **−0.37** (also clip-bound), exponent-corrected to ~**−0.65** (`research/2026-06-09_crystal-graft-v2_result.md:32`). **What survives: the wall SIGN (short, Γ<0) + the monotone-with-depth trend. The magnitude is apparatus/exponent-dependent, and −1 is NOT demonstrated.**
 - **Exponent defect — RESOLVED (Grant F1 ruling, 2026-07-07).** `master_equation_fdtd.py:148-151` sets `c_eff²=c0²/S`, so the physical refractive index is `n=c0/c_eff=S^0.5`; the code now RETURNS this — `n_em_index()` at `:184-188` returns `S^0.5` with the in-code correction note at `:172-183`, mirrored in `crystal_engine.py:431-432`. Resolved by Grant's F1 ruling (`research/2026-07-07_electron-lock_design-note.md:316-319`; canonical `S^0.5` per `research/2026-06-30_electron-portmap-derivation_result.md:550`). The legacy `S^0.25` (old `:169` anchor, drifted) is retired; downstream `Γ=(n−1)/(n+1)` magnitudes no longer understate the wall depth from this defect.
 - **`n_eff` symbol OVERLOADED (√S EM vs 1/√S gravitational) — LIVE (KB-owner decision).** The genuinely-open item, NOT the exponent defect: the code flags that `n_eff` means √S EM-transverse (`vacuum-birefringence-e4.md:108-110`, the `δn_iso=√S−1` content) vs 1/√S gravitational (`substrate-perspective-electron.md:60`, the `n_eff=1/√S` row) and declines to silently reconcile it (`master_equation_fdtd.py:178-180`, `crystal_engine.py:433-435`). ⚠ The SOURCE comments at `master_equation_fdtd.py:178-179` carry STALE anchors (`:12` / `:58`) — flag-only; engine module untouched in this PR. flag-don't-fix: a KB-owner symbol decision — no symbol picked here.
