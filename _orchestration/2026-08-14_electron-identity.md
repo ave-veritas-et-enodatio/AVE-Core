@@ -3,7 +3,7 @@
 **Status:** ACTIVE
 **Opened:** 2026-08-14
 **Goal:** Stop the corpus from offering killed electron mechanisms as current, then put the identification on a test that can fail — LC-5 form factor vs LEP, then the exterior Coulomb tail.
-**Last updated:** 2026-08-15 (Phase B CLOSED — tracker Status flips; Phase C is the next lane)
+**Last updated:** 2026-08-16 (LaTeX+README end-of-epic follow-up tracker seeded; Phase C still PENDING, KB-only)
 
 Filter for every phase: *does this stop a killed mechanism from being offered as current, or add one sentence to what an electron is?* If neither, stop.
 
@@ -15,9 +15,9 @@ CHECKPOINT-1-KILL-LIST: signed with amends 2026-08-14 (Poincaré and cosmic inje
 
 ---
 
-## Current state at `origin/main` `ce55c881`
+## Current state at `origin/main` `7b2a5919`
 
-Phase 0 (#969) and Phase A (#970) are merged. The fence and the kill-list ledger are on `main`. Canon still offers K1/K3/K5 corpses as current; that is Phase B then C.
+Phase 0 (#969), Phase A (#970), and Phase B (#973) are merged. The fence, the kill-list ledger, and the tracker Status supersedes are on `main`. Canon still offers K1/K3/K5 (and C7/C8 K2) corpses as current; that is Phase C (KB Type D banners only). LaTeX volumes and program READMEs are **not** Phase C — they are the end-of-epic follow-up tracker.
 
 The catalog exists (`electron-identification.md`: \(0_1\) unknot, phase-space \((2,3)\), \(\Gamma=-1\) TIR *boundary* cavity, T₂ core). The object does not: no assembled electron, Coulomb \(1/r\) asserted, charge-channel form factor ill-defined.
 
@@ -114,7 +114,9 @@ LOOP GAP unified-harness epic SUPERSEDED; genesis-program-status SUPERSEDED; com
 
 ### Phase C (PENDING) — Canon banners
 
-Type D Rule-12 banners on signed live-wrong sites. Exhaustive walk-back grep. **Audit 1** (adversarial PR + `ave-audit`): no residue, no substitution-not-retraction, Rule 12 bodies intact.
+Type D Rule-12 banners on signed live-wrong sites **in `manuscript/ave-kb/` only**. Exhaustive walk-back grep of that tree. **Audit 1** (adversarial PR + `ave-audit`): no residue, no substitution-not-retraction, Rule 12 bodies intact.
+
+**Not this phase:** LaTeX volumes and program READMEs. Those are end-of-epic follow-ups (tracker below). Do not expand Phase C into `.tex` or `README.md`.
 
 **Checkpoint 2** after Audit 1: orchestrator paragraph — we cleaned waste; we did not mint a new electron.
 
@@ -129,13 +131,22 @@ Type D Rule-12 banners on signed live-wrong sites. Exhaustive walk-back grep. **
 
 S-exponent + engine-platform YES/NO only if an engine lane is still wanted. E1 \(|\Gamma|=1\) self-closure in circuit language after C3. No lock re-run. No \(Q=137\) closure. No derivation of \(\{m_e,\alpha,G\}\). No Letter submit. No genesis \(vN\).
 
+## End-of-epic follow-ups (not Phase C)
+
+LaTeX volumes and program READMEs wait on Checkpoint 2. Running tracker:
+
+`_orchestration/2026-08-16_electron-identity-latex-readme-followups.md`
+
+One follow-up per KB deprecation (seeded F-C1…F-C10; append when Phase C banners a new site). Discharge of an F-row = **read every LaTeX document in the 166-file universe in full**, then the 9 program READMEs, for *that corpse only*. Grep may index; grep does not discharge. Do not start these reads during Phase C.
+
 ## Open decisions
 
 - Checkpoint 1: **signed with amends** (2026-08-14). Remaining Grant words on the *amends* are FLAG-W (already routed, not this item) and whether to open cosmic injection (default: no).
 - **Calibration set (Grant 2026-08-14):** \(\{m_e,\alpha,G\}\) are the inputs and the minimum set. This epic does not derive them. Layer-8 is not a lane. Canon G MIXED form (`/7`) stands; Chain B′ (forward G) is not an electron-identity lane — whether to close that OPEN tag on the gravity register is a separate word, not this epic.
 - Smallest-wave question (walk, RECORD §4): start from the linear photon, not a unique "smallest" wave. Not a phase until Grant says so. RECORD §4 unpaid (i) (which SI length replaces Compton if Layer-8 runs) is **moot**.
 - Existing-physics manufacture (walk, RECORD §6): specify the medium, take projections (linear Maxwell → walls M/Q/J → saturation). Not a cook. Not a phase until Grant says so.
-- Phase A: **CLOSED** (#970). Phase B: **CLOSED** (this PR — 17 Status flips). Phase C is the next lane (Type D banners on ledger C1–C10; C7/C8 are K2 residue).
+- Phase A: **CLOSED** (#970). Phase B: **CLOSED** (#973). Phase C is the next lane (Type D banners on ledger C1–C10 in KB only; C7/C8 are K2 residue).
+- LaTeX + README follow-ups: **QUEUED**, end of epic, after Checkpoint 2. Tracker: `_orchestration/2026-08-16_electron-identity-latex-readme-followups.md`. Do not start during Phase C.
 - Audit tags (close-out): `audit/2026-08-15_electron-identity-phase-0` @ `554c5ec0`; `audit/2026-08-15_electron-identity-phase-a` @ `869c11cf`.
 - 21 leftover worktrees: local chore, not this epic.
 - AVE-Skills README 19 vs 49: wrong repo; not this epic.
@@ -151,4 +162,5 @@ S-exponent + engine-platform YES/NO only if an engine lane is still wanted. E1 \
 - LOOP GAP doctrine: `manuscript/ave-kb/common/loop-gap-electron-resonator-closure-doctrine.md`
 - Compositeness: `research/2026-07-03_compositeness-defense-gate0_result.md` + engine-leg result
 - Kill-list ledger: `_orchestration/2026-08-14_electron-identity-kill-list-ledger.md`
+- LaTeX+README follow-ups: `_orchestration/2026-08-16_electron-identity-latex-readme-followups.md`
 - Exterior field: `open-items/2026-07-03-exterior-field-profile-derivation.md`
