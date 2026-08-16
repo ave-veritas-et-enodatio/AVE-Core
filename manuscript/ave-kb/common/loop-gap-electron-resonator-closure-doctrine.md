@@ -9,7 +9,9 @@ no-claim: "routing-aid synthesis — consolidates LOOP GAP plumber closure order
 
 > **Routing aid (no-claim).** Consolidates plumber/EE closure order, channel routing, fool modes, and lattice-emergence requirements for electron manufacture. Does not introduce new derived numbers. Full audit + v11 charter: `research/2026-06-12_loop-gap-electron-resonator-synthesis.md`; orchestration: `_orchestration/2026-06-12_loop-gap-v11-charter.md`.
 
-**WHEN TO USE:** before claiming any genesis/kernel change "closes the LOOP GAP," before scoping v11+ engine work, or when mapping Vol 9 device circuits onto discrete-lattice tests.
+> **🔴 SUPERSEDED 2026-08-16 (electron-identity Phase C, Type D, Rule 12 — body preserved).** This leaf is a **historical routing traveler**, not a current manufacture path. LOOP GAP **ranks** (Checkpoint 1 K5) and rank-3/4 **energize-lock / remanence** (K1; lock-arc CLOSED NEGATIVE 2026-07-08, [`research/2026-07-08_electron-lock-arc_CLOSE.md`](../../../research/2026-07-08_electron-lock-arc_CLOSE.md)) are **not** the next work. Do not use this leaf to scope v11+ engine work or to advance ranks. Poincaré cohesion and cosmic node-injection are **held out**. Fence: [`research/2026-08-14_electron-identity-checkpoint1-walk_RECORD.md`](../../../research/2026-08-14_electron-identity-checkpoint1-walk_RECORD.md) §2.
+
+**WHEN TO USE:** before claiming any genesis/kernel change "closes the LOOP GAP," before scoping v11+ engine work, or when mapping Vol 9 device circuits onto discrete-lattice tests. 🔴 **SUPERSEDED 2026-08-16:** do not dispatch from this WHEN TO USE.
 
 ---
 
@@ -76,6 +78,8 @@ Canon Level-1 kernel $S_{\mathrm{eq}}(A)=\sqrt{1-A^2}$ is **anhysteretic** — z
 
 ## §6 — v11 direction (summary)
 
+🔴 **SUPERSEDED 2026-08-16 (Phase C):** the ordered upgrades below are a historical traveler, not current work. Do not dispatch P11 / v11 from this section.
+
 **Primary falsifier:** **P11 — zero-drive persistence** after extended quiescence ($t\gg \tau_{\mathrm{relax}}$), with snap/Ω-free/precursor ablations.
 
 **Engine upgrades (ordered):**
@@ -109,9 +113,9 @@ Canon Level-1 kernel $S_{\mathrm{eq}}(A)=\sqrt{1-A^2}$ is **anhysteretic** — z
 | Platform | Status | Entry point |
 |:---|:---|:---|
 | Discrete **srs** `chiral_lattice_v{9..17}` | **FROZEN** | Falsifiers archived; no new srs engines |
-| **K4⊗Cosserat** via `VacuumEngine3D` | **ACTIVE** | `src/ave/core/loop_gap_harness.py` |
+| **K4⊗Cosserat** via `VacuumEngine3D` | **ACTIVE** 🔴 **SUPERSEDED 2026-08-16 (Phase C):** ranks not a current manufacture path | `src/ave/core/loop_gap_harness.py` |
 
-**Meta rule:** advance LOOP GAP **ranks** (doctrine §2), not genesis version numbers. Capability DAG: `_orchestration/2026-06-12_loop-gap-engine-dag.md`. Epic log: `_orchestration/2026-06-12_loop-gap-unified-harness.md`.
+**Meta rule:** advance LOOP GAP **ranks** (doctrine §2), not genesis version numbers. 🔴 **SUPERSEDED 2026-08-16 (Phase C):** do not advance ranks as current work. Capability DAG: `_orchestration/2026-06-12_loop-gap-engine-dag.md`. Epic log: `_orchestration/2026-06-12_loop-gap-unified-harness.md`.
 
 srs findings retained as channel-tagged falsifiers (CVR-SET ≠ mass; `add_drive` pump falsified; comoving quiescence bleeds remanence). Rank-3–4 work uses bulk $\Gamma_{\mathrm{bulk}}$, $\Phi_{\mathrm{link}}$, and conservative lock — not srs transverse peak.
 

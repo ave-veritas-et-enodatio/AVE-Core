@@ -3,7 +3,7 @@
 **Status:** ACTIVE
 **Opened:** 2026-08-14
 **Goal:** Stop the corpus from offering killed electron mechanisms as current, then put the identification on a test that can fail — LC-5 form factor vs LEP, then the exterior Coulomb tail.
-**Last updated:** 2026-08-16 (LaTeX+README end-of-epic follow-up tracker seeded; Phase C still PENDING, KB-only)
+**Last updated:** 2026-08-16 (Phase C Type D banners on C1–C10 this PR; Audit 1 / Checkpoint 2 next)
 
 Filter for every phase: *does this stop a killed mechanism from being offered as current, or add one sentence to what an electron is?* If neither, stop.
 
@@ -15,9 +15,9 @@ CHECKPOINT-1-KILL-LIST: signed with amends 2026-08-14 (Poincaré and cosmic inje
 
 ---
 
-## Current state at `origin/main` `7b2a5919`
+## Current state at this PR (base `origin/main` `6a0244ae`)
 
-Phase 0 (#969), Phase A (#970), and Phase B (#973) are merged. The fence, the kill-list ledger, and the tracker Status supersedes are on `main`. Canon still offers K1/K3/K5 (and C7/C8 K2) corpses as current; that is Phase C (KB Type D banners only). LaTeX volumes and program READMEs are **not** Phase C — they are the end-of-epic follow-up tracker.
+Phase 0 (#969), Phase A (#970), Phase B (#973), and the LaTeX+README tracker (#974) are on `main`. This PR lands Phase C Type D banners on ledger C1–C10 in `manuscript/ave-kb/` only. Poincaré cohesion, cosmic injection, and \(\{m_e,\alpha,G\}\) stay out. LaTeX/README follow-ups are **PENDING-READ**, not started. Audit 1 / Checkpoint 2 remain.
 
 The catalog exists (`electron-identification.md`: \(0_1\) unknot, phase-space \((2,3)\), \(\Gamma=-1\) TIR *boundary* cavity, T₂ core). The object does not: no assembled electron, Coulomb \(1/r\) asserted, charge-channel form factor ill-defined.
 
@@ -112,11 +112,11 @@ LOOP GAP unified-harness epic SUPERSEDED; genesis-program-status SUPERSEDED; com
 
 **Closed:** ledger B1–B17 Status SUPERSEDED; compositeness item aligned to Gate-0 (F₁ not picked); coverage "ONE thing first" demoted as priority. Canon Type D banners are Phase C.
 
-### Phase C (PENDING) — Canon banners
+### Phase C (this PR — banners landed; Audit 1 remaining) — Canon banners
 
-Type D Rule-12 banners on signed live-wrong sites **in `manuscript/ave-kb/` only**. Exhaustive walk-back grep of that tree. **Audit 1** (adversarial PR + `ave-audit`): no residue, no substitution-not-retraction, Rule 12 bodies intact.
+Type D Rule-12 banners on signed live-wrong sites **in `manuscript/ave-kb/` only**. Bodies preserved. Exhaustive walk-back grep of that tree (C1–C10 stamped; extra hits classified Q1 historical / held-out amend). **Audit 1** (adversarial PR + `ave-audit`): no residue, no substitution-not-retraction, Rule 12 bodies intact.
 
-**Not this phase:** LaTeX volumes and program READMEs. Those are end-of-epic follow-ups (tracker below). Do not expand Phase C into `.tex` or `README.md`.
+**Not this phase:** LaTeX volumes and program READMEs. Those are end-of-epic follow-ups (tracker below; F-C1…F-C10 now PENDING-READ). Do not expand Phase C into `.tex` or `README.md`.
 
 **Checkpoint 2** after Audit 1: orchestrator paragraph — we cleaned waste; we did not mint a new electron.
 
@@ -145,11 +145,17 @@ One follow-up per KB deprecation (seeded F-C1…F-C10; append when Phase C banne
 - **Calibration set (Grant 2026-08-14):** \(\{m_e,\alpha,G\}\) are the inputs and the minimum set. This epic does not derive them. Layer-8 is not a lane. Canon G MIXED form (`/7`) stands; Chain B′ (forward G) is not an electron-identity lane — whether to close that OPEN tag on the gravity register is a separate word, not this epic.
 - Smallest-wave question (walk, RECORD §4): start from the linear photon, not a unique "smallest" wave. Not a phase until Grant says so. RECORD §4 unpaid (i) (which SI length replaces Compton if Layer-8 runs) is **moot**.
 - Existing-physics manufacture (walk, RECORD §6): specify the medium, take projections (linear Maxwell → walls M/Q/J → saturation). Not a cook. Not a phase until Grant says so.
-- Phase A: **CLOSED** (#970). Phase B: **CLOSED** (#973). Phase C is the next lane (Type D banners on ledger C1–C10 in KB only; C7/C8 are K2 residue).
-- LaTeX + README follow-ups: **QUEUED**, end of epic, after Checkpoint 2. Tracker: `_orchestration/2026-08-16_electron-identity-latex-readme-followups.md`. Do not start during Phase C.
+- Phase A: **CLOSED** (#970). Phase B: **CLOSED** (#973). Phase C banners: **this PR**. Audit 1 / Checkpoint 2 remain. C7/C8 K2 residue is bannered.
+- LaTeX + README follow-ups: **PENDING-READ**, end of epic, after Checkpoint 2. Tracker: `_orchestration/2026-08-16_electron-identity-latex-readme-followups.md`. Do not start during Audit 1.
 - Audit tags (close-out): `audit/2026-08-15_electron-identity-phase-0` @ `554c5ec0`; `audit/2026-08-15_electron-identity-phase-a` @ `869c11cf`.
 - 21 leftover worktrees: local chore, not this epic.
 - AVE-Skills README 19 vs 49: wrong repo; not this epic.
+
+## Filter check (Phase C banners PR)
+
+1. Stop a killed mechanism offered as current? **Yes** — C1–C10 Type D stamps in `manuscript/ave-kb/`.
+2. Sentence about what an electron is, or an honest negative? **Honest negative** — those signed kills are not current; no new electron minted.
+3. New surface that is not 1 or 2? **No** — LaTeX/README remain PENDING-READ; Audit 1 / Checkpoint 2 remain; Poincaré / cosmic injection / \(\{m_e,\alpha,G\}\) held out.
 
 ## References
 

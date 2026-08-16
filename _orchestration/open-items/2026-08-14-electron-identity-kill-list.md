@@ -23,5 +23,6 @@ calibration set — do not derive them). Static Link / tank (2,3) stands
 (K6 amend).
 
 This item stays Grant-owned because FLAG-W (the K1 amend's gate) is still
-his word. Phase A inventories the signed kills. Phase B/C wait on the
-Phase A ledger, not on a second Checkpoint 1.
+his word. Phase A inventoried the signed kills. Phase B Status-flipped
+the tracker rows. Phase C Type D banners on ledger C1–C10 land in the
+companion program PR. Do not pick FLAG-W here.

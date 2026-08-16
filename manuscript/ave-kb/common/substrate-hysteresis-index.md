@@ -142,7 +142,7 @@ Everything in the class tables below is a manifestation of Level 2 — the dynam
 
 ## §5b — Genesis v10 discipline: LOOP GAP vs $\Omega_{\text{freeze}}$ (2026-06-11)
 
-**WHEN TO USE:** adjudicating whether a genesis/kernel change "closes the LOOP GAP" or only adds a different memory class. The nine-architecture record diagnosed **remanence = mass** (zero-drive persistence) as the missing constitutive piece; v10 adds $\sigma$ + rate-gated snap + $\Omega_{\text{freeze}}$ IC. These are **not the same mechanism**.
+**WHEN TO USE:** adjudicating whether a genesis/kernel change "closes the LOOP GAP" or only adds a different memory class. The nine-architecture record diagnosed **remanence = mass** (zero-drive persistence) as the missing constitutive piece; v10 adds $\sigma$ + rate-gated snap + $\Omega_{\text{freeze}}$ IC. These are **not the same mechanism**. 🔴 **SUPERSEDED 2026-08-16 (Phase C):** remanence-as-current-hold is not current; this WHEN TO USE is diagnostic of memory *class*, not a live manufacture dispatch.
 
 | Mechanism | What it stores | Level | Canon / engine status |
 |---|---|---|---|
@@ -152,11 +152,13 @@ Everything in the class tables below is a manifestation of Level 2 — the dynam
 | $\sigma$ + rate-gated snap | Dynamic crossing / latching at rupture | Level 2 candidate | v10 kernel (Decision 2); tests mass **retention**, not ferrite remanence |
 | Ferrite B–H loop (R2 bench) | $B_r$ at $H=0$ = remanence analogue | EE consistency bench | `2026-06-12_constitutive-loop-r2-prereg_FROZEN.md`; **bench not run** |
 
-**The LOOP GAP remains open until a mechanism supplies zero-drive persistence with nonzero enclosed loop area** — either (a) the v10 snap verdict shows retention without drive, and/or (b) the R2 ferrite B–H bench maps remanence/coercivity/loop-area to mass/annihilation/latent-heat. $\Omega_{\text{freeze}}$ alone is **initial-condition** memory (ablatable); it does not replace thixotropic/ferrite **constitutive** hysteresis.
+**The LOOP GAP remains open until a mechanism supplies zero-drive persistence with nonzero enclosed loop area** — either (a) the v10 snap verdict shows retention without drive, and/or (b) the R2 ferrite B–H bench maps remanence/coercivity/loop-area to mass/annihilation/latent-heat. $\Omega_{\text{freeze}}$ alone is **initial-condition** memory (ablatable); it does not replace thixotropic/ferrite **constitutive** hysteresis. 🔴 **SUPERSEDED 2026-08-16 (Phase C):** remanence as the current hold, and LOOP GAP ranks as current manufacture, are not current.
+
+> **🔴 SUPERSEDED 2026-08-16 (electron-identity Phase C, Type D, Rule 12 — body preserved).** Remanence / ferrite B–H as the **current path that holds the electron** is **not current** (K1; lock-arc CLOSED NEGATIVE 2026-07-08, [`research/2026-07-08_electron-lock-arc_CLOSE.md`](../../../research/2026-07-08_electron-lock-arc_CLOSE.md)). LOOP GAP **ranks as current manufacture** are not current (K5). Anhysteretic-kernel *fact* (Level-1 has no loop area) is not killed. The v11 charter pointer below is a historical traveler. Fence: [`research/2026-08-14_electron-identity-checkpoint1-walk_RECORD.md`](../../../research/2026-08-14_electron-identity-checkpoint1-walk_RECORD.md) §2.
 
 **v10 production read (2026-06-12; `research/2026-06-12_genesis-v10-cvr-convergence_result.md`):** snap+IC machinery executes; partial CVR-SET on 2/4 srs cells; **snap-OFF and Ω-free ablations still CVR-SET** at matched retention — snap is **not** bin-isolating; **LOOP GAP unchanged** (no zero-drive remanence demonstrated).
 
-**v11 charter (2026-06-12):** prereg DRAFT `research/2026-06-12_genesis-v11-loop-closure_prereg_DRAFT.md` — primary falsifier **P11 zero-drive persistence** via ported $\tau_{\mathrm{relax}}$ ODE on discrete srs; orchestration `_orchestration/2026-06-12_loop-gap-v11-charter.md`.
+**v11 charter (2026-06-12):** prereg DRAFT `research/2026-06-12_genesis-v11-loop-closure_prereg_DRAFT.md` — primary falsifier **P11 zero-drive persistence** via ported $\tau_{\mathrm{relax}}$ ODE on discrete srs; orchestration `_orchestration/2026-06-12_loop-gap-v11-charter.md`. 🔴 **SUPERSEDED 2026-08-16 (Phase C):** not a live dispatch.
 
 > ↗ See also: [`loop-gap-electron-resonator-closure-doctrine.md`](loop-gap-electron-resonator-closure-doctrine.md); [`2026-06-11_chiral-vacuum-reactor-framing.md`](../../../research/2026-06-11_chiral-vacuum-reactor-framing.md) §5 v10 charter (Grant decisions D2/D5); vocab audit §4(c2) LOOP GAP diagnosis.
 

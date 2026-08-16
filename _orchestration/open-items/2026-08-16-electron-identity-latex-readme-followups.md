@@ -14,9 +14,11 @@ becomes one follow-up: **read every LaTeX document in the 166-file universe
 in full**, then the 9 program-facing READMEs, looking for *that corpse*
 offered as current. Grep does not discharge a row.
 
-Seeded F-C1…F-C10 from the Phase A ledger, all QUEUED until the matching
-KB banner exists. Running: append an F-row when Phase C (or a later KB
-audit) banners a site that is not already a row.
+Seeded F-C1…F-C10 from the Phase A ledger. Phase C banners on C1–C10
+landed 2026-08-16; the tracker F-rows are **PENDING-READ**. This board
+item stays **QUEUED** until Checkpoint 2 (do not start the reads).
+Running: append an F-row when a later KB audit banners a site that is
+not already a row.
 
-Do not start these reads during Phase C. Poincaré cohesion, cosmic
-node-injection, and Layer-8 / derive-\(\{m_e,\alpha,G\}\) stay out of fence.
+Poincaré cohesion, cosmic node-injection, and Layer-8 /
+derive-\(\{m_e,\alpha,G\}\) stay out of fence.

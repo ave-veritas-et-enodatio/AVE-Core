@@ -122,6 +122,8 @@ Particle cores, coaxial rupture cavities, and PONDER stacks differ by **boundary
 
 ### 5. LOOP GAP — manufacture closure pointer (2026-06-12)
 
+> **🔴 SUPERSEDED 2026-08-16 (electron-identity Phase C, Type D, Rule 12 — body preserved).** Electron manufacture via energize-lock + Level-2 remanence + v11/P11 is **not current** (K1 + K3 + K5). Lock-arc CLOSED NEGATIVE 2026-07-08. Vol 9 circuit models of walls / M,Q,J without selling genesis-cook are not this kill. Fence: [`research/2026-08-14_electron-identity-checkpoint1-walk_RECORD.md`](../../../../research/2026-08-14_electron-identity-checkpoint1-walk_RECORD.md) §2.
+
 **Classification:** Class B — routing synthesis; ties §3 three-channel table to genesis closure order.
 
 Electron manufacture requires **bulk** $\Gamma_{\mathrm{bulk}}\to -1$ confinement (not EM $S_{11}$ at $Z_0$ alone), Compton-scale ring-up, conservative energize-lock, and Level-2 remanence ($\tau_{\mathrm{relax}}$ / zero-drive persistence). v10 discrete srs achieves partial CVR-SET under drive but **not** remanence; v11 targets P11 quiescence gate.
