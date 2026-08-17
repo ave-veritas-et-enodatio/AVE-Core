@@ -15,8 +15,9 @@ in full**, then the 9 program-facing READMEs, looking for *that corpse*
 offered as current. Grep does not discharge a row.
 
 Seeded F-C1…F-C10 from the Phase A ledger. Phase C banners on C1–C10
-landed 2026-08-16; the tracker F-rows are **PENDING-READ**. This board
-item stays **QUEUED** until Checkpoint 2 (do not start the reads).
+landed 2026-08-16 (#975). Checkpoint 2 lands in this PR. The tracker
+F-rows stay **PENDING-READ**; this board item stays **QUEUED** until an
+F-row is dispatched. First F-row may start after this merges.
 Running: append an F-row when a later KB audit banners a site that is
 not already a row.
 

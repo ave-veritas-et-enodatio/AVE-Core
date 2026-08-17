@@ -2,7 +2,7 @@
 
 **Status:** RUNNING TRACKER. Not Phase C. Not a live dispatch.
 **Opened:** 2026-08-16
-**Gated on:** Audit 1 / Checkpoint 2 (Phase C KB banners landed this PR — F-rows flip to PENDING-READ, not DONE).
+**Gated on:** Checkpoint 2 (this PR). F-rows are PENDING-READ; first discharge after this merges.
 **Epic:** `_orchestration/2026-08-14_electron-identity.md`
 
 ELECTRON-IDENTITY-LATEX-README-FOLLOWUPS-ANCHOR: one full LaTeX+README read per KB deprecation, end of epic.
@@ -16,7 +16,7 @@ Grant 2026-08-16: Phase C stays KB-only. LaTeX volumes and READMEs are **end-of-
 1. **Seed (this commit).** One row per Phase A ledger C-row (C1–C10). Status **QUEUED** — the KB banner has not landed.
 2. **When Phase C banners a C-row (or a new KB live-wrong site).** Flip that follow-up to **PENDING-READ**. If Phase C adds a deprecation that is not already a row, **append a new F-row** (do not fold it into an existing corpse). This is what "running" means. **2026-08-16:** C1–C10 banners landed; F-C1…F-C10 → PENDING-READ. No new C-row beyond the seed.
 3. **Discharge.** One implementor pass per F-row. Method below. Hits classified live-wrong / Q1 / fence-excluded. Live-wrong LaTeX/README sites get their own Type D banners in a **later** PR, not in Phase C.
-4. **Do not start these reads during Phase C.** End of epic = after Checkpoint 2 (Audit 1 green), unless Grant says otherwise.
+4. **Do not start these reads in the Checkpoint 2 PR.** After Checkpoint 2 merges, one implementor pass per F-row. End of epic ≠ Phase D.
 
 **Not in this tracker:** engine code (`src/`), L3 archive bodies, research result docs (Q2), Poincaré cohesion, cosmic node-injection, Layer-8 / derive-\(\{m_e,\alpha,G\}\). Homonyms: \(\Gamma=-1\)/\(V_{\mathrm{yield}}\) *boundary* self-trap is the surviving localizer; cosmological lattice-genesis is the held-out K3 amend.
 
@@ -193,4 +193,4 @@ Phase C (or a later KB audit) that banners a **new** live-wrong site adds `F-<id
 | PENDING-READ | 10 | F-C1 … F-C10 (KB banners landed 2026-08-16 this PR; ten `### F-C` headings) |
 | DONE | 0 | — |
 
-Census 2026-08-16 Phase C: **0 QUEUED / 10 PENDING-READ / 0 DONE**. Do not start these reads until Checkpoint 2.
+Census 2026-08-16 Checkpoint 2: **0 QUEUED / 10 PENDING-READ / 0 DONE**. Unblocked after this merges. Do not discharge in this PR.

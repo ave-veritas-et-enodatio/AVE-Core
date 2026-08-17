@@ -494,3 +494,6 @@ Filter check for the Phase C PR: (1) *stop a killed mechanism offered as current
 an honest negative?* — **honest negative: those signed kills are not current;
 no new electron.** (3) *new surface?* — **no** (LaTeX/README F-rows PENDING-READ,
 not started).
+
+**Checkpoint 2 (2026-08-16).** Grant merged #975. The banners stand. The phase
+closes. No new electron. LaTeX/README F-rows remain PENDING-READ.
