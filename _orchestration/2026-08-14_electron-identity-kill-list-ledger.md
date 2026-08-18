@@ -471,6 +471,19 @@ node-injection, \(\Gamma=-1\) *boundary* self-trap, static Link `(2,3)`, and
 \(\{m_e,\alpha,G\}\) stay out. Audit 1 / Checkpoint 2 are the remaining Phase C
 gate; this section does not close the phase.
 
+**Dated note 2026-08-17 (Audit 1 correction; does not rewrite the inventory).**
+Grant named the two peer reviews of #975/#976 as Audit 1, findings as input.
+Rule 12 on bodies held. This note records two inventory debts, not a new kill:
+
+1. **§4 `src 90`.** The listing command as written omitted `--hidden`. Do not
+   treat 90 as a current engine-tree count. The number is a Phase A snapshot
+   receipt; a recount is not this PR.
+2. **`axiom-definitions.md:33` missed K3 residue.** Phase A did not row the
+   clause *"the formation-route (genesis of a winding from a free precursor)
+   remains open."* That is manufacture-path K3, not the held-out cosmic
+   injection amend. Bannered 2026-08-17 (clause-not-page). F-C11 queued on the
+   LaTeX+README tracker. Cosmic node-injection stays out.
+
 **Grep (precision set, `manuscript/ave-kb/` only, 2026-08-16 this PR).** Every
 C1–C10 live-offer fragment is stamped (clause-not-page; YAML comments on C8).
 Inline stamps added on C3 §6 v11 upgrades and C4 "LOOP GAP remains open" so those

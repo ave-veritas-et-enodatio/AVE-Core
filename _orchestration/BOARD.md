@@ -4,7 +4,7 @@
 
 # AVE program board
 
-Scanned tree **6a0244ae** (2026-08-16) · 460 index records · 330 claims · 0 PRs open
+Scanned tree **36ce03b9** (2026-08-16) · 460 index records · 330 claims · 1 PR open
 
 ## The number that frames everything
 
@@ -82,7 +82,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [Docket rulings need a physics-vs-process class field — the coverage number can't distinguish them](open-items/2026-08-13-ruling-class-field.md) | OPEN | unassigned | 2026-08-13 |
 | [Docket ruling records should declare their number in one convention, not two](open-items/2026-08-13-ruling-selection-rule.md) | OPEN | unassigned | 2026-08-13 |
 | [`--check` blanks every date in the stable region — 1 legitimate target, 57 lines of collateral](open-items/2026-08-14-board-check-date-blanking.md) | OPEN | unassigned | 2026-08-14 |
-| [Electron-identity program is ACTIVE — Phase C banners landed; Audit 1 / Checkpoint 2 next](open-items/2026-08-14-electron-identity-program.md) | OPEN | unassigned | 2026-08-14 |
+| [Electron-identity program is ACTIVE — Audit 1 closed 2026-08-17; Checkpoint 2 next](open-items/2026-08-14-electron-identity-program.md) | OPEN | unassigned | 2026-08-14 |
 | [Sibling-repo debts — AVE-Fusion yield cross-wire + AVE-Bench-FemtoElectrometer stale sites](open-items/2026-07-03-sibling-repo-debts.md) | REGISTERED | unassigned | 2026-07-03 |
 | [The v3 ringdown instrument — the DISCRETE near-wall chain](open-items/2026-08-04-v3-ringdown-instrument.md) | REGISTERED | unassigned | 2026-08-04 |
 | [Hygiene backlog — Bell-arc citation follow-ups, FPR provenance re-grep, auditor-landing queue](open-items/2026-07-03-hygiene-backlog.md) | QUEUED | unassigned | 2026-07-03 |
@@ -114,7 +114,9 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 *(volatile — excluded from `--check`, since any PR retitle would otherwise make the check cry wolf)*
 
-No open PRs.
+| PR | state | title |
+|---|---|---|
+| #976 | unlabelled | orchestration: Checkpoint 2 — waste cleaned; no new electron |
 
 <!-- /volatile -->
 

@@ -386,6 +386,7 @@ that file for another reason.
 | `verify-md-links` — cited line is blank / decoration-only | all forms | no (advisory) |
 | `verify-md-links` — backticked-bare cite path resolves | backticked form | no (advisory) |
 | `verify-new-cite-excerpts` — added cites carry an excerpt | KB tree + root docs | yes |
+| `verify-engine-capability-anchors` — doctrine YAML cells are text-anchors | `engine_capability_matrix.yaml` loop-gap-doctrine cites | yes |
 | `verify-anchor-content` — excerpt still at the cited line | cites with an excerpt | no (advisory) |
 
 Line **existence** gates; line **content drift** does not. Writing the excerpt is
