@@ -1,8 +1,8 @@
 # Electron-identity — LaTeX + README follow-ups (end of epic)
 
-**Status:** RUNNING TRACKER. Not Phase C. Not a live dispatch.
+**Status:** RUNNING TRACKER. Unblocked by Checkpoint 2 (2026-08-18). Not a live dispatch in this PR.
 **Opened:** 2026-08-16
-**Gated on:** Audit 1 / Checkpoint 2 (Phase C KB banners landed this PR — F-rows flip to PENDING-READ, not DONE).
+**Gated on:** lifted 2026-08-18. First F-row after Grant dispatches. Do not start reads in this PR.
 **Epic:** `_orchestration/2026-08-14_electron-identity.md`
 
 ELECTRON-IDENTITY-LATEX-README-FOLLOWUPS-ANCHOR: one full LaTeX+README read per KB deprecation, end of epic.
@@ -16,7 +16,7 @@ Grant 2026-08-16: Phase C stays KB-only. LaTeX volumes and READMEs are **end-of-
 1. **Seed (this commit).** One row per Phase A ledger C-row (C1–C10). Status **QUEUED** — the KB banner has not landed.
 2. **When Phase C banners a C-row (or a new KB live-wrong site).** Flip that follow-up to **PENDING-READ**. If Phase C adds a deprecation that is not already a row, **append a new F-row** (do not fold it into an existing corpse). This is what "running" means. **2026-08-16:** C1–C10 banners landed; F-C1…F-C10 → PENDING-READ. No new C-row beyond the seed.
 3. **Discharge.** One implementor pass per F-row. Method below. Hits classified live-wrong / Q1 / fence-excluded. Live-wrong LaTeX/README sites get their own Type D banners in a **later** PR, not in Phase C.
-4. **Do not start these reads during Phase C.** End of epic = after Checkpoint 2 (Audit 1 green), unless Grant says otherwise.
+4. **Do not start these reads in the Checkpoint 2 PR.** Gate lifted 2026-08-18. First F-row after Grant dispatches, unless Grant says otherwise.
 
 **Not in this tracker:** engine code (`src/`), L3 archive bodies, research result docs (Q2), Poincaré cohesion, cosmic node-injection, Layer-8 / derive-\(\{m_e,\alpha,G\}\). Homonyms: \(\Gamma=-1\)/\(V_{\mathrm{yield}}\) *boundary* self-trap is the surviving localizer; cosmological lattice-genesis is the held-out K3 amend.
 
@@ -205,3 +205,5 @@ Phase C (or a later KB audit) that banners a **new** live-wrong site adds `F-<id
 | DONE | 0 | — |
 
 Census 2026-08-16 Phase C: **0 QUEUED / 10 PENDING-READ / 0 DONE**. Do not start these reads until Checkpoint 2.
+
+Census 2026-08-18 Checkpoint 2: still **0 QUEUED / 11 PENDING-READ / 0 DONE**. Gate lifted. Do not start these reads in this PR.

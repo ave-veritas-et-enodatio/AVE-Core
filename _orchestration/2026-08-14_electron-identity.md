@@ -3,7 +3,7 @@
 **Status:** ACTIVE
 **Opened:** 2026-08-14
 **Goal:** Stop the corpus from offering killed electron mechanisms as current, then put the identification on a test that can fail — LC-5 form factor vs LEP, then the exterior Coulomb tail.
-**Last updated:** 2026-08-17 (Audit 1 = two peer reviews of #975/#976, findings as input; this correction PR; Checkpoint 2 next)
+**Last updated:** 2026-08-18 (Checkpoint 2 — waste cleaned; no new electron)
 
 Filter for every phase: *does this stop a killed mechanism from being offered as current, or add one sentence to what an electron is?* If neither, stop.
 
@@ -20,6 +20,8 @@ CHECKPOINT-1-KILL-LIST: signed with amends 2026-08-14 (Poincaré and cosmic inje
 Phase 0 (#969), Phase A (#970), Phase B (#973), and the LaTeX+README tracker (#974) are on `main`. This PR lands Phase C Type D banners on ledger C1–C10 in `manuscript/ave-kb/` only. Poincaré cohesion, cosmic injection, and \(\{m_e,\alpha,G\}\) stay out. LaTeX/README follow-ups are **PENDING-READ**, not started. Audit 1 / Checkpoint 2 remain.
 
 **Current state 2026-08-17 (correction PR, base `origin/main` `36ce03b9`).** Phase C banners are on `main` (#975). Grant named the two peer reviews of #975/#976 as **Audit 1**, dated, findings as input. This PR closes those findings. Checkpoint 2 is next — through that gate, not around it (do not merge #976 as written). Poincaré cohesion, cosmic injection, and \(\{m_e,\alpha,G\}\) stay out.
+
+**Current state 2026-08-18 (Checkpoint 2, base `origin/main` `e13e1747`).** #978 is on `main`. Audit 1 is the two peer reviews of #975/#976, dated 2026-08-17, findings closed by #978. This PR is Checkpoint 2: we cleaned waste; we did not mint a new electron. #976 stays closed as written. Poincaré cohesion, cosmic injection, and \(\{m_e,\alpha,G\}\) stay out. LaTeX/README F-C1…F-C11 are **PENDING-READ**, unblocked, not started here. Phase D stays deferred until Grant opens it.
 
 The catalog exists (`electron-identification.md`: \(0_1\) unknot, phase-space \((2,3)\), \(\Gamma=-1\) TIR *boundary* cavity, T₂ core). The object does not: no assembled electron, Coulomb \(1/r\) asserted, charge-channel form factor ill-defined.
 
@@ -120,9 +122,17 @@ Type D Rule-12 banners on signed live-wrong sites **in `manuscript/ave-kb/` only
 
 **Not this phase:** LaTeX volumes and program READMEs. Those are end-of-epic follow-ups (tracker below; F-C1…F-C10 now PENDING-READ). Do not expand Phase C into `.tex` or `README.md`.
 
-**Audit 1 (CLOSED 2026-08-17).** Grant: the two independent peer reviews of #975/#976 **are Audit 1**, dated, findings as input. Specified checks (residue, substitution-not-retraction, Rule-12 bodies) ran and produced findings. Rule 12 on bodies held. Defect class: cite-rot from *inserting* banners. Findings land in the 2026-08-17 correction PR. **Checkpoint 2** after that correction: orchestrator paragraph — we cleaned waste; we did not mint a new electron. Do not merge #976 around this gate.
+**Audit 1 (CLOSED 2026-08-17).** Grant: the two independent peer reviews of #975/#976 **are Audit 1**, dated, findings as input. Specified checks (residue, substitution-not-retraction, Rule-12 bodies) ran and produced findings. Rule 12 on bodies held. Defect class: cite-rot from *inserting* banners. Findings closed by #978 (`e13e1747`).
 
-### Phase D (DEFERRED — gated on Checkpoint 2) — Horizons
+### Checkpoint 2 (this PR, 2026-08-18) — waste cleaned; no new electron
+
+We cleaned waste. Ledger C1–C10 plus the Audit 1 K3 stamp (`axiom-definitions.md:33`) in `manuscript/ave-kb/` no longer offer dynamical lock / remanence / LOOP GAP ranks / precursor-cook / `(2,3)` self-assembly as *current* manufacture or identity. Bodies stay (Rule 12). Fence held: Poincaré-class bulk cohesion, cosmic node-injection, \(\Gamma=-1\) *boundary* localizer, static Link `(2,3)`, \(\{m_e,\alpha,G\}\).
+
+We did not mint a new electron. The catalog is unchanged: \(0_1\) unknot, phase-space \((2,3)\), \(\Gamma=-1\) TIR *boundary* cavity, T₂ core. No assembled object. Coulomb \(1/r\) still asserted. Charge-channel form factor still ill-defined.
+
+Authorized next work is the LaTeX+README follow-ups (F-C1…F-C11). Phase D stays deferred until Grant opens it. #976 is not this PR — it redefined Grant's #975 merge as Audit 1; Audit 1 is the two peer reviews plus #978.
+
+### Phase D (DEFERRED — Grant has not opened it) — Horizons
 
 1. LC-5 form factor vs LEP (existing-data; Lorentz-compliance arc). Frozen prereg, pointers-not-values, SVA header.
 2. Exterior Coulomb tail — derive \(1/r\) or bank NOT-DERIVABLE. Name the terminal-charge fork; do not pick it in the dispatch.
@@ -133,13 +143,13 @@ Type D Rule-12 banners on signed live-wrong sites **in `manuscript/ave-kb/` only
 
 S-exponent + engine-platform YES/NO only if an engine lane is still wanted. E1 \(|\Gamma|=1\) self-closure in circuit language after C3. No lock re-run. No \(Q=137\) closure. No derivation of \(\{m_e,\alpha,G\}\). No Letter submit. No genesis \(vN\).
 
-## End-of-epic follow-ups (not Phase C)
+## End-of-epic follow-ups (unblocked by Checkpoint 2)
 
-LaTeX volumes and program READMEs wait on Checkpoint 2. Running tracker:
+LaTeX volumes and program READMEs. Running tracker:
 
 `_orchestration/2026-08-16_electron-identity-latex-readme-followups.md`
 
-One follow-up per KB deprecation (seeded F-C1…F-C10; append when Phase C banners a new site). Discharge of an F-row = **read every LaTeX document in the 166-file universe in full**, then the 9 program READMEs, for *that corpse only*. Grep may index; grep does not discharge. Do not start these reads during Phase C.
+One follow-up per KB deprecation (seeded F-C1…F-C10; F-C11 appended 2026-08-17). Discharge of an F-row = **read every LaTeX document in the 166-file universe in full**, then the 9 program READMEs, for *that corpse only*. Grep may index; grep does not discharge. Do not start these reads in *this* PR. First F-row may be dispatched after this merges.
 
 ## Open decisions
 
@@ -147,9 +157,9 @@ One follow-up per KB deprecation (seeded F-C1…F-C10; append when Phase C banne
 - **Calibration set (Grant 2026-08-14):** \(\{m_e,\alpha,G\}\) are the inputs and the minimum set. This epic does not derive them. Layer-8 is not a lane. Canon G MIXED form (`/7`) stands; Chain B′ (forward G) is not an electron-identity lane — whether to close that OPEN tag on the gravity register is a separate word, not this epic.
 - Smallest-wave question (walk, RECORD §4): start from the linear photon, not a unique "smallest" wave. Not a phase until Grant says so. RECORD §4 unpaid (i) (which SI length replaces Compton if Layer-8 runs) is **moot**.
 - Existing-physics manufacture (walk, RECORD §6): specify the medium, take projections (linear Maxwell → walls M/Q/J → saturation). Not a cook. Not a phase until Grant says so.
-- Phase A: **CLOSED** (#970). Phase B: **CLOSED** (#973). Phase C banners: **CLOSED** (#975). Audit 1: **CLOSED 2026-08-17** (two peer reviews of #975/#976; findings as input; this correction PR). Checkpoint 2 remains (do not merge #976 as written). C7/C8 K2 residue is bannered. `axiom-definitions.md:33` K3 residue bannered 2026-08-17.
-- LaTeX + README follow-ups: **PENDING-READ**, end of epic, after Checkpoint 2. Tracker: `_orchestration/2026-08-16_electron-identity-latex-readme-followups.md`. Do not start during Checkpoint 2. F-C11 added 2026-08-17 (`axiom-definitions.md:33`).
-- Audit tags (close-out): `audit/2026-08-15_electron-identity-phase-0` @ `554c5ec0`; `audit/2026-08-15_electron-identity-phase-a` @ `869c11cf`.
+- Phase A: **CLOSED** (#970). Phase B: **CLOSED** (#973). Phase C banners: **CLOSED** (#975). Audit 1: **CLOSED 2026-08-17** (two peer reviews of #975/#976; findings as input; #978). Checkpoint 2: **this PR**. C7/C8 K2 residue is bannered. `axiom-definitions.md:33` K3 residue bannered 2026-08-17.
+- LaTeX + README follow-ups: **PENDING-READ**, unblocked. Tracker: `_orchestration/2026-08-16_electron-identity-latex-readme-followups.md`. First F-row after this merges. Phase D not opened. F-C11 is in the set.
+- Audit tags (close-out): `audit/2026-08-15_electron-identity-phase-0` @ `554c5ec0`; `audit/2026-08-15_electron-identity-phase-a` @ `869c11cf`; `audit/2026-08-16_electron-identity-latex-readme-followups` @ `d0ca01d3`; `audit/2026-08-16_electron-identity-phase-c` @ `446987d1`; `audit/2026-08-18_electron-identity-audit1` @ `bbb8024c`.
 - 21 leftover worktrees: local chore, not this epic.
 - AVE-Skills README 19 vs 49: wrong repo; not this epic.
 
@@ -164,6 +174,12 @@ One follow-up per KB deprecation (seeded F-C1…F-C10; append when Phase C banne
 1. Stop a killed mechanism offered as current? **Yes** — `axiom-definitions.md:33` K3 genesis-from-precursor clause stamped; inbound C1 cites repointed so they no longer land on the wrong clause.
 2. Sentence about what an electron is, or an honest negative? **Honest negative** — manufacture-path K3 is not current; cosmic node-injection still held out; no new electron.
 3. New surface that is not 1 or 2? **No** — YAML text-anchors + fail-loud checker kill the insert-shifts-pins *class* on the eight doctrine cells (same effort-class as the finding, not a new physics lane). Checkpoint 2 remains. F-C11 is a follow-up row, not a started read.
+
+## Filter check (Checkpoint 2 PR, 2026-08-18) — appended, not a replacement
+
+1. Stop a killed mechanism offered as current? **Already done** (#975, #978). This PR does not banner.
+2. Sentence about what an electron is, or an honest negative? **Honest negative** — we cleaned waste; we did not mint a new electron.
+3. New surface that is not 1 or 2? **No** — F-C1…F-C11 stay PENDING-READ (not started here); Phase D not opened; fence held.
 
 ## References
 

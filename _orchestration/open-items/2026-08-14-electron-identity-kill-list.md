@@ -24,5 +24,6 @@ calibration set — do not derive them). Static Link / tank (2,3) stands
 
 This item stays Grant-owned because FLAG-W (the K1 amend's gate) is still
 his word. Phase A inventoried the signed kills. Phase B Status-flipped
-the tracker rows. Phase C Type D banners on ledger C1–C10 land in the
-companion program PR. Do not pick FLAG-W here.
+the tracker rows. Phase C Type D banners on ledger C1–C10 landed in #975;
+the Audit 1 K3 stamp at `axiom-definitions.md:33` landed in #978. Do not
+pick FLAG-W here.

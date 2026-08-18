@@ -507,3 +507,10 @@ Filter check for the Phase C PR: (1) *stop a killed mechanism offered as current
 an honest negative?* — **honest negative: those signed kills are not current;
 no new electron.** (3) *new surface?* — **no** (LaTeX/README F-rows PENDING-READ,
 not started).
+
+**Dated note 2026-08-18 (Checkpoint 2; does not rewrite the inventory).**
+Audit 1 findings closed by #978. This PR records the close, not a new
+kill-row: C1–C10 plus the Audit 1 K3 stamp at `axiom-definitions.md:33`
+are bannered in `manuscript/ave-kb/`; we did not mint a new electron.
+F-C1…F-C11 stay PENDING-READ (not started). Phase D not opened. FLAG-W
+not picked. Cosmic node-injection stays out.
