@@ -140,6 +140,8 @@ The acceptance-test battery is the Genesis-v5 electron spec-sheet (`genesis-v5 p
 
 **Status: ALL PENDING** (v5 run in flight; graft-v2 full run currently gives `(w_tor,w_pol)=(0,0)` → the named winder-gap residual, `crystal-graft-v2_result.md:28`).
 
+> ★ SURFACE NOTE 2026-08-17 — *"v5 run in flight"* was true only on the day: the v5 run **completed the same day**, `research/2026-06-10_genesis-v5-seeded-snap_result.md` (2026-06-10; driver `src/scripts/vol_1_foundations/genesis_v5_seeded_snap_run.py`, raw numbers `research/2026-06-10_genesis-v5-seeded-snap_results.json`), against the frozen prereg `research/2026-06-10_genesis-v5-seeded-snap_prereg.md`. The genesis stack these acceptance verdicts sit on was **later KILLED**: kill-row **K3** *"Genesis from free precursor as manufacture path — Five self-assembly routes FAILED"*, SIGNED 2026-08-14 (`_orchestration/2026-08-14_electron-identity.md:40`; durable fence `research/2026-08-14_electron-identity-checkpoint1-walk_RECORD.md` §2). Read the T1–T6 verdict table below as a 2026-06-10 snapshot of a since-killed manufacture path, not as pending work. Body unchanged (Rule 12) — flagged by the 2026-08-17 repo-cleanup census, Wave 1.
+
 ---
 
 ## 8. FAILURE MODES

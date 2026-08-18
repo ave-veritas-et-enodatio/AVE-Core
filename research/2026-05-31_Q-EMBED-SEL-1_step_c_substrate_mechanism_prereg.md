@@ -2,6 +2,8 @@
 
 **Status**: DRAFT, NOT LOCKED. PENDING Grant plumber-physical adjudication of §3 below.
 
+> ★ SURFACE NOTE 2026-08-17 — the header above is stale: this prereg **was** locked and **was** run to result. Receipts: (i) §7 of this same file is titled *"Final consolidated synthesis (2026-05-31 EOD) — **LOCKED**"* with §7.7 *"Status — LOCKED"* and the checkbox *"PREREG LOCKED FOR IMPLEMENTOR SPAWN"*; (ii) the lock commit is `58464bb7` (2026-05-31) *"prereg(Q-EMBED-SEL-1 §4.B): LOCKED — §7 consolidated synthesis ready for implementor"*; (iii) the result landed at `research/2026-05-31_Q-EMBED-SEL-1_step_c_result.md`, whose `:3` cites this file as *"§7 LOCKED"*. Body unchanged (Rule 12) — flagged by the 2026-08-17 repo-cleanup census, Wave 1.
+
 **Branch**: `analysis/q-embed-sel-1-investigation` (off main).
 **Draft PR**: [#59](https://github.com/ave-veritas-et-enodatio/AVE-Core/pull/59).
 **Parent epic**: [`_orchestration/2026-05-31_q-embed-sel-1-evaluation.md`](../_orchestration/2026-05-31_q-embed-sel-1-evaluation.md) §4.B (analytical derivation target).

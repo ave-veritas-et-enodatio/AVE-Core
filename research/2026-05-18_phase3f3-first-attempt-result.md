@@ -3,6 +3,8 @@
 **Date**: 2026-05-18
 **Test**: [src/tests/test_fdtd3d_cosmic_cooling_freeze_in.py](../src/tests/test_fdtd3d_cosmic_cooling_freeze_in.py)
 **Status**: BLOCKED on engine numerical instability with random per-cell directional noise
+
+> ★ SURFACE NOTE 2026-08-17 — currentness only: **the block was never lifted.** The named fix (*"Phase 3f.3.2 should use SMOOTH noise (Gaussian-convolved random field)"*) has **no artifact in the repo** — the token `3f.3.2` occurs at HEAD only in this document and in the `xfail` reason of `src/tests/test_fdtd3d_cosmic_cooling_freeze_in.py:99`, which is still `@pytest.mark.xfail(..., strict=False)` on `test_cosmic_cooling_stochastic_persistence` and still points here for the diagnosis. The successor attempt hit a **third** stability blocker the same week (`research/2026-05-18_phase3f33-result.md:6` *"TECHNICAL BLOCKER per pre-reg Outcome E"*). Treat this as a closed 2026-05-18 snapshot of an FDTD3D-engine blocker, not as work in progress. Body unchanged (Rule 12) — flagged by the 2026-08-17 repo-cleanup census, Wave 1.
 **Pre-reg**: [2026-05-18_phase3f3-cosmic-cooling-matter-formation-prereg.md](2026-05-18_phase3f3-cosmic-cooling-matter-formation-prereg.md)
 
 ## TL;DR

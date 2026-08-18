@@ -2,7 +2,7 @@
 
 # Wall-Branch Fork (H3): the electron's Γ=−1 wall — MAGNETIC or CAPACITIVE saturation?
 
-**Lane founded:** 2026-06-15 · **Branch:** `analysis/2026-06-15-wall-branch-fork` (off `main` @ `40a2a2e7`) · **Worktree:** `AVE-Core-wall-wt` · **Status:** ACTIVE — Phase 1 (corpus map + prereg)
+**Lane founded:** 2026-06-15 · **Branch:** `analysis/2026-06-15-wall-branch-fork` (off `main` @ `40a2a2e7`) · **Worktree:** `AVE-Core-wall-wt` · **Status:** SUPERSEDED 2026-08-17 — the fork resolved **B3 DEGENERATE** and the lane closed; PR **#260 MERGED 2026-06-16** (`gh pr view 260`, title *"Wall-fork (H3): the electron's Γ=−1 wall is NOT an independent magnetic-vs-capacitive branch — verdict B3 DEGENERATE"*). Body preserved (Rule 12). Was: ACTIVE — Phase 1 (corpus map + prereg)
 
 **Arc:** corpus-grep prereg → Rule-11 freeze → auditor-gate → driver → result → adjudicate to Grant. `main` PROTECTED; all edits via reviewed PR; **Grant merges**.
 

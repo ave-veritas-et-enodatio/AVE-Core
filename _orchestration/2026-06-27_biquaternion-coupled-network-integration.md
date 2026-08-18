@@ -1,7 +1,7 @@
 # Biquaternion complex coupled network integration (epic)
 
 **Date:** 2026-06-27 · **Branch:** `analysis/2026-06-27-biquaternion-coupled-network-integration` (off `origin/main`)  
-**Status:** ACTIVE — Phase 2 (Vol. 9 render). Worktree: `AVE-Core/.worktrees/biq-coupled-network/`. No merge to `main` without reviewed PR.
+**Status:** SUPERSEDED 2026-08-17 — abandoned; nothing named here exists. The worktree `AVE-Core/.worktrees/biq-coupled-network/` is a **phantom** (`.worktrees/` at the main checkout is empty; `git worktree list` has no biq entry), and the branch `analysis/2026-06-27-biquaternion-coupled-network-integration` exists **nowhere** — 0 hits in `git branch -a --list '*biquaternion*'` and 0 in `git ls-remote --heads origin` (9 remote branches, 2026-08-17). Body preserved (Rule 12). Was: ACTIVE — Phase 2 (Vol. 9 render). Worktree: `AVE-Core/.worktrees/biq-coupled-network/`. No merge to `main` without reviewed PR.
 
 ---
 

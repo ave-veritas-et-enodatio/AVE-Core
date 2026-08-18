@@ -2,7 +2,7 @@
 
 **Founded:** 2026-06-16
 **Type:** Orchestration lane (audit/challenge — NOT implementor)
-**Status:** ACTIVE — first-pass (`wxzjr5w6p`) + independent second-pass verification (`wdu86r1f4`, 2026-06-16, findings at bottom) complete. Second pass CORRECTED the first (two phantom escalations withdrawn: `gamma_c` bug + ACT-02 test). Awaiting Grant's rulings — prioritized brief delivered inline.
+**Status:** SUPERSEDED 2026-08-17 — the lane is not awaiting rulings: every PR this doc names is **MERGED** (`gh pr view`, 2026-08-17) — #248, #257, #260, #265, #266, #267, #268, #269, #270, #271, all merged 2026-06-16/17. **Not resolved here:** the D1 residual (the Smith-chart / projective-ℂP¹ ontology item, §D1 and the second-pass entry below) fell off every tracked surface; it is re-tracked for the **Wave-2 adjudication sitting** of the 2026-08-17 repo-cleanup epic (PR #977, not yet on `main` at the time of this flip) — that sitting locates it and either re-tracks or declares it dead. No verdict is minted by this status flip. Body preserved (Rule 12). Was: ACTIVE — first-pass (`wxzjr5w6p`) + independent second-pass verification (`wdu86r1f4`, 2026-06-16, findings at bottom) complete. Second pass CORRECTED the first (two phantom escalations withdrawn: `gamma_c` bug + ACT-02 test). Awaiting Grant's rulings — prioritized brief delivered inline.
 
 ---
 

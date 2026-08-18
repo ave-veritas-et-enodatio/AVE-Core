@@ -3,7 +3,7 @@
 **Branch:** `analysis/double-slit-ee-mapping` (off `main`)
 **Session type:** Implementor (single-deliverable; KB-only — no engine code, no `.py` touched)
 **Discipline applied:** `ave-ee-first-mapping` (Step 6 land+mirror+regime-tag+cross-ref), `consistency-vs-emergence` (classify as translation/consistency), `ave-evidence-framing-discipline` (honest flags carried verbatim), `verify-before-cite` (every anchor grep-confirmed before landing), `ave-canonical-source`, `substrate-native-check` trigger-6 (EE IS substrate-native — no SM leakage in prose), Pure-AVE-corpus rule.
-**Status:** ALL 4 DELIVERABLES LANDED on `analysis/double-slit-ee-mapping` (commit log §9). KB metadata PASS; `refresh-kb-metadata` no-op (no derived-field drift); zero broken-intra links from the new leaves; load-bearing physics-chain audit (SHORT-not-OPEN electron core, wake regime-tag end-to-end, helical-photon retraction-only) PASS. Ready for orchestrator audit + merge.
+**Status:** SUPERSEDED 2026-08-17 — audited and **MERGED**: PR **#85** merged 2026-06-04 (`gh pr view 85`, title *"kb(double-slit-ee): consolidated double-slit + photon-structure EE/glossary mapping leaves"*; merge commit `72a32cc2` *"Merge pull request #85 from ave-veritas-et-enodatio/analysis/double-slit-ee-mapping"*, and this doc's own closing commit `73395a15` is reachable from `main`). Body preserved (Rule 12). Was: ALL 4 DELIVERABLES LANDED on `analysis/double-slit-ee-mapping` (commit log §9). KB metadata PASS; `refresh-kb-metadata` no-op (no derived-field drift); zero broken-intra links from the new leaves; load-bearing physics-chain audit (SHORT-not-OPEN electron core, wake regime-tag end-to-end, helical-photon retraction-only) PASS. Ready for orchestrator audit + merge.
 
 ---
 

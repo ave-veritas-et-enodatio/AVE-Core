@@ -1,6 +1,6 @@
 # Epic: α Class-2 Lift via Radiation-Resistance / Antenna-Q
 
-**Status:** ACTIVE — Stage 0 complete, Stage A/B next
+**Status:** SUPERSEDED 2026-08-17 — the lift path closed **NEGATIVE 2026-06-04**. Receipts: `research/2026-06-04_alpha-class2-bijection-result.md:5` — *"**VERDICT: Class B confirmed.** The last α-¼ lift-path closes."*; and this doc's own heading below, *"LIFT DEFINITIVELY CLOSED — all reachable routes"* (2026-06-02, all four driver routes). Body preserved (Rule 12). Was: ACTIVE — Stage 0 complete, Stage A/B next
 **Opened:** 2026-06-02
 **Lane:** orchestration (analytical derivation; engine confirmation later)
 **Closes (if successful):** the open Class-2 lift workstream named at
