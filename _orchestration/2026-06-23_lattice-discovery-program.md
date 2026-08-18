@@ -1,6 +1,6 @@
 # EPIC — Lattice Dynamic-Regime Discovery Program (substrate-native)
 
-**Created:** 2026-06-23 · **Role:** orchestrator-tracked epic (living doc) · **Status:** ACTIVE — lanes mid-flight, all PRs HELD pending substrate-native cleanup
+**Created:** 2026-06-23 · **Role:** orchestrator-tracked epic (living doc) · **Status:** SUPERSEDED 2026-08-17 — *"all PRs HELD"* is false: every PR this doc names is resolved. `gh pr view` 2026-08-17 — **#390 / #391 / #392 / #393 MERGED 2026-06-24**; **#388 / #389 CLOSED** (never merged). Body preserved (Rule 12). Was: ACTIVE — lanes mid-flight, all PRs HELD pending substrate-native cleanup
 **Origin:** the lattice-characterization white-space survey (`w2jugq7ch`). **Reframed 2026-06-23** after Grant flagged standard-physics-vocab contamination (see §0.5).
 
 ---

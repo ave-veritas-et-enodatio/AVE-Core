@@ -1,6 +1,6 @@
 # Orchestration branch plan — post genesis mega-session (2026-06-11)
 
-**Status:** ACTIVE plan doc (orchestration lane). **Main @ `0b4b9d5c`.** 0 open PRs.
+**Status:** SUPERSEDED 2026-08-17 — false on every clause. `main` is **`36ce03b9`**, not `0b4b9d5c` (that commit is the 2026-06-11 merge of PR #184; **4,121 commits** back, `git rev-list --count 0b4b9d5c..origin/main`), and there are **3 open PRs** (#976, #977, #978 — `gh pr list --state open`, 2026-08-17), not 0. Body preserved (Rule 12). Was: ACTIVE plan doc (orchestration lane). **Main @ `0b4b9d5c`.** 0 open PRs.
 **Companion:** [`index.md`](index.md) §2026-06-11 reconciliation · [`2026-06-11_session-handoff.md`](2026-06-11_session-handoff.md) · [`research/2026-06-11_next-step-fundamentality-plan.md`](../research/2026-06-11_next-step-fundamentality-plan.md).
 
 > Every row below lands on its own `analysis/<date>-<slug>` branch + reviewed PR. No direct-to-main.

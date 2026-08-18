@@ -2,7 +2,7 @@
 
 **Opened:** 2026-06-11
 **Branch:** `analysis/2026-06-11-lattice-d1-test-gated` (orchestration docs)
-**Status:** ACTIVE — **test not pick**
+**Status:** SUPERSEDED 2026-08-17 — D1 was **RATIFIED 2026-07-03** (srs-z3 is the engine's production carrier; the diamond z=4 engine re-tagged non-canonical instrument). Receipt: `manuscript/ave-kb/common/engine-capability-map.md:186` §8b.0 *"D1 RATIFICATION (2026-07-03): srs-z3 is the production carrier"*, citing `_orchestration/2026-07-03_srs-migration-policy.md` + the 2026-07-03 addendum to `research/2026-06-12_lattice-d1-adjudication-memo.md`. Body preserved (Rule 12). Was: ACTIVE — **test not pick**
 **Supersedes:** prose D1 rulings; partial "srs it is" hypothesis stays **hypothesis** until bins land
 
 ---
