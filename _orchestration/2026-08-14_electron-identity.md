@@ -159,7 +159,7 @@ One follow-up per KB deprecation (seeded F-C1…F-C10; F-C11 appended 2026-08-17
 - Existing-physics manufacture (walk, RECORD §6): specify the medium, take projections (linear Maxwell → walls M/Q/J → saturation). Not a cook. Not a phase until Grant says so.
 - Phase A: **CLOSED** (#970). Phase B: **CLOSED** (#973). Phase C banners: **CLOSED** (#975). Audit 1: **CLOSED 2026-08-17** (two peer reviews of #975/#976; findings as input; #978). Checkpoint 2: **this PR**. C7/C8 K2 residue is bannered. `axiom-definitions.md:33` K3 residue bannered 2026-08-17.
 - LaTeX + README follow-ups: **PENDING-READ**, unblocked. Tracker: `_orchestration/2026-08-16_electron-identity-latex-readme-followups.md`. First F-row after this merges. Phase D not opened. F-C11 is in the set.
-- Audit tags (close-out): `audit/2026-08-15_electron-identity-phase-0` @ `554c5ec0`; `audit/2026-08-15_electron-identity-phase-a` @ `869c11cf`; `audit/2026-08-16_electron-identity-latex-readme-followups` @ `d0ca01d3`; `audit/2026-08-16_electron-identity-phase-c` @ `446987d1`; `audit/2026-08-18_electron-identity-audit1` @ `bbb8024c`.
+- Audit tags (close-out): `audit/2026-08-15_electron-identity-phase-0` @ `554c5ec0`; `audit/2026-08-15_electron-identity-phase-a` @ `869c11cf`; `audit/2026-08-15_electron-identity-phase-b` @ `71208c65`; `audit/2026-08-16_electron-identity-latex-readme-followups` @ `d0ca01d3`; `audit/2026-08-16_electron-identity-phase-c` @ `446987d1`; `audit/2026-08-18_electron-identity-audit1` @ `bbb8024c`.
 - 21 leftover worktrees: local chore, not this epic.
 - AVE-Skills README 19 vs 49: wrong repo; not this epic.
 

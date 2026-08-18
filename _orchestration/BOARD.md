@@ -4,7 +4,9 @@
 
 # AVE program board
 
-Scanned tree **e13e1747** (2026-08-18) · 460 index records · 330 claims · 4 PRs open
+Scanned tree **7b9b3ee2** (2026-08-18) · 460 index records · 330 claims · 4 PRs open
+
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`e13e1747`). Every count below describes **7b9b3ee2**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -116,10 +118,10 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 | PR | state | title |
 |---|---|---|
+| #981 | unlabelled | orchestration: Checkpoint 2 — waste cleaned; no new electron |
 | #980 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] orchestration: Wave 1 status hygien |
 | #979 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] cleanup: remove the 85 MB stale twi |
 | #977 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] orchestration: open the repo-cleanu |
-| #976 | unlabelled | orchestration: Checkpoint 2 — waste cleaned; no new electron |
 
 <!-- /volatile -->
 
