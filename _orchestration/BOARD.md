@@ -4,7 +4,9 @@
 
 # AVE program board
 
-Scanned tree **36ce03b9** (2026-08-16) · 460 index records · 330 claims · 1 PR open
+Scanned tree **7b9b3ee2** (2026-08-18) · 460 index records · 330 claims · 4 PRs open
+
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`e13e1747`). Every count below describes **7b9b3ee2**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -82,7 +84,8 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [Docket rulings need a physics-vs-process class field — the coverage number can't distinguish them](open-items/2026-08-13-ruling-class-field.md) | OPEN | unassigned | 2026-08-13 |
 | [Docket ruling records should declare their number in one convention, not two](open-items/2026-08-13-ruling-selection-rule.md) | OPEN | unassigned | 2026-08-13 |
 | [`--check` blanks every date in the stable region — 1 legitimate target, 57 lines of collateral](open-items/2026-08-14-board-check-date-blanking.md) | OPEN | unassigned | 2026-08-14 |
-| [Electron-identity program is ACTIVE — Audit 1 closed 2026-08-17; Checkpoint 2 next](open-items/2026-08-14-electron-identity-program.md) | OPEN | unassigned | 2026-08-14 |
+| [Electron-identity program is ACTIVE — Checkpoint 2; LaTeX/README follow-ups next](open-items/2026-08-14-electron-identity-program.md) | OPEN | unassigned | 2026-08-14 |
+| [Electron-identity LaTeX + README follow-ups — one full document-read per KB deprecation (unblocked; waiting first F-row)](open-items/2026-08-16-electron-identity-latex-readme-followups.md) | OPEN | unassigned | 2026-08-16 |
 | [Sibling-repo debts — AVE-Fusion yield cross-wire + AVE-Bench-FemtoElectrometer stale sites](open-items/2026-07-03-sibling-repo-debts.md) | REGISTERED | unassigned | 2026-07-03 |
 | [The v3 ringdown instrument — the DISCRETE near-wall chain](open-items/2026-08-04-v3-ringdown-instrument.md) | REGISTERED | unassigned | 2026-08-04 |
 | [Hygiene backlog — Bell-arc citation follow-ups, FPR provenance re-grep, auditor-landing queue](open-items/2026-07-03-hygiene-backlog.md) | QUEUED | unassigned | 2026-07-03 |
@@ -90,7 +93,6 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [J(ω) coupling fork — needs the engine constitutive tensor](open-items/2026-07-20-jomega-coupling-fork.md) | QUEUED | unassigned | 2026-07-20 |
 | [u/A transverse identity-collapse candidate — are the EM and mechanical-transverse sectors two meters on one bench object?](open-items/2026-07-20-ua-transverse-identity-collapse.md) | QUEUED | unassigned | 2026-07-20 |
 | [Q-law derivation — why the standing-v1 mΩ τ lands at −5.4 %](open-items/2026-07-21-q-law-derivation.md) | QUEUED | unassigned | 2026-07-21 |
-| [Electron-identity LaTeX + README follow-ups — one full document-read per KB deprecation, after Checkpoint 2](open-items/2026-08-16-electron-identity-latex-readme-followups.md) | QUEUED | unassigned | 2026-08-16 |
 | [BUILD-class instruments — quantum-seeded floor, arrow instruments, CVR bench](open-items/2026-07-20-build-class-instruments.md) | PARKED | grant | 2026-07-20 |
 | [Vessel-state shell → γ_c couple-stress → (2,3) winding — the wall-asymmetry carrier candidate](open-items/2026-07-20-vessel-state-shell-walk.md) | PARKED | grant | 2026-07-20 |
 | [D5 — the WD / Q=ℓ tag question, deliberately held by ruling](open-items/2026-08-04-d5-wd-qell-tag-hold.md) | PARKED | grant | 2026-08-02 |
@@ -116,7 +118,10 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 | PR | state | title |
 |---|---|---|
-| #976 | unlabelled | orchestration: Checkpoint 2 — waste cleaned; no new electron |
+| #981 | unlabelled | orchestration: Checkpoint 2 — waste cleaned; no new electron |
+| #980 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] orchestration: Wave 1 status hygien |
+| #979 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] cleanup: remove the 85 MB stale twi |
+| #977 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] orchestration: open the repo-cleanu |
 
 <!-- /volatile -->
 
