@@ -83,7 +83,7 @@ LEGACY_LANE_CHECK_ALIASES = \
 	verify-approach-leak-number-check \
 	verify-approach-leak-v2-number-check
 
-.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks refresh-provenance-baseline framing-audit verify-anchor-content verify-new-cite-excerpts test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup gamma-census $(LEGACY_LANE_CHECK_ALIASES)
+.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks refresh-provenance-baseline framing-audit verify-anchor-content verify-new-cite-excerpts verify-engine-capability-anchors test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup gamma-census $(LEGACY_LANE_CHECK_ALIASES)
 
 help:
 	@echo "Applied Vacuum Engineering (AVE-Core) Build System"
@@ -104,6 +104,7 @@ help:
 	@echo "  make framing-audit        : Scan corpus for reviewer-misread framing anti-patterns (advisory)"
 	@echo "  make verify-anchor-content : Check cited path:NN vs adjacent backtick excerpt drift (WARN-CLASS advisory)"
 	@echo "  make verify-new-cite-excerpts : Require a verbatim excerpt beside every line-cite this branch ADDS to the KB (gating; CITE_BASE=<ref>)"
+	@echo "  make verify-engine-capability-anchors : Fail-loud text-anchors for loop-gap doctrine cells in engine_capability_matrix.yaml"
 	@echo "  make gamma-census         : Signed-Gamma corpus census + reconciliation of the prior sweeps (SURVEY; never gates)"
 	@echo "  make test                 : Run unit tests, bedrock keepers (src/tests + kb tools; engine-sims excluded)"
 	@echo "  make test-engine          : Run slow engine-simulation tests (opt-in; -m engine_sim)"
@@ -195,6 +196,8 @@ verify: $(KB_VERIFY) verify-md-links verify-provenance-stamps verify-frozen-prov
 	$(PYTHON) $(SCRIPT_DIR)/predictions_manifest_validator.py --manifest manuscript/consistency-manifest.yaml
 	@echo "\n[Verify] Running ξ namespace collision guard..."
 	$(PYTHON) $(SCRIPT_DIR)/verify_xi_namespace.py
+	@echo "\n[Verify] Engine-capability YAML text-anchors (fail-loud)..."
+	$(PYTHON) $(KB_TOOLS_DIR)/verify-engine-capability-anchors.py
 	@echo "\n[Verify][advisory] Running anchor-content drift check (WARN-CLASS, non-gating)..."
 	-$(PYTHON) $(KB_TOOLS_DIR)/verify-anchor-content.py
 	-$(PYTHON) $(KB_TOOLS_DIR)/verify-docket-keys.py
@@ -566,6 +569,14 @@ verify-new-cite-excerpts:
 verify-anchor-content:
 	@echo "[Anchor] Cited-line vs quoted-excerpt drift check (WARN-CLASS advisory; always exit 0)..."
 	$(PYTHON) $(KB_TOOLS_DIR)/verify-anchor-content.py
+
+# Fail-loud text-anchors for loop-gap-doctrine cells in engine_capability_matrix.yaml.
+# Own target so a missing recipe cannot silently drop the class-kill; also invoked
+# from the `verify` recipe body (not the `verify:` prerequisite line — that line
+# is a union-conflict class). Matching does not strip `**` (C6 receipt).
+verify-engine-capability-anchors:
+	@echo "[Anchors] engine_capability_matrix.yaml doctrine text-anchors (fail-loud)..."
+	$(PYTHON) $(KB_TOOLS_DIR)/verify-engine-capability-anchors.py
 
 # Placed as its OWN target rather than appended to the verify-lane-number-checks
 # recipe: PR #845 has an open, unmerged edit to that recipe, and a second

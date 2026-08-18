@@ -15,7 +15,8 @@ in full**, then the 9 program-facing READMEs, looking for *that corpse*
 offered as current. Grep does not discharge a row.
 
 Seeded F-C1…F-C10 from the Phase A ledger. Phase C banners on C1–C10
-landed 2026-08-16; the tracker F-rows are **PENDING-READ**. This board
+landed 2026-08-16; the tracker F-rows are **PENDING-READ**. F-C11 added
+2026-08-17 (`axiom-definitions.md:33`, Audit 1 K3 residue). This board
 item stays **QUEUED** until Checkpoint 2 (do not start the reads).
 Running: append an F-row when a later KB audit banners a site that is
 not already a row.

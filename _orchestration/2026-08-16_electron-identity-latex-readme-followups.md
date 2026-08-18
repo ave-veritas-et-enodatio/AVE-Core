@@ -177,6 +177,17 @@ Hits: *(empty until discharged)*
 
 Hits: *(empty until discharged)*
 
+### F-C11 — K3 formation-route still "remains open" on the axiom leaf
+
+| | |
+|---|---|
+| **KB deprecation** | Audit 1 · `manuscript/ave-kb/vol1/axioms-and-lattice/ch1-fundamental-axioms/axiom-definitions.md:33` |
+| **Corpse** | *"the formation-route (genesis of a winding from a free precursor) remains open"* |
+| **Fence** | Cosmic node-injection is held out. Charge = winding dictionary and the engine-derived interaction leg are **not** this row. |
+| **Status** | PENDING-READ |
+
+Hits: *(empty until discharged)*
+
 ---
 
 ## New rows (append below; do not edit C1–C10 history)
@@ -190,7 +201,7 @@ Phase C (or a later KB audit) that banners a **new** live-wrong site adds `F-<id
 | Status | F-rows | Listing |
 |---|---:|---|
 | QUEUED | 0 | — |
-| PENDING-READ | 10 | F-C1 … F-C10 (KB banners landed 2026-08-16 this PR; ten `### F-C` headings) |
+| PENDING-READ | 11 | F-C1 … F-C11 (KB banners landed 2026-08-16; F-C11 Audit 1 residue 2026-08-17; eleven `### F-C` headings) |
 | DONE | 0 | — |
 
 Census 2026-08-16 Phase C: **0 QUEUED / 10 PENDING-READ / 0 DONE**. Do not start these reads until Checkpoint 2.
