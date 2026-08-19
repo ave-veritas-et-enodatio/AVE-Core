@@ -101,6 +101,7 @@ The heart of the map. Each arc: the **question as opened** (prove-or-disprove fr
 - *Closed:* electron-genesis-from-free-precursor at the interior-field level; three escape hatches.
 - *Opened:* the α-free boundary-observable re-aim; the two-sector engine.
 - *Receipts:* `audit/2026-06-16_keystone-energize-lock-substrate-pump`; `audit/2026-06-13_loop-gap-genesis-archive`; `genesis-chord-falsification-ledger.md`.
+- *Methodology caveat (added 2026-08-19, Wave-2 D15a — verdict UNCHANGED):* the banked freeze-g / handedness controls (`348b4241`, 2026-06-16 20:12 −07:00) **predate by 1h47m** the tag-only Phase-25 adversarial-panel overturn (`7542990e`, 2026-06-16 21:59 −07:00; `_orchestration/2026-06-15_passive-eigenmode-solve.md` §8, landed 2026-08-19), which re-scoped the `dt→0` SUBSTRATE-PUMP read to *"UNADJUDICATED, NOT negative, NOT positive"* on a frozen-Sector-A baseline plus an asymmetric operator split that plateaus by construction — so the NEGATIVE above stands **not** on that plateau but on the later independent category-error scoping (interior-field route sub-Nyquist / phase-space) and the ARC-12 Mode-III energy-certified bulk-cage result (N7; PR #403 / #404).
 - *Successor:* ARC-12 (bulk-cage reroute).
 
 **ARC-09 · sector-ownership canon (the two "3"s).** Window: 2026-06-13.
