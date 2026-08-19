@@ -1,4 +1,4 @@
-> **SURFACE-NOTE — landed 2026-08-19 from tag `archive/analysis/2026-06-15-eigenmode-heldbc` (Wave-2 **D15a**, `_orchestration/docket-entries/2026-08-18-wave2-adjudication-sitting.md`); FROZEN at tag state, body below unedited. Current adjudicated state: `manuscript/ave-kb/common/program-arc-map.md` ARC-08 = **"NEGATIVE (leans-falsified)"** and the electron-identity **K3** kill (*"Genesis from a free precursor as manufacture path"*, `research/2026-08-14_electron-identity-checkpoint1-walk_RECORD.md` §2).**
+> **SURFACE-NOTE — landed 2026-08-19 from tag `archive/analysis/2026-06-15-eigenmode-heldbc` (Wave-2 **D15a**, `_orchestration/docket-entries/2026-08-18-wave2-adjudication-sitting.md`); FROZEN at tag state, body below unedited. Current adjudicated state: `manuscript/ave-kb/common/program-arc-map.md` ARC-08 = **"NEGATIVE (leans-falsified)"****
 
 # OPTION C′ — the NO-WORK Beltrami-helicity hold: BIN = NEGATIVE (earned)
 

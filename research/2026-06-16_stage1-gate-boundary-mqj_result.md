@@ -1,4 +1,4 @@
-> **SURFACE-NOTE 2026-08-19 (Wave-2 D15a, landed from tag `archive/analysis/2026-06-16-boundary-mqj-selftrap-integrator-zwall`; frozen at tag state).** The fifth boundary-MQJ doc of the ruling's own enumeration, initially missed because it lives on a different tag than its siblings. Current adjudicated state: `program-arc-map.md` ARC-08 + the electron-identity K3 signed kill (manufacture-path only).
+> **SURFACE-NOTE 2026-08-19 (Wave-2 D15a, landed from tag `archive/analysis/2026-06-16-boundary-mqj-selftrap-integrator-zwall`; frozen at tag state).** The fifth boundary-MQJ doc of the ruling's own enumeration, initially missed because it lives on a different tag than its siblings. Current adjudicated state: `program-arc-map.md` ARC-08 + the electron-identity K3 signed kill (manufacture-path only). The driver / engine / results-JSON this doc cites are NOT on main; they live only on `archive/analysis/2026-06-16-boundary-mqj-selftrap-integrator-zwall`.
 
 # Stage-1 GATE result — boundary-MQJ self-trap integrator + Z-at-wall
 
