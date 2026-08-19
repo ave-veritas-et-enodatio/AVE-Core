@@ -223,6 +223,10 @@ The **0.92 → 1.6e-13** figure is the investigation's *monkeypatched* copy-firs
   - **(ii-c) SECOND impedance conflict — NEW separate open audit (not in the original fork brief).** Op14 canonical `Z_eff = Z₀/S^(1/2)` (`operators.md:54`) vs the lensing leaf `Z_local = Z₀/S^(1/4)` (`k4-tlm-lensing-validation.md:22`) — a genuine impedance-LAW power discrepancy (S^(−1/2) vs S^(−1/4)), PLUS a defective speed-from-impedance map `c_local = c₀·√(Z₀/Z)` at `:25` (in a non-dispersive medium c and Z are independent — `c=1/√(LC)`, `Z=√(L/C)` — c cannot be recovered from Z alone). The engine's `S^0.25` index equals `Z₀/Z` under THIS (non-canonical) lensing impedance, which is why the bug rode in. Recommend a separate audit to reconcile the lensing leaf to Op14 and fix/delete the `:25` map. Surfaced per flag-don't-fix; NOT resolved here.
 - **(iii) fork OPEN → Grant: are engines first-class on the spine?** Keep the `\kbleaf{src/ave/...:line}` default (per §1.5), OR mint a code-provenance node-type via a deliberate SCHEMA extension. The "code-provenance index" is named in S12/`SCHEMA.md` but NOT materialized — minting a `sim-`/`code-` prefix is a Grant decision, not an implementer default.
 - **(iv) fork OPEN → Grant: is L5-genesis in-scope now?** Its closest target `clm-8zpicx` is sol **0.40 / DO-NOT-BUILD** and the genesis self-trap **dynamics-class is FALSIFIED** in the ledger (only the boundary-confinement operator is untested). There is **no solid precursor** to validate an L5 acceptance layer against today.
+  > ★ **RESOLVED 2026-08-18 (Wave-2 sitting, D1-A) — answered NO by the K3 signed kill** (electron-identity
+  > Checkpoint 1: genesis-from-free-precursor as manufacture path; epic Phase E "No genesis vN"; routing doc
+  > SUPERSEDED, Phase B ledger B13). The cosmic node-injection amend is HELD OUT of that kill (default no,
+  > a separate Grant word). Fork text above preserved (Rule 12); the open-item is closed in the same PR.
 
 ## §8.5 — Per-layer skill-selection (the 60-sec plan, mandatory per rung)
 
