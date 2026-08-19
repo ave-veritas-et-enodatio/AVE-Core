@@ -31,7 +31,7 @@ Do NOT use the `\vacuum` macro (exists but unused in chapter bodies). KB distill
 
 Volumes 1–5 write `$\ell_{node}$` (script ell) as the primary form. Volumes 6–7 write `$l_{node}$` (roman ell) as the primary form. Vol 8 does not use this symbol. Vols 2 and 4 contain isolated roman-ell instances in their source; those specific instances must be preserved as roman (do not normalize to script). Distillers must preserve the source notation within each volume; do not normalize across volumes.
 
-*Confirmed by: source grep — vol1 (52 script, 2 roman); vol2 (56 script, 4 roman); vol3 (19 script, 1 roman); vol4 (22 script, 4 roman); vol5 (29 script, 0 roman); vol6 (1 script, 3 roman); vol7 (1 script, 4 roman); vol8 (0)*
+*Confirmed by: source grep — vol1 (52 script, 2 roman); vol2 (56 script, 4 roman); vol3 (19 script, 1 roman); vol4 (22 script, 4 roman); vol5 (29 script, 0 roman); vol6 (1 script, 3 roman); vol7 (1 script, 4 roman); vol8 (0). Counts flagged STALE 2026-08-18 (P2 §5 rider, Wave-2 D15f-3): re-derive at the next notation survey; the vol-split rule itself stands.*
 
 ### INVARIANT-N3: AVE Operator numbering convention
 
@@ -51,7 +51,7 @@ $S_{11}$ is used as the standard EE reflection coefficient in Vol 4 and Vol 7, A
 
 ### INVARIANT-S1: tcolorbox environments
 
-All volumes share these named environments: `resultbox`, `axiombox`, `simbox`, `examplebox`, `summarybox`, `exercisebox`, `circuitbox`, `codebox`, `objectivebox`. In KB markdown, each renders as a named blockquote with a bold environment-type prefix:
+All volumes share these named environments: `resultbox`, `axiombox`, `simbox`, `examplebox`, `summarybox`, `exercisebox`, `circuitbox`, `codebox`, `objectivebox`, `warningbox`, `designbox` (S1 re-synced 2026-08-18 to the preamble's defined set, Wave-2 D15f-2). In KB markdown, each renders as a named blockquote with a bold environment-type prefix:
 
 ```markdown
 > **[Resultbox]** *Title of the Result*
@@ -59,9 +59,9 @@ All volumes share these named environments: `resultbox`, `axiombox`, `simbox`, `
 > Body content...
 ```
 
-Individual volumes may use only a subset; resultbox is the most common. Vol 5 uses only resultbox. Vol 8 uses none.
+Individual volumes may use only a subset; resultbox is the most common. Vol 5 uses only resultbox. Vol 8 uses none. Raw un-named `tcolorbox` also occurs (~16 sites, vol_2–vol_5); it is permitted ad-hoc styling, not an S1 violation — new boxes should prefer a named environment. `warningbox` bodies are standing caveats and MUST survive distillation (render as `**[Warningbox]**` blockquotes).
 
-*Confirmed by: vol1, vol2, vol3, vol4, vol5, vol6, vol7 (confirmed in surveys); vol8 (zero instances)*
+*Confirmed by: vol1, vol2, vol3, vol4, vol5, vol6, vol7 (confirmed in surveys); vol8 (zero instances); warningbox 19 uses cross-volume + designbox defined in commands.tex (2026-08-18 re-sync)*
 
 ### INVARIANT-S2: AVE Axiom numbering
 

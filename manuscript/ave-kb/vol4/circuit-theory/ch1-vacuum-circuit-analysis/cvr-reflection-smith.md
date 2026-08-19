@@ -83,7 +83,7 @@ Re-runnable: `PYTHONPATH=$PWD/src python src/scripts/vol_9_device/cvr_ee_sweep/c
 
 - **Owning canonical claims:** [master-equation.md](../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):78-79 (clm-lv3uw1, magnetic $\Gamma=-1$); [theorem-3-1-q-factor.md](theorem-3-1-q-factor.md) (clm-rtdmsn, the $\alpha=1/Q$ leak); [resonant-lc-solitons.md](resonant-lc-solitons.md):42-46 (the $\Gamma=-1$ short).
 - **Companion sweep views:** [Transfer Function $H(s)$](cvr-transfer-function.md) · [DC Operating Point](cvr-dc-operating-point.md) · [Phasor / Reactance](cvr-phasor-reactance.md) · [Stability / Eigenmode](cvr-stability-eigenmode.md).
-- **Tool-axis:** [translation-circuit.md](../../../common/translation-tables/translation-circuit.md):181 (Smith-chart row this leaf consolidates); [operators.md](../../../common/operators.md):43 (Op3 $\Gamma$).
+- **Tool-axis:** [translation-circuit.md](../../../common/translation-tables/translation-circuit.md):181 (Smith-chart row this leaf consolidates); [operators.md](../../../common/operators.md):43 (Op3 $\Gamma$); the biquaternion Möbius/SL(2,ℂ) identity at its existing echo ceiling (`research/2026-06-06_biquaternion-node-algebra-result.md` §5.3 — INVARIANT-F2 wiring, 2026-08-18).
 - **Canonical script:** `src/scripts/vol_9_device/cvr_ee_sweep/cvr_ee_sweep.py` (+ `cvr_model.py`).
 
 ---

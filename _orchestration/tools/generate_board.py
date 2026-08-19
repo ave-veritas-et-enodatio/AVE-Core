@@ -617,7 +617,17 @@ def main() -> int:
             tail = parts[1].split(VOLATILE_END, 1)
             stable = parts[0] + (tail[1] if len(tail) > 1 else "")
             stable = re.sub(r"\b[0-9a-f]{7,40}\b", "<sha>", stable)
-            stable = re.sub(r"\b20\d\d-\d\d-\d\d\b", "<date>", stable)
+            # Date normalization is ANCHORED to the self-referential header
+            # line only (Wave-2 D4, option 1, ruled 2026-08-18). The blanket
+            # date sub blanked 116 dates across 58 stable-region lines to
+            # protect the 1 genuinely self-referential one -- open-item href
+            # retargets and opened-date cells were invisible to a guard whose
+            # stated purpose is catching hand edits
+            # (open-items 2026-08-14-board-check-date-blanking). Every other
+            # date in the stable region is program state: byte-for-byte.
+            stable = re.sub(
+                r"^(Scanned tree .*?)\b20\d\d-\d\d-\d\d\b",
+                r"\1<date>", stable, flags=re.M)
             # THIRD volatile thing in the header, and the one that got missed.
             # (Docstring above: item 2 of 4. Keep the two in step.)
             # The open-PR SECTION is excluded by the volatile bounds, but the

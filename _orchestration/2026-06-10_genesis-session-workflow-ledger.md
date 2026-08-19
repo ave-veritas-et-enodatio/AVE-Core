@@ -1,5 +1,10 @@
 # Orchestration ledger — 2026-06-10 / 11 electron-genesis mega-session
 
+**Status:** SUPERSEDED 2026-08-18 — historical workflow record; the manufacture path this
+session orchestrated is K3 signed-killed (electron-identity Checkpoint 1) and its routing
+doc is SUPERSEDED (Phase B ledger B13). Header added per the status-header convention
+(Wave-2 D15e); it previously had none. Body untouched (Rule 12).
+
 **What this is.** A workflow record for the night's multi-arc orchestration run: the
 arcs dispatched, where each landed, and — the reason this ledger exists — the
 **mid-flight control events** (stop / amend / resume / recover) and the **decision

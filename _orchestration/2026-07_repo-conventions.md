@@ -355,3 +355,16 @@ Every `file:line` here was grep-verified at this doc's worktree HEAD. Where the 
 - `manuscript/predictions.yaml` = 36 `id:` entries ✓; validator `src/scripts/predictions_manifest_validator.py` + test `src/tests/test_predictions_manifest_validator.py` both exist ✓.
 - 36 entries = 33 numbered + 3 `P_A034_*` (unnumbered). The 33 numbered (7 compound `P##_##`: P11_12, P17_18, P20_21, P26_28, P29_32, P33_38, P44_45) expand to cover exactly predictions 1–47, none missing (Python-verified). Delta closes.
 - README Master Prediction Table at `README.md:181`+ (rows 1–47, 40 displayed rows) ✓.
+
+---
+
+> ★ **AMENDED 2026-08-18 — §(e) compound-token allowlist (P2 §5 ruling, Wave-2 sitting D15f-1).**
+> The §(e) MARKER regex is supplemented by a literal compound-token allowlist the linter loads and
+> skips: `RESEARCH-PENDING`, `AUDIT-PENDING`, `ADJUDICATION-PENDING`, `REVIEW-PENDING`,
+> `RITUAL-PENDING` (compound states), `DEAD-MID-FLIGHT` (terminal). `MERGE-PENDING` is deliberately
+> **NOT** allowlisted — a live merge-pending is a live marker (P1 §B, the index.md:160 precedent).
+> New compounds enter by dated amendment here, not ad-hoc in the tool. **This amendment binds only
+> if/when the §(e) linter is built**; the linter-build go is a separate decision that should weigh
+> the one-source-of-truth shift (open-items frontmatter already carries owner+date
+> machine-readably; the linter's remaining value is the legacy epic-doc surface, ~449 marker lines
+> at the 2026-08-18 recount). Appended at file end per the §(c) append-only record rule.

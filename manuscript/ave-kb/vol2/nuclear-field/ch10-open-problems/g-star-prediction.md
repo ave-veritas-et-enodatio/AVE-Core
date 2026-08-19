@@ -7,7 +7,7 @@ claims: [clm-4vwsjc]
 
 ## Testable Prediction: $g_* = 85.75$
 
-The derivation $g_* = 7^3/4 = 85.75$ disagrees with the Standard Model value $g_{*,SM} = 106.75$. This is a **falsifiable prediction** with concrete experimental consequences.
+The derivation $g_* = 7^3/4 = 85.75$ disagrees with the Standard Model value $g_{*,SM} = 106.75$. This is a **falsifiable prediction** with concrete experimental consequences. *(Provenance caveat 2026-08-18, Wave-2 D15b rider: the `/7` in this expression rides the canon G MIXED `/7` FORM — form-derived, value-imported per the FORM-deriving/VALUE-importing meta-finding (PRs #262–#264). The prediction is falsifiable conditional on that provenance; it is not a zero-parameter closure.)*
 
 ### What Is Missing?
 

@@ -82,7 +82,11 @@ The **88 MB duplicate SPICE netlist tree**: `manuscript/vol_6_periodic_table/sim
 
 ## Wave 3 — serialized lanes, after Waves 1–2
 
-1. **research/ archive sweep** — policy exists, unenforced; 1,153 files outside `_archive`, heuristic upper bound ~76 candidates. One lane, batch PRs.
+1. **Figure/data migration lane (REVIVED 2026-08-18, Wave-2 D15f-3)** — the ratified P1
+   Option-1 migration, bundled with the D13 drivers-verification lane: verify generators →
+   migrate cited figures/data + repoint drivers → archive confirmed-dead drivers. One
+   link-coupled discipline, one sequencing.
+2. **research/ archive sweep** — policy exists, unenforced; 1,153 files outside `_archive`, heuristic upper bound ~76 candidates. One lane, batch PRs.
 2. **F-row combined read pass** — after the W2-5 re-scope; discharge the ten rows in one 175-document read with per-row hit ledgers.
 3. **Ringdown wave** — vol3 ch08+ch15, backmatter/07, vol9 ch03:205 (12 gated findings). **Correctly gated on cold-Q; no action until the gate lifts.** Listed so its silence reads as gated, not forgotten.
 4. Owed reconciliation tail — 4 board corrections + the addenda micro-lane from the manuscript-reconciliation epic.
