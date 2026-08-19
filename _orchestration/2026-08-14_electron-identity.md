@@ -151,6 +151,8 @@ LaTeX volumes and program READMEs. Running tracker:
 
 One follow-up per KB deprecation (seeded F-C1…F-C10; F-C11 appended 2026-08-17). Discharge of an F-row = **read every LaTeX document in the 166-file universe in full**, then the 9 program READMEs, for *that corpse only*. Grep may index; grep does not discharge. Do not start these reads in *this* PR. First F-row may be dispatched after this merges.
 
+**Discharge rule re-scoped 2026-08-18 (Wave-2 ruling D7-A):** the reads above are now discharged by **one combined full-document pass over the whole 175-document universe that produces a per-row hit ledger for every open F-row at once** (full-document reads, no subsampling, grep-never-discharges, and per-row fences all survive verbatim) — see *Discharge protocol — COMBINED PASS* in the tracker.
+
 ## Open decisions
 
 - Checkpoint 1: **signed with amends** (2026-08-14). Remaining Grant words on the *amends* are FLAG-W (already routed, not this item) and whether to open cosmic injection (default: no).

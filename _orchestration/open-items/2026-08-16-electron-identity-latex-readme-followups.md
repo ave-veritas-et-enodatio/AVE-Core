@@ -22,5 +22,13 @@ Grant to dispatch the first F-row. Do not start the reads in the
 Checkpoint 2 PR. Running: append an F-row when a later KB audit banners
 a site that is not already a row.
 
+> ★ **RE-SCOPED 2026-08-18 (Wave-2 D7-A, ratified).** Discharge is now **one combined
+> read pass** over the 175-document universe producing a per-row hit ledger for every
+> F-row open at pass start (F-C1…F-C11 at ruling time) — not one solo pass per row.
+> Everything frozen above survives: full reads, grep-never-discharges, per-row fences
+> and ledgers. Banners landing after a pass append F-rows that wait for the NEXT pass.
+> Protocol text: the tracker's "Discharge protocol — COMBINED PASS" section. What
+> Grant now dispatches is the one pass, not eleven. Body above preserved (Rule 12).
+
 Poincaré cohesion, cosmic node-injection, and Layer-8 /
 derive-\(\{m_e,\alpha,G\}\) stay out of fence.

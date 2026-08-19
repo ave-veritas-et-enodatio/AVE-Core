@@ -15,7 +15,7 @@ Grant 2026-08-16: Phase C stays KB-only. LaTeX volumes and READMEs are **end-of-
 
 1. **Seed (this commit).** One row per Phase A ledger C-row (C1–C10). Status **QUEUED** — the KB banner has not landed.
 2. **When Phase C banners a C-row (or a new KB live-wrong site).** Flip that follow-up to **PENDING-READ**. If Phase C adds a deprecation that is not already a row, **append a new F-row** (do not fold it into an existing corpse). This is what "running" means. **2026-08-16:** C1–C10 banners landed; F-C1…F-C10 → PENDING-READ. No new C-row beyond the seed.
-3. **Discharge.** One implementor pass per F-row. Method below. Hits classified live-wrong / Q1 / fence-excluded. Live-wrong LaTeX/README sites get their own Type D banners in a **later** PR, not in Phase C.
+3. **Discharge.** One implementor pass per F-row — **superseded 2026-08-18 (Wave-2 D7-A): one combined pass covers every open F-row at once**; method in *Discharge protocol — COMBINED PASS* below. Hits classified live-wrong / Q1 / fence-excluded. Live-wrong LaTeX/README sites get their own Type D banners in a **later** PR, not in Phase C.
 4. **Do not start these reads in the Checkpoint 2 PR.** Gate lifted 2026-08-18. First F-row after Grant dispatches, unless Grant says otherwise.
 
 **Not in this tracker:** engine code (`src/`), L3 archive bodies, research result docs (Q2), Poincaré cohesion, cosmic node-injection, Layer-8 / derive-\(\{m_e,\alpha,G\}\). Homonyms: \(\Gamma=-1\)/\(V_{\mathrm{yield}}\) *boundary* self-trap is the surviving localizer; cosmological lattice-genesis is the held-out K3 amend.
@@ -49,7 +49,32 @@ Re-run both listings at discharge time. If the count moved, update this section 
 
 ---
 
+## Discharge protocol — COMBINED PASS (ruled 2026-08-18, Wave-2 D7-A)
+
+**Grant 2026-08-18 (D7-A).** F-row discharge is **one combined read pass** over the whole 175-document universe, producing a **per-row hit ledger for every open F-row at once** — not one full-universe pass per corpse. Nothing frozen on 2026-08-16 is relaxed: the reads are still **full-document** reads of the **whole listing**, never subsampled by "likely volumes"; **grep may index, grep never discharges a row**; each row keeps **its own fence**; and the **per-row hit ledger stays the discharge artifact**. What is shared is the *reading*, not the *ledger* — one traversal of the corpus, every row's corpse-filter applied to each document as it is read.
+
+**Arithmetic.** Solo-pass rule as written: 11 F-rows × (166 LaTeX + 9 README) = **1,925** full-document reads. Combined pass: **175** full-document reads — one per document, with one classification per row recorded per document. Same evidence, the ~11× duplication removed.
+
+### What one pass is
+
+1. **Scope.** A pass covers **the F-row set open when the pass starts**. At ruling time that set is **F-C1 … F-C11** (eleven rows — F-C11 was appended 2026-08-17 and is in the set). The pass states its row set explicitly in its own header; a pass with an unstated row set discharges nothing.
+2. **Universe.** The pass reads the full listing from **Read universe** above — re-run both `git ls-files` commands at pass start, and if a count moved, update that section in the pass's own PR. **A pass is valid only if its read log covers the full universe listing.** A pass whose log falls short of the listing discharges **no** row, however many hits it found.
+3. **Reading.** Each document is read **in full, once**, and classified against **every** row in the pass's set inside that single read: for each row, is that corpse offered as *current*, named as dead (Q1), or fence-excluded (Poincaré / cosmic genesis / boundary self-trap / calibration inputs)? Fences stay **per row** — clearing one row's fence says nothing about another's.
+4. **Deliverable.** One **Hits** ledger section per row in the set, appended under that row, with the **same fields as before**: path · verbatim fragment · why-current (live-wrong / Q1 / fence-excluded), plus the live-wrong / Q1 / fence-excluded counts.
+5. **Zero-hit rows.** A row with **no hits in the pass** closes on the **pass's read receipt** — "read log covers the full 175-document listing; 0 hits for this corpse" — and flips to DONE. Silence out of a complete full-document read is evidence; silence out of a grep is not.
+6. **Flip.** Each row in the pass's set flips to **DONE** when its ledger section lands. Do not banner in the read PR unless Grant says the read-and-banner may share a PR.
+
+### Rows that arrive after a pass
+
+A Phase-C banner (or later KB audit) that lands **after** a pass has started **appends its F-row and waits for the next combined pass**. It does **not** trigger a fresh solo full-universe read, and it is **not** back-fitted into a finished pass's ledger — that pass's reader was not carrying the new corpse-filter, so its read receipt cannot speak for the new row. One new row is a reason to schedule the next pass, not a reason to re-read the corpus alone.
+
+`verify-before-cite` on every live-wrong fragment. `ave-walk-back` Q1/Q2 on the classification. Both unchanged.
+
+---
+
 ## Discharge protocol (every F-row)
+
+> **Superseded 2026-08-18** by the combined-pass protocol above (Wave-2 ruling D7-A); body preserved (Rule 12) — every frozen requirement below still binds, only the one-full-universe-pass-per-row *scoping* is replaced.
 
 For **this corpse only** (the verbatim fragment + K# in the row):
 
