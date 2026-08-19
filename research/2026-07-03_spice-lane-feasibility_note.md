@@ -51,6 +51,18 @@ run-and-cross-check lane*, not about building from zero.
 | vol9 device-circuit-models | `manuscript/ave-kb/vol9/ch3-pin-port-configuration/device-circuit-models.md` | 256 lines; §1 cell sectors, §6 graded network | — | clm-kezk9z + |
 | chiral circulator vocab | `manuscript/ave-kb/common/vocabulary-register.md:696` (`def-ch1crc`) | STATED pending chiral-crystal engine; NOT adjudicated | — | — |
 
+> **[DATED POINTER NOTE 2026-08-18 — Wave-2 PR-3, ruling D6-3]** The "Compiler demo"
+> row above cites `.agents/scratch/demo_spice_compiler.py`. That path is DEAD as of
+> 2026-08-18: the demo was re-homed to
+> [`src/scripts/vol_4_engineering/demo_spice_compiler.py`](../src/scripts/vol_4_engineering/demo_spice_compiler.py),
+> beside the vol-4 SPICE driver family it exercises, because `.agents/` is gitignored
+> ephemeral scratch and the file was force-tracked inside it. The row's FINDING is
+> unchanged and still stands — 111 lines, "verifies" via numpy ABCD matrices, not
+> ngspice, runs. Its four `.cir`/`.png` companions were dropped from tracking in the
+> same PR (regenerable: re-run the demo; they now land in that directory's gitignored
+> `_output/`). The table above is frozen 2026-07-03 evidence and is deliberately NOT
+> rewritten — this note is the additive path correction only.
+
 **clm- IDs riding on the SPICE leaves:** clm-vjv4zf, clm-c54kdd,
 clm-9sujp8, clm-cbwd77, clm-kezk9z (grepped across the ch14-18 + vol9
 leaves). All are KB-leaf claims describing the netlist *forms*; none

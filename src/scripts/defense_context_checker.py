@@ -28,8 +28,12 @@ Exit codes:
     1 — invocation error (e.g. unknown --rule id)
     2 — one or more `critical` findings present (build-gating)
 
-Reference: docs/framing_and_presentation.md, .agents/workflows/audit-math.md,
-           .agents/workflows/audit-latex.md
+Reference: docs/framing_and_presentation.md, docs/workflows/audit-math.md,
+           docs/workflows/audit-latex.md
+           [PATH NOTE 2026-08-18, Wave-2 PR-3 / ruling D6-3: the two audit
+            playbooks moved from the gitignored `.agents/workflows/` scratch
+            to the tracked `docs/workflows/`. Content unchanged; only the
+            home moved. Git history follows the rename.]
 """
 import argparse
 import json
@@ -79,7 +83,7 @@ RULES: list[Rule] = [
             "Claimed decimal 0.30794 matches 97/315; 139/450 = 0.30889."
         ),
         fix="Replace 139/450 with 97/315.",
-        see="audit-math.md §1 (Known Stale Values) and docs/framing_and_presentation.md",
+        see="docs/workflows/audit-math.md §1 (Known Stale Values) and docs/framing_and_presentation.md",
     ),
     # ─── B1: α as free/input parameter without derivation cross-ref ────────
     Rule(

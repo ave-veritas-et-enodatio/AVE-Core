@@ -14,6 +14,17 @@ from ave.solvers.spice_netlist_compiler import (
 import numpy as np
 import matplotlib.pyplot as plt
 
+from pathlib import Path
+
+# PATH NOTE 2026-08-18 (Wave-2 PR-3, ruling D6-3): this demo and its four artifacts
+# used to live in `.agents/scratch/`, which is gitignored ephemeral scratch. The demo
+# was re-homed beside the vol-4 SPICE driver family it exercises; its outputs now land
+# in that family's `_output/` convention instead of writing back into the scratch dir.
+# The artifacts are regenerable (`python src/scripts/vol_4_engineering/demo_spice_compiler.py`)
+# and are deliberately NOT tracked.
+_OUT = Path(__file__).resolve().parent / "_output"
+
+
 def plot_outputs():
     # 1. Plot EE Bench Plateau
     V_YIELD = 43653.7
@@ -33,7 +44,7 @@ def plot_outputs():
     plt.legend()
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
-    plt.savefig('.agents/scratch/demo_ee_bench.png', dpi=150)
+    plt.savefig(_OUT / 'demo_ee_bench.png', dpi=150)
     plt.close()
     
     # 2. Plot Glycine AC Response (Cascaded LRC using ABCD matrices as verification)
@@ -75,22 +86,24 @@ def plot_outputs():
     plt.xscale('log')
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
-    plt.savefig('.agents/scratch/demo_glycine.png', dpi=150)
+    plt.savefig(_OUT / 'demo_glycine.png', dpi=150)
     plt.close()
-    
+
     print("\n   Plots generated:")
-    print("   -> .agents/scratch/demo_ee_bench.png")
-    print("   -> .agents/scratch/demo_glycine.png")
+    print(f"   -> {_OUT / 'demo_ee_bench.png'}")
+    print(f"   -> {_OUT / 'demo_glycine.png'}")
 
 def run_demo():
     print("="*60)
     print("AVE SPICE COMPILER: UNIFICATION DEMO")
     print("="*60)
-    
+
+    _OUT.mkdir(parents=True, exist_ok=True)
+
     print("\n1. Generating EE Bench DC Sweep (Dielectric Plateau Verification)...")
     ee_bench_cir = compile_ee_bench_dc_sweep(c0=10e-12, v_yield=43653.7, v_max=45000.0)
-    write_netlist(ee_bench_cir, ".agents/scratch/demo_ee_bench.cir")
-    print("   -> Exported to: .agents/scratch/demo_ee_bench.cir")
+    write_netlist(ee_bench_cir, str(_OUT / "demo_ee_bench.cir"))
+    print(f"   -> Exported to: {_OUT / 'demo_ee_bench.cir'}")
     
     print("\n2. Generating Amino Acid Topological Network (Glycine)...")
     # Toy topology of Glycine's main backbone
@@ -100,8 +113,8 @@ def run_demo():
         {"from": "C_carboxyl", "to": "O", "L": 2.6e-18, "C": 1.0e-24, "R": 0}
     ]
     glycine_cir = compile_amino_acid_network("Glycine", glycine_bonds)
-    write_netlist(glycine_cir, ".agents/scratch/demo_glycine.cir")
-    print("   -> Exported to: .agents/scratch/demo_glycine.cir")
+    write_netlist(glycine_cir, str(_OUT / "demo_glycine.cir"))
+    print(f"   -> Exported to: {_OUT / 'demo_glycine.cir'}")
     
     plot_outputs()
     

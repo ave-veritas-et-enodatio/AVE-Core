@@ -13,21 +13,21 @@ Run all three specialized auditors in sequence and produce a unified report.
 ### Phase 1: Code Audit
 Run `/audit-code` first because code correctness is prerequisite to LaTeX correctness.
 
-1. Follow all steps in `.agents/workflows/audit-code.md`
+1. Follow all steps in `docs/workflows/audit-code.md`
 2. Record all findings
 3. Run `make verify` and `make test` — record pass/fail
 
 ### Phase 2: Math Audit
 Run `/audit-math` to verify all LaTeX equations and values match the (now-audited) engine.
 
-1. Follow all steps in `.agents/workflows/audit-math.md`
+1. Follow all steps in `docs/workflows/audit-math.md`
 2. Cross-reference any code findings from Phase 1 that affect LaTeX
 3. Record all findings
 
 ### Phase 3: LaTeX Audit
 Run `/audit-latex` for formatting and structural hygiene.
 
-1. Follow all steps in `.agents/workflows/audit-latex.md`
+1. Follow all steps in `docs/workflows/audit-latex.md`
 2. Record all findings
 
 ### Phase 4: Defense-Context Checker
