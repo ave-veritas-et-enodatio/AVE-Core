@@ -88,3 +88,27 @@ P1(d): of 96 epic docs, 56 have NO status header, 23 use non-enum tokens, 0 are 
 4. **Branch executions:** per §1 rulings (tag-and-delete batches; docs-landing PRs for LAND families).
 5. **Doc-fix PR:** root CLAUDE.md rewrite (tag count, dead branch rows, dead-branch guidance), LIVING_REFERENCE + README basis declarations per §3, conventions 40→33 descriptor.
 6. **P4 (after P3):** `lint-status-markers` (warn mode, backlog = the 181-line baseline), figure-placement checker, badge derive-and-compare, sampled citation-currency check; PROPOSED monthly hygiene routine (created only on your explicit go).
+
+---
+
+> ★ **TRIAGE 2026-08-18 (Wave-2 sitting, D15-D3-meta ruling: triaged-remnant, not batch-as-written).**
+> Per-section liveness at HEAD `dd831604`, re-derived before any word was spent:
+> **§1 (44-branch table): MOOT as a table** — 40 of 44 gone, every one tag-preserved; live residue
+> ruled in the sitting: row 2b LANDED via the honest-set landing (supersedes the earlier
+> close-as-moot lean); the 3 parked branches TAG-AND-DELETED 2026-08-18 (tags verified at exact
+> heads); 3 merged-undeleted branches tagged `audit/2026-08-18_*` and deleted.
+> **§2 (91-file orphan set): LIVE, re-censused** — ~24 self-resolved since 2026-07-04, ~40
+> files/~92 MB found outside the census; ruled group-by-group in the sitting (see the
+> 2026-08-18 Wave-2 docket entry); execution = cleanup-epic PR-7.
+> **§3 (predictions-count): PARTIAL, arithmetic superseded** by the 2026-08-13 manifest split;
+> live residue = align LIVING_REFERENCE's "46" to the README:41 basis (ruled D15d; lands with the
+> manifest-trio PR).
+> **§4 (orch-doc dispositions): PARTIAL** — row 1 mooted by the 2026-08-15 Phase-B stamps; row 2
+> (genesis workflow ledger header) DONE 2026-08-18; row 3 (header backfill) adopted D15e, counts
+> re-derived by the backfill lane before execution.
+> **§5 (convention amendments): ruled** — (e)-allowlist AMENDED-then-ratified (see the conventions
+> file-end note); S1 warningbox+designbox admitted in-place; wildcard-citer default ratified with
+> the figure/data migration REVIVED as a cleanup-epic Wave-3 lane bundled with the
+> drivers-verification lane.
+> **§6 (P3 preview): superseded** where the cleanup epic carries the same work; the migration lane
+> above is its survivor. Body above this line untouched (Rule 12).

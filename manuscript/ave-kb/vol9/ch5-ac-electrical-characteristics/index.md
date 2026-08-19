@@ -53,8 +53,9 @@ ground-up engine-acceptance suite (`src/tests/engine_acceptance/`, wired in
   α-invariance under SYM (`sup-ftxwil` → `clm-3zz0f6`). (T2.2 achromatic lensing →
   Ch.12; T2.3 asymmetric mirror → Ch.3/Ch.7.)
 - **c_EM/c_shear/c_bulk DEF-LOCK** carried in the suite docstrings; the suite ⚑FLAGS 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]**
-  the brief √S vs corpus S^(1/4) c_shear discrepancy (dormant at S=1; adjudicate before
-  any saturated-shear test).
+  the √S-vs-(1−A²)^(1/4) c_shear surface — a two-bases IDENTITY, discharged 2026-06-17
+  (fork-1 wkuou8n2l; code fixed dc0e7d1b, def-lock prose fa122c6c; Wave-2 D2-A 2026-08-18).
+  The c_bulk leg stays under the untouched R40-B2a demotion above.
 
 ## Manuscript counterpart
 

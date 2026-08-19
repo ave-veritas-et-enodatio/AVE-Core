@@ -9,7 +9,7 @@ is a later promotion, per the anchor-checker precedent).
 import re, sys, collections, pathlib
 
 DOCKET = pathlib.Path(__file__).resolve().parents[3] / "_orchestration" / "2026-07-10_rulings-docket.md"
-GRANDFATHERED = {"22", "32"}  # 22 = intentional "(cont.)" continuation (same key by design, not a collision); 32 = union-merge artifact. 31 deliberately NOT grandfathered (currently single; warn if it ever re-collides).
+GRANDFATHERED = {"22": 2, "32": 2}  # key -> ALLOWED count (Wave-2 D5-B, 2026-08-18: a bare set was count-blind -- a THIRD collision on either key would have hidden behind the grandfather). 22 = intentional "(cont.)" continuation (same key by design, not a collision); 32 = union-merge artifact, frozen-tail ruled (docket :2430, history never rewritten). 31 deliberately NOT grandfathered (currently single; warn if it ever re-collides). New grandfathers enter by dated amendment here.
 
 def main() -> int:
     text = DOCKET.read_text(encoding="utf-8")
@@ -21,7 +21,7 @@ def main() -> int:
                 text += "\n" + frag.read_text(encoding="utf-8")
     keys = re.findall(r"^### ENTRY ([0-9A-Za-z][0-9A-Za-z._-]*)", text, re.M)
     counts = collections.Counter(keys)
-    dups = {k: c for k, c in counts.items() if c > 1 and k not in GRANDFATHERED}
+    dups = {k: c for k, c in counts.items() if c > GRANDFATHERED.get(k, 1)}
     print(f"[verify-docket-keys] entries: {len(keys)} | unique keys: {len(counts)} | "
           f"grandfathered numeric dups: {sorted(k for k in counts if counts[k] > 1 and k in GRANDFATHERED)}")
     if dups:
