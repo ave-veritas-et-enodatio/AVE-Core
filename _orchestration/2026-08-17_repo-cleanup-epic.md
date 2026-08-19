@@ -86,7 +86,16 @@ The **88 MB duplicate SPICE netlist tree**: `manuscript/vol_6_periodic_table/sim
    Option-1 migration, bundled with the D13 drivers-verification lane: verify generators →
    migrate cited figures/data + repoint drivers → archive confirmed-dead drivers. One
    link-coupled discipline, one sequencing.
-2. **research/ archive sweep** — policy exists, unenforced; 1,153 files outside `_archive`, heuristic upper bound ~76 candidates. One lane, batch PRs.
+2. **research/ archive sweep**
+   > ★ **Census-methodology note (2026-08-19, banked from the PR-7 execution — MANDATORY for
+   > this sweep and any future orphan census).** Literal basename grep over-reports orphans.
+   > Four citer classes were caught only by extra methods, three of them live catches that
+   > would have deleted cited figures: (1) **ledger-only citers** (the D15c axis, ~24 files);
+   > (2) **brace-expansion citers** (`fig_v5_{reach,…}.png`); (3) **brace+glob citers**
+   > (`coax_ring_fig{1,2,3}_*.png`); (4) **directory-level citers** (a doc citing the
+   > figures' *directory* with a count, no filenames). Minimum method set: python
+   > basename+stem walk ∪ `git grep -F` ∪ brace/glob expansion ∪ parent-directory scan.
+ — policy exists, unenforced; 1,153 files outside `_archive`, heuristic upper bound ~76 candidates. One lane, batch PRs.
 2. **F-row combined read pass** — after the W2-5 re-scope; discharge the ten rows in one 175-document read with per-row hit ledgers.
 3. **Ringdown wave** — vol3 ch08+ch15, backmatter/07, vol9 ch03:205 (12 gated findings). **Correctly gated on cold-Q; no action until the gate lifts.** Listed so its silence reads as gated, not forgotten.
 4. Owed reconciliation tail — 4 board corrections + the addenda micro-lane from the manuscript-reconciliation epic.
