@@ -95,6 +95,13 @@ The **88 MB duplicate SPICE netlist tree**: `manuscript/vol_6_periodic_table/sim
    > (`coax_ring_fig{1,2,3}_*.png`); (4) **directory-level citers** (a doc citing the
    > figures' *directory* with a count, no filenames). Minimum method set: python
    > basename+stem walk ∪ `git grep -F` ∪ brace/glob expansion ∪ parent-directory scan.
+   > **Addendum (2026-08-19, PR-8):** the methods err in BOTH directions. Stem matching
+   > MANUFACTURES citers — a `.png` reads as cited because docs cite its `.pdf` sibling, and a
+   > LaTeX `\label{fig:...}` matches a stem without referencing any file — so method-1 stem
+   > hits must be validated line-by-line (extension-less `\includegraphics` = real;
+   > sibling-extension or label = false). Method-4 must distinguish a directory cited AS a
+   > figure container from one appearing inside another file's path. Fifth citer class found:
+   > **generator-named-as-figure** (a result doc citing the producing `.py` as "Figure:").
  — policy exists, unenforced; 1,153 files outside `_archive`, heuristic upper bound ~76 candidates. One lane, batch PRs.
 2. **F-row combined read pass** — after the W2-5 re-scope; discharge the ten rows in one 175-document read with per-row hit ledgers.
 3. **Ringdown wave** — vol3 ch08+ch15, backmatter/07, vol9 ch03:205 (12 gated findings). **Correctly gated on cold-Q; no action until the gate lifts.** Listed so its silence reads as gated, not forgotten.
