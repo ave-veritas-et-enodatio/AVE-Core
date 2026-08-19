@@ -793,11 +793,11 @@ FROZEN_MARKER_TABLE: tuple[tuple[str, str, tuple[str, ...]], ...] = (
     ("VALUE_IMPORTED", r"disclosed imports? (?:are|is)\b", ("chord",)),
     ("VALUE_IMPORTED", r"back-?solved\b", ("chord",)),
     ("VALUE_IMPORTED", r"\bimported, not derived\b", ("chord",)),
-    ("VALUE_FITTED", r"disclosed[- ]phenomenological", ("chord",)),
-    ("VALUE_FITTED", r"phenomenological[^.]{0,120}(?:formula|shift|fit\b)", ("chord",)),
-    ("VALUE_FITTED", r"\bis \*{0,2}FITTED\b", ("chord",)),
-    ("VALUE_FITTED", r"\brefined post-hoc\b|\bpost-hoc against\b", ("chord",)),
-    ("VALUE_FITTED", r"back-reaction fit\b", ("chord",)),
+    ("VALUE_FITTED", r"disclosed[- ]phenomenological", ("chord", "open-loop")),
+    ("VALUE_FITTED", r"phenomenological[^.]{0,120}(?:formula|shift|fit\b)", ("chord", "open-loop")),
+    ("VALUE_FITTED", r"\bis \*{0,2}FITTED\b", ("chord", "open-loop")),
+    ("VALUE_FITTED", r"\brefined post-hoc\b|\bpost-hoc against\b", ("chord", "open-loop")),
+    ("VALUE_FITTED", r"back-reaction fit\b", ("chord", "open-loop")),
     ("FORM_VS_VALUE_SPLIT", r"FORM[^.]{0,220}is derived but the VALUE", ("chord",)),
     ("VALUE_ECHOED", r"echo\s+at\s+the\s+value\s+level", ("chord",)),
     ("CONSISTENCY_CLASS", r"consistency check", ("chord", "forward-prediction")),
@@ -1294,3 +1294,32 @@ class TestArmedIsNotTheLifecycleFlag:
         rows = load_manifest(MANIFEST_PATH).get("predictions", [])
         armed = [e["id"] for e in rows if e.get("armed") is True]
         assert armed, "no forward row declares `armed: true`; the badge has nothing to check"
+
+
+class TestCalibrationRolesAreFrozen:
+    """The role vocabulary is a verdict input (the UNKNOWN_ROLE critical branch),
+    so it gets the same snapshot discipline as the marker table.
+
+    Added 2026-08-19 (blind-read F5c): removing `open-loop` from
+    ALLOWED_CALIBRATION_ROLES left the full suite green — the #966 F1 shape,
+    the wire without the guard. A role add/remove must be a reviewed test diff.
+    """
+
+    FROZEN_CALIBRATION_ROLES = frozenset({
+        "chord", "echo", "mixed", "fitted", "consistency",
+        "forward-prediction", "open-loop",
+    })
+
+    def test_role_set_is_frozen(self) -> None:
+        assert ALLOWED_CALIBRATION_ROLES == self.FROZEN_CALIBRATION_ROLES, (
+            "ALLOWED_CALIBRATION_ROLES changed. If deliberate, update "
+            "FROZEN_CALIBRATION_ROLES in the same commit and record the ruling "
+            "that authorized the vocabulary change (roles are Grant-gated)."
+        )
+
+    def test_unknown_role_still_gates(self) -> None:
+        m = _manifest([{"id": "P01", "clm": "clm-aaaaaa", "calibration_role": "no-such-role"}])
+        findings = check_calibration_role(m, cards={"clm-aaaaaa": "body"})
+        assert any(f.severity in ("critical", "warn") for f in findings), (
+            "an unknown calibration_role produced no finding — the UNKNOWN_ROLE branch is dead"
+        )

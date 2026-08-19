@@ -293,7 +293,7 @@ future_work/          # Speculative roadmap
 | 16 | Strong CP (θ=0) | Exact | ✅ Framework-derived (unique vacuum topology; not Clay-rigorous — [Vol 2 Ch 10 §sec:strong_cp](manuscript/vol_2_subatomic/chapters/10_open_problems.tex) caveats) |
 | 17 | Kirkwood gaps (4:1) | 0.05% | ✅ |
 | 18 | Saturn Cassini Division | 0.59% | ✅ |
-| 19 | Flyby anomaly (NEAR) | 1.2% | ⚠ postdiction — Anderson-empirical form; 2 of 6 anchors at 1σ (2026-08-19 sitting; banked driver: NEAR 13.29 vs 13.46 mm/s) |
+| 19 | Flyby anomaly (NEAR) | 1.2% | ⚠ postdiction — Anderson-empirical form; NEAR itself −1.3σ; 2 of 6 anchors within 1σ (not NEAR), 3 of 6 >2σ (2026-08-19; banked driver: 13.29 vs 13.46 mm/s) |
 | 20 | Earth magnetopause | 8.7% | ✅ |
 | 21 | Jupiter magnetopause | 11.8% | ✅ |
 | 22 | Baryon asymmetry | 0.38% | ✅ g*=7³/4 |
@@ -321,7 +321,7 @@ future_work/          # Speculative roadmap
 | 44 | BH interior (Regime IV) | Exact | ✅ G_shear = 0, c_eff = 0 for r < r_sat = 7GM/c². Symmetric saturation → Z = Z₀, Γ = 0 (dissipative sink). |
 | 45 | Regime IV isomorphism | — | ✅ BH (sym, hole) ≠ electron (asym, knot). Same S=0 operator, different saturation symmetry. |
 | 46 | IE sweep Z=1–12 | 2.8% max | ✅ ODE cavity eigenvalue + Hopf mode split + hierarchical cascade (Be) + SIR boundary (Mg). Zero free parameters. |
-| 47 | α thermal running (δ_strain) | 2.2×10⁻⁶ at T=2.7 K | ✅ CMB-induced expansion of the spatial metric; predicts α⁻¹ decreases in high-T regions. Falsifiable. See Ch.8 and `DELTA_STRAIN` in constants.py. |
+| 47 | α thermal running (δ_strain) | 2.2×10⁻⁶ at T=2.7 K | ⚠ walked back — δ_strain is a definitional residual (1−CODATA/α_cold), not a thermal prediction (mirrored 2026-08-19 from the README row; blind-read F4). See Ch.8 and `DELTA_STRAIN` in constants.py. |
 
 Run: `python src/scripts/vol_1_foundations/derive_alpha_from_golden_torus.py` (cold-lattice α derivation; verifies ALPHA_COLD_INV = 4π³+π²+π and CMB correction δ_strain)
 Λ_surf = π² substrate-mechanism (Q-EMBED-SEL-1 Phase 1+2+3 closure, 2026-05-31): the substrate-derived R · r = 1/4 (Axiom 4 self-saturation + Op14 Meissner-asymmetric coupling + phasor-area-equals-Nyquist-cell-area identification, canonical at `research/2026-05-31_Q-EMBED-SEL-1_step_c_result.md` §2.3) gives Λ_surf = 4π²(R · r) = π² at the Golden Torus. Cross-particle universality (electron + proton + Δ baryon) verified at Phase 2 PASS; cross-domain universality (electron self-saturation + Pd-D externally-driven) at Phase 3 PASS. Historical verification: `python src/scripts/vol_1_foundations/verify_clifford_half_cover.py` — preserves the algebraic identity of the spin-1/2 half-cover at the standard Clifford torus T² ⊂ S³ ⊂ ℂ² as historical context for the spin-½ structure of the electron substrate; the half-cover argument is retired as load-bearing per Q-EMBED-SEL-1 2026-05-31. Three-regime structure (Nyquist / crossings / Ax 4 self-saturation) parallel to PMNS-angle derivation.
@@ -374,7 +374,7 @@ See: `src/ave/core/regime_map.py` for the engine module, `manuscript/vol_1_found
 |-------|--------|---------|
 | **A: Engine Hardening** | ✅ Complete | 746 tests, PML/LBM/materials |
 | **B: Domain Extension** | ✅ Complete | Seismology, water, plasma, superconductor, GW, stellar, neutrino, protein |
-| **C: Predictions** | ✅ Complete | 47 table slots (44 consistency-class + 3 flagged ⚠) + 1 armed forward falsifier outside the 47 — basis per README §Master Prediction Table |
+| **C: Predictions** | ✅ Complete | 47 table slots (44 consistency-class + 3 flagged ⚠) + 1 armed forward falsifier outside the 47 — basis per README:41 |
 | **D: Hardware** | 🔒 Private | APU, PONDER, HOPF hardware maintained in separate repos |
 | **E: Publication** | 🔄 Active | 7 public volumes, Yang-Mills + NS proofs |
 | **F: Millennium Problems** | ✅ Complete | Yang-Mills ✅, Navier-Stokes ✅, Strong CP ✅ |

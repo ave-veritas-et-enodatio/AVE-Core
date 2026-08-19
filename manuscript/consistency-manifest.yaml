@@ -146,8 +146,6 @@ predictions:
       row compares against an already-measured value, so consistency_check
       ("reproduces a known result (Class C)") "is the closer fit".
       Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
-      Value-provenance stays on calibration_role (the open-loop role minted the
-      same sitting names the form-forced/independent-input class).
 
   - id: P05
     clm: clm-q8un7j
@@ -173,8 +171,6 @@ predictions:
       row compares against an already-measured value, so consistency_check
       ("reproduces a known result (Class C)") "is the closer fit".
       Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
-      Value-provenance stays on calibration_role (the open-loop role minted the
-      same sitting names the form-forced/independent-input class).
 
   - id: P06
     clm: clm-q8un7j
@@ -200,8 +196,6 @@ predictions:
       row compares against an already-measured value, so consistency_check
       ("reproduces a known result (Class C)") "is the closer fit".
       Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
-      Value-provenance stays on calibration_role (the open-loop role minted the
-      same sitting names the form-forced/independent-input class).
 
   - id: P23
     clm: clm-wx5324
@@ -309,8 +303,6 @@ predictions:
       row compares against an already-measured value, so consistency_check
       ("reproduces a known result (Class C)") "is the closer fit".
       Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
-      Value-provenance stays on calibration_role (the open-loop role minted the
-      same sitting names the form-forced/independent-input class).
 
   - id: P04
     clm: clm-5zuo7g
@@ -383,8 +375,6 @@ predictions:
       row compares against an already-measured value, so consistency_check
       ("reproduces a known result (Class C)") "is the closer fit".
       Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
-      Value-provenance stays on calibration_role (the open-loop role minted the
-      same sitting names the form-forced/independent-input class).
 
   - id: P07
     clm: clm-mnb3lt
@@ -424,8 +414,6 @@ predictions:
       row compares against an already-measured value, so consistency_check
       ("reproduces a known result (Class C)") "is the closer fit".
       Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
-      Value-provenance stays on calibration_role (the open-loop role minted the
-      same sitting names the form-forced/independent-input class).
 
   - id: P08
     clm: clm-k6olj8
@@ -461,8 +449,6 @@ predictions:
       row compares against an already-measured value, so consistency_check
       ("reproduces a known result (Class C)") "is the closer fit".
       Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
-      Value-provenance stays on calibration_role (the open-loop role minted the
-      same sitting names the form-forced/independent-input class).
 
   - id: P09
     clm: clm-rji99i
@@ -496,8 +482,6 @@ predictions:
       row compares against an already-measured value, so consistency_check
       ("reproduces a known result (Class C)") "is the closer fit".
       Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
-      Value-provenance stays on calibration_role (the open-loop role minted the
-      same sitting names the form-forced/independent-input class).
       Rider (D9-1): the 0.66% ambiguity documented above (which eigenvalue the
       figure measures) is unresolved by this relabel and stays flagged.
 
@@ -530,8 +514,6 @@ predictions:
       row compares against an already-measured value, so consistency_check
       ("reproduces a known result (Class C)") "is the closer fit".
       Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
-      Value-provenance stays on calibration_role (the open-loop role minted the
-      same sitting names the form-forced/independent-input class).
 
   - id: P43
     clm: clm-3dc9qt
@@ -574,7 +556,7 @@ predictions:
   - id: P_A034_bh_ringdown
     clm: clm-395gps
     name: "BH merger ring-down QNM (ω_R M_g = 18/49)"
-    type: consistency_check
+    type: derived_prediction
     calibration_role: mixed
     derivation_label: "ch:bh_orbitals"
     predicted_value: 0.3673
@@ -630,19 +612,6 @@ predictions:
       Same kernel S(A) = √(1-A²) as BCS (P43), solar flares
       (P_A034_solar_flare), and cosmic K4 crystallization.
       Vol 3 Ch 15 §"Electron–Black Hole Isomorphism" + Backmatter Ch 7.
-      ★ RE-TYPED 2026-08-19 (Wave-2 sitting D9-1; Grant GO 2026-08-18):
-      type: derived_prediction → consistency_check on the P42 basis — the schema
-      defines derived_prediction as "genuine forward prediction (Class D)" and this
-      row compares against an already-measured value, so consistency_check
-      ("reproduces a known result (Class C)") "is the closer fit".
-      Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
-      Value-provenance stays on calibration_role (the open-loop role minted the
-      same sitting names the form-forced/independent-input class).
-      Examine-clause outcome (D9-1): the sitting's provisional "move to the
-      forward manifest" sub-word was REVERSED by its own conditional — this row
-      carries observed_value + observed_source + error_percent 1.7, i.e. it is
-      tested against a known observation, so the consistency file is its honest
-      home. The gated ringdown INSTRUMENT work (cold-Q) is a different surface.
 
   - id: P_A034_schwarzschild
     clm: clm-law1ho
@@ -732,8 +701,6 @@ predictions:
       row compares against an already-measured value, so consistency_check
       ("reproduces a known result (Class C)") "is the closer fit".
       Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
-      Value-provenance stays on calibration_role (the open-loop role minted the
-      same sitting names the form-forced/independent-input class).
 
   - id: P13
     clm: clm-xhdai6
@@ -752,8 +719,6 @@ predictions:
       row compares against an already-measured value, so consistency_check
       ("reproduces a known result (Class C)") "is the closer fit".
       Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
-      Value-provenance stays on calibration_role (the open-loop role minted the
-      same sitting names the form-forced/independent-input class).
 
   - id: P14
     clm: clm-q5izb7
@@ -852,7 +817,7 @@ predictions:
     type: consistency_check
     calibration_role: consistency
     derivation_label: "ch:orbital_mechanics"
-    error_percent: 1.6
+    error_percent: 1.2
     axioms_used: [1, 2, 3, 4]
     public_in_readme: true
     public_in_living_ref: true
@@ -888,6 +853,11 @@ predictions:
       "falsifies Lense-Thirring gravity on macroscopic geometries" — so
       Axiom 3 is NOT the mechanism. Hyperbolic trajectory setup uses GR
       as input but the anomaly itself is lattice mechanics.
+      ★ 2026-08-19 (Wave-2 D10 + blind-read F7): the error_percent FIELD 1.6 → 1.2 —
+      the 1.6 was an un-derivable initial-release artifact (the prose mention of 1.6
+      above is that era's record, preserved); 1.2 is the banked driver's NEAR figure
+      (13.2942 predicted vs 13.46 observed mm/s, Anderson-empirical convention D, NEAR
+      itself at −1.3σ). Public cells carry the same number and basis.
 
   - id: P20_21
     clm: clm-3kmt3p
@@ -942,8 +912,6 @@ predictions:
       row compares against an already-measured value, so consistency_check
       ("reproduces a known result (Class C)") "is the closer fit".
       Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
-      Value-provenance stays on calibration_role (the open-loop role minted the
-      same sitting names the form-forced/independent-input class).
 
   - id: P26_28
     clm: clm-5965y1
@@ -967,8 +935,6 @@ predictions:
       row compares against an already-measured value, so consistency_check
       ("reproduces a known result (Class C)") "is the closer fit".
       Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
-      Value-provenance stays on calibration_role (the open-loop role minted the
-      same sitting names the form-forced/independent-input class).
 
   - id: P29_32
     clm: clm-7o8clt
@@ -994,8 +960,6 @@ predictions:
       row compares against an already-measured value, so consistency_check
       ("reproduces a known result (Class C)") "is the closer fit".
       Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
-      Value-provenance stays on calibration_role (the open-loop role minted the
-      same sitting names the form-forced/independent-input class).
 
   - id: P33_38
     clm: clm-xhdai6
@@ -1013,8 +977,6 @@ predictions:
       row compares against an already-measured value, so consistency_check
       ("reproduces a known result (Class C)") "is the closer fit".
       Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
-      Value-provenance stays on calibration_role (the open-loop role minted the
-      same sitting names the form-forced/independent-input class).
 
   - id: P39
     clm: clm-huhz7r
@@ -1046,8 +1008,6 @@ predictions:
       row compares against an already-measured value, so consistency_check
       ("reproduces a known result (Class C)") "is the closer fit".
       Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
-      Value-provenance stays on calibration_role (the open-loop role minted the
-      same sitting names the form-forced/independent-input class).
 
   - id: P40
     clm: clm-x19btt
@@ -1322,8 +1282,6 @@ predictions:
       row compares against an already-measured value, so consistency_check
       ("reproduces a known result (Class C)") "is the closer fit".
       Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
-      Value-provenance stays on calibration_role (the open-loop role minted the
-      same sitting names the form-forced/independent-input class).
 
   # ═══════════════════════════════════════════════════════════════════════
   # PRE-REGISTERED: Stage 6 pair-production engine (forward-looking, not

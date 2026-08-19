@@ -4,7 +4,9 @@
 
 # AVE program board
 
-Scanned tree **30365438** (2026-08-19) · 461 index records · 330 claims · 0 PRs open
+Scanned tree **e07bc084** (2026-08-19) · 461 index records · 330 claims · 3 PRs open
+
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`30365438`). Every count below describes **e07bc084**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -28,7 +30,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## What we are waiting on
 
-**35 of 63 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
+**34 of 62 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
 
 *Scope: this is a census of `open-items/`. `_orchestration/2026-07-10_rulings-docket.md` is the **paper timeline** — a dated continuation log, frozen at its 2026-07-21 tail per `docket-entries/README.md`, and the historical record of how each ruling was reached. It is read chronologically, not harvested; anything still live in it belongs here as its own file.*
 
@@ -57,8 +59,6 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [The factor-2 normalization fork — leaf :47 vs :48 (a normalization-ledger lane awaits GO)](open-items/2026-08-03-factor-2-normalization-fork.md) | ROUTED-TO-GRANT | grant | 2026-08-03 |
 | [The falsifier-precision decision — leaf :236 asserts a threshold the instrument cannot resolve](open-items/2026-08-03-falsifier-precision.md) | ROUTED-TO-GRANT | grant | 2026-08-03 |
 | [Op14 local-clock modulation of the retardation — the driver retards by COORDINATE phase](open-items/2026-08-03-op14-local-clock.md) | ROUTED-TO-GRANT | grant | 2026-08-03 |
-| [19 of 37 rows have a `type` that contradicts the manifest they now live in](open-items/2026-08-13-manifest-type-residue.md) | ROUTED-TO-GRANT | grant | 2026-08-13 |
-| [P19 flyby anomaly — the label is settled, the claim is not; does it belong in the public table?](open-items/2026-08-13-p19-flyby-readjudication.md) | ROUTED-TO-GRANT | grant | 2026-08-13 |
 | [Electron-identity Checkpoint 1 — signed with two amends (Poincaré/FLAG-W and cosmic injection held out)](open-items/2026-08-14-electron-identity-kill-list.md) | ROUTED-TO-GRANT | grant | 2026-08-14 |
 | [A 7th `calibration_role` is authorized and unbuilt — the schema still lists six](open-items/2026-08-14-seventh-calibration-role.md) | ROUTED-TO-GRANT | grant | 2026-08-14 |
 | [The repo-formatting P2 adjudication batch awaits Grant's rulings and was tracked on no current surface](open-items/2026-08-17-repo-formatting-p2-orphaned-ruling.md) | ROUTED-TO-GRANT | grant | 2026-08-17 |
@@ -93,6 +93,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [J(ω) coupling fork — needs the engine constitutive tensor](open-items/2026-07-20-jomega-coupling-fork.md) | QUEUED | unassigned | 2026-07-20 |
 | [u/A transverse identity-collapse candidate — are the EM and mechanical-transverse sectors two meters on one bench object?](open-items/2026-07-20-ua-transverse-identity-collapse.md) | QUEUED | unassigned | 2026-07-20 |
 | [Q-law derivation — why the standing-v1 mΩ τ lands at −5.4 %](open-items/2026-07-21-q-law-derivation.md) | QUEUED | unassigned | 2026-07-21 |
+| [19 of 37 rows have a `type` that contradicts the manifest they now live in](open-items/2026-08-13-manifest-type-residue.md) | QUEUED | grant | 2026-08-13 |
 | [BUILD-class instruments — quantum-seeded floor, arrow instruments, CVR bench](open-items/2026-07-20-build-class-instruments.md) | PARKED | grant | 2026-07-20 |
 | [Vessel-state shell → γ_c couple-stress → (2,3) winding — the wall-asymmetry carrier candidate](open-items/2026-07-20-vessel-state-shell-walk.md) | PARKED | grant | 2026-07-20 |
 | [D5 — the WD / Q=ℓ tag question, deliberately held by ruling](open-items/2026-08-04-d5-wd-qell-tag-hold.md) | PARKED | grant | 2026-08-02 |
@@ -117,7 +118,11 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 *(volatile — excluded from `--check`, since any PR retitle would otherwise make the check cry wolf)*
 
-No open PRs.
+| PR | state | title |
+|---|---|---|
+| #988 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] cleanup: Wave-2 PR-7 — orphan execu |
+| #987 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: Wave-2 PR-6 — land the ho |
+| #986 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] manifest: Wave-2 PR-5 — the manifes |
 
 <!-- /volatile -->
 

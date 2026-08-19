@@ -244,7 +244,7 @@ The tool (`tools/lint_status_markers.py`, also not built here) walks the scope, 
 > ★ **CORRECTED 2026-08-13 (forward/postdiction split).** Four factual claims in §(f) below
 > had gone stale and are corrected here rather than rewritten in place (Rule 12):
 > 1. The `predictions-47_derived` badge **no longer exists**. `README.md:6-7` now carry
->    `forward_falsifier-1_armed` and `consistency--class_entries-45`.
+>    `forward_falsifier-1_armed` and `consistency--class_entries-45` *(→ 44, 2026-08-19: P19 flagged ⚠, Wave-2 D10)*.
 > 2. The Master Prediction Table is at **`README.md:213`**, not `:181`.
 > 3. It displays **33** rows, not 40 (47 numbers minus the 14 absorbed by 7 compound ranges).
 > 4. The *"`manuscript/predictions.yaml`: **36 entries**"* bullet below is stale post-split — the 36
