@@ -101,6 +101,29 @@ src/scripts/**/_output/
 !src/tests/outputs/helium_4_density_z_pos.png
 !src/tests/outputs/lithium_7_density_equator.png
 
+# ── D14 weight prune (2026-08-19, Wave-2 PR-8) ───────────────────────────────
+# Regenerable renders pruned at HEAD under the same D4 policy above, but living
+# OUTSIDE the `_output`/`outputs` scratch dirs, so they need explicit rules —
+# otherwise re-running the generator leaves an untracked file and a dirty tree.
+# Each was zero-citer under the four-method census (python basename+stem walk ∪
+# `git grep -F` ∪ brace/glob expansion ∪ parent-directory scan) and each has an
+# in-tree generator, named per file below. NO allowlist line was retired: none
+# of these five carried one (the 36-figure EXCEPTIONS block above is untouched).
+#
+# generator: src/scripts/vol_1_foundations/chiral_lattice_smoke_dynamics.py
+src/scripts/vol_1_foundations/genesis_v9_figs/smoke_a_dispersion.png
+src/scripts/vol_1_foundations/genesis_v9_figs/smoke_b_optical_activity.png
+# generator: src/scripts/verify/electron_lock_2bS1.py (style.save emits pdf+png;
+# only the .png twin is cited, at research/2026-07-07_electron-lock-2bS1_RESULT.md:224)
+src/scripts/verify/electron_lock_2bS1_fill.pdf
+# STLs per Grant's D14 word ("ok to regenerate"); matches the standing policy at
+# manuscript/ave-kb/vol9/ch18-experimental-prints/index.md:58 — "STL artifacts
+# are generated (gitignored) — the generators are the source of truth".
+# generator: src/scripts/vol_1_foundations/generate_axiom1_diamond_vacuum_stl.py
+assets/3d_models/vacuum_axiom1_diamond_lc_with_particles.stl
+# generator: src/scripts/vol_1_foundations/generate_axiom1_lattice_showpiece_stl.py
+assets/3d_models/vacuum_axiom1_chiral_micropolar_full_lattice.stl
+
 # Simulation data
 data/*
 simulations/*
