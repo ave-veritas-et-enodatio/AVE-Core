@@ -60,6 +60,9 @@
 #                        fitted — magnitude tuned per-system to match
 #                        consistency — reproduces a known result / definitional residual
 #                        forward-prediction — untested, divergent-from-SM, AVE-distinct
+#                        open-loop — form-forced; value from an independently-measured
+#                                    calibration input; output never fit to the target
+#                                    observable (def-0penlp; starts empty, Wave-2 D11)
 # derivation_label:      \label{} target in manuscript/**/*.tex
 # constants_py_symbol:   (optional) name in src/ave/core/constants.py
 # predicted_value:       (optional) numeric value for validator to cross-check
@@ -122,7 +125,7 @@ predictions:
   - id: P24
     clm: clm-xhdai6
     name: "α_s (strong coupling) from scale invariance"
-    type: derived_prediction
+    type: consistency_check
     calibration_role: echo
     derivation_label: "ch:electroweak"
     constants_py_symbol: "ALPHA_S"
@@ -134,12 +137,22 @@ predictions:
     axioms_used: [1, 2, 4]
     public_in_readme: true
     public_in_living_ref: true
-    notes: "α_s = α^(3/7) — Scale-Invariance projection at EW scale."
+    notes: |
+      α_s = α^(3/7) — Scale-Invariance projection at EW scale.
+
+      ★ RE-TYPED 2026-08-19 (Wave-2 sitting D9-1; Grant GO 2026-08-18):
+      type: derived_prediction → consistency_check on the P42 basis — the schema
+      defines derived_prediction as "genuine forward prediction (Class D)" and this
+      row compares against an already-measured value, so consistency_check
+      ("reproduces a known result (Class C)") "is the closer fit".
+      Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
+      Value-provenance stays on calibration_role (the open-loop role minted the
+      same sitting names the form-forced/independent-input class).
 
   - id: P05
     clm: clm-q8un7j
     name: "M_W boson mass"
-    type: derived_prediction
+    type: consistency_check
     calibration_role: echo
     derivation_label: "ch:electroweak_higgs"
     constants_py_symbol: "M_W_MEV"
@@ -151,12 +164,22 @@ predictions:
     axioms_used: [1, 2, 3, 4]
     public_in_readme: true
     public_in_living_ref: true
-    notes: "m_e / (8πα³√(3/7)) — torsional ring self-energy with chirality mismatch."
+    notes: |
+      m_e / (8πα³√(3/7)) — torsional ring self-energy with chirality mismatch.
+
+      ★ RE-TYPED 2026-08-19 (Wave-2 sitting D9-1; Grant GO 2026-08-18):
+      type: derived_prediction → consistency_check on the P42 basis — the schema
+      defines derived_prediction as "genuine forward prediction (Class D)" and this
+      row compares against an already-measured value, so consistency_check
+      ("reproduces a known result (Class C)") "is the closer fit".
+      Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
+      Value-provenance stays on calibration_role (the open-loop role minted the
+      same sitting names the form-forced/independent-input class).
 
   - id: P06
     clm: clm-q8un7j
     name: "M_Z boson mass"
-    type: derived_prediction
+    type: consistency_check
     calibration_role: echo
     derivation_label: "ch:electroweak_higgs"
     constants_py_symbol: "M_Z_MEV"
@@ -168,7 +191,17 @@ predictions:
     axioms_used: [1, 2, 3, 4]
     public_in_readme: true
     public_in_living_ref: true
-    notes: "M_Z = M_W · 3/√7 — PAT pole-mass ratio."
+    notes: |
+      M_Z = M_W · 3/√7 — PAT pole-mass ratio.
+
+      ★ RE-TYPED 2026-08-19 (Wave-2 sitting D9-1; Grant GO 2026-08-18):
+      type: derived_prediction → consistency_check on the P42 basis — the schema
+      defines derived_prediction as "genuine forward prediction (Class D)" and this
+      row compares against an already-measured value, so consistency_check
+      ("reproduces a known result (Class C)") "is the closer fit".
+      Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
+      Value-provenance stays on calibration_role (the open-loop role minted the
+      same sitting names the form-forced/independent-input class).
 
   - id: P23
     clm: clm-wx5324
@@ -260,19 +293,29 @@ predictions:
   - id: P03
     clm: clm-stgx1i
     name: "g-2 anomaly"
-    type: derived_prediction
+    type: consistency_check
     calibration_role: echo
     derivation_label: "ch:electroweak_higgs"
     error_percent: 0.15
     axioms_used: [1, 2, 4]
     public_in_readme: true
     public_in_living_ref: true
-    notes: "a_e = α/(2π) — Schwinger result from on-site impedance correction."
+    notes: |
+      a_e = α/(2π) — Schwinger result from on-site impedance correction.
+
+      ★ RE-TYPED 2026-08-19 (Wave-2 sitting D9-1; Grant GO 2026-08-18):
+      type: derived_prediction → consistency_check on the P42 basis — the schema
+      defines derived_prediction as "genuine forward prediction (Class D)" and this
+      row compares against an already-measured value, so consistency_check
+      ("reproduces a known result (Class C)") "is the closer fit".
+      Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
+      Value-provenance stays on calibration_role (the open-loop role minted the
+      same sitting names the form-forced/independent-input class).
 
   - id: P04
     clm: clm-5zuo7g
     name: "sin²θ_W (weak mixing angle)"
-    type: derived_prediction
+    type: consistency_check
     calibration_role: mixed
     derivation_label: "ch:electroweak_higgs"
     predicted_value: 0.2222
@@ -334,11 +377,19 @@ predictions:
       manuscript/ave-kb/vol2/claim-quality.md:110 — "This is the **on-shell
       (tree-level pole-mass)** scheme, NOT $\overline{MS}$ … Any summary that
       does not specify the scheme is silently wrong."
+      ★ RE-TYPED 2026-08-19 (Wave-2 sitting D9-1; Grant GO 2026-08-18):
+      type: derived_prediction → consistency_check on the P42 basis — the schema
+      defines derived_prediction as "genuine forward prediction (Class D)" and this
+      row compares against an already-measured value, so consistency_check
+      ("reproduces a known result (Class C)") "is the closer fit".
+      Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
+      Value-provenance stays on calibration_role (the open-loop role minted the
+      same sitting names the form-forced/independent-input class).
 
   - id: P07
     clm: clm-mnb3lt
     name: "Proton mass"
-    type: derived_prediction
+    type: consistency_check
     calibration_role: mixed
     derivation_label: "ch:baryons"
     predicted_value: 938.254
@@ -367,11 +418,19 @@ predictions:
       lives in Vol 2 Ch 2 §"The Proton Mass: The Dynamic Tensor Deficit"
       through §"The Self-Consistent Mass Oscillator" (lines 40–197), not
       in the electroweak/higgs chapter.
+      ★ RE-TYPED 2026-08-19 (Wave-2 sitting D9-1; Grant GO 2026-08-18):
+      type: derived_prediction → consistency_check on the P42 basis — the schema
+      defines derived_prediction as "genuine forward prediction (Class D)" and this
+      row compares against an already-measured value, so consistency_check
+      ("reproduces a known result (Class C)") "is the closer fit".
+      Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
+      Value-provenance stays on calibration_role (the open-loop role minted the
+      same sitting names the form-forced/independent-input class).
 
   - id: P08
     clm: clm-k6olj8
     name: "Δ(1232) baryon mass"
-    type: derived_prediction
+    type: consistency_check
     calibration_role: mixed
     derivation_label: "ch:baryons"
     predicted_value: 1261.001
@@ -396,11 +455,19 @@ predictions:
       ch:electroweak_higgs → ch:baryons (R-2 spillover). The baryon ladder
       is Vol 2 Ch 2 §"The Baryon Resonance Spectrum: The Torus Knot Ladder",
       not the electroweak/higgs chapter.
+      ★ RE-TYPED 2026-08-19 (Wave-2 sitting D9-1; Grant GO 2026-08-18):
+      type: derived_prediction → consistency_check on the P42 basis — the schema
+      defines derived_prediction as "genuine forward prediction (Class D)" and this
+      row compares against an already-measured value, so consistency_check
+      ("reproduces a known result (Class C)") "is the closer fit".
+      Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
+      Value-provenance stays on calibration_role (the open-loop role minted the
+      same sitting names the form-forced/independent-input class).
 
   - id: P09
     clm: clm-rji99i
     name: "Neutrino mass sum"
-    type: derived_prediction
+    type: consistency_check
     calibration_role: mixed
     derivation_label: "ch:electroweak_higgs"
     error_percent: 0.66
@@ -423,11 +490,21 @@ predictions:
       identify which specific eigenvalue the 0.66% measures and
       document, or (c) retire error_percent for this entry entirely.
       Public-facing status unchanged pending user judgment.
+      ★ RE-TYPED 2026-08-19 (Wave-2 sitting D9-1; Grant GO 2026-08-18):
+      type: derived_prediction → consistency_check on the P42 basis — the schema
+      defines derived_prediction as "genuine forward prediction (Class D)" and this
+      row compares against an already-measured value, so consistency_check
+      ("reproduces a known result (Class C)") "is the closer fit".
+      Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
+      Value-provenance stays on calibration_role (the open-loop role minted the
+      same sitting names the form-forced/independent-input class).
+      Rider (D9-1): the 0.66% ambiguity documented above (which eigenvalue the
+      figure measures) is unresolved by this relabel and stays flagged.
 
   - id: P25
     clm: clm-p7rfkb
     name: "Higgs mass"
-    type: derived_prediction
+    type: consistency_check
     calibration_role: echo
     derivation_label: "ch:electroweak_higgs"
     constants_py_symbol: "M_HIGGS_MEV"
@@ -447,6 +524,14 @@ predictions:
       but no predicted_value to cross-check against"). Engine returns
       124416.71 MeV vs PDG 125100 MeV → -0.55% error (matches manifest
       error_percent field).
+      ★ RE-TYPED 2026-08-19 (Wave-2 sitting D9-1; Grant GO 2026-08-18):
+      type: derived_prediction → consistency_check on the P42 basis — the schema
+      defines derived_prediction as "genuine forward prediction (Class D)" and this
+      row compares against an already-measured value, so consistency_check
+      ("reproduces a known result (Class C)") "is the closer fit".
+      Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
+      Value-provenance stays on calibration_role (the open-loop role minted the
+      same sitting names the form-forced/independent-input class).
 
   - id: P43
     clm: clm-3dc9qt
@@ -489,7 +574,7 @@ predictions:
   - id: P_A034_bh_ringdown
     clm: clm-395gps
     name: "BH merger ring-down QNM (ω_R M_g = 18/49)"
-    type: derived_prediction
+    type: consistency_check
     calibration_role: mixed
     derivation_label: "ch:bh_orbitals"
     predicted_value: 0.3673
@@ -545,6 +630,19 @@ predictions:
       Same kernel S(A) = √(1-A²) as BCS (P43), solar flares
       (P_A034_solar_flare), and cosmic K4 crystallization.
       Vol 3 Ch 15 §"Electron–Black Hole Isomorphism" + Backmatter Ch 7.
+      ★ RE-TYPED 2026-08-19 (Wave-2 sitting D9-1; Grant GO 2026-08-18):
+      type: derived_prediction → consistency_check on the P42 basis — the schema
+      defines derived_prediction as "genuine forward prediction (Class D)" and this
+      row compares against an already-measured value, so consistency_check
+      ("reproduces a known result (Class C)") "is the closer fit".
+      Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
+      Value-provenance stays on calibration_role (the open-loop role minted the
+      same sitting names the form-forced/independent-input class).
+      Examine-clause outcome (D9-1): the sitting's provisional "move to the
+      forward manifest" sub-word was REVERSED by its own conditional — this row
+      carries observed_value + observed_source + error_percent 1.7, i.e. it is
+      tested against a known observation, so the consistency file is its honest
+      home. The gated ringdown INSTRUMENT work (cold-Q) is a different surface.
 
   - id: P_A034_schwarzschild
     clm: clm-law1ho
@@ -605,7 +703,7 @@ predictions:
   - id: P11_12
     clm: clm-to41c7
     name: "Δ(1600), Δ(1900)"
-    type: derived_prediction
+    type: consistency_check
     calibration_role: mixed
     derivation_label: "ch:baryons"
     predicted_value: 1582.23
@@ -628,17 +726,34 @@ predictions:
       MeV matches Δ(1620) to 0.20%" — this prose is being removed in
       the same PR as part of aligning the canonical target to the
       engine output.
+      ★ RE-TYPED 2026-08-19 (Wave-2 sitting D9-1; Grant GO 2026-08-18):
+      type: derived_prediction → consistency_check on the P42 basis — the schema
+      defines derived_prediction as "genuine forward prediction (Class D)" and this
+      row compares against an already-measured value, so consistency_check
+      ("reproduces a known result (Class C)") "is the closer fit".
+      Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
+      Value-provenance stays on calibration_role (the open-loop role minted the
+      same sitting names the form-forced/independent-input class).
 
   - id: P13
     clm: clm-xhdai6
     name: "Fermi constant"
-    type: derived_prediction
+    type: consistency_check
     calibration_role: echo
     derivation_label: "ch:electroweak_higgs"
     error_percent: 2.09
     axioms_used: [1, 2, 4]
     public_in_readme: true
     public_in_living_ref: true
+    notes: |
+      ★ RE-TYPED 2026-08-19 (Wave-2 sitting D9-1; Grant GO 2026-08-18):
+      type: derived_prediction → consistency_check on the P42 basis — the schema
+      defines derived_prediction as "genuine forward prediction (Class D)" and this
+      row compares against an already-measured value, so consistency_check
+      ("reproduces a known result (Class C)") "is the closer fit".
+      Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
+      Value-provenance stays on calibration_role (the open-loop role minted the
+      same sitting names the form-forced/independent-input class).
 
   - id: P14
     clm: clm-q5izb7
@@ -809,7 +924,7 @@ predictions:
   - id: P22
     clm: clm-4vwsjc
     name: "Baryon asymmetry"
-    type: derived_prediction
+    type: consistency_check
     calibration_role: mixed
     derivation_label: "sec:baryon_asymmetry"
     predicted_value: 6.08e-10
@@ -818,12 +933,22 @@ predictions:
     axioms_used: [1]
     public_in_readme: true
     public_in_living_ref: true
-    notes: "η_B = n_B/n_γ from sphaleron + CP-violation open problem in Vol 2 Ch 10 sec:baryon_asymmetry; NOT in ch:cosmology_v7 (Vol 3 Ch 5) as previously labeled. No ETA_BARYON module-level constant; engine computes inline in src/ave/axioms/open_problems.py:236."
+    notes: |
+      η_B = n_B/n_γ from sphaleron + CP-violation open problem in Vol 2 Ch 10 sec:baryon_asymmetry; NOT in ch:cosmology_v7 (Vol 3 Ch 5) as previously labeled. No ETA_BARYON module-level constant; engine computes inline in src/ave/axioms/open_problems.py:236.
+
+      ★ RE-TYPED 2026-08-19 (Wave-2 sitting D9-1; Grant GO 2026-08-18):
+      type: derived_prediction → consistency_check on the P42 basis — the schema
+      defines derived_prediction as "genuine forward prediction (Class D)" and this
+      row compares against an already-measured value, so consistency_check
+      ("reproduces a known result (Class C)") "is the closer fit".
+      Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
+      Value-provenance stays on calibration_role (the open-loop role minted the
+      same sitting names the form-forced/independent-input class).
 
   - id: P26_28
     clm: clm-5965y1
     name: "CKM matrix (V_us, V_cb, V_ub)"
-    type: derived_prediction
+    type: consistency_check
     calibration_role: mixed
     derivation_label: "ch:electroweak"
     axioms_used: [1]
@@ -836,11 +961,19 @@ predictions:
       net (Axiom 2)"), and Ax 4 (line 86 "Axiom 4 dielectric susceptibility").
       Axiom 3 (gravity) is NOT invoked anywhere in Ch 5. Prior [3] was a
       bootstrap typo for [4].
+      ★ RE-TYPED 2026-08-19 (Wave-2 sitting D9-1; Grant GO 2026-08-18):
+      type: derived_prediction → consistency_check on the P42 basis — the schema
+      defines derived_prediction as "genuine forward prediction (Class D)" and this
+      row compares against an already-measured value, so consistency_check
+      ("reproduces a known result (Class C)") "is the closer fit".
+      Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
+      Value-provenance stays on calibration_role (the open-loop role minted the
+      same sitting names the form-forced/independent-input class).
 
   - id: P29_32
     clm: clm-7o8clt
     name: "PMNS matrix (all 4 parameters)"
-    type: derived_prediction
+    type: consistency_check
     calibration_role: mixed
     derivation_label: "ch:neutrino_sector"
     axioms_used: [1]
@@ -855,21 +988,38 @@ predictions:
       vacuum Poisson ratio (Ax 1+2 interlink), and K4 lattice connectivity
       (Ax 1)." Axiom 3 (gravity) is NOT invoked. Same bootstrap typo
       pattern as P26_28 and P46 (Ch 5 family: [3] → [4]).
+      ★ RE-TYPED 2026-08-19 (Wave-2 sitting D9-1; Grant GO 2026-08-18):
+      type: derived_prediction → consistency_check on the P42 basis — the schema
+      defines derived_prediction as "genuine forward prediction (Class D)" and this
+      row compares against an already-measured value, so consistency_check
+      ("reproduces a known result (Class C)") "is the closer fit".
+      Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
+      Value-provenance stays on calibration_role (the open-loop role minted the
+      same sitting names the form-forced/independent-input class).
 
   - id: P33_38
     clm: clm-xhdai6
     name: "All 6 quark masses"
-    type: derived_prediction
+    type: consistency_check
     calibration_role: echo
     derivation_label: "ch:electroweak"
     axioms_used: [1, 2, 4]
     public_in_readme: true
     public_in_living_ref: true
+    notes: |
+      ★ RE-TYPED 2026-08-19 (Wave-2 sitting D9-1; Grant GO 2026-08-18):
+      type: derived_prediction → consistency_check on the P42 basis — the schema
+      defines derived_prediction as "genuine forward prediction (Class D)" and this
+      row compares against an already-measured value, so consistency_check
+      ("reproduces a known result (Class C)") "is the closer fit".
+      Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
+      Value-provenance stays on calibration_role (the open-loop role minted the
+      same sitting names the form-forced/independent-input class).
 
   - id: P39
     clm: clm-huhz7r
     name: "Protein Rg (Villin)"
-    type: derived_prediction
+    type: consistency_check
     calibration_role: mixed
     derivation_label: "ch:condensed_matter"
     cross_repo: "AVE-Protein"
@@ -890,6 +1040,14 @@ predictions:
       Recommendation: once C1 cross-repo rule (Y-1 in FUTURE_WORK) is
       implemented, derivation_label should point at AVE-Protein's chapter
       directly and the entry should carry a [Protein] tag in README.
+      ★ RE-TYPED 2026-08-19 (Wave-2 sitting D9-1; Grant GO 2026-08-18):
+      type: derived_prediction → consistency_check on the P42 basis — the schema
+      defines derived_prediction as "genuine forward prediction (Class D)" and this
+      row compares against an already-measured value, so consistency_check
+      ("reproduces a known result (Class C)") "is the closer fit".
+      Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
+      Value-provenance stays on calibration_role (the open-loop role minted the
+      same sitting names the form-forced/independent-input class).
 
   - id: P40
     clm: clm-x19btt
@@ -1140,7 +1298,7 @@ predictions:
   - id: P46
     clm: clm-oltvwy
     name: "IE sweep Z=1–12"
-    type: derived_prediction
+    type: consistency_check
     calibration_role: fitted
     derivation_label: "ch:computational_mass_defect"
     error_percent: 2.8
@@ -1158,6 +1316,14 @@ predictions:
       in AVE-Core (not migrated to AVE-APU). axioms_used corrected
       [1, 2, 3] → [1, 2, 4]: same bootstrap typo pattern as P26_28 and
       P29_32 ([3] was meant [4]). Gravity NOT load-bearing for atomic IE.
+      ★ RE-TYPED 2026-08-19 (Wave-2 sitting D9-1; Grant GO 2026-08-18):
+      type: derived_prediction → consistency_check on the P42 basis — the schema
+      defines derived_prediction as "genuine forward prediction (Class D)" and this
+      row compares against an already-measured value, so consistency_check
+      ("reproduces a known result (Class C)") "is the closer fit".
+      Mechanism-class relabel only. No value, axiom, bridge or solidity moved.
+      Value-provenance stays on calibration_role (the open-loop role minted the
+      same sitting names the form-forced/independent-input class).
 
   # ═══════════════════════════════════════════════════════════════════════
   # PRE-REGISTERED: Stage 6 pair-production engine (forward-looking, not

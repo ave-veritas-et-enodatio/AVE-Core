@@ -902,6 +902,12 @@ ALLOWED_CALIBRATION_ROLES = {
     "fitted",
     "consistency",
     "forward-prediction",
+    # Wave-2 D11 (Grant, 2026-08-18): form-forced FORM + value computed from a
+    # calibration input measured in a DIFFERENT experiment + output never fit to
+    # the observable being predicted. Discriminator = the feedback question, not
+    # "does alpha appear". STARTS EMPTY; suggest_role never returns it; no marker
+    # forbids it (VALUE_ECHOED is compatible by design). def-0penlp.
+    "open-loop",
 }
 
 

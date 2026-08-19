@@ -293,7 +293,7 @@ future_work/          # Speculative roadmap
 | 16 | Strong CP (θ=0) | Exact | ✅ Framework-derived (unique vacuum topology; not Clay-rigorous — [Vol 2 Ch 10 §sec:strong_cp](manuscript/vol_2_subatomic/chapters/10_open_problems.tex) caveats) |
 | 17 | Kirkwood gaps (4:1) | 0.05% | ✅ |
 | 18 | Saturn Cassini Division | 0.59% | ✅ |
-| 19 | Flyby anomaly (NEAR) | 1.6% | ✅ |
+| 19 | Flyby anomaly (NEAR) | 1.2% | ⚠ postdiction — Anderson-empirical form; 2 of 6 anchors at 1σ (2026-08-19 sitting; banked driver: NEAR 13.29 vs 13.46 mm/s) |
 | 20 | Earth magnetopause | 8.7% | ✅ |
 | 21 | Jupiter magnetopause | 11.8% | ✅ |
 | 22 | Baryon asymmetry | 0.38% | ✅ g*=7³/4 |
@@ -374,7 +374,7 @@ See: `src/ave/core/regime_map.py` for the engine module, `manuscript/vol_1_found
 |-------|--------|---------|
 | **A: Engine Hardening** | ✅ Complete | 746 tests, PML/LBM/materials |
 | **B: Domain Extension** | ✅ Complete | Seismology, water, plasma, superconductor, GW, stellar, neutrino, protein |
-| **C: Predictions** | ✅ Complete | 46 predictions, ALL 26/26 SM Parameters Derived |
+| **C: Predictions** | ✅ Complete | 47 table slots (44 consistency-class + 3 flagged ⚠) + 1 armed forward falsifier outside the 47 — basis per README §Master Prediction Table |
 | **D: Hardware** | 🔒 Private | APU, PONDER, HOPF hardware maintained in separate repos |
 | **E: Publication** | 🔄 Active | 7 public volumes, Yang-Mills + NS proofs |
 | **F: Millennium Problems** | ✅ Complete | Yang-Mills ✅, Navier-Stokes ✅, Strong CP ✅ |
@@ -386,7 +386,7 @@ fusion research, and other applied engineering efforts are maintained in
 separate private repositories within the `ave-veritas-et-enodatio` organization.
 
 The physics engine in this repository is fully self-contained and does not
-require any hardware modules to operate. All 46 predictions, proofs, and
+require any hardware modules to operate. All tabled predictions (47-slot basis per README), proofs, and
 validations run independently.
 
 ## Critical Distinctions (Common Errors to Avoid)

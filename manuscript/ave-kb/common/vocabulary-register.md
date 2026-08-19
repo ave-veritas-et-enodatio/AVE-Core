@@ -844,6 +844,21 @@ The grade is **orthogonal to `status`**: `status` answers "is the adjudicated se
 
 ---
 
+## open-loop (calibration-role)
+<!-- id: def-0penlp -->
+
+- **term:** open-loop (role) — the seventh `calibration_role` value
+- **adjudicated-meaning:** a **form-forced FORM whose VALUE is computed from a declared calibration input measured in a *different* experiment, with the output never fit to the observable being predicted**. The discriminator is the feedback question — *"was the observable being predicted used to set any input?"* — NOT *"does α appear?"*: an α-riding value can be open-loop when α was measured elsewhere and nothing about the target observable tuned the computation. EE-native: the standing control-topology word for exactly this no-feedback shape.
+- **axis:** value-provenance (peer of `chord`/`echo`/`mixed`/`fitted`/`consistency`/`forward-prediction` on the `calibration_role` axis; orthogonal to `type` per the 2026-08-05 ruling)
+- **dimension/type:** classifies a manifest row's value-provenance topology
+- **status:** SOLID (Grant-ratified name + mint, Wave-2 sitting 2026-08-18, D11; docket `2026-08-18-wave2-adjudication-sitting.md`); **role starts EMPTY** — no row carries it at mint. Per-row reclassification is a later deliberate pass with the reconciler census re-measured before landing (the #966 lesson: never change a gating vocabulary and its population in one motion).
+- **canonical-home:** the `calibration_role` schema comment in both manifests (`manuscript/predictions.yaml`, `manuscript/consistency-manifest.yaml`) + `ALLOWED_CALIBRATION_ROLES` in `src/scripts/predictions_manifest_validator.py`
+- **clm-cross-links:** *(none at mint — the role is empty by ruling)*
+- **open-ambiguity-flag:** YES — "open-loop" has ~47 standing corpus hits in the (compatible) control-theory sense. Qualifier rule: write **"open-loop (role)"** at first cite in any doc where the control-topology sense could be read.
+- **verification:** the reconciler deliberately does NOT auto-suggest this role (`suggest_role` never returns it) and NO provenance marker forbids it — in particular `VALUE_ECHOED` is COMPATIBLE: an echo-at-value-level computed from an independently-measured calibration input *is* the open-loop shape. Deliberate decision recorded at mint, Wave-2 D11.
+
+---
+
 ## T₂ (photon-family disambiguation)
 <!-- id: def-t2ph01 -->
 
