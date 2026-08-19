@@ -97,10 +97,11 @@ The heart of the map. Each arc: the **question as opened** (prove-or-disprove fr
 **ARC-08 · genesis / electron self-assembly (energize-lock).** Window: → 2026-06-16.
 - *Q (prove-or-disprove):* does a free precursor self-assemble the (2,3) winding + Γ=−1 confinement (electron genesis from a free precursor)?
 - *Method:* coupled-engine genesis drivers (v5→v15); energy-ledger discrimination.
-- *Verdict:* **NEGATIVE (leans-falsified)** — the engine pumps H at dt→0 (not a physical pump); scoped as a category error (the interior-field route is sub-Nyquist / phase-space, so the α-free *boundary-observable* emergence test was never run).
+- *Verdict:* **NEGATIVE (leans-falsified)** — see the methodology caveat below — the engine pumps H at dt→0 (not a physical pump); scoped as a category error (the interior-field route is sub-Nyquist / phase-space, so the α-free *boundary-observable* emergence test was never run).
 - *Closed:* electron-genesis-from-free-precursor at the interior-field level; three escape hatches.
 - *Opened:* the α-free boundary-observable re-aim; the two-sector engine.
 - *Receipts:* `audit/2026-06-16_keystone-energize-lock-substrate-pump`; `audit/2026-06-13_loop-gap-genesis-archive`; `genesis-chord-falsification-ledger.md`.
+- *Methodology caveat (added 2026-08-19, Wave-2 D15a — verdict UNCHANGED):* the banked freeze-g / handedness controls (`348b4241`, 2026-06-16 20:12 −07:00) **predate by 1h47m** the tag-only Phase-25 adversarial-panel overturn (`7542990e`, 2026-06-16 21:59 −07:00; `_orchestration/2026-06-15_passive-eigenmode-solve.md` §8, landed 2026-08-19), which re-scoped the `dt→0` SUBSTRATE-PUMP read to *"UNADJUDICATED, NOT negative, NOT positive"* on a frozen-Sector-A baseline plus an asymmetric operator split that plateaus by construction — so the NEGATIVE above stands **not** on that plateau but on the independent category-error scoping (landed `19fc78ea`, 2026-06-16 08:43 −07:00 — BEFORE either the freeze-g banking or the Phase-25 overturn, so derived from neither) (interior-field route sub-Nyquist / phase-space) and the ARC-12 Mode-III energy-certified bulk-cage result (N7; PR #403 / #404).
 - *Successor:* ARC-12 (bulk-cage reroute).
 
 **ARC-09 · sector-ownership canon (the two "3"s).** Window: 2026-06-13.

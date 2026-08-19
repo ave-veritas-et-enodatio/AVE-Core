@@ -1679,7 +1679,7 @@ driver `src/scripts/vol_1_foundations/two_band_kp_kinematics.py`; shipped artifa
 - _Specific Non-Claims and Caveats_
   - **NOT Grant-ratified.** Grant ratified the inversion MAPPING (`clm-riminv`), not this necessity arrow.
   - **Does NOT claim the topological and dynamic routes are the same mechanism** — that is explicitly OPEN.
-  - **GUARD (challenge-canonical-negative):** the static-existence test is DISTINCT from the falsified energize-LOCK formation route (pumped genesis from free precursor, closed-negative). Any future prereg MUST carry the config-grep proving it does not reconstruct the closed path (grep the CONFIG: no free-precursor genesis, no `dt→0` pump ramp; impose-and-relax only).
+  - **GUARD (challenge-canonical-negative):** the static-existence test is DISTINCT from the leans-falsified energize-LOCK formation route (pumped genesis from free precursor, closed-negative). Any future prereg MUST carry the config-grep proving it does not reconstruct the closed path (grep the CONFIG: no free-precursor genesis, no `dt→0` pump ramp; impose-and-relax only).
 
 > **Leaf references:** [saturation-rim-inversion](./saturation-rim-inversion.md).
 
