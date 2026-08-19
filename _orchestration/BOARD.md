@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **e07bc084** (2026-08-19) · 461 index records · 330 claims · 3 PRs open
+Scanned tree **e7205938** (2026-08-19) · 461 index records · 330 claims · 1 PR open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`30365438`). Every count below describes **e07bc084**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`ce96e950`). Every count below describes **e7205938**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -30,7 +30,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## What we are waiting on
 
-**34 of 62 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
+**33 of 61 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
 
 *Scope: this is a census of `open-items/`. `_orchestration/2026-07-10_rulings-docket.md` is the **paper timeline** — a dated continuation log, frozen at its 2026-07-21 tail per `docket-entries/README.md`, and the historical record of how each ruling was reached. It is read chronologically, not harvested; anything still live in it belongs here as its own file.*
 
@@ -48,7 +48,6 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [Multi-node vs single-node proton — a .tex sentence and an engine docstring assert opposite geometry](open-items/2026-06-08-proton-node-span.md) | ROUTED-TO-GRANT | grant | 2026-06-08 |
 | [√(3/7) — labelled torsion-shear, but it is the dilatational/bulk signature](open-items/2026-06-08-sqrt37-label.md) | ROUTED-TO-GRANT | grant | 2026-06-08 |
 | [The 2026-06-13 engine-platform ratification block — sign-off still OWED, downstream proceeded as-if-YES](open-items/2026-06-13-engine-platform-ratification.md) | ROUTED-TO-GRANT | grant | 2026-06-13 |
-| [A Rule-12 retraction is stranded on an unmerged branch, and main still shows the stale result](open-items/2026-06-16-stage16-rerun-amendments-unmerged.md) | ROUTED-TO-GRANT | grant | 2026-06-16 |
 | [Engines-on-spine — keep the kbleaf default, or mint a code-provenance node type](open-items/2026-06-17-engines-on-spine-schema.md) | ROUTED-TO-GRANT | grant | 2026-06-17 |
 | [The terminal charge-framing fork — net-monopole ∇·E vs harmonic/winding holonomy](open-items/2026-07-03-terminal-charge-framing-fork.md) | ROUTED-TO-GRANT | grant | 2026-07-03 |
 | [The two varactor sector-keying forks — ADJUDICATION-PENDING](open-items/2026-07-03-varactor-sector-keying-forks.md) | ROUTED-TO-GRANT | grant | 2026-07-03 |
@@ -120,8 +119,6 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 | PR | state | title |
 |---|---|---|
-| #988 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] cleanup: Wave-2 PR-7 — orphan execu |
-| #987 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: Wave-2 PR-6 — land the ho |
 | #986 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] manifest: Wave-2 PR-5 — the manifes |
 
 <!-- /volatile -->

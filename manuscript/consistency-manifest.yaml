@@ -556,7 +556,7 @@ predictions:
   - id: P_A034_bh_ringdown
     clm: clm-395gps
     name: "BH merger ring-down QNM (ω_R M_g = 18/49)"
-    type: derived_prediction
+    type: consistency_check
     calibration_role: mixed
     derivation_label: "ch:bh_orbitals"
     predicted_value: 0.3673
@@ -612,6 +612,13 @@ predictions:
       Same kernel S(A) = √(1-A²) as BCS (P43), solar flares
       (P_A034_solar_flare), and cosmic K4 crystallization.
       Vol 3 Ch 15 §"Electron–Black Hole Isomorphism" + Backmatter Ch 7.
+      ★ RE-TYPED 2026-08-19 (Grant fork ruling, superseding the sitting entry's MOVES
+      clause — see docket 2026-08-19-ringdown-fork-resolved): derived_prediction →
+      consistency_check. The fork: this row carries observed_value + observed_source +
+      error_percent 1.7 (tested against LIGO ringdowns) while the forward manifest's
+      scope header holds only claims NOT YET MEASURED — Grant ruled FLIP, the measured
+      value being the physics fact. P42 basis applies as for the other 17. Mechanism-
+      class relabel only. No value, axiom, bridge or solidity moved.
 
   - id: P_A034_schwarzschild
     clm: clm-law1ho
