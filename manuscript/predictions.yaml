@@ -6,7 +6,12 @@
 #
 # SCOPE (split 2026-08-13, Grant: "the predictions yaml should be forward only,
 # we should make a postdiction yaml"). This file holds claims that predict
-# something NOT YET MEASURED. Claims reproduced against an already-known value
+# something NOT YET MEASURED. MEMBERSHIP ≠ TYPE (Wave-2 D9 sub-word, landed with
+# the PR-5b gate): membership here means untested-forward-looking; `type` means
+# mechanism class — a forward row may carry any type (P_A034_solar_flare keeps
+# axiom_manifestation by ruling). The one-directional lock lives on the CONSISTENCY
+# file: no derived_prediction row may sit there (check_type_file_coherence, critical).
+# Claims reproduced against an already-known value
 # moved to manuscript/consistency-manifest.yaml -- that was 35 of the previous 36 rows.
 #
 # READ THE HARD FACT FIRST. Every clm- node in this corpus carries

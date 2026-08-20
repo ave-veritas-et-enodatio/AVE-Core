@@ -30,6 +30,7 @@ from scripts.predictions_manifest_validator import (
     check_labels,
     check_armed_forward_count,
     check_cross_manifest_ids,
+    check_type_file_coherence,
     check_living_reference_parity,
     check_readme_parity,
     check_schema,
@@ -1323,3 +1324,31 @@ class TestCalibrationRolesAreFrozen:
         assert any(f.severity in ("critical", "warn") for f in findings), (
             "an unknown calibration_role produced no finding — the UNKNOWN_ROLE branch is dead"
         )
+
+
+class TestTypeFileCoherence:
+    """The D9-1 lock (Wave-2, landed AFTER the flip per the ruling): no
+    derived_prediction row in the consistency manifest. One-directional by
+    design — the forward file carries no type constraint (membership ≠ type)."""
+
+    def test_live_consistency_manifest_is_clean(self) -> None:
+        assert check_type_file_coherence(load_live_union()) == []
+
+    def test_derived_prediction_in_consistency_file_is_critical(self, monkeypatch, tmp_path) -> None:
+        _declare(monkeypatch, tmp_path,
+                 con="version: 1\npredictions:\n  - id: P_probe\n    type: derived_prediction\n")
+        findings = check_type_file_coherence({})
+        assert [f.severity for f in findings] == ["critical"]
+        assert "P_probe" in findings[0].message
+
+    def test_forward_file_carries_no_type_constraint(self, monkeypatch, tmp_path) -> None:
+        _declare(monkeypatch, tmp_path,
+                 fwd="version: 1\npredictions:\n  - id: P_f\n    type: axiom_manifestation\n")
+        assert check_type_file_coherence({}) == []
+
+    def test_gate_is_wired_into_run(self, monkeypatch, tmp_path) -> None:
+        """The wire, not just the guard — the #966 F1 lesson."""
+        _declare(monkeypatch, tmp_path,
+                 con="version: 1\npredictions:\n  - id: P_probe\n    type: derived_prediction\n")
+        findings = run(checks=["type_file_coherence"])
+        assert [f.severity for f in findings] == ["critical"]
