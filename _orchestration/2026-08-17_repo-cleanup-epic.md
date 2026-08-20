@@ -86,6 +86,55 @@ The **88 MB duplicate SPICE netlist tree**: `manuscript/vol_6_periodic_table/sim
    Option-1 migration, bundled with the D13 drivers-verification lane: verify generators →
    migrate cited figures/data + repoint drivers → archive confirmed-dead drivers. One
    link-coupled discipline, one sequencing.
+
+   > **★ PHASE RECORD 2026-08-20 (implementer lane, branch `cleanup/2026-08-20-drivers-migration`,
+   > base HEAD `5164d000`).** Phase 1 DONE · Phase 3 DONE · **Phase 2 NOT EXECUTED — STUCK-POINT,
+   > three un-ruled forks (below).**
+   >
+   > **Phase 1 — D13 verification (DONE).** Candidate set re-derived at HEAD; the method
+   > **reproduces the 2026-08-17 census exactly** — 152 drivers unreferenced by a word-boundary
+   > stem scan excluding `_archive` *citers*, of which 57 are cited **only** from
+   > `research/_archive/` or `src/scripts/_archive/`, leaving **95** with zero citers anywhere
+   > (same membership at `36ce03b9` and at HEAD — the wave's deletions moved nothing). The
+   > 152-vs-95 gap is the archive-citer axis and it is the whole reconciliation of the census
+   > number: "no-`_archive`" scopes the *candidate* set, not the *citer* corpus.
+   > Verdicts: **31 LIVE** (22 output-cited · 7 run-by-hand instruments · 2 sole-regeneration-path
+   > for D14-pruned STLs) · **35 FLAG-routed** · **29 CONFIRMED-DEAD**. Receipts per file:
+   > [`src/scripts/_archive/MANIFEST.md`](../src/scripts/_archive/MANIFEST.md). Cross-repo scan
+   > over every sibling `AVE-*` repo: **0 citers** (all 28 raw hits were `AVE-Core-worktrees/*`,
+   > i.e. this repo).
+   >
+   > **Phase 3 — archive (DONE).** 29 `git mv` into `src/scripts/_archive/<vol>/` (17 vol_1 · 4
+   > vol_3 · 8 vol_4) + MANIFEST. No deletions. `make verify` green; cite integrity
+   > two-method-verified (post-move stem grep: 0 hits outside `_archive`; `.tex` scan: 0).
+   >
+   > **Phase 2 — STUCK-POINT (not executed; nothing moved, no citer repointed, the
+   > engine-capability-map wildcard paragraph deliberately NOT reworded since D15f-3 gates that
+   > reword on the migration *touching* it).** Measured surface at HEAD: **81 tracked artifacts**
+   > under `src/scripts/**/{_output,outputs}` (29 `.png` + 3 `.pdf` + 48 `.json` + 1 `.cir`);
+   > **133 citer files / 253 citer lines**; **55 drivers** whose write path would change (step 5
+   > of the ratified procedure also demands each be re-run and verified); **30 `.gitignore`
+   > allowlist lines**. That is ~214 files touched — past the lane's split threshold — but the
+   > blocker is not size, it is that the ratified policy does not determine the destinations:
+   > - **FORK-A (src↔manuscript volume mapping).** `src/scripts/vol_9_device/` has no manuscript
+   >   volume of that name; the candidates are `manuscript/vol_9_vacuum_datasheet/figures/`
+   >   (which also has its own `src/scripts/vol_9_vacuum_datasheet/`) or a new dir. 29 artifacts.
+   > - **FORK-B (where Option-1 `results/` dirs live).** No `results/` dir exists under any
+   >   `manuscript/vol_*/` today, and a repo-root `results/` already exists and is in use
+   >   (`results/photon_axis_kinematics.json`). "Per-volume `results/` mirroring `figures/`"
+   >   resolves to two different trees. 49 data artifacts.
+   > - **FORK-C (research-doc-cited artifacts).** **62 of 81 (77%)** are cited only by
+   >   `research/` (50), `_orchestration/`/`src/` (11), or nothing (1) — never by a `.tex` or a
+   >   KB leaf. "The citing volume's `figures/`" is undefined for them; the standing precedent is
+   >   `research/figures/<date>-<slug>/`, which the (a) ruling does not name.
+   >
+   > Only **19 of 81** have a manuscript/KB citer, i.e. only those are unambiguously placeable
+   > under the ruling as written. Half-executing a link-coupled migration is the one failure the
+   > procedure forbids (orphaned citations across a commit boundary), so the lane stopped rather
+   > than invent the three mappings. Also banked for whoever resumes: `engine-capability-map.md`
+   > **:477** (not `:320` — it moved) still reads "**38** CITED figures", stale against the HEAD
+   > count of 32 figures / 81 artifacts; the (a) §3 obligation to reconcile that comment rides
+   > the migration commit, not this one.
 2. **research/ archive sweep**
    > ★ **Census-methodology note (2026-08-19, banked from the PR-7 execution — MANDATORY for
    > this sweep and any future orphan census).** Literal basename grep over-reports orphans.
