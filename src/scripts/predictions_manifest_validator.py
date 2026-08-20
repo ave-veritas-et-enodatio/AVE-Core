@@ -902,6 +902,12 @@ ALLOWED_CALIBRATION_ROLES = {
     "fitted",
     "consistency",
     "forward-prediction",
+    # Wave-2 D11 (Grant, 2026-08-18): form-forced FORM + value computed from a
+    # calibration input measured in a DIFFERENT experiment + output never fit to
+    # the observable being predicted. Discriminator = the feedback question, not
+    # "does alpha appear". STARTS EMPTY; suggest_role never returns it; no marker
+    # forbids it (VALUE_ECHOED is compatible by design). def-0penlp.
+    "open-loop",
 }
 
 
@@ -1020,40 +1026,43 @@ PROVENANCE_MARKERS: tuple[ProvenanceMarker, ...] = (
         "imported, not derived'",
     ),
     # ── VALUE_FITTED ── the card states the value / its extension is fitted,
+    # Forbids open-loop as of 2026-08-19 (blind-read F5): def-0penlp's own text is
+    # 'the output never fit to the observable being predicted' -- a fitted card
+    # asserts the negation. The only marker-level enforcement the role has.
     # tuned, or disclosed-phenomenological. Same forbid set, different evidence
     # class (a fit is not an import).
     ProvenanceMarker(
         "VALUE_FITTED",
         r"disclosed[- ]phenomenological",
-        frozenset({"chord"}),
+        frozenset({"chord", "open-loop"}),
         "vol3/claim-quality.md clm-395gps Non-Claims + rationale; "
         "vol2/claim-quality.md clm-d9ivj1",
     ),
     ProvenanceMarker(
         "VALUE_FITTED",
         r"phenomenological[^.]{0,120}(?:formula|shift|fit\b)",
-        frozenset({"chord"}),
+        frozenset({"chord", "open-loop"}),
         "vol3/claim-quality.md clm-395gps: 'a phenomenological photon-sphere "
         "shift formula'; vol2/claim-quality.md clm-4vwsjc",
     ),
     ProvenanceMarker(
         "VALUE_FITTED",
         r"\bis \*{0,2}FITTED\b",
-        frozenset({"chord"}),
+        frozenset({"chord", "open-loop"}),
         "vol1/claim-quality.md clm-009nkt rationale: 'the magnitude "
         "$\\delta_{strain}$ ... is FITTED'",
     ),
     ProvenanceMarker(
         "VALUE_FITTED",
         r"\brefined post-hoc\b|\bpost-hoc against\b",
-        frozenset({"chord"}),
+        frozenset({"chord", "open-loop"}),
         "vol3/claim-quality.md clm-395gps rationale: 'Cosserat back-reaction "
         "fit (v2, refined post-hoc against LIGO)'",
     ),
     ProvenanceMarker(
         "VALUE_FITTED",
         r"back-reaction fit\b",
-        frozenset({"chord"}),
+        frozenset({"chord", "open-loop"}),
         "vol3/claim-quality.md clm-395gps rationale",
     ),
     # ── FORM_VS_VALUE_SPLIT ── the card states the FORM/VALUE split verbatim.
@@ -1794,7 +1803,7 @@ def check_armed_forward_count(manifest: dict, substitute: Path | None = None) ->
     is worth having, but "both sides derived" would overstate it.
 
     NOTE the consistency badge is deliberately NOT wired up the same way: it
-    reads 45 against 35 rows because it counts public TABLE SLOTS (compound
+    reads the published slot count (44 as of 2026-08-19; was 45) against 35 rows because it counts public TABLE SLOTS (compound
     ranges absorb 14), not manifest rows. Those two numbers are not the same
     quantity and asserting equality between them would be a false gate.
     """

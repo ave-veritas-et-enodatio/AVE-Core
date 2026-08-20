@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **e75e3178** (2026-08-18) · 460 index records · 330 claims · 3 PRs open
+Scanned tree **e7205938** (2026-08-19) · 461 index records · 330 claims · 1 PR open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`4a3be548`). Every count below describes **e75e3178**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`ce96e950`). Every count below describes **e7205938**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -30,7 +30,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## What we are waiting on
 
-**37 of 63 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
+**33 of 61 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
 
 *Scope: this is a census of `open-items/`. `_orchestration/2026-07-10_rulings-docket.md` is the **paper timeline** — a dated continuation log, frozen at its 2026-07-21 tail per `docket-entries/README.md`, and the historical record of how each ruling was reached. It is read chronologically, not harvested; anything still live in it belongs here as its own file.*
 
@@ -48,10 +48,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [Multi-node vs single-node proton — a .tex sentence and an engine docstring assert opposite geometry](open-items/2026-06-08-proton-node-span.md) | ROUTED-TO-GRANT | grant | 2026-06-08 |
 | [√(3/7) — labelled torsion-shear, but it is the dilatational/bulk signature](open-items/2026-06-08-sqrt37-label.md) | ROUTED-TO-GRANT | grant | 2026-06-08 |
 | [The 2026-06-13 engine-platform ratification block — sign-off still OWED, downstream proceeded as-if-YES](open-items/2026-06-13-engine-platform-ratification.md) | ROUTED-TO-GRANT | grant | 2026-06-13 |
-| [A Rule-12 retraction is stranded on an unmerged branch, and main still shows the stale result](open-items/2026-06-16-stage16-rerun-amendments-unmerged.md) | ROUTED-TO-GRANT | grant | 2026-06-16 |
 | [Engines-on-spine — keep the kbleaf default, or mint a code-provenance node type](open-items/2026-06-17-engines-on-spine-schema.md) | ROUTED-TO-GRANT | grant | 2026-06-17 |
-| [L5-scope — is L5-genesis in scope, with no solid precursor to validate against?](open-items/2026-06-17-l5-scope.md) | ROUTED-TO-GRANT | grant | 2026-06-17 |
-| [The S-exponent fork — n=S^0.25 vs n=S^0.5 disagree, and it BLOCKS every L3/L4 build](open-items/2026-06-17-s-exponent-fork.md) | ROUTED-TO-GRANT | grant | 2026-06-17 |
 | [The terminal charge-framing fork — net-monopole ∇·E vs harmonic/winding holonomy](open-items/2026-07-03-terminal-charge-framing-fork.md) | ROUTED-TO-GRANT | grant | 2026-07-03 |
 | [The two varactor sector-keying forks — ADJUDICATION-PENDING](open-items/2026-07-03-varactor-sector-keying-forks.md) | ROUTED-TO-GRANT | grant | 2026-07-03 |
 | [X36 / X38 / X41 — three PENDING-GRANT rows from the vertex arc](open-items/2026-07-11-x36-x38-x41-pending-grant.md) | ROUTED-TO-GRANT | grant | 2026-07-11 |
@@ -61,8 +58,6 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [The factor-2 normalization fork — leaf :47 vs :48 (a normalization-ledger lane awaits GO)](open-items/2026-08-03-factor-2-normalization-fork.md) | ROUTED-TO-GRANT | grant | 2026-08-03 |
 | [The falsifier-precision decision — leaf :236 asserts a threshold the instrument cannot resolve](open-items/2026-08-03-falsifier-precision.md) | ROUTED-TO-GRANT | grant | 2026-08-03 |
 | [Op14 local-clock modulation of the retardation — the driver retards by COORDINATE phase](open-items/2026-08-03-op14-local-clock.md) | ROUTED-TO-GRANT | grant | 2026-08-03 |
-| [19 of 37 rows have a `type` that contradicts the manifest they now live in](open-items/2026-08-13-manifest-type-residue.md) | ROUTED-TO-GRANT | grant | 2026-08-13 |
-| [P19 flyby anomaly — the label is settled, the claim is not; does it belong in the public table?](open-items/2026-08-13-p19-flyby-readjudication.md) | ROUTED-TO-GRANT | grant | 2026-08-13 |
 | [Electron-identity Checkpoint 1 — signed with two amends (Poincaré/FLAG-W and cosmic injection held out)](open-items/2026-08-14-electron-identity-kill-list.md) | ROUTED-TO-GRANT | grant | 2026-08-14 |
 | [A 7th `calibration_role` is authorized and unbuilt — the schema still lists six](open-items/2026-08-14-seventh-calibration-role.md) | ROUTED-TO-GRANT | grant | 2026-08-14 |
 | [The repo-formatting P2 adjudication batch awaits Grant's rulings and was tracked on no current surface](open-items/2026-08-17-repo-formatting-p2-orphaned-ruling.md) | ROUTED-TO-GRANT | grant | 2026-08-17 |
@@ -89,6 +84,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [`--check` blanks every date in the stable region — 1 legitimate target, 57 lines of collateral](open-items/2026-08-14-board-check-date-blanking.md) | OPEN | unassigned | 2026-08-14 |
 | [Electron-identity program is ACTIVE — Checkpoint 2; LaTeX/README follow-ups next](open-items/2026-08-14-electron-identity-program.md) | OPEN | unassigned | 2026-08-14 |
 | [Electron-identity LaTeX + README follow-ups — one full document-read per KB deprecation (unblocked; waiting first F-row)](open-items/2026-08-16-electron-identity-latex-readme-followups.md) | OPEN | unassigned | 2026-08-16 |
+| [check_new_cites mixes committed line-sets with working-tree content — green receipts describing neither state](open-items/2026-08-19-newcite-ratchet-split-brain.md) | OPEN | unassigned | 2026-08-19 |
 | [Sibling-repo debts — AVE-Fusion yield cross-wire + AVE-Bench-FemtoElectrometer stale sites](open-items/2026-07-03-sibling-repo-debts.md) | REGISTERED | unassigned | 2026-07-03 |
 | [The v3 ringdown instrument — the DISCRETE near-wall chain](open-items/2026-08-04-v3-ringdown-instrument.md) | REGISTERED | unassigned | 2026-08-04 |
 | [Hygiene backlog — Bell-arc citation follow-ups, FPR provenance re-grep, auditor-landing queue](open-items/2026-07-03-hygiene-backlog.md) | QUEUED | unassigned | 2026-07-03 |
@@ -96,9 +92,11 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [J(ω) coupling fork — needs the engine constitutive tensor](open-items/2026-07-20-jomega-coupling-fork.md) | QUEUED | unassigned | 2026-07-20 |
 | [u/A transverse identity-collapse candidate — are the EM and mechanical-transverse sectors two meters on one bench object?](open-items/2026-07-20-ua-transverse-identity-collapse.md) | QUEUED | unassigned | 2026-07-20 |
 | [Q-law derivation — why the standing-v1 mΩ τ lands at −5.4 %](open-items/2026-07-21-q-law-derivation.md) | QUEUED | unassigned | 2026-07-21 |
+| [19 of 37 rows have a `type` that contradicts the manifest they now live in](open-items/2026-08-13-manifest-type-residue.md) | QUEUED | grant | 2026-08-13 |
 | [BUILD-class instruments — quantum-seeded floor, arrow instruments, CVR bench](open-items/2026-07-20-build-class-instruments.md) | PARKED | grant | 2026-07-20 |
 | [Vessel-state shell → γ_c couple-stress → (2,3) winding — the wall-asymmetry carrier candidate](open-items/2026-07-20-vessel-state-shell-walk.md) | PARKED | grant | 2026-07-20 |
 | [D5 — the WD / Q=ℓ tag question, deliberately held by ruling](open-items/2026-08-04-d5-wd-qell-tag-hold.md) | PARKED | grant | 2026-08-02 |
+| [ℂP¹ Smith-chart ontology canonization — PARKED; re-open only if an engine lane wants the chart as an instrument](open-items/2026-08-18-smith-chart-cp1-canonization.md) | PARKED | unassigned | 2026-08-18 |
 
 ## Ruling-token coverage
 
@@ -121,9 +119,7 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 | PR | state | title |
 |---|---|---|
-| #980 | CLEARED | [REVIEW: CLEARED] orchestration: Wave 1 status hygiene — 15 false status lines r |
-| #979 | CLEARED | [REVIEW: CLEARED] cleanup: remove the 85 MB stale twin of the live SPICE netlist |
-| #977 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] orchestration: open the repo-cleanu |
+| #986 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] manifest: Wave-2 PR-5 — the manifes |
 
 <!-- /volatile -->
 

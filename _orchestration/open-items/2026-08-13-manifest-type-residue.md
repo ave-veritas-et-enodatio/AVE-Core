@@ -1,7 +1,7 @@
 ---
 id: manifest-type-residue
 title: 19 of 37 rows have a `type` that contradicts the manifest they now live in
-status: ROUTED-TO-GRANT
+status: QUEUED
 owner: grant
 opened: 2026-08-13
 source: manuscript/consistency-manifest.yaml
@@ -33,3 +33,8 @@ contradicts, with nothing recording it.
 file-membership against `type`, or declare `type` orthogonal to file-membership and say so in both
 headers. Any of the three closes it; leaving it silent re-creates exactly the confusion the split
 exists to remove.
+
+> ★ **2026-08-19 (Wave-2 D9-1 executed; blind-read F10).** The measured residue above is now
+> **0** — all 18 rows re-typed on the P42 basis in the manifest-trio PR (ringdown's disposition
+> is a separate Grant fork). Item held QUEUED for exactly one remainder: the file-membership
+> gate (closure option 2) lands as PR-5b after the trio merges, then this item closes.

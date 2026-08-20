@@ -58,6 +58,9 @@
 #                        fitted — magnitude tuned per-system to match
 #                        consistency — reproduces a known result / definitional residual
 #                        forward-prediction — untested, divergent-from-SM, AVE-distinct
+#                        open-loop — form-forced; value from an independently-measured
+#                                    calibration input; output never fit to the target
+#                                    observable (def-0penlp; starts empty, Wave-2 D11)
 # derivation_label:      \label{} target in manuscript/**/*.tex
 # constants_py_symbol:   (optional) name in src/ave/core/constants.py
 # predicted_value:       (optional) numeric value for validator to cross-check
