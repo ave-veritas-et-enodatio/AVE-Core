@@ -331,13 +331,35 @@ def flags_for(path, lines, ln, preserve=PRESERVE):
 
 
 def corpus_files(base="origin/main", head="HEAD"):
-    """The R40-B1 corpus surface: files changed base..head under manuscript/ + src/."""
+    """The R40-B1 corpus surface: files changed base..head under manuscript/ + src/.
+
+    BINARY FILES ARE EXCLUDED, and the exclusion is git's own call, not a
+    suffix heuristic of ours: `git diff --numstat` prints `-\t-\t<path>` for
+    every blob it classifies as binary. This gate scans *stamped lines* for
+    fencing (STAMP is a line regex); a binary blob has no lines and no stamps,
+    so excluding it removes nothing the gate could ever have detected. Before
+    this filter, any branch that added or changed a figure under manuscript/ or
+    src/ crashed the gate with a UnicodeDecodeError in scan() -- `make verify`
+    went red for a reason unrelated to preserved spans. Found 2026-08-20 by the
+    Phase-2 figure migration, which moves 29 renders into manuscript/**/figures/.
+    """
     out = subprocess.run(
         ["git", "-C", REPO, "diff", "--name-only", base, head],
         capture_output=True, text=True).stdout.split()
+    # --no-renames keeps every numstat path plain (a rename becomes a delete +
+    # an add), so parts[2] is always a real path and never a `{a => b}` form.
+    numstat = subprocess.run(
+        ["git", "-C", REPO, "diff", "--numstat", "--no-renames", base, head],
+        capture_output=True, text=True).stdout.splitlines()
+    binary = set()
+    for row in numstat:
+        parts = row.split("\t")
+        if len(parts) >= 3 and parts[0] == "-" and parts[1] == "-":
+            binary.add(parts[2])
     return [f for f in out
             if (f.startswith("manuscript/") or f.startswith("src/"))
-            and not f.startswith("manuscript/ave-kb/.index/")]
+            and not f.startswith("manuscript/ave-kb/.index/")
+            and f not in binary]
 
 
 def scan(files, preserve=PRESERVE, live_only=True, at_rev=None, old_rev="origin/main"):
