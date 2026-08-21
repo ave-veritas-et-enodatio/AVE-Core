@@ -473,12 +473,21 @@ standing rules:
    regenerable, it is not scratch — it is a tracked asset and belongs in `figures/` with a
    provenance note (orphan-non-regenerable artifacts are a Grant-call, not auto-deleted).
 
-**Known policy smell (flagged, not fixed — future-arc item).** 38 CITED figures currently live
-inside scratch `_output/` dirs (e.g. `src/scripts/vol_9_device/_output/*.png` cited by the vol-9
-datasheet). They are `!`-allowlisted in `.gitignore` so they stay tracked, but cited renders
-*belong in `figures/`*. Migrating them (and repointing the `\includegraphics` paths) is a
-mechanical future-arc cleanup, deliberately NOT done in the D4 pass (path-repointing risks a
-build break; out of the hygiene pass's scope).
+**Policy note — the `_output/` render smell was MIGRATED, 2026-08-20 (was: "flagged, not fixed —
+future-arc item").** The paragraph this replaces claimed **38** CITED figures lived inside scratch
+`_output/` dirs; the HEAD-true count when the migration ran was **32** tracked renders (29 `.png` +
+3 `.pdf`) under `src/scripts/**/{_output,outputs}`, of which **29 moved** and **3 are held**. Figures
+migrated per the ratified policy (`_orchestration/2026-07_repo-conventions.md` §(a), ratified
+2026-07-04; destinations ratified 2026-08-20, `_orchestration/docket-entries/2026-08-20-phase2-destination-map.md`):
+KB- or `.tex`-cited renders to the driver volume's `figures/`, research-only renders to
+`research/figures/`, and the matching data split to per-volume `results/` (Option 1) or root
+`results/`. Vol-9's `\graphicspath` no longer reaches into a scratch dir. **Held, not migrated (6):**
+the three `vacuum_birefringence_facility_sweep_*` `.pdf`/`.png` pairs (one `style.save` call emits
+both formats to one stub, so the pair is one flagged unit), and three renders whose **byte-identical
+twin was already tracked** in the destination's own `\graphicspath` — retiring those is a deletion on
+the D15c orphan-data axis, not a move. The `.gitignore` allowlist keeps only the held set plus the
+`src/tests/outputs/` block, and its count is now DERIVED from the allowlist rather than
+hand-maintained.
 
 ---
 
