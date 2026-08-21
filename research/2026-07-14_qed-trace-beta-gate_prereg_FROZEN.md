@@ -266,7 +266,7 @@ models get the same free-parameter budget (2 each: {c, r_ref-offset} vs {a, p}).
   determination: the log-vs-power-law verdict is read from the kernel geometry, not from any imported α.
 - **Consistency-vs-emergence tags:** the Op14 saturation form-factor is **CONSISTENCY / ECHO**
   (charge-agnostic — same kernel as gravity `K=Gm²` and chemistry `d_sat`=Slater radius;
-  `charge_sector_two_winding.py:363-371`, audit `w1ni1axfg`). No emergence claim is headlined. The gate's
+  `charge_sector_two_winding.py:365-373`, audit `w1ni1axfg`). No emergence claim is headlined. The gate's
   earnable content is the FORM/SIGN category answer, not a value.
 - **FORM/VALUE tags** applied throughout. **Pure physics** — no external context in any tracked file.
 
@@ -299,8 +299,8 @@ models get the same free-parameter budget (2 each: {c, r_ref-offset} vs {a, p}).
 | Sourced-charge no-go scope guard (charge UNSOURCED; pairs+topology OPEN; lane-W pair force not touched) | `the-sourced-charge-no-go-cascade.md` scope guard (`clm-nogo4l`) |
 | Winding charge integer-quantized `Q=Link(∂Ω,F)∈ℤ` | `clm-ze4clw`; `test_winding_charge_closure.py:19,29,34` |
 | Rotation content = discrete 2T (order 24) via K₄→A₄→2T⊂SU(2); charge=Burgers/Frank boundary data | `electron-unknot-cosserat-seeder.md:72,85` |
-| Op14 pairwise dress `Z/Z₀=1/(1−(d_sat/r)²)^{1/4}`, `U=−(K/r)(T²−Γ²)`, charge-agnostic ECHO | `universal_operators.py:140-234`; `charge_sector_two_winding.py:363-426` (clm-gdd70j, audit w1ni1axfg) |
-| Field-engine winding force is force-blind-to-charge + dispersion-dominated | `charge_sector_two_winding.py:20-25,378-382` |
+| Op14 pairwise dress `Z/Z₀=1/(1−(d_sat/r)²)^{1/4}`, `U=−(K/r)(T²−Γ²)`, charge-agnostic ECHO | `universal_operators.py:140-234`; `charge_sector_two_winding.py:365-428` (clm-gdd70j, audit w1ni1axfg) |
+| Field-engine winding force is force-blind-to-charge + dispersion-dominated | `charge_sector_two_winding.py:20-25,380-384` |
 | Prior running-α driver: negligible + WRONG SIGN, depth=1 collapse | `simulate_running_alpha.py:5-10,88` |
 | #669 ksweep harness (scale-sweep + fit discipline reused) | `srs_vertex_ksweep_backscatter.py`; `srs-vertex-ksweep-backscatter_RESULT.md` |
 
