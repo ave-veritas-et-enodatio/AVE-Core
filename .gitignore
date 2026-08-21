@@ -55,7 +55,7 @@ src/scripts/**/_output/
 #  cited render targets. A cited figure that a driver writes into a `figures/`
 #  dir stays tracked; only the scratch `_output`/`outputs` dirs are ignored.)
 #
-# EXCEPTIONS — 31 CITED figures currently live inside these scratch dirs (a
+# EXCEPTIONS — 25 CITED figures currently live inside these scratch dirs (a
 # pre-existing policy smell: cited renders belong in `figures/`, not `_output/`;
 # migrating them is a future-arc item, NOT done here). They are already tracked,
 # but the allowlist below makes the intent explicit so a regenerate-then-readd
@@ -82,12 +82,6 @@ src/scripts/**/_output/
 !src/scripts/vol_9_device/_output/vacuum_birefringence_facility_sweep_time_to_5sigma.png
 !src/scripts/vol_9_device/_output/vacuum_birefringence_facility_sweep_window_E_vs_g.pdf
 !src/scripts/vol_9_device/_output/vacuum_birefringence_facility_sweep_window_E_vs_g.png
-!src/scripts/vol_9_device/cvr_ee_sweep/_output/fig1_dc_operating_point.png
-!src/scripts/vol_9_device/cvr_ee_sweep/_output/fig2_transfer_function_bode.png
-!src/scripts/vol_9_device/cvr_ee_sweep/_output/fig3_reflection_smith.png
-!src/scripts/vol_9_device/cvr_ee_sweep/_output/fig4_phasor_reactance.png
-!src/scripts/vol_9_device/cvr_ee_sweep/_output/fig5_stability_eigenmode.png
-!src/scripts/vol_9_device/cvr_ee_sweep/_output/fig6_parameter_basin.png
 !src/tests/outputs/beryllium_9_density_equator.png
 !src/tests/outputs/beryllium_9_density_z_pos.png
 !src/tests/outputs/boron_11_density_equator.png
