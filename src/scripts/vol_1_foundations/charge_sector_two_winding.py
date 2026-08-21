@@ -46,6 +46,7 @@ from __future__ import annotations
 
 import argparse
 import json
+from pathlib import Path
 
 import numpy as np
 
@@ -346,10 +347,11 @@ def main() -> None:
           f"frac_dev@1.05·d_sat = {chord['frac_dev_from_coulomb_vs_r_over_dsat']['1.05']:+.4f} "
           f"[saturation form-factor decays as (d_sat/r)^4, not a charge chord]")
 
-    out = args.out or (
-        "results/charge_sector_two_winding_results"
-        + ("_smoke" if args.smoke else "") + ".json"
-    )
+    # Ratified 2026-08-20 map: research-tier DATA -> tracked root `results/` (class 4),
+    # ANCHORED TO __file__ -- the default was cwd-relative, so a run from anywhere but
+    # the repo root wrote a stray `results/` tree beside the caller, silently, exit 0.
+    out = args.out or str(Path(__file__).resolve().parents[3] / "results" / (
+        "charge_sector_two_winding_results" + ("_smoke" if args.smoke else "") + ".json"))
     with open(out, "w") as f:
         json.dump(results, f, indent=2, default=_json_default)
     print(f"[out] wrote {out}")
