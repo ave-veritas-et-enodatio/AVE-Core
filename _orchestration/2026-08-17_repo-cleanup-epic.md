@@ -135,6 +135,45 @@ The **88 MB duplicate SPICE netlist tree**: `manuscript/vol_6_periodic_table/sim
    > **:477** (not `:320` — it moved) still reads "**38** CITED figures", stale against the HEAD
    > count of 32 figures / 81 artifacts; the (a) §3 obligation to reconcile that comment rides
    > the migration commit, not this one.
+
+   > **★ PHASE-2 EXECUTED 2026-08-20 (same branch, same lane; appended below the STUCK-POINT
+   > record, which is preserved byte-untouched per Rule 12 — it is the true account of why the
+   > lane stopped, and the fork resolutions below did not come from the lane).**
+   >
+   > **The three forks were ruled by Grant ("ratified, relaunch phase 2", 2026-08-20) and the
+   > rulings are TRACKED, not transcript-only:**
+   > [`docket-entries/2026-08-20-phase2-destination-map.md`](docket-entries/2026-08-20-phase2-destination-map.md)
+   > — FORK-A **DISSOLVED** (`vol_9_device` is the driver-side name for the vol-9 datasheet
+   > volume; the tree already said so in its own `\graphicspath`), FORK-B **ALREADY RULED, no
+   > conflict** (per-volume `results/` is the canonical tier, root `results/` the research tier;
+   > they coexist), FORK-C **CORRECTED** by a definition (a canonical citer is a
+   > `manuscript/**` citer of the ARTIFACT; citing the generating `.py` is not citing the
+   > artifact — the applied form of that rule is stated verbatim in the docket's RIDER).
+   >
+   > **Outturn against the 81:** **72 moved** (23 renders + 49 data) · **3 twins deleted** ·
+   > **9 not moved** (6 held under `src/scripts/vol_9_device/_output/` — the three
+   > facility-sweep `.pdf`/`.png` PAIRS, one `style.save(strict=True)` call emitting both, so
+   > the pair is one unit — plus the 3 deleted). Measured classes at tip, not the Phase-1
+   > index: **19 canonical · 62 research-tier · 0 fixtures**; the Phase-1 naive score of
+   > 43/37/1 was demoted 25-of-81 by a second, independent citer method.
+   >
+   > ⚑ **The 3 deletions are executed on an authority that is PENDING GRANT'S WORD.** They were
+   > retired as an extension of the D15c byte-identical-twin authority from the orphan-DATA axis
+   > (`src/scripts/_archive/MANIFEST.md:131`) to the FIGURE axis. That extension is **not
+   > ratified** — the question is routed and open, the deletions are restorable from `82692e08^`,
+   > and this record states it as pending rather than settled.
+   >
+   > **VACATED — the `:135` banked note above.** It banks `engine-capability-map.md:477` as
+   > *"still reads **38** CITED figures"*. The migration **reworded that paragraph** (the D15f-3
+   > rider it was gated on), so the sentence the note points at no longer exists: the argument is
+   > dead, not wrong. The reconciled text at `:476-490` now carries the measured 32 = 23 moved +
+   > 9 not moved, and `.gitignore`'s count is DERIVED from its own allowlist lines rather than
+   > hand-maintained, so it cannot drift the way "38" did.
+   >
+   > Execution shape: five link-coupled commits (vol_1 · vol_4 · vol_9-family · research renders ·
+   > research data) + a policy-reconciliation commit + the twin-retirement commit.
+   > PR [#991](https://github.com/ave-veritas-et-enodatio/AVE-Core/pull/991). `make verify` green
+   > at each; `make verify-md-links` gating 0.
 2. **research/ archive sweep**
    > ★ **Census-methodology note (2026-08-19, banked from the PR-7 execution — MANDATORY for
    > this sweep and any future orphan census).** Literal basename grep over-reports orphans.

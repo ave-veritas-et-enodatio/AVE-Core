@@ -79,3 +79,70 @@ Every `src/tests` hit against the 81 resolves to the **driver module**, never th
 #### Execution shape
 
 Five link-coupled commits, one per batch, so a broken batch bisects: **vol_1** (2) · **vol_4** (5) · **vol_9-family** (9) · **research renders** (15) · **research data** (44), then a policy-reconciliation commit for `.gitignore` + `engine-capability-map.md` + the `\graphicspath` retirement. Per batch: full citer inventory → `git mv` + every citer repointed in the same commit → allowlist lines retired in the same commit → `make verify-md-links` + `make verify-kb-metadata` green → generating driver's write path updated `_output/` → new home.
+
+---
+
+#### ★ AMENDMENT 2026-08-20 (post-execution, #991 blind-read) — five facts this map states at variance with the tree it produced
+
+Append-only, per the §(c) record rule. The body above is the ratified authorization and is
+**not rewritten**; the five entries below are the measured outturn where execution diverged
+from the plan. Where a number above is now wrong, it is **vacated** here rather than edited in
+place (vacated-cite pattern: the stated number IS what the plan argued from).
+
+1. **Held count 6 → 9.** The "Held, not moved — 6" heading at `:59` counts the three
+   facility-sweep `.pdf`s and the three FLAG-DUP twins. Measured at execution: **9 artifacts of
+   the 81 did not move** — the same 6, plus **the three facility-sweep `.png`s**, which the plan
+   routed to `research/figures/` and which stayed put (entry 2). Executed split: **72 moved**
+   (23 renders + 49 data) **· 9 not moved** (6 held under `src/scripts/vol_9_device/_output/`,
+   3 retired by deletion). 72 + 9 = 81.
+
+2. **The three facility-sweep `.png`s did NOT move, and the reason is mechanical, not a
+   re-classification.** `src/ave/viz/style.py:371` `save()` takes `formats=("pdf", "png")` by
+   default and emits **both** from one call; `vacuum_birefringence_facility_sweep.py:455,496,540`
+   each call `style.save(fig, out_stub, strict=True)`. One call, one stub, two files — **the
+   pdf/png pair is one unit**, and moving the `.png` half while the `.pdf` half is on the lane's
+   DO-NOT-TOUCH list would have made the driver re-emit its `.pdf` twin beside a now-absent
+   `.png` on every run. Held together, as one flagged unit, awaiting the same ruling.
+
+3. **The `:61` `.gitignore` measurement is VACATED.** That line reads *"the contradiction is now
+   visible in `.gitignore` (3 surviving `.pdf` lines, 0 `.png`)"*. Because of (2) the tip
+   carries **3 `.pdf` + 3 `.png`** allowlist lines — a symmetric block, which is the *opposite*
+   of the disclosure that line was written to make. The pdf/png allowlist contradiction the line
+   points at is therefore **not made visible by the allowlist shape**; it is made visible **here
+   and in `.gitignore:64-74`**, and it remains an open question in its own right.
+
+4. **FLAG-DUP (the three byte-identical twins) was resolved by DELETION, and the authority for
+   that deletion is PENDING GRANT'S WORD.** `:62-67` holds and routes the three; the execution
+   commit `82692e08` **deleted** the three `src`-side copies
+   (`src/scripts/vol_9_device/_output/a1_spatial_cavity_mode_fft.png`,
+   `.../two_natured_electron_native_engine.png`,
+   `src/scripts/vol_4_engineering/outputs/optical_caustic_resolution.png`) as an **extension of
+   the D15c twin-class authority to the figure axis**. That extension is **not ratified**: the
+   D15c axis on record is orphan-DATA (`src/scripts/_archive/MANIFEST.md:131`), and the question
+   *"does the D15c byte-identical-twin deletion authority extend to figure twins?"* is **routed
+   to Grant and open**. The deletions stand in the tree pending his word; if he declines the
+   extension, they are restorable from `82692e08^`. Stated as PENDING, not as settled.
+
+5. **"research renders (15)" → 12 landed.** The execution-shape line `:81` sizes the research-render
+   batch at 15. Commit `373124e6` moved **12** renders into `research/figures/`. The missing 3 are
+   exactly the facility-sweep `.png`s of entry (2). 12 + 3 = 15; no artifact is unaccounted for.
+
+#### ★ RIDER — the canonical-citer rule that was APPLIED (stated, because it is not the rule this map states)
+
+FORK-C at `:29` defines a canonical citation as *"the HARD-gated link class that
+`manuscript/ave-kb/tools/verify-md-links.py` enforces on kbleaf→figure edges."* **That is
+narrower than what the classification actually ran.** The rule the 19/62 split was measured
+under, stated here so the map can be re-derived:
+
+> **An artifact is canonical-tier iff its EXACT BASENAME is cited anywhere under `manuscript/**`
+> — in any of three forms: a markdown image/link, a LaTeX `\includegraphics{...}`, or backticked
+> / full-path prose. A citation of the artifact's GENERATING `.py` is NOT a citation of the
+> artifact.**
+
+Both halves are load-bearing and both are visible in the body above. The *widening* half is why
+`im3_vacuum_harmonic_distortion.json` scored canonical (`:56` — a KB leaf citing its full path in
+prose, no markdown link, so `verify-md-links` never gates it) and moved to
+`manuscript/vol_9_vacuum_datasheet/results/`. The *narrowing* half is the whole false-citer class
+at `:55` — `srs_band_survey.png` has zero canonical citers because the leaf that "cites" it cites
+`srs_band_survey.py`. Under the map's stated `verify-md-links` definition alone, the canonical
+tier would have been smaller than the 19 that were moved.
