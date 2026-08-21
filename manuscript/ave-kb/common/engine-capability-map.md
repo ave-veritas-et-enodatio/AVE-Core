@@ -476,16 +476,23 @@ standing rules:
 **Policy note — the `_output/` render smell was MIGRATED, 2026-08-20 (was: "flagged, not fixed —
 future-arc item").** The paragraph this replaces claimed **38** CITED figures lived inside scratch
 `_output/` dirs; the HEAD-true count when the migration ran was **32** tracked renders (29 `.png` +
-3 `.pdf`) under `src/scripts/**/{_output,outputs}`, of which **29 moved** and **3 are held**. Figures
+3 `.pdf`) under `src/scripts/**/{_output,outputs}`, of which **23 moved** and **9 did not**. Figures
 migrated per the ratified policy (`_orchestration/2026-07_repo-conventions.md` §(a), ratified
 2026-07-04; destinations ratified 2026-08-20, `_orchestration/docket-entries/2026-08-20-phase2-destination-map.md`):
 KB- or `.tex`-cited renders to the driver volume's `figures/`, research-only renders to
 `research/figures/`, and the matching data split to per-volume `results/` (Option 1) or root
-`results/`. Vol-9's `\graphicspath` no longer reaches into a scratch dir. **Held, not migrated (6):**
-the three `vacuum_birefringence_facility_sweep_*` `.pdf`/`.png` pairs (one `style.save` call emits
-both formats to one stub, so the pair is one flagged unit), and three renders whose **byte-identical
-twin was already tracked** in the destination's own `\graphicspath` — retiring those is a deletion on
-the D15c orphan-data axis, not a move. The `.gitignore` allowlist keeps only the held set plus the
+`results/`. Vol-9's `\graphicspath` no longer reaches into a scratch dir. **Held or retired (9):**
+**6 HELD** — the three `vacuum_birefringence_facility_sweep_*` `.pdf`/`.png` pairs, held as pairs
+(one `style.save` call emits both formats to one stub, so a pair is one flagged unit; the `.png`
+half was planned for `research/figures/` and stayed with its `.pdf` twin) — and **3 RETIRED BY
+DELETION**, the renders whose **byte-identical twin was already tracked** in the destination's own
+`\graphicspath` (`a1_spatial_cavity_mode_fft.png`, `two_natured_electron_native_engine.png`,
+`optical_caustic_resolution.png`). Those three were build-invisible: neither volume's `main.tex`
+reached any `src/scripts/` path, so the build already resolved to the manuscript-side copy. Their
+generators now write directly to the surviving twin, so a re-run cannot resurrect them. ⚑ The
+deletion **extended** the D15c byte-identical-twin authority from the orphan-DATA axis to the
+FIGURE axis, and that extension is **PENDING GRANT'S WORD** — the deletions stand in the tree, the
+authority is routed and open, not settled. The `.gitignore` allowlist keeps only the held set plus the
 `src/tests/outputs/` block, and its count is now DERIVED from the allowlist rather than
 hand-maintained.
 
