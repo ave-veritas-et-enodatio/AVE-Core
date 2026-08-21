@@ -194,7 +194,7 @@ Reading (a) is the strong lean (it needs no new postulate and matches canon). Bu
 | `device-circuit-models.md:203` | circulator PARTIAL, 4 gates PASS, magnitude imposed ✓ |
 | `cross_sector_coupling.py:9-11,66-90` | A44 "Axiom-1 non-centrosymmetry consequence"; `f_V=−κ̃·g·Ω_w`, `Ω_w=(∇×w)·x̂` ✓ |
 | `crystal_engine.py:225` | A44 "CONSEQUENCE / engine-completeness of Axiom-1 non-centrosymmetry" ✓ |
-| `node_circulator_coupling.py:39-51,561-566` | mode-amplitude generator; forced-vs-imposed ECHO-at-magnitude ✓ |
+| `node_circulator_coupling.py:39-51,562-567` | mode-amplitude generator; forced-vs-imposed ECHO-at-magnitude ✓ |
 | `k4_cosserat_coupling.py:112-124,274-285,843-855` | gradient-of-L_c coupling; A28-redundant; Lenz-EMF OFF-default ✓ |
 | DEC computations | `scratchpad/dec_probe{,2,3,4}.py` on merged `srs_dec.py`, shared `.venv` ✓ |
 

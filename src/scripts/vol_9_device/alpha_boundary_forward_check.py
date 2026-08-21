@@ -121,7 +121,7 @@ def main() -> int:
     # The genesis engine (unified_genesis_engine.py) and the energy accounting
     # (bulk_energy_conserved / total_energy_unified) take NO fine-structure alpha as
     # a dynamical input (grep-verified this session: the only alpha touch in the whole
-    # s11_de_novo pipeline is the post-hoc ringdown-Q note at s11_de_novo_sweep.py:698,
+    # s11_de_novo pipeline is the post-hoc ringdown-Q note at s11_de_novo_sweep.py:703,
     # ALPHA_COLD_INV, explicitly "post-hoc, NOT a bin criterion"; it consumes the
     # ringdown Q, not E_V_cons/H_cons). No comparison_only_alpha / gamma_target field
     # feeds E_V_cons or H_cons. => alpha is a DEAD input to the partition by

@@ -33,7 +33,7 @@ The pathway's structural premise is **VERIFIED ACCURATE** (grep-confirmed @ b33b
 
 **THREE corrections to the pathway's secondary framing (refute-by-default surfaced these):**
 1. **S1 is TWO sub-claims, not one** — single-knot conservation (the S1 make-or-break, BUILDABLE NOW) vs two-soliton transfer (DEFERRED, see §6).
-2. **A PARTIAL winding-transfer mechanism ALREADY EXISTS** — node_circulator_coupling.py (PR#321, device-circuit-models.md:203): bounded, lossless, winding-acting, helicity-TRANSFERRING shear↔bulk coupling, passes CONSERVE/TRANSFER/LOCK-ON-WINDING; ONLY the non-reciprocity MAGNITUDE is imposed (echo). BUT it is a **reduced M=2 complex-amplitude ODE** (`a_bulk, a_shear` scalars, node_circulator_coupling.py:25,170-171), **NOT** the field-resolved engine. Do NOT mis-read as "S1 already built" (anti-substitution).
+2. **A PARTIAL winding-transfer mechanism ALREADY EXISTS** — node_circulator_coupling.py (PR#321, device-circuit-models.md:203): bounded, lossless, winding-acting, helicity-TRANSFERRING shear↔bulk coupling, passes CONSERVE/TRANSFER/LOCK-ON-WINDING; ONLY the non-reciprocity MAGNITUDE is imposed (echo). BUT it is a **reduced M=2 complex-amplitude ODE** (`a_bulk, a_shear` scalars, node_circulator_coupling.py:25,171-172), **NOT** the field-resolved engine. Do NOT mis-read as "S1 already built" (anti-substitution).
 3. **The conserved quantity the corpus has demonstrated TRANSFERRING is the 0-form CHARGE (= Beltrami helicity), NOT the (2,3) phase-space WINDING.** The corpus keeps these separate (crystal-engine_result.md:210 "carries the CHARGE, not the WINDING"). The ONLY corpus result on the genuine winding side is the **w_pol=0 NEGATIVE** (genesis-v7, SWAMPED/NO-LOCK).
 
 ---

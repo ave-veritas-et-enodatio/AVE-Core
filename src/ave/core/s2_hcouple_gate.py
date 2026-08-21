@@ -19,7 +19,7 @@ INCONCLUSIVE is a legit landing (no rescue).
                         SPLITTING is DECLARED EXPECTED + bounded (FORK B=(b)) — NOT
                         a violation.
     (4) REDUCED-LIMIT — H_couple recovers the 2-mode circulator generator
-                        (node_circulator_coupling.py:124-157) in its 2-mode limit.
+                        (node_circulator_coupling.py:125-158) in its 2-mode limit.
 
 ANTI-REBUILD (Rule 14). This gate REUSES the existing immune system:
   * node_circulator_coupling.circulator_generator — the PR#321 2-mode generator,
@@ -87,7 +87,7 @@ ncc_mode_energies = _NCC.mode_energies  # |a_bulk|², |a_shear|²
 # The (2,3)-winding rate scale κ̃ = 6/5, certified α-free by the host (NOT α·κ̃).
 KAPPA_TILDE: float = HOST.winding_kappa_tilde(2, 3)  # = 6/5
 # The lattice chirality PHASE θ_χ = 2π·ν_vac, ν_vac = 2/7 (α-free — the SAME
-# gyrotropic phase node_circulator_coupling.py:117 carries). Hard-coded as a
+# gyrotropic phase node_circulator_coupling.py:118 carries). Hard-coded as a
 # rational here so NO constants-module import (and thus no α-carrier) is needed
 # on the chord path; value-identical to 2π·NU_VAC.
 NU_VAC: float = 2.0 / 7.0
@@ -410,7 +410,7 @@ def criterion_3_independence(N: int = 48, R: float = 11.0, r: float = 4.0) -> di
     slaved-arm discriminator').
 
     SPLITTING witness: the field-resolved H_couple's normal-mode eigenfrequencies
-    SPLIT by ≈2Ω at resonance (node_circulator_coupling.py:124-157) — we report the
+    SPLIT by ≈2Ω at resonance (node_circulator_coupling.py:125-158) — we report the
     split magnitude as EXPECTED+bounded, explicitly NOT scoring it as a violation."""
     from ave.core import s1_winding_conservation_gate as S1
 
@@ -445,7 +445,7 @@ def criterion_4_reduced_limit(
 ) -> dict:
     """CRITERION 4 — REDUCED-LIMIT (pre-reg §Make-or-break 4). The field-resolved
     H_couple recovers the 2-mode node_circulator circulator_generator
-    (node_circulator_coupling.py:124-157) in its 2-mode (M=1, hop=0) limit.
+    (node_circulator_coupling.py:125-158) in its 2-mode (M=1, hop=0) limit.
 
     Recovery is asserted at THREE levels:
       (i)   GENERATOR EQUALITY — build_hcouple(M=1, front-center A ⇒ g=1) == the

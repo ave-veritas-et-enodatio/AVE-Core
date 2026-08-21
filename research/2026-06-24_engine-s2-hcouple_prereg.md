@@ -27,7 +27,7 @@ A **field-resolved** skew-Hermitian (anti-Hermitian-by-construction) `H_couple` 
 No TKI-transducer precondition gate (FORK A=(a) intra-mechanical). The Q=137 slot stays EMPTY.
 
 ## Validate-on-known (recover-in-limit)
-- **Primary target:** `src/scripts/vol_9_device/node_circulator_coupling.py:125-158` (`circulator_generator`); exact-unitary propagator `:160-165`; in-driver hard gate `:664-689`. Conservation EXACT by construction (`:30-32`). Reproduced live @ `1d4eae9c`: Gate-A `norm_drift = 1.128e-12` / 40k steps.
+- **Primary target:** `src/scripts/vol_9_device/node_circulator_coupling.py:125-158` (`circulator_generator`); exact-unitary propagator `:161-166`; in-driver hard gate `:665-690`. Conservation EXACT by construction (`:30-32`). Reproduced live @ `1d4eae9c`: Gate-A `norm_drift = 1.128e-12` / 40k steps.
 - **DUAL-canary precedents (reuse, do not re-derive):** (i) `|dH/H| < 1e-8` — `test_l1_photon.py:285`; (ii) `|L_ω|` pump canary — `crystal_graft_v2.py:300-302`, reachable-FAIL shown by S1's live negative control (`research/2026-06-24_engine-s1-winding-dof_result.md:26`, lock-OFF pumps 9.5×).
 - **Independence discriminator precedent:** `s1_winding_conservation_gate.py:403-405,439`.
 - **Closest FIELD-RESOLVED conserving precedent — FORM only, WRONG sector pair:** `crystal_engine.py:222-250` (ADD-2, conserves `E_V + E_w + H_couple`) couples bulk↔shear-DISPLACEMENT (V↔w), NOT bulk↔Cosserat-ω. Recovering it does NOT count as recovering S2.

@@ -24,7 +24,7 @@ Engine-native units throughout: `c0 = 1` (bulk P-wave / dilatation speed = veloc
 | EOS softening slope at floor | d(c²)/dρ̄\|_cav = 2+φ ≈ 3.618 | `04_superluminal_transit.tex:86`; reproduced analytically by the script |
 | K = 2G canon (ν=2/7 ⇒ c_L²/c_T²=10/3) | K = 0.6 ρ0c0²; M = 1.0 ρ0c0² | `src/ave/core/crystal_engine.py:95-96` |
 | measured ring-down f₀ | w_est = 0.324462 rad/time ⇒ f₀ = 0.05164 cyc/time | `results/electron_s11_results.json` `unknown.w_est_ringdown` (PR #166, main) |
-| f₀ measurement config | N=40, S_min=0.0125, A_cap=0.999, **planted (2,3) R=10.4, r=4.0 cells**, V-sector drive | `research/2026-06-10_electron-s11-sweep_result.md §2`; driver `electron_s11_sweep.py:282,287-288` |
+| f₀ measurement config | N=40, S_min=0.0125, A_cap=0.999, **planted (2,3) R=10.4, r=4.0 cells**, V-sector drive | `research/2026-06-10_electron-s11-sweep_result.md §2`; driver `electron_s11_sweep.py:282,292-293` |
 | V-breather seed | Gaussian `seed_bulk(σ=3.5, frac=0.9)` (the trapped mass) | `electron_s11_sweep.py:292` |
 | snapped-pocket geometry | genesis-v6 3D pocket 1704–5256 cells (N=48) → r≈7.4–10.8 cells; sonic-horizon 2D 1280 cells (N=160) → r≈20 cells | `research/2026-06-10_genesis-v6-self-limiting-snap_result.md §1`; `…_sonic-horizon-closure_result.md §2` |
 | rim over-pressure (PE reservoir) | ρ̄>0 rim; LOCK recovers ρ̄_core→≈−0.08 | `…_sonic-horizon-closure_result.md §0,§2,§6` |
