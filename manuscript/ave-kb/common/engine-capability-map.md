@@ -491,7 +491,7 @@ DELETION**, the renders whose **byte-identical twin was already tracked** in the
 reached any `src/scripts/` path, so the build already resolved to the manuscript-side copy. Their
 generators now write directly to the surviving twin, so a re-run cannot resurrect them. ⚑ The
 deletion **extended** the D15c byte-identical-twin authority from the orphan-DATA axis to the
-FIGURE axis, and that extension is **PENDING GRANT'S WORD** — the deletions stand in the tree, the
+FIGURE axis, and that extension is **PENDING GRANT'S WORD** — the deletions stand in the tree, the **→ RATIFIED 2026-08-21 (Grant, conditional: "as long as we can regenerate or lookup") — condition MET: lookup is bit-exact (surviving tracked twins + git history at `82692e08^`) and the repointed generators exist; per open-item `figure-bit-reproducibility`, LOOKUP is the identity-bearing path (regeneration is deterministic, not bit-exact across matplotlib versions).**
 authority is routed and open, not settled. The `.gitignore` allowlist keeps only the held set plus the
 `src/tests/outputs/` block, and its count is now DERIVED from the allowlist rather than
 hand-maintained.

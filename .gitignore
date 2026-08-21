@@ -85,7 +85,7 @@ src/scripts/**/_output/
 # two_natured/`; `simulate_optical_caustic.py` → `assets/sim_outputs/`), so a
 # re-run regenerates the SURVIVOR and cannot resurrect the deleted scratch copy.
 # ⚑ The deletion authority — extending D15c's byte-identical-twin rule from the
-# orphan-DATA axis to the FIGURE axis — is PENDING GRANT'S WORD, not settled.
+# orphan-DATA axis to the FIGURE axis — is PENDING GRANT'S WORD, not settled. **→ RATIFIED 2026-08-21 (Grant, conditional: "as long as we can regenerate or lookup") — condition MET: lookup is bit-exact (surviving tracked twins + git history at `82692e08^`) and the repointed generators exist; per open-item `figure-bit-reproducibility`, LOOKUP is the identity-bearing path (regeneration is deterministic, not bit-exact across matplotlib versions).**
 # The count above is DERIVED from the lines below (not hand-maintained), so it
 # cannot drift the way the old "38" did — that number was stale against a
 # HEAD-true 32 for over a month. Re-derive on any change.

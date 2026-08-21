@@ -157,7 +157,7 @@ The **88 MB duplicate SPICE netlist tree**: `manuscript/vol_6_periodic_table/sim
    > index: **19 canonical · 62 research-tier · 0 fixtures**; the Phase-1 naive score of
    > 43/37/1 was demoted 25-of-81 by a second, independent citer method.
    >
-   > ⚑ **The 3 deletions are executed on an authority that is PENDING GRANT'S WORD.** They were
+   > ⚑ **The 3 deletions are executed on an authority that is PENDING GRANT'S WORD.** They were **→ RATIFIED 2026-08-21 (Grant, conditional: "as long as we can regenerate or lookup") — condition MET: lookup is bit-exact (surviving tracked twins + git history at `82692e08^`) and the repointed generators exist; per open-item `figure-bit-reproducibility`, LOOKUP is the identity-bearing path (regeneration is deterministic, not bit-exact across matplotlib versions).**
    > retired as an extension of the D15c byte-identical-twin authority from the orphan-DATA axis
    > (`src/scripts/_archive/MANIFEST.md:131`) to the FIGURE axis. That extension is **not
    > ratified** — the question is routed and open, the deletions are restorable from `82692e08^`,

@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **e1d6e490** (2026-08-20) · 461 index records · 330 claims · 2 PRs open
+Scanned tree **a1a26e00** (2026-08-21) · 461 index records · 330 claims · 1 PR open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`5164d000`). Every count below describes **e1d6e490**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`d3c73beb`). Every count below describes **a1a26e00**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -30,7 +30,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## What we are waiting on
 
-**34 of 63 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
+**33 of 62 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
 
 *Scope: this is a census of `open-items/`. `_orchestration/2026-07-10_rulings-docket.md` is the **paper timeline** — a dated continuation log, frozen at its 2026-07-21 tail per `docket-entries/README.md`, and the historical record of how each ruling was reached. It is read chronologically, not harvested; anything still live in it belongs here as its own file.*
 
@@ -94,7 +94,6 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [J(ω) coupling fork — needs the engine constitutive tensor](open-items/2026-07-20-jomega-coupling-fork.md) | QUEUED | unassigned | 2026-07-20 |
 | [u/A transverse identity-collapse candidate — are the EM and mechanical-transverse sectors two meters on one bench object?](open-items/2026-07-20-ua-transverse-identity-collapse.md) | QUEUED | unassigned | 2026-07-20 |
 | [Q-law derivation — why the standing-v1 mΩ τ lands at −5.4 %](open-items/2026-07-21-q-law-derivation.md) | QUEUED | unassigned | 2026-07-21 |
-| [19 of 37 rows have a `type` that contradicts the manifest they now live in](open-items/2026-08-13-manifest-type-residue.md) | QUEUED | grant | 2026-08-13 |
 | [BUILD-class instruments — quantum-seeded floor, arrow instruments, CVR bench](open-items/2026-07-20-build-class-instruments.md) | PARKED | grant | 2026-07-20 |
 | [Vessel-state shell → γ_c couple-stress → (2,3) winding — the wall-asymmetry carrier candidate](open-items/2026-07-20-vessel-state-shell-walk.md) | PARKED | grant | 2026-07-20 |
 | [D5 — the WD / Q=ℓ tag question, deliberately held by ruling](open-items/2026-08-04-d5-wd-qell-tag-hold.md) | PARKED | grant | 2026-08-02 |
@@ -121,8 +120,7 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 | PR | state | title |
 |---|---|---|
-| #991 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] cleanup: Wave-3 lane 1 — D13 driver |
-| #990 | CLEARED | [REVIEW: CLEARED] manifest: Wave-2 PR-5b — the type/file-coherence gate (D9-1 lo |
+| #991 | CLEARED | [REVIEW: CLEARED] cleanup: Wave-3 lane 1 — driver verification + migration + arc |
 
 <!-- /volatile -->
 

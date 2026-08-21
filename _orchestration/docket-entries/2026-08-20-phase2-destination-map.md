@@ -120,7 +120,7 @@ place (vacated-cite pattern: the stated number IS what the plan argued from).
    the D15c twin-class authority to the figure axis**. That extension is **not ratified**: the
    D15c axis on record is orphan-DATA (`src/scripts/_archive/MANIFEST.md:131`), and the question
    *"does the D15c byte-identical-twin deletion authority extend to figure twins?"* is **routed
-   to Grant and open**. The deletions stand in the tree pending his word; if he declines the
+   to Grant and open**. The deletions stand in the tree pending his word; if he declines the **→ RATIFIED 2026-08-21 (Grant, conditional: "as long as we can regenerate or lookup") — condition MET: lookup is bit-exact (surviving tracked twins + git history at `82692e08^`) and the repointed generators exist; per open-item `figure-bit-reproducibility`, LOOKUP is the identity-bearing path (regeneration is deterministic, not bit-exact across matplotlib versions).**
    extension, they are restorable from `82692e08^`. Stated as PENDING, not as settled.
 
 5. **"research renders (15)" → 12 landed.** The execution-shape line `:81` sizes the research-render
