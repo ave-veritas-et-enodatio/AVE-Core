@@ -26,6 +26,9 @@ from ave.core.master_fdtd_phasor_bridge import MasterFDTDPhasorBridge
 
 PROJECT_ROOT = next(p for p in Path(__file__).resolve().parents if (p / ".git").exists())
 OUT_DIR = PROJECT_ROOT / "src" / "scripts" / "vol_1_foundations" / "_output"
+# Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+# research-tier DATA -> tracked root `results/` (class 4).
+_AVE_RESULTS = Path(__file__).resolve().parents[3] / "results"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 SWEEP_AMPLITUDES = [0.20, 0.35, 0.48, 0.65, 0.85, 1.00, 1.25, 1.50, 2.00, 2.50, 3.00, 3.50, 4.00]
@@ -258,7 +261,7 @@ def main() -> None:
         "rows": rows,
         "classification": classification,
     }
-    out_path = OUT_DIR / "unified_amplitude_gamma_sweep_results.json"
+    out_path = _AVE_RESULTS / "unified_amplitude_gamma_sweep_results.json"
     out_path.write_text(json.dumps(result, indent=2, allow_nan=False) + "\n")
 
     print("Unified amplitude–Γ–retention sweep")

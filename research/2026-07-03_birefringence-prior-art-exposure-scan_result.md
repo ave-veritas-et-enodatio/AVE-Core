@@ -2,7 +2,7 @@
 
 **Date:** 2026-07-03 · **Lane:** implementer · **Branch:** `analysis/birefringence-prediction-doc`
 **Pre-reg:** [`2026-07-03_birefringence-prior-art-exposure-scan_prereg.md`](2026-07-03_birefringence-prior-art-exposure-scan_prereg.md) (FROZEN before this driver)
-**Driver:** `src/scripts/vol_9_device/birefringence_prior_art_exposure_scan.py` · **Output:** `_output/birefringence_prior_art_exposure_scan.json`
+**Driver:** `src/scripts/vol_9_device/birefringence_prior_art_exposure_scan.py` · **Output:** `results/birefringence_prior_art_exposure_scan.json`
 **Class:** CONSISTENCY (canonical AVE δn `clm-pp3qwf` across a literature intensity plane vs literature polarimetric sensitivities; no new `clm-`/constant/emergence).
 **Gate role:** this scan GATES the prediction document (Deliverable 3). A verdict of ALREADY-BOUNDED would have STOPPED the prediction doc and gone to Grant.
 

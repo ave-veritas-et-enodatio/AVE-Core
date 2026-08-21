@@ -56,7 +56,7 @@ scale           = √(1 − leak_per_step)   on shell V_inc, V_ref, ω
 PYTHONPATH=src python src/scripts/vol_1_foundations/electron_alpha_leak_tune.py
 ```
 
-**JSON:** `src/scripts/vol_1_foundations/_output/electron_alpha_leak_tune_results.json`
+**JSON:** `results/electron_alpha_leak_tune_results.json`
 
 Runtime ~8.5 min (baseline + with-leak variants, 800 post-snap steps each).
 

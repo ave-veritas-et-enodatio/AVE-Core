@@ -347,7 +347,7 @@ def main() -> None:
           f"[saturation form-factor decays as (d_sat/r)^4, not a charge chord]")
 
     out = args.out or (
-        "src/scripts/vol_1_foundations/_output/charge_sector_two_winding_results"
+        "results/charge_sector_two_winding_results"
         + ("_smoke" if args.smoke else "") + ".json"
     )
     with open(out, "w") as f:

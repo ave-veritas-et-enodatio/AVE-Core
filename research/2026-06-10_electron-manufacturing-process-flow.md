@@ -263,7 +263,7 @@ Ranked by how hard each blocks the next electron-genesis build (**v5**). Owner �
 - **The genesis arc (failure-mode map):** `_orchestration/2026-06-09_ion-compression-rectifier-arc.md:104,117-127,139,143,147` — genesis-23 (`ca991999`, `V≡0`), genesis-24 (`df1c3f78`, EMF pump-detonation), crystal/graft-v2 (double-count fix), graft-v3 (fixed-axis no-knot); graft-v4 (`analysis/2026-06-10-graft-v4-photon-helicity` @ `f9447421`, LOCK-FAIL / wrong-shaft lock / no-payment runaway).
 - **Canonical constants:** `src/ave/core/constants.py:199` (`PHI`), `:200-201` (Golden-Torus radii; `R/r = φ²`, `R·r = 1/4`), `:238` (`ℓ_node ≡ ℏ/(m_e c)`), `:114,128-131` (`m_e` calibration input); `manuscript/ave-kb/CLAUDE.md` (calibration inputs `{m_e, α, G}`).
 - **The two-"3"s conflation flag (for the auditor lane):** `manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md` (the Maxwell-Heaviside "longitudinal re-engages at saturation = the electron" note conflates the A1-dilatation MASS scalar with the Cosserat `(2,3)` WINDING — flagged, not edited here; KB-queue item per the vapor-lock doc).
-- **The numeric check + figure (this doc):** `src/scripts/vol_1_foundations/electron_mfg_rr_balance.py` (the §4 forward balance + live-fire tests; JSON at `_output/electron_mfg_rr_balance_results.json`); `src/scripts/vol_1_foundations/electron_mfg_fbd_figure.py` → `research/figures/electron_mfg_fbd.png` (the §3/§4 figure).
+- **The numeric check + figure (this doc):** `src/scripts/vol_1_foundations/electron_mfg_rr_balance.py` (the §4 forward balance + live-fire tests; JSON at `results/electron_mfg_rr_balance_results.json`); `src/scripts/vol_1_foundations/electron_mfg_fbd_figure.py` → `research/figures/electron_mfg_fbd.png` (the §3/§4 figure).
 
 ---
 

@@ -14,7 +14,7 @@ Alpha comparison-only. Reuses bond-Γ helpers from native_k4_gamma_ceiling.
 
 Output:
   assets/sim_outputs/native_electron_propagation.gif
-  src/scripts/vol_1_foundations/_output/native_electron_propagation_results.json
+  results/native_electron_propagation_results.json
 """
 
 from __future__ import annotations
@@ -52,6 +52,9 @@ from ave_path_util import sim_output  # noqa: E402
 
 PROJECT_ROOT = next(p for p in Path(__file__).resolve().parents if (p / ".git").exists())
 OUT_DIR = PROJECT_ROOT / "src" / "scripts" / "vol_1_foundations" / "_output"
+# Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+# research-tier DATA -> tracked root `results/` (class 4).
+_AVE_RESULTS = Path(__file__).resolve().parents[3] / "results"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 N_LATTICE = 32
@@ -308,7 +311,7 @@ def main() -> None:
         "gif_amp": 1.5,
         "gif_path": str(gif_path) if gif_row else None,
     }
-    out_json = OUT_DIR / "native_electron_propagation_results.json"
+    out_json = _AVE_RESULTS / "native_electron_propagation_results.json"
     out_json.write_text(json.dumps(payload, indent=2, allow_nan=False) + "\n")
 
     print("Native electron propagation")

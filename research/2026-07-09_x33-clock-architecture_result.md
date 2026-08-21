@@ -4,7 +4,7 @@
 **Prereg (FROZEN):** [`research/2026-07-09_x33-clock-architecture_prereg_FROZEN.md`](2026-07-09_x33-clock-architecture_prereg_FROZEN.md)
 **Derivation:** [`research/2026-07-09_x33-clock-architecture_derivation.md`](2026-07-09_x33-clock-architecture_derivation.md)
 **Driver:** [`src/scripts/vol_1_foundations/x33_clock_architecture.py`](../src/scripts/vol_1_foundations/x33_clock_architecture.py)
-**Data:** [`research/2026-07-09_x33-clock-architecture_result.json`](2026-07-09_x33-clock-architecture_result.json) · **Figure:** `src/scripts/vol_1_foundations/_output/x33_clock_architecture.png`
+**Data:** [`research/2026-07-09_x33-clock-architecture_result.json`](2026-07-09_x33-clock-architecture_result.json) · **Figure:** `research/figures/x33_clock_architecture.png`
 **Class (consistency-vs-emergence):** **CONSISTENCY / characterization.** A math+numerics typing of the substrate's
 own clock architecture. ω_C = c₀/ℓ_node IDENTITY; 1/√3 Class-B manifestation; ρ* GR-imported (ν=2/7). No CODATA on
 any verdict path; **this is not an empirical vote — it is an exact-spectrum computation.**

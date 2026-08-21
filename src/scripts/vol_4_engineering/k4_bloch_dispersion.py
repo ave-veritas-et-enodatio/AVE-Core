@@ -590,8 +590,11 @@ def main():
     print("NOT near-term bankable. Bankable QED-discriminator = E-route birefringence.")
 
     out_dir = Path(__file__).resolve().parent / "_output"
+    # Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+    # research-tier DATA -> tracked root `results/` (class 4).
+    _AVE_RESULTS = Path(__file__).resolve().parents[3] / "results"
     out_dir.mkdir(exist_ok=True)
-    out_path = out_dir / "k4_bloch_dispersion.json"
+    out_path = _AVE_RESULTS / "k4_bloch_dispersion.json"
     out_path.write_text(json.dumps(out, indent=2))
     print(f"\nResults written: {out_path}")
     return out

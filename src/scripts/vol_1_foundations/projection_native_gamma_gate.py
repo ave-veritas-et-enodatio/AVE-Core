@@ -38,6 +38,9 @@ from ave.topological.vacuum_engine import VacuumEngine3D
 
 OUT_DIR = next(p for p in Path(__file__).resolve().parents if (p / ".git").exists())
 OUT_DIR = OUT_DIR / "src" / "scripts" / "vol_1_foundations" / "_output"
+# Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+# research-tier DATA -> tracked root `results/` (class 4).
+_AVE_RESULTS = Path(__file__).resolve().parents[3] / "results"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 AMPLITUDES = [0.48, 1.0, 1.5, 3.0]
@@ -188,7 +191,7 @@ def main() -> None:
 
     classification = classify(pairs)
     payload = {"pairs": pairs, "classification": classification}
-    out_json = OUT_DIR / "projection_native_gamma_gate_results.json"
+    out_json = _AVE_RESULTS / "projection_native_gamma_gate_results.json"
     out_json.write_text(json.dumps(payload, indent=2, allow_nan=False) + "\n")
 
     print(f"Projection vs native gamma gate: {classification['verdict']} ({classification['outcome']})")

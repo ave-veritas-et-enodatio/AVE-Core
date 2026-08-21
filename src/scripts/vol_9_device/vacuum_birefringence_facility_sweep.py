@@ -641,6 +641,9 @@ def main() -> None:
 
     # ---- (3) FIGURES --------------------------------------------------------
     out_dir = Path(__file__).resolve().parent / "_output"
+    # Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+    # research-tier DATA -> tracked root `results/` (class 4).
+    _AVE_RESULTS = Path(__file__).resolve().parents[3] / "results"
     out_dir.mkdir(exist_ok=True)
     print("\n[3] FIGURES (house style, no baked titles, legend outside, computed captions):")
     figs = _make_figures(points, out_dir)
@@ -661,7 +664,7 @@ def main() -> None:
         }
         for p in points
     ]
-    out_path = out_dir / "vacuum_birefringence_facility_sweep.json"
+    out_path = _AVE_RESULTS / "vacuum_birefringence_facility_sweep.json"
     out_path.write_text(json.dumps(out, indent=2, default=float))
     print(f"\nResults written: {out_path}")
     print("=" * 78)

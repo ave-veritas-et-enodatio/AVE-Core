@@ -189,17 +189,20 @@ def run_pilot(n: int = 24, seed: int = 20260703) -> dict:
 
 if __name__ == "__main__":
     out_dir = Path(__file__).resolve().parent / "_output"
+    # Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+    # research-tier DATA -> tracked root `results/` (class 4).
+    _AVE_RESULTS = Path(__file__).resolve().parents[3] / "results"
     out_dir.mkdir(parents=True, exist_ok=True)
 
     result = run_pilot()
 
     # Write the emitted netlist (feasibility evidence + ngspice-ready artifact)
-    cir_path = out_dir / "spice_lane_pilot_poisson.cir"
+    cir_path = _AVE_RESULTS / "spice_lane_pilot_poisson.cir"
     cir_path.write_text(result["netlist"], encoding="utf-8")
 
     # Write the JSON result (verdict evidence)
     json_result = {k: v for k, v in result.items() if k != "netlist"}
-    json_path = out_dir / "spice_lane_pilot_poisson_result.json"
+    json_path = _AVE_RESULTS / "spice_lane_pilot_poisson_result.json"
     json_path.write_text(json.dumps(json_result, indent=2), encoding="utf-8")
 
     print("=" * 64)

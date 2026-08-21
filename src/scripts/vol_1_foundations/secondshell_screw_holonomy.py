@@ -428,6 +428,14 @@ def make_visualisation(out_png, positions, home_unit, shell, screw_axis, kappa, 
 
 def main() -> None:
     out_dir = os.path.join(_HERE, "_output")
+    # Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+    # research-tier DATA -> tracked root `results/` (class 4).
+    _AVE_RESULTS = os.path.abspath(os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "results"))
+    # research-tier RENDER -> tracked `research/figures/` (class 3).
+    _AVE_FIGS = os.path.abspath(os.path.join(
+        os.path.dirname(os.path.abspath(__file__)),
+        "..", "..", "..", "research", "figures"))
     os.makedirs(out_dir, exist_ok=True)
 
     print("=" * 80)
@@ -514,12 +522,12 @@ def main() -> None:
             "kappa_4_1": KAPPA,
         },
     }
-    out_json = os.path.join(out_dir, "secondshell_screw_holonomy.json")
+    out_json = os.path.join(_AVE_RESULTS, "secondshell_screw_holonomy.json")
     with open(out_json, "w") as fh:
         json.dump(payload, fh, indent=2, default=float)
     print(f"\nNumbers → {out_json}")
 
-    out_png = os.path.join(out_dir, "secondshell_screw_holonomy.png")
+    out_png = os.path.join(_AVE_FIGS, "secondshell_screw_holonomy.png")
     make_visualisation(out_png, pos2, home2, shell2, screw_axis, KAPPA, pmap, pr, runs)
     print(f"Visual  → {out_png}")
 

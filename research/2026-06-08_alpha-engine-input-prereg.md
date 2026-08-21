@@ -77,7 +77,7 @@ No engine code changes required before snap test.
 ## §6 Result
 
 **Driver:** `src/scripts/vol_1_foundations/electron_genesis_snap.py` (hybrid/position modes)  
-**JSON:** `src/scripts/vol_1_foundations/_output/electron_genesis_snap_results.json`
+**JSON:** `results/electron_genesis_snap_results.json`
 
 ## §7 Adjudication
 

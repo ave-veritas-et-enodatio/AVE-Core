@@ -27,6 +27,9 @@ from ave.core.master_fdtd_phasor_bridge import PORT_SHIFTS, MasterFDTDPhasorBrid
 
 PROJECT_ROOT = next(p for p in Path(__file__).resolve().parents if (p / ".git").exists())
 OUT_DIR = PROJECT_ROOT / "src" / "scripts" / "vol_1_foundations" / "_output"
+# Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+# research-tier DATA -> tracked root `results/` (class 4).
+_AVE_RESULTS = Path(__file__).resolve().parents[3] / "results"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 CASES = [
@@ -391,7 +394,7 @@ def main() -> None:
         "results": results,
         "pair_classification": pair_classification,
     }
-    out_path = OUT_DIR / "unified_l5_q_leakage_results.json"
+    out_path = _AVE_RESULTS / "unified_l5_q_leakage_results.json"
     out_path.write_text(json.dumps(payload, indent=2, allow_nan=False) + "\n")
 
     print("Unified L5 alpha-free Q/leakage")

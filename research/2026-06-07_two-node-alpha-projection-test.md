@@ -97,8 +97,8 @@ MPLCONFIGDIR=.matplotlib-cache PYTHONPATH=src python src/scripts/vol_1_foundatio
 
 Output files:
 
-- `src/scripts/vol_1_foundations/_output/two_node_alpha_projection_results.json`
-- `src/scripts/vol_1_foundations/_output/two_node_alpha_projection.png`
+- `results/two_node_alpha_projection_results.json`
+- `research/figures/two_node_alpha_projection.png`
 
 Summary:
 

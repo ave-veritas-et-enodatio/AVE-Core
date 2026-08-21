@@ -66,7 +66,7 @@ Score each hypothesis by **mean log₁₀ relative error** vs its forward target
 PYTHONPATH=src python src/scripts/vol_1_foundations/alpha_identity_discriminator.py
 ```
 
-Output: `src/scripts/vol_1_foundations/_output/alpha_identity_discriminator_results.json`
+Output: `results/alpha_identity_discriminator_results.json`
 
 ## §5 Adjudication
 

@@ -80,6 +80,11 @@ from ave.core.unified_genesis_engine import UnifiedGenesisEngine  # noqa: E402
 from ave.core.constants import ALPHA_COLD_INV  # noqa: E402
 
 OUT = _HERE.parent / "_output"
+# Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+# research-tier DATA -> tracked root `results/` (class 4).
+_AVE_RESULTS = Path(__file__).resolve().parents[3] / "results"
+# research-tier RENDER -> tracked `research/figures/` (class 3).
+_AVE_FIGS = Path(__file__).resolve().parents[3] / "research" / "figures"
 OUT.mkdir(exist_ok=True)
 
 try:
@@ -526,7 +531,7 @@ def fig_gate(gate, lin, out_paths):
     ax[1].set_title(f"V-CHANNEL LINEARITY (NET): resp prop A\nR2={lin['R2']:.4f} linear={lin['linear']}")
     ax[1].grid(alpha=0.2)
     fig.tight_layout()
-    p = OUT / "s11_denovo_gate.png"
+    p = _AVE_FIGS / "s11_denovo_gate.png"
     fig.savefig(p, dpi=120); plt.close(fig)
     out_paths.append(p.name)
 
@@ -566,7 +571,7 @@ def fig_paired(made, planted, out_paths):
     ax.set_title("DE-NOVO: planted vs made (same instrument, floors per object)")
     ax.legend(fontsize=9); ax.grid(alpha=0.2)
     fig.tight_layout()
-    p = OUT / "s11_denovo_paired.png"
+    p = _AVE_FIGS / "s11_denovo_paired.png"
     fig.savefig(p, dpi=120); plt.close(fig)
     out_paths.append(p.name)
 
@@ -620,7 +625,7 @@ def main():
                                "why": "the made object did not reach T1 mass convergence "
                                       "(detonated / still-rising) — no S11 on a non-converged object"}
         out["elapsed_s"] = time.time() - t0
-        (OUT / "s11_denovo_results.json").write_text(json.dumps(out, indent=2, default=str))
+        (_AVE_RESULTS / "s11_denovo_results.json").write_text(json.dumps(out, indent=2, default=str))
         print(f"\n  MADE bin: NOT-CONVERGED — STOP. elapsed {out['elapsed_s']:.0f}s", flush=True)
         return out
     # settle drive-off (F-CLOSE/D11 convention)
@@ -679,7 +684,7 @@ def main():
                                "why": "probe-capability/linearity/known-null gate FAILED -> "
                                       "no f0/Q reported for the made object"}
         out["elapsed_s"] = time.time() - t0
-        (OUT / "s11_denovo_results.json").write_text(json.dumps(out, indent=2, default=str))
+        (_AVE_RESULTS / "s11_denovo_results.json").write_text(json.dumps(out, indent=2, default=str))
         print(f"\n  MADE bin: UNRESOLVED (gate fail). elapsed {out['elapsed_s']:.0f}s", flush=True)
         return out
 
@@ -724,7 +729,7 @@ def main():
 
     out["figures"] = figs
     out["elapsed_s"] = time.time() - t0
-    (OUT / "s11_denovo_results.json").write_text(json.dumps(out, indent=2, default=str))
+    (_AVE_RESULTS / "s11_denovo_results.json").write_text(json.dumps(out, indent=2, default=str))
 
     print("\n" + "=" * 78)
     print(f"  KNOWN-NULL: {out['known_null']['pass']}  GATE: {gate_ok}")

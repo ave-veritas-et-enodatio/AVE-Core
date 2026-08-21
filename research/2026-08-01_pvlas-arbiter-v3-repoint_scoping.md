@@ -430,9 +430,9 @@ by path).
 Committed values that would move on re-run:
 
 ```
-src/scripts/vol_9_device/_output/birefringence_gap1_hibef_feasibility.json      442466.5835078048
-src/scripts/vol_9_device/_output/birefringence_hibef_scenario_predictions.json  442466.5835078048
-src/scripts/vol_9_device/_output/birefringence_prior_art_exposure_scan.json     442466.5835078048
+results/birefringence_gap1_hibef_feasibility.json      442466.5835078048
+results/birefringence_hibef_scenario_predictions.json  442466.5835078048
+results/birefringence_prior_art_exposure_scan.json     442466.5835078048
 ```
 
 Neither the key rename nor the JSON regeneration is authorized by D7's execute list, and both
@@ -623,11 +623,11 @@ an OTS-anchored preserved-verbatim block, retained convention history, or the ne
 
 | Artifact | Class | Action |
 |---|---|---|
-| `_output/birefringence_gap1_hibef_feasibility.json` | **driver output, letter-CITED but re-runnable** (`provenance.md`:102-106 lists it as a driver "re-run this session, all reconcile") | **REGENERATED** |
-| `_output/birefringence_hibef_scenario_predictions.json` | same | **REGENERATED** |
-| `_output/birefringence_prior_art_exposure_scan.json` | same | **REGENERATED** |
-| `_output/vacuum_birefringence_bench.json` | **NOT a consumer** — its `442466.58` comes from `coefficient_ratio()` on the static $a_{EH}$ (scoping §2.4 look-alike) | **UNTOUCHED** |
-| `_output/vacuum_birefringence_facility_sweep.json` | same | **UNTOUCHED** |
+| `results/birefringence_gap1_hibef_feasibility.json` | **driver output, letter-CITED but re-runnable** (`provenance.md`:102-106 lists it as a driver "re-run this session, all reconcile") | **REGENERATED** |
+| `results/birefringence_hibef_scenario_predictions.json` | same | **REGENERATED** |
+| `results/birefringence_prior_art_exposure_scan.json` | same | **REGENERATED** |
+| `results/vacuum_birefringence_bench.json` | **NOT a consumer** — its `442466.58` comes from `coefficient_ratio()` on the static $a_{EH}$ (scoping §2.4 look-alike) | **UNTOUCHED** |
+| `results/vacuum_birefringence_facility_sweep.json` | same | **UNTOUCHED** |
 | `claim-prereg-ots/claims_by_hash.md` | **OTS-anchored public artifact** | **UNTOUCHED, never regenerable** |
 | `papers/.../sve_vacuum_birefringence_letter.pdf` | **artifact of record** | **UNTOUCHED, not rebuilt** |
 

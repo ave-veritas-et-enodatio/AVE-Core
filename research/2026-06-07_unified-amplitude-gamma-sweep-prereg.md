@@ -86,7 +86,7 @@ Executed with:
 PYTHONPATH=src python src/scripts/vol_1_foundations/unified_amplitude_gamma_sweep.py
 ```
 
-Output: `src/scripts/vol_1_foundations/_output/unified_amplitude_gamma_sweep_results.json`
+Output: `results/unified_amplitude_gamma_sweep_results.json`
 
 ## §8 Adjudication
 

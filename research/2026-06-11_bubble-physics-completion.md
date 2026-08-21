@@ -23,9 +23,9 @@ Engine-native units throughout: `c0 = 1` (bulk P-wave / dilatation speed = veloc
 | cavitation EOS | c_bulk²(ρ̄)=c0²(1+ρ̄/(1−ρ̄²)) | `src/ave/core/cavitation_flow.py:21-28, 153-157` |
 | EOS softening slope at floor | d(c²)/dρ̄\|_cav = 2+φ ≈ 3.618 | `04_superluminal_transit.tex:86`; reproduced analytically by the script |
 | K = 2G canon (ν=2/7 ⇒ c_L²/c_T²=10/3) | K = 0.6 ρ0c0²; M = 1.0 ρ0c0² | `src/ave/core/crystal_engine.py:95-96` |
-| measured ring-down f₀ | w_est = 0.324462 rad/time ⇒ f₀ = 0.05164 cyc/time | `src/scripts/vol_9_device/_output/electron_s11_results.json` `unknown.w_est_ringdown` (PR #166, main) |
-| f₀ measurement config | N=40, S_min=0.0125, A_cap=0.999, **planted (2,3) R=10.4, r=4.0 cells**, V-sector drive | `research/2026-06-10_electron-s11-sweep_result.md §2`; driver `electron_s11_sweep.py:277,287-288` |
-| V-breather seed | Gaussian `seed_bulk(σ=3.5, frac=0.9)` (the trapped mass) | `electron_s11_sweep.py:287` |
+| measured ring-down f₀ | w_est = 0.324462 rad/time ⇒ f₀ = 0.05164 cyc/time | `results/electron_s11_results.json` `unknown.w_est_ringdown` (PR #166, main) |
+| f₀ measurement config | N=40, S_min=0.0125, A_cap=0.999, **planted (2,3) R=10.4, r=4.0 cells**, V-sector drive | `research/2026-06-10_electron-s11-sweep_result.md §2`; driver `electron_s11_sweep.py:282,287-288` |
+| V-breather seed | Gaussian `seed_bulk(σ=3.5, frac=0.9)` (the trapped mass) | `electron_s11_sweep.py:292` |
 | snapped-pocket geometry | genesis-v6 3D pocket 1704–5256 cells (N=48) → r≈7.4–10.8 cells; sonic-horizon 2D 1280 cells (N=160) → r≈20 cells | `research/2026-06-10_genesis-v6-self-limiting-snap_result.md §1`; `…_sonic-horizon-closure_result.md §2` |
 | rim over-pressure (PE reservoir) | ρ̄>0 rim; LOCK recovers ρ̄_core→≈−0.08 | `…_sonic-horizon-closure_result.md §0,§2,§6` |
 
@@ -107,7 +107,7 @@ The surrounding-medium linear speed is `c_bulk(ρ̄=0) = c0 = 1` in **both** EOS
 **The boundary-condition question (task-flagged): the snapped shell is a REFLECTOR, not a free surface — does that change the mode form?** Partially. The Γ=−1 shell is an **impedance collapse** `Z_bulk = ρ·c → 0` (`…sonic-horizon-closure_result.md §7`), which is a **pressure-release** boundary (`p = 0` at the wall) — the **SAME** boundary condition as a free gas-liquid surface. So the √3 Minnaert prefactor (global sub-wavelength pulsation against the external inertia) carries over. What the reflector *does* change is **radiation vs confinement**: a free bubble radiates into an infinite liquid (Minnaert, ω=√3 c/a); a Γ=−1 reflector *confines* the mode, whose lowest pressure-release standing wave is `ω = π c/a` (a factor `π/√3 ≈ 1.81` higher). The two forms bracket the physics; which one the trapped breather realizes is a *measured-mode-shape* question (named as the missing input in §2.4).
 
 ### 2.2 The forward number (COMPUTED — no access to the measured f₀)
-Pre-committed radius (stated before computing, no retrofit): the f₀ was measured on a V-breather seeded as a Gaussian `seed_bulk(σ=3.5)` (`electron_s11_sweep.py:287`). The principled "bubble radius" of a Gaussian field is the **field 1/e radius `a = σ√2 = 4.95 cells`**. The two natural compression moduli `{M = P-wave = 1.0, K = 2G = 0.6}` bracket the spring stiffness.
+Pre-committed radius (stated before computing, no retrofit): the f₀ was measured on a V-breather seeded as a Gaussian `seed_bulk(σ=3.5)` (`electron_s11_sweep.py:292`). The principled "bubble radius" of a Gaussian field is the **field 1/e radius `a = σ√2 = 4.95 cells`**. The two natural compression moduli `{M = P-wave = 1.0, K = 2G = 0.6}` bracket the spring stiffness.
 
 **FORWARD (printed by the script Section C, before Section D loads the measured):**
 

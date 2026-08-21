@@ -32,6 +32,9 @@ from ave.core.master_fdtd_phasor_bridge import MasterFDTDPhasorBridge
 
 PROJECT_ROOT = next(p for p in Path(__file__).resolve().parents if (p / ".git").exists())
 OUT_DIR = PROJECT_ROOT / "src" / "scripts" / "vol_1_foundations" / "_output"
+# Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+# research-tier DATA -> tracked root `results/` (class 4).
+_AVE_RESULTS = Path(__file__).resolve().parents[3] / "results"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
@@ -556,7 +559,7 @@ def main() -> None:
         "master_unified_projection_lane": unified,
         "classification": classify(master, k4, unified),
     }
-    out_path = OUT_DIR / "electron_genesis_observer_bridge_results.json"
+    out_path = _AVE_RESULTS / "electron_genesis_observer_bridge_results.json"
     out_path.write_text(json.dumps(result, indent=2, allow_nan=False) + "\n")
 
     cls = result["classification"]

@@ -92,7 +92,7 @@ Labeled CONSISTENCY vs CHORD, declared BEFORE the run:
 
 ## 5. RESULT — validate-on-known verdict ON THE REAL 12×12: **PASS (all 5 + V5b teeth-check)**
 
-Driver: `cosserat_band_structure_two_sublattice.py`; output `_output/cosserat_band_structure_two_sublattice.json`.
+Driver: `cosserat_band_structure_two_sublattice.py`; output `results/cosserat_band_structure_two_sublattice.json`.
 The 12×12 `D(k)` is the **Fourier symbol of the SAME discrete energy operator** the validated velocity-Verlet
 engine uses (`cosserat_field_3d._energy_density_bare` via `_tetrahedral_gradient`), assembled as the genuine
 A→B bond network (NOT `C=sf_mag·D6`). The validate-on-known is run **on the real 12×12** (the load-bearing
@@ -268,7 +268,7 @@ localizes WHERE it must be. Next phase, gated on validate-on-known:
 ## Cross-references
 
 - Driver (genuine): `src/scripts/vol_1_foundations/cosserat_band_structure_two_sublattice.py`
-- Output: `src/scripts/vol_1_foundations/_output/cosserat_band_structure_two_sublattice.json`
+- Output: `results/cosserat_band_structure_two_sublattice.json`
 - Superseded ansatz (PR #389): `src/scripts/vol_1_foundations/cosserat_full_band_structure.py` (validated on `D6`; `C=sf_mag·D6` two-sublattice ansatz)
 - Canonical EM-sector template: `src/scripts/vol_4_engineering/k4_bloch_dispersion.py` (the genuine translation-only A→B bond network this extends to 6 DOF)
 - Canonical gap leaf: `manuscript/ave-kb/vol1/axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md`

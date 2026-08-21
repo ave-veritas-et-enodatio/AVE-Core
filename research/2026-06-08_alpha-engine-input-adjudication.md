@@ -101,7 +101,7 @@ This path uses native `VacuumEngine3D` with `axiom_4_enabled=True` (hence inheri
 ## Snap driver results (2026-06-08)
 
 **Driver:** `electron_genesis_snap.py`  
-**JSON:** `src/scripts/vol_1_foundations/_output/electron_genesis_snap_results.json`  
+**JSON:** `results/electron_genesis_snap_results.json`  
 **GIF:** `assets/sim_outputs/electron_genesis_snap.gif` (hybrid mode)
 
 | Mode | Trigger | Verdict | Γ_post | Pre Δx |

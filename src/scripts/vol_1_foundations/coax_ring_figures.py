@@ -22,12 +22,16 @@ import numpy as np  # noqa: E402
 
 HERE = os.path.dirname(__file__)
 OUT = os.path.join(HERE, "_output")
+# Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+# research-tier DATA -> tracked root `results/` (class 4).
+_AVE_RESULTS = os.path.abspath(os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "results"))
 FIGDIR = os.path.abspath(os.path.join(HERE, "..", "..", "..", "research", "figures"))
 os.makedirs(FIGDIR, exist_ok=True)
 
-with open(os.path.join(OUT, "coax_ring_secondary_results.json")) as fh:
+with open(os.path.join(_AVE_RESULTS, "coax_ring_secondary_results.json")) as fh:
     A12 = json.load(fh)
-with open(os.path.join(OUT, "coax_ring_scale_invariance_results.json")) as fh:
+with open(os.path.join(_AVE_RESULTS, "coax_ring_scale_invariance_results.json")) as fh:
     A3 = json.load(fh)
 
 PHI2 = 2.6180339887

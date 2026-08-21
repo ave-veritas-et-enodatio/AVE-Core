@@ -33,7 +33,7 @@ Does **autoresonant** snap (Meissner + measured-ε lock) fire on the moving sub-
 | Ramp handoff | **Failed** | `native-electron-propagation-adjudication.md` §Ramp |
 | Full re-seed handoff | **Closed** | `native_electron_reseed_handoff.py`, trap≥1.5 |
 | Autoresonant as snap | **Contradicted** for this path | doc 54_ / Vol 9 Ch 8 = pair rupture; L3 audit: drive not finder |
-| `seed_sech_v_inc` overwrite | **Closed** | `native_k4_gamma_ceiling.py:77-86` |
+| `seed_sech_v_inc` overwrite | **Closed** | `native_k4_gamma_ceiling.py:80-89` |
 
 ---
 
@@ -86,7 +86,7 @@ Scoring: `bond_gamma_min` on native `z_local_field`; compare ε to `ALPHA_COLD` 
 MPLCONFIGDIR=/tmp/mpl PYTHONPATH=src python src/scripts/vol_1_foundations/electron_genesis_snap.py
 ```
 
-**JSON:** `src/scripts/vol_1_foundations/_output/electron_genesis_snap_results.json`  
+**JSON:** `results/electron_genesis_snap_results.json`  
 **GIF:** `assets/sim_outputs/electron_genesis_snap.gif` (hybrid)
 
 ## §7 Adjudication

@@ -647,6 +647,14 @@ def make_visualisation(out_png: str) -> None:
 def main() -> None:
     here = os.path.dirname(os.path.abspath(__file__))
     out_dir = os.path.join(here, "_output")
+    # Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+    # research-tier DATA -> tracked root `results/` (class 4).
+    _AVE_RESULTS = os.path.abspath(os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "results"))
+    # research-tier RENDER -> tracked `research/figures/` (class 3).
+    _AVE_FIGS = os.path.abspath(os.path.join(
+        os.path.dirname(os.path.abspath(__file__)),
+        "..", "..", "..", "research", "figures"))
     os.makedirs(out_dir, exist_ok=True)
 
     print("=" * 78)
@@ -727,7 +735,7 @@ def main() -> None:
     for k, val in summary.items():
         print(f"  {k}: {val}")
 
-    out_png = os.path.join(out_dir, "chiral_orbital_holonomy.png")
+    out_png = os.path.join(_AVE_FIGS, "chiral_orbital_holonomy.png")
     make_visualisation(out_png)
     print(f"\nVisualisation -> {out_png}")
 
@@ -739,7 +747,7 @@ def main() -> None:
             k: val for k, val in pp.items() if not isinstance(val, np.ndarray)
         },
     }
-    out_json = os.path.join(out_dir, "chiral_orbital_holonomy.json")
+    out_json = os.path.join(_AVE_RESULTS, "chiral_orbital_holonomy.json")
     with open(out_json, "w") as fh:
         json.dump(payload, fh, indent=2, default=float)
     print(f"Numbers     -> {out_json}")

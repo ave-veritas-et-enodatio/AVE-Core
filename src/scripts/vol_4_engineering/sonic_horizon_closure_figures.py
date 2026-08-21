@@ -1,6 +1,6 @@
 """
 Figures for the sonic-horizon closure probe (data-derived captions printed to stdout).
-Reads `_output/sonic_horizon_closure_results.json`; writes PNGs to `_output/`.
+Reads `results/sonic_horizon_closure_results.json`; writes PNGs to `_output/`.
 """
 from __future__ import annotations
 
@@ -14,7 +14,11 @@ import matplotlib.pyplot as plt  # noqa: E402
 import numpy as np  # noqa: E402
 
 OUT = os.path.join(os.path.dirname(__file__), "_output")
-D = json.load(open(os.path.join(OUT, "sonic_horizon_closure_results.json")))
+# Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+# research-tier DATA -> tracked root `results/` (class 4).
+_AVE_RESULTS = os.path.abspath(os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "results"))
+D = json.load(open(os.path.join(_AVE_RESULTS, "sonic_horizon_closure_results.json")))
 RHO_CAV = D["floor_rho_cav"]
 
 

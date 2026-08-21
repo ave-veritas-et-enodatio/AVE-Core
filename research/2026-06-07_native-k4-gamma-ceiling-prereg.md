@@ -41,7 +41,7 @@ This tests the **first-principles challenge C1** — not the projection bridge.
 PYTHONPATH=src python src/scripts/vol_1_foundations/native_k4_gamma_ceiling.py
 ```
 
-Output: `src/scripts/vol_1_foundations/_output/native_k4_gamma_ceiling_results.json`
+Output: `results/native_k4_gamma_ceiling_results.json`
 
 ## §5 Adjudication
 

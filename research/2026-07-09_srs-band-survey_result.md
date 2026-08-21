@@ -3,7 +3,7 @@
 **Date:** 2026-07-09 · **Branch:** `analysis/x31-srs-band-survey` (off main @ #602) · **Task:** #31 Fork B
 **Prereg (FROZEN):** [`research/2026-07-09_srs-band-survey_prereg_FROZEN.md`](2026-07-09_srs-band-survey_prereg_FROZEN.md)
 **Driver:** [`src/scripts/vol_1_foundations/srs_band_survey.py`](../src/scripts/vol_1_foundations/srs_band_survey.py)
-**Data:** [`research/2026-07-09_srs-band-survey_result.json`](2026-07-09_srs-band-survey_result.json) (= driver `_output/srs_band_survey.json`) · **Figure:** `src/scripts/vol_1_foundations/_output/srs_band_survey.png`
+**Data:** [`research/2026-07-09_srs-band-survey_result.json`](2026-07-09_srs-band-survey_result.json) (= driver `_output/srs_band_survey.json`) · **Figure:** `research/figures/srs_band_survey.png`
 **Class (consistency-vs-emergence):** **CONSISTENCY / characterization.** A measurement of the substrate's
 own linear band structure (generic power-network eigenvalue math). NOT a falsification, NOT an emergence
 claim. Band scale ω_C = c₀/ℓ_node is an IDENTITY; 1/√3 is a known geometric OUTPUT (Class-B manifestation).
@@ -60,7 +60,7 @@ Bloch adjacency A(k). Envelopes over a dense sample of one reciprocal (FCC) prim
 | 3 | [3.309, **5.441**] | reaches the global top at H |
 
 **High-symmetry values (ω_C):** Γ = {0, 3.309×3}; H = {2.132×3, **5.441**}; N = {1.264, 2.132, 3.309, 4.178};
-P = {1.655×2, 3.787×2}. Band diagram: `_output/srs_band_survey.png` (Γ–H–N–Γ–P–H path, white house style).
+P = {1.655×2, 3.787×2}. Band diagram: `research/figures/srs_band_survey.png` (Γ–H–N–Γ–P–H path, white house style).
 
 **GAP INVENTORY (complete):** band0↔1, band1↔2, band2↔3 all **OVERLAP** → **no full stop-band anywhere**.
 The manifold is connected 0 → 5.441 ω_C. The spectrum is symmetric in λ about λ=3 (bipartite srs graph:

@@ -37,6 +37,11 @@ from ave.core.constants import ALPHA_COLD, ALPHA_COLD_INV
 
 PROJECT_ROOT = next(p for p in Path(__file__).resolve().parents if (p / ".git").exists())
 OUT_DIR = PROJECT_ROOT / "src" / "scripts" / "vol_1_foundations" / "_output"
+# Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+# research-tier DATA -> tracked root `results/` (class 4).
+_AVE_RESULTS = Path(__file__).resolve().parents[3] / "results"
+# research-tier RENDER -> tracked `research/figures/` (class 3).
+_AVE_FIGS = Path(__file__).resolve().parents[3] / "research" / "figures"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 PHI = (1.0 + math.sqrt(5.0)) / 2.0
@@ -207,13 +212,13 @@ def plot_results(results: dict) -> None:
 
     fig.suptitle("Two-node projection screened residue (alpha-free inputs)", color="white")
     fig.tight_layout()
-    fig.savefig(OUT_DIR / "two_node_alpha_projection.png", dpi=180)
+    fig.savefig(_AVE_FIGS / "two_node_alpha_projection.png", dpi=180)
 
 
 def main() -> None:
     verify_canonical_sources()
     results = run()
-    output_path = OUT_DIR / "two_node_alpha_projection_results.json"
+    output_path = _AVE_RESULTS / "two_node_alpha_projection_results.json"
     output_path.write_text(json.dumps(results, indent=2, allow_nan=False) + "\n")
     plot_results(results)
 

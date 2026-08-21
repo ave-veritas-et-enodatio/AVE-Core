@@ -4,7 +4,7 @@
 **Date:** 2026-06-07.
 **Branch:** `analysis/2026-06-07-chiral-holonomy-half-twist`.
 **Driver:** [`src/scripts/vol_1_foundations/chiral_orbital_holonomy.py`](../src/scripts/vol_1_foundations/chiral_orbital_holonomy.py).
-**Viz:** `src/scripts/vol_1_foundations/_output/chiral_orbital_holonomy.png` (viz-candidate #1/#6).
+**Viz:** `research/figures/chiral_orbital_holonomy.png` (viz-candidate #1/#6).
 **Classification (`consistency-vs-emergence`):** EMERGENCE test as framed; result lands **CONSISTENCY-class** (see §6).
 **Verdict:** **(II) — suggestive, not topological.** A clean π half-twist (SU(2) `-I`) is realizable and *requires* the chiral port structure, but it is **path-dependent** (conditional on the orbit encircling a chirality-induced orientation degeneracy), not a robust topological invariant of "orbiting the host."
 
@@ -83,6 +83,6 @@ but it **cannot** decide whether a *true* 2nd-shell I4₁32 screw would make the
 ## §8 Files
 
 - Driver: [`src/scripts/vol_1_foundations/chiral_orbital_holonomy.py`](../src/scripts/vol_1_foundations/chiral_orbital_holonomy.py)
-- Visualisation: `src/scripts/vol_1_foundations/_output/chiral_orbital_holonomy.png`
-- Numbers (JSON): `src/scripts/vol_1_foundations/_output/chiral_orbital_holonomy.json`
+- Visualisation: `research/figures/chiral_orbital_holonomy.png`
+- Numbers (JSON): `results/chiral_orbital_holonomy.json`
 - Canonical sources cited: [`k4_tlm.py:359-362,542`](../src/ave/core/k4_tlm.py); [`k4-rotation-group.md`](../manuscript/ave-kb/vol1/axioms-and-lattice/ch1-fundamental-axioms/k4-rotation-group.md) §1/§5/§6; [`finkelstein-misner-spin-half-derivation.md`](../manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/finkelstein-misner-spin-half-derivation.md) §8/§9.

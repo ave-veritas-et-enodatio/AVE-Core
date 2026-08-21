@@ -83,4 +83,4 @@ Report: f, the path-dependence map (is the `−I` set the whole sweep or still b
 - This prereg: `research/2026-06-07_2ndshell-screw-holonomy-prereg.md`
 - Driver: `src/scripts/vol_1_foundations/secondshell_screw_holonomy.py` (to be written)
 - Result: `research/2026-06-07_2ndshell-screw-holonomy-result.md` (to be written)
-- Viz: `src/scripts/vol_1_foundations/_output/secondshell_screw_holonomy.png` (extends prior viz)
+- Viz: `research/figures/secondshell_screw_holonomy.png` (extends prior viz)

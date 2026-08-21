@@ -4,7 +4,7 @@
 **Branch:** `analysis/2026-06-07-2ndshell-screw-holonomy` (off `main` @ `dbb60320`).
 **Prereg:** [`2026-06-07_2ndshell-screw-holonomy-prereg.md`](2026-06-07_2ndshell-screw-holonomy-prereg.md) (frozen before running).
 **Driver:** [`src/scripts/vol_1_foundations/secondshell_screw_holonomy.py`](../src/scripts/vol_1_foundations/secondshell_screw_holonomy.py).
-**Viz:** `src/scripts/vol_1_foundations/_output/secondshell_screw_holonomy.png` (extends prior viz #6).
+**Viz:** `research/figures/secondshell_screw_holonomy.png` (extends prior viz #6).
 **Decisive follow-up to:** [`2026-06-07_chiral-orbital-holonomy-result.md`](2026-06-07_chiral-orbital-holonomy-result.md) (verdict II, reflection-EVEN proxy).
 
 > **VERDICT: (II) — PATH-DEPENDENT. This is PROJECTED HELICITY, NOT intrinsic spin-½.** On the genuine reflection-ODD 2nd-shell A/B 4₁ screw (not a knob), a clean SU(2) `−I` (exactly π, `n_steps`-robust, 4π→+I double-cover consistent) is realizable and **requires the chirality** (achiral control = 0/400), **but only for f ≈ 18% of orbits** — and even that fraction is a **commensurate-pitch RESONANCE** (0% outside κ ≈ [½π, 7⁄12 π]), not a topological Z₂ plateau. The π is encircling-conditional AND pitch-conditional → the generic Berry-phase-by-encircling, **more** conditional than the prior reflection-even proxy, not less. Intrinsic, frame-independent spin-½ does **NOT** emerge from orbiting the host in the screw crystal.
@@ -82,6 +82,6 @@ This is a **real-space** SO(3)→SU(2) holonomy — the coordinate system the FM
 
 - Driver: [`src/scripts/vol_1_foundations/secondshell_screw_holonomy.py`](../src/scripts/vol_1_foundations/secondshell_screw_holonomy.py)
 - Prereg: [`research/2026-06-07_2ndshell-screw-holonomy-prereg.md`](2026-06-07_2ndshell-screw-holonomy-prereg.md)
-- Numbers: `src/scripts/vol_1_foundations/_output/secondshell_screw_holonomy.json`
-- Viz: `src/scripts/vol_1_foundations/_output/secondshell_screw_holonomy.png`
+- Numbers: `results/secondshell_screw_holonomy.json`
+- Viz: `research/figures/secondshell_screw_holonomy.png`
 - Canonical sources cited: [`k4_tlm.py:111-115,215-216,542`](../src/ave/core/k4_tlm.py); [`k4-rotation-group.md`](../manuscript/ave-kb/vol1/axioms-and-lattice/ch1-fundamental-axioms/k4-rotation-group.md) §1/§5/§6; [`finkelstein-misner-spin-half-derivation.md`](../manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/finkelstein-misner-spin-half-derivation.md) §2/§8/§9; [`water-anomaly-lc-partition.md:44`](../manuscript/ave-kb/vol3/condensed-matter/ch11-thermodynamics/water-anomaly-lc-partition.md) (Ω_freeze); [`CLAUDE.md` INVARIANT-S2](../manuscript/ave-kb/CLAUDE.md) (I4₁32).

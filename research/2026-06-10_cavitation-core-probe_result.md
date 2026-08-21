@@ -5,7 +5,7 @@
 **Prereg (frozen):** [`2026-06-10_cavitation-core-probe_prereg.md`](2026-06-10_cavitation-core-probe_prereg.md)
 **Engine (new branch):** [`src/ave/core/cavitation_flow.py`](../src/ave/core/cavitation_flow.py) — `CavitationFlow2D`, the rarefaction-stiffness bulk-flow branch
 **Driver:** [`src/scripts/vol_4_engineering/cavitation_core_probe.py`](../src/scripts/vol_4_engineering/cavitation_core_probe.py) · figures [`…_figures.py`](../src/scripts/vol_4_engineering/cavitation_core_probe_figures.py)
-**Data:** `src/scripts/vol_4_engineering/_output/cavitation_core_probe_results.json`
+**Data:** `results/cavitation_core_probe_results.json`
 **Governing discipline:** `ave-apparatus-floor-attribution` (FLASH-physics vs CLIP-apparatus). Skills: substrate-native-check, ave-prereg, ave-canonical-source, ave-conserved-vs-pumped, ave-regime-phase-state-check, phase-space-coordinate-check, ave-driver-script-honesty, verify-before-cite.
 
 ---

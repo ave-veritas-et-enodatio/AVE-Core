@@ -55,7 +55,7 @@ This is the substrate-native model attempt; genesis bench snap is a **control ar
 PYTHONPATH=src python src/scripts/vol_1_foundations/native_electron_model.py
 ```
 
-**JSON:** `src/scripts/vol_1_foundations/_output/native_electron_model_results.json`  
+**JSON:** `results/native_electron_model_results.json`  
 **PNG:** `assets/sim_outputs/native_electron_model_phasor.png`
 
 ## §5 Adjudication

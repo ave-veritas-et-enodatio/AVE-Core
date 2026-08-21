@@ -89,7 +89,8 @@ import numpy as np
 from ave.core.constants import NU_VAC, M_E, C_0, HBAR
 from ave.core.cross_sector_coupling import KAPPA_TILDE  # 6/5 = pq/(p+q), α-free
 
-_OUT = Path(__file__).resolve().parent / "_output" / "node_circulator_coupling.json"
+# Ratified 2026-08-20 destination map: research-tier DATA -> root `results/`.
+_OUT = Path(__file__).resolve().parents[3] / "results" / "node_circulator_coupling.json"
 
 
 # ═════════════════════════════════════════════════════════════════════════════

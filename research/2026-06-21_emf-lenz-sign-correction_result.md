@@ -125,7 +125,7 @@ the Op14 redundancy (sign-independent) is unresolved. The **A28** `disable_cosse
 |---|---|
 | `src/ave/topological/k4_cosserat_coupling.py:838` | `+2.0 → −2.0`; comment block :830–837 and constructor NOTE :260 re-scoped (A28 reasoning preserved) |
 | `src/scripts/vol_1_foundations/genesis_24_saturated_seed.py` | re-run JSON refreshed; stale `:703`→`:838` cite fixed (:158); FIG-4 caption made data-driven (closes vs fails) |
-| `src/scripts/vol_1_foundations/_output/native_electron_model_v2_results.json` | re-run refreshed (schema also re-aligned to current `classify()`) |
+| `results/native_electron_model_v2_results.json` | re-run refreshed (schema also re-aligned to current `classify()`) |
 | `src/scripts/vol_1_foundations/reflection_genesis_23_self_assembly_results.json` | re-run refreshed (§8 gap_localization) |
 | `manuscript/vol_9_vacuum_datasheet/chapters/03_pin_port_configuration.tex:138` | adjudicated the implemented-vs-derived sign question to `−2`-Lenz-conservative |
 | `manuscript/vol_9_vacuum_datasheet/chapters/17_engine_requirements.tex` | requirement stands; `+2` is the wrong-sign example, `−2` satisfies it on the deep seed but stays gated |

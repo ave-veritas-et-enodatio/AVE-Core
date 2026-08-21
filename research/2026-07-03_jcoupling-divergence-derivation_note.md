@@ -68,7 +68,7 @@ Grepped and read the corpus's coupling constructions. Each classified by (i) whe
 **Structure:** a 2×2 (or 3×3) HERMITIAN generator `d/dt[a_bulk; a_shear] = −iH[a_bulk; a_shear]` acting on **complex MODE AMPLITUDES** `a = q + i·p/ω` — the analytic signal of an LC reactance pair (`node_circulator_coupling.py:39-51`). **This is a 0-dimensional (lumped) coupling: it rotates two scalar amplitudes.**
 
 - **`∇·` verdict:** N/A — there is no spatial current to take a divergence of. The circulator couples mode energies, not a field. **`phase-space-coordinate-check` flag:** it lives in the (V_inc, V_ref)/impedance-plane mode-amplitude phase-space (A46), NOT the real-space E-field. It cannot appear in the `∇·E` continuity equation at all — it is a different object.
-- **Ledger:** the skew form is FORCED trivially (lossless ⇒ Hermitian generator); the non-reciprocity SIGN is lattice-sourced (chirality χ) but the MAGNITUDE is IMPOSED (`forced_vs_imposed()` verdict, `node_circulator_coupling.py:561-566`). Verdict PARTIAL / ECHO-at-magnitude.
+- **Ledger:** the skew form is FORCED trivially (lossless ⇒ Hermitian generator); the non-reciprocity SIGN is lattice-sourced (chirality χ) but the MAGNITUDE is IMPOSED (`forced_vs_imposed()` verdict, `node_circulator_coupling.py:562-567`). Verdict PARTIAL / ECHO-at-magnitude.
 - **Evades the three closures?** Vacuously — it is not a spatial current, so "not pure curl / not static texture / not longitudinal mode" don't apply. **It is NOT a `J_coupling` candidate for the ∇·E question.** (It is the right object for the *mode-energy* Fork-A, a different question.)
 
 ### 3.2 The gyrotropic converter + trilinear buckle (`cross_sector_coupling.py`, graft-v3/v4)

@@ -35,6 +35,10 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "..", "sr
 from ave.core.cavitation_flow import RHO_CAV, CavitationFlow2D  # noqa: E402
 
 OUT = os.path.join(os.path.dirname(__file__), "_output")
+# Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+# research-tier DATA -> tracked root `results/` (class 4).
+_AVE_RESULTS = os.path.abspath(os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "results"))
 os.makedirs(OUT, exist_ok=True)
 R_CORE = 0.18
 
@@ -253,7 +257,7 @@ def main():
         "D_control": stage_D_matched_control(),
         "E_hysteresis": stage_E_hysteresis(),
     }
-    path = os.path.join(OUT, "cavitation_core_probe_results.json")
+    path = os.path.join(_AVE_RESULTS, "cavitation_core_probe_results.json")
     with open(path, "w") as f:
         json.dump(results, f, indent=2)
     print(f"\nWrote {path}")

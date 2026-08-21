@@ -2,14 +2,14 @@
 
 **Driver:** `electron_genesis_finish.py`  
 **Prereg:** `research/2026-06-08_electron-genesis-finish-prereg.md`  
-**JSON:** `src/scripts/vol_1_foundations/_output/electron_genesis_finish_results.json`
+**JSON:** `results/electron_genesis_finish_results.json`
 
 ---
 
 ## Verdict: native genesis **protocol complete**; numerical **α readout open**
 
 > **Framing scope (B2 — planted-persistence / wall-reachability, NOT emergent formation).**
-> This suite **seeds a finished electron ansatz** and tests whether that imposed ansatz *reaches and holds* a Γ=−1-class wall — it does **not** demonstrate emergent self-assembly. The native drivers (`native_k4_gamma_ceiling.py:102-104`, `electron_genesis_finish.py`) plant `initialize_electron_unknot_sector(R=0.5, r=0.25)` (a `0_1`/unknot torus ansatz) plus a bulk `seed_sech_v_inc` `V_inc` blob, and run with **one-way Cosserat→K4 coupling** (`disable_cosserat_lc_force=True`). So "genesis / protocol complete / electron appears" below means **wall-reachability + persistence of an imposed ansatz**, not formation from generic initial data. The unknot circulation is seeded, not demonstrated (see the "Closed orbit / circulation" gap below).
+> This suite **seeds a finished electron ansatz** and tests whether that imposed ansatz *reaches and holds* a Γ=−1-class wall — it does **not** demonstrate emergent self-assembly. The native drivers (`native_k4_gamma_ceiling.py:105-107`, `electron_genesis_finish.py`) plant `initialize_electron_unknot_sector(R=0.5, r=0.25)` (a `0_1`/unknot torus ansatz) plus a bulk `seed_sech_v_inc` `V_inc` blob, and run with **one-way Cosserat→K4 coupling** (`disable_cosserat_lc_force=True`). So "genesis / protocol complete / electron appears" below means **wall-reachability + persistence of an imposed ansatz**, not formation from generic initial data. The unknot circulation is seeded, not demonstrated (see the "Closed orbit / circulation" gap below).
 
 ### What is finished
 

@@ -4,7 +4,7 @@
 **Prereg (FROZEN, committed ALONE first):** [`2026-06-11_s11-de-novo_prereg.md`](2026-06-11_s11-de-novo_prereg.md) (commit `bd218d13`, before any run artifact)
 **Engine:** [`src/ave/core/s11_probe_unified.py`](../src/ave/core/s11_probe_unified.py) `S11ProbeUnified(UnifiedGenesisEngine)` — the FLAG-B re-layer on the ACTUAL v6 engine ·
 **Driver:** [`src/scripts/vol_9_device/s11_de_novo_sweep.py`](../src/scripts/vol_9_device/s11_de_novo_sweep.py) (committed AS-RUN — see §4.2 KEEP-BOTH)
-**Data:** `src/scripts/vol_9_device/_output/s11_denovo_results.json` · **Figures:** `s11_denovo_gate.png`, `s11_denovo_made.png`, `s11_denovo_planted.png`, `s11_denovo_paired.png` · run log archived from `/tmp/ave-s11denovo-run.log` (elapsed 3110 s)
+**Data:** `results/s11_denovo_results.json` · **Figures:** `research/figures/s11_denovo_{gate,made,planted,paired}.png` · run log archived from `/tmp/ave-s11denovo-run.log` (elapsed 3110 s)
 **Governing discipline:** `ave-apparatus-floor-attribution` (probe-capability gate + ORDERED bins; "the floor-check gates the rest", prereg §6). Skills: substrate-native-check, ave-prereg, phase-space-coordinate-check, ave-representation-capability-check, ave-driver-script-honesty, consistency-vs-emergence, ave-regime-phase-state-check, verify-before-cite.
 **Adversarial panel:** PROBE-ATTRIBUTION lens audited the finished artifacts — `refuted=true` on the driver-emitted bin; demotion executed here (§4.2). A second panel lens (rebuild-fidelity) was truncated in the orchestration handoff and is NOT incorporated (§7.6).
 

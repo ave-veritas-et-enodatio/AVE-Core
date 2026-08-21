@@ -793,6 +793,9 @@ def main() -> None:
 
     # ---- (4) FIGURES --------------------------------------------------------
     out_dir = Path(__file__).resolve().parent / "_output"
+    # Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+    # research-tier DATA -> tracked root `results/` (class 4).
+    _AVE_RESULTS = Path(__file__).resolve().parents[3] / "results"
     out_dir.mkdir(exist_ok=True)
     print("\n[4] FIGURES (house style, computed captions):")
     figs = _make_figures(report, out_dir)
@@ -802,7 +805,7 @@ def main() -> None:
             print(f"    wrote {p}")
 
     # ---- (5) WRITE JSON -----------------------------------------------------
-    out_path = out_dir / "oq1_field_to_cavity_phase_coupling.json"
+    out_path = _AVE_RESULTS / "oq1_field_to_cavity_phase_coupling.json"
     out_path.write_text(json.dumps(out, indent=2, default=float))
     print(f"\nResults written: {out_path}")
     print("=" * 78)

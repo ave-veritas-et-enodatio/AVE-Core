@@ -163,8 +163,8 @@ The manual describes an *intended* cross-check as though it were an
 ## 3. Pilot evidence
 
 **Script:** `src/scripts/vol_4_engineering/spice_lane_pilot_poisson.py`
-**Outputs:** `_output/spice_lane_pilot_poisson.cir` (ngspice-ready netlist),
-`_output/spice_lane_pilot_poisson_result.json` (verdict).
+**Outputs:** `results/spice_lane_pilot_poisson.cir` (ngspice-ready netlist),
+`results/spice_lane_pilot_poisson_result.json` (verdict).
 
 **What it does.** ngspice is NOT installed (see §4), so the pilot builds the
 *identical* MNA (Modified Nodal Analysis) linear system a SPICE `.OP` would

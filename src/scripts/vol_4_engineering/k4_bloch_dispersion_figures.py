@@ -4,7 +4,7 @@ FIGURES for the K4 Bloch dispersion eigensolve — the (q·ℓ_node)⁴ photon c
 
 FIGURES lane (companion to k4_bloch_dispersion.py, the BUILD-lane eigensolve).
 This script is a PURE PRESENTATION driver: it READS the validated data the BUILD
-lane committed at ``_output/k4_bloch_dispersion.json`` and renders it through the
+lane committed at ``results/k4_bloch_dispersion.json`` and renders it through the
 AVE house style (``ave.viz.style``). It does NOT re-run the physics eigensolve.
 
 WHERE THE NUMBERS COME FROM (ave-figure-discipline + verify-before-cite):
@@ -50,7 +50,7 @@ from scripts.vol_4_engineering.k4_bloch_dispersion import (
 )
 
 DATA_PATH = (
-    Path(__file__).resolve().parent / "_output" / "k4_bloch_dispersion.json"
+    Path(__file__).resolve().parents[3] / "results" / "k4_bloch_dispersion.json"
 )
 FIG_DIR_PARTS = ("vol_4_engineering", "figures")
 

@@ -51,6 +51,9 @@ from ave.topological.vacuum_engine import VacuumEngine3D  # noqa: E402
 
 OUT_DIR = next(p for p in Path(__file__).resolve().parents if (p / ".git").exists())
 OUT_DIR = OUT_DIR / "src" / "scripts" / "vol_1_foundations" / "_output"
+# Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+# research-tier DATA -> tracked root `results/` (class 4).
+_AVE_RESULTS = Path(__file__).resolve().parents[3] / "results"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 CADENCE = 2
@@ -248,7 +251,7 @@ def main() -> None:
         "classification": classification,
         "comparison_only_alpha": ALPHA_T,
     }
-    out_json = OUT_DIR / "electron_alpha_leak_tune_results.json"
+    out_json = _AVE_RESULTS / "electron_alpha_leak_tune_results.json"
     out_json.write_text(json.dumps(payload, indent=2, allow_nan=False) + "\n")
     print(f"  wrote: {out_json}")
 

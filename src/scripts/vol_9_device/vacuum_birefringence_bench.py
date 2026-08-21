@@ -172,6 +172,9 @@ def main() -> None:
           f"1/alpha={1.0/ALPHA:.4f}")
 
     out_dir = Path(__file__).resolve().parent / "_output"
+    # Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+    # research-tier DATA -> tracked root `results/` (class 4).
+    _AVE_RESULTS = Path(__file__).resolve().parents[3] / "results"
     out_dir.mkdir(exist_ok=True)
     _channel_retardance(out)
     _channel_rotation(out)
@@ -179,7 +182,7 @@ def main() -> None:
     _measurability(out)
     _make_plots(out, out_dir)
 
-    out_path = out_dir / "vacuum_birefringence_bench.json"
+    out_path = _AVE_RESULTS / "vacuum_birefringence_bench.json"
     out_path.write_text(json.dumps(out, indent=2, default=float))
     print(f"\nResults written: {out_path}")
     print("=" * 78)

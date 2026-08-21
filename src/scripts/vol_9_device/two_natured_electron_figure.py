@@ -409,9 +409,12 @@ def build_figure(static: dict, cavity: dict, unknot: dict, out_png: Path) -> Pat
 def main() -> None:
     here = Path(__file__).resolve().parent
     out_dir = here / "_output"
+    # Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+    # research-tier DATA -> tracked root `results/` (class 4).
+    _AVE_RESULTS = Path(__file__).resolve().parents[3] / "results"
     out_dir.mkdir(parents=True, exist_ok=True)
     out_png = out_dir / "two_natured_electron_native_engine.png"
-    out_json = out_dir / "two_natured_electron_native_engine.json"
+    out_json = _AVE_RESULTS / "two_natured_electron_native_engine.json"
 
     print("== (A) static charge --- (2,3) winding + Link + deformation invariance")
     static = gather_static_charge()

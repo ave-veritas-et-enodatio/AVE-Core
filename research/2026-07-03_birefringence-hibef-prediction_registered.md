@@ -14,7 +14,7 @@ through the LoI's stated readout, BEFORE any BIREF@HIBEF pump-on collision data 
 ([`2026-07-03_birefringence-prior-art-exposure-scan_result.md`](2026-07-03_birefringence-prior-art-exposure-scan_result.md)) —
 no prior measurement bounds an AVE-sized E-route flip-prob, so this is a genuine forward prediction, not a
 post-diction. (A verdict of ALREADY-BOUNDED would have blocked this document.)
-**Driver:** `src/scripts/vol_9_device/birefringence_hibef_scenario_predictions.py` · **Output:** `_output/birefringence_hibef_scenario_predictions.json`
+**Driver:** `src/scripts/vol_9_device/birefringence_hibef_scenario_predictions.py` · **Output:** `results/birefringence_hibef_scenario_predictions.json`
 **Class:** CONSISTENCY (canonical `clm-pp3qwf` through the LoI's readout; no new `clm-`/constant/emergence).
 
 ---
