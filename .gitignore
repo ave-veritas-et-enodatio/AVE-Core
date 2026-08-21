@@ -290,3 +290,4 @@ research/figures/*.npz
 
 # kit release artifacts (built by package_kit_release.py)
 dist/
+assets/3d_models/vacuum_axiom1_diamond_lc_full_lattice.stl
