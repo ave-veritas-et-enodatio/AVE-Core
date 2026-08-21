@@ -55,30 +55,40 @@ src/scripts/**/_output/
 #  cited render targets. A cited figure that a driver writes into a `figures/`
 #  dir stays tracked; only the scratch `_output`/`outputs` dirs are ignored.)
 #
-# EXCEPTIONS — 16 CITED figures still live inside these scratch dirs. The bulk
+# EXCEPTIONS — 13 CITED figures still live inside these scratch dirs. The bulk
 # of this block was RETIRED 2026-08-20 by the Phase-2 figure/data migration
-# (29 renders + 49 data artifacts moved to their tracked homes per the ratified
+# (23 renders + 49 data artifacts moved to their tracked homes per the ratified
 # policy, `_orchestration/2026-07_repo-conventions.md` §(a) + :12; destinations
 # at `_orchestration/docket-entries/2026-08-20-phase2-destination-map.md`).
 # What REMAINS is exactly two sets, and both are deliberate:
-#   9 · src/scripts — the HELD flag set, not yet ruled:
-#       · the 3 `vacuum_birefringence_facility_sweep_*` .pdf/.png PAIRS — one
-#         `style.save()` call emits both formats to one stub, so the pair is one
-#         unit and the pdf/png allowlist contradiction is its own open question;
-#       · 3 renders (`a1_spatial_cavity_mode_fft.png`,
-#         `two_natured_electron_native_engine.png`,
-#         `optical_caustic_resolution.png`) whose BYTE-IDENTICAL twin is already
-#         tracked in the destination's own \graphicspath — moving them would put
-#         two same-named blobs on one graphics path, and retiring the twin is a
-#         DELETION on the D15c orphan-data axis, which this lane was not ruled
-#         to touch.
+#   6 · src/scripts — the HELD flag set, not yet ruled: the 3
+#       `vacuum_birefringence_facility_sweep_*` .pdf/.png PAIRS, held as PAIRS.
+#       One `style.save(fig, stub, strict=True)` call emits BOTH formats to one
+#       stub (`src/ave/viz/style.py:371`, `formats=("pdf","png")` by default), so
+#       a pair is ONE UNIT: moving or de-allowlisting half of it would have the
+#       driver re-emit the other half beside a now-absent twin on every run.
+#       ⚑ This block being SYMMETRIC (3 .pdf + 3 .png) does NOT resolve the
+#       pdf/png allowlist contradiction the Phase-1 flag raised — that is still
+#       its own open question, recorded in the destination-map docket's
+#       2026-08-20 amendment, which vacates the "3 pdf / 0 png" measurement the
+#       docket body predicted here.
 #   7 · src/tests/outputs — never in the migration's scope.
+#
+# RETIRED BY DELETION 2026-08-20 — the FLAG-DUP three
+# (`a1_spatial_cavity_mode_fft.png`, `two_natured_electron_native_engine.png`,
+# `optical_caustic_resolution.png`) used to hold `!` lines here. Each was
+# byte-identical to a twin ALREADY tracked on the destination volume's own
+# \graphicspath, so the build already resolved to the manuscript-side copy and
+# the scratch copy was build-invisible. Their three generators now write
+# DIRECTLY to the surviving twin's tracked home (`a1_radial_fft.py`,
+# `two_natured_electron_figure.py` → `manuscript/vol_9_vacuum_datasheet/figures/
+# two_natured/`; `simulate_optical_caustic.py` → `assets/sim_outputs/`), so a
+# re-run regenerates the SURVIVOR and cannot resurrect the deleted scratch copy.
+# ⚑ The deletion authority — extending D15c's byte-identical-twin rule from the
+# orphan-DATA axis to the FIGURE axis — is PENDING GRANT'S WORD, not settled.
 # The count above is DERIVED from the lines below (not hand-maintained), so it
 # cannot drift the way the old "38" did — that number was stale against a
 # HEAD-true 32 for over a month. Re-derive on any change.
-!src/scripts/vol_4_engineering/outputs/optical_caustic_resolution.png
-!src/scripts/vol_9_device/_output/a1_spatial_cavity_mode_fft.png
-!src/scripts/vol_9_device/_output/two_natured_electron_native_engine.png
 !src/scripts/vol_9_device/_output/vacuum_birefringence_facility_sweep_signal_vs_field.pdf
 !src/scripts/vol_9_device/_output/vacuum_birefringence_facility_sweep_signal_vs_field.png
 !src/scripts/vol_9_device/_output/vacuum_birefringence_facility_sweep_time_to_5sigma.pdf

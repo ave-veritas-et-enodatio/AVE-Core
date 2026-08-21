@@ -220,11 +220,17 @@ def build_figure(res: dict, out_png: Path) -> Path:
 
 
 def main() -> None:
-    here = Path(__file__).resolve().parent
-    out_dir = here / "_output"
+    _AVE_ROOT = Path(__file__).resolve().parents[3]
     # Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
     # research-tier DATA -> tracked root `results/` (class 4).
-    _AVE_RESULTS = Path(__file__).resolve().parents[3] / "results"
+    _AVE_RESULTS = _AVE_ROOT / "results"
+    # RENDER: this figure's `_output/` copy was byte-identical to the tracked twin
+    # already on the vol-9 \graphicspath (`main.tex:7` carries
+    # `figures/two_natured/`), so the build never saw the scratch copy and the
+    # scratch copy was RETIRED BY DELETION 2026-08-20 (authority pending Grant).
+    # Write to the SURVIVOR, so re-running this driver cannot resurrect the
+    # deleted twin or put two same-named blobs on one graphics path.
+    out_dir = _AVE_ROOT / "manuscript" / "vol_9_vacuum_datasheet" / "figures" / "two_natured"
     out_dir.mkdir(parents=True, exist_ok=True)
     out_png = out_dir / "a1_spatial_cavity_mode_fft.png"
     out_json = _AVE_RESULTS / "a1_spatial_cavity_mode_fft.json"

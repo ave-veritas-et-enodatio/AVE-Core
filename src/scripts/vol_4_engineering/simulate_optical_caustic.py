@@ -114,8 +114,16 @@ def main() -> None:
 
     plt.tight_layout()
 
-    # Save output
-    out_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "outputs")
+    # Save output.
+    # This render's `outputs/` copy was byte-identical to the tracked twin already
+    # on the vol-4 \graphicspath (`main.tex:7` carries `../../assets/sim_outputs/`),
+    # so the build never saw the scratch copy and the scratch copy was RETIRED BY
+    # DELETION 2026-08-20 (ratified destination map; authority pending Grant).
+    # Write to the SURVIVOR, so re-running this driver cannot resurrect the deleted
+    # twin or put two same-named blobs on one graphics path.
+    _AVE_ROOT = os.path.abspath(
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", ".."))
+    out_dir = os.path.join(_AVE_ROOT, "assets", "sim_outputs")
     os.makedirs(out_dir, exist_ok=True)
     out_path = os.path.join(out_dir, "optical_caustic_resolution.png")
     plt.savefig(out_path, dpi=300)
