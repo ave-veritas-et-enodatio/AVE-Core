@@ -28,8 +28,10 @@ import matplotlib.pyplot as plt  # noqa: E402
 import numpy as np  # noqa: E402
 from matplotlib.patches import FancyArrowPatch, Polygon, Rectangle  # noqa: E402
 
-OUT = Path(__file__).parent / "_output"
-OUT.mkdir(exist_ok=True)
+# Cited render -> tracked per-volume figures/ (ratified figure policy,
+# _orchestration/2026-07_repo-conventions.md sec (a); migrated 2026-08-20).
+OUT = Path(__file__).resolve().parents[3] / "manuscript/vol_1_foundations/figures"
+OUT.mkdir(parents=True, exist_ok=True)
 
 E_COL = "#1f6fb4"   # E / epsilon / mass-dilatation sheet
 B_COL = "#b4451f"   # B / mu / charge-winding blinds
