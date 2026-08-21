@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **06e1de4c** (2026-08-20) · 461 index records · 330 claims · 2 PRs open
+Scanned tree **e1d6e490** (2026-08-20) · 461 index records · 330 claims · 2 PRs open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`5164d000`). Every count below describes **06e1de4c**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`5164d000`). Every count below describes **e1d6e490**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -30,7 +30,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## What we are waiting on
 
-**34 of 62 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
+**34 of 63 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
 
 *Scope: this is a census of `open-items/`. `_orchestration/2026-07-10_rulings-docket.md` is the **paper timeline** — a dated continuation log, frozen at its 2026-07-21 tail per `docket-entries/README.md`, and the historical record of how each ruling was reached. It is read chronologically, not harvested; anything still live in it belongs here as its own file.*
 
@@ -86,6 +86,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [Electron-identity program is ACTIVE — Checkpoint 2; LaTeX/README follow-ups next](open-items/2026-08-14-electron-identity-program.md) | OPEN | unassigned | 2026-08-14 |
 | [Electron-identity LaTeX + README follow-ups — one full document-read per KB deprecation (unblocked; waiting first F-row)](open-items/2026-08-16-electron-identity-latex-readme-followups.md) | OPEN | unassigned | 2026-08-16 |
 | [check_new_cites mixes committed line-sets with working-tree content — green receipts describing neither state](open-items/2026-08-19-newcite-ratchet-split-brain.md) | OPEN | unassigned | 2026-08-19 |
+| [Tracked figures are not bit-reproducible — matplotlib is unpinned (3.10.8 stamps vs 3.10.9 venv)](open-items/2026-08-20-figure-bit-reproducibility.md) | OPEN | unassigned | 2026-08-20 |
 | [Sibling-repo debts — AVE-Fusion yield cross-wire + AVE-Bench-FemtoElectrometer stale sites](open-items/2026-07-03-sibling-repo-debts.md) | REGISTERED | unassigned | 2026-07-03 |
 | [The v3 ringdown instrument — the DISCRETE near-wall chain](open-items/2026-08-04-v3-ringdown-instrument.md) | REGISTERED | unassigned | 2026-08-04 |
 | [Hygiene backlog — Bell-arc citation follow-ups, FPR provenance re-grep, auditor-landing queue](open-items/2026-07-03-hygiene-backlog.md) | QUEUED | unassigned | 2026-07-03 |
