@@ -240,7 +240,7 @@ All four figures are generated **from the actual operator** by
 $A_{cap}=0.99$ operative floor ($\Gamma\approx-0.454$) and the vacuum-matched point
 ($\Gamma=0$ at $A=0$) are marked.
 
-![Gamma vs A varactor curve: mu-load confinement vs forbidden epsilon-load](../../../../../src/scripts/vol_4_engineering/_output/vvs_fig_a_gamma_vs_A.png)
+![Gamma vs A varactor curve: mu-load confinement vs forbidden epsilon-load](../../../../vol_4_engineering/figures/vvs_fig_a_gamma_vs_A.png)
 
 **(b) Scramble demonstration ("reads saturation").** $\max\lvert d\mathcal{S}\rvert$
 under a **per-BOND** scramble ($\approx0.26$ srs / $\approx0.19$ diamond, well above the
@@ -248,19 +248,19 @@ $10^{-9}$ change threshold) vs a **per-NODE** scramble ($\sim10^{-16}$) vs a
 **uniform-field** scramble ($0$, the negative control). The per-bond gradient is the
 *only* channel that changes the operator.
 
-![Scramble test: per-BOND changes the operator, per-NODE and uniform do not](../../../../../src/scripts/vol_4_engineering/_output/vvs_fig_b_scramble.png)
+![Scramble test: per-BOND changes the operator, per-NODE and uniform do not](../../../../vol_4_engineering/figures/vvs_fig_b_scramble.png)
 
 **(c) Bedrock recovery + local spectra.** At $S=1$ the assembled operator equals the
 bedrock $(2/n)J-I$ ($\max\lvert d\rvert=0$ for both nets); the local-node scatter
 spectra are $\{+1,-1,-1\}$ (srs, degree 3) and $\{+1,-1,-1,-1\}$ (diamond, degree 4).
 
-![Bedrock recovery at S=1 and local node scatter spectra](../../../../../src/scripts/vol_4_engineering/_output/vvs_fig_c_bedrock_spectrum.png)
+![Bedrock recovery at S=1 and local node scatter spectra](../../../../vol_4_engineering/figures/vvs_fig_c_bedrock_spectrum.png)
 
 **(d) Saturation $\to$ admittance map.** The varactor mapping $S(A)=\sqrt{1-A^2}$
 (falling) and $Y_{bond}=Y_0/\sqrt{S}$ (rising) vs $A$; the vacuum point
 ($S=1$, $Y=Y_0$) is marked.
 
-![Varactor map: S(A) and bond admittance vs A](../../../../../src/scripts/vol_4_engineering/_output/vvs_fig_d_sat_admittance.png)
+![Varactor map: S(A) and bond admittance vs A](../../../../vol_4_engineering/figures/vvs_fig_d_sat_admittance.png)
 
 ## §7 — Cross-links
 

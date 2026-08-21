@@ -49,7 +49,13 @@ from ave.solvers.vacuum_varactor_scatter import (  # noqa: E402
     saturation_kernel,
 )
 
-OUT = os.path.join(os.path.dirname(__file__), "_output")
+# Cited renders -> tracked per-volume figures/ (ratified figure policy,
+# _orchestration/2026-07_repo-conventions.md sec (a); migrated 2026-08-20).
+OUT = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(
+        os.path.abspath(__file__))))),
+    "manuscript", "vol_4_engineering", "figures",
+)
 os.makedirs(OUT, exist_ok=True)
 
 A_CAP = 0.99  # the canonical amplitude clip (the BINDING floor parameter)
