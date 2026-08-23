@@ -1896,16 +1896,58 @@ def check_armed_forward_count(manifest: dict, substitute: Path | None = None) ->
     return findings
 
 
+def check_type_file_coherence(manifest: dict, substitute: Path | None = None) -> list[Finding]:
+    """No `derived_prediction` row may sit in the consistency manifest.
+
+    THE LOCK the D9-1 re-type ruled for (Wave-2 sitting 2026-08-18, closure
+    option 2 "landed AFTER the flip"; docket 2026-08-19-ringdown-fork-resolved
+    for the last row's disposition). The consistency file is by construction the
+    reproduced-against-a-known-value surface; the schema defines
+    derived_prediction as "genuine forward prediction (Class D)". A row wearing
+    that type in this file is either mistyped (the P42 basis applies) or
+    misfiled (it belongs in the forward manifest) -- both are author decisions,
+    so the gate fires rather than guessing.
+
+    DELIBERATELY ONE-DIRECTIONAL. The forward manifest carries NO type
+    constraint: membership means untested-forward-looking, type means mechanism
+    class (P_A034_solar_flare keeps axiom_manifestation by ruling). Gating the
+    forward side would make type a function of file, the coupling the
+    2026-08-05 orthogonality ruling refused on the calibration_role axis.
+    """
+    findings: list[Finding] = []
+    consistency_path = resolve_union_paths(substitute)[1]
+    for entry in load_manifest(consistency_path).get("predictions", []):
+        if entry.get("type") == "derived_prediction":
+            findings.append(
+                Finding(
+                    check="type_file_coherence",
+                    severity="critical",
+                    entry_id=entry.get("id"),
+                    message=(
+                        f"{entry.get('id')!r} declares type: derived_prediction "
+                        f"(\"genuine forward prediction\") inside "
+                        f"{consistency_path.name}, the reproduced-against-a-known-"
+                        f"value surface. Either re-type on the P42 basis or move "
+                        f"the row to the forward manifest -- an author decision, "
+                        f"not one this gate makes."
+                    ),
+                    details={"id": entry.get("id"), "file": consistency_path.name},
+                )
+            )
+    return findings
+
+
 # ───────────────────────────────────────────────────────────────────────────
 # Orchestration
 # ───────────────────────────────────────────────────────────────────────────
 # Checks that read the UNION of both manifests rather than the single file they
 # are handed. They take an optional `substitute` so `--manifest <candidate>`
 # reaches them too -- see resolve_union_paths().
-UNION_CHECKS = frozenset({"parity", "lr_parity", "cross_manifest_ids", "armed_forward_count"})
+UNION_CHECKS = frozenset({"parity", "lr_parity", "cross_manifest_ids", "armed_forward_count", "type_file_coherence"})
 
 ALL_CHECKS = {
     "cross_manifest_ids": check_cross_manifest_ids,
+    "type_file_coherence": check_type_file_coherence,
     "armed_forward_count": check_armed_forward_count,
     "schema": check_schema,
     "label": check_labels,
