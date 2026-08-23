@@ -1,18 +1,39 @@
-import os
+"""Code generator for the standalone ``animate_*.py`` drivers in this directory.
 
-output_dir = "periodic_table/animations"
+OUTPUT TARGET (2026-08-23). This wrote to the relative path
+``"periodic_table/animations"``, which is cwd-dependent and does not exist in
+the tree — running it from the repo root created a junk directory rather than
+touching the real drivers. It now writes ``__file__``-anchored into the
+gitignored scratch dir ``_output/generated_drivers/``.
+
+It deliberately does NOT overwrite the tracked ``animate_*.py`` in place: those
+have since been ruff-formatted, type-annotated and hand-edited, so a re-run
+would be a lossy revert. Treat the emitted files as CANDIDATES to diff against
+the tracked drivers. (They are not runnable from the scratch dir itself — the
+emitted bootstrap line resolves ``_pt_bootstrap`` from the driver's OWN
+directory, which is only correct once the file sits in ``animations/``.)
+
+The emitted templates carry the repaired import (``_pt_bootstrap``) and the
+repaired output path, so regenerating cannot reintroduce the dead
+``periodic_table.simulations.simulate_element`` import this branch removed.
+"""
+
+import os
+import pathlib
+
+output_dir = str(pathlib.Path(__file__).resolve().parent / "_output" / "generated_drivers")
 os.makedirs(output_dir, exist_ok=True)
 
 # 1. Hydrogen (Uses mesh rotation)
-h1_code = """import os
+h1_code = """import pathlib
 import sys
+
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
-import pathlib
 
-# Ensure the core framework is in PATH
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+from _pt_bootstrap import output_path  # noqa: E402
 
 from ave.topological.borromean import FundamentalTopologies
 
@@ -66,25 +87,21 @@ if __name__ == "__main__":
 
     print("[*] Rendering Hydrogen-1 GIF...")
     anim = FuncAnimation(fig, update, frames=frames, interval=80, blit=False)
-    outdir = "../figures"
-    os.makedirs(outdir, exist_ok=True)
-    anim.save(os.path.join(outdir, "hydrogen_1_dynamic_flux.gif"), writer='pillow', fps=15,
+    anim.save(output_path("hydrogen_1_dynamic_flux.gif"), writer='pillow', fps=15,
         savefig_kwargs={'facecolor': fig.get_facecolor()})
     print("[*] Done.")
 """
 
 # Base Template for multi-node elements
-base_template = """import os
+base_template = """import pathlib
 import sys
+
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
-import pathlib
 
-# Ensure the core framework is in PATH
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
-
-from periodic_table.simulations.simulate_element import get_nucleon_coordinates
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+from _pt_bootstrap import get_nucleon_coordinates, output_path  # noqa: E402
 
 def rotate_cluster_y(nodes, angle):
     c, s = np.cos(angle), np.sin(angle)
@@ -142,9 +159,7 @@ if __name__ == "__main__":
 
     print(f"[*] Rendering {name} GIF...")
     anim = FuncAnimation(fig, update, frames=frames, interval=80, blit=False)
-    outdir = "../figures"
-    os.makedirs(outdir, exist_ok=True)
-    anim.save(os.path.join(outdir, "{NAME}_dynamic_flux.gif"), writer='pillow', fps=15,
+    anim.save(output_path("{NAME}_dynamic_flux.gif"), writer='pillow', fps=15,
         savefig_kwargs={'facecolor': fig.get_facecolor()})
     print("[*] Done.")
 """
