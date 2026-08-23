@@ -205,3 +205,20 @@ figure-provenance gap, or repair the import + output path first?
 
 - `src/scripts/vol_3_macroscopic/simulate_spacecraft_flyby.py` — 0 citers (the CITED flyby driver is the different src/scripts/verify/flyby_anomaly_anderson_anchor.py) BUT open-item p19-flyby-readjudication is live on this observable — routed, not archived
 
+
+---
+
+> ★ **CORRECTIONS 2026-08-23 (residuals PR; orchestrator, from the lane's routed flags).**
+> 1. **Seventeen FLAG-PAIRED rows above are discharged**: their driver+artifact pairs were
+>    DELETED per Grant's 2026-08-21 "delete if redundant" after both-sides zero-citer
+>    verification (17 of 21; the four holds and their blockers are recorded in the
+>    residuals PR). Retrieval: every deleted file is in `archive/2026-08-19-pre-orphan-prune`.
+>    The rows stay as written — this manifest is the archive's record; the note, not a
+>    rewrite, carries the disposition.
+> 2. **Row `:141` mis-attribution**: `photon_chiral_yee.json` + `dark_wake_chiral_validation.json`
+>    are `photon_chiral_comparison.py`'s INPUTS (its `:37/:38`; written by the live
+>    `photon_chiral_yee.py:514` / `dark_wake_chiral_validation.py:305`), not its writes.
+> 3. **Row `:139` mis-classification**: `genesis_v8_threaded_smoke.py` carries a
+>    `Run: PYTHONPATH=src …` docstring — the LIVE-instrument class this manifest's own `:50`
+>    defines — and its JSON is the sole in-tree record of a Rule-11 negative
+>    ("SHELL-NEVER-FORMS", `2a791a77`). It was never a valid FLAG-PAIRED candidate; HELD.
