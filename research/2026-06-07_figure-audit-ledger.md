@@ -63,6 +63,52 @@
 - `fig_galactic_flattening.png` *(gap-sweep)* — superseded by the placed `galactic_rotation_curve.pdf` (vol_3 ch05:168).
 - **`carbon_strain.png` *(gap-sweep — FACTUAL ERROR, not just stale)*** — labels carbon's n=2 shell as "2s² 2p³" (that is **nitrogen**) and renders 7 electron dots. Wrong physics on the figure itself; do not place, regenerate if a carbon-strain figure is wanted.
 
+> ★ **CORRECTION 2026-08-23 — the `:64` bullet's factual-error claim is itself FALSE.**
+> The bullet above asserts that `carbon_strain.png` *"labels carbon's n=2 shell as '2s² 2p³'
+> (that is **nitrogen**) and renders 7 electron dots."* That description **matches neither
+> blob that ever existed at either path.**
+>
+> - **Manuscript blob** `manuscript/vol_6_periodic_table/carbon_strain.png`, 623204 B,
+>   `da2236f7056fc98138bee2f5b3792e9ff81597c2` — renders `n = 1: 1s²` and `n = 2: **2s²2p²**`,
+>   `Z = 6`, **six** electron dots (2 inner + 4 tetrahedral outer). Correct carbon.
+> - **Src blob** `src/scripts/vol_6_periodic_table/simulations/outputs/carbon_strain.png`,
+>   204044 B, `e53b39c8648ef8e2f02a097f8af66fdfbb0922ad` (deleted by PR-7 `7080ed99`;
+>   extracted from tag `archive/2026-08-19-pre-orphan-prune`) — **six** dots (2 cyan inner +
+>   4 magenta outer) and **no configuration text at all**. Correct carbon.
+> - `git log --all --follow` on both paths returns the initial import `de9d2293` as the only
+>   content-bearing commit, so **no third render ever existed** to carry the quoted labels.
+> - Source-level: the generator
+>   `src/scripts/vol_6_periodic_table/simulations/generate_orbital_strain.py:82-91` defines
+>   carbon as `"Z": 6` with shells `1s²` (2 electrons) and `2s²2p²` (4 electrons). The string
+>   `2p³` occurs nowhere in that file and **nitrogen is not a key** in its `ELEMENTS` table —
+>   there was never a code path that could emit the described figure.
+>
+> **What rested on the false claim.** The June "prune the wrong `carbon_strain`" instruction
+> (`:119` and `:134` of this doc post-insertion — was `:73`/`:88` — which repeat the error as
+> "the `carbon_strain.png` factual error" / "the wrong `carbon_strain.png`") and the ruling
+> (`_orchestration/2026-07-04_p2-adjudication-batch.md:50` → ratified at
+> `_orchestration/docket-entries/2026-08-18-wave2-adjudication-sitting.md:56`) both name the
+> wrong-labeling as their basis. Both are un-grounded as written.
+>
+> **What happened anyway.** `manuscript/vol_6_periodic_table/carbon_strain.png` **was** pruned
+> 2026-08-23 — on Grant's *orphaned-and-retrievable* conditional (nothing places it; both
+> blobs are recoverable from `archive/2026-08-19-pre-orphan-prune`), **not** because it is
+> wrong. It is not wrong.
+>
+> **This is the first error the repo-cleanup program has found in an audit RECORD.** Every
+> prior finding was a stale or overclaiming *live* document. This one is a frozen auditor
+> finding that was wrong on the facts at the moment it was written, and it propagated into
+> two downstream rulings before anyone opened the file. Stated plainly, not softened.
+>
+> **Line-number shift (Rule 12: additive; the `:64` bullet is byte-untouched).** This note
+> pushes every line below it down by 46. Inbound `:NN` cites into this doc that sit below
+> `:64` have moved: old `:76` → `:122` and old `:84` → `:130`, cited from
+> `_orchestration/docket-entries/2026-08-04-rulings-doc-lane-figures-conventions.md:18`
+> (both), `_orchestration/2026-08-04_doc-lane-reconciliation-handoff.md:53` (`:84`) and
+> `_orchestration/docket-entries/2026-08-05-ringdown-wave.md:403` (`:84`). Those three citing
+> files are frozen records and are left byte-untouched; this map is the surface-note. Cites at
+> `:28`, `:29`, `:44` and `:58` are above the insertion and are unaffected.
+
 ### KEEP-RESEARCH-ONLY — legitimately not manuscript material (~30)
 The 4 remaining genesis stage-frames + interstitial droplet (subsumed by the montage); `flux_tube_dynamics`/`lattice_polarization_saturation` (self-labeled schematics); the 4 alpha-map script outputs (support frozen pre-regs); the HOPF figures (**canonical-elsewhere** — AVE-HOPF owns them per AGENTS.md §6); 6 raster duplicates of placed vector PDFs; 14 vol_6 alternate-view element renders (section already has a figure); older `assets/` research panels (mostly superseded).
 
