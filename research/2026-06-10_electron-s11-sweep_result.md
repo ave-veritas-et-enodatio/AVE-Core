@@ -4,7 +4,7 @@
 **Prereg (FROZEN, committed alone first):** [`2026-06-10_electron-s11-sweep_prereg.md`](2026-06-10_electron-s11-sweep_prereg.md) (commit `df146283`, before any run artifact)
 **Engine:** [`src/ave/core/s11_probe.py`](../src/ave/core/s11_probe.py) `S11Probe(CrystalGraftV2)` ·
 **Driver:** [`src/scripts/vol_9_device/electron_s11_sweep.py`](../src/scripts/vol_9_device/electron_s11_sweep.py) ·
-**Data:** `src/scripts/vol_9_device/_output/electron_s11_results.json` · **Figures:** `electron_s11_gate.png`, `electron_s11_unknown.png`
+**Data:** `results/electron_s11_results.json` · **Figures:** `research/figures/electron_s11_gate.png`, `research/figures/electron_s11_unknown.png`
 **Governing discipline:** `ave-apparatus-floor-attribution` (probe-capability gate + ORDERED bins). Skills: substrate-native-check, ave-prereg, phase-space-coordinate-check, ave-representation-capability-check, ave-driver-script-honesty, consistency-vs-emergence, verify-before-cite.
 
 ---

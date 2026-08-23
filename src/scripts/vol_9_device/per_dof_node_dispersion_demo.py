@@ -124,8 +124,12 @@ def main():
     print(f"    cubic invariant Ξ: [100]=+0.400  [111]=−0.267  (sign-changing → cubic)")
     print("\nONE circuit, THREE behaviors — CONSISTENCY re-expression (no α/m_e value).")
 
-    out_dir = Path(__file__).resolve().parent / "_output"
-    out_dir.mkdir(exist_ok=True)
+    # Canonical-corpus-cited data -> tracked per-volume results/ (ratified
+    # data policy Option 1, _orchestration/2026-07_repo-conventions.md:12;
+    # migrated 2026-08-20).
+    out_dir = (Path(__file__).resolve().parents[3]
+               / "manuscript/vol_9_vacuum_datasheet/results")
+    out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / "per_dof_node_dispersion_demo.json"
     out_path.write_text(json.dumps(out, indent=2))
     print(f"\nResults written: {out_path}")

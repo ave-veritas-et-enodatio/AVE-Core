@@ -432,8 +432,11 @@ def main(make_figure: bool = False, fig_path: Path | None = None) -> None:
 
     # ---- write JSON ---------------------------------------------------------
     out_dir = Path(__file__).resolve().parent / "_output"
+    # Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+    # research-tier DATA -> tracked root `results/` (class 4).
+    _AVE_RESULTS = Path(__file__).resolve().parents[3] / "results"
     out_dir.mkdir(exist_ok=True)
-    out_path = out_dir / "birefringence_prior_art_exposure_scan.json"
+    out_path = _AVE_RESULTS / "birefringence_prior_art_exposure_scan.json"
     out_path.write_text(json.dumps(out, indent=2, default=float))
     print(f"\nResults written: {out_path}")
 

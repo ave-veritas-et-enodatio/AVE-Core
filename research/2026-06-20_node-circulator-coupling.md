@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-20 · **Branch:** `feat/node-circulator-coupling` · **Lane:** implementer
 **Driver:** [`src/scripts/vol_9_device/node_circulator_coupling.py`](../src/scripts/vol_9_device/node_circulator_coupling.py) ·
-**Results:** [`src/scripts/vol_9_device/_output/node_circulator_coupling.json`](../src/scripts/vol_9_device/_output/node_circulator_coupling.json)
+**Results:** [`results/node_circulator_coupling.json`](../results/node_circulator_coupling.json)
 **Grounds in:** [`research/2026-06-10_graft-v4-photon-helicity_result.md`](2026-06-10_graft-v4-photon-helicity_result.md) §6,§9 (the escape spec) ·
 [`research/2026-06-09_crystal-graft-v3_result.md`](2026-06-09_crystal-graft-v3_result.md) (the pump evidence) ·
 [`device-circuit-models.md`](../manuscript/ave-kb/vol9/ch3-pin-port-configuration/device-circuit-models.md):159-165,201-217 (Fork-A + chiral circulator) ·

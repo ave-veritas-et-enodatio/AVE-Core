@@ -86,7 +86,7 @@ PYTHONPATH=src python src/scripts/vol_1_foundations/electron_genesis_observer_br
 
 Output:
 
-- `src/scripts/vol_1_foundations/_output/electron_genesis_observer_bridge_results.json`
+- `results/electron_genesis_observer_bridge_results.json`
 
 Console summary:
 

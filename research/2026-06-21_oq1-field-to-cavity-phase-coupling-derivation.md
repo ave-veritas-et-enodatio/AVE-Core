@@ -346,7 +346,7 @@ validate-on-known against a published cavity). The COEFFICIENT result depends on
 ## 8. Output artifacts (LANDED — committed on `analysis/birefringence-hardening`, PR #345)
 
 - `src/scripts/vol_9_device/oq1_field_to_cavity_phase_coupling.py` (driver)
-- `src/scripts/vol_9_device/_output/oq1_field_to_cavity_phase_coupling.json`
+- `results/oq1_field_to_cavity_phase_coupling.json`
 - `src/scripts/vol_9_device/_output/oq1_field_to_cavity_phase_coupling_birefringence_arc.{png,pdf}`
 - `src/scripts/vol_9_device/_output/oq1_field_to_cavity_phase_coupling_config_coupling.{png,pdf}`
 - `src/scripts/vol_9_device/_output/oq1_field_to_cavity_phase_coupling_gate_constraint.{png,pdf}`

@@ -61,7 +61,7 @@ is BOOST-COVARIANT — the *moving solution* of the Master Equation, not a rest
 soliton given a kick that dispersion immediately undoes.
 
 Output:
-  src/scripts/vol_1_foundations/_output/moving_defect_transport_gate_results.json
+  results/moving_defect_transport_gate_results.json
 """
 
 from __future__ import annotations
@@ -81,6 +81,9 @@ from ave.topological.vacuum_engine import VacuumEngine3D  # noqa: E402
 
 PROJECT_ROOT = next(p for p in Path(__file__).resolve().parents if (p / ".git").exists())
 OUT_DIR = PROJECT_ROOT / "src" / "scripts" / "vol_1_foundations" / "_output"
+# Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+# research-tier DATA -> tracked root `results/` (class 4).
+_AVE_RESULTS = Path(__file__).resolve().parents[3] / "results"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 # Floors (prereg §5 obs-4, sim-2 baselines): the blur floor a real translating
@@ -284,7 +287,7 @@ def main():
             "rest-soliton + momentum kick that dispersion immediately undoes)"
         ),
     }
-    out = OUT_DIR / "moving_defect_transport_gate_results.json"
+    out = _AVE_RESULTS / "moving_defect_transport_gate_results.json"
     out.write_text(json.dumps(results, indent=2))
     print(f"\nwrote {out.relative_to(PROJECT_ROOT)}")
     return verdict

@@ -6,7 +6,7 @@
 **Prereg (frozen, committed alone first):** [`2026-06-13_spice-cvr-constitutive-loop_prereg.md`](2026-06-13_spice-cvr-constitutive-loop_prereg.md) (commit `036bc486`)  
 **Harness:** [`src/ave/solvers/spice_cvr_loop.py`](../src/ave/solvers/spice_cvr_loop.py) — dimensionless $\omega\tau$ ODE ladder (**Python only**; ngspice transient not executed)  
 **Driver:** [`src/scripts/vol_4_engineering/spice_cvr_loop_sweep.py`](../src/scripts/vol_4_engineering/spice_cvr_loop_sweep.py)  
-**Data:** `src/scripts/vol_4_engineering/_output/spice_cvr_loop_sweep_results.json`  
+**Data:** `results/spice_cvr_loop_sweep_results.json`  
 **Figures:** `assets/sim_outputs/spice_cvr_loop_*.png`  
 **`.lib`:** `AVE_MEMRISTOR_S_STATE`, `AVE_VACUUM_CELL_L1` — relaxation memristor only; **no latch in SPICE**
 

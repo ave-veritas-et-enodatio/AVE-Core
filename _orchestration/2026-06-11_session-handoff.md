@@ -168,3 +168,7 @@ routes killed with tombstones, one forward prediction within 7.8%, the slats dem
 in-engine, the dark sector spec'd, the vocabulary unified, the next experiment chartered and
 named. The question is sharper than it has ever been: is the electron what the vacuum's books
 call a chiral reactance that set?*
+
+> ★ PATH NOTE 2026-08-20: `_output/` artifact paths above are the pre-migration layout this
+> record argued about (frozen; vacated-cite). Current homes per
+> `docket-entries/2026-08-20-phase2-destination-map.md`.

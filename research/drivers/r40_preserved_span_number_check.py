@@ -331,13 +331,62 @@ def flags_for(path, lines, ln, preserve=PRESERVE):
 
 
 def corpus_files(base="origin/main", head="HEAD"):
-    """The R40-B1 corpus surface: files changed base..head under manuscript/ + src/."""
+    """The R40-B1 corpus surface: files changed base..head under manuscript/ + src/.
+
+    BINARY FILES ARE EXCLUDED, and the exclusion is git's own call, not a
+    suffix heuristic of ours: `git diff --numstat` prints `-\t-\t<path>` for
+    every blob it classifies as binary. This gate scans *stamped lines* for
+    fencing (STAMP is a line regex); a binary blob has no lines and no stamps,
+    so excluding it removes nothing the gate could ever have detected. Before
+    this filter, any branch that added or changed a figure under manuscript/ or
+    src/ crashed the gate with a UnicodeDecodeError in scan() -- `make verify`
+    went red for a reason unrelated to preserved spans. Found 2026-08-20 by the
+    Phase-2 figure migration, which moves 23 renders into manuscript/**/figures/.
+
+    THE EXCLUSION IS ASSERTED, NOT TRUSTED (2026-08-20 repair). Deferring to git
+    means deferring to git's NUL-in-the-first-8000-bytes heuristic, and a filter
+    that silently shrinks a gate's scan surface is the failure mode this gate
+    exists to prevent -- a preserved-span breach inside a file git mis-classified
+    would simply never be looked at, and the gate would report green. So every
+    path git calls binary is re-read at `head` and must FAIL to decode as UTF-8.
+    A path that decodes is a scan-surface hole and raises: the gate goes red and
+    demands a hand-read rather than quietly narrowing itself.
+    """
     out = subprocess.run(
         ["git", "-C", REPO, "diff", "--name-only", base, head],
         capture_output=True, text=True).stdout.split()
-    return [f for f in out
-            if (f.startswith("manuscript/") or f.startswith("src/"))
-            and not f.startswith("manuscript/ave-kb/.index/")]
+    # --no-renames keeps every numstat path plain (a rename becomes a delete +
+    # an add), so parts[2] is always a real path and never a `{a => b}` form.
+    numstat = subprocess.run(
+        ["git", "-C", REPO, "diff", "--numstat", "--no-renames", base, head],
+        capture_output=True, text=True).stdout.splitlines()
+    binary = set()
+    for row in numstat:
+        parts = row.split("\t")
+        if len(parts) >= 3 and parts[0] == "-" and parts[1] == "-":
+            binary.add(parts[2])
+    in_scope = [f for f in out
+                if (f.startswith("manuscript/") or f.startswith("src/"))
+                and not f.startswith("manuscript/ave-kb/.index/")]
+    decodable = []
+    for f in sorted(binary & set(in_scope)):
+        blob = subprocess.run(["git", "-C", REPO, "show", f"{head}:{f}"],
+                              capture_output=True)
+        if blob.returncode != 0:
+            continue  # deleted at head; nothing to scan, nothing to hide
+        try:
+            blob.stdout.decode("utf-8")
+        except UnicodeDecodeError:
+            continue  # git was right: genuinely not text
+        decodable.append(f)
+    if decodable:
+        raise AssertionError(
+            "R40 scan-surface hole: git --numstat classified these in-scope paths "
+            "as BINARY, but their blobs at %s decode as UTF-8, so they are text the "
+            "gate would silently never scan. Hand-read them, then either fix the "
+            "classification (.gitattributes) or narrow this filter:\n  %s"
+            % (head, "\n  ".join(decodable)))
+    return [f for f in in_scope if f not in binary]
 
 
 def scan(files, preserve=PRESERVE, live_only=True, at_rev=None, old_rev="origin/main"):

@@ -259,7 +259,7 @@ asserts):
 | Compton clock | `ω_LC = c₀/ℓ_node` | 7.763441×10²⁰ rad/s | `m_e c²/ℏ` | ✓ |
 
 `make verify` PASS. Driver output JSON:
-`src/scripts/vol_9_device/_output/node_2domain_nport.json`.
+`results/node_2domain_nport.json`.
 
 ---
 

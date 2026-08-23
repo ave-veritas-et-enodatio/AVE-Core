@@ -63,7 +63,7 @@ A scalar object would have a $1\times1$ $\Gamma$. The $(2,3)$ winding makes the 
 
 ## §5 — Computed figure
 
-![CVR reflection on the Smith chart + chiral 2x2 S](../../../../../src/scripts/vol_9_device/cvr_ee_sweep/_output/fig3_reflection_smith.png)
+![CVR reflection on the Smith chart + chiral 2x2 S](../../../../vol_9_vacuum_datasheet/figures/fig3_reflection_smith.png)
 
 Re-runnable: `PYTHONPATH=$PWD/src python src/scripts/vol_9_device/cvr_ee_sweep/cvr_ee_sweep.py` (View 3). Left: the $\Gamma(A_0)$ locus matched→short with the electron wall at $|\Gamma|^2=1-\alpha$ marked just inside the unit circle. Right: the non-reciprocal off-diagonal.
 

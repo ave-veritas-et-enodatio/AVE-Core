@@ -79,8 +79,15 @@ from ave.core.unified_genesis_engine import UnifiedGenesisEngine  # noqa: E402
 # alpha is DERIVED in constants.py (4*pi**3 + pi**2 + pi), never hard-coded here.
 from ave.core.constants import ALPHA_COLD_INV  # noqa: E402
 
-OUT = _HERE.parent / "_output"
-OUT.mkdir(exist_ok=True)
+# Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+# research-tier DATA -> tracked root `results/` (class 4).
+_AVE_RESULTS = Path(__file__).resolve().parents[3] / "results"
+# research-tier RENDER -> tracked `research/figures/` (class 3).
+_AVE_FIGS = Path(__file__).resolve().parents[3] / "research" / "figures"
+# The scratch `OUT = _HERE.parent / "_output"` handle was retired 2026-08-20 with
+# the last writer that used it (`fig_object`). This module writes NOTHING to a
+# git-ignored dir; leaving the handle (and its mkdir) would have re-created the
+# empty scratch dir on every run and invited the next writer straight back into it.
 
 try:
     from scipy.optimize import curve_fit
@@ -526,7 +533,7 @@ def fig_gate(gate, lin, out_paths):
     ax[1].set_title(f"V-CHANNEL LINEARITY (NET): resp prop A\nR2={lin['R2']:.4f} linear={lin['linear']}")
     ax[1].grid(alpha=0.2)
     fig.tight_layout()
-    p = OUT / "s11_denovo_gate.png"
+    p = _AVE_FIGS / "s11_denovo_gate.png"
     fig.savefig(p, dpi=120); plt.close(fig)
     out_paths.append(p.name)
 
@@ -550,7 +557,13 @@ def fig_object(uk, verdict, fname, title):
     ax[1].set_xlim(0, min(rd_f.max(), 6 * rd["f_dom"] + 0.1))
     ax[1].legend(fontsize=8); ax[1].grid(alpha=0.2)
     fig.tight_layout()
-    p = OUT / fname
+    # research-tier RENDER -> `research/figures/`, same as this module's other two
+    # figure writers (`fig_gate`, `fig_paired`). This line read `OUT / fname` until
+    # 2026-08-20: the Phase-2 migration MOVED this function's two outputs
+    # (`s11_denovo_made.png`, `s11_denovo_planted.png`) to `research/figures/` but
+    # left the writer aimed at the git-ignored `_output/` scratch dir, so a re-run
+    # silently forked the artifact from its tracked copy instead of refreshing it.
+    p = _AVE_FIGS / fname
     fig.savefig(p, dpi=120); plt.close(fig)
     return p.name
 
@@ -566,7 +579,7 @@ def fig_paired(made, planted, out_paths):
     ax.set_title("DE-NOVO: planted vs made (same instrument, floors per object)")
     ax.legend(fontsize=9); ax.grid(alpha=0.2)
     fig.tight_layout()
-    p = OUT / "s11_denovo_paired.png"
+    p = _AVE_FIGS / "s11_denovo_paired.png"
     fig.savefig(p, dpi=120); plt.close(fig)
     out_paths.append(p.name)
 
@@ -620,7 +633,7 @@ def main():
                                "why": "the made object did not reach T1 mass convergence "
                                       "(detonated / still-rising) — no S11 on a non-converged object"}
         out["elapsed_s"] = time.time() - t0
-        (OUT / "s11_denovo_results.json").write_text(json.dumps(out, indent=2, default=str))
+        (_AVE_RESULTS / "s11_denovo_results.json").write_text(json.dumps(out, indent=2, default=str))
         print(f"\n  MADE bin: NOT-CONVERGED — STOP. elapsed {out['elapsed_s']:.0f}s", flush=True)
         return out
     # settle drive-off (F-CLOSE/D11 convention)
@@ -679,7 +692,7 @@ def main():
                                "why": "probe-capability/linearity/known-null gate FAILED -> "
                                       "no f0/Q reported for the made object"}
         out["elapsed_s"] = time.time() - t0
-        (OUT / "s11_denovo_results.json").write_text(json.dumps(out, indent=2, default=str))
+        (_AVE_RESULTS / "s11_denovo_results.json").write_text(json.dumps(out, indent=2, default=str))
         print(f"\n  MADE bin: UNRESOLVED (gate fail). elapsed {out['elapsed_s']:.0f}s", flush=True)
         return out
 
@@ -724,7 +737,7 @@ def main():
 
     out["figures"] = figs
     out["elapsed_s"] = time.time() - t0
-    (OUT / "s11_denovo_results.json").write_text(json.dumps(out, indent=2, default=str))
+    (_AVE_RESULTS / "s11_denovo_results.json").write_text(json.dumps(out, indent=2, default=str))
 
     print("\n" + "=" * 78)
     print(f"  KNOWN-NULL: {out['known_null']['pass']}  GATE: {gate_ok}")

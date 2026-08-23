@@ -31,3 +31,7 @@
 - **Battery:** `make verify` **exit 0**; `make verify-md-links` **gating errors 0** (kbleaf 1095 cites checked, gating 0, waived 1; warn-only 206 pre-existing); `make refresh-kb-metadata` **idempotent** (0 files rewritten); `verify-docket-keys` no new duplicate keys; **pure-corpus**; `pdflatex vol_0` clean (backmatter `05_universal_solver_toolchain.tex` is included via `manuscript/vol_0_engineering_compendium/chapters/_manifest.tex`); nearest pytest set 60 passed; AST-equality machine-verified.
 
 - **Class:** mechanical dated corrections (stale cite referent + index cross-wire). Canonizes nothing; adjudicates nothing; adds no claim-graph edge. Provenance: #814 compact audit, 2026-07-31.
+
+> ★ PATH NOTE 2026-08-20: `_output/` artifact paths above are the pre-migration layout this
+> record argued about (frozen; vacated-cite). Current homes per
+> `docket-entries/2026-08-20-phase2-destination-map.md`.

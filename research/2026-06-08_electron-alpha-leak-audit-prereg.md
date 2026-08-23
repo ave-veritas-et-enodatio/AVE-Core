@@ -64,7 +64,7 @@ Theorem 3.1′ target: **`1/Q = α`** per Compton cycle through **R = Z₀/(4π)
 PYTHONPATH=src python src/scripts/vol_1_foundations/electron_alpha_leak_audit.py
 ```
 
-**JSON:** `src/scripts/vol_1_foundations/_output/electron_alpha_leak_audit_results.json`
+**JSON:** `results/electron_alpha_leak_audit_results.json`
 
 ## §5 Adjudication
 

@@ -57,6 +57,11 @@ from srs_vector_band_survey import (  # noqa: E402  (script-local import)
     vector_bloch_D,
 )
 
+# Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+# research-tier RENDER -> tracked `research/figures/` (class 3). Module level:
+# main() writes the JSON, make_figure() writes the PNG -- one shared constant.
+_AVE_FIGS = Path(__file__).resolve().parents[3] / "research" / "figures"
+
 FAC = ANALYTIC_NETWORK_FACTOR            # 1/sqrt(3), imported (never hard-coded)
 OMEGA_LINK_OVER_C = 1.0 / FAC            # omega_link/omega_C = sqrt(3)
 MEV_PER_OMEGA_C = HBAR * OMEGA_C / e_charge / 1e6  # ~0.511 MeV/omega_C (m_e c^2 IDENTITY)
@@ -481,7 +486,7 @@ def make_figure(fig_data, out, out_dir):
                  color=style.COLORS["data"])
     axes[0].set_ylabel(style.axis_label("frequency", r"\omega", r"$\omega_C$"))
     style.legend(axes[1], where="right")
-    paths = style.save(fig, out_dir / "x33_clock_architecture")
+    paths = style.save(fig, _AVE_FIGS / "x33_clock_architecture", formats=("png",))
     print(f"Figure: {paths}")
 
 

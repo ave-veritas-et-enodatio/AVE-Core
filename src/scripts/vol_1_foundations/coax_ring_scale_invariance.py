@@ -28,7 +28,7 @@ ave-conserved-vs-pumped (the (2,3) is energize+LOCK; the slosh is C<->L at fixed
 |winding|, never a pump), substrate-native-check CP9 (omega dynamically evolved,
 not a heuristic), ave-driver-script-honesty (no target in any loop; forward).
 
-OUTPUT: prints verdict; writes _output/coax_ring_scale_invariance_results.json
+OUTPUT: prints verdict; writes results/coax_ring_scale_invariance_results.json
 """
 import json
 import os
@@ -194,6 +194,10 @@ def main():
     }
 
     outdir = os.path.join(os.path.dirname(__file__), "_output")
+    # Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+    # research-tier DATA -> tracked root `results/` (class 4).
+    _AVE_RESULTS = os.path.abspath(os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "results"))
     os.makedirs(outdir, exist_ok=True)
 
     def _np(o):
@@ -205,7 +209,7 @@ def main():
             return int(o)
         return str(o)
 
-    with open(os.path.join(outdir, "coax_ring_scale_invariance_results.json"), "w") as fh:
+    with open(os.path.join(_AVE_RESULTS, "coax_ring_scale_invariance_results.json"), "w") as fh:
         json.dump(out, fh, indent=2, default=_np)
 
     # ---- honest console report ----

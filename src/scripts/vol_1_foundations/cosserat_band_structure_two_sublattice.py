@@ -502,8 +502,11 @@ def main():
     if not all_pass:
         print("\nHALT: validate-on-known FAILED on the real 12×12 — bond operator is wrong; no spectrum reported.")
         out_dir = Path(__file__).resolve().parent / "_output"
+        # Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+        # research-tier DATA -> tracked root `results/` (class 4).
+        _AVE_RESULTS = Path(__file__).resolve().parents[3] / "results"
         out_dir.mkdir(exist_ok=True)
-        (out_dir / "cosserat_band_structure_two_sublattice.json").write_text(json.dumps(out, indent=2))
+        (_AVE_RESULTS / "cosserat_band_structure_two_sublattice.json").write_text(json.dumps(out, indent=2))
         sys.exit(1)
 
     # ===== (1) GENUINE FULL-BZ TWO-SUBLATTICE SPECTRUM (only after PASS) ======
@@ -679,8 +682,11 @@ def main():
     print("  mode lives in the driven/SATURATED regime (separate phase). Cold bands = CONSISTENCY only.")
 
     out_dir = Path(__file__).resolve().parent / "_output"
+    # Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+    # research-tier DATA -> tracked root `results/` (class 4).
+    _AVE_RESULTS = Path(__file__).resolve().parents[3] / "results"
     out_dir.mkdir(exist_ok=True)
-    out_path = out_dir / "cosserat_band_structure_two_sublattice.json"
+    out_path = _AVE_RESULTS / "cosserat_band_structure_two_sublattice.json"
     out_path.write_text(json.dumps(out, indent=2))
     print(f"\nResults written: {out_path}")
     return out, val, all_pass

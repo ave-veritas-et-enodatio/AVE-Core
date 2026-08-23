@@ -238,8 +238,11 @@ def main():
         print("  RULING NOT CONFIRMED by the eigenvector read. HALT — do NOT relabel.")
         print("  Surface to Grant: the composition CONTRADICTS the ruling (new evidence).")
 
-    out_dir = Path(__file__).resolve().parent / "_output"
-    out_dir.mkdir(exist_ok=True)
+    # Canonical-corpus-cited data -> tracked per-volume results/ (ratified
+    # data policy Option 1, _orchestration/2026-07_repo-conventions.md:12;
+    # migrated 2026-08-20).
+    out_dir = Path(__file__).resolve().parents[3] / "manuscript/vol_1_foundations/results"
+    out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / "g2_photon_eigvec_composition.json"
     out_path.write_text(json.dumps(out, indent=2))
     print(f"\nResults written: {out_path}")

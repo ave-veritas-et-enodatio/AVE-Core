@@ -16,7 +16,7 @@ Variants:
   bench_snap_reference — genesis snap protocol (external intervention control)
 
 Output:
-  src/scripts/vol_1_foundations/_output/native_electron_model_results.json
+  results/native_electron_model_results.json
   assets/sim_outputs/native_electron_model_phasor.png (saturated arm)
 """
 
@@ -71,6 +71,9 @@ from ave_path_util import sim_output  # noqa: E402
 
 OUT_DIR = next(p for p in Path(__file__).resolve().parents if (p / ".git").exists())
 OUT_DIR = OUT_DIR / "src" / "scripts" / "vol_1_foundations" / "_output"
+# Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+# research-tier DATA -> tracked root `results/` (class 4).
+_AVE_RESULTS = Path(__file__).resolve().parents[3] / "results"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 N_LATTICE = 32
@@ -469,7 +472,7 @@ def main() -> None:
         "rows": rows,
         "classification": classification,
     }
-    out_json = OUT_DIR / "native_electron_model_results.json"
+    out_json = _AVE_RESULTS / "native_electron_model_results.json"
     out_json.write_text(json.dumps(payload, indent=2, allow_nan=False) + "\n")
 
     for row in rows:

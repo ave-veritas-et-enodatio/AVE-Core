@@ -63,7 +63,7 @@ After discrete snap (propagate 0.48 → full replace at wall amp), does the nati
 PYTHONPATH=src python src/scripts/vol_1_foundations/electron_genesis_finish.py
 ```
 
-**JSON:** `src/scripts/vol_1_foundations/_output/electron_genesis_finish_results.json`
+**JSON:** `results/electron_genesis_finish_results.json`
 
 ## §6 Adjudication
 

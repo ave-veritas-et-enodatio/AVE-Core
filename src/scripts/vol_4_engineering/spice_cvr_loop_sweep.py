@@ -24,6 +24,10 @@ from ave.solvers.spice_cvr_loop import OMEGA_TAU_GRID, simulate_arm  # noqa: E40
 from ave_path_util import sim_output  # noqa: E402
 
 OUT = os.path.join(os.path.dirname(__file__), "_output")
+# Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+# research-tier DATA -> tracked root `results/` (class 4).
+_AVE_RESULTS = os.path.abspath(os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "results"))
 os.makedirs(OUT, exist_ok=True)
 
 
@@ -107,7 +111,7 @@ def main() -> int:
         print(f"    GATE FAILURES: {failed}")
         return 1
 
-    json_path = os.path.join(OUT, "spice_cvr_loop_sweep_results.json")
+    json_path = os.path.join(_AVE_RESULTS, "spice_cvr_loop_sweep_results.json")
     with open(json_path, "w", encoding="utf-8") as f:
         json.dump(result, f, indent=2)
     print(f"    JSON -> {json_path}")

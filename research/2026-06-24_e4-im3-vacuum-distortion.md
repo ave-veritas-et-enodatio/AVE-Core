@@ -3,7 +3,7 @@
 **Date:** 2026-06-24
 **Lane:** implementer (ave-implementer)
 **Worktree:** `/tmp/e4`, branch `analysis/e4` (off origin/main `bffc16b9`)
-**Driver:** `src/scripts/vol_9_device/im3_vacuum_harmonic_distortion.py` (+ `_output/im3_vacuum_harmonic_distortion.json`)
+**Driver:** `src/scripts/vol_9_device/im3_vacuum_harmonic_distortion.py` (+ `manuscript/vol_9_vacuum_datasheet/results/im3_vacuum_harmonic_distortion.json`)
 **Builds on (read first):** `intermodulation-distortion.md` (clm-vjv4zf, clm-pp3qwf), `vacuum-birefringence-e4.md` (clm-pp3qwf), `node-up-small-large-signal.md` (clm-vca7r1), `pvlas-static-b-verdict.md` (clm-pvlas1), `per-dof-vacuum-node-circuit.md`, `research/2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md`.
 
 > **Skills applied:** `substrate-native-check` (kernel-first, no SM Lagrangian default) · `consistency-vs-emergence` (every coefficient tagged: kernel-set MANIFESTATION vs α-ECHO) · `verify-before-cite` (all anchors re-grepped on `bffc16b9`; constants pulled live) · `phase-space-coordinate-check` (A_V vs A_I keyed-argument discipline) · `pre-test-physics-check`.

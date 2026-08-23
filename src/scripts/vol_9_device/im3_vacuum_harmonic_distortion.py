@@ -38,8 +38,11 @@ import numpy as np
 import ave.bench.birefringence as B
 import ave.core.constants as C
 
-OUT = Path(__file__).resolve().parent / "_output"
-OUT.mkdir(exist_ok=True)
+# Canonical-corpus-cited data -> tracked per-volume results/ (ratified data
+# policy Option 1, _orchestration/2026-07_repo-conventions.md:12; migrated
+# 2026-08-20). vol_9_device is the driver-side name for the vol_9 volume.
+OUT = Path(__file__).resolve().parents[3] / "manuscript/vol_9_vacuum_datasheet/results"
+OUT.mkdir(parents=True, exist_ok=True)
 
 
 def kernel_taylor_coefficients() -> dict:

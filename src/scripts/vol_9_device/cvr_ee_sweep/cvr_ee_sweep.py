@@ -45,8 +45,15 @@ from ave.viz import style  # noqa: E402
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import cvr_model as M  # noqa: E402
 
-OUT = Path(__file__).parent / "_output"
-OUT.mkdir(exist_ok=True)
+# Cited renders and the cited metrics JSON now split by CLASS, per the
+# ratified policy (_orchestration/2026-07_repo-conventions.md sec (a) +
+# :12); migrated 2026-08-20. vol_9_device is the driver-side name for the
+# vol_9 datasheet volume (FORK-A, docket 2026-08-20-phase2-destination-map).
+_VOL9 = Path(__file__).resolve().parents[4] / "manuscript/vol_9_vacuum_datasheet"
+OUT = _VOL9 / "figures"
+DATA_OUT = _VOL9 / "results"
+OUT.mkdir(parents=True, exist_ok=True)
+DATA_OUT.mkdir(parents=True, exist_ok=True)
 
 ALPHA_INV = 1.0 / ALPHA
 
@@ -402,9 +409,9 @@ def main() -> None:
         "view5_stability_eigenmode": view5_stability_eigenmode(),
         "view6_parameter_basin": view6_parameter_basin(),
     }
-    (OUT / "cvr_ee_sweep_metrics.json").write_text(json.dumps(metrics, indent=2))
+    (DATA_OUT / "cvr_ee_sweep_metrics.json").write_text(json.dumps(metrics, indent=2))
     print(json.dumps(metrics, indent=2))
-    print(f"\n[OK] 6 figures + metrics written to {OUT}")
+    print(f"\n[OK] 6 figures -> {OUT}; metrics -> {DATA_OUT}")
 
 
 if __name__ == "__main__":

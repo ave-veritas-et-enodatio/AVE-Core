@@ -368,3 +368,9 @@ Every `file:line` here was grep-verified at this doc's worktree HEAD. Where the 
 > the one-source-of-truth shift (open-items frontmatter already carries owner+date
 > machine-readably; the linter's remaining value is the legacy epic-doc surface, ~449 marker lines
 > at the 2026-08-18 recount). Appended at file end per the §(c) append-only record rule.
+
+> ★ **PATH NOTE 2026-08-20 (Phase-2 migration, PR #991).** `src/scripts/**/_output/` figure/data
+> paths quoted in this document's frozen sections describe the PRE-migration layout they argued
+> about (vacated-cite pattern — the old path IS the argument). The artifacts now live per the
+> ratified map: per-volume `manuscript/vol_*/figures|results/`, `research/figures/`, root
+> `results/`. See `docket-entries/2026-08-20-phase2-destination-map.md`.

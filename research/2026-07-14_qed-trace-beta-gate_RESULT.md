@@ -174,7 +174,7 @@ PYTHONPATH=src python src/scripts/vol_2_subatomic/qed_trace_beta_gate.py --with-
   comes from the analytic dress.
 - **Dispersion-dominated:** every arm `dispersed_early=True`; the outward-acceleration proxy `a_init` is
   **non-monotone** (`+0.029, −0.116, −0.167, −0.118, −0.054`), power-law fit `R²=0.15` (uninformative) —
-  the centroid-drift force is dispersion-dominated, as `charge_sector_two_winding.py:378-382` documents.
+  the centroid-drift force is dispersion-dominated, as `charge_sector_two_winding.py:380-384` documents.
 - **Force-blind-to-charge:** the force path uses the symmetric `_reflection_density` (audit
   `w1ni1axfg`), so this leg cannot read a charge-distinct force even if one exists.
 
@@ -251,7 +251,7 @@ option (c) collapses into option (b), the seeded winding. Recorded, not run as a
 
 - Prior driver register + wrong sign — `src/scripts/vol_2_subatomic/simulate_running_alpha.py:5-10,20-27,88`
 - Op14 pairwise dress — `src/ave/core/universal_operators.py:140-234` (clm-gdd70j)
-- Seeded-winding instrument + disclosed limits — `src/scripts/vol_1_foundations/charge_sector_two_winding.py:20-25,363-426,378-382` (audit w1ni1axfg)
+- Seeded-winding instrument + disclosed limits — `src/scripts/vol_1_foundations/charge_sector_two_winding.py:20-25,365-428,380-384` (audit w1ni1axfg)
 - Sourced-charge no-go scope (pairs/topology OPEN) — `manuscript/ave-kb/common/the-sourced-charge-no-go-cascade.md` (clm-nogo4l)
 - Winding quantization — `clm-ze4clw`; `src/tests/test_winding_charge_closure.py:19,29,34`; `electron-unknot-cosserat-seeder.md:72,85`
 - Vac-pol match ASSERTED not computed — `manuscript/ave-kb/vol2/claim-quality.md:1485-1488`; `q-g20f-vacuum-polarization.md:28,32,47,55`

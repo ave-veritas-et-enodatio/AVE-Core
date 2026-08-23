@@ -41,7 +41,7 @@ recovering $E_{total}=m_e c^2$ as the total stored reactive energy ([resonant-lc
 
 ## §4 — Computed figure
 
-![CVR phasor I/Q quadrature + C<->L breather](../../../../../src/scripts/vol_9_device/cvr_ee_sweep/_output/fig4_phasor_reactance.png)
+![CVR phasor I/Q quadrature + C<->L breather](../../../../vol_9_vacuum_datasheet/figures/fig4_phasor_reactance.png)
 
 Re-runnable: `PYTHONPATH=$PWD/src python src/scripts/vol_9_device/cvr_ee_sweep/cvr_ee_sweep.py` (View 4). Left: the $(E,B)$ quadrature at matched ($A_0=0$) vs near-wall ($A_0=0.95$) operating points. Right: the $C\leftrightarrow L$ breather Lissajous loop with the Virial balance annotated.
 

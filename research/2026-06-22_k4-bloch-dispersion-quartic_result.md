@@ -173,4 +173,4 @@ Three corpus defects were grep-verified fixed/flagged on `analysis/k4-bloch-disp
 
 - FORK-2 resolution workflow: canonicalize lane, `analysis/k4-bloch-dispersion` off `origin/main`.
 - Independent verifier: `/tmp/indep_k4_verify.py`, `/tmp/indep_order_check.py` (auditor lane, /tmp scratch).
-- Driver: `src/scripts/vol_4_engineering/k4_bloch_dispersion.py`; JSON: `_output/k4_bloch_dispersion.json`.
+- Driver: `src/scripts/vol_4_engineering/k4_bloch_dispersion.py`; JSON: `results/k4_bloch_dispersion.json`.

@@ -54,7 +54,7 @@ Seed: same as v1 (`quadrature_2_3` + `unknot_sector`), zero drive.
 PYTHONPATH=src python src/scripts/vol_1_foundations/native_electron_model_v2.py
 ```
 
-**JSON:** `src/scripts/vol_1_foundations/_output/native_electron_model_v2_results.json`
+**JSON:** `results/native_electron_model_v2_results.json`
 
 Runtime ~13 min (5 arms × 800 steps).
 

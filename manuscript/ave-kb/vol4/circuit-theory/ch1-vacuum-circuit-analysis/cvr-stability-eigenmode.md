@@ -41,9 +41,9 @@ The bias×drive map (`fig6`) shades the region where the wall reflectivity $|\Ga
 
 ## §5 — Computed figures
 
-![CVR root-locus + Nyquist](../../../../../src/scripts/vol_9_device/cvr_ee_sweep/_output/fig5_stability_eigenmode.png)
+![CVR root-locus + Nyquist](../../../../vol_9_vacuum_datasheet/figures/fig5_stability_eigenmode.png)
 
-![CVR parameter basin](../../../../../src/scripts/vol_9_device/cvr_ee_sweep/_output/fig6_parameter_basin.png)
+![CVR parameter basin](../../../../vol_9_vacuum_datasheet/figures/fig6_parameter_basin.png)
 
 Re-runnable: `PYTHONPATH=$PWD/src python src/scripts/vol_9_device/cvr_ee_sweep/cvr_ee_sweep.py` (Views 5–6). The root-locus colour-codes $Q$ from $2\to1/\alpha$; the basin shades confined (green) vs un-trapped (red).
 

@@ -35,7 +35,7 @@ The ruling was made on a stack of prior evidence; the Step-1 rider adds the deci
 |---|---|---|
 | Two-sublattice band structure | massless transverse branches at `c=√(G/ρ)=1` (translational-shear speed) + gapped rotational manifold at `ω_m=2`; the massless family tracks the translational sector | `research/2026-06-23_cosserat-band-structure-two-sublattice_prereg-result.md` (V1 c_EM=1, V3 gap m²=4 bit-exact) |
 | Winding-pair Coulomb screening | the static (2,3) winding rides the GAPPED ω sector; two windings interact with Coulomb sign structure mediated by the gapped ω (Yukawa-screened, short-range) — ω is mechanical/short-range, not the massless photon | `clm-wcoul2` (`vol4/claim-quality.md`), `master-equation.md:26` cross-link |
-| **STEP-1 eigenvector read (this branch, DECISIVE)** | the massless transverse photon-family branches are **u-DOMINATED** (ω-fraction max = **2.5e-7**, u-fraction = **1.000000** at k→0); the 6 gapped branches are **ω-DOMINATED** (ω-fraction min = mean = **1.000000**) | `src/scripts/vol_1_foundations/g2_photon_eigvec_composition.py` + `_output/g2_photon_eigvec_composition.json` |
+| **STEP-1 eigenvector read (this branch, DECISIVE)** | the massless transverse photon-family branches are **u-DOMINATED** (ω-fraction max = **2.5e-7**, u-fraction = **1.000000** at k→0); the 6 gapped branches are **ω-DOMINATED** (ω-fraction min = mean = **1.000000**) | `src/scripts/vol_1_foundations/g2_photon_eigvec_composition.py` + `manuscript/vol_1_foundations/results/g2_photon_eigvec_composition.json` |
 
 **The Step-1 read is the fork-to-computable rider:** rather than accept the label change on the corpus prose, it computes the actual DOF composition of each eigenvector off the *genuine* two-sublattice A→B bond operator (imported verbatim from the validated `cosserat_band_structure_two_sublattice.py` — the same operator that recovers the gap bit-exact). The frozen prereg-expectation was the ruling itself (both results recorded): if the massless branches had come back ω-dominated, the driver HALTs and the relabel is *not* authorized — a contradicting eigenvector read would be new evidence Grant must see. It did **not** contradict: massless = u-dominated to 1e-7, gapped = ω-dominated to machine precision. **Relabel AUTHORIZED.**
 
@@ -88,7 +88,7 @@ Each site gets a dated KEEP-BOTH note (prior text preserved per Rule 12 / audit-
 ## Cross-references
 
 - Ruling anchor: this note (Grant 2026-07-03)
-- Step-1 rider: `src/scripts/vol_1_foundations/g2_photon_eigvec_composition.py`, `_output/g2_photon_eigvec_composition.json`
+- Step-1 rider: `src/scripts/vol_1_foundations/g2_photon_eigvec_composition.py`, `manuscript/vol_1_foundations/results/g2_photon_eigvec_composition.json`
 - Band structure: `research/2026-06-23_cosserat-band-structure-two-sublattice_prereg-result.md`
 - Genuine bond operator: `src/scripts/vol_1_foundations/cosserat_band_structure_two_sublattice.py`
 - Relabeled leaves: `photon-identification.md`, `k4-port-irrep-decomposition.md`, `cosserat-mass-gap.md`, `master-equation.md`, `vol1/claim-quality.md`

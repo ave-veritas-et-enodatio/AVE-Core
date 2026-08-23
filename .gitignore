@@ -55,44 +55,46 @@ src/scripts/**/_output/
 #  cited render targets. A cited figure that a driver writes into a `figures/`
 #  dir stays tracked; only the scratch `_output`/`outputs` dirs are ignored.)
 #
-# EXCEPTIONS — 36 CITED figures currently live inside these scratch dirs (a
-# pre-existing policy smell: cited renders belong in `figures/`, not `_output/`;
-# migrating them is a future-arc item, NOT done here). They are already tracked,
-# but the allowlist below makes the intent explicit so a regenerate-then-readd
-# does not silently drop them from a clean-worktree build. verify-before-cite:
-# this list was machine-generated (grep of \includegraphics / markdown-image /
-# path refs) 2026-07-04; re-derive on change. Count re-derived 2026-08-19 (was
-# 38): `carbon_strain.png` retired by the D15c die-by-removal ruling, and the
-# 2026-07-04 count was already one over the HEAD-true line count.
-!src/scripts/vol_1_foundations/_output/chiral_orbital_holonomy.png
-!src/scripts/vol_1_foundations/_output/secondshell_screw_holonomy.png
-!src/scripts/vol_1_foundations/_output/two_node_alpha_projection.png
-!src/scripts/vol_1_foundations/_output/window_blind_two_threes.png
-!src/scripts/vol_4_engineering/_output/vvs_fig_a_gamma_vs_A.png
-!src/scripts/vol_4_engineering/_output/vvs_fig_b_scramble.png
-!src/scripts/vol_4_engineering/_output/vvs_fig_c_bedrock_spectrum.png
-!src/scripts/vol_4_engineering/_output/vvs_fig_d_sat_admittance.png
-!src/scripts/vol_4_engineering/outputs/optical_caustic_resolution.png
-!src/scripts/vol_9_device/_output/a1_spatial_cavity_mode_fft.png
-!src/scripts/vol_9_device/_output/electron_s11_gate.png
-!src/scripts/vol_9_device/_output/electron_s11_unknown.png
-!src/scripts/vol_9_device/_output/s11_denovo_gate.png
-!src/scripts/vol_9_device/_output/s11_denovo_made.png
-!src/scripts/vol_9_device/_output/s11_denovo_paired.png
-!src/scripts/vol_9_device/_output/s11_denovo_planted.png
-!src/scripts/vol_9_device/_output/two_natured_electron_native_engine.png
+# EXCEPTIONS — 13 CITED figures still live inside these scratch dirs. The bulk
+# of this block was RETIRED 2026-08-20 by the Phase-2 figure/data migration
+# (23 renders + 49 data artifacts moved to their tracked homes per the ratified
+# policy, `_orchestration/2026-07_repo-conventions.md` §(a) + :12; destinations
+# at `_orchestration/docket-entries/2026-08-20-phase2-destination-map.md`).
+# What REMAINS is exactly two sets, and both are deliberate:
+#   6 · src/scripts — the HELD flag set, not yet ruled: the 3
+#       `vacuum_birefringence_facility_sweep_*` .pdf/.png PAIRS, held as PAIRS.
+#       One `style.save(fig, stub, strict=True)` call emits BOTH formats to one
+#       stub (`src/ave/viz/style.py:371`, `formats=("pdf","png")` by default), so
+#       a pair is ONE UNIT: moving or de-allowlisting half of it would have the
+#       driver re-emit the other half beside a now-absent twin on every run.
+#       ⚑ This block being SYMMETRIC (3 .pdf + 3 .png) does NOT resolve the
+#       pdf/png allowlist contradiction the Phase-1 flag raised — that is still
+#       its own open question, recorded in the destination-map docket's
+#       2026-08-20 amendment, which vacates the "3 pdf / 0 png" measurement the
+#       docket body predicted here.
+#   7 · src/tests/outputs — never in the migration's scope.
+#
+# RETIRED BY DELETION 2026-08-20 — the FLAG-DUP three
+# (`a1_spatial_cavity_mode_fft.png`, `two_natured_electron_native_engine.png`,
+# `optical_caustic_resolution.png`) used to hold `!` lines here. Each was
+# byte-identical to a twin ALREADY tracked on the destination volume's own
+# \graphicspath, so the build already resolved to the manuscript-side copy and
+# the scratch copy was build-invisible. Their three generators now write
+# DIRECTLY to the surviving twin's tracked home (`a1_radial_fft.py`,
+# `two_natured_electron_figure.py` → `manuscript/vol_9_vacuum_datasheet/figures/
+# two_natured/`; `simulate_optical_caustic.py` → `assets/sim_outputs/`), so a
+# re-run regenerates the SURVIVOR and cannot resurrect the deleted scratch copy.
+# ⚑ The deletion authority — extending D15c's byte-identical-twin rule from the
+# orphan-DATA axis to the FIGURE axis — is PENDING GRANT'S WORD, not settled. **→ RATIFIED 2026-08-21 (Grant, conditional: "as long as we can regenerate or lookup") — condition MET: lookup is bit-exact (surviving tracked twins + git history at `82692e08^`) and the repointed generators exist; per open-item `figure-bit-reproducibility`, LOOKUP is the identity-bearing path (regeneration is deterministic, not bit-exact across matplotlib versions).**
+# The count above is DERIVED from the lines below (not hand-maintained), so it
+# cannot drift the way the old "38" did — that number was stale against a
+# HEAD-true 32 for over a month. Re-derive on any change.
 !src/scripts/vol_9_device/_output/vacuum_birefringence_facility_sweep_signal_vs_field.pdf
 !src/scripts/vol_9_device/_output/vacuum_birefringence_facility_sweep_signal_vs_field.png
 !src/scripts/vol_9_device/_output/vacuum_birefringence_facility_sweep_time_to_5sigma.pdf
 !src/scripts/vol_9_device/_output/vacuum_birefringence_facility_sweep_time_to_5sigma.png
 !src/scripts/vol_9_device/_output/vacuum_birefringence_facility_sweep_window_E_vs_g.pdf
 !src/scripts/vol_9_device/_output/vacuum_birefringence_facility_sweep_window_E_vs_g.png
-!src/scripts/vol_9_device/cvr_ee_sweep/_output/fig1_dc_operating_point.png
-!src/scripts/vol_9_device/cvr_ee_sweep/_output/fig2_transfer_function_bode.png
-!src/scripts/vol_9_device/cvr_ee_sweep/_output/fig3_reflection_smith.png
-!src/scripts/vol_9_device/cvr_ee_sweep/_output/fig4_phasor_reactance.png
-!src/scripts/vol_9_device/cvr_ee_sweep/_output/fig5_stability_eigenmode.png
-!src/scripts/vol_9_device/cvr_ee_sweep/_output/fig6_parameter_basin.png
 !src/tests/outputs/beryllium_9_density_equator.png
 !src/tests/outputs/beryllium_9_density_z_pos.png
 !src/tests/outputs/boron_11_density_equator.png
@@ -290,3 +292,4 @@ research/figures/*.npz
 
 # kit release artifacts (built by package_kit_release.py)
 dist/
+assets/3d_models/vacuum_axiom1_diamond_lc_full_lattice.stl

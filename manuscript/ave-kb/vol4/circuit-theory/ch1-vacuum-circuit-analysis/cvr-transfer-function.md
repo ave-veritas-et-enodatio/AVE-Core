@@ -62,7 +62,7 @@ This $H(s)$ stays the **pure-scalar mass-dilatation "3"**. The two "3"s are orth
 
 ## §4 — Computed figure
 
-![CVR transfer function: Bode + pole-zero](../../../../../src/scripts/vol_9_device/cvr_ee_sweep/_output/fig2_transfer_function_bode.png)
+![CVR transfer function: Bode + pole-zero](../../../../vol_9_vacuum_datasheet/figures/fig2_transfer_function_bode.png)
 
 Re-runnable: `PYTHONPATH=$PWD/src python src/scripts/vol_9_device/cvr_ee_sweep/cvr_ee_sweep.py` (View 2). The Bode magnitude peaks at $42.7$ dB $=20\log_{10}(1/\alpha)$ at $\omega/\omega_C=1$; the phase inverts $0°\to-180°$ (the short-circuit boundary); the pole pair sits at $\mathrm{Re}/\omega_0 = -\alpha/2$.
 

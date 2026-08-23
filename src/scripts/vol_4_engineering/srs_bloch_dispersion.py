@@ -259,8 +259,11 @@ def main():
     print("the 24×24 srs Bloch eigenvalues — NOT a hardcoded κ_γ·Ξ·(kℓ)⁴ form. The verdict")
     print("is reported as measured; slope-4 is NOT forced.")
 
-    out_dir = Path(__file__).resolve().parent / "_output"
-    out_dir.mkdir(exist_ok=True)
+    # Canonical-corpus-cited data -> tracked per-volume results/ (ratified
+    # data policy Option 1, _orchestration/2026-07_repo-conventions.md:12;
+    # migrated 2026-08-20).
+    out_dir = Path(__file__).resolve().parents[3] / "manuscript/vol_4_engineering/results"
+    out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / "srs_bloch_dispersion.json"
     out_path.write_text(json.dumps(out, indent=2))
     print(f"\nResults written: {out_path}")

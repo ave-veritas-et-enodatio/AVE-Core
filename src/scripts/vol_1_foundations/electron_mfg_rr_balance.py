@@ -25,7 +25,7 @@ implementation, ave-driver-script-honesty):
   * Bins are frozen: MATCHES-PHI2 / DIFFERENT-VALUE / UNDERDETERMINED. We do NOT
     debug toward phi^2.
 
-OUTPUT: prints the verdict and writes _output/electron_mfg_rr_balance_results.json
+OUTPUT: prints the verdict and writes results/electron_mfg_rr_balance_results.json
 """
 import json
 import os
@@ -198,8 +198,12 @@ def main():
 
     # --- emit ---
     outdir = os.path.join(os.path.dirname(__file__), "_output")
+    # Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+    # research-tier DATA -> tracked root `results/` (class 4).
+    _AVE_RESULTS = os.path.abspath(os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "results"))
     os.makedirs(outdir, exist_ok=True)
-    with open(os.path.join(outdir, "electron_mfg_rr_balance_results.json"), "w") as fh:
+    with open(os.path.join(_AVE_RESULTS, "electron_mfg_rr_balance_results.json"), "w") as fh:
         json.dump(out, fh, indent=2)
 
     # --- honest console report (everything below was computed above) ---

@@ -555,8 +555,11 @@ def main() -> None:
         "Q": {"confined_lossless": "inf", "em_matched_radiative": Q_open_em},
     }
     out_dir = Path(__file__).resolve().parent / "_output"
+    # Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+    # research-tier DATA -> tracked root `results/` (class 4).
+    _AVE_RESULTS = Path(__file__).resolve().parents[3] / "results"
     out_dir.mkdir(exist_ok=True)
-    out_path = out_dir / "node_2domain_nport.json"
+    out_path = _AVE_RESULTS / "node_2domain_nport.json"
     out_path.write_text(json.dumps(out, indent=2, default=str))
     print(f"\nResults written: {out_path}")
 

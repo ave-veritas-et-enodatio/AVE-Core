@@ -13,7 +13,7 @@ alpha comparison is loaded. No bin, tolerance, or definition is re-opened here
     r = E_V_cons_last / H_cons_last       (longitudinal share of total conserved energy)
 
 MEASURED data is SHA-pinned to commit 570b50d7 on origin/analysis/2026-06-11-s11-de-novo,
-field path src/scripts/vol_9_device/_output/s11_denovo_results.json, key made_build.
+field path results/s11_denovo_results.json, key made_build.
 The driver materialises it via `git show <SHA>:<path>` so the run is reproducible from
 any checkout that has the object (no copy-drift).
 
@@ -32,7 +32,7 @@ import sys
 
 # --- SHA-pinned MEASURED-data provenance (prereg §0.1 #5) -----------------------
 BANKED_SHA = "570b50d7a560e54fb0c270a859e7e9c99c6e3968"
-BANKED_PATH = "src/scripts/vol_9_device/_output/s11_denovo_results.json"
+BANKED_PATH = "results/s11_denovo_results.json"
 
 
 def load_banked() -> dict:
@@ -121,7 +121,7 @@ def main() -> int:
     # The genesis engine (unified_genesis_engine.py) and the energy accounting
     # (bulk_energy_conserved / total_energy_unified) take NO fine-structure alpha as
     # a dynamical input (grep-verified this session: the only alpha touch in the whole
-    # s11_de_novo pipeline is the post-hoc ringdown-Q note at s11_de_novo_sweep.py:698,
+    # s11_de_novo pipeline is the post-hoc ringdown-Q note at s11_de_novo_sweep.py:711,
     # ALPHA_COLD_INV, explicitly "post-hoc, NOT a bin criterion"; it consumes the
     # ringdown Q, not E_V_cons/H_cons). No comparison_only_alpha / gamma_target field
     # feeds E_V_cons or H_cons. => alpha is a DEAD input to the partition by

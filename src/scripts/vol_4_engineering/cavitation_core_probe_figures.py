@@ -1,5 +1,5 @@
 """Figures for the cavitation-core probe (data-derived captions in the result doc).
-Reads _output/cavitation_core_probe_results.json; regenerates the de-spin time series.
+Reads results/cavitation_core_probe_results.json; regenerates the de-spin time series.
 """
 from __future__ import annotations
 
@@ -17,7 +17,11 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "..", "sr
 from cavitation_core_probe import run_probe  # noqa: E402
 
 OUT = os.path.join(os.path.dirname(__file__), "_output")
-D = json.load(open(os.path.join(OUT, "cavitation_core_probe_results.json")))
+# Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+# research-tier DATA -> tracked root `results/` (class 4).
+_AVE_RESULTS = os.path.abspath(os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "results"))
+D = json.load(open(os.path.join(_AVE_RESULTS, "cavitation_core_probe_results.json")))
 FLOOR = D["floor_rho_cav"]
 RHO_FLOOR = -0.95
 

@@ -52,7 +52,7 @@ The static compression that holds the cage sets the DC bias. The rest energy map
 
 ## §5 — Computed figure
 
-![CVR DC operating point: C-V, Z, two speeds, exponent defect](../../../../../src/scripts/vol_9_device/cvr_ee_sweep/_output/fig1_dc_operating_point.png)
+![CVR DC operating point: C-V, Z, two speeds, exponent defect](../../../../vol_9_vacuum_datasheet/figures/fig1_dc_operating_point.png)
 
 Re-runnable: `PYTHONPATH=$PWD/src python src/scripts/vol_9_device/cvr_ee_sweep/cvr_ee_sweep.py` (View 1). Panels: varactor $C_{eff}/C_0$ (log), $Z_{core}/Z_0\to0$, the two speeds, and the exponent-defect $n_{eng}$ vs $n_{phys}$ band. The apparatus clip $A_{CAP}=0.99$ + floor $S_{MIN}=0.05$ (graft-v2) are drawn — magnitudes below are bench-capped, not physical.
 

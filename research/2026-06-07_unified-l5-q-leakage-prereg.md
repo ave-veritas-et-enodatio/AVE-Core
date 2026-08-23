@@ -73,7 +73,7 @@ Executed with:
 PYTHONPATH=src python src/scripts/vol_1_foundations/unified_l5_q_leakage.py
 ```
 
-Output: `src/scripts/vol_1_foundations/_output/unified_l5_q_leakage_results.json`
+Output: `results/unified_l5_q_leakage_results.json`
 
 Console summary:
 

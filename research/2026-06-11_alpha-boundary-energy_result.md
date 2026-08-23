@@ -4,7 +4,7 @@
 **Branch:** `analysis/2026-06-11-r1-alpha-forward-check`
 **Prereg (FROZEN, committed ALONE):** [`research/2026-06-11_alpha-boundary-energy_prereg.md`](2026-06-11_alpha-boundary-energy_prereg.md) @ `cd7e7ae3`
 **Driver:** `src/scripts/vol_9_device/alpha_boundary_forward_check.py` (FORWARD-FIRST; analytic + measured printed before α loads)
-**MEASURED data:** SHA-pinned `570b50d7…` : `src/scripts/vol_9_device/_output/s11_denovo_results.json` [`made_build`]
+**MEASURED data:** SHA-pinned `570b50d7…` : `results/s11_denovo_results.json` [`made_build`]
 
 > **VERDICT: DIFFERENT-RATIO (bin 2, §7).** The pre-registered most-probable outcome (§8) is **confirmed**.
 > This is a **clean negative** (Rule 11 honest closure): the prediction failed where it was registered to be
@@ -65,7 +65,7 @@ Static dead-input + forward-vs-fit (§5 steps 4–5), grep-verified this session
 - The genesis engine (`unified_genesis_engine.py`) and the energy accounting (`bulk_energy_conserved` /
   `total_energy_unified`) take **no fine-structure α** as a dynamical input.
 - The **only** α touch in the whole `s11_de_novo` pipeline is the post-hoc ringdown-Q note at
-  `s11_de_novo_sweep.py:698` (`ALPHA_COLD_INV`, explicitly *"post-hoc, NOT a bin criterion"*) — it consumes
+  `s11_de_novo_sweep.py:711` (`ALPHA_COLD_INV`, explicitly *"post-hoc, NOT a bin criterion"*) — it consumes
   the ringdown `Q`, **not** `E_V_cons`/`H_cons`. No `comparison_only_alpha` / `gamma_target` field feeds the
   partition.
 - **⇒ α is a DEAD input to the partition by construction** (forward-vs-fit PASS). The de-novo MADE object is

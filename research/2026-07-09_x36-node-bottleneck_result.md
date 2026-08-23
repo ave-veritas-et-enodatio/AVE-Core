@@ -4,7 +4,7 @@
 **Prereg (FROZEN):** [`research/2026-07-09_x36-node-bottleneck_prereg_FROZEN.md`](2026-07-09_x36-node-bottleneck_prereg_FROZEN.md)
 **Derivation:** [`research/2026-07-09_x36-node-bottleneck_derivation.md`](2026-07-09_x36-node-bottleneck_derivation.md)
 **Driver:** [`src/scripts/vol_1_foundations/x36_node_bottleneck.py`](../src/scripts/vol_1_foundations/x36_node_bottleneck.py) (extends `x33_clock_architecture.py`, Rule 14)
-**Data:** [`research/2026-07-09_x36-node-bottleneck_result.json`](2026-07-09_x36-node-bottleneck_result.json) · **Figure:** `src/scripts/vol_1_foundations/_output/x36_node_bottleneck.png`
+**Data:** [`research/2026-07-09_x36-node-bottleneck_result.json`](2026-07-09_x36-node-bottleneck_result.json) · **Figure:** `research/figures/x36_node_bottleneck.png`
 **Class (consistency-vs-emergence):** **CONSISTENCY / characterization.** A math+numerics typing of the substrate's
 own node architecture. ω_C = c₀/ℓ_node is an **IDENTITY** (`OMEGA_C`; ℏω_C = m_e c² exactly); R = √2 is a Class-B
 manifestation of the √eig↔arccos velocity conventions; ρ* is GR-imported (ν=2/7). **No CODATA on any verdict path;

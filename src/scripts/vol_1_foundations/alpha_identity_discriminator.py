@@ -26,6 +26,9 @@ from ave.core.master_fdtd_phasor_bridge import PORT_SHIFTS, MasterFDTDPhasorBrid
 
 PROJECT_ROOT = next(p for p in Path(__file__).resolve().parents if (p / ".git").exists())
 OUT_DIR = PROJECT_ROOT / "src" / "scripts" / "vol_1_foundations" / "_output"
+# Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+# research-tier DATA -> tracked root `results/` (class 4).
+_AVE_RESULTS = Path(__file__).resolve().parents[3] / "results"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 AMPLITUDES = [0.48, 1.0, 2.0, 3.0, 3.5, 4.0]
@@ -289,7 +292,7 @@ def main() -> None:
             "screened_half": SCREENED_HALF,
         },
     }
-    out_path = OUT_DIR / "alpha_identity_discriminator_results.json"
+    out_path = _AVE_RESULTS / "alpha_identity_discriminator_results.json"
     out_path.write_text(json.dumps(payload, indent=2, allow_nan=False) + "\n")
 
     print("Alpha identity discriminator")

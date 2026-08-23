@@ -90,6 +90,11 @@ from x33_clock_architecture import (  # noqa: E402
     zz_selfblock,
 )
 
+# Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+# research-tier RENDER -> tracked `research/figures/` (class 3). Module level:
+# main() writes the JSON, make_figure() writes the PNG -- one shared constant.
+_AVE_FIGS = Path(__file__).resolve().parents[3] / "research" / "figures"
+
 OMEGA_C_TANK = 1.0           # node-tank resonance = c0/l_node = OMEGA_C identity (omega_C units)
 ETA_CANON = 1.0              # Axiom-1 pure: node IS the tank (no bond-rigid bypass)
 ETA_SWEEP = [0.25, 0.5, 0.75, 1.0]
@@ -835,7 +840,7 @@ def make_figure(fig_data, fig_data_M, out, out_dir):
     axr.set_ylabel(style.axis_label("band ceiling", r"\omega_{\rm top}", r"$\omega_C$"))
     style.legend(axr, where="below", ncol=1, fontsize=7)
 
-    paths = style.save(fig, out_dir / "x36_node_bottleneck")
+    paths = style.save(fig, _AVE_FIGS / "x36_node_bottleneck", formats=("png",))
     print(f"Figure: {paths}")
 
 

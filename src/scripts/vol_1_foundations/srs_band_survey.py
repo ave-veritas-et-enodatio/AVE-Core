@@ -37,6 +37,11 @@ from ave.core.chiral_lattice import _SRS_8A, _SRS_NN, build_srs_net
 from ave.core.chiral_lattice_dynamics import ANALYTIC_NETWORK_FACTOR
 from ave.core.constants import C_0, HBAR, L_NODE, OMEGA_C, e_charge
 
+# Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+# research-tier RENDER -> tracked `research/figures/` (class 3). Module level:
+# main() writes the JSON, make_figure() writes the PNG -- one shared constant.
+_AVE_FIGS = Path(__file__).resolve().parents[3] / "research" / "figures"
+
 Z_DEG = 3                       # srs coordination (Wells (10,3)-a)
 FACTOR = ANALYTIC_NETWORK_FACTOR  # 1/√3, imported (never hard-coded)
 OMEGA_LINK_OVER_C = 1.0 / FACTOR  # ω_link / ω_C = √3 (derived from the symbol)
@@ -423,7 +428,7 @@ def make_figure(bonds, out, out_dir):
     ax.set_xlabel("BCC Brillouin-zone path")
     ax.set_ylabel(style.axis_label("frequency", r"\omega", r"$\omega_C$"))
     style.legend(ax, where="right")
-    paths = style.save(fig, out_dir / "srs_band_survey")
+    paths = style.save(fig, _AVE_FIGS / "srs_band_survey", formats=("png",))
     print(f"Figure: {paths}")
 
 

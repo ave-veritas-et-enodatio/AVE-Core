@@ -66,7 +66,7 @@ The window-blind lives on the **sector** axis (which "3" / which DOF), which is 
 
 ## §5 — Figure
 
-![Window-blind / bounding-plane: one spring, two orthogonal "3"s](../../../src/scripts/vol_1_foundations/_output/window_blind_two_threes.png)
+![Window-blind / bounding-plane: one spring, two orthogonal "3"s](../../vol_1_foundations/figures/window_blind_two_threes.png)
 
 Re-runnable: `PYTHONPATH=$PWD/src python src/scripts/vol_1_foundations/window_blind_two_threes.py`. Left: the stretch DOF → trampoline sheet → mass-dilatation "3" (the CVR $H(s)$). Right: the bow DOF → window blinds → charge-winding "3". The two are orthogonal; the gauge note and the no-wire rule are drawn along the bottom.
 

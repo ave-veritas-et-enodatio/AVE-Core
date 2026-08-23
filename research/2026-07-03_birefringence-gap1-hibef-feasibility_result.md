@@ -8,7 +8,7 @@
 
 **Date:** 2026-07-03 · **Lane:** implementer · **Branch:** `analysis/birefringence-campaign-opening`
 **Pre-reg:** [`2026-07-03_birefringence-gap1-hibef-feasibility_prereg.md`](2026-07-03_birefringence-gap1-hibef-feasibility_prereg.md) (FROZEN before this driver)
-**Driver:** `src/scripts/vol_9_device/birefringence_gap1_hibef_feasibility.py` · **Output:** `_output/birefringence_gap1_hibef_feasibility.json`
+**Driver:** `src/scripts/vol_9_device/birefringence_gap1_hibef_feasibility.py` · **Output:** `results/birefringence_gap1_hibef_feasibility.json`
 **Class:** CONSISTENCY (canonical AVE δn `clm-pp3qwf` through a literature HIBEF X-ray-polarimeter readout; no new `clm-`/constant/emergence).
 **HEAD:** origin/main 93c7424d (constants live-verified: `E_yield=1.1304×10¹⁷ V/m`, `(E_crit/E_yield)²=137.036=1/α`).
 

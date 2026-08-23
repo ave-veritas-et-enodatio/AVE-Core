@@ -6,7 +6,7 @@
 **Predecessor (Rule 12 — this is the NAMED closure that probe GATED, not a refill):** `analysis/2026-06-10-cavitation-core-probe`, result §0-bis(e) (verdict CLIP)
 **Engine (new):** [`src/ave/core/sonic_horizon_flow.py`](../src/ave/core/sonic_horizon_flow.py) — `SonicHorizonFlow2D` (subclass of the predecessor's `CavitationFlow2D`; the floored engine is kept INTACT as the control)
 **Driver:** [`src/scripts/vol_4_engineering/sonic_horizon_closure.py`](../src/scripts/vol_4_engineering/sonic_horizon_closure.py) · figures [`…_figures.py`](../src/scripts/vol_4_engineering/sonic_horizon_closure_figures.py)
-**Data:** `src/scripts/vol_4_engineering/_output/sonic_horizon_closure_results.json`
+**Data:** `results/sonic_horizon_closure_results.json`
 **Governing discipline:** `ave-apparatus-floor-attribution`. Skills: substrate-native-check, ave-prereg (Step 3.5), ave-canonical-source, ave-driver-script-honesty, ave-regime-phase-state-check, ave-conserved-vs-pumped, verify-before-cite, ave-representation-capability-check.
 
 ---

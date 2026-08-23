@@ -15,7 +15,7 @@ Trigger modes
 
 Output:
   assets/sim_outputs/electron_genesis_snap.gif
-  src/scripts/vol_1_foundations/_output/electron_genesis_snap_results.json
+  results/electron_genesis_snap_results.json
 """
 
 from __future__ import annotations
@@ -57,6 +57,9 @@ from ave_path_util import sim_output  # noqa: E402
 
 OUT_DIR = next(p for p in Path(__file__).resolve().parents if (p / ".git").exists())
 OUT_DIR = OUT_DIR / "src" / "scripts" / "vol_1_foundations" / "_output"
+# Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+# research-tier DATA -> tracked root `results/` (class 4).
+_AVE_RESULTS = Path(__file__).resolve().parents[3] / "results"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 N_LATTICE = 32
@@ -363,7 +366,7 @@ def main() -> None:
         "variants": rows,
         "gif_path": str(gif_path) if gif_row else None,
     }
-    out_json = OUT_DIR / "electron_genesis_snap_results.json"
+    out_json = _AVE_RESULTS / "electron_genesis_snap_results.json"
     out_json.write_text(json.dumps(payload, indent=2, allow_nan=False) + "\n")
 
     print("Electron genesis snap (alpha-free triggers)")

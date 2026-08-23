@@ -7,8 +7,8 @@
 **Prereg (FROZEN, committed alone first):** [`2026-06-10_coax-ring-secondary_prereg.md`](2026-06-10_coax-ring-secondary_prereg.md) (commit `f14c1166`, before any run artifact).
 **Licensed entry:** the §5 gate of the 2026-06-04 α-¼ closure — a discriminating secondary named BEFORE deriving (Grant 2026-06-10, verbatim in the prereg §0).
 **Drivers:**
-- [`src/scripts/vol_1_foundations/coax_ring_secondary.py`](../src/scripts/vol_1_foundations/coax_ring_secondary.py) — Arm 1 (forward coax) + Arm 2 (FBD re-closure with the A→1 BC). Data: `_output/coax_ring_secondary_results.json`.
-- [`src/scripts/vol_1_foundations/coax_ring_scale_invariance.py`](../src/scripts/vol_1_foundations/coax_ring_scale_invariance.py) — Arm 3 (scale-invariance smoke, graft-v2 carrier). Data: `_output/coax_ring_scale_invariance_results.json`.
+- [`src/scripts/vol_1_foundations/coax_ring_secondary.py`](../src/scripts/vol_1_foundations/coax_ring_secondary.py) — Arm 1 (forward coax) + Arm 2 (FBD re-closure with the A→1 BC). Data: `results/coax_ring_secondary_results.json`.
+- [`src/scripts/vol_1_foundations/coax_ring_scale_invariance.py`](../src/scripts/vol_1_foundations/coax_ring_scale_invariance.py) — Arm 3 (scale-invariance smoke, graft-v2 carrier). Data: `results/coax_ring_scale_invariance_results.json`.
 - [`src/scripts/vol_1_foundations/coax_ring_figures.py`](../src/scripts/vol_1_foundations/coax_ring_figures.py) — figures (data-derived captions).
 - Re-used machinery: `electron_mfg_rr_balance.py` (the validated mfg-flow `G(ρ̄)` balance, Arm 2 RE-RUN); `crystal_graft_v2.py`/`crystal_engine.py` + `crystal_graft_v2_run.py::extract_2_3_omega` (the validated own-ω carrier + extractor, Arm 3).
 **Figures:** `research/figures/coax_ring_fig{1,2,3}_*.png`.
@@ -155,7 +155,7 @@ Per the frozen synthesis map (prereg §7): **Arm-3 SCALE-FREE ∧ Arm-1 RATIO-DE
 
 ## 🔴 VERDICT ADDENDUM (2026-06-10) — record-honesty (Rule 12)
 
-**Status:** panel-mandated record-honesty fix. Per **Rule 12** this addendum is APPENDED; no body paragraph above is rewritten. Per **Rule 11** the frozen prereg (`2026-06-10_coax-ring-secondary_prereg.md`) is NOT edited. Every number below was re-verified this session against `_output/coax_ring_secondary_results.json`, `_output/coax_ring_scale_invariance_results.json`, and `src/scripts/vol_1_foundations/coax_ring_secondary.py`.
+**Status:** panel-mandated record-honesty fix. Per **Rule 12** this addendum is APPENDED; no body paragraph above is rewritten. Per **Rule 11** the frozen prereg (`2026-06-10_coax-ring-secondary_prereg.md`) is NOT edited. Every number below was re-verified this session against `results/coax_ring_secondary_results.json`, `results/coax_ring_scale_invariance_results.json`, and `src/scripts/vol_1_foundations/coax_ring_secondary.py`.
 
 **One-line:** the Arm-3 headline bin should read **UNRESOLVED, not SCALE-FREE**; the §5 license is **WITHHELD (license-pending-re-run, NOT closed-negative)**; and two of the three frozen Arm-3 predictions (the u↔ω observable and the ω∝1/r magnitude) **did not return the headline claim**. Arm-1 (RATIO-DERIVED) and Arm-2 (DIFFERENT) standing records are **unchanged**, qualifiers restated below.
 

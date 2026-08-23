@@ -49,6 +49,11 @@ from ave.core.constants import ALPHA_COLD_INV  # noqa: E402
 from ave.core.s11_probe import S11Probe  # noqa: E402
 
 OUT = Path(__file__).parent / "_output"
+# Ratified 2026-08-20 destination map (_orchestration/docket-entries/2026-08-20-phase2-destination-map.md):
+# research-tier DATA -> tracked root `results/` (class 4).
+_AVE_RESULTS = Path(__file__).resolve().parents[3] / "results"
+# research-tier RENDER -> tracked `research/figures/` (class 3).
+_AVE_FIGS = Path(__file__).resolve().parents[3] / "research" / "figures"
 OUT.mkdir(exist_ok=True)
 
 try:
@@ -413,7 +418,7 @@ def make_figures(gate, lin, uk, verdict):
     ax[1].set_title(f"LINEARITY: resp ∝ A\nR²={lin['R2']:.4f} linear={lin['linear']}")
     ax[1].grid(alpha=0.2)
     fig.tight_layout()
-    p1 = OUT / "electron_s11_gate.png"
+    p1 = _AVE_FIGS / "electron_s11_gate.png"
     fig.savefig(p1, dpi=120)
     plt.close(fig)
     paths.append(p1.name)
@@ -442,7 +447,7 @@ def make_figures(gate, lin, uk, verdict):
     ax[1].legend(fontsize=8)
     ax[1].grid(alpha=0.2)
     fig.tight_layout()
-    p2 = OUT / "electron_s11_unknown.png"
+    p2 = _AVE_FIGS / "electron_s11_unknown.png"
     fig.savefig(p2, dpi=120)
     plt.close(fig)
     paths.append(p2.name)
@@ -495,7 +500,7 @@ def main():
     figs = make_figures(gate, lin, uk if uk else _empty_uk(), verdict)
     out["figures"] = figs
     out["elapsed_s"] = time.time() - t0
-    (OUT / "electron_s11_results.json").write_text(json.dumps(out, indent=2, default=str))
+    (_AVE_RESULTS / "electron_s11_results.json").write_text(json.dumps(out, indent=2, default=str))
 
     print("\n" + "=" * 74)
     print(f"  S11 BIN: {verdict['bin']}")
