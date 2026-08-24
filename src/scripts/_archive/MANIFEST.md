@@ -222,3 +222,13 @@ figure-provenance gap, or repair the import + output path first?
 >    `Run: PYTHONPATH=src …` docstring — the LIVE-instrument class this manifest's own `:50`
 >    defines — and its JSON is the sole in-tree record of a Rule-11 negative
 >    ("SHELL-NEVER-FORMS", `2a791a77`). It was never a valid FLAG-PAIRED candidate; HELD.
+
+---
+
+## Archived 2026-08-23 — PARTITION-ORPHANED (Grant ruling, option c)
+
+### `vol_6_periodic_table/` — 1 file
+
+| file | receipt |
+|:--|:--|
+| `simulate_dt_fusion.py` | Un-runnable for the repo's entire life: `git log --all -S 'def generate_fusion_netlist'` = 0 hits — the symbol it imports at `:5` never existed in this repo (born partitioned at `de9d2293`; the `spice_exporter.py` stub, added `2670d50e`, preserves only `generate_spice_netlist`). Zero consumers: the manuscript figure `circuit_dt_fusion.tex` is hand-authored, `animate_dt_fusion.py` imports neither the exporter nor the netlist, and the driver's complete output is already tracked at `src/scripts/vol_6_periodic_table/simulations/spice_netlists/dt_fusion_transient.cir` (in-tree since initial release). Ruled **option (c) — retire as partition-orphaned** per `_orchestration/docket-entries/2026-08-23-dt-fusion-ruling.md`, which also records where the full implementation survives and the one salvaged concept (an external-circuit-solver cross-check of engine linear dynamics, minted as its own epic — see the docket entry). Restoration was declined because the implementation's three load-bearing choices (1 µH/1 pF tank values, K = 0.5/d coupling, 1.5d collision offset) carry no derivation from the canonical chain and its all-to-all star-to-ground topology is not the substrate graph — any future exporter is a fresh substrate-native tool, not a restoration. |

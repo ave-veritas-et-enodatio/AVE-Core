@@ -4,9 +4,7 @@
 
 # AVE program board
 
-Scanned tree **cede1e3f** (2026-08-23) · 461 index records · 330 claims · 1 PR open
-
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`5f5e4e9e`). Every count below describes **cede1e3f**. Regenerate on main before reading these as program state.
+Scanned tree **1ffdef0e** (2026-08-23) · 461 index records · 330 claims · 0 PRs open
 
 ## The number that frames everything
 
@@ -30,7 +28,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## What we are waiting on
 
-**33 of 62 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
+**32 of 61 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
 
 *Scope: this is a census of `open-items/`. `_orchestration/2026-07-10_rulings-docket.md` is the **paper timeline** — a dated continuation log, frozen at its 2026-07-21 tail per `docket-entries/README.md`, and the historical record of how each ruling was reached. It is read chronologically, not harvested; anything still live in it belongs here as its own file.*
 
@@ -63,7 +61,6 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [The repo-formatting P2 adjudication batch awaits Grant's rulings and was tracked on no current surface](open-items/2026-08-17-repo-formatting-p2-orphaned-ruling.md) | ROUTED-TO-GRANT | grant | 2026-08-17 |
 | [162 MB in 8 tracked files >10 MB (~24% of pack) + 29 MB build outputs under src/ — LFS, prune, or accept?](open-items/2026-08-17-repo-weight-policy.md) | ROUTED-TO-GRANT | grant | 2026-08-17 |
 | [95 of 778 src/scripts drivers are referenced nowhere in the tracked corpus — archive, delete, or reference?](open-items/2026-08-17-unreferenced-drivers-policy.md) | ROUTED-TO-GRANT | grant | 2026-08-17 |
-| [simulate_dt_fusion imports a symbol the IP-partition stub no longer defines — restore, stub, or retire?](open-items/2026-08-23-dt-fusion-partitioned-symbol.md) | ROUTED-TO-GRANT | grant | 2026-08-23 |
 | [Sector-of-storage — where the compression store lives (A1 canon vs the T2/swing label)](open-items/2026-07-26-sector-of-storage.md) | OPEN-IN-WALK | grant | 2026-07-26 |
 | [A RESOLVED stamp asserts its own propagation, and the propagation never happened (Row 11 MOND)](open-items/2026-05-19-row11-mond-propagation.md) | OPEN | unassigned | 2026-05-19 |
 | [Two infra gaps still open — no conflict-marker hook, and no structural worktree-leak fix](open-items/2026-05-28-infra-hygiene-gaps.md) | OPEN | unassigned | 2026-05-28 |
@@ -118,9 +115,7 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 *(volatile — excluded from `--check`, since any PR retitle would otherwise make the check cry wolf)*
 
-| PR | state | title |
-|---|---|---|
-| #992 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] cleanup: vol_6 animation imports re |
+No open PRs.
 
 <!-- /volatile -->
 
