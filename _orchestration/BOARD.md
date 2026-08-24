@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **3fc244cf** (2026-08-23) · 461 index records · 330 claims · 3 PRs open
+Scanned tree **68920917** (2026-08-23) · 461 index records · 330 claims · 3 PRs open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`5fc8da8d`). Every count below describes **3fc244cf**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`020262af`). Every count below describes **68920917**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -30,7 +30,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## What we are waiting on
 
-**33 of 63 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
+**34 of 65 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
 
 *Scope: this is a census of `open-items/`. `_orchestration/2026-07-10_rulings-docket.md` is the **paper timeline** — a dated continuation log, frozen at its 2026-07-21 tail per `docket-entries/README.md`, and the historical record of how each ruling was reached. It is read chronologically, not harvested; anything still live in it belongs here as its own file.*
 
@@ -63,7 +63,9 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [The repo-formatting P2 adjudication batch awaits Grant's rulings and was tracked on no current surface](open-items/2026-08-17-repo-formatting-p2-orphaned-ruling.md) | ROUTED-TO-GRANT | grant | 2026-08-17 |
 | [162 MB in 8 tracked files >10 MB (~24% of pack) + 29 MB build outputs under src/ — LFS, prune, or accept?](open-items/2026-08-17-repo-weight-policy.md) | ROUTED-TO-GRANT | grant | 2026-08-17 |
 | [95 of 778 src/scripts drivers are referenced nowhere in the tracked corpus — archive, delete, or reference?](open-items/2026-08-17-unreferenced-drivers-policy.md) | ROUTED-TO-GRANT | grant | 2026-08-17 |
+| [The Axiom-4 kernel argument "A" carries two normalizations across axiom-level and SOLID leaves (yield-denominated vs bare/snap) — VOCABULARY only](open-items/2026-08-24-kernel-argument-normalization.md) | ROUTED-TO-GRANT | grant | 2026-08-24 |
 | [Sector-of-storage — where the compression store lives (A1 canon vs the T2/swing label)](open-items/2026-07-26-sector-of-storage.md) | OPEN-IN-WALK | grant | 2026-07-26 |
+| [The quark-charge dressing — CP-parity underived (both adjectives asserted), N=3 fed in; four vacuum-side investigation routes GO'd](open-items/2026-08-23-theta-dressing-open-questions.md) | OPEN-IN-WALK | lane | 2026-08-23 |
 | [A RESOLVED stamp asserts its own propagation, and the propagation never happened (Row 11 MOND)](open-items/2026-05-19-row11-mond-propagation.md) | OPEN | unassigned | 2026-05-19 |
 | [Two infra gaps still open — no conflict-marker hook, and no structural worktree-leak fix](open-items/2026-05-28-infra-hygiene-gaps.md) | OPEN | unassigned | 2026-05-28 |
 | [Means-test corpus extensions — the corpus grew, but in a different direction](open-items/2026-05-28-means-test-corpus-extensions.md) | OPEN | unassigned | 2026-05-28 |
@@ -121,9 +123,9 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 | PR | state | title |
 |---|---|---|
-| #999 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: theta route-1 — Brunnian  |
-| #998 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] kb: theta-fork carves (a)+(b) + dre |
-| #997 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] kb: translation-diagrammatics — the |
+| #1003 | CLEARED | [REVIEW: CLEARED] orchestration: track the four routed symbol-collision decision |
+| #1000 | CLEARED | [REVIEW: CLEARED] infra: figure-provenance ruling — closure (c), matplotlib pinn |
+| #997 | CLEARED | [REVIEW: CLEARED] kb: translation-diagrammatics — the Feynman-formalism register |
 
 <!-- /volatile -->
 
