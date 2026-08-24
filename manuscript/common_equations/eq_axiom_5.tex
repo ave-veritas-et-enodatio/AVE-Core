@@ -1,5 +1,8 @@
-% eq_axiom_5.tex — Axiom 5: Substrate DC Bias (deposit · grade · quiescence)
-% Single source of truth. \input this wherever Axiom 5 is formally restated.
+% eq_axiom_5.tex — The Substrate DC Bias SOURCE LAW (deposit · grade · quiescence)
+% [R55, 2026-08-24: restructured axiom → source law; ratified clause content unchanged.
+%  FILENAME RETAINED as a fossil — a rename would rot every inbound cite; the name
+%  records the object's 2026-08-10..2026-08-24 life as "Axiom 5".]
+% Single source of truth. \input this wherever the Substrate DC Bias source law is formally restated.
 %
 % FILENAME PROVENANCE. Created in this batch as `eq_axiom_bc_src.tex` and RENAMED to
 % `eq_axiom_5.tex` per R47 item 1, which names the file explicitly. No alias, no stub;
@@ -7,6 +10,11 @@
 % the working name of the source lane's candidate; the ratified name is R46's.
 %
 % RATIFICATION PROVENANCE (git carries the full trail):
+%   .../2026-08-24-ruling-r55-axiom5-source-law.md  ★ R55 — CONTAINER-GRADE RESTRUCTURE.
+%       "four axioms + a source law"; supersedes R44's count clause ONLY; clause
+%       content S/G/Q untouched; name retained per R46. Grant verbatim: "i think
+%       option C is the most honest and accurate correct?" / "draft the ratificatiom
+%       for c and lets start implementing".
 %   .../2026-08-10-ruling-r44-r43-reconciliation.md  ★ R44 — THE AUTHORITATIVE RECORD.
 %       "the full-scope record is FINAL"; Tier A + clauses S, G AND Q all ratified;
 %       "the axiom count is 5"; "LC-1's cell re-adjudication FIRES".
@@ -44,12 +52,16 @@
 %     "grade" as eps_11's name is swept to "bias". The subtitle's third-term wording
 %     is the ruling author's call, not the doc lane's.
 %
-% STATUS: the FIRST new axiom ratified since the founding set. It does NOT renumber
-% Axioms 1-4; "the four founding axioms" remains the correct name for that set.
-% Ratified-axiom count = 5 (R44).
+% STATUS (R55, 2026-08-24): SOURCE LAW. The framework statement is "the four axioms
+% + the source law"; "the four founding axioms" is again the COMPLETE axiom set.
+% Clause content stands exactly as ratified 2026-08-10. Pre-R55 status text,
+% preserved verbatim as the audit trail (R49(a)-style in-place correction):
+%   "STATUS: the FIRST new axiom ratified since the founding set. It does NOT renumber
+%    Axioms 1-4; 'the four founding axioms' remains the correct name for that set.
+%    Ratified-axiom count = 5 (R44)."
 %
-\begin{resultbox}{Axiom 5 — Substrate DC Bias (deposit $\cdot$ grade $\cdot$ quiescence)}
-The four founding axioms write a \emph{floating} network: they fix the substrate's topology (Ax 1), its charge dictionary (Ax 2), its lossless extremal dynamics (Ax 3), and its saturation kernel (Ax 4) --- but they never write the source coupling that pins the bound (A1 dilatation) sector's absolute state. Axiom 5 is that missing specification: the substrate's \textbf{DC operating point}. Three clauses, ratified together:
+\begin{resultbox}{The Substrate DC Bias — SOURCE LAW (deposit $\cdot$ grade $\cdot$ quiescence)}
+The four founding axioms write a \emph{floating} network: they fix the substrate's topology (Ax 1), its charge dictionary (Ax 2), its lossless extremal dynamics (Ax 3), and its saturation kernel (Ax 4) --- but they never write the source coupling that pins the bound (A1 dilatation) sector's absolute state. The \textbf{Substrate DC Bias source law} is that missing specification: the substrate's \textbf{DC operating point} (container restructured axiom $\to$ source law per R55, 2026-08-24; clause content as ratified 2026-08-10). Three clauses, ratified together:
 
 \medskip\noindent\textbf{S (deposit).} A matter defect deposits a nonzero net A1 dilatation flux:
 \begin{equation}
@@ -74,18 +86,18 @@ over any enclosing exterior surface, with $B(M)$ = the defect's A1 mass accounti
 \end{equation}
 away from defects. This is the \textbf{quiescent reference (Q-point) that makes the potentials defined and clause G's elliptic solve well-posed} --- without it the conserved data is unpinned far from sources and the potential problem has no boundary condition. Clause Q is a statement about the substrate's \emph{state}; it is not a claim that small-signal linearisation is valid, which is a separate, separately-declared regime condition.
 
-\medskip\noindent\textbf{The internal falsifier ships with the axiom.} Clauses S and G jointly force the consistency relation
+\medskip\noindent\textbf{The internal falsifier ships with the source law.} Clauses S and G jointly force the consistency relation
 \begin{equation}
     B = \frac{7\,\mathcal{A}_g\,G M}{c^2}
     \label{eq:axiom5_falsifier}
 \end{equation}
-(from $\mathbf{u}_0 = -\mathcal{A}_g\nabla\varepsilon_{11}$ and the canon bias profile $\varepsilon_{11} = 7GM/c^2 r$). \textbf{One $\mathcal{A}_g$ across every consumer}: measuring $\mathcal{A}_g$ from independent consumers over-determines it, and the over-determination is the axiom's own test port --- built in, not appended.
+(from $\mathbf{u}_0 = -\mathcal{A}_g\nabla\varepsilon_{11}$ and the canon bias profile $\varepsilon_{11} = 7GM/c^2 r$). \textbf{One $\mathcal{A}_g$ across every consumer}: measuring $\mathcal{A}_g$ from independent consumers over-determines it, and the over-determination is the law's own test port --- built in, not appended.
 
 \medskip\noindent\textbf{$\mathcal{A}_g$ is RATIFIED, COHERENT, and UNVALUED (R48).} The derive-first lane has reported: the frozen hypothesis $\mathcal{A}_g = c\,\ell_{node}^2$ is \textbf{NOT SUPPORTED} --- no receipted consumer values $\mathcal{A}_g$ at $\ell_{node}^2$ scale, and the only valued route sits $\sim$57 orders away. So $\mathcal{A}_g$ enters the interlock register under the new edge class \textbf{UNVALUED-RATIFIED-CONSTANT}: ratified, coherent across consumers ($f = 7$ under the declared $4\pi$ convention), and \emph{unvalued}. \textbf{The calibration count stays 3}, and moves only when a \emph{sound} consumer produces a value. $\mathcal{A}_g$ is \textbf{not a falloff}: the $1/r$ bias profile and the $1/r^2$ bound response are free geometry from the elliptic solve. $\mathcal{A}_g$ is the \textbf{scale converter} --- metres of displacement per unit bias slope.
 
-\medskip\noindent\textbf{Phase structure (R45 --- the axiom carries its phases inside).} \emph{(a) Crystalline phase (cold, sub-yield, lossless-reactive):} clauses \textbf{Q} and \textbf{G} are the law here, as written above. Clause \textbf{S} is genesis-deposited boundary \emph{data} on this phase --- present, conserved, mechanism-agnostic. \emph{(b) At the saturation boundary:} $D(A)$ carries clause G's response into the graded regime; the $D(A)\to\infty$ wall behaviour is past-wall-adjacent and \textbf{not written here}. \emph{(c) NAMED-OPEN holes (first-class, not omissions):} \textbf{(c1) THE BIAS PROPAGATION THEOREM --- this axiom's STANDING DEBT.} Clause G's elliptic law is the \emph{static abstraction of underived finite-speed bias dynamics}: an elliptic solve is instantaneous by construction, and the axiom does not write what replaces it when the source moves. \textbf{The $(u,\pi)$ no-signalling theorem does NOT cover the bias read} --- it is proven on the $(u,\pi)$ sector, and the bias $\varepsilon_{11}$ is a declared distinct object. Until that theorem lands, the finite propagation speed of the bias is \emph{owed, not held}. \textbf{(c2)} the \textbf{genesis-phase} law that writes clause S's flux (the deposit is data, not a derivation). \textbf{(c3)} the \textbf{de-bonded} phase form of all three clauses, and \textbf{(c4)} the \textbf{pre-freeze} phase --- both unwritten. Comprehensiveness is the FRAME: this axiom is a law of the material across its phases, and the phases whose law is not yet written are named rather than silently assumed.
+\medskip\noindent\textbf{Phase structure (R45 --- the source law carries its phases inside).} \emph{(a) Crystalline phase (cold, sub-yield, lossless-reactive):} clauses \textbf{Q} and \textbf{G} are the law here, as written above. Clause \textbf{S} is genesis-deposited boundary \emph{data} on this phase --- present, conserved, mechanism-agnostic. \emph{(b) At the saturation boundary:} $D(A)$ carries clause G's response into the graded regime; the $D(A)\to\infty$ wall behaviour is past-wall-adjacent and \textbf{not written here}. \emph{(c) NAMED-OPEN holes (first-class, not omissions):} \textbf{(c1) THE BIAS PROPAGATION THEOREM --- this law's STANDING DEBT.} Clause G's elliptic law is the \emph{static abstraction of underived finite-speed bias dynamics}: an elliptic solve is instantaneous by construction, and the law does not write what replaces it when the source moves. \textbf{The $(u,\pi)$ no-signalling theorem does NOT cover the bias read} --- it is proven on the $(u,\pi)$ sector, and the bias $\varepsilon_{11}$ is a declared distinct object. Until that theorem lands, the finite propagation speed of the bias is \emph{owed, not held}. \textbf{(c2)} the \textbf{genesis-phase} law that writes clause S's flux (the deposit is data, not a derivation). \textbf{(c3)} the \textbf{de-bonded} phase form of all three clauses, and \textbf{(c4)} the \textbf{pre-freeze} phase --- both unwritten. Comprehensiveness is the FRAME: the Substrate DC Bias is a law of the material across its phases, and the phases whose law is not yet written are named rather than silently assumed.
 
-\medskip\noindent\textbf{What Axiom 5 forbids.} A sourceless bound response (no net A1 flux without matter); any new longitudinal stiffness or wave (it adds no kinetic or potential term on the flat direction, so the pole-absence results survive it untouched); any EM/winding-sector deposit (the four locks are untouched --- the A1 sector's transportability, not a new source, is what breaks the A1/EM symmetry).
+\medskip\noindent\textbf{What the source law forbids.} A sourceless bound response (no net A1 flux without matter); any new longitudinal stiffness or wave (it adds no kinetic or potential term on the flat direction, so the pole-absence results survive it untouched); any EM/winding-sector deposit (the four locks are untouched --- the A1 sector's transportability, not a new source, is what breaks the A1/EM symmetry).
 \end{resultbox}
 %
 % ── R49(a) DATED FRAGMENT — the clause-G source convention (TYPO-CLASS) ───────
@@ -112,8 +124,9 @@ away from defects. This is the \textbf{quiescent reference (Q-point) that makes 
 % or edit-plus-fragment as done here is the ruling author's to say. Flagged, not
 % presented as settled -- same treatment as the R46/R50 subtitle conflict above.
 %
-% DERIVATION-GRADE NOTE. Axiom 5 is POSTULATED — a new axiomatic primitive, not a
-% theorem of Axioms 1–4. The source lane bins all four of its deliverables
+% DERIVATION-GRADE NOTE. The Substrate DC Bias source law is POSTULATED — not a
+% theorem of Axioms 1–4 (pre-R55 wording: "a new axiomatic primitive"; R55 re-grades
+% the container, not the derivation status). The source lane bins all four of its deliverables
 % `DERIVED-VIA-NEW-AXIOM(BC-SRC)`: the conservation, kinematic-freeze, and uniqueness
 % legs are DERIVED from the receipted dynamics; clauses S, G and Q are the axiom's own
 % content and are NOT derived — S has no energy->flux map, G's kappa has no axiom
@@ -166,3 +179,20 @@ away from defects. This is the \textbf{quiescent reference (Q-point) that makes 
 % theory carries. The AVE-distinct content is not inside the axiom; it is the FORWARD
 % test port — ONE A_g across independent consumers. That over-determination is what
 % could fail, and it is where any chord would live.
+% [R55, 2026-08-24: the "boundary conditions" interpretive alternative stated above is
+%  now the OFFICIAL container grade — restructured axiom -> source law. The
+%  discrimination verdict itself is unchanged: content PEER with the incumbents; the
+%  chord, if any, lives in the A_g test port.]
+%
+% ── ⚑ UNAVOIDABLE SIDE-EFFECT, DISCLOSED (R55 landing) ────────────────────────
+% The R55 header/status additions shift inbound :NN cites by +12 in the cited
+% region. Re-resolution map (old -> new, verified against this file's content):
+%   :56 -> :68   clause-S deposit equation (oint_S u·n = 4 pi B(M))
+%   :64 -> :76   clause-G elliptic bias law (= 4 pi T_00)
+%   :84 -> :96   A_g UNVALUED-RATIFIED-CONSTANT / "The calibration count stays 3"
+%   :88 -> :100  forbids-block ("adds no kinetic or potential term on the flat direction")
+% Citing records (frozen class; per Rule 12 NOT rewritten — resolve via this map):
+%   _orchestration/2026-08-12_k-identity-adjudication-brief.md:68        (cites :88)
+%   research/2026-08-10_ag-derivation_result.md:131,:137                 (cites :64, :84)
+%   research/2026-08-12_boundary-response_result.md:105                  (cites :88)
+%   research/2026-08-12_layer-carve_walk-record.md:146                   (cites :56)

@@ -2,13 +2,13 @@
 
 <!-- kb-frontmatter
 kind: leaf
-no-claim: "Canonical AXIOM register — a status / provenance / residual-content VIEW over the FIVE existing `axiom-N` framework nodes (node_type: \"axiom\", ids axiom-1..axiom-5; axiom-5 = Substrate DC Bias, ratified 2026-08-10 per R44, materialized once the INVARIANT-S2 bullet parser was widened [1-4]->[1-5]), which are ALREADY materialized into claims.jsonl by refresh-kb-metadata from the `- Axiom N: **…**` bullets in CLAUDE.md INVARIANT-S2 (the KB's axiom-numbering authority). This leaf originates NO new node-body via frontmatter and mints NO new axiom id: axioms are terminal UNSCORED framework nodes (SCHEMA.md 'Framework record' — 5 fields, no confidence/solidity/quality, emit no edges), so a register that re-declared them would be a parallel scheme, forbidden by INVARIANT-S11 (extend, don't reinvent). It is the axiom analog of the interlock-register's per-CONSTANT Calibration-Constant Criteria Register: a bolded-field VIEW that POINTS AT the existing framework nodes (via the `axiom-N` id) and, where an axiom's content is partly derived, at the theorem `clm-`/result that carries the proof — NOT a source of new claims. Hence no-claim."
+no-claim: "Canonical AXIOM register — a status / provenance / residual-content VIEW over the FOUR existing `axiom-N` framework nodes (node_type: \"axiom\", ids axiom-1..axiom-4; the former axiom-5 = Substrate DC Bias was restructured axiom->source law per R55 2026-08-24, its node RETIRED, and its register entry at the end of this file is now the SOURCE-LAW entry), which are ALREADY materialized into claims.jsonl by refresh-kb-metadata from the `- Axiom N: **…**` bullets in CLAUDE.md INVARIANT-S2 (the KB's axiom-numbering authority). This leaf originates NO new node-body via frontmatter and mints NO new axiom id: axioms are terminal UNSCORED framework nodes (SCHEMA.md 'Framework record' — 5 fields, no confidence/solidity/quality, emit no edges), so a register that re-declared them would be a parallel scheme, forbidden by INVARIANT-S11 (extend, don't reinvent). It is the axiom analog of the interlock-register's per-CONSTANT Calibration-Constant Criteria Register: a bolded-field VIEW that POINTS AT the existing framework nodes (via the `axiom-N` id) and, where an axiom's content is partly derived, at the theorem `clm-`/result that carries the proof — NOT a source of new claims. Hence no-claim."
 path-stable: "the canonical axiom-register leaf; makes the AVE axioms' status / provenance / residual-content first-class as a view over the axiom-N framework nodes"
 -->
 
 <!-- axiom-meta
-axiom-nodes: axiom-1 axiom-2 axiom-3 axiom-4 axiom-5
-expected-independent-axiom-count: 5
+axiom-nodes: axiom-1 axiom-2 axiom-3 axiom-4
+expected-independent-axiom-count: 4
 -->
 
 # Axiom Register — the Four AVE Axioms (status / provenance / residual-content view)
@@ -210,7 +210,7 @@ DERIVED-TO-THEOREM. Axiom 4's SHAPE-DERIVED status is a content reduction, not a
 count reduction — the residual L2-norm primitive is the relocated axiomatic
 content. The count drops `4 → 3` only if an axiom's *whole* content becomes a
 theorem of the others + a bare pre-existing identification (DERIVED-TO-THEOREM),
-which the Axiom-4 full-reduction epic would test but has not established. **⚑ R43/R44 (2026-08-10) — this roll-up is INCOMPLETE and is NOT silently rewritten (line-shift discipline: the rows above carry inbound `:NN` cites).** A FIFTH axiom, **BC-SRC**, was ratified on 2026-08-10 — *"This is the first new axiom ratified since the founding set"* — and its full register entry, its summary-table delta, and the enumerated machine-side blocker on its `axiom-N` framework node are appended at the END of this file under **"Axiom 5 — BC-SRC"**. Read that section together with this line. **UPDATE (same day): the gap is CLOSED** — the `axiom-5` framework node now EXISTS (the `[1-4]`->`[1-5]` parser widening landed under R47 item 1), so the framework-node count and the ratified-axiom count now AGREE at **five**, and `expected-independent-axiom-count` in the `axiom-meta` block above reads 5.
+which the Axiom-4 full-reduction epic would test but has not established. **⚑ R43/R44 (2026-08-10) — this roll-up is INCOMPLETE and is NOT silently rewritten (line-shift discipline: the rows above carry inbound `:NN` cites).** A FIFTH axiom, **BC-SRC**, was ratified on 2026-08-10 — *"This is the first new axiom ratified since the founding set"* — and its full register entry, its summary-table delta, and the enumerated machine-side blocker on its `axiom-N` framework node are appended at the END of this file under **"Axiom 5 — BC-SRC"**. Read that section together with this line. **UPDATE (same day): the gap is CLOSED** — the `axiom-5` framework node now EXISTS (the `[1-4]`->`[1-5]` parser widening landed under R47 item 1), so the framework-node count and the ratified-axiom count now AGREE at **five**, and `expected-independent-axiom-count` in the `axiom-meta` block above reads 5. **UPDATE (R55, 2026-08-24): SUPERSEDED** — the Substrate DC Bias was restructured **axiom → SOURCE LAW** (`2026-08-24-ruling-r55-axiom5-source-law.md`); the `axiom-5` node is RETIRED (zero inbound depends edges at retirement), the count returns to **four**, and the end-of-file entry is now the SOURCE-LAW entry. The four-axiom roll-up above is again complete as written.
 
 ## Per-axiom DERIVED-LEGS (dictionary-vs-dynamics decomposition)
 
@@ -303,7 +303,7 @@ silently committed — this is canonical infrastructure):
 
 ---
 
-## Axiom 5 — Substrate DC Bias (deposit · grade · quiescence)
+## The Substrate DC Bias SOURCE LAW (deposit · grade · quiescence) — formerly Axiom 5
 
 > **★ THE FIRST NEW AXIOM RATIFIED SINCE THE FOUNDING SET.** Ratified
 > 2026-08-10 under R43. Source of record:
@@ -318,12 +318,23 @@ silently committed — this is canonical infrastructure):
 > dense inbound `:NN` cite surface (max inbound `:232` at authoring) and an
 > in-place insertion would silently shift every one of them.
 
-- **axiom-node:** ***NOT YET MINTED*** — BC-SRC has **no** `axiom-5` framework
-  node in `.index/claims.jsonl`, so this section is a register entry WITHOUT the
-  node it would view. This is a **disclosed gap, not an oversight**; the blocker
-  is enumerated under *Machine-side status* below and is routed to the
-  orchestrator. Every other field here is authored as a normal register entry so
-  the entry is complete the moment the node lands.
+> **★ R55 (2026-08-24): RESTRUCTURED — AXIOM → SOURCE LAW.** Ruling:
+> [`2026-08-24-ruling-r55-axiom5-source-law.md`](../../../_orchestration/docket-entries/2026-08-24-ruling-r55-axiom5-source-law.md)
+> — *"four axioms + a source law."* The container is re-graded; every ratified
+> clause (S data / G law / Q reference), value, named-open, and the falsifier
+> stand untouched. The `axiom-5` framework node is RETIRED (zero inbound
+> `depends` edges at retirement — measured receipt in the ruling). The banner
+> above is HISTORICAL — true of its date, superseded in grade. The pre-R55
+> wording below is preserved; read "axiom" in this section's historical text as
+> the source law.
+
+- **axiom-node:** **RETIRED per R55 (2026-08-24).** Arc, kept whole: NOT YET
+  MINTED at authoring (the disclosed gap, routed) → minted same-day under R47
+  item 1 (the `[1-4]`->`[1-5]` parser widening) → **retired at the R55
+  restructure** (parser reverted to `[1-4]`; zero inbound `depends` edges at
+  retirement, so nothing dangled). The source law deliberately carries NO
+  framework node until a consumer needs one — a machine node with zero
+  consumers is machinery without a load (INVARIANT-S11 extension deferred).
 - **canonical-statement:** The four founding axioms write a *floating* network —
   topology (Ax 1), charge dictionary (Ax 2), lossless extremal dynamics (Ax 3),
   saturation kernel (Ax 4) — but never write the source coupling that pins the
@@ -388,7 +399,8 @@ silently committed — this is canonical infrastructure):
   ([`def-q1escn`](vocabulary-register.md)) **promotes to ratified under this
   naming**.
 - **status:** **POSTULATED.** BC-SRC is a new axiomatic primitive, not a theorem
-  of Axioms 1–4. **Minimality is established by ablation, not asserted:** without
+  of Axioms 1–4. *(R55, 2026-08-24: read "axiomatic primitive" as "postulated
+  source-law primitive" — container re-graded, derivation status unchanged.)* **Minimality is established by ablation, not asserted:** without
   **S** the derived conservation legs leave the bound-response value unpinned; without
   **G** there is no receipted home for the finite static stiffness, no
   bias-reading causality, no energy functional, and no derived connection to the
@@ -416,7 +428,9 @@ silently committed — this is canonical infrastructure):
 - **count-effect:** counts as **1 independent axiom**. The **ratified-axiom count
   is 5**; the **framework-node count remains 4** until the node lands (below).
   Both numbers are stated because they currently differ — neither is quietly
-  adjusted to match the other.
+  adjusted to match the other. *(R55, 2026-08-24: SUPERSEDED — counts as the ONE
+  source law, zero axioms; both counts read 4 and AGREE; see the LIVE count line
+  below.)*
 - **internal falsifier (ships with the axiom):** clauses S + G jointly force
   `B = 7·𝒜_g·GM/c²`. **One 𝒜_g across every consumer** — measuring 𝒜_g from two
   independent consumers over-determines it, and the over-determination is the
@@ -425,6 +439,10 @@ silently committed — this is canonical infrastructure):
   the ratification's first follow-on derivation.
 
 ### Machine-side status — the `axiom-5` framework node is MINTED (blocker discharged 2026-08-10)
+
+> **R55 (2026-08-24): the node is now RETIRED** — see the **axiom-node** bullet at
+> the top of this section for the full arc. This subsection below is the frozen
+> 2026-08-10 minting record; its "MINTED" header names its own date's state.
 
 > **⚑ SUPERSEDES the "BLOCKED (enumerated, routed)" section that stood here.** That
 > section correctly enumerated two blockers and routed them rather than forcing them.
@@ -489,13 +507,22 @@ silently committed — this is canonical infrastructure):
 > | `claims.jsonl:252` | `clm-refjr6` | `:253` | `research/2026-06-24_engine-reroute-epic-summary.md`:93 + two docket entries |
 > | `claims.jsonl:357` | `def-b0nd01` | `:358` | `research/2026-08-06_iomega-law_result.md`:686 |
 >
+> **R55 STALENESS NOTE (2026-08-24): five of the six "Now at" values above are
+> stale** — retiring the `axiom-5` record re-shifts `claims.jsonl` back by −1,
+> so those five rows resolve at their ORIGINAL "Cite" values again. The
+> `def-b0nd01` row is the exception: its "Now at" `:358` had already drifted
+> pre-R55 (measured pre-R55 position `:359`), and the retirement shift lands it
+> back on `:358` — the one stale column value that still resolves, by
+> cancellation, not correctness. Measured at the R55 tip: `clm-2e9j97` at `:17`; `clm-f5ucdo` at `:122`; `clm-mroghg` at `:203`; `clm-q8un7j` at `:239`; `clm-refjr6` at `:252`; `def-b0nd01` at `:358`.
+> Resolve by the durable node id, never by either line column.
+>
 > **Root cause, stated so it is not re-learned:** a `:NN` cite into a generated,
 > stable-sorted index is inherently volatile — ANY new `clm-`/`def-`/`sup-`/axiom
 > node moves it. The durable citation form is the **node id** (`clm-q8un7j`), which
 > is greppable and shift-proof by construction. Not repaired here (frozen prereg;
 > and the practice, not this landing, is the defect); routed.
 
-**Consequently `expected-independent-axiom-count` is now 5 and the two counts AGREE.**
+**Consequently `expected-independent-axiom-count` is now 5 and the two counts AGREE.** *(R55, 2026-08-24: superseded — restructured to source law; the node is retired and the count is back to 4. This paragraph is the frozen 2026-08-10 arc record.)*
 
 > **⚑ THE ARC IN MINIATURE.** The axiom was ratified, registered, indexed and gated —
 > and still did not exist in the book anyone would read, because no document `\input`
@@ -538,11 +565,12 @@ phase, mechanism-agnostic — the mechanism is a named-open entry of the genesis
 
 | Axiom | node | status | residual_content | count-effect |
 |---|---|---|---|---|
-| **5** Substrate DC Bias (deposit · grade · quiescence) | `axiom-5` ✅ **minted** | POSTULATED *(bin: RATIFIED-ADDITION)* | whole axiom (clauses S + G + Q; one coupling constant 𝒜_g — DERIVE-FIRST, in no register) | counts (1) |
+| **SL** Substrate DC Bias source law (deposit · grade · quiescence) | `axiom-5` **RETIRED (R55, 2026-08-24)** | POSTULATED *(bin: SOURCE-LAW per R55; was RATIFIED-ADDITION)* | whole source law (clauses S + G + Q; one coupling constant 𝒜_g — DERIVE-FIRST, in no register) | counts (0 axioms; 1 source law) |
 
-**LIVE independent-axiom count = 5** — ratified-axiom count and framework-node count
-now AGREE (`expected-independent-axiom-count: 5` in the `axiom-meta` block). Zero
-axioms at DERIVED-TO-THEOREM; one at RATIFIED-ADDITION.
+**LIVE independent-axiom count = 4 + ONE SOURCE LAW (R55, 2026-08-24)** —
+ratified-axiom count and framework-node count AGREE again at four
+(`expected-independent-axiom-count: 4` in the `axiom-meta` block). Zero axioms at
+DERIVED-TO-THEOREM; the Substrate DC Bias carries bin SOURCE-LAW.
 
 ### 𝒜_g and the independent-PARAMETER count — RULED, not left to a blind gate
 
