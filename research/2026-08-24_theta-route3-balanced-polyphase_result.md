@@ -30,36 +30,63 @@
 ### §1.0 — THE FROZEN QUESTION, VERBATIM (quoted before any verdict is delivered against it)
 
 Source `[kb-branch]`, `_orchestration/open-items/2026-08-23-theta-dressing-open-questions.md`
-lines 79-82, route 3, quoted in full and unedited:
+lines 79-82, route 3, quoted in full, with every delta from the source text declared beneath it:
 
 > *"**Balanced-3-phase reading.** θ ∈ {0, ±2π/3} as the balanced polyphase angles of a
 > rotating internal field **on a 3-port junction** (a balanced 3-phase set IS a rotating field
 > = the J-dressing). Would collapse "why thirds" + "what the dressing is" **into the port
 > count**, and would discharge the Witten formula-import."*
 
-(Bold added here only to mark the two clauses — *"on a 3-port junction"* and *"into the port
-count"* — that this lane's prereg and the earlier drafts of this result both dropped.)
+(**Two declared deltas from the source text, and no others** — line-wrapping and the block-quote
+`>` prefixes aside. (i) Bold added here only to mark the two clauses — *"on a 3-port junction"* and *"into the port count"* — that this lane's prereg and the
+earlier drafts of this result both dropped. (ii) The source's leading list marker `3. ` is dropped,
+the passage being presented as a block quote rather than as item 3 of the open item's numbered list.
+Nothing else is added, removed, or reordered.)
 
 ### §1.0.1 — WHAT THIS PASS ACTUALLY ADJUDICATED (scope correction, read this before §1.1)
 
-**The verdict below is delivered against a RELOCATED question, not against the frozen one.** The
-frozen text puts the phases **on a 3-port junction** and collapses the thirds **into the port
-count** — i.e. it is explicitly a *spatial, port-counting* question. This lane's prereg §0.1 then
+**The verdict below is delivered against a RELOCATED question — but two of its three legs (D1 and
+the B5 co-verdict) are channel-independent and reach the frozen question as well; only D2 is
+confined to the relocated reading.** The frozen text puts the phases **on a 3-port junction** and
+collapses the thirds **into the port count** — i.e. it is explicitly a *spatial, port-counting*
+question. This lane's prereg §0.1 then
 installed an absolute fence forbidding any tie between θ_i and the node's spatial bond directions,
 and §0's CHANNEL row relocated the phases to the **Hopf fibre / common-phase U(1)** on the strength
 of an input the open item itself tags **WALK-grade and un-audited** (*"the thirds live in the
 coordinate the chart deletes — the common-phase U(1)"*; cf. §7 item 3, where this lane records that
 it *used* that input without auditing it).
 
-Consequence, stated plainly:
+Consequence, stated plainly. Note the direction: this scope correction credits the pass with
+**more** reach than the earlier wording of this section claimed, not less. That wording — the frozen
+question is *"UNTESTED BY THIS PASS … not answered, and not shown ill-posed"* — is **withdrawn**,
+because it understates what this pass's own arguments deliver *and* because it contradicted the B6
+primary bin this doc retains.
 
-- **The B6 "ill-posed as frozen" verdict impeaches the RELOCATED (fibre-coordinate) question.**
-  D1 and D2 below are both defects of the fibre reading: D1 is the share-vs-angle type error as it
-  appears once θ is read on the fibre, and D2's "no rotating field to decompose" is true *because
-  the fence removed the spatially displaced windings that the frozen text supplied via its 3-port
-  junction*.
-- **The frozen (spatial, 3-port) question's status is therefore: UNTESTED BY THIS PASS.** It was
-  not answered, and it was not shown ill-posed. It was fenced out before the pass began.
+- **Which legs are channel-independent, and which is not.** **D1** (below) carries **no fibre
+  referent at all**: `θ_i/2π = 𝒥_i/𝒥_total` is a *magnitude share*, canon's ratified result makes
+  that share 1/N for every constituent by symmetry, so identical constituents carry *identical* θ_i
+  while a balanced polyphase set needs *distinct* θ_i. That is a **share-vs-angle type error**, and
+  it bites identically whether the phases sit on the Hopf fibre or on a spatial 3-port star. The
+  **B5 co-verdict** is channel-independent for the same kind of reason: it is compact-θ arithmetic
+  over canon's own five-element θ list, and that list is the same list on either channel. **D2 is
+  the one fence-dependent leg** — its own text says so (*"that spatial half is exactly what the §0
+  fence forbids importing"*): "no rotating field to decompose" is true *because the fence removed
+  the spatially displaced windings that the frozen text supplied via its 3-port junction*. D2
+  impeaches the relocated (fibre) reading only.
+- **The frozen (spatial, 3-port) question is therefore NOT untested — it is impeached by the
+  channel-independent legs.** D1's share-vs-angle type error and B5's compact-θ arithmetic apply
+  verbatim to a 3-port star, so the frozen question does not escape them by living in real space.
+  **No claim wider than those two legs is made here.**
+- **What genuinely remains untested by this pass is D2's spatial half** — whether N spatially
+  displaced windings on the z=3 node would make the balanced set a rotating field — and with it the
+  frozen text's affirmative *"thirds emerge from the port count"* mechanism. The §0.1 fence forbade
+  importing exactly that, so this lane could not test it either way.
+- **Reconciliation with the retained primary bin, in one sentence, so this doc no longer asserts
+  both:** B6 — *"QUESTION-ILL-POSED-AS-FROZEN | The frozen question's own premise is internally
+  inconsistent"* — **is satisfied on the frozen question too**, because the premise-vs-target
+  contradiction the bin is about is D1, and D1 is channel-independent; §1.1's scoping of B6 to the
+  relocated reading is the *conservative* statement of a verdict whose D1 leg reaches the frozen
+  text as written.
 - The fence itself is not challenged here — route 1's adversarial verdict installed it for cause
   (*"the internal-phase-vs-spatial-star tie is route 3's unproven content, imported silently"*).
   The honest reading is that route 1's corpse and route 3's frozen text are **in tension**: route 3
@@ -100,11 +127,12 @@ Canon's examplebox derivation (T3) obtains ±1/3 and ±2/3 at n_twist = 0 only b
 **And the answer to the chord question the route was aimed at — do the thirds stop being imported?
 NO, on the fibre.** Every criterion that can actually be *stated* on the fibre is N-generic (§4);
 the one criterion that *is* N-selective (§5) rests on three premises none of which the corpus
-supplies. **This is not an answer for the frozen 3-port reading, which was fenced out (§1.0.1).**
+supplies. **This is not an answer for the frozen 3-port reading, whose port-count mechanism was
+fenced out (§1.0.1) — that reading is impeached there by D1 and B5, not answered here.**
 
 | Route-3 goal (from the open item `[kb-branch]`) | Verdict (on the RELOCATED fibre question only — §1.0.1) |
 |---|---|
-| verbatim, no elision: *collapse "why thirds" + "what the dressing is" into the port count* | **NOT ACHIEVED — but note the goal's own mechanism was fenced out.** The thirds stay imported on the fibre. The *"into the port count"* half was never tested at all: the port count is a spatial-star quantity that §0.1 forbids this lane from touching. Earlier drafts of this row silently dropped that clause. |
+| verbatim within the quoted clause (the source sentence's leading *"Would"* is dropped and its second half is the next row; nothing is elided inside the quote): *collapse "why thirds" + "what the dressing is" into the port count* | **NOT ACHIEVED — but note the goal's own mechanism was fenced out.** The thirds stay imported on the fibre. The *"into the port count"* half was never tested at all: the port count is a spatial-star quantity that §0.1 forbids this lane from touching. Earlier drafts of this row silently dropped that clause. |
 | *"would discharge the Witten formula-import"* | **NOT DISCHARGED — and the import diagnosis SHARPENS** (§6): compactifying θ pushes the corpus's usage *back toward* Witten's actual structure (one common θ, integer n varying per object), which is more import, not less. |
 | **This lane's own pairwise-cos(Δθ)=0 specialization** of Grant's banked mode-orthogonality reading (input 3), applied to N identical constituents differing only by fibre phase | **ANTI-SELECTS 3** (§3.3; §4's C-ORTH row): pairwise time-average orthogonality of co-located identical modes differing only by fibre phase is achievable at **N = 2 only**. **SCOPE — this is NOT a verdict on Grant's banked reading.** Grant's reading is about a *threaded electron sitting in a cage's null*, i.e. two distinct objects in a host geometry; the specialization to *N identical constituents differing only by fibre phase*, and the reduction of "orthogonality" to pairwise cos(Δθ)=0, are **this lane's constructions**, not his. The banked reading is untouched by this row. |
 
