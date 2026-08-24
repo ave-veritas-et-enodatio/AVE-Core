@@ -475,3 +475,60 @@ PYTHONPATH="$PWD/src" .venv/bin/python research/drivers/theta_route1_srs_scale_l
 
 Read-only. Touches no engine state, writes no files, prints JSON. All §2.2 and §4.1 numbers come
 from that single invocation.
+
+---
+
+## ★ CHECKER-AUDIT INTAKE (2026-08-23, post-publication; body above preserved unedited)
+
+The checker-tier audit re-ran the driver and reproduced every computed claim by independent
+second methods (all-roots BFS girth; all-1536-bond census; exact-zero coplanarity at 512/512
+nodes both hands). Its findings land here as an append-only block:
+
+1. **§4.2 D1 — the unstated premise, now stated.** The port arithmetic assumes two distinct
+   structures cannot share a bond. That premise is FORCED, not assumed: link components are
+   pairwise-disjoint embedded curves, so sharing a bond would be an intersection and the
+   object would not be a link. The conclusion holds a fortiori. Baryon-side closed-loop
+   support (cleaner than the lepton-leaf cite used in the body):
+   `proton-identification.md:22` — "three mutually entangled electromagnetic flux loops in
+   the substrate" — and `vol_2_subatomic/chapters/02_baryon_sector.tex:31` — "three LC
+   standing waves interlinked".
+
+2. **FLAG-5 — convention dependence (audit Finding 3; external mathematics, tagged; the
+   in-body FLAG-5 must be read WITH this).** Standard ropelength is L/τ with τ = tube
+   RADIUS; the round unknot's minimum 2π is attained at R = τ. Under that convention the
+   `:13` numbers ARE the ropelength-2π unknot (horn torus), while the `:59` construction
+   yields L/r = 4π — contradicting its own 2π headline — because its parenthetical measures
+   against tube DIAMETER. Consequence: **whether ANY arm has an open hole is
+   convention-dependent; under the standard convention both arms are horn tori and canon's
+   threading/linking claims are geometrically inexpressible on both.** The in-body sentence
+   "the `:59` arm is the one under which canon's own linking claims are expressible" is
+   therefore conditional on the non-standard convention. No arm is picked here — the
+   question rides the Grant-routed tube-geometry fork (`common-mode-twist-ledger.md:85`,
+   fence 8).
+
+3. **§4.3 D2(i) — quote precision + a stronger replacement argument.** The body's quote of
+   `axiom-register.md:145` elides without ellipses; byte-verbatim it reads: "six intrinsic
+   DOF per node (3 translational → $\varepsilon_0$/E, 3 microrotational → $\mu_0$/B; …".
+   And the body's label "orthogonal Cartesian triad" is a gloss; the audit substantiates the
+   point more strongly from the measured geometry: **the three bond directions sum exactly
+   to zero, hence span a rank-2 plane, hence cannot serve as a basis for 3 translational
+   DOF at all** — the bond star and the DOF triad are different objects by rank, not by
+   orthogonality convention.
+
+4. **§5 criterion-4 precision.** The four torus-geometry driver keys (`reading13_*`,
+   `reading59_*`) were added in the result commit, post-freeze, for FLAG-5. Not a bin, no
+   §4.4 criterion changed; noted so "Driver banked" is not read as fully-frozen-with-prereg.
+
+5. **§3.3 coverage caveat.** The "6 baryon-sector leaves read in full" set is lane-reported
+   and not enumerated; `ch02-baryon-sector/` holds 8 non-index leaves. Treat the read-set
+   claim accordingly.
+
+6. **§2.2/§2.3 re-attribution (timeline corrected by the orchestrator, owned).** The
+   sentence §2.3 quotes was the FROZEN open-item text as it stood at dispatch time (branch
+   `2270f238`); a blind-audit repair (`c42f3299`) then corrected that same frozen text
+   MID-FLIGHT — SUB-CELL→SUB-NODE, ~1/1836→D_p=0.841 fm≈ℓ_node/460 with the category-error
+   note, and the Q3 fork named — while this lane ran. The lane's §2.1/§2.2 re-derivations
+   CONVERGED with that repair independently. So: not a dispatch paraphrase (the dispatch
+   quoted the then-frozen text verbatim and labeled the number a gloss to verify), and not
+   lane novelty-inflation (the corrected route text did not exist in the lane's inputs) — a
+   frozen-input-changed-under-a-running-lane process datum, banked orchestrator-side.

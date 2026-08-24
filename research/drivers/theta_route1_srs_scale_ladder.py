@@ -4,7 +4,9 @@ Class: CHARACTERIZATION driver for the research doc pair
   research/2026-08-23_theta-route1-embedding-obstruction_{prereg,result}.md
 
 It computes, from the CERTIFIED constructor and the CANONICAL constants module
-(no hard-coded lengths, no CODATA re-entry):
+(no hard-coded lengths; CODATA-free at RATIO level per the prereg S5 scoping -- the
+verdict-bearing ratios cancel hbar, m_e, c and rest only on the AVE-derived
+PROTON_ELECTRON_RATIO; the absolute fm labels ARE CODATA-built via L_NODE):
 
   (A) the ratified z=3 srs carrier's local port geometry — degree, bond-angle
       set, coplanarity of the three bonds at a node, and the net's girth
