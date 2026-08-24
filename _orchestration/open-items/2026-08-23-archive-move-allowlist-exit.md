@@ -2,7 +2,7 @@
 id: archive-move-allowlist-exit
 title: Archiving a script is a silent exit from the import-smoke known-broken allowlists, and the liveness guard mis-describes it
 status: OPEN
-owner: claude
+owner: lane
 opened: 2026-08-23
 source: src/tests/test_scripts_import_smoke.py
 anchor: "Allowlisted script-tree import(s) no longer generate a violation"
