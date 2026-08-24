@@ -20,6 +20,17 @@
 >
 > **Blocked on:** T2 ratification (Grant), the epic's stated Phase-0 GATE. Also carries three named
 > open items — FL-1, FL-3 and Q1 — listed in §9.
+>
+> **★ GATE ASK (checker-audit SCX-10), added so a reading is ratified rather than inherited:** the
+> epic's Phase-0 deliverable is worded *"the frozen Phase-1 prereg skeleton"*, and this lane has
+> read that as **structure-frozen / values-unfrozen** — the STRUCTURE (bins, axes, mandatory
+> controls, deliverable list) is fixed by this document, while every tolerance and edge stays
+> `⟨FROZEN-AT-PHASE-1-GO⟩` and the freeze event is the rename + solo commit + push at GO. That
+> reading is what makes this file revisable today and it is **an interpretation this lane made, not
+> one the epic states**. **The Phase-0 GATE is asked to ratify or correct it explicitly.** If the
+> epic instead meant *fully frozen at Phase 0*, then this document is already past its freeze
+> point, the paragraph above is wrong, and every subsequent edit to it is a Rule-11 violation —
+> which is why the ambiguity is surfaced as a gate item rather than resolved by this lane.
 
 **Class:** IMPLEMENTATION-VERIFICATION (a sub-class of CONSISTENCY). **Mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-`; edits no KB leaf, register, ledger, axiom or ruling; changes no solidity; propagates nothing.** No result from this phase may be framed as emergence, chord, or a falsification of AVE.
 
@@ -58,7 +69,7 @@
 | **L3** | **P1-D** 4-site primitive cell, real periodic wrap ($K_4$ complete graph of 6 lines) | arccos map on $\mathrm{eig}(A)$ + TLM operator | `.AC` | `⟨FROZEN-AT-PHASE-1-GO⟩` |
 | **L4** | **OBS-4** supercell eigenfrequency SET, $L=\langle\text{FROZEN}\rangle$ | arccos map on $\mathrm{eig}(A)$ of `build_srs_net(L)` + cycle-space block (F5) | `.AC` sweep, peak extraction | `⟨FROZEN-AT-PHASE-1-GO⟩` |
 
-**L0–L2 are the three-way anchor** (epic §4 Phase 1: *"BOTH the engine and the solver are first checked against the closed-form value independently"*) — **subject to FL-3**: `scatter_matrix` raises for $n<2$, so the engine-side TLM leg of L1/L2 is not currently constructible without an engine touch. **If FL-3 is not resolved at GO, L1/L2 are declared TWO-WAY (analytic-vs-solver) in the frozen prereg and the epic's three-way localisation claim is correspondingly weakened — stated, not hidden.**
+**L1–L2 are the three-way anchor** (epic §4 Phase 1), **subject to FL-3**; **L0 is a solver-vs-arithmetic numerics smoke test and is not part of the anchor** (SCX-REQ-ANCHOR.2/.3). Epic §4 Phase 1, verbatim: *"BOTH the engine and the solver are first checked against the closed-form value independently"* — which L0 cannot satisfy, because its engine/analytic side is an arithmetic identity from `constants.py` rather than an independent integrator leg (§2.1 L0 row says so itself). **FL-3**: `scatter_matrix` raises for $n<2$, so the engine-side TLM leg of L1/L2 is not currently constructible without an engine touch. **If FL-3 is not resolved at GO, L1/L2 are declared TWO-WAY (analytic-vs-solver) in the frozen prereg and the epic's three-way localisation claim is correspondingly weakened — stated, not hidden.**
 
 ### §2.2 — Outcome bins (mutually exclusive, exhaustive; MANDATORY `INCONCLUSIVE`)
 
@@ -143,7 +154,7 @@ Stated as forms so that the frozen prereg's values are checkable against somethi
 
 1. **(a) EXPORTER.** Hand-audit the emitted netlist against the graph and `constants.py`. **The netlist is human-readable by design and carries every imported symbol in its header** (`SCX-REQ-ELEMENTS.2`), so this step is mechanical. Cross-check node/bond counts against $8L^3$ / $12L^3$.
 2. **(b) SOLVER NUMERICS.** Integrator/tolerance sweep on the solver side; re-run at finer TOL-GRID; re-run under the other units scaling (T6(c)'s paired run is exactly this check pre-positioned). Second solver **only if** T1(b) has been ratified and installed.
-3. **(c) ENGINE.** What remains. **The L0–L2 analytic anchor localises (a)-vs-(c) before either is trusted at L3/L4 scale** — subject to the FL-3 caveat in §2.1.
+3. **(c) ENGINE.** What remains. **The L1–L2 analytic anchor localises (a)-vs-(c) before either is trusted at L3/L4 scale** — subject to the FL-3 caveat in §2.1, and with **L0 sitting below the anchor** as the solver-vs-arithmetic numerics smoke test that clears suspect (b) first (`SCX-REQ-ANCHOR.2/.3`; consistency propagation of the §2.1 correction).
 
 **No tuning to agreement.** The exporter has no free parameter by construction (topology from the engine, values from `constants.py`). **If a knob appears that would let the export be tuned toward agreement, that knob is a design defect in the exporter and is reported as one** (epic §5.4).
 
