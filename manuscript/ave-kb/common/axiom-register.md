@@ -399,7 +399,8 @@ silently committed — this is canonical infrastructure):
   ([`def-q1escn`](vocabulary-register.md)) **promotes to ratified under this
   naming**.
 - **status:** **POSTULATED.** BC-SRC is a new axiomatic primitive, not a theorem
-  of Axioms 1–4. **Minimality is established by ablation, not asserted:** without
+  of Axioms 1–4. *(R55, 2026-08-24: read "axiomatic primitive" as "postulated
+  source-law primitive" — container re-graded, derivation status unchanged.)* **Minimality is established by ablation, not asserted:** without
   **S** the derived conservation legs leave the bound-response value unpinned; without
   **G** there is no receipted home for the finite static stiffness, no
   bias-reading causality, no energy functional, and no derived connection to the
@@ -427,7 +428,9 @@ silently committed — this is canonical infrastructure):
 - **count-effect:** counts as **1 independent axiom**. The **ratified-axiom count
   is 5**; the **framework-node count remains 4** until the node lands (below).
   Both numbers are stated because they currently differ — neither is quietly
-  adjusted to match the other.
+  adjusted to match the other. *(R55, 2026-08-24: SUPERSEDED — counts as the ONE
+  source law, zero axioms; both counts read 4 and AGREE; see the LIVE count line
+  below.)*
 - **internal falsifier (ships with the axiom):** clauses S + G jointly force
   `B = 7·𝒜_g·GM/c²`. **One 𝒜_g across every consumer** — measuring 𝒜_g from two
   independent consumers over-determines it, and the over-determination is the
@@ -436,6 +439,10 @@ silently committed — this is canonical infrastructure):
   the ratification's first follow-on derivation.
 
 ### Machine-side status — the `axiom-5` framework node is MINTED (blocker discharged 2026-08-10)
+
+> **R55 (2026-08-24): the node is now RETIRED** — see the **axiom-node** bullet at
+> the top of this section for the full arc. This subsection below is the frozen
+> 2026-08-10 minting record; its "MINTED" header names its own date's state.
 
 > **⚑ SUPERSEDES the "BLOCKED (enumerated, routed)" section that stood here.** That
 > section correctly enumerated two blockers and routed them rather than forcing them.
@@ -499,6 +506,12 @@ silently committed — this is canonical infrastructure):
 > | `claims.jsonl:239` | `clm-q8un7j` | `:240` | `…k4-zone-edge-nyquist-settle_prereg_FROZEN.md`:39 (**FROZEN**) + its result `:87` |
 > | `claims.jsonl:252` | `clm-refjr6` | `:253` | `research/2026-06-24_engine-reroute-epic-summary.md`:93 + two docket entries |
 > | `claims.jsonl:357` | `def-b0nd01` | `:358` | `research/2026-08-06_iomega-law_result.md`:686 |
+>
+> **R55 STALENESS NOTE (2026-08-24): the "Now at" column above no longer
+> resolves** — retiring the `axiom-5` record re-shifts `claims.jsonl`, and the
+> adversarial review found two rows' attributions had drifted even before R55.
+> Measured at the R55 tip: `clm-2e9j97` at `:17`; `clm-f5ucdo` at `:122`; `clm-mroghg` at `:203`; `clm-q8un7j` at `:239`; `clm-refjr6` at `:252`; `def-b0nd01` at `:358`.
+> Resolve by the durable node id, never by either line column.
 >
 > **Root cause, stated so it is not re-learned:** a `:NN` cite into a generated,
 > stable-sorted index is inherently volatile — ANY new `clm-`/`def-`/`sup-`/axiom

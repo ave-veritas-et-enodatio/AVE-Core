@@ -28,3 +28,19 @@ re-runs the measurement to zero grade-bearing residuals in live canon. One
 reviewed PR. Until it lands, the alias note in INVARIANT-S2 + the register
 carries the mapping and a pre-Phase-2 "Axiom 5" in live canon reads AS the
 source law.
+
+## HOMONYM-EXCLUDED class (added 2026-08-24, adversarial-review finding)
+
+CLAUDE.md's own homonym guard (`manuscript/ave-kb/CLAUDE.md:379`, *"Homonym
+guard — 'Axiom 5' is overloaded as of this landing"*) records that three live
+engine files use the token `Axiom 5` for an UNRELATED coupled-resonator
+normal-mode operator: `src/ave/solvers/coupled_resonator.py`,
+`src/ave/condensed/silicon_crystal.py`, `src/ave/condensed/silicon_doping.py`.
+
+These sites are **EXCLUDED from the rewrite rule** — applying it there would
+mislabel an unrelated operator as the source law. The sweep script's context
+classes MUST carry this exclusion explicitly. The operator's own rename (an
+engine operator should never have carried an axiom's name; the guard asserted a
+routing that was never minted) is a distinct sub-task of this sweep: propose
+the rename in the same PR, separately reviewable, and retire the guard once
+both the sweep and the rename land.

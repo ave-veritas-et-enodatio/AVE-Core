@@ -1535,6 +1535,7 @@ class TestFrameworkNodeCoverageGuard(unittest.TestCase):
             msg = str(ctx.exception)
             self.assertIn("MALFORMED", msg)
             self.assertIn("Axiom 5", msg)
+            self.assertIn("1-4", msg)  # the operator hint must state the live range
 
 
 if __name__ == "__main__":

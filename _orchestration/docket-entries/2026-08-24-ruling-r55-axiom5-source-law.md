@@ -34,7 +34,10 @@ over-grades its content. Three options were walked with Grant:
 ## §2 — The findings (receipts, each independently checkable)
 
 *(All §2 quotes are from the file as it stood at panel time, pre-restructure —
-Phase 1 re-nouns the container in place; git carries the pre-edit text.)*
+Phase 1 re-nouns the container in place; git carries the pre-edit text. Quotes
+are content-verbatim: LaTeX markup stripped, terminal punctuation normalized to
+the quoting sentence, elided continuations unmarked — byte-exact text lives in
+the pre-edit file.)*
 
 **2.1 The ratified text already grades its own clauses.** All three receipts are
 verbatim from the canonical file, [`eq_axiom_5.tex`](../../manuscript/common_equations/eq_axiom_5.tex):
@@ -78,12 +81,16 @@ reference (Q) — no new stiffness, no new wave, no new degree of freedom.
 
 Nothing in the claim graph depends on axiom-5. This receipt is strong, not
 incidental: the index builder emits an `axiom` edge for every depends-on bullet
-whose head names "Axiom N" (`kb_index_lib.py`, `_AXIOM_TOKEN_RE`), and the
-build-time dangling guard (`_assert_framework_node_coverage`) fails loudly on
-any reference to a missing node — so a zero count means zero derivations
-declare the DC-bias complex as a premise. The founding four carry the entire
-load-bearing surface. **Retiring the `axiom-5` framework node breaks zero
-index consumers, verified at build time by the guard itself.**
+whose head names "Axiom N" (`kb_index_lib.py`, `_AXIOM_TOKEN_RE`) — so a zero
+count means zero derivations declare the DC-bias complex as a premise. The
+founding four carry the entire load-bearing surface. **Retiring the `axiom-5`
+framework node breaks zero index consumers — verified by the direct recount
+above; the strength is the edge-emission mechanism, not a gate.** The
+build-time dangling guard (`_assert_framework_node_coverage`) is NOT the
+verifier of this retirement: a zero-edge node retires without the guard ever
+firing — the branch's own regression test records exactly this (*"a silent
+drop would dangle nothing"*) — its role is prospective, failing loudly on any
+FUTURE reintroduced reference to a retired node.
 
 *(Receipt correction, recorded for honesty: an earlier chat statement of this
 receipt was re-measured before this entry landed. The numbers above are from
@@ -122,9 +129,17 @@ application circuit, not a component property.
    UNVALUED-RATIFIED-CONSTANT status of $\mathcal{A}_g$, the R49(a)
    convention, and the R50 vocabulary all stand exactly as ratified. R43,
    R45–R50 are NOT superseded — they graded, named, and tooled the same
-   object; the object persists.
-5. **Derivation grade unchanged.** S/G/Q remain POSTULATED content (the
-   file's derivation-grade note stands verbatim). This ruling does not claim
+   object; the object persists. One named carve-out: R47 item 1's
+   count/register-node sub-clauses (the count 4→5 and the `axiom-5` node
+   minting) are superseded-in-effect by the retirement; R47's filename ruling
+   and its every other item stand.
+5. **Derivation grade unchanged.** S/G/Q remain POSTULATED content. The
+   file's derivation-grade note keeps every derivation-status predicate
+   verbatim (POSTULATED; not a theorem of Axioms 1–4; S/G/Q NOT derived;
+   FORM-derived / VALUE-imported untouched); its container noun is re-nouned
+   like the rest of the file, with the pre-R55 wording quoted inline — an
+   amendment to the first cut of this entry, which over-claimed "stands
+   verbatim" (2026-08-24 review finding). This ruling does not claim
    the source law is derived; it claims the honest grade of postulated
    loading-data + one source law + one reference is not "axiom of the
    material."
@@ -141,8 +156,8 @@ application circuit, not a component property.
   re-headed as the source-law bullet (outside the axiom enumeration); the
   axiom parser reverts `[1-5]` → `[1-4]`
   (`kb_index_lib.py:180,183`, the R47 widening) so the `axiom-5` framework
-  node RETIRES from `claims.jsonl`. §2.4's receipt + the dangling guard prove
-  zero breakage.
+  node RETIRES from `claims.jsonl`. §2.4's recount proves zero
+  breakage (the dangling guard's protection is prospective only).
 - [`axiom-register.md`](../../manuscript/ave-kb/common/axiom-register.md) —
   counts return to 4; the register's own title ("the Four AVE Axioms")
   becomes correct again; the Substrate DC Bias section re-headed as the

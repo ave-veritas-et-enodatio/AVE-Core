@@ -539,7 +539,7 @@ def parse_framework_nodes(kb_root: Path = KB_ROOT_DEFAULT) -> list[FrameworkNode
     Invariants come from ``### INVARIANT-XX: <title>`` headings; each node's
     ``canonical_anchor`` is the GitHub-style slug of its own heading.
 
-    Axioms come from the ``- Axiom N: **<title>** — ...`` bullets, N in 1-5 (the
+    Axioms come from the ``- Axiom N: **<title>** — ...`` bullets, N in 1-4 (the
     former Axiom-5 bullet is now the source-law bullet, R55; the scan is whole-file).
     Ids ``axiom-1``..``axiom-4`` (axiom-5 RETIRED, R55). THREE OUTCOMES, NO FOURTH: parsed /
     not-a-bullet (silent) / MALFORMED -> RAISES FrameworkNodeParseError naming
@@ -580,7 +580,7 @@ def parse_framework_nodes(kb_root: Path = KB_ROOT_DEFAULT) -> list[FrameworkNode
             if _AXIOM_BULLET_LOOSE_RE.match(line):
                 raise FrameworkNodeParseError(
                     f"MALFORMED axiom bullet at CLAUDE.md:{lineno}: {line.rstrip()!r}. "
-                    f"Expected `- Axiom N: **<title>** - ...`, N in 1-5, bold title.")
+                    f"Expected `- Axiom N: **<title>** - ...`, N in 1-4, bold title.")
             continue
         nodes.append(FrameworkNode(node_type="axiom", id=f"axiom-{m.group(1)}", title=m.group(2).strip(), canonical_path="CLAUDE.md", canonical_anchor=s2_anchor or ""))
     return nodes
