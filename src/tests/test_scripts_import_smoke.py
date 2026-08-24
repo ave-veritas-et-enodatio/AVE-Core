@@ -304,7 +304,7 @@ def test_ave_core_imports_resolve(label: str, message: str) -> None:
 
 # Known-broken allowlist for Gate 2, same KEEP-BOTH / flag-don't-fix posture and
 # same two mechanisms (strict xfail + liveness guard) as ``_KNOWN_BROKEN`` above.
-# These six sites are the SAME class of breakage as the 13 vol_6 animation
+# These five sites are the SAME class of breakage as the 13 vol_6 animation
 # drivers repaired on branch ``cleanup/2026-08-23-vol6-imports`` — they import
 # through the ``periodic_table`` alias without registering it — but they are
 # outside that branch's scope (the open item scoped to the animation drivers
@@ -327,23 +327,17 @@ _SCRIPT_TREE_KNOWN_BROKEN: dict[str, str] = {
         "same class as the vol_6 animation drivers; out of scope for the "
         "vol6-figure-provenance-hole discharge — owner: vol_6 simulations upkeep"
     ),
-    "scripts/vol_6_periodic_table/simulations/simulate_dt_fusion.py::alias-unregistered": (
-        "same class as the vol_6 animation drivers; out of scope for the "
-        "vol6-figure-provenance-hole discharge — owner: vol_6 simulations upkeep"
-    ),
     "scripts/vol_6_periodic_table/simulations/solve_fluorine.py::alias-unregistered": (
         "same class as the vol_6 animation drivers; out of scope for the "
         "vol6-figure-provenance-hole discharge — owner: vol_6 simulations upkeep"
     ),
-    # Gate 2A: a SECOND-ORDER casualty of the same IP partition.  The stub at
-    # simulations/spice_exporter.py preserved 'generate_spice_netlist' but not
-    # 'generate_fusion_netlist', so this import names a symbol the surviving
-    # stub does not define.  Surfaced by this gate; NOT fixed here (restoring a
-    # partitioned-out symbol is a provenance decision, not hygiene).
-    "scripts/vol_6_periodic_table/simulations/simulate_dt_fusion.py:5:generate_fusion_netlist": (
-        "IP-partition stub spice_exporter.py defines only 'generate_spice_netlist'; "
-        "restoring the fusion exporter is a provenance decision — owner: vol_6 simulations upkeep"
-    ),
+    # Gate 2A note (2026-08-23): the SECOND-ORDER IP-partition casualty this dict
+    # used to carry — simulate_dt_fusion.py:5 importing 'generate_fusion_netlist',
+    # a symbol the surviving spice_exporter.py stub does not define — was ruled
+    # option (c) and RETIRED to src/scripts/_archive/vol_6_periodic_table/
+    # (docket-entries/2026-08-23-dt-fusion-ruling.md).  _archive is excluded from
+    # this walk, so both of its entries left this dict under the stale-entry
+    # liveness guard.
 }
 
 
