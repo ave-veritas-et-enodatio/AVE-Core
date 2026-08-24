@@ -4,7 +4,9 @@
 
 # AVE program board
 
-Scanned tree **ff0fde8b** (2026-08-23) · 461 index records · 330 claims · 5 PRs open
+Scanned tree **bc3c5979** (2026-08-24) · 461 index records · 330 claims · 3 PRs open
+
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`020262af`). Every count below describes **bc3c5979**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -28,7 +30,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## What we are waiting on
 
-**36 of 66 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
+**37 of 68 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
 
 *Scope: this is a census of `open-items/`. `_orchestration/2026-07-10_rulings-docket.md` is the **paper timeline** — a dated continuation log, frozen at its 2026-07-21 tail per `docket-entries/README.md`, and the historical record of how each ruling was reached. It is read chronologically, not harvested; anything still live in it belongs here as its own file.*
 
@@ -65,7 +67,9 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [Axiom 5's enclosed compression charge B(M) reuses the glyph Axiom 1 assigns to the magnetic/microrotational sector — across the A1 ⊥ T2 fence](open-items/2026-08-24-axiom5-b-glyph.md) | ROUTED-TO-GRANT | grant | 2026-08-24 |
 | [Symbol collisions have two competing homes (theorem-thesaurus §6 rows, ungated; vocabulary-register def-nodes, CI-gated) — pick one before the next batch lands](open-items/2026-08-24-collision-register-home.md) | ROUTED-TO-GRANT | grant | 2026-08-24 |
 | [gamma_c and G_c are both called 'the Cosserat couple-stress modulus' in one leaf, differ dimensionally, and a joint-falsification claim reads them as identical](open-items/2026-08-24-gammac-gc-modulus-identity.md) | ROUTED-TO-GRANT | grant | 2026-08-24 |
+| [The Axiom-4 kernel argument "A" carries two normalizations across axiom-level and SOLID leaves (yield-denominated vs bare/snap) — VOCABULARY only](open-items/2026-08-24-kernel-argument-normalization.md) | ROUTED-TO-GRANT | grant | 2026-08-24 |
 | [Sector-of-storage — where the compression store lives (A1 canon vs the T2/swing label)](open-items/2026-07-26-sector-of-storage.md) | OPEN-IN-WALK | grant | 2026-07-26 |
+| [The quark-charge dressing — CP-parity underived (both adjectives asserted), N=3 fed in; four vacuum-side investigation routes GO'd](open-items/2026-08-23-theta-dressing-open-questions.md) | OPEN-IN-WALK | lane | 2026-08-23 |
 | [A RESOLVED stamp asserts its own propagation, and the propagation never happened (Row 11 MOND)](open-items/2026-05-19-row11-mond-propagation.md) | OPEN | unassigned | 2026-05-19 |
 | [Two infra gaps still open — no conflict-marker hook, and no structural worktree-leak fix](open-items/2026-05-28-infra-hygiene-gaps.md) | OPEN | unassigned | 2026-05-28 |
 | [Means-test corpus extensions — the corpus grew, but in a different direction](open-items/2026-05-28-means-test-corpus-extensions.md) | OPEN | unassigned | 2026-05-28 |
@@ -122,10 +126,8 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 | PR | state | title |
 |---|---|---|
-| #1002 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research(solver-crosscheck): Phase- |
-| #1001 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research(theta-route3): the RELOCAT |
+| #1003 | CLEARED | [REVIEW: CLEARED] orchestration: track the four routed symbol-collision decision |
 | #1000 | CLEARED | [REVIEW: CLEARED] infra: figure-provenance ruling — closure (c), matplotlib pinn |
-| #998 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] kb: theta-fork carves (a)+(b) + dre |
 | #997 | CLEARED | [REVIEW: CLEARED] kb: translation-diagrammatics — the Feynman-formalism register |
 
 <!-- /volatile -->

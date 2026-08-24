@@ -46,6 +46,35 @@ The $6_{2}^{3}$ Borromean linkage possesses three-fold permutation symmetry ($\m
 
 ---
 
+
+> 🔴 **Dated surface note 2026-08-23 (θ-fork adjudication, Grant rulings (a)+(b); docket
+> `2026-08-23-theta-fork-ruling`). Body above preserved unedited (Rule 12).** Three carves on
+> the prose above, per the challenge audit run against this leaf's own provenance chain:
+>
+> 1. **The θ here is the 𝒥-dressing, not a vacuum angle** (post-ratification reading). Per
+>    the Grant-ratified two-ontology box below (2026-06-23), the `θ/2π` in the Witten
+>    equation is the body-angular-momentum share `𝒥_constituent/𝒥_total` — a kinematic
+>    dressing of the fundamental integer, NOT a θ-vacuum state of the medium. The opening
+>    paragraph's "generates a discrete CP-violating θ-vacuum phase" and the examplebox's
+>    "trapped vacuum" are **pre-ratification vocabulary**.
+> 2. **The "CP-violating" adjective is UNDERIVED — and its opposite is asserted elsewhere.**
+>    No corpus document derives the CP transformation property of the discrete dressing in
+>    either direction (the provenance result doc and its prereg contain zero CP/parity
+>    analysis), while `neutron-identification.md` §3's Strong-CP row calls the same θ set
+>    "CP-preserving" — equally underived. **CP-parity of the dressing: OPEN** — tracked at
+>    open-item `theta-dressing-open-questions`, which carries the investigation routes.
+> 3. **Import status sharpened.** Under the 𝒥-reading, `q_eff = n + θ/2π` survives as
+>    Witten's FORMULA with a reinterpreted symbol, not Witten's θ-vacuum mechanism (the
+>    provenance doc: "no body-angular-momentum coupling in any engine"; the register's
+>    standing strengthen-by asks for an engine-derived θ). The clm-67jn9o import disclosure
+>    stands; this note records that the mechanism-import label is carried by the formula's
+>    provenance, not by a demonstrated substrate θ-vacuum.
+>
+> Distinct-object carve against Strong-CP: the GLOBAL vacuum angle of the defect-free ground
+> state (`../../nuclear-field/ch10-open-problems/strong-cp.md`, θ = 0 there) and this leaf's
+> discrete dressing are two objects sharing one symbol — see the symbol-collision warning in
+> `vol2/claim-quality.md` (clm-gfs4j8 entry) and the scope note on the Strong-CP leaf.
+
 ## Two-Ontology Reconciliation: these fractions are the EFFECTIVE dressing of the FUNDAMENTAL integer charge
 <!-- claim-quality: clm-w8jn3q -->
 
