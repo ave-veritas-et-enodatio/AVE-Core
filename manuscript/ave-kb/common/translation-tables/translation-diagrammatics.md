@@ -40,6 +40,13 @@ What this reading does NOT establish: why the expansion parameter is $\alpha$ pe
 (see the α-row guard in §4), the asymptotic character of the series, or any vertex-counting
 rule — all open, listed in §5.
 
+> ⚑ **Standing gate (Grant ruling 2026-08-23): the qed-trace-charter reconciliation gate
+> STANDS over this section.** `research/2026-07-14_qed-trace-charter.md:38` (§4.RECON,
+> PENDING-GRANT) requires the "No Feynman diagrams required" prose to be reconciled with a
+> "diagrams as compressed medium data" framing. §1 is a CANDIDATE input to that
+> reconciliation, not its discharge — the charter gate is not discharged by this leaf, and
+> §1 remains subordinate to it until the §4.RECON sign-off is given.
+
 ## §2 — The formalism table
 
 | **Diagram element** | **Substrate object** | **Canonical home + status** |
