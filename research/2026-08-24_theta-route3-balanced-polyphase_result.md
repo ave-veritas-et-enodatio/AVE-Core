@@ -344,9 +344,18 @@ need its own number and its own freeze.**
   `vol2/particle-physics/ch05-electroweak-mechanics/forward-to-ch6.md`:52, verbatim: *"The 'colour'
   quantum number is the permutation label of which flux loop carries the dominant phase winding at
   any given lattice site"*, with *"the ℤ₃ center of SU(3) enforces the strict topological
-  constraint that only color-singlet (1) composite states … can propagate"* (`:50`). Colour-singlet
-  **is** a zero-sum condition on three phase labels — i.e. C-SUM with a corpus-carried premise,
-  which is exactly the premise route 3 lacked (§5 gap 1). The §3.1 rigidity result would then be a
+  constraint that only color-singlet (1) composite states … can propagate"* (`:50`). ~~Colour-singlet **is** a zero-sum condition on three phase labels — i.e. C-SUM with a
+  corpus-carried premise, which is exactly the premise route 3 lacked (§5 gap 1).~~
+🔴 **RETRACTED 2026-08-24 (checker-audit Finding 5; strike preserved per Rule 12).** The
+cited receipts do not carry a zero-sum condition: `forward-to-ch6.md:50` frames
+colour-singlet as a ℤ₃-centre/linkage condition ("where all three loops are linked") and
+`:52` as a **permutation label** — a discrete selector with no additive structure. A
+two-direction proximity search finds ZERO corpus sites framing colour-singlet as a sum
+condition. Whether the ℤ₃-centre condition on a permutation label is equivalent to a
+zero-sum condition on phasor angles is **itself an owed derivation** — R1 does NOT supply
+§5 gap 1; it relocates it. (Note the irony, recorded deliberately: this was the same
+label-vs-angle type error this doc's own D1 identified as fatal.) R1's honest status: a
+follow-on freeze CANDIDATE conditional on that derivation, not a corpus-premised route. The §3.1 rigidity result would then be a
   statement about **confinement**, not about quark charge. *Caveat that must travel with it:* the
   same register records the SU(3) identification as *"asserted as the structural identification …
   not a uniqueness theorem"* (`vol2/claim-quality.md`:815).
@@ -389,3 +398,28 @@ Value-echo immunity: the driver asserts at entry that `ave.core.constants` and `
 are not imported. Inputs are the integer N and, in §3.5, the target rationals entered as
 enumeration targets. All charge arithmetic is exact (`fractions.Fraction`); no floating point, no
 fit, no CODATA.
+
+---
+
+> 🔴 **Dated surface-note 2026-08-24 (checker-audit Finding 6a): the prereg freeze is
+> UNCLAIMABLE by git ordering, per the ratified P9 rule** (`_orchestration/
+> 2026-07-09_breakthrough-patterns-methods-note.md` §P9: "a freeze you cannot point to in
+> the git log is a promise, not a freeze"; counterexample X36/#613, review finding
+> MINOR-12). Prereg, driver, and result landed as ONE commit (`bdf51221`), so the prereg
+> header's "Frozen … before the driver ran" and §1's five not-known-at-freeze claims cannot
+> be shown from git. The audit's independent re-derivation confirms every number bit-exactly
+> and corroborates the self-reported instrument repairs, so no result is impeached — but the
+> freeze CLAIM is withdrawn to "stated, unverifiable". Same P9 note applies partially to
+> route 1 (#999, merged: prereg commit carried driver code). Orchestrator-side cause owned
+> in the dispatch record: the lane briefs said "prereg discipline" without quoting P9's
+> push-first rule; the rule travels verbatim in all future lane briefs.
+
+> ★ **Audit strengtheners (same pass):** (i) the stronger canon receipt for N-genericity is
+> `proton-identification.md:47`'s own Grant-ratified line — "the denominator $3$ is the
+> FED-IN observed loop count ($N$-generic; no 3-loop stability theorem…) NOT forced" —
+> which this doc under-cited in favor of the research doc. (ii) §3.3's "Exhaustive search"
+> reads as continuum-exhaustive; the code is grid-exhaustive (720 points at N=3, π/2
+> multiples at N≥4), justified BY the analytic argument, which is primary. (iii) §3.2's
+> resultant ≡ 0 numeric is a tautological consequence of the zero-sum constraint (as the
+> driver docstring itself says); D2's substantive content is the fence argument, and the
+> numeric is not independent evidence for B6.
