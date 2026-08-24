@@ -4,9 +4,7 @@
 
 # AVE program board
 
-Scanned tree **c4302636** (2026-08-24) · 460 index records · 330 claims · 1 PR open
-
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`73626a09`). Every count below describes **c4302636**. Regenerate on main before reading these as program state.
+Scanned tree **90753eef** (2026-08-24) · 460 index records · 330 claims · 0 PRs open
 
 ## The number that frames everything
 
@@ -126,9 +124,7 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 *(volatile — excluded from `--check`, since any PR retitle would otherwise make the check cry wolf)*
 
-| PR | state | title |
-|---|---|---|
-| #1004 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] canon: R55 — Substrate DC Bias rest |
+No open PRs.
 
 <!-- /volatile -->
 
