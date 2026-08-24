@@ -117,6 +117,80 @@ Both directions converge on zero. That convergence is the substance of §5.
 
 #### §4 — Per-file adjudication (the 30)
 
+Every candidate was **read**, not grepped, for criteria (1) superseded and (3) honesty-trail — a
+search can report the state of a marker, it cannot establish that a later doc carries a doc's
+claims. Each row names the criterion that fails and the receipt for it. Grouped by HELD reason.
+
+**H1 — honesty-trail record; the NEVER-if at `:106-107` fires directly (8 docs).**
+These are *"RETRACTED / walk-back / correction record"* by their own construction. Policy: *"These
+are UNTOUCHABLE — never archived, never rewritten, never banner-stamped."*
+
+| doc | receipt |
+|:--|:--|
+| `2026-05-17_substrate-velocity-honest-scoping-meta-doc.md` | `:69` — `\| αc/(2π) is FLOOR for decoupled populations \| … \| FALSIFIED \| WALKED BACK \|`; the doc's §1 is titled *"The three walk-back iterations (timeline)"* |
+| `2026-06-15_passive-eigenmode_result.md` | `:5` — `🔴 RULE-12 CORRECTION (2026-06-16; original NEGATIVE-A text below PRESERVED unedited)`; `:1` carries a `SURFACE-NOTE 2026-08-19` explicitly *"flagged for the pre-merge audit + Grant"* |
+| `2026-07-14_reflection-coefficient-correction-note.md` | `:1` — `# CORRECTION NOTE — _reflection_density Γ² coefficient 1/64 → 1/16`; the doc *is* the correction record |
+| `2026-08-12_layer-carve_walk-record.md` | `:24` — `## §1 — THE FOUR CORRECTIONS (orchestrator claims, withdrawn or repaired)` |
+| `2026-08-12_common-mode-continuum-image_derivation.md` | `:201` — `🔴 STRUCK 2026-08-12 (PR #963 adversarial audit)`; plus a `🔴 RETRACTED` block at `:256`. Also 11 days old — nothing has had time to supersede it |
+| `2026-06-10_genesis-v6-snap-channel-adjudication_result.md` | `:70` — `Rule 12 (substitution-not-retraction): the v5 SNAP-LOCKED slot's 🔴 demotion stands` |
+| `2026-06-10_coax-ring-secondary_result.md` | `:3` — `🔴 SUPERSEDED IN PART (2026-06-10) — see the VERDICT ADDENDUM at the foot of this doc`; the addendum lives *in* this doc, so archiving moves the correction away from the claim |
+| `2026-07-20_constituent-cage-ensemble_derivation.md` | `:45` — `🔴 The self-labeled "load-bearing result" below the strike is INVERTED (Rule 12, body preserved)`; further Rule-12 strikes at `:33`, `:51` |
+
+**H2 — frozen prereg, or the analytic companion of one, with no evidence the claim is dead (5 docs).**
+The NEVER-if names *"a frozen prereg of a live claim"*. Establishing a claim is **not** live is a
+matrix adjudication this lane has no mandate to perform, so these are held by construction.
+
+| doc | receipt |
+|:--|:--|
+| `2026-06-06_electron-genesis-phase2-moving-bulk-prereg.md` | `:5` — `**Status:** PREREG FROZEN — **GATED on Phase-1**` |
+| `2026-06-07_two-node-alpha-projection-test.md` | `:3` — `**Status:** FROZEN PREREG before driver run; result appended after execution.` (result at `:117` = Outcome C negative) |
+| `2026-06-25_alpha-delta-strain-selector_prereg-v3.md` | `:3` — `**Date frozen:** 2026-06-25 · **Supersedes v1/v2 functional targets**` — it supersedes others; nothing supersedes it |
+| `2026-07-21_boundary-strain-amplitude_derivation.md` | `:4` — `**Class:** DERIVATION (analytic Leg A of the frozen prereg research/2026-07-21_boundary-strain-amplitude_prereg-FROZEN.md)`; carries its own `★RE-SCOPE` correction at `:62` |
+| `2026-06-10_genesis-v6-pump-isolation_result.md` | `:4` names a frozen prereg; the doc's data sibling `..._results.json` is written by a live driver (`genesis_v6_pump_isolation.py:229`) |
+
+**H3 — open / gated / pending: criterion (1) fails, nothing supersedes an unfinished item (10 docs).**
+
+| doc | receipt |
+|:--|:--|
+| `2026-07-02_ruptured-core-compactness_result.md` | `:7` — `**Verdict: EOS-GATED — Outcome C** (prereg §6), pending` one Grant physics ruling |
+| `2026-07-02_arcstar-yield-anchor-scope_result.md` | `:4` — `HOLD canonization. Do NOT merge — push + report.` |
+| `2026-06-23_quaternion-left-right-derivative-vsector-crosscheck.md` | `:4` — `**Status:** for review — orchestrator adversarial audit + Grant merge pending.` |
+| `2026-06-21_vacuum-cell-representative-print.md` | `:3` — `**Status:** DRAFT / skeleton (sections marked ⏳ are gated on the in-flight audit workflow …)` |
+| `2026-06-07_vol0-hold-items-physical-pictures.md` | `:3` — `Each is a Class-O (open) item from the Vol 0 ↔ KB ledger` |
+| `cmb-axis-alignment-driver-design.md` | `:164` — `Outcome cell: TBD → **TBD-pending-corpus-citation-resolution**` |
+| `2026-07-08_pump-inventory-astrophysical_RESULT.md` | `:6` — `the FINAL make-or-break gate for the P6 sidereal Lorentz-violation flagship`. A live flagship gate result; archiving it would bury the gate |
+| `2026-06-23_chiral-srs-optical-activity_result.md` | best-looking candidate in the corpus — it carries an explicit successor pointer at `:10-12`. **Fails anyway:** its own `:15` reads `top-level verdict is UNCHANGED — still FORM-distinct, magnitude-pending, NOT bankable`, and the successor's `:8` names a *different* doc as its prereg context. The successor carries the Phase-1 execution, **not** this doc's claims. Also `:3` classes it a `refute-by-default DEFLATION` record |
+| `2026-06-07_sim-math-audit-vs-kb-ledger.md` | `:16` — `## THE headline finding (meta) — the provenance gate itself is stale`; an open findings ledger with unrepaired items |
+| `2026-06-20_state-of-program-and-node-characterization.md` | `:7` — `**Scope note.** This is a *snapshot*` with three load-bearing groundings that were `**OPEN PRs** at snapshot time`. A dated snapshot is historical by construction, not superseded; no later state-of-program doc exists in `research/` (checked) |
+
+**H4 — current documentation of artifacts that still exist: criterion (1) fails (3 docs).**
+Verified by existence check, not by marker grep.
+
+| doc | receipt |
+|:--|:--|
+| `2026-06-09_genesis-perf-utils_note.md` | `:3` describes *"Two reusable library modules under `src/ave/utils/`"* — both present: `src/ave/utils/genesis_parallel_runner.py`, `src/ave/utils/fast_winding_extractor.py` |
+| `2026-07-12_engine-categorization-guards.md` | `:4` — `**Class:** tooling / methodology (L0)`; all three shipped artifacts present: `src/ave/core/categorization.py`, `src/tests/test_categorization_guards.py`, `src/scripts/verify/categorization_smoke.py` |
+| `2026-06-04_qg42-vsign-deltaf-derivation-result.md` | `:3` — `**Status:** PHASE-1 COMPLETE (2026-06-04)`; no Phase-2 doc supersedes it in `research/` |
+
+**H5 — incomplete artifact; nothing to supersede yet (1 doc).**
+
+| doc | receipt |
+|:--|:--|
+| `2026-06-05_2-3-winding-extractor-result.md` | three unfilled sections — `:14`, `:58`, `:64` all read `_(filled on run completion)_`. An unrun result doc is not a superseded one |
+
+**H6 — in-doc auditor supersession, which is the honesty trail itself (1 doc).**
+
+| doc | receipt |
+|:--|:--|
+| `2026-05-31_FT-2_delta-AVE-loss-tangent_result.md` | `:5` — `Implementor graded Outcome B; **AUDITOR VERDICT (orchestration) supersedes → leans Outcome C…**`. The supersession is *internal* — the corrected verdict lives in this same doc, so the doc is the record, not the superseded thing |
+
+**Tally: 8 + 5 + 10 + 3 + 1 + 1 = 28.** The remaining 2 of the 30 are
+`2026-06-07_figure-staleness-audit-plan.md` (`:1` `# PLAN (frozen)`; no executed successor ledger
+exists in `research/` — the figure work was executed under `_orchestration/` PR #991/#992 against
+a different scope, so criterion 1 cannot be evidenced) and `2026-06-11_s11-de-novo_result.md`
+(`:9` records `refuted=true` on the driver-emitted bin with `demotion executed here (§4.2)` — an
+in-doc demotion record, H1-class in substance).
+
 #### §5 — The structural finding: why the ALL-of criteria are near-empty by construction
 
 #### §6 — This ledger is itself a citer (self-referential disclaimer)
