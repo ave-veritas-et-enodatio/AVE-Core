@@ -33,6 +33,9 @@ over-grades its content. Three options were walked with Grant:
 
 ## §2 — The findings (receipts, each independently checkable)
 
+*(All §2 quotes are from the file as it stood at panel time, pre-restructure —
+Phase 1 re-nouns the container in place; git carries the pre-edit text.)*
+
 **2.1 The ratified text already grades its own clauses.** All three receipts are
 verbatim from the canonical file, [`eq_axiom_5.tex`](../../manuscript/common_equations/eq_axiom_5.tex):
 
