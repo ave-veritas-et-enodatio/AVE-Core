@@ -120,3 +120,11 @@ note). Adjudication remains with the baryon-lane reconciliation; the def-cf1srf 
 Route C's discriminator. Registration ≠ freeze — flagged for Grant's confirm that
 registration (rather than freezing (c) or holding it back entirely) matches his "proceed on
 all" intent.
+**→ CONFIRMED AS REGISTRATION (Grant 2026-08-24, "what makes most logical sense?" +
+orchestrator recommendation adopted):** registration stands, freeze declined, on four
+grounds — (i) substrate-adjudicates-forks: the fork has a named discriminator (the
+def-cf1srf BVP), so fiat freezing is exactly what standing rules forbid; (ii) Route C
+carries undischarged adversarial-panel caveats (cold-geometry conditional); (iii) freezing
+buys nothing operationally — the next step is building the discriminator either way;
+(iv) KEEP-ALL-THREE preserves the legacy arms pending the routed baryon-lane
+reconciliation.
