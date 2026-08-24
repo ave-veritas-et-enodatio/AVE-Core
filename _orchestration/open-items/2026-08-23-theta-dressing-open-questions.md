@@ -26,7 +26,18 @@ lands on this object, so the definition leaf is prerequisite-adjacent.
 
 **The four investigation routes (first-order passes, dispatched serially, route 1 first):**
 
-1. **Embedding obstruction (GATE).** In the ratified z=3 srs carrier: can n mutually-Brunnian
+1. **[REVISED 2026-08-23 per docket `2026-08-23-route1-minimum-flip-ruling`] Minimum-N
+   mechanism (was: embedding obstruction).** The frozen question died B4 at PR #999 (a
+   closed loop consumes 2 of 3 ports — one-per-port impossible for n ≥ 2; and the n=4
+   "missing direction" is FALSE on computed geometry, the C₃ axis exists). Grant's flip:
+   the 2-port consumption IS the physical minimum mechanism. Banked statement (WALK,
+   adversarial pass ordered): wire-reading legs {no contact binding (derived) + pairwise-
+   null required (route-2 conditional) + Borromean minimal (external math)} ⇒ N_min=3;
+   locus-reading leg {no 1- or 2-port loading sums to zero on the exact-120° star} ⇒
+   minimum 3 unconditionally; corroborated by canon's independent mesons-≠-2-loop-links
+   retirement. The CAP (exactly 3) is NOT given — it folds into the merged (c)-BVP,
+   pending the fork-routing decision. Original text preserved below for the record:
+   ORIGINAL: **Embedding obstruction (GATE).** In the ratified z=3 srs carrier: can n mutually-Brunnian
    flux structures meet a node at one-per-port, and does n=4 force over-subscription while
    n=3 fits? MUST resolve the formalization fork first: baryon flux loops are SUB-NODE
    objects — the measured proton charge radius is D_p = 0.841 fm ≈ ℓ_node/460
@@ -39,8 +50,9 @@ lands on this object, so the definition leaf is prerequisite-adjacent.
    supports before enumerating. Kill condition: if n=4 embeds as cleanly as n=3 under the
    corpus-supported formalization, routes 2-3 lose their lattice anchor and the thirds stay
    honestly imported.
-2. **3-body-only binding [WALK-level inference; "Brunnian"/"Milnor" are new-to-corpus
-   vocabulary with no prior footing].** IF pairwise Link = charge, THEN neutral multi-loop
+2. **[NOW LOAD-BEARING per the route-1 revision — this conditional is leg 2 of the
+   minimum-N argument] 3-body-only binding [WALK-level inference; "Brunnian"/"Milnor" are
+   new-to-corpus vocabulary with no prior footing].** IF pairwise Link = charge, THEN neutral multi-loop
    binding cannot ride the pairwise channel and must ride the triple-linking (Milnor-class)
    invariant — a conditional to derive, not a fact. Does the z=3 node generate a native
    3-body flux coupling and no 4-body?
@@ -74,3 +86,11 @@ framing COLLIDES with live clm-7o8clt (`vol2/claim-quality.md:219`, solidity 0.6
 Specific Claim reads the three "3"s as "structurally identical, not independent
 coincidences" — two live corpus statements now assert opposite readings of the same
 numeral; Grant adjudicates which governs.
+
+**NEW OPEN (2026-08-23, from the #999 checker audit — Grant's word needed): the ropelength
+convention.** Under the standard convention (thickness = tube radius), BOTH arms of the Q3
+electron-tube fork are horn tori with zero open hole — canon's threading/linking claims
+(including the neutron's threaded electron) become geometrically inexpressible on either arm;
+the `:59` arm's apparent hole exists only under a tube-diameter convention that contradicts
+its own 2π headline. Which convention (and which geometry) governs is a physics call that
+decides the expressibility of the threading picture.
