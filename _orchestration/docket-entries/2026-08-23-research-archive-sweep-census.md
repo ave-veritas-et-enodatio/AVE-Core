@@ -193,6 +193,81 @@ in-doc demotion record, H1-class in substance).
 
 #### §5 — The structural finding: why the ALL-of criteria are near-empty by construction
 
+The zero is not a measurement accident and it is not a conservative reading. **The two ALL-of
+criteria are in structural tension with the corpus's own ratified correction discipline**, and the
+tension is tight enough that the passing set is nearly empty by construction:
+
+1. **Criterion (1) needs supersession; in `research/` supersession is executed in-place.** This is
+   an *empirical* claim about observed practice, not a policy entailment — §(c)'s append-only
+   `🔴 RESOLUTION`/`🔴 CORRECTION` rule (`_orchestration/2026-07_repo-conventions.md:142`) is scoped
+   to `_orchestration/` epic docs and does **not** formally govern `research/`. What governs
+   `research/` is Rule 12 (substitution-not-retraction: preserve the body, add a 🔴 header), and
+   this census measured its effect directly: the H1 group in §4 is eight docs whose supersession
+   lives inside them as a preserved-body 🔴 banner. So when a research doc is superseded, the
+   observed outcome is **not** a replacement doc — it is the same doc, now carrying a correction
+   banner. That banner makes it *"a RETRACTED / walk-back / correction record"*, which is exactly
+   what the NEVER-if at `:107` declares UNTOUCHABLE. **Satisfying criterion (1) therefore tends to
+   trip criterion (3).** The sharpest instance: of 49 docs self-declaring supersession, the single
+   one with zero live citers is `2026-06-15_passive-eigenmode_result.md`, whose supersession marker
+   *is* its Rule-12 correction banner.
+2. **Criterion (2) needs zero live citers. Supersession is normally announced by a citer.** When
+   a successor or a ledger does record the supersession, it does so by naming the superseded doc —
+   which is a live citation. That is the other 48 of the 49.
+
+Between them, the passing set is: *superseded, but by a mechanism that neither annotated the
+original nor named it anywhere live.* On this corpus that set is empty.
+
+**What this means for the epic.** The lane's premise — *"policy exists, unenforced; … heuristic
+upper bound ~76 candidates"* — over-estimated yield by assuming an unenforced policy implies a
+backlog. The measured position is the opposite: **the policy is already satisfied**, not because a
+sweep ran, but because the append-only correction discipline and the citation habit jointly keep
+docs out of archive-eligibility. `research/_archive/` holds 153 files; nothing at HEAD qualifies to
+join them.
+
+**This is a measurement, not a complaint about the criteria.** The criteria are doing what
+cross-cutting invariant 2 asks — protecting the honesty trail — and the correct reading is that the
+archive tier is a narrow instrument, not a hygiene sweep. No amendment is proposed here; §7 routes
+the question rather than answering it.
+
+**Symmetric-standard check.** Before banking the zero, the funnel was re-derived from the opposite
+end (criterion-1-first, §3) precisely because a conservative adjudicator can manufacture a
+null by screening in a favourable order. Both orders return zero, and the single doc that survives
+the criterion-1-first screen fails on a banner quoted verbatim rather than on judgement.
+
 #### §6 — This ledger is itself a citer (self-referential disclaimer)
 
+⚑ **This entry names all 30 candidates by path.** Any future citer census run over the tracked tree
+will therefore score every one of them as *"cited by a live non-`_archive` doc"* — a citer this
+lane manufactured. That is the class-1 (ledger-only) hazard, created by the act of recording the
+census.
+
+**Handling for future sweeps: this file is a LEDGER-ONLY citer and must be tiered out of any
+citer count over `research/*.md`, exactly as the two `research/drivers/*_results.json` sweep dumps
+are (class 7, §2).** It is listed here so the exclusion is discoverable from the corpus rather
+than rediscovered. The general rule this instance supports: *a census that records its own subjects
+by name becomes a citer of them; the receipts doc must declare itself excluded, or it silently
+freezes its own candidate pool.*
+
 #### §7 — Routed, not ruled
+
+Three questions surfaced that this lane has no mandate to answer. None is a physics question.
+
+1. **Is the archive tier the right instrument for `research/` hygiene at all?** §5 measures its
+   yield at zero and explains why that is structural rather than incidental. Whether §(b)'s
+   archive criteria should be re-scoped, or whether `research/` navigability should be addressed by
+   some other means entirely, is a conventions-level decision for Grant + the auditor lane. **No
+   amendment is drafted here** — per lane discipline, an implementer surfacing a policy gap does
+   not also draft the policy.
+2. **The two `research/drivers/*_results.json` corpus-sweep dumps are an unmanaged coupling
+   surface.** They embed 346 and 218 corpus paths respectively as frozen grep receipts. Any future
+   move of any research doc either breaks a path inside them or falsifies a receipt by rewriting it
+   (§2). No move is proposed; the surface is flagged so it is priced into whatever the answer to
+   (1) is.
+3. **Epic doc `:198` carries two numbers that do not survive re-measurement** — *"1,153 files
+   outside `_archive`"* (HEAD-true **1,168**) and *"heuristic upper bound ~76 candidates"* (no
+   derivation exists in the doc; measured funnel is 33 → 30 → 0). Flagged, not fixed: the epic doc
+   is another lane's text and the auditor lane lands corrections to it.
+
+**Gates at tip.** `make verify` PASSED · `verify-md-links` gating **0** (unchanged from base
+`9dd64664`) · `verify-docket-keys` no new duplicate keys · `generate_board.py --check` green.
+This entry adds one file and moves none, so the link-coupling rule at `:110` is satisfied vacuously.
