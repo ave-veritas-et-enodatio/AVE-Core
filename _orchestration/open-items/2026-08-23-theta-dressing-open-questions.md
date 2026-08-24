@@ -112,3 +112,11 @@ circle for both hands. Candidate precise statements for route 3 ("the thirds liv
 coordinate the chart deletes — the common-phase U(1)") and route 4 (the CP adjectives were
 assertable both ways because handedness is invisible in every flat projection the corpus
 draws). Un-audited; gate before any grade above WALK.
+
+**FORK-ROUTING STATUS (2026-08-23):** Grant's saturation-locus reading REGISTERED as Route C
+on the r_p KEEP-BOTH flag (now KEEP-ALL-THREE; docket
+`2026-08-23-saturation-locus-third-arm`; proton-identification.md carries the dated third-arm
+note). Adjudication remains with the baryon-lane reconciliation; the def-cf1srf BVP is
+Route C's discriminator. Registration ≠ freeze — flagged for Grant's confirm that
+registration (rather than freezing (c) or holding it back entirely) matches his "proceed on
+all" intent.
