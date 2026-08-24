@@ -28,8 +28,8 @@ conditional.
 The scalar/translational substrate model IS a circuit: nodes with LC storage, bonds as
 transmission-line elements (the Op5 scatter+connect TLM; scalar-channel scope per
 `srs-band-structure.md:53-57`), canonical ε₀/μ₀/Z₀/c as the medium constants. The engine's
-TLM cores — the v9 chiral-srs lattice and the K4-TLM — integrate that network with in-house
-numerics (the other engine backends are different discretizations, not this network;
+TLM cores integrate this class of network with in-house numerics — the v9 chiral-srs lattice
+(this carrier) and the K4-TLM (same class of network, different connectivity) (the other engine backends are different discretizations, not this network;
 blind-audit finding 3.6). An industrial SPICE-class solver (ngspice / Xyce) is a mature,
 independently-developed integrator for **exactly this class of network**. Exporting the engine's
 own graph — same topology, same canonical element values — and comparing observables gives an
@@ -99,7 +99,7 @@ docs, do not rediscover):**
    lossless lines} alone.
 3. **The Phase-1 anchor's termination (finding 3.10).** "Single cell" must be defined: a bare
    LC tank is exactly 1/√(LC); an srs z=3 VERTEX is an intrinsically mismatched reciprocal
-   3-port (Γ = (2−z)/z = −1/3, `translation-circuit.md:189`) whose resonance depends on bond
+   3-port (Γ = (2−z)/z = −1/3, `manuscript/ave-kb/common/translation-tables/translation-circuit.md:189`) whose resonance depends on bond
    terminations. The requirements doc states the pilot object and its termination explicitly.
 4. **The ω_C scale-label fork (finding 3.11).** Under R2 (adopted) the scalar top is
    π√3 ω_C = 5.4414 ω_C; under R1 every ω_C band label divides by √3. Tolerances are frozen
@@ -145,7 +145,7 @@ consumer for the nonlinear extension actually existing.
 ### Phase 3 — CONDITIONAL: the saturation kernel as a behavioral varactor
 
 SPICE-class solvers support voltage-dependent capacitance natively (behavioral sources). The
-Ax4 kernel is canonically mapped as a varactor C-vs-V curve (`translation-circuit.md`, the
+Ax4 kernel is canonically mapped as a varactor C-vs-V curve (`manuscript/ave-kb/common/translation-tables/translation-circuit.md`, the
 saturation-kernel row). A behavioral-C export would cross-check the engine's *weakly
 nonlinear* small-network response — harmonic generation onset, amplitude-dependent detuning —
 against an independent nonlinear integrator. **Explicitly gated**: does not start without
@@ -216,7 +216,7 @@ drifted.
   blocks or is blocked by it.
 - **Canonical anchors:** `src/ave/core/constants.py` (values), `srs-band-structure.md` §2
   (methods fact + band-top grounding), `manuscript/ave-kb/common/translation-tables/translation-circuit.md` carve 4 + saturation-kernel
-  row (band-top class; varactor mapping), engine-capability-map (which certified core computes
+  row (band-top class; varactor mapping), engine-capability-map (which engine backend computes
   each reference).
 
 ## §10 — Explicitly not worth doing (truth-per-token)
