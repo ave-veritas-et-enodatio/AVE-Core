@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **48b113df** (2026-08-24) · 460 index records · 330 claims · 3 PRs open
+Scanned tree **c079bf06** (2026-08-24) · 460 index records · 330 claims · 2 PRs open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`26a3ad37`). Every count below describes **48b113df**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`676fa27f`). Every count below describes **c079bf06**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -30,7 +30,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## What we are waiting on
 
-**34 of 67 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
+**34 of 66 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
 
 *Scope: this is a census of `open-items/`. `_orchestration/2026-07-10_rulings-docket.md` is the **paper timeline** — a dated continuation log, frozen at its 2026-07-21 tail per `docket-entries/README.md`, and the historical record of how each ruling was reached. It is read chronologically, not harvested; anything still live in it belongs here as its own file.*
 
@@ -87,7 +87,6 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [Electron-identity program is ACTIVE — Checkpoint 2; LaTeX/README follow-ups next](open-items/2026-08-14-electron-identity-program.md) | OPEN | unassigned | 2026-08-14 |
 | [Electron-identity LaTeX + README follow-ups — one full document-read per KB deprecation (unblocked; waiting first F-row)](open-items/2026-08-16-electron-identity-latex-readme-followups.md) | OPEN | unassigned | 2026-08-16 |
 | [check_new_cites mixes committed line-sets with working-tree content — green receipts describing neither state](open-items/2026-08-19-newcite-ratchet-split-brain.md) | OPEN | unassigned | 2026-08-19 |
-| [Tracked figures are not bit-reproducible — matplotlib is unpinned (3.10.8 stamps vs 3.10.9 venv)](open-items/2026-08-20-figure-bit-reproducibility.md) | OPEN | unassigned | 2026-08-20 |
 | [Archiving a script is a silent exit from the import-smoke known-broken allowlists, and the liveness guard mis-describes it](open-items/2026-08-23-archive-move-allowlist-exit.md) | OPEN | lane | 2026-08-23 |
 | [Which boundary owns pair production — the V_yield r3=1.0 breakdown (four-regimes) or the A²→1 / V_snap node-destruction limit (vol9 ch8)?](open-items/2026-08-23-pair-production-boundary-ownership.md) | OPEN | grant | 2026-08-23 |
 | [The R55 panel's "lattice K=0" flat-direction receipt must be re-expressed R52-compliantly (K is not a lattice quantity)](open-items/2026-08-24-r52-panel-k-receipt.md) | OPEN | lane | 2026-08-24 |
@@ -127,7 +126,6 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 |---|---|---|
 | #1004 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] canon: R55 — Substrate DC Bias rest |
 | #1003 | CLEARED | [REVIEW: CLEARED] orchestration: track the four routed symbol-collision decision |
-| #1000 | CLEARED | [REVIEW: CLEARED] infra: figure-provenance ruling — closure (c), matplotlib pinn |
 
 <!-- /volatile -->
 
