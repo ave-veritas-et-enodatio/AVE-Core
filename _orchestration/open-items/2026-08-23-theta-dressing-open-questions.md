@@ -55,8 +55,16 @@ lands on this object, so the definition leaf is prerequisite-adjacent.
    supports before enumerating. Kill condition: if n=4 embeds as cleanly as n=3 under the
    corpus-supported formalization, routes 2-3 lose their lattice anchor and the thirds stay
    honestly imported.
-2. **[NOW LOAD-BEARING per the route-1 revision — this conditional is leg 2 of the
-   minimum-N argument] 3-body-only binding [WALK-level inference; "Brunnian"/"Milnor" are
+2. **[CLOSED-BY-CORPUS 2026-08-24 (Grant "ok proceed"): the answer is NO — loop-loop
+   linking is charge-silent.** Three receipts: (i) the canonical definition is exclusively
+   𝒬 = Link(∂Ω, F_substrate) — zero corpus sites define charge from loop-loop linking;
+   (ii) the neutron test case is axiom-stamped: the threaded electron is maximally
+   loop-loop entangled with the cage yet contributes exactly its own −e, additive
+   cancellation ✅ axiom-derived, threading "preserves" the TKI charge
+   (`neutron-identification.md:13,24,34-35`); (iii) the 2026-07-03 pair-physics note gives
+   two 𝒬 objects an INTERACTION, never charge-minting. Consequence: the refuted minimum-N
+   walk's re-scoped leg-2 residue loses its premise and dies; the thirds stay honestly
+   imported pending route 3.] Original text preserved: 3-body-only binding [WALK-level inference; "Brunnian"/"Milnor" are
    new-to-corpus vocabulary with no prior footing].** IF pairwise Link = charge, THEN neutral multi-loop
    binding cannot ride the pairwise channel and must ride the triple-linking (Milnor-class)
    invariant — a conditional to derive, not a fact. Does the z=3 node generate a native
@@ -91,6 +99,11 @@ framing COLLIDES with live clm-7o8clt (`vol2/claim-quality.md:219`, solidity 0.6
 Specific Claim reads the three "3"s as "structurally identical, not independent
 coincidences" — two live corpus statements now assert opposite readings of the same
 numeral; Grant adjudicates which governs.
+**→ RESOLVED BY CARVE (Grant "proceed", 2026-08-24; docket
+`2026-08-24-dc3-carve-and-route2-closure`):** pair 1 (Δc_crit = connectivity) is genuine
+derived structure; pairs 2-3 demoted to asserted (imported-(2,3)-selection tension; z=6
+counterfactual). The hazard STANDS for pairs 2-3 with the pair-1 acknowledgment; carve notes
+landed at the leaf and register.
 
 **NEW OPEN (2026-08-23, from the #999 checker audit — Grant's word needed): the ropelength
 convention.** Under the standard convention (thickness = tube radius), BOTH arms of the Q3
