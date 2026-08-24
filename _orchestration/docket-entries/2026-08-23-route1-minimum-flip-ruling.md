@@ -39,3 +39,36 @@ collision, and the NEW ropelength-convention question from the #999 audit (under
 convention BOTH electron-geometry arms are horn tori with no hole — canon threading
 inexpressible on both; decides whether the neutron's threaded-electron picture is
 geometrically expressible).
+
+---
+
+> 🔴 **ADVERSARIAL-PASS VERDICT (2026-08-23, same day; the pass this entry's order (3)
+> mandated): the banked statement is REFUTED AS BANKED — four lenses, three FATAL. Body
+> above preserved unedited; the walk died at WALK grade, before any claim was minted, which
+> is the process working.** The kills, with receipts in the panel record:
+>
+> 1. **Wire leg 1 (FATAL — canon's own deuteron):** "no shared node/bond ⇒ only linking can
+>    bind" is a false dichotomy omitting near-field mutual reactance — which is canon's OWN
+>    inter-loop binding mechanism (`mutual-coupling-constant.md:15-17`; `binding_energy +=
+>    K_MUTUAL/dist`), and canon carries an explicit N=2 bound state: **the deuteron**
+>    (`pn-junction-coupling.md:17` — bound by transmitted mutual inductance; pp/nn unbound
+>    by junction bias, not absent channel). The pion-retirement "corroboration" inverts: it
+>    is an identity statement about the pion, not a no-2-body-binding theorem.
+> 2. **Locus leg (FATAL — cross-sector criterion):** canonical neutrality is the integer
+>    Link sum, which cancels pairwise on any geometry (the neutron: +1−1=0, TWO terms); read
+>    instead in A1/strain, Axiom-5 clause S makes net dilatation = MASS by law, so a massive
+>    neutral particle REQUIRES net ≠ 0 — the criterion demands canon's opposite. Plus the
+>    internal-phase-vs-spatial-star tie is route 3's unproven content, imported silently.
+> 3. **Convergence claim (FATAL — mutually-refuting arms + homonym-N):** the two readings
+>    are the KEEP-BOTH fork's mutually exclusive branches; each arm's mechanism is
+>    impossible on the other's branch (wire: engaged-port parity is 0-or-2, never 3; locus:
+>    girth-10 loops have no referent at D_p). And wire-N (link components) vs locus-N
+>    (engaged ports) are DIFFERENT QUANTITIES identified only by numeral — the rhyme class
+>    this program polices. On the Cosserat frame, antipodal loads give N_min=2.
+>
+> **SURVIVING RESIDUE (all that may be carried forward):** the derived sub-facts (2+2>3 at a
+> z=3 node; disjoint curves share no bond) and the re-scoped question: mutual reactance
+> binds COMPOSITES (deuteron-class), so the live question is what makes a single
+> topologically-PROTECTED CORE — "only linking is charge-sector-quantized" as a definitional
+> carve, with the entire burden on route 2's conditional plus a non-circular definition of
+> "core". The N-minimum question returns to OPEN in that sharpened form.

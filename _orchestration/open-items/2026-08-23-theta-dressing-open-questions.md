@@ -26,7 +26,12 @@ lands on this object, so the definition leaf is prerequisite-adjacent.
 
 **The four investigation routes (first-order passes, dispatched serially, route 1 first):**
 
-1. **[REVISED 2026-08-23 per docket `2026-08-23-route1-minimum-flip-ruling`] Minimum-N
+1. **[REFUTED-AS-BANKED 2026-08-23 — the adversarial pass ordered by the same ruling
+   fired on all four lenses; verdict + receipts appended to the docket entry. What
+   survives: 2+2>3, bond-disjointness, and the sharpened core-vs-composite question —
+   canon's deuteron binds N=2 by mutual reactance, so the minimum question is about
+   topologically-PROTECTED cores, not binding; burden now entirely on route 2 + a
+   non-circular "core" definition.] Minimum-N
    mechanism (was: embedding obstruction).** The frozen question died B4 at PR #999 (a
    closed loop consumes 2 of 3 ports — one-per-port impossible for n ≥ 2; and the n=4
    "missing direction" is FALSE on computed geometry, the C₃ axis exists). Grant's flip:
@@ -94,3 +99,16 @@ electron-tube fork are horn tori with zero open hole — canon's threading/linki
 the `:59` arm's apparent hole exists only under a tube-diameter convention that contradicts
 its own 2π headline. Which convention (and which geometry) governs is a physics call that
 decides the expressibility of the threading picture.
+
+**ROUTE-3/4 INPUT (2026-08-23 chat walk, WALK-grade, Grant's projection insight):** the
+Smith chart is the Hopf projection of the two-phasor state space — Γ = V_ref/V_inc is the
+projective coordinate on S³; the projection deletes the COMMON phase (the Hopf fiber). The
+Clifford torus (canon's home for the (2,3) winding) is the |V_inc| = |V_ref| locus = |Γ|=1:
+**the chart's unit circle is a crushed torus**, and the winding's q=3 winds the DELETED
+fiber coordinate. Chirality is likewise projection-deleted: (2,3) and (2,−3) draw
+byte-identical flat traces (the modulus is even in cos 3t); handedness lives only in
+sin(±3t) = over/under = the discarded coordinate — a perfect helix projects to the same
+circle for both hands. Candidate precise statements for route 3 ("the thirds live in the
+coordinate the chart deletes — the common-phase U(1)") and route 4 (the CP adjectives were
+assertable both ways because handedness is invisible in every flat projection the corpus
+draws). Un-audited; gate before any grade above WALK.
