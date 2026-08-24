@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **4889b63f** (2026-08-24) · 460 index records · 330 claims · 1 PR open
+Scanned tree **dc861019** (2026-08-24) · 460 index records · 330 claims · 1 PR open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`90753eef`). Every count below describes **4889b63f**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`90753eef`). Every count below describes **dc861019**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 

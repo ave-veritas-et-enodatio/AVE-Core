@@ -95,6 +95,32 @@ plus the ratified product **fully determines** $(R, r)$ with no golden input.
 - Convergence note: the solver cross-check lane's exporter will measure the
   $-1/3$ vertex in ngspice for free — same number, independent route.
 
+## DISPATCHED (2026-08-24, same day) — Grant's walk responses, verbatim (frozen criteria)
+
+Grant walked Q1–Q3 in chat and dispatched the lane. His responses, verbatim:
+
+- **On Q1 (the comp):** *"run the comp, but we should think through
+  eigenvalues/modes, and what the transduction is from phase to real space is,
+  and give the biquarternion network equations a glancing view"*
+- **On Q2 (the width):** *"we should think through the ideal case, and what's
+  physically or logically justified under AVE alone as a non ideal correction"*
+- **On Q3 (the rims):** *"the lock must depend on the vacuums uniforms
+  impedance, and how that couples to the lattices backreaction?"* — Grant's
+  physical hypothesis: the two-junction phase lock rides on the vacuum's
+  uniform $Z_0$, and the source-law back-reaction ($arepsilon_{11}$) is the
+  coupling that could detune it.
+
+Lane shape as dispatched: four corpus pulls (biquaternion formulation, the
+$\Gamma(A)$ impedance-grading receipts, the Q-EMBED-SEL-1 mechanism detail,
+transduction + back-reaction primitives) → the two-junction locked-phase
+eigenmode computation (transfer-matrix + graded end-reflection; hypotheses H1
+endpoints (1/3, 1) / H2 annulus = image of $\Gamma(A)$ / H3 shape vs
+endpoints-only; plus the matching-section question — does the locked spacing
+ever dip below 1/3) → three adversarial lenses (sector-ownership/physics
+incl. the frequency-dependent-termination attack; canon-collision incl. the
+d-q-plane-vs-Γ-disk conflation check; independent numerics rerun). Result
+lands as a research doc via reviewed PR; this item updates with the verdicts.
+
 **Related:** the ropelength-convention NEW OPEN + Grant's no-constructive-
 interference reading (`2026-08-23-theta-dressing-open-questions.md:115-131`) —
 the wave-envelope reading of "tube" applies to this item's tube too.
