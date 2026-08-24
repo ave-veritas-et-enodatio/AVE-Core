@@ -15,7 +15,12 @@ dependencies = [
     "numpy>=1.24.0",
     "scipy>=1.10.0",
     "networkx>=3.0",
-    "matplotlib>=3.7.0",
+    # Pinned per the figure-provenance ruling (open-item figure-bit-reproducibility,
+    # closed 2026-08-24, closure (c)): renders are NOT bit-reproducible across matplotlib
+    # versions; numeric artifacts are the identity-bearing outputs and tracked renders'
+    # Software stamps are authoritative for their era. The pin controls drift going
+    # forward; bump it DELIBERATELY (a bump re-baselines every future render comparison).
+    "matplotlib==3.10.9",
     "pandas>=2.0.0",
     "jupyter>=1.0.0",
     "jax>=0.10.1",
