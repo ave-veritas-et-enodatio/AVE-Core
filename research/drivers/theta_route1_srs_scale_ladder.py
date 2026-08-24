@@ -108,6 +108,19 @@ def scale_ladder() -> dict:
         "electron_tube_diameter_over_L_NODE_reading13": float(
             (2.0 * L_NODE / (2.0 * np.pi)) / L_NODE
         ),
+        # Torus geometry of each arm: loop (major) radius R, tube (minor) radius
+        # r, and the resulting open-hole radius R - r. A loop can be threaded or
+        # linked only if R - r > 0.
+        "reading13_R_over_r": float(
+            (e_circ_13 / (2.0 * np.pi)) / (L_NODE / (2.0 * np.pi))
+        ),
+        "reading13_hole_radius_over_L_NODE": float(
+            ((e_circ_13 / (2.0 * np.pi)) - (L_NODE / (2.0 * np.pi))) / L_NODE
+        ),
+        "reading59_R_over_r": float((e_circ_59 / (2.0 * np.pi)) / (L_NODE / 2.0)),
+        "reading59_hole_radius_over_L_NODE": float(
+            ((e_circ_59 / (2.0 * np.pi)) - (L_NODE / 2.0)) / L_NODE
+        ),
     }
 
 
