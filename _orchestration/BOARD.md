@@ -4,7 +4,9 @@
 
 # AVE program board
 
-Scanned tree **1ffdef0e** (2026-08-23) · 461 index records · 330 claims · 0 PRs open
+Scanned tree **44fbf39a** (2026-08-23) · 461 index records · 330 claims · 0 PRs open
+
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`1ffdef0e`). Every count below describes **44fbf39a**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
