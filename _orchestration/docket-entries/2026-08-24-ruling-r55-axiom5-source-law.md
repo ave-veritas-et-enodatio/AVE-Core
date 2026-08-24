@@ -176,7 +176,12 @@ note in INVARIANT-S2 and the register carries the mapping, and a pre-Phase-2
    that the 57-order $\mathcal{A}_g$ miss evidences). The EM Gauss-function
    pin is **OWED on FORK-1, not held.** A dated fragment lands in
    `eq_axiom_3.tex` upgrading "deliberately left open which clause" to the
-   honest "no clause yet — named-open, riding FORK-1."
+   honest "no clause yet — named-open, riding FORK-1." *Prior-record
+   acknowledgment:* the file's own 2026-08-10 fragment already withdrew a
+   clause-S narrowing at seven sites on the same physics (the forbids-block
+   bars any EM/winding-sector deposit, so clause S cannot be the pin). The
+   panel's delta is the GRADE only: "which clause is open" → "no clause yet
+   writes it — owed."
 2. **The $B(M)$ glyph collision** (open item
    `2026-08-24-axiom5-b-glyph.md`, PR #1003): rides the restructure **when
    Grant picks the replacement glyph**. This PR keeps $B(M)$ with the
