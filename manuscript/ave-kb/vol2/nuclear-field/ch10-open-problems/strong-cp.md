@@ -61,7 +61,7 @@ Any $\theta \ne 0$ gives the neutron an electric dipole moment $d_n \propto \the
 >    it points at is carried today by the **Axiom-2 (TKI)** operational signatures per
 >    INVARIANT-S2 — "(2,q) torus knot" is an Ax-2 signature, not Ax-1; the register's own
 >    depends-on line ("Axiom 1 (gauge structure from (2,q) torus knots…)") is itself suspect
->    against that split — and the
+>    against that split. The claim is also carried by the
 >    ch12 Yang-Mills leaves (framework-conditional per their own scope corrections). The dead
 >    pointer is flagged, not silently rewritten.
 > 3. Standing weaknesses restated from the register (unchanged by this note): step-1

@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **2270f238** (2026-08-23) · 461 index records · 330 claims · 2 PRs open
+Scanned tree **c42f3299** (2026-08-23) · 461 index records · 330 claims · 3 PRs open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`5fc8da8d`). Every count below describes **2270f238**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`5fc8da8d`). Every count below describes **c42f3299**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -121,6 +121,7 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 | PR | state | title |
 |---|---|---|
+| #999 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: theta route-1 — Brunnian  |
 | #998 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] kb: theta-fork carves (a)+(b) + dre |
 | #997 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] kb: translation-diagrammatics — the |
 

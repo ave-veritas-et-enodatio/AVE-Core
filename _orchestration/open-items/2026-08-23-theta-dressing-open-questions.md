@@ -56,8 +56,13 @@ lands on this object, so the definition leaf is prerequisite-adjacent.
    chirality bias" (`manuscript/vol_9_vacuum_datasheet/chapters/11_topological_characteristics.tex:144`).
    **Capability caveat (2026-08-23 audit):** the chiral dispersion ω² = c²k² ∓ γ_c·k is a KB
    formula (`chiral-screening.md:11`) with NO engine primitive — `gamma_c` has zero hits in
-   `src/ave/` (the only numeric use is an illustrative 0.8 in a plot script) and γ_c's value
-   is imported, not derived. Route 4's first-order test — the RH-vs-LH energy split of a
+   `src/ave/` (the only numeric use is an illustrative 0.8 in a plot script); the couple-stress γ_c's
+   value is imported by identification with the weak range (`physics-lineage-map.md:220`),
+   and — a 2026-08-23 delta-audit find — the corpus carries TWO dimensionally-distinct γ_c
+   objects (dispersion coefficient [L·T⁻²] at `chiral-screening.md:11` vs Cosserat
+   couple-stress [M·L·T⁻²] at `gauge-boson-masses.md`) sharing one glyph — the same
+   collision class this item documents for θ; the dispersion-γ_c's own provenance is
+   unestablished. Route 4's first-order test — the RH-vs-LH energy split of a
    rotating balanced-3-phase boundary pattern — therefore REQUIRES building either a
    γ_c-bearing lattice primitive or an analytic estimate first (retagged from "already in
    the engine", which was false).
