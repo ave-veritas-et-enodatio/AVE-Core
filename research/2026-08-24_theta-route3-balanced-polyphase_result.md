@@ -531,25 +531,36 @@ fit, no CODATA.
 
 ---
 
-## ★ FENCE-ASYMMETRY WATCH (orchestrator note, 2026-08-24; delta-verify carry-over)
+## ★ WEIGHT-BOUNDING NOTE (orchestrator, 2026-08-24; supersedes a withdrawn draft)
 
-Recorded because it bears on how much weight §5's positive finding can carry, and because a
-lane cannot be the last word on its own fence.
+> 🔴 **WITHDRAWN, same day, before this section had any downstream consumer: the
+> "FENCE-ASYMMETRY WATCH" that first stood here.** It claimed the §0.1 channel fence is
+> "applied in one direction only — strict against receipts that would support N=3 and loose
+> against receipts that undermine it." **That is false, and this document already said so
+> before the note was written.** §5 gap 4 (`:330-332`, added in the round-1 repair, not by
+> the note) reads: *"the **symmetric application of that fence is that they cannot be
+> load-bearing as *refutation* either**."* The fence IS applied symmetrically. The tell that
+> should have caught it before it landed: the asymmetry as stated would cut **in favour of**
+> §5's N=3 positive, so listing it alongside two reasons to *discount* that positive was
+> incoherent on its face. Withdrawn in full; the loose counter-receipt enumeration that rode
+> with it (which double-counted one object and included an N=3 archetype) is withdrawn too.
 
-The §0.1 channel fence is **frozen prereg text** and it is applied in one direction only: it
-bars spatial-star material "never as support" for the fibre phases, while §5 gap 4 cites
-spatial vol6 networks (four-phase, Delta-Wye, Tetraphase, 5-Phase) as counter-evidence
-*against* a fibre-coordinate rigidity claim. Round-1 tagged the channel mismatch, which is
-correct as far as it goes — but the net effect stands: **the fence is strict against
-receipts that would support N=3 and loose against receipts that undermine it**, and the
-material it discounts is a counter-receipt the prereg itself lists as known-at-freeze.
+**What survives, and it is only this — two independently-verified facts that bound how much
+evidential weight §5's positive finding can carry:**
 
-Compounding, both already on record: the freeze is **git-unverifiable** (prereg, result,
-driver and JSON landed in one commit), and bin **B3 was added by this lane** beyond the
-dispatch's named three — and B3 is the bin its only positive-shaped finding landed in.
+1. **The freeze is git-unverifiable.** Prereg, result, driver and JSON all landed in the
+   single commit `bdf51221`; there is no ordering to check. (Contrast route 1, whose prereg
+   commit `b50c0d86` precedes its result — though that commit itself carried driver code,
+   so it is verifiable ordering rather than a bare-prereg freeze.)
+2. **The bin the positive landed in was added by the lane itself.** §5 is filed under B3,
+   and B3 is not one of the outcome bins this lane was dispatched with. ⚠ **Provenance
+   caveat, and it cuts against this very note:** the dispatch that named the original bins
+   was never tracked — it lived only in the spawning call — so the *only* record that B3 is
+   an addition is the lane's own disclosure at `prereg.md:204`. In a note whose subject is
+   unverifiability, that asymmetry is worth stating plainly rather than asserting the point
+   as established.
 
-**Nothing here impeaches the mathematics** — the driver reproduces bit-exact and the §5
-rigidity result is correct as stated. What it bounds is the *evidential weight* of a
-positive finding produced under a self-added bin, an unverifiable freeze, and an
-asymmetrically-applied fence. A future adjudicator should weigh §5 accordingly rather than
-inheriting it.
+**Nothing here impeaches the mathematics.** The driver reproduces bit-exact and the §5
+rigidity result is correct as stated; B3 was already marked *not banked* before this note
+existed. A future adjudicator should weigh §5 with the two facts above in view — and should
+not inherit the withdrawn asymmetry claim from any summary that quoted it.
