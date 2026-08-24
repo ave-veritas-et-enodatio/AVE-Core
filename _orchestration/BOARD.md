@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **429ec19c** (2026-08-23) · 461 index records · 330 claims · 2 PRs open
+Scanned tree **2270f238** (2026-08-23) · 461 index records · 330 claims · 2 PRs open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`1ffdef0e`). Every count below describes **429ec19c**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`5fc8da8d`). Every count below describes **2270f238**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -121,8 +121,8 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 | PR | state | title |
 |---|---|---|
+| #998 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] kb: theta-fork carves (a)+(b) + dre |
 | #997 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] kb: translation-diagrammatics — the |
-| #996 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] cleanup: dt-fusion ruling (c) execu |
 
 <!-- /volatile -->
 

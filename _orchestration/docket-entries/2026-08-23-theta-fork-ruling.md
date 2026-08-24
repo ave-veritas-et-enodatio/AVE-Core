@@ -12,29 +12,32 @@ cross-reference, no register reconciliation.
 3. *"yes record these, then let's pursue first order passes at each candidate, starting with
    the most important one"*
 
-**The challenge audit (four read-only corpus lanes, receipts in the executing PR):**
+**The challenge audit (four read-only corpus lanes; key receipts pinned per bullet):**
 - The 2026-06-23 ratification (clm-w8jn3q) established the two-ontology NESTING and the
   Q/J separability + generic 1/N FORM only — the thirds are NOT derived from J-physics
-  ("nothing in the substrate selects N=3"; "no body-angular-momentum coupling in any engine").
+  ("nothing in the substrate selects N=3", `research/2026-06-23_witten-angular-momentum-charge_result.md:113`;
+  "no body-angular-momentum coupling in any engine", same doc :253-254).
 - The CP transformation property of the discrete dressing is derived NOWHERE, and the corpus
-  asserts BOTH adjectives: "CP-violating" (topological-fractionalization.md) vs
-  "CP-preserving" (neutron-identification.md §3) — a flat leaf-level contradiction,
+  asserts BOTH adjectives (zero CP/parity hits in the provenance result doc + prereg):
+  "CP-violating" (`topological-fractionalization.md:12`) vs
+  "CP-preserving" (`neutron-identification.md:71`, §3) — a flat leaf-level contradiction,
   previously unflagged.
 - The register kept the strong-CP and fractionalization lanes fully firewalled (no
   cross-cites; no symbol-collision warning despite the δ_CP precedent at clm-4vwsjc).
-- Wind(∂Ω) — the observable the dressing rides — has no canonical definition leaf (no
-  integrand, no def-node) and is double-booked (spin-½ half-integer + the 1/N dressing
+- Wind(∂Ω) — the observable the dressing rides — has no canonical definition leaf (sole corpus
+  site: the `boundary-observables-m-q-j.md:21` table cell; no integrand, no def-node) and is double-booked (spin-½ half-integer + the 1/N dressing
   share, unpartitioned).
 
-**Executed (this branch):** the four dated Rule-12 notes (fractionalization J-dressing
+**Executed (this branch):** three dated Rule-12 notes + a register caveat (fractionalization J-dressing
 supersession + CP-OPEN; strong-cp global-scope carve + dead-cite flag; register θ
 symbol-collision warning; neutron-identification CP-adjective + Σθ-equivalence note) and the
 open item below.
 
 **The four vacuum-side investigation candidates (recorded per ruling 3; full statements in
 open-item `theta-dressing-open-questions`):**
-1. 3-port node forcing: n-component Brunnian embedding obstruction in the z=3 srs net
-   (n=4 needs a 4-junction the lattice lacks) — the GATE candidate, dispatched first.
+1. 3-port node forcing: n-component Brunnian embedding obstruction in the z=3 srs net —
+   does n=4 require a junction the lattice lacks while n=3 fits? (interrogative; the open
+   item carries the kill condition) — the GATE candidate, dispatched first.
 2. 3-body-only binding: pairwise Link is charge, so neutral multi-loop binding must ride the
    triple (Milnor-class) invariant; does the node generate a native 3-body coupling and no
    4-body?

@@ -489,6 +489,7 @@
 - _Specific Non-Claims and Caveats_
   - This is **NOT a Clay-rigorous result** and is not on the Clay list — but the same lattice-conditional caveat applies, as flagged in Master Prediction Table note #16. The "uniqueness of the AVE vacuum topology" is asserted, not formally proven against all possible competing ground states within ZFC.
   - Does NOT claim falsification of the QCD axion search programme. AVE asserts the axion is unnecessary within its framework, not that experimental axion searches will falsify a particle whose existence the framework already excludes.
+  - **Symbol-collision warning (2026-08-23, θ-fork adjudication — the δ_CP-warning pattern of clm-4vwsjc applied to θ):** the "θ" symbol refers to **two distinct physical objects** in this corpus. (i) THIS entry's θ — the GLOBAL vacuum angle of the defect-free ground state, claimed = 0 exactly. (ii) The discrete θ ∈ {0, ±2π/3, ±4π/3} of the baryon-cage quark dressing (clm-67jn9o, clm-w8jn3q) — per the Grant-ratified 2026-06-23 reconciliation the body-angular-momentum 𝒥-dressing of the integer charge, not a vacuum state. Summaries that conflate these are wrong; neither entry constrains the other. The CP transformation property of object (ii) is derived NOWHERE (the corpus asserts "CP-violating" at `topological-fractionalization.md` and "CP-preserving" at `neutron-identification.md` §3, both underived) — tracked OPEN at `_orchestration/open-items/2026-08-23-theta-dressing-open-questions.md`.
 
 > **Leaf references:** [quantitative-resolutions](./nuclear-field/ch10-open-problems/quantitative-resolutions.md), [strong-cp](./nuclear-field/ch10-open-problems/strong-cp.md).
 
@@ -502,7 +503,6 @@
 - strengthen-by:
   - Prove the uniqueness of the zero-charge AVE vacuum topology against competing ground states.
   - Quantify the inter-sector tunneling suppression to show it is exactly (not approximately) zero.
-- **Symbol-collision warning (2026-08-23, θ-fork adjudication — the δ_CP-warning pattern of clm-4vwsjc applied to θ):** the "θ" symbol refers to **two distinct physical objects** in this corpus. (i) THIS entry's θ — the GLOBAL vacuum angle of the defect-free ground state, claimed = 0 exactly. (ii) The discrete θ ∈ {0, ±2π/3, ±4π/3} of the baryon-cage quark dressing (clm-67jn9o, clm-w8jn3q) — per the Grant-ratified 2026-06-23 reconciliation the body-angular-momentum 𝒥-dressing of the integer charge, not a vacuum state. Summaries that conflate these are wrong; neither entry constrains the other. The CP transformation property of object (ii) is derived NOWHERE (the corpus asserts "CP-violating" at `topological-fractionalization.md` and "CP-preserving" at `neutron-identification.md` §3, both underived) — tracked OPEN at `_orchestration/open-items/2026-08-23-theta-dressing-open-questions.md`.
 
 ---
 

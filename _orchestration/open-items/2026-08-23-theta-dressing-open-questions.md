@@ -28,15 +28,22 @@ lands on this object, so the definition leaf is prerequisite-adjacent.
 
 1. **Embedding obstruction (GATE).** In the ratified z=3 srs carrier: can n mutually-Brunnian
    flux structures meet a node at one-per-port, and does n=4 force over-subscription while
-   n=3 fits? MUST resolve the formalization fork first: baryon flux loops are SUB-CELL
-   objects (the electron loop's circumference is one ℓ_node; the baryon scale is ~1/1836 of
-   that), so the live reading is tubes-anchored-at-a-node's-3-bond-directions, NOT extended
+   n=3 fits? MUST resolve the formalization fork first: baryon flux loops are SUB-NODE
+   objects — the measured proton charge radius is D_p = 0.841 fm ≈ ℓ_node/460
+   (`proton-identification.md:23`; NOT 1/1836 — that is the mass ratio, and
+   mass-ratio-as-length-ratio is the retired category error that leaf documents). The
+   electron loop's circumference is C_loop = ℓ_node per the canonical leaves, though tube
+   geometry carries the OPEN Q3 fork (`common-mode-twist-ledger.md:85`: two sites disagree
+   by 2π on circumference). Either way the baryon body is deep sub-node, so the live reading is tubes-anchored-at-a-node's-3-bond-directions, NOT extended
    lattice cycles — the lane states both formalizations and reports which the corpus
    supports before enumerating. Kill condition: if n=4 embeds as cleanly as n=3 under the
    corpus-supported formalization, routes 2-3 lose their lattice anchor and the thirds stay
    honestly imported.
-2. **3-body-only binding.** Pairwise Link = charge ⇒ neutral binding must be triple-linking
-   (Milnor-class). Does the z=3 node generate a native 3-body flux coupling and no 4-body?
+2. **3-body-only binding [WALK-level inference; "Brunnian"/"Milnor" are new-to-corpus
+   vocabulary with no prior footing].** IF pairwise Link = charge, THEN neutral multi-loop
+   binding cannot ride the pairwise channel and must ride the triple-linking (Milnor-class)
+   invariant — a conditional to derive, not a fact. Does the z=3 node generate a native
+   3-body flux coupling and no 4-body?
 3. **Balanced-3-phase reading.** θ ∈ {0, ±2π/3} as the balanced polyphase angles of a
    rotating internal field on a 3-port junction (a balanced 3-phase set IS a rotating field
    = the J-dressing). Would collapse "why thirds" + "what the dressing is" into the port
@@ -45,9 +52,20 @@ lands on this object, so the definition leaf is prerequisite-adjacent.
    branch (ω² = c²k² ∓ γ_c·k ⇒ CP-violating at γ_c order ⇒ a real quantitative neutron-EDM
    confrontation + candidate substrate origin of hadronic CP, cf. the vol9
    CKM-as-chirality-bias row) or only the achiral branch (⇒ CP-preserving; EDM null becomes
-   structural)? First-order test: RH-vs-LH energy split of a rotating balanced-3-phase
-   boundary pattern on the chiral srs cell — the chiral dispersion is already in the engine.
+   structural)? The vol-9 datasheet already claims the CKM phase as "the substrate's residual
+   chirality bias" (`manuscript/vol_9_vacuum_datasheet/chapters/11_topological_characteristics.tex:144`).
+   **Capability caveat (2026-08-23 audit):** the chiral dispersion ω² = c²k² ∓ γ_c·k is a KB
+   formula (`chiral-screening.md:11`) with NO engine primitive — `gamma_c` has zero hits in
+   `src/ave/` (the only numeric use is an illustrative 0.8 in a plot script) and γ_c's value
+   is imported, not derived. Route 4's first-order test — the RH-vs-LH energy split of a
+   rotating balanced-3-phase boundary pattern — therefore REQUIRES building either a
+   γ_c-bearing lattice primitive or an analytic estimate first (retagged from "already in
+   the engine", which was false).
 
 **Weld hazards (standing):** "N=3 because z=3" counts only as a derived embedding
 obstruction, never as the numeral rhyme; Δc=3's shared numeral is a coincidence-tell to
-check, not evidence.
+check, not evidence. ⚑ **ROUTED TO GRANT (2026-08-23 audit finding):** this Δc=3 hazard
+framing COLLIDES with live clm-7o8clt (`vol2/claim-quality.md:219`, solidity 0.60), whose
+Specific Claim reads the three "3"s as "structurally identical, not independent
+coincidences" — two live corpus statements now assert opposite readings of the same
+numeral; Grant adjudicates which governs.
