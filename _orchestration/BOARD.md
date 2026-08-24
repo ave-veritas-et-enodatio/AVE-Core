@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **c079bf06** (2026-08-24) · 460 index records · 330 claims · 2 PRs open
+Scanned tree **cdc278b8** (2026-08-24) · 460 index records · 330 claims · 1 PR open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`676fa27f`). Every count below describes **c079bf06**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`73626a09`). Every count below describes **cdc278b8**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -30,7 +30,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## What we are waiting on
 
-**34 of 66 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
+**38 of 70 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
 
 *Scope: this is a census of `open-items/`. `_orchestration/2026-07-10_rulings-docket.md` is the **paper timeline** — a dated continuation log, frozen at its 2026-07-21 tail per `docket-entries/README.md`, and the historical record of how each ruling was reached. It is read chronologically, not harvested; anything still live in it belongs here as its own file.*
 
@@ -63,6 +63,10 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [The repo-formatting P2 adjudication batch awaits Grant's rulings and was tracked on no current surface](open-items/2026-08-17-repo-formatting-p2-orphaned-ruling.md) | ROUTED-TO-GRANT | grant | 2026-08-17 |
 | [162 MB in 8 tracked files >10 MB (~24% of pack) + 29 MB build outputs under src/ — LFS, prune, or accept?](open-items/2026-08-17-repo-weight-policy.md) | ROUTED-TO-GRANT | grant | 2026-08-17 |
 | [95 of 778 src/scripts drivers are referenced nowhere in the tracked corpus — archive, delete, or reference?](open-items/2026-08-17-unreferenced-drivers-policy.md) | ROUTED-TO-GRANT | grant | 2026-08-17 |
+| [A_0 is two objects: the Bohr radius (a length, exported by constants.py) and the Axiom-4 operating point (dimensionless) — and one live equation consumes both](open-items/2026-08-24-a0-glyph-collision.md) | ROUTED-TO-GRANT | grant | 2026-08-24 |
+| [Axiom 5's enclosed compression charge B(M) reuses the glyph Axiom 1 assigns to the magnetic/microrotational sector — across the A1 ⊥ T2 fence](open-items/2026-08-24-axiom5-b-glyph.md) | ROUTED-TO-GRANT | grant | 2026-08-24 |
+| [Symbol collisions have two competing homes (theorem-thesaurus §6 rows, ungated; vocabulary-register def-nodes, CI-gated) — pick one before the next batch lands](open-items/2026-08-24-collision-register-home.md) | ROUTED-TO-GRANT | grant | 2026-08-24 |
+| [gamma_c and G_c are both called 'the Cosserat couple-stress modulus' in one leaf, differ dimensionally, and a joint-falsification claim reads them as identical](open-items/2026-08-24-gammac-gc-modulus-identity.md) | ROUTED-TO-GRANT | grant | 2026-08-24 |
 | [The Axiom-4 kernel argument "A" carries two normalizations across axiom-level and SOLID leaves (yield-denominated vs bare/snap) — VOCABULARY only](open-items/2026-08-24-kernel-argument-normalization.md) | ROUTED-TO-GRANT | grant | 2026-08-24 |
 | [Sector-of-storage — where the compression store lives (A1 canon vs the T2/swing label)](open-items/2026-07-26-sector-of-storage.md) | OPEN-IN-WALK | grant | 2026-07-26 |
 | [The quark-charge dressing — CP-parity underived (both adjectives asserted), N=3 fed in; four vacuum-side investigation routes GO'd](open-items/2026-08-23-theta-dressing-open-questions.md) | OPEN-IN-WALK | lane | 2026-08-23 |
@@ -125,7 +129,6 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 | PR | state | title |
 |---|---|---|
 | #1004 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] canon: R55 — Substrate DC Bias rest |
-| #1003 | CLEARED | [REVIEW: CLEARED] orchestration: track the four routed symbol-collision decision |
 
 <!-- /volatile -->
 
