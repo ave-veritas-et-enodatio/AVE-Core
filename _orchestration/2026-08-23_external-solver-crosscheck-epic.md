@@ -19,11 +19,18 @@ itself** — each phase carries its own GO gate.
 
 **Sector declaration.** MODE: numerical-infrastructure epic (no new physics claims). REGIME:
 Regime I, sub-yield lossless-reactive — linear small-signal only, phases 0–2. PHASE-STATE: cold
-lattice. Phase 3 alone reaches toward the saturation kernel, and is conditional.
+lattice. **CHANNEL: scalar/translational first** — its band top is closed-form; the
+vector/Cosserat channel's top is a live bracket pending the standing
+single-scale-vs-stiffness-lifted ruling, so it enters (if at all) only after that ruling
+(blind-audit finding 3.7). Phase 3 alone reaches toward the saturation kernel, and is
+conditional.
 
-The substrate model IS a circuit: nodes with LC storage, bonds as transmission-line elements,
-canonical ε₀/μ₀/Z₀/c as the medium constants. Every certified engine core integrates that
-network with in-house numerics. An industrial SPICE-class solver (ngspice / Xyce) is a mature,
+The scalar/translational substrate model IS a circuit: nodes with LC storage, bonds as
+transmission-line elements (the Op5 scatter+connect TLM; scalar-channel scope per
+`srs-band-structure.md:53-57`), canonical ε₀/μ₀/Z₀/c as the medium constants. The engine's
+TLM cores — the v9 chiral-srs lattice and the K4-TLM — integrate that network with in-house
+numerics (the other engine backends are different discretizations, not this network;
+blind-audit finding 3.6). An industrial SPICE-class solver (ngspice / Xyce) is a mature,
 independently-developed integrator for **exactly this class of network**. Exporting the engine's
 own graph — same topology, same canonical element values — and comparing observables gives an
 independence receipt our in-house numerics cannot give themselves.
@@ -69,12 +76,38 @@ and that verdict would be banked honestly rather than tuned away.
 ### Phase 0 — Requirements + trade study (planning only, no code)
 
 Per the bench-test documentation pattern: a **Requirements doc (derived)** — which graph
-(ratified z=3 srs carrier cell; the K4 primitive as a fallback lane if the trade study argues
-for it), which element values (imported from `src/ave/core/constants.py`, never typed), which
+(the ratified z=3 srs carrier cell, per `axiom-register.md:147`; note the surface name "K4"
+is adjudicated-overloaded and is NOT offered as a separate graph option — blind-audit finding
+3.12), which element values (imported from `src/ave/core/constants.py`, never typed), which
 observables (single-cell resonance; small-cluster eigenfrequency set; N-cell chain two-port
 response), and which engine-side reference path computes each — plus a **TradeStudy doc
 (decisions OPEN)** covering §6. Deliverable: both docs + the frozen Phase-1 prereg skeleton.
 GATE: Grant ratifies the trade-study decisions marked his.
+
+**★ PHASE-0 NAMED INPUTS (2026-08-23 blind-audit intake — land in the Requirements/TradeStudy
+docs, do not rediscover):**
+
+1. **The Bloch-expressibility problem (finding 3.9).** The canonical band structure is a 3D
+   Bloch object on the 4-site srs primitive cell (top at H); a SPICE netlist cannot impose a
+   complex Bloch phase, and a "periodic chain/ring" does not sample it. Phase 0 must pick the
+   dispersion observable from the tractable substitutes — finite 3D supercell eigenfrequency
+   SET (Phase-1-class observable) vs long-open-chain S21 phase-unwrap (a 1D-reduced object
+   that canonical ω(k) is not) — and state exactly what each does and does not compare.
+2. **An observable that is not a wiring theorem (finding 3.8).** The band-top CLASS check is
+   an exporter-integrity gate (§ Phase 2); the requirements doc must name at least one
+   quantitative observable whose value is not fixed by {3-regular, bipartite, identical
+   lossless lines} alone.
+3. **The Phase-1 anchor's termination (finding 3.10).** "Single cell" must be defined: a bare
+   LC tank is exactly 1/√(LC); an srs z=3 VERTEX is an intrinsically mismatched reciprocal
+   3-port (Γ = (2−z)/z = −1/3, `translation-circuit.md:189`) whose resonance depends on bond
+   terminations. The requirements doc states the pilot object and its termination explicitly.
+4. **The ω_C scale-label fork (finding 3.11).** Under R2 (adopted) the scalar top is
+   π√3 ω_C = 5.4414 ω_C; under R1 every ω_C band label divides by √3. Tolerances are frozen
+   against `constants.py` values, so the requirements doc names the label convention — else a
+   √3 offset can masquerade as a defect.
+5. **Demotion-aware engine-side references (finding 3.13).** `srs-band-structure.md` carries
+   two dated demotion notes on its longitudinal/vector rows; the §2 scalar arccos fact
+   survives both, but reference extraction must not walk into demoted rows.
 
 ### Phase 1 — Pilot: single cell + smallest cluster
 
@@ -97,8 +130,13 @@ and one structural:
 - **Structural (parameter-free):** the band TOP must present as a **Bragg / half-wave
   resonance, not a stop-band edge** — the class fact carved at
   `manuscript/ave-kb/common/translation-tables/translation-circuit.md` (carve 4) and grounded
-  at `srs-band-structure.md` §2. An independent solver reproducing the band-top CLASS is a
-  receipt no in-house rerun can provide.
+  at `srs-band-structure.md` §2. **Honest scope (blind-audit finding 3.8):** the band top
+  π·ω_link is a theorem of {3-regular, bipartite, identical lossless lines} — attained iff the
+  adjacency spectrum reaches μ = −3, which srs's bipartiteness guarantees. A solver
+  reproducing it therefore verifies the EXPORTER built such a net (the §5.3(a) hand-audit's
+  receipt), not engine independence. It stays in Phase 2 as an exporter-integrity gate; the
+  independence weight rests on the quantitative dispersion comparison, and Phase 0 owes an
+  observable that is NOT a wiring theorem (§4 Phase-0 named inputs).
 
 Engine-side reference numbers are re-derived at run time under the reproduction gate (no banked
 number is load-borne without a fresh receipt). GATE to Phase 3: Phase 2 banked + a named
@@ -177,7 +215,7 @@ drifted.
 - **cRIO bench (deferred):** the hardware analog of the same independence idea; nothing here
   blocks or is blocked by it.
 - **Canonical anchors:** `src/ave/core/constants.py` (values), `srs-band-structure.md` §2
-  (methods fact + band-top grounding), `translation-circuit.md` carve 4 + saturation-kernel
+  (methods fact + band-top grounding), `manuscript/ave-kb/common/translation-tables/translation-circuit.md` carve 4 + saturation-kernel
   row (band-top class; varactor mapping), engine-capability-map (which certified core computes
   each reference).
 

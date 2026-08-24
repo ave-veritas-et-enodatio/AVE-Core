@@ -7,12 +7,15 @@ this repo — restore a public-safe implementation (a), stub it (b), or retire t
 
 **Evidence walked before the ruling** (orchestrator, 2026-08-23, verified receipts):
 
-- The symbol never existed in this repo: `git log --all -S 'def generate_fusion_netlist'`
-  returns 0 hits; the repo was born partitioned (`de9d2293`), the stub arrived next day
+- The symbol never existed in this repo: `git log 1ffdef0e -S 'def generate_fusion_netlist'`
+  returns 0 hits (receipt pinned to the pre-ruling base — the `--all` form stops reproducing
+  once this record, which quotes the string, lands; blind-audit finding 1.1); the repo was
+  born partitioned (`de9d2293`), the stub arrived next day
   (`2670d50e`) preserving only `generate_spice_netlist` (as a no-op).
-- The full 196-line implementation survives in the pre-partition historical archive
-  (`Applied-Vacuum-Engineering/src/scripts/vol_6_periodic_table/simulations/spice_exporter.py:113`,
-  84 lines), not in any private sibling repo (0 hits in the private mirrors).
+- The full implementation — 84 lines of the 196-line archive file — survives in the
+  pre-partition historical archive
+  (`Applied-Vacuum-Engineering/src/scripts/vol_6_periodic_table/simulations/spice_exporter.py:113`),
+  not in any private sibling repo (0 hits in the private mirrors).
 - The driver's complete output is ALREADY tracked in this repo
   (`spice_netlists/dt_fusion_transient.cir`, in-tree since initial release) — the function is
   a template-printer whose printed result is public, so no option changes disclosure.
