@@ -121,6 +121,43 @@ incl. the frequency-dependent-termination attack; canon-collision incl. the
 d-q-plane-vs-Γ-disk conflation check; independent numerics rerun). Result
 lands as a research doc via reviewed PR; this item updates with the verdicts.
 
+## STEP-BACK SWEEP (2026-08-24, Grant: "step back and evaluate if this is actually a new angle")
+
+Prior-art sweep run before the lane returned. Verdict: **a new QUESTION, not a
+new discovery** — with one genuinely new thread-coupling. Corrections to this
+item's own earlier text are stated, not hidden.
+
+**Prior art that binds (found by the sweep, not loaded at authoring):**
+
+1. **X37/X38 (2026-07-10)** —
+   `research/2026-07-10_x37-junction-parasitics_result.md:40` proves the 1/3
+   floor across *"the ENTIRE lossless reciprocal C₃ vertex class"* (stubs,
+   finite junction volumes, resonant branches included). **Correction to
+   caveat 2 above:** "composite networks beat element floors" is too broad —
+   canon already narrowed the routes below 1/3 to exactly two: a CASCADE of
+   separate vertices (this item's un-walked computation) and NON-RECIPROCITY.
+2. **`saturation-rim-inversion.md`** (Grant-ratified mapping, 2026-07-21) —
+   owns the cold-interior/saturated-rim picture and states "saturated core =
+   |Γ|=1"; its A46 coordinate discipline firewalls THREE distinct disks (the
+   per-mode amplitude disk; the (V_inc,V_ref) phasor space where R·r=¼ lives;
+   the Γ-ratio disk the mark draws). **H2 must survive that firewall
+   explicitly.** Its π₁ factorization survived review *because* it was
+   radius-blind — prior caution, not prior art against.
+
+**The new fork the step-back produced (the valuable output):** X37/X38's sole
+surviving below-1/3 escape class is non-reciprocity — a circulator vertex
+requiring a T-breaking bias (PENDING-GRANT; candidate `u₀*/Ω_freeze`,
+`x38-s11-bore-selection_result.md:38`). The electron's own (2,3) winding IS a
+local circulation. **If the bound state's self-circulation supplies the
+T-breaking bias at its own interior junctions, the 1/3 floor does not bind
+the electron's interior and the vertex pin dies** — a coupling of two
+existing threads neither states alone. Q5, added to the walk set: does
+self-circulation open the circulator class at the tank's own vertices?
+
+**Unchanged:** the mark-hits-1/3 coincidence-flag stands (textbook default ×
+the most available number on a z=3 lattice); grade = internal-consistency
+metric bookkeeping — this item does not displace the testing-infra lane.
+
 **Related:** the ropelength-convention NEW OPEN + Grant's no-constructive-
 interference reading (`2026-08-23-theta-dressing-open-questions.md:115-131`) —
 the wave-envelope reading of "tube" applies to this item's tube too.
