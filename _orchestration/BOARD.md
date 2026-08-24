@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **868a0019** (2026-08-24) · 460 index records · 330 claims · 1 PR open
+Scanned tree **6acec035** (2026-08-24) · 460 index records · 330 claims · 1 PR open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`90753eef`). Every count below describes **868a0019**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`90753eef`). Every count below describes **6acec035**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -110,9 +110,9 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## Ruling-token coverage
 
-**42 of 55 docketed ruling numbers have no word-boundary occurrence anywhere in the claims register.**
+**43 of 56 docketed ruling numbers have no word-boundary occurrence anywhere in the claims register.**
 
-R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20, R21, R22, R23, R24, R25, R26, R27, R28, R29, R30, R32, R33, R34, R35, R36, R37, R38, R41, R45, R46, R47, R51, R52, R53, R54, R55
+R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20, R21, R22, R23, R24, R25, R26, R27, R28, R29, R30, R32, R33, R34, R35, R36, R37, R38, R41, R45, R46, R47, R51, R52, R53, R54, R55, R56
 
 > ⚑ **Read this as token coverage, not as physics debt.** It was headlined as "propagation debt" and that was wrong in both directions:
 >
