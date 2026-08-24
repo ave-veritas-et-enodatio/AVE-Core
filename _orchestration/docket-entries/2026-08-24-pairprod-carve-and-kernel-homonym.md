@@ -51,3 +51,45 @@ pass dispatched; route-4 γ_c-prerequisite scoping queued behind it.
 > The residue of the pair-production work is a POINTER: `four-regimes.md:50-51` predate the
 > 2026-06-30 adjudication and name Schwinger at $V_{yield}$; that tension is flagged in the
 > leaf, not adjudicated.
+
+---
+
+> 🔴 **CORRECTION TO THE WITHDRAWAL 2026-08-24 (delta-verify of the unwind commit; both
+> blocks above preserved unedited).** The withdrawal above was itself audited and
+> **over-corrected on one point.** What stands and what does not:
+>
+> - **STANDS — the physics premise was a phantom.** "The electron wall needs
+>   $Z_{core}\to0$ at $V_{yield}$" is inverted against `def-vyvsn1`; $Z_{core}\to0$ is the
+>   longitudinal-A1 event at $V_{snap}$. Unchanged.
+> - **DOES NOT STAND — "therefore no two-normalization dilemma and no fourth glyph
+>   collision."** That was a corpus-completeness claim asserted with no sweep — the same
+>   failure mode, one level up. **The vocabulary collision is REAL**, on three receipts
+>   verified this session:
+>   (i) `manuscript/ave-kb/CLAUDE.md` INVARIANT-S2 (axiom-level) writes
+>   $S(A)=\sqrt{1-(A/A_{yield})^2}$ — denominator normalized to YIELD;
+>   (ii) `q-g18-schwinger-pair-wkb.md`:35 integrates the BARE kernel
+>   $S(A)=\sqrt{1-A^2}$ with :44 placing $A=1$ at $E_S$ — normalized to SNAP, 11.7× higher;
+>   (iii) `def-vyvsn1` itself computes $S(\sqrt\alpha)=\sqrt{1-\alpha}\approx0.996$ from
+>   $A=V_{yield}/V_{snap}=\sqrt\alpha$ — arithmetic that works ONLY on the bare form. Fed
+>   through the axiom's own literal $A/A_{yield}$ form, that same physical state gives
+>   $A/A_{yield}=1$, $S=0$. **One glyph, two normalizations, in SOLID and axiom-level
+>   leaves.** Re-opened NARROWLY and vocabulary-only as open-item
+>   `kernel-argument-normalization` — it carries none of the deleted physics premise.
+> - **DOWNGRADED — "Grant's ruling 2 is VOID."** Over-reach. `def-vyvsn1` forbids treating
+>   the two scales as INDEPENDENT VALUES ("one free threshold per sector"); the
+>   context-graded wording does not do that — the deleted item's own OPEN section proposed
+>   *deriving* the factor so it **reproduces** $V_{yield}=\sqrt\alpha\,V_{snap}$ rather
+>   than importing it — and canon itself normalizes per context at `four-regimes.md`:10
+>   ("$r = A/A_c$ … $A_c$ is the **domain-specific** critical threshold"). Correct status:
+>   **ruling 2's PREMISE was wrong, so it cannot stand as a ratification of that framing;
+>   the vocabulary question it answered is real and is RE-PUT to Grant** on the receipts
+>   above, un-stamped.
+> - **CORRECTED — "rulings 3, 4 and 5 stand unaffected."** False for ruling 4: the sweep
+>   lane was dispatched naming four collisions including kernel-A. Its kernel-A leg
+>   SURVIVES, re-chartered as vocabulary-only per the item above (the sweep's own A₀
+>   finding — Bohr radius vs operating point — is a separate, independently-receipted
+>   collision and was never affected).
+> - **NOT A DEFECT (recorded to stop it re-firing):** the board's "Scanned tree" stamp
+>   naming the parent commit is documented generator behaviour
+>   (`generate_board.py`:72-75, "permanently one commit behind, forever, by construction"),
+>   as a prior audit of this same PR already found.

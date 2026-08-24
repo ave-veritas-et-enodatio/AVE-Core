@@ -80,7 +80,8 @@ In semiconductor terms (an effectively spin-2 / shear-mode analog), the spin-2 b
   > II→III onset", which is false on this leaf's own ladder either way it is normalized.
   >
   > **The one residue worth a reader's attention, stated as a pointer and NOT re-derived
-  > here:** `:50` and `:51` above name "Schwinger pair production at $V_{yield}$", while
+  > here:** `:50` above names "Schwinger pair production at $V_{yield}$" and `:51` puts the
+  > photon-sector boundary there by back-reference ("again"), while
   > the 2026-06-30 adjudication places Schwinger/pair-nucleation at $V_{snap}$ (its step 6,
   > "deep in Regime IV", $E_S/E_{yield} = 1/\sqrt\alpha$). Those two lines predate the
   > adjudication and are flagged as honesty-lag against it. Whether they need a sectoral
