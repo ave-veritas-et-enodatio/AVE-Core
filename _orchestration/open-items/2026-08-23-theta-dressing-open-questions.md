@@ -112,6 +112,19 @@ electron-tube fork are horn tori with zero open hole — canon's threading/linki
 the `:59` arm's apparent hole exists only under a tube-diameter convention that contradicts
 its own 2π headline. Which convention (and which geometry) governs is a physics call that
 decides the expressibility of the threading picture.
+**→ THIRD READING BANKED (Grant 2026-08-24, verbatim: "what assumptions could we be
+sneaking in? what about the lens of different frequency domains? no constructive
+interference."):** the A/B geometry fork may itself smuggle the HARD-ROPE assumption —
+ropelength mathematics treats the tube as an impenetrable rope, but the substrate object is
+a standing WAVE: "tube" = an envelope level-set (convention-dependent, which would make the
+:13/:59 arms two level-set conventions of ONE field object, not rivals), "hole" = an
+interference NULL, and "threading" = MODE ORTHOGONALITY (the threaded electron occupies the
+cage's null region; no constructive interference = no energy exchange = stable coexistence
+without geometric clearance). Under this reading the 1.293 MeV surplus re-expresses as the
+cavity RETUNING cost of hosting the second orthogonal mode — a computable two-mode cavity
+problem replacing the elastic-stretch story. WALK-grade; harmonizes with Route C (tube =
+saturation locus = also a level-set). Q3 adjudication should now weigh THREE readings:
+hard-rope-A, hard-rope-B, and level-set/mode-orthogonality.
 
 **ROUTE-3/4 INPUT (2026-08-23 chat walk, WALK-grade, Grant's projection insight):** the
 Smith chart is the Hopf projection of the two-phasor state space — Γ = V_ref/V_inc is the

@@ -59,6 +59,23 @@ In semiconductor terms (an effectively spin-2 / shear-mode analog), the spin-2 b
 
   > **Note (cross-link with Ch.3).** <!-- claim-quality: clm-2dwzib --> This $r_3 = 1.0$ boundary is the same $V_{yield} = \sqrt{\alpha}\,V_{snap} \approx 43.65$ kV described in [Ch.3 §3.3 Zero-Impedance Boundary](../../dynamics/ch3-quantum-signal-dynamics/zero-impedance-boundary.md) as ``matter assembly begins.'' The two descriptions are the same phase transition viewed from opposite sides: from sub-threshold trapping a wave reflects inward at $\Gamma = -1$ and forms a stable standing wave (matter); a super-threshold mode driven through the same boundary ruptures the existing topology. Same Axiom 4 saturation, two operational faces.
 
+  > 🔴 **Dated carve 2026-08-24 (pair-production boundary-ownership adjudication; Grant
+  > "go"; docket `2026-08-24-pairprod-carve-and-kernel-homonym`). Text above preserved
+  > (Rule 12).** The note's two operational faces are real but they live at **two
+  > thresholds, √α apart — not one boundary viewed twice**: matter assembly (Γ = −1
+  > trapping) begins at $V_{yield} = \sqrt{\alpha}\,V_{snap} \approx 43.65$ kV (the
+  > Regime II→III onset), while topology rupture / pair production is the response to the
+  > kernel zero at the **snap / node-destruction limit** ($V_{snap} = m_ec^2/e \approx
+  > 511$ kV; $E_S$ — `q-g18-schwinger-pair-wkb.md:44` "precisely the field at which A = 1
+  > … by construction"; the vol-9 ch-8 two-threshold structure). Three independent votes
+  > force the split, including the stability argument: a confined particle sits
+  > permanently at its Γ=−1 wall — if that wall owned pair production, every particle
+  > would be a continuous pair source. The r₃ = 1.0 row above (kernel zero, "topology is
+  > destroyed") therefore belongs to the SNAP boundary, and this cross-link's
+  > identification of it with $V_{yield}$ is the carved error. Upstream cause: the kernel
+  > argument "A" is a two-normalization homonym — see open-item
+  > `kernel-normalization-homonym`.
+
 ### Semiconductor Device Analogy
 
 The four regimes map exactly to the standard operating regions of a semiconductor p-n junction:
