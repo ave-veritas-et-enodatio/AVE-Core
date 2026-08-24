@@ -17,7 +17,7 @@
 > ordering unverifiable: neither "before the driver ran" nor §1's five not-known-at-freeze claims
 > can be shown from git. **Contrast route 1, which had genuine ordering** — its prereg commit
 > `b50c0d86` (2026-08-23 20:56) precedes its result commit `4f963e29` (2026-08-23 21:07), so
-> route 1's freeze is checkable and route 3's is not. The independent checker-audit re-derived
+> route 1's freeze is checkable and route 3's is not — with the same caveat the result doc's footer carries: route 1's prereg commit `b50c0d86` itself carried driver code, so its ordering is verifiable but not a bare-prereg freeze either. The independent checker-audit re-derived
 > every number in the result bit-exactly, so no *result* is impeached; what is withdrawn is the
 > *freeze claim*, and with it the evidentiary weight of §1's honesty declaration and of any
 > "pre-registered, therefore not post-hoc" defence of §5's bins.

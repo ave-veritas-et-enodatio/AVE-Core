@@ -528,3 +528,28 @@ fit, no CODATA.
 > resultant ≡ 0 numeric is a tautological consequence of the zero-sum constraint (as the
 > driver docstring itself says); D2's substantive content is the fence argument, and the
 > numeric is not independent evidence for B6.
+
+---
+
+## ★ FENCE-ASYMMETRY WATCH (orchestrator note, 2026-08-24; delta-verify carry-over)
+
+Recorded because it bears on how much weight §5's positive finding can carry, and because a
+lane cannot be the last word on its own fence.
+
+The §0.1 channel fence is **frozen prereg text** and it is applied in one direction only: it
+bars spatial-star material "never as support" for the fibre phases, while §5 gap 4 cites
+spatial vol6 networks (four-phase, Delta-Wye, Tetraphase, 5-Phase) as counter-evidence
+*against* a fibre-coordinate rigidity claim. Round-1 tagged the channel mismatch, which is
+correct as far as it goes — but the net effect stands: **the fence is strict against
+receipts that would support N=3 and loose against receipts that undermine it**, and the
+material it discounts is a counter-receipt the prereg itself lists as known-at-freeze.
+
+Compounding, both already on record: the freeze is **git-unverifiable** (prereg, result,
+driver and JSON landed in one commit), and bin **B3 was added by this lane** beyond the
+dispatch's named three — and B3 is the bin its only positive-shaped finding landed in.
+
+**Nothing here impeaches the mathematics** — the driver reproduces bit-exact and the §5
+rigidity result is correct as stated. What it bounds is the *evidential weight* of a
+positive finding produced under a self-added bin, an unverifiable freeze, and an
+asymmetrically-applied fence. A future adjudicator should weigh §5 accordingly rather than
+inheriting it.
