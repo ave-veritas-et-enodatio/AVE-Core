@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **9809e82c** (2026-08-24) · 461 index records · 330 claims · 5 PRs open
+Scanned tree **4f345e6b** (2026-08-24) · 460 index records · 330 claims · 3 PRs open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`ff0fde8b`). Every count below describes **9809e82c**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`020262af`). Every count below describes **4f345e6b**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -30,7 +30,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## What we are waiting on
 
-**33 of 64 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
+**33 of 66 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
 
 *Scope: this is a census of `open-items/`. `_orchestration/2026-07-10_rulings-docket.md` is the **paper timeline** — a dated continuation log, frozen at its 2026-07-21 tail per `docket-entries/README.md`, and the historical record of how each ruling was reached. It is read chronologically, not harvested; anything still live in it belongs here as its own file.*
 
@@ -89,6 +89,8 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [check_new_cites mixes committed line-sets with working-tree content — green receipts describing neither state](open-items/2026-08-19-newcite-ratchet-split-brain.md) | OPEN | unassigned | 2026-08-19 |
 | [Tracked figures are not bit-reproducible — matplotlib is unpinned (3.10.8 stamps vs 3.10.9 venv)](open-items/2026-08-20-figure-bit-reproducibility.md) | OPEN | unassigned | 2026-08-20 |
 | [Archiving a script is a silent exit from the import-smoke known-broken allowlists, and the liveness guard mis-describes it](open-items/2026-08-23-archive-move-allowlist-exit.md) | OPEN | lane | 2026-08-23 |
+| [The R55 panel's "lattice K=0" flat-direction receipt must be re-expressed R52-compliantly (K is not a lattice quantity)](open-items/2026-08-24-r52-panel-k-receipt.md) | OPEN | lane | 2026-08-24 |
+| [R55 Phase-2 — scripted long-tail wording sweep, "Axiom 5" → "the Substrate DC Bias source law"](open-items/2026-08-24-r55-phase2-wording-sweep.md) | OPEN | lane | 2026-08-24 |
 | [Sibling-repo debts — AVE-Fusion yield cross-wire + AVE-Bench-FemtoElectrometer stale sites](open-items/2026-07-03-sibling-repo-debts.md) | REGISTERED | unassigned | 2026-07-03 |
 | [The v3 ringdown instrument — the DISCRETE near-wall chain](open-items/2026-08-04-v3-ringdown-instrument.md) | REGISTERED | unassigned | 2026-08-04 |
 | [Hygiene backlog — Bell-arc citation follow-ups, FPR provenance re-grep, auditor-landing queue](open-items/2026-07-03-hygiene-backlog.md) | QUEUED | unassigned | 2026-07-03 |
@@ -103,9 +105,9 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## Ruling-token coverage
 
-**41 of 54 docketed ruling numbers have no word-boundary occurrence anywhere in the claims register.**
+**42 of 55 docketed ruling numbers have no word-boundary occurrence anywhere in the claims register.**
 
-R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20, R21, R22, R23, R24, R25, R26, R27, R28, R29, R30, R32, R33, R34, R35, R36, R37, R38, R41, R45, R46, R47, R51, R52, R53, R54
+R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20, R21, R22, R23, R24, R25, R26, R27, R28, R29, R30, R32, R33, R34, R35, R36, R37, R38, R41, R45, R46, R47, R51, R52, R53, R54, R55
 
 > ⚑ **Read this as token coverage, not as physics debt.** It was headlined as "propagation debt" and that was wrong in both directions:
 >
@@ -122,10 +124,8 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 | PR | state | title |
 |---|---|---|
-| #1002 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research(solver-crosscheck): Phase- |
-| #1001 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research(theta-route3): the RELOCAT |
+| #1003 | CLEARED | [REVIEW: CLEARED] orchestration: track the four routed symbol-collision decision |
 | #1000 | CLEARED | [REVIEW: CLEARED] infra: figure-provenance ruling — closure (c), matplotlib pinn |
-| #998 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] kb: theta-fork carves (a)+(b) + dre |
 | #997 | CLEARED | [REVIEW: CLEARED] kb: translation-diagrammatics — the Feynman-formalism register |
 
 <!-- /volatile -->
