@@ -502,6 +502,7 @@
 - strengthen-by:
   - Prove the uniqueness of the zero-charge AVE vacuum topology against competing ground states.
   - Quantify the inter-sector tunneling suppression to show it is exactly (not approximately) zero.
+- **Symbol-collision warning (2026-08-23, θ-fork adjudication — the δ_CP-warning pattern of clm-4vwsjc applied to θ):** the "θ" symbol refers to **two distinct physical objects** in this corpus. (i) THIS entry's θ — the GLOBAL vacuum angle of the defect-free ground state, claimed = 0 exactly. (ii) The discrete θ ∈ {0, ±2π/3, ±4π/3} of the baryon-cage quark dressing (clm-67jn9o, clm-w8jn3q) — per the Grant-ratified 2026-06-23 reconciliation the body-angular-momentum 𝒥-dressing of the integer charge, not a vacuum state. Summaries that conflate these are wrong; neither entry constrains the other. The CP transformation property of object (ii) is derived NOWHERE (the corpus asserts "CP-violating" at `topological-fractionalization.md` and "CP-preserving" at `neutron-identification.md` §3, both underived) — tracked OPEN at `_orchestration/open-items/2026-08-23-theta-dressing-open-questions.md`.
 
 ---
 
