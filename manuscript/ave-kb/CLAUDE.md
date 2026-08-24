@@ -354,16 +354,16 @@ Cross-volume references appear in index documents and in leaf documents where th
 
 ---
 
-## INVARIANT-S2 continuation — the Axiom-5 bullet (line-count-safe placement)
+## INVARIANT-S2 continuation — the source-law bullet (line-count-safe placement)
 
-This section exists only so the Axiom-5 bullet can be added without shifting this
-file's 23 inbound `:NN` cite lines. It is part of INVARIANT-S2; `refresh-kb-metadata`
-scans the whole file for `- Axiom N: **…**` bullets, so the node it materializes is
-identical to an inline placement (`canonical_anchor` resolves to the INVARIANT-S2
-heading either way). **This heading is deliberately `##`, not `### INVARIANT-…`, so
-it does not mint a spurious invariant node.**
+This section carries the Substrate DC Bias **SOURCE-LAW** bullet (formerly "Axiom
+5"; restructured per R55, 2026-08-24 — the framework is four axioms + a source law)
+at its original line-count-safe placement. It is part of INVARIANT-S2, but the bullet
+is deliberately NOT an `- Axiom N:` bullet: the parser mints axiom nodes only from
+`- Axiom [1-4]:` bullets (R55 reverted R47's widening; `axiom-5` node RETIRED, zero
+inbound depends edges). **Heading stays `##`, minting no spurious invariant node.**
 
-- Axiom 5: **Substrate DC Bias** — the substrate's DC operating point; the source coupling the four founding axioms never wrote. Three clauses: **S (deposit)** — a matter defect deposits a nonzero net A1 dilatation flux $\oint_S \mathbf{u}\cdot\hat{\mathbf{n}} = 4\pi B(M)$, mass as an enclosed compression charge BY LAW, genesis-deposited boundary data, MECHANISM-AGNOSTIC; **G (bias coupling)** — the bias↔bound-response bridge $\mathbf{u}_0 = -\mathcal{A}_g\nabla\varepsilon_{11}$ with the $\kappa$-stiffened elliptic bias law $-\nabla\cdot[\kappa D(A)\nabla\varepsilon_{11}] = 4\pi T_{00}$ (the declared $4\pi$ source convention, R49(a)), $\kappa = c^4/7G$ (VALUE imported); **Q (quiescence)** — the sourceless substrate sits at the cold operating point $\nabla\cdot\pi = 0$, $\theta = 0$, $\varepsilon_{11} = 0$, the quiescent reference that makes the potentials defined and G's solve well-posed. Ratified 2026-08-10 (R44 full-scope; named by R46). Canonical: `eq_axiom_5.tex`. Internal falsifier ships with it: $B = 7\mathcal{A}_g GM/c^2$, ONE $\mathcal{A}_g$ across every consumer. Operational signatures: DC operating point, Q-point, bias↔bound-response bridge, bias-coupling area $\mathcal{A}_g$.
+- Source law: **Substrate DC Bias** — the substrate's DC operating point; the source coupling the four founding axioms never wrote. Three clauses: **S (deposit)** — a matter defect deposits a nonzero net A1 dilatation flux $\oint_S \mathbf{u}\cdot\hat{\mathbf{n}} = 4\pi B(M)$, mass as an enclosed compression charge BY LAW, genesis-deposited boundary data, MECHANISM-AGNOSTIC; **G (bias coupling)** — the bias↔bound-response bridge $\mathbf{u}_0 = -\mathcal{A}_g\nabla\varepsilon_{11}$ with the $\kappa$-stiffened elliptic bias law $-\nabla\cdot[\kappa D(A)\nabla\varepsilon_{11}] = 4\pi T_{00}$ (the declared $4\pi$ source convention, R49(a)), $\kappa = c^4/7G$ (VALUE imported); **Q (quiescence)** — the sourceless substrate sits at the cold operating point $\nabla\cdot\pi = 0$, $\theta = 0$, $\varepsilon_{11} = 0$, the quiescent reference that makes the potentials defined and G's solve well-posed. Ratified 2026-08-10 (R44 full-scope; named by R46); restructured axiom → SOURCE LAW per R55 (2026-08-24, count returns to four axioms + this source law). Canonical: `eq_axiom_5.tex` (filename is a fossil, kept against cite rot). Internal falsifier ships with it: $B = 7\mathcal{A}_g GM/c^2$, ONE $\mathcal{A}_g$ across every consumer. Operational signatures: DC operating point, Q-point, bias↔bound-response bridge, bias-coupling area $\mathcal{A}_g$.
 
 > **$\mathcal{A}_g$ — RATIFIED, COHERENT, UNVALUED (R48; supersedes R46's derive-first
 > "no register").** The **bias-coupling area** $\mathcal{A}_g$ [m²] (formerly drafted

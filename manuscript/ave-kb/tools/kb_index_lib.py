@@ -176,11 +176,11 @@ _CODE_FENCE_RE = re.compile(r"^```")
 # Framework-node parsing (from manuscript/ave-kb/CLAUDE.md).
 # Invariant headings: `### INVARIANT-XX: <title>`.
 _INVARIANT_HEADING_RE = re.compile(r"^### (INVARIANT-[A-Z]+[0-9]+):\s*(.+)$")
-# Axiom bullets in the INVARIANT-S2 section: `- Axiom N: **<title>** — ...`.  [1-4]->[1-5] 2026-08-10, R47 item 1, for Axiom 5 (Substrate DC Bias) — the first new axiom since the founding set (R44: "the axiom count is 5"). MINIMAL: bumped to the LIVE COUNT, deliberately NOT opened to \d+, so a typo'd "Axiom 9" still fails loudly instead of silently minting a node. Edit kept LINE-COUNT-NEUTRAL: this file carries inbound :NN cites as deep as :2989.
-_AXIOM_BULLET_RE = re.compile(r"^- Axiom ([1-5]): \*\*(.+?)\*\*"); _AXIOM_BULLET_LOOSE_RE = re.compile(r"^\s*-\s*Axiom\b")  # broad RECOGNIZER (leading indent INCLUDED: an indented bullet is THE canonical malformation -- see the FrameworkNodeParseError docstring, which names it first, and the indent-mangling regression fixture). A line this matches but the strict one does not is MALFORMED, never skipped.
+# Axiom bullets in the INVARIANT-S2 section: `- Axiom N: **<title>** — ...`.  [1-4]->[1-5] 2026-08-10, R47 item 1, for Axiom 5 (Substrate DC Bias) — the first new axiom since the founding set (R44: "the axiom count is 5"). MINIMAL: bumped to the LIVE COUNT, deliberately NOT opened to \d+, so a typo'd "Axiom 9" still fails loudly instead of silently minting a node. Edit kept LINE-COUNT-NEUTRAL: this file carries inbound :NN cites as deep as :2989. [1-4] AGAIN 2026-08-24, R55: the Substrate DC Bias restructured axiom->source law, axiom-5 RETIRED (zero inbound depends edges at retirement); a reintroduced "- Axiom 5:" bullet now fails loudly as MALFORMED via the loose recognizer.
+_AXIOM_BULLET_RE = re.compile(r"^- Axiom ([1-4]): \*\*(.+?)\*\*"); _AXIOM_BULLET_LOOSE_RE = re.compile(r"^\s*-\s*Axiom\b")  # broad RECOGNIZER (leading indent INCLUDED: an indented bullet is THE canonical malformation -- see the FrameworkNodeParseError docstring, which names it first, and the indent-mangling regression fixture). A line this matches but the strict one does not is MALFORMED, never skipped.
 # In-bullet target tokens for depends-on head extraction.
 _INVARIANT_TOKEN_RE = re.compile(r"\b(INVARIANT-[A-Z]+[0-9]+)\b")
-_AXIOM_TOKEN_RE = re.compile(r"\bAxiom ([1-5])\b")
+_AXIOM_TOKEN_RE = re.compile(r"\bAxiom ([1-4])\b")
 
 # Quality-field parsing.
 # `confidence: 0.X` and `solidity: 0.X (build-status phrase) [optional arithmetic]`
@@ -540,8 +540,8 @@ def parse_framework_nodes(kb_root: Path = KB_ROOT_DEFAULT) -> list[FrameworkNode
     ``canonical_anchor`` is the GitHub-style slug of its own heading.
 
     Axioms come from the ``- Axiom N: **<title>** — ...`` bullets, N in 1-5 (the
-    Axiom-5 bullet sits in the "INVARIANT-S2 continuation"; the scan is whole-file).
-    Ids ``axiom-1``..``axiom-5``. THREE OUTCOMES PER LINE, NO FOURTH: parsed /
+    former Axiom-5 bullet is now the source-law bullet, R55; the scan is whole-file).
+    Ids ``axiom-1``..``axiom-4`` (axiom-5 RETIRED, R55). THREE OUTCOMES, NO FOURTH: parsed /
     not-a-bullet (silent) / MALFORMED -> RAISES FrameworkNodeParseError naming
     file:line -- a leading-INDENTED bullet is the canonical malformed case, and a
     prose bullet opening "- Axiom N" now hard-fails. Empty list if CLAUDE.md absent.

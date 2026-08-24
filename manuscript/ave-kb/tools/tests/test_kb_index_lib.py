@@ -1514,27 +1514,22 @@ class TestFrameworkNodeCoverageGuard(unittest.TestCase):
                 lib.discover_kb(kb, diagnostic_stream=None)
             self.assertIn("MALFORMED", str(ctx.exception))
 
-    def test_indented_axiom5_bullet_raises_even_with_no_inbound_edges(self):
-        # THE CASE THE DOWNSTREAM BACKSTOP CANNOT COVER. axiom-5 has ZERO inbound
-        # depends-on edges in the live KB, so dropping it dangles nothing and
-        # _assert_framework_node_coverage stays silent. Only the parse-time
-        # recognizer can catch it. Indent ONLY the Axiom-5 bullet and require a
-        # raise; the other four bullets stay well-formed.
+    def test_axiom5_bullet_raises_after_r55_retirement(self):
+        # R55 (2026-08-24) restructured the Substrate DC Bias axiom -> source law
+        # and RETIRED axiom-5; the strict range reverted [1-5] -> [1-4]. A
+        # reintroduced `- Axiom 5:` bullet must FAIL LOUDLY as MALFORMED (retired
+        # id), never silently mint a node — and the downstream backstop STILL
+        # cannot cover it (axiom-5 had ZERO inbound depends-on edges at
+        # retirement, so a silent drop would dangle nothing). The parse-time
+        # recognizer remains the only guard; post-R55 it fires on the bullet as
+        # written, no indent required.
         with tempfile.TemporaryDirectory() as tmp:
             kb = Path(tmp) / "mini-kb"
             shutil.copytree(_FIXTURE, kb)
             claude = kb / "CLAUDE.md"
             text = claude.read_text(encoding="utf-8")
             ax5 = "- Axiom 5: **Substrate DC Bias** — the substrate's DC operating point.\n"
-            # add a well-formed Axiom-5 bullet, confirm it parses, then indent ONLY it
             claude.write_text(text.replace("\n- Axiom 4", "\n" + ax5 + "- Axiom 4"), encoding="utf-8")
-            state = lib.discover_kb(kb, diagnostic_stream=None)
-            self.assertIn("axiom-5", {n.id for n in state.framework_nodes})
-
-            claude.write_text(
-                claude.read_text(encoding="utf-8").replace("\n- Axiom 5:", "\n  - Axiom 5:"),
-                encoding="utf-8",
-            )
             with self.assertRaises(lib.FrameworkNodeParseError) as ctx:
                 lib.discover_kb(kb, diagnostic_stream=None)
             msg = str(ctx.exception)
