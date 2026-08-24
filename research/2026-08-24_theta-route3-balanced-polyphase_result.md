@@ -3,7 +3,9 @@
 **Ran:** 2026-08-24
 **Lane:** implementer (analytic first-order pass; research-tier, no canon edit, nothing minted)
 **Branch:** `research/2026-08-24-theta-route3` (off `origin/main`)
-**Prereg (frozen BEFORE the pass):** [`2026-08-24_theta-route3-balanced-polyphase_prereg.md`](2026-08-24_theta-route3-balanced-polyphase_prereg.md)
+**Prereg (freeze STATED but UNVERIFIABLE by git ordering — see the footer surface-note; the
+"frozen BEFORE the pass" claim is WITHDRAWN):**
+[`2026-08-24_theta-route3-balanced-polyphase_prereg.md`](2026-08-24_theta-route3-balanced-polyphase_prereg.md)
 **Driver:** [`drivers/theta_route3_balanced_polyphase.py`](drivers/theta_route3_balanced_polyphase.py)
 **Output:** `drivers/theta_route3_balanced_polyphase_results.json`
 **Program:** open item `theta-dressing-open-questions` route 3, on branch `kb/2026-08-23-theta-carve`
@@ -25,10 +27,53 @@
 
 ## §1 — HEADLINE
 
-**PRIMARY BIN: B6 — QUESTION-ILL-POSED-AS-FROZEN.** The frozen route-3 question asks whether the
-dressing **θ_i/2π = 𝒥_i/𝒥_total** can be realized as *a balanced-N-phase decomposition of ONE
-rotating field structure*. Two of its own premises are mutually exclusive, and both defects are
-established against canon's own frozen text plus checked arithmetic:
+### §1.0 — THE FROZEN QUESTION, VERBATIM (quoted before any verdict is delivered against it)
+
+Source `[kb-branch]`, `_orchestration/open-items/2026-08-23-theta-dressing-open-questions.md`
+lines 79-82, route 3, quoted in full and unedited:
+
+> *"**Balanced-3-phase reading.** θ ∈ {0, ±2π/3} as the balanced polyphase angles of a
+> rotating internal field **on a 3-port junction** (a balanced 3-phase set IS a rotating field
+> = the J-dressing). Would collapse "why thirds" + "what the dressing is" **into the port
+> count**, and would discharge the Witten formula-import."*
+
+(Bold added here only to mark the two clauses — *"on a 3-port junction"* and *"into the port
+count"* — that this lane's prereg and the earlier drafts of this result both dropped.)
+
+### §1.0.1 — WHAT THIS PASS ACTUALLY ADJUDICATED (scope correction, read this before §1.1)
+
+**The verdict below is delivered against a RELOCATED question, not against the frozen one.** The
+frozen text puts the phases **on a 3-port junction** and collapses the thirds **into the port
+count** — i.e. it is explicitly a *spatial, port-counting* question. This lane's prereg §0.1 then
+installed an absolute fence forbidding any tie between θ_i and the node's spatial bond directions,
+and §0's CHANNEL row relocated the phases to the **Hopf fibre / common-phase U(1)** on the strength
+of an input the open item itself tags **WALK-grade and un-audited** (*"the thirds live in the
+coordinate the chart deletes — the common-phase U(1)"*; cf. §7 item 3, where this lane records that
+it *used* that input without auditing it).
+
+Consequence, stated plainly:
+
+- **The B6 "ill-posed as frozen" verdict impeaches the RELOCATED (fibre-coordinate) question.**
+  D1 and D2 below are both defects of the fibre reading: D1 is the share-vs-angle type error as it
+  appears once θ is read on the fibre, and D2's "no rotating field to decompose" is true *because
+  the fence removed the spatially displaced windings that the frozen text supplied via its 3-port
+  junction*.
+- **The frozen (spatial, 3-port) question's status is therefore: UNTESTED BY THIS PASS.** It was
+  not answered, and it was not shown ill-posed. It was fenced out before the pass began.
+- The fence itself is not challenged here — route 1's adversarial verdict installed it for cause
+  (*"the internal-phase-vs-spatial-star tie is route 3's unproven content, imported silently"*).
+  The honest reading is that route 1's corpse and route 3's frozen text are **in tension**: route 3
+  as frozen *requires* the spatial tie that route 1 forbids importing. Resolving that tension is an
+  adjudication for Grant / the auditor lane, **not** something this lane discharged by relocating
+  the question and then declaring the relocated version ill-posed.
+
+### §1.1 — VERDICT ON THE RELOCATED (FIBRE-COORDINATE) QUESTION
+
+**PRIMARY BIN: B6 — QUESTION-ILL-POSED-AS-FROZEN.** The route-3 question *as this lane relocated
+it* asks whether the dressing **θ_i/2π = 𝒥_i/𝒥_total** can be realized as *a balanced-N-phase
+decomposition of ONE rotating field structure on the fibre coordinate*. Two of its own premises are
+mutually exclusive, and both defects are established against canon's own frozen text plus checked
+arithmetic:
 
 - **D1 — the share is degenerate exactly where the balanced set needs distinctness.** `θ_i/2π =
   𝒥_i/𝒥_total` is a **magnitude share**, and canon's ratified result says that share is **1/N for
@@ -53,14 +98,15 @@ Canon's examplebox derivation (T3) obtains ±1/3 and ±2/3 at n_twist = 0 only b
 **non-compactly**, i.e. by silently using the (n, θ) gauge freedom.
 
 **And the answer to the chord question the route was aimed at — do the thirds stop being imported?
-NO.** Every criterion that can actually be *stated* on the fibre is N-generic (§4); the one
-criterion that *is* N-selective (§5) rests on three premises none of which the corpus supplies.
+NO, on the fibre.** Every criterion that can actually be *stated* on the fibre is N-generic (§4);
+the one criterion that *is* N-selective (§5) rests on three premises none of which the corpus
+supplies. **This is not an answer for the frozen 3-port reading, which was fenced out (§1.0.1).**
 
-| Route-3 goal (from the open item `[kb-branch]`) | Verdict |
+| Route-3 goal (from the open item `[kb-branch]`) | Verdict (on the RELOCATED fibre question only — §1.0.1) |
 |---|---|
-| *"collapse 'why thirds' + 'what the dressing is'"* | **NOT ACHIEVED.** The thirds stay imported. |
+| verbatim, no elision: *collapse "why thirds" + "what the dressing is" into the port count* | **NOT ACHIEVED — but note the goal's own mechanism was fenced out.** The thirds stay imported on the fibre. The *"into the port count"* half was never tested at all: the port count is a spatial-star quantity that §0.1 forbids this lane from touching. Earlier drafts of this row silently dropped that clause. |
 | *"would discharge the Witten formula-import"* | **NOT DISCHARGED — and the import diagnosis SHARPENS** (§6): compactifying θ pushes the corpus's usage *back toward* Witten's actual structure (one common θ, integer n varying per object), which is more import, not less. |
-| Grant's banked mode-orthogonality reading (input 3) as the coexistence criterion | **ANTI-SELECTS 3** (§4.2): pairwise time-average orthogonality of co-located identical modes differing only by fibre phase is achievable at **N = 2 only**. |
+| **This lane's own pairwise-cos(Δθ)=0 specialization** of Grant's banked mode-orthogonality reading (input 3), applied to N identical constituents differing only by fibre phase | **ANTI-SELECTS 3** (§3.3; §4's C-ORTH row): pairwise time-average orthogonality of co-located identical modes differing only by fibre phase is achievable at **N = 2 only**. **SCOPE — this is NOT a verdict on Grant's banked reading.** Grant's reading is about a *threaded electron sitting in a cage's null*, i.e. two distinct objects in a host geometry; the specialization to *N identical constituents differing only by fibre phase*, and the reduction of "orthogonality" to pairwise cos(Δθ)=0, are **this lane's constructions**, not his. The banked reading is untouched by this row. |
 
 ---
 
@@ -131,8 +177,11 @@ Time-averaged cross-energy between two co-located identical modes differing only
   maximally *destructive*, not null.
 
 **Finding: net-null and pairwise-null are different criteria, and only net-null is compatible with
-thirds.** Grant's banked mode-orthogonality reading and the balanced-polyphase reading cannot be
-the same mechanism; applied to identical fibre-phase-offset constituents, orthogonality caps N at 2.
+thirds.** *This lane's pairwise-cos(Δθ)=0 specialization* of the mode-orthogonality reading and the
+balanced-polyphase reading cannot be the same mechanism; applied to identical fibre-phase-offset
+constituents, orthogonality caps N at 2. **Scope, per the §1.1 table:** the specialization is this
+lane's construction; Grant's banked reading concerns a threaded electron in a cage's null, not N
+identical constituents differing only by fibre phase, and is not adjudicated here.
 
 ### §3.4 — C-CLOSURE: Σθ_i ≡ 0 (mod 2π)
 
@@ -211,9 +260,11 @@ phasors on one coordinate, subject to net-null:
 > non-collinear but carries an (N−3)-dimensional family of zero-sum configurations of which the
 > balanced set is only one point.
 
-This is the substrate-independent reason three-phase distribution is self-balancing and four-phase
-is not, and it is **genuinely not N-imported**: it is a statement proved for all N that happens to
-be satisfied uniquely at 3.
+This is the substrate-independent sense in which three-phase is the RIGID balanced set — the
+zero-sum condition alone pins the configuration at N=3, whereas balanced N≥4 sets are equally
+self-balancing (§3.2) but are one point of an (N−3)-dimensional zero-sum family. It is
+**genuinely not N-imported**: it is a statement proved for all N that happens to be satisfied
+uniquely at 3.
 
 **Why it is nevertheless not a chord — three premises, none supplied by the corpus, plus a
 contradiction. Each is stated so it can be attacked or discharged:**
@@ -234,16 +285,29 @@ contradiction. Each is stated so it can be attacked or discharged:**
    θ_i to be **angles**; T1 defines θ/2π to be a **magnitude ratio** 𝒥_i/𝒥_total ∈ [0,1]. These are
    different kinds of object sharing one glyph. If θ is a share, C-SUM cannot be written. If θ is
    an angle, T1's identification is false as stated.
-4. **CANON CARRIES STABLE BALANCED N-PHASE STRUCTURES AT N ≠ 3 — at low weight, reported as
-   found.** `vol6/claim-quality.md`:625 catalogues *"3-Phase Delta-Wye (C), … Tetraphase Network
-   (O), … 5-Phase Ring Oscillator (Ne), Octahedral 6-Phase (Mg), 7-Phase Pentagonal Bipyramid
-   (Si)"*, and the O-16 leaf calls its four-phase network *"immensely stable … perfectly
-   symmetrical"* with *"profound symmetry (Q ≫ 1)"* (`vol6/period-2/oxygen/ee-equivalent.md`).
-   **Weight caveat, stated rather than suppressed:** these sit on `clm-sd04x4`, **solidity 0.30,
-   build-status "do not build on, rework needed"**, and the register itself calls the archetype
-   names *"explicitly analogies with no claimed falsifiable EE observables"*. So this is a
-   direction-of-travel receipt, not a kill on its own — but it is the corpus's own answer to
-   "does the substrate host balanced N-phase structures at N ≠ 3?", and the answer is yes.
+4. **CANON CARRIES STABLE BALANCED N-PHASE STRUCTURES AT N ≠ 3 — at low weight AND in the wrong
+   channel, reported as found.** `vol6/claim-quality.md`:625 catalogues *"3-Phase Delta-Wye (C),
+   […] Tetraphase Network (O), […] 5-Phase Ring Oscillator (Ne), Octahedral 6-Phase (Mg), 7-Phase
+   Pentagonal Bipyramid (Si)"* (**stitched quote — the bracketed ellipses elide intervening
+   archetype entries from the same list; not continuous text**), and the O-16 leaf calls its
+   four-phase network *"immensely stable"* / *"perfectly symmetrical"* / *"profound symmetry
+   ($Q \gg 1$)"* (`vol6/period-2/oxygen/ee-equivalent.md`:10, :12, :14 — **three separate
+   paragraphs, quoted as three fragments rather than one stitched sentence**).
+   **⚠ CHANNEL MISMATCH (A46), and it is the primary caveat on this gap, ahead of the solidity
+   one:** every vol6 archetype above is a **REAL-SPACE / spatial** network — the O-16 leaf's own
+   text derives its four-phase structure from *"four identical … Alpha Cores equally spaced in 3D
+   geometry"* coupled by *"the sheer spatial distance $R_{tet}$"* — whereas the claim this gap is
+   offered against is a **fibre / common-phase coordinate** claim (§0 CHANNEL). Spatial N-phase
+   networks are not counter-evidence to a fibre-coordinate selection statement; they are
+   measurements in a different coordinate system. Under this lane's own §0.1 fence they are also
+   exactly the spatial-star reading that may be *cited as context but never as support* — and the
+   symmetric application of that fence is that they cannot be load-bearing as *refutation* either.
+   **Weight caveat, additionally:** these sit on `clm-sd04x4`, **solidity 0.30, build-status "do
+   not build on, rework needed"**, and the register itself calls the archetype names *"explicitly
+   analogies with no claimed falsifiable EE observables"*. So this is a direction-of-travel
+   receipt in an adjacent channel, not a kill on its own — but it is the corpus's own answer to
+   "does the substrate host balanced N-phase structures at N ≠ 3?" *in real space*, and that
+   answer is yes.
 
 **Net on B3:** the selection is real mathematics attached to no substrate premise. Recorded as a
 named, attackable object; **not banked**, and explicitly **not** a replacement hypothesis for the
@@ -377,8 +441,8 @@ holds N constituent phases apart**. Genuinely open, so surfaced:
 > just where they sit because nothing is pushing them anywhere?**
 
 - If **restoring torque**: the balanced set is an energy minimum, the question moves into a
-  dynamics this lane is barred from (prereg CP1/CP3) and the engine cannot run (§7.1 WALL). §5's
-  gap 2 becomes the whole problem.
+  dynamics this lane is barred from (prereg CP1/CP3) and the engine cannot run (§7 item 1, the
+  WALL-engine finding). §5's gap 2 becomes the whole problem.
 - If **nothing pushing**: the balanced set can only be selected by a constraint — which is what
   §3–§4 tested, and the answer is the one above.
 
@@ -409,10 +473,23 @@ fit, no CODATA.
 > header's "Frozen … before the driver ran" and §1's five not-known-at-freeze claims cannot
 > be shown from git. The audit's independent re-derivation confirms every number bit-exactly
 > and corroborates the self-reported instrument repairs, so no result is impeached — but the
-> freeze CLAIM is withdrawn to "stated, unverifiable". Same P9 note applies partially to
-> route 1 (#999, merged: prereg commit carried driver code). Orchestrator-side cause owned
-> in the dispatch record: the lane briefs said "prereg discipline" without quoting P9's
-> push-first rule; the rule travels verbatim in all future lane briefs.
+> freeze CLAIM is withdrawn to "stated, unverifiable". **This withdrawal is now also carried
+> on the prereg itself** (header surface-note), and the header of THIS doc is corrected — line 6
+> previously still read *"Prereg (frozen BEFORE the pass)"*, contradicting this footer.
+> **Contrast route 1, which had genuine ordering:** prereg `b50c0d86` (2026-08-23 20:56)
+> precedes result `4f963e29` (2026-08-23 21:07), so route 1's freeze IS checkable from git —
+> the P9 note applies to it only partially (#999, merged: its prereg commit carried driver
+> code). Orchestrator-side cause owned in the dispatch record: the lane briefs said "prereg
+> discipline" without quoting P9's push-first rule; the rule travels verbatim in all future
+> lane briefs.
+>
+> **Compounding (checker-audit Finding 6b), recorded because an unverifiable freeze cannot rule
+> it out:** bin **B3** was **added by this lane beyond the dispatch's three named bins** (prereg
+> §5, B3 cell, self-disclosed under the KEEP-BOTH discriminator pattern) — **and B3 is the bin
+> this lane's own positive finding landed in** (§5 above, the N=3 rigidity result). With the
+> freeze unverifiable, the git record cannot establish that the bin predates the finding. No
+> post-hoc addition is alleged; the point is that it cannot be excluded, which is why §5's
+> **not banked** marking is load-bearing rather than decorative.
 
 > ★ **Audit strengtheners (same pass):** (i) the stronger canon receipt for N-genericity is
 > `proton-identification.md:47`'s own Grant-ratified line — "the denominator $3$ is the

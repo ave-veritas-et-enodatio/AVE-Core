@@ -9,6 +9,29 @@
 > enumeration was computed. The companion result doc is
 > [`2026-08-24_theta-route3-balanced-polyphase_result.md`](2026-08-24_theta-route3-balanced-polyphase_result.md).
 >
+> 🔴 **Dated surface-note 2026-08-24 (checker-audit Finding 6a) — THE FREEZE CLAIM DIRECTLY ABOVE
+> IS WITHDRAWN TO "STATED, UNVERIFIABLE."** This prereg, the result doc, the driver and its JSON
+> output all landed in **ONE commit, `bdf51221`**. Per the ratified P9 rule
+> (`_orchestration/2026-07-09_breakthrough-patterns-methods-note.md` §P9: *"a freeze you cannot
+> point to in the git log is a promise, not a freeze"*), a single-commit landing makes the
+> ordering unverifiable: neither "before the driver ran" nor §1's five not-known-at-freeze claims
+> can be shown from git. **Contrast route 1, which had genuine ordering** — its prereg commit
+> `b50c0d86` (2026-08-23 20:56) precedes its result commit `4f963e29` (2026-08-23 21:07), so
+> route 1's freeze is checkable and route 3's is not. The independent checker-audit re-derived
+> every number in the result bit-exactly, so no *result* is impeached; what is withdrawn is the
+> *freeze claim*, and with it the evidentiary weight of §1's honesty declaration and of any
+> "pre-registered, therefore not post-hoc" defence of §5's bins.
+>
+> **Compounding disclosure (checker-audit Finding 6b), recorded because it is exactly what an
+> unverifiable freeze cannot rule out:** bin **B3** in §5 was **added by this lane beyond the
+> dispatch's three named bins** (the §5 B3 cell says so itself, under the KEEP-BOTH discriminator
+> pattern) — **and B3 is the bin this lane's own positive finding landed in** (result §5, the
+> N=3 rigidity result). A lane adding a bin and then landing its own positive in that added bin is
+> the shape that pre-registration exists to exclude; with the freeze unverifiable, the ordering
+> that would clear it cannot be shown. The B3 finding is already marked **not banked** in the
+> result, and this note is the reason that marking must stay. No claim is made here that the bin
+> was added post-hoc — only that the record cannot establish that it was not.
+>
 > **Program context:** open item `theta-dressing-open-questions`, route 3, on branch
 > `kb/2026-08-23-theta-carve` (**not on `main`** at this branch's base — every quotation from it
 > below is taken via `git show origin/kb/2026-08-23-theta-carve:<path>` and marked accordingly).
