@@ -37,7 +37,7 @@ text files** (`.md .py .tex .json .jsonl .yaml .yml .txt .sh .bib .toml .cfg .in
 
 | # | class | method | outturn on this sweep |
 |:--|:--|:--|:--|
-| 1 | ledger-only | python basename walk + citer-file ranking | dominant class; see §5 |
+| 1 | ledger-only | python basename walk + citer-file ranking | dominant class; see §5.2 + §6 |
 | 2 | brace-expansion | brace expander over `{a,b}` groups | **3 live catches** — decisive |
 | 3 | brace+glob | expander ∪ `fnmatch` | 0 beyond class 2 |
 | 4 | directory-level | parent-dir scan (1,439 lines) | 0 file-level citations |
@@ -89,13 +89,16 @@ record). This is a reason such docs are hard to move, not a reason to rewrite th
 | stage | count |
 |:--|--:|
 | `research/*.md` outside `_archive` | 875 |
-| less: has a live non-generated citer (criterion 2 fails) | −842 |
-| **zero live citers by any literal method** | **20** |
-| **only machine-generated-artifact citers (class 7)** | **13** |
-| less: brace-expansion citers found (class 2) | −3 |
+| less: has a live non-generated citer (criterion 2 fails outright) | −842 |
+| ├ of the remainder: zero live citers by any literal method | 20 |
+| └ of the remainder: only machine-generated-artifact citers (class 7) | 13 |
+| **= pre-adjudication candidate pool** | **33** |
+| less: brace-expansion citers found (class 2 — criterion 2 fails after all) | −3 |
 | **candidates carried to per-file adjudication** | **30** |
 | pass ALL-of criteria cleanly | **0** |
 | **HELD** | **30** |
+
+(842 + 20 + 13 = 875; the funnel closes.)
 
 **Delta against the heuristic.** The lane line asserts *"heuristic upper bound ~76 candidates"*
 (`_orchestration/2026-08-17_repo-cleanup-epic.md:198`). **That number carries no derivation
@@ -121,7 +124,7 @@ Every candidate was **read**, not grepped, for criteria (1) superseded and (3) h
 search can report the state of a marker, it cannot establish that a later doc carries a doc's
 claims. Each row names the criterion that fails and the receipt for it. Grouped by HELD reason.
 
-**H1 — honesty-trail record; the NEVER-if at `:106-107` fires directly (8 docs).**
+**H1 — honesty-trail record; the NEVER-if at `:106-107` fires directly (9 docs).**
 These are *"RETRACTED / walk-back / correction record"* by their own construction. Policy: *"These
 are UNTOUCHABLE — never archived, never rewritten, never banner-stamped."*
 
@@ -135,6 +138,7 @@ are UNTOUCHABLE — never archived, never rewritten, never banner-stamped."*
 | `2026-06-10_genesis-v6-snap-channel-adjudication_result.md` | `:70` — `Rule 12 (substitution-not-retraction): the v5 SNAP-LOCKED slot's 🔴 demotion stands` |
 | `2026-06-10_coax-ring-secondary_result.md` | `:3` — `🔴 SUPERSEDED IN PART (2026-06-10) — see the VERDICT ADDENDUM at the foot of this doc`; the addendum lives *in* this doc, so archiving moves the correction away from the claim |
 | `2026-07-20_constituent-cage-ensemble_derivation.md` | `:45` — `🔴 The self-labeled "load-bearing result" below the strike is INVERTED (Rule 12, body preserved)`; further Rule-12 strikes at `:33`, `:51` |
+| `2026-06-11_s11-de-novo_result.md` | `:9` — `refuted=true` on the driver-emitted bin, with `demotion executed here (§4.2)`. An in-doc demotion record |
 
 **H2 — frozen prereg, or the analytic companion of one, with no evidence the claim is dead (5 docs).**
 The NEVER-if names *"a frozen prereg of a live claim"*. Establishing a claim is **not** live is a
@@ -148,7 +152,7 @@ matrix adjudication this lane has no mandate to perform, so these are held by co
 | `2026-07-21_boundary-strain-amplitude_derivation.md` | `:4` — `**Class:** DERIVATION (analytic Leg A of the frozen prereg research/2026-07-21_boundary-strain-amplitude_prereg-FROZEN.md)`; carries its own `★RE-SCOPE` correction at `:62` |
 | `2026-06-10_genesis-v6-pump-isolation_result.md` | `:4` names a frozen prereg; the doc's data sibling `..._results.json` is written by a live driver (`genesis_v6_pump_isolation.py:229`) |
 
-**H3 — open / gated / pending: criterion (1) fails, nothing supersedes an unfinished item (10 docs).**
+**H3 — open / gated / pending: criterion (1) fails, nothing supersedes an unfinished item (11 docs).**
 
 | doc | receipt |
 |:--|:--|
@@ -162,6 +166,7 @@ matrix adjudication this lane has no mandate to perform, so these are held by co
 | `2026-06-23_chiral-srs-optical-activity_result.md` | best-looking candidate in the corpus — it carries an explicit successor pointer at `:10-12`. **Fails anyway:** its own `:15` reads `top-level verdict is UNCHANGED — still FORM-distinct, magnitude-pending, NOT bankable`, and the successor's `:8` names a *different* doc as its prereg context. The successor carries the Phase-1 execution, **not** this doc's claims. Also `:3` classes it a `refute-by-default DEFLATION` record |
 | `2026-06-07_sim-math-audit-vs-kb-ledger.md` | `:16` — `## THE headline finding (meta) — the provenance gate itself is stale`; an open findings ledger with unrepaired items |
 | `2026-06-20_state-of-program-and-node-characterization.md` | `:7` — `**Scope note.** This is a *snapshot*` with three load-bearing groundings that were `**OPEN PRs** at snapshot time`. A dated snapshot is historical by construction, not superseded; no later state-of-program doc exists in `research/` (checked) |
+| `2026-06-07_figure-staleness-audit-plan.md` | `:1` — `# PLAN (frozen) — Manuscript-wide figure-staleness audit`. No executed successor ledger exists in `research/`; the figure work ran under `_orchestration/` (PR #991/#992) against a different scope, so criterion 1 cannot be evidenced either way |
 
 **H4 — current documentation of artifacts that still exist: criterion (1) fails (3 docs).**
 Verified by existence check, not by marker grep.
@@ -184,12 +189,7 @@ Verified by existence check, not by marker grep.
 |:--|:--|
 | `2026-05-31_FT-2_delta-AVE-loss-tangent_result.md` | `:5` — `Implementor graded Outcome B; **AUDITOR VERDICT (orchestration) supersedes → leans Outcome C…**`. The supersession is *internal* — the corrected verdict lives in this same doc, so the doc is the record, not the superseded thing |
 
-**Tally: 8 + 5 + 10 + 3 + 1 + 1 = 28.** The remaining 2 of the 30 are
-`2026-06-07_figure-staleness-audit-plan.md` (`:1` `# PLAN (frozen)`; no executed successor ledger
-exists in `research/` — the figure work was executed under `_orchestration/` PR #991/#992 against
-a different scope, so criterion 1 cannot be evidenced) and `2026-06-11_s11-de-novo_result.md`
-(`:9` records `refuted=true` on the driver-emitted bin with `demotion executed here (§4.2)` — an
-in-doc demotion record, H1-class in substance).
+**Tally: H1 9 + H2 5 + H3 11 + H4 3 + H5 1 + H6 1 = 30.** All adjudicated, none moved.
 
 #### §5 — The structural finding: why the ALL-of criteria are near-empty by construction
 
@@ -220,9 +220,9 @@ original nor named it anywhere live.* On this corpus that set is empty.
 **What this means for the epic.** The lane's premise — *"policy exists, unenforced; … heuristic
 upper bound ~76 candidates"* — over-estimated yield by assuming an unenforced policy implies a
 backlog. The measured position is the opposite: **the policy is already satisfied**, not because a
-sweep ran, but because the append-only correction discipline and the citation habit jointly keep
-docs out of archive-eligibility. `research/_archive/` holds 153 files; nothing at HEAD qualifies to
-join them.
+sweep ran, but because the Rule-12 preserved-body correction discipline and the citation habit
+jointly keep docs out of archive-eligibility. `research/_archive/` holds 153 files; nothing at HEAD
+qualifies to join them.
 
 **This is a measurement, not a complaint about the criteria.** The criteria are doing what
 cross-cutting invariant 2 asks — protecting the honesty trail — and the correct reading is that the
