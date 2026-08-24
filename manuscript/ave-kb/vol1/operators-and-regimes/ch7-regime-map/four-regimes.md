@@ -59,22 +59,33 @@ In semiconductor terms (an effectively spin-2 / shear-mode analog), the spin-2 b
 
   > **Note (cross-link with Ch.3).** <!-- claim-quality: clm-2dwzib --> This $r_3 = 1.0$ boundary is the same $V_{yield} = \sqrt{\alpha}\,V_{snap} \approx 43.65$ kV described in [Ch.3 §3.3 Zero-Impedance Boundary](../../dynamics/ch3-quantum-signal-dynamics/zero-impedance-boundary.md) as ``matter assembly begins.'' The two descriptions are the same phase transition viewed from opposite sides: from sub-threshold trapping a wave reflects inward at $\Gamma = -1$ and forms a stable standing wave (matter); a super-threshold mode driven through the same boundary ruptures the existing topology. Same Axiom 4 saturation, two operational faces.
 
-  > 🔴 **Dated carve 2026-08-24 (pair-production boundary-ownership adjudication; Grant
-  > "go"; docket `2026-08-24-pairprod-carve-and-kernel-homonym`). Text above preserved
-  > (Rule 12).** The note's two operational faces are real but they live at **two
-  > thresholds, √α apart — not one boundary viewed twice**: matter assembly (Γ = −1
-  > trapping) begins at $V_{yield} = \sqrt{\alpha}\,V_{snap} \approx 43.65$ kV (the
-  > Regime II→III onset), while topology rupture / pair production is the response to the
-  > kernel zero at the **snap / node-destruction limit** ($V_{snap} = m_ec^2/e \approx
-  > 511$ kV; $E_S$ — `q-g18-schwinger-pair-wkb.md:44` "precisely the field at which A = 1
-  > … by construction"; the vol-9 ch-8 two-threshold structure). Three independent votes
-  > force the split, including the stability argument: a confined particle sits
-  > permanently at its Γ=−1 wall — if that wall owned pair production, every particle
-  > would be a continuous pair source. The r₃ = 1.0 row above (kernel zero, "topology is
-  > destroyed") therefore belongs to the SNAP boundary, and this cross-link's
-  > identification of it with $V_{yield}$ is the carved error. Upstream cause: the kernel
-  > argument "A" is a two-normalization homonym — see open-item
-  > `kernel-normalization-homonym`.
+  > 🔴 **WITHDRAWN 2026-08-24 — the dated carve that stood here is retracted in full
+  > (audit BLOCKER F1/F2/F3; docket `2026-08-24-pairprod-carve-and-kernel-homonym`
+  > carries the withdrawal record). Nothing above this line was ever edited.**
+  >
+  > The withdrawn block asserted that the cross-link's identification of $r_3=1.0$ with
+  > $V_{yield}$ was an error, on the premise that the electron's $\Gamma=-1$ wall requires
+  > the kernel to zero at $V_{yield}$. **That premise is inverted against SOLID canon.**
+  > The governing adjudication is Grant's 2026-06-30 sectoral ruling —
+  > [`def-vyvsn1`](../../../common/vocabulary-register.md) (SOLID) and
+  > [`pair-production-axiom-derivation.md` §4](../../../vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md)
+  > — which already resolves the two thresholds: $V_{yield}$ is the **transverse-$T_2$
+  > self-trap wall** (where the electron's $\Gamma=-1$ cavity self-creates), $V_{snap}$ is
+  > where the **longitudinal-$A_1$ sector** fully saturates ($A^2=1$, $Z_{core}\to0$) and
+  > is the Schwinger / pair-nucleation energy. The A1 mass channel does **not** saturate at
+  > $V_{yield}$ — it sits at $A=\sqrt\alpha$, $S\approx0.996$, sub-saturated, which is
+  > *why* the electron binds. The two thresholds are **α-locked** ($V_{yield}/V_{snap}
+  > = \sqrt\alpha$ exactly), and `def-vyvsn1` explicitly forbids reading them as free
+  > per-sector thresholds. The withdrawn block also mislabelled $V_{yield}$ "the Regime
+  > II→III onset", which is false on this leaf's own ladder either way it is normalized.
+  >
+  > **The one residue worth a reader's attention, stated as a pointer and NOT re-derived
+  > here:** `:50` and `:51` above name "Schwinger pair production at $V_{yield}$", while
+  > the 2026-06-30 adjudication places Schwinger/pair-nucleation at $V_{snap}$ (its step 6,
+  > "deep in Regime IV", $E_S/E_{yield} = 1/\sqrt\alpha$). Those two lines predate the
+  > adjudication and are flagged as honesty-lag against it. Whether they need a sectoral
+  > qualifier or nothing at all is for the leaf's owner reading `def-vyvsn1`, not for this
+  > note.
 
 ### Semiconductor Device Analogy
 

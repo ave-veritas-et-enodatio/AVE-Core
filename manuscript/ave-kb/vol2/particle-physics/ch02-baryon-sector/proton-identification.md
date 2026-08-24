@@ -153,7 +153,7 @@ The shape-walk adjudication (`research/2026-07-18_electron-proton-shape-walk_adj
 
 **The tension:** Route A treats $0.841$ fm as a sub-node Compton-scale saturation transition of an object $\approx 460\times$ smaller than one node; Route B treats it as an RMS-scattering artifact of a knot that *"spans multiple fundamental nodes"* — a **sub-node vs multi-node** framing mismatch underneath a shared numerical target. **Mechanisms not obviously compatible.**
 
-**Disposition: KEEP-BOTH — FLAGGED, not resolved. Routed to the baryon lane for reconciliation.**
+**Disposition: KEEP-BOTH — FLAGGED, not resolved. Routed to the baryon lane for reconciliation.** Neither route is edited or demoted here; a future baryon-lane adjudication owns the reconciliation. See `research/2026-07-18_electron-proton-shape-walk_adjudicated.md` §4b for the full walk-record.
 
 > 🔴 **Third arm registered 2026-08-23 (Rule-12 additive; the two routes above are
 > preserved untouched; docket `2026-08-23-saturation-locus-third-arm`).** **Route C —

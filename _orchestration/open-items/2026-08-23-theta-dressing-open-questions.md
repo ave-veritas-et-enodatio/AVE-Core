@@ -64,7 +64,14 @@ lands on this object, so the definition leaf is prerequisite-adjacent.
    (`neutron-identification.md:13,24,34-35`); (iii) the 2026-07-03 pair-physics note gives
    two 𝒬 objects an INTERACTION, never charge-minting. Consequence: the refuted minimum-N
    walk's re-scoped leg-2 residue loses its premise and dies; the thirds stay honestly
-   imported pending route 3.] Original text preserved: 3-body-only binding [WALK-level inference; "Brunnian"/"Milnor" are
+   imported pending route 3. ⚠ **Audit caveat 2026-08-24:** receipt (ii) called the
+   threaded electron "maximally loop-loop entangled" — the corpus never states a linking
+   number between the electron and the cage (`neutron-identification.md` writes the
+   composite as a UNION and says only that the charge is "preserved through the threading
+   operation"), and Borromean components are pairwise unlinked by definition. The neutron
+   may therefore be VACUOUS as a test of whether loop-loop linking mints charge. Receipts
+   (i) and (iii) are unaffected and the NO answer stands on the definitional exclusivity of
+   Link(∂Ω, F_substrate); the neutron leg is downgraded to illustrative.] Original text preserved: 3-body-only binding [WALK-level inference; "Brunnian"/"Milnor" are
    new-to-corpus vocabulary with no prior footing].** IF pairwise Link = charge, THEN neutral multi-loop
    binding cannot ride the pairwise channel and must ride the triple-linking (Milnor-class)
    invariant — a conditional to derive, not a fact. Does the z=3 node generate a native
