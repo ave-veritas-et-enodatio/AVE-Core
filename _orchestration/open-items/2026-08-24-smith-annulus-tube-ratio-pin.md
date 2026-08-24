@@ -5,7 +5,7 @@ status: OPEN
 owner: grant
 opened: 2026-08-24
 source: manuscript/ave-kb/common/translation-tables/translation-circuit.md
-anchor: "the bare junction reflects $\\Gamma=(2-z)/z=-1/3$"
+anchor: "a COUNTING fact — one bond feeding two"
 ---
 
 **Provenance.** Surfaced 2026-08-24 by Grant's stepped-back question on the
