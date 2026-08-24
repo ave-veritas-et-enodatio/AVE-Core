@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **cede1e3f** (2026-08-23) · 461 index records · 330 claims · 1 PR open
+Scanned tree **429ec19c** (2026-08-23) · 461 index records · 330 claims · 2 PRs open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`5f5e4e9e`). Every count below describes **cede1e3f**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`1ffdef0e`). Every count below describes **429ec19c**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -30,7 +30,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## What we are waiting on
 
-**33 of 62 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
+**33 of 63 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
 
 *Scope: this is a census of `open-items/`. `_orchestration/2026-07-10_rulings-docket.md` is the **paper timeline** — a dated continuation log, frozen at its 2026-07-21 tail per `docket-entries/README.md`, and the historical record of how each ruling was reached. It is read chronologically, not harvested; anything still live in it belongs here as its own file.*
 
@@ -65,6 +65,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [95 of 778 src/scripts drivers are referenced nowhere in the tracked corpus — archive, delete, or reference?](open-items/2026-08-17-unreferenced-drivers-policy.md) | ROUTED-TO-GRANT | grant | 2026-08-17 |
 | [simulate_dt_fusion imports a symbol the IP-partition stub no longer defines — restore, stub, or retire?](open-items/2026-08-23-dt-fusion-partitioned-symbol.md) | ROUTED-TO-GRANT | grant | 2026-08-23 |
 | [Sector-of-storage — where the compression store lives (A1 canon vs the T2/swing label)](open-items/2026-07-26-sector-of-storage.md) | OPEN-IN-WALK | grant | 2026-07-26 |
+| [The quark-charge dressing — CP-parity underived (both adjectives asserted), N=3 fed in; four vacuum-side investigation routes GO'd](open-items/2026-08-23-theta-dressing-open-questions.md) | OPEN-IN-WALK | lane | 2026-08-23 |
 | [A RESOLVED stamp asserts its own propagation, and the propagation never happened (Row 11 MOND)](open-items/2026-05-19-row11-mond-propagation.md) | OPEN | unassigned | 2026-05-19 |
 | [Two infra gaps still open — no conflict-marker hook, and no structural worktree-leak fix](open-items/2026-05-28-infra-hygiene-gaps.md) | OPEN | unassigned | 2026-05-28 |
 | [Means-test corpus extensions — the corpus grew, but in a different direction](open-items/2026-05-28-means-test-corpus-extensions.md) | OPEN | unassigned | 2026-05-28 |
@@ -120,7 +121,8 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 | PR | state | title |
 |---|---|---|
-| #992 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] cleanup: vol_6 animation imports re |
+| #997 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] kb: translation-diagrammatics — the |
+| #996 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] cleanup: dt-fusion ruling (c) execu |
 
 <!-- /volatile -->
 
