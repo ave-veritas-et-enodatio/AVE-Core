@@ -507,10 +507,13 @@ silently committed — this is canonical infrastructure):
 > | `claims.jsonl:252` | `clm-refjr6` | `:253` | `research/2026-06-24_engine-reroute-epic-summary.md`:93 + two docket entries |
 > | `claims.jsonl:357` | `def-b0nd01` | `:358` | `research/2026-08-06_iomega-law_result.md`:686 |
 >
-> **R55 STALENESS NOTE (2026-08-24): the "Now at" column above no longer
-> resolves** — retiring the `axiom-5` record re-shifts `claims.jsonl`, and the
-> adversarial review found two rows' attributions had drifted even before R55.
-> Measured at the R55 tip: `clm-2e9j97` at `:17`; `clm-f5ucdo` at `:122`; `clm-mroghg` at `:203`; `clm-q8un7j` at `:239`; `clm-refjr6` at `:252`; `def-b0nd01` at `:358`.
+> **R55 STALENESS NOTE (2026-08-24): five of the six "Now at" values above are
+> stale** — retiring the `axiom-5` record re-shifts `claims.jsonl` back by −1,
+> so those five rows resolve at their ORIGINAL "Cite" values again. The
+> `def-b0nd01` row is the exception: its "Now at" `:358` had already drifted
+> pre-R55 (measured pre-R55 position `:359`), and the retirement shift lands it
+> back on `:358` — the one stale column value that still resolves, by
+> cancellation, not correctness. Measured at the R55 tip: `clm-2e9j97` at `:17`; `clm-f5ucdo` at `:122`; `clm-mroghg` at `:203`; `clm-q8un7j` at `:239`; `clm-refjr6` at `:252`; `def-b0nd01` at `:358`.
 > Resolve by the durable node id, never by either line column.
 >
 > **Root cause, stated so it is not re-learned:** a `:NN` cite into a generated,

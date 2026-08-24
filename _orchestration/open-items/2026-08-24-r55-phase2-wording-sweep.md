@@ -37,6 +37,12 @@ engine files use the token `Axiom 5` for an UNRELATED coupled-resonator
 normal-mode operator: `src/ave/solvers/coupled_resonator.py`,
 `src/ave/condensed/silicon_crystal.py`, `src/ave/condensed/silicon_doping.py`.
 
+Two further Phase-2 rows surfaced by the same review (pre-existing drift, not
+R55-introduced): `axiom-register.md:341` cites labels `eq:bcsrc_*` while
+`eq_axiom_5.tex`'s actual labels are `eq:axiom5_*` (the R47 rename never
+propagated into the register's label list); and `CLAUDE.md:389`'s confirmed-by
+line still reads "the Axiom-5 entry in common/axiom-register.md".
+
 These sites are **EXCLUDED from the rewrite rule** — applying it there would
 mislabel an unrelated operator as the source law. The sweep script's context
 classes MUST carry this exclusion explicitly. The operator's own rename (an

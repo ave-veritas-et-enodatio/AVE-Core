@@ -89,8 +89,13 @@ above; the strength is the edge-emission mechanism, not a gate.** The
 build-time dangling guard (`_assert_framework_node_coverage`) is NOT the
 verifier of this retirement: a zero-edge node retires without the guard ever
 firing — the branch's own regression test records exactly this (*"a silent
-drop would dangle nothing"*) — its role is prospective, failing loudly on any
-FUTURE reintroduced reference to a retired node.
+drop would dangle nothing"*). Nor does the guard police the retired id going
+forward: post-R55 the token regex is `[1-4]`, so a reintroduced depends-on
+reference naming "Axiom 5" emits no edge at all — edge-less by construction,
+definitionally unable to dangle, silently ignored. The loud forward protection
+is the PARSE-TIME recognizer: a reintroduced `- Axiom 5:` BULLET fails as
+MALFORMED (the rewritten regression test asserts exactly this). The guard's
+prospective role covers only nodes inside the live `[1-4]` range.
 
 *(Receipt correction, recorded for honesty: an earlier chat statement of this
 receipt was re-measured before this entry landed. The numbers above are from
@@ -157,7 +162,8 @@ application circuit, not a component property.
   axiom parser reverts `[1-5]` → `[1-4]`
   (`kb_index_lib.py:180,183`, the R47 widening) so the `axiom-5` framework
   node RETIRES from `claims.jsonl`. §2.4's recount proves zero
-  breakage (the dangling guard's protection is prospective only).
+  breakage (the loud forward protection is the parse-time MALFORMED recognizer
+  on any reintroduced `- Axiom 5:` bullet — see §2.4, not the dangling guard).
 - [`axiom-register.md`](../../manuscript/ave-kb/common/axiom-register.md) —
   counts return to 4; the register's own title ("the Four AVE Axioms")
   becomes correct again; the Substrate DC Bias section re-headed as the
