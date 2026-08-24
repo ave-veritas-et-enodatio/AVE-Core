@@ -41,3 +41,29 @@ Any $\theta \ne 0$ gives the neutron an electric dipole moment $d_n \propto \the
 | Free parameters | $f_a$ (axion scale) | Zero |
 
 ---
+
+> 🔴 **Dated scope carve 2026-08-23 (θ-fork adjudication, Grant rulings (a)+(b); docket
+> `2026-08-23-theta-fork-ruling`). Body above preserved unedited (Rule 12).**
+>
+> 1. **Scope: the θ of this theorem is the GLOBAL vacuum angle** — the angle of the
+>    defect-free, asymptotic ground state (proof step 1's E=B=0 state). The corpus also
+>    carries a **distinct** θ-labeled object: the discrete dressing values
+>    θ ∈ {0, ±2π/3, ±4π/3} inside the baryon Borromean cage
+>    (`../../particle-physics/ch02-baryon-sector/topological-fractionalization.md`), which
+>    per the Grant-ratified 2026-06-23 reconciliation (clm-w8jn3q) is the body-angular-momentum
+>    𝒥-dressing of the integer charge — not a state of the vacuum, and not the object this
+>    theorem constrains. The two share a symbol only; see the symbol-collision warning at the
+>    clm-gfs4j8 register entry. This theorem is untouched by the cage-interior object — and,
+>    conversely, offers it no protection or threat: the same mass-gap barrier the proof
+>    invokes (step 4) is what pins any topologically-trapped state, global or local.
+> 2. **Dead cross-reference on record:** proof step 3 cites "(Section [Section Removed])" —
+>    a removed section, uncorrected since import. The (2,q)-torus-knot gauge-structure claim
+>    it points at is carried today by the **Axiom-2 (TKI)** operational signatures per
+>    INVARIANT-S2 — "(2,q) torus knot" is an Ax-2 signature, not Ax-1; the register's own
+>    depends-on line ("Axiom 1 (gauge structure from (2,q) torus knots…)") is itself suspect
+>    against that split. The claim is also carried by the
+>    ch12 Yang-Mills leaves (framework-conditional per their own scope corrections). The dead
+>    pointer is flagged, not silently rewritten.
+> 3. Standing weaknesses restated from the register (unchanged by this note): step-1
+>    uniqueness is asserted-not-proven (clm-gfs4j8, solidity 0.50 input-only) and the
+>    closure-roadmap carries a kb_audit circularity flag on the proof's shape.

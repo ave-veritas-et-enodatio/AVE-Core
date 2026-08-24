@@ -70,6 +70,18 @@ The corpus carries multiple historically-evolved framings of the neutron, three 
 | Isotopic stability curve $N \approx Z + 1.2\alpha Z^2$ | `common/translation-tables/translation-particle-physics.md:25` | Optimal neutron count for stable isotopes scales with $Z$ via geometric Coulomb penalty + topological packing | **Reconciliation:** the threaded-electron neutron provides the charge-cancellation needed to maintain Borromean stability at high $Z$ where Coulomb repulsion between proton flux loops would otherwise destabilize the nucleus. **Mechanism structural; $1.2\alpha Z^2$ scaling not derived in corpus.** Flag for future derivation work. |
 | Strong-CP / neutron EDM ($\theta \neq 0$ implications) | `vol_2_subatomic/chapters/10_open_problems.tex:33` | Topological θ-vacuum of the proton's Borromean cage; CP-violation would manifest as neutron electric dipole moment | **Reconciliation:** AVE's Witten-effect $\theta \in \{0, \pm 2\pi/3, \pm 4\pi/3\}$ for fractional quark charges (per `topological-fractionalization.md`) provides natural CP-preserving discrete θ-values. The neutron EDM null observation supports the discrete-θ picture over continuous-θ Strong-CP problem. **Open question:** is this AVE explanation rigorous, or just suggestive? *(Partly addressed by `clm-w8jn3q` 2026-06-23: the discrete θ-values are the effective body-angular-momentum dressing of the fundamental integer $\mathcal{Q}$; the discreteness traces to the $N$-fold body-rotation share $1/N$, which is FORM-forced — but the specific value $N=3$ remains the FED-IN observed loop count, so "rigorous vs suggestive" stays OPEN on the value, RECONCILED on the form.)* |
 
+> 🔴 **Dated note 2026-08-23 on the Strong-CP / neutron-EDM row above (θ-fork adjudication;
+> row text preserved unedited).** Two corrections of emphasis, no verdict change:
+> (1) the row's "natural **CP-preserving** discrete θ-values" is **UNDERIVED** — no corpus
+> document derives the CP transformation property of the discrete dressing, and the sibling
+> leaf `topological-fractionalization.md` asserts the opposite adjective ("CP-violating"),
+> equally underived. CP-parity of the dressing is OPEN (open-item
+> `theta-dressing-open-questions`). (2) A tempting quantitative defense does not exist: the
+> net Σθ ≡ 0 (mod 2π) across the nucleon's constituents is arithmetically EQUIVALENT to
+> integer total charge — it is a restatement of charge integrality, not an independent
+> EDM-cancellation argument. The row's own "rigorous vs suggestive" flag therefore stands,
+> and the EDM-null reading remains suggestive-class until the CP question is settled.
+
 ## §4 — Honest scoping of derivation gaps
 
 Two TBD-pin derivation gaps need to be flagged as parallel to the C13b/C14 derivation-gap class in the divergence-test substrate map:
