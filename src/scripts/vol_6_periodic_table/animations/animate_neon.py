@@ -1,13 +1,12 @@
-import os
 import pathlib
 import sys
 
 import matplotlib.animation as animation
 import matplotlib.pyplot as plt
 import numpy as np
-from periodic_table.simulations.simulate_element import get_nucleon_coordinates
 
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+from _pt_bootstrap import get_nucleon_coordinates, output_path  # noqa: E402
 
 
 def calculate_vacuum_density(nodes: list, X: np.ndarray, Y: np.ndarray, z_slice: float) -> np.ndarray:
@@ -72,8 +71,6 @@ def update(frame: int) -> list:
 
 anim = animation.FuncAnimation(fig, update, frames=len(z_slices), interval=100, blit=True)
 
-outdir = "periodic_table/figures"
-os.makedirs(outdir, exist_ok=True)
-target = os.path.join(outdir, "neon_20_dynamic_flux.gif")
+target = output_path("neon_20_dynamic_flux.gif")
 anim.save(target, writer="pillow", fps=15)
 print(f"[*] Animation generated: {target}")

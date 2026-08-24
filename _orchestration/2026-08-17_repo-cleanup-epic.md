@@ -190,6 +190,11 @@ The **88 MB duplicate SPICE netlist tree**: `manuscript/vol_6_periodic_table/sim
    > sibling-extension or label = false). Method-4 must distinguish a directory cited AS a
    > figure container from one appearing inside another file's path. Fifth citer class found:
    > **generator-named-as-figure** (a result doc citing the producing `.py` as "Figure:").
+   > **Addendum (2026-08-23, PR-#992):** sixth citer/provenance class — **f-string loop
+   > generators**: a generic loop like `f"{name}_dynamic_flux.png"` produces cited artifacts
+   > that no literal-stem grep can attribute (the #992 discharge vacated BOTH headline
+   > numbers of a board item this way — "8 figures with no generator" was 0). Any
+   > generator-existence claim must check loop-constructed output names, not just literals.
  — policy exists, unenforced; 1,153 files outside `_archive`, heuristic upper bound ~76 candidates. One lane, batch PRs.
 2. **F-row combined read pass** — after the W2-5 re-scope; discharge the ten rows in one 175-document read with per-row hit ledgers.
 3. **Ringdown wave** — vol3 ch08+ch15, backmatter/07, vol9 ch03:205 (12 gated findings). **Correctly gated on cold-Q; no action until the gate lifts.** Listed so its silence reads as gated, not forgotten.

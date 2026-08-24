@@ -1,4 +1,3 @@
-import os
 import pathlib
 import sys
 
@@ -6,10 +5,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.animation import FuncAnimation
 
-# Ensure the core framework is in PATH
-from periodic_table.simulations.simulate_element import get_nucleon_coordinates
-
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+from _pt_bootstrap import get_nucleon_coordinates, output_path  # noqa: E402
 
 
 def rotate_cluster_y(nodes: list, angle: float) -> list:
@@ -95,10 +92,8 @@ if __name__ == "__main__":
 
     print(f"[*] Rendering {name} GIF...")
     anim = FuncAnimation(fig, update, frames=frames, interval=80, blit=False)
-    outdir = "../figures"
-    os.makedirs(outdir, exist_ok=True)
     anim.save(
-        os.path.join(outdir, "carbon_12_dynamic_flux.gif"),
+        output_path("carbon_12_dynamic_flux.gif"),
         writer="pillow",
         fps=15,
         savefig_kwargs={"facecolor": fig.get_facecolor()},
