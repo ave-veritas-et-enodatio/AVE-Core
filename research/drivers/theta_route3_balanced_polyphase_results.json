@@ -1,0 +1,397 @@
+{
+  "seed": 20260824,
+  "A_null_liveness_n4_family": {
+    "deltas_tested": 9,
+    "max_residual_over_family": 4.577566798522237e-16,
+    "balanced4_recovered_from_family": [
+      0.0,
+      1.570796327,
+      3.141592654,
+      4.71238898
+    ],
+    "balanced4_reference": [
+      0.0,
+      1.570796327,
+      3.141592654,
+      4.71238898
+    ]
+  },
+  "B_dimension_via_jacobian": [
+    {
+      "N": 2,
+      "jacobian_rank": 1,
+      "balanced_residual": 1.2246467991473532e-16,
+      "dim_constraint_surface": 1,
+      "dim_mod_global_phase": 0
+    },
+    {
+      "N": 3,
+      "jacobian_rank": 2,
+      "balanced_residual": 4.002966042486721e-16,
+      "dim_constraint_surface": 1,
+      "dim_mod_global_phase": 0
+    },
+    {
+      "N": 4,
+      "jacobian_rank": 2,
+      "balanced_residual": 2.8818119592750155e-16,
+      "dim_constraint_surface": 2,
+      "dim_mod_global_phase": 1
+    },
+    {
+      "N": 5,
+      "jacobian_rank": 2,
+      "balanced_residual": 1.5700924586837752e-16,
+      "dim_constraint_surface": 3,
+      "dim_mod_global_phase": 2
+    },
+    {
+      "N": 6,
+      "jacobian_rank": 2,
+      "balanced_residual": 4.577566798522237e-16,
+      "dim_constraint_surface": 4,
+      "dim_mod_global_phase": 3
+    },
+    {
+      "N": 7,
+      "jacobian_rank": 2,
+      "balanced_residual": 1.5700924586837752e-16,
+      "dim_constraint_surface": 5,
+      "dim_mod_global_phase": 4
+    },
+    {
+      "N": 8,
+      "jacobian_rank": 2,
+      "balanced_residual": 4.440892098500626e-16,
+      "dim_constraint_surface": 6,
+      "dim_mod_global_phase": 5
+    }
+  ],
+  "B_dimension_via_sampling": [
+    {
+      "N": 2,
+      "method": "local-PCA on constraint-projected displacements, global phase removed",
+      "eps": 0.001,
+      "n_solutions": 400,
+      "cloud_rank": 0,
+      "rank_cut": 0.001,
+      "singular_values_top4": [
+        4.033210413211318e-15,
+        3.8900661906855375e-18
+      ]
+    },
+    {
+      "N": 3,
+      "method": "local-PCA on constraint-projected displacements, global phase removed",
+      "eps": 0.001,
+      "n_solutions": 400,
+      "cloud_rank": 0,
+      "rank_cut": 0.001,
+      "singular_values_top4": [
+        3.011752652728111e-14,
+        2.839537209670367e-14,
+        5.4513679073790164e-18
+      ]
+    },
+    {
+      "N": 4,
+      "method": "local-PCA on constraint-projected displacements, global phase removed",
+      "eps": 0.001,
+      "n_solutions": 400,
+      "cloud_rank": 1,
+      "rank_cut": 0.001,
+      "singular_values_top4": [
+        0.019667243982730728,
+        4.449333431923718e-15,
+        2.5397770674395805e-15,
+        1.5794335503743084e-18
+      ]
+    },
+    {
+      "N": 5,
+      "method": "local-PCA on constraint-projected displacements, global phase removed",
+      "eps": 0.001,
+      "n_solutions": 400,
+      "cloud_rank": 2,
+      "rank_cut": 0.001,
+      "singular_values_top4": [
+        0.020611860170496304,
+        0.018065194040876663,
+        6.024194718451988e-06,
+        5.416411909295821e-06
+      ]
+    },
+    {
+      "N": 6,
+      "method": "local-PCA on constraint-projected displacements, global phase removed",
+      "eps": 0.001,
+      "n_solutions": 400,
+      "cloud_rank": 3,
+      "rank_cut": 0.001,
+      "singular_values_top4": [
+        0.02073172752045628,
+        0.020540271878211867,
+        0.01915774070257113,
+        8.44597126539205e-06
+      ]
+    },
+    {
+      "N": 7,
+      "method": "local-PCA on constraint-projected displacements, global phase removed",
+      "eps": 0.001,
+      "n_solutions": 400,
+      "cloud_rank": 4,
+      "rank_cut": 0.001,
+      "singular_values_top4": [
+        0.02164215528668419,
+        0.01999755937516013,
+        0.018816592781790573,
+        0.018693712093491802
+      ]
+    },
+    {
+      "N": 8,
+      "method": "local-PCA on constraint-projected displacements, global phase removed",
+      "eps": 0.001,
+      "n_solutions": 400,
+      "cloud_rank": 5,
+      "rank_cut": 0.001,
+      "singular_values_top4": [
+        0.021714763472114488,
+        0.021299732521650395,
+        0.020102436952366593,
+        0.01970374254867389
+      ]
+    }
+  ],
+  "C_rotating_resultant": [
+    {
+      "N": 2,
+      "collinear_balanced_set": true,
+      "resultant_mag_min": 0.0,
+      "resultant_mag_max": 1.0990647210786425e-15,
+      "resultant_is_identically_zero": true
+    },
+    {
+      "N": 3,
+      "collinear_balanced_set": false,
+      "resultant_mag_min": 1.1102230246251565e-16,
+      "resultant_mag_max": 1.2815744444133687e-15,
+      "resultant_is_identically_zero": true
+    },
+    {
+      "N": 4,
+      "collinear_balanced_set": false,
+      "resultant_mag_min": 0.0,
+      "resultant_mag_max": 1.5700924586837751e-15,
+      "resultant_is_identically_zero": true
+    },
+    {
+      "N": 5,
+      "collinear_balanced_set": false,
+      "resultant_mag_min": 0.0,
+      "resultant_mag_max": 1.807312143953211e-15,
+      "resultant_is_identically_zero": true
+    },
+    {
+      "N": 6,
+      "collinear_balanced_set": false,
+      "resultant_mag_min": 5.551115123125783e-17,
+      "resultant_mag_max": 1.8707880807801548e-15,
+      "resultant_is_identically_zero": true
+    }
+  ],
+  "D_pairwise_orthogonality": {
+    "N_with_pairwise_orthogonal_solution": [
+      2
+    ],
+    "max_N": 2,
+    "example_solutions": {
+      "2": [
+        0.0,
+        1.5707963267948966
+      ]
+    },
+    "balanced3_pairwise_cos": -0.49999999999999983
+  },
+  "E_compact_theta_charges": {
+    "compact_classes_theta_over_2pi": [
+      "0",
+      "1/3",
+      "2/3"
+    ],
+    "solutions_per_target": {
+      "up_+2/3": [
+        {
+          "n": 0,
+          "theta_over_2pi": "2/3"
+        }
+      ],
+      "down_-1/3": [
+        {
+          "n": -1,
+          "theta_over_2pi": "2/3"
+        }
+      ],
+      "anti_up_-2/3": [
+        {
+          "n": -1,
+          "theta_over_2pi": "1/3"
+        }
+      ],
+      "anti_down_+1/3": [
+        {
+          "n": 0,
+          "theta_over_2pi": "1/3"
+        }
+      ]
+    },
+    "up_and_down_share_theta_class": true,
+    "noncompact_list_q_eff_at_n0": {
+      "0": "0",
+      "1/3": "1/3",
+      "-1/3": "-1/3",
+      "2/3": "2/3",
+      "-2/3": "-2/3"
+    },
+    "noncompact_list_distinct_classes_mod_1": [
+      "0",
+      "1/3",
+      "2/3"
+    ],
+    "n_listed_values": 5,
+    "n_distinct_classes_mod_1": 3
+  },
+  "E_common_theta_proton_neutron": {
+    "2": {
+      "common_theta_over_2pi": "-1/2",
+      "N_constituents": 2,
+      "total_dressing": "-1",
+      "proton_like_total(k=2)": "1",
+      "neutron_like_total(k=1)": "0"
+    },
+    "3": {
+      "common_theta_over_2pi": "-1/3",
+      "N_constituents": 3,
+      "total_dressing": "-1",
+      "proton_like_total(k=2)": "1",
+      "neutron_like_total(k=1)": "0"
+    },
+    "4": {
+      "common_theta_over_2pi": "-1/4",
+      "N_constituents": 4,
+      "total_dressing": "-1",
+      "proton_like_total(k=2)": "1",
+      "neutron_like_total(k=1)": "0"
+    },
+    "5": {
+      "common_theta_over_2pi": "-1/5",
+      "N_constituents": 5,
+      "total_dressing": "-1",
+      "proton_like_total(k=2)": "1",
+      "neutron_like_total(k=1)": "0"
+    },
+    "6": {
+      "common_theta_over_2pi": "-1/6",
+      "N_constituents": 6,
+      "total_dressing": "-1",
+      "proton_like_total(k=2)": "1",
+      "neutron_like_total(k=1)": "0"
+    },
+    "_verdict": "N-GENERIC: total dressing = N * (-1/N) = -1 for every N, so the integer total charge k-1 is reproduced at every N >= k. N is not selected by charge integrality."
+  },
+  "F_closure": {
+    "balanced_sets": [
+      {
+        "N": 2,
+        "sum_theta_over_2pi": 0.5,
+        "closes_mod_2pi": false
+      },
+      {
+        "N": 3,
+        "sum_theta_over_2pi": 1.0,
+        "closes_mod_2pi": true
+      },
+      {
+        "N": 4,
+        "sum_theta_over_2pi": 1.5,
+        "closes_mod_2pi": false
+      },
+      {
+        "N": 5,
+        "sum_theta_over_2pi": 2.0,
+        "closes_mod_2pi": true
+      },
+      {
+        "N": 6,
+        "sum_theta_over_2pi": 2.5,
+        "closes_mod_2pi": false
+      },
+      {
+        "N": 7,
+        "sum_theta_over_2pi": 3.0,
+        "closes_mod_2pi": true
+      },
+      {
+        "N": 8,
+        "sum_theta_over_2pi": 3.5000000000000004,
+        "closes_mod_2pi": false
+      }
+    ],
+    "nonbalanced_closing_examples": [
+      {
+        "theta_over_2pi": [
+          0.280093,
+          0.107995,
+          0.611913
+        ],
+        "sum_over_2pi": 1.0,
+        "is_balanced": false
+      },
+      {
+        "theta_over_2pi": [
+          0.185806,
+          0.08949,
+          0.724704
+        ],
+        "sum_over_2pi": 1.0,
+        "is_balanced": false
+      },
+      {
+        "theta_over_2pi": [
+          0.020185,
+          0.03217,
+          0.947646
+        ],
+        "sum_over_2pi": 1.0,
+        "is_balanced": false
+      },
+      {
+        "theta_over_2pi": [
+          0.083081,
+          0.296088,
+          0.620831
+        ],
+        "sum_over_2pi": 1.0,
+        "is_balanced": false
+      },
+      {
+        "theta_over_2pi": [
+          0.196305,
+          0.273415,
+          0.53028
+        ],
+        "sum_over_2pi": 1.0,
+        "is_balanced": false
+      }
+    ]
+  },
+  "NULL_LIVENESS_GATE": {
+    "n3_isolated_mod_global_phase": true,
+    "n4_has_freedom": true,
+    "n4_family_residual_ok": true,
+    "two_methods_agree": true,
+    "n2_isolated_but_rank_deficient": true,
+    "PASS": true
+  }
+}
