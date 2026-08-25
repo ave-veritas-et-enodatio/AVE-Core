@@ -152,3 +152,22 @@ class TestFigureSmoke:
         # rim band + annotations actually landed on the axes
         assert any(a for a in ax.patches) or ax.collections or ax.lines
         plt.close(fig)
+
+    def test_plot_helpers_render_on_chart(self):
+        import matplotlib.pyplot as plt
+
+        fig, (axc, axh) = plt.subplots(1, 2)
+        ave_chart.base_chart(axc, annotate=False)
+        A = np.linspace(0, 0.999, 200)
+        ave_chart.plot_bias_trajectory(axc, A, "core", color=style.COLORS["ave"])
+        ave_chart.plot_bias_trajectory(axc, A, "J", im_offset=0.03,
+                                       color=style.COLORS["accent"])
+        ave_chart.plot_frequency_locus(axc, np.linspace(0, 2 * np.pi, 100),
+                                       color=style.COLORS["comparison"])
+        t = np.linspace(0, 20 * np.pi, 4000)
+        A_t = 0.5 + 0.3 * np.sin(t)  # test-local orbit (demo lives in driver)
+        hb, hist_art = ave_chart.plot_occupancy(axc, A_t, "core", ax_hist=axh)
+        fig.canvas.draw()
+        assert hb is not None and hist_art is not None
+        assert len(axc.lines) > 0
+        plt.close(fig)

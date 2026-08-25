@@ -69,6 +69,9 @@ __all__ = [
     "gamma_two_junction_uniform",
     "two_junction_gamma",
     "base_chart",
+    "plot_bias_trajectory",
+    "plot_frequency_locus",
+    "plot_occupancy",
 ]
 
 # Form-B matched crossing: Gamma_B(A) = 0 where sqrt(S(A)) = 1/2, i.e.
@@ -312,3 +315,73 @@ def base_chart(ax=None, *, rim_band: bool = True, annotate: bool = True):
     ax.set_xlabel(style.axis_label("Reflection (real)", r"\mathrm{Re}(\Gamma)", ""))
     ax.set_ylabel(style.axis_label("Reflection (imag)", r"\mathrm{Im}(\Gamma)", ""))
     return fig, ax
+
+
+# ---------------------------------------------------------------------------
+# Plot helpers — trajectories, frequency loci, occupancy
+# ---------------------------------------------------------------------------
+def plot_bias_trajectory(ax, A, form: str = "core", *, im_offset: float = 0.0,
+                         endpoint_markers: bool = True, **plot_kw):
+    """Draw a Gamma(A) bias trajectory on a chart axes.
+
+    All three forms are real-axis loci; when several are drawn on one chart
+    they overlap. ``im_offset`` shifts the drawn trace vertically for
+    VISIBILITY ONLY — a caller using it must annotate the offset on the figure
+    (honest-axes discipline; the driver does this).
+
+    Returns the Line2D. Endpoint markers: circle at the A=0 end, arrowhead-like
+    marker at the A=max end.
+    """
+    A = np.asarray(A, dtype=float)
+    g = np.asarray(gamma_of_A(A, form), dtype=complex)
+    (line,) = ax.plot(g.real, g.imag + im_offset, **plot_kw)
+    if endpoint_markers:
+        col = line.get_color()
+        ax.plot([g.real[0]], [g.imag[0] + im_offset], "o", color=col, ms=5, zorder=3)
+        ax.plot([g.real[-1]], [g.imag[-1] + im_offset], ">", color=col, ms=5, zorder=3)
+    return line
+
+
+def plot_frequency_locus(ax, theta, *, A_line=0.0, A_ends=0.0, **plot_kw):
+    """Draw the two-junction composite's Gamma(theta) locus on a chart axes.
+
+    ``theta`` is the bond electrical length (the frequency axis,
+    theta = omega*ell/c_bond); bias per ``two_junction_gamma``. Returns the
+    Line2D.
+    """
+    g = two_junction_gamma(theta, A_line=A_line, A_ends=A_ends)
+    (line,) = ax.plot(g.real, g.imag, **plot_kw)
+    return line
+
+
+def plot_occupancy(ax_chart, A_t, form: str = "core", *, ax_hist=None,
+                   bins: int = 60, scatter_kw=None, hist_kw=None):
+    """Occupancy view: an envelope orbit A(t) -> chart trace + dwell density.
+
+    ``A_t`` is the caller-supplied amplitude time series. THE ORBIT A(t) IS THE
+    CALLER'S CHOICE — the instrument maps and histograms whatever it is given;
+    the driver's demo orbit is explicitly tagged UNDERIVED-CHOICE.
+
+    * On ``ax_chart``: the Gamma(A(t)) trace as a dwell-coloured 2D histogram
+      (hexbin) over (Re Gamma, Im Gamma) — for the real-axis forms this is a
+      1-pixel-tall strip, which is the honest picture (the locus IS the real
+      axis).
+    * On ``ax_hist`` (optional): the 1D dwell-density histogram over
+      Re(Gamma), normalized to unit area — where on the chart the orbit
+      spends its time (turning points of A(t) dominate, as for any envelope).
+
+    Returns ``(hexbin_artist, hist_artist_or_None)``.
+    """
+    A_t = np.asarray(A_t, dtype=float)
+    g = np.asarray(gamma_of_A(A_t, form), dtype=complex)
+    skw = dict(gridsize=bins, cmap=style.CMAP_SEQ, mincnt=1, zorder=2.5)
+    skw.update(scatter_kw or {})
+    hb = ax_chart.hexbin(g.real, g.imag, **skw)
+    hist_art = None
+    if ax_hist is not None:
+        hkw = dict(bins=bins, density=True, color=style.COLORS["ave"], alpha=0.85)
+        hkw.update(hist_kw or {})
+        _, _, hist_art = ax_hist.hist(g.real, **hkw)
+        ax_hist.set_xlabel(style.axis_label("Reflection (real)", r"\mathrm{Re}(\Gamma)", ""))
+        ax_hist.set_ylabel(style.axis_label("Dwell density", r"p(\mathrm{Re}\,\Gamma)", "1"))
+    return hb, hist_art
