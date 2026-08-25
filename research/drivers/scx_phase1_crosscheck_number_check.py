@@ -55,7 +55,34 @@ ALLOWED: dict[str, str] = {
         "it (1.240e-04). It is deliberately absent from the shipped record: the record "
         "carries what the run measured, and this is what a narrower probe had claimed."
     ),
+    # ── EXTERNAL MEASUREMENTS: the PR clearing review's own ngspice run on the
+    # committed L4_coarse_n0.cir. NOT this lane's numbers and deliberately NOT in
+    # the shipped record -- the record carries what THIS driver measured. They are
+    # quoted because they name a mechanism this lane's record cannot localize, and
+    # each is labelled as the review's measurement at its point of use.
+    "1.346e-02": (
+        "PR-clearing-review measurement: |Z| at the per-node TOL-LOSSLESS residual "
+        "maxima, showing they sit near impedance ZEROS rather than poles (result "
+        "doc section 2.3). External to this lane's record by construction."
+    ),
+    "5.5638e-10": (
+        "PR-clearing-review measurement: largest per-node max|Re Z/Im Z| in its own "
+        "sweep (result doc section 2.3). External to this lane's record."
+    ),
+    "1.2157e-11": (
+        "PR-clearing-review measurement: max|Re Z/Im Z| at a sample 4.6e-6 relative "
+        "from an interior pole, PASSING -- the counter-measurement that narrows "
+        "amendment A1's universal sentence (result doc section 6, prereg NOTE N2). "
+        "External to this lane's record."
+    ),
 }
+# CLS-1's four counts are NOT allow-listed. A repaired driver cannot emit the
+# numbers that document the defect it repaired, so they are absent from the
+# record -- but "absent from the record" must not mean "unchecked". They are
+# RECOMPUTED FROM THE ENGINE by `computed_from_tree` below, both under the
+# repaired margin and under the removed one. Allow-listing them would have been
+# the weaker choice twice over: two of the four (19, 20) collide with unrelated
+# pooled values, so their allow-list entries would have been inert.
 
 # ── (2) DERIVED registry: value -> the formula that produces it from the JSON ──
 def derived(rec: dict) -> dict[float, str]:
@@ -70,6 +97,14 @@ def derived(rec: dict) -> dict[float, str]:
         float(rec["auxb"]["n_points"]): "AUX-B theta grid point count",
         float(rec["frozen_tolerances"]["EC1_COARSE_POINTS"]): "EC-1 coarse sweep points",
     }
+    # How much of TOL-LOSSLESS the surviving L4 receipt actually consumes.
+    # Registered so the doc can state the headroom without an allow-list entry: a
+    # receipt sitting at 98.3% of its gate is a fact the doc must be able to
+    # print, and it must reconcile against the record like any other number.
+    out[float(100.0 * rec["rungs"]["L4"]["lossless_max_re_over_im"]
+              / rec["frozen_tolerances"]["TOL_LOSSLESS"])] = (
+        "L4 amended TOL-LOSSLESS receipt as a PERCENTAGE of the frozen gate"
+    )
     for k in ("L0", "L1", "L2v", "L2s", "L3", "L4"):
         r = rec["rungs"][k]
         out[float(r["count_ref"])] = f"{k} interior reference mode count"
@@ -102,7 +137,58 @@ def computed_from_tree() -> dict[float, str]:
                 if isinstance(arg, (ast.List, ast.Tuple)):
                     extra += len(arg.elts) - 1   # k cases replace 1 function
     collected = n_tests + extra
-    return {float(collected): f"pytest items collected from {TESTS.name} (AST-counted)"}
+    out = {float(collected): f"pytest items collected from {TESTS.name} (AST-counted)"}
+    out.update(_cls1_counts_from_the_engine())
+    return out
+
+
+#: The classifier margin CLS-1 removed. Kept here as a FIXTURE so the defect's
+#: numbers stay reproducible after the driver stopped producing them.
+_CLS1_REMOVED_THETA_MARGIN = 1.0e-9
+
+
+def _cls1_counts_from_the_engine() -> dict[float, str]:
+    """Recompute CLS-1's srs L=3 counts, under BOTH margins, from the engine.
+
+    The result doc states four counts about a defect the repaired driver can no
+    longer emit: srs L=3 scored 215 interior modes / 20 distinct theta under the
+    removed 1e-9 theta margin, against the correct 214 / 19. Rather than
+    allow-list them (which would assert them), this recomputes them from
+    ``build_srs_net(3)`` and the driver's own ``boundary_class``, so the doc's
+    defect claim reconciles against the engine like every other number.
+
+    Fails LOUD if the driver cannot be imported: a checker that silently drops a
+    registry when an import breaks is a checker that goes blind exactly when
+    something has changed.
+    """
+    sys.path.insert(0, str(REPO / "src"))
+    import importlib.util
+    import math
+
+    import numpy as np
+
+    drv_path = REPO / "src" / "scripts" / "vol_1_foundations" / "scx_phase1_crosscheck.py"
+    spec = importlib.util.spec_from_file_location("scx_phase1_crosscheck_for_number_check",
+                                                  drv_path)
+    drv = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = drv          # dataclasses resolve through sys.modules
+    spec.loader.exec_module(drv)
+
+    net3 = drv.build_srs_net(3)
+    mu = np.linalg.eigvalsh(drv.adjacency(drv.X.edges_from_net(net3), net3.n_nodes))
+    th = np.arccos(np.clip(mu / 3.0, -1.0, 1.0))
+
+    out: dict[float, str] = {}
+    for label, margin in (("REPAIRED (BOUNDARY_THETA_MARGIN)", drv.BOUNDARY_THETA_MARGIN),
+                          ("REMOVED (the 1e-9 theta margin)", _CLS1_REMOVED_THETA_MARGIN)):
+        interior = [float(t) for t in th if drv.boundary_class(float(t), margin) == "interior"]
+        n_top = sum(1 for t in th if drv.boundary_class(float(t), margin) == "top")
+        out[float(len(interior))] = f"CLS-1: srs L=3 interior mode COUNT under {label}"
+        out[float(len({round(t, 9) for t in interior}))] = (
+            f"CLS-1: srs L=3 DISTINCT interior theta under {label}")
+        out[float(n_top)] = f"CLS-1: srs L=3 theta=pi block size under {label}"
+    assert math.isfinite(drv.BOUNDARY_THETA_MARGIN)
+    return out
 
 
 # ── numeric-token scanning ───────────────────────────────────────────────────
@@ -188,6 +274,49 @@ def reconcile(doc_text: str, rec: dict) -> list[str]:
                 f"doc never quotes {name} at the value the driver ran under ({want!r}); "
                 f"back-ticked numerals found on its lines: {quoted}"
             )
+    # ── A BIN THAT MOVED MUST BE DISCLOSED IN THE HEADLINE ───────────────────
+    # If the amendment's paired control records a frozen-band FAIL on a GATING
+    # axis while the doc headlines AGREE, then AGREE is reachable only under the
+    # amendment, and the frozen criterion selects a different bin. The doc must
+    # say so, name the other bin, and carry each failing rung's measured value.
+    # (The PR clearing review found this disclosed only in section 6; a headline
+    # honesty item that lives in prose is one edit away from being lost.)
+    paired = rec.get("controls", {}).get("amendment_a1_paired", {})
+    frozen_fails = {
+        k: v["frozen_band"]["lossless_max_re_over_im"]
+        for k, v in paired.items()
+        if v.get("frozen_band", {}).get("lossless_pass") is False
+    }
+    if frozen_fails and bin_ == "AGREE":
+        rungs = ", ".join(sorted(frozen_fails))
+        if "under amendment A1" not in doc_text:
+            bad.append(
+                f"the paired control records an as-frozen TOL-LOSSLESS FAIL on {rungs}, "
+                f"so the {bin_!r} headline is reachable only under the amendment -- the "
+                "doc must qualify it with the words 'under amendment A1'"
+            )
+        if "DIVERGE-ATTRIBUTED" not in doc_text:
+            bad.append(
+                f"the doc headlines {bin_!r} while the as-frozen band FAILs TOL-LOSSLESS "
+                f"on {rungs}; falsifier FS-7 routes that to DIVERGE-ATTRIBUTED and the "
+                "doc never names the bin the frozen criterion selects"
+            )
+        # Match on the TOKEN's own significance, and require the token to be
+        # precise enough to be about a number of this size. Without the second
+        # clause a back-ticked `0` swallows every small value: |0 - 1.24e-4| is
+        # inside `0`'s half-unit-in-the-last-place of 0.5. (Measured while
+        # writing this gate -- both value arms passed vacuously until it was added.)
+        quoted = [m.strip() for m in _TICK.findall(doc_text) if _NUMERIC.match(m.strip())]
+        for rung, val in sorted(frozen_fails.items()):
+            if not any(_sig_tolerance(t) <= 0.05 * abs(val)
+                       and abs(float(t) - val) <= _sig_tolerance(t)
+                       for t in quoted):
+                bad.append(
+                    f"{rung}'s as-frozen TOL-LOSSLESS FAIL value ({val!r}) is never quoted "
+                    "in the doc, so the reader cannot see the size of the exceedance the "
+                    "amendment stepped over"
+                )
+
     if rec["reproduction_gate"]["pass"] is not True:
         if "ZERO drift" in doc_text:
             bad.append("doc claims ZERO drift but the record's reproduction gate did not pass")
@@ -242,6 +371,16 @@ def mutation() -> int:
         return 1
     checks.append((f"doc numeral perturbed away from the record ({target} -> {perturbed})",
                    d, base_rec))
+
+    # CLS-1's counts come from the engine, not the record, so the generic
+    # record-perturbation above cannot reach them. Perturb the doc directly and
+    # require a catch, otherwise the new registry is decorative.
+    d_cls1 = base_doc.replace("`215`", "`217`")
+    if d_cls1 == base_doc:
+        print("[scx-nc] RECEIPT ABORT: the CLS-1 defect count is not in the doc.")
+        return 1
+    checks.append(("CLS-1 defect count perturbed away from the engine's recomputation",
+                   d_cls1, base_rec))
 
     r = json.loads(json.dumps(base_rec))
     r["verdict"]["bin"] = "DIVERGE-ATTRIBUTED"

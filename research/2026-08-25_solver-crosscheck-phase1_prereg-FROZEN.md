@@ -481,3 +481,50 @@ Measured over the run's **full** drive-node set (`controls.amendment_a1_paired`)
 ### What this amendment does NOT do
 
 It does not widen a tolerance, re-label a bin, drop a rung, re-cut the interior band, add an exporter knob, or convert an `INCONCLUSIVE` into an `AGREE`. **It is surfaced here, in the frozen document, rather than fixed silently in the driver** — and it is flagged for auditor review alongside F5-AC in §10.
+
+---
+
+## 🔴 NOTE N1 — 2026-08-25 (post-run, PR clearing review) — §3.6 TABLE DRIFT, BANKED
+
+**This is a NOTE, not an amendment. It moves no criterion, no tolerance, no bin and no rung.** It exists because §3.6's own closing sentence obliges it, verbatim:
+
+> *"All values above are re-derived fresh at run time from `constants.py` + `build_srs_net` (§7). The table is the frozen expectation, not the input to the comparison — the comparison consumes the freshly computed reference, and **any drift between this table and the fresh values is itself a finding banked under a dated note**."*
+
+Drift exists and was not banked. It is banked here. **The document body above is UNCHANGED**; this section is appended, not merged in. The ten §3.6 L4 rows are now registered in the driver as `PREREG_S36_L4_FROZEN` and the drift is computed and reported at `reproduction_gate.prereg_s36_drift` in `research/drivers/scx_phase1_crosscheck_results.json`.
+
+### What drifted
+
+| column | max relative drift | verdict |
+|---|---|---|
+| $\theta$ | $6.4667\times10^{-7}$ | **within print precision on all ten rows** — a 6-dp table cannot agree with a double to better than $0.5\times10^{-6}$ in the last printed place, and every row is inside its own floor |
+| $\omega/\omega_C$ | $2.2864\times10^{-5}$ $=$ $228.6\times$ TOL-FREQ | **8 of 10 rows drift beyond their own print-rounding floor** |
+
+The $\omega/\omega_C$ column is also **internally inconsistent with its own $\theta$ column**. The frozen map is one constant for all ten rows, $\omega/\omega_C=\theta/\texttt{ANALYTIC\_NETWORK\_FACTOR}$; the factor the frozen rows actually imply **varies row to row**, spread $4.894\times10^{-5}$ ($1.7320415$ to $1.7320904$). So that column was not produced from the frozen $\theta$ column by the frozen map. The multiplicity column is **correct on all ten rows** and the distinct-mode count and total (10, 62) are correct.
+
+### What does NOT move, and why
+
+**No verdict, on any rung.** §3.4 step 7 makes the comparison consume the **freshly computed** reference, and the driver does exactly that (`build_rungs` passes `arccos_reference(...)` computed at run time as `Rung.reference`; nothing reads this table). The result doc's §2.1 column already carries the fresh values, which is why the marquee deviations are $\sim10^{-10}$ and not $\sim10^{-5}$. **This is a transcription defect in a frozen expectation table, not a measurement defect and not a divergence.**
+
+**The registry is REPORTED, NOT GATING.** It is deliberately not wired into `reproduction_gate["pass"]`. The prereg's rule makes drift *a finding to bank*, not a gate; converting it into one after the run would be a post-hoc criterion, which is the move Rule 12 and this prereg's own §4 forbid.
+
+---
+
+## 🔴 NOTE N2 — 2026-08-25 (post-run, PR clearing review) — ONE SENTENCE IN AMENDMENT A1 IS NARROWED
+
+**This is a NOTE, not an amendment, and AMENDMENT A1's text above is UNCHANGED** — Rule-12 append-only: a dated amendment that has been pushed gets a dated surface-note, never a rewrite. No criterion, tolerance, bin or band moves. A1's amendment (EC-2's upper edge $\to1.05\times f_{top}$) stands exactly as written.
+
+**The sentence, verbatim from A1 §"The defect" item 2:**
+
+> *"**No lossless network whatever can meet the frozen gate when a sample lands on a pole**"*
+
+**It is an overstatement and it is false as worded.** The PR clearing review measured a sample **$4.6\times10^{-6}$ relative from an interior pole** (drive node `n27` of the committed `L4_coarse_n0.cir`, $|Z|=7.7\times10^{5}\,\Omega$) returning $\max|\mathrm{Re}\,Z/\mathrm{Im}\,Z|=1.2157\times10^{-11}$ — comfortably **passing** TOL-LOSSLESS. Proximity to a pole does not make the gate unmeetable; landing **on the singularity to machine precision** does.
+
+**Narrowed form, which is what A1's own evidence supports:**
+
+> *"No lossless network can meet the frozen gate when a sample lands on the singularity to machine precision."*
+
+That is exactly the as-frozen band's condition: its upper edge was $1.0\times f_{top}$, i.e. $\theta=\pi$ **exactly**, with $\sin\theta$ underflowing to $1.22\times10^{-16}$. **A1's rationale is undisturbed by the narrowing.**
+
+Note also that A1 is **self-consistent under the narrowing and was not before**: its own "Corrected mechanism" paragraph, two paragraphs below the sentence quoted here, already says the singularity is a **pole *or* a zero** depending on whether $\mu=-z$ exists. The word "pole" in the earlier sentence contradicts that paragraph. The narrowing resolves the contradiction in favour of the paragraph A1 itself flagged as the corrected one.
+
+**Consequence for the reader:** the class of failure A1 fixes is narrower than A1 claimed, so A1 removed **one guaranteed exact hit** (the band edge) and did **not** close the class. The surviving receipt's weakness — $\max|\mathrm{Re}\,Z/\mathrm{Im}\,Z|$ over a fixed grid is a lottery on grid proximity to poles *and* zeros — is recorded in the result doc §2.3 and routed to Grant as **Q2**. Phase 2 must re-specify that receipt rather than inherit it.

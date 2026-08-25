@@ -107,6 +107,38 @@ EC5_RANK_TOL = 1.0e-2
 MULT_SEPARATION_FLOOR = 1.0e2
 POSITIVE_CONTROL_FACTOR = 1.05
 
+# ── ONE interior/boundary definition, shared by BOTH sides of the comparison ──
+# The solver side has always filtered on TOL_FREQ*pi < theta < pi*(1-TOL_FREQ)
+# (`run_rung`): a root within TOL-FREQ of a band edge IS a band edge at this
+# comparison's own resolution. The REFERENCE side used an independent margin of
+# 1e-9 in theta, which is a LATENT DEFECT -- see `arccos_reference`. Both sides
+# now name the same margin, so the partition is one definition rather than two
+# and no new knob is minted.
+BOUNDARY_THETA_MARGIN = TOL_FREQ * math.pi
+
+#: The prereg's own sec 3.6 frozen L4 expectation table -- the ten interior rows
+#: `(theta, omega/omega_C, multiplicity)` exactly as frozen at 737ba888
+#: (`research/2026-08-25_solver-crosscheck-phase1_prereg-FROZEN.md`, the L4 table).
+#: NOT an input to any comparison: prereg sec 3.4 step 7 makes the comparison
+#: consume the FRESH reference, and the table's own closing sentence says the
+#: table "is the frozen expectation, not the input to the comparison". It is
+#: registered here solely to execute the rest of that sentence -- "any drift
+#: between this table and the fresh values is itself a finding banked under a
+#: dated note" -- which was previously unexecuted because these ten rows sat in
+#: no drift registry at all.
+PREREG_S36_L4_FROZEN: list[tuple[float, float, int]] = [
+    (0.635563, 1.100821, 6),
+    (0.729728, 1.263929, 6),
+    (0.955317, 1.654648, 4),
+    (1.230959, 2.132133, 9),
+    (1.432283, 2.480786, 6),
+    (1.709310, 2.960614, 6),
+    (1.910633, 3.309314, 9),
+    (2.186276, 3.786800, 4),
+    (2.411865, 4.177519, 6),
+    (2.506030, 4.340627, 6),
+]
+
 TD = X.bond_delay()                       # the R2 delay, imported through the exporter
 F_TOP = 1.0 / (2.0 * TD)                  # theta = pi
 OMEGA_LINK_OVER_C = 1.0 / ANALYTIC_NETWORK_FACTOR
@@ -293,30 +325,82 @@ def adjacency(edges: list[tuple[int, int]], n: int) -> np.ndarray:
     return a
 
 
+def boundary_class(theta: float, margin: float) -> str:
+    """``'dc'`` | ``'top'`` | ``'interior'`` for one theta under a stated margin.
+
+    Factored out of ``arccos_reference`` so the margin can be exercised DIRECTLY
+    on a supplied theta, in both directions, without having to find a graph whose
+    adjacency spectrum happens to land where the test needs it. See
+    ``src/tests/test_scx_arccos_boundary_margin.py``.
+    """
+    if theta < margin:
+        return "dc"
+    if theta > math.pi - margin:
+        return "top"
+    return "interior"
+
+
 def arccos_reference(edges, n, degree) -> dict:
     """The canonical arccos TL map on the graph's adjacency spectrum.
 
     ``omega_n = omega_link * arccos(mu_n / z)`` (srs-band-structure.md sec 2).
     Returns the INTERIOR set (0 < theta < pi) with multiplicities, plus the two
     boundary blocks -- the F5-AC accounting the prereg froze.
+
+    BOUNDARY MARGIN -- REPAIRED, and the repair closes a Phase-2 blocking defect.
+    ---------------------------------------------------------------------------
+    This classifier previously used an independent ``eps = 1e-9`` stated in
+    THETA. Near ``mu = +-z`` the arccos map is SQUARE-ROOT SINGULAR:
+
+        mu = -z + delta   =>   theta = pi - sqrt(2*delta/z)
+
+    so a margin of 1e-9 in theta demands ``|mu + z| <= z*(1e-9)**2/2 = 1.5e-18``
+    -- about three decades BELOW double-precision resolution at ``|mu| = 3``
+    (``3 * DBL_EPSILON = 6.7e-16``). The test could then only be satisfied by
+    ``np.clip`` firing; a boundary eigenvalue that missed its exact integer by a
+    few ULPs in the WRONG direction classified INTERIOR and minted a spurious
+    mode. This is the same floating-point-accident failure mode AMENDMENT A1 was
+    written to fix, in the reference-side classifier.
+
+    MEASURED, on this driver's OWN recorded value
+    ``reproduction_gate.fresh.srs_L3_mu_min = -2.9999999999999987``:
+    the old margin gives ``theta = pi - 2.98e-08`` => INTERIOR => a spurious
+    217th interior mode on srs L=3. The repaired margin classifies it BOUNDARY.
+    L=3 is out of Phase-1's frozen scope, so NO Phase-1 number moves (the L3 rung
+    is the ``K_4`` primitive cell, mu = {3,-1,-1,-1}, and L4 is srs L=2 whose
+    ``mu_min = -3.000000000000002`` clips) -- but Phase 2 runs at L=3 and above.
+
+    The repaired margin is ``BOUNDARY_THETA_MARGIN = TOL_FREQ*pi``, i.e. the
+    SOLVER side's own interior filter, so both sides of the comparison partition
+    interior-from-boundary on ONE definition. In mu-space that is
+    ``|mu + z| <= z*(TOL_FREQ*pi)**2/2 = 1.5e-13`` -- ~330 ULPs of headroom above
+    double resolution, and ~12 decades below the nearest genuine interior
+    eigenvalue's distance from the band edge on any rung this lane runs.
+    Regression (fires in both directions): ``src/tests/test_scx_arccos_boundary_margin.py``.
     """
     mu = np.linalg.eigvalsh(adjacency(edges, n))
     th = np.arccos(np.clip(mu / degree, -1.0, 1.0))
-    eps = 1e-9
-    interior, n_dc, n_top = {}, 0, 0
+    eps = BOUNDARY_THETA_MARGIN
+    interior: dict[float, list[float]] = {}
+    n_dc, n_top = 0, 0
     for t in th:
-        if t < eps:
+        cls = boundary_class(float(t), eps)
+        if cls == "dc":
             n_dc += 1
-        elif t > math.pi - eps:
+        elif cls == "top":
             n_top += 1
         else:
             key = round(float(t), 9)
-            interior[key] = interior.get(key, 0) + 1
+            interior.setdefault(key, []).append(float(t))
     items = sorted(interior.items())
     return {
         "interior_theta": [k for k, _ in items],
-        "interior_mult": [m for _, m in items],
-        "interior_total": int(sum(m for _, m in items)),
+        # RAW block means alongside the 9-dp dict keys: the engine-leg receipt
+        # compares against a leg that keys at 6 dp, and a key-to-key compare
+        # would measure the coarser rounding rather than the agreement.
+        "interior_theta_mean": [float(np.mean(v)) for _, v in items],
+        "interior_mult": [len(v) for _, v in items],
+        "interior_total": int(sum(len(v) for _, v in items)),
         "n_dc": n_dc,
         "n_top": n_top,
         "mu_min": float(mu.min()),
@@ -368,8 +452,15 @@ def tlm_operator_spectrum(net: LatticeNet) -> dict:
         m[:, k] = scalar_tlm_step(net, v, s, conn).flatten()
     ortho = float(np.abs(m.T @ m - np.eye(n * d)).max())
     th = np.sort(np.abs(np.angle(np.linalg.eigvals(m))))
+    # NOT the square-root-singular case `arccos_reference` documents. Here theta
+    # is the ARGUMENT of an eigenvalue of an ORTHOGONAL matrix, whose eigenvalue
+    # perturbation is LINEAR in the backward error (normal matrix), so a boundary
+    # block sits within ~DBL_EPSILON of 0 or pi, not within its square root. 1e-8
+    # is therefore ~8 decades of headroom, not 3 decades of deficit. Measured
+    # orthogonality residual on the rungs this lane runs: <= 1.8e-15.
     eps = 1e-8
-    interior, n_dc, n_top = {}, 0, 0
+    interior: dict[float, list[float]] = {}
+    n_dc, n_top = 0, 0
     for t in th:
         if t < eps:
             n_dc += 1
@@ -377,16 +468,80 @@ def tlm_operator_spectrum(net: LatticeNet) -> dict:
             n_top += 1
         else:
             key = round(float(t), 6)
-            interior[key] = interior.get(key, 0) + 1
+            interior.setdefault(key, []).append(float(t))
     items = sorted(interior.items())
     return {
         "orthogonality_residual": ortho,
         "interior_theta": [k for k, _ in items],
-        "interior_mult": [m_ for _, m_ in items],
+        # RAW block means. The dict keys above round at 6 dp; comparing 6-dp keys
+        # against `arccos_reference`'s 9-dp keys measures the coarser rounding
+        # (6.5e-07 at L4), not the agreement between the two formulations.
+        "interior_theta_mean": [float(np.mean(v)) for _, v in items],
+        "interior_mult": [len(v) for _, v in items],
         "n_dc": n_dc,
         "n_top": n_top,
         "n_ports": n * d,
     }
+
+
+def engine_leg_receipt(tlm: dict, ref: dict) -> dict:
+    """ENGINE (port-space TLM operator) vs ARCCOS (node-space closed form).
+
+    THE THIRD LEG OF THE EPIC'S THREE-WAY ANCHOR, AT THE RUNG THAT CARRIES THE
+    INDEPENDENCE WEIGHT. Added 2026-08-25 after the PR clearing review found that
+    ``tlm_operator_spectrum(net2)`` was COMPUTED AND DISCARDED: only ``n_dc``,
+    ``n_top``, ``n_ports`` and the orthogonality residual were persisted, so the
+    L4 engine leg produced NO RECORDED RECEIPT and the result doc's marquee
+    column was in fact solver-vs-arccos.
+
+    WHY THIS LEG CARRIES CONTENT THE GATED COMPARISON DOES NOT. The arccos map is
+    derived (prereg sec 3.1) FROM ``Y = (D cos theta - A)/(j Z0 sin theta)`` --
+    the same MNA formulation ngspice solves -- so solver-vs-arccos is
+    closed-form-vs-numerics on ONE formulation. The engine leg is a DIFFERENT
+    formulation: ``scalar_tlm_step`` + ``scatter_matrix(3)``, i.e. scatter+connect
+    with Gamma = -1/3 on the port space, never assembling a nodal admittance
+    matrix at all.
+
+    REPORTED, NOT GATING. The frozen prereg's bins consume TOL-FREQ/-MULT/-COUNT/
+    -LOSSLESS on the solver-vs-reference comparison. This receipt was landed after
+    those criteria were frozen, so it is banked and reported and does NOT feed any
+    bin -- adding a gate to a frozen prereg mid-lane is the move the discipline
+    forbids. Its tolerance is the frozen TOL-FREQ; no new knob is minted.
+
+    Port-space multiplicity is exactly TWICE node-space multiplicity: eigenphases
+    come in +-theta pairs and ``tlm_operator_spectrum`` folds them with
+    ``abs(angle(.))``, so both members of a pair land in one block.
+    """
+    te, rt = tlm["interior_theta_mean"], ref["interior_theta_mean"]
+    tm, rm = tlm["interior_mult"], ref["interior_mult"]
+    same_n = len(te) == len(rt)
+    rec = {
+        "status": "REPORTED, NOT GATING (landed after the prereg froze its bins)",
+        "engine_leg": "ave.core.chiral_lattice.scalar_tlm_step + scatter_matrix(3), PORT space",
+        "reference_leg": "arccos_reference, NODE space, closed form of "
+                         "Y = (D cos theta - A)/(j Z0 sin theta)",
+        "orthogonality_residual": tlm["orthogonality_residual"],
+        "engine_interior_theta_mean": te,
+        "reference_interior_theta_mean": rt,
+        "engine_interior_mult": tm,
+        "reference_interior_mult": rm,
+        "engine_n_distinct": len(te),
+        "reference_n_distinct": len(rt),
+        "engine_total_mult": int(sum(tm)),
+        "reference_total_mult": int(sum(rm)),
+        "engine_dc_block": tlm["n_dc"],
+        "engine_top_block": tlm["n_top"],
+        "tolerance": TOL_FREQ,
+        "tolerance_name": "TOL-FREQ (frozen; this receipt mints no new tolerance)",
+        "boundary_theta_margin": float(BOUNDARY_THETA_MARGIN),
+    }
+    rec["max_rel_dev"] = (max(abs(a / b - 1.0) for a, b in zip(te, rt))
+                          if same_n else float("inf"))
+    rec["n_distinct_match"] = bool(same_n)
+    rec["mult_is_exactly_double"] = bool(same_n and all(a == 2 * b for a, b in zip(tm, rm)))
+    rec["freq_within_tolerance"] = bool(same_n and rec["max_rel_dev"] <= TOL_FREQ)
+    rec["pass"] = bool(rec["freq_within_tolerance"] and rec["mult_is_exactly_double"])
+    return rec
 
 
 # ═════════════════════════════════════════════════════════════════════════════
@@ -408,6 +563,80 @@ PHASE0_BANKED = {
     "srs_L2_interior_distinct": 10,
     "srs_L2_interior_total": 62,
 }
+
+
+def prereg_s36_drift(ref2: dict) -> dict:
+    """Drift of the prereg's frozen sec 3.6 L4 table against the fresh reference.
+
+    The prereg's own rule, on the line closing that table: *"any drift between
+    this table and the fresh values is itself a finding banked under a dated
+    note"*. Those ten rows sat in NO registry -- ``PHASE0_BANKED`` never carried
+    them -- so the rule had no machinery. This is the machinery.
+
+    REPORTED, NOT GATING, and deliberately NOT folded into ``reproduction_gate``'s
+    ``pass``: the prereg makes drift a FINDING TO BANK, not a gate, and sec 3.4
+    step 7 makes the comparison consume the FRESH reference, so no verdict can
+    turn on this. Folding it into the gate would be a post-hoc criterion.
+
+    Each row is scored against its own PRINT-ROUNDING FLOOR (0.5 in the last
+    printed decimal), because a 6-dp table cannot agree with a double to better
+    than that. Drift ABOVE that floor is a real inconsistency in the frozen
+    table; drift below it is transcription precision.
+    """
+    th_fresh = ref2["interior_theta"]
+    rows, worst_t, worst_w = [], 0.0, 0.0
+    for i, (t_frozen, w_frozen, m_frozen) in enumerate(PREREG_S36_L4_FROZEN):
+        t_fresh = th_fresh[i]
+        w_fresh = w_over_wc(t_fresh)
+        rel_t = abs(t_frozen / t_fresh - 1.0)
+        rel_w = abs(w_frozen / w_fresh - 1.0)
+        floor_t, floor_w = 0.5e-6 / t_frozen, 0.5e-6 / w_frozen
+        worst_t, worst_w = max(worst_t, rel_t), max(worst_w, rel_w)
+        rows.append({
+            "row": i + 1,
+            "theta_frozen": t_frozen, "theta_fresh": t_fresh,
+            "theta_rel_drift": rel_t, "theta_print_floor": floor_t,
+            "theta_within_print_precision": bool(rel_t <= floor_t),
+            "w_over_wc_frozen": w_frozen, "w_over_wc_fresh": float(w_fresh),
+            "w_over_wc_rel_drift": rel_w, "w_over_wc_print_floor": floor_w,
+            "w_over_wc_within_print_precision": bool(rel_w <= floor_w),
+            # What single conversion factor the frozen row implies. The frozen map
+            # is w/wC = theta / ANALYTIC_NETWORK_FACTOR, one constant for all ten
+            # rows; a row-varying implied factor means the frozen column was not
+            # produced from the frozen theta column by that map.
+            "implied_factor_from_fresh_theta": float(w_frozen / t_fresh),
+            "mult_frozen": m_frozen, "mult_fresh": ref2["interior_mult"][i],
+            "mult_match": bool(m_frozen == ref2["interior_mult"][i]),
+        })
+    off_t = [r["row"] for r in rows if not r["theta_within_print_precision"]]
+    off_w = [r["row"] for r in rows if not r["w_over_wc_within_print_precision"]]
+    factors = [r["implied_factor_from_fresh_theta"] for r in rows]
+    return {
+        "status": "REPORTED, NOT GATING -- banked per the prereg's own drift rule",
+        "source": ("research/2026-08-25_solver-crosscheck-phase1_prereg-FROZEN.md, "
+                   "sec 3.6 L4 table, as frozen at 737ba888"),
+        "frozen_map": "w/wC = theta / ANALYTIC_NETWORK_FACTOR",
+        "analytic_network_factor": float(ANALYTIC_NETWORK_FACTOR),
+        "rows": rows,
+        "theta_max_rel_drift": worst_t,
+        "w_over_wc_max_rel_drift": worst_w,
+        "w_over_wc_max_drift_in_TOL_FREQ_units": worst_w / TOL_FREQ,
+        "theta_rows_beyond_print_precision": off_t,
+        "w_over_wc_rows_beyond_print_precision": off_w,
+        "mult_all_match": all(r["mult_match"] for r in rows),
+        "implied_factor_min": min(factors),
+        "implied_factor_max": max(factors),
+        "implied_factor_spread": max(factors) - min(factors),
+        "finding": (
+            "The frozen theta column reproduces to print precision on all ten rows. "
+            "The frozen omega/omega_C column does NOT: it drifts beyond its own "
+            "print-rounding floor on the rows listed, and the single conversion "
+            "factor it implies VARIES row to row, so that column was not produced "
+            "from the frozen theta column by the frozen map. No verdict moves -- "
+            "prereg sec 3.4 step 7 makes the comparison consume the fresh reference "
+            "and it does."
+        ),
+    }
 
 
 def reproduction_gate() -> dict:
@@ -471,6 +700,11 @@ def reproduction_gate() -> dict:
     fresh["srs_L2_tlm_orthogonality"] = tlm2["orthogonality_residual"]
     fresh["srs_L2_cycle_space"] = len(e2) - net2.n_nodes + 1
     fresh["srs_L2_highest_interior_over_wc"] = w_over_wc(ref2["interior_theta"][-1])
+    # tlm2's INTERIOR spectrum used to be computed here and thrown away, which
+    # left the L4 engine leg with no receipt in the record. Persisted now.
+    fresh["srs_L2_tlm_interior_theta"] = list(tlm2["interior_theta"])
+    fresh["srs_L2_tlm_interior_mult"] = list(tlm2["interior_mult"])
+    fresh["boundary_theta_margin"] = float(BOUNDARY_THETA_MARGIN)
 
     for key, banked in PHASE0_BANKED.items():
         got = fresh.get(key)
@@ -482,6 +716,14 @@ def reproduction_gate() -> dict:
         out["drift"][key] = {"banked": banked, "fresh": got, "rel": drift,
                              "match": drift < 1e-4}
     out["pass"] = all(d["match"] for d in out["drift"].values())
+    # Both blocks below are REPORTED and deliberately do NOT feed out["pass"]:
+    #   * engine_leg_L4 is a receipt landed AFTER the prereg froze its bins, so it
+    #     may not become a gate mid-lane;
+    #   * prereg_s36_drift executes the prereg's own rule, which makes drift a
+    #     FINDING TO BANK, not a gate (and sec 3.4 step 7 already makes the
+    #     comparison consume the fresh reference).
+    out["engine_leg_L4"] = engine_leg_receipt(tlm2, ref2)
+    out["prereg_s36_drift"] = prereg_s36_drift(ref2)
     return out
 
 
@@ -592,7 +834,10 @@ def run_rung(rung: Rung, work: Path, *, convention: str = X.CONVENTION,
     # "interior band 0 < theta < pi per F1 and F5-AC"). A root within TOL_FREQ of
     # a band edge IS a band edge at this comparison's own resolution, so the
     # margin is tied to the tolerance rather than being a new knob.
-    th_lo, th_hi = TOL_FREQ * math.pi, math.pi * (1.0 - TOL_FREQ)
+    # BOUNDARY_THETA_MARGIN is literally `TOL_FREQ * math.pi`; naming it here is
+    # what makes "one interior/boundary definition on BOTH sides" structural
+    # rather than a comment. `arccos_reference` uses the same constant.
+    th_lo, th_hi = BOUNDARY_THETA_MARGIN, math.pi * (1.0 - TOL_FREQ)
     for p in poles:
         p["interior"] = bool(th_lo < p["theta"] < th_hi)
     interior = [p for p in poles if p["interior"]]
@@ -828,6 +1073,18 @@ def main() -> int:
         print(f"  {k:32s} banked={v['banked']!r:26s} fresh={v['fresh']!r:26s} "
               f"{'MATCH' if v['match'] else 'DRIFT'}")
     print(f"  REPRODUCTION GATE: {'PASS' if gate['pass'] else 'DRIFT DETECTED'}")
+    el = gate["engine_leg_L4"]
+    print(f"  ENGINE LEG L4 (REPORTED, NOT GATING): engine-TLM port space vs arccos node "
+          f"space -- {el['engine_n_distinct']} vs {el['reference_n_distinct']} distinct, "
+          f"max rel dev {el['max_rel_dev']:.3e} (tol {el['tolerance']:.0e}), "
+          f"mult exactly 2x = {el['mult_is_exactly_double']}, "
+          f"orthogonality residual {el['orthogonality_residual']:.3e}")
+    s36 = gate["prereg_s36_drift"]
+    print(f"  PREREG sec 3.6 DRIFT (REPORTED, NOT GATING): theta max {s36['theta_max_rel_drift']:.3e} "
+          f"(rows beyond print precision: {s36['theta_rows_beyond_print_precision']}); "
+          f"w/wC max {s36['w_over_wc_max_rel_drift']:.3e} = "
+          f"{s36['w_over_wc_max_drift_in_TOL_FREQ_units']:.0f}x TOL-FREQ "
+          f"(rows beyond print precision: {s36['w_over_wc_rows_beyond_print_precision']})")
     if not gate["pass"]:
         print("  Drift is a FINDING, banked -- not silently overwritten. Continuing so the "
               "drift and its consequence are both on the record.")

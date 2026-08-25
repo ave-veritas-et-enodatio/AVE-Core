@@ -66,7 +66,32 @@
       "k4_tlm_orthogonality": 8.018277400070575e-17,
       "srs_L2_tlm_orthogonality": 8.018277400070575e-17,
       "srs_L2_cycle_space": 33,
-      "srs_L2_highest_interior_over_wc": 4.340571397875135
+      "srs_L2_highest_interior_over_wc": 4.340571397875135,
+      "srs_L2_tlm_interior_theta": [
+        0.635563,
+        0.729728,
+        0.955317,
+        1.230959,
+        1.432283,
+        1.70931,
+        1.910633,
+        2.186276,
+        2.411865,
+        2.50603
+      ],
+      "srs_L2_tlm_interior_mult": [
+        12,
+        12,
+        8,
+        18,
+        12,
+        12,
+        18,
+        8,
+        12,
+        12
+      ],
+      "boundary_theta_margin": 3.141592653589793e-07
     },
     "drift": {
       "TD_R2": {
@@ -142,7 +167,272 @@
         "match": true
       }
     },
-    "pass": true
+    "pass": true,
+    "engine_leg_L4": {
+      "status": "REPORTED, NOT GATING (landed after the prereg froze its bins)",
+      "engine_leg": "ave.core.chiral_lattice.scalar_tlm_step + scatter_matrix(3), PORT space",
+      "reference_leg": "arccos_reference, NODE space, closed form of Y = (D cos theta - A)/(j Z0 sin theta)",
+      "orthogonality_residual": 8.018277400070575e-17,
+      "engine_interior_theta_mean": [
+        0.635562588691585,
+        0.729727656226966,
+        0.9553166181245087,
+        1.2309594173407745,
+        1.4322826425071646,
+        1.7093100110826285,
+        1.9106332362490188,
+        2.186276035465284,
+        2.4118649973628266,
+        2.5060300648982072
+      ],
+      "reference_interior_theta_mean": [
+        0.6355625886915852,
+        0.7297276562269666,
+        0.955316618124509,
+        1.2309594173407747,
+        1.4322826425071649,
+        1.7093100110826285,
+        1.9106332362490188,
+        2.186276035465284,
+        2.411864997362827,
+        2.506030064898208
+      ],
+      "engine_interior_mult": [
+        12,
+        12,
+        8,
+        18,
+        12,
+        12,
+        18,
+        8,
+        12,
+        12
+      ],
+      "reference_interior_mult": [
+        6,
+        6,
+        4,
+        9,
+        6,
+        6,
+        9,
+        4,
+        6,
+        6
+      ],
+      "engine_n_distinct": 10,
+      "reference_n_distinct": 10,
+      "engine_total_mult": 124,
+      "reference_total_mult": 62,
+      "engine_dc_block": 34,
+      "engine_top_block": 34,
+      "tolerance": 1e-07,
+      "tolerance_name": "TOL-FREQ (frozen; this receipt mints no new tolerance)",
+      "boundary_theta_margin": 3.141592653589793e-07,
+      "max_rel_dev": 7.771561172376096e-16,
+      "n_distinct_match": true,
+      "mult_is_exactly_double": true,
+      "freq_within_tolerance": true,
+      "pass": true
+    },
+    "prereg_s36_drift": {
+      "status": "REPORTED, NOT GATING -- banked per the prereg's own drift rule",
+      "source": "research/2026-08-25_solver-crosscheck-phase1_prereg-FROZEN.md, sec 3.6 L4 table, as frozen at 737ba888",
+      "frozen_map": "w/wC = theta / ANALYTIC_NETWORK_FACTOR",
+      "analytic_network_factor": 0.5773502691896258,
+      "rows": [
+        {
+          "row": 1,
+          "theta_frozen": 0.635563,
+          "theta_fresh": 0.635562589,
+          "theta_rel_drift": 6.466711652830526e-07,
+          "theta_print_floor": 7.867040718229349e-07,
+          "theta_within_print_precision": true,
+          "w_over_wc_frozen": 1.100821,
+          "w_over_wc_fresh": 1.1008266955380162,
+          "w_over_wc_rel_drift": 5.173873452779532e-06,
+          "w_over_wc_print_floor": 4.542064513667526e-07,
+          "w_over_wc_within_print_precision": false,
+          "implied_factor_from_fresh_theta": 1.732041846157185,
+          "mult_frozen": 6,
+          "mult_fresh": 6,
+          "mult_match": true
+        },
+        {
+          "row": 2,
+          "theta_frozen": 0.729728,
+          "theta_fresh": 0.729727656,
+          "theta_rel_drift": 4.7140874714912684e-07,
+          "theta_print_floor": 6.851868093316961e-07,
+          "theta_within_print_precision": true,
+          "w_over_wc_frozen": 1.263929,
+          "w_over_wc_fresh": 1.2639253758801436,
+          "w_over_wc_rel_drift": 2.8673527137090815e-06,
+          "w_over_wc_print_floor": 3.955918409973978e-07,
+          "w_over_wc_within_print_precision": false,
+          "implied_factor_from_fresh_theta": 1.7320557739694602,
+          "mult_frozen": 6,
+          "mult_fresh": 6,
+          "mult_match": true
+        },
+        {
+          "row": 3,
+          "theta_frozen": 0.955317,
+          "theta_fresh": 0.955316618,
+          "theta_rel_drift": 3.998674289462656e-07,
+          "theta_print_floor": 5.233864779963091e-07,
+          "theta_within_print_precision": true,
+          "w_over_wc_frozen": 1.654648,
+          "w_over_wc_fresh": 1.6546569196908683,
+          "w_over_wc_rel_drift": 5.3906587899055225e-06,
+          "w_over_wc_print_floor": 3.0217907373652887e-07,
+          "w_over_wc_within_print_precision": false,
+          "implied_factor_from_fresh_theta": 1.7320414706739666,
+          "mult_frozen": 4,
+          "mult_fresh": 4,
+          "mult_match": true
+        },
+        {
+          "row": 4,
+          "theta_frozen": 1.230959,
+          "theta_fresh": 1.230959417,
+          "theta_rel_drift": 3.3876015270717375e-07,
+          "theta_print_floor": 4.061873709847363e-07,
+          "theta_within_print_precision": true,
+          "w_over_wc_frozen": 2.132133,
+          "w_over_wc_fresh": 2.132084252299364,
+          "w_over_wc_rel_drift": 2.2863871623979293e-05,
+          "w_over_wc_print_floor": 2.3450694679928502e-07,
+          "w_over_wc_within_print_precision": false,
+          "implied_factor_from_fresh_theta": 1.7320904089561875,
+          "mult_frozen": 9,
+          "mult_fresh": 9,
+          "mult_match": true
+        },
+        {
+          "row": 5,
+          "theta_frozen": 1.432283,
+          "theta_fresh": 1.432282643,
+          "theta_rel_drift": 2.492524793229478e-07,
+          "theta_print_floor": 3.4909302142104595e-07,
+          "theta_within_print_precision": true,
+          "w_over_wc_frozen": 2.480786,
+          "w_over_wc_fresh": 2.4807863084750355,
+          "w_over_wc_rel_drift": 1.2434566987185036e-07,
+          "w_over_wc_print_floor": 2.0154902518798476e-07,
+          "w_over_wc_within_print_precision": true,
+          "implied_factor_from_fresh_theta": 1.732050592195859,
+          "mult_frozen": 6,
+          "mult_fresh": 6,
+          "mult_match": true
+        },
+        {
+          "row": 6,
+          "theta_frozen": 1.70931,
+          "theta_fresh": 1.709310011,
+          "theta_rel_drift": 6.435345145661131e-09,
+          "theta_print_floor": 2.9251569346695446e-07,
+          "theta_within_print_precision": true,
+          "w_over_wc_frozen": 2.960614,
+          "w_over_wc_fresh": 2.960611784938116,
+          "w_over_wc_rel_drift": 7.481770813999589e-07,
+          "w_over_wc_print_floor": 1.6888388692345573e-07,
+          "w_over_wc_within_print_precision": false,
+          "implied_factor_from_fresh_theta": 1.7320521034495948,
+          "mult_frozen": 6,
+          "mult_fresh": 6,
+          "mult_match": true
+        },
+        {
+          "row": 7,
+          "theta_frozen": 1.910633,
+          "theta_fresh": 1.910633236,
+          "theta_rel_drift": 1.2351925815501374e-07,
+          "theta_print_floor": 2.616933759649289e-07,
+          "theta_within_print_precision": true,
+          "w_over_wc_frozen": 3.309314,
+          "w_over_wc_fresh": 3.3093138393817365,
+          "w_over_wc_rel_drift": 4.853521651249082e-08,
+          "w_over_wc_print_floor": 1.5108871506300097e-07,
+          "w_over_wc_within_print_precision": true,
+          "implied_factor_from_fresh_theta": 1.7320508916343378,
+          "mult_frozen": 9,
+          "mult_fresh": 9,
+          "mult_match": true
+        },
+        {
+          "row": 8,
+          "theta_frozen": 2.186276,
+          "theta_fresh": 2.186276035,
+          "theta_rel_drift": 1.6008957492985587e-08,
+          "theta_print_floor": 2.2869939568471685e-07,
+          "theta_within_print_precision": true,
+          "w_over_wc_frozen": 3.7868,
+          "w_over_wc_fresh": 3.7867411719902324,
+          "w_over_wc_rel_drift": 1.5535260292631747e-05,
+          "w_over_wc_print_floor": 1.320376043097074e-07,
+          "w_over_wc_within_print_precision": false,
+          "implied_factor_from_fresh_theta": 1.7320777154290126,
+          "mult_frozen": 4,
+          "mult_fresh": 4,
+          "mult_match": true
+        },
+        {
+          "row": 9,
+          "theta_frozen": 2.411865,
+          "theta_fresh": 2.411864997,
+          "theta_rel_drift": 1.24385080013667e-09,
+          "theta_print_floor": 2.0730845217290353e-07,
+          "theta_within_print_precision": true,
+          "w_over_wc_frozen": 4.177519,
+          "w_over_wc_fresh": 4.177472715800957,
+          "w_over_wc_rel_drift": 1.107947368939044e-05,
+          "w_over_wc_print_floor": 1.1968826473320647e-07,
+          "w_over_wc_within_print_precision": false,
+          "implied_factor_from_fresh_theta": 1.7320699977802283,
+          "mult_frozen": 6,
+          "mult_fresh": 6,
+          "mult_match": true
+        },
+        {
+          "row": 10,
+          "theta_frozen": 2.50603,
+          "theta_fresh": 2.506030065,
+          "theta_rel_drift": 2.5937438197232154e-08,
+          "theta_print_floor": 1.9951876074907322e-07,
+          "theta_within_print_precision": true,
+          "w_over_wc_frozen": 4.340627,
+          "w_over_wc_fresh": 4.340571397875135,
+          "w_over_wc_rel_drift": 1.2809862980578401e-05,
+          "w_over_wc_print_floor": 1.1519073166157793e-07,
+          "w_over_wc_within_print_precision": false,
+          "implied_factor_from_fresh_theta": 1.7320729949023974,
+          "mult_frozen": 6,
+          "mult_fresh": 6,
+          "mult_match": true
+        }
+      ],
+      "theta_max_rel_drift": 6.466711652830526e-07,
+      "w_over_wc_max_rel_drift": 2.2863871623979293e-05,
+      "w_over_wc_max_drift_in_TOL_FREQ_units": 228.63871623979293,
+      "theta_rows_beyond_print_precision": [],
+      "w_over_wc_rows_beyond_print_precision": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        8,
+        9,
+        10
+      ],
+      "mult_all_match": true,
+      "implied_factor_min": 1.7320414706739666,
+      "implied_factor_max": 1.7320904089561875,
+      "implied_factor_spread": 4.8938282220856166e-05,
+      "finding": "The frozen theta column reproduces to print precision on all ten rows. The frozen omega/omega_C column does NOT: it drifts beyond its own print-rounding floor on the rows listed, and the single conversion factor it implies VARIES row to row, so that column was not produced from the frozen theta column by the frozen map. No verdict moves -- prereg sec 3.4 step 7 makes the comparison consume the fresh reference and it does."
+    }
   },
   "rungs": {
     "L0": {
@@ -626,6 +916,9 @@
       "reference": {
         "interior_theta": [
           1.910633236
+        ],
+        "interior_theta_mean": [
+          1.9106332362490184
         ],
         "interior_mult": [
           3
@@ -3700,6 +3993,18 @@
           2.411864997,
           2.506030065
         ],
+        "interior_theta_mean": [
+          0.6355625886915852,
+          0.7297276562269666,
+          0.955316618124509,
+          1.2309594173407747,
+          1.4322826425071649,
+          1.7093100110826285,
+          1.9106332362490188,
+          2.186276035465284,
+          2.411864997362827,
+          2.506030064898208
+        ],
         "interior_mult": [
           6,
           6,
@@ -4008,6 +4313,9 @@
       "reference": {
         "interior_theta": [
           1.910633236
+        ],
+        "interior_theta_mean": [
+          1.9106332362490184
         ],
         "interior_mult": [
           3
