@@ -254,6 +254,14 @@ class TestAlphaFree:
 
 
 class TestGate1ColdBand:
+    def test_nearest_band_gate_can_fire(self, srs2):
+        """Anti-tautology / can-it-fire: a deliberately wrong (k, theta) pair
+        must sit far from EVERY band, so the 1e-3 rad gate genuinely fires on a
+        bad fit (the folded bands are sparse at any k)."""
+        net, bt, conn = srs2
+        band = hb.nearest_band_theta(net, 0.5, 0.2)  # true acoustic k(0.2) ~ 0.347
+        assert band["dev"] > 0.05
+
     def test_bloch_spectrum_at_gamma_point(self, srs2):
         """mu(k=0) must contain the acoustic mu=3 (row sums, theta=0) and the
         canonical Gamma-optical triplet theta = arccos(-1/3)
@@ -285,9 +293,13 @@ class TestGate1ColdBand:
         k0 = theta / ANALYTIC_NETWORK_FACTOR
         fit = hb.fit_k(x, V, 0.6 * k0, 1.4 * k0)
         assert fit["resid_rel"] < 1e-6
+        band = hb.nearest_band_theta(net, fit["k"], theta)
+        assert band["dev"] < 1e-3
+        # below the first band crossing the nearest band IS the mu_max acoustic
+        # branch — pin the identification so the nearest-band rule cannot
+        # silently drift (anti-tautology cross-check)
         mu_acoustic = hb.bloch_mu(net, np.array([fit["k"], 0.0, 0.0]))[-1]
-        theta_pred = float(hb.arccos_theta(mu_acoustic))
-        assert abs(theta_pred - theta) < 1e-3
+        assert band["theta_band"] == pytest.approx(float(hb.arccos_theta(mu_acoustic)), abs=1e-12)
         c = theta / fit["k"]
         assert abs(c - ANALYTIC_NETWORK_FACTOR) / ANALYTIC_NETWORK_FACTOR < 0.02
 
@@ -469,6 +481,12 @@ class TestReceiptsReconciled:
     @pytest.fixture(scope="class")
     def receipts(self):
         return json.loads(_RECEIPTS.read_text())
+
+    def test_committed_receipts_are_passing(self, receipts):
+        """The landed instrument's receipts of record must be PASSING ones (the
+        composition all_pass == gate1&gate2&gate3 is itself re-verified below,
+        so this is not a self-declared field)."""
+        assert receipts["all_pass"] is True
 
     def test_gate1_verdict_recomputes(self, receipts):
         g1 = receipts["gate1"]

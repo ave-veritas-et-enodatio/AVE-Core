@@ -842,6 +842,28 @@ def arccos_theta(mu, z: int = 3) -> np.ndarray:
     return np.arccos(np.clip(np.asarray(mu, dtype=np.float64) / float(z), -1.0, 1.0))
 
 
+def nearest_band_theta(net: LatticeNet, k: float, theta: float, *, axis=(1.0, 0.0, 0.0)) -> dict:
+    """The band-structure point nearest a measured (k, theta) pair.
+
+    Returns {theta_band, band_index, dev} with theta_band = arccos(mu_n(k)/3)
+    for the band n minimizing |theta_band - theta|. BRANCH IDENTIFICATION,
+    honestly stated: the largest-mu slot is the acoustic branch only below the
+    first band crossing (a folded band overtakes mu_max above it), so a fixed
+    eigenvalue index mis-labels the branch at larger k. Selecting the nearest
+    band is NOT tautological under a tight deviation tolerance: the folded
+    bands are sparse at any k (8 classes), so a wrong fitted k generically sits
+    O(0.05-0.3) rad from EVERY band — the returned dev is the receipt, and a
+    gate on dev < 1e-3 can fire."""
+    kvec = np.asarray(axis, dtype=np.float64) * float(k)
+    th_all = arccos_theta(np.linalg.eigvalsh(bloch_adjacency(net, kvec)))
+    idx = int(np.argmin(np.abs(th_all - float(theta))))
+    return {
+        "theta_band": float(th_all[idx]),
+        "band_index": idx,
+        "dev": float(abs(th_all[idx] - float(theta))),
+    }
+
+
 # ═════════════════════════════════════════════════════════════════════════════
 # 9. KNOWN-CASE FIXTURE — the lossless ring (validation gate 3's trivial side)
 # ═════════════════════════════════════════════════════════════════════════════
