@@ -24,3 +24,16 @@ same sitting.
 **Re-open condition:** an engine lane actually wants the dual-sector Smith chart as a live
 instrument (the old toolkit build-order question). Until then this item is the parking
 spot, not a request for a ruling.
+
+---
+
+**2026-08-24 note (instrument built as ENGINEERING; park untouched).** The chart INSTRUMENT
+was built on branch `infra/2026-08-24-ave-chart-instrument` (`src/ave/viz/ave_chart.py` +
+`src/tests/test_ave_chart.py` + `src/scripts/vol_4_circuit/ave_chart_sweeps.py`;
+note `research/2026-08-24_ave-chart-instrument_note.md`). Explicitly park-compliant: an
+engineering plotting deliverable, no ontology claim (no ℂP¹ identification, no
+one-chart-per-sector doctrine, no KB leaf touched), single canonical A1-tank locus only.
+**Re-open-condition evidence, recorded not ruled:** a sweep driver now exists and renders the
+chart as a working instrument — whether that constitutes "an engine lane actually wants the
+dual-sector Smith chart as a live instrument" **is Grant's
+ruling, not the build lane's**. Status stays PARKED until Grant rules.

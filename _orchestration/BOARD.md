@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **f29cb576** (2026-08-24) · 460 index records · 330 claims · 3 PRs open
+Scanned tree **1326f7a3** (2026-08-24) · 460 index records · 330 claims · 2 PRs open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`044a10cf`). Every count below describes **f29cb576**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`37926892`). Every count below describes **1326f7a3**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -132,7 +132,6 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 |---|---|---|
 | #1010 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: Class-C engine Γ(A) means |
 | #1009 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] orchestration: the static-existence |
-| #1008 | CLEARED | [REVIEW: CLEARED] viz: the AVE chart instrument — module + 24 tests + five sweep |
 
 <!-- /volatile -->
 
