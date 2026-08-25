@@ -318,8 +318,11 @@ def _control_block(analyses: list[AcAnalysis]) -> list[str]:
         ".control",
         "set numdgt=17",  # EC-6: output precision. Default 7 would report the formatter.
         "set filetype=ascii",
+        # wr_singlescale: one sweep column, not one per vector.
+        # wr_vecnames is deliberately NOT set -- it prepends a text header line
+        # that ave.bench.spice_runner.read_wrdata (np.loadtxt) cannot parse. The
+        # caller owns its column layout, which that reader's docstring requires.
         "set wr_singlescale",
-        "set wr_vecnames",
     ]
     for a in analyses:
         lines.append(f"ac {a.kind} {a.n} {_fmt(a.f1)} {_fmt(a.f2)}")
@@ -336,7 +339,12 @@ def _header(title: str, convention: str, scaling: str, extra: list[str] | None =
     ``constants.py`` without reading any Python.
     """
     td = _delay_for(convention)
-    src = assert_canonical_source()
+    # The guard resolves and validates the ABSOLUTE path; the header prints the
+    # REPO-RELATIVE one. An absolute path is machine-specific noise that would
+    # make every tracked netlist churn between checkouts, and the repo-relative
+    # form is what a hand-auditor actually needs.
+    assert_canonical_source()
+    src = "src/ave/core/constants.py"
     lines = [
         f"* {title}",
         "*",
@@ -349,7 +357,7 @@ def _header(title: str, convention: str, scaling: str, extra: list[str] | None =
         "*         (A=0, S(A)=1, Op14 off) / PHASE-STATE cold crystalline quiescent /",
         "*         CHANNEL scalar-translational ONLY / CARRIER srs-z3.",
         "*",
-        f"* CANONICAL SOURCE: {src}",
+        f"* CANONICAL SOURCE: {src} (resolved and asserted by assert_canonical_source())",
         "*",
         "* IMPORTED SYMBOLS (nothing below is typed; every value enters by import):",
         f"*   Z_0                      = {_fmt(Z_0)}  ohm     [ave.core.constants]",

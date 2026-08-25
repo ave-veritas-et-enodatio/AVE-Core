@@ -438,3 +438,46 @@ Real odds that this returns `DIVERGE` on some rung are **substantial and expecte
 ## §12 — Skill-selection plan for Phase-1 execution (declared at freeze; retro-pass at phase close)
 
 `ave-prereg` (this freeze-by-push event) · `substrate-native-check` (§1.5, walked before the exporter's first line) · `ave-canonical-source` (every exporter import) · `ave-driver-script-honesty` (exporter + comparison driver; the FL-3 disclosure in §6.3 is its output) · `ave-reproduction-gate` (§7) · `verify-before-cite` (every reference pointer re-verified on this branch at GO) · `phase-space-coordinate-check` (§1 coordinates: frequency-space claim, frequency-space measurement) · `consistency-vs-emergence` (register declared in §1, re-declared in the result doc) · `ave-independence-check` (what agreement does and does not establish — §9 and the result doc's scope paragraph) · stop-and-ask (2-attempt cap; a physics surprise is a stuck-point, not a judgment call).
+
+---
+
+## 🔴 AMENDMENT A1 — 2026-08-25 — EC-2's coarse-band upper edge
+
+**Rule-12 dated amendment. The document body above is UNCHANGED; this section is appended, not merged in.** Made at implementation time, **BEFORE any comparison number was produced on any rung** — the driver had not yet run a single ladder rung when the defect was found. **It is not a tolerance change and it is not a rescue: both bands are run and both results are reported.**
+
+### The defect
+
+**§2.1 EC-2 froze the coarse sweep band as $f\in[10^{-3},\,1.0]\times f_{top}$.** Its upper edge is *exactly* $f_{top}$, which is *exactly* the $\theta=\pi$ pole of every bipartite rung (L1, L2, L4). That coincidence breaks the instrument in two independent ways, and both were measured before the fix:
+
+1. **The boundary root cannot be BRACKETED inside the frozen band.** Bracketing a pole requires samples on *both* sides of it. With the pole at the final grid point, whether a sign change is seen at all depends on the floating-point sign of $\cot(\theta)$ at that point, i.e. on which side of $\pi$ the rounded $\theta=2\pi f_{top}\mathrm{TD}$ lands. **It happened to work on L1 — by accident, not by instrument design**, and an accident is not a receipt.
+2. **TOL-LOSSLESS is then evaluated AT a singular MNA solve.** At a pole the system matrix is near-singular and the computed real part is *conditioning*, not loss. **MEASURED on L4 before the fix:** $\max_f|\mathrm{Re}\,Z/\mathrm{Im}\,Z| = 5.037\times10^{-4}$, occurring at $f/f_{top}=1.00000000$ exactly (where $|Z|=6.14\times10^{12}\ \Omega$), against $<10^{-9}$ at **every one of the other 20000 samples**. **No lossless network whatever can meet the frozen gate when a sample lands on a pole** — so as frozen, TOL-LOSSLESS is *"a tolerance the instrument cannot meet"*, the failure mode this prereg's own §3.3 instrument-resolution clause names in the sentence immediately following the one it was written to satisfy.
+
+**Both symptoms have one root cause**, and the falsifier FS-7 names a mechanism — *"a resistive element leaked into an srs export"* — that is **machine-checkably absent**: `test_srs_rungs_emit_only_t_elements` asserts the srs rungs emit only `T` cards and the AC drive, zero `R` cards.
+
+### The amendment
+
+**EC-2's upper edge becomes $1.05\times f_{top}$.** Nothing else changes.
+
+- **The COMPARISON band is UNCHANGED.** The comparison remains interior-only, $0<\theta<\pi$, exactly as §3.4 step 7 and F1 already froze. The additional samples above $f_{top}$ are **instrument** and are **never compared** — which is precisely what F1 already says about modes above the band top (*"EXPECTED and are NOT divergences"*).
+- **No tolerance value moves.** TOL-GRID, TOL-REFINE, TOL-FREQ, TOL-MULT, TOL-COUNT, TOL-LOSSLESS all keep their frozen values. TOL-GRID's *computed* value grows by 5% (the band is 5% wider at the same point count) and is re-gated, not re-cut.
+- **Both bands are RUN and BOTH are REPORTED** (`controls.amendment_a1_paired` in the driver's JSON), including whether the interior verdict is identical under the two — so the amendment is auditable against the thing it replaced instead of erasing it.
+
+### Measured effect (recorded here so the amendment is not taken on trust)
+
+Measured over the run's **full** drive-node set (`controls.amendment_a1_paired`):
+
+| rung | $\max|\mathrm{Re}\,Z/\mathrm{Im}\,Z|$, band $\times1.0$ | $\times1.05$ | interior verdict changed? |
+|---|---|---|---|
+| L1 (single bond, 1 drive node) | $1.921\times10^{-10}$ PASS | $1.395\times10^{-12}$ PASS | no |
+| L3 ($K_4$ complete, 4 drive nodes) | $1.240\times10^{-4}$ **FAIL** | $1.326\times10^{-11}$ **PASS** | no |
+| L4 (srs $L=2$, 64 drive nodes) | $5.037\times10^{-4}$ **FAIL** | $9.831\times10^{-10}$ **PASS** | no |
+
+**⚑ A single-drive-node probe taken while drafting this amendment reported L3 at $4.448\times10^{-12}$ (PASS) and was used to argue that L3 — being non-bipartite, hence having no $\theta=\pi$ pole — was the clean control that isolated the mechanism to bipartite rungs. THE FULL 4-DRIVE-NODE RUN REFUTES THAT.** The number is reported here as the full run measured it, and the mechanism statement is corrected accordingly rather than left standing on the narrower probe:
+
+**Corrected mechanism (more general than the drafting claim).** At $\theta=\pi$ the node-admittance matrix $Y=(D\cos\theta-A)/(jZ_0\sin\theta)$ is singular for **every** rung, bipartite or not, because $\sin\theta\to0$: where an eigenvalue $\mu=-z$ exists the network has a pole ($Z\to\infty$, L1/L4), and where it does not the network has a **zero** ($Z\to0$, L3). **Either way the MNA solve at that exact sample is ill-conditioned and its computed real part is conditioning, not loss.** Bipartiteness selects which singularity, not whether there is one. **The frozen band's upper edge lands on that singularity on every rung, which is why the amendment is band-wide and not bipartite-only.**
+
+**The interior verdict is UNCHANGED on all three rungs under both bands** — the amendment moves an ill-conditioned auxiliary receipt, and moves no comparison result.
+
+### What this amendment does NOT do
+
+It does not widen a tolerance, re-label a bin, drop a rung, re-cut the interior band, add an exporter knob, or convert an `INCONCLUSIVE` into an `AGREE`. **It is surfaced here, in the frozen document, rather than fixed silently in the driver** — and it is flagged for auditor review alongside F5-AC in §10.
