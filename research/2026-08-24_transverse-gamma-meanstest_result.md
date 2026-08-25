@@ -56,9 +56,13 @@ sector.
 > *"Orthogonal reactances, both $|\Gamma|=1$, differing only in boundary phase —
 > so this leaf's electric-sector $Z\to0$ confinement and the master-equation
 > magnetic-branch confinement are distinct-sector statements, not a
-> contradiction."* Canon therefore already reconciles the pair the flag presents
-> as unresolved alternatives: the master-equation magnetic short and the A1
-> compliance short are DIFFERENT sectors, not two readings of one.
+> contradiction."* Canon's clause therefore reconciles ONE of the two pairings
+> the flag rests on — the master-equation magnetic short and the A1 compliance
+> short are DIFFERENT sectors, not two readings of one. It does **not** reconcile
+> the flag as a whole (round-3 correction: the first draft of this note said
+> "canon therefore already reconciles the pair the flag presents as unresolved
+> alternatives", which overstates — the clause assigns no sector home to the
+> μ-branch's wave-channel short, and that is precisely the open item).
 > **What that clause does NOT settle** — and what stays genuinely open for
 > adjudication — is whether the WAVE CHANNEL ITSELF can short, i.e. whether
 > μ_eff → 0 is reachable on the transverse channel. `:41` reconciles the
@@ -229,7 +233,7 @@ Informative-unreliable tally: **0** → not INVALID-EXTRACTION.
 | MONOTONE (±δ) | yes, **decreasing** | yes, **increasing** |
 | δ-level sign profile | all 13 points (A = 0.3 … 0.99) **negative** | all 13 points (A = 0.3 … 0.99) **positive** |
 | FLOOR (fit over 0 < A ≤ 0.5, 3 valid pts) | intercept +0.0248, \|·\| < θ ⇒ **no floor** | intercept −0.0247, \|·\| < θ ⇒ **no floor** |
-| SHAPE (T-ELEC only) | — | **ELEC-CORE-like** (no crossing ∧ monotone increasing) |
+| SHAPE (T-ELEC only) | — | **ELEC-CORE-like** (frozen §6.2 criterion, verbatim: "no θ-crossing ∧ monotone increasing within δ") |
 
 **MIRROR (recorded, non-adjudicating):** over the 10 co-valid informative points
 (A = 0.6 … 0.99): **max 0.00451 (0.451 %, at A = 0.6), median 0.00139**, and the
@@ -303,8 +307,18 @@ sentence carries no mechanism claim.
   asserted the mechanism — "the ε-loading homogenizes to the two-port mirror
   locus … exactly as the scalar precedent homogenized the μ-side" — which is
   the same defect §REPAIR item 9 fixed for MIRROR; SHAPE now carries the
-  identical hedge.) The A\*-probe grid points (0.95–0.99) bracket no sign
-  change.
+  identical hedge.) **Reported against the frozen A\* literal by name and
+  value** (round-3 completeness fix; the frozen anchor was previously described
+  only as a range): the freeze declares the vertex crossing at
+  A\* = √15/4 ≈ 0.9682458 (prereg §2.2:134, §2.7:255-256) and pins the grid
+  point **A = 0.9682** as its nearest-point probe (offset 4.58e-5; prereg
+  §4.3:450 and E4:707 — *"the declared T-ELEC vertex-crossing probe"*). That
+  declared probe point read **Γ_TELEC(0.9682) = +0.332237** (|Γ|_E = 0.338937,
+  discordance 0.0198, valid, informative) — firmly positive, no sign change;
+  its neighbours 0.95 / 0.98 / 0.99 (+0.282188 / +0.382023 / +0.452805)
+  bracket none either. Per §6.2 the crossing LOCATION is reported only if a
+  crossing occurs; none did, and §6.5 lists the location among the explicit
+  non-adjudicators.
 - **δ-level sign profile at A = 0.5 (RECORDED diagnostic, §6.2; non-adjudicating
   per §6.5).** This is the one pre-committed quantitative place the run could
   have gone the other way. The freeze put a homogenization-suppressed vertex
@@ -354,8 +368,25 @@ sentence carries no mechanism claim.
   | T-MAG | 16/16 | none | 0.0 exactly |
   | T-ELEC | 14/16 | A=0.2 (2.61e-5; close 60 vs rest), A=0.3 (1.26e-4; close 60 vs rest) | 0.0 exactly |
 
-  The loci at the verdict-relevant closes {70, 74, 78} are exactly invariant —
-  fully converged, the same invariance the banked G-J showed.
+  The loci at the verdict-relevant closes {70, 74, 78} are exactly invariant,
+  the same invariance the banked G-J showed.
+- **What this receipt does and does NOT bound (round-3 correction).** The words
+  "fully converged" stood here and have been struck: exact invariance across
+  these closes is what the estimator's own algebra gives at a locked τ\*, so it
+  is not by itself convergence evidence. `extract_gamma` (`:221-252`) masks both
+  sums to the reflected window and evaluates the incident template shifted by τ:
+  at the locked τ\* of every valid point (τ\* ∈ {30, 31} T-MAG, {30, 31, 32}
+  T-ELEC — shipped per-point in the table) the shifted support is
+  [10 + τ\*, 29 + τ\*] = [40, 59] … [42, 61], so for any close ≥ 61 both
+  `num` and `den` are literally the same sums and Γ cannot move. That is also
+  exactly why the only two above-roundoff spreads are the τ\* = 32 T-ELEC points
+  at close 60 (`tmpl_contained` = i1 + τ\* ≤ r1 fails there). So the receipt
+  bounds close-CHOICE sensitivity and τ\*-capture by late contaminants (a later
+  close admits later lags into the |num|-max search — a live, fireable arm),
+  but at a locked τ\* it cannot see contamination already inside the mask. The
+  guard that carries THAT is the independent |Γ_meas| vs |Γ|_E discordance
+  cross-check: max **0.062** (T-MAG) / **0.065** (T-ELEC) over the 10
+  informative points in each config, against `discord_tol` = 0.2 (§4).
 - **Stability rules:** S1 not fired (SIGN_top and crossing count identical at
   closes 70/74/78, both configs); WINDOW-SENSITIVE points: none (max sweep
   delta ≪ δ); TRUNCATION-SUSPECT points: {0.3, 0.4} in each config (tail
@@ -482,8 +513,11 @@ the *banked* lane's deviation entries, unrelated.)
   carrying the individually-named catches (grep-scope, `read-don't-grep`: a
   search result, not a proof of absence — but the freeze commit's own shape is).
   Consequently **no finding COUNT from that round is
-  auditable and none is asserted here** — any count quoted for it (e.g. in PR
-  prose) is unlogged prose, not a receipt, and should not be relied on. The
+  auditable and none is asserted here** — any count quoted for it in downstream
+  prose would be unlogged prose, not a receipt, and must not be relied on.
+  (Status, 2026-08-25: the PR #1012 body previously carried such a count; the
+  ORCHESTRATOR corrected the body the same day and it now asserts none. No
+  outstanding carrier is known on this branch or on the PR.) The
   reproduction-gate reframe does NOT rest on that round. What carries it, and is
   independently checkable from what shipped, is: (i) the reframe is INSIDE the
   byte-identical freeze commit — `git diff 81e94565 <tip> -- '*prereg_FROZEN.md'`
@@ -500,7 +534,20 @@ the *banked* lane's deviation entries, unrelated.)
   (`read-don't-grep`).** The frozen prereg §2.4 asserts *"All of this run's new
   physics content lives in T-ELEC (z = 1/√S has never been run on any channel)"*
   (`..._prereg_FROZEN.md:205-206`). **That parenthetical is FALSE as worded** and is
-  qualified here rather than edited (the prereg is frozen). The electric loading
+  qualified here rather than edited (the prereg is frozen). **All carriers of the
+  absolute wording, named (2026-08-25, round-3 completeness fix — the first draft
+  of this entry named only :205-206 and implied it was the sole carrier):**
+  (i) `..._prereg_FROZEN.md:205-206` (§2.4), (ii) `..._prereg_FROZEN.md:50` — the
+  §0.5 CLASS row, *"the Γ(A) locus under the ELECTRIC-FIRST impedance loading
+  z=1/√S — **never measured before, on any channel**"*, and
+  (iii) `research/drivers/transverse_gamma_meanstest.py:20` — the driver's module
+  docstring, *"the eps-side impedance loading has never been run on any channel"*.
+  This dated qualifier binds ALL THREE. (ii) is frozen text and (iii) is the
+  pre-run commit of record (`089cce23`, committed BEFORE the run — editing either
+  would break the freeze/pre-run provenance the whole lane rests on), so neither
+  is edited; both are banked as disclosed residuals at §RESIDUALS R1/R2. The
+  live sites in THIS document — the §2.4 restatement and the Bottom line — were
+  reworded to "no prior run found" in round 2. The electric loading
   z = 1/√S is the engine's HISTORICAL Op14 DEFAULT and is run in-tree:
   `src/ave/core/universal_operators.py:788-795` documents it as
   *"load=\"electric\" (DEFAULT, the OPEN form — UNCHANGED legacy behavior):
@@ -571,6 +618,17 @@ The Stage-1 deliverable held on both axes:
    measure homogenization** (round-2 repair — the first-round Bottom line said
    "the vertex-counting candidate did not survive homogenization", a mechanism
    assertion on an explicit non-adjudicator; §6 carries the full hedge).
+   **How much the adjudicated bit could discriminate (round-3 disclosure):**
+   BOTH frozen candidate shapes predicted SIGN_top = + — prereg §2.7:249-264
+   states *"**T-ELEC (the new measurement):** TWO canon-compatible candidate
+   shapes, both drawing the OPEN boundary phase (SIGN_top = +)"* and *"NEITHER
+   shape is privileged by the freeze; both count as 'draws the open phase'
+   (§6.3)"* — so within the freeze's own expectation space the DRAWS-OPEN bit
+   was not a discriminator between them; the only route to a different §6.3
+   label was an outcome outside both candidates. The content that does
+   distinguish them (which shape was drawn) is carried by SHAPE and the δ-level
+   profile, which §6.5 makes explicit NON-adjudicators. This headline must not
+   travel downstream as a discriminating result.
    The pair verdict is the frozen §6.4 row-1 language,
    verbatim: **"The two reciprocal impedance loadings draw opposite boundary
    phases at response-map level — the ε-side (z = 1/√S) locus measured for the
@@ -586,17 +644,24 @@ The Stage-1 deliverable held on both axes:
    attributions; and "for the first time on any channel" means "no prior
    response-map run found") are stated at §6 and in §D D3/D5. The
    sector-ownership question (§2.3) and the transverse-vertex item (§2.6)
-   remain OPEN, exactly as frozen — and per the §2.3 round-2 note above, canon
-   itself already reconciles the A1-compliance-vs-magnetic-branch pairing; what
-   is open is narrower (no sector home for the μ-branch's wave-channel short).
+   remain OPEN, exactly as frozen — and per the §2.3 round-2 note above (as
+   corrected in round 3), canon's own reconciling clause covers the
+   A1-compliance-vs-magnetic-branch pairing ONLY; it assigns no sector home to
+   the μ-branch's wave-channel short, which is the open residue and is the
+   already-routed §2.2 μ-at-core fork. Nothing here adjudicates that residue.
+   (The PR body's adjudication item #2 still frames the split without this
+   narrowing — a PR-surface divergence, banked at §RESIDUALS R3.)
 
 No VOID condition fired; no closed negative's config was reconstructed (§1).
 The ≥3-lens adversarial verify ran on this document's first committed draft per
-prereg §9.6, and a 6-lens orchestrator clearing review then ran on the repaired
-tip; every finding's disposition from both rounds is logged in §REPAIR below
-(round 2 as its own table), and the repaired text above is the record of record.
-No round-2 repair moved a number, a verdict, a gate outcome, or a classifier. Verdict language is
-frozen-criterion-only throughout.
+prereg §9.6, a 6-lens orchestrator clearing review then ran on the repaired
+tip, and a third convergence round closed out its re-audit; every finding's
+disposition from all three rounds is logged in §REPAIR below (round 2 as its own
+table, round 3 as its own note), everything deliberately left unrepaired is
+banked with its evidence at **§RESIDUALS**, and the repaired text above is the
+record of record. No round-2 or round-3 repair moved a number, a verdict, a gate
+outcome, or a classifier, and every shipped artifact is blob-identical to the
+run-of-record commit. Verdict language is frozen-criterion-only throughout.
 
 ## REPAIR — disposition of every adversarial-verify finding (2026-08-24)
 
@@ -665,33 +730,140 @@ number.
 ### §REPAIR round 2 — orchestrator clearing review (2026-08-25)
 
 A 6-lens orchestrator clearing review ran on the branch tip `61b0f05b` (the
-post-§REPAIR state above). Two of its lens objects address this document: the
-citation/numerics lens (2 MAJOR + 3 MINOR) and the canon/sector lens (2 MAJOR +
-3 MINOR). Both returned **DEFECTS-FOUND, all reporting-layer, no BLOCKER**.
-Every finding is dispositioned below. **NOTHING in the run moved:** no shipped
+post-§REPAIR state above). THREE of its lens objects address this document: the
+citation/numerics lens (2 MAJOR + 3 MINOR), the T-ELEC verdict/numbers lens
+(3 MINOR), and the canon/sector lens (2 MAJOR + 3 MINOR). All three returned
+**DEFECTS-FOUND, all reporting-layer, no BLOCKER**. (Round-3 correction: this
+preamble said "Two of its lens objects", and the L2 rows below were missing —
+a completeness error of exactly the class this round was repairing. The three
+L2 findings are dispositioned below with the rest.) Every finding is
+dispositioned below, and everything NOT repaired is banked with its evidence in
+**§RESIDUALS**. **NOTHING in the run moved:** no shipped
 number, verdict, gate outcome, or classifier changed, no driver or module line
 was touched, and the results/raw JSONs are byte-identical to `c0b40d84` (SHA-256
 re-checked before and after this round).
 
 | # | finding (severity) | disposition |
 |---|---|---|
-| L1-1 | Pre-freeze "66 findings repaired" claim has no log on any ref; unauditable prose (MAJOR) | **FIXED — honest disclosure landed, no log fabricated.** New **§D D2**: the round is **DISCLOSED-BUT-UNLOGGED** (the prereg's 4-line lens-type disclosure is the entire landed record; no §REPAIR heading, one-commit freeze, no per-finding trail on any ref); **no count is asserted or auditable**; what carries the reproduction-gate reframe is (i) the reframe living inside the byte-identical freeze commit and (ii) independently re-verified substance — T-MAG replay identity 1.665e-16 and C1 leak exactly 0.0 in 32/32. A faithful reconstruction is not possible from the repository and none was invented. |
-| L1-2 | Mechanism claim asserted on SHAPE, an explicit §6.5 NON-ADJUDICATOR ("homogenizes … exactly as the scalar precedent homogenized the μ-side"; Bottom line "did not survive homogenization") (MAJOR) | **FIXED — the load-bearing one.** §6's SHAPE bullet rewritten to the exact hedge §REPAIR item 9 applied to MIRROR: locus **CONSISTENT WITH** the §2.7 homogenization mechanism **but NOT discriminated by this run — a §6.5 non-adjudicator, carrying no mechanism claim** — plus the explicit sentence *"the run measured a LOCUS; it did not measure homogenization"*. The "did not survive homogenization" wording is GONE from both §6 and the Bottom line. Measured content restated at the level the run supports (tracking to max 0.00112 over 13 valid points; ELEC-VERTEX signature not drawn at θ or δ). Per the lens's under-featuring note, the one pre-committed quantitative discriminator is now stated in its own bullet as the §6.2 δ-level diagnostic it is: freeze named ≈ −0.036 at A = 0.5, measured **+0.03588** — opposite sign, above δ, at the named A; recorded, non-adjudicating. |
+| L1-1 | Pre-freeze "66 findings repaired" claim has no log on any ref; unauditable prose (MAJOR) | **FIXED — honest disclosure landed, no log fabricated.** New **§D D2**: the round is **DISCLOSED-BUT-UNLOGGED** (the prereg's 4-line lens-type disclosure is the entire landed record; no §REPAIR heading, one-commit freeze, no per-finding trail on any ref); **no count is asserted or auditable**; what carries the reproduction-gate reframe is (i) the reframe living inside the byte-identical freeze commit and (ii) independently re-verified substance — T-MAG replay identity 1.665e-16 and C1 leak exactly 0.0 in 32/32. A faithful reconstruction is not possible from the repository and none was invented. **PR-body carrier (round-3 accuracy note):** the same claim also lived in the PR #1012 body, which this lane cannot edit; the ORCHESTRATOR — not this lane — corrected the body on 2026-08-25, and it now asserts no count. Credit for the body fix is the orchestrator's. |
+| L1-2 | Mechanism claim asserted on SHAPE, an explicit §6.5 NON-ADJUDICATOR ("homogenizes … exactly as the scalar precedent homogenized the μ-side"; Bottom line "did not survive homogenization") (MAJOR) | **FIXED — the load-bearing one.** §6's SHAPE bullet rewritten to the exact hedge §REPAIR item 9 applied to MIRROR: locus **CONSISTENT WITH** the §2.7 homogenization mechanism **but NOT discriminated by this run — a §6.5 non-adjudicator, carrying no mechanism claim** — plus the explicit sentence *"the run measured a LOCUS; it did not measure homogenization"*. The "did not survive homogenization" wording is GONE from both §6 and the Bottom line. Measured content restated at the level the run supports (tracking to max 0.00112 over 13 valid points; ELEC-VERTEX signature not drawn at θ or δ). Per the lens's under-featuring note, the one pre-committed quantitative discriminator is now stated in its own bullet as the §6.2 δ-level diagnostic it is: freeze named ≈ −0.036 at A = 0.5, measured **+0.03588** — opposite sign, above δ, at the named A; recorded, non-adjudicating. **PR-body carrier (round-3 accuracy note):** the retracted sentence also stood in the PR #1012 body, outside this lane's reach; the ORCHESTRATOR — not this lane — rewrote that bullet on 2026-08-25 and it now carries the same hedge (SHAPE named as a §6.5 non-adjudicator, "The run measured a LOCUS"). The round-2 row's scope was, and is, the DOCUMENT. |
 | L1-3 | "discordance 0.197 reproduced exactly" false at full precision (MINOR) | **FIXED.** §6 now states machine-epsilon: 0.19744623329676914 vs banked 0.19744623329676908, **Δ = 5.6e-17**, max grid deviation **6.31e-16 at A = 0.8**, against the 0.00255 margin to `discord_tol` = 0.2 — recomputed here from the two shipped JSONs, `r3_flag_diffs = []` confirmed. Substantive claim (no A = 0.3 flag flip) unchanged and true. |
-| L1-4 | Window-provenance sentence wrong: the close derivation consumes each config's GRADED back-monitor runs, not just the shared cold run (MINOR) | **FIXED.** §3 restated exactly: incident window + wrap-sentinel branch from the SHARED cold run (`derive_windows`, `:255-283`); back-monitor branch (a) derived PER CONFIG from that config's 32 graded `Fb` series (`:588-600`) — which is why the two back-return bounds differ (112.48 / 112.67). Window EQUALITY is now stated as a RESULT (the wrap branch was binding in both), not as a shared input. |
+| L1-4 | Window-provenance sentence wrong: the close derivation consumes each config's GRADED back-monitor runs, not just the shared cold run (MINOR) | **FIXED.** §3 restated exactly: incident window + wrap-sentinel branch from the SHARED cold run (`derive_windows`, `:255-283`); back-monitor branch (a) derived PER CONFIG from that config's **15** graded `Fb` series (`:588-600`; the 16-point A-grid with A = 0 skipped — 32 is the BOTH-config total, and this summary row said 32 while the corrected body at §3 said 15; row corrected in round 3) — which is why the two back-return bounds differ (112.48 / 112.67). Window EQUALITY is now stated as a RESULT (the wrap branch was binding in both), not as a shared input. |
 | L1-5 | "Reproduces to machine epsilon" invites over-reading as independent-implementation agreement (MINOR, framing) | **FIXED.** §6 carries a framing note: the ~1e-16 is **arithmetic-form** agreement (same admittance and coefficient expressions, 3-term reduction either way — banked `engine_gamma_meanstest.py:289-307` vs new `transverse_graded_scatter.py:109,168,179-180`, both quoted), close to structurally forced, with the frozen gate ten orders looser; the paths are nonetheless not bit-identical (t_cF 19.866756764219463 vs 19.866756764219467). Scoped as a **container-integrity** receipt — which is what the gate is for — reinforcing §2.4's "MACHINERY receipt, not an independent measurement". |
+| L2-1 | §7's "exactly invariant — fully converged" over-reads the E11 close-sweep receipt: at a locked τ\* the window-restricted matched-filter sums are algebraically unchanged for any close ≥ 61, so the receipt cannot see in-window contamination (MINOR; **dispositioned in round 3** — the row was missing from the round-2 table) | **FIXED.** "Fully converged" struck; §7 now states what the receipt bounds (close-CHOICE sensitivity and τ\*-capture by late contaminants) and what it does not (contamination inside the mask at the locked τ\*), with the algebra shown from shipped fields — τ\* ∈ {30,31}/{30,31,32}, shifted support [10+τ\*, 29+τ\*] = [40,59]…[42,61], `extract_gamma` `:221-252` — which also explains the two close-60 exceptions (`tmpl_contained` fails at τ\* = 32). The in-window guard is named and receipted: discordance max 0.062 / 0.065 over the 10 informative points per config vs `discord_tol` = 0.2. No number, classifier, or verdict moved. |
+| L2-2 | Reporting-completeness gap: the frozen literal A\* = √15/4 ≈ 0.96825 appears nowhere in the doc, and E4's SINGULAR declared probe point is described as a range (MINOR; **dispositioned in round 3**) | **FIXED.** §6's SHAPE bullet now names the frozen literal and the declared probe by value and cite (prereg §2.2:134, §2.7:255-256, §4.3:450, E4:707) and reports what the run read there: **Γ_TELEC(0.9682) = +0.332237**, \|Γ\|_E = 0.338937, discordance 0.0198, valid/informative — recomputed from the shipped table — with the neighbours 0.95/0.98/0.99 also positive. Directionally nothing changed (no crossing was found before or after); the frozen anchor is now reportable from the result doc alone. |
+| L2-3 | The Bottom line presents DRAWS-OPEN as the deliverable without surfacing that BOTH frozen candidates predicted SIGN_top = +, so the adjudicated bit did not discriminate between them (MINOR; **dispositioned in round 3**) | **FIXED.** Bottom-line item 2 now carries the disclosure with the frozen text quoted verbatim (prereg §2.7:249-264, *"TWO canon-compatible candidate shapes, both drawing the OPEN boundary phase (SIGN_top = +)"* … *"NEITHER shape is privileged by the freeze"*), states that the only route to a different §6.3 label was an outcome outside both candidates, points at SHAPE + the δ-level profile as the distinguishing content, and flags that they are §6.5 non-adjudicators. Verdict unchanged; this is a do-not-over-read fence, not a re-classification. |
 | L3-1 | §2.3 flag truncates canon's sentence at the em dash, dropping canon's own reconciliation (MAJOR) | **FIXED.** The scope block's §2.3 restatement now carries `resonant-lc-solitons.md:41` **in full, verbatim**, including *"— so this leaf's electric-sector Z→0 confinement and the master-equation magnetic-branch confinement are distinct-sector statements, not a contradiction"*, and states precisely **what it does NOT settle**: no sector home for the μ-branch's **wave-channel** short (μ_eff → 0), which is the routed-open μ-at-core fork already carried at §2.2 from `saturation-rim-inversion.md:70` — so §2.3 and §2.2 are substantially ONE open item, narrower than §2.3 frames it. Adjudicates nothing; the frozen prereg is untouched. |
-| L3-2 | Frozen §2.4's "z = 1/√S has never been run on any channel" is false as worded (MINOR here; prereg frozen) | **FIXED by qualifier, not edit.** New **§D D3**: the electric loading IS the engine's historical Op14 default and is run in-tree (`universal_operators.py:788-795`, `k4_tlm.py:315-318`, both quoted); the true, narrower statement is **"no prior run found"** that extracts a Γ(A) response-map off it (banked Class-C ran the magnetic map only, `engine_gamma_meanstest.py:184`). Wording changed to "no prior run found" at both live sites (§2.4 restatement, Bottom line) and flagged as a **grep-scope claim** per `read-don't-grep`. The frozen §6.4 row-1 quote stays verbatim with the qualifier attached beside it. |
+| L3-2 | Frozen §2.4's "z = 1/√S has never been run on any channel" is false as worded (**MAJOR**, as the lens returned it — round-3 correction: this row previously re-labelled it "MINOR here; prereg frozen", a silent downgrade that also contradicted this section's own preamble count of 2 MAJOR + 3 MINOR for that lens. The freeze is a reason the fix must be a QUALIFIER, not a reason the finding is less severe; no adversarial verify downgraded it) | **FIXED by qualifier, not edit.** New **§D D3**: the electric loading IS the engine's historical Op14 default and is run in-tree (`universal_operators.py:788-795`, `k4_tlm.py:315-318`, both quoted); the true, narrower statement is **"no prior run found"** that extracts a Γ(A) response-map off it (banked Class-C ran the magnetic map only, `engine_gamma_meanstest.py:184`). Wording changed to "no prior run found" at both live sites (§2.4 restatement, Bottom line) and flagged as a **grep-scope claim** per `read-don't-grep`. The frozen §6.4 row-1 quote stays verbatim with the qualifier attached beside it. **Round-3 completeness fix:** the round-2 wording implied the prereg parenthetical was the only carrier. It is not — the same claim is worded absolutely at **two further FROZEN sites**, `..._prereg_FROZEN.md:50` (the §0.5 CLASS row, *"never measured before, on any channel"*) and `research/drivers/transverse_gamma_meanstest.py:20` (*"the eps-side impedance loading has never been run on any channel"*, the pre-run commit of record). Both are named in §D D3 and BANKED at §RESIDUALS R1/R2: they are frozen/pre-run text and get a dated qualifier, never an edit. |
 | L3-3 | §2.6's "one build-brief sentence" undercounts the declared departures by one (MINOR; prereg frozen) | **FIXED by qualifier.** New **§D D4**: the brief's discipline set also requires a *firewalled author* (`build-brief.md:37-39`), for which this lane substituted a CAUSAL firewall — disclosed at prereg:7-13 but attributed there to "the Class-C template" rather than to the brief. Nothing concealed; the count is corrected in the result. |
 | L3-4 | Residual SHAPE sentence reaches past the frozen classifier + unreceipted tracking claim (MINOR) | **FIXED — same repair as L1-2**, plus the tracking claim now carries its receipt: **max \|Γ_meas − (1−√S)/(1+√S)\| = 0.00112** over the 13 valid points (≈ 0.25 % relative at A = 0.99; 0.45281 measured vs 0.45392 form), recomputed here from the shipped table. Verb softened from "homogenizes" to a recorded, consistent-with, explicitly-not-discriminated statement. |
 | L3-5 | Frozen §6.4 row-1 labels measured loci by constitutive parameter while §2.5 fences that attribution (MINOR; prereg frozen) | **FIXED by qualifier.** New **§D D5** plus an inline qualifier beside the §6 pair verdict and the Bottom-line quote: **ε-side ≡ the declared map z = 1/√S, μ-side ≡ z = √S** — §2.2 names for DECLARED MAPS, never constitutive attributions (§2.5: the run "cannot distinguish which parameter saturates"). Stated so the label cannot travel downstream without its definition. |
 
 **Receipts-unchanged proof for this round.** SHA-256 of
 `research/drivers/transverse_gamma_meanstest_results.json`,
-`data/transverse_gamma_meanstest/{cold_sanity,raw_TMAG,raw_TELEC}.json` and
-`run_log.txt` were captured before the first round-2 edit and re-checked after
+`research/drivers/data/transverse_gamma_meanstest/{cold_sanity,raw_TMAG,raw_TELEC}.json`
+and `.../run_log.txt` (paths corrected in round 3) were captured before the first round-2 edit and re-checked after
 the last: **identical**. `git diff --stat c0b40d84..HEAD` touches this result
 document only — no driver, module, checker, figure, or data file. Every number
 quoted in the repairs above was recomputed by the repair session from the
 shipped JSONs, and every file:line cite was re-read at the branch tip before it
 was written.
+
+### §REPAIR round 3 — convergence round (2026-08-25)
+
+A re-audit of the round-2 repairs returned ~10 residuals, all reporting-layer.
+Round 3 is a CONVERGENCE round with a declared rule: **repair what is cheap and
+unambiguous; BANK everything that would need a new judgment call, a re-run, or an
+edit to frozen text** — as a disclosed residual with its evidence, at
+§RESIDUALS below. No round 4 is opened on this document.
+
+Repaired in round 3 (each also logged in its row above):
+
+1. **False completeness claim inside the round-2 section** — the preamble said
+   "Two of its lens objects address this document"; THREE do. Corrected, and the
+   three missing **L2** rows are now dispositioned (L2-1 §7 over-read, L2-2 the
+   √15/4 reporting gap, L2-3 the non-discriminating-headline fence).
+2. **Disposition row L1-4 misstated the number the repair corrected** — it said
+   branch (a) consumes "32 graded `Fb` series" while the corrected body says 15
+   per config (16-point grid, A = 0 skipped; 32 is the both-config total).
+   Corrected in the row.
+3. **Severity downgrade + internal count contradiction** — row L3-2 re-labelled
+   a lens **MAJOR** as "MINOR here; prereg frozen", which contradicted this
+   section's own "2 MAJOR + 3 MINOR" preamble. Restored to MAJOR; the frozen
+   status is stated as the reason the fix is a QUALIFIER, not a severity.
+4. **Scope-block boundary case in the §2.3 round-2 note** — "Canon therefore
+   already reconciles the pair the flag presents as unresolved alternatives"
+   overstated: canon's clause reconciles the A1-compliance-vs-magnetic-branch
+   pairing only and assigns NO sector home to the μ-branch's wave-channel
+   short, which is the open item. Reworded in §2.3 and in the Bottom line;
+   nothing is adjudicated, and the scope block's ban on adjudicating §2.3
+   stands.
+5. **§5 classifier-table abbreviation of a frozen criterion** — the SHAPE row
+   reported "(no crossing ∧ monotone increasing)", dropping "θ-" and "within
+   δ" while §6 quoted the same criterion in full. The frozen §6.2 wording is
+   restored verbatim in the table.
+
+**Receipts-unchanged proof for round 3 (git-blob identity, stronger than a
+re-hash).** Every shipped artifact's blob SHA at HEAD equals its blob SHA at the
+run-of-record commit `c0b40d84`:
+`transverse_gamma_meanstest_results.json` `83b4b2da…` (sha256 `d0b4e869c1f3…`),
+`cold_sanity.json` (`c79d8d6f9888…`), `raw_TMAG.json` (`e0ec0ed87137…`),
+`raw_TELEC.json` (`54272fe3be84…`), `run_log.txt` (`bdfe290dd0d9…`), and
+`fig1_gamma_overlay.png` (`ef825a50ec66…`) — **all IDENTICAL**. The frozen
+prereg blob is `9948afbc…` at `81e94565`, at `c0b40d84`, and at HEAD; the
+driver blob is `45c4aae3…` at its pre-run commit `089cce23` and at HEAD. Round
+3 touched THIS DOCUMENT ONLY — no driver, module, checker, figure, prereg, or
+data file. Every number quoted in the round-3 repairs was recomputed here from
+the shipped JSONs and every cite re-read at the branch tip.
+
+## §RESIDUALS (disclosed, not repaired)
+
+Open items this lane deliberately did NOT repair, with the evidence and why each
+stands. All are reporting-layer; none touches a number, classifier, gate
+outcome, or verdict.
+
+- **R1 (frozen text) — `..._prereg_FROZEN.md:50`, the §0.5 CLASS row, carries
+  the absolute novelty wording** *"the Γ(A) locus under the ELECTRIC-FIRST
+  impedance loading z=1/√S — **never measured before, on any channel**"*. That
+  is FALSE as worded for the same reason §2.4's parenthetical is (the electric
+  loading is the historical Op14 default and runs in-tree —
+  `universal_operators.py:788-795`, `k4_tlm.py:315-318`); the true, narrower
+  claim is "no prior run found that extracts a Γ(A) response-map off it", a
+  grep-scope claim. **Why it stands:** the prereg is FROZEN — its blob is
+  byte-identical at `81e94565`, `c0b40d84` and HEAD, and that identity is what
+  makes the whole freeze-before-build provenance auditable. Editing it to be
+  more accurate would destroy a stronger receipt than the one it buys.
+  **Carried instead as:** the dated qualifier at **§D D3**, which now names this
+  site explicitly and binds it.
+- **R2 (pre-run commit of record) — `research/drivers/transverse_gamma_meanstest.py:20`
+  carries the same absolute wording** in the module docstring: *"the eps-side
+  impedance loading has never been run on any channel"*. **Why it stands:** the
+  driver was committed at `089cce23` BEFORE the run of record (blob `45c4aae3…`,
+  unchanged at HEAD); editing it now would break the committed-before-the-run
+  provenance the reproduction gate rests on. **Carried instead as:** the same
+  §D D3 qualifier, which names this site.
+- **R3 (PR surface, orchestrator-owned) — the PR #1012 body's adjudication item
+  #2 still frames the §2.3 canon split without the narrowing** that L3-1's
+  repair established in this document (canon's own clause reconciles the
+  A1-compliance-vs-magnetic-branch pairing; the residue is the μ-branch's
+  wave-channel short, which is §2.2's already-routed μ-at-core fork), and the
+  body's **commit anatomy** lists items 1–5 ending at `61b0f05b`, so the round-2
+  commit `0e560f4e` and this round-3 commit are not listed. **Why it stands:**
+  the PR body is not a file on this branch and is edited by the orchestrator,
+  who already corrected the body's two other items (the unauditable count and
+  the retracted "did not survive homogenization" sentence) on 2026-08-25. This
+  is a routing item, not a repair this lane can make. **Nothing in this document
+  depends on it**; where the two surfaces differ, the document is the record of
+  record.
+- **R4 (INFO, scoped-but-generalizable) — §5's MIRROR sentence says the defect
+  "DECREASES monotonically with A".** True over the 10 co-valid INFORMATIVE
+  points it explicitly names (0.00451 at A = 0.6 → 0.0000083 at A = 0.99), and
+  the frozen §6.2 rule computes MIRROR on exactly that set — but over the full
+  VALID set the ratio is non-monotone (A = 0.3: 0.00219; A = 0.4: 0.00479;
+  A = 0.5: 0.00490; falling thereafter), recomputed here from the shipped table.
+  The reviewing lens raised this as a nit and explicitly declined to file it as
+  a finding because the sentence states its own scope in the same clause.
+  **Why it stands:** the number is right, the scope is stated, and the frozen
+  rule owns the point set; rewording risks implying the excluded sub-θ points
+  carry MIRROR weight, which the freeze denies. Disclosed here so a skimming
+  reader cannot generalize it.
