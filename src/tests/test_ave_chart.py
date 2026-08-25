@@ -138,7 +138,18 @@ class TestTwoJunction:
 class TestFigureSmoke:
     @pytest.fixture(autouse=True)
     def _style(self):
-        style.apply()
+        # rc_context so style.apply()'s global rcParams mutations (incl. the
+        # constrained-layout engine) are RESTORED after each test — without
+        # this, the leaked layout engine breaks any later suite test that
+        # creates a colorbar under the default engine (test_fdtd_dipole,
+        # caught in CI: ordering-dependent, invisible to a solo module run).
+        import matplotlib
+        import matplotlib.pyplot as plt
+
+        with matplotlib.rc_context():
+            style.apply()
+            yield
+        plt.close("all")
 
     def test_base_chart_renders_white_untitled(self):
         import matplotlib.pyplot as plt
