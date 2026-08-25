@@ -4,7 +4,9 @@
 
 # AVE program board
 
-Scanned tree **766d5179** (2026-08-25) · 468 index records · 331 claims · 1 PR open
+Scanned tree **432eb454** (2026-08-25) · 468 index records · 331 claims · 2 PRs open
+
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`766d5179`). Every count below describes **432eb454**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -132,6 +134,7 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 | PR | state | title |
 |---|---|---|
+| #1017 | CLEARED | [REVIEW: CLEARED] orchestration: R58 — G2 decisions 2+4 ruled, decision 1 re-sha |
 | #1016 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] SCX Phase 1 — external-solver cross |
 
 <!-- /volatile -->
