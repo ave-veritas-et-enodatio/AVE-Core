@@ -35,5 +35,5 @@ engineering plotting deliverable, no ontology claim (no ℂP¹ identification, n
 one-chart-per-sector doctrine, no KB leaf touched), single canonical A1-tank locus only.
 **Re-open-condition evidence, recorded not ruled:** a sweep driver now exists and renders the
 chart as a working instrument — whether that constitutes "an engine lane actually wants the
-chart as a live instrument" (the driver is a demo lane, not an engine lane) **is Grant's
+dual-sector Smith chart as a live instrument" **is Grant's
 ruling, not the build lane's**. Status stays PARKED until Grant rules.

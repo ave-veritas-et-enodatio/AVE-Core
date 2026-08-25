@@ -70,7 +70,7 @@ FORM_STYLE = {
                  label=r"core: $\Gamma=(\sqrt{S}-1)/(\sqrt{S}+1)$, $0\to-1$ (canonical)"),
     "J": dict(color=style.COLORS["accent"], lw=1.8, ls="--",
               label=r"J (junction-side bias): $-1/3\to-1$ [UNDERIVED side-assignment]"),
-    "B": dict(color=style.COLORS["comparison"], lw=1.8, ls="-.",
+    "B": dict(color=style.COLORS["ave"], lw=1.8, ls="-.",
               label=r"B (bond-side bias): $-1/3\to+1$, matched at $A=\sqrt{15}/4$ [UNDERIVED side-assignment]"),
 }
 
@@ -98,11 +98,11 @@ def fig1_three_form_traces(out: Path) -> dict:
         g = ave_chart.gamma_of_A(A, form)
         axr.plot(A, np.real(g), **{k: v for k, v in kw.items() if k != "label"},
                  label=kw["label"].split(":")[0])
-    axr.axvline(ave_chart.A_MATCHED_B, color=style.COLORS["comparison"], lw=0.8, ls=":")
-    axr.plot([ave_chart.A_MATCHED_B], [0.0], "o", color=style.COLORS["comparison"], ms=5)
+    axr.axvline(ave_chart.A_MATCHED_B, color=style.COLORS["muted"], lw=0.8, ls=":")
+    axr.plot([ave_chart.A_MATCHED_B], [0.0], "o", color=style.COLORS["accent"], ms=5)
     axr.annotate(r"B matched crossing $A=\sqrt{15}/4$",
                  xy=(ave_chart.A_MATCHED_B, 0.0), xytext=(0.45, 0.35), fontsize=7,
-                 arrowprops=dict(arrowstyle="->", color=style.COLORS["comparison"], lw=0.8))
+                 arrowprops=dict(arrowstyle="->", color=style.COLORS["muted"], lw=0.8))
     axr.set_xlabel(style.axis_label("Operating point", r"A_0=|V|/V_{yield}", ""))
     axr.set_ylabel(style.axis_label("Reflection", r"\Gamma(A_0)", ""))
     style.legend(axr, fontsize=7, where="below")
@@ -135,7 +135,7 @@ def fig2_cold_frequency_locus(out: Path) -> dict:
     cb = fig.colorbar(pts, ax=ax, fraction=0.046, pad=0.04)
     cb.set_label(style.axis_label("Bond electrical length", r"\theta/\pi", ""))
     g0 = ave_chart.two_junction_gamma(0.0)
-    ax.plot([g0.real], [g0.imag], "o", color=style.COLORS["data"], ms=6, zorder=3)
+    ax.plot([g0.real], [g0.imag], "o", color=style.COLORS["accent"], ms=6, zorder=3)
     ax.annotate(r"$\theta=0$: $\Gamma=-3/5$ (both junction pairs in parallel)",
                 xy=(g0.real, g0.imag), xytext=(-0.85, -0.75), fontsize=6.5,
                 arrowprops=dict(arrowstyle="->", lw=0.8))
@@ -168,7 +168,7 @@ def fig3_graded_family(out: Path) -> dict:
                                        lw=1.4, label=fr"$A={A}$")
         finals[str(A)] = float(np.max(np.abs(
             ave_chart.two_junction_gamma(th, A_line=A, A_ends=A))))
-    ax.text(-1.12, 1.02, "composite (line+ends) biased by the SAME A against a COLD feed —\n"
+    ax.text(-1.12, 1.05, "composite (line+ends) biased by the SAME A against a COLD feed —\n"
             "a differential boundary at the feed plane; the locus collapses toward\n"
             r"the $\Gamma=-1$ rim as the biased patch shorts",
             fontsize=6, color=style.COLORS["muted"])
@@ -185,7 +185,7 @@ def fig4_differential_split(out: Path) -> dict:
     A = np.linspace(0.0, 0.999999, 800)
     g_uniform = ave_chart.gamma_two_junction_uniform(A)
     fig, ax = plt.subplots(figsize=style.figsize("single"))
-    ax.plot(A, g_uniform, "-", color=style.COLORS["data"], lw=2.2,
+    ax.plot(A, g_uniform, "-", color=style.COLORS["ave"], lw=2.2,
             label=r"UNIFORM bias: $\Gamma=-1/3$ exact at all $A$ (computed ratio)")
     for form in ("J", "B"):
         kw = FORM_STYLE[form]

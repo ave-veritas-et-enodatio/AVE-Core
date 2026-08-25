@@ -220,8 +220,10 @@ def two_junction_gamma(theta, *, A_line=0.0, A_ends=0.0):
     z_end = 0.5 * sE     # two arms in parallel: (Z0/2)*sqrt(S_ends)
 
     t = np.tan(theta)
-    # far load transformed back through the line (standard line equation),
-    # done in admittances where the line is degenerate-safe
+    # far load transformed back through the line — the standard IMPEDANCE
+    # tan-form; theta=pi/2 is handled by floating-point tan overflow (verified
+    # against an ABCD chain to <=3.4e-16 incl. the quarter-wave point). Only
+    # the parallel combination below is done in admittances.
     with np.errstate(divide="ignore", invalid="ignore"):
         z_a = z_line * (z_end + 1j * z_line * t) / (z_line + 1j * z_end * t)
         # near junction: shunt z_end in parallel with the transformed branch
@@ -284,7 +286,7 @@ def base_chart(ax=None, *, rim_band: bool = True, annotate: bool = True):
         # IS alpha (cvr-reflection-smith.md Sec.3).
         ring_x = np.concatenate([np.cos(th), GAMMA_WALL * np.cos(th[::-1])])
         ring_y = np.concatenate([np.sin(th), GAMMA_WALL * np.sin(th[::-1])])
-        ax.fill(ring_x, ring_y, color=style.COLORS["comparison"], alpha=0.55,
+        ax.fill(ring_x, ring_y, color=style.COLORS["accent"], alpha=0.55,
                 lw=0, zorder=1.5,
                 label=(r"$1-\alpha$ rim band: $|\Gamma|=\sqrt{1-\alpha}"
                        r"\approx" + f"{GAMMA_WALL:.5f}" + r"\,\to\,1$"))

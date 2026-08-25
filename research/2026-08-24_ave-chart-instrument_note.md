@@ -102,6 +102,13 @@ colorbars/axes with units, legends outside the data, no on-figure titles
 
 ## §6 — Specific Non-Claims and Caveats
 
+- **The two-junction composite's terminations are an underived engineering
+  choice:** the far junction arms are modeled as reflectionless semi-infinite
+  $Z_0/2$ loads (no lattice back-reflection) — the isolated-junction reading,
+  declared in the `two_junction_gamma` docstring and repeated here because a
+  Non-Claims block owes every such choice: the in-lattice (Bethe-tree) closure
+  differs, per the smith-annulus result doc's scoping.
+
 - **No ontology.** Nothing here canonizes (or argues for) the CP¹ reading or a
   one-chart-per-sector doctrine; the park (§4) stands untouched, and the re-open ruling is
   reserved to Grant.
@@ -120,7 +127,7 @@ colorbars/axes with units, legends outside the data, no on-figure titles
   picture for a graded-bias vertex — and whether the composite is the right minimal frequency
   object — is a walk-the-picture-first item for Grant, not something this note adjudicates.
 - **The $1-\alpha$ rim band is a Class-B value-level echo**, not an emergence readout
-  (`cvr-reflection-smith.md` §7 α-free caveat); the instrument shades it as the canonical
+  (`cvr-reflection-smith.md` §7, the exponent-defect bullet — *"anchored to the per-cycle leak (α=1/Q, clm-rtdmsn)"*); the instrument shades it as the canonical
   annotation it is, owned by the $\alpha=1/Q$ leak (clm-rtdmsn) — cited as identity, not
   derivation.
 - **The dual-sector caveat is inherited, not resolved.** `cvr-reflection-smith.md` §7
