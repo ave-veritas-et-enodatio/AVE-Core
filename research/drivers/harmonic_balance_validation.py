@@ -207,8 +207,9 @@ def gate1(measured_sanity: dict) -> dict:
         f"rel {vel_rel:.3%} (tol {P['g1_velocity_tol']:.0%}) -> {'PASS' if vel_pass else 'FAIL'}")
     log(f"  arccos map: max|theta_arccos - theta| = {arccos_dev:.2e} rad "
         f"(tol {P['g1_arccos_tol']:.0e}) -> {'PASS' if arccos_pass else 'FAIL'}")
+    band_max_str = f"{max(band_devs):.3%}" if band_devs else "n/a (NO points in band -> FAIL)"
     log(f"  band edge: {len(in_band)} pts with k <= {k_edge_measured:.4f}, "
-        f"max rel dev {max(band_devs):.3%} (tol {P['g1_band_edge_tol']:.0%}) "
+        f"max rel dev {band_max_str} (tol {P['g1_band_edge_tol']:.0%}) "
         f"-> {'PASS' if band_edge_pass else 'FAIL'}")
     log(f"  GATE 1: {'PASS' if out['pass'] else 'FAIL'}")
     return out
@@ -261,6 +262,11 @@ def _gj_gamma(net, bt, conn, inside, A, theta, x_I, load_planes):
                 "feed_fit_resid": fitf["resid_rel"],
                 "slab_fit_resid": fits["resid_rel"],
                 "k_fit": k,
+                # the SINGLE-LOAD (no de-embed) interface reading b/a — the raw
+                # composite that still contains the scaffold's own load
+                # reflection; at A=0 its magnitude IS the bond-matched-cut
+                # artifact measurement the de-embedding removes.
+                "gamma_raw_single_load": abs(runs[-1]["b"] / runs[-1]["a"]),
             }
         )
     two_port = hb.interface_two_port(runs)
@@ -296,8 +302,12 @@ def gate2(measured: dict) -> dict:
     t0 = time.time()
     tp0, diag0 = _gj_gamma(net, bt, conn, inside, 0.0, P["g2_theta"], x_I, P["g2_load_planes"])
     cold_null = abs(tp0["gamma"])
+    cold_raw = [d["gamma_raw_single_load"] for d in diag0]
     log(f"  cold null |Gamma(A=0)| = {cold_null:.2e} (deembed resid "
         f"{tp0['resid_rel']:.1e}; {time.time() - t0:.0f}s)")
+    log(f"  cold SINGLE-LOAD raw |Gamma| per load = "
+        f"{[round(g, 5) for g in cold_raw]} — the bond-matched-cut artifact the "
+        f"de-embedding removes (receipt for the note's artifact claim)")
 
     points = []
     for r in valid_rows:
@@ -348,6 +358,7 @@ def gate2(measured: dict) -> dict:
         "load_planes": P["g2_load_planes"],
         "cold_null_abs_gamma": cold_null,
         "cold_null_deembed_resid": tp0["resid_rel"],
+        "cold_single_load_gamma_raw": cold_raw,
         "points": points,
         "n_points": len(points),
         "max_abs_dev": max(p["abs_dev"] for p in points),

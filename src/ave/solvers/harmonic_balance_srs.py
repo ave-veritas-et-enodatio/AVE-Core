@@ -66,9 +66,13 @@ the (V_inc, Phi_link)-type tank, per-sector against its own yield, "NOT an
 instantaneous phase snapshot" (DP-1, manuscript/ave-kb/vol2/particle-physics/
 ch01-topological-matter/substrate-perspective-electron.md:62; echoed at
 common/saturation-rim-inversion.md:35). Its canonical C-state projection is
-A^2_local = (sum_ports V_inc^2)/V_SNAP^2 (same leaf, :55-60). For a tone set with
-distinct per-step phases the cross-tone terms time-average to zero, so the
-envelope rule is DERIVED, not chosen:
+A^2_local = (sum_ports V_inc^2)/V_SNAP^2 (same leaf, :55-60; the DP-3 R2-fix at
+:85-87 canonizes the full (V_inc, Phi_link) tank form — this module implements
+the C-state projection, a declared operationalization for G2 to freeze). For a
+tone set of distinct PHYSICAL tone lines — ToneSet's canonical (0, pi) domain;
+conjugate pairs {theta, 2pi-theta} and the self-conjugate theta = 0/pi are
+rejected because for those the cross terms do NOT vanish — the cross-tone terms
+time-average to zero, so the envelope rule is DERIVED, not chosen:
 
     A_bond^2 = sum_m ( |v_m[fwd]|^2 + |v_m[bwd]|^2 ) / (2 * v_norm^2) ,
 
@@ -217,6 +221,10 @@ def build_bond_table(net: LatticeNet) -> BondTable:
     bond_ports = np.array(bond_ports_list, dtype=np.int64)
     if np.any(bond_ports < 0):
         raise ValueError("bond table incomplete: some bond saw only one directed port")
+    # half-open [0, box) invariant: np.mod of a tiny NEGATIVE argument can
+    # round to exactly box (float), so fold that edge back to 0.
+    b_mid = np.mod(b_x0 + 0.5 * b_dx, box_cells)
+    b_mid[b_mid >= box_cells] -= box_cells
     return BondTable(
         n_nodes=N,
         degree=d,
@@ -225,7 +233,7 @@ def build_bond_table(net: LatticeNet) -> BondTable:
         bond_ports=bond_ports,
         b_x0=b_x0,
         b_dx=b_dx,
-        b_mid=np.mod(b_x0 + 0.5 * b_dx, box_cells),
+        b_mid=b_mid,
     )
 
 
@@ -264,16 +272,38 @@ class ToneSet:
     """The POSITED tone set: per-step phase advances theta_m (rad/step).
 
     Harmonic balance posits tones, not tube phases (epic guard 8): a ToneSet is a
-    tuple of dimensionless numbers, nothing more. Distinct tones are assumed
-    non-degenerate (the DP-1 cross-term cancellation requires theta_m != theta_n)."""
+    tuple of dimensionless numbers, nothing more.
+
+    CANONICAL DOMAIN (0, pi), enforced — the DP-1 envelope rule's real
+    precondition is distinct PHYSICAL tone lines, and pairwise float
+    distinctness alone does not give that: on integer steps theta and
+    2*pi - theta are the SAME line (Re[v e^{i(2pi-th)t}] = Re[conj(v) e^{i th t}],
+    the conjugate representation), and theta = 0 or pi is self-conjugate (a
+    non-rotating/alternating real signal, for which the |v|^2/2 cycle mean is
+    wrong). Every tone must therefore lie in the OPEN interval (0, pi); a
+    conjugate-representation input (theta in (pi, 2pi)) must be canonicalized
+    by the caller to 2*pi - theta with conjugated drive. Within the canonical
+    domain, set-distinctness == physical distinctness. Honesty rider:
+    near-degenerate lines (theta_1 ~ theta_2) remain mathematically distinct
+    but their cross-term averaging horizon scales as 1/|theta_1 - theta_2|;
+    posit well-separated tones."""
 
     thetas: tuple
 
     def __post_init__(self):
         th = tuple(float(t) for t in self.thetas)
         object.__setattr__(self, "thetas", th)
+        for t in th:
+            if not (0.0 < t < np.pi):
+                raise ValueError(
+                    f"tone {t} outside the canonical open interval (0, pi): theta and "
+                    "2*pi-theta are the same physical line on integer steps, and "
+                    "theta = 0 or pi is self-conjugate (the |v|^2/2 cycle mean needs "
+                    "a rotating phasor). Canonicalize conjugate-representation tones "
+                    "to 2*pi-theta with conjugated drive."
+                )
         if len(set(th)) != len(th):
-            raise ValueError("degenerate tones: the DP-1 envelope rule needs distinct thetas")
+            raise ValueError("degenerate tones: the DP-1 envelope rule needs distinct tone lines")
 
     @property
     def n_tones(self) -> int:
@@ -311,10 +341,21 @@ def crossing_ports(net: LatticeNet, bt: BondTable, plane_cells: float) -> tuple[
     Returns (fwd, bwd): fwd = incident slots AT the +x-side node (waves traveling
     +x across the plane); bwd = incident slots at the -x-side node (waves
     traveling -x). Mirrors the Class-C driver's _crossing_ports
-    (engine_gamma_meanstest.py:245-263) on the engine-native bond table."""
+    (engine_gamma_meanstest.py:245-263) on the engine-native bond table, with
+    one repair over that template: the unwrapped bond segment [b_x0, b_x0+b_dx]
+    sits wherever the smaller-INDEX endpoint's wrapped position puts it, so a
+    plane within one bond-x-extent of the periodic boundary is invisible to the
+    bare interval test (post-review finding, 2026-08-24). The test here is
+    wrap-aware: the plane is also checked shifted by +/- one box, which is
+    exhaustive because every minimum-image span is < box/2."""
     d = net.degree
     x0, x1 = bt.b_x0, bt.b_x0 + bt.b_dx
-    crossing = np.where((x0 - plane_cells) * (x1 - plane_cells) < 0.0)[0]
+    box = bt.box_cells
+    hit = np.zeros(len(x0), dtype=bool)
+    for shift in (0.0, box, -box):
+        p = plane_cells + shift
+        hit |= (x0 - p) * (x1 - p) < 0.0
+    crossing = np.where(hit)[0]
     fwd, bwd = [], []
     for bi in crossing:
         p_min_flat, p_max_flat = bt.bond_ports[bi]
@@ -510,9 +551,18 @@ def envelope_A_bond(
         A_b^2 = sum_m (|v_m[fwd_b]|^2 + |v_m[bwd_b]|^2) / (2 v_norm^2).
 
     |v|^2/2 is the cycle mean of Re[v e^{i theta t}]^2; cross-tone terms
-    time-average to zero for distinct tones (ToneSet enforces distinctness), so
-    the multi-tone rule is derived, not chosen. v_norm keys the per-sector yield
-    (engine-natural 1.0 == V_SNAP for this scalar channel)."""
+    time-average to zero for distinct PHYSICAL tone lines — which is exactly
+    what ToneSet's canonical-domain guard enforces (theta in the open (0, pi):
+    conjugate pairs {theta, 2pi-theta} and the self-conjugate theta = 0/pi are
+    rejected, since for those the cross terms do NOT vanish / the |v|^2/2 mean
+    is wrong). Within that domain the multi-tone rule is derived, not chosen.
+    SCOPE: this is the C-state (V_inc) projection of the DP-1 envelope; the
+    same leaf's DP-3 R2-fix (substrate-perspective-electron.md:85-87) canonizes
+    the full (V_inc, Phi_link) tank form — for the traveling-wave content this
+    instrument measures the two agree, and the projection choice is a declared
+    operationalization for the G2 prereg to freeze, not a settled identity.
+    v_norm keys the per-sector yield (engine-natural 1.0 == V_SNAP for this
+    scalar channel)."""
     acc = np.zeros(bt.n_bonds, dtype=np.float64)
     fwd = bt.bond_ports[:, 0]
     bwd = bt.bond_ports[:, 1]

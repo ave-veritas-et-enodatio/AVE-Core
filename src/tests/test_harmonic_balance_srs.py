@@ -153,6 +153,29 @@ class TestToneAndTermination:
         with pytest.raises(ValueError):
             hb.ToneSet(thetas=(0.3, 0.3))
 
+    def test_tone_canonical_domain_enforced(self):
+        """Post-review repair receipt: pairwise distinctness is NOT the DP-1
+        precondition — {theta, 2pi-theta} is the same physical line on integer
+        steps and theta = 0/pi is self-conjugate. The canonical (0, pi) guard
+        must reject all of these (and accept a genuine 2-line set)."""
+        for bad in ((0.3, 2.0 * np.pi - 0.3), (0.0,), (np.pi,), (-0.3,), (4.0,)):
+            with pytest.raises(ValueError):
+                hb.ToneSet(thetas=bad)
+        assert hb.ToneSet(thetas=(0.3, 0.45)).n_tones == 2
+
+    def test_crossing_ports_wrap_aware(self):
+        """Post-review repair receipt (can-fire both ways): a plane within one
+        bond-x-extent of the periodic boundary must find the same crossing-bond
+        count as its translation-equivalent interior plane (by lattice
+        translation symmetry), and must be non-empty."""
+        net = build_srs_net(L=4)
+        bt = hb.build_bond_table(net)
+        f_edge, b_edge = hb.crossing_ports(net, bt, 3.9)
+        f_int, b_int = hb.crossing_ports(net, bt, 1.9)
+        assert len(f_edge) > 0
+        assert len(f_edge) == len(f_int)
+        assert len(b_edge) == len(b_int)
+
     def test_termination_shape_guards(self, srs2):
         net, bt, conn = srs2
         f, b = hb.crossing_ports(net, bt, 0.5)
@@ -222,6 +245,31 @@ class TestDeEmbedding:
         assert g == pytest.approx(-0.2)
         g2, _ = hb.signed_gamma(0.2 * np.exp(1j * 0.05))
         assert g2 == pytest.approx(+0.2)
+
+    def test_gamma_at_plane_referencing(self):
+        """Consumer wiring for gamma_at_plane: on a synthetic two-wave field the
+        plane-referenced Gamma is (b/a) e^{2ik x_ref} exactly, and |Gamma| is
+        reference-plane invariant."""
+        k, a, b = 0.31, 1.3 - 0.4j, -0.22 + 0.05j
+        x = np.linspace(0.0, 20.0, 40)
+        V = a * np.exp(-1j * k * x) + b * np.exp(1j * k * x)
+        fit = hb.fit_two_waves(x, V, k)
+        g5 = hb.gamma_at_plane(fit, 5.0)
+        assert g5 == pytest.approx((b / a) * np.exp(2j * k * 5.0), abs=1e-12)
+        assert abs(g5) == pytest.approx(abs(b / a), abs=1e-12)
+        with pytest.raises(ValueError):
+            hb.gamma_at_plane({"a": 0.0, "b": b, "k": k}, 0.0)
+
+    def test_bond_midpoints_wrap_into_box(self, srs2):
+        """Consumer wiring for BondTable.b_mid (the taper-grading hook, the
+        Class-C Rig's b_mid twin): midpoints lie in [0, box) and equal the
+        wrapped mean of the unwrapped span."""
+        net, bt, conn = srs2
+        assert np.all((bt.b_mid >= 0.0) & (bt.b_mid < bt.box_cells))
+        # equivalence modulo box against the unwrapped midpoint
+        raw = bt.b_x0 + 0.5 * bt.b_dx
+        d = np.mod(bt.b_mid - raw + 0.5 * bt.box_cells, bt.box_cells) - 0.5 * bt.box_cells
+        assert np.max(np.abs(d)) < 1e-9
 
 
 class TestAlphaFree:
@@ -460,6 +508,48 @@ class TestSelfConsistent:
         assert res.A_bond.max() > 0.05
         assert res.S_bond.min() < 1.0 - 1e-4
 
+    def test_two_tone_set_couples_through_shared_S_field(self, srs2):
+        """End-to-end MULTI-tone machinery (the brief's unknowns are 'phasors
+        at the posited tone set' + the S-field): a 2-tone driven solve
+        converges, both tones' fixed-point residuals hold on the SAME graded
+        network, the envelope sums both tones (DP-1), and the coupling is
+        real — the second tone's presence CHANGES the first tone's solution
+        relative to its single-tone solve (through the shared S-field only)."""
+        net, bt, conn = srs2
+        f, b = hb.crossing_ports(net, bt, 0.5)
+        drive2 = hb.make_termination(
+            net, bt, conn,
+            [(f, np.array([0.6 + 0j, 0.5 + 0j])), (b, np.zeros((2, len(b))))],
+            2,
+        )
+        tones2 = hb.ToneSet(thetas=(0.3, 0.45))
+        res2 = hb.solve_self_consistent(
+            net, bt, tones2, drive2, relax=0.7, outer_tol=1e-11, max_outer=300,
+            solve_kwargs={"warmstart": 200},
+        )
+        assert res2.converged
+        assert all(s.residual_rel < 1e-8 for s in res2.sols)
+        assert np.max(np.abs(hb.envelope_A_bond(bt, res2.sols) - res2.A_bond)) < 1e-9
+        # single-tone reference at the same drive for tone 0
+        drive1 = hb.make_termination(
+            net, bt, conn,
+            [(f, np.array([0.6 + 0j])), (b, np.zeros((1, len(b))))],
+            1,
+        )
+        res1 = hb.solve_self_consistent(
+            net, bt, hb.ToneSet(thetas=(0.3,)), drive1, relax=0.7, outer_tol=1e-11,
+            max_outer=300, solve_kwargs={"warmstart": 200},
+        )
+        assert res1.converged
+        dv = np.max(np.abs(res2.sols[0].v - res1.sols[0].v))
+        assert dv > 1e-6  # the shared S-field genuinely couples the tones
+        # and the coupling channel is the S-field alone: on the COLD (frozen
+        # A=0) network the same two solves are tone-decoupled exactly
+        a_cold, _ = _cold(bt)
+        s_cold_2 = hb.solve_tone(a_cold, conn, 0.3, drive2, 0, warmstart=200)
+        s_cold_1 = hb.solve_tone(a_cold, conn, 0.3, drive1, 0, warmstart=200)
+        assert np.max(np.abs(s_cold_2.v - s_cold_1.v)) < 1e-10
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 # regression binding — committed validation receipts stay reconciled
@@ -483,9 +573,14 @@ class TestReceiptsReconciled:
         return json.loads(_RECEIPTS.read_text())
 
     def test_committed_receipts_are_passing(self, receipts):
-        """The landed instrument's receipts of record must be PASSING ones (the
-        composition all_pass == gate1&gate2&gate3 is itself re-verified below,
-        so this is not a self-declared field)."""
+        """The landed instrument's receipts of record must be PASSING ones —
+        and the all_pass composition is recomputed HERE from the three per-gate
+        fields (whose own verdicts the tests below recompute from evidence), so
+        no self-declared field is consumed bare."""
+        composed = (
+            receipts["gate1"]["pass"] and receipts["gate2"]["pass"] and receipts["gate3"]["pass"]
+        )
+        assert receipts["all_pass"] == composed
         assert receipts["all_pass"] is True
 
     def test_gate1_verdict_recomputes(self, receipts):

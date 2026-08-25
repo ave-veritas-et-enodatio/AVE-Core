@@ -104,6 +104,11 @@ def main():
     checks.append(("g2 pass composes", g2["pass"] == all(p["pass"] for p in g2["points"])))
     checks.append(("g2 cold-null receipt recorded and sane",
                    0.0 <= g2["cold_null_abs_gamma"] < g2["tol_abs_floor"]))
+    # the raw single-load artifact receipt behind the note's ~10% claim: real
+    # (well above the de-embedded null) and sane (well below total reflection)
+    checks.append(("g2 single-load artifact receipt recorded and O(10%)",
+                   all(0.01 < g < 0.5 for g in g2["cold_single_load_gamma_raw"])
+                   and len(g2["cold_single_load_gamma_raw"]) == len(g2["load_planes"])))
 
     # ── gate 3 ───────────────────────────────────────────────────────────────
     thr = g3["thresholds"]
