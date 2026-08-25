@@ -4,9 +4,7 @@
 
 # AVE program board
 
-Scanned tree **3796f4d1** (2026-08-24) · 460 index records · 330 claims · 3 PRs open
-
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`90753eef`). Every count below describes **3796f4d1**. Regenerate on main before reading these as program state.
+Scanned tree **044a10cf** (2026-08-24) · 460 index records · 330 claims · 1 PR open
 
 ## The number that frames everything
 
@@ -30,7 +28,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## What we are waiting on
 
-**39 of 71 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
+**40 of 72 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
 
 *Scope: this is a census of `open-items/`. `_orchestration/2026-07-10_rulings-docket.md` is the **paper timeline** — a dated continuation log, frozen at its 2026-07-21 tail per `docket-entries/README.md`, and the historical record of how each ruling was reached. It is read chronologically, not harvested; anything still live in it belongs here as its own file.*
 
@@ -96,6 +94,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [The R55 panel's "lattice K=0" flat-direction receipt must be re-expressed R52-compliantly (K is not a lattice quantity)](open-items/2026-08-24-r52-panel-k-receipt.md) | OPEN | lane | 2026-08-24 |
 | [R55 Phase-2 — scripted long-tail wording sweep, "Axiom 5" → "the Substrate DC Bias source law"](open-items/2026-08-24-r55-phase2-wording-sweep.md) | OPEN | lane | 2026-08-24 |
 | [The trefoil mark's Γ-plane annulus rims at (1/3, 1) — an EE-native candidate pin for the OPEN phase-space tube RATIO, vs the golden semi-axes](open-items/2026-08-24-smith-annulus-tube-ratio-pin.md) | OPEN | grant | 2026-08-24 |
+| [Static-existence epic — phase tracker (P0 capability/transduction → G1 ontology walk → P1 graded-T2 → P2 the run → P3 propagation)](open-items/2026-08-24-static-existence-epic-tracker.md) | OPEN | grant | 2026-08-24 |
 | [Sibling-repo debts — AVE-Fusion yield cross-wire + AVE-Bench-FemtoElectrometer stale sites](open-items/2026-07-03-sibling-repo-debts.md) | REGISTERED | unassigned | 2026-07-03 |
 | [The v3 ringdown instrument — the DISCRETE near-wall chain](open-items/2026-08-04-v3-ringdown-instrument.md) | REGISTERED | unassigned | 2026-08-04 |
 | [Hygiene backlog — Bell-arc citation follow-ups, FPR provenance re-grep, auditor-landing queue](open-items/2026-07-03-hygiene-backlog.md) | QUEUED | unassigned | 2026-07-03 |
@@ -129,9 +128,7 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 | PR | state | title |
 |---|---|---|
-| #1007 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: smith-annulus Γ(A) — endp |
-| #1006 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] kb: translation-phase-space — the 1 |
-| #1005 | CLEARED | [REVIEW: CLEARED] orchestration: Phase-1 + polish-tail handoff briefs, θ route-3 |
+| #1008 | CLEARED | [REVIEW: CLEARED] viz: the AVE chart instrument — module + 24 tests + five sweep |
 
 <!-- /volatile -->
 
