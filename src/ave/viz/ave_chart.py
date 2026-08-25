@@ -62,10 +62,18 @@ from ave.viz import style
 __all__ = [
     "GAMMA_WALL",
     "GAMMA_WALL_SQ",
+    "A_MATCHED_B",
     "saturation_kernel",
     "gamma_of_z",
+    "gamma_of_A",
+    "gamma_two_junction_uniform",
+    "two_junction_gamma",
     "base_chart",
 ]
+
+# Form-B matched crossing: Gamma_B(A) = 0 where sqrt(S(A)) = 1/2, i.e.
+# S = 1/4, A = sqrt(1 - 1/16) = sqrt(15)/4 ~ 0.96825.
+A_MATCHED_B: float = float(np.sqrt(15.0)) / 4.0
 
 # ---------------------------------------------------------------------------
 # The AVE-distinct rim band (cvr-reflection-smith.md Sec.3, clm-rtdmsn)
@@ -100,6 +108,123 @@ def gamma_of_z(z):
     z = np.asarray(z, dtype=complex)
     with np.errstate(divide="ignore", invalid="ignore"):
         g = np.where(np.isinf(z), 1.0 + 0j, (z - 1.0) / (z + 1.0))
+    return g
+
+
+def gamma_of_A(A, form: str = "core"):
+    """Bias locus Gamma(A) on the chart, in one of three forms.
+
+    ``form="core"`` — the CANONICAL locus (cvr-reflection-smith.md Sec.2):
+
+        Gamma(A_0) = (Z_core - Z_0)/(Z_core + Z_0),  Z_core(A_0) = Z_0*sqrt(S(A_0))
+
+    Endpoints: A_0=0 -> Gamma=0 (matched, the free photon); A_0->1 -> Gamma->-1
+    (the short-circuit TIR wall). A straight real-axis run, centre to left rim.
+
+    ``form="J"`` and ``form="B"`` — the two GRADED two-junction constructions.
+    Both start from the bare z=3 vertex: a wave down one bond sees the other
+    two in parallel (z_load = 1/2), Gamma = (2-z)/z = -1/3 — a COUNTING fact
+    (translation-circuit.md:189). SCOPING per the same line's T4 fork close:
+    per-vertex / incoherent; in-band collective carriers homogenize the bare
+    reflection (~0.12 of incoherent), so these loci describe the isolated
+    junction, not an in-band collective carrier.
+
+    **UNDERIVED-SIDE-ASSIGNMENT tag (both graded forms):** which side of the
+    junction the bias lands on is an engineering CHOICE of the construction,
+    not a derived substrate fact. The two choices are drawn as separate forms
+    precisely so the choice stays visible:
+
+    * ``"J"`` — bias on the JUNCTION side (the two far bonds carry sqrt(S);
+      the feed bond stays cold): Gamma_J = (sqrt(S)/2 - 1)/(sqrt(S)/2 + 1).
+      Endpoints -1/3 (A=0, the bare vertex) -> -1 (A->1, all far arms short).
+    * ``"B"`` — bias on the BOND side (the feed bond carries sqrt(S); the far
+      pair stays cold; normalization by the biased bond's own impedance):
+      Gamma_B = (1/2 - sqrt(S))/(1/2 + sqrt(S)).
+      Endpoints -1/3 (A=0) -> +1 (A->1), with the MATCHED CROSSING Gamma=0 at
+      sqrt(S) = 1/2, i.e. A = sqrt(15)/4 (``A_MATCHED_B``).
+
+    A UNIFORM bias (same sqrt(S) both sides) cancels exactly and pins -1/3 at
+    all A — see ``gamma_two_junction_uniform`` (the invariance statement in the
+    module docstring). Only the differential forms above split the vertex.
+    """
+    A = np.asarray(A, dtype=float)
+    rootS = np.sqrt(saturation_kernel(A))
+    if form == "core":
+        return (rootS - 1.0) / (rootS + 1.0)
+    if form == "J":
+        return (rootS / 2.0 - 1.0) / (rootS / 2.0 + 1.0)
+    if form == "B":
+        return (0.5 - rootS) / (0.5 + rootS)
+    raise ValueError(f"unknown form {form!r}; expected 'core', 'J', or 'B'")
+
+
+def gamma_two_junction_uniform(A):
+    """Vertex reflection under a UNIFORM bias — computed, not asserted.
+
+    Both the feed bond and the two far bonds carry the SAME sqrt(S(A)), so the
+    normalized load is z = (sqrt(S)/2)/sqrt(S) = 1/2 and
+
+        Gamma = (z - 1)/(z + 1) = -1/3   exactly, at every A with S > 0.
+
+    This function computes the ratio numerically (no algebraic shortcut) so the
+    invariance is a TESTED property of the bilinear map, not a baked-in
+    constant: the chart is blind to uniform medium changes (adversarially
+    verified this lane, 2026-08-24; the self-cancellation principle as
+    geometry). At A=1 exactly, S=0 and the ratio is 0/0 — the uniform-bias
+    statement is scoped to S > 0 (the medium still exists).
+    """
+    A = np.asarray(A, dtype=float)
+    rootS = np.sqrt(saturation_kernel(A))
+    z_load = (rootS / 2.0)  # two biased far bonds in parallel: Z0*sqrt(S)/2
+    z_feed = rootS          # biased feed bond: Z0*sqrt(S)
+    return (z_load - z_feed) / (z_load + z_feed)
+
+
+def two_junction_gamma(theta, *, A_line=0.0, A_ends=0.0):
+    """Input reflection of the bond-between-two-z3-junctions composite.
+
+    Minimal transfer-matrix (ABCD) model of one lattice bond spanning two z=3
+    vertices, fed from a cold semi-infinite Z_0 bond:
+
+        feed (Z_0) --[near junction: shunt Z_0/2]--[Z_0 line, length theta]--
+                    --[far junction: load Z_0/2]
+
+    The near vertex's other two bonds appear as a shunt of Z_0/2; the far
+    vertex's other two bonds terminate the line in Z_0/2 (the parallel-pair
+    counting fact, translation-circuit.md:189). ``theta`` is the bond's
+    electrical length (radians); the cold Gamma(theta) locus is the composite's
+    frequency response, since theta = omega * ell / c_bond.
+
+    Optional bias: ``A_line`` scales the bond's characteristic impedance by
+    sqrt(S(A_line)); ``A_ends`` scales both junction terminations by
+    sqrt(S(A_ends)). Setting them EQUAL is a uniform bias of the composite
+    relative to the cold feed (still a differential boundary at the feed
+    plane); the fully uniform case (feed included) is the exact -1/3-at-DC
+    invariance of ``gamma_two_junction_uniform``.
+
+    SCOPING: an isolated / incoherent composite (per-vertex reading). In-band
+    collective carriers homogenize the bare vertex reflection (~0.12 of the
+    incoherent value, T4 fork close, translation-circuit.md:189) — this
+    composite is the instrument's minimal frequency axis, not a claim about
+    in-band collective transport.
+
+    Returns complex Gamma (same shape as ``theta``).
+    """
+    theta = np.asarray(theta, dtype=float)
+    sL = float(np.sqrt(saturation_kernel(A_line)))   # line impedance scale
+    sE = float(np.sqrt(saturation_kernel(A_ends)))   # junction-arm scale
+    z_line = sL          # Z0*sqrt(S_line), normalized by Z0
+    z_end = 0.5 * sE     # two arms in parallel: (Z0/2)*sqrt(S_ends)
+
+    t = np.tan(theta)
+    # far load transformed back through the line (standard line equation),
+    # done in admittances where the line is degenerate-safe
+    with np.errstate(divide="ignore", invalid="ignore"):
+        z_a = z_line * (z_end + 1j * z_line * t) / (z_line + 1j * z_end * t)
+        # near junction: shunt z_end in parallel with the transformed branch
+        y_in = 1.0 / z_end + 1.0 / z_a
+        z_in = 1.0 / y_in
+        g = (z_in - 1.0) / (z_in + 1.0)
     return g
 
 
