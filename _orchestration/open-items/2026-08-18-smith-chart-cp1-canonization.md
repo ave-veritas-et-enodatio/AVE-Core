@@ -1,7 +1,7 @@
 ---
 id: smith-chart-cp1-canonization
-title: ℂP¹ Smith-chart ontology canonization — PARKED; re-open only if an engine lane wants the chart as an instrument
-status: PARKED
+title: ℂP¹ Smith-chart ontology canonization — RE-OPENED 2026-08-25 (Grant); the instrument exists, the old attack is now owed an answer
+status: OPEN
 owner: unassigned
 opened: 2026-08-18
 source: _orchestration/2026-06-16_standing-decisions-audit-lane.md
@@ -37,3 +37,34 @@ one-chart-per-sector doctrine, no KB leaf touched), single canonical A1-tank loc
 chart as a working instrument — whether that constitutes "an engine lane actually wants the
 dual-sector Smith chart as a live instrument" **is Grant's
 ruling, not the build lane's**. Status stays PARKED until Grant rules.
+
+---
+
+## ★ RE-OPENED 2026-08-25 — Grant, verbatim: *"reopen"*
+
+**The re-open condition is met.** This item's own trigger read *"an engine lane
+actually wants the dual-sector Smith chart as a live instrument."* The
+instrument now exists and is merged (`src/ave/viz/ave_chart.py` + 24 tests +
+five sweeps + the means-test register, PR #1008), and two lanes used the chart
+as their analysis frame (the smith-annulus lane, PR #1007; the Class-C engine
+measurement, PR #1010).
+
+**What the re-open OWES (the item's own words: the audit's attack "was never
+answered"):**
+
+1. **The ℂP¹-overclaim attack.** Answer it or concede it. New input the attack
+   never had: the 2026-08-24 translation-leaf correction that Γ = V_ref/V_inc is
+   the **Hopf/symplectic quotient** — the quotient inherits the Fubini–Study
+   form, so "Γ forgets the symplectic content" is FALSE as originally argued
+   (`translation-phase-space.md`, merged #1006).
+2. **The "per-sector adds nothing over INVARIANT-S2" attack.** Now entangled
+   with the open sector-split adjudication
+   (`2026-08-25-invariant-s2-sector-split.md`) — the per-sector question may not
+   be answerable before that ruling.
+3. **The three-form locus table** (canonical core / FORM-J / FORM-B) and the
+   MEASURED Class-C locus, neither of which existed at park time.
+
+**Scope discipline carried from the park:** the alive layer
+(`cvr-reflection-smith.md`, the Γ(A₀) locus + the AVE-distinct `|Γ|²=1−α`
+corollary) was never parked and is not re-opened by this — only the **ontology
+canonization** question is.
