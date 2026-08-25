@@ -102,6 +102,20 @@ only as the phrase "bond-restricted" and never routed):
       graded/structured field it is content-dependent). A feeds S(A) =
       sqrt(1-A^2), strongly nonlinear near the rail, so this is not a benign
       prefactor.
+      SUB-CHOICE INSIDE AXIS 2, disclosed 2026-08-25 round 3: the "canon
+      per-node" number above is NOT read straight off canon. Canon's row is
+      written on the K4 node, 4 ports — :31 verbatim: "For each of 4 ports
+      (tetrahedral connectivity per Axiom 1):" — and the receipt above is
+      computed on THIS module's carrier, build_srs_net, whose node degree is
+      3 (measured: build_srs_net(L=2).degree == 3). So sqrt(z/2) with z = 3
+      embeds a PORT-COUNT MAPPING (canon's 4 -> the srs carrier's 3) that no
+      canon leaf states. G2 does NOT face a clean per-BOND-vs-per-NODE binary:
+      whoever takes the per-NODE arm must first freeze what "per-node" means
+      on a degree-3 carrier (sum the 3 incident ports as written here, or
+      re-derive the chi-squared normalization for z = 3, or reject the srs
+      carrier for this row). Stated so a G2 freezer is not handed a binary
+      that is really a binary plus a mapping. As with the rest of AXIS 2, no
+      Stage-2 receipt depends on it.
 The per-bond choice is what the graded ADMITTANCE needs (Y lives on the bond;
 a per-node-uniform admittance cancels at the junction — the guard-4 trap
 below), so it is a DEFENSIBLE engineering choice, not an oversight — but it is
@@ -646,7 +660,13 @@ def envelope_A_bond(
     with a uniform |v| = 0.5 field: per-bond c-state A_b = 0.500000 vs
     per-node c-state A_node = 0.612372, ratio 1.224745 = sqrt(z/2), z = 3 —
     ~87% the size of the sqrt(2) arm fork, and content-dependent off a uniform
-    field. The per-bond basis is what the per-DIRECTED-BOND admittance needs
+    field. SUB-CHOICE (round 3, 2026-08-25): that "per-node" number is computed
+    on this module's carrier, whose node degree is 3, against a canon row
+    written for the K4 node's 4 ports (:31 verbatim "For each of 4 ports
+    (tetrahedral connectivity per Axiom 1):"). The 4 -> 3 port-count mapping is
+    a decision no canon leaf states, so the per-NODE arm is not fully specified
+    until G2 freezes it too. The per-bond basis is what the per-DIRECTED-BOND
+    admittance needs
     (guard 4: a per-node-uniform admittance cancels at the shunt junction), so
     it is a defensible engineering choice — but it is PROPOSED, not canon, and
     the G2 freeze must decide BOTH axes, not just the sqrt(2) one. Neither axis

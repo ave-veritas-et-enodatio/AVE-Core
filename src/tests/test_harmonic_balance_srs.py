@@ -22,6 +22,8 @@ envelope, terminations, fits, de-embedding, idle report.
 
 from __future__ import annotations
 
+import ast
+import copy
 import json
 from pathlib import Path
 
@@ -651,6 +653,45 @@ class TestSelfConsistent:
 
 _RECEIPTS = _REPO / "research" / "drivers" / "data" / "harmonic_balance_validation" / "receipts.json"
 _MEASURED = _REPO / "research" / "drivers" / "engine_gamma_meanstest_results.json"
+_DRIVER = _REPO / "research" / "drivers" / "harmonic_balance_validation.py"
+
+
+def _frozen_driver_params():
+    """The driver's `P = {...}` block, read from the driver SOURCE by AST.
+
+    Adversarial round 3 (L5-1, second surface): the gating checker
+    (research/drivers/harmonic_balance_number_check.py) reconciles the
+    receipts' tolerances against this frozen literal, but THIS arm still
+    consumed `g1["velocity_tol"]`, `g2["tol_abs_floor"]`, `g2["tol_rel"]`,
+    `g3["thresholds"][...]` etc. as self-declared receipt fields — the exact
+    'gate consuming self-declared fields is a checklist not a gate' shape. An
+    on-disk tamper that widened a tolerance and recomputed every per-point
+    verdict consistently passed this class silently. The equivalent binding is
+    added below (test_receipt_tolerances_reconcile_against_frozen_driver).
+
+    The driver is parsed, never imported and never executed."""
+    tree = ast.parse(_DRIVER.read_text(), filename=str(_DRIVER))
+    for node in tree.body:
+        if (
+            isinstance(node, ast.Assign)
+            and len(node.targets) == 1
+            and isinstance(node.targets[0], ast.Name)
+            and node.targets[0].id == "P"
+        ):
+            return ast.literal_eval(node.value)
+    return None
+
+
+def _same(a, b):
+    """Structural equality for a declared-constant reconciliation (mirrors the
+    number check's `same`): floats by tolerance, sequences elementwise, else ==."""
+    if isinstance(a, bool) or isinstance(b, bool):
+        return a == b
+    if isinstance(a, (int, float)) and isinstance(b, (int, float)):
+        return abs(float(a) - float(b)) <= max(1e-12, 1e-12 * max(abs(a), abs(b)))
+    if isinstance(a, (list, tuple)) and isinstance(b, (list, tuple)):
+        return len(a) == len(b) and all(_same(x, y) for x, y in zip(a, b))
+    return a == b
 
 
 def test_receipts_of_record_exist():
@@ -667,6 +708,10 @@ def test_receipts_of_record_exist():
         "python research/drivers/harmonic_balance_validation.py"
     )
     assert _MEASURED.exists(), f"committed measured Class-C source is missing: {_MEASURED}"
+    assert _DRIVER.exists(), (
+        f"the frozen driver source is missing: {_DRIVER}. Its `P` literal is the "
+        "frozen source the receipts' tolerances reconcile against."
+    )
 
 
 class TestReceiptsReconciled:
@@ -680,6 +725,80 @@ class TestReceiptsReconciled:
     @pytest.fixture(scope="class")
     def receipts(self):
         return json.loads(_RECEIPTS.read_text())
+
+    def test_receipt_tolerances_reconcile_against_frozen_driver(self, receipts):
+        """reconcile-don't-declare AT THE TOLERANCE LAYER (adversarial round 3,
+        L5-1 second surface). Every verdict this class recomputes is recomputed
+        AGAINST A TOLERANCE READ OUT OF THE RECEIPTS. That closes drift in the
+        measured numbers and leaves the yardstick self-declared: widen
+        `gate2.tol_abs_floor` on disk from 0.01 to 1.0, recompute every
+        `tol_point` and `pass` consistently, and every other test in this class
+        still passes — the gate becomes unfalsifiable and stays green.
+
+        The gating checker already reconciles these against the driver's frozen
+        `P` literal; this is the same binding on the pytest arm, so the hole is
+        closed in both places rather than only on the `make verify` path.
+        Failing here means one of: someone widened a tolerance in the receipts
+        without changing the driver, or changed the driver without regenerating
+        the receipts. Both are FAILs, not drift to be absorbed."""
+        P = _frozen_driver_params()
+        assert P is not None, (
+            f"could not read the frozen `P` parameter literal out of {_DRIVER} — the "
+            "tolerance reconciliation has no frozen source to check against, and a "
+            "reconciler with no source is a checklist. Keep P a literal dict."
+        )
+        g1, g2, g3 = receipts["gate1"], receipts["gate2"], receipts["gate3"]
+        thr = g3["thresholds"]
+        assert set(receipts["parameters"]) == set(P)
+        for key in P:
+            assert _same(receipts["parameters"][key], P[key]), (
+                f"receipts.parameters[{key!r}] = {receipts['parameters'][key]!r} "
+                f"contradicts the driver's frozen P[{key!r}] = {P[key]!r}"
+            )
+        for name, val, key in (
+            ("gate1.L", g1["L"], "g1_L"),
+            ("gate1.velocity_tol", g1["velocity_tol"], "g1_velocity_tol"),
+            ("gate1.arccos_tol", g1["arccos_tol"], "g1_arccos_tol"),
+            ("gate1.band_edge_tol", g1["band_edge_tol"], "g1_band_edge_tol"),
+            ("gate2.theta", g2["theta"], "g2_theta"),
+            ("gate2.load_planes", g2["load_planes"], "g2_load_planes"),
+            ("gate2.tol_abs_floor", g2["tol_abs_floor"], "g2_tol_abs_floor"),
+            ("gate2.tol_rel", g2["tol_rel"], "g2_tol_rel"),
+            ("gate3.thresholds.source_tol", thr["source_tol"], "g3_source_tol"),
+            ("gate3.thresholds.exchange_tol", thr["exchange_tol"], "g3_exchange_tol"),
+            ("gate3.thresholds.r_auto_tol", thr["r_auto_tol"], "g3_r_auto_tol"),
+            ("gate3.ring.N", g3["ring"]["N"], "g3_ring_N"),
+            ("gate3.ring.m", g3["ring"]["m"], "g3_ring_m"),
+            ("gate3.driven_tank.L", g3["driven_tank"]["L"], "g3_tank_L"),
+            ("gate3.driven_tank.theta", g3["driven_tank"]["theta"], "g3_tank_theta"),
+        ):
+            assert key in P, f"driver P lost {key!r}, which receipts.{name} is bound to"
+            assert _same(val, P[key]), (
+                f"receipts.{name} = {val!r} contradicts the driver's frozen "
+                f"P[{key!r}] = {P[key]!r}"
+            )
+        assert _same([p["theta"] for p in g1["points"]], P["g1_theta_sweep"])
+        assert receipts.get("driver") == "research/drivers/harmonic_balance_validation.py"
+
+    def test_tolerance_reconciler_can_fire(self, receipts):
+        """Anti-tautology control for the test above: the on-disk tamper the
+        review demonstrated must actually break it. Mutates an IN-MEMORY copy
+        (no file is touched) exactly as the checker's `_mut_tol` does — widen
+        the gate-2 floor to a value at which |dGamma| <= tol is unfalsifiable
+        and recompute every per-point tolerance and verdict consistently — and
+        asserts (i) the arithmetic tests in this class still see nothing wrong,
+        which is the hole, and (ii) the reconciler above rejects it."""
+        r = copy.deepcopy(receipts)
+        g2 = r["gate2"]
+        g2["tol_abs_floor"] = 1.0
+        for pt in g2["points"]:
+            pt["tol_point"] = max(1.0, g2["tol_rel"] * abs(pt["gamma_measured"]))
+            pt["pass"] = abs(pt["gamma_solver"] - pt["gamma_measured"]) <= pt["tol_point"]
+        # (i) the hole: the self-consistent tamper survives the arithmetic arm
+        self.test_gate2_verdict_recomputes_against_measured_map(r)
+        # (ii) the reconciler catches it
+        with pytest.raises(AssertionError):
+            self.test_receipt_tolerances_reconcile_against_frozen_driver(r)
 
     def test_committed_receipts_are_passing(self, receipts):
         """The landed instrument's receipts of record must be PASSING ones —

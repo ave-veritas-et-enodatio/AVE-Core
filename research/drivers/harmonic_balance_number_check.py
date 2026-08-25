@@ -81,8 +81,14 @@ def frozen_driver_params():
     executed by this checker (importing it would run nothing here, but it would
     also make the 'never runs a solve' promise depend on the driver's own
     import-time behaviour rather than on this file)."""
-    with open(DRIVER) as f:
-        tree = ast.parse(f.read(), filename=DRIVER)
+    try:
+        with open(DRIVER) as f:
+            src = f.read()
+    except FileNotFoundError:
+        fail(f"the frozen driver source is missing: {DRIVER}. The tolerance "
+             "reconciliation reads its `P` literal from that file; with no frozen "
+             "source there is nothing to reconcile against. Refusing to pass.")
+    tree = ast.parse(src, filename=DRIVER)
     for node in tree.body:
         if (
             isinstance(node, ast.Assign)
@@ -285,11 +291,35 @@ MUTATIONS = (
 )
 
 
+def load_json_evidence(path, what, regen):
+    """Read one committed evidence file, failing with THIS checker's own message.
+
+    Adversarial round 3 (L5-6, second half): these three reads were bare
+    `open(...)`, so a missing or moved evidence file killed the checker with an
+    unlabelled FileNotFoundError traceback. A gating checker that dies without
+    saying which artifact it wanted, or how to regenerate it, is reporting an
+    environment crash where it should be reporting a FAIL. Same standard the
+    pytest arm now holds (`test_receipts_of_record_exist`)."""
+    try:
+        with open(path) as f:
+            return json.load(f)
+    except FileNotFoundError:
+        fail(f"{what} is missing: {path}. This checker binds the reported verdicts "
+             f"to that file — a missing evidence file is a FAIL, not a crash. {regen}")
+    except json.JSONDecodeError as exc:
+        fail(f"{what} at {path} is not readable JSON ({exc}). {regen}")
+
+
 def main():
-    with open(RECEIPTS) as f:
-        r = json.load(f)
-    with open(MEASURED) as f:
-        meas = json.load(f)
+    r = load_json_evidence(
+        RECEIPTS, "the committed validation receipts of record",
+        "Regenerate with: PYTHONPATH=src python research/drivers/harmonic_balance_validation.py",
+    )
+    meas = load_json_evidence(
+        MEASURED, "the committed measured Class-C source map",
+        "It is a committed artifact of the frozen engine_gamma_meanstest run; restore it "
+        "from git rather than regenerating.",
+    )
     P = frozen_driver_params()
     if P is None:
         fail(f"could not read the frozen `P` parameter literal out of {DRIVER} — "
