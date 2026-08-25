@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **3796f4d1** (2026-08-24) · 460 index records · 330 claims · 3 PRs open
+Scanned tree **73281a5d** (2026-08-24) · 460 index records · 330 claims · 3 PRs open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`90753eef`). Every count below describes **3796f4d1**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`1091f024`). Every count below describes **73281a5d**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -129,9 +129,9 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 | PR | state | title |
 |---|---|---|
-| #1007 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: smith-annulus Γ(A) — endp |
-| #1006 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] kb: translation-phase-space — the 1 |
-| #1005 | CLEARED | [REVIEW: CLEARED] orchestration: Phase-1 + polish-tail handoff briefs, θ route-3 |
+| #1008 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] viz: the AVE chart instrument — mod |
+| #1007 | CLEARED | [REVIEW: CLEARED] research: smith-annulus Γ(A) — endpoints-only, floor all-order |
+| #1006 | CLEARED | [REVIEW: CLEARED] kb: translation-phase-space — the 13th spoke (symplectic ↔ AVE |
 
 <!-- /volatile -->
 

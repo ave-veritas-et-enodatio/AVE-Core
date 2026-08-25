@@ -1,0 +1,55 @@
+{
+  "_alpha": 0.0072973525693,
+  "_gamma_wall": 0.9963446428975768,
+  "fig1_three_form_traces": {
+    "core_endpoints": [
+      0.0,
+      -1.0
+    ],
+    "J_endpoints": [
+      -0.3333333333333333,
+      -1.0
+    ],
+    "B_endpoints": [
+      -0.3333333333333333,
+      1.0
+    ],
+    "B_matched_crossing_A": 0.9682458365518543,
+    "B_gamma_at_crossing": 2.2204460492503136e-16
+  },
+  "fig2_cold_frequency_locus": {
+    "gamma_theta0": [
+      -0.6,
+      0.0
+    ],
+    "max_abs_gamma": 0.6000000000000001,
+    "min_abs_gamma": 0.4285716087112774
+  },
+  "fig3_graded_family": {
+    "max_abs_gamma_by_A": {
+      "0.0": 0.6000000000000001,
+      "0.5": 0.6225189867388523,
+      "0.8": 0.675534197796632,
+      "0.95": 0.754850364014747,
+      "0.99": 0.8283251375244982
+    }
+  },
+  "fig4_differential_split": {
+    "uniform_max_deviation_from_minus_third": 5.551115123125783e-17,
+    "J_span": [
+      -0.3333333333333333,
+      -0.9630880300250646
+    ],
+    "B_span": [
+      -0.3333333333333333,
+      0.8600981968369492
+    ]
+  },
+  "fig5_occupancy_demo": {
+    "orbit": "A(t)=0.55+0.42*sin(t)  [UNDERIVED-CHOICE demo]",
+    "gamma_range": [
+      -0.3395338513045779,
+      -0.002130551102448588
+    ]
+  }
+}
