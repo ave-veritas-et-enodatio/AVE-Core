@@ -165,3 +165,56 @@ the wave-envelope reading of "tube" applies to this item's tube too.
 `the-electron-plumber` pointing here (the mark's fence stays until this item
 resolves; if the vertex pin ever ratifies, the mark's $R=2r$ becomes
 retroactively load-bearing and the fence comment should say so).
+
+---
+
+## LANE OUTCOME (2026-08-24, same day — result landed as PR #1007)
+
+Result pair: `research/2026-08-24_smith-annulus_result.md` +
+`_expectations_FROZEN.md` + `research/drivers/smith_annulus_comp.py`.
+Adversarially verified (3 lenses, 17 findings, repair + re-audit). Verdicts:
+
+- **H1 PASS:** endpoints exact — |Γ(A)| runs (1/3 → 1) under the graded
+  junction forms; FORM B exits via a genuinely matched event at A=√15/4.
+- **H3 ENDPOINTS-ONLY:** no amplitude law reproduces the mark's radial
+  shape; endpoints alone pin the Γ-disk annulus at R/r = 2.
+- **The cascade floor falls** in the shell-1 model (min |Γ| = 1/5 at
+  quarter-wave) — and the shell-1 model itself is the isolated-junction
+  convention, not the in-lattice steady state (Bethe-tree closure differs).
+- **The vertex pin as an ELECTRON law: LEANS-DEAD on four independent
+  scopings** — (i) the same-line T4 homogenization (in-band collective
+  carriers see ~0.12 of the incoherent floor); (ii) canon fixes the A1
+  amplitude at √α — the electron never takes the swing; the annulus is the
+  MEDIUM's response map, not an orbit; (iii) the canonical Γ(A₀) locus
+  (`cvr-reflection-smith.md` §2, the park's alive layer) runs matched→wall
+  with NO 1/3 floor — the floor exists only for a through-vertex port no
+  canon object instantiates; (iv) the shell-1 cascade dips below 1/3 anyway.
+- **What SURVIVES, verified:** the floor's all-orders invariance under
+  UNIFORM grading (dev 5.6e-17 — Grant's Q3 lock hypothesis, sharpened:
+  uniform bias re-gauges the unit, only DIFFERENTIAL bias splits); the
+  outer-edge |Γ|² = 1−α wall leak as the dominant edge width (α/2, with the
+  storage-vs-response-clock contour tag carried); the transduction
+  honest-negative (only the two EDGES project to real space — M and Q —
+  the interior trace is invisible by the boundary law).
+
+**CORRECTION to this item's own discriminator table (caught by the
+translation-leaf discipline, PR #1006):** the table's last column conjoins
+the Γ-disk ratio pin with the phasor-plane product R·r = 1/4 **across two
+different rungs of the coordinate ladder with no declared quotient map** —
+the combined (R, r) = (1/√2, 1/(2√2)) is rung-crossing and is WITHDRAWN as
+written. The ratio comparison stands only within the Γ-disk row.
+
+**OPEN forks routed to Grant:** (1) the side-assignment three-way — does the
+winding saturate the junction cell (FORM J), the bond (FORM B), or grade as
+a TAPER (which suppresses reflection relative to either step)?; (2) whether
+this arc trips the PARKED cp1 item's re-open condition ("an engine lane
+actually wants the chart as a live instrument") — the AVE-chart instrument
+build (in flight) is the evidence either way.
+
+**Walk joins recorded (WALK/ASSEMBLY grade, from the 2026-08-24 chat):**
+clause Q of the source law = the chart's normalization choice (uniform ε₁₁
+re-gauge unobservable = relativity; ∇ε₁₁ = neighboring charts disagreeing =
+gravity); the chart's Möbius group = unit biquaternions = SL(2,ℂ) = the
+Lorentz double cover, with the rim as the algebra's null cone (canon holds
+each piece; the joins are un-ratified organizing readings; G1–G3 fences and
+the park travel with them).
