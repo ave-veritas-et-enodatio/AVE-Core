@@ -67,12 +67,15 @@ instantaneous phase snapshot" (DP-1, manuscript/ave-kb/vol2/particle-physics/
 ch01-topological-matter/substrate-perspective-electron.md:62; echoed at
 common/saturation-rim-inversion.md:35). Its canonical C-state projection is
 A^2_local = (sum_ports V_inc^2)/V_SNAP^2 (same leaf, :55-60; the DP-3 R2-fix at
-:85-87 canonizes the full (V_inc, Phi_link) tank form — this module implements
-the C-state projection, a declared operationalization for G2 to freeze). For a
-tone set of distinct PHYSICAL tone lines — ToneSet's canonical (0, pi) domain;
-conjugate pairs {theta, 2pi-theta} and the self-conjugate theta = 0/pi are
-rejected because for those the cross terms do NOT vanish — the cross-tone terms
-time-average to zero, so the envelope rule is DERIVED, not chosen:
+:85-87 canonizes the full (V_inc, Phi_link) tank form — the two differ by
+EXACTLY sqrt(2) in A at fixed v_norm, an OPEN normalization fork this module
+supports on both arms via envelope mode, defaulting to the C-state projection
+as PROPOSED; G2 freezes the choice — see envelope_A_bond). For a tone set of
+distinct PHYSICAL tone lines — ToneSet's canonical (0, pi) domain; conjugate
+pairs {theta, 2pi-theta} are rejected because their cross terms do NOT vanish,
+and the self-conjugate theta = 0/pi because its SELF-term breaks the |v|^2/2
+cycle mean — the cross-tone terms time-average to zero, so the envelope
+COMBINE rule is derived; the normalization arm stays the open fork above:
 
     A_bond^2 = sum_m ( |v_m[fwd]|^2 + |v_m[bwd]|^2 ) / (2 * v_norm^2) ,
 
@@ -157,7 +160,9 @@ from ave.solvers.vacuum_varactor_scatter import (
 assert "ALPHA" not in globals(), "alpha-leak: ALPHA must NOT be imported into the HB solver"
 assert "Q_TANK" not in globals(), "alpha-leak: Q_TANK (=1/alpha) must NOT be imported"
 assert "ELECTRON" not in globals(), "alpha-leak: ELECTRON instance must NOT be imported"
-assert "V_SNAP" not in globals(), "alpha-adjacent-leak: dimensionful V_SNAP must NOT be imported (v_norm is engine-natural)"
+assert "V_SNAP" not in globals(), (
+    "alpha-adjacent-leak: dimensionful V_SNAP must NOT be imported (v_norm is engine-natural)"
+)
 
 
 # ═════════════════════════════════════════════════════════════════════════════
@@ -346,16 +351,27 @@ def crossing_ports(net: LatticeNet, bt: BondTable, plane_cells: float) -> tuple[
     sits wherever the smaller-INDEX endpoint's wrapped position puts it, so a
     plane within one bond-x-extent of the periodic boundary is invisible to the
     bare interval test (post-review finding, 2026-08-24). The test here is
-    wrap-aware: the plane is also checked shifted by +/- one box, which is
-    exhaustive because every minimum-image span is < box/2."""
-    d = net.degree
+    wrap-aware: the plane is folded into [0, box) and also checked shifted by
+    +/- one box, which is exhaustive because every minimum-image span is
+    < box/2. An empty crossing set is fail-loud (on this lattice every generic
+    plane crosses bonds; empty means a degenerate input, and silently
+    returning it would build a termination with zero ports). Float caveat: a
+    plane EXACTLY on a node x-plane is degenerate under the strict product
+    test — use half-integer (or otherwise node-avoiding) planes, as every
+    committed use does."""
     x0, x1 = bt.b_x0, bt.b_x0 + bt.b_dx
     box = bt.box_cells
+    plane_cells = float(np.mod(plane_cells, box))
     hit = np.zeros(len(x0), dtype=bool)
     for shift in (0.0, box, -box):
         p = plane_cells + shift
         hit |= (x0 - p) * (x1 - p) < 0.0
     crossing = np.where(hit)[0]
+    if len(crossing) == 0:
+        raise ValueError(
+            f"plane x={plane_cells} crosses no bonds — degenerate cut (a termination "
+            "built from it would have zero ports)"
+        )
     fwd, bwd = [], []
     for bi in crossing:
         p_min_flat, p_max_flat = bt.bond_ports[bi]
@@ -544,32 +560,56 @@ def _embed(x_free: np.ndarray, v_s: np.ndarray, mask_F: np.ndarray) -> np.ndarra
 # 5. THE S-FIELD: DP-1 ENVELOPE + SELF-CONSISTENT OUTER FIXED POINT
 # ═════════════════════════════════════════════════════════════════════════════
 def envelope_A_bond(
-    bt: BondTable, sols: list, *, v_norm: float = 1.0
+    bt: BondTable, sols: list, *, v_norm: float = 1.0, mode: str = "c-state"
 ) -> np.ndarray:
-    """Per-bond DP-1 envelope from the tone phasors (module header, S-FIELD RULE):
+    """Per-bond DP-1 envelope from the tone phasors (module header, S-FIELD RULE).
 
-        A_b^2 = sum_m (|v_m[fwd_b]|^2 + |v_m[bwd_b]|^2) / (2 v_norm^2).
+    Two envelope forms exist in canon and this instrument supports BOTH — the
+    choice is an OPEN normalization fork the G2 prereg must freeze, NOT settled
+    here (post-re-audit demotion, 2026-08-25; an earlier docstring asserted the
+    two agree on traveling content — that was WRONG):
 
-    |v|^2/2 is the cycle mean of Re[v e^{i theta t}]^2; cross-tone terms
-    time-average to zero for distinct PHYSICAL tone lines — which is exactly
-    what ToneSet's canonical-domain guard enforces (theta in the open (0, pi):
-    conjugate pairs {theta, 2pi-theta} and the self-conjugate theta = 0/pi are
-    rejected, since for those the cross terms do NOT vanish / the |v|^2/2 mean
-    is wrong). Within that domain the multi-tone rule is derived, not chosen.
-    SCOPE: this is the C-state (V_inc) projection of the DP-1 envelope; the
-    same leaf's DP-3 R2-fix (substrate-perspective-electron.md:85-87) canonizes
-    the full (V_inc, Phi_link) tank form — for the traveling-wave content this
-    instrument measures the two agree, and the projection choice is a declared
-    operationalization for the G2 prereg to freeze, not a settled identity.
-    v_norm keys the per-sector yield (engine-natural 1.0 == V_SNAP for this
-    scalar channel)."""
+      mode="c-state"   : A_b^2 = sum_m (|v_m[fwd]|^2 + |v_m[bwd]|^2)/(2 v_norm^2)
+                         — the cycle mean of the DP-1 C-state projection row
+                         A^2_local = sum_ports V_inc^2 / V_SNAP^2
+                         (substrate-perspective-electron.md:55-60);
+      mode="full-tank" : A_b^2 = sum_m (|v_m[fwd]|^2 + |v_m[bwd]|^2)/(v_norm^2)
+                         — the cycle mean of the DP-3 R2-fix full reactive tank
+                         A^2_V = (V_inc^2 + Phi_link^2/(LC))/V_SNAP^2 (same
+                         leaf, :85-87), via the 45-degree rotation identity
+                         |v_f+v_b|^2 + |v_f-v_b|^2 == 2(|v_f|^2+|v_b|^2).
+
+    The two differ by EXACTLY sqrt(2) in A at fixed v_norm — an algebraic
+    identity, content-independent (receipted in the test suite). DP-1's own
+    prose points at the conserved reactive tank while its observable table
+    lists the C-state row as "the C-state projection of this envelope"; which
+    one feeds the Op2 kernel argument is the open adjudication. Default
+    "c-state" is PROPOSED, not canonical.
+
+    Cross-tone honesty: |v|^2/2 (or |v|^2) is a cycle mean; cross-tone terms
+    vanish only for distinct PHYSICAL tone lines — enforced here on the sols'
+    own thetas (canonical (0, pi), distinct), mirroring ToneSet's guard, since
+    this function accepts bare ToneSolution lists. v_norm keys the per-sector
+    yield (engine-natural 1.0 == V_SNAP for this scalar channel)."""
+    thetas = [float(s.theta) for s in sols]
+    for t in thetas:
+        if not (0.0 < t < np.pi):
+            raise ValueError(
+                f"tone {t} outside the canonical (0, pi): the cycle-mean envelope "
+                "rule is invalid for self-conjugate or conjugate-representation tones"
+            )
+    if len(set(thetas)) != len(thetas):
+        raise ValueError("degenerate tone lines: cross-tone terms would not vanish")
+    if mode not in ("c-state", "full-tank"):
+        raise ValueError(f"unknown envelope mode {mode!r} (c-state | full-tank)")
     acc = np.zeros(bt.n_bonds, dtype=np.float64)
     fwd = bt.bond_ports[:, 0]
     bwd = bt.bond_ports[:, 1]
     for sol in sols:
         vflat = sol.v.ravel()
-        acc += (np.abs(vflat[fwd]) ** 2 + np.abs(vflat[bwd]) ** 2) / 2.0
-    return np.sqrt(acc) / float(v_norm)
+        acc += np.abs(vflat[fwd]) ** 2 + np.abs(vflat[bwd]) ** 2
+    denom = 2.0 if mode == "c-state" else 1.0
+    return np.sqrt(acc / denom) / float(v_norm)
 
 
 @dataclass
@@ -593,6 +633,7 @@ def solve_self_consistent(
     A_init: "np.ndarray | None" = None,
     relax: float = 0.5,
     v_norm: float = 1.0,
+    envelope_mode: str = "c-state",
     outer_tol: float = 1e-10,
     max_outer: int = 200,
     Y0: float = 1.0,
@@ -604,7 +645,9 @@ def solve_self_consistent(
     iteration: A -> Y = Y0/sqrt(S(A)) -> per-tone linear phasor KCL solves ->
     DP-1 envelope -> A'. Convergence receipt: ||A' - A||_inf < outer_tol, with
     the per-tone fixed-point residuals carried per iteration. relax=1 is plain
-    Picard; smaller values damp envelope feedback near strong saturation."""
+    Picard; smaller values damp envelope feedback near strong saturation.
+    envelope_mode selects the OPEN normalization arm (see envelope_A_bond;
+    default "c-state" is PROPOSED, G2 freezes)."""
     conn = net.connect_index()
     solve_kwargs = dict(solve_kwargs or {})
     A = np.zeros(bt.n_bonds) if A_init is None else np.asarray(A_init, dtype=np.float64).copy()
@@ -628,7 +671,7 @@ def solve_self_consistent(
             )
             for m, th in enumerate(tones.thetas)
         ]
-        A_new = envelope_A_bond(bt, sols, v_norm=v_norm)
+        A_new = envelope_A_bond(bt, sols, v_norm=v_norm, mode=envelope_mode)
         dA = float(np.max(np.abs(A_new - A))) if bt.n_bonds else 0.0
         history.append(
             {

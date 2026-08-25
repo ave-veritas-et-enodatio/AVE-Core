@@ -175,6 +175,9 @@ class TestToneAndTermination:
         assert len(f_edge) > 0
         assert len(f_edge) == len(f_int)
         assert len(b_edge) == len(b_int)
+        # plane folding: an out-of-box plane maps to its canonical image
+        f_fold, b_fold = hb.crossing_ports(net, bt, 3.9 + 4.0)
+        assert np.array_equal(np.sort(f_fold), np.sort(f_edge))
 
     def test_termination_shape_guards(self, srs2):
         net, bt, conn = srs2
@@ -221,6 +224,45 @@ class TestEnvelope:
         ) / 2.0
         assert np.allclose(A, expect, atol=1e-14)
 
+    def test_envelope_normalization_fork_is_exactly_sqrt2(self, srs2):
+        """The OPEN envelope-normalization fork's receipt (re-audit, 2026-08-25):
+        the DP-3 full-tank arm exceeds the C-state arm by EXACTLY sqrt(2) in A
+        at fixed v_norm — an algebraic identity via
+        |v_f+v_b|^2 + |v_f-v_b|^2 == 2(|v_f|^2+|v_b|^2), content-independent.
+        The module claims no resolution (G2 freezes); this test pins the exact
+        relation so neither arm can silently drift."""
+        net, bt, conn = srs2
+        rng = np.random.default_rng(17)
+        v = rng.standard_normal((net.n_nodes, net.degree)) + 1j * rng.standard_normal(
+            (net.n_nodes, net.degree)
+        )
+        sol = hb.ToneSolution(theta=0.4, v=v, residual_rel=0.0, converged=True, n_matvec=0, method="synthetic")
+        A_c = hb.envelope_A_bond(bt, [sol], mode="c-state")
+        A_t = hb.envelope_A_bond(bt, [sol], mode="full-tank")
+        assert np.allclose(A_t, np.sqrt(2.0) * A_c, rtol=1e-14, atol=0.0)
+        # the identity behind the full-tank arm, verified directly on a bond
+        vf = v.ravel()[bt.bond_ports[:, 0]]
+        vb = v.ravel()[bt.bond_ports[:, 1]]
+        lhs = np.abs(vf + vb) ** 2 + np.abs(vf - vb) ** 2
+        rhs = 2.0 * (np.abs(vf) ** 2 + np.abs(vb) ** 2)
+        assert np.allclose(lhs, rhs, rtol=1e-14)
+        with pytest.raises(ValueError):
+            hb.envelope_A_bond(bt, [sol], mode="nonsense")
+
+    def test_envelope_validates_tone_lines(self, srs2):
+        """envelope_A_bond accepts bare ToneSolution lists, so it enforces the
+        canonical-domain precondition itself (re-audit hardening): out-of-domain
+        or degenerate tone lines raise."""
+        net, bt, conn = srs2
+        v = np.ones((net.n_nodes, net.degree), dtype=np.complex128)
+
+        def mk(th):
+            return hb.ToneSolution(theta=th, v=v, residual_rel=0.0, converged=True, n_matvec=0, method="synthetic")
+
+        for bad in ([mk(0.0)], [mk(np.pi)], [mk(4.0)], [mk(0.3), mk(0.3)]):
+            with pytest.raises(ValueError):
+                hb.envelope_A_bond(bt, bad)
+
 
 class TestDeEmbedding:
     def test_two_port_recovers_synthetic_exactly(self):
@@ -264,6 +306,10 @@ class TestDeEmbedding:
         """Consumer wiring for BondTable.b_mid (the taper-grading hook, the
         Class-C Rig's b_mid twin): midpoints lie in [0, box) and equal the
         wrapped mean of the unwrapped span."""
+        # PINNED to the srs2 (L=2) fixture: L=2 is the net where the
+        # np.mod==box float wart actually fires (raw midpoint -5.55e-17);
+        # L>=4 never trips it, so re-pointing this fixture would silently
+        # make the invariant assertion vacuous.
         net, bt, conn = srs2
         assert np.all((bt.b_mid >= 0.0) & (bt.b_mid < bt.box_cells))
         # equivalence modulo box against the unwrapped midpoint
@@ -543,12 +589,22 @@ class TestSelfConsistent:
         assert res1.converged
         dv = np.max(np.abs(res2.sols[0].v - res1.sols[0].v))
         assert dv > 1e-6  # the shared S-field genuinely couples the tones
-        # and the coupling channel is the S-field alone: on the COLD (frozen
-        # A=0) network the same two solves are tone-decoupled exactly
-        a_cold, _ = _cold(bt)
-        s_cold_2 = hb.solve_tone(a_cold, conn, 0.3, drive2, 0, warmstart=200)
-        s_cold_1 = hb.solve_tone(a_cold, conn, 0.3, drive1, 0, warmstart=200)
-        assert np.max(np.abs(s_cold_2.v - s_cold_1.v)) < 1e-10
+        # CAN-FIRE control (re-audit repair, 2026-08-25 — the earlier "cold
+        # decoupling control" compared two bitwise-identical solves and could
+        # never fail): the coupling channel is the S-field ALONE, so tone 0
+        # re-solved on the FROZEN 2-tone converged S-field, with tone 1's
+        # drive absent, must reproduce the 2-tone solution's tone-0 phasors.
+        # Any non-S coupling channel in the solve would break this.
+        Yb_frozen = hb.bond_admittance(res2.A_bond)
+        a_frozen, _ = hb.scatter_weights(bt, Yb_frozen)
+        s0_frozen = hb.solve_tone(a_frozen, conn, 0.3, drive1, 0, warmstart=400)
+        assert s0_frozen.residual_rel < 1e-8
+        assert np.max(np.abs(s0_frozen.v - res2.sols[0].v)) < 1e-7
+        # and the same re-solve on the SINGLE-tone converged S-field differs
+        # from the 2-tone tone-0 solution (the control can fire both ways)
+        a_single, _ = hb.scatter_weights(bt, hb.bond_admittance(res1.A_bond))
+        s0_single = hb.solve_tone(a_single, conn, 0.3, drive1, 0, warmstart=400)
+        assert np.max(np.abs(s0_single.v - res2.sols[0].v)) > 1e-6
 
 
 # ─────────────────────────────────────────────────────────────────────────────

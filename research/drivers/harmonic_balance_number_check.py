@@ -104,11 +104,15 @@ def main():
     checks.append(("g2 pass composes", g2["pass"] == all(p["pass"] for p in g2["points"])))
     checks.append(("g2 cold-null receipt recorded and sane",
                    0.0 <= g2["cold_null_abs_gamma"] < g2["tol_abs_floor"]))
-    # the raw single-load artifact receipt behind the note's ~10% claim: real
-    # (well above the de-embedded null) and sane (well below total reflection)
-    checks.append(("g2 single-load artifact receipt recorded and O(10%)",
-                   all(0.01 < g < 0.5 for g in g2["cold_single_load_gamma_raw"])
-                   and len(g2["cold_single_load_gamma_raw"]) == len(g2["load_planes"])))
+    # the raw single-load artifact receipt behind the note's "~0.10 per load
+    # plane" claim — BINDING, not a wide bracket (re-audit hardening): the
+    # note's band, plus the load-position-independence the note asserts
+    craw = g2["cold_single_load_gamma_raw"]
+    checks.append(("g2 single-load artifact receipt in the note's ~0.10 band",
+                   all(0.05 < g < 0.2 for g in craw)
+                   and len(craw) == len(g2["load_planes"]) and len(craw) > 0))
+    checks.append(("g2 artifact is load-position-independent (< 1e-5 spread)",
+                   len(craw) > 0 and (max(craw) - min(craw)) < 1e-5))
 
     # ── gate 3 ───────────────────────────────────────────────────────────────
     thr = g3["thresholds"]

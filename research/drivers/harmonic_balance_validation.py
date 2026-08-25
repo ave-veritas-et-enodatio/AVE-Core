@@ -207,7 +207,7 @@ def gate1(measured_sanity: dict) -> dict:
         f"rel {vel_rel:.3%} (tol {P['g1_velocity_tol']:.0%}) -> {'PASS' if vel_pass else 'FAIL'}")
     log(f"  arccos map: max|theta_arccos - theta| = {arccos_dev:.2e} rad "
         f"(tol {P['g1_arccos_tol']:.0e}) -> {'PASS' if arccos_pass else 'FAIL'}")
-    band_max_str = f"{max(band_devs):.3%}" if band_devs else "n/a (NO points in band -> FAIL)"
+    band_max_str = f"{max(band_devs):.3%}" if band_devs else "n/a (NO points in band)"
     log(f"  band edge: {len(in_band)} pts with k <= {k_edge_measured:.4f}, "
         f"max rel dev {band_max_str} (tol {P['g1_band_edge_tol']:.0%}) "
         f"-> {'PASS' if band_edge_pass else 'FAIL'}")
@@ -305,9 +305,10 @@ def gate2(measured: dict) -> dict:
     cold_raw = [d["gamma_raw_single_load"] for d in diag0]
     log(f"  cold null |Gamma(A=0)| = {cold_null:.2e} (deembed resid "
         f"{tp0['resid_rel']:.1e}; {time.time() - t0:.0f}s)")
-    log(f"  cold SINGLE-LOAD raw |Gamma| per load = "
-        f"{[round(g, 5) for g in cold_raw]} — the bond-matched-cut artifact the "
-        f"de-embedding removes (receipt for the note's artifact claim)")
+    log("  cold SINGLE-LOAD raw |Gamma| per load = "
+        + "[" + ", ".join(f"{float(g):.9f}" for g in cold_raw) + "]"
+        + " — the bond-matched-cut artifact the de-embedding removes "
+        "(receipt for the note's artifact claim; distinct floats per load)")
 
     points = []
     for r in valid_rows:
