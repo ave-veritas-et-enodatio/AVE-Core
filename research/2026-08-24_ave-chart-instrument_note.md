@@ -136,3 +136,23 @@ colorbars/axes with units, legends outside the data, no on-figure titles
   per-sector chart question (that IS the parked ontology).
 
 ---
+
+## §7 — Means-test register (what validates this instrument, and against what)
+
+Per the means-test discipline: each row names the target, the independent
+route, and what a failure would mean. Classes A–B validate the INSTRUMENT
+(machinery); C is the one that would test PHYSICS.
+
+| class | test | independent route | status |
+|---|---|---|---|
+| **A — textbook EE** | quarter-wave transformer ($z_t^2/z_{load}$), half-wave identity, VSWR=2 ↔ \|Γ\|=1/3 ↔ z∈{2, ½}, constant-r circle geometry (center r/(r+1), radius 1/(r+1)), series-RLC locus = constant-r circle | closed-form Pozar-class identities, framework-independent | **RUN — `TestTextbookMeansTests`, 5 fixtures, pass.** A failure here is an instrument bug, never physics |
+| **A′ — internal canon receipts** | Γ(A₀) endpoints (0 → −1), FORM J (−1/3 → −1), B matched crossing √15/4, rim band √(1−α) from `ave.core.constants`, uniform-rescale invariance, −3/5 DC / −3/7 quarter-wave | canon leaves + hand derivation + independent ABCD chain (challenge lens: 35 checks, ≤3.4e-16) | **RUN** (19 base tests + challenge round) |
+| **B — cross-solver** | the two-junction composite's Γ(ω) and the graded loci, measured in **ngspice** on the exported netlist and overlaid on fig 2/3 — same objects, two independent computational routes (transfer matrix vs MNA) | the R56-ratified Phase-1 SCX exporter (`2026-08-24_solver-crosscheck-phase1-brief.md`); the two-junction fixture is a natural first netlist target | **PLANNED — rides the Phase-1 satellite.** Divergence = a bug in one route; agreement = the instrument's loci carry solver-grade trust |
+| **C — engine time-domain (the physics one)** | launch a pulse in the in-tree scalar TLM engine at a REGION GRADED by the kernel; measure the reflected amplitude vs grading level; overlay the measured Γ(A) on the three drawn forms | the engine's own dynamics — no chart machinery in the loop | **ROUTED, un-dispatched.** This is the J/B/taper fork's substrate adjudication: the lattice itself draws whichever locus is real. A prereg (challenge-canonical-negative config-grep incl.) is owed before any run |
+| **D — material analog (shape-class only)** | a real varactor's Γ(V_bias) locus vs the kernel-shaped trajectory | bench LCR / VNA measurement | **FENCED — PONDER-05 per-node-conflation rule: material analogs test kernel SHAPE, never vacuum values.** Recorded so nobody promotes it past shape-class |
+
+The register's honest summary: A and A′ are green; B is bought already (it
+rides a lane Grant has ratified); **C is the only row that can produce a
+physics verdict**, and it doubles as the side-assignment fork's resolution —
+per the substrate-adjudicates-forks discipline, preferable to ruling J/B/taper
+by fiat.

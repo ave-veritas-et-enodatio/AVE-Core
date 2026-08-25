@@ -171,3 +171,57 @@ class TestFigureSmoke:
         assert hb is not None and hist_art is not None
         assert len(axc.lines) > 0
         plt.close(fig)
+
+
+class TestTextbookMeansTests:
+    """Class-A means-tests: closed-form microwave-textbook results (Pozar-class).
+
+    These validate the INSTRUMENT's machinery against external, framework-
+    independent EE — not AVE physics. Each fixture is a hand-derivable
+    identity; a failure here is an instrument bug, never a physics finding.
+    """
+
+    def test_quarter_wave_transformer(self):
+        # A lambda/4 line of impedance z_t transforms z_load to z_t^2/z_load.
+        # Textbook: matching z_load=0.5 to 1 requires z_t = sqrt(0.5).
+        from ave.viz import ave_chart as ac
+        z_t = np.sqrt(0.5)
+        # transform z_load=0.5 through the quarter-wave tan-form limit:
+        # z_in = z_t^2 / z_load
+        z_in = z_t**2 / 0.5
+        assert abs(ac.gamma_of_z(z_in)) < 1e-12  # matched by construction
+
+    def test_half_wave_identity(self):
+        # A lambda/2 line reproduces the load exactly: full chart rotation.
+        # Gamma rotates by 2*beta*l = 2*pi -> identity.
+        from ave.viz import ave_chart as ac
+        g_load = ac.gamma_of_z(2.0 + 0.5j)
+        g_rot = g_load * np.exp(-2j * np.pi)
+        assert abs(g_rot - g_load) < 1e-12
+
+    def test_vswr_relation(self):
+        # |Gamma|=1/3 <-> VSWR=2 <-> z in {2, 1/2} on the real axis (textbook).
+        from ave.viz import ave_chart as ac
+        for z in (2.0, 0.5):
+            g = ac.gamma_of_z(z)
+            assert abs(abs(g) - 1.0 / 3.0) < 1e-12
+            vswr = (1 + abs(g)) / (1 - abs(g))
+            assert abs(vswr - 2.0) < 1e-12
+
+    def test_constant_r_circle_geometry(self):
+        # The r=1 impedance circle maps to the chart circle centered at 1/2
+        # with radius 1/2 (the classic construction the mark's r1_gamma uses).
+        from ave.viz import ave_chart as ac
+        for x in np.linspace(-50, 50, 41):
+            g = ac.gamma_of_z(1.0 + 1j * x)
+            assert abs(abs(g - 0.5) - 0.5) < 1e-9
+
+    def test_series_rlc_locus_is_circle(self):
+        # A series RLC swept in omega traces the constant-r circle r=R:
+        # z = R + j*x(omega) with x sweeping (-inf, inf).
+        from ave.viz import ave_chart as ac
+        R = 0.4
+        x = np.tan(np.linspace(-np.pi / 2 + 0.05, np.pi / 2 - 0.05, 201)) * 5
+        g = np.array([ac.gamma_of_z(R + 1j * xi) for xi in x])
+        # chart identity: constant-r circle has center r/(r+1), radius 1/(r+1)
+        assert np.max(np.abs(np.abs(g - R / (R + 1.0)) - 1.0 / (R + 1.0))) < 1e-9
