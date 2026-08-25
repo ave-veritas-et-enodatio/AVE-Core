@@ -1,0 +1,132 @@
+{
+ "CS1_drift": 1.7285436267209967e-14,
+ "CS1_pass": true,
+ "CS4_dev": 1.4432899320127035e-15,
+ "CS4_pass": true,
+ "CS6a_leak": 0.0,
+ "CS6a_pass": true,
+ "CS2_factor": 0.5805130730650322,
+ "CS2_target": 0.5773502691896258,
+ "CS2_rel": 0.0054781370065795434,
+ "CS2_smallest_k": 0.5809720966453551,
+ "CS2_rel_smallest_k": 0.006273189169570986,
+ "CS2_k": [
+  0.09256006121163261,
+  0.18512012242326523,
+  0.2776801836348978,
+  0.37024024484653045
+ ],
+ "CS2_c": [
+  0.5809720966453552,
+  0.5790729604994074,
+  0.5758410976270356,
+  0.5759042743577051
+ ],
+ "CS2_k_edge": 0.37024024484653045,
+ "CS2_edge_is_bound_from_below": true,
+ "CS2_band_frac_analytic": 0.9736789250782585,
+ "CS2_band_frac_discrete": 0.9588026351607953,
+ "CS2_pass": true,
+ "t_cF": 19.866756764219463,
+ "sigma_t": 4.806280910444301,
+ "CS3_v_tof": 0.5694793887727583,
+ "CS3_c0": 0.5805130730650323,
+ "CS3_rel": 0.019006780043759622,
+ "CS3_pass": true,
+ "c_meas": 0.5805130730650323,
+ "CS6b": {
+  "TMAG": {
+   "max_abs_dev": 7.105427357601002e-15,
+   "angle": 0.7,
+   "steps": 100,
+   "pass": true
+  },
+  "TELEC": {
+   "max_abs_dev": 7.105427357601002e-15,
+   "angle": 0.7,
+   "steps": 100,
+   "pass": true
+  }
+ },
+ "CS6b_pass": true,
+ "CS7": {
+  "TMAG_A0.5": {
+   "A": 0.5,
+   "load": "magnetic",
+   "Y_module": 1.074569931823542,
+   "Y_ref": 1.074569931823542,
+   "abs_dev": 0.0,
+   "pass": true
+  },
+  "TMAG_A0.9": {
+   "A": 0.9,
+   "load": "magnetic",
+   "Y_module": 1.5146475955500731,
+   "Y_ref": 1.5146475955500731,
+   "abs_dev": 0.0,
+   "pass": true
+  },
+  "TELEC_A0.5": {
+   "A": 0.5,
+   "load": "electric",
+   "Y_module": 0.9306048591020996,
+   "Y_ref": 0.9306048591020996,
+   "abs_dev": 0.0,
+   "pass": true
+  },
+  "TELEC_A0.9": {
+   "A": 0.9,
+   "load": "electric",
+   "Y_module": 0.6602195804079635,
+   "Y_ref": 0.6602195804079635,
+   "abs_dev": 0.0,
+   "pass": true
+  }
+ },
+ "CS7_pass": true,
+ "CT1": {
+  "dev_diag": 5.551115123125783e-17,
+  "dev_off": 0.0,
+  "dev_vs_bedrock": 0.0,
+  "pass": true
+ },
+ "CT1_pass": true,
+ "T1": {
+  "TMAG": {
+   "t1a": {
+    "max_abs_dev": 1.1102230246251565e-16,
+    "pass": true
+   },
+   "t1b": {
+    "n_deviating": 2304,
+    "n_mixed": 2304,
+    "sets_equal": true,
+    "max_dev": 0.17030194153618394,
+    "pass": true
+   }
+  },
+  "TELEC": {
+   "t1a": {
+    "max_abs_dev": 1.1102230246251565e-16,
+    "pass": true
+   },
+   "t1b": {
+    "n_deviating": 2304,
+    "n_mixed": 2304,
+    "sets_equal": true,
+    "max_dev": 0.1952391457213417,
+    "pass": true
+   }
+  }
+ },
+ "T1_pass": true,
+ "CS5_eps": {
+  "TMAG": 0.005454134460539189,
+  "TELEC": 0.005454134460539189
+ },
+ "CS5_eps0": 0.005454134460539189,
+ "CS5_pass": true,
+ "theta": 0.05,
+ "delta": 0.01,
+ "R1_pass": true
+}

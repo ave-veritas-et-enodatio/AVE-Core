@@ -1,0 +1,187 @@
+
+==============================================================================
+DRIVER PARAMETERS (all values actually used; no silent defaults)
+==============================================================================
+  L = 24
+  enantiomorph = right
+  x_s = 2.0
+  x_p = 6.0
+  x_I = 9.0
+  x_B = 15.0
+  W_slab = 6.0
+  wrap_margin_cells = 11.0
+  sigma_x_cells = 1.5
+  back_monitor_x = 15.5
+  sentinel_x = 19.5
+  sentinel_thresh = 0.01
+  bm_measurable_frac = 0.01
+  A_grid = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.85, 0.9, 0.925, 0.95, 0.9682, 0.98, 0.99]
+  T_cold = 200
+  T_run = 170
+  hard_cap = 6000
+  guard_sigmas = 2.0
+  discord_tol = 0.2
+  discord_max_pts = 4
+  cs2_tol = 0.02
+  cs2_band_dev = 0.05
+  cs2_band_frac = 0.95
+  cs3_tol = 0.05
+  cs1_drift = 1e-10
+  cs4_dev = 1e-12
+  v2_drift = 1e-08
+  cs5_cap = 0.02
+  theta_floor = 0.05
+  delta_floor = 0.01
+  cs6a_tol = 1e-14
+  cs6b_tol = 1e-12
+  cs6b_angle = 0.7
+  cs6b_A = 0.9
+  cs7_tol = 1e-12
+  cs7_A = (0.5, 0.9)
+  ct1_tol = 1e-15
+  r2_tol = 1e-06
+  v5_leak = 1e-12
+  sweep_closes_base = (60, 64, 70, 74)
+  stability_closes = (70, 74)
+  tail_span = 8
+  tail_frac = 0.02
+  stab_median_frac = 0.1
+  trunc_count = 3
+  floor_min_pts = 3
+  mirror_min_pts = 3
+  dispersion_axis = 0
+  m_values = (1, 2, 3, 4)
+  n_steps_disp = 800
+  results = /Users/grantlindblom/AVE-staging/AVE-Core-worktrees/static-existence-s1/research/drivers/transverse_gamma_meanstest_results.json
+  rawdir = /Users/grantlindblom/AVE-staging/AVE-Core-worktrees/static-existence-s1/research/drivers/data/transverse_gamma_meanstest
+  figstem = /Users/grantlindblom/AVE-staging/AVE-Core-worktrees/static-existence-s1/research/figures/2026-08-24-transverse-gamma-meanstest/fig1_gamma_overlay
+  banked = /Users/grantlindblom/AVE-staging/AVE-Core-worktrees/static-existence-s1/research/drivers/engine_gamma_meanstest_results.json
+
+Net: srs[right], carrier=srs-z3, N=110592 nodes, degree=3, box=24 cells (a_cell=2.828427)
+Bonds: 165888; probe bonds: 1152; back-monitor bonds: 1152; sentinel bonds: 1152
+Launch: +x, comp-0 polarized; peak = 0.7047
+
+==============================================================================
+PRE-GRADED GATES (prereg 5) — CS-1..CS-4, CS-6, CS-7, CT-1
+==============================================================================
+CS-1 vector energy drift (uniform, 200 steps): 1.729e-14 (gate < 1e-10) -> PASS
+CS-4 all-cold vector-vs-scalar regression: max|dV| = 1.443e-15 (gate <= 1e-12) -> PASS
+CS-6a decoupling: max comp-1 = 0.000e+00 (gate <= 1e-14) -> PASS
+CS-2 network factor: polyfit 0.580513 (rel 0.5478%), smallest-k 0.580972 (rel 0.6273%) vs 1/sqrt(3); gate < 2% each
+CS-2 band edge k <= 0.3702 (bound-from-below: ALL sampled k in band); pulse fraction below edge: analytic 0.97368 / discrete 0.95880 (gate >= 0.95) -> PASS
+CS-3 TOF velocity: 0.56948 vs c0 0.58051 (rel 1.9007%, gate < 5%) -> PASS; t_cF = 19.87, sigma_t = 4.81
+CS-6b SO(2) equivariance [TMAG/magnetic] @A=0.9: max|d| = 7.105e-15 (gate <= 1e-12) -> PASS
+CS-6b SO(2) equivariance [TELEC/electric] @A=0.9: max|d| = 7.105e-15 (gate <= 1e-12) -> PASS
+CS-7 reconcile [TMAG/magnetic] A=0.5: |dY| = 0.00e+00 (gate <= 1e-12) -> PASS
+CS-7 reconcile [TMAG/magnetic] A=0.9: |dY| = 0.00e+00 (gate <= 1e-12) -> PASS
+CS-7 reconcile [TELEC/electric] A=0.5: |dY| = 0.00e+00 (gate <= 1e-12) -> PASS
+CS-7 reconcile [TELEC/electric] A=0.9: |dY| = 0.00e+00 (gate <= 1e-12) -> PASS
+CT-1 implementation identity: dev_diag 5.6e-17, dev_off 0.0e+00, vs bedrock 0.0e+00 (gate <= 1e-15) -> PASS [implementation receipt only; prereg 2.6]
+T1 [TMAG]: (a) uniform-collapse max|d| = 1.11e-16 PASS; (b) boundary-set 2304/2304 nodes, sets_equal=True, max_dev = 0.170 PASS
+T1 [TELEC]: (a) uniform-collapse max|d| = 1.11e-16 PASS; (b) boundary-set 2304/2304 nodes, sets_equal=True, max_dev = 0.195 PASS
+
+==============================================================================
+GRADED SWEEPS (16 A-points x 2 loadings) — DATA COLLECTION ONLY
+==============================================================================
+  TMAG A=0.0     graded_bonds=0     E_Y drift=1.48e-14 sha_ok=True c1_leak=0.0e+00
+  TMAG A=0.1     graded_bonds=40320 E_Y drift=5.51e-15 sha_ok=True c1_leak=0.0e+00
+  TMAG A=0.2     graded_bonds=40320 E_Y drift=1.45e-14 sha_ok=True c1_leak=0.0e+00
+  TMAG A=0.3     graded_bonds=40320 E_Y drift=5.81e-15 sha_ok=True c1_leak=0.0e+00
+  TMAG A=0.4     graded_bonds=40320 E_Y drift=1.41e-14 sha_ok=True c1_leak=0.0e+00
+  TMAG A=0.5     graded_bonds=40320 E_Y drift=5.35e-15 sha_ok=True c1_leak=0.0e+00
+  TMAG A=0.6     graded_bonds=40320 E_Y drift=1.45e-14 sha_ok=True c1_leak=0.0e+00
+  TMAG A=0.7     graded_bonds=40320 E_Y drift=1.36e-14 sha_ok=True c1_leak=0.0e+00
+  TMAG A=0.8     graded_bonds=40320 E_Y drift=1.36e-14 sha_ok=True c1_leak=0.0e+00
+  TMAG A=0.85    graded_bonds=40320 E_Y drift=5.05e-15 sha_ok=True c1_leak=0.0e+00
+  TMAG A=0.9     graded_bonds=40320 E_Y drift=4.59e-15 sha_ok=True c1_leak=0.0e+00
+  TMAG A=0.925   graded_bonds=40320 E_Y drift=4.28e-15 sha_ok=True c1_leak=0.0e+00
+  TMAG A=0.95    graded_bonds=40320 E_Y drift=1.28e-14 sha_ok=True c1_leak=0.0e+00
+  TMAG A=0.9682  graded_bonds=40320 E_Y drift=1.30e-14 sha_ok=True c1_leak=0.0e+00
+  TMAG A=0.98    graded_bonds=40320 E_Y drift=3.52e-15 sha_ok=True c1_leak=0.0e+00
+  TMAG A=0.99    graded_bonds=40320 E_Y drift=1.32e-14 sha_ok=True c1_leak=0.0e+00
+  TELEC A=0.0     graded_bonds=0     E_Y drift=1.48e-14 sha_ok=True c1_leak=0.0e+00
+  TELEC A=0.1     graded_bonds=40320 E_Y drift=1.41e-14 sha_ok=True c1_leak=0.0e+00
+  TELEC A=0.2     graded_bonds=40320 E_Y drift=1.45e-14 sha_ok=True c1_leak=0.0e+00
+  TELEC A=0.3     graded_bonds=40320 E_Y drift=1.42e-14 sha_ok=True c1_leak=0.0e+00
+  TELEC A=0.4     graded_bonds=40320 E_Y drift=5.66e-15 sha_ok=True c1_leak=0.0e+00
+  TELEC A=0.5     graded_bonds=40320 E_Y drift=1.39e-14 sha_ok=True c1_leak=0.0e+00
+  TELEC A=0.6     graded_bonds=40320 E_Y drift=1.41e-14 sha_ok=True c1_leak=0.0e+00
+  TELEC A=0.7     graded_bonds=40320 E_Y drift=1.39e-14 sha_ok=True c1_leak=0.0e+00
+  TELEC A=0.8     graded_bonds=40320 E_Y drift=5.97e-15 sha_ok=True c1_leak=0.0e+00
+  TELEC A=0.85    graded_bonds=40320 E_Y drift=5.35e-15 sha_ok=True c1_leak=0.0e+00
+  TELEC A=0.9     graded_bonds=40320 E_Y drift=5.81e-15 sha_ok=True c1_leak=0.0e+00
+  TELEC A=0.925   graded_bonds=40320 E_Y drift=1.44e-14 sha_ok=True c1_leak=0.0e+00
+  TELEC A=0.95    graded_bonds=40320 E_Y drift=1.44e-14 sha_ok=True c1_leak=0.0e+00
+  TELEC A=0.9682  graded_bonds=40320 E_Y drift=1.36e-14 sha_ok=True c1_leak=0.0e+00
+  TELEC A=0.98    graded_bonds=40320 E_Y drift=1.45e-14 sha_ok=True c1_leak=0.0e+00
+  TELEC A=0.99    graded_bonds=40320 E_Y drift=1.39e-14 sha_ok=True c1_leak=0.0e+00
+
+==============================================================================
+WINDOW DERIVATION (pinned Class-C rule) + R-1
+==============================================================================
+  TMAG: incident=[10, 29], reflected=[30, 78], wrap-arrival=87.776, back-return=112.48287042732018, bm-dropped=0, constructible=True
+  TELEC: incident=[10, 29], reflected=[30, 78], wrap-arrival=87.776, back-return=112.67244674538057, bm-dropped=0, constructible=True
+  R-1 (TMAG only): derived [10, 29]/[30, 78] vs banked [10, 29]/[30, 78] -> PASS
+
+==============================================================================
+CS-5 NULL CALIBRATION (A=0 through the full pipeline)
+==============================================================================
+  TMAG: |Gamma(0)| = 0.00545 (|G|_E = 0.01831, tau*=8) gate < 0.02
+  TELEC: |Gamma(0)| = 0.00545 (|G|_E = 0.01831, tau*=8) gate < 0.02
+  eps0 = 0.00545; theta = 0.05000; delta = 0.01000 -> PASS
+
+==============================================================================
+EXTRACTION + WINDOW-CONVERGENCE RECEIPTS [4.4]
+==============================================================================
+  TMAG A=0.0     G=-0.00545 |G|_E=0.01831 tau*=   8 disc=0.257 tail=0.060 UNRELIABLE
+  TMAG A=0.1     G=-0.00556 |G|_E=0.01835 tau*=   8 disc=0.256 tail=0.060 UNRELIABLE
+  TMAG A=0.2     G=-0.00536 |G|_E=0.01904 tau*=  30 disc=0.274 tail=0.054 UNRELIABLE
+  TMAG A=0.3     G=-0.01203 |G|_E=0.02190 tau*=  30 disc=0.197 tail=0.040 
+  TMAG A=0.4     G=-0.02201 |G|_E=0.02877 tau*=  30 disc=0.135 tail=0.022 
+  TMAG A=0.5     G=-0.03613 |G|_E=0.04089 tau*=  30 disc=0.095 tail=0.010 
+  TMAG A=0.6     G=-0.05586 |G|_E=0.05955 tau*=  30 disc=0.062 tail=0.004 
+  TMAG A=0.7     G=-0.08402 |G|_E=0.08730 tau*=  30 disc=0.037 tail=0.002 
+  TMAG A=0.8     G=-0.12695 |G|_E=0.13038 tau*=  30 disc=0.026 tail=0.001 
+  TMAG A=0.85    G=-0.15872 |G|_E=0.16249 tau*=  30 disc=0.023 tail=0.000 
+  TMAG A=0.9     G=-0.20436 |G|_E=0.20876 tau*=  30 disc=0.021 tail=0.000 
+  TMAG A=0.925   G=-0.23690 |G|_E=0.24181 tau*=  30 disc=0.020 tail=0.000 
+  TMAG A=0.95    G=-0.28248 |G|_E=0.28816 tau*=  30 disc=0.020 tail=0.000 
+  TMAG A=0.9682  G=-0.33243 |G|_E=0.33899 tau*=  30 disc=0.019 tail=0.000 
+  TMAG A=0.98    G=-0.38211 |G|_E=0.38957 tau*=  30 disc=0.019 tail=0.000 
+  TMAG A=0.99    G=-0.45280 |G|_E=0.46149 tau*=  31 disc=0.019 tail=0.000 
+  TMAG: informative-unreliable tally = 0 (INVALID if > 4) -> invalid=False
+  TMAG stability: S1=False, WINDOW-SENSITIVE=[], TRUNCATION-SUSPECT=[0.3, 0.4], median-frac=0.0000, S3=False
+  TELEC A=0.0     G=-0.00545 |G|_E=0.01831 tau*=   8 disc=0.257 tail=0.060 UNRELIABLE
+  TELEC A=0.1     G=-0.00534 |G|_E=0.01835 tau*=   8 disc=0.260 tail=0.060 UNRELIABLE
+  TELEC A=0.2     G=+0.00536 |G|_E=0.01901 tau*=  32 disc=0.273 tail=0.057 UNRELIABLE
+  TELEC A=0.3     G=+0.01192 |G|_E=0.02185 tau*=  32 disc=0.199 tail=0.045 
+  TELEC A=0.4     G=+0.02177 |G|_E=0.02869 tau*=  31 disc=0.138 tail=0.028 
+  TELEC A=0.5     G=+0.03588 |G|_E=0.04080 tau*=  31 disc=0.098 tail=0.015 
+  TELEC A=0.6     G=+0.05561 |G|_E=0.05945 tau*=  31 disc=0.065 tail=0.008 
+  TELEC A=0.7     G=+0.08376 |G|_E=0.08720 tau*=  31 disc=0.039 tail=0.004 
+  TELEC A=0.8     G=+0.12667 |G|_E=0.13028 tau*=  31 disc=0.028 tail=0.002 
+  TELEC A=0.85    G=+0.15844 |G|_E=0.16240 tau*=  31 disc=0.024 tail=0.002 
+  TELEC A=0.9     G=+0.20406 |G|_E=0.20868 tau*=  31 disc=0.022 tail=0.001 
+  TELEC A=0.925   G=+0.23659 |G|_E=0.24174 tau*=  31 disc=0.021 tail=0.001 
+  TELEC A=0.95    G=+0.28219 |G|_E=0.28809 tau*=  30 disc=0.020 tail=0.001 
+  TELEC A=0.9682  G=+0.33224 |G|_E=0.33894 tau*=  30 disc=0.020 tail=0.001 
+  TELEC A=0.98    G=+0.38202 |G|_E=0.38953 tau*=  30 disc=0.019 tail=0.001 
+  TELEC A=0.99    G=+0.45281 |G|_E=0.46147 tau*=  30 disc=0.019 tail=0.001 
+  TELEC: informative-unreliable tally = 0 (INVALID if > 4) -> invalid=False
+  TELEC stability: S1=False, WINDOW-SENSITIVE=[], TRUNCATION-SUSPECT=[0.3, 0.4], median-frac=0.0000, S3=False
+
+==============================================================================
+CLASSIFIERS + R-2/R-3 + FROZEN VERDICTS [6.2/6.3/6.4]
+==============================================================================
+  TMAG classifiers: {'n_valid': 13, 'SIGN_top': -1.0, 'SIGN_top_A': 0.99, 'crossings': [], 'MONOTONE': True, 'monotone_dir': 'dec', 'floor_intercept': 0.024801126116737477, 'FLOOR': False}
+  TMAG delta-sign profile: [(0.3, -1.0), (0.4, -1.0), (0.5, -1.0), (0.6, -1.0), (0.7, -1.0), (0.8, -1.0), (0.85, -1.0), (0.9, -1.0), (0.925, -1.0), (0.95, -1.0), (0.9682, -1.0), (0.98, -1.0), (0.99, -1.0)]
+  TELEC classifiers: {'n_valid': 13, 'SIGN_top': 1.0, 'SIGN_top_A': 0.99, 'crossings': [], 'MONOTONE': True, 'monotone_dir': 'inc', 'floor_intercept': -0.02472848749596997, 'FLOOR': False, 'SHAPE': 'ELEC-CORE-like'}
+  TELEC delta-sign profile: [(0.3, 1.0), (0.4, 1.0), (0.5, 1.0), (0.6, 1.0), (0.7, 1.0), (0.8, 1.0), (0.85, 1.0), (0.9, 1.0), (0.925, 1.0), (0.95, 1.0), (0.9682, 1.0), (0.98, 1.0), (0.99, 1.0)]
+  R-2: max |G_TMAG - G_GJ,banked| = 1.665e-16 (gate < 1e-06) -> PASS
+  R-3: {'sign_top': True, 'crossings': True, 'monotone_dir': True, 'window_stable': True, 'sign_top_defined': True} -> PASS; per-point flag diffs vs banked (reported, not gated): []
+  MIRROR: {'n_points': 10, 'max': 0.004512607305567733, 'median': 0.0013949070961083048}
+  VERDICT T-MAG: REPRODUCED (reproduction gate; machinery receipt only)
+  VERDICT T-ELEC: DRAWS-OPEN  (0 theta-crossing(s); SHAPE per 6.2 = ELEC-CORE-like)
+
+Wrote /Users/grantlindblom/AVE-staging/AVE-Core-worktrees/static-existence-s1/research/drivers/data/transverse_gamma_meanstest/raw_*.json and /Users/grantlindblom/AVE-staging/AVE-Core-worktrees/static-existence-s1/research/drivers/transverse_gamma_meanstest_results.json
+Figure written: ['/Users/grantlindblom/AVE-staging/AVE-Core-worktrees/static-existence-s1/research/figures/2026-08-24-transverse-gamma-meanstest/fig1_gamma_overlay.pdf', '/Users/grantlindblom/AVE-staging/AVE-Core-worktrees/static-existence-s1/research/figures/2026-08-24-transverse-gamma-meanstest/fig1_gamma_overlay.png']
