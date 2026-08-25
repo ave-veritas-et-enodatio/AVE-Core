@@ -161,3 +161,17 @@ carries undischarged adversarial-panel caveats (cold-geometry conditional); (iii
 buys nothing operationally — the next step is building the discriminator either way;
 (iv) KEEP-ALL-THREE preserves the legacy arms pending the routed baryon-lane
 reconciliation.
+
+---
+
+**ROUTE-3 OUTCOME (2026-08-24, recorded post-merge of PR #1001 — the update
+promised at merge time).** Result doc:
+`research/2026-08-24_theta-route3-balanced-polyphase_result.md` — headline as
+merged: **ill-posed on BOTH channels — D1/B5 reach the frozen 3-port reading.**
+The D1 share-vs-angle type error is channel-independent; B6 applies on both
+channels; the WEIGHT-BOUNDING NOTE carries the only verified quantitative
+statement. Consequence for this item: **the thirds stay imported** — route 3
+neither derives nor forbids them. Untested residue: only D2's spatial half.
+Route 4 remains blocked on a γ_c engine primitive — and note the pending
+γ_c/G_c ruling (`2026-08-24-gammac-gc-modulus-identity.md`) may change which
+modulus route 4's primitive even is; do not build it before that ruling.
