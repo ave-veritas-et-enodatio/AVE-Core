@@ -90,7 +90,15 @@ def frozen_driver_params():
             and isinstance(node.targets[0], ast.Name)
             and node.targets[0].id == "P"
         ):
-            return ast.literal_eval(node.value)
+            try:
+                return ast.literal_eval(node.value)
+            except (ValueError, SyntaxError) as exc:
+                # A non-literal P (a computed constant, an import) would make the
+                # frozen source unreadable. Fail loud rather than fall through to
+                # `None`, which the caller would report as a missing block.
+                fail(f"the driver's `P` block is no longer a literal ({exc}) — the "
+                     "tolerance reconciliation cannot read its frozen source. Keep P a "
+                     "literal dict, or point the reconciler at whatever replaced it.")
     return None
 
 
