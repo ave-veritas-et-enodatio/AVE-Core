@@ -604,6 +604,9 @@
 {"source": "clm-rd9cjm", "target": "clm-iouqn9", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-refjr6", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Universal Saturation Kernel — $\\mu_{eff}\\to0$ at $T_c$", "fraction": null}
 {"source": "clm-refjr6", "target": "clm-gdd70j", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-relcnc", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Substrate Topology — the phase-only node graph; no sub-graph anchor to read an absolute against, so admissible observables are relational", "fraction": null}
+{"source": "clm-relcnc", "target": "clm-acdc07", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": 0.55, "strength": null, "context": null, "fraction": null}
+{"source": "clm-relcnc", "target": "clm-v3port", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": 0.83, "strength": null, "context": null, "fraction": null}
 {"source": "clm-rg7cls", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "yield limit defining Regime II at the covalent-bond core", "fraction": null}
 {"source": "clm-rg7cls", "target": "clm-a034pf", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-rg7cls", "target": "clm-yyhczl", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
