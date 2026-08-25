@@ -81,11 +81,20 @@ counting fact is scalar-scoped, `srs-vertex-scattering.md:24`).
 Own frozen prereg + result pair, full Class-C discipline. Independently
 valuable whatever P2 does; also the null baseline for P2.
 
-**P2 — The static-existence run.** Impose the winding texture per the
-G1-walked map; relax (impose-and-relax ONLY); measure whether S rails at a
-localized core, against P1's passive baseline. Frozen prereg carries every §5
-guard. This run may also bear on the OPEN topological-vs-dynamic route
-question — if so, the substrate adjudicates, not fiat.
+**P2 — The autonomous-mode existence solve.** ★ REWRITTEN at the G1 walk
+(2026-08-24,
+[`research/2026-08-24_g1-ac-steady-state-walk_RECORD.md`](../research/2026-08-24_g1-ac-steady-state-walk_RECORD.md)
+— Grant's pushbacks refuted the impose-and-relax framing; pre-walk text
+preserved in git). The (2,3) is an AC steady state — *"everything moves,
+nothing changes"* — so the test is **harmonic balance on the graded network**:
+posit the 2:3 tone set, solve phasor-domain Kirchhoff with the varactor
+tone-mixing, and apply the **source-idle criterion** — the scaffold sources
+must go idle at the solution (the self-clamp takes over). DISPROVE,
+pre-frozen: no source-idle solution with a railed core. Verdict observables:
+S-railing + the projected M/Q on two imposition representatives (the ppt
+equivalence receipt), against P1's passive baseline and the ppt consistency
+ceiling. Frozen prereg carries every §5 guard; the substrate adjudicates any
+route question it reaches.
 
 **P3 — Adjudication + propagation (gated follow-on, per the
 canonical-propagation discipline).** Eigenmode-existence item resolution;
@@ -95,11 +104,12 @@ notes; manuscript lockstep. Nothing propagates before adversarial review.
 ## §4 — Gates
 
 - **G0 (this epic lands):** P0 fires.
-- **G1 (before P1/P2 prereg): the ontology walk with Grant, in chat.** The
-  imposition map is a load-bearing ontology ("what the imposed thing IS") —
-  per the walk-before-execute and pre-test-physics-check trigger-8
-  disciplines, it is walked with Grant BEFORE any expensive dispatch. P0's
-  packet is the walk's input. **A wrong noun here wastes the whole arc.**
+- **G1 — WALKED 2026-08-24, outcome recorded.** The walk refuted the
+  packet's impose-and-relax framing and produced the AC-steady-state /
+  harmonic-balance / source-idle reformulation
+  ([`research/2026-08-24_g1-ac-steady-state-walk_RECORD.md`](../research/2026-08-24_g1-ac-steady-state-walk_RECORD.md)).
+  The wrong noun was caught exactly where this gate said it would be. Two
+  residual choices ride PROPOSED into G2 (scaffold form; observable set).
 - **G2 (before the P2 run): the frozen prereg**, with the §5 guard set
   discharged in writing, author firewalled from results, deviations logged.
 - **G3 (before P3): adversarial verify** (≥3 lenses) on the P2 result; the
