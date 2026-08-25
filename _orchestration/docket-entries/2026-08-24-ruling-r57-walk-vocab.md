@@ -33,3 +33,24 @@ with EE native, is this a universal scale invariant?"*
   carve is the content).
 - **Q2 (the tube-phase glyph): still OPEN** — sharpened by A4's near-miss;
   orchestrator recommendation moved to re-derive a fresh glyph.
+
+---
+
+## ADDENDUM (same day) — Q2 resolved: the tube-phase glyph is ϖ
+
+**Grant, verbatim:** *"rederive fresh"* (the derivation order) and, on the
+vetted menu, *"ruled fir varpi"*.
+
+The derivation chain: reserved-glyph map → the notation-derived candidate ψ₀
+**killed at independent verification** (3 distinct objects incl. the vol_4
+published surface; the subscript-0 misread biases the #416/#417
+static-vs-orbit fork) → **ϖ the only genuinely unclaimed candidate** (0 hits,
+all forms, pinned tree + whole workspace, two lanes, independent patterns),
+carried by the longitude-of-pericenter derivation. **Bare "α" is confined to
+the fine-structure constant by rule.** def-tubalf: HELD → SOLID.
+Propagation rows: epic guard-8 wording (next orchestration PR); the frozen
+walk/epic/packet documents keep historical "α" unrewritten; channel-repo
+`smith_sim.py` `alpha` (their court, cross-repo followups). Process note
+banked to the orchestrator's memory: the verify lane also caught a
+workflow-payload interpolation bug (agents must flag literal payloads) —
+the flag is what kept an un-swept menu from reaching Grant.

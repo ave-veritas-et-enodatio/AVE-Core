@@ -576,3 +576,7 @@ three want re-pinning or dropping by whoever owns that node.
 says the means-test result is *"(research pair, PR pending)"*.** That PR is
 **#1010, merged** (`119ef8f2`). One-word staleness on a leaf this package cites;
 surfaced for the owning lane.
+
+---
+
+**RESOLUTION STAMP (2026-08-24, R57 + addendum):** all seven dispositions ruled; Q1 resolved at A6 (ratified WITH the in-lattice caveat); Q2 resolved — glyph **ϖ** (*"ruled fir varpi"*). This packet is now a closed decision record.
