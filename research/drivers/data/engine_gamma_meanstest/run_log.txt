@@ -1,0 +1,225 @@
+
+==============================================================================
+DRIVER PARAMETERS (all values actually used; no silent defaults)
+==============================================================================
+  L = 24
+  enantiomorph = right
+  x_s = 2.0
+  x_p = 6.0
+  x_I = 9.0
+  x_B = 15.0
+  W_slab = 6.0
+  N_taper = 3.0
+  wrap_margin_cells = 11.0
+  sigma_x_cells = 1.5
+  back_monitor_x = 15.5
+  sentinel_x = 19.5
+  sentinel_thresh = 0.01
+  A_grid = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.85, 0.9, 0.925, 0.95, 0.9682, 0.98, 0.99]
+  T_cold = 200
+  T_run = 170
+  hard_cap = 6000
+  guard_sigmas = 2.0
+  discord_tol = 0.2
+  discord_max_pts = 4
+  cs2_tol = 0.02
+  cs2_band_dev = 0.05
+  cs2_band_frac = 0.95
+  cs3_tol = 0.05
+  cs1_drift = 1e-10
+  cs4_dev = 1e-12
+  v2_drift = 1e-08
+  cs5_cap = 0.02
+  theta_floor = 0.05
+  delta_floor = 0.01
+  taper_factor = 0.5
+  taper_band = (0.5, 0.9)
+  dispersion_axis = 0
+  m_values = (1, 2, 3, 4)
+  n_steps_disp = 800
+  [amendment] close_extended = 85
+  [amendment] close_sweep = (60, 64, 70, 78, 85, 95)
+  [amendment] tail_frozen = (79, 86)
+  [amendment] tail_extended = (86, 87)
+  engine src   = /Users/grantlindblom/AVE-staging/AVE-Core/src
+  chart module = /private/tmp/claude-501/-Users-grantlindblom-AVE-staging/91b867e5-bc0e-42d5-9d27-3ec2573c4b62/scratchpad/avechart/src/ave/viz/ave_chart.py
+  results out  = /private/tmp/claude-501/-Users-grantlindblom-AVE-staging/91b867e5-bc0e-42d5-9d27-3ec2573c4b62/scratchpad/gammac-test/data/results.json
+  raw dir      = /private/tmp/claude-501/-Users-grantlindblom-AVE-staging/91b867e5-bc0e-42d5-9d27-3ec2573c4b62/scratchpad/gammac-test/data
+  figure stem  = /private/tmp/claude-501/-Users-grantlindblom-AVE-staging/91b867e5-bc0e-42d5-9d27-3ec2573c4b62/scratchpad/gammac-test/gamma_overlay
+
+Net: srs[right], carrier=srs-z3, N=110592 nodes, degree=3, box=24 cells (a_cell=2.828427, bond length=1.0 Cartesian)
+Bonds: 165888; probe bonds crossing x_p=6.0: 1152; back-monitor bonds: 1152; sentinel bonds crossing x=19.5: 1152
+Launch: +x-propagating (weight max(0, -x.b_hat), deviation D2); peak amplitude = 0.7047
+
+==============================================================================
+COLD SANITY GATE (prereg 5) — run first; VOID on any failure
+==============================================================================
+CS-1 energy drift (uniform, 200 steps): 1.667e-14 (gate < 1e-10) -> PASS
+CS-4 graded-path regression (all-cold, 200 steps): max|dV| = 1.776e-15 (gate <= 1e-12) -> PASS
+CS-2 network factor: measured 0.580513 vs analytic 0.577350 (rel dev 0.5478%, gate < 2%)
+CS-2 c(k): ['0.5810', '0.5791', '0.5758', '0.5759'] at k = ['0.0926', '0.1851', '0.2777', '0.3702']; band edge k <= 0.3702
+CS-2 pulse band fraction below edge: analytic 0.97368, discrete-FFT 0.95880 (gate >= 0.95) -> PASS
+CS-3 TOF velocity source->probe: 0.56948 vs c0 0.58051 (rel dev 1.9007%, gate < 5%) -> PASS; t_centroid = 19.87, sigma_t = 4.81 steps
+
+==============================================================================
+GRADED SWEEPS (16 A-points x 3 configs) — data collection
+==============================================================================
+  GJ A=0.0     graded_bonds=0     E_Y drift=1.48e-14 sha_ok=True
+  GJ A=0.1     graded_bonds=40320 E_Y drift=5.81e-15 sha_ok=True
+  GJ A=0.2     graded_bonds=40320 E_Y drift=1.47e-14 sha_ok=True
+  GJ A=0.3     graded_bonds=40320 E_Y drift=6.12e-15 sha_ok=True
+  GJ A=0.4     graded_bonds=40320 E_Y drift=1.44e-14 sha_ok=True
+  GJ A=0.5     graded_bonds=40320 E_Y drift=5.81e-15 sha_ok=True
+  GJ A=0.6     graded_bonds=40320 E_Y drift=1.50e-14 sha_ok=True
+  GJ A=0.7     graded_bonds=40320 E_Y drift=1.41e-14 sha_ok=True
+  GJ A=0.8     graded_bonds=40320 E_Y drift=1.39e-14 sha_ok=True
+  GJ A=0.85    graded_bonds=40320 E_Y drift=4.74e-15 sha_ok=True
+  GJ A=0.9     graded_bonds=40320 E_Y drift=4.44e-15 sha_ok=True
+  GJ A=0.925   graded_bonds=40320 E_Y drift=4.74e-15 sha_ok=True
+  GJ A=0.95    graded_bonds=40320 E_Y drift=1.35e-14 sha_ok=True
+  GJ A=0.9682  graded_bonds=40320 E_Y drift=1.36e-14 sha_ok=True
+  GJ A=0.98    graded_bonds=40320 E_Y drift=4.28e-15 sha_ok=True
+  GJ A=0.99    graded_bonds=40320 E_Y drift=1.39e-14 sha_ok=True
+  GB A=0.0     graded_bonds=0     E_Y drift=1.48e-14 sha_ok=True
+  GB A=0.1     graded_bonds=1152  E_Y drift=1.53e-14 sha_ok=True
+  GB A=0.2     graded_bonds=1152  E_Y drift=1.47e-14 sha_ok=True
+  GB A=0.3     graded_bonds=1152  E_Y drift=1.54e-14 sha_ok=True
+  GB A=0.4     graded_bonds=1152  E_Y drift=1.50e-14 sha_ok=True
+  GB A=0.5     graded_bonds=1152  E_Y drift=1.48e-14 sha_ok=True
+  GB A=0.6     graded_bonds=1152  E_Y drift=1.44e-14 sha_ok=True
+  GB A=0.7     graded_bonds=1152  E_Y drift=1.35e-14 sha_ok=True
+  GB A=0.8     graded_bonds=1152  E_Y drift=1.50e-14 sha_ok=True
+  GB A=0.85    graded_bonds=1152  E_Y drift=1.50e-14 sha_ok=True
+  GB A=0.9     graded_bonds=1152  E_Y drift=1.54e-14 sha_ok=True
+  GB A=0.925   graded_bonds=1152  E_Y drift=1.48e-14 sha_ok=True
+  GB A=0.95    graded_bonds=1152  E_Y drift=1.39e-14 sha_ok=True
+  GB A=0.9682  graded_bonds=1152  E_Y drift=1.48e-14 sha_ok=True
+  GB A=0.98    graded_bonds=1152  E_Y drift=1.54e-14 sha_ok=True
+  GB A=0.99    graded_bonds=1152  E_Y drift=1.33e-14 sha_ok=True
+  GT A=0.0     graded_bonds=0     E_Y drift=1.48e-14 sha_ok=True
+  GT A=0.1     graded_bonds=40320 E_Y drift=7.95e-15 sha_ok=True
+  GT A=0.2     graded_bonds=40320 E_Y drift=1.25e-14 sha_ok=True
+  GT A=0.3     graded_bonds=40320 E_Y drift=8.41e-15 sha_ok=True
+  GT A=0.4     graded_bonds=40320 E_Y drift=1.33e-14 sha_ok=True
+  GT A=0.5     graded_bonds=40320 E_Y drift=7.95e-15 sha_ok=True
+  GT A=0.6     graded_bonds=40320 E_Y drift=1.21e-14 sha_ok=True
+  GT A=0.7     graded_bonds=40320 E_Y drift=1.22e-14 sha_ok=True
+  GT A=0.8     graded_bonds=40320 E_Y drift=1.32e-14 sha_ok=True
+  GT A=0.85    graded_bonds=40320 E_Y drift=7.65e-15 sha_ok=True
+  GT A=0.9     graded_bonds=40320 E_Y drift=8.11e-15 sha_ok=True
+  GT A=0.925   graded_bonds=40320 E_Y drift=8.57e-15 sha_ok=True
+  GT A=0.95    graded_bonds=40320 E_Y drift=1.18e-14 sha_ok=True
+  GT A=0.9682  graded_bonds=40320 E_Y drift=1.32e-14 sha_ok=True
+  GT A=0.98    graded_bonds=40320 E_Y drift=7.65e-15 sha_ok=True
+  GT A=0.99    graded_bonds=40320 E_Y drift=1.25e-14 sha_ok=True
+
+==============================================================================
+WINDOW DERIVATION (from cold measurements + measured graded transit)
+==============================================================================
+  GJ: earliest transmitted centroid at back monitor = 66.2 steps
+  GT: earliest transmitted centroid at back monitor = 65.9 steps
+  GJ: incident=(10, 29), reflected=(30, 78), wrap-projected probe arrival=87.77589369773936, slab-back return=112.4828704273202, expected front-echo centroid=49.1, constructible=True
+  GB: incident=(10, 29), reflected=(30, 78), wrap-projected probe arrival=87.77589369773936, slab-back return=None, expected front-echo centroid=49.1, constructible=True
+  GT: incident=(10, 29), reflected=(30, 78), wrap-projected probe arrival=87.77589369773936, slab-back return=112.17592047049976, expected front-echo centroid=49.1, constructible=True
+
+==============================================================================
+CS-5 NULL CALIBRATION (A=0 through the full extraction pipeline)
+==============================================================================
+  GJ: |Gamma(A=0)| = 0.00545 (|Gamma|_E = 0.01831, tau*=8) gate < 0.02
+  GB: |Gamma(A=0)| = 0.00545 (|Gamma|_E = 0.01831, tau*=8) gate < 0.02
+  GT: |Gamma(A=0)| = 0.00545 (|Gamma|_E = 0.01831, tau*=8) gate < 0.02
+  eps0 = 0.00545; theta = 0.05000; delta = 0.01000 -> PASS
+
+==============================================================================
+EXTRACTION (matched filter + energy cross-check) [4.4]
+==============================================================================
+  GJ A=0.0     Gamma=-0.00545 |G|_E=0.01831 tau*=   8 disc=0.257 UNRELIABLE
+  GJ A=0.1     Gamma=-0.00556 |G|_E=0.01835 tau*=   8 disc=0.256 UNRELIABLE
+  GJ A=0.2     Gamma=-0.00536 |G|_E=0.01904 tau*=  30 disc=0.274 UNRELIABLE
+  GJ A=0.3     Gamma=-0.01203 |G|_E=0.02190 tau*=  30 disc=0.197 
+  GJ A=0.4     Gamma=-0.02201 |G|_E=0.02877 tau*=  30 disc=0.135 
+  GJ A=0.5     Gamma=-0.03613 |G|_E=0.04089 tau*=  30 disc=0.095 
+  GJ A=0.6     Gamma=-0.05586 |G|_E=0.05955 tau*=  30 disc=0.062 
+  GJ A=0.7     Gamma=-0.08402 |G|_E=0.08730 tau*=  30 disc=0.037 
+  GJ A=0.8     Gamma=-0.12695 |G|_E=0.13038 tau*=  30 disc=0.026 
+  GJ A=0.85    Gamma=-0.15872 |G|_E=0.16249 tau*=  30 disc=0.023 
+  GJ A=0.9     Gamma=-0.20436 |G|_E=0.20876 tau*=  30 disc=0.021 
+  GJ A=0.925   Gamma=-0.23690 |G|_E=0.24181 tau*=  30 disc=0.020 
+  GJ A=0.95    Gamma=-0.28248 |G|_E=0.28816 tau*=  30 disc=0.020 
+  GJ A=0.9682  Gamma=-0.33243 |G|_E=0.33899 tau*=  30 disc=0.019 
+  GJ A=0.98    Gamma=-0.38211 |G|_E=0.38957 tau*=  30 disc=0.019 
+  GJ A=0.99    Gamma=-0.45280 |G|_E=0.46149 tau*=  31 disc=0.019 
+  GB A=0.0     Gamma=-0.00545 |G|_E=0.01831 tau*=   8 disc=0.257 UNRELIABLE
+  GB A=0.1     Gamma=-0.00554 |G|_E=0.01831 tau*=   8 disc=0.255 UNRELIABLE
+  GB A=0.2     Gamma=-0.00580 |G|_E=0.01834 tau*=   8 disc=0.251 UNRELIABLE
+  GB A=0.3     Gamma=-0.00378 |G|_E=0.01853 tau*=  12 disc=0.295 UNRELIABLE
+  GB A=0.4     Gamma=-0.00402 |G|_E=0.01910 tau*=  16 disc=0.302 UNRELIABLE
+  GB A=0.5     Gamma=+0.00576 |G|_E=0.02045 tau*=  39 disc=0.294 UNRELIABLE
+  GB A=0.6     Gamma=+0.00877 |G|_E=0.02318 tau*=  39 disc=0.288 UNRELIABLE
+  GB A=0.7     Gamma=+0.01306 |G|_E=0.02821 tau*=  39 disc=0.303 UNRELIABLE
+  GB A=0.8     Gamma=+0.01961 |G|_E=0.03730 tau*=  39 disc=0.354 UNRELIABLE
+  GB A=0.85    Gamma=+0.02452 |G|_E=0.04464 tau*=  39 disc=0.402 UNRELIABLE
+  GB A=0.9     Gamma=+0.03173 |G|_E=0.05574 tau*=  39 disc=0.431 UNRELIABLE
+  GB A=0.925   Gamma=+0.03703 |G|_E=0.06400 tau*=  39 disc=0.421 UNRELIABLE
+  GB A=0.95    Gamma=+0.04475 |G|_E=0.07606 tau*=  39 disc=0.412 UNRELIABLE
+  GB A=0.9682  Gamma=+0.05378 |G|_E=0.09005 tau*=  39 disc=0.403 UNRELIABLE
+  GB A=0.98    Gamma=+0.06353 |G|_E=0.10499 tau*=  39 disc=0.395 UNRELIABLE
+  GB A=0.99    Gamma=+0.07923 |G|_E=0.12862 tau*=  39 disc=0.384 UNRELIABLE
+  GB: INVALID-EXTRACTION (16 unreliable points > 4)
+  GT A=0.0     Gamma=-0.00545 |G|_E=0.01831 tau*=   8 disc=0.257 UNRELIABLE
+  GT A=0.1     Gamma=-0.00546 |G|_E=0.01832 tau*=   8 disc=0.257 UNRELIABLE
+  GT A=0.2     Gamma=-0.00403 |G|_E=0.01870 tau*=  48 disc=0.293 UNRELIABLE
+  GT A=0.3     Gamma=-0.00904 |G|_E=0.02045 tau*=  48 disc=0.228 UNRELIABLE
+  GT A=0.4     Gamma=-0.01657 |G|_E=0.02503 tau*=  49 disc=0.169 
+  GT A=0.5     Gamma=-0.02737 |G|_E=0.03373 tau*=  49 disc=0.127 
+  GT A=0.6     Gamma=-0.04251 |G|_E=0.04771 tau*=  49 disc=0.104 
+  GT A=0.7     Gamma=-0.06413 |G|_E=0.06896 tau*=  49 disc=0.070 
+  GT A=0.8     Gamma=-0.09695 |G|_E=0.10228 tau*=  49 disc=0.052 
+  GT A=0.85    Gamma=-0.12104 |G|_E=0.12718 tau*=  49 disc=0.048 
+  GT A=0.9     Gamma=-0.15519 |G|_E=0.16306 tau*=  49 disc=0.048 
+  GT A=0.925   Gamma=-0.18242 |G|_E=0.18869 tau*=  50 disc=0.033 
+  GT A=0.95    Gamma=-0.21698 |G|_E=0.22465 tau*=  50 disc=0.034 
+  GT A=0.9682  Gamma=-0.25445 |G|_E=0.26419 tau*=  50 disc=0.037 
+  GT A=0.98    Gamma=-0.29954 |G|_E=0.30375 tau*=  51 disc=0.014 
+  GT A=0.99    Gamma=-0.35452 |G|_E=0.36060 tau*=  51 disc=0.017 
+
+==============================================================================
+CLASSIFIERS + FROZEN VERDICTS [6.2/6.3/6.4]
+==============================================================================
+  GJ classifiers: {'n_valid': 13, 'SIGN_top_A': 0.99, 'SIGN_top': -1.0, 'crossings': [], 'floor_intercept': 0.024801126116737442, 'FLOOR': np.False_, 'MONOTONE': True, 'monotone_dir': 'dec', 'pos_at_low_A': False}
+  GB classifiers: {'n_valid': 0}
+  GT classifiers: {'n_valid': 12, 'SIGN_top_A': 0.99, 'SIGN_top': -1.0, 'crossings': [], 'floor_intercept': 0.026628989619963347, 'FLOOR': np.False_, 'MONOTONE': True, 'monotone_dir': 'dec', 'pos_at_low_A': False}
+  TAPER-SUPPRESSED band checks (A, |G_GJ|, |G_GT|, ok): [(0.6, 0.05585873994840097, 0.04250680174266257, False), (0.7, 0.08402462036249825, 0.06412731106820586, False), (0.8, 0.12695044516808793, 0.09695348199297192, False), (0.85, 0.15872422741385467, 0.12104072723385166, False), (0.9, 0.20435874468439955, 0.15519209628004269, False)]
+  VERDICT GJ: J-class (floorless negative, core/J-class locus)  
+  VERDICT GT: TAPER-EXPECTATION NOT DRAWN  ['fails TAPER-SUPPRESSED']
+
+==============================================================================
+POST-VERIFY AMENDMENT — window-convergence re-extraction [downstream]
+==============================================================================
+  extended close = 85 (contaminant front 87.78; guard 2.0*sigma_t = 9.61 -> NOT guard-protected: probe only)
+  G-J at extended close identical to frozen: True
+  G-T converged locus (A, Gamma_frozen, Gamma_converged, tau*, ratio_frozen, ratio_converged):
+    A=0.3    -0.00904 -0.00905 tau*=51  0.751 0.753
+    A=0.4    -0.01657 -0.01671 tau*=51  0.753 0.759
+    A=0.5    -0.02737 -0.02765 tau*=51  0.758 0.765
+    A=0.6    -0.04251 -0.04314 tau*=51  0.761 0.772  [taper band]
+    A=0.7    -0.06413 -0.06556 tau*=51  0.763 0.780  [taper band]
+    A=0.8    -0.09695 -0.10062 tau*=52  0.764 0.793  [taper band]
+    A=0.85   -0.12104 -0.12719 tau*=52  0.763 0.801  [taper band]
+    A=0.9    -0.15519 -0.16629 tau*=53  0.759 0.814  [taper band]
+    A=0.925  -0.18242 -0.19497 tau*=53  0.770 0.823
+    A=0.95   -0.21698 -0.23635 tau*=54  0.768 0.837
+    A=0.9682 -0.25445 -0.28295 tau*=54  0.765 0.851
+    A=0.98   -0.29954 -0.33067 tau*=55  0.784 0.865
+    A=0.99   -0.35452 -0.40073 tau*=55  0.783 0.885
+  in-band ratio: frozen 0.759-0.764  converged 0.772-0.814  (frozen criterion: < 0.5)
+  TAPER-SUPPRESSED on converged numbers: False (frozen-window: False) -> the frozen G-T verdict survives a fortiori
+  G-T extraction validity at extended close: 4 unreliable (gate > 4) -> INVALID-EXTRACTION=False
+  G-B matched-filter sign stable across the close sweep: False
+    A=0.5: close60:- close64:+ close70:+ close78:+ close85:+ close95:-
+    A=0.9: close60:- close64:+ close70:+ close78:+ close85:+ close95:-
+  corrected slab-back close bounds: GJ 93.26, GT 92.95 (the result doc's narrative pair, recomputed)
+  CS-2 read both ways (D8): polyfit-extrapolated 0.580513 (rel dev 0.5478%, pass=True); at smallest k 0.580972 (rel dev 0.6273%, pass=True); c_link=1.000000
+
+Wrote /private/tmp/claude-501/-Users-grantlindblom-AVE-staging/91b867e5-bc0e-42d5-9d27-3ec2573c4b62/scratchpad/gammac-test/data/raw_*.json and /private/tmp/claude-501/-Users-grantlindblom-AVE-staging/91b867e5-bc0e-42d5-9d27-3ec2573c4b62/scratchpad/gammac-test/data/results.json
+Figure written: ['/private/tmp/claude-501/-Users-grantlindblom-AVE-staging/91b867e5-bc0e-42d5-9d27-3ec2573c4b62/scratchpad/gammac-test/gamma_overlay.pdf', '/private/tmp/claude-501/-Users-grantlindblom-AVE-staging/91b867e5-bc0e-42d5-9d27-3ec2573c4b62/scratchpad/gammac-test/gamma_overlay.png']
