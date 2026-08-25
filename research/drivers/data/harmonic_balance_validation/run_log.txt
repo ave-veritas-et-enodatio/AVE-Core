@@ -1,0 +1,82 @@
+HARMONIC-BALANCE SOLVER — Stage-2 validation gates (computed, never asserted)
+==============================================================================
+repo: /Users/grantlindblom/AVE-staging/.worktrees/stage2-harmonic-balance
+measured data: /Users/grantlindblom/AVE-staging/.worktrees/stage2-harmonic-balance/research/drivers/engine_gamma_meanstest_results.json
+parameters:
+  g1_L = 8
+  g1_theta_sweep = [0.05, 0.1, 0.15, 0.2, 0.3, 0.4, 0.6, 0.8]
+  g1_src_plane = 0.5
+  g1_abs_plane = 6.5
+  g1_fit_region = [1.0, 5.8]
+  g1_velocity_tol = 0.02
+  g1_arccos_tol = 0.001
+  g1_band_edge_tol = 0.05
+  g2_theta = 0.15
+  g2_theta_flatness = [0.1, 0.2]
+  g2_flatness_A = 0.9
+  g2_src_plane = 0.5
+  g2_load_planes = [11.5, 12.0, 12.5]
+  g2_feed_fit = [1.5, 8.0]
+  g2_slab_margin = 0.5
+  g2_tol_abs_floor = 0.01
+  g2_tol_rel = 0.05
+  g3_ring_N = 12
+  g3_ring_m = 2
+  g3_tank_L = 2
+  g3_tank_theta = 0.3
+  g3_source_tol = 1e-12
+  g3_exchange_tol = 1e-12
+  g3_r_auto_tol = 1e-10
+  solve_warmstart_first = 800
+  solve_warmstart_next = 200
+  solve_tol = 1e-11
+
+== GATE 1 — cold linear limit -> arccos band structure ==
+  net: srs L=8 (N=4096, ndof=12288); src plane 0.5, absorber 6.5 (cells); fit region [1.0, 5.8] (cells)
+  theta= 0.05: k=0.086607 c=0.577320 theta_arccos=0.050000 (band 7) fit_resid=7.0e-11 solve_resid=2.6e-14 (0.2s)
+  theta= 0.10: k=0.173241 c=0.577230 theta_arccos=0.100000 (band 7) fit_resid=2.3e-09 solve_resid=1.7e-12 (0.1s)
+  theta= 0.15: k=0.259930 c=0.577079 theta_arccos=0.150000 (band 7) fit_resid=6.4e-09 solve_resid=1.7e-12 (0.1s)
+  theta= 0.20: k=0.346701 c=0.576867 theta_arccos=0.200000 (band 7) fit_resid=1.8e-08 solve_resid=1.7e-12 (0.1s)
+  theta= 0.30: k=0.520603 c=0.576254 theta_arccos=0.300000 (band 7) fit_resid=1.3e-09 solve_resid=1.6e-12 (0.1s)
+  theta= 0.40: k=0.695189 c=0.575383 theta_arccos=0.400000 (band 7) fit_resid=1.5e-09 solve_resid=1.7e-12 (0.1s)
+  theta= 0.60: k=1.047493 c=0.572796 theta_arccos=0.600000 (band 7) fit_resid=2.8e-08 solve_resid=1.7e-12 (0.1s)
+  theta= 0.80: k=1.406203 c=0.568908 theta_arccos=0.800000 (band 6) fit_resid=1.2e-08 solve_resid=1.7e-12 (0.1s)
+  velocity: c=0.577320 vs 1/sqrt(3)=0.577350 rel 0.005% (tol 2%) -> PASS
+  arccos map: max|theta_arccos - theta| = 4.22e-09 rad (tol 1e-03) -> PASS
+  band edge: 4 pts with k <= 0.3702, max rel dev 0.084% (tol 5%) -> PASS
+  GATE 1: PASS
+
+== GATE 2 — single-tone graded limit -> the MEASURED Class-C map ==
+  geometry from measured params: L=24, enantiomorph=right, x_I=9.0, x_B=15.0 (G-J: bonds strictly inside)
+  theta=0.15 (in the measured pulse band; flatness receipt at [0.1, 0.2]); loads [11.5, 12.0, 12.5]; feed fit [1.5, 8.0]; slab margin 0.5
+  net: N=110592, ndof=331776; graded bonds 40320/165888
+  target: 13 measured-VALID G-J points (A = [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.85, 0.9, 0.925, 0.95, 0.9682, 0.98, 0.99])
+  cold null |Gamma(A=0)| = 6.25e-10 (deembed resid 1.5e-08; 12s)
+  cold SINGLE-LOAD raw |Gamma| per load = [0.101720020, 0.101720020, 0.101720020] — the bond-matched-cut artifact the de-embedding removes (receipt for the note's artifact claim; distinct floats per load)
+  A=   0.3: solver -0.01179 (phase +2.988) vs measured -0.01203  |dev| 0.00024 tol 0.010 -> PASS  (deembed 1.0e-08, 13s)
+  A=   0.4: solver -0.02180 (phase +2.988) vs measured -0.02201  |dev| 0.00021 tol 0.010 -> PASS  (deembed 8.3e-09, 13s)
+  A=   0.5: solver -0.03596 (phase +2.987) vs measured -0.03613  |dev| 0.00017 tol 0.010 -> PASS  (deembed 3.1e-09, 13s)
+  A=   0.6: solver -0.05575 (phase +2.987) vs measured -0.05586  |dev| 0.00010 tol 0.010 -> PASS  (deembed 2.1e-08, 13s)
+  A=   0.7: solver -0.08401 (phase +2.986) vs measured -0.08402  |dev| 0.00002 tol 0.010 -> PASS  (deembed 1.4e-08, 13s)
+  A=   0.8: solver -0.12708 (phase +2.985) vs measured -0.12695  |dev| 0.00013 tol 0.010 -> PASS  (deembed 4.5e-09, 13s)
+  A=  0.85: solver -0.15896 (phase +2.984) vs measured -0.15872  |dev| 0.00023 tol 0.010 -> PASS  (deembed 2.8e-09, 12s)
+  A=   0.9: solver -0.20475 (phase +2.982) vs measured -0.20436  |dev| 0.00039 tol 0.010 -> PASS  (deembed 1.4e-08, 12s)
+  A= 0.925: solver -0.23741 (phase +2.981) vs measured -0.23690  |dev| 0.00051 tol 0.012 -> PASS  (deembed 1.7e-08, 12s)
+  A=  0.95: solver -0.28317 (phase +2.980) vs measured -0.28248  |dev| 0.00068 tol 0.014 -> PASS  (deembed 9.1e-09, 12s)
+  A=0.9682: solver -0.33332 (phase +2.978) vs measured -0.33243  |dev| 0.00088 tol 0.017 -> PASS  (deembed 3.6e-08, 12s)
+  A=  0.98: solver -0.38319 (phase +2.977) vs measured -0.38211  |dev| 0.00108 tol 0.019 -> PASS  (deembed 2.3e-08, 12s)
+  A=  0.99: solver -0.45409 (phase +2.975) vs measured -0.45280  |dev| 0.00129 tol 0.023 -> PASS  (deembed 2.5e-09, 12s)
+  flatness: theta=0.1 -> Gamma = -0.20470
+  flatness: theta=0.2 -> Gamma = -0.20483
+  flatness spread at A=0.9: 0.00007
+  GATE 2: PASS (max |dev| 0.00129 over 13 points)
+
+== GATE 3 — source-idle machinery on the known pair ==
+  declared thresholds: {'source_tol': 1e-12, 'exchange_tol': 1e-12, 'r_auto_tol': 1e-10}
+  ring N=12 m=2 (theta=k=1.0472): r_auto=5.73e-16, source=0.0, exchange=0.0 -> idle=True
+  driven tank L=2 theta=0.3: r_auto=0.628, source=1.000, exchange=0.999 -> idle=False (solve resid 2.4e-12)
+  GATE 3: PASS (ring idle=True, tank idle=False)
+
+Receipts written: /Users/grantlindblom/AVE-staging/.worktrees/stage2-harmonic-balance/research/drivers/data/harmonic_balance_validation/receipts.json
+Figure written: ['/Users/grantlindblom/AVE-staging/.worktrees/stage2-harmonic-balance/research/figures/2026-08-24-harmonic-balance-solver/fig1_gate2_overlay.pdf', '/Users/grantlindblom/AVE-staging/.worktrees/stage2-harmonic-balance/research/figures/2026-08-24-harmonic-balance-solver/fig1_gate2_overlay.png']
+Figure written: ['/Users/grantlindblom/AVE-staging/.worktrees/stage2-harmonic-balance/research/figures/2026-08-24-harmonic-balance-solver/fig2_gate1_dispersion.pdf', '/Users/grantlindblom/AVE-staging/.worktrees/stage2-harmonic-balance/research/figures/2026-08-24-harmonic-balance-solver/fig2_gate1_dispersion.png']

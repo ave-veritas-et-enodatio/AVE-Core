@@ -1,0 +1,379 @@
+{
+ "driver": "research/drivers/harmonic_balance_validation.py",
+ "measured_source": "research/drivers/engine_gamma_meanstest_results.json",
+ "parameters": {
+  "g1_L": 8,
+  "g1_theta_sweep": [
+   0.05,
+   0.1,
+   0.15,
+   0.2,
+   0.3,
+   0.4,
+   0.6,
+   0.8
+  ],
+  "g1_src_plane": 0.5,
+  "g1_abs_plane": 6.5,
+  "g1_fit_region": [
+   1.0,
+   5.8
+  ],
+  "g1_velocity_tol": 0.02,
+  "g1_arccos_tol": 0.001,
+  "g1_band_edge_tol": 0.05,
+  "g2_theta": 0.15,
+  "g2_theta_flatness": [
+   0.1,
+   0.2
+  ],
+  "g2_flatness_A": 0.9,
+  "g2_src_plane": 0.5,
+  "g2_load_planes": [
+   11.5,
+   12.0,
+   12.5
+  ],
+  "g2_feed_fit": [
+   1.5,
+   8.0
+  ],
+  "g2_slab_margin": 0.5,
+  "g2_tol_abs_floor": 0.01,
+  "g2_tol_rel": 0.05,
+  "g3_ring_N": 12,
+  "g3_ring_m": 2,
+  "g3_tank_L": 2,
+  "g3_tank_theta": 0.3,
+  "g3_source_tol": 1e-12,
+  "g3_exchange_tol": 1e-12,
+  "g3_r_auto_tol": 1e-10,
+  "solve_warmstart_first": 800,
+  "solve_warmstart_next": 200,
+  "solve_tol": 1e-11
+ },
+ "gate1": {
+  "L": 8,
+  "points": [
+   {
+    "theta": 0.05,
+    "k_fit": 0.08660705263006965,
+    "c": 0.5773201890793843,
+    "theta_arccos": 0.049999999965317,
+    "band_index": 7,
+    "fit_resid": 7.042433873656163e-11,
+    "solve_resid": 2.5842180618021804e-14
+   },
+   {
+    "theta": 0.1,
+    "k_fit": 0.17324122264336625,
+    "c": 0.5772298213679757,
+    "theta_arccos": 0.10000000058429062,
+    "band_index": 7,
+    "fit_resid": 2.2679509698924e-09,
+    "solve_resid": 1.694449428194444e-12
+   },
+   {
+    "theta": 0.15,
+    "k_fit": 0.2599298376654629,
+    "c": 0.5770788046005486,
+    "theta_arccos": 0.1500000010624786,
+    "band_index": 7,
+    "fit_resid": 6.394167590023163e-09,
+    "solve_resid": 1.7163433734735982e-12
+   },
+   {
+    "theta": 0.2,
+    "k_fit": 0.3467006494126118,
+    "c": 0.5768665283403552,
+    "theta_arccos": 0.1999999974961042,
+    "band_index": 7,
+    "fit_resid": 1.8202989280265108e-08,
+    "solve_resid": 1.6618058154931074e-12
+   },
+   {
+    "theta": 0.3,
+    "k_fit": 0.5206034444266411,
+    "c": 0.5762543510068409,
+    "theta_arccos": 0.3000000001919053,
+    "band_index": 7,
+    "fit_resid": 1.3379362685128665e-09,
+    "solve_resid": 1.6010415269320214e-12
+   },
+   {
+    "theta": 0.4,
+    "k_fit": 0.6951891485659158,
+    "c": 0.5753829742957692,
+    "theta_arccos": 0.399999999773786,
+    "band_index": 7,
+    "fit_resid": 1.5092445639969943e-09,
+    "solve_resid": 1.7046543131797048e-12
+   },
+   {
+    "theta": 0.6,
+    "k_fit": 1.0474932263577201,
+    "c": 0.5727960667452557,
+    "theta_arccos": 0.6000000042162948,
+    "band_index": 7,
+    "fit_resid": 2.8029234111418338e-08,
+    "solve_resid": 1.6732206362113564e-12
+   },
+   {
+    "theta": 0.8,
+    "k_fit": 1.4062028548369006,
+    "c": 0.5689079617839267,
+    "theta_arccos": 0.8000000016788782,
+    "band_index": 6,
+    "fit_resid": 1.1698268491816842e-08,
+    "solve_resid": 1.7131085893997222e-12
+   }
+  ],
+  "c_smallest_theta": 0.5773201890793843,
+  "analytic_network_factor": 0.5773502691896258,
+  "velocity_rel_dev": 5.210027923559598e-05,
+  "velocity_tol": 0.02,
+  "velocity_pass": true,
+  "max_arccos_dev": 4.216294868797377e-09,
+  "arccos_tol": 0.001,
+  "arccos_pass": true,
+  "k_edge_measured": 0.37024024484653045,
+  "n_points_in_band": 4,
+  "band_edge_max_rel_dev": 0.000837863728633212,
+  "band_edge_tol": 0.05,
+  "band_edge_pass": true,
+  "pass": true
+ },
+ "gate2": {
+  "geometry_from": "engine_gamma_meanstest_results.json params",
+  "L": 24,
+  "x_I": 9.0,
+  "x_B": 15.0,
+  "theta": 0.15,
+  "load_planes": [
+   11.5,
+   12.0,
+   12.5
+  ],
+  "cold_null_abs_gamma": 6.253726810008368e-10,
+  "cold_null_deembed_resid": 1.4636570569282237e-08,
+  "cold_single_load_gamma_raw": [
+   0.10172001965571043,
+   0.10172002024176606,
+   0.10172001994950014
+  ],
+  "points": [
+   {
+    "A": 0.3,
+    "gamma_measured": -0.01203179430160189,
+    "gamma_solver": -0.011793851103084355,
+    "gamma_solver_phase": 2.9881425321932222,
+    "abs_dev": 0.00023794319851753488,
+    "tol_point": 0.01,
+    "pass": true,
+    "deembed_resid": 1.029249363713888e-08,
+    "t_mag": 0.9882116111108803,
+    "max_solve_resid": 1.221866305819398e-12,
+    "max_fit_resid": 1.0299227888515677e-08
+   },
+   {
+    "A": 0.4,
+    "gamma_measured": -0.022009087867124858,
+    "gamma_solver": -0.021800999014865593,
+    "gamma_solver_phase": 2.9878350808959317,
+    "abs_dev": 0.00020808885225926527,
+    "tol_point": 0.01,
+    "pass": true,
+    "deembed_resid": 8.33962834677872e-09,
+    "t_mag": 0.9782090336468907,
+    "max_solve_resid": 1.2645725793182827e-12,
+    "max_fit_resid": 9.3514693343191e-09
+   },
+   {
+    "A": 0.5,
+    "gamma_measured": -0.036127005265710097,
+    "gamma_solver": -0.03596170097925191,
+    "gamma_solver_phase": 2.9874001940963884,
+    "abs_dev": 0.00016530428645818857,
+    "tol_point": 0.01,
+    "pass": true,
+    "deembed_resid": 3.1053230066181905e-09,
+    "t_mag": 0.9640546443381556,
+    "max_solve_resid": 1.2704400131339495e-12,
+    "max_fit_resid": 5.430359508092422e-09
+   },
+   {
+    "A": 0.6,
+    "gamma_measured": -0.05585873994840097,
+    "gamma_solver": -0.05575429762525317,
+    "gamma_solver_phase": 2.9867924690700676,
+    "abs_dev": 0.00010444232314780338,
+    "tol_point": 0.01,
+    "pass": true,
+    "deembed_resid": 2.078600627085611e-08,
+    "t_mag": 0.9442705147887988,
+    "max_solve_resid": 1.2269943978655078e-12,
+    "max_fit_resid": 9.794769896874444e-09
+   },
+   {
+    "A": 0.7,
+    "gamma_measured": -0.08402462036249825,
+    "gamma_solver": -0.08400920560811682,
+    "gamma_solver_phase": 2.985924903290126,
+    "abs_dev": 1.54147543814237e-05,
+    "tol_point": 0.01,
+    "pass": true,
+    "deembed_resid": 1.4117176198663407e-08,
+    "t_mag": 0.9160270670239956,
+    "max_solve_resid": 1.2657678395211532e-12,
+    "max_fit_resid": 6.523145981438579e-09
+   },
+   {
+    "A": 0.8,
+    "gamma_measured": -0.12695044516808793,
+    "gamma_solver": -0.12707560538664905,
+    "gamma_solver_phase": 2.984602503308959,
+    "abs_dev": 0.0001251602185611267,
+    "tol_point": 0.01,
+    "pass": true,
+    "deembed_resid": 4.539728659080575e-09,
+    "t_mag": 0.8729767076935733,
+    "max_solve_resid": 1.2955287823817613e-12,
+    "max_fit_resid": 6.59645275356789e-09
+   },
+   {
+    "A": 0.85,
+    "gamma_measured": -0.15872422741385467,
+    "gamma_solver": -0.15895725790896786,
+    "gamma_solver_phase": 2.9836236036511554,
+    "abs_dev": 0.00023303049511319562,
+    "tol_point": 0.01,
+    "pass": true,
+    "deembed_resid": 2.7830408330739137e-09,
+    "t_mag": 0.8411057644061006,
+    "max_solve_resid": 1.284577117764315e-12,
+    "max_fit_resid": 5.753950660817178e-09
+   },
+   {
+    "A": 0.9,
+    "gamma_measured": -0.20435874468439955,
+    "gamma_solver": -0.20475242985745737,
+    "gamma_solver_phase": 2.9822174215619808,
+    "abs_dev": 0.0003936851730578228,
+    "tol_point": 0.010217937234219978,
+    "pass": true,
+    "deembed_resid": 1.444560283597054e-08,
+    "t_mag": 0.7953243678401981,
+    "max_solve_resid": 1.3140315999029635e-12,
+    "max_fit_resid": 7.126876098102181e-09
+   },
+   {
+    "A": 0.925,
+    "gamma_measured": -0.23689949445474556,
+    "gamma_solver": -0.23741186066275638,
+    "gamma_solver_phase": 2.981214575789776,
+    "abs_dev": 0.0005123662080108171,
+    "tol_point": 0.01184497472273728,
+    "pass": true,
+    "deembed_resid": 1.7179311962508682e-08,
+    "t_mag": 0.7626734855339797,
+    "max_solve_resid": 1.2904467725605082e-12,
+    "max_fit_resid": 1.1822536904345442e-08
+   },
+   {
+    "A": 0.95,
+    "gamma_measured": -0.2824821510952379,
+    "gamma_solver": -0.28316659459391397,
+    "gamma_solver_phase": 2.979809656123316,
+    "abs_dev": 0.0006844434986760795,
+    "tol_point": 0.014124107554761895,
+    "pass": true,
+    "deembed_resid": 9.108357569702925e-09,
+    "t_mag": 0.7169290889051094,
+    "max_solve_resid": 1.3163593453720615e-12,
+    "max_fit_resid": 8.145255542429278e-09
+   },
+   {
+    "A": 0.9682,
+    "gamma_measured": -0.3324344793779367,
+    "gamma_solver": -0.33331534617816666,
+    "gamma_solver_phase": 2.9782697272787564,
+    "abs_dev": 0.0008808668002299735,
+    "tol_point": 0.016621723968896836,
+    "pass": true,
+    "deembed_resid": 3.602124769825394e-08,
+    "t_mag": 0.6667894232557171,
+    "max_solve_resid": 1.3173387391734211e-12,
+    "max_fit_resid": 1.2029361019620379e-08
+   },
+   {
+    "A": 0.98,
+    "gamma_measured": -0.382108286491122,
+    "gamma_solver": -0.3831926550497946,
+    "gamma_solver_phase": 2.976738184266751,
+    "abs_dev": 0.0010843685586726104,
+    "tol_point": 0.019105414324556102,
+    "pass": true,
+    "deembed_resid": 2.296200250790593e-08,
+    "t_mag": 0.6169187860295503,
+    "max_solve_resid": 1.300988982212611e-12,
+    "max_fit_resid": 6.303746209357907e-09
+   },
+   {
+    "A": 0.99,
+    "gamma_measured": -0.4528013615038704,
+    "gamma_solver": -0.45409225467790404,
+    "gamma_solver_phase": 2.9745609993725526,
+    "abs_dev": 0.001290893174033636,
+    "tol_point": 0.02264006807519352,
+    "pass": true,
+    "deembed_resid": 2.4726628636976313e-09,
+    "t_mag": 0.5460246331151011,
+    "max_solve_resid": 1.3134795364683522e-12,
+    "max_fit_resid": 5.329523502308883e-09
+   }
+  ],
+  "n_points": 13,
+  "max_abs_dev": 0.001290893174033636,
+  "tol_abs_floor": 0.01,
+  "tol_rel": 0.05,
+  "theta_flatness": [
+   {
+    "theta": 0.1,
+    "gamma_solver": -0.2047008700312731
+   },
+   {
+    "theta": 0.2,
+    "gamma_solver": -0.20482518172253716
+   }
+  ],
+  "theta_flatness_spread": 7.275186507979536e-05,
+  "pass": true
+ },
+ "gate3": {
+  "thresholds": {
+   "source_tol": 1e-12,
+   "exchange_tol": 1e-12,
+   "r_auto_tol": 1e-10
+  },
+  "ring": {
+   "N": 12,
+   "m": 2,
+   "theta": 1.0471975511965976,
+   "max_source_amp": 0.0,
+   "max_exchange_amp": 0.0,
+   "max_r_auto": 5.734011430496646e-16,
+   "idle": true
+  },
+  "driven_tank": {
+   "L": 2,
+   "theta": 0.3,
+   "max_source_amp": 1.0,
+   "max_exchange_amp": 0.9991596778562999,
+   "max_r_auto": 0.6275471054116608,
+   "solve_resid": 2.413793084826422e-12,
+   "idle": false
+  },
+  "pass": true
+ },
+ "all_pass": true
+}

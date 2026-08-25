@@ -96,6 +96,32 @@ design:
    equivalence claim from an argument into a receipt. [PROPOSED, same
    basis.]
 
+> **DATED SURFACE NOTE (2026-08-25) — the list above is no longer complete;
+> the walk text is NOT rewritten.** Stage 2 (the harmonic-balance solver)
+> surfaced a THIRD residual choice that this record could not have known at
+> the walk's close: the **envelope normalization**, on TWO independent axes —
+> (3a) the ARM, DP-1 C-state vs DP-3 full-tank, exactly √2 in A, with canon's
+> own :87 flagging the full-tank normalization "review-on-merge"; and (3b) the
+> AGGREGATION, the solver's per-BOND 2-port sum vs canon's per-NODE per-cell
+> aggregate, √(z/2) = 1.2247 on a uniform field and content-dependent in
+> general. Both are PROPOSED, both are independent, and both land on the P2
+> self-consistent run — so **G2 must freeze four items, not two**. The full
+> decision list with receipts lives at
+> [`research/2026-08-24_harmonic-balance-solver-validation_note.md`](2026-08-24_harmonic-balance-solver-validation_note.md)
+> § "G2 FREEZE — the decision list this stage hands up". A G2 prereg author
+> reading only §4 above would have frozen two and missed two.
+>
+> **Round-3 addendum (2026-08-25), two corrections to the note above.** (i) Item
+> 3b is not a clean binary: canon writes the per-cell row on the K4 node's FOUR
+> ports while the srs carrier's node degree is THREE, so the per-NODE arm needs
+> a 4 → 3 port-count mapping frozen first (listed as conditional item 3b′ in the
+> linked table). (ii) This surface note is the ONLY place the fork is routed in
+> a walk/lane artifact — `_orchestration/2026-08-24_static-existence-epic.md:112`
+> and `_orchestration/2026-08-24_static-existence-build-brief.md:69-71` still say
+> "two" and do not link the list. Those are orchestration-owned and are tracked
+> under the open item **`2026-08-25-g2-freeze-decisions`**; until it lands, their
+> counts of "two" are stale and the linked table is the authority.
+
 ## §5 — Consequences routed
 
 - The epic's P2 is REWRITTEN to the autonomous-mode existence solve (same
