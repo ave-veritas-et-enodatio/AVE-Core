@@ -69,8 +69,15 @@ map feasibility (the P1 measurement). **Deliverable:** a capability report +
 the **ontology walk packet** for Grant (§4 gate G1).
 
 **P1 — Graded-T2 response map (the transverse Class-C analog).** Measure the
-T2 channel's own Γ(A) locus off a frozen transverse grading — its grading runs
-the opposite way (Z→∞ rupture, Γ→+1), and its vertex behavior is unverified.
+T2 channel's own Γ(A) locus off a frozen transverse grading. ★ P0 CORRECTION
+(2026-08-24) to this paragraph's first cut, which conflated the two T2
+branches: canon holds BOTH — **magnetic-first** (μ_eff = μ₀S alone → Z→0,
+Γ→−1, the Meissner/short branch) and **electric-first** (ε_eff→0 with μ cold →
+Z→∞, Γ→+1, the rupture/open branch) — with OPPOSITE boundary phase
+(`envelope-anatomy.md:94`, `master-equation.md:103-112`). **The P1 prereg must
+declare WHICH constitutive parameter the frozen transverse grading loads**;
+the transverse vertex behavior is unverified on either branch (the −1/3
+counting fact is scalar-scoped, `srs-vertex-scattering.md:24`).
 Own frozen prereg + result pair, full Class-C discipline. Independently
 valuable whatever P2 does; also the null baseline for P2.
 
