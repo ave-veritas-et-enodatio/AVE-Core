@@ -129,6 +129,13 @@ notes; manuscript lockstep. Nothing propagates before adversarial review.
    Class-C machinery travel with any reuse; cite, never load-bear silently.
 7. **Regime/phase-state declaration** atop every doc (house table); the
    relaxed state's regime is part of the RESULT, not the assumption.
+8. **α-agnostic imposition** (from the 2026-08-24 frame-invariance walk,
+   [`research/2026-08-24_frame-invariance-observer-walk_RECORD.md`](../research/2026-08-24_frame-invariance-observer-walk_RECORD.md)
+   §2/§5): the tube phase α is NOT an invariant of the (2,3) winding — a
+   uniform frame change preserves the ratio, and only the topological class
+   is the winding. Imposing a specific α imposes MORE than the winding and
+   smuggles un-owned structure into the relaxed state. The G1-walked
+   imposition must be α-agnostic (the class, or the family).
 
 ## §6 — Skill-selection plan (pre-workstream, declared here)
 
