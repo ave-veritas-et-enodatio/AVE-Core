@@ -45,13 +45,42 @@ sign-selector banner) holds both boundary phases on the wave channel. This run
 measured DECLARED IMPEDANCE MAPS; no result sentence assigns the Γ→−1 locus to a
 sector.
 
+> **Round-2 repair note (2026-08-25) — the clause the flag omitted, restored
+> verbatim.** The prereg §2.3 (and the canonical restatement at
+> `saturation-rim-inversion.md:66`, which ends its quote at *"Orthogonal
+> reactances, both `|Γ|=1`, differing only in boundary phase."*) quotes
+> `resonant-lc-solitons.md:41` only
+> through *"differing only in boundary phase"*, cutting at the em dash. Canon's
+> own sentence continues, verbatim
+> (`manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md:41`):
+> *"Orthogonal reactances, both $|\Gamma|=1$, differing only in boundary phase —
+> so this leaf's electric-sector $Z\to0$ confinement and the master-equation
+> magnetic-branch confinement are distinct-sector statements, not a
+> contradiction."* Canon therefore already reconciles the pair the flag presents
+> as unresolved alternatives: the master-equation magnetic short and the A1
+> compliance short are DIFFERENT sectors, not two readings of one.
+> **What that clause does NOT settle** — and what stays genuinely open for
+> adjudication — is whether the WAVE CHANNEL ITSELF can short, i.e. whether
+> μ_eff → 0 is reachable on the transverse channel. `:41` reconciles the
+> longitudinal-vs-magnetic pairing; it assigns no sector home to the
+> master-equation μ-branch's wave-channel short. That is the routed-open
+> μ-at-core fork the prereg already carries verbatim at §2.2 from
+> `saturation-rim-inversion.md:70` (*"⚑ OPEN SUB-DETAIL (flagged, not resolved)
+> — μ at the knot core. … If `μ → 0` at the core rather than staying cold, the
+> `Z_wave → ∞` open-read is complicated."*), so §2.3 and §2.2 are substantially the SAME
+> open item counted twice, and the open item is NARROWER than §2.3 frames it.
+> This note restores canon's text and states the residue; it adjudicates
+> nothing, and no verdict, classifier, or number in this document depends on it.
+
 **The §2.4 replay identity (restated):** with optical activity OFF, a
 component-scalar loading, and a component-0 launch, T-MAG's component-0 dynamics
 are mathematically the merged Class-C G-J scalar run. T-MAG is a REPRODUCTION
 gate (machinery receipt), never an independent transverse measurement and never an
 independent confirmation of the scalar locus. All new physics content is T-ELEC
-(z = 1/√S — never measured on any channel before this run) plus the cross-loading
-MIRROR diagnostic.
+(z = 1/√S — **no prior run found** on any channel that extracts a Γ(A)
+response-map off this loading; grep-scope claim, see §D D3 for the exact scope
+and for the qualifier this places on the frozen prereg's stronger wording) plus
+the cross-loading MIRROR diagnostic.
 
 ## 1 — Config echo + config-grep rerun (prereg §3, on the ACTUAL driver)
 
@@ -103,8 +132,21 @@ observable is constructed. No closed negative (§3.1 energize-LOCK, §3.2 #415,
 
 ## 3 — Windows + R-1 (prereg §4.4/§5)
 
-Both configs derived identically from the shared cold run + the pinned Class-C
-rule: **incident [10, 29], reflected [30, 78]**; wrap-projected probe arrival
+Both configs derived to the SAME windows under the pinned Class-C rule:
+**incident [10, 29], reflected [30, 78]**. Provenance, stated exactly (corrected
+in round-2 repair; the sentence this replaces said "derived identically from the
+shared cold run", which the next line's per-config numbers already contradicted):
+the incident window and the wrap-sentinel close branch come from the SHARED cold
+run (`derive_windows`, `transverse_gamma_meanstest.py:255-283`, reading
+`sanity["t_cF"] / sanity["sigma_t"] / sanity["cold"][…]`), while the
+back-monitor close branch (a) is derived PER CONFIG from THAT config's graded
+back-monitor series (`transverse_gamma_meanstest.py:588-600`: the loop over
+`P["A_grid"]` skips A = 0 and takes `pulse_moments` of each of the 15 remaining
+graded runs' `Fb`, then passes `t_back_min = min(cents)` into `derive_windows`;
+runs below `bm_measurable_frac` would be dropped, and 0 were) — which is why the two configs
+report DIFFERENT back-return bounds below. The equality of the final windows is a
+RESULT, not a shared input: the wrap-sentinel branch was binding in both configs,
+so branch (a)'s per-config difference never reached the close. Wrap-projected probe arrival
 87.776 steps (binding close: 87.776 − 2σ_t = 78.16 → 78); slab-back return bound
 112.48 (TMAG) / 112.67 (TELEC) — non-binding; back-monitor measurability: **0
 runs dropped** in either config (every graded run's transmitted transit was
@@ -204,20 +246,77 @@ sentence carries no mechanism claim.
   agreement with the banked scalar record; the §2.4 replay identity is confirmed
   numerically, not just structurally. **R-3 PASS:** SIGN_top/crossings/monotone
   direction all concordant with the banked classifiers; window-stable;
-  **zero per-point valid-flag differences** vs the banked run (the foreseen
-  A = 0.3 knife-edge flip did not occur — discordance 0.197 reproduced exactly).
+  **zero per-point valid-flag differences** vs the banked run (`r3_flag_diffs`
+  = `[]`; the foreseen A = 0.3 knife-edge flip did not occur — the A = 0.3
+  discordance is reproduced to MACHINE EPSILON, not exactly: 0.19744623329676914
+  here vs 0.19744623329676908 banked, Δ = 5.6e-17, and the largest discordance
+  deviation anywhere on the 16-point grid is 6.31e-16 at A = 0.8. Both sit more
+  than twelve orders of magnitude below the 0.00255 margin that separates
+  0.19744623 from `discord_tol` = 0.2,
+  so no 1e-16-scale shift can flip the flag. Round-2 repair: the first-round text
+  said "reproduced exactly", the same overstatement class §REPAIR item 4
+  corrected for R-2.)
 - **VERDICT T-MAG (§6.3): REPRODUCED** — a MACHINERY receipt: the new
   2-component graded scatter reproduces the banked Class-C G-J measurement to
   machine epsilon (max |ΔΓ| = 1.7e-16) at the frozen windows. Not an
   independent measurement, not an independent confirmation (§2.4 restated in
   the scope block).
+  **How to read the ~1e-16 (round-2 framing note; no number changes).** This is
+  ARITHMETIC-FORM agreement, not independent-implementation agreement, and it is
+  close to structurally forced: the two codepaths evaluate the same expressions
+  at the same degree 3. Banked
+  (`research/drivers/engine_gamma_meanstest.py:289-307`: `Yb = 1.0 / z_of_A(Ab)`
+  … `a_nodes = 2.0 * Yp / Yp.sum(axis=1, keepdims=True)` … `w = (a_nodes *
+  V).sum(axis=1); V_ref = w[:, None] - V`) vs new
+  (`src/ave/solvers/transverse_graded_scatter.py:109,168,179-180`:
+  `return Y0 / root if load == "magnetic"` … `return 2.0 * Y / Ysum` …
+  `w = np.einsum("nd,ndc->nc", a_nodes, V_inc); V_ref = w[:, None, :] - V_inc`) —
+  same admittance expression, same coefficient expression, a 3-term reduction
+  either way. The paths are nonetheless not bit-identical (the cold observables
+  differ in the last bits: t_cF 19.866756764219463 vs banked 19.866756764219467),
+  so the achieved value is a real floating-point receipt — but it is a receipt of
+  CONTAINER INTEGRITY (the 2-component container did not perturb the scalar
+  arithmetic), which is exactly what the frozen gate is for, and the frozen bound
+  (1e-6) is ten orders looser than the achieved value. This is why §2.4's
+  "MACHINERY receipt, not an independent measurement" scoping is the operative
+  reading of R-2, and why R-2 is a §6.5 non-adjudicator of every physics
+  question.
 - **VERDICT T-ELEC (§6.3): DRAWS-OPEN** — SIGN_top = + ∧ no +→− crossing ∧
-  0 θ-crossings. SHAPE = ELEC-CORE-like: the ε-loading homogenizes to the
-  two-port mirror locus (1−√S)/(1+√S), exactly as the scalar precedent
-  homogenized the μ-side; the ELEC-VERTEX (Form-B-algebra) candidate was NOT
-  drawn — no crossing anywhere, and the δ-level sign profile shows no negative
-  region at any A ≥ 0.3, so no vertex-counting signature survives even at the
-  δ level. The A\*-probe grid points (0.95–0.99) bracket no sign change.
+  0 θ-crossings. (The SHAPE label is computed separately per §6.2 and is not
+  part of this verdict, per §6.3 clause 4.)
+- **SHAPE = ELEC-CORE-like (RECORDED, non-adjudicating).** The frozen §6.2
+  criterion is qualitative and purely a label: "no θ-crossing ∧ monotone
+  increasing within δ". Both conjuncts hold. What was MEASURED, stated at the
+  level the run supports: the T-ELEC locus tracks the two-port mirror form
+  (1−√S)/(1+√S) to **max |Γ_meas − form| = 0.00112 over the 13 valid points**
+  (largest at A = 0.99: 0.45281 measured vs 0.45392 form, ≈ 0.25 % relative),
+  and the ELEC-VERTEX (Form-B-algebra) candidate's frozen signature was not
+  drawn — no θ-crossing anywhere, and the δ-level sign profile carries no
+  negative region at any A ≥ 0.3. That locus is **CONSISTENT WITH** the
+  homogenization mechanism the prereg names (§2.7's "ELEC-CORE (homogenized
+  mirror)", by analogy to the scalar precedent's homogenized μ-side) **but is
+  NOT discriminated by this run — SHAPE is a §6.5 non-adjudicator ("the SHAPE
+  label (which candidate T-ELEC draws is recorded, not pass/fail)") and this
+  sentence carries no mechanism claim.** The run measured a LOCUS; it did not
+  measure homogenization, and no sentence here asserts that a candidate "did or
+  did not survive homogenization". (Round-2 repair: the first-round text
+  asserted the mechanism — "the ε-loading homogenizes to the two-port mirror
+  locus … exactly as the scalar precedent homogenized the μ-side" — which is
+  the same defect §REPAIR item 9 fixed for MIRROR; SHAPE now carries the
+  identical hedge.) The A\*-probe grid points (0.95–0.99) bracket no sign
+  change.
+- **δ-level sign profile at A = 0.5 (RECORDED diagnostic, §6.2; non-adjudicating
+  per §6.5).** This is the one pre-committed quantitative place the run could
+  have gone the other way. The freeze put a homogenization-suppressed vertex
+  signature "near −0.036 — below θ but above δ" at A = 0.5 (prereg §2.7:258-262:
+  *"At full vertex strength the negative region reaches Γ_B(0.5) ≈ −0.30
+  (θ-detectable); homogenization-scale suppression (~×0.12 …) would put it near
+  −0.036 — below θ but above δ, hence the δ-level sign profile diagnostic
+  (§6.2)"*). Measured: **Γ_TELEC(0.5) = +0.03588** — opposite sign, above δ, at
+  the exact A the freeze named, so the diagnostic that was built to keep a
+  suppressed vertex signature VISIBLE saw none. Recorded as the §6.2 δ-level
+  diagnostic it is; it adjudicates nothing (§6.5 lists the δ-level sign profile
+  among the explicit non-adjudicators) and it is not a mechanism claim.
 - **§6.4 pair verdict (frozen table, row 1): the two reciprocal impedance
   loadings draw OPPOSITE boundary phases at response-map level** — the ε-side
   locus measured for the first time on any channel (monotone positive to
@@ -226,6 +325,15 @@ sentence carries no mechanism claim.
   boundary-phase (impedance-sign) content; NO sector-ownership claim (§2.3's
   flagged INVARIANT-S2-vs-master-equation split stands, un-adjudicated); NO
   transverse-distinctness claim (§2.4); #260 untouched.
+  **Two qualifiers travel with this frozen cell and must not be dropped if the
+  row is reused downstream (round-2 repair):** (i) its "ε-side"/"μ-side" names
+  are the prereg §2.2 names for the DECLARED IMPEDANCE MAPS, not constitutive
+  attributions — §2.5 states the machinery "cannot distinguish which parameter
+  saturates", so the label is a direction name for z = 1/√S vs z = √S and
+  nothing more (§D D5); (ii) "measured for the first time on any channel" is the
+  frozen wording, and the honest scope of it is "no prior run found that
+  extracts a Γ(A) response-map off this loading" — the loading itself is the
+  engine's historical Op14 default and HAS been run (§D D3).
 
 ## 7 — Window-convergence receipts (§4.4/E11)
 
@@ -354,6 +462,89 @@ omissions in this document's first draft — the checker's full-output appendix
 post-draft adversarial verify and repaired in place before presentation
 (§REPAIR); the shipped data was complete throughout.
 
+**Round-2 qualifier entries (2026-08-25).** D2–D5 below are QUALIFIERS on frozen
+or previously-asserted TEXT, not run deviations: no parameter, gate, classifier,
+verdict, or shipped number is touched by any of them, and the results/raw JSONs
+are byte-identical to the run-of-record commit `c0b40d84`. (These are this
+document's own D-numbering; the prereg's references to "the Class-C D1/D5" are
+the *banked* lane's deviation entries, unrelated.)
+
+- **D2 (2026-08-25) — the pre-freeze adversarial round is DISCLOSED-BUT-UNLOGGED.**
+  The prereg's freeze header discloses a pre-freeze round in four lines and names
+  only lens TYPES (`..._prereg_FROZEN.md:19-22`: *"**Pre-freeze adversarial check
+  (disclosed):** a 3-lens adversarial review (citation-verification /
+  gate-fireability / physics-and-sector) ran on the DRAFT of this document before
+  freeze; its confirmed findings were repaired in the draft. No run existed at any
+  point of that loop."*). **That is the entire landed record.** No per-finding log
+  exists on any ref: the prereg has no §REPAIR heading; it landed in ONE commit
+  (`git show --stat 81e94565` = 1 file, 773 insertions), so there is no
+  draft-and-repair git trail either; and no lane file was found on this branch
+  carrying the individually-named catches (grep-scope, `read-don't-grep`: a
+  search result, not a proof of absence — but the freeze commit's own shape is).
+  Consequently **no finding COUNT from that round is
+  auditable and none is asserted here** — any count quoted for it (e.g. in PR
+  prose) is unlogged prose, not a receipt, and should not be relied on. The
+  reproduction-gate reframe does NOT rest on that round. What carries it, and is
+  independently checkable from what shipped, is: (i) the reframe is INSIDE the
+  byte-identical freeze commit — `git diff 81e94565 <tip> -- '*prereg_FROZEN.md'`
+  is empty, and the frozen text already says T-MAG *"is frozen here as a
+  REPRODUCTION gate, not a prediction"* (prereg:17-18) with the full fence at
+  §2.4; and (ii) the SUBSTANCE holds numerically — the T-MAG replay identity at
+  max |ΔΓ| = **1.665e-16** vs the banked record (`r2_max_dev` in the shipped
+  results JSON, gate 1e-6) and the polarization-leak sentinel at **exactly 0.0 in
+  all 32 runs** (recomputed from the shipped raw series), which is what makes the
+  2-component step S_u ⊗ I₂ in fact and not just in docstring. A faithful
+  reconstruction of the pre-freeze log is not possible from the repository, and
+  none is fabricated here.
+- **D3 (2026-08-25) — novelty claim, restated to its true scope
+  (`read-don't-grep`).** The frozen prereg §2.4 asserts *"All of this run's new
+  physics content lives in T-ELEC (z = 1/√S has never been run on any channel)"*
+  (`..._prereg_FROZEN.md:205-206`). **That parenthetical is FALSE as worded** and is
+  qualified here rather than edited (the prereg is frozen). The electric loading
+  z = 1/√S is the engine's HISTORICAL Op14 DEFAULT and is run in-tree:
+  `src/ave/core/universal_operators.py:788-795` documents it as
+  *"load=\"electric\" (DEFAULT, the OPEN form — UNCHANGED legacy behavior):
+  Z_eff = Z_0 / √S → ∞ as S → 0. … This is the historical Op14 form
+  (universal_operators.py prior default; scale_invariant.impedance_at_strain;
+  cosserat_field_3d :340-342)"*, and `src/ave/core/k4_tlm.py:315-318` sets it
+  live: *"# Op14 canonical: Z_eff = Z_0 / sqrt(S) … self.z_local_field = 1.0 /
+  np.maximum(np.sqrt(S_used), 1e-6)"*. The TRUE and narrower statement — the one
+  this result doc makes everywhere — is that **no prior run was found that
+  extracts a Γ(A) RESPONSE-MAP off that loading**: the banked Class-C ran the
+  magnetic map only (`research/drivers/engine_gamma_meanstest.py:184`:
+  *"Canonical impedance map z = sqrt(S(A)) [4.2, shared with chart forms]"*, all
+  three configs). Per `read-don't-grep`, even that is reported as a **grep-scope
+  claim — "no prior run found", not "never run"**: it states what the searches
+  behind this entry returned (the Op14 electric-load consumers named at
+  `universal_operators.py:788-795`, `k4_tlm.py:315-318`, and the banked Class-C
+  driver's three configs), and it is not a completeness proof over the corpus.
+- **D4 (2026-08-25) — the §2.6 departure count undercounts by one.** The prereg
+  §2.6 heads its disclosure *"**DECLARED DEPARTURE from one build-brief
+  sentence**"* (`..._prereg_FROZEN.md:236`) and then departs from a SECOND brief
+  requirement as well: the brief's Stage-1 discipline set requires *"`ave-prereg`
+  (frozen, firewalled author — the full Class-C chain is the template, including
+  the standalone sentinel checker and the raw-series landing)"*
+  (`_orchestration/2026-08-24_static-existence-build-brief.md:37-39`), and this lane
+  substitutes a CAUSAL firewall for the organizational one. Nothing is concealed —
+  that substitution is disclosed prominently at prereg:7-13 (*"the firewall here
+  is CAUSAL, not organizational"*) — but it is attributed there to "the Class-C
+  template" rather than to the brief, so "one build-brief sentence" is inaccurate:
+  it is two brief requirements, one departed and disclosed in §2.6, one
+  substituted and disclosed in the freeze header.
+- **D5 (2026-08-25) — the frozen §6.4 row-1 ε/μ labels are MAP names, and must
+  travel with that definition.** Row 1 labels the two measured loci by
+  constitutive parameter (*"the ε-side (z = 1/√S) locus … the μ-side the banked
+  scalar locus"*, `..._prereg_FROZEN.md:682`) while §2.5 of the same prereg
+  declares the machinery *"cannot distinguish which parameter saturates"*
+  (:216-218) and that the continuum column is *"a DIRECTION label, not what the
+  machinery imposes"* (:136-137). As executed this is not a scope violation —
+  §2.2 defines ε-side/μ-side as names for the DECLARED maps and this document
+  quotes the frozen cell verbatim — but the label would travel without that
+  definition if the row is reused downstream. Binding here: **ε-side ≡ the
+  declared map z = 1/√S; μ-side ≡ the declared map z = √S; neither names a
+  saturating constitutive parameter, and no sentence in this document attributes
+  one.**
+
 ## Bottom line
 
 The Stage-1 deliverable held on both axes:
@@ -367,12 +558,20 @@ The Stage-1 deliverable held on both axes:
    the sign-locked reference, E_Y conservation at roundoff — drift ≤ 1.5e-14),
    and the orthogonal-polarization leak sentinel read 0.0 (double precision) in
    all 32 runs.
-2. **Physics (the new measurement): the ε-side impedance loading z = 1/√S —
-   never measured on any channel before — DRAWS the OPEN boundary phase:** a
+2. **Physics (the new measurement): the ε-side impedance loading z = 1/√S — no
+   prior run found that extracts a Γ(A) response-map off it on any channel
+   (grep-scope; §D D3) — DRAWS the OPEN boundary phase:** a
    monotone, crossing-free, floorless, window-converged POSITIVE locus rising
-   to Γ(0.99) = +0.4528, shape ELEC-CORE-like (the two-port mirror form; the
-   vertex-counting candidate did not survive homogenization, at either the θ
-   or the δ level). The pair verdict is the frozen §6.4 row-1 language,
+   to Γ(0.99) = +0.4528. SHAPE is recorded as ELEC-CORE-like — the locus tracks
+   the two-port mirror form to max 0.00112 over the 13 valid points, and the
+   ELEC-VERTEX signature was not drawn at either the θ or the δ level. That is
+   CONSISTENT WITH the homogenization mechanism §2.7 names but is NOT
+   discriminated by this run: SHAPE is a §6.5 non-adjudicator, and this
+   sentence carries no mechanism claim. **The run measured a locus; it did not
+   measure homogenization** (round-2 repair — the first-round Bottom line said
+   "the vertex-counting candidate did not survive homogenization", a mechanism
+   assertion on an explicit non-adjudicator; §6 carries the full hedge).
+   The pair verdict is the frozen §6.4 row-1 language,
    verbatim: **"The two reciprocal impedance loadings draw opposite boundary
    phases at response-map level — the ε-side (z = 1/√S) locus measured for the
    first time on any channel, the μ-side the banked scalar locus reproduced in
@@ -381,14 +580,22 @@ The Stage-1 deliverable held on both axes:
    transverse-distinctness claim (§2.4); #260 untouched. SHAPE and MIRROR
    reported as diagnostics."** The MIRROR diagnostic (max 0.451 %, median
    0.14 %, §5) is reported per that row as a diagnostic — it is a §6.5
-   non-adjudicator and carries no evidentiary weight in the verdict. The
+   non-adjudicator and carries no evidentiary weight in the verdict. The frozen
+   cell is quoted as frozen; the two qualifiers that travel with it (the
+   ε-side/μ-side names are §2.2 names for the DECLARED MAPS, not constitutive
+   attributions; and "for the first time on any channel" means "no prior
+   response-map run found") are stated at §6 and in §D D3/D5. The
    sector-ownership question (§2.3) and the transverse-vertex item (§2.6)
-   remain OPEN, exactly as frozen.
+   remain OPEN, exactly as frozen — and per the §2.3 round-2 note above, canon
+   itself already reconciles the A1-compliance-vs-magnetic-branch pairing; what
+   is open is narrower (no sector home for the μ-branch's wave-channel short).
 
 No VOID condition fired; no closed negative's config was reconstructed (§1).
 The ≥3-lens adversarial verify ran on this document's first committed draft per
-prereg §9.6; every finding's disposition is logged in §REPAIR below, and the
-repaired text above is the record of record. Verdict language is
+prereg §9.6, and a 6-lens orchestrator clearing review then ran on the repaired
+tip; every finding's disposition from both rounds is logged in §REPAIR below
+(round 2 as its own table), and the repaired text above is the record of record.
+No round-2 repair moved a number, a verdict, a gate outcome, or a classifier. Verdict language is
 frozen-criterion-only throughout.
 
 ## REPAIR — disposition of every adversarial-verify finding (2026-08-24)
@@ -454,3 +661,37 @@ sentence-initial capitalization restored to match the frozen cell exactly.
 All other sites PASSED, including a byte-identical diff of the §9 appendix
 against a fresh checker run and independent recomputation of every load-bearing
 number.
+
+### §REPAIR round 2 — orchestrator clearing review (2026-08-25)
+
+A 6-lens orchestrator clearing review ran on the branch tip `61b0f05b` (the
+post-§REPAIR state above). Two of its lens objects address this document: the
+citation/numerics lens (2 MAJOR + 3 MINOR) and the canon/sector lens (2 MAJOR +
+3 MINOR). Both returned **DEFECTS-FOUND, all reporting-layer, no BLOCKER**.
+Every finding is dispositioned below. **NOTHING in the run moved:** no shipped
+number, verdict, gate outcome, or classifier changed, no driver or module line
+was touched, and the results/raw JSONs are byte-identical to `c0b40d84` (SHA-256
+re-checked before and after this round).
+
+| # | finding (severity) | disposition |
+|---|---|---|
+| L1-1 | Pre-freeze "66 findings repaired" claim has no log on any ref; unauditable prose (MAJOR) | **FIXED — honest disclosure landed, no log fabricated.** New **§D D2**: the round is **DISCLOSED-BUT-UNLOGGED** (the prereg's 4-line lens-type disclosure is the entire landed record; no §REPAIR heading, one-commit freeze, no per-finding trail on any ref); **no count is asserted or auditable**; what carries the reproduction-gate reframe is (i) the reframe living inside the byte-identical freeze commit and (ii) independently re-verified substance — T-MAG replay identity 1.665e-16 and C1 leak exactly 0.0 in 32/32. A faithful reconstruction is not possible from the repository and none was invented. |
+| L1-2 | Mechanism claim asserted on SHAPE, an explicit §6.5 NON-ADJUDICATOR ("homogenizes … exactly as the scalar precedent homogenized the μ-side"; Bottom line "did not survive homogenization") (MAJOR) | **FIXED — the load-bearing one.** §6's SHAPE bullet rewritten to the exact hedge §REPAIR item 9 applied to MIRROR: locus **CONSISTENT WITH** the §2.7 homogenization mechanism **but NOT discriminated by this run — a §6.5 non-adjudicator, carrying no mechanism claim** — plus the explicit sentence *"the run measured a LOCUS; it did not measure homogenization"*. The "did not survive homogenization" wording is GONE from both §6 and the Bottom line. Measured content restated at the level the run supports (tracking to max 0.00112 over 13 valid points; ELEC-VERTEX signature not drawn at θ or δ). Per the lens's under-featuring note, the one pre-committed quantitative discriminator is now stated in its own bullet as the §6.2 δ-level diagnostic it is: freeze named ≈ −0.036 at A = 0.5, measured **+0.03588** — opposite sign, above δ, at the named A; recorded, non-adjudicating. |
+| L1-3 | "discordance 0.197 reproduced exactly" false at full precision (MINOR) | **FIXED.** §6 now states machine-epsilon: 0.19744623329676914 vs banked 0.19744623329676908, **Δ = 5.6e-17**, max grid deviation **6.31e-16 at A = 0.8**, against the 0.00255 margin to `discord_tol` = 0.2 — recomputed here from the two shipped JSONs, `r3_flag_diffs = []` confirmed. Substantive claim (no A = 0.3 flag flip) unchanged and true. |
+| L1-4 | Window-provenance sentence wrong: the close derivation consumes each config's GRADED back-monitor runs, not just the shared cold run (MINOR) | **FIXED.** §3 restated exactly: incident window + wrap-sentinel branch from the SHARED cold run (`derive_windows`, `:255-283`); back-monitor branch (a) derived PER CONFIG from that config's 32 graded `Fb` series (`:588-600`) — which is why the two back-return bounds differ (112.48 / 112.67). Window EQUALITY is now stated as a RESULT (the wrap branch was binding in both), not as a shared input. |
+| L1-5 | "Reproduces to machine epsilon" invites over-reading as independent-implementation agreement (MINOR, framing) | **FIXED.** §6 carries a framing note: the ~1e-16 is **arithmetic-form** agreement (same admittance and coefficient expressions, 3-term reduction either way — banked `engine_gamma_meanstest.py:289-307` vs new `transverse_graded_scatter.py:109,168,179-180`, both quoted), close to structurally forced, with the frozen gate ten orders looser; the paths are nonetheless not bit-identical (t_cF 19.866756764219463 vs 19.866756764219467). Scoped as a **container-integrity** receipt — which is what the gate is for — reinforcing §2.4's "MACHINERY receipt, not an independent measurement". |
+| L3-1 | §2.3 flag truncates canon's sentence at the em dash, dropping canon's own reconciliation (MAJOR) | **FIXED.** The scope block's §2.3 restatement now carries `resonant-lc-solitons.md:41` **in full, verbatim**, including *"— so this leaf's electric-sector Z→0 confinement and the master-equation magnetic-branch confinement are distinct-sector statements, not a contradiction"*, and states precisely **what it does NOT settle**: no sector home for the μ-branch's **wave-channel** short (μ_eff → 0), which is the routed-open μ-at-core fork already carried at §2.2 from `saturation-rim-inversion.md:70` — so §2.3 and §2.2 are substantially ONE open item, narrower than §2.3 frames it. Adjudicates nothing; the frozen prereg is untouched. |
+| L3-2 | Frozen §2.4's "z = 1/√S has never been run on any channel" is false as worded (MINOR here; prereg frozen) | **FIXED by qualifier, not edit.** New **§D D3**: the electric loading IS the engine's historical Op14 default and is run in-tree (`universal_operators.py:788-795`, `k4_tlm.py:315-318`, both quoted); the true, narrower statement is **"no prior run found"** that extracts a Γ(A) response-map off it (banked Class-C ran the magnetic map only, `engine_gamma_meanstest.py:184`). Wording changed to "no prior run found" at both live sites (§2.4 restatement, Bottom line) and flagged as a **grep-scope claim** per `read-don't-grep`. The frozen §6.4 row-1 quote stays verbatim with the qualifier attached beside it. |
+| L3-3 | §2.6's "one build-brief sentence" undercounts the declared departures by one (MINOR; prereg frozen) | **FIXED by qualifier.** New **§D D4**: the brief's discipline set also requires a *firewalled author* (`build-brief.md:37-39`), for which this lane substituted a CAUSAL firewall — disclosed at prereg:7-13 but attributed there to "the Class-C template" rather than to the brief. Nothing concealed; the count is corrected in the result. |
+| L3-4 | Residual SHAPE sentence reaches past the frozen classifier + unreceipted tracking claim (MINOR) | **FIXED — same repair as L1-2**, plus the tracking claim now carries its receipt: **max \|Γ_meas − (1−√S)/(1+√S)\| = 0.00112** over the 13 valid points (≈ 0.25 % relative at A = 0.99; 0.45281 measured vs 0.45392 form), recomputed here from the shipped table. Verb softened from "homogenizes" to a recorded, consistent-with, explicitly-not-discriminated statement. |
+| L3-5 | Frozen §6.4 row-1 labels measured loci by constitutive parameter while §2.5 fences that attribution (MINOR; prereg frozen) | **FIXED by qualifier.** New **§D D5** plus an inline qualifier beside the §6 pair verdict and the Bottom-line quote: **ε-side ≡ the declared map z = 1/√S, μ-side ≡ z = √S** — §2.2 names for DECLARED MAPS, never constitutive attributions (§2.5: the run "cannot distinguish which parameter saturates"). Stated so the label cannot travel downstream without its definition. |
+
+**Receipts-unchanged proof for this round.** SHA-256 of
+`research/drivers/transverse_gamma_meanstest_results.json`,
+`data/transverse_gamma_meanstest/{cold_sanity,raw_TMAG,raw_TELEC}.json` and
+`run_log.txt` were captured before the first round-2 edit and re-checked after
+the last: **identical**. `git diff --stat c0b40d84..HEAD` touches this result
+document only — no driver, module, checker, figure, or data file. Every number
+quoted in the repairs above was recomputed by the repair session from the
+shipped JSONs, and every file:line cite was re-read at the branch tip before it
+was written.
