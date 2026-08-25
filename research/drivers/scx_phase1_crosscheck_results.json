@@ -60,6 +60,11 @@
       "srs_L2_interior_distinct": 10,
       "srs_L2_interior_total": 62,
       "srs_L2_cycle_block": 34,
+      "srs_L2_ports": 192,
+      "srs_L2_tlm_top_block": 34,
+      "srs_L3_bonds": 324,
+      "k4_tlm_orthogonality": 8.018277400070575e-17,
+      "srs_L2_tlm_orthogonality": 8.018277400070575e-17,
       "srs_L2_cycle_space": 33,
       "srs_L2_highest_interior_over_wc": 4.340571397875135
     },

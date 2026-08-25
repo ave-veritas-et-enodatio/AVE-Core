@@ -464,6 +464,11 @@ def reproduction_gate() -> dict:
     fresh["srs_L2_interior_distinct"] = len(ref2["interior_theta"])
     fresh["srs_L2_interior_total"] = ref2["interior_total"]
     fresh["srs_L2_cycle_block"] = tlm2["n_dc"]
+    fresh["srs_L2_ports"] = tlm2["n_ports"]
+    fresh["srs_L2_tlm_top_block"] = tlm2["n_top"]
+    fresh["srs_L3_bonds"] = len(X.edges_from_net(net3))
+    fresh["k4_tlm_orthogonality"] = tlm_k4["orthogonality_residual"]
+    fresh["srs_L2_tlm_orthogonality"] = tlm2["orthogonality_residual"]
     fresh["srs_L2_cycle_space"] = len(e2) - net2.n_nodes + 1
     fresh["srs_L2_highest_interior_over_wc"] = w_over_wc(ref2["interior_theta"][-1])
 
