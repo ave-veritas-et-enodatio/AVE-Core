@@ -19,7 +19,14 @@ seven-guard set, and the declared skill plan — this item only tracks state.
 - **G1** (the imposition-map ontology walk, Grant-in-chat): PENDING P0's packet.
   **Nothing preregs before G1** — a wrong noun here wastes the arc
   (pre-test-physics-check trigger 8).
-- **P1** (graded-T2 response map): GATED on G1.
+- **G1**: **WALKED 2026-08-24** — outcome recorded
+  (`research/2026-08-24_g1-ac-steady-state-walk_RECORD.md`); P2 rewritten to
+  the harmonic-balance/source-idle form; two residual choices PROPOSED into G2.
+- **Build brief**: LANDED (`2026-08-24_static-existence-build-brief.md`) —
+  Stage 1 (P1 transverse scatter + both-branch measurement) and Stage 2 (HB
+  solver, validated against the MEASURED Class-C locus) are Grant-launchable
+  satellites once the epic merges.
+- **P1** (graded-T2 response map): brief ready; launch gate = epic on main.
 - **P2** (the static-existence run): GATED on G2 (frozen prereg, guards
   discharged in writing).
 - **P3** (adjudication + propagation): GATED on G3 (adversarial verify to
