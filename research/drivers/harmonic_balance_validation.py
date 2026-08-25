@@ -306,9 +306,13 @@ def gate2(measured: dict) -> dict:
     log(f"  cold null |Gamma(A=0)| = {cold_null:.2e} (deembed resid "
         f"{tp0['resid_rel']:.1e}; {time.time() - t0:.0f}s)")
     log("  cold SINGLE-LOAD raw |Gamma| per load = "
-        + "[" + ", ".join(f"{float(g):.9f}" for g in cold_raw) + "]"
+        + "[" + ", ".join(f"{float(g):.12f}" for g in cold_raw) + "]"
         + " — the bond-matched-cut artifact the de-embedding removes "
-        "(receipt for the note's artifact claim; distinct floats per load)")
+        "(receipt for the note's artifact claim; printed at 12 decimals so the "
+        "per-load spread is VISIBLE — the committed log of record predates this "
+        "widening and prints 9, where the three render identically; the "
+        "full-precision floats are in receipts.json, and the BINDING property "
+        "is load-position INDEPENDENCE, spread < 1e-5, not distinctness)")
 
     points = []
     for r in valid_rows:
@@ -316,6 +320,20 @@ def gate2(measured: dict) -> dict:
         t0 = time.time()
         tp, diag = _gj_gamma(net, bt, conn, inside, A, P["g2_theta"], x_I, P["g2_load_planes"])
         g_signed, phase = hb.signed_gamma(tp["gamma"])
+        # ESTIMATOR DECLARATION (added 2026-08-25, adversarial round 2 — the
+        # choice was previously silent). The frozen Class-C table carries TWO
+        # estimators per row: `gamma` = the SIGNED MATCHED-FILTER value that the
+        # frozen prereg §4.4 defines and that the result doc adjudicates on, and
+        # `gammaE` = the UNSIGNED ENERGY cross-check used only as a validity /
+        # discordance metric ("picks up more late-time tail",
+        # 2026-08-24_engine-gamma-meanstest_result.md:598-600). This gate
+        # reproduces the MATCHED-FILTER column, deliberately — it is the
+        # adjudicating one. The choice is load-bearing at exactly one grid
+        # point: re-graded against the energy estimator (sign carried over from
+        # the matched-filter column) the worst deviation is 0.01011 at A = 0.3
+        # against the same 0.010 floor, i.e. that point would FAIL, and the
+        # headline max would read 0.00739 instead of 0.00129. Disclosed in the
+        # note; not a defect — the frozen source names which column adjudicates.
         dev = abs(g_signed - float(r["gamma"]))
         tol_pt = max(P["g2_tol_abs_floor"], P["g2_tol_rel"] * abs(float(r["gamma"])))
         ok = dev <= tol_pt
@@ -502,8 +520,14 @@ def make_figures(g1: dict, g2: dict) -> None:
 def main() -> int:
     log("HARMONIC-BALANCE SOLVER — Stage-2 validation gates (computed, never asserted)")
     log("=" * 78)
-    log(f"repo: {_REPO}")
-    log(f"measured data: {MEASURED_JSON}")
+    # REPO-RELATIVE ONLY (fixed 2026-08-25, adversarial round 2): the run log is
+    # an artifact of record and must carry no authoring context. The committed
+    # log of record predates this fix and still shows the authoring worktree's
+    # absolute path in these two lines — surfaced in the note's REPAIR round-2
+    # table; it will clear on the next run of record. Nothing numeric is
+    # affected, and receipts.json never carried a path.
+    log("repo: <repo root> (repo-relative paths only; no authoring context)")
+    log(f"measured data: {MEASURED_JSON.relative_to(_REPO)}")
     log("parameters:")
     for key, val in P.items():
         log(f"  {key} = {val}")
@@ -524,12 +548,12 @@ def main() -> int:
     }
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     (DATA_DIR / "receipts.json").write_text(json.dumps(receipts, indent=1))
-    log(f"\nReceipts written: {DATA_DIR / 'receipts.json'}")
+    log(f"\nReceipts written: {(DATA_DIR / 'receipts.json').relative_to(_REPO)}")
 
     make_figures(g1, g2)
 
     (DATA_DIR / "run_log.txt").write_text("\n".join(_LOG_LINES) + "\n")
-    log(f"Run log written: {DATA_DIR / 'run_log.txt'}")
+    log(f"Run log written: {(DATA_DIR / 'run_log.txt').relative_to(_REPO)}")
     log("=" * 78)
     log(f"GATES: 1={'PASS' if g1['pass'] else 'FAIL'} 2={'PASS' if g2['pass'] else 'FAIL'} "
         f"3={'PASS' if g3['pass'] else 'FAIL'} -> ALL {'PASS' if receipts['all_pass'] else 'FAIL'}")

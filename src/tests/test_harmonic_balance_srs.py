@@ -323,7 +323,45 @@ class TestAlphaFree:
         for sym in ("ALPHA", "Q_TANK", "ELECTRON", "V_SNAP"):
             assert sym not in vars(hb)
 
+    def test_no_constants_reference_anywhere_in_module_code(self):
+        """WIDENED (adversarial round 2, L4-5). `vars(hb)` only sees four
+        hard-coded names bound at module level, so an import-time capture under
+        ANY other name (`_Y_SCALE = 1 + ALPHA`) slipped it — and the doubling
+        test below is structurally blind to import-time captures too. This walks
+        the module's own AST and rejects ANY reference to the constants module
+        or to a calibration symbol, under any binding name, anywhere in the
+        CODE (docstrings and comments are not AST nodes, so the header's
+        prose about being alpha-free does not self-trip this)."""
+        import ast
+        import inspect
+
+        banned = {"ALPHA", "Q_TANK", "ELECTRON", "V_SNAP", "V_YIELD", "alpha", "constants"}
+        tree = ast.parse(inspect.getsource(hb))
+        hits = []
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Name) and node.id in banned:
+                hits.append(node.id)
+            elif isinstance(node, ast.Attribute) and node.attr in banned:
+                hits.append(node.attr)
+            elif isinstance(node, ast.Import):
+                hits += [a.name for a in node.names if "constants" in a.name]
+            elif isinstance(node, ast.ImportFrom):
+                if node.module and "constants" in node.module:
+                    hits.append(node.module)
+                hits += [a.name for a in node.names if a.name in banned]
+        assert not hits, f"calibration symbols referenced in module code: {sorted(set(hits))}"
+
     def test_operator_bit_identical_under_alpha_doubling(self, srs2):
+        """BOUNDED CLAIM (stated 2026-08-25, adversarial round 2): this is a
+        CALL-TIME probe. It mutates C.ALPHA between two operator builds, so it
+        fires on a RUNTIME alpha read anywhere in the scatter chain — and it is
+        structurally BLIND to a constant baked at IMPORT time (already captured
+        before the doubling). The import-time hole is covered separately, for
+        THIS module, by test_no_constants_reference_anywhere_in_module_code;
+        for the shared downstream (vacuum_varactor_scatter / crystal_engine)
+        it is covered only by the same call-time bound as the pre-existing
+        varactor gate-3 precedent, i.e. it is a CARRIED limitation, not a new
+        one. Do not quote this test as an unqualified "alpha-free" proof."""
         import ave.core.constants as C
 
         net, bt, conn = srs2
@@ -615,7 +653,22 @@ _RECEIPTS = _REPO / "research" / "drivers" / "data" / "harmonic_balance_validati
 _MEASURED = _REPO / "research" / "drivers" / "engine_gamma_meanstest_results.json"
 
 
-@pytest.mark.skipif(not _RECEIPTS.exists(), reason="validation receipts not yet generated")
+def test_receipts_of_record_exist():
+    """FAIL-LOUD, not skip (adversarial round 2, L5-6). This class used to sit
+    behind `@pytest.mark.skipif(not _RECEIPTS.exists())`. The receipts ARE
+    committed, so that guard could never legitimately fire on a checkout — its
+    only live effect was to make the four regression-binding tests VANISH
+    SILENTLY (green suite) if receipts.json were deleted or moved. A missing
+    evidence file is a failure, and it is now reported as one."""
+    assert _RECEIPTS.exists(), (
+        f"committed validation receipts are missing: {_RECEIPTS}. They are the "
+        "evidence the regression-binding tests bind to — a missing evidence file "
+        "FAILS this suite, it does not skip it. Regenerate with: PYTHONPATH=src "
+        "python research/drivers/harmonic_balance_validation.py"
+    )
+    assert _MEASURED.exists(), f"committed measured Class-C source is missing: {_MEASURED}"
+
+
 class TestReceiptsReconciled:
     """Bind the committed gate receipts to the committed measured data: the
     reported verdicts must recompute from the numbers in the files (the

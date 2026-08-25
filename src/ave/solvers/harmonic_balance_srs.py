@@ -70,7 +70,11 @@ A^2_local = (sum_ports V_inc^2)/V_SNAP^2 (same leaf, :55-60; the DP-3 R2-fix at
 :85-87 canonizes the full (V_inc, Phi_link) tank form — the two differ by
 EXACTLY sqrt(2) in A at fixed v_norm, an OPEN normalization fork this module
 supports on both arms via envelope mode, defaulting to the C-state projection
-as PROPOSED; G2 freezes the choice — see envelope_A_bond). For a tone set of
+as PROPOSED; G2 freezes the choice — see envelope_A_bond. Canon's own DP-3
+line ENDS with a review flag on exactly that term: "(Normalization of the
+Phi_link^2/(LC) term flagged for review-on-merge.)" (:87, verbatim) — canon
+has never signed off on the full-tank normalization either, so the fork is
+open on BOTH arms, not "canonical vs proposed"). For a tone set of
 distinct PHYSICAL tone lines — ToneSet's canonical (0, pi) domain; conjugate
 pairs {theta, 2pi-theta} are rejected because their cross terms do NOT vanish,
 and the self-conjugate theta = 0/pi because its SELF-term breaks the |v|^2/2
@@ -80,7 +84,32 @@ COMBINE rule is derived; the normalization arm stays the open fork above:
     A_bond^2 = sum_m ( |v_m[fwd]|^2 + |v_m[bwd]|^2 ) / (2 * v_norm^2) ,
 
 the bond-restricted DP-1 projection (fwd/bwd = the bond's two directed incident
-ports; |v|^2/2 = the cycle mean of Re[v e^{i theta t}]^2). Because S is a
+ports; |v|^2/2 = the cycle mean of Re[v e^{i theta t}]^2).
+
+TWO independent normalization axes ride into the G2 freeze here, not one
+(DISCLOSED 2026-08-25, adversarial round 2 — the second was previously stated
+only as the phrase "bond-restricted" and never routed):
+  AXIS 1 (arm)         : C-state vs full-tank — EXACTLY sqrt(2) in A, above.
+  AXIS 2 (aggregation) : this module aggregates PER BOND (the bond's own two
+      directed ports, a 2-port sum), whereas canon's DP-1 row is a PER-CELL /
+      per-NODE aggregate — ":56 verbatim: `Per-cell aggregate saturation level
+      (chi-squared-of-4 across ports)`". Re-basing per-node -> per-bond is a
+      change of the SAME kind as axis 1 and is NOT implied by it. MEASURED on
+      the srs2 fixture with a uniform |v| = 0.5 field: per-bond c-state A_b =
+      0.500000, per-node c-state A_node = 0.612372, ratio 1.224745 = sqrt(z/2)
+      with z = 3 — i.e. 1.22x, about 87% the size of the sqrt(2) fork, and NOT
+      a constant in general (it is sqrt(z/2) only on a uniform field; on a
+      graded/structured field it is content-dependent). A feeds S(A) =
+      sqrt(1-A^2), strongly nonlinear near the rail, so this is not a benign
+      prefactor.
+The per-bond choice is what the graded ADMITTANCE needs (Y lives on the bond;
+a per-node-uniform admittance cancels at the junction — the guard-4 trap
+below), so it is a DEFENSIBLE engineering choice, not an oversight — but it is
+a choice, it is PROPOSED, and G2 must freeze BOTH axes. No Stage-2 receipt
+depends on either (gates 1-2 impose A externally; gate 3 never calls the
+envelope), which is exactly why it lands on the P2 self-consistent run.
+
+Because S is a
 functional of the ENVELOPE, S is STATIC in steady state and each tone sees the
 same graded network: the inter-tone coupling is the shared S-field. v_norm keys
 the per-sector yield (DP-1 is per-sector): engine-natural default 1.0 == V_SNAP
@@ -119,11 +148,32 @@ SUBSTRATE-NATIVE-CHECK (walked BEFORE any numerical code)
                   front echo == matched-local-z absorption behind the interface).
   * Op14        : saturation enters ONLY as the per-bond admittance
                   Y = Y0/sqrt(S(A)) — the mu-load, Z_bond = Z0*sqrt(S) -> 0,
-                  Gamma -> -1 (the SHORT). The reciprocal epsilon-load
-                  (Z -> inf, Gamma -> +1) is FORBIDDEN (crystal_engine.py:466-468);
-                  so is the transverse Op14 form Z_eff = Z0/sqrt(S) on this bond
-                  grading (that cross-wiring is the genesis-24 double-count,
-                  ave-kb CLAUDE.md INVARIANT-S2).
+                  Gamma -> -1 (the SHORT). This module is SCOPED to that branch;
+                  it does not adjudicate the other one.
+                  [CORRECTED 2026-08-25, adversarial round 2 — the earlier text
+                  here called the reciprocal epsilon-load "FORBIDDEN
+                  (crystal_engine.py:466-468)". Both halves were wrong. (i) The
+                  cited lines are gamma_bulk's mu-load DESCRIPTION and carry no
+                  forbid; the actual scope assertion is crystal_engine.py:471-474,
+                  and what it forbids is REUSING gamma_bulk's Z_eff form for an
+                  eps-load import — "A future eps-load import MUST NOT reuse this
+                  method's Z_eff form" — not the eps-load itself. (ii) Canon holds
+                  BOTH branches with opposite boundary phase (the governing epic,
+                  _orchestration/2026-08-24_static-existence-epic.md:74-76:
+                  magnetic-first Z->0/Gamma->-1 and electric-first Z->inf/
+                  Gamma->+1). (iii) Stage 1 of this same epic has since MEASURED
+                  the electric branch on the transverse channel — PR #1012,
+                  branch feat/static-existence-stage1-transverse-scatter,
+                  src/ave/solvers/transverse_graded_scatter.py:21-24 builds the
+                  eps map FRESH in explicit compliance with :471-474, and its
+                  T-ELEC locus is banked (Gamma(A=0.99) = +0.45281,
+                  research/drivers/transverse_gamma_meanstest_results.json);
+                  that PR's frozen prereg records the sector split as NOT
+                  adjudicated. So: eps-load = a canon-held OPEN branch measured
+                  elsewhere, out of scope here — never "forbidden".]
+                  What IS forbidden ON THIS BOND GRADING is the transverse Op14
+                  form Z_eff = Z0/sqrt(S) (that cross-wiring is the genesis-24
+                  double-count, ave-kb CLAUDE.md INVARIANT-S2).
   * per-bond    : a per-NODE-uniform admittance CANCELS at the shunt junction
                   (vacuum_varactor_scatter.py:54 — the structural-null trap; epic
                   guard 4). Grading enters per DIRECTED bond; the cancellation is
@@ -584,7 +634,24 @@ def envelope_A_bond(
     prose points at the conserved reactive tank while its observable table
     lists the C-state row as "the C-state projection of this envelope"; which
     one feeds the Op2 kernel argument is the open adjudication. Default
-    "c-state" is PROPOSED, not canonical.
+    "c-state" is PROPOSED, not canonical. Canon has not signed off on the
+    full-tank arm either: :87 ends "(Normalization of the Phi_link^2/(LC) term
+    flagged for review-on-merge.)" — the fork is open on BOTH arms.
+
+    SECOND AXIS, disclosed 2026-08-25 (adversarial round 2): the `mode` switch
+    is only the ARM. This function ALSO re-bases the AGGREGATION — it sums the
+    BOND's two directed ports, where canon's DP-1 row is a PER-CELL/per-NODE
+    aggregate (":56 verbatim: `Per-cell aggregate saturation level
+    (chi-squared-of-4 across ports)`"). MEASURED receipt on the srs2 fixture
+    with a uniform |v| = 0.5 field: per-bond c-state A_b = 0.500000 vs
+    per-node c-state A_node = 0.612372, ratio 1.224745 = sqrt(z/2), z = 3 —
+    ~87% the size of the sqrt(2) arm fork, and content-dependent off a uniform
+    field. The per-bond basis is what the per-DIRECTED-BOND admittance needs
+    (guard 4: a per-node-uniform admittance cancels at the shunt junction), so
+    it is a defensible engineering choice — but it is PROPOSED, not canon, and
+    the G2 freeze must decide BOTH axes, not just the sqrt(2) one. Neither axis
+    touches any Stage-2 receipt (gates 1-2 impose A externally; gate 3 never
+    calls this function); both land on the P2 self-consistent run.
 
     Cross-tone honesty: |v|^2/2 (or |v|^2) is a cycle mean; cross-tone terms
     vanish only for distinct PHYSICAL tone lines — enforced here on the sols'
@@ -715,6 +782,18 @@ def source_idle_report(
                       (uncut) connect map — the homogeneous/autonomous defect.
                       r_auto ~ 0 means v is a source-free solution of the intact
                       network: the scaffold is removable.
+    SCAFFOLD-ABSENT BRANCH — READ THIS BEFORE QUOTING AN IDLE VERDICT
+    (disclosed 2026-08-25, adversarial round 2). When `term is None` there is
+    no scaffold to measure, and this function returns LITERAL ZEROS for
+    source_amp / exchange_amp / P_in / P_out — they are structurally
+    guaranteed, NOT measurements. On such a call two of idle_verdict's three
+    criteria are satisfied by construction and only r_auto carries content, so
+    an "idle" verdict there is a ONE-observable verdict. Callers that want a
+    three-observable idle reading must pass a real Termination (the driver's
+    gate-3 ring passes None; its driven tank passes one, which is why the tank
+    side of the pair is the informative one). Any prose saying "all observables
+    computed from the solved state" is true only of the term-is-not-None branch.
+
     Idle-ness is adjudicated by the CALLER against declared thresholds
     (idle_verdict); this function only measures."""
     N, d = a_nodes.shape
