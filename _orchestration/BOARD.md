@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **af64357a** (2026-08-24) · 460 index records · 330 claims · 2 PRs open
+Scanned tree **9c010e24** (2026-08-24) · 467 index records · 330 claims · 1 PR open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`37926892`). Every count below describes **af64357a**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`fc154aa6`). Every count below describes **9c010e24**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -111,7 +111,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## Ruling-token coverage
 
-**43 of 56 docketed ruling numbers have no word-boundary occurrence anywhere in the claims register.**
+**43 of 57 docketed ruling numbers have no word-boundary occurrence anywhere in the claims register.**
 
 R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20, R21, R22, R23, R24, R25, R26, R27, R28, R29, R30, R32, R33, R34, R35, R36, R37, R38, R41, R45, R46, R47, R51, R52, R53, R54, R55, R56
 
@@ -130,8 +130,7 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 | PR | state | title |
 |---|---|---|
-| #1010 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: Class-C engine Γ(A) means |
-| #1009 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] orchestration: the static-existence |
+| #1011 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] kb: walk-vocabulary register batch  |
 
 <!-- /volatile -->
 
