@@ -76,13 +76,19 @@ ALLOWED: dict[str, str] = {
         "External to this lane's record."
     ),
 }
-# CLS-1's four counts are NOT allow-listed. A repaired driver cannot emit the
-# numbers that document the defect it repaired, so they are absent from the
-# record -- but "absent from the record" must not mean "unchecked". They are
-# RECOMPUTED FROM THE ENGINE by `computed_from_tree` below, both under the
-# repaired margin and under the removed one. Allow-listing them would have been
-# the weaker choice twice over: two of the four (19, 20) collide with unrelated
-# pooled values, so their allow-list entries would have been inert.
+# CLS-1's counts are NOT allow-listed. A repaired driver cannot emit the numbers
+# that document the defect it repaired, so they are absent from the record -- but
+# "absent from the record" must not mean "unchecked". They are RECOMPUTED FROM
+# THE ENGINE by `computed_from_tree` below, under BOTH margins. Allow-listing
+# them would have been the weaker choice twice over: two of them (19, 20) collide
+# with unrelated pooled values, so their allow-list entries would have been inert.
+#
+# The recomputation takes srs L=3's two BAND-EDGE eigenvalues from the RECORD, not
+# from this machine's LAPACK -- see `_cls1_counts_from_the_engine`. Reading them
+# live made this checker green locally and RED on CI at 3820883a, because whether
+# the defect reproduces depends on which side of +-3 a given LAPACK lands on. The
+# `--mutation-receipt` run now carries four determinism arms that hold the
+# checker's verdict fixed under exactly that perturbation.
 
 # ── (2) DERIVED registry: value -> the formula that produces it from the JSON ──
 def derived(rec: dict) -> dict[float, str]:
@@ -115,7 +121,7 @@ def derived(rec: dict) -> dict[float, str]:
 
 
 # ── (3) COMPUTED-FROM-ARTIFACT registry ──────────────────────────────────────
-def computed_from_tree() -> dict[float, str]:
+def computed_from_tree(rec: dict) -> dict[float, str]:
     """Numbers the doc states ABOUT the tree, recomputed from the tree."""
     tree = ast.parse(TESTS.read_text(encoding="utf-8"))
     n_tests = sum(
@@ -138,7 +144,7 @@ def computed_from_tree() -> dict[float, str]:
                     extra += len(arg.elts) - 1   # k cases replace 1 function
     collected = n_tests + extra
     out = {float(collected): f"pytest items collected from {TESTS.name} (AST-counted)"}
-    out.update(_cls1_counts_from_the_engine())
+    out.update(_cls1_counts_from_the_engine(rec))
     return out
 
 
@@ -146,24 +152,53 @@ def computed_from_tree() -> dict[float, str]:
 #: numbers stay reproducible after the driver stopped producing them.
 _CLS1_REMOVED_THETA_MARGIN = 1.0e-9
 
+#: How far the LIVE engine spectrum's band-edge eigenvalues may sit from the
+#: record's before this checker refuses to reconcile. Loose enough to absorb any
+#: LAPACK's ULP-level choice at |mu| = 3 (a few times 4.44e-16), tight enough
+#: that an actual change to the graph fails LOUD instead of being absorbed.
+_CLS1_MU_RECONCILE_TOL = 1.0e-12
 
-def _cls1_counts_from_the_engine() -> dict[float, str]:
+
+def _cls1_counts_from_the_engine(rec: dict) -> dict[float, str]:
     """Recompute CLS-1's srs L=3 counts, under BOTH margins, from the engine.
 
-    The result doc states four counts about a defect the repaired driver can no
-    longer emit: srs L=3 scored 215 interior modes / 20 distinct theta under the
-    removed 1e-9 theta margin, against the correct 214 / 19. Rather than
-    allow-list them (which would assert them), this recomputes them from
-    ``build_srs_net(3)`` and the driver's own ``boundary_class``, so the doc's
-    defect claim reconciles against the engine like every other number.
+    The result doc states counts about a defect the repaired driver can no longer
+    emit: srs L=3 scored 215 interior modes / 20 distinct theta / the theta=pi
+    block counted 0 times under the removed 1e-9 theta margin, against the correct
+    214 / 19 / 1. Rather than allow-list them (which would assert them), this
+    recomputes them from ``build_srs_net(3)`` and the driver's own
+    ``boundary_class``, so the doc's defect claim reconciles against the engine
+    like every other number.
 
-    Fails LOUD if the driver cannot be imported: a checker that silently drops a
-    registry when an import breaks is a checker that goes blind exactly when
-    something has changed.
+    ── WHY THE TWO BAND-EDGE EIGENVALUES COME FROM THE RECORD ──────────────────
+    CLS-1's whole content is that a boundary eigenvalue missing its exact integer
+    by a few ULPs classified INTERIOR under a margin stated in THETA. WHICH SIDE
+    of +-3 a given LAPACK build puts that eigenvalue on is NOT reproducible across
+    machines. Measured: this repo's dev machine returns
+    ``mu_min = -2.9999999999999987`` and the defect reproduces (215/20/0); with
+    ``mu_min`` at or beyond -3.0 ``np.clip`` fires and the defect does NOT
+    reproduce (214/19/1); with ``mu_max`` an ULP low it over-reproduces
+    (216/21/0). A registry built from the LIVE extremes therefore contains 215 on
+    one machine and not on another -- which is exactly how this checker went green
+    locally and RED on CI at 3820883a. That is the same class of bug as CLS-1
+    itself, committed in the gate written to close CLS-1.
+
+    The result doc does not claim the defect reproduces on every machine. It
+    claims it on ONE named value: *"MEASURED on this driver's OWN shipped value
+    reproduction_gate.fresh.srs_L3_mu_min = -2.9999999999999987"*. So that is the
+    claim this reconciles: the ENGINE supplies the spectrum, the DRIVER supplies
+    the classifier, and the two band-edge eigenvalues come from the RECORD under
+    check. Nothing is hard-coded and nothing is allow-listed; the result is
+    identical on every machine because the one platform-dependent input has been
+    replaced by the artifact the doc's sentence actually names.
+
+    Fails LOUD in both directions: if the driver cannot be imported, or if the
+    live extremes disagree with the record beyond ULP noise (which would mean the
+    GRAPH changed, not the rounding), this raises rather than quietly narrowing
+    the registry.
     """
     sys.path.insert(0, str(REPO / "src"))
     import importlib.util
-    import math
 
     import numpy as np
 
@@ -174,20 +209,40 @@ def _cls1_counts_from_the_engine() -> dict[float, str]:
     sys.modules[spec.name] = drv          # dataclasses resolve through sys.modules
     spec.loader.exec_module(drv)
 
+    fresh = rec["reproduction_gate"]["fresh"]
     net3 = drv.build_srs_net(3)
-    mu = np.linalg.eigvalsh(drv.adjacency(drv.X.edges_from_net(net3), net3.n_nodes))
+    if net3.n_nodes != fresh["srs_L3_nodes"]:
+        raise AssertionError(
+            f"srs L=3 node count changed: engine {net3.n_nodes} vs record "
+            f"{fresh['srs_L3_nodes']}. CLS-1's counts are about a 216-node graph."
+        )
+    mu = np.sort(np.linalg.eigvalsh(drv.adjacency(drv.X.edges_from_net(net3), net3.n_nodes)))
+
+    # Reconcile-don't-declare: the live extremes must AGREE with the record to
+    # within ULP noise before we substitute the record's. Disagreement beyond that
+    # is a graph change and must not be papered over by the substitution.
+    for name, live, banked in (("mu_min", float(mu[0]), float(fresh["srs_L3_mu_min"])),
+                               ("mu_max", float(mu[-1]), float(fresh["srs_L3_mu_max"]))):
+        if abs(live - banked) > _CLS1_MU_RECONCILE_TOL:
+            raise AssertionError(
+                f"srs L=3 {name} moved beyond ULP noise: engine {live!r} vs record "
+                f"{banked!r} (tol {_CLS1_MU_RECONCILE_TOL:g}). CLS-1's registry is "
+                "not reconcilable against a graph that changed."
+            )
+    mu[0] = float(fresh["srs_L3_mu_min"])
+    mu[-1] = float(fresh["srs_L3_mu_max"])
     th = np.arccos(np.clip(mu / 3.0, -1.0, 1.0))
 
     out: dict[float, str] = {}
     for label, margin in (("REPAIRED (BOUNDARY_THETA_MARGIN)", drv.BOUNDARY_THETA_MARGIN),
                           ("REMOVED (the 1e-9 theta margin)", _CLS1_REMOVED_THETA_MARGIN)):
-        interior = [float(t) for t in th if drv.boundary_class(float(t), margin) == "interior"]
-        n_top = sum(1 for t in th if drv.boundary_class(float(t), margin) == "top")
+        cls = [drv.boundary_class(float(t), margin) for t in th]
+        interior = [float(t) for t, c in zip(th, cls) if c == "interior"]
         out[float(len(interior))] = f"CLS-1: srs L=3 interior mode COUNT under {label}"
         out[float(len({round(t, 9) for t in interior}))] = (
             f"CLS-1: srs L=3 DISTINCT interior theta under {label}")
-        out[float(n_top)] = f"CLS-1: srs L=3 theta=pi block size under {label}"
-    assert math.isfinite(drv.BOUNDARY_THETA_MARGIN)
+        out[float(cls.count("top"))] = f"CLS-1: srs L=3 theta=pi block size under {label}"
+        out[float(cls.count("dc"))] = f"CLS-1: srs L=3 theta=0 block size under {label}"
     return out
 
 
@@ -225,7 +280,7 @@ def scan_doc(doc_text: str, rec: dict) -> list[str]:
     pool: set[float] = set()
     _harvest(rec, pool)
     der = derived(rec)
-    comp = computed_from_tree()
+    comp = computed_from_tree(rec)
     pool |= set(der) | set(comp)
     bad = []
     for line_no, line in enumerate(doc_text.splitlines(), 1):
@@ -354,7 +409,7 @@ def mutation() -> int:
     # rather than assuming it -- otherwise the receipt tests the fixture.
     pool: set[float] = set()
     _harvest(base_rec, pool)
-    pool |= set(derived(base_rec)) | set(computed_from_tree())
+    pool |= set(derived(base_rec)) | set(computed_from_tree(base_rec))
     target = "4.852624968521013e-10"
     perturbed = None
     for mult in (1.5, 2.3, 3.7, 5.9, 11.3):
@@ -406,6 +461,71 @@ def mutation() -> int:
         else:
             print(f"[scx-nc] *** receipt MISSED: {label} -- the gate is a no-op for this class")
             ok = False
+
+    # ── PLATFORM-DETERMINISM RECEIPT (a CAN-IT-STAY-QUIET arm, not a can-it-fire
+    # one). Every receipt above asserts the gate CATCHES something. This one
+    # asserts the gate does NOT fire under a change that must not matter: which
+    # side of +-3 a given LAPACK build puts srs L=3's band-edge eigenvalues on.
+    #
+    # This exists because the CLS-1 registry originally read those eigenvalues
+    # LIVE, so it contained 215 on the dev machine and not on CI -- green locally,
+    # RED on CI at 3820883a, on a doc that had not changed. That is CLS-1's own
+    # failure mode (a classification riding on where a float lands at the ULP
+    # level) committed inside the gate written to close CLS-1. The registry now
+    # takes those two eigenvalues from the RECORD, which is what the doc's
+    # sentence names; this arm proves it.
+    if not ok:
+        return 1
+    import numpy as np
+
+    real_eigvalsh = np.linalg.eigvalsh
+
+    def _edge_shifted(lo, hi):
+        def f(a):
+            m = np.sort(real_eigvalsh(a))
+            if m.shape[0] == base_rec["reproduction_gate"]["fresh"]["srs_L3_nodes"]:
+                if lo is not None:
+                    m[0] = lo
+                if hi is not None:
+                    m[-1] = hi
+            return m
+        return f
+
+    scenarios = [
+        ("mu_min exactly -3.0 (np.clip fires; the CI case)", -3.0, None),
+        ("mu_min one ULP beyond -3.0", -3.0000000000000018, None),
+        ("mu_max one ULP below +3.0", None, 2.9999999999999996),
+        ("both band edges exactly +-3.0", -3.0, 3.0),
+    ]
+    for label, lo, hi in scenarios:
+        np.linalg.eigvalsh = _edge_shifted(lo, hi)
+        try:
+            found = run(base_doc, base_rec)
+        except Exception as exc:                      # noqa: BLE001 - report, don't mask
+            found = [f"checker RAISED under the perturbation: {exc!r}"]
+        finally:
+            np.linalg.eigvalsh = real_eigvalsh
+        if found:
+            print(f"[scx-nc] *** receipt MISSED (determinism): {label} -- the gate's "
+                  f"verdict depends on this machine's LAPACK: {found[0][:120]}")
+            ok = False
+        else:
+            print(f"[scx-nc] receipt STABLE: gate unmoved by {label}")
+
+    # ...and the same substitution must still FAIL LOUD on a real graph change,
+    # so the determinism is a reconciliation and not a blanket override.
+    np.linalg.eigvalsh = _edge_shifted(-2.9, None)
+    try:
+        computed_from_tree(base_rec)
+        print("[scx-nc] *** receipt MISSED (determinism): a graph change (mu_min = -2.9) "
+              "was absorbed silently instead of raising")
+        ok = False
+    except AssertionError:
+        print("[scx-nc] receipt CAUGHT: a real graph change (mu_min = -2.9) fails LOUD "
+              "rather than being absorbed by the record substitution")
+    finally:
+        np.linalg.eigvalsh = real_eigvalsh
+
     return 0 if ok else 1
 
 
