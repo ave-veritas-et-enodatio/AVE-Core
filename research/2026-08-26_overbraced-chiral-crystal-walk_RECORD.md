@@ -871,7 +871,72 @@ treat the walk as fully redundant with existing corpus items and see what
 survives.
 
 
-## §9 — KILL CONDITIONS
+## §9 — ★ THE VERDICT AS IT STANDS, AND THE KILL CONDITIONS
+
+### 9.1 The verdict, stated without softening
+
+**The walk's two load-bearing mechanisms — degeneracy-as-selector and
+Chern-as-invariant — are both MEASURABLY VACUOUS on the shipped carrier as it
+stands.** (§4.2, KILL 1 and KILL 2, **[MEASURED-VERIFY-PASS]**.)
+
+**That is not a kill of the walk.** It is a statement that **the walk requires
+three builds before it can be tested at all:**
+
+1. a **symmetry-adapted / Bloch-reduced solve** separating *accidental* from
+   *symmetry-enforced* degeneracies;
+2. a **mechanism breaking the exact realness of `M`** — twisted boundary
+   conditions, or a genuinely complex sector — **or** a switch to a **Z₂ /
+   non-abelian** invariant that survives spinless TRS;
+3. the **Cosserat / T2 channel**.
+
+**None of the three exists.** The third is R58's standing blocker **S1**.
+
+*The distinction between "falsified" and "untestable-as-posed" is doing real work
+here and should not be collapsed in either direction. Nothing above shows the
+physical picture of §2 is wrong. What it shows is that the two instruments the
+walk proposed to test that picture with **read the same value regardless of the
+answer** — which is the same class of defect as §1's finding 3, arriving by a
+different road.*
+
+### 9.2 Kill conditions — pre-registered, so a negative is cheap to reach
+
+**The record dies, and should be retracted per Rule 12 (preserve body, add 🔴
+header), if any of the following returns:**
+
+- **K1 — scaffold ownership.** `Chern(A→0, cold empty lattice) == Chern(A at the
+  solution)` (B11). Then the invariant belongs to the scaffold and §4 is dead as
+  posed.
+- **K2 — wrong side of the line.** The exact rank count on **srs-z3 with Cosserat
+  bonds** returns **isostatic or sub-isostatic** (B1). Then the walk's premise —
+  *"an over-braced structure has states of self-stress"* — does not apply to this
+  vacuum, and §§2–5 go with it. *(Note the corpus's prior count already landed
+  the primary micropolar lattice exactly isostatic on the z=4 carrier — §6.2(ii)
+  — so this condition is live, not decorative.)*
+- **K3 — no particle.** No statement distinguishes the particle's self-stress
+  from the **vacuum ground state's** handed rest-twist (B6, §6.4). Then
+  *"the knot is a self-stress state"* does not pick out an electron and the
+  framing is empty at the object level.
+- **K4 — no bridge.** The rigidity-matrix → scattering-map bridge (B12, §4.5)
+  cannot be written. Then Maxwell–Calladine's *name* was doing the work, not its
+  content, and the framing must be withdrawn rather than re-derived.
+- **K5 — no escape from realness.** All three named escapes from KILL 1 (Z₂,
+  Wilczek–Zee, twisted BCs) are shown unavailable on this substrate. Then the
+  signed-integer route is closed, not merely unbuilt.
+- **K6 — redundancy.** B10 returns *"everything here already exists in the
+  corpus"*. Then the record demotes from *lens* to *pointer*, and its content is
+  a cross-reference note, not a research direction.
+
+**What is explicitly NOT a kill condition:** *"the three builds in §9.1 are
+expensive."* Cost is a scheduling fact and Grant rules on scheduling. Recording
+it here so that cost cannot later be laundered into a physics verdict.
+
+**And the anti-rescue clause (Rule 11).** If K1–K6 fire, the right reaction is a
+clean negative with the mechanism named and the branch closed — **not** a debug
+toward a rescue, and **not** dropping an adjudication criterion post-hoc to
+convert ❌ to ✅. If a successor hypothesis is wanted afterward, it gets a **new
+version number with its own verification chain** (Rule 12 / substitution-not-
+retraction), not this record's slot.
+
 
 ## §10 — The two open questions, routed to computation
 
