@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **5a32de54** (2026-08-25) · 468 index records · 331 claims · 3 PRs open
+Scanned tree **31bcfa7d** (2026-08-25) · 468 index records · 331 claims · 1 PR open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`b62b60ee`). Every count below describes **5a32de54**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`be669184`). Every count below describes **31bcfa7d**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -30,7 +30,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## What we are waiting on
 
-**44 of 76 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
+**44 of 77 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
 
 *Scope: this is a census of `open-items/`. `_orchestration/2026-07-10_rulings-docket.md` is the **paper timeline** — a dated continuation log, frozen at its 2026-07-21 tail per `docket-entries/README.md`, and the historical record of how each ruling was reached. It is read chronologically, not harvested; anything still live in it belongs here as its own file.*
 
@@ -99,6 +99,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [R55 Phase-2 — scripted long-tail wording sweep, "Axiom 5" → "the Substrate DC Bias source law"](open-items/2026-08-24-r55-phase2-wording-sweep.md) | OPEN | lane | 2026-08-24 |
 | [The trefoil mark's Γ-plane annulus rims at (1/3, 1) — an EE-native candidate pin for the OPEN phase-space tube RATIO, vs the golden semi-axes](open-items/2026-08-24-smith-annulus-tube-ratio-pin.md) | OPEN | grant | 2026-08-24 |
 | [Static-existence epic — phase tracker (P0 capability/transduction → G1 ontology walk → P1 graded-T2 → P2 the run → P3 propagation)](open-items/2026-08-24-static-existence-epic-tracker.md) | OPEN | grant | 2026-08-24 |
+| [AUDIT REQUIRED — the autonomous-harmonic-balance lens (the existence test may need no scaffold at all)](open-items/2026-08-25-autonomous-hb-lens-audit.md) | OPEN | lane | 2026-08-25 |
 | [Two different lengths may share the name ell_c — the sqrt(6) Cosserat coupling length vs the weak-range construction](open-items/2026-08-25-ell-c-name-collision.md) | OPEN | grant | 2026-08-25 |
 | [G2 freeze decisions — the four calls that must be frozen before the P2 existence solve runs](open-items/2026-08-25-g2-freeze-decisions.md) | OPEN | grant | 2026-08-25 |
 | [The storage clock and the response clock are the same number exactly — canon's 1.4e-5 near-collision is a linearization artifact](open-items/2026-08-25-storage-response-clock-identity.md) | OPEN | grant | 2026-08-25 |
@@ -135,8 +136,6 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 | PR | state | title |
 |---|---|---|
 | #1019 | CLEARED | [REVIEW: CLEARED] research: the autonomous-harmonic-balance lens (UNAUDITED) + i |
-| #1018 | CLEARED | [REVIEW: CLEARED] research: preserve the P2 preparation artifacts (prereg DRAFT, |
-| #1016 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] SCX Phase 1 — external-solver cross |
 
 <!-- /volatile -->
 
