@@ -569,6 +569,90 @@ computing anything.** **[WALK]**
 
 ## §7 — The walk's own weaknesses
 
+**★ Stated before the audit finds them, and deliberately given as much room as
+§§2–5. If §6 did not already make the point: the parts of this walk that are
+novel are mostly the parts that are weak.**
+
+### 7.1 Over-braced may be the WRONG SIDE of the line
+
+The rich topological mechanics of frames lives at **isostatic** — exactly
+critical bracing, where zero modes and states of self-stress trade off against
+each other and a topological index sorts where each localizes. **Over**-bracing
+kills the zero modes. **[EXTERNAL-UNRETRIEVED — Kane–Lubensky was NOT retrieved;
+0 corpus hits.]**
+
+So self-stress and counted-zero-mode may not both be available at once, and the
+walk's picture may have reached for the wrong side of the very line it names.
+**[WALK]**
+
+**And the corpus's own prior count lands on the isostatic side**: the primary
+micropolar lattice came out `f = s = 96`, index exactly 0 (§6.2(ii)) — that is
+critical bracing, not over-bracing. **[CANON-VERIFIED]** *(On the z=4 diamond,
+under a 3-row bond model. Both caveats matter.)*
+
+### 7.2 A linear over-braced truss has a SUBSPACE of self-stress states — the same disease
+
+In linear elasticity the self-stress states form a **vector space**: any
+combination of two is another one. Canon's own numbers make this concrete —
+`s = 646` at `L=8` central-force, `s = 2310` micropolar over-braced
+(§6.2). **Counting alone does not sparsify.** **[EXTERNAL-UNRETRIEVED for the
+linearity argument; [CANON-VERIFIED] for the numbers.]**
+
+**That is precisely the disease the autonomous-HB lens died of** — a
+continuous family where an isolated solution was wanted (§1, findings 2 and 5).
+The walk has **not** escaped it by switching to structure; it has moved it.
+
+What is *supposed* to sparsify is the **amplitude-dependence of the bracing**:
+`G_c`, hence the bracing, is saturation-modulated, so the self-stress subspace is
+not the same subspace at every amplitude. **The nonlinearity is still
+load-bearing** — it has simply changed jobs, from *pinning the amplitude* to
+*selecting within the subspace*. Whether it actually does that job is entirely
+unexamined. **[WALK]**
+
+### 7.3 It yields AN integer, not THE integer
+
+Nothing in §4 says the answer is `2` and `3`. A transported invariant is *an*
+integer; the electron's `(2,3)` is a specific pair, on a specific torus, in
+phase-space coordinates. **[WALK]**
+
+Two gaps sit between them and neither is addressed: (a) an invariant computed on
+an amplitude/parameter loop is not obviously the same object as the phase-space
+`(2,3)` Clifford-torus winding (the coordinate-discipline question — canon's own
+`(2,3)` is a **phase-space** object, and a real-space or parameter-space integer
+is a different measurement); (b) a *pair* of integers needs a construction that
+produces two, and §4 produces one. **[WALK]**
+
+### 7.4 The periodic-torus inversion may be doing rhetorical work
+
+§4.3 reads one measured fact as fatal to framing A and prerequisite for framing
+B. That is a genuinely useful move **when the two framings use the fact
+differently**, and a rhetorical one when it is used to launder a kill into a
+feature. The honest test: does the band-topology framing actually *need*
+periodicity, or does it merely *tolerate* it? The walk did not check.
+**[WALK — audit item B5.]**
+
+### 7.5 It is a chat walk — the same grade as the lens that just died
+
+This record is **exactly as authoritative as
+`2026-08-25_autonomous-harmonic-balance-lens_RECORD.md` was on 2026-08-25**,
+which is to say: not. That record was careful, internally structured, shipped
+its own audit charter, and its central existence criterion was measured
+vacuous inside 24 hours — on the step its author was least worried about.
+
+Applying that lesson to *this* record: the step this walk is least worried about
+is **§5, the T2 re-ranking** (it feels obvious and it has canon support). By the
+prior's own logic, §5 deserves the most adversarial attention, not the least.
+**[WALK]**
+
+### 7.6 What it buys, priced honestly
+
+Per the discrimination check: **organizing power, zero numbers.** It reframes
+where to look for a selector and it re-prioritizes the T2 wiring. It predicts
+nothing, computes nothing, and — per §6 — coins nothing. If the audit's verdict
+is *"a re-motivation of two items the corpus already carries"*, that verdict
+would be **fair**, and it would still leave the re-motivation useful.
+
+
 ## §8 — AUDIT CHARTER (numbered claims with attack instructions)
 
 ## §9 — KILL CONDITIONS
