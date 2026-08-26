@@ -120,6 +120,38 @@ generic and selection fell to the seed. **[WALK]**
 
 ## §2 — The picture: you cannot thread a knot through a crystal
 
+**[WALK] throughout this section.**
+
+Tying a knot in a spiderweb works because a web has two things a crystal does
+not: **slack**, and **strands free to pass each other through the embedding
+space**. You pull a bight through a loop. Both operations need the material to
+move relative to itself.
+
+A crystal has frozen connectivity. Node `i` is bonded to node `j` and stays
+bonded to node `j`; no strand can pass through another, and there is no slack to
+pull. So **on this picture the knot cannot be in the material** — there is
+nothing in the material that can be re-routed to hold it. **[WALK]**
+
+The candidate the walk proposes: *the knot is in the **stress**.*
+
+An **over-braced** (hyperstatic) structure has more constraints than degrees of
+freedom. The excess does not go away — by Maxwell–Calladine it appears as
+**states of self-stress**: distributions of bar tension and bond moment in
+equilibrium with **zero external load**. A load-free equilibrium. Chirality
+makes those states **handed**. **[EXTERNAL-UNRETRIEVED for the
+Maxwell–Calladine content; [WALK] for the identification with the knot.]**
+
+The image, in Grant's own frame: **the spider does not thread a knot; it builds
+the web already twisted, then braces it until the twist has nowhere to relax
+to.** **[WALK]**
+
+> **⚠ This picture is not new to the corpus, and §6 is where that is dealt
+> with.** "Over-bracing" is already a corpus term with an assigned meaning, and
+> the corpus already describes a handed, load-free, rest-state twist in almost
+> these words — assigned to a *different object*. Read §6 before treating any of
+> §2–§5 as novel.
+
+
 ## §3 — The candidate: a STRUCTURAL amplitude-selector instead of a dissipative one
 
 ## §4 — The proposed discrete question: degeneracies, not existence
