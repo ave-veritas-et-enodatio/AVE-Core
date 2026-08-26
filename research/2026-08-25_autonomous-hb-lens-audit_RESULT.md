@@ -1092,12 +1092,82 @@ standing blocker S1.**
 
 ## §8 — FLAGS SURFACED, NOT FIXED BY THIS LANE
 
-*(section landed in a later commit)*
+Flag-don't-fix. None of these was resolved here; each names who must resolve it.
+
+| # | flag | who resolves |
+|---|---|---|
+| **FL-1** | **The audit instrument's roll-up rule.** `refuters >= ceil(total/2)` is a majority rule applied to an even panel that cannot have a majority. It converted five splits into six unanimous refutations. | orchestrator lane — workflow config, not physics |
+| **FL-2** | **The synthesis's charter-coverage section is wrong on five counts** (§5.1), because the synthesizer reasoned about the verify subset as though it were the whole audit. **The synthesis is otherwise the strongest document of the round and its physics is sound** — this is a scoping defect, not a physics defect. | orchestrator lane; do not re-quote the coverage bullets |
+| **FL-3** | **The (2,3) canon collision (A4).** Three canon sites place it in three different places — Cosserat ω / K4 `V_inc·Φ_link` / K4 `V_inc·V_ref` Clifford torus — against `master-equation.md:33`'s *"share no `(V_inc,V_ref)` phasor"*. The A4 lane's verdict is that **canon does not currently decide it**. F4 cannot be closed until it is decided. | **Grant** — this is a carve, not a sweep |
+| **FL-4** | **`solve_tone` fails SILENTLY into the trivial state**: `term=None` ⇒ homogeneous ⇒ `‖v‖ = 0.000e+00` with **`converged=True`**, three configurations, including warm-started at the exact true mode. This is R58 §4's *"'converged' is not 'non-zero'"* trap, live in shipped code. | engine lane — a non-triviality guard in the solver, not just in a prereg |
+| **FL-5** | **`SrsCageWindingConfig` has no `winding_mode` field.** The `dispersive_vector` negative-control arm is **diamond-carrier only**; on the srs carrier the rigid template is the only representation and **there is no control arm at all**. | engine lane |
+| **FL-6** | **A2's retrieval carries single-lane standing.** Three sources are named (Wiley-IEEE *Analysis and Design of Autonomous Microwave Circuits*; Elsevier *A robust and efficient oscillator analysis technique using harmonic balance*; **arXiv 1006.4931**) but the retrieval was not run through the external-retrieval pipeline and never received an adversarial pass. **Tentative-standing, not discharged-with-authority.** | orchestrator lane — this is what the new open item tracks |
+| **FL-7** | **R43 breach in the merged record.** `RECORD.md:87-89` uses *"ground reference"* as the **warrant** for the clause-Q identification, unlabelled as an analogy, against the BINDING ruling at `vocabulary-register.md:500`. The record did not mint the mislabel — **R55 `:56-58` does the same thing** — so the sweep is wider than one file. | auditor lane — a wording repair plus a register sweep, not a physics change |
+| **FL-8** | **A quotation in the merged record whose string exists nowhere in the corpus.** `RECORD.md:118-119` presents an italic attributed quotation, *"converges 8/11/20/41 outers up the rungs but does not fix the top rung alone."* `git grep "8/11/20/41"` on main returns nothing. **The CONTENT is exactly right and reproduces** (`research/drivers/data/p2_scoping/accel.py` §B gives `it = 8, 11, 20, 41` at `D=0.3/0.5/0.7/0.8` and `{it:150, conv:false}` at `D=0.9`) — the referent is an uncommitted terminal session. Quote-hygiene, not fabrication. | auditor lane |
+| **FL-9** | **The termination probe is unreplicated and the two runs disagree.** One lane: **50 of 176** free-slot eigenvalues remain unimodular. Another: **72 of 184**. Different plane/termination configs, both reported as the same probe. Neither leaned on it; nobody reconciled it. | whoever next uses a terminated autonomous operator |
+| **FL-10** | **`chk3.py` is scratchpad-only.** The F9/F10 receipt lives outside the repo; this doc's §4 block is now the durable record, but if F9/F10 are to gate anything the script belongs in `research/drivers/`. | this arc's next lane |
+| **FL-11** | **Uniqueness / basin structure uncharacterised.** Six trivial seeds gave six distinct θ. Combined with the rank-1 continuum, the solution set within a **single** sector is at least 1-parameter **and** multi-branch. Nobody characterised it. | next lane |
+
+### One flag that is about this lane's own evidence base
+
+**FL-12 — the review phase's own findings were themselves only partly checked.**
+Of 28 review findings, **3** went to an independent checker and **all 3 were
+DOWNGRADED to MINOR** (two `EVIDENCE-VOID`, one `CONCLUSION-WRONG`). A fourth
+checker was dispatched and **never returned**. Six of the 28 went to the verify
+phase. **The remaining 19 have had no second pass of any kind.** Anything quoted
+from them — including several items in §5's table — carries **single-lane
+standing**. This doc marks lane provenance throughout for that reason.
 
 ## §9 — WHAT THE AUDIT DID NOT COVER
 
-*(section landed in a later commit)*
+Modalities not run, in the order they matter:
+
+1. **The two-tone (2:3) case. Every single receipt in this audit is
+   SINGLE-TONE.** The entire lens is about the electron's (2,3), and `RECORD`
+   §5.4 concedes *"whether a 2:3 tone structure is even representable as an
+   autonomous solution on this machinery is open."* **It is still open. This is
+   the largest modality gap in the round.** A review lane separately measured
+   that the relative tone phase is **exactly inert** (`2.2e-16`) and that no
+   exact 2:3 pair exists in the spectrum (nearest `1.500766779`) — which sharpens
+   the gap rather than filling it.
+2. **The augmented system with an actual selection constraint, on the AVE
+   lattice.** The GP/DNLS control showed one norm equation restores full column
+   rank exactly. **Nobody ran the AVE analogue.** The attempt hit a declared
+   STUCK-POINT: srs `L=2` has **no simple eigenvalue** (minimum multiplicity 4),
+   so the amplitude null direction is confounded with symmetry null directions.
+3. **A symmetry-adapted / Bloch-reduced / deflated solve.** Routed by one lane
+   as its own item. **Nobody built it.** Prerequisite for both #2 and for §7.
+4. **A localization gate.** Measured twice as a by-product; **never gated, never
+   pre-registered, never applied as a criterion.**
+5. **Larger carriers.** Unitarity was checked at `L=3` (ndof 648) and `L=4`
+   (1536). The **self-consistent family** was only ever solved at `L=2` and on
+   the 24-ring. **Finite-size and continuum-limit behaviour of the branch:
+   unknown.**
+6. **The A2 sources were never adversarially read** (FL-6), and **19 of 28
+   review findings never got a second pass** (FL-12).
 
 ## §10 — Skill-selection retro-pass
 
-*(section landed in a later commit)*
+| skill | fired | where |
+|---|---|---|
+| `verify-before-cite` | ✅ | every load-bearing cite re-verified in this worktree at `a3f4fef7`: `vocabulary-register.md:500`, `eq_axiom_5.tex:82`, R55 `:58`, `master-equation.md:20`/`:33`, `harmonic_balance_srs.py:146-149` and `:534/:537/:802-804`, `crystal_engine.py:63-64`/`:192-195`, R58 `:98`. The two-cite drifts the lanes found (`:23-26`→`:22-25`; `:480`→`:482`) are recorded rather than propagated |
+| Rule-10 empirical-driver discipline | ✅ | `chk3.py` **re-run**, not copied: bit-identical at `a3f4fef7` (§4). A second convention-free run was written and executed to reconcile three apparently-conflicting multiplicity receipts |
+| `flag-don't-fix` | ✅ | §5.1 and §8. **The most consequential application ran against the dispatch brief itself** — the A2 "total coverage hole" it asked me to record does not exist in the form described, and I recorded the discrepancy rather than either complying or silently correcting |
+| `consensus-bias-symmetric-standard` | ✅ | §2.1's F1 box and §5.4's full ledger in **both** directions, including the one asymmetry running the other way (AVE's forbidden-wiring guard is stricter than anything SM has) |
+| Rule-12 additive-only | ✅ | the merged lens record receives **one appended dated status note**; body verified byte-identical by `git diff` before commit |
+| `regime/phase-state discipline` | ✅ | §0 sector declaration; §3's F8 explicitly argues the null is **in** the regime where the effect would live (60 % kernel compression), not where it cannot exist |
+| `phase-space-coordinate-check` | ✅ | §2.4 — the audit's own barrier is a **grade** mismatch (A1-adjacent scalar solve vs T2 winding sector), and the *name*-match-vs-*grade*-match distinction is carried through F4 and §7 FLAG 7 |
+| `mechanism-claims-discipline` | ✅ | every headline carries its solidity and its measuring lane; F4 is reported **BLOCKED** rather than adjudicated because its verdict depends on an unresolved canon collision |
+| stop-and-ask | ✅ (0 stuck-points) | nothing stalled; the one place a two-attempt cap would have fired — reconciling the three multiplicity receipts — resolved on the first convention-free measurement |
+| `substrate-native-check` | ➖ **not fired, and correctly** | no solver, observer, eigsolver or operator was scaffolded by this lane. Every number here was measured by a prior lane or re-run unmodified |
+| `ave-prereg` | ➖ not applicable | this is an audit disposition, not a test |
+
+**Drift from the plan:** one unplanned skill fired — the convention-free
+eigenvalue re-measurement in §4 was not scoped, and it changed a number the
+round had reported three different ways. **Cheap, and it is the only place this
+doc adds evidence rather than landing it.**
+
+**Discipline boundary observed:** no physics was re-run beyond `chk3.py` and its
+convention-free companion, no shipped number was moved, no KB leaf was edited,
+no register was touched, and no ruling was made. R58 decision 1 and the (2,3)
+carrier fork remain **LIVE and un-ruled.**
