@@ -321,6 +321,96 @@ a new physical identification. **[CANON-VERIFIED / WALK]**
 
 ## §6 — Canon collisions and prior art found while writing this record
 
+**★ This is the most valuable section in the record, and it is mostly bad news
+for the walk's novelty.** Every term the walk reached for was grepped before use.
+
+### 6.0 COINAGE GREP (whole tracked repo, `git grep -I -i`, 2026-08-26 at `origin/main` = `a3f4fef7`)
+
+| term | files | hits | verdict |
+|---|---|---|---|
+| `self-stress` | 5 | 12 | **ALREADY EXISTS with a meaning** — reuse, do not overload |
+| `over-braced` | 21 | 37 | **ALREADY EXISTS with a meaning** — reuse, do not overload |
+| `overbraced` (unhyphenated) | 3 | 29 | same object, alternate spelling in code |
+| `over braced` (spaced) | 0 | 0 | — |
+| `hyperstatic` | 0 | 0 | **0 hits — a coinage.** Prefer canon's `over-braced` |
+| `isostatic` | 30 | 58 | **ALREADY EXISTS with a meaning** — reuse |
+| `Maxwell-Calladine` | 1 | 7 | exists, in the driver; `Calladine` alone: 22 files / 41 hits |
+| `Kane-Lubensky` | 0 | 0 | 0 hits (`Lubensky` alone also 0) — would be a coinage |
+| `Berry phase` | 2 | 3 | present, sparse |
+| `Chern` | 67 | 364 | **heavily used — and already COMPUTED on this carrier**, see §6.3 |
+
+**Consequence: the walk introduces no new term.** Where it reached for
+`hyperstatic` and `Kane–Lubensky` (0 hits each), canon's existing `over-braced` /
+`isostatic` cover the first and the second should be introduced, if at all, only
+with retrieval attached. **[CANON-VERIFIED]**
+
+### 6.1 ★ "Over-bracing = couple-stress" is ALREADY the corpus's identification
+
+[`trampoline-analogy-primer.md`](../manuscript/ave-kb/common/trampoline-analogy-primer.md):155,
+verbatim:
+
+> *"**The chirality lives in the twist, not the stretch.** What laces the
+> micro-gyroscopes together is the **couple-stress** — the handed over-bracing
+> ($\sigma^A$) of Steps 2–3 — an *inductive* coupling (mutual-$\mu$ between
+> neighbours), not a stretch."*
+
+and [`trampoline-framework.md`](../manuscript/ave-kb/common/trampoline-framework.md):190
+— *"Coupling through $\sigma^A$ (antisymmetric stress = couple-stress source from
+Step 3 over-bracing)"*; :560 — *"The Cosserat couple-stress contribution to $G$
+depends on the **over-bracing magnitude** $u_0$…"*. **[CANON-VERIFIED]**
+
+**§5's central identification is therefore not new.** *(Scope note, stated so
+the finding is not inflated: both leaves carry `no-claim` frontmatter — they are
+pedagogical/synthesis leaves, so this is canon-adjacent framing, not a
+claim-graded node. It still establishes the term's meaning, which is what a
+coinage-grep is for.)* **[CANON-VERIFIED]**
+
+### 6.2 ★ The Maxwell–Calladine count Q1 asks for has ALREADY BEEN RUN — on the wrong carrier, with a different bond model
+
+[`research/2026-06-15_alpha-crystal-mc-count_result.md`](2026-06-15_alpha-crystal-mc-count_result.md),
+driver `src/scripts/vol_1_foundations/alpha_crystal_mc_count.py`. Exact sparse-SVD
+rank, `f = DOF − rank`, `s = #C − rank`, `f − s = DOF − #C`. **[CANON-VERIFIED]**
+
+Three findings in it that bear directly on this walk:
+
+**(i) The micropolar (Cosserat) bond model is 3 rows per bond, not 6.**
+`alpha_crystal_mc_count.py:259-275`, verbatim: *"We model each bond as
+constraining all 3 components of the relative GENERALISED displacement at the
+bond midpoint: `g = (u_j − u_i) − (1/2)(phi_i + phi_j) × r_ij` … This yields 3
+rows per bond (the full vector compatibility), the standard Cosserat-rod /
+micropolar-lattice constraint."* **This is the modelling choice §4.4(c) flags,
+and it flips the sign of the walk's answer.** **[CANON-VERIFIED]**
+
+**(ii) On that convention the primary micropolar lattice is EXACTLY isostatic.**
+Table, `:71` — `L=8, N=128, DOF=768, #C=768, rank=672, f=96, s=96, f−s=0`.
+Ninety-six floppy modes *and* ninety-six self-stress states, Maxwell–Calladine
+index exactly zero. **That is the ISOSTATIC side of Q1 — the side §7.1 says the
+rich topological mechanics lives on.** **[CANON-VERIFIED]**
+
+**(iii) Per-node arithmetic and exact rank disagreed badly there.** The bond
+multiplicity was 16/node; the exact independent-constraint coordination was
+`z_eff → 6`. The doc's own words, `:154-155`: *"the **independent-constraint**
+coordination (rank-based z_eff) is the **isostatic 6**, because rank(R) ≤ 3N−6
+regardless of bond count."* **[CANON-VERIFIED]** — the empirical basis for
+§4.4(a).
+
+**The gap that keeps Q1 genuinely open:** that count was run on the **achiral
+z=4 diamond**, and the lattice identity was ratified the *following month* the
+other way. [`axiom-register.md`](../manuscript/ave-kb/common/axiom-register.md):147:
+*"The lattice IDENTITY (D1) is **RATIFIED (Grant 2026-07-03, PR #486): the
+chiral z=3 srs net is the production carrier**; the achiral z=4 diamond is
+re-tagged a non-canonical…"* **[CANON-VERIFIED]**. So the corpus has the
+machinery, the conventions and a worked precedent — on a carrier that is no
+longer the production one, and on an **achiral** lattice, which is precisely the
+property the walk says makes the self-stress states handed.
+
+**Also already named as outstanding work:**
+[`common/claim-quality.md`](../manuscript/ave-kb/common/claim-quality.md):1666 —
+*"build the bond-based micropolar constitutive model that DOES transfer to the
+z=3 srs carrier, and re-run the k·p there"*. **[CANON-VERIFIED]** Q1 is adjacent
+to, and possibly the same work as, an item the corpus already carries.
+
+
 ## §7 — The walk's own weaknesses
 
 ## §8 — AUDIT CHARTER (numbered claims with attack instructions)
