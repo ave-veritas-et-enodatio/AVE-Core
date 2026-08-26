@@ -645,7 +645,227 @@ unreferenced-drivers policy. Routed, not done.
 
 ## §5 — CHARTER DISPOSITION — A1 through A7
 
-*(section landed in a later commit)*
+The charter is `research/2026-08-25_autonomous-harmonic-balance-lens_RECORD.md:151-167`
+— seven items plus two required checks.
+
+| # | charter item | class | disposition | what established it |
+|---|---|---|---|---|
+| **A1** | the shipped `harmonic_balance_srs` can be run autonomously — same fixed point, source dropped, one phase pinned | MACHINERY | **DISCHARGED — NEGATIVE** | Read-and-run: it is **not a flag flip**. `solve_tone` takes `theta: float` as an **INPUT** (`:534`, `:537`), never an unknown, and forms the *linear* system `(e^{iθ}I − M_FF)x = M_FT ŝ`. With `term=None`, `ŝ=0`, so `b=0`. On the shipped ring fixture (N=12, m=2, `θ=1.0471975511965976`) the true ring mode **is** a source-free fixed point (`r_auto = 5.73e-16`), yet `solve_tone(..., term=None)` returns **`‖v‖ = 0.000e+00` with `converged=True`** — in **three** configurations, including warm-started at the **exact** true mode. Separately, damped Picard + branch tracking + an imposed norm **does** converge; plain Picard stalls (48/48 branches failed). |
+| **A2a** | autonomous/oscillator HB is standard external prior art | EXTERNAL | **DISCHARGED — CONFIRMED, with the precondition dropped** | **The retrieval WAS run** (see the correction box below), against three named sources. The technique, the extra-unknown/extra-equation structure and the phase-pinning convention are **as described**. What the transfer omits: the counting yields an **ISOLATED** solution only because dissipation + active gain balance and pin the amplitude — the one ingredient Ax3 forbids. |
+| **A2b** | its phase-normalization is the same move as clause Q | ASSEMBLY | **DISCHARGED — NEGATIVE** | **RESEMBLANCE, NOT THE SAME OBJECT. "NOT FIT to travel to a prereg as written."** Detail below. |
+| **A3** | topology is preserved by seeding the sector | NUMERICAL + CANON | **PARTIALLY DISCHARGED — negatively** | F2 + F3: the winding comes back **= the seed**, and the production reader is template-circular, so a `rigid_template` read **cannot discharge A3 without tautology**. The sub-question *"what is the discrete analogue of passing through zero"* got one partial answer (§2.4: the read is ill-defined at `\|v\|=0`; `np.angle(0)=0` returned `−3` **at** the zero crossing). **Not closed.** |
+| **A4** | the phase-space (2,3) is a PER-TANK object, so uniform imposition conflates per-tank trajectory with collective charge | CANON READING | **DISCHARGED — UNDERDETERMINED** (verdict is "canon does not decide") | A dedicated lane swept it by **two** methods (pattern + full read) against the whole canon set the charter names. Verdict: **canon never carves the scope, and where it speaks it EQUATES the per-bond chart with the collective boundary integer.** The record therefore **proposes a carve, it does not catch a conflation.** An independent checker confirmed every cite verbatim and **downgraded the finding MAJOR→MINOR** on the grounds that the record self-flags the reading and A4 exists to adjudicate exactly this. |
+| **A5** | the continuation stall may be a RESULT rather than a numerical failure | INTERPRETIVE | **DISCHARGED — NEGATIVE, twice, independently** | (1) **F8** (§3): no fold to `A_max 0.918`/`0.950`, `dθ/dA` monotone positive, break at the kernel's declared clip. (2) The review phase re-ran the record's own quoted ladder: `anderson(depth=6)` converges at the **same** `D=0.9` endpoint in **66 outers** where plain Picard fails at 150. **A fold is a property of the branch and is not cured by swapping the outer accelerator.** Charter warned *"A false positive here would be a serious error."* Answer: **numerical failure.** |
+| **A6** | dropping the scaffold dissolves decision 1 and the carrier fork rather than hiding them | LOGIC | **DISCHARGED — the claim is OVERSTATED-TO-FALSE** | That is **F2**. The fork **re-enters at the seed**, fully and intact, relocated to the initial condition. The tone set re-enters as an input constraint. |
+| **A7** | a source-free solution "cannot belong to the scaffold" | LOGIC | **DISCHARGED — VACUOUS, and stronger than A7's own hedge** | That is **F1** (§2.1), re-established on the F5/F6 receipts. The record hedged it *"true but possibly vacuous"*; the measurement says the sentence at `RECORD.md:98` is **false**, not merely vacuous. |
+| — | **consensus-bias symmetric standard** | required check | **DISCHARGED — thoroughly** | Twelve notes across six findings, run in **both** directions; in five instances a lane **withdrew its own or the finding's argument** on symmetric-standard grounds. §5.2 below. |
+| — | **discrimination check** (*"organizing power, a number, or neither"*) | required check | **DISCHARGED — and the answer is worse than the record predicted** | Two lanes ran it. §5.3 below. |
+
+### ⚠ §5.1 — CORRECTION TO THE SYNTHESIS'S OWN CHARTER-COVERAGE SECTION
+
+**This is the most important correction in this document, and it runs against the
+brief that commissioned it.** The verify-phase synthesis reports A2 as a *"total
+coverage hole"*, **"UNDISCHARGED, BOTH HALVES"**, A4 as **"ZERO COVERAGE"**, A5
+as *"filed by nobody"*, the discrimination check as **"NOT PERFORMED BY ANY
+LANE"**, and the routing item as *"quoted by no lane"*.
+
+**All five are false as statements about the audit. All five are true as
+statements about the *verify phase*.** They have a single common cause: **the
+synthesizer saw only the six selected findings and the twelve verify votes. It
+never saw the review journal's 28 findings or its six clean reports.** The
+scoping error is the same instrument-level failure as §1 — a roll-up reasoning
+about a subset as though it were the whole.
+
+What is verifiably true, each checked directly against both journals:
+
+| synthesis claim | verify phase | review phase | net |
+|---|---|---|---|
+| *"A2's external retrieval was never run by anyone"* | **TRUE** — one lane states verbatim *"I did NOT do external literature retrieval (audit item A2's own charge); I relied on discipline knowledge"* | **FALSE** — a lane scoped *"Charter item A2 only"* states *"The record flags this claim as asserted-from-discipline-knowledge and NOT retrieved (:156). **I retrieved it.**"* and names three sources: Wiley-IEEE *Analysis and Design of Autonomous Microwave Circuits*; Elsevier *A robust and efficient oscillator analysis technique using harmonic balance*; **arXiv 1006.4931** | **A2a DISCHARGED** |
+| *"the string 'clause Q' appears nowhere in any of the twelve votes"* | **TRUE** — grep over all twelve votes returns **0** | irrelevant — the review journal has **23** hits, and one lane's headline finding **is** the clause-Q verdict | **A2b DISCHARGED** |
+| *"A4 — ZERO COVERAGE … no lane checked it against the two-threes carve, INVARIANT-N1, or the electron-plumbing primer"* | **TRUE** | **FALSE** — a dedicated A4 lane checked **all three by name** and enumerated its sweep method | **A4 DISCHARGED (underdetermined)** |
+| *"A5 — ANSWERED BY MEASUREMENT, FILED BY NOBODY"* | **TRUE** (F8 was an orphan) | **FALSE** — A5 was **filed as a MAJOR review finding** with its own read-and-run receipt | **A5 DISCHARGED twice** |
+| *"discrimination check — NOT PERFORMED BY ANY LANE"* | **TRUE** | **FALSE** — performed by **two** lanes, with opposite-verdict conditions stated | **DISCHARGED** |
+| *"the routing item … is quoted by no lane"* | **TRUE** | **FALSE** — quoted at `:31-33` by a lane that used it to check fork-status discipline | — |
+
+**Consequence for this doc's deliverables:** the A2 coverage hole the dispatch
+asked me to open a new item for **does not exist in the form described**. What
+*does* exist is thinner and is what §8 routes instead: **A2's two findings never
+received the adversarial verify pass** — like everything else from the three
+lanes the verify phase skipped, they are **single-lane and review-grade**.
+Flag-don't-fix: I have not reframed the synthesis to match, and I have not
+reframed this doc to match the synthesis.
+
+### §5.2 — A2b in full, because it is the plank that makes the lens look canon-endorsed
+
+The record, `RECORD.md:85-90`:
+
+> *"**The arbitrary phase that the normalization condition fixes IS ϖ.** … That
+> is canon's own clause Q — Grant's ratifying words on 2026-08-10 were **"makes
+> perfect sense, we need a ground reference."** **The EE method and the source
+> law agree on the treatment.**"*
+
+Three canon facts, all re-verified on this branch by this lane:
+
+1. **R43 is BINDING and the record breaches it.** `manuscript/ave-kb/common/vocabulary-register.md:500`, verbatim:
+   *"★ VOCABULARY RULING (R43, 2026-08-10 — **BINDING on every consumer**…): the **canonical term is "DC operating point / quiescent point (Q-point)"**. **"Ground (reference)" is the EE-ANALOGY GLOSS, NEVER the canonical noun** — it may appear only as an explicitly-labelled analogy."*
+   The record's use is **not** labelled as an analogy; it is the **warrant for
+   the identification**. The same register entry at `:501` pre-flags exactly
+   this: *"**"ground"** is a live mis-use hazard created by the ruling itself,
+   since the EE analogy is the natural thing to reach for — it is the gloss, not
+   the noun."*
+2. **Clause Q is a DC / zero-frequency condition.**
+   `manuscript/common_equations/eq_axiom_5.tex:82`, verbatim: *"**Q (quiescence
+   --- the DC operating point).** The sourceless substrate sits at the cold
+   operating point: `∇·π = 0, θ = 0, ε₁₁ = 0` … away from defects."* Its job is
+   to supply the missing boundary condition at spatial infinity so **clause G's
+   elliptic solve** is well-posed.
+3. **R55 licenses the GENUS, not the object.**
+   `_orchestration/docket-entries/2026-08-24-ruling-r55-axiom5-source-law.md:58`,
+   verbatim: *"A ground reference is a gauge choice, not a material primitive."*
+   That establishes *"both moves fix an arbitrary reference"* and **nothing
+   narrower**.
+
+**Stated in circuit terms before adjudicating, per the vocab-cage discipline:**
+
+| | clause Q | autonomous-HB phase normalization |
+|---|---|---|
+| removes | an **additive constant** of a static scalar potential | a **multiplicative global phase** of a complex phasor |
+| symmetry group | **ℝ** (potential translation) | **U(1)** (time-origin of a periodic orbit) |
+| frequency | **ω = 0** | **ω ≠ 0** |
+| sector | A1 / bound, on `ε₁₁, π, θ` | the HB unknown, which is `V_inc` on directed bonds |
+| purpose | boundary condition at infinity for an elliptic solve | squareness against an added frequency unknown |
+
+**Different group, different frequency, different sector, different origin of the
+degeneracy.** Measured supports: `grep -rn "clause Q" manuscript _orchestration
+| grep -icE "phase|phasor|oscillat"` → **0**; `grep -n
+"eps_11\|epsilon_11\|varepsilon" src/ave/solvers/harmonic_balance_srs.py` → **0
+hits**. **Clause Q does not govern the variable the normalization acts on.**
+
+**What survives, and it matters:** the **ϖ half is correct** and R58-supported —
+R58 §2.1 measured ϖ as a global drive phase that multiplies the whole solution
+because M is real (`1.6e-12`, replicated twice), which is exactly the U(1) orbit
+an autonomous solve must quotient. **Same genus, different species.** The only
+evidence offered for the species-level identity is a shared English word that
+canon has explicitly demoted to a gloss and pre-flagged as a trap.
+
+**Symmetric-standard check, run by the lane itself:** an identification argued
+from shared vocabulary rather than shared structure *"would be flagged in an
+SM/QED paper too — this is the same class as reading QED's gauge fixing and GR's
+gauge fixing as one object because both are called 'gauge'."* **Not a
+consensus-bias artifact.**
+
+**Mitigation, recorded because it is fair:** the record did not mint the
+mislabel. R55 does the same thing at `:56-58`, and the quote itself is verbatim
+in canon at three places. The defect is the **"ratifying words"** label — the
+actual R43 ratification quote is the one that **strips "ground" of canonical
+status**: *"we can map it to ground but call it DC operating point? approved."*
+
+**Second-order point that belongs in the discrimination check:** even taken at
+its strongest, consequence 1 buys the lens **nothing new** — R58 §2.1 already
+records that *"the ϖ objection to source-termination evaporates"* on current
+main, in the **driven** setting.
+
+### §5.3 — the discrimination check, run twice, answer worse than predicted
+
+The charter predicted the honest answer would be *"organizing power and zero
+numbers"* (`RECORD.md:165-167`).
+
+- **Lane 1's answer:** *"this lens buys organizing power and zero numbers"* —
+  which is a **legitimate and expected outcome for a lens and is NOT a
+  failure**. But nothing in the record is testable yet, and **nothing may be
+  promoted, ruled or frozen into a prereg on the strength of the lens alone.**
+  Genuine organizing gain: the scaffold-FORM axis of decision 1, the
+  matched-vs-mismatched generator question and the `term=None` structural-zero
+  branch **do** lose their subject. Over-credited: decision 1's projection axis
+  was **already dead on main** before this lens, and the carrier fork
+  **relocates rather than dissolves**.
+- **Lane 2's answer is harsher and is measured:** *"zero numbers AND **negative
+  organizing power**"* — because the four scaffold-shaped choices the lens
+  removes (drive spec, projection, generator match, `term=None` branch) are
+  replaced by four choices that are **harder to audit** — the seed sector, the
+  imposed norm, the tone constraint set, and the `(n−1)` unpinned tone phases —
+  **none of which currently has a computed receipt**, where the driven
+  formulation's choices at least had `source_amp` / `exchange_amp` / `P_net`
+  receipts (`harmonic_balance_srs.py:787-855`).
+
+**Combined with F7 and F8 the answer is: organizing power, zero numbers, and one
+fewer discriminator than the driven test had.**
+
+### §5.4 — the symmetric-standard ledger, in both directions
+
+**Six instances where AVE was held to a HARSHER standard than SM/QED/lattice/
+soliton practice — all six caught and named by the lanes themselves:**
+
+1. **F1, both lanes** — the vacuity move would condemn Hartree-Fock/SCF,
+   Dyson-Schwinger, lattice-QCD transfer matrices, the NLS/GP/discrete-breather
+   literature, and QM itself. **Named and withdrawn.**
+2. **F4-reproduce, on the finding's own premise** — *"every (2,3) reader must
+   consume a real 3-vector Cosserat ω"* imports a Yang-Mills prior that
+   topological charge lives on a gauge/vector field. Standard physics puts
+   winding integers on complex **scalar** order parameters freely
+   (Ginzburg-Landau vortices, superfluid circulation, Berry phase, `π₁(S¹)=ℤ`).
+   **Named, withdrawn, and independently killed by measurement.**
+3. **F4-does-it-measure** — seeding a winding into a complex field's phase and
+   preserving it by *"cannot unwind unless the amplitude passes through zero"*
+   is textbook GL/superfluid/Abrikosov. **Correctly flagged as harsh** — though
+   contested, because the finding is about the (2,3)/T2 sector specifically.
+4. **F5, both lanes** — *"the operating point is a solver input"* condemns
+   Petviashvili iteration, Newton-conjugate-gradient, fixed-norm imaginary-time
+   relaxation, shooting at fixed ω, Q-balls, boson stars, Skyrmions at fixed B,
+   lattice scale-setting, and QED taking α and `m_e` as inputs. **Both lanes
+   narrowed to the symmetric requirement — *state the family and state the
+   selector*.**
+5. **F6-reproduce — measured, not asserted.** *"Lacks gain compression"* would
+   condemn every lossless soliton existence proof; the lane **built the
+   discrete-NLS/GP control** and measured the identical rank-1 deficiency (§2.6).
+   **The strongest consensus-bias check in the set.**
+6. **F3-does-it-measure** — *"the observer is a pure function of the seed"*
+   would condemn the Skyrme hedgehog (`U = exp(iτ·n f(r))` carries `B=1` by
+   construction; only `f(r)` is solved) and fixed-topology lattice QCD.
+   **Named**; contested on the read-the-verdict-off-the-frozen-part distinction.
+
+**Four instances where standard practice is STRICTER than the lens — these are
+the ones that survive:**
+
+1. **F2** — in every standard sector-restricted problem the sector still
+   contains a **live** existence question; you extremize an energy or action and
+   the sector **can be empty**. Derrick's theorem exists precisely because
+   sectors can be empty. Here M is exactly lossless, so every sector has a
+   machine-zero-residual solution at every amplitude: **the answer can never be
+   NO.** Mirror test: a lattice-QCD paper reporting *"initialized in Q=1,
+   measured Q=1, residual 1e-15, therefore the instanton exists"* would be
+   rejected. **Same standard, same verdict, either framework.**
+2. **F3** — LGT computes topological charge **from the solved gauge links**
+   (clover/field-theoretic Q after gradient flow, or the overlap index) and it is
+   gauge-invariant; gauge-fixing does not supply the integer. The real analogue
+   of `ω=|b_w|·ê_w` is **topology freezing**, which the discipline treats as a
+   known systematic **pathology** requiring fixed-topology finite-volume
+   corrections. And on the srs carrier AVE has **no negative-control arm at
+   all**.
+3. **F5** — the soliton and lattice literatures **always state the family and
+   the selector explicitly**. The lens does neither, and §3.1 *sells* the method
+   by naming prior art whose selector is a gain-vs-**loss** balance. Same error
+   class as citing asymptotic freedom for a theory with no running coupling.
+4. **F6** — the soliton literature also demands a demonstration that the
+   physical member is **not continuously connected to vacuum**. The lens has
+   neither the selector nor that demonstration, and the branch was measured
+   running continuously to `A→0`. **This is the item that defeats the R58 §4
+   non-triviality gate**: *"nonzero"* is satisfied at every point on a curve
+   that reaches zero.
+
+**One asymmetry running the other way, worth stating.** Two lanes note that AVE
+holds itself to a **stricter** standard than SM has an equivalent for.
+`master-equation.md:20`'s forbidden-wiring guard — *"**never wire the winding
+into the breather's own phasor `(V_inc, V_ref)`** — `V_ref` is a read-only
+projection of the same scalar `V`, not an independent DOF"* — is a named,
+ratified, load-bearing rule policing a conflation SM has **no explicit
+prohibition against**. One lane then **measured** the forbidden condition:
+`V_ref` is a **rank-192-of-192** image of `V_inc`. **F4 is an application of
+AVE's own rule, not an imported one.**
+
+**Net answer to the required check: yes, in six named places, and the lanes
+caught all six themselves. No unflagged instance of AVE being held to a harsher
+standard remains in this verdict set.**
 
 ## §6 — THE BOTTOM LINE
 
