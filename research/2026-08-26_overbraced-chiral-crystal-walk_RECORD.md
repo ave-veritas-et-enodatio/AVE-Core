@@ -51,6 +51,73 @@ memory from a confident one.
 
 ## §1 — What this walk responds to: the measured state of the autonomous-HB lens
 
+> **★ EVERY FINDING IN THIS SECTION IS A REVIEW-PHASE FINDING, VERIFY PENDING.**
+> The adversarial VERIFY pass on the autonomous-HB lens is still in flight. These
+> are reported here as **[MEASURED-ELSEWHERE]** — attributed to that lane, not
+> re-run in this session, not this record's own results. If any of them moves,
+> the motivation for this entire walk moves with it.
+
+The autonomous-HB lens proposed replacing the driven existence test with a
+source-free nonlinear eigenvalue problem: *find `v ≠ 0` solving
+`e^{iθ} v = M(S(|v|)) v` with no sources.* The review measured the following.
+
+**CRITICAL — the existence criterion cannot fail.** `M` is unitary in the
+`Y`-weighted inner product for **any** `S`-field: measured
+`||M^H diag(Y) M − diag(Y)||_max / ||diag(Y)||_max = 3.083e−16` on
+`build_srs_net(2,'right')`, `ndof=192`. So `|e^{iθ}| = 1` holds for every
+eigenvector — 192 source-free solutions on empty cold vacuum, with no electron,
+no winding and no saturation anywhere in the problem.
+**[MEASURED-ELSEWHERE, VERIFY PENDING]**
+
+**CRITICAL — the seed is the selection device.** Six independent random
+topologically-trivial seeds gave six *different* exact autonomous solutions
+(`θ = 2.499991678, 0.721070511, 2.515633304, …`), all passing `r_auto` at or
+near machine zero, all topologically trivial and delocalized.
+**[MEASURED-ELSEWHERE, VERIFY PENDING]**
+
+**CRITICAL — the production winding observer is a pure function of the seed.**
+`srs_cage_winding.py:480` returns `np.abs(self.b_w)[:, None] * self.e_w`;
+replacing the entire dynamical DOF with pure random noise leaves the read
+unchanged at `(2,3)`. **[MEASURED-ELSEWHERE, VERIFY PENDING]** *(The docstring
+directly above it states the design intent without concealment —
+`srs_cage_winding.py:402`, `:478-482`: "the FIXED winding template ê_w carries
+the (2,3) winding integer (conserved by construction)"; "the winding integer
+lives in ê_w, |b_ω| only modulates it". The measured finding is that a reader
+built this way cannot return "no".* **[CANON-VERIFIED]**)
+
+**CRITICAL — there is no wound sector on the object the lens solves.** The HB
+unknown is a scalar / `A1`-adjacent port phasor; every `(2,3)` reader consumes a
+Cosserat 3-vector `ω` field. That is an `A1`/`T2` cross-wire.
+**[MEASURED-ELSEWHERE, VERIFY PENDING]** *(The solver says so about itself:
+`harmonic_balance_srs.py:147-149` — "the A1-adjacent longitudinal slot. The
+T2/Cosserat channel is NOT wired in (A1 perpendicular to T2,
+master-equation.md:20); no winding observable exists here."* **[CANON-VERIFIED]**)
+
+**MAJOR — the operating point is free.** Sweeping the imposed norm gave a
+continuous family of exact solutions, `A_max 0.211922 → ~0.91`, all at
+`r_auto ~5e−15`, with `θ` moving only `2.410 → 2.343` across a 5× amplitude
+range. **[MEASURED-ELSEWHERE, VERIFY PENDING]**
+
+**MAJOR — the RF prior art was imported without its amplitude-selecting
+mechanism.** An RF free-running oscillator has an *isolated* solution because
+the circuit is **lossy with an active device**: small-signal gain grows the
+oscillation, large-signal compression balances the loss, and the crossing pins
+the amplitude — an Andronov–Hopf limit cycle. Axiom 3 removes exactly that.
+**[MEASURED-ELSEWHERE, VERIFY PENDING]** *and the characterisation of RF
+oscillator HB is itself* **[EXTERNAL-UNRETRIEVED]**.
+
+**Context finding — the termination WAS the boundary.** The review also found
+the srs carrier is a **periodic torus with no free boundary** (bijective connect
+map, `interior_mask.all() == True`, uniform degree 3). Removing the scaffold
+therefore removes the only channel through which a topological *boundary*
+condition was to be imposed. **[MEASURED-ELSEWHERE, VERIFY PENDING]**
+
+**The one-line diagnosis this walk starts from.** Losslessness (Ax 3) removed
+the dissipative amplitude-selector that the imported RF analogy was silently
+relying on, and nothing structural was put in its place — so existence became
+generic and selection fell to the seed. **[WALK]**
+
+
 ## §2 — The picture: you cannot thread a knot through a crystal
 
 ## §3 — The candidate: a STRUCTURAL amplitude-selector instead of a dissipative one
