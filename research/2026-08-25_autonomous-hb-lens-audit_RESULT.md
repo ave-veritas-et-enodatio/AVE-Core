@@ -80,7 +80,74 @@ un-refuted-tested**. §5 and §8 say where that matters.
 
 ## §1 — THE INSTRUMENT BUG — read this before the verdict table
 
-*(section landed in a later commit)*
+**The roll-up was wrong, and it was wrong in the dangerous direction.** The
+synthesizer led with it, and it leads here for the same reason.
+
+Each of the six findings was handed to **two** adversarial refuter lenses:
+
+- a **reproduce** lane (build the object, run the code at the branch tip, try to
+  break the measurement), and
+- a **does-it-measure** / construct-validity lane (grant the number, attack the
+  inference).
+
+The roll-up then computed a per-finding status as `refuters >= ceil(total/2)`.
+With `total = 2`, `ceil(2/2) = 1`: **a single dissenting lens sets the status to
+REFUTED.** The synthesis states the same thing in its own words —
+*"It is computed as `≥1 refuter → REFUTED`."*
+
+### The actual votes
+
+| # | finding | reproduce lane | does-it-measure lane | roll-up said | what it is |
+|---|---|---|---|---|---|
+| **F1** | unitary-generic | `refuted=true` | `refuted=true` | REFUTED | the **only** unanimous one |
+| **F2** | seed-is-fork | **`refuted=false`** | `refuted=true` | REFUTED | **SPLIT** |
+| **F3** | winding-is-seed | **`refuted=false`** | `refuted=true` | REFUTED | **SPLIT** |
+| **F4** | no-wound-sector | **`refuted=false`** | `refuted=true` | REFUTED | **SPLIT** |
+| **F5** | amplitude-free | **`refuted=false`** | `refuted=true` | REFUTED | **SPLIT** |
+| **F6** | priorart-precondition | `refuted=true` | **`refuted=false`** | REFUTED | **SPLIT, the other way** |
+
+All twelve votes carry `confidence: high`. **Five splits reported as six
+unanimous refutations.** In four of the five, the lane that dissented from
+REFUTED was the one that had actually built the operator and run it.
+
+### Why it is the dangerous direction and not a wash
+
+A false REFUTED is silently expensive in a way a false CONFIRMED is not. A false
+CONFIRMED gets attacked again at the next gate — the corpus is built to do that.
+A false REFUTED **removes the finding from the board**, and nothing downstream
+ever re-opens it. Four of the discarded findings here are the ones that
+established that the lens's core criterion cannot fail.
+
+The failure has a second edge worth naming: in three cases the refuting lane was
+arguing against receipts **produced in the same round that it could not see**.
+F2's does-it-measure lane wrote that the wound-vs-trivial discriminating run
+*"does not exist anywhere"*; F2's reproduce lane had run it, in the same round,
+with a template-free integer readout (§2.2). Cross-lane invisibility plus a
+one-vote refutation threshold is how a panel converts *"we disagree"* into
+*"it is dead."*
+
+### Two receipt-level cautions on this section
+
+1. **The `status` column is not in the journal.** The twelve result records
+   carry only `refuted`, `confidence`, `reasoning`, `corrected_claim`,
+   `receipts`, `symmetric_standard_note`. The status field lives in the workflow
+   roll-up, outside the journal. The formula quoted above is therefore recorded
+   **as the synthesizer reported it**, cross-checked against the vote pattern
+   (which is directly readable and is what the table above is built from), not
+   read out of the roll-up source.
+2. **"Three" vs "four".** The dispatch brief for this doc says the reproduce
+   lane voted the other way *"in three of those"*. The journal says **four**
+   (F2, F3, F4, F5). The synthesis's own bottom line agrees with four
+   (*"it will discard four findings that survived read-and-run"*). Flagged, not
+   silently harmonised.
+
+### The repair, stated so it is reusable
+
+A 2-lens adversarial panel has **no majority**. It should not report a scalar
+status at all. The honest roll-up for an even panel is the vote vector plus the
+disagreement axis — and where one lane ran code and the other did not, that
+asymmetry is itself part of the report. `refuters >= ceil(total/2)` is a
+majority rule applied to a set that cannot have one.
 
 ## §2 — THE VERDICT TABLE, F1–F6
 
