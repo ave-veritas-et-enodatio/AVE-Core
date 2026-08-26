@@ -75,3 +75,34 @@ of the Link=1 sector, so a solution FAMILY selects the lightest member.
 The J/B/taper side-assignment (`2026-08-24-smith-annulus-tube-ratio-pin.md`) may
 be **dissolved rather than answered** by the harmonic-balance reformulation —
 do not fold it into G2; it has its own item and its own resolution path.
+
+---
+
+## ★ STATUS UPDATE 2026-08-25 (R58) — two RULED, one re-shaped, one coupled
+
+- **Decision 2: RULED — INCLUDE** (Grant verbatim *"A2: include"*). Recorded
+  in R58 §1; previously live only in chat, which the P2-prereg firewall audit
+  correctly flagged as a BLOCKER.
+- **Decision 4: RULED — YES** (Grant verbatim *"yes, should be a unit test?"*),
+  answered as a two-object split: the **extractor** is unit-tested (can-fire
+  control: identical charge/mass distributions must return **g = 1**); the
+  **verdict** is a frozen prereg criterion. R58 §1.
+- **Decision 1: RE-SHAPED, not yet ruled.** The common-mode-projection
+  requirement is **deleted** — it cannot fire (M is real; measured 1.6e-12;
+  guard 8 discharged for free). Three amendments replace it, and G2 must
+  additionally freeze **what "injection-lock" means** (drive spec vs Norton
+  node injection — different objects, and the latter trips `term=None`).
+  R58 §2.
+- **★ Decision 1 is COUPLED to the (2,3) carrier fork** and they cannot be
+  ruled independently: under the projection, the tone-ratio (phase-space)
+  carrier is **annihilated exactly** and the solve converges on the **trivial
+  zero state**, while only the spatial (real-space) texture survives — which
+  is what guard 3 polices. Deleting the projection makes the phase-space
+  carrier legal again. R58 §4.
+- **Decisions 2 and 4 are BLOCKED on the T2-channel wiring** (S1): no
+  machinery maps an HB solution to M, Q, or g. Both ruled; neither executable.
+  The wiring is the gate on the ruled observables.
+- **Mandatory additions to the P2 prereg regardless of the rulings:** a
+  **non-triviality gate** (a converged TRIVIAL solution was produced — 
+  "converged" is not "non-zero") and a per-(p,q) **aliasing margin receipt**
+  (the multiples (2L, 3L) alias exactly onto the uniform vector).
