@@ -9,7 +9,7 @@ Every statement below carries a grade tag: `[WALK]` (the walk's own reading),
 raises and does not answer). Audit charter is §6; kill conditions are §7; the
 routing item is `_orchestration/open-items/2026-08-26-wall-first-reframe-audit.md`.
 
-<!-- SKELETON: sections land one per commit -->
+
 
 ## §0 — Framing: why this record under-claims
 
@@ -857,6 +857,107 @@ most likely to be where it dies.
 
 ## §7 — KILL CONDITIONS
 
+**Stated before the audit runs, so they cannot be relaxed after it.** Per Rule
+11 (honest closure) and Rule 12 (substitution-not-retraction): if a kill
+condition fires, the affected reading is retracted with a 🔴 header and its body
+preserved — **it is not repaired, re-scoped, or refilled with a successor
+hypothesis in the same slot.** A replacement reading gets a new version number
+and its own verification chain.
+
+| # | if this is found… | …then this dies |
+|---|---|---|
+| **K1** | The P2 solve does **not** run solely in channel 3 (W1-1) | **§1 dies entirely.** The channel diagnosis is then an explanation for a phenomenon with a different cause, and §0's "explained by the channel, not by solver failure" is withdrawn |
+| **K2** | The §1 argument does not survive re-statement on the Axiom-5 bound-response footing (W1-3) | **§1 dies as a mechanism** and survives at most as a coincidence. "Right answer, dead premise" becomes "dead premise, unsupported answer" |
+| **K3** | The audit finds the walk's linear-branch no-scale argument is void in a saturating medium (W1-2) | **§1.1's core inference dies.** A soliton is a counterexample in the corpus's own idiom |
+| **K4** | The channel-4-has-no-wall-at-$r_{sat}$ carve holds AND the charge is on channel 4 (W3-3) | **§3.4's re-posed question dies as posed.** "Is there a wall" would then be the wrong question for $\mathcal{Q}$, and the arc's headline reframe fails on its own central observable |
+| **K5** | The $A=\sqrt\alpha$ figure turns out to be the wall's amplitude after all, not the knee's (W3-4) | **§3.6's error diagnosis dies** and the original saturation tension is real and unexplained. The flag inverts from "probably a conflation" to "a live inconsistency this arc mislabelled" |
+| **K6** | Grant's 2026-08-03 gradient-vs-wall ruling is read as putting the physics in the skin, and the skin is unmeasurable on current machinery (W3-5) | **§3.4 dies as a TESTABLE reframe.** It survives as a bookkeeping preference with no instrument behind it — which, per `wall-taxonomy.md`:151, is exactly what "pictures, not results" means |
+| **K7** | The two-$\Gamma$-radii nesting is incompatible with canon's per-channel-at-one-surface structure (W4-2) | **§4.3 dies.** The "mirror wrapped in an envelope" picture is then a category error dressed as a synthesis |
+| **K8** | "Re-registration" cannot be given a mechanism or is not representable (W4-3) | **§4.4's second half dies.** "The orbit does not move, the registration does" reverts to an unexplained primitive and must be labelled one |
+| **K9** | §4.5's triple is shown to be definitional in this corpus's vocabulary (audit rider 4) | **§4.5 dies as a structure** and is demoted to a restatement. Its prose is the arc's most quotable and therefore its most dangerous |
+| **K10** | The §5 sweep is shown incomplete by a second method (W5-1) | **§5.2's stand-down is withdrawn** and the open item re-opens at full scope. A "canon already answers it" verdict from a single search is a claim about the search |
+| **K11** | Any part of this arc is found to have been used to justify retiring, superseding, or re-scoping an existing ruling **before** this audit completed | **the whole record is quarantined** pending Grant. §8 exists to prevent exactly this |
+
+**The kill condition that would be GOOD news.** `[WALK]` If **K1 and K4 both
+fire**, the arc is wrong about the channel *and* wrong about the surface — which
+would mean the delocalization finding has a cause nobody in this arc has
+identified, and that is a cleaner place to stand than a plausible reframe that
+was never checked. **A clean negative here costs one document and buys a real
+diagnosis.**
+
 ## §8 — What this record does NOT do
 
+- It does **not** answer the electron-existence question. It re-poses it, and
+  §3.10 records that the re-posed form is **not yet well-formed** by canon's own
+  operational rule.
+- It **mints nothing**: zero `clm-` / `def-` / `exp-` / `sup-` / `ilk-` ids,
+  zero solidity movement, zero numbers introduced beyond what the cited anchors
+  already carry.
+- It **retires nothing and supersedes nothing.** Specifically: **R58 decision 1
+  and the (2,3) carrier fork stay LIVE and un-ruled**, exactly as
+  `research/2026-08-25_autonomous-harmonic-balance-lens_RECORD.md` §7 left them.
+  This arc is not a candidate to replace them and does not claim to be. **Only
+  Grant rules that anything is superseded.**
+- It **does not adjudicate** any of the forks it surfaces: the three-surfaces /
+  saturation-tension question (§3.6), the near-yield dissipative-vs-reversible
+  fork (§3.7), the cross-grade kernel-combine fork (§3.10), the matched-vs-
+  mismatched electron-translation contradiction (§4.5), or the R40-B2a bulk
+  re-derivation debt (§1.3, §5.2).
+- It **does not resolve** the retraction in §3.3 by substitution. The retracted
+  question is preserved; §3.4 is a differently-framed question, not a repair.
+- It **carries no engine output.** No solver was run, no driver was executed,
+  nothing was measured. Every empirical statement is
+  `[MEASURED-ELSEWHERE]` with its source named.
+- It is **one arc, not four results.** The four walks are recorded together
+  because they were one conversation with one through-line; splitting them into
+  four claims would manufacture independence they do not have.
+
 ## §9 — Forthcoming inputs not folded in
+
+Two inputs were **IN FLIGHT at authoring time** and their results are **not
+folded into this record**. Both are named so a later reader does not mistake
+their absence for their non-existence.
+
+1. **The electron-wall-properties corpus sweep** — running concurrently at
+   authoring time. It is the routed adjudicator for §3.6 (the three-surfaces /
+   saturation-tension flag) and is expected to bear on W3-3 and W3-4. **§3.6 is
+   deliberately left open for it.** Anyone auditing §3 should check whether that
+   sweep has landed before re-deriving its ground.
+2. **`research/2026-08-25_autonomous-hb-lens-audit_RESULT.md`** — the
+   autonomous-HB lens audit, owned by a concurrent lane. This record cites it
+   **by document name only** and deliberately makes **no characterization of its
+   verdict, scope, or confidence.** §1.1's use of "the audit's universal-
+   delocalization finding" is a `[MEASURED-ELSEWHERE]` pointer, not a
+   restatement; if the audit's actual finding differs in scope, **§1 inherits
+   the correction and the pointer is the defect, not the audit.**
+
+**A third input that is not forthcoming but is owed:** nothing in this arc was
+run. The first thing any of it needs is W1-1's read-and-run on the shipped
+solver, which is cheap, and which would settle whether §1 has a subject.
+
+---
+
+## Provenance and honesty statement
+
+**Grant-attributed content, verbatim and complete:** §3.1 (*"yes, but what are
+the properties of the wall we can measure on the electron?"*) and §4.1 (*"how
+would the trefoil's phase space tube propagate vs the photon?"*). The 2026-08-03
+sentence quoted in §3.8 (*"There can still be a gradient toward the wall vs the
+wall itself"*) is Grant's but is **quoted from canon**
+([`wall-taxonomy.md`](../manuscript/ave-kb/common/wall-taxonomy.md):129), not
+from this conversation.
+
+**Everything else is orchestrator walk-level**, tagged `[WALK]` at its own site.
+
+**Canon citations:** every `[CANON]` cite in this record was verified by direct
+read against the worktree's `origin/main` base (`a3f4fef7`) **during this
+session**, per `verify-before-cite` (A43 v2). Where a cited line carries a
+demotion stamp, the stamp is carried with the cite rather than stripped —
+`port-register.md`:49 (§1.3) and `de-broglie-standing-wave.md`:52,:54 (§4.5,
+§5.2) are both 🔴 DEMOTED at their sites and are cited **as demoted**.
+
+**Known limits of this record's own verification:** the sweep in §5 used
+targeted greps plus direct reads; per `grep-completeness-false-negatives` a
+completeness claim from a search is a claim about the pattern. **W5-1 requires
+it be re-run by a second method**, and R-2 in §5.3 is explicitly listed as
+*not* established.
