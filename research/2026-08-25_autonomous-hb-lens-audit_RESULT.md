@@ -447,7 +447,99 @@ matched TERMINATION (a boundary condition, never a bulk loss term)"*).
 
 ## §3 — THE ORPHAN FINDINGS — F7 and F8, filed by nobody
 
-*(section landed in a later commit)*
+**These two were produced as by-products of refutations, by lanes that were
+arguing about something else, and no lane filed either of them. They are more
+damaging to the lens than anything in §2.** They get their own section for that
+reason.
+
+### F7 — DELOCALIZED (CRITICAL, CONFIRMED, was UNFILED)
+
+**Every converged autonomous solution measured in the round is delocalized.**
+Participation **86.6 – 164.0** of **192** dofs; inverse participation ratio
+**0.0061 – 0.0116** against a uniform-state IPR of **0.005208** (`= 1/192`).
+These are **extended lattice modes, not bound states.**
+
+Measured independently by two lanes while refuting *other* findings:
+
+```
+seed0: theta=0.625959 IPR=0.00961 participation=104.1/192  A_max=0.7462
+seed1: theta=2.499995 IPR=0.00610 participation=164.0/192  A_max=0.5223
+seed2: theta=2.420522 IPR=0.00789 participation=126.8/192  A_max=0.7190
+seed3: theta=2.393286 IPR=0.00628 participation=159.1/192  A_max=0.6145
+  -> every seed: DELOCALIZED (54-85% of the lattice). Same verdict six times.
+```
+
+**Receipt-precision correction, made here and not in the synthesis.** The
+extremes of the quoted range do not come from the same run family. The
+nonlinear converged solutions span participation `104.1 – 164.0` (IPR
+`0.00610 – 0.00961`). The **`86.6` / `0.01155` endpoints come from the LINEAR
+control** — the same seeds and the same selection rule with the **saturation
+switched off** and the operator fixed and seed-independent (participation
+`105.8, 123.9, 118.3, 97.4, 105.3, 86.6`). Quoting `86.6 – 164.0` as a range over
+nonlinear solutions is imprecise. **It also strengthens F7 rather than weakening
+it:** delocalization is not caused by the nonlinearity, it is a property of the
+carrier, and turning the kernel on does not localize anything.
+
+**A potential counterexample, checked and dead.** A third lane's srs run
+returned one low-participation state — `random seed 1: theta=+0.000000000
+partic=0.147` — which would be a localized solution. It has
+`r_auto = 2.449e-02`: **not converged.** Every one of that lane's *converged*
+states sits at participation fraction `0.542 – 0.851`, and its wound seeds at
+`0.851`. **The counterexample does not survive the convergence gate.**
+
+**Why it is the most damaging item in the round.** F1's own reproduce lane, in
+its refutation, wrote that the entire discriminating load falls on
+*"the non-triviality gate, the wound-sector restriction, and **a
+localization/structure criterion**."* **That criterion had already been measured,
+twice, in the same round — and it fails.** The last remaining discriminator was
+gone before the refutation naming it was written.
+
+### F8 — NO FOLD (MAJOR, CONFIRMED, was UNFILED) — and this is the direct answer to A5
+
+The record's §3.4 backup selector, verbatim at
+`research/2026-08-25_autonomous-harmonic-balance-lens_RECORD.md:116-117`:
+
+> *"Wind up slowly and watch for the branch to fold back; **the fold IS the
+> existence boundary.**"*
+
+**It is measurably absent.** Two lanes pushed the continuation up:
+
+| lane | reached | `S(A_max)` | `dθ/dA` | turning point? |
+|---|---|---|---|---|
+| rail sweep | `A_max = 0.91819` | `0.39613` (**60 % kernel compression**) | monotone **positive** throughout (`+7.1e-05` at `amp=0.04` rising smoothly to `+2.3e-03` at `0.60`, continuing through `0.80`) | **none** |
+| warm-started continuation | `A_max = 0.950373` at `||v||=8.5`, `r_auto 6.386e-15` | — | monotone positive | **none** |
+
+Every point on the way up is an **exact source-free solution** at `~5e-15`.
+
+**The top-end break is not a fold — it is the kernel's own declared clip
+domain.** `A_cap = 0.99` / `S_min = 0.05`
+(`src/ave/core/crystal_engine.py:63-64`, applied at `:192-195`:
+*"S(A)=√(1-A²), A=|V|/V_yield, clipped to [S_min, 1] (the A-034 kernel)"*).
+Convergence dies at `||v|| = 8.75`, `A_max = 0.986728`, `r_auto = 1.029e-01`
+after 600 outers — i.e. **exactly where `A_max` crosses `A_cap`.**
+
+**This is the direct answer to charter item A5**, whose own text warned that
+*"A false positive here would be a serious error"* (`RECORD.md:159`). **The
+answer is negative: the stall is a numerical failure at the clip, not a
+result.**
+
+**And A5 already had a second, independent negative answer from the review
+phase that the verify phase never saw.** One review lane ran the record's own
+quoted ladder — `research/drivers/data/p2_scoping/accel.py` §B — and reproduced
+`it = 8/11/20/41` at `D = 0.3/0.5/0.7/0.8` and `{it:150, conv:false}` at
+`D = 0.9`; then at the **same** endpoint `D=0.9`, `anderson(A0, term(0.9),
+depth=6, maxit=150)` → `{it:66, conv:true}`. **A genuine fold is a property of
+the solution branch and is not cured by swapping the outer accelerator.** The
+solution demonstrably exists at `D=0.9`. Two independent routes, same verdict:
+**numerical failure, not a result.** §5 records that this answer was already in
+the record's own §5.1 (`:136-138`) eighteen lines below the question.
+
+**One measurement that is not a null and is not the effect either.** The
+saturating medium **stiffens** the branch — `θ` is not constant, and the spread
+across the ladder is `3.493e-01` — so the nonlinearity is demonstrably **active,
+not inert**. This is a null **in precisely the regime where the effect would
+live**, not a null where the effect cannot exist. That distinction is what makes
+F8 a result rather than an artifact.
 
 ## §4 — F9 / F10 — two new measurements, and a receipt-convention correction
 
