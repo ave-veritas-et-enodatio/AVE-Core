@@ -963,7 +963,132 @@ they are settled. **Only Grant rules that the lens replaces them.**
 
 ## §7 — THE OVER-BRACED CHIRAL CRYSTAL REFRAME — does it dodge these defects?
 
-*(section landed in a later commit)*
+**Scope: assessed ONLY for evasion vs inheritance of the confirmed defects. NOT
+assessed for truth.** The reframe is a separate proposal (a Maxwell–Calladine
+self-stress count on an over-braced chiral Cosserat lattice, with a Berry/Chern
+integer transported around a closed loop as the charge). It is live on its own
+PR and this lane rules nothing about it.
+
+| defect confirmed above | verdict | why |
+|---|---|---|
+| **D1** — existence generic; one-parameter continuum; no selection; connected to `A→0` (F1/F5/F6/F8) | **RELOCATED, NOT EVADED** | The instinct is right: for a Y-unitary family `\|λ\|=1` is identically satisfied and imposes nothing, whereas an eigenvalue **collision** `λ_i=λ_j` is a genuine condition on the parameter. Replacing a vacuous condition with a codimension-≥1 one is the correct structural move. **But on this carrier the degeneracy is already generic and amplitude-rigid** — FLAG 1. |
+| **D2** — the seed supplies the sector and the solve returns it (F2) | **EVADED IN PRINCIPLE, PARTIALLY RE-IMPORTED** | A parallel-transported Berry/Chern integer is **computed**, not seeded — the correct LGT-analogue answer. But transport must track eigenvectors around the loop, and **every** branch tracker in this round used max-overlap-with-the-current-iterate, i.e. *"an experiment whose selection rule is literally 'stay nearest the seed'."* With multiplicity up to 34 the abelian transport is ill-defined; you need Wilczek–Zee over the degenerate block, and **the choice of starting subspace inside a 34-dimensional block is a seed.** |
+| **D3** — template winding reader (F3) | **CLEANLY EVADED** | The invariant never touches `srs_cage_winding` or `ê_w`. This is the defect the reframe dodges outright and it should be credited plainly. |
+| **D4** — wrong sector; no Cosserat channel; no (2,3) reader (F4) | **INHERITED IN FULL** | The proposal says over-braced chiral **Cosserat** lattice. The audited object has **no Cosserat channel** (`harmonic_balance_srs.py:147-149`; zero winding/Cosserat symbols in the code body). A Maxwell–Calladine count on a Cosserat lattice **requires the micro-rotation DOF** — the exact channel that is absent — and `V_ref` is a rank-192-of-192 projection of `V_inc`, so there is no independent second DOF to brace against. Either build T2 first (**R58 blocker S1**, a much larger job) or the computed integer is **not** the charge. |
+| **D5** — amplitude selection absent; loss forbidden by Ax3 (F5/F6) | **CORRECTLY EVADED IN KIND** | Structural (degeneracy) selection is lossless and needs no gain compression — the right answer to F6's confirmed diagnosis. Note it is a *different* cure from the one F6 measured (one added norm equation restores full rank); degeneracy selection adds no equation, it picks isolated points on the existing family. Both are legitimate. The degeneracy route must show the collisions are **finitely many, not symmetry-enforced, and at physical amplitudes.** None of the three is measured and the one relevant measurement is adverse. |
+| **D6** — universal delocalization (F7) | **INHERITED, ARGUABLY WORSENED** | Nothing about self-stress or a Chern integer makes a state localized. The self-stress space of a **periodic** hyperstatic frame is spanned by Bloch states at every `k`, and Chern integers are bulk-**band** properties. By bulk-boundary correspondence the physical localized object would then sit at a **boundary or defect**, not in the bulk — which the periodic srs torus with `term=None` **does not have**. Consistent with the corpus's own bulk-cage falsification, but it means the object must be re-posed on a lattice **with** a defect or boundary. Different build. |
+| **D7** — no fold (F8) | **NEUTRAL / EVADED** | The reframe replaces the fold with the collision as the distinguished point. Legitimate. Weak counter-evidence only: the measured branch is structurally featureless to `A_max 0.95`. |
+
+### Seven flags — places the reframe re-imports a confirmed defect
+
+**FLAG 1 — the degeneracy selector fires everywhere on this carrier. This is D1
+re-imported verbatim, in a new coordinate.** Measured (F9, §4, re-run by this
+lane at `a3f4fef7`): `λ=+1` and `λ=−1` are **each exactly 34-fold** — 68 of 192
+dofs — at `A=0`, at `A=√α`, and under a random graded field that lifts
+**everything else to multiplicity 1**. One lane hit the same wall independently
+as a declared STUCK-POINT (*"no simple cold eigenvalue; minimum multiplicity
+4"*). A criterion reading *"the selected amplitude is where the spectrum becomes
+degenerate"* fires on **35 % of the spectrum at every amplitude, including
+`A=0`** — the one place a selector must not fire. **The reframe is viable only
+after a symmetry-adapted (irrep-block / Bloch-reduced) decomposition that
+quotients out symmetry-enforced degeneracies and looks for *accidental*
+collisions within a single irrep block. That machinery does not exist and nobody
+has built it.**
+
+**FLAG 2 — the Chern integer is identically ZERO on this operator, by exact
+symmetry, at every amplitude.** Measured (F10, §4, re-run at `a3f4fef7`): **M is
+exactly real**, `max|Im M| = 0.000e+00` for cold, `√α` and a random graded
+field, because `S(A)=√(1−A²)` and `Y=Y₀/√S` are real and `CONNECT` is a
+permutation. And the shipped `bloch_adjacency` satisfies `A(−k) = conj(A(k))` to
+**`0.000e+00`** — exact spinless time-reversal symmetry. **A real Bloch matrix
+has odd Berry curvature and every band's Chern number vanishes identically.** No
+amplitude can break it, because the saturation kernel is real. The srs lattice's
+*geometric* chirality is **not** broken time-reversal in the sense a Chern
+number requires. Escapes exist — ℤ₂ rather than ℤ; non-abelian Wilczek–Zee over
+degenerate blocks; a synthetic loop with **twisted boundary conditions**, which
+would introduce the complex phases that rescue this — but each requires
+machinery the periodic torus with `term=None` does not provide.
+
+**FLAG 3 — where is the loop?** A Chern number needs a closed loop in a
+parameter space of dimension ≥2. The only parameter this audit established is
+the **amplitude**: a 1-D open interval from `A→0` (cold linear) to the
+saturation rail. **An open interval has no closed loops.** Either add a second
+parameter (twist/flux/chirality angle — FLAG 2) or take the loop in `k`-space,
+which leads to FLAG 4.
+
+**FLAG 4 — a `k`-space loop makes the invariant a property of the SCAFFOLD. This
+is the exact thing `RECORD.md:98` was trying to escape.** A Chern number over
+the BZ of the S-dressed lattice is **piecewise constant in amplitude**, jumping
+only at gap closings. At the `A→0` end of the branch that is the **cold empty
+lattice's** band invariant. Unless the branch crosses a collision on the way up,
+the integer is **inherited from the empty lattice** — and *"there is nothing
+else it could belong to"* becomes false again, in the same way and for the same
+reason F1 already made it false.
+**One-line kill test, cheap, run it first: is `Chern(A→0, cold empty lattice) ≠
+Chern(A at the solution)`? If equal, the invariant belongs to the scaffold and
+D1 is re-imported in full.**
+
+**FLAG 5 — amplitude-dependent bracing cannot change the hyperstaticity, only
+where the eigenvalues sit.** Maxwell–Calladine is a **connectivity** count.
+`S(A)` changes bond **admittances** (`Y=Y₀/√S`), not connectivity, so `s−m` is
+amplitude-**invariant**. Measured confirmation: the `λ=+1` block stays exactly
+34-dimensional from `A=0` through a random graded field. The **only** place
+bracing could change the effective count is the rail, where `S→0` and `Y→∞` (a
+compliance becoming a rigid constraint) — and that is **exactly** the kernel's
+declared clip domain (`A_cap=0.99 / S_min=0.05`) and **exactly** where every
+solver in this review failed (F8). **So the reframe's selection point, if it
+exists at all, sits precisely at the numerically-unreachable boundary that F8
+showed to be a kernel-clip artifact rather than established physics.**
+Determining whether `A→1` is physics or the clip is a **prerequisite** for the
+reframe, not an aside.
+
+**FLAG 6 — the category translation has not been made, and this is a vocab-cage
+hazard.** Maxwell–Calladine operates on a **rigidity/equilibrium matrix** of a
+frame; a state of self-stress is `ker(Rᵀ)`, a **static** (zero-frequency)
+object. The HB formulation has no equilibrium matrix — it has a unitary
+scattering map `M = C ∘ blockdiag(S_u)`, and its eigenproblem is at **nonzero
+θ**. In circuit terms the self-stress analogue is a **circulating loop current
+with zero terminal excitation**, i.e. a null space of the reduced
+admittance/incidence structure. **That is a genuinely different object from an
+eigenvector of M at `|λ|=1` — which is good news: the reframe is not F1
+relabelled.** But the bridge from the rigidity matrix to the scattering map does
+not exist, nobody has written it, and importing Maxwell–Calladine's *name*
+imports its framework's theorems with it. **State the observable in circuit
+terms before adjudicating.** Obvious first measurement, and cheap: **if
+"load-free equilibrium" maps to the `λ=+1` eigenspace, the self-stress space on
+srs `L=2` is 34-dimensional and scales with N — an extensive, amplitude-rigid,
+over-braced-by-34 object, and correspondingly non-selective.** That is a
+testable prediction of the reframe on its own terms and the existing data
+already leans against it. *(Corroborating, independently banked: the
+solver-crosscheck phase-1 reproduction gate carries "srs L=2 cycle-space block |
+34 at θ=0 and θ=π" against a cycle space of `B−N+1 = 33`.)*
+
+**FLAG 7 — one integer versus a pair.** A Chern number is a single integer. The
+(2,3) is a **pair**. The mapping from one to the other is undone, and it sits
+directly on top of the unresolved **A4 / canon-collision blocker** in F4. Until
+that is adjudicated the reframe cannot say *which* integer it is computing or
+that it equals the charge.
+
+### Net assessment of the reframe
+
+**It cleanly evades D3, correctly evades D5's Ax3 problem in kind, and evades D2
+in principle. It inherits D4 and D6 in full. Its two load-bearing mechanisms —
+degeneracy-as-selector and Chern-as-invariant — are both measurably vacuous on
+the shipped carrier as it stands:** 34-fold amplitude-rigid degeneracy at `λ=±1`,
+and Chern ≡ 0 from exact realness of M. So on the object this audit examined it
+does **not** currently dodge D1 — **it relocates D1 into the spectrum's
+degeneracy structure, where the same "the condition is identically satisfied"
+failure recurs.**
+
+**That is not a kill.** It is a statement that the reframe requires **three
+builds before it can be tested at all**: (i) a symmetry-adapted / Bloch-reduced
+solve separating accidental from symmetry-enforced degeneracies; (ii) a
+mechanism that breaks the exact realness of M (twisted boundary conditions, or a
+genuinely complex sector), or a switch to a ℤ₂/non-abelian invariant that
+survives spinless TRS; and (iii) the **Cosserat/T2 channel**, without which the
+Maxwell–Calladine count has no micro-rotation DOF to count and the computed
+integer is not the charge. **None of the three exists. The third is R58's
+standing blocker S1.**
 
 ## §8 — FLAGS SURFACED, NOT FIXED BY THIS LANE
 
