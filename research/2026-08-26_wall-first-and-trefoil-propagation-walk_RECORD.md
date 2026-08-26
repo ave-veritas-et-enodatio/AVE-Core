@@ -812,6 +812,49 @@ that the sweep did *not* find answered:
 
 ## §6 — AUDIT CHARTER
 
+**Nothing in §§1–5 may reach a prereg, a manuscript entry, a claim id, or a
+solidity number until this charter is run.** Per §0, the attack instructions are
+weighted toward the claims the arc states **most fluently** — W1-1, W3-3 and
+W4-2 are the three the walk was least worried about, and they are the three
+most likely to be where it dies.
+
+| # | claim | class | how to attack it |
+|---|---|---|---|
+| **W1-1** | ★ The P2 existence solve actually runs in channel 3 (A1/bulk), which is why it delocalizes | MACHINERY | **read-and-run, not read.** Open the shipped solver and determine which channel(s) the operator, the seed and the observable live on. The walk ASSERTS this and never checked it. If the solve carries T2 or Cosserat DOF, §1 is a diagnosis of a problem that does not exist |
+| **W1-2** | Gaplessness implies no localization | PHYSICS | the honest counter is in the corpus's own idiom: a **soliton** is a localized state in a gapless nonlinear medium. P2 is explicitly a saturating (nonlinear) medium. Show whether the walk's linear-branch argument survives the nonlinearity, or does not |
+| **W1-3** | ★ §1's premise is DEMOTED canon (`port-register.md`:49, R40-B2a) — does the diagnosis survive re-statement on the bound-response footing? | CANON | re-pose it under Axiom 5 clause G (no propagating branch, zero longitudinal characteristic speed) and see whether anything is left to say. Carry ⚑ BIAS-DEBT: the replacement is *owed, not held* |
+| **W2-1** | The three "empty vacuum passes" arguments are about test DESIGN, and name a real class of non-discriminating criteria | LOGIC | enumerate which **shipped, frozen** criteria are actually in that class. If none are, §2 is a rhetorical observation with no target |
+| **W2-2** | The srs Chern-0 result closes "is there a lattice topological invariant?" | SCOPE | adversarial: the walk uses a **band-structure** null to close a question about **soliton** topology. Check whether that is an over-read of `2026-07-02_cleave-registry-pump-chern-nband_result.md`. The GATE-VOK both-directions control is strong; the SCOPE is the attack surface |
+| **W2-3** | The parity-vs-rate carve leans on a pedagogy leaf | CANON | `trampoline-analogy-primer.md`:157/:159 is the analogy layer. Find the physics leaf behind it and check the carve survives there, or report that it does not exist |
+| **W3-1** | Interior questions are illegitimate as existence VERDICTS (though fine as diagnostics) | LOGIC + EPISTEMOLOGY | is the observability rule a statement about *the substrate's* access or about *ours*? A simulator is not a substrate observer — but neither is it forbidden. Find where the phase-only epistemology actually bites, and whether §3.3's retraction was necessary or merely tidy |
+| **W3-2** | The Stokes dimensional ladder EXPLAINS why $\mathcal{Q}$ quantizes and $\mathcal{M}$ does not | CANON READING | the skeptic's version: the integers come from topology and the 1D/2D/3D labels merely restate it. **Distinguish "the dimension forces the integer" from "the topology forces the integer and the dimension labels it."** The walk has no argument that picks |
+| **W3-3** | ★ The re-posed question (*"is there a wall around a region?"*) is well-formed | CANON | it names no channel, and `wall-taxonomy.md`:160 says a claim missing the channel *"is not yet a claim about a wall."* Worse: `:157` says channel 4 (which the arc says carries the charge) **has no wall at $r_{sat}$**, while `port-register.md`:72 puts the electron wall on channels **2/3**. **Resolve or report the four-way fork in §3.10.** This is the arc's most fluent step |
+| **W3-4** | ★ The "saturation tension" was a three-surfaces-collapsed-into-one error | CANON READING | trace the provenance of the $A=\sqrt\alpha$ figure. Is it the same object as `l3-electron-soliton-synthesis.md`:118's $V_{\text{yield,macro}} = \sqrt\alpha\,V_{SNAP}$? Note `def-anat3s` is **status: proposed**, surface (ii) is **CONJECTURED ≡ wall**, and surface (iii)'s radius is **not pinned** — so the diagnosis may be right and still unusable. **Coordinate with the in-flight electron-wall sweep (§9); do not duplicate it** |
+| **W3-5** | §3.8: Grant's 2026-08-03 gradient-vs-wall ruling aims one surface OUT from where WALK 3 points | CANON | if true, §3.4's question should be re-posed on the **skin**, not the wall. But `wall-taxonomy.md`:151 fences the skin as *"pictures, not results"* with **nothing on `origin/main` measuring one**. Report whether the arc's target should move, and what would have to be built if it did |
+| **W4-1** | Electron and photon propagate the same way; the difference is interior | CANON | `peierls-nabarro-paradox.md`:12 supports the electron half. Check the photon half is not being assumed. Is "matched because it IS a vacuum mode" and "matched because its envelope is CONSTRUCTED matched" the same kind of match, or a homonym? |
+| **W4-2** | ★ "A $\Gamma=-1$ mirror wrapped in a $\Gamma=0$ envelope" — two $\Gamma$s at two RADII | CANON | canon's structure for multiple $\Gamma$s on one object is **per-channel at ONE surface** (`wall-taxonomy.md`:157), not radial nesting. Are these the same claim? If not, which is right? The walk asserts the nesting fluently and never checked |
+| **W4-3** | The trefoil is *re-registered* on successive bond-pairs; the orbit does not move | MECHANISM | there is **no mechanism** here, only a name. What enforces phase continuity across the hand-off? What does it cost? Is it representable on the shipped machinery at all? Treat "re-registration" as an unexplained primitive until shown otherwise |
+| **W4-4** | ★ LIVE CORPUS CONTRADICTION: matched (`peierls-nabarro-paradox.md`:12) vs *"permanent macroscopic Impedance Mismatch ($\Gamma=-1$) to the linear vacuum"* (`de-broglie-standing-wave.md`:52) | CANON, flag-don't-fix | both on `origin/main`. The PN parenthetical (match-for-translation / $\Gamma=-1$-for-confinement) is the *candidate* reconciliation, but the de-Broglie line is explicitly about **motion**. Do not smooth either. Route with the R40-B2a debt |
+| **W4-5** | open/closed ≡ gapless/gapped ≡ massless/massive is "one statement three ways" | PHYSICS | this is the arc's prettiest sentence, which is a reason to distrust it. Is the equivalence forced, or is it three true statements that happen to line up on two examples? Find a third case (the neutrino? the muon? a $T_2$ shear mode?) and see whether the triple still closes |
+| **W5-1** | §5's sweep is complete enough to stand the section down | SWEEP | **re-run the sweep by a second method.** Grep-completeness false-negatives are a known failure mode here; a "canon already answers it" verdict from one search is a claim about the pattern, not the corpus. Specifically re-check R-2 (the $T_2/\omega$ vs channel-4 labelling vintage), which was NOT established this session |
+
+**Also required of the audit, and not optional:**
+
+1. **The consensus-bias symmetric standard.** Before flagging any step here as
+   an echo, a fit, or weak: ask whether an SM/QED treatment doing the same thing
+   would draw the same flag. The object-level knife stays sharp; the standard
+   stays symmetric.
+2. **`ave-discrimination-check`.** Does this arc buy a **discriminator**, a
+   **number**, or **organizing power**? The expected honest answer is
+   *organizing power and zero numbers* — and if that is the answer, say it in
+   those words rather than letting a reframe read as a result.
+3. **`consistency-vs-emergence` on every §5 statement.** Both canonical answers
+   there are IDENTITY-class by their own leaves' words. Verify the record's tags
+   and catch any place the arc's prose implies emergence.
+4. **A tautology check on §4.5's triple.** If "closed trajectory," "gapped," and
+   "massive" are definitionally linked in this corpus's vocabulary, the triple
+   is a restatement, not a structure.
+
 ## §7 — KILL CONDITIONS
 
 ## §8 — What this record does NOT do
