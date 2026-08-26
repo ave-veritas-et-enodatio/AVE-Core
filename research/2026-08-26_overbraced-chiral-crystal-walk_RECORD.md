@@ -190,6 +190,88 @@ a stretch. The tag it earns is *organizing*, not *predictive*, in both cases.
 
 ## §4 — The proposed discrete question: degeneracies, not existence
 
+### 4.1 Why existence went generic
+
+`M` stays unitary at every amplitude **[MEASURED-ELSEWHERE, VERIFY PENDING]**,
+so its eigenvalues slide around the unit circle and never leave it. Nothing
+"opens" or "closes" as amplitude is swept. A criterion phrased as *does a
+solution exist* therefore has no way to answer no. **[WALK]**
+
+### 4.2 What is discrete on a unitary family
+
+What *is* discrete is where eigenvalues **collide**. In a one-parameter sweep,
+degeneracies are isolated. Degeneracies are also where eigenvectors twist, and
+the twist accumulated on a closed loop around a degeneracy is a **counted
+integer** — Berry phase / Chern number / Weyl charge — which in a chiral crystal
+is **signed**. **[EXTERNAL-UNRETRIEVED — none of Berry, Chern or Weyl was
+retrieved in this session.]**
+
+Two properties the walk claims for such an integer, both **[WALK]**:
+
+1. **Nothing is seeded.** It is computed by transporting eigenvectors around a
+   closed loop in parameter space. There is no template to plant an answer in.
+   This is the direct structural answer to §1's finding 3.
+2. **It can return zero.** A template-based reader structurally cannot produce
+   "no"; a transport integral can, and often does.
+
+> **⚠ A structure this proposal does not name, and needs.** A Chern-type
+> invariant on an occupied manifold needs a **gap** to define "occupied". `M` is
+> **unitary**, not Hermitian — its spectrum lies on a circle, where "below the
+> gap" is not defined without an extra choice (a branch cut / a quasi-energy
+> zone, the Floquet-style construction). The walk asserts the integer exists
+> without supplying that choice. **[WALK — flagged as a hole, audit item B4.]**
+
+### 4.3 An inversion worth recording
+
+The **periodic-torus** finding is *fatal* for the driven framing — a periodic
+carrier has no free boundary, so there is no surface on which to impose a
+boundary condition, and the termination that was removed **was** the boundary
+**[MEASURED-ELSEWHERE, VERIFY PENDING]**.
+
+But it is exactly what a **band-topology** framing wants: a periodic lattice has
+a Brillouin zone, and Brillouin-zone-like parameter tori are where transported
+invariants live. The same measured fact reads as a kill for one framing and a
+prerequisite for the other. **[WALK]**
+
+*This inversion is the walk's cleanest single move. It is also the one most
+likely to be doing rhetorical rather than physical work — see §7.4 and audit
+item B5.*
+
+### 4.4 A count — ★ FLAGGED, NOT CLAIMED
+
+Which side of the isostatic line the vacuum sits on is decided by arithmetic.
+The walk's arithmetic, stated so it can be attacked:
+
+- a Cosserat node carries **6 DOF** (3 translation + 3 microrotation);
+- a **rigid-jointed** bond transmits **6 constraints** (3 force + 3 moment);
+- srs is **z = 3**, so bonds per node = 3/2, and constraints per node
+  = `3 × 6 / 2 = 9` against 6 DOF;
+- **over-braced by 3 per node.**
+
+> **★ THREE WARNINGS, all of which the audit should treat as live.**
+>
+> **(a) This is a coordination-number estimate, NOT a Maxwell–Calladine index.**
+> The real object is `rank` of the equilibrium (or compatibility) matrix on the
+> **actual srs connectivity**. Per-node coordination arithmetic ignores rank
+> deficiency, and rank deficiency is exactly what the count is trying to
+> measure. On the corpus's own prior computation, per-node arithmetic and exact
+> rank **disagreed by a factor of ~2.7** (§6.2).
+>
+> **(b) The corpus has a documented habit of finding meaningful-looking small
+> integers.** The standing caution is recorded at
+> [`_orchestration/2026-06-07_electron-synthesis-epic.md`](../_orchestration/2026-06-07_electron-synthesis-epic.md):189 —
+> *"over-determination of ¼ alone = the coincidence-magnet tell"*
+> **[CANON-VERIFIED]**. A "3" landing next to a `z=3` carrier and a `(2,3)`
+> winding is **a tell to check, not a finding.**
+>
+> **(c) The "6 constraints per bond" input is NOT the corpus's own convention.**
+> The corpus has an implemented micropolar constraint model and it uses **3 rows
+> per bond**, not 6 — see §6.2. Under that convention the same arithmetic gives
+> `3 × 3 / 2 = 4.5` constraints per node against 6 DOF, i.e. **under**-braced by
+> 1.5 — *the opposite sign*. **The answer to Q1 flips on a modelling choice the
+> walk made without knowing the corpus had already made a different one.**
+
+
 ## §5 — The re-ranking this implies: the bracing IS the couple-stress
 
 ## §6 — Canon collisions and prior art found while writing this record
