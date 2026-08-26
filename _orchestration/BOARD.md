@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **31bcfa7d** (2026-08-25) · 468 index records · 331 claims · 1 PR open
+Scanned tree **aabc2a6c** (2026-08-26) · 468 index records · 331 claims · 2 PRs open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`be669184`). Every count below describes **31bcfa7d**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`a3f4fef7`). Every count below describes **aabc2a6c**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -30,7 +30,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## What we are waiting on
 
-**44 of 77 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
+**45 of 78 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
 
 *Scope: this is a census of `open-items/`. `_orchestration/2026-07-10_rulings-docket.md` is the **paper timeline** — a dated continuation log, frozen at its 2026-07-21 tail per `docket-entries/README.md`, and the historical record of how each ruling was reached. It is read chronologically, not harvested; anything still live in it belongs here as its own file.*
 
@@ -68,6 +68,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [Symbol collisions have two competing homes (theorem-thesaurus §6 rows, ungated; vocabulary-register def-nodes, CI-gated) — pick one before the next batch lands](open-items/2026-08-24-collision-register-home.md) | ROUTED-TO-GRANT | grant | 2026-08-24 |
 | [gamma_c and G_c are both called 'the Cosserat couple-stress modulus' in one leaf, differ dimensionally, and a joint-falsification claim reads them as identical](open-items/2026-08-24-gammac-gc-modulus-identity.md) | ROUTED-TO-GRANT | grant | 2026-08-24 |
 | [The Axiom-4 kernel argument "A" carries two normalizations across axiom-level and SOLID leaves (yield-denominated vs bare/snap) — VOCABULARY only](open-items/2026-08-24-kernel-argument-normalization.md) | ROUTED-TO-GRANT | grant | 2026-08-24 |
+| [AUDIT RUN, VERDICT IN — the autonomous-HB lens: criterion DEAD as posed. Grant's call on whether anything survives into G2](open-items/2026-08-25-autonomous-hb-lens-audit.md) | ROUTED-TO-GRANT | grant | 2026-08-25 |
 | [INVARIANT-S2 vs master-equation — which sector hosts the mu-branch wave-channel short](open-items/2026-08-25-invariant-s2-sector-split.md) | ROUTED-TO-GRANT | grant | 2026-08-25 |
 | [Sector-of-storage — where the compression store lives (A1 canon vs the T2/swing label)](open-items/2026-07-26-sector-of-storage.md) | OPEN-IN-WALK | grant | 2026-07-26 |
 | [The quark-charge dressing — CP-parity underived (both adjectives asserted), N=3 fed in; four vacuum-side investigation routes GO'd](open-items/2026-08-23-theta-dressing-open-questions.md) | OPEN-IN-WALK | lane | 2026-08-23 |
@@ -99,10 +100,10 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [R55 Phase-2 — scripted long-tail wording sweep, "Axiom 5" → "the Substrate DC Bias source law"](open-items/2026-08-24-r55-phase2-wording-sweep.md) | OPEN | lane | 2026-08-24 |
 | [The trefoil mark's Γ-plane annulus rims at (1/3, 1) — an EE-native candidate pin for the OPEN phase-space tube RATIO, vs the golden semi-axes](open-items/2026-08-24-smith-annulus-tube-ratio-pin.md) | OPEN | grant | 2026-08-24 |
 | [Static-existence epic — phase tracker (P0 capability/transduction → G1 ontology walk → P1 graded-T2 → P2 the run → P3 propagation)](open-items/2026-08-24-static-existence-epic-tracker.md) | OPEN | grant | 2026-08-24 |
-| [AUDIT REQUIRED — the autonomous-harmonic-balance lens (the existence test may need no scaffold at all)](open-items/2026-08-25-autonomous-hb-lens-audit.md) | OPEN | lane | 2026-08-25 |
 | [Two different lengths may share the name ell_c — the sqrt(6) Cosserat coupling length vs the weak-range construction](open-items/2026-08-25-ell-c-name-collision.md) | OPEN | grant | 2026-08-25 |
 | [G2 freeze decisions — the four calls that must be frozen before the P2 existence solve runs](open-items/2026-08-25-g2-freeze-decisions.md) | OPEN | grant | 2026-08-25 |
 | [The storage clock and the response clock are the same number exactly — canon's 1.4e-5 near-collision is a linearization artifact](open-items/2026-08-25-storage-response-clock-identity.md) | OPEN | grant | 2026-08-25 |
+| [Charter A2 was discharged by ONE lane the verify phase never re-tested — prior-art retrieval and the clause-Q verdict both carry single-lane standing](open-items/2026-08-26-a2-prior-art-standing.md) | OPEN | lane | 2026-08-26 |
 | [Sibling-repo debts — AVE-Fusion yield cross-wire + AVE-Bench-FemtoElectrometer stale sites](open-items/2026-07-03-sibling-repo-debts.md) | REGISTERED | unassigned | 2026-07-03 |
 | [The v3 ringdown instrument — the DISCRETE near-wall chain](open-items/2026-08-04-v3-ringdown-instrument.md) | REGISTERED | unassigned | 2026-08-04 |
 | [Hygiene backlog — Bell-arc citation follow-ups, FPR provenance re-grep, auditor-landing queue](open-items/2026-07-03-hygiene-backlog.md) | QUEUED | unassigned | 2026-07-03 |
@@ -135,7 +136,8 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 | PR | state | title |
 |---|---|---|
-| #1019 | CLEARED | [REVIEW: CLEARED] research: the autonomous-harmonic-balance lens (UNAUDITED) + i |
+| #1021 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: the wall-first reframe +  |
+| #1020 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: the over-braced-chiral-cr |
 
 <!-- /volatile -->
 
