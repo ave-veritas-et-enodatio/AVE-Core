@@ -527,6 +527,140 @@ most fluently, per §0.
 
 ## §4 — WALK 4: the trefoil vs the photon
 
+### §4.1 — Grant's question (verbatim, `[sic]`)
+
+> **"how would the trefoil's phase space tube propagate vs the photon?"**
+
+**That is the complete Grant-attributed content of this walk.**
+
+### §4.2 — `[CANON]` The electron translates MATCHED, not mismatched
+
+[`peierls-nabarro-paradox.md`](../manuscript/ave-kb/vol2/appendices/app-b-paradoxes/peierls-nabarro-paradox.md):12
+(`clm-ghs75o`), verbatim:
+
+> *"The electron ($0_1$ Unknot) is a **co-moving self-matched envelope**: it is
+> constructed impedance-matched to the lattice it translates through, so the
+> soliton presents a **matched impedance** ($\Gamma \to 0$) as a whole-soliton
+> property of its co-moving envelope — by Op17 ($T^2 = 1 - \Gamma^2 \to 1$ at
+> $\Gamma = 0$) the coupling is perfectly transmitted and reflectionless. The
+> particle does not "bump" over a rigid PN barrier; its co-moving envelope
+> couples through **reactively**, opening a **zero-impedance phase slipstream**.
+> The nodes it passes store and return the field reversibly (lossless, Axiom 3),
+> so there is no Peierls-Nabarro barrier and no dissipation — permitting smooth
+> kinematic translation and forbidding unprovoked Bremsstrahlung radiation."*
+
+`[CANON]` And **the leaf's own carve**, same line, parenthetically:
+
+> *"(This translation slipstream is distinct from confinement: single-sector
+> dielectric saturation $S \to 0$ drives $Z_{core} = Z_0\sqrt{S} \to 0$ and
+> $\Gamma \to -1$ — the short-circuit / TIR wall that *confines* the electron,
+> not a match.)"*
+
+### §4.3 — The reading
+
+`[WALK]` **The electron and the photon propagate the same way.** Both are
+matched, reflectionless, lossless. A photon is matched to the vacuum because it
+*is* a vacuum mode; an electron is matched because its co-moving envelope is
+*constructed* matched. Neither pays a propagation cost. **The difference is not
+in how they move — it is in what is inside.**
+
+`[WALK]` **The electron is a $\Gamma = -1$ mirror wrapped in a $\Gamma = 0$
+envelope.** Two different reflection conditions on one object, at two different
+radii, doing two different jobs: the inner one confines, the outer one
+translates. **The wall is what makes them compatible** — because a perfect
+mirror hides its interior completely (§3.2), the outside world only ever
+negotiates impedance with the envelope, never with the core. **Mass does not
+impede motion because the mass is interior and the envelope is matched.**
+
+`[WALK]` Under-claim, immediately: this is a **restatement of the PN leaf's own
+parenthetical carve in radial language.** It is not a new mechanism. Its only
+added content is the *nesting* claim — that the two $\Gamma$s sit at two radii
+of one object — and §4.5 records that canon organizes the same facts a
+different way.
+
+### §4.4 — `[CANON]` The trefoil does not propagate in real space at all
+
+[`torus-knot-baryon-predictions.md`](../manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/torus-knot-baryon-predictions.md):68,
+verbatim:
+
+> *"**Electron**: $0_1$ unknot (the simplest closed flux-tube loop); $(2,3)$
+> trefoil is the phase-space Clifford-torus winding pattern (per Vol 2 Ch 2 +
+> Q-G19α canonical)"*
+
+`[CANON]` Same statement at
+[`boundary-observables-m-q-j.md`](../manuscript/ave-kb/common/boundary-observables-m-q-j.md):54:
+*"The electron's real-space body listed here is the $0_1$ unknot soliton; its
+$(2,3)$/trefoil structure is the phase-space (Clifford-torus) winding label,
+not the real-space body."* (INVARIANT-N1.)
+
+`[WALK]` **So Grant's question has a structural answer before any dynamics: the
+trefoil has no real-space tube to propagate.** What translates is the $0_1$
+envelope. The $(2,3)$ winding is a trajectory on a Clifford torus — a
+*phase-space* object belonging to a bond-pair LC tank — and as the envelope
+moves, that trajectory is **re-registered onto successive bond-pairs**.
+
+**The orbit does not move. The registration does.** `[WALK]` Analogy in the
+substrate-native register: a rotating-frame phase reference handed from one
+commutation sector to the next. Nothing in phase space translates; the
+*assignment* of which physical tank carries the orbit advances.
+
+`[OPEN]` **The walk has no mechanism for the hand-off.** "Re-registration" is a
+name for the thing that would have to happen, not a description of how. What
+enforces phase continuity across the hand-off, what its cost is, and whether it
+is even representable on the shipped machinery are all unaddressed. Audit item
+**W4-3**.
+
+### §4.5 — ★ THE STRUCTURAL DISTINCTION: open vs closed, gapless vs gapped, massless vs massive
+
+`[WALK]` The three statements below are argued to be **one statement said three
+ways**:
+
+| | photon | the $(2,3)$ trefoil |
+|---|---|---|
+| phase-space trajectory | **OPEN** — phase advances forever, never returns | **CLOSED** — returns, with winding $(2,3)$ |
+| therefore | **no winding number** ⇒ no integer ⇒ **no charge** | **an integer** ⇒ $\mathcal{Q} = \mathrm{Link} \in \mathbb{Z}$ |
+| channel | **1**, gapless | **4**, gapped at $m_\omega$ |
+| at $k = 0$ | $\omega \to 0$: **it ceases to exist** — a photon cannot stand still | $\omega = m_\omega \neq 0$: **it rings at rest** |
+
+`[WALK]` **And ringing at rest is what a rest energy is.** A rest mass is not a
+substance a particle carries; it is the fact that a bounded oscillator has a
+nonzero frequency when its wavevector is zero. Open-vs-closed (topology),
+gapless-vs-gapped (dispersion) and massless-vs-massive (kinematics) are then the
+same fact in three registers.
+
+**★ CANON CONTRADICTS THE NESTING FRAMING (flag-don't-fix).** `[CANON]`
+[`wall-taxonomy.md`](../manuscript/ave-kb/common/wall-taxonomy.md):157 already
+carries multiple simultaneous $\Gamma$s on one object — but **per CHANNEL at
+ONE surface**, not per radius: at $r_{sat}$, $\Gamma_{shear} = -1$,
+$\Gamma_{bulk} = -1$, $\Gamma_{EM} = 0$, and channel 4 has no wall there. So
+canon's structure for "two different $\Gamma$s on one object" is **channel
+subscripting**, and §4.3's structure is **radial nesting**. `[OPEN]` These are
+not obviously the same claim, and the walk does not show they are compatible.
+Audit item **W4-2** — again on a fluently-stated step, per §0.
+
+**★ AND A LIVE CORPUS-INTERNAL CONTRADICTION, surfaced not adjudicated.**
+`[CANON]` [`de-broglie-standing-wave.md`](../manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md):52,
+verbatim:
+
+> *"By contrast, an electron ($0_1$ unknot) is a massive topological defect. It
+> represents a **permanent macroscopic Impedance Mismatch ($\Gamma = -1$) to the
+> linear vacuum.** It does not travel as a shear wave at $c_0$; instead, its
+> motion displaces the lattice, generating longitudinal acoustic pressure waves
+> governed by the vacuum's **Bulk Modulus**."*
+
+That line is **🔴 DEMOTED 2026-08-11 (R40-B2a: NEEDS RE-DERIVATION, not dead)**
+at its own site. But note what it says against
+[`peierls-nabarro-paradox.md`](../manuscript/ave-kb/vol2/appendices/app-b-paradoxes/peierls-nabarro-paradox.md):12's
+$\Gamma \to 0$ matched envelope: **one canon leaf says the moving electron is
+matched, another says it is a permanent macroscopic mismatch.** The PN leaf's
+parenthetical carve (match for translation, $\Gamma=-1$ for confinement) is
+*probably* the reconciliation — `[WALK]` — but the de-Broglie leaf says
+*"to the linear vacuum"*, in the context of *motion*, which is the translation
+case, not the confinement case. **Both statements are in `manuscript/ave-kb/`
+on `origin/main` today.** This record neither picks nor smooths. Audit item
+**W4-4**; it is the same object as the R40-B2a re-derivation debt (§5).
+
+
 ## §5 — The open question this arc produced — and the sweep that mostly closed it
 
 ## §6 — AUDIT CHARTER
