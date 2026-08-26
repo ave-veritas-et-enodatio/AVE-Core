@@ -1,0 +1,193 @@
+!! SUPERSEDED 2026-08-25 by ANALYSIS-REPAIRED.md (same directory).
+!! Box S3 ("every boundary port driven with the same incident voltage = the junction's +1
+!! eigenvector = the A1 monopole drive") is FALSE on this fixture: measured 1/3-common,
+!! 2/3-differential. Box S4's unqualified "NO POLE ANYWHERE NEAR these tones" is a COLD-LINEAR
+!! statement only. The rho = +-1 "mirror" labels name a circuit the code never builds.
+
+================================================================================
+LANE A1 — THE EE SCHEMATIC OF THE STATIC-EXISTENCE SCAFFOLD
+srs-z3 graded TLM network, one bond-pair tank, two candidate boundary scaffolds
+Read off: src/ave/solvers/harmonic_balance_srs.py,
+          src/ave/solvers/vacuum_varactor_scatter.py,
+          src/ave/core/chiral_lattice.py, src/ave/viz/ave_chart.py
+================================================================================
+
+LEGEND
+  ====   lossless transmission line (one lattice bond, one CONNECT step)
+  (o)    z=3 shunt junction (Op5 admittance-weighted scatter)
+  -||-   varactor (Axiom-4 vacuum capacitance, C_eff = C0/S)
+  [~]    generator, source reflection coefficient rho (see box S1)
+  (^)    current source (Norton), shunt-injected at a node
+  |||    absorber / matched termination
+
+
+--------------------------------------------------------------------------------
+1. THE ELEMENT VALUES  (all CANON, receipts in ANALYSIS.md §1)
+--------------------------------------------------------------------------------
+
+  per-bond TL      Z_b = Z_0 * sqrt(S(A_b))      Y_b = Y_0 / sqrt(S(A_b))
+                   L_per = Z_0/c0 , C_per = 1/(Z_0 c0)   [chiral_lattice.bond_lc]
+                   T_D   = ell_node / c          (one CONNECT step = one transit)
+
+  kernel           S(A) = sqrt(1 - A^2), clipped at A_cap=0.99, floor S_min=0.05
+                                                  [crystal_engine.py:191]
+
+  junction (z=3)   S_ij = 2 Y_j / (sum_k Y_k) - delta_ij
+                                                  [vacuum_varactor_scatter:156-185]
+
+  envelope         A_b^2 = sum_m (|v_m[fwd]|^2 + |v_m[bwd]|^2) / (D * v_norm^2)
+                   D = 2 (C-STATE arm)  or  D = 1 (FULL-TANK arm)   <-- OPEN FORK
+                                                  [harmonic_balance_srs:626-700]
+
+  one-step map     e^{i theta} v = M v ,  M = CONNECT o blockdiag(S_u)
+                   M is REAL. Losslessness: S_u^2 = I exactly.
+
+
+--------------------------------------------------------------------------------
+2. THE NETWORK — one bond-pair tank in the graded lattice, both scaffolds shown
+--------------------------------------------------------------------------------
+
+         SCAFFOLD A (a CUT)                                SCAFFOLD B (NO cut)
+    +---------------------+          cut                       Norton inject
+    |                     |         plane
+    |     [~] s_hat       |           :
+    |      |              |           :        Z_0*sqrt(S)/2      Z_0*sqrt(S)/2
+    |     Z_s = f(rho)    |           :          \      /            \      /
+    |      |              |           :           \    /              \    /
+    +------+--------------+           :            \  /                \  /
+           |                          :             \/                  \/
+           +==========================:=============(o)======-||-=======(o)===  ...
+                   bond               :          vertex u   varactor  vertex v
+                                      :             /\                  /\
+      v_T = rho*(Mv)_T + s_hat        :            /  \                /  \
+                                      :           /    \              /    \
+      rho =  0  matched   Z_s = Z_b   :
+      rho = -1  ideal V-src  SHORT    :                          ...===(o)===+
+      rho = +1  hi-Z inject  OPEN     :                                |     |
+                                      :                               (^) I_u|
+      SHIPPED CODE IS rho = 0 ONLY.   :                                |     |
+      (Termination sets v_T := s_hat  :                               ===   GND
+       and DISCARDS the arriving      :
+       wave -> Gamma_source == 0)     :        M is UNCHANGED by I_u; the drive
+                                      :        enters as a pure additive term c:
+                                      :             e^{i th} v = M v + c
+
+
+--------------------------------------------------------------------------------
+3. BOX S1 — WHAT THE INTERIOR SEES LOOKING **OUT** AT EACH SCAFFOLD
+--------------------------------------------------------------------------------
+
+    rho = 0   ANECHOIC.  Z_s = Z_b exactly (the bond's OWN graded impedance).
+              The interior cannot tell the scaffold from an infinite continuation
+              of its own medium, except that the continuation carries no s_hat.
+              No cavity is created. NO POLES on the real-theta axis.
+              CONSEQUENCE: a source-idle solution here must be confined by the
+              MEDIUM, not by the boundary. This is the discriminating scaffold.
+
+    rho = -1  A SHORT (Gamma_s = -1).  Z_s = 0.  This is the literal reading of
+              "source-terminated = ideal AC voltage source, zero source impedance".
+              It makes the cut plane a MIRROR. Two mirrors -> a closed lossless
+              cavity -> the region has eigenmodes for purely geometric reasons.
+              MEASURED (cold, uniform S=1, 400-point theta sweep):
+                 10 poles in theta in (0, pi); peak transfer 143.6 vs a
+                 matched-scaffold maximum of 3.28.
+
+    rho = +1  AN OPEN (Gamma_s = +1).  Z_s = infinity.  This is the literal
+              reading of "injection-lock = weak source through a large series
+              impedance".  It is ALSO a mirror, of the opposite sign.
+              MEASURED (same sweep): 24 poles; peak transfer 102.5.
+
+    I_u       NO PORT AT ALL.  An ideal current source in parallel with the
+              junction adds zero admittance: the junction's own sum_k Y_k is
+              unchanged, so the scatter S_ij is unchanged, so M is unchanged.
+              There is nothing for a wave to reflect from.
+              (An ideal VOLTAGE source at a node would instead clamp V_u and
+               short the whole junction out — the destructive dual.)
+
+
+--------------------------------------------------------------------------------
+4. BOX S2 — THE PORT-SPACE MODE SPLIT AT A z=3 VERTEX  (DERIVED-HERE, exact)
+--------------------------------------------------------------------------------
+
+    S = (2/sum Y) * 1 Y^T - I     acting on the z incident-port phasors.
+
+        eigenvector          eigenvalue      circuit reading
+        -----------------    ----------      ---------------------------------
+        1 = (1,1,...,1)          +1          COMMON mode  -> an OPEN
+        {v : sum Y_j v_j = 0}    -1          DIFFERENTIAL modes -> a SHORT
+                                             (multiplicity z-1)
+
+    MEASURED (junction_modes.py): eigs = [+1, -1, -1] for z=3 and
+    [+1, -1, -1, -1] for z=4, COLD **and** GRADED, to 1e-16. S^2 = I to 1e-16.
+
+    Single-port excitation decomposes with common-mode weight Y_0/sum Y, so
+
+        Gamma_vertex = (Y_0/sum Y)(+1) + (1 - Y_0/sum Y)(-1)
+
+    which at cold equal admittance is (1/z)(+1) + ((z-1)/z)(-1) = (2-z)/z = -1/3.
+    MEASURED to 1e-16 against S[0,0] for z=3 and z=4, cold AND graded.
+
+    ***  THE GRADING NEVER MOVES THE EIGENVALUES.  It moves only the mixture
+         WEIGHT.  Every bit of graded-network physics lives in the re-weighting,
+         not in any new reflection channel.  ***
+
+
+--------------------------------------------------------------------------------
+5. BOX S3 — THE TWO THINGS CALLED "COMMON MODE"  (they are NOT the same object)
+--------------------------------------------------------------------------------
+
+    CM-mult (the tube phase, varpi):   s_j  ->  e^{i phi} s_j     (multiplicative)
+        NOT a circuit element. It is the phasor time origin — where you triggered
+        the scope. M is REAL, so v -> e^{i phi} v and A_b (which reads |v|) is
+        untouched. MEASURED: dA_inf = 1.6e-12, phase spread 6.2e-11 over the
+        WHOLE self-consistent solve.  ==> guard 8 is discharged BY CONSTRUCTION.
+        A "project out varpi" receipt CANNOT FIRE. It is not a gate.
+
+    CM-add (the A1 breathing channel):  s_j  ->  s_j + c          (additive)
+        IS a circuit condition: every boundary port driven with the same incident
+        voltage = the junction's +1 eigenvector = the A1 monopole/dilatation
+        drive. MEASURED: c = 0.10 moves the converged A-field by 23% relative.
+        This is REAL PHYSICS in the sector the solver runs in.
+        ==> projecting THIS out deletes the mass channel's drive. DO NOT.
+
+    Common-mode choke analogy: holds mechanically for CM-add (a series element
+    opaque to the no-return-path channel, transparent to differential), and
+    BREAKS for CM-mult three ways — (i) no two-wire pair / no distinguished
+    return on a z=3 graph, (ii) a real choke's CMRR is finite and engineered
+    whereas this rejection is algebraic (common/relational-cancellation-identity),
+    (iii) you cannot build a component that blocks a choice of time origin.
+
+
+--------------------------------------------------------------------------------
+6. BOX S4 — THE SOURCE-IDLE CRITERION AS A BENCH MEASUREMENT
+--------------------------------------------------------------------------------
+
+    The three coded observables (harmonic_balance_srs.source_idle_report):
+
+      source_amp    = max |s_hat|                     the generator's output
+      exchange_amp  = max |V_ref arriving at T|       what the absorber eats
+      r_auto        = ||e^{i th} v - M_full v|| / ||v||   BARKHAUSEN RESIDUAL
+
+    P_in - P_out is IDENTICALLY ZERO at any converged lossless steady state.
+    MEASURED: P_net = -2.0e-11 on P_in = P_out = 2.458.  It is a convergence
+    receipt, not a physics observable.
+
+    What a bench technician actually reads:
+
+      NOT "the ammeter reads zero".
+      IT IS  "the ammeter reads zero WHILE the tank voltmeter reads full scale"
+                    ==>  the RATIO  drive / response  ->  0.
+
+      On a VNA: the driven transfer |v|/|s| diverges — an infinitely tall,
+      infinitely narrow resonance. The autonomous mode is a POLE of the driven
+      problem: (e^{i th} I - M_FF) becomes singular.
+
+    MEASURED trap: sweeping the drive 0.30 -> 0.01 (30x),
+        source_amp    tracks the drive exactly    0.30 -> 0.01
+        A_max         tracks it too               0.547 -> 0.019   (de-rails!)
+        source_amp/||v||  is PINNED at            0.0687 -> 0.0676
+    An ABSOLUTE idle threshold is bought by turning the drive down, which
+    de-rails the core at the same rate. The ratio is the scale-free reading,
+    and it says plainly: NO POLE ANYWHERE NEAR these tones on this net.
+
+================================================================================

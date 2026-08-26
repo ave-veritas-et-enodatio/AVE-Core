@@ -1,0 +1,50 @@
+* L3/P1-D srs 4-site primitive cell, periodic wrap (K_4 complete) [PLANTED DEFECT]
+*
+* SCX Phase-1 external-solver cross-check. CLASS: IMPLEMENTATION-VERIFICATION.
+* Prereg (FROZEN): research/2026-08-25_solver-crosscheck-phase1_prereg-FROZEN.md
+* GO gate: _orchestration/docket-entries/2026-08-24-ruling-r56-scx-trades.md (R56)
+* Emitted by: src/ave/solvers/scx_spice_export.py
+*
+* SECTOR: MODE numerical-infrastructure / REGIME I cold sub-yield lossless-reactive
+*         (A=0, S(A)=1, Op14 off) / PHASE-STATE cold crystalline quiescent /
+*         CHANNEL scalar-translational ONLY / CARRIER srs-z3.
+*
+* CANONICAL SOURCE: src/ave/core/constants.py (resolved and asserted by assert_canonical_source())
+*
+* IMPORTED SYMBOLS (nothing below is typed; every value enters by import):
+*   Z_0                      = 376.73031346177066  ohm     [ave.core.constants]
+*   OMEGA_C                  = 7.76344071105011e+20  rad/s   [ave.core.constants]
+*   ANALYTIC_NETWORK_FACTOR  = 0.5773502691896258          [ave.core.chiral_lattice_dynamics]
+*   L_CELL                   = 4.85262047439289e-19  H       [ave.core.constants]
+*   C_CELL                   = 3.41912668394556e-24  F       [ave.core.constants]
+*
+* DELAY CONVENTION EMITTED: R2   (R56 item 2 pins R2 for the exporter;
+*   the corpus's physics-level R1-vs-R2 flag, srs-band-structure.md:157
+*   'Flagged for adjudication', STAYS OPEN -- this label is an engineering
+*   convention on the emitted netlist, NOT a physics adjudication.)
+*   R2  TD = ANALYTIC_NETWORK_FACTOR/OMEGA_C = 7.436783388682972e-22 s
+*   R1  TD = ell_node/c_0                    = 1.2880886674083153e-21 s
+*   III TD = sqrt(3)*ell_node/c_0            = 2.231035016604891e-21 s
+*   EMITTED TD                               = 7.436783388682972e-22 s
+*
+* UNITS SCALING: SI   (T6; the observables are dimensionless ratios,
+*   so this cannot move a verdict -- it is a conditioning/readability choice.)
+*
+* GRAPH: 4 nodes, 6 bonds, drive at n0
+* *** PLANTED DEFECT (POSITIVE CONTROL): bond #2 TD scaled by 1.05. THIS NETLIST IS DELIBERATELY WRONG.
+*
+I_drv 0 n0 AC 1
+T0 n0 0 n1 0 Z0=376.73031346177066 TD=7.436783388682972e-22
+T1 n0 0 n2 0 Z0=376.73031346177066 TD=7.436783388682972e-22
+T2 n0 0 n3 0 Z0=376.73031346177066 TD=7.808622558117121e-22
+T3 n1 0 n2 0 Z0=376.73031346177066 TD=7.436783388682972e-22
+T4 n1 0 n3 0 Z0=376.73031346177066 TD=7.436783388682972e-22
+T5 n2 0 n3 0 Z0=376.73031346177066 TD=7.436783388682972e-22
+.control
+set numdgt=17
+set filetype=ascii
+set wr_singlescale
+ac lin 20001 6.723336876543721e+17 7.059503720370907e+20
+wrdata L3_planted_coarse_n0.dat v(n0)
+.endc
+.end

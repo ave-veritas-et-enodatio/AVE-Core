@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **4b111b98** (2026-08-25) · 468 index records · 331 claims · 3 PRs open
+Scanned tree **31bcfa7d** (2026-08-25) · 468 index records · 331 claims · 1 PR open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`b62b60ee`). Every count below describes **4b111b98**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`be669184`). Every count below describes **31bcfa7d**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -136,8 +136,6 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 | PR | state | title |
 |---|---|---|
 | #1019 | CLEARED | [REVIEW: CLEARED] research: the autonomous-harmonic-balance lens (UNAUDITED) + i |
-| #1018 | CLEARED | [REVIEW: CLEARED] research: preserve the P2 preparation artifacts (prereg DRAFT, |
-| #1016 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] SCX Phase 1 — external-solver cross |
 
 <!-- /volatile -->
 
