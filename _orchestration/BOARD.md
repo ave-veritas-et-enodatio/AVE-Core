@@ -4,11 +4,11 @@
 
 # AVE program board
 
-Scanned tree **70f9fead** (2026-08-25) · 467 index records · 330 claims · 3 PRs open
+Scanned tree **766d5179** (2026-08-25) · 468 index records · 331 claims · 3 PRs open
 
 ## The number that frames everything
 
-**0 of 330 claims carry any experimental support. 0 of 12 experiments have been run.**
+**0 of 331 claims carry any experimental support. 0 of 12 experiments have been run.**
 
 Every solidity score in this corpus is a **derivation** score. Nothing has been measured. That is what the testing pivot exists to change, and until one experiment runs, this line does not move.
 
@@ -16,19 +16,19 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 | build band | claims |
 |---|---|
-| input-only | 168 |
+| input-only | 169 |
 | ok-with-caveats | 75 |
 | do-not-build | 54 |
 | ok-to-build | 28 |
 | refuted | 3 |
 | unknown | 2 |
-| **total** | **330** |
+| **total** | **331** |
 
 **Top tier (solidity ≥ 0.80): 50 claims — of which ~19 self-disclaim** as definitional, catalog, notation, or consistency-class in their own rationale. Read the top of the ranking with that in mind.
 
 ## What we are waiting on
 
-**42 of 74 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
+**42 of 75 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
 
 *Scope: this is a census of `open-items/`. `_orchestration/2026-07-10_rulings-docket.md` is the **paper timeline** — a dated continuation log, frozen at its 2026-07-21 tail per `docket-entries/README.md`, and the historical record of how each ruling was reached. It is read chronologically, not harvested; anything still live in it belongs here as its own file.*
 
@@ -97,6 +97,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [R55 Phase-2 — scripted long-tail wording sweep, "Axiom 5" → "the Substrate DC Bias source law"](open-items/2026-08-24-r55-phase2-wording-sweep.md) | OPEN | lane | 2026-08-24 |
 | [The trefoil mark's Γ-plane annulus rims at (1/3, 1) — an EE-native candidate pin for the OPEN phase-space tube RATIO, vs the golden semi-axes](open-items/2026-08-24-smith-annulus-tube-ratio-pin.md) | OPEN | grant | 2026-08-24 |
 | [Static-existence epic — phase tracker (P0 capability/transduction → G1 ontology walk → P1 graded-T2 → P2 the run → P3 propagation)](open-items/2026-08-24-static-existence-epic-tracker.md) | OPEN | grant | 2026-08-24 |
+| [AUDIT REQUIRED — the autonomous-harmonic-balance lens (the existence test may need no scaffold at all)](open-items/2026-08-25-autonomous-hb-lens-audit.md) | OPEN | lane | 2026-08-25 |
 | [G2 freeze decisions — the four calls that must be frozen before the P2 existence solve runs](open-items/2026-08-25-g2-freeze-decisions.md) | OPEN | grant | 2026-08-25 |
 | [Sibling-repo debts — AVE-Fusion yield cross-wire + AVE-Bench-FemtoElectrometer stale sites](open-items/2026-07-03-sibling-repo-debts.md) | REGISTERED | unassigned | 2026-07-03 |
 | [The v3 ringdown instrument — the DISCRETE near-wall chain](open-items/2026-08-04-v3-ringdown-instrument.md) | REGISTERED | unassigned | 2026-08-04 |
@@ -130,9 +131,9 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 | PR | state | title |
 |---|---|---|
-| #1014 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] kb: the Relational-Observable Cance |
-| #1013 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] Stage 2 — harmonic-balance solver o |
-| #1012 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] Stage 1 (epic P1): transverse grade |
+| #1018 | CLEARED | [REVIEW: CLEARED] research: preserve the P2 preparation artifacts (prereg DRAFT, |
+| #1017 | CLEARED | [REVIEW: CLEARED] orchestration: R58 — G2 decisions 2+4 ruled, decision 1 re-sha |
+| #1016 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] SCX Phase 1 — external-solver cross |
 
 <!-- /volatile -->
 
