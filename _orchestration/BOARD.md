@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **31bcfa7d** (2026-08-25) · 468 index records · 331 claims · 1 PR open
+Scanned tree **273e2b6b** (2026-08-26) · 468 index records · 331 claims · 0 PRs open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`be669184`). Every count below describes **31bcfa7d**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`a3f4fef7`). Every count below describes **273e2b6b**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -30,7 +30,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## What we are waiting on
 
-**44 of 77 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
+**44 of 78 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
 
 *Scope: this is a census of `open-items/`. `_orchestration/2026-07-10_rulings-docket.md` is the **paper timeline** — a dated continuation log, frozen at its 2026-07-21 tail per `docket-entries/README.md`, and the historical record of how each ruling was reached. It is read chronologically, not harvested; anything still live in it belongs here as its own file.*
 
@@ -103,6 +103,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [Two different lengths may share the name ell_c — the sqrt(6) Cosserat coupling length vs the weak-range construction](open-items/2026-08-25-ell-c-name-collision.md) | OPEN | grant | 2026-08-25 |
 | [G2 freeze decisions — the four calls that must be frozen before the P2 existence solve runs](open-items/2026-08-25-g2-freeze-decisions.md) | OPEN | grant | 2026-08-25 |
 | [The storage clock and the response clock are the same number exactly — canon's 1.4e-5 near-collision is a linearization artifact](open-items/2026-08-25-storage-response-clock-identity.md) | OPEN | grant | 2026-08-25 |
+| [AUDIT REQUIRED — the over-braced chiral crystal walk (the knot may be in the stress, not the material)](open-items/2026-08-26-overbraced-crystal-audit.md) | OPEN | lane | 2026-08-26 |
 | [Sibling-repo debts — AVE-Fusion yield cross-wire + AVE-Bench-FemtoElectrometer stale sites](open-items/2026-07-03-sibling-repo-debts.md) | REGISTERED | unassigned | 2026-07-03 |
 | [The v3 ringdown instrument — the DISCRETE near-wall chain](open-items/2026-08-04-v3-ringdown-instrument.md) | REGISTERED | unassigned | 2026-08-04 |
 | [Hygiene backlog — Bell-arc citation follow-ups, FPR provenance re-grep, auditor-landing queue](open-items/2026-07-03-hygiene-backlog.md) | QUEUED | unassigned | 2026-07-03 |
@@ -133,9 +134,7 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 *(volatile — excluded from `--check`, since any PR retitle would otherwise make the check cry wolf)*
 
-| PR | state | title |
-|---|---|---|
-| #1019 | CLEARED | [REVIEW: CLEARED] research: the autonomous-harmonic-balance lens (UNAUDITED) + i |
+No open PRs.
 
 <!-- /volatile -->
 
