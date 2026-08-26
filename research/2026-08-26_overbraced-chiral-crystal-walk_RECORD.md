@@ -9,6 +9,14 @@ audit before any part of it reaches a prereg** — the charter is §8, the kill
 conditions are §9, and the routing item is
 [`_orchestration/open-items/2026-08-26-overbraced-crystal-audit.md`](../_orchestration/open-items/2026-08-26-overbraced-crystal-audit.md).
 
+> **★ HEADLINE, added by same-day amendment.** The adversarial VERIFY pass landed
+> mid-write and measured **both** of this walk's load-bearing mechanisms
+> **vacuous on the shipped carrier**: the Chern integer is identically zero at
+> every amplitude by exact symmetry, and the degeneracy selector fires on ~35% of
+> the spectrum at every amplitude including `A=0`. **§4.2 carries the kills; §9
+> carries the verdict. Do not read §§2–5 without them.** What the walk *does*
+> evade is credited in §7.7, and it is not nothing.
+
 **Why this record is written defensively.** The lens it replaces died at audit
 on the step its author was *least* worried about — §3.1 of that record asserted
 a source-free solution "cannot belong to the scaffold: there is nothing else it
@@ -194,7 +202,7 @@ a stretch. The tag it earns is *organizing*, not *predictive*, in both cases.
 **[WALK]**
 
 
-## §4 — The proposed discrete question: degeneracies, not existence
+## §4 — The proposed discrete question — and the two measurements that vacate it
 
 ### 4.1 Why existence went generic
 
