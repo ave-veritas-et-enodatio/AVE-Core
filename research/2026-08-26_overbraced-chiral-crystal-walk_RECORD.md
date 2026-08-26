@@ -274,6 +274,51 @@ The walk's arithmetic, stated so it can be attacked:
 
 ## §5 — The re-ranking this implies: the bracing IS the couple-stress
 
+**This is the walk's main practical consequence, and the part with the most
+canon support (§6.1) — which is also why it is the least novel part.**
+
+Bracing that carries **moment** is bending stiffness. In this substrate, the
+channel that carries moment between adjacent nodes is the **Cosserat
+couple-stress `γ_c`** — canon's own reading, *"Transformer mutual inductance
+gradient / reluctance / transconductance — couples adjacent flywheel
+rotations"*, [`translation-circuit.md`](../manuscript/ave-kb/common/translation-tables/translation-circuit.md):101
+**[CANON-VERIFIED]**.
+
+And that channel is exactly what the solver under discussion says it does not
+have: *"The T2/Cosserat channel is NOT wired in (A1 perpendicular to T2,
+master-equation.md:20); no winding observable exists here"*,
+[`harmonic_balance_srs.py`](../src/ave/solvers/harmonic_balance_srs.py):147-149
+**[CANON-VERIFIED]**.
+
+**So under this walk the scalar-only solver is a PIN-JOINTED web.** Pin joints
+transmit force and not moment; a pin-jointed assembly has no bending stiffness,
+carries no moment-bearing self-stress, and — on this walk's reading — can hold no
+knot. **[WALK]**
+
+**The re-ranking.** In the autonomous-HB record, the missing T2 wiring was
+listed as caveat 5 of 5: *"The T2 blocker is untouched. This lens changes how
+the state is found, not what can be read off it"*
+([`2026-08-25_autonomous-harmonic-balance-lens_RECORD.md`](2026-08-25_autonomous-harmonic-balance-lens_RECORD.md):148-149)
+**[CANON-VERIFIED]** — i.e. a blocker on two *observables*. Under the present
+walk it is not a blocker on observables at all: **it is what makes the object
+under test representable in the first place.** A pin-jointed model of a
+moment-bearing structure is not a partial model of it; it is a model of a
+different structure. **[WALK]**
+
+**What this does and does not buy.** It does not make the T2 wiring easier, and
+it does not say the wired model will find anything. What it changes is the
+*priority argument*: the T2 channel stops being "needed for the readout" and
+becomes "needed for the physics to be present at all". If the audit sustains
+only one item from this record, this is the one with a downstream consequence
+attached. **[WALK]**
+
+**And the honest discount.** §6.1 shows the corpus already identifies
+over-bracing with couple-stress, in a pedagogical leaf, in almost these words.
+So the re-ranking is a *re-derivation* of an existing corpus identification
+applied to a solver that post-dates it — useful as a priority argument, **not**
+a new physical identification. **[CANON-VERIFIED / WALK]**
+
+
 ## §6 — Canon collisions and prior art found while writing this record
 
 ## §7 — The walk's own weaknesses
