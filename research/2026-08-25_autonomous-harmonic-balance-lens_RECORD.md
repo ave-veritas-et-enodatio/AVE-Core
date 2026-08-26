@@ -172,3 +172,46 @@ It does not answer the existence question; it proposes a cleaner way to ask it.
 It mints nothing, moves no solidity, and does not supersede R58 — decision 1
 and the carrier fork remain **live and un-ruled** unless and until this lens
 survives audit and Grant rules that it replaces them.
+
+---
+
+## 🔴 STATUS NOTE — 2026-08-26: THE AUDIT HAS RUN. Criterion DEAD as posed.
+
+**Additive only (Rule 12). Nothing above this line is edited; the body of this
+record is byte-identical to its merged state at `a3f4fef7`.**
+
+The §6 audit charter (A1–A7) ran in two phases — a six-lane adversarial review,
+then twelve refuter votes plus a completeness-critic synthesis. **Result:**
+[`research/2026-08-25_autonomous-hb-lens-audit_RESULT.md`](2026-08-25_autonomous-hb-lens-audit_RESULT.md).
+
+**Headline disposition: the existence criterion as posed is DEAD.** *"Does a
+nontrivial source-free solution exist"* cannot return NO — existence is generic
+(continuous one-parameter families at `r_auto ~5e-15`, in every winding sector,
+delocalized across 45–85 % of the lattice, running continuously to `A→0` where
+they **are** the cold lattice's own linear eigenmodes). The lens is repairable
+**only as a SELECTION test, never as an EXISTENCE test.** All seven charter
+items are discharged or partially discharged; the disposition table is §5 of the
+result doc.
+
+**One sentence in this record is now FALSIFIED BY MEASUREMENT rather than merely
+hedged** — §3.1 consequence 3, at **`:97-98`**:
+
+> *"**A source-free nontrivial solution cannot be: there is nothing else it
+> could belong to.**"*
+
+**It can be. It belongs to the cold lattice, continuously.** §6's charter row
+A7 hedged this as *"true but possibly vacuous"*; the measurement is stronger
+than the hedge. Per Rule 12 the sentence is **preserved, not edited** — this
+note is the correction of record.
+
+**Two further items measured against this record:** §3.4's backup selector
+(*"the fold IS the existence boundary"*, `:116-117`) is **measurably absent** —
+no turning point to `A_max 0.950`, and the top-end break is the saturation
+kernel's declared clip domain, which is also the **negative answer to charter
+item A5**. And §3.2's Lagrange-constraint formulation **survives the audit
+intact** and is the strongest formulation in the record.
+
+**§7 is UNCHANGED and still governs.** This lens **mints nothing, moves no
+solidity, and does not supersede R58** — decision 1 and the (2,3) carrier fork
+remain **LIVE and un-ruled**, and the audit's finding is that the lens does not
+currently qualify to moot them. **Only Grant rules that it replaces them.**
