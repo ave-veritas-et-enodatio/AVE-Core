@@ -869,7 +869,97 @@ standard remains in this verdict set.**
 
 ## §6 — THE BOTTOM LINE
 
-*(section landed in a later commit)*
+**(a) The existence criterion as posed is DEAD, and (b) the lens is repairable
+only as a *selection* test, never as an *existence* test.**
+
+Three sentences:
+
+1. **"Does a nontrivial source-free solution exist" is dead as a criterion.**
+   Existence is generic: continuous one-parameter families at machine-zero
+   residual (`r_auto ~5e-15`), in **every** winding sector, **delocalized**
+   across 45–85 % of the lattice, running continuously down to `A→0` where they
+   **are** the cold empty lattice's own linear eigenmodes.
+2. **The lens is repairable, but only if it stops being an existence test.** It
+   needs all four of:
+   - **(i)** one added **scalar constraint from a conserved quantity or the Link
+     integral** — measured on the standard control to be exactly what restores
+     full column rank, and lossless, so Ax3 survives;
+   - **(ii)** a **non-triviality gate that the `A→0` end of the *same branch*
+     demonstrably fails** — R58 §4's *"nonzero"* is satisfied at every point on
+     a curve that reaches zero, so it is not that gate;
+   - **(iii)** a **localization / structure criterion** — which has already been
+     measured once, and **it failed** (F7);
+   - **(iv)** a **winding read from the converged solution by a non-template
+     reader**, which **does not exist on the srs carrier** — the rigid template
+     is the only representation available there and there is no control arm.
+3. **The review lanes were not wrong; the roll-up was** — five of six findings
+   are split votes reported as REFUTED, and the two most damaging measurements
+   of the entire round (universal delocalization, absence of the fold) were
+   produced as by-products of refutations and filed by nobody.
+
+### The one sentence that is now falsified rather than hedged
+
+`research/2026-08-25_autonomous-harmonic-balance-lens_RECORD.md:97-98`, §3.1
+consequence 3, verbatim:
+
+> *"**A source-free nontrivial solution cannot be: there is nothing else it
+> could belong to.**"*
+
+**It can be, and it does belong to something else. It belongs to the cold
+lattice, continuously.** The charter hedged this as *"true but possibly
+vacuous"* (`:161`). The measurement is stronger than the hedge: the sentence is
+**false**, because the branch that carries the "nontrivial" solution runs
+continuously into the cold empty lattice's own linear eigenmode, and unitarity
+supplies the source-free solution for free at every point along the way. The
+correct reading is *"there is nothing it **needs** to belong to."*
+
+Rule 12 governs what happens to that sentence: **its body is preserved
+byte-identical** and a dated status note is appended to the record pointing
+here. It is not edited, and it is not deleted.
+
+### What survives and is worth building
+
+A lens that **finds** candidate states, plus a separate and honest set of gates
+that **select** among them. That is what soliton physics and lattice QCD both
+do, out loud. It is not what §3.1 consequence 3 claims.
+
+Two parts of the record survive this audit intact and should not be swept away
+with §3.1 — one lane made the point explicitly and it is correct:
+
+- **§3.2** (winding as a Lagrange constraint, with the multiplier as the idle
+  measure) is *"precisely the standard fix for the genericity problem — it is
+  the Q-ball/fixed-charge move — and is the strongest formulation in the
+  record."*
+- **§3.3** (pole search) and **§3.4** (fold/turning point) both supply the
+  discreteness §3.1 lacks — though §3.4's specific mechanism is the one F8
+  measured absent, so it is a *shape* that survives, not a *result*.
+
+**A VACUOUS verdict on A7 is not a verdict against the record's §3 as a whole.**
+
+### What this does NOT do to R58
+
+Nothing. **Decision 1 and the (2,3) carrier fork stay LIVE and un-ruled**,
+exactly as `RECORD.md:171-174` and the routing item both state. This audit's
+finding is that the lens **does not currently qualify** to moot them — not that
+they are settled. **Only Grant rules that the lens replaces them.**
+
+### Ordered next work, by kill-power per unit compute
+
+1. **Adjudicate A4 and the (2,3) canon collision.** One reading lane, no code.
+   Until *"where does the (2,3) live"* is settled, **F4 cannot be closed**.
+   Highest leverage, cheapest. Note that the A4 lane's own verdict is that
+   **canon does not currently decide it** — so this is a Grant-level carve, not
+   a sweep.
+2. **File F7 and F8 as first-class measurements** — a localization gate on the
+   converged family, and a fold search with **proper arclength continuation**
+   rather than Picard, to separate the kernel clip from a genuine turning point.
+3. **Build the symmetry-adapted / Bloch-reduced / deflated solve.** It unblocks
+   the constrained-system nullity measurement, the accidental-vs-symmetry-
+   enforced degeneracy question, and everything in §7.
+4. **Run the two-tone (2:3) case — or declare S2 fatal and say so.**
+5. **Re-run A2's retrieval through the external-retrieval pipeline** so its
+   three named sources carry gate-specified standing rather than single-lane
+   standing (§8).
 
 ## §7 — THE OVER-BRACED CHIRAL CRYSTAL REFRAME — does it dodge these defects?
 
