@@ -786,6 +786,34 @@ is *"a re-motivation of two items the corpus already carries"*, that verdict
 would be **fair**, and it would still leave the re-motivation useful.
 
 
+### 7.7 ★ Defect-inheritance ledger — what the walk EVADES, and what it INHERITS
+
+**This record must not read as an obituary.** The walk was built to escape four
+specific defects the review measured in the autonomous-HB lens. It escapes some
+of them. Scored against each **[ASSEMBLY of the VERIFY pass's reading; the
+measurements are [MEASURED-VERIFY-PASS]]**:
+
+| defect (from §1) | verdict | detail |
+|---|---|---|
+| **template-winding reader** (finding 3) | **★ EVADED OUTRIGHT** | the invariant never touches `srs_cage_winding` or `e_w`. **This is the one defect the walk dodges cleanly, and it should be credited plainly.** |
+| **amplitude selection** (finding 5, finding 6) | **EVADED IN KIND** | structural selection is lossless and needs no gain compression — the right *class* of answer for an Ax 3 medium. Note it is a **different cure** from the one the VERIFY pass measured: adding one norm/charge equation restores full rank; degeneracy selection adds **no** equation and picks isolated points on the existing family. **Both are legitimate.** |
+| **seed-is-the-selector** (finding 2) | **EVADED IN PRINCIPLE, PARTIALLY RE-IMPORTED** | transport must track eigenvectors around the loop, and with **multiplicity up to 34** the abelian transport is ill-defined. **The choice of starting subspace inside a 34-dimensional block IS a seed.** |
+| **wrong sector / A1–T2 cross-wire** (finding 4) | **INHERITED IN FULL** | the walk says over-braced chiral **Cosserat** lattice, and a Maxwell–Calladine count on a Cosserat lattice **requires the micro-rotation DOF** — the exact channel `harmonic_balance_srs.py:147-149` says is absent. **★ This strengthens rather than weakens §5's T2 conclusion.** |
+
+**And one defect it arguably WORSENS — delocalization.** Nothing about a
+self-stress state or a Chern integer makes a state **localized**. The self-stress
+space of a **periodic** hyperstatic frame is spanned by Bloch states at every
+`k`, and Chern integers are **bulk-band** properties. By bulk–boundary
+correspondence the localized object would sit at a **boundary or defect** — which
+the periodic srs torus with `term=None` **does not have**. This is consistent
+with the corpus's own bulk-cage falsification, and it means **the object must be
+re-posed on a lattice WITH a defect or a boundary** before any of this is
+testable. **[ASSEMBLY]**
+
+**And the one-versus-two problem, restated sharply:** a Chern number is a
+**single** integer; the `(2,3)` is a **pair**. That mapping is **undone**
+(§7.3).
+
 ## §8 — ★ AUDIT CHARTER (what must be attacked before any of this reaches a prereg)
 
 Numbered **B1–B10** so they never collide with the autonomous-HB lens's A1–A7.
