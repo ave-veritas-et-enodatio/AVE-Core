@@ -154,6 +154,40 @@ to.** **[WALK]**
 
 ## §3 — The candidate: a STRUCTURAL amplitude-selector instead of a dissipative one
 
+### 3.1 The repair, stated as narrowly as it can be stated
+
+The autonomous-HB lens inherited its confidence from RF oscillator practice,
+where the amplitude is isolated because gain compression balances loss. That
+selector is **dissipative**, and Axiom 3 forbids it. **[MEASURED-ELSEWHERE for
+the diagnosis; [EXTERNAL-UNRETRIEVED for the RF characterisation.]**
+
+The walk's proposal is that the right class of amplitude-selector for a
+**lossless** medium is a **structural** one — a constraint count, not an energy
+balance. Over-bracing is a structural property: it is a statement about the rank
+of a constraint system, and it survives Ax 3 untouched because it never mentions
+loss. **[WALK]**
+
+**That is the entire claim of §3, and it is a claim about a CLASS of mechanism,
+not about a mechanism.** It says: *look for the selector in the structure.* It
+does not exhibit one, does not say what it selects, and does not say the
+selected value is right. §7.2 is where that gap is priced honestly.
+
+### 3.2 Why the class-level argument is worth something anyway
+
+A wrong *class* of mechanism is a failure mode that repeats. The autonomous-HB
+lens did not fail because of an arithmetic slip; it failed because a mechanism
+was imported together with its picture and *without* the part of the picture Ax 3
+deletes. Naming the class explicitly ("lossless media select structurally, not
+dissipatively") is a check that would have caught it at design time.
+**[WALK]**
+
+Under the consensus-bias symmetric standard: the equivalent move in an SM/QED
+context — *"this selection cannot be dissipative in this theory, so look for a
+topological/structural selector"* — would be regarded as ordinary reasoning, not
+a stretch. The tag it earns is *organizing*, not *predictive*, in both cases.
+**[WALK]**
+
+
 ## §4 — The proposed discrete question: degeneracies, not existence
 
 ## §5 — The re-ranking this implies: the bracing IS the couple-stress
