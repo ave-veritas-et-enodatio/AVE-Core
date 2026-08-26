@@ -158,6 +158,89 @@ item **W1-3** and ultimately Grant's.
 
 ## §2 — WALK 2: what the substrate already settles
 
+### §2.1 — Three "does X exist?" questions that died the same death
+
+`[WALK]` The pattern: **the empty vacuum passes the test.** A test whose
+positive control is satisfied by *nothing at all* is not a test of the
+electron.
+
+**(a) "Does a self-sustaining state exist?" — Axiom 3 answers YES for every
+input.** `[CANON]`
+[`axiom-register.md`](../manuscript/ave-kb/common/axiom-register.md):169,:176,
+quoted through the wall taxonomy's own citation
+([`wall-taxonomy.md`](../manuscript/ave-kb/common/wall-taxonomy.md):100,
+verbatim): *"Axiom 3's lossless-reactive extremal content is the primitive that
+MAKES the bond-LC L2 energy invariant exact."* `[WALK]` In a medium with no
+dissipative channel, **everything persists**. "Self-sustaining" is not a
+discriminator in a lossless medium; it is the medium's defining property. Any
+nonzero initial condition is self-sustaining by construction.
+
+**(b) "Is there a chiral pre-stress?" — the rest vacuum already has one,
+everywhere.** `[CANON]`
+[`trampoline-analogy-primer.md`](../manuscript/ave-kb/common/trampoline-analogy-primer.md):157,
+verbatim:
+
+> ***"At rest the fabric is wound, not spinning.** The twist-lacing winds every
+> gyroscope to a handed **rest-angle $\theta$** — that *is* the chirality,
+> stored as elastic energy. But the rotation **rate $\omega = 0$ at rest**: the
+> gyroscopes sit cocked, they do not turn. So the rest vacuum carries **no net
+> circulation, no net B-field — it is magnetically neutral** (load-bearing:
+> $\omega = 0$ is an *exact fixed point*; a term that spun the fabric below
+> threshold would "manufacture spin," wrong physics). The handed winding is
+> **parity**, not angular momentum."*
+
+`[WALK]` So "handed load-free held twist" describes **empty space**. A test
+that confirms one has been created confirms the vacuum.
+
+**(c) "Is there a lattice topological invariant?" — closed negative, already
+computed.** `[CANON]`
+[`research/2026-07-02_cleave-registry-pump-chern-nband_result.md`](2026-07-02_cleave-registry-pump-chern-nband_result.md):36,
+verbatim: *"It reports 0 on the srs manifold because the srs manifold **is**
+topologically trivial in both readings."* Same doc `:28`,`:34`: the load-bearing
+GATE-VOK pair — an integrator that **recovers the validated 2-band 0** AND
+**detects a real $|C|=2$ that flips sign** — so the zero is not a trivially-zero
+instrument artifact. `[MEASURED-ELSEWHERE]` Four configurations, both
+enantiomorphs, both readings, converged at $n = 24/36/48$ (`:42`–`:47`).
+
+### §2.2 — The reading
+
+`[WALK]` **The electron cannot be defined by a property the vacuum lacks in
+KIND.** Persistence, handedness, and lattice topology are all *properties of
+empty space* in this framework. Every existence test built on one of them has a
+positive control that the vacuum passes.
+
+`[CANON]` What the vacuum *does* lack is **rotation RATE** — the very next
+paragraph of the same primer,
+[`trampoline-analogy-primer.md`](../manuscript/ave-kb/common/trampoline-analogy-primer.md):159,
+verbatim:
+
+> ***"Spin-up is what excitation does.** Apply a field or trap a soliton and
+> the fabric's gyroscopes spin up to net $\omega$, biased the **handed** way.
+> That net $\omega$ IS the **magnetic moment**; the spun-up region is the
+> electron **flywheel** ($L = I\omega$)."*
+
+`[WALK]` So the carve canon already draws is **parity (everywhere, static) vs
+angular momentum (only where excited)**. A discriminating existence test has to
+key on the *rate*, not the winding.
+
+### §2.3 — Honest limits of §2
+
+- `[OPEN]` **"The vacuum passes the test" is an argument about test DESIGN, not
+  about physics.** It does not show any particular prereg was mis-designed; it
+  shows a *class* of criteria is non-discriminating. Naming which shipped
+  criteria are in that class is audit item **W2-1** and is NOT done here.
+- `[OPEN]` The (c) result is about the **srs Bloch manifold's** Chern number.
+  It is not a statement that no topological invariant of any kind exists
+  anywhere in the framework — the $(2,3)$ winding and the $0_1$ unknot are
+  topological objects that live elsewhere (phase space, real-space body). The
+  walk uses (c) narrowly: *the lattice band structure* is not where the
+  electron's integer comes from. Over-reading (c) is audit item **W2-2**.
+- `[WALK]` The primer is a **pedagogy leaf**. Its :157/:159 statements are
+  load-bearing prose, but a walk should not lean its central carve on the
+  analogy layer without checking the physics leaf behind it. Audit item
+  **W2-3**.
+
+
 ## §3 — WALK 3: wall first, contents never
 
 ## §4 — WALK 4: the trefoil vs the photon
