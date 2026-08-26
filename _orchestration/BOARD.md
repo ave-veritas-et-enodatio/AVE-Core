@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **432eb454** (2026-08-25) · 468 index records · 331 claims · 2 PRs open
+Scanned tree **5a32de54** (2026-08-25) · 468 index records · 331 claims · 3 PRs open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`766d5179`). Every count below describes **432eb454**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`b62b60ee`). Every count below describes **5a32de54**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -134,7 +134,8 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 | PR | state | title |
 |---|---|---|
-| #1017 | CLEARED | [REVIEW: CLEARED] orchestration: R58 — G2 decisions 2+4 ruled, decision 1 re-sha |
+| #1019 | CLEARED | [REVIEW: CLEARED] research: the autonomous-harmonic-balance lens (UNAUDITED) + i |
+| #1018 | CLEARED | [REVIEW: CLEARED] research: preserve the P2 preparation artifacts (prereg DRAFT, |
 | #1016 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] SCX Phase 1 — external-solver cross |
 
 <!-- /volatile -->
