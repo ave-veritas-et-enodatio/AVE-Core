@@ -543,7 +543,105 @@ F8 a result rather than an artifact.
 
 ## §4 — F9 / F10 — two new measurements, and a receipt-convention correction
 
-*(section landed in a later commit)*
+Both were produced by the completeness-critic synthesizer, not by any review or
+refuter lane. Both are INFO-severity against the lens itself and **fatal for the
+reframe assessed in §7**.
+
+**F9 — STATIC DEGENERACY.** The `θ=0` and `θ=±π` eigenspaces are each
+**34-dimensional** on srs `L=2` (**68 of 192** dofs) and stay **exactly**
+34-dimensional at `A=0`, at `A=√α`, and under a random graded field that lifts
+everything else from 23 to 127 distinct θ. **Amplitude cannot lift the static
+degeneracy.**
+
+**F10 — M IS EXACTLY REAL.** `max|Im M| = 0.000e+00` for **every** S-field, and
+the shipped `bloch_adjacency` satisfies `A(−k) = conj(A(k))` to **`0.000e+00`**
+— i.e. **exact spinless time-reversal symmetry**. `S(A)=√(1−A²)` and `Y=Y₀/√S`
+are real and `CONNECT` is a permutation, so no amplitude can introduce a complex
+phase.
+
+### The verbatim receipt block
+
+Receipt script: `scratchpad/chk3.py` (session scratchpad, **not in-repo** — see
+the reproducibility flag below), originally run against
+`/Users/grantlindblom/AVE-staging/AVE-Core` at `766d5179`. Engine files are
+identical to the branch tip; PR #1019 touches no solver code (`git diff --stat`
+on the merge: 3 files, 211 insertions, all markdown).
+
+```
+net: N=64 degree=3 ndof=192 n_bonds=96
+cold A=0              Y-unitarity 8.018e-17  max|Im(M)|=0.000e+00  M REAL? True
+                      n_distinct_theta=23  mults=[4,6,9,17,34]
+                      dim(theta=0)=34   dim(theta=+-pi)=34
+A=sqrt(alpha)=0.0854  Y-unitarity 2.216e-16  max|Im(M)|=0.000e+00  M REAL? True
+                      n_distinct_theta=23  mults=[4,6,9,17,34]
+                      dim(theta=0)=34   dim(theta=+-pi)=34
+graded rand[0,0.9]    Y-unitarity 1.706e-16  max|Im(M)|=0.000e+00  M REAL? True
+                      n_distinct_theta=127 mults=[1,16,18,34]
+                      dim(theta=0)=34   dim(theta=+-pi)=34
+BLOCH: max_k ||A(-k) - conj(A(k))|| over 8 random k = 0.000e+00 -> spinless TRS HOLDS
+```
+
+### RE-RUN AT THIS BRANCH'S BASE — verify-before-cite, not copy-paste
+
+This lane re-ran `chk3.py` unmodified against the worktree at **`a3f4fef7`**
+(`origin/main`, the merge of PR #1019). **Every line reproduces bit-identically**
+to the block above, including both `0.000e+00` entries.
+
+### ⚠ RECEIPT-CONVENTION CORRECTION — the three "multiplicity" receipts do NOT disagree
+
+Three receipts in the round report the srs `L=2` cold multiplicity structure
+three different ways, and on the face of it they conflict:
+
+| source | reported |
+|---|---|
+| `chk3.py` (above) | `n_distinct_theta=23`, `mults=[4,6,9,17,34]` |
+| F6-reproduce's STUCK-POINT | *"no simple eigenvalue; minimum multiplicity 4; **17-fold at ±π**, 34-fold at 0"* |
+| F1-reproduce's `diag.py` | `distinct thetas: 23`, `multiplicities: [4, 6, 9, **16, 18**, 34]` |
+
+**They are the same spectrum.** `θ=+π` and `θ=−π` are the **same eigenvalue**,
+`λ = −1`; `np.angle` splits that one eigenspace into two buckets by the sign of
+a floating-point zero, and the split point moves with the field. Measured
+convention-free (clustering on the complex eigenvalue itself, tolerance `1e-8`),
+this lane's own run at `a3f4fef7`:
+
+```
+cold A=0         n_distinct_EIGENVALUES=22  mult multiset={4, 6, 9, 34}
+                 mult(lam=+1)=34  mult(lam=-1)=34
+                 np.angle bucketing: n_distinct_theta=23  theta=+pi:17 theta=-pi:17
+A=sqrt(alpha)    n_distinct_EIGENVALUES=22  mult multiset={4, 6, 9, 34}
+                 mult(lam=+1)=34  mult(lam=-1)=34
+                 np.angle bucketing: n_distinct_theta=23  theta=+pi:17 theta=-pi:17
+graded rand      n_distinct_EIGENVALUES=126 mult multiset={1, 34}
+                 mult(lam=+1)=34  mult(lam=-1)=34
+                 np.angle bucketing: n_distinct_theta=127 theta=+pi:16 theta=-pi:18
+```
+
+**The convention-free statement, which is the one that should be quoted
+downstream:**
+
+> On srs `L=2` the cold operator has **22 distinct eigenvalues**, not 23. `λ=+1`
+> and `λ=−1` are **each exactly 34-fold**. A random graded field lifts every
+> other eigenvalue to **multiplicity 1** (126 distinct) and leaves the two
+> 34-fold blocks **completely intact**.
+
+**This is sharper than F9 as filed and it cuts the same way, harder.** F9 said
+amplitude cannot lift the static degeneracy. The convention-free measurement
+says a graded field lifts *everything else* to simple — and the two 34-fold
+blocks, 68 of 192 dofs, **35 % of the spectrum**, survive untouched. Whatever
+protects them is not something amplitude can reach.
+
+Cross-check that the 34 is not an artifact of this lane: the number is already
+banked independently in the corpus. `research/2026-08-25_solver-crosscheck-phase1_result.md`
+§1's reproduction gate carries the row *"srs $L=2$ cycle-space block | **34** at
+$\theta=0$ and $\theta=\pi$"*, verified against a cycle space of `B−N+1 = 33`.
+
+### ⚑ Reproducibility flag (NOT fixed by this lane)
+
+`chk3.py` is a session-scratchpad file outside the repo. The F9/F10 receipt is
+therefore **re-runnable only because this lane re-ran it and reproduced it
+here**, and the block above is now the durable record. If F9/F10 are ever to
+gate anything, the script belongs in `research/drivers/` under the
+unreferenced-drivers policy. Routed, not done.
 
 ## §5 — CHARTER DISPOSITION — A1 through A7
 
