@@ -822,14 +822,37 @@ Numbered **B1–B10** so they never collide with the autonomous-HB lens's A1–A
 |---|---|---|---|
 | **B1** | The srs-z3 lattice with Cosserat bonds is **over-braced (hyperstatic)** rather than isostatic — §4.4 | NUMERICAL + EXTERNAL | **the load-bearing one.** Do NOT accept the per-node arithmetic: compute `rank` of the equilibrium/compatibility matrix on the actual `build_srs_net` connectivity. Reuse `alpha_crystal_mc_count.py` (it is `ave.core`-free by design and has an import-graph guard). **Report the answer under BOTH bond conventions** — canon's 3-row (`:259-275`) and the walk's 6-row — and say which is physically right and why. Expect the sign to flip between them (§4.4c) |
 | **B2** | A **structural** amplitude-selector is the right class of mechanism for a lossless medium — §3 | LOGIC | class-level only. Attack: does "structural" actually exclude the failure mode, or just rename it? §7.2 says a linear self-stress subspace has the same degeneracy. Is there a *lossless* mechanism that isolates an amplitude at all? |
-| **B3** | Degeneracy-transported invariants (Berry/Chern/Weyl) supply a discrete, seed-free, can-return-zero observable — §4.2 | EXTERNAL + NUMERICAL | **retrieve** Berry/Chern/Weyl (all [EXTERNAL-UNRETRIEVED]). Then check the seed-free claim *operationally*: what fixes the loop, the gauge, the branch? If those are chosen, the seeding has moved rather than gone |
-| **B4** | An occupied-manifold invariant is well-defined on **unitary** `M` | MACHINERY | the hole §4.2 flags. `M` is unitary, not Hermitian; "occupied" needs a quasi-energy branch. Supply the construction or show it cannot be supplied here |
+| **B3** | Degeneracy-transported invariants (Berry/Chern/Weyl) supply a discrete, seed-free, can-return-zero observable — §4.2 | EXTERNAL + NUMERICAL | **MEASURED VACUOUS (KILL 1 / KILL 2, §4.2). This row is now: confirm the kills, then adjudicate the named escapes** — Z₂ vs Z, Wilczek–Zee non-abelian transport over the degenerate blocks, twisted boundary conditions. Still **retrieve** Berry/Chern/Weyl (all [EXTERNAL-UNRETRIEVED]). Also check the seed-free claim *operationally* against §7.7: inside a 34-dimensional block the starting subspace **is** a seed |
+| **B4** | An occupied-manifold invariant is well-defined on **unitary** `M` | MACHINERY | the hole §4.2 flags. `M` is unitary, not Hermitian; "occupied" needs a quasi-energy branch. Supply the construction or show it cannot be supplied here. **Compounded by §4.2(b): amplitude alone is a 1-D OPEN interval with no closed loops**, so name the ≥2-D parameter space or concede there isn't one |
 | **B5** | The periodic-torus finding is fatal for driven and enabling for band-topology — §4.3 | LOGIC (adversarial) | does band topology *need* periodicity or merely tolerate it? Treat as a laundering attempt until shown otherwise. Also: does the same finding kill the routed static-existence candidate (§6.7)? |
 | **B6** | "The knot is a self-stress state" identifies a **particle** | CANON READING | **§6.4 is the attack.** Canon already assigns a handed load-free rest-twist to the empty vacuum. State what distinguishes the particle's self-stress from the ground state's — localization? amplitude? sector? — or concede the framing does not pick out an electron |
 | **B7** | A zero-frequency self-stress state is available in the **gapped** Cosserat channel — §6.5 | CANON + NUMERICAL | resolve the three readings named in §6.5: clean kill / the mechanism in disguise / a bulk-dispersion-vs-localized-defect scope confusion in this record. Do NOT let this record's flag stand as an answer |
 | **B8** | The over-braced-truss vocabulary is licensed for the object under test | REGIME | §6.8: the mechanical register PASSes *in the linear sub-yield regime*; the TKI co-equality is exact *below the band edge*. Declare MODE / REGIME / PHASE-STATE, then re-check every mechanical word in §§2–5 against the declared regime |
 | **B9** | The T2 re-ranking (blocker on observables → blocker on representability) — §5 | LOGIC + CANON | **§7.5 nominates this as the most-likely-to-be-wrong-because-it-feels-obvious item.** Attack the pin-jointed analogy directly: is a scalar-port model of this substrate really a *different structure*, or a projection of the same one that is simply blind to one channel? |
 | **B10** | This walk adds something the corpus does not already have | NOVELTY | §6 says over-bracing=couple-stress, the MC count, the srs Chern, and the static-existence test all pre-exist. Enumerate what — if anything — is left after subtracting them. A verdict of "re-motivation, no new content" is an acceptable outcome and should be stated plainly if true |
+
+### ★ Two CHEAP TESTS — run these before anything else
+
+**B11 — the scaffold-ownership test. ★ The single most valuable line in this
+charter.**
+
+> **Is `Chern(A→0, cold empty lattice)` ≠ `Chern(A at the solution)`?**
+>
+> **If equal, the invariant belongs to the SCAFFOLD** and the walk has
+> re-imported the exact defect it was built to escape. One computation.
+> Decisive. Run it first. *(§4.2(b) already predicts equality — a k-space
+> invariant is piecewise constant in amplitude and jumps only at gap closings,
+> and KILL 1 says no gap closing can move it. **The test is cheap enough that
+> the prediction should not substitute for running it.**)*
+
+**B12 — the category-bridge test.** §4.5: does *"load-free equilibrium"* map onto
+the `θ=0` eigenspace? If it does, self-stress on srs `L=2` is **34-dimensional,
+extensive in `N`, amplitude-rigid** — over-braced by 34, and therefore
+**non-selective**. If it does not, then **write the bridge** from the rigidity
+matrix to the scattering map, because nobody has, and until it exists the
+Maxwell–Calladine *name* is importing its framework's theorems unearned
+(vocab-cage). Either outcome is informative; the second is the one that would
+keep the walk alive.
 
 **Also required of the audit** (both carried over from the A1–A7 charter, which
 is the right precedent):
@@ -841,10 +864,11 @@ is the right precedent):
   pre-commits to *"organizing power and zero numbers"*; the audit should say
   whether even that survives §6.
 
-**Lane note.** At least one lane should do **read-and-run** on B1 (the count is
-cheap and the driver exists), and at least one lane should take **B10
-adversarially** — treat the walk as fully redundant with existing corpus items
-and see what survives.
+**Lane note.** Run **B11 first** — it is one computation and it is decisive. Then
+**B12**. At least one lane should do **read-and-run** on B1 (the count is cheap
+and the driver exists), and at least one lane should take **B10 adversarially** —
+treat the walk as fully redundant with existing corpus items and see what
+survives.
 
 
 ## §9 — KILL CONDITIONS
