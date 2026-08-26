@@ -4,11 +4,11 @@
 
 # AVE program board
 
-Scanned tree **70f9fead** (2026-08-25) · 467 index records · 330 claims · 3 PRs open
+Scanned tree **766d5179** (2026-08-25) · 468 index records · 331 claims · 2 PRs open
 
 ## The number that frames everything
 
-**0 of 330 claims carry any experimental support. 0 of 12 experiments have been run.**
+**0 of 331 claims carry any experimental support. 0 of 12 experiments have been run.**
 
 Every solidity score in this corpus is a **derivation** score. Nothing has been measured. That is what the testing pivot exists to change, and until one experiment runs, this line does not move.
 
@@ -16,13 +16,13 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 | build band | claims |
 |---|---|
-| input-only | 168 |
+| input-only | 169 |
 | ok-with-caveats | 75 |
 | do-not-build | 54 |
 | ok-to-build | 28 |
 | refuted | 3 |
 | unknown | 2 |
-| **total** | **330** |
+| **total** | **331** |
 
 **Top tier (solidity ≥ 0.80): 50 claims — of which ~19 self-disclaim** as definitional, catalog, notation, or consistency-class in their own rationale. Read the top of the ranking with that in mind.
 
@@ -130,9 +130,8 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 | PR | state | title |
 |---|---|---|
-| #1014 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] kb: the Relational-Observable Cance |
-| #1013 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] Stage 2 — harmonic-balance solver o |
-| #1012 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] Stage 1 (epic P1): transverse grade |
+| #1017 | CLEARED | [REVIEW: CLEARED] orchestration: R58 — G2 decisions 2+4 ruled, decision 1 re-sha |
+| #1016 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] SCX Phase 1 — external-solver cross |
 
 <!-- /volatile -->
 
