@@ -663,6 +663,153 @@ on `origin/main` today.** This record neither picks nor smooths. Audit item
 
 ## §5 — The open question this arc produced — and the sweep that mostly closed it
 
+### §5.1 — The question, as the arc posed it
+
+> **Which channel's dispersion does a moving electron obey, and where does its
+> rest energy come from?**
+
+`[WALK]` The tension as the arc stated it: **mass** is channel 3 (A1), which
+the arc read as **gapless**; **charge** is channel 4 (Cosserat), which is
+**gapped** at $m_\omega \sim c/\ell_{node}$. A gap is what gives a dispersion
+relation a rest energy — but the mass channel has no gap. The natural
+resolution — *mass is a CONFIGURATION of channel 3 (an integrated index
+excess), not an EXCITATION of it, with the rest energy coming from channel 4's
+gap* — was then read as running into a scale problem: **$m_\omega \sim
+c/\ell_{node}$ is a node-scale energy and $m_e$ is not.**
+
+Three readings were on the table: **(a)** the orchestrator is misreading the
+scale; **(b)** the rest energy comes from somewhere else; **(c)** the
+two-threes carve (A1 dilatation MASS vs Cosserat $(2,3)$ winding CHARGE) has an
+untraced consequence here.
+
+### §5.2 — ★ SWEEP RESULT: canon already answers most of it. **STOOD DOWN TO A POINTER.**
+
+Per the arc's own discipline (§0: its two predecessors died for walking before
+sweeping), the corpus was swept before this section was written. **It answers
+three of the four moving parts.**
+
+**(1) Reading (a) is correct, and the scale problem dissolves in one line of
+arithmetic.** `[CANON]`
+[`dama-alpha-slew-derivation.md`](../manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md):33,
+verbatim: *"the identity $\nu_{Compton} = m_e c^2/h$ holds because
+$\ell_{node} = \hbar/(m_e c)$ **by canonical AVE construction — the substrate
+spacing IS the electron reduced Compton wavelength**."* Same identity at
+[`cosserat-mass-gap.md`](../manuscript/ave-kb/vol1/axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md):143
+and [`claim-quality.md`](../manuscript/ave-kb/claim-quality.md):202.
+`[WALK]` Therefore $\hbar\,m_\omega \sim \hbar c/\ell_{node} = \hbar c \cdot
+m_e c/\hbar = m_e c^2$. **The "node-scale energy" IS $m_e c^2$**, not by
+coincidence but by definition of $\ell_{node}$. There was never a scale problem.
+
+**The honest carve that comes with it** `[CANON]`
+[`cosserat-mass-gap.md`](../manuscript/ave-kb/vol1/axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md):151,
+verbatim: *"the S4 moduli ($G_c$, $I_\omega$) are **placeholders** calibrated to
+$\ell_{node}=\hbar/(m_e c)$ rather than measured-from-substrate."* So the
+agreement is a **calibration identity, not an emergence** — `consistency-vs-emergence`
+class: **IDENTITY**. Anyone reading "the gap comes out at $m_e c^2$" as a
+prediction has read a definition as a result.
+
+**(2) The arc's "natural resolution" is already RATIFIED CANON, and has been
+since 2026-06-20.** `[CANON]`
+[`cosserat-mass-gap.md`](../manuscript/ave-kb/vol1/axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md):149,
+**🔴 SECTOR RE-SCOPE, Grant-ratified mass-sector ruling**, verbatim:
+
+> *"the $T_2$/$\omega$ gap is the **FLYWHEEL frequency / clock gap** (the
+> Compton/Larmor clock of the spin/frequency-regulation sector …), re-scoped
+> from "**the** rest mass." The rest-mass *store* is the orthogonal **A1
+> longitudinal DILATATION** … held at $90°$ to $T_2$ by the **GRADE
+> orthogonality** (**A1 $\perp$ T2**). **The flywheel regulates the *frequency*
+> that SETS the mass via Compton $f = mc^2/\hbar$ → A1 depression depth**
+> (lepton tower: more torsion → faster flywheel → deeper A1 depression → more
+> mass); **mass itself stays A1.**"*
+
+`[WALK]` That is, word for word, the arc's guessed resolution: **mass is a
+configuration of the A1 sector (the depression depth), and the frequency that
+sets it comes from the rotational gap.** The arc re-derived a Grant-ratified
+ruling from two months earlier. Recorded as a result, per §0.
+
+**Rider that must ride** `[CANON]` `:151`: *"mass = A1" is
+**RATIFIED-CONSISTENCY** … the adjudicated grade-**ASSIGNMENT**, **NOT
+driver-validated**. **No driver discriminates A1-mass from T2-mass.**"* — and
+that leaf's own §4 Verlet driver attributes the gap to the $T_2/\omega$ sector,
+i.e. the *other* side.
+
+**(3) "Where does the rest energy come from" has a canonical answer that is
+neither channel's gap.** `[CANON]`
+[`l3-electron-soliton-synthesis.md`](../manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/l3-electron-soliton-synthesis.md)
+§3 (`:86`–`:118`), heading verbatim *"Rest-energy Virial sum (**structural, not
+predicted**)"*:
+
+$$E_e = m_e c^2 = \hbar\omega_C = T_{EM}\cdot\ell_{node} = \tfrac12 L_0 I_{\max}^2 + \tfrac12 C_e V_{\text{peak}}^2$$
+
+`[CANON]` `:118`: *"Given Axiom 1 … + Axiom 4 (saturation kernel with
+$V_{\text{yield, macro}} = \sqrt\alpha \cdot V_{SNAP}$) + the bond-pair
+smallest-coupled-oscillator scale, the energy at saturation onset MUST equal
+$m_e c^2$ by the Virial sum identity. **There is no remaining empirical question
+about the energy magnitude.**"*
+
+`[WALK]` So canon locates the rest energy at the **bond-pair LC tank at
+saturation onset**, split Virially between the L and C halves — **not** in a
+channel gap at all. The arc's framing ("a gap is what gives a dispersion
+relation a rest energy") imports a field-theory intuition the corpus does not
+use here. `consistency-vs-emergence` class: **IDENTITY** (the leaf says so
+itself — *structural, not predicted*).
+
+**(4) The one part that is genuinely LIVE is already routed, and is not new.**
+`[CANON]` The corpus *did* answer "which channel's dispersion does a moving
+electron obey" —
+[`de-broglie-standing-wave.md`](../manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md):52:
+the electron *"does not travel as a shear wave at $c_0$; instead, its motion
+displaces the lattice, generating longitudinal acoustic pressure waves governed
+by the vacuum's **Bulk Modulus**"* — and `:54` builds the entire atomic-orbital
+construction on it (*"the atomic orbital is the precise radius where this
+trapped bulk-modulus acoustic wave achieves a lossless resonant impedance match
+with itself"*). **Both lines are 🔴 DEMOTED 2026-08-11 under R40-B2a
+(NEEDS-RE-DERIVATION, not dead)**, for the same reason as §1.3: under ratified
+Axiom 5 clause G the A1/bulk slot is a bound response with no propagating
+branch, so *"a bulk wave speed … and a bulk transit clock therefore have no
+referent."*
+
+`[WALK]` **So the live question is not "which channel?" — it is the standing
+R40-B2a re-derivation debt on the bulk sector, plus THE BIAS PROPAGATION
+THEOREM** (Axiom 5's own named-open entry: clause G's elliptic law is *"the
+static abstraction of underived finite-speed bias dynamics"*). Electron
+kinematics is downstream of a debt the corpus has already named, dated, and
+routed.
+
+### §5.3 — What the open item actually carries
+
+**The section is stood down to a pointer.** The routing item
+`_orchestration/open-items/2026-08-26-electron-rest-energy-channel.md` therefore
+does **not** open a new physics question. It carries **three narrow residues**
+that the sweep did *not* find answered:
+
+- `[OPEN]` **R-1 — the electron's KINEMATIC channel is unassigned on current
+  canon.** The answer that existed (bulk-modulus longitudinal) is demoted; the
+  replacement (bound response, no propagating branch) does not obviously
+  support a matter-wave dispersion at all. **What does a moving electron's
+  $\omega(k)$ ride on, on the post-R40 footing?** This is a *consequence* of an
+  already-routed debt, filed so the consequence is not lost, not a new lane.
+- `[OPEN]` **R-2 — the two-threes carve residue (reading (c), the one part
+  reading (a) does not dispose of).** `[CANON]`
+  [`cosserat-mass-gap.md`](../manuscript/ave-kb/vol1/axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md):149
+  puts the flywheel gap on *"$T_2$/$\omega$"*, while
+  [`port-register.md`](../manuscript/ave-kb/common/port-register.md):47–50 puts
+  the Cosserat micro-rotation on **channel 4**, whose irrep cell reads
+  *"(micro-rot.)"* and **not** $T_2$ — and `:145`'s G2 relabel note says the
+  photon is the transverse-**translational** $u$ pair, *"NOT the microrotational
+  $\omega$."* Whether *"$T_2/\omega$"* in the mass-gap leaf and *"channel 4
+  (micro-rot.)"* in the port register are the same object under two labelling
+  vintages was **not** established this session. If they are not, §5.2(2)'s
+  identification of the arc's guess with the ratified ruling is weaker than it
+  reads.
+- `[OPEN]` **R-3 — the identity/emergence tag is load-bearing and should be
+  stated wherever this is repeated.** Both canonical answers above are
+  **IDENTITY-class** by their own leaves' words (*"placeholders calibrated to"*;
+  *"structural, not predicted"*). Any downstream summary that says "AVE gets
+  $m_e c^2$ from the Cosserat gap" is an emergence-class headline on
+  identity-class content. Flagged so it does not travel.
+
+
 ## §6 — AUDIT CHARTER
 
 ## §7 — KILL CONDITIONS
