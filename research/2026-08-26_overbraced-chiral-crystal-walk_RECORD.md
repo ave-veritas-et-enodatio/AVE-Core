@@ -411,6 +411,162 @@ z=3 srs carrier, and re-run the k·p there"*. **[CANON-VERIFIED]** Q1 is adjacen
 to, and possibly the same work as, an item the corpus already carries.
 
 
+### 6.3 ★ A Chern number has ALREADY been computed on the srs carrier — and it is ZERO
+
+[`research/2026-07-02_cleave-registry-pump-chern-nband_result.md`](2026-07-02_cleave-registry-pump-chern-nband_result.md),
+headline: *"The genuine 8-band srs-cell occupied-manifold Chern over the
+`(k_z, θ)` registry torus is **C_N = 0 in BOTH readings AND BOTH
+enantiomorphs** (gapped, grid-converged n=24/36/48)"*, with a validate-on-known
+gate that both recovers a known 0 and detects a known `|C| = 2`. Its `:36`:
+*"It reports 0 on the srs manifold because the srs manifold *is* topologically
+trivial in both readings."* Status **NULL-CONFIRMED-FINAL**; the register entry
+is `clm-clvchn`, cross-referenced from
+[`vocabulary-register.md`](../manuscript/ave-kb/common/vocabulary-register.md):445.
+**[CANON-VERIFIED]**
+
+**What this does and does not do to §4.2.** It is **not** the same computation:
+that Chern was taken on a **cold, unsaturated** 8-band Bloch Hamiltonian over a
+**registry** parameter `θ` (a screw-displacement pump), whereas §4.2 proposes an
+**amplitude** parameter on the **saturating** operator. Different manifold,
+different parameter.
+
+But it is a headwind and it sharpens the question **[ASSEMBLY]**: if the cold srs
+manifold is topologically trivial, and saturation deforms continuously away from
+cold, then a nonzero invariant on the saturated family must be **born at an
+amplitude-driven gap closure**. That is a strictly sharper (and more falsifiable)
+version of §4.2 than the walk stated — and it is also a much heavier lift, since
+it requires exhibiting the closure, not just the integer. **Routed, not
+claimed.**
+
+### 6.4 ★★ The handed load-free rest-twist is ALREADY ASSIGNED — to the vacuum ground state, not to a particle
+
+[`trampoline-analogy-primer.md`](../manuscript/ave-kb/common/trampoline-analogy-primer.md):157,
+verbatim:
+
+> *"**At rest the fabric is wound, not spinning.** The twist-lacing winds every
+> gyroscope to a handed **rest-angle $\theta$** — that *is* the chirality, stored
+> as elastic energy. But the rotation **rate $\omega = 0$ at rest**: the
+> gyroscopes sit cocked, they do not turn. … The handed winding is **parity**,
+> not angular momentum"*
+
+**[CANON-VERIFIED]**
+
+This is the walk's §2 image — *built already twisted, braced until the twist has
+nowhere to relax to* — **already in the corpus, and assigned to the empty
+vacuum**. Every cell, everywhere, with no particle present.
+
+**The objection this raises, which the walk does not answer.** If the ubiquitous
+ground state is itself a handed load-free held twist, then *"the electron is a
+self-stress state"* does not by itself pick out an electron. **The walk needs a
+statement of what distinguishes the particle's self-stress from the vacuum's,
+and it does not have one.** This is audit item B6 and kill condition K3.
+**[ASSEMBLY]**
+
+The same passage continues *"Spin-up is what excitation does. Apply a field or
+trap a soliton and the fabric's gyroscopes spin up to net $\omega$"*
+**[CANON-VERIFIED]** — i.e. canon's pedagogical register puts the *excitation*
+on the moving side, which leans **against** the `ω = 0` branch of Q2.
+
+### 6.5 ★ The Cosserat channel is GAPPED — a live obstruction to the `ω = 0` branch
+
+[`port-register.md`](../manuscript/ave-kb/common/port-register.md):50, channel 4
+— *"**Cosserat micro-rotation / wryness** (couple-stress; the $(2,3)$ winding)
+… **GAPPED**: $\omega^2 = c_\kappa^2 k^2 + m_\omega^2$ … gap
+$m_\omega = \sqrt{4G_c/I_\omega} \sim c/\ell_{node}$"* (`clm-kmliqx`).
+**[CANON-VERIFIED]**
+
+**[ASSEMBLY, flagged not resolved]** A self-stress state is a zero-frequency
+load-free equilibrium — a null vector of the static stiffness. In a **gapped**
+sector the static operator carries the `m_ω²` term, so `ω = 0` admits no
+non-trivial solution at real `k` **unless the gap closes**. Since `G_c` is
+saturation-modulated, the amplitude-dependence the walk needs and the gap
+closure are potentially the *same* object.
+
+**This is deliberately left as a flag, not a repair.** It could be (a) a clean
+kill of Q2's self-stress branch, (b) the walk's mechanism in disguise, or (c) a
+sector/scope confusion on my part between the bulk dispersion relation and a
+localized defect state, which is exactly the kind of thing this record is not
+entitled to settle. Grant and the auditor lane adjudicate; see B7.
+
+### 6.6 The canon evidence on Q2 points BOTH ways — recorded as a contradiction, not reconciled
+
+**Toward `ω = 0` (self-stress):**
+- [`vocabulary-register.md`](../manuscript/ave-kb/common/vocabulary-register.md):510 —
+  *"**CHARGE** = the **MECHANICAL** Cosserat **micro-rotation** $(2,3)$-winding
+  port … the **static reactive charge boundary** ($\mathrm{Link}(\partial\Omega,F)\in\mathbb{Z}$,
+  lossless, no real power)"*. **[CANON-VERIFIED]**
+- [`saturation-rim-inversion.md`](../manuscript/ave-kb/common/saturation-rim-inversion.md):43 —
+  *"Charge is the **STATIC imposed Link**"*. **[CANON-VERIFIED]**
+
+**Toward `ω ≠ 0` (ringing):** §6.4's *"spin-up is what excitation does"*, and
+§6.5's mass gap in the very sector the winding lives in.
+
+**Flag-don't-fix: both readings are in canon, on the same sector, and this
+record does not choose between them.** That the corpus supports both is itself
+the argument for settling Q2 by computation rather than by more walking.
+
+### 6.7 The static-existence test Q2 describes is ALREADY a routed candidate
+
+[`saturation-rim-inversion.md`](../manuscript/ave-kb/common/saturation-rim-inversion.md):55 —
+*"**The named test (ROUTED-CANDIDATE, NOT fired) — static existence.** Impose the
+`(2,3)` winding as a **boundary condition**, relax the lattice, and ask whether
+the relaxed core **rails `S → 0` at the center**"*, identified there with the
+standing eigenmode-existence open item. **[CANON-VERIFIED]**
+
+**Two things follow.** (a) Q2's self-stress branch may not be a new test at all
+— it may be this one, re-motivated. (b) That test is phrased as *"impose … as a
+**boundary condition**"*, and §1's periodic-torus finding says the carrier has
+no free boundary **[MEASURED-ELSEWHERE, VERIFY PENDING]**. **If that finding
+holds, it lands on this routed candidate too, not only on the autonomous-HB
+lens.** Surfaced for the auditor lane; not acted on here.
+
+That leaf also carries a mandatory guard for anyone prereg-ing it: the
+static-existence relaxation is **distinct** from the leans-falsified
+energize-LOCK formation route, and any future prereg must carry that
+carve. **[CANON-VERIFIED]**
+
+### 6.8 Two REGIME fences on the walk's own vocabulary
+
+**(a) The mechanical register is regime-scoped.**
+[`substrate-native-terminology.md`](../manuscript/ave-kb/common/substrate-native-terminology.md):39 —
+*"**Mechanical/elastic — PASS *in the linear sub-yield regime*** (clean reactive
+storage via the TKI dictionary)"*. **[CANON-VERIFIED]** The truss/bracing
+language is clean in regime I; the object the walk wants to describe (the
+saturated core, `A → A_yield`) is **not** in regime I. The walk never declared a
+regime. **[WALK — flagged; audit item B8.]**
+
+**(b) The mechanics↔EE co-equality is regime-scoped too.** `def-tk1xfm` is SOLID
+and Grant-ratified, and its ratified sentence reads *"co-equality of the
+mechanical and electrical descriptions **BELOW the band edge** ($\omega\tau\ll1$ /
+long-wave regime) … the co-equality is REGIME-SCOPED"*
+([`vocabulary-register.md`](../manuscript/ave-kb/common/vocabulary-register.md):441).
+**[CANON-VERIFIED]**
+
+**Why this matters and why it is NOT a departure from EE-first.** Axiom 2 makes
+clean elastic/Cosserat mechanics **co-equal** with the EE description, not an
+added-DOF framework — so a mechanical walk is substrate-native by construction
+and needs no defence on that axis. What it *does* need is a regime declaration,
+because the co-equality is exact only below the band edge, and a lattice-scale
+defect is not obviously there.
+
+### 6.9 Two naming/notation hazards this record must not create
+
+**(a) R43 is BINDING.** *"the **canonical term is "DC operating point /
+quiescent point (Q-point)"**. **"Ground (reference)" is the EE-ANALOGY GLOSS,
+NEVER the canonical noun**"*
+([`vocabulary-register.md`](../manuscript/ave-kb/common/vocabulary-register.md):500).
+**[CANON-VERIFIED]** The autonomous-HB record's §3.1 leaned on Grant's *"we need
+a ground reference"* line; **this record does not repeat that framing**, and any
+successor should write **Q-point**, or **clause Q / reference-fixing** at
+substrate scope.
+
+**(b) `ω` is now carrying three distinct jobs in this discussion** — the Cosserat
+**microrotation field** `ω`, its **rate** `dθ/dt` (§6.4's *"wound, not
+spinning"*), and the HB **mode frequency** `θ`/`ω` of `e^{iθ}v = Mv`. Q2 is
+phrased in the third sense. §6.4 and §6.5 are in the first two.
+**Any audit of Q2 should restate it with the glyphs disambiguated before
+computing anything.** **[WALK]**
+
 ## §7 — The walk's own weaknesses
 
 ## §8 — AUDIT CHARTER (numbered claims with attack instructions)
