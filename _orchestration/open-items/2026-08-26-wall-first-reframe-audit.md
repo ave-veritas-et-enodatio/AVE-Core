@@ -5,7 +5,7 @@ status: OPEN
 owner: lane
 opened: 2026-08-26
 source: research/2026-08-26_wall-first-and-trefoil-propagation-walk_RECORD.md
-anchor: "is there a wall"
+anchor: "Does the lattice form a $\Gamma = -1$ saturation surface around a region"
 ---
 
 **A four-walk arc, recorded 2026-08-26, WALK-GRADE and UNAUDITED.** It re-poses
