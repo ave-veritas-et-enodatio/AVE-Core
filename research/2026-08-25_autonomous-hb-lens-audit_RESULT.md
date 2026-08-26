@@ -151,7 +151,299 @@ majority rule applied to a set that cannot have one.
 
 ## §2 — THE VERDICT TABLE, F1–F6
 
-*(section landed in a later commit)*
+Severities are `in` = as filed by the review lane, `out` = after the two
+adversarial lenses and the synthesis.
+
+| # | finding | sev. in | sev. out | disposition | corrected claim, one line |
+|---|---|---|---|---|---|
+| **F1** | unitary-generic | CRITICAL | **MAJOR** | **CONCLUSION CONFIRMED / ARGUMENT REFUTED** | The frozen-S route is dead (0/192 cold eigenvectors solve the self-consistent problem at any `A>0`), but the conclusion is **re-established on F5+F6 receipts**: the self-consistent problem has continuous one-parameter families at `r_auto ~5e-15`, in every sector, running continuously to `A→0` where they **are** the cold linear eigenmodes. Bare existence carries near-zero discriminating content. |
+| **F2** | seed-is-fork | CRITICAL | **CRITICAL** | **CONFIRMED** (refutation mooted) | The winding enters via the seed and is returned bit-exactly by the solve. |
+| **F3** | winding-is-seed | CRITICAL | **MODERATE** | **DOWNGRADED + RE-SCOPED** | The `rigid_template` read is seed-determined for every nonzero `b_w`; it is not a PR-#1019 defect, and dynamical readers exist elsewhere. It **is** a hard constraint on charter item A3. |
+| **F4** | no-wound-sector | CRITICAL | **CRITICAL — BLOCKED** | **CONFIRMED, premise swapped** | The barrier is **grade orthogonality**, not field data type. Blocked on an unreconciled three-way canon collision over where the (2,3) lives. |
+| **F5** | amplitude-free | MAJOR | **MAJOR** (measurement) / **MODERATE** (attribution) | **CONFIRMED as measured, DOWNGRADED as a lens defect** | The unconstrained square system is rank-deficient by **exactly one**, null direction = amplitude rescale. Drop the α clause; drop the lens-attribution (the incumbent driven test has the same property). |
+| **F6** | priorart-precondition | MAJOR | **MODERATE** | **SUBSTANTIVELY AGREED; the split is verbal** | Both lanes converge on the same repair — **one selection constraint from a conserved quantity, NOT loss** (loss would violate Ax3). |
+
+### §2.1 — F1, the headline, handled precisely: ARGUMENT REFUTED, CONCLUSION RE-ESTABLISHED
+
+This is the one that must not be compressed. It is the only unanimous REFUTED in
+the round, and the conclusion it was refuting is nevertheless **true** — just on
+different receipts.
+
+**The filed argument.** M is Y-unitary for any S-field — measured
+`||M^H diag(Y) M − diag(Y)||_max / ||diag(Y)||_max = 3.083e-16`, `ndof = 192` —
+therefore every eigenvector is a source-free solution, therefore existence is
+vacuous. Independently reproduced by both lenses (`8.018e-17` and `8.018e-17`,
+same machine-precision order, norm-convention difference), and confirmed **not**
+to be cold-specific: it survives a graded, deeply saturated field
+(`A ∈ [0.1, 0.95]` → `2.510e-16`; `A` random in `[0,0.9]` → `2.960e-16`).
+
+**REFUTED, and correctly.** `S` is a function of `|v|`, so the 192 cold
+eigenvectors are **not** solutions of the nonlinear problem. Re-measured, with
+`M` rebuilt from each eigenvector's **own** envelope:
+
+| target mean `A_bond` | median defect | min | max | n < 1e-8 |
+|---|---|---|---|---|
+| `0.0000` | `3.467e-15` | `1.475e-15` | `5.997e-15` | **192** |
+| `0.0010` | `1.274e-07` | `4.890e-08` | `1.002e-05` | 0 |
+| **`0.0854`** (`=√α`) | **`9.414e-04`** | `3.594e-04` | `1.213e-01` | **0** |
+| `0.3000` | `1.365e-02` | `4.866e-03` | `4.652e-01` | 0 |
+| `0.6000` | `2.049e-01` | `2.889e-02` | `5.361e-01` | 0 |
+
+**0 of 192 at `A = √α = 0.0854`**, median defect `9.4e-4`. The 192/192 pass at
+`A = 0` is `v = 0`. Separately, the "192" is a **basis artifact**: the cold
+spectrum has only **23 distinct θ** with multiplicities up to **34**
+(convention-free restatement and correction in §4).
+
+**⚠ AND THE CONSENSUS-BIAS HIT, which is a standing discipline and not a
+courtesy.** Both F1 lenses flagged it and both withdrew the move. The inference
+*"the frozen-field operator is Hermitian/unitary for ANY field, so every
+eigenvector is a solution, so the criterion is vacuous"* would equally condemn:
+
+- **Hartree–Fock / SCF** — the Fock operator is Hermitian for any density;
+- **Dyson–Schwinger and gap equations**;
+- **lattice-QCD transfer matrices** and γ₅-Hermiticity work;
+- **the entire NLS / Gross–Pitaevskii / discrete-breather bound-state
+  literature**;
+- and **QM itself** — `U = e^{−iHt}` is unitary and a finite box has `dim(ℋ)`
+  stationary states; nobody calls bound-state existence vacuous.
+
+Standard practice does this freely and gets a pass. Flagging it in AVE and not
+there is consensus bias, and the lanes caught it themselves.
+
+**RE-ESTABLISHED, on F5/F6 receipts.** The refutation carried an implicit
+promise — that self-consistency *re-discretizes* the solution set. F5 and F6
+measured that promise and it is **false**:
+
+- The unconstrained **square** autonomous system (phase pin only, no norm) is
+  rank-deficient by **exactly one**, and the null direction is the amplitude
+  rescale. Two independent lanes:
+  - `σ_min/σ_max = 3.207e-11` vs `σ_[-2]/σ_max = 8.280e-04`, overlap with the
+    rescale direction **0.997**, gauge overlap `0.00691`; the null vector's
+    `dθ` component `+2.764519e-03` matches the sweep tangent
+    `+2.774243e-03` to **0.35 %**;
+  - independently, `σ_min = 1.680e-11` vs `σ_[-2] = 3.739e-04`, overlap
+    **1.0000**.
+- The branch runs **continuously down to `A→0`**, where it **becomes** the cold
+  linear eigenmode. Measured from `amp = 0.020` (`A_max = 0.02512`,
+  `resid 4.61e-15`) upward, all 30 sweep points converging at `~5e-15`.
+
+So the self-consistent solutions are *continuous deformations of the very cold
+eigenvectors the refutation excluded.* The refuters' distinction does not save
+the criterion; **it relocates it by one continuous parameter.**
+
+**Why the two halves are not a contradiction.** F1's lanes reported "0/192
+self-consistent" while F5/F6 reported converged branches at `5e-15` over
+continuous amplitude ranges. F1's lanes used a **one-shot frozen-S residual and
+undamped Picard**; F5/F6 used **damped Picard with eigenvector-overlap branch
+tracking and an imposed norm**. F1's reproduce lane said so itself and was
+honest about it — verbatim: *"limit-cycle stall, not divergence … Reported as a
+solver stall, NOT as non-existence."* F1's does-it-measure lane was not: its
+*"self-consistency DOES re-discretize"* headline is a one-shot residual
+presented as a fixed-point result, and its supporting claim that a uniform
+S-field makes M amplitude-independent does not apply to the actual solutions,
+whose envelopes are **not** uniform (`A_max 0.212 / A_min 0.125` on the same
+branch, from the other lane's own receipt).
+
+### §2.2 — F2, seed-is-fork: CONFIRMED, refutation mooted
+
+The winding enters via the seed and comes back bit-exactly. The
+wound-vs-trivial discriminating run that the refuting lane said *"does not exist
+anywhere"* **was run in the same round**, by the other lane, with a
+template-free integer readout on the module's own gate-3 ring fixture:
+
+```
+seed                       theta        2pi m/N     r_auto  conv  winding
+ring_mode m=0+noise  +0.000000000        0.0000   3.04e-15  True   -0.000
+ring_mode m=1+noise  +0.261799388        1.0000   2.74e-15  True    1.000
+ring_mode m=2+noise  +0.523598776        2.0000   2.61e-15  True    2.000
+ring_mode m=3+noise  +0.785398163        3.0000   1.64e-15  True    3.000
+ring_mode m=5+noise  +1.308996939        5.0000   2.52e-15  True    5.000
+ring_mode m=-2+noise -0.523598776       -2.0000   1.90e-15  True   -2.000
+(winding = -sum of principal-branch phase steps of v[:,0] around the ring / 2pi; no template)
+```
+
+Seeds `m ∈ {0,1,2,3,5,−2}` in → `{0,1,2,3,5,−2}` out, `θ = 2πm/24`, `r_auto`
+`1.6–3.0e-15`. And solver-independently: **all 24 sectors** `m = −11…12` are
+exactly solvable with **no iteration at all**, `r_auto ≤ 3.6e-15`, saturation
+engaged (`S_min = 0.9682 < 1`).
+
+**The caveat the reproduce lane did not apply to itself**, supplied by another
+lane: the "all 24 sectors, no iteration" receipt is on `build_ring_net`, where
+`a_nodes` cancels and the nonlinearity is **structurally inert**
+(`src/ave/solvers/harmonic_balance_srs.py:1062-1070`; the module's own guard 4
+at `:677-680` says a per-node-uniform admittance cancels at the shunt junction).
+On the load-bearing **srs** net the wound seeds are **2 of 4 converged**.
+
+Two further corrections the round produced and the headline should carry:
+
+- **`r_auto` is not uniformly at machine zero.** The first of the six quoted
+  thetas is **UNCONVERGED**: `seed0: theta=2.499991678 r_auto=1.06e-06
+  dA=4.4e-05, 300/300 outers`. *"All at or near machine zero"* is false for it.
+- **A LINEAR control reproduces the whole phenomenon with the nonlinearity
+  OFF.** Same six seeds, same selection rule, operator fixed and
+  seed-independent: six different exact machine-zero autonomous solutions, all
+  delocalized, `r_auto 3.4–4.2e-15`. The nonlinear run then dresses θ by only
+  `~1e-2` off that pre-existing seed-independent spectrum. **"Different seeds →
+  different solutions" is not evidence about the saturation kernel at all.**
+
+### §2.3 — F3, winding-is-seed: DOWNGRADED to MODERATE, re-scoped onto A3
+
+The `rigid_template` read `ω = |b_ω| · ê_w`
+(`src/ave/solvers/srs_cage_winding.py:482`; mechanism in its own docstring at
+`:480`) is seed-determined for **every** nonzero `b_w`. Reproduced exactly by
+both lanes at the production config (`SrsCageWindingConfig()` defaults, `L=12`,
+`frame_N=32`, `R=7.0`, `r=2.3`, 13824 nodes): baseline
+`(w_tor, Q_link) = (2,3)`, `Q_link_raw = 2.9959`; substituting the **entire**
+dynamical DOF `b_w` with complex Gaussian noise → `(2,3)`, `2.99488`; all-ones →
+`(2,3)`; `U[0,1e3]` → `(2,3)`; lognormal noise spanning **four spatial decades**
+→ `(2,3)`. Only `b_w ≡ 0` collapses it, to `(0,0)`. Conversely, scrambling `ê_w`
+with a seeded `b_w` collapses `Q_link` to `0`.
+
+**Why it downgrades.** It is not a PR-#1019 defect — the PR is three markdown
+files, 211 insertions, and touches no winding module. A genuinely dynamical
+reader **does** exist in the tree: `phase_space_winding.read_winding` counts
+turns of `arg(Σ a_A1)` and `arg(Σ b_w)` off the solved trajectory and **moves**
+under the same noise substitution (`q_int 0 → −1`). So *"THE production winding
+observer"* is over-general.
+
+**Why it still bites, and this is the part that routes.** A `rigid_template`
+read **cannot discharge charter item A3** without tautology. Any future P2
+prereg must name which reader it uses.
+
+**Unrebutted aggravator.** `SrsCageWindingConfig` has **no `winding_mode` field
+at all** (0 grep hits in that file). The `dispersive_vector` negative-control
+arm the refutation leaned on
+(`src/ave/solvers/coupled_cage_winding.py:163-167` — *"KEPT as a documented
+negative control (the winding-NOT-conserved arm)"*) is **diamond-carrier only**.
+**On the srs carrier the rigid template is the only representation available and
+there is no control arm.**
+
+### §2.4 — F4, no-wound-sector: CONFIRMED with the premise swapped — and BLOCKED
+
+**DROP the filed premise.** *"Every (2,3) reader consumes a real 3-vector
+Cosserat ω"* is measurably **false**: the production reader consumes two
+`complex128` **scalar** fields, `a_A1` and `b_w`, and reads the toroidal "2" as
+`arg(Σ a_A1)` off the A1/MASS sector; the real 3-vector `a_w` is the
+non-production control arm. A second counterexample sits in
+`src/ave/core/observable_battery.py:738` — a (2,3) reader that consumes K4
+`V_inc`/`Φ_link`, explicitly *"NOT the Cosserat sector"*.
+
+**The real barrier is GRADE ORTHOGONALITY.** Measured on the object the lens
+actually solves:
+
+- the HB unknown is `(64, 3) complex128` = **192 complex port phasors**, one per
+  **directed** port, on the A1-adjacent scalar srs-z3 carrier
+  (`harmonic_balance_srs.py:146-147`);
+- `V_ref = w[:,None] − v` (`apply_M`, `:499-500`) is a **rank-192-of-192** image
+  of `V_inc` — i.e. exactly the *"read-only projection of the same scalar `V`,
+  not an independent DOF"* condition that
+  `manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:20`
+  **forbids wiring a winding into**;
+- the same leaf at `:33` states verbatim that A1 and T2 *"share no
+  $(V_{inc}, V_{ref})$ phasor"*;
+- the HB module carries **zero** winding/Link/Cosserat machinery: AST import
+  scan returns only `chiral_lattice` + `vacuum_varactor_scatter`, and a
+  docstring-stripped keyword count returns `cosserat 0 | Cosserat 0 |
+  omega_field 0 | winding 0 | Link 0 | helicity 0 | curl 0 | T2 0`.
+
+So §4 restricts the search space using the **(2,3)/T2** winding sector's
+protection mechanism on a solve whose only variable lives on the **orthogonal
+A1** grade. The refutation demonstrated a **generic ℤ phase winding** — a *name*
+match to the (2,3), not a *grade* match — and its own corrected claim concedes
+the (2,3) **pair** is not established on the degree-3 srs carrier.
+
+**🚧 BLOCKER — three canon sites put the (2,3) in three different places, and no
+lane reconciled them.** Cosserat ω / K4 `V_inc·Φ_link` / K4 `V_inc·V_ref`
+Clifford torus, against `master-equation.md:33`'s *"share no
+$(V_{inc},V_{ref})$ phasor"*. **The F4 verdict literally depends on which
+reading is canonical.** F4 is reported BLOCKED, not adjudicated. This is charter
+item A4, and §5 records that A4 got zero coverage.
+
+**One methodological self-indictment, recorded because it is instructive.** The
+refuting lane accused the finding of a vocab-cage error (using A1⊥T2 outside the
+observable it was ratified about) and **then committed the same error itself**,
+treating a phasor-space winding on a phasor state as sufficient — a name match,
+not a grade match. The other lane had already anticipated and answered that
+move; the refuting lane did not engage the distinction.
+
+**A3's sub-question got one partial answer here.** *"What is the discrete
+analogue of passing through zero?"* — the winding read is **ill-defined exactly
+at `|v| = 0`**: `np.angle(0) = 0`, and a measured continuation returned winding
+`−3` *at* the zero crossing (`|v[3]| = 0.000`), flipping to `−2` only past it. A
+discrete amplitude-floor guard is required on any seeded-sector solve.
+
+### §2.5 — F5, amplitude-free: CONFIRMED as measured, DOWNGRADED as a lens defect
+
+**Cross-confirmed by two independent lanes** — the rank-1 deficiency receipts are
+in §2.1 and are not repeated. What changes from the filing:
+
+- **DROP the α clause.** *"which is the `A² = α` operating point re-entering as
+  a solver input"* is not established. `√α = 0.085425`; the sweep **floor** is
+  `0.211922 = 2.48 × √α` and the ceiling `≈ 0.91 = 10.65 × √α`. **The α point is
+  never in range.** And what is imposed is `||v||`, not `A`. It also collides
+  with the P2 prereg skeleton's own text
+  (`research/2026-08-25_p2-existence-solve_prereg-SKELETON-DRAFT.md:290-291`):
+  *"`A = \sqrt{\alpha}` appears only as a **report-against** canonical operating
+  point … never as a pass/fail."*
+- **DROP the lens-attribution.** The **incumbent driven test has the identical
+  property**: over a 16× drive sweep (`s = 0.05 → 0.8`) with a real
+  `Termination` on 8 crossing ports, `A_max/s` = `0.7375, 0.7374, 0.7371,
+  0.7361, 0.7314` — flat to **0.8 %**. The operating point is set by the free
+  drive amplitude in exactly the same way. This is a **G2-prereg requirement**,
+  not a cost of adopting the lens.
+- **TRIM the "one family" wording.** Warm-started continuation runs `||v||`
+  `2.0 → 8.5` (`A_max → 0.950373`), then Picard stops converging where `A_max`
+  crosses the kernel's `A_cap=0.99 / S_min=0.05` clip
+  (`src/ave/core/crystal_engine.py:63-64`, `:192-195`), and `||v|| = 10.25 →
+  10.5` is a **second, distinct continuum** at `θ ≈ 2.334`. At least two
+  continua with a solver-breakdown gap. **This strengthens the conclusion** —
+  more branches, less selection — and it is also where F8 lives (§3).
+- **Reproduction-fidelity disclosure the lane made itself:** the low-end numbers
+  did not reproduce exactly (`A_max 0.211922 / θ 2.410` vs `0.243168 / 2.412475`)
+  because the cold `θ = 2.4119` band is **6-fold degenerate** and the branch
+  tracker lands on a different member. The top end matches to 4 digits and the
+  rank-1 result is configuration-independent by dimension count.
+
+### §2.6 — F6, prior-art precondition: the split is verbal; both lanes agree on the repair
+
+**Both lanes converge:** the missing ingredient is **one selection constraint
+from a conserved quantity** — norm / charge / Derrick-type scale condition — and
+**NOT dissipation.** Adding loss would violate Ax3. The finding never actually
+prescribed loss (it said the mechanism is *"lost"*), so this is a clarification.
+
+**The strongest consensus-bias check in the entire round is here, and it is
+measured rather than asserted.** *"Lacks gain compression"* would condemn every
+lossless soliton existence proof, so the lane **built the control**: a discrete
+NLS / Gross–Pitaevskii stationary state on a ring of 8, posed as the identical
+square system (16 real + `μ` = 17 unknowns, 16 eqs + phase pin = 17).
+
+```
+   norm^2    mu             ||G||      sigma_min(square)  sigma_2nd   sigma_min(+norm eq)
+    0.50    0.67858532   5.8e-13    4.421e-22       3.403e-04   3.403e-04
+    1.00    0.76977285   3.3e-13    8.236e-22       2.530e-03   2.530e-03
+    2.00    0.94861976   7.0e-13    7.743e-22       1.748e-02   1.748e-02
+    4.00    0.50000000   3.6e-13    4.985e-23       2.509e-01   2.509e-01
+    8.00    1.00000000   4.1e-13    1.660e-24       2.509e-01   2.509e-01
+```
+
+**The textbook lossless problem carries the identical rank-1 deficiency**
+(`σ_min ~1e-22` vs `σ_2nd 1e-4 … 0.25`) and **one norm equation restores full
+column rank exactly** (`σ_min(+norm) == σ_2nd`). The same ring **with**
+van-der-Pol gain/compression is full-rank and the amplitude *is* pinned — which
+is precisely the ingredient Ax3 forbids, and precisely why the correct repair is
+the norm condition and not a damping device.
+
+**What survives against the record.** §3.1 sells the method by naming RF
+free-running-oscillator prior art whose amplitude selector is a gain-vs-**loss**
+balance — structurally absent here. The measured statement: on the shipped
+operator, the RF amplitude-pinning equation `|loop gain| = 1` is **identically
+`0 = 0`** — `max ||λ|−1| = 1.132e-14` over `A_uniform ∈ {0, 0.10, 0.25, 0.50,
+0.70, 0.85, 0.95}` on a genuinely graded field. **It pins nothing.**
+
+**Minor cite drift, both lanes independently:** the record quotes
+`harmonic_balance_srs.py:23-26`; the actual span is **`:22-25`**, and the record's
+truncation drops the `:24-25` qualifier (*"the only energy exit is a declared
+matched TERMINATION (a boundary condition, never a bulk loss term)"*).
 
 ## §3 — THE ORPHAN FINDINGS — F7 and F8, filed by nobody
 
