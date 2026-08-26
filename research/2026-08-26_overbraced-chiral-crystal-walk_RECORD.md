@@ -536,13 +536,24 @@ that Chern was taken on a **cold, unsaturated** 8-band Bloch Hamiltonian over a
 **amplitude** parameter on the **saturating** operator. Different manifold,
 different parameter.
 
-But it is a headwind and it sharpens the question **[ASSEMBLY]**: if the cold srs
-manifold is topologically trivial, and saturation deforms continuously away from
-cold, then a nonzero invariant on the saturated family must be **born at an
-amplitude-driven gap closure**. That is a strictly sharper (and more falsifiable)
-version of §4.2 than the walk stated — and it is also a much heavier lift, since
-it requires exhibiting the closure, not just the integer. **Routed, not
-claimed.**
+> **★ REVISED SAME DAY — this subsection said something the VERIFY pass then
+> refuted, and the refutation is left visible rather than the text quietly
+> rewritten.** What was written here was: *"if the cold srs manifold is
+> topologically trivial, and saturation deforms continuously away from cold, then
+> a nonzero invariant on the saturated family must be born at an amplitude-driven
+> gap closure"* **[ASSEMBLY]** — offered as a sharper, more falsifiable version of
+> §4.2.
+>
+> **That escape route is closed.** §4.2 KILL 1 measured `M` **exactly real** at
+> every amplitude tested, because the saturation kernel `S(A)=√(1−A²)` is itself
+> real. **No amplitude-driven gap closure can produce a nonzero Chern number
+> here, because the symmetry forcing it to zero is not amplitude-dependent.**
+> **[MEASURED-VERIFY-PASS]**
+>
+> So §6.3's status changes: the prior srs Chern null is not merely a *headwind*
+> on a live route. Together with KILL 1 it is the **cold-lattice instance of a
+> result that holds at every amplitude** — the null and the kill are the same
+> fact, measured twice, on two different manifolds.
 
 ### 6.4 ★★ The handed load-free rest-twist is ALREADY ASSIGNED — to the vacuum ground state, not to a particle
 
@@ -708,12 +719,28 @@ linearity argument; [CANON-VERIFIED] for the numbers.]**
 continuous family where an isolated solution was wanted (§1, findings 2 and 5).
 The walk has **not** escaped it by switching to structure; it has moved it.
 
-What is *supposed* to sparsify is the **amplitude-dependence of the bracing**:
-`G_c`, hence the bracing, is saturation-modulated, so the self-stress subspace is
-not the same subspace at every amplitude. **The nonlinearity is still
-load-bearing** — it has simply changed jobs, from *pinning the amplitude* to
-*selecting within the subspace*. Whether it actually does that job is entirely
-unexamined. **[WALK]**
+> **★ REVISED SAME DAY — REFUTED, left visible.** What was written here was:
+> *"What is supposed to sparsify is the amplitude-dependence of the bracing: `G_c`,
+> hence the bracing, is saturation-modulated, so the self-stress subspace is not
+> the same subspace at every amplitude … the nonlinearity has simply changed
+> jobs."* **[WALK]**
+>
+> **Wrong, and measurably so. [MEASURED-VERIFY-PASS]** Maxwell–Calladine is a
+> **connectivity** count. `S(A)` changes bond **admittances**, not connectivity,
+> so `(self-stress − mechanisms)` is **amplitude-invariant** — confirmed by the
+> `θ=0` block staying exactly 34-dimensional from `A=0` through a random graded
+> field (§4.2a). **The nonlinearity does not change jobs; on this count it has no
+> job at all.**
+>
+> The only place bracing could change the effective count is the **rail**
+> (`S→0`, `Y→∞`, a compliance turning into a rigid constraint) — which is the
+> kernel's declared **clip domain** (`A_cap=0.99` / `S_min=0.05`) and the exact
+> region where every solver in the review failed. **The sparsifying mechanism, if
+> it exists, lives at a numerically-unreachable boundary that a separate finding
+> showed to be a kernel-clip artifact.**
+>
+> **So §7.2's diagnosis stands and strengthens: the walk did not escape the
+> continuous-family disease, and the escape it was relying on is not there.**
 
 ### 7.3 It yields AN integer, not THE integer
 
