@@ -940,4 +940,95 @@ retraction), not this record's slot.
 
 ## §10 — The two open questions, routed to computation
 
+**Grant has directed that these be settled by computation rather than by further
+walking.** Both are framed as computable objects, with what is already known
+attached.
+
+### Q1 — is the vacuum ISOSTATIC (critically braced) or HYPERSTATIC (over-braced)?
+
+**Computable form.** The **Maxwell–Calladine index** / **rank of the equilibrium
+(or compatibility) matrix** on the **actual srs connectivity** with **Cosserat
+bonds**. Report `DOF`, `#C`, `rank`, `f = DOF − rank`, `s = #C − rank`,
+`f − s`, and `z_eff = 2·rank/N`.
+
+**What is already known — do not re-discover it:**
+- the driver exists (`src/scripts/vol_1_foundations/alpha_crystal_mc_count.py`),
+  is `ave.core`-free by construction with an import-graph guard, and computes
+  exact sparse-SVD rank **[CANON-VERIFIED]**;
+- it was run on the **achiral z=4 diamond**, which the D1 ratification
+  (2026-07-03) re-tagged non-canonical **[CANON-VERIFIED]**;
+- its **primary micropolar** result was **exactly isostatic**, `f = s = 96`,
+  index 0 **[CANON-VERIFIED]** — i.e. the prior evidence points at the *other*
+  side of the fork;
+- its Cosserat bond model is **3 rows per bond**, and the walk assumed 6; **the
+  answer's sign flips between them** (§4.4c) — **run both, and say which is
+  physically right**;
+- **the count is amplitude-INVARIANT** (§4.2a) — do not sweep amplitude expecting
+  it to move. **[MEASURED-VERIFY-PASS]**
+- **the `θ=0` eigenspace dimension is NOT this count** (§4.4d, §4.5). Do not
+  conflate them.
+
+**★ Q1 has a live, cheap answer available and it is the most decision-relevant
+work in this record.**
+
+### Q2 — is the knot the SELF-STRESS (`ω = 0`, a static held twist) or the RINGING (`ω ≠ 0`, a finite-frequency mode)?
+
+**Computable form.** The **null space of the dynamic stiffness at `ω = 0`**
+versus at **`ω ≠ 0`**.
+
+**Before computing, disambiguate the glyph** (§6.9b): `ω` is doing three jobs —
+the Cosserat microrotation *field*, its *rate*, and the mode *frequency*. Q2 is
+posed in the third sense.
+
+**What is already known:**
+- canon supports **both** answers, on the same sector (§6.6) — *"Charge is the
+  **STATIC imposed Link**"* against *"spin-up is what excitation does"*
+  **[CANON-VERIFIED]**. That contradiction is the argument for computing rather
+  than walking;
+- the Cosserat channel is **GAPPED** (`ω² = c_κ²k² + m_ω²`, `port-register.md:50`)
+  **[CANON-VERIFIED]**, which is a live obstruction to the `ω = 0` branch — or
+  the walk's mechanism in disguise, or a scope confusion in this record (§6.5,
+  B7). **Adjudicate; do not inherit this record's flag as an answer**;
+- the `ω = 0` branch may already be the **routed static-existence candidate**
+  (§6.7), which comes with a mandatory carve against the leans-falsified
+  energize-LOCK formation route **[CANON-VERIFIED]**;
+- a **periodic** carrier has no free boundary, and that finding lands on the
+  routed static-existence candidate too, not only on the autonomous-HB lens
+  (§6.7b) **[MEASURED-ELSEWHERE, VERIFY PENDING]**.
+
+### ★ The clause-Q consequence — routed to Q2, attached to a different claim this time
+
+The review found the autonomous-HB lens wrongly identified its **AC
+phase-normalization** with **clause Q**, which is a **DC** condition
+(`∇·π = 0`, `θ = 0`, `ε₁₁ = 0` away from defects). **[MEASURED-ELSEWHERE, VERIFY
+PENDING]**
+
+**But if the knot is genuinely a self-stress state — a zero-frequency, load-free
+equilibrium — then clause Q may be the correct canon anchor after all, attached
+to the right claim this time.** **[WALK]**
+
+Two guards on that sentence:
+
+- it is **conditional on Q2 resolving to `ω = 0`**, and §6.5/§6.6 say that is
+  genuinely open;
+- **write "clause Q / reference-fixing" or "Q-point", never "ground reference"**
+  — R43 is BINDING and the prior record's framing leaned on the glossed noun
+  (§6.9a) **[CANON-VERIFIED]**.
+
 ## §11 — What this walk does NOT do
+
+It does not answer the existence question. It does not resolve the carrier fork.
+It mints nothing, moves no solidity, computes nothing, and — per §6 — coins
+nothing.
+
+**It does NOT supersede R58 decision 1 or the carrier fork**, and it does **not
+by itself retire the autonomous-harmonic-balance lens**. Those remain **live and
+un-ruled**. **Only Grant rules that.**
+
+**It does not adjudicate any of the contradictions in §6.** Every one is
+surfaced with both file paths and verbatim content, per flag-don't-fix, and left
+open.
+
+**It is a chat walk of exactly the grade that the lens it replaces was, on the
+day that lens was written — and that lens was measured dead the next day.** Read
+§7 and §9 before treating any of §§2–5 as more than a direction.
