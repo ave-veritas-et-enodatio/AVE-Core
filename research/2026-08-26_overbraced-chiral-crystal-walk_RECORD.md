@@ -40,7 +40,8 @@ is a structural/navigational sentence, not a claim.
 | **[WALK]** | the walk's own reading. Chat-grade. Un-audited by construction. |
 | **[ASSEMBLY]** | assembles pieces the corpus already owns into a statement none of them makes alone. The pieces are cited; the assembly is not canon. |
 | **[EXTERNAL-UNRETRIEVED]** | asserted from discipline knowledge with **no retrieval performed in this session**. Maxwell–Calladine, Kane–Lubensky, Berry/Chern, and the RF free-running-oscillator characterisation are **all** in this class. Treat as *"a claim about what the external literature says"*, not as literature. |
-| **[MEASURED-ELSEWHERE]** | a numeric finding produced by the in-flight review of the autonomous-HB lens, attributed to that lane, not re-run here. |
+| **[MEASURED-ELSEWHERE]** | a numeric finding produced by the review of the autonomous-HB lens, attributed to that lane, not re-run here. |
+| **[MEASURED-VERIFY-PASS]** | a numeric finding produced by the **adversarial VERIFY pass**, which **landed while this record was being written** and is attributed to that lane. Receipts: `scratchpad/chk3.py`, run at `766d5179`; this branch touches no solver code, so the tip is engine-identical. **Two of these are directly fatal to the walk's two load-bearing mechanisms — see §4.** |
 | **[CANON-VERIFIED]** | read and quoted from the corpus **in this session**, with file:line. This tag is an addition to the four the dispatch named, because §6 needed to distinguish *"I read this"* from *"I assembled this"*. |
 
 **A note on the [EXTERNAL-UNRETRIEVED] class.** Four load-bearing external
@@ -52,10 +53,15 @@ memory from a confident one.
 ## §1 — What this walk responds to: the measured state of the autonomous-HB lens
 
 > **★ EVERY FINDING IN THIS SECTION IS A REVIEW-PHASE FINDING, VERIFY PENDING.**
-> The adversarial VERIFY pass on the autonomous-HB lens is still in flight. These
-> are reported here as **[MEASURED-ELSEWHERE]** — attributed to that lane, not
-> re-run in this session, not this record's own results. If any of them moves,
-> the motivation for this entire walk moves with it.
+> These are reported as **[MEASURED-ELSEWHERE]** — attributed to the review lane,
+> not re-run in this session, not this record's own results. If any of them
+> moves, the motivation for this entire walk moves with it.
+>
+> **★ AMENDMENT, same day.** The adversarial VERIFY pass landed **while this
+> record was being written**, and measured two results directly fatal to the
+> walk's two load-bearing mechanisms. They are folded into **§4**, which was
+> revised in place; §6.3 and §7.2 were revised because the new measurements
+> contradicted what this record had already said. The revisions are in git.
 
 The autonomous-HB lens proposed replacing the driven existence test with a
 source-free nonlinear eigenvalue problem: *find `v ≠ 0` solving
@@ -197,45 +203,107 @@ so its eigenvalues slide around the unit circle and never leave it. Nothing
 "opens" or "closes" as amplitude is swept. A criterion phrased as *does a
 solution exist* therefore has no way to answer no. **[WALK]**
 
-### 4.2 What is discrete on a unitary family
+### 4.2 What the walk proposed — and the measurement that vacates it
 
-What *is* discrete is where eigenvalues **collide**. In a one-parameter sweep,
-degeneracies are isolated. Degeneracies are also where eigenvectors twist, and
-the twist accumulated on a closed loop around a degeneracy is a **counted
-integer** — Berry phase / Chern number / Weyl charge — which in a chiral crystal
-is **signed**. **[EXTERNAL-UNRETRIEVED — none of Berry, Chern or Weyl was
-retrieved in this session.]**
+**The proposal.** What *is* discrete is where eigenvalues **collide**. In a
+one-parameter sweep, degeneracies are isolated. Degeneracies are also where
+eigenvectors twist, and the twist accumulated on a closed loop around a
+degeneracy is a **counted integer** — Berry phase / Chern number / Weyl charge —
+which in a chiral crystal is **signed**. Two properties were claimed for it:
+nothing is seeded (it is a transport integral, not a template — the direct answer
+to §1 finding 3), and it can return zero. **[WALK; the Berry/Chern/Weyl content
+is [EXTERNAL-UNRETRIEVED].]**
 
-Two properties the walk claims for such an integer, both **[WALK]**:
+> ### ★★ KILL 1 — the Chern integer is identically ZERO on this operator, by exact symmetry, at every amplitude. **[MEASURED-VERIFY-PASS]**
+>
+> ```
+> net: N=64 degree=3 ndof=192 n_bonds=96
+> cold A=0              Y-unitarity 8.018e-17  max|Im(M)|=0.000e+00  M REAL? True
+> A=sqrt(alpha)=0.0854  Y-unitarity 2.216e-16  max|Im(M)|=0.000e+00  M REAL? True
+> graded rand[0,0.9]    Y-unitarity 1.706e-16  max|Im(M)|=0.000e+00  M REAL? True
+> BLOCH: max_k ||A(-k) - conj(A(k))|| over 8 random k = 0.000e+00
+>                                          -> spinless TRS HOLDS
+> ```
+>
+> `M` is **exactly real** — `S(A) = sqrt(1−A²)` and `Y = Y0/sqrt(S)` are real and
+> CONNECT is a permutation — and the shipped `bloch_adjacency` satisfies
+> `A(−k) = conj(A(k))` to `0.000e+00`, i.e. **exact spinless time-reversal
+> symmetry**. A real Bloch matrix has odd Berry curvature, so **every band's Chern
+> number vanishes identically. No amplitude can break it, because the saturation
+> kernel is real.**
+>
+> **★ The distinction the walk slid past, and the single most important line in
+> this record:** the srs lattice's **geometric chirality is not broken
+> time-reversal** in the sense a Chern number requires. §2 went from *"chiral
+> crystal"* to *"signed topological charge"* in one step, and that step is
+> **wrong**.
+>
+> **Named escapes, all requiring machinery that does not exist:** a **Z₂** rather
+> than **Z** invariant; **non-abelian Wilczek–Zee** transport over degenerate
+> blocks; or a synthetic loop with **twisted boundary conditions**, which would
+> introduce the complex phases that rescue it.
 
-1. **Nothing is seeded.** It is computed by transporting eigenvectors around a
-   closed loop in parameter space. There is no template to plant an answer in.
-   This is the direct structural answer to §1's finding 3.
-2. **It can return zero.** A template-based reader structurally cannot produce
-   "no"; a transport integral can, and often does.
+> ### ★★ KILL 2 — the degeneracy selector fires everywhere, including at A = 0. **[MEASURED-VERIFY-PASS]**
+>
+> ```
+> cold A=0              n_distinct_theta=23   mults=[4,6,9,17,34]
+>                       dim(theta=0)=34   dim(theta=+-pi)=34
+> A=sqrt(alpha)=0.0854  n_distinct_theta=23   mults=[4,6,9,17,34]
+>                       dim(theta=0)=34   dim(theta=+-pi)=34
+> graded rand[0,0.9]    n_distinct_theta=127  mults=[1,16,18,34]
+>                       dim(theta=0)=34   dim(theta=+-pi)=34
+> ```
+>
+> The `θ=0` and `θ=±π` eigenspaces are each **34-dimensional** (68 of 192 DOF) and
+> stay **exactly 34-dimensional** at `A=0`, at `A=√α`, and under a random graded
+> field that lifts everything else from 23 to 127 distinct `θ`. So *"the selected
+> amplitude is where the spectrum becomes degenerate"* **fires on ~35% of the
+> spectrum at every amplitude, including `A=0`** — the one place a selector must
+> not fire.
+>
+> Viable only after a **symmetry-adapted (irrep-block / Bloch-reduced)
+> decomposition** that quotients out symmetry-enforced degeneracies and hunts
+> **accidental** collisions inside a single irrep block. **That machinery does not
+> exist.**
 
-> **⚠ A structure this proposal does not name, and needs.** A Chern-type
-> invariant on an occupied manifold needs a **gap** to define "occupied". `M` is
-> **unitary**, not Hermitian — its spectrum lies on a circle, where "below the
-> gap" is not defined without an extra choice (a branch cut / a quasi-energy
-> zone, the Floquet-style construction). The walk asserts the integer exists
-> without supplying that choice. **[WALK — flagged as a hole, audit item B4.]**
+**Two further corrections from the same pass, both against things this record's
+brief asserted [MEASURED-VERIFY-PASS / ASSEMBLY]:**
 
-### 4.3 An inversion worth recording
+**(a) Maxwell–Calladine is a CONNECTIVITY count and is therefore
+amplitude-INVARIANT.** `S(A)` changes bond **admittances** (`Y = Y0/√S`), not
+connectivity, so `(self-stress − mechanisms)` **cannot move with amplitude**.
+Measured confirmation: the `θ=0` block stays exactly 34-dimensional from `A=0`
+through a random graded field. The only place bracing could change the effective
+count is **the rail**, where `S→0` and `Y→∞` (a compliance becoming a rigid
+constraint) — which is **exactly the kernel's declared clip domain**
+(`A_cap=0.99` / `S_min=0.05`), and exactly where every solver in the review
+failed. **So the walk's selection point, if it exists at all, sits at a
+numerically-unreachable boundary that a separate finding showed to be a
+kernel-clip artifact rather than established physics.**
+
+**(b) A Chern number needs a closed loop in a parameter space of dimension ≥ 2.**
+The only parameter established is **amplitude**: a 1-D **open** interval from
+`A→0` to the rail, and an open interval has no closed loops. Taking the loop in
+**k-space** instead makes the invariant a property of the **scaffold** —
+piecewise constant in amplitude, jumping only at gap closings, so at the `A→0`
+end it is **the cold empty lattice's own band invariant**. That is the exact
+failure the prior lens died of, re-imported.
+
+### 4.3 The periodic-torus inversion — recorded, and now weaker
 
 The **periodic-torus** finding is *fatal* for the driven framing — a periodic
 carrier has no free boundary, so there is no surface on which to impose a
 boundary condition, and the termination that was removed **was** the boundary
-**[MEASURED-ELSEWHERE, VERIFY PENDING]**.
+**[MEASURED-ELSEWHERE, VERIFY PENDING]**. But a periodic lattice has a
+Brillouin zone, which is where transported invariants live, so the same measured
+fact reads as a kill for one framing and a prerequisite for the other. **[WALK]**
 
-But it is exactly what a **band-topology** framing wants: a periodic lattice has
-a Brillouin zone, and Brillouin-zone-like parameter tori are where transported
-invariants live. The same measured fact reads as a kill for one framing and a
-prerequisite for the other. **[WALK]**
-
-*This inversion is the walk's cleanest single move. It is also the one most
-likely to be doing rhetorical rather than physical work — see §7.4 and audit
-item B5.*
+**This was the walk's cleanest single move, and §4.2(b) substantially devalues
+it.** If the loop is taken in k-space, "prerequisite for band topology" and
+"belongs to the scaffold" are the same statement. And per §7.7 the periodicity
+cuts the other way as well: by bulk-boundary correspondence a *localized* object
+sits at a boundary or a defect, which the periodic srs torus with `term=None`
+does not have. See also §7.4 and audit item B5.
 
 ### 4.4 A count — ★ FLAGGED, NOT CLAIMED
 
@@ -270,6 +338,44 @@ The walk's arithmetic, stated so it can be attacked:
 > `3 × 3 / 2 = 4.5` constraints per node against 6 DOF, i.e. **under**-braced by
 > 1.5 — *the opposite sign*. **The answer to Q1 flips on a modelling choice the
 > walk made without knowing the corpus had already made a different one.**
+>
+> **(d) ★ AMENDED — hedge harder than (a)–(c) already did. [MEASURED-VERIFY-PASS]**
+> The measured `θ=0` block on srs `L=2` is **34-dimensional** on a 64-node /
+> 192-DOF lattice, which is **not** 3-per-node. But it is also **NOT the
+> Maxwell–Calladine count of a Cosserat frame** — see §4.5. **The two must not be
+> conflated**, and the coordination-number estimate in this subsection **remains
+> unverified against the actual srs connectivity**. Nothing in §4.4 has been
+> confirmed by anything.
+
+### 4.5 ★ The category bridge that does not exist — and the walk's best surviving property
+
+**[ASSEMBLY of the VERIFY pass's finding; the vocab-cage hazard is the standing
+discipline.]**
+
+Maxwell–Calladine operates on a **rigidity / equilibrium matrix of a frame**, and
+a state of self-stress is `ker(Rᵀ)` — a **static, zero-frequency** object. The HB
+formulation **has no equilibrium matrix**. It has a **unitary scattering map**
+`M = C · blockdiag(S_u)` with its eigenproblem at nonzero `θ`.
+
+In circuit terms — stating the observable in circuit language *before*
+adjudicating, per the vocab-cage discipline — the self-stress analogue is a
+**circulating loop current with zero terminal excitation**: a null space of the
+reduced admittance / incidence structure.
+
+**★ That is genuinely a DIFFERENT object from an eigenvector of `M` at `|λ|=1`,
+and it is the walk's best surviving property** — because it means the walk is
+**not the prior lens relabelled**. It is asking a different question of a
+different operator.
+
+**But the bridge from rigidity matrix to scattering map does not exist, and
+nobody has written it.** Importing Maxwell–Calladine's *name* imports its
+framework's theorems with it. **[EXTERNAL-UNRETRIEVED + vocab-cage hazard.]**
+
+**The cheap test that already leans against the walk:** if *"load-free
+equilibrium"* maps onto the `θ=0` eigenspace, then self-stress on srs `L=2` is
+**34-dimensional and scales with `N`** — an **extensive, amplitude-rigid,
+over-braced-by-34** object, and correspondingly **non-selective**. The existing
+data already leans this way. **[MEASURED-VERIFY-PASS]**
 
 
 ## §5 — The re-ranking this implies: the bracing IS the couple-stress
