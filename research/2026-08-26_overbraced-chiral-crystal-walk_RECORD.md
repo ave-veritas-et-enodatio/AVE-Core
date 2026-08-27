@@ -1095,8 +1095,8 @@ day that lens was written — and that lens was measured dead the next day.** Re
 
 ## 🔴 STATUS NOTE — 2026-08-26: §1's MOTIVATION HAS BEEN RE-DISPOSITIONED BY THE AUDIT
 
-**Additive only (Rule 12). Nothing above this line is edited by this note; §1 is
-preserved as written and this note is the correction of record.**
+**Additive with respect to §1 (Rule 12): §1 is preserved exactly as written,
+and this note is the correction of record for it.**
 
 The A1–A7 audit of the autonomous-HB lens completed after §1 of this record was
 written. Its disposition of the six review findings — the **F1–F6 table** in
