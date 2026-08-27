@@ -667,8 +667,9 @@ nonzero frequency when its wavevector is zero. Open-vs-closed (topology),
 gapless-vs-gapped (dispersion) and massless-vs-massive (kinematics) are then the
 same fact in three registers.
 
-**★ FLAG-DON'T-FIX — THIS PARAGRAPH COLLIDES WITH RATIFIED CANON THIS SAME
-RECORD QUOTES AT §5.2.** The table row above identifies **channel 4's gap
+**★ FLAG-DON'T-FIX — THIS PARAGRAPH MAY COLLIDE WITH RATIFIED CANON THIS SAME
+RECORD QUOTES AT §5.2 — and whether it collides at all is itself unsettled, per
+reading (iii) below.** The table row above identifies **channel 4's gap
 $m_\omega$** as the electron's **rest energy**. That is the exact reading the
 Grant-ratified 2026-06-20 sector re-scope **re-scoped away from**, quoted
 verbatim at **§5.2(2)**: *"the $T_2$/$\omega$ gap is the **FLYWHEEL frequency /
@@ -907,7 +908,7 @@ most likely to be where it dies.
 | **W4-3** | The trefoil is *re-registered* on successive bond-pairs; the orbit does not move | MECHANISM | there is **no mechanism** here, only a name. What enforces phase continuity across the hand-off? What does it cost? Is it representable on the shipped machinery at all? Treat "re-registration" as an unexplained primitive until shown otherwise |
 | **W4-4** | ★ LIVE CORPUS CONTRADICTION: matched (`peierls-nabarro-paradox.md`:12) vs *"permanent macroscopic Impedance Mismatch ($\Gamma=-1$) to the linear vacuum"* (`de-broglie-standing-wave.md`:52) | CANON, flag-don't-fix | both on `origin/main`. The PN parenthetical (match-for-translation / $\Gamma=-1$-for-confinement) is the *candidate* reconciliation, but the de-Broglie line is explicitly about **motion**. Do not smooth either. Route with the R40-B2a debt |
 | **W4-5** | open/closed ≡ gapless/gapped ≡ massless/massive is "one statement three ways" | PHYSICS | this is the arc's prettiest sentence, which is a reason to distrust it. Is the equivalence forced, or is it three true statements that happen to line up on two examples? Find a third case (the neutrino? the muon? a $T_2$ shear mode?) and see whether the triple still closes |
-| **W4-6** | ★ §4.5 identifies **channel 4's gap as the rest energy**; §5.2(2)'s Grant-ratified 2026-06-20 re-scope says the $T_2/\omega$ gap is the **FLYWHEEL clock gap** and *"mass itself stays A1"*, and §5.2(3) puts the rest energy at the **bond-pair LC tank at saturation onset**, *"not in a channel gap at all"* | CANON, flag-don't-fix | Adjudicate which of the three readings at §4.5's ★ flag holds. Carry **§5.3 R-2** (is $T_2/\omega$ the same object as channel 4?) and **§5.3 R-3** (both canonical answers are IDENTITY-class) into the answer. Do **not** repair §4.5 by re-scoping it silently — the collision is the finding |
+| **W4-6** | ★ §4.5 identifies **channel 4's gap as the rest energy**; §5.2(2)'s Grant-ratified 2026-06-20 re-scope says the $T_2/\omega$ gap is the **FLYWHEEL clock gap** and *"mass itself stays A1"*, and §5.2(3) puts the rest energy at the **bond-pair LC tank at saturation onset**, *"not in a channel gap at all"* | CANON, flag-don't-fix | Adjudicate which of the three readings at §4.5's ★ flag holds. Carry **§5.3 R-2** (is $T_2/\omega$ the same object as channel 4?) and **§5.3 R-3** (both canonical answers are IDENTITY-class) into the answer. Do **not** repair §4.5 by re-scoping it silently — the surfaced disagreement is the finding, whether or not it survives as a collision |
 | **W5-1** | §5's sweep is complete enough to stand the section down | SWEEP | **re-run the sweep by a second method.** Grep-completeness false-negatives are a known failure mode here; a "canon already answers it" verdict from one search is a claim about the pattern, not the corpus. Specifically re-check R-2 (the $T_2/\omega$ vs channel-4 labelling vintage), which was NOT established this session |
 
 **Also required of the audit, and not optional:**
