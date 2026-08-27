@@ -612,6 +612,61 @@ misframing it.
     irrelevant.
 
 ## §10 — ★ AUDIT CHARTER
-## §11 — ★ KILL CONDITIONS
+
+**Nothing in this record reaches canon, a prereg, or a ruling until this
+charter has been run adversarially.** Run it as a multi-lens review with at
+least one lane doing **read-AND-run** on the shipped operator (A1), one lane
+treating A6 adversarially, and one lane on the canon-tension pair (A8/A9).
+Findings get the standard per-finding verify pass (CONFIRMED / DOWNGRADED /
+REFUTED).
+
+| # | claim | class | how to attack it |
+|---|---|---|---|
+| **A1** | **The §2 numbers are what the shipped operator produces.** Spectrum theorem, trace identity, balanced mirror, level-set arithmetic, `Γ_bulk(√α) = −9.155133e-04`. | MACHINERY — **read AND run** | Re-run Appendix A independently, from a clean worktree, without reading this record's numbers first. Then diff. Do not accept the table; regenerate it. Check `saturation_kernel`'s floors are actually inactive at `A=√α` as claimed. |
+| **A2** | **The spectrum theorem generalizes the `K4` irrep result rather than restating it.** `k4-port-irrep-decomposition.md:23,:55` is the `z=4`, equal-admittance case; §2.1 claims arbitrary `z` and arbitrary graded `Y`. | CANON + ALGEBRA | Verify the leaf's scope is really equal-admittance (is `Y` even a variable there?). Then check the rank-one proof: is `{v : Σ_j Y_j v_j = 0}` genuinely the kernel of `𝟙Yᵀ`, and is the arc's re-weighting of the eigenspace right, or has it quietly assumed `Y` symmetric-positive in a way that fails somewhere? |
+| **A3** | ★ **Caution 1 is right: a local `−1` is not confinement, and the electron would have to be a closed surface of simultaneously balanced nodes.** | LOGIC — **the load-bearing step** | Adversarial. Is "codimension 1 per node ⇒ cheap" actually the right cheapness measure once the connect map couples nodes? Try to construct a counterargument in which local balance *does* localize. And: is "closed surface of simultaneously balanced nodes" even well-posed (caveat 3)? If it is not, the arc's positive content is empty, not merely deferred. |
+| **A4** | ★ **Caution 2 is right: the hollow-vortex balance shell and the virtual neutral are different objects and must not be welded.** | CANON + VOCAB | Attack from both sides. (a) Find any corpus site that already treats them as one — if canon has welded them, that is a finding. (b) Argue the *unification* case honestly: is there a formulation in which a phasor balance and a pressure balance are instances of one kind? The arc took no position; the audit should. |
+| **A5** | **The uniform-saturation cancellation is exact and not an artifact of the varactor map.** §2.4's headline (`saturated shell ≡ cold vacuum`). | NUMERICAL + SCOPE | Re-derive with a *different* admittance map (`Y ∝ S`, `Y ∝ 1/S`, `Y ∝ S^{1/4}`) and confirm the cancellation is a property of the **ratio** `2Y_j/ΣY`, not of `√S`. Then check caveat 4: does the μ-load scoping actually hold at the wall? |
+| **A6** | **The arc relocates the question rather than hiding it** (§4). | LOGIC — adversarial | Find where the amplitude level-set re-enters in disguise. Candidates: the *gradient* at the shell edge (§2.4's own conclusion) is itself an amplitude-derived object — does that smuggle register 1 back in under register 4's name? |
+| **A7** | **`def-vyvsn1`'s SOLID grade attaches to a sector attribution and a calibration, not to a derivation of the level-set character** (§7.1). | CANON PROVENANCE | Verify all four rows of the §7.1 table by reading the fields, not this record. Then check the arc's disclaimer holds: does anything in §2/§7 in fact touch the adjudicated sector attribution? If it does, the arc has overreached. |
+| **A8** | ★ **`device-circuit-models.md:165` ASSERTS the A1 wall** (§7.2), and any document inheriting the "prohibition" framing is wrong. | CANON READING | Read `:163-167` end to end. Confirm the guard sentence's target. Then **sweep** for downstream inheritors of the misreading — and per the grep-completeness rule, cross-check any "N sites / none found" claim with a second method, and report the method, not the corpus. |
+| **A9** | ★ **There is a live canon-vs-canon tension over which sector owns the confinement surface** (§7.3): `:165` says A1; `def-vyvsn1` (SOLID) + `pair-production:102` say T2 at `V_yield`. | CANON COHERENCE | Determine whether this is a genuine contradiction, an operating-point mismatch, or a homonym (two objects both called "the confinement surface"). This is **upstream** of the register-move question. If it is a real contradiction, it outranks everything else in this record. |
+| **A10** | **The T3.3 acceptance gate was evaluated off the operating point** (§2.5.1): probed at `A = 0.95/0.99`, while `def-vyvsn1` pins the A1 core at `A = √α = 0.0854`. | GATE AUDIT | Read `sup-1ecv2m` and the driver `src/tests/engine_acceptance/test_l3_mass_cage.py`. Is the probe amplitude a deliberate scope choice with a stated rationale, or an unexamined default? Does the gate claim to bear on the electron's actual operating point? Per the self-referential-gate class: can the gate fire in both directions? |
+| **A11** | **The seven supports (§6) are at their stated grades** — in particular S4 is chat-only and S5 sits beside a demoted passage. | EVIDENCE HYGIENE | Verify each receipt. Try to promote S4 by finding a canon statement of it — or confirm none exists. Check whether R40-B2a's re-derivation debt reaches `:54`. Downgrade anything that does not hold. |
+| **A12** | **The §2.4.1 transposition correction is right**, and the brief's assignment is the wrong one. | NUMERICAL | Recompute independently. If the *brief* is right and this record is wrong, that is a serious error in a section labelled MEASURED and must be reported as such. |
+
+**Also required of the audit, explicitly:**
+
+- **The consensus-bias symmetric standard** (§8): would the equivalent move be
+  flagged in an SM/QED context? Apply the knife in both directions and say so.
+- **The discrimination check**: does this arc buy a number, organizing power,
+  or neither? The expected honest answer is *"organizing power plus exact
+  negative constraints; zero positive predictions."* If a lane reports more
+  than that, the lane is the finding.
+- **The §5.1 fence**: `proton-identification.md:161-165` already refuted two
+  neutrality arguments built on the virtual neutral. Any audit that recommends
+  building one here must engage that docket first, by name.
+- **Structural-null stencil check**: §2's negatives are computed on the shunt
+  reduction. Confirm that operator is substrate-native for the wall region (a
+  `z=3` srs junction), not a Cartesian or `z=4`-`K4` stand-in — a null on a
+  disabled or wrong-stencil operator validates a bug as physics.
+
+
+**Each of these, if it fires, kills a specific part of this record. They are
+written so that they CAN fire.** Any lane finding one reports it as a kill, not
+as a caveat.
+
+| # | if this is shown | then |
+|---|---|---|
+| **K1** | The shipped `admittance_scatter` is **not** the operator that governs the wall region (a different reduction, a different `z`, a non-shunt topology, or the wall is not at a node at all) | **§2 is correct and irrelevant.** The entire measured core is voided as evidence about the electron wall. Kills the arc, not the algebra. |
+| **K2** | A **closed surface of simultaneously balanced nodes cannot be well-posed** — the self-consistency condition of caveat 3 is vacuous or contradictory | **§4's positive content is empty.** The arc reduces to a set of exact negative results with no relocated question. The register-move proposal dies with it. |
+| **K3** | `Γ_bulk(A=√α) = −9.155e-4` fails to reproduce, or the operating point `A = √α` is **not** what `def-vyvsn1` assigns the A1 core | **§2.5, §4 and §7.3 all fall.** The A1-transparency finding is the arc's only quantitative constraint on canon; without it the arc constrains nothing. |
+| **K4** | The trace identity is **not** binding at the wall — e.g. the wall nodes are not `z=3`, or the relevant reflection is not the scatter diagonal | **§2.2's "arithmetically unreachable" claim falls**, and with it the strongest form of §4's dichotomy. |
+| **K5** | Canon **already** treats the phasor balance and the pressure balance as one object, with a receipt | **Caution 2 is wrong as stated** and must be rewritten as a unification, not a separation. (This would be a finding *for* the arc's boldness and *against* its accuracy.) |
+| **K6** | `device-circuit-models.md:165` does **not** assert the A1 wall on a full reading of `:163-167` | **§7.2 is wrong**, the routed correction item must be withdrawn, and §7.3's tension may dissolve. |
+| **K7** | The §2.4.1 transposition is **backwards** — the brief's assignment is correct | **A MEASURED-labelled section is wrong.** Report as a first-class error; re-audit every other number in §2 before trusting any of them. |
+| **K8** | A neutrality argument on the virtual neutral is refuted in the lepton sector on the same grounds as the 2026-08-23 baryon refutation | **The register-move proposal is dead on arrival** and the open item is closed negative rather than routed to Grant. |
+| **K9** | The `−1` eigenspace turns out **not** to be present in empty cold vacuum (e.g. the cold lattice's actual boundary conditions exclude it) | **Caution 1 is wrong**, balance is *not* cheap, and the arc's central negative inverts into a positive. This is the kill condition the arc would most like to lose to, which is exactly why it must be tested rather than assumed. |
+
 ## §12 — What this arc does NOT do
 ## Appendix A — reproduction receipt
