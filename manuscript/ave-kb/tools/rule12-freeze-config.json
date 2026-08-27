@@ -6,7 +6,9 @@
     "direction-not-determinable": "The note names both directions (or neither) on one line, so `region` has no defensible value. Needs the record's author, not a guess.",
     "generated-artifact": "The file is generated, so a stamp would be rewritten by its generator."
   },
-  "enforced_globs": [],
+  "enforced_globs": [
+    "*.md"
+  ],
   "allow_list": [],
   "pending_stamp_on_landing": []
 }

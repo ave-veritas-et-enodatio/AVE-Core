@@ -117,11 +117,30 @@ mention with some preservation word, and 267 carry a DIRECTIONAL preservation
 assertion. Only the third set makes a claim a machine can check.
 
 SERVED-BY-A-STAMP is per NOTE, not per file. A file with eight notes and one
-stamp would pass a per-file rule while seven bodies went unguarded. A note at
-line L is served when a stamp sits within ``SERVE_WINDOW`` lines of L with no
-OTHER note line between them (the stamp belongs to its nearest note), or when L
-falls inside some stamp's frozen region (a note that has itself been frozen by a
-later note's stamp is already covered).
+stamp would pass a per-file rule while seven bodies went unguarded. A note is
+served when a stamp sits ON THE NOTE'S OWN LINE, or when the note line falls
+inside some other stamp's frozen region (a note a later note has already
+frozen). Nothing looser: an earlier proximity-window rule was caught by the
+mutation receipt silently serving a brand-new unstamped note with its
+neighbour's stamp.
+
+
+WHERE THE STAMP GOES, AND THE MEASUREMENT THAT FORCED IT
+---------------------------------------------------------
+The stamp is APPENDED TO THE END OF THE NOTE'S OWN LINE -- never inserted as a
+new line. That is not a style preference. This corpus cites by line number:
+measured over every tracked file at the time of writing, **17,012 `path:NN`
+line-cites** point into 2,749 Markdown targets. A backfill that inserted one
+stamp line per note would have shifted the target line of **7,273 of them**
+(6,787 inside `manuscript/ave-kb/` alone; worst single file 2,260 lines of
+shift). An append-only gate whose own installation silently invalidates seven
+thousand citations is not a gate, it is a corpus-wide cite-rot event.
+
+Appending to the note line moves NOTHING: not one line number in the corpus
+changes. The line that grows is the NOTE -- the newest, correction-carrying
+element -- and never a frozen body: every derived region is capped at the
+neighbouring note line, so no frozen region ever contains a stamped line, and
+therefore no stamp can invalidate another stamp's region.
 
 
 SCOPE, AND THE ALLOW-LIST
@@ -180,12 +199,6 @@ from pathlib import Path
 TOOLS_DIR = Path(__file__).resolve().parent
 REPO = TOOLS_DIR.parents[2]
 CONFIG_PATH = TOOLS_DIR / "rule12-freeze-config.json"
-
-#: How far from a prose note a stamp may sit and still be read as serving it.
-#: A Rule-12 note is often a multi-line blockquote; the stamp goes on the line
-#: after the block. 40 lines is generous for that and far short of the distance
-#: between two notes in any record measured during the backfill.
-SERVE_WINDOW = 40
 
 # ---------------------------------------------------------------------------
 # THE STAMP
@@ -338,12 +351,18 @@ class Note:
 
 
 def find_notes(path: str, text: str) -> list[Note]:
+    """Prose Rule-12 notes, with any freeze stamp STRIPPED before matching.
+
+    Stripping rather than skipping matters: the stamp lives on the note's OWN
+    line (see the placement note in the module docstring), so skipping stamped
+    lines would make every stamped note invisible to the detector -- and the
+    accounting that says "this note is served" would be counting nothing.
+    """
     out: list[Note] = []
     for i, line in enumerate(text.splitlines(), 1):
-        if STAMPISH_RE.search(line):
-            continue  # the stamp itself is not a prose note
-        if NOTE_MARKERS.search(line) and DIRECTIONAL_ASSERTION.search(line):
-            out.append(Note(path, i, line.rstrip("\n")))
+        probe = STAMP_RE.sub("", line)
+        if NOTE_MARKERS.search(probe) and DIRECTIONAL_ASSERTION.search(probe):
+            out.append(Note(path, i, probe.rstrip()))
     return out
 
 
@@ -668,29 +687,30 @@ def allowed(cfg: Config, note: Note) -> dict | None:
 
 
 def served_by(note: Note, stamps: list[Stamp], notes: list[Note]) -> Stamp | None:
-    """Which stamp serves ``note``, or None.
+    """Which stamp serves ``note``, or None. ON THE SAME LINE, or nothing.
 
-    A stamp serves the note NEAREST to it: within ``SERVE_WINDOW`` lines, with no
-    other note line between the two. A note that lies inside some stamp's frozen
-    region is also served -- it has already been frozen by a later note's stamp.
+    A note is served when a stamp sits on the note's OWN line -- or when the
+    note line falls inside some other stamp's frozen region, which means a later
+    note has already frozen it.
+
+    The same-line rule is EXACT on purpose. The first version of this function
+    accepted any stamp within a 40-line window with "no other note between", and
+    the mutation receipt caught it as a NO-OP: because the stamp lives ON a note
+    line, the strict-between test is trivially satisfied for the adjacent note,
+    so note 1's stamp silently "served" a brand-new UNSTAMPED note 2 six lines
+    below it -- the exact failure this gate exists to prevent, waved through by
+    the gate. A proximity window is a guess about intent; a same-line stamp is a
+    fact. The receipt arm for that near-miss is kept below.
     """
+    del notes  # intentionally unused: proximity/interleaving is no longer consulted
+    for s in stamps:
+        if s.line == note.line:
+            return s
     for s in stamps:
         lo, hi = s.region_span
         if lo <= note.line <= hi:
             return s
-    other = [n.line for n in notes if n.line != note.line]
-    best: Stamp | None = None
-    best_d = SERVE_WINDOW + 1
-    for s in stamps:
-        d = abs(s.line - note.line)
-        if d > SERVE_WINDOW:
-            continue
-        lo, hi = min(s.line, note.line), max(s.line, note.line)
-        if any(lo < m < hi for m in other):
-            continue
-        if d < best_d:
-            best, best_d = s, d
-    return best
+    return None
 
 
 # ---------------------------------------------------------------------------
@@ -834,6 +854,8 @@ def main(argv: list[str] | None = None) -> int:
                     help="derive stamps from git history and WRITE them (see --dry-run)")
     ap.add_argument("--dry-run", action="store_true",
                     help="with --backfill: print what would be written, change nothing")
+    ap.add_argument("--drift-report", default=None,
+                    help="with --backfill: write the drift-candidate survey to this JSON path")
     ap.add_argument("--mutation-receipt", action="store_true",
                     help="prove the gate can both FIRE and STAY QUIET, on synthetic fixtures")
     args = ap.parse_args(argv)
@@ -849,7 +871,10 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     if args.backfill:
-        return backfill(repo, cfg, args.path, dry_run=args.dry_run)
+        return backfill(
+            repo, cfg, args.path, dry_run=args.dry_run,
+            drift_report=Path(args.drift_report) if args.drift_report else None,
+        )
 
     rep = scan(repo, cfg, args.path)
     return report(rep, cfg, args.census)
@@ -905,49 +930,52 @@ def blame_map(repo: Path, path: str) -> dict[int, str]:
     return mapping
 
 
-def note_block_end(lines: list[str], start: int) -> int:
-    """1-based line of the last line of the note block beginning at ``start``.
-
-    A Rule-12 note is usually a Markdown blockquote spanning several lines. The
-    block is the maximal run of ``>``-prefixed lines when the note line is one;
-    otherwise the note line alone.
-    """
-    if not lines[start - 1].lstrip().startswith(">"):
-        return start
-    end = start
-    while end < len(lines) and lines[end].lstrip().startswith(">"):
-        end += 1
-    return end
-
-
 @dataclass
 class Backfilled:
     note: Note
     base: str
     region: str
     span_lines: list[str]     # exact frozen lines (keepends)
-    insert_at: int            # 1-based line the stamp is inserted BEFORE
+    stamp_line: int           # 1-based line the stamp is APPENDED TO (the note's own)
     capped_at: str            # what stopped the walk
     drift: str | None         # non-None == a live Rule-12 violation candidate
 
 
-def _classify_stop(base_seg: list[str], head_seg: list[str]) -> str | None:
-    """None if the segments differ only by INSERTIONS; else a diff description."""
-    sm = difflib.SequenceMatcher(a=base_seg, b=head_seg, autojunk=False)
+def _classify_range(
+    base_lines: list[str], head_lines: list[str], lo: int, hi: int
+) -> str | None:
+    """Drift inside HEAD's 0-based half-open range ``[lo, hi)``, or None.
+
+    Classification is done on a GLOBAL alignment of the whole file at base
+    against the whole file now, then restricted to the range. Anything narrower
+    is a peephole and lies: the first version of this compared a fixed-size
+    window on each side of the walk's stopping point, and because the two
+    windows started at different places in the two files it reported the FILE
+    TITLE as "DELETED" on an append-only docket that had merely grown by a
+    thousand lines. Every one of those reports was a false positive.
+
+    INSERTIONS are not drift. Adding a dated banner is the sanctioned Rule-12
+    move and it shifts every line below it; a gate that reds on the correct
+    behaviour gets switched off. REPLACE and DELETE are drift: a merged body was
+    edited or had content removed.
+    """
+    if max(len(base_lines), len(head_lines)) > 20000:
+        return None  # too large to align honestly; do not manufacture a verdict
+    sm = difflib.SequenceMatcher(a=base_lines, b=head_lines, autojunk=False)
     bad: list[str] = []
     for tag, i1, i2, j1, j2 in sm.get_opcodes():
-        if tag == "replace":
+        if tag == "replace" and j1 < hi and j2 > lo:
             bad.append(
-                f"      REPLACED at base offset {i1 + 1}:\n"
-                f"        was: {''.join(base_seg[i1:i2])[:240].rstrip()}\n"
-                f"        now: {''.join(head_seg[j1:j2])[:240].rstrip()}"
+                f"      REPLACED -- file line {j1 + 1}:\n"
+                f"        was: {''.join(base_lines[i1:i2])[:240].rstrip()}\n"
+                f"        now: {''.join(head_lines[j1:j2])[:240].rstrip()}"
             )
-        elif tag == "delete":
+        elif tag == "delete" and lo <= j1 <= hi:
             bad.append(
-                f"      DELETED at base offset {i1 + 1}:\n"
-                f"        was: {''.join(base_seg[i1:i2])[:240].rstrip()}"
+                f"      DELETED -- was at file line {j1 + 1}:\n"
+                f"        was: {''.join(base_lines[i1:i2])[:240].rstrip()}"
             )
-    return "\n".join(bad) if bad else None
+    return "\n".join(bad[:6]) if bad else None
 
 
 def derive_stamp(
@@ -986,22 +1014,18 @@ def derive_stamp(
             b_idx -= 1
         run.reverse()
         stopped_by_cap = (h_idx <= cap)
-        base_seg = base_lines[max(0, b_idx - 200) : b_idx]
-        head_seg = head_lines[max(cap, h_idx - 200) : h_idx]
+        range_lo, range_hi = cap, note.line - 1
     else:
-        h_end = note_block_end(head_lines, note.line)
-        b_end = b_line + (h_end - note.line)
         nxt = min([m for m in other if m > note.line], default=len(head_lines) + 1)
-        insert_at = h_end + 1
-        h_idx, b_idx = h_end, b_end                        # 0-based start of body
+        insert_at = note.line
+        h_idx, b_idx = note.line, b_line                   # 0-based, first line BELOW the note
         run = []
         while h_idx < nxt - 1 and b_idx < len(base_lines) and head_lines[h_idx] == base_lines[b_idx]:
             run.append(head_lines[h_idx])
             h_idx += 1
             b_idx += 1
         stopped_by_cap = (h_idx >= nxt - 1)
-        base_seg = base_lines[b_idx : b_idx + 200]
-        head_seg = head_lines[h_idx : min(nxt - 1, h_idx + 200)]
+        range_lo, range_hi = note.line, nxt - 1
 
     if not run:
         return None, (
@@ -1009,7 +1033,10 @@ def derive_stamp(
             f"line next to it already differs from history"
         )
 
-    drift = None if stopped_by_cap else _classify_stop(base_seg, head_seg)
+    drift = (
+        None if stopped_by_cap
+        else _classify_range(base_lines, head_lines, range_lo, range_hi)
+    )
     capped = "neighbouring Rule-12 note / file edge" if stopped_by_cap else "content divergence"
     return (
         Backfilled(
@@ -1017,7 +1044,7 @@ def derive_stamp(
             base=base,
             region=direction,
             span_lines=run,
-            insert_at=insert_at,
+            stamp_line=insert_at,
             capped_at=capped,
             drift=drift,
         ),
@@ -1025,11 +1052,14 @@ def derive_stamp(
     )
 
 
-def backfill(repo: Path, cfg: Config, paths: list[str] | None, dry_run: bool) -> int:
+def backfill(repo: Path, cfg: Config, paths: list[str] | None, dry_run: bool,
+             drift_report: Path | None = None) -> int:
     files = paths if paths is not None else tracked_markdown(repo)
     n_written = n_files = n_skipped = 0
     drifts: list[str] = []
     skips: list[str] = []
+    drift_rows: list[dict] = []
+    skip_rows: list[dict] = []
 
     for rel in sorted(files):
         fp = repo / rel
@@ -1056,6 +1086,8 @@ def backfill(repo: Path, cfg: Config, paths: list[str] | None, dry_run: bool) ->
             if bf is None:
                 n_skipped += 1
                 skips.append(f"{n.path}:{n.line}: SKIPPED -- {why}\n    note: {n.text.strip()[:180]}")
+                skip_rows.append({"path": n.path, "line": n.line, "reason": why,
+                                  "note": n.text.strip()[:400]})
                 continue
             derived.append(bf)
             if bf.drift:
@@ -1064,22 +1096,31 @@ def backfill(repo: Path, cfg: Config, paths: list[str] | None, dry_run: bool) ->
                     f"{bf.base[:12]} has CHANGED since. Only the {len(bf.span_lines)} "
                     f"line(s) adjacent to the note are provably still frozen; beyond that:\n"
                     f"{bf.drift}\n"
-                    f"    NOT REPAIRED (flag-don't-fix). Route it; add a "
-                    f"`known-pre-existing-violation` allow-list entry carrying this diff."
+                    f"    NOT REPAIRED (flag-don't-fix). Route it for adjudication."
                 )
+                drift_rows.append({
+                    "path": n.path, "line": n.line, "base": bf.base, "region": bf.region,
+                    "provably_frozen_lines": len(bf.span_lines),
+                    "note": n.text.strip()[:400], "diff": bf.drift,
+                })
 
         if not derived:
             continue
 
-        # Bottom-up so an insertion never invalidates a lower line number.
+        # The stamp is APPENDED TO THE NOTE'S OWN LINE, never inserted as a new
+        # one, so not a single line number in the corpus moves. See the module
+        # docstring for the measurement that forced this.
         out = list(head_lines)
-        for bf in sorted(derived, key=lambda b: b.insert_at, reverse=True):
+        for bf in derived:
             body = "".join(bf.span_lines)
             line = stamp_text(
                 bf.base, bf.region, len(bf.span_lines), len(body.encode("utf-8")),
                 sha256_of(body),
             )
-            out.insert(bf.insert_at - 1, line + "\n")
+            idx = bf.stamp_line - 1
+            cur = out[idx]
+            eol = "\n" if cur.endswith("\n") else ""
+            out[idx] = cur[: len(cur) - len(eol)].rstrip() + "  " + line + eol
             n_written += 1
             print(
                 f"{TAG} stamp    {rel}:{bf.note.line} region={bf.region} "
@@ -1093,6 +1134,27 @@ def backfill(repo: Path, cfg: Config, paths: list[str] | None, dry_run: bool) ->
         print(f"{TAG} skip     {s}")
     for d in drifts:
         print(f"{TAG} {d}")
+    if drift_report is not None:
+        drift_report.write_text(json.dumps({
+            "_comment": (
+                "CANDIDATES, not adjudicated violations. Emitted by "
+                "`verify-rule12-freeze.py --backfill --drift-report`. Each row is a Rule-12 "
+                "note whose surrounding body CHANGED between the commit that introduced the "
+                "note and HEAD, by a REPLACE or a DELETE (insertions are excluded -- adding a "
+                "dated banner is the sanctioned move). What it does NOT settle: whether the "
+                "note's own prose scoped its freeze that widely. A note saying 'the line "
+                "above is preserved' does not freeze a paragraph 90 lines up, and this tool "
+                "derives the range mechanically (note to neighbouring note) rather than from "
+                "the prose. So each row is the QUESTION 'was this edit inside what that note "
+                "froze?', addressed to whoever owns the record -- NOT an answer. Nothing here "
+                "was repaired: repairing an append-only violation in place compounds it by "
+                "destroying the evidence."
+            ),
+            "generated_by": "manuscript/ave-kb/tools/verify-rule12-freeze.py --backfill",
+            "drift_candidates": drift_rows,
+            "unstampable_notes": skip_rows,
+        }, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        print(f"{TAG} drift-candidate survey written to {drift_report}")
     print(
         f"{TAG} backfill{' (DRY RUN -- nothing written)' if dry_run else ''}: "
         f"{n_written} stamp(s) across {n_files} file(s); "
@@ -1150,6 +1212,8 @@ FIXTURE_NOTE_2 = (
     "verbatim).** And the bench-two repeat used a different fixture.\n"
 )
 
+FIXTURE_CONT = "\n## 3. Follow-up\n\nBench two repeated the sweep at 800 Hz.\n"
+
 
 def _fx_git(tmp: Path, *args: str) -> str:
     return git_out(
@@ -1157,17 +1221,32 @@ def _fx_git(tmp: Path, *args: str) -> str:
     )
 
 
-def _fx_stamp_above(tmp: Path, rel: str, base: str, upto: int, insert_at: int) -> None:
-    """Insert a correctly-derived region=above stamp before line ``insert_at``."""
+def _fx_stamp_above(tmp: Path, rel: str, base: str, upto: int, at_line: int) -> None:
+    """APPEND a correctly-derived region=above stamp to line ``at_line``.
+
+    Built by hand rather than by calling ``derive_stamp``: a receipt whose
+    fixtures are produced by the code under test passes whether or not either
+    half works.
+    """
     lines = split_keepends((tmp / rel).read_text(encoding="utf-8"))
-    body = "".join(lines[insert_at - 1 - upto : insert_at - 1])
+    body = "".join(lines[at_line - 1 - upto : at_line - 1])
     line = stamp_text(base, "above", upto, len(body.encode("utf-8")), sha256_of(body))
-    lines.insert(insert_at - 1, line + "\n")
+    cur = lines[at_line - 1]
+    eol = "\n" if cur.endswith("\n") else ""
+    lines[at_line - 1] = cur[: len(cur) - len(eol)].rstrip() + "  " + line + eol
     (tmp / rel).write_text("".join(lines), encoding="utf-8")
 
 
 def _fx_build(tmp: Path) -> tuple[str, str, str]:
-    """Build the fixture repo. Returns (c_pre, c_body, c_frozen)."""
+    """Build the fixture repo. Returns (c_pre, c_note, c_cont).
+
+    c_pre   a commit whose `record.md` holds DIFFERENT content -- a real,
+            resolvable commit that does NOT carry the frozen bytes, for the
+            tampered-base arm.
+    c_note  body + note 1, the commit the note-1 stamp is anchored to.
+    c_cont  c_note + a stamped note 1 + follow-up prose; the tree the arms
+            perturb, and the anchor available to a legitimate later append.
+    """
     _fx_git(tmp, "init", "-q", "-b", "receipt")
     (tmp / "record.md").write_text("# Placeholder\n\nDifferent content entirely.\n", encoding="utf-8")
     _fx_git(tmp, "add", "-A")
@@ -1178,21 +1257,26 @@ def _fx_build(tmp: Path) -> tuple[str, str, str]:
     (tmp / "other.md").write_text(FIXTURE_OTHER, encoding="utf-8")
     _fx_git(tmp, "add", "-A")
     _fx_git(tmp, "commit", "-q", "-m", "body")
-    c_body = _fx_git(tmp, "rev-parse", "HEAD").strip()
 
-    n_body = len(split_keepends(FIXTURE_BODY))
     with (tmp / "record.md").open("a", encoding="utf-8") as fh:
         fh.write("\n" + FIXTURE_NOTE_1)
-    # The stamp goes at the BODY's edge, not at the note's: the blank line that
-    # separates them arrived WITH the note and so is not part of what `c_body`
-    # froze. Building the fixture's stamp by hand -- rather than by calling
-    # `derive_stamp` -- keeps the receipt from testing the backfill against
-    # itself, which would pass whether or not either half worked.
-    _fx_stamp_above(tmp, "record.md", c_body, n_body, n_body + 1)
     _fx_git(tmp, "add", "-A")
-    _fx_git(tmp, "commit", "-q", "-m", "freeze")
-    c_frozen = _fx_git(tmp, "rev-parse", "HEAD").strip()
-    return c_pre, c_body, c_frozen
+    _fx_git(tmp, "commit", "-q", "-m", "append note 1")
+    c_note = _fx_git(tmp, "rev-parse", "HEAD").strip()
+
+    # The stamp is anchored to the commit that APPENDED THE NOTE, never to the
+    # body-only commit before it and never to HEAD. The blank line separating
+    # body from note arrived WITH the note, so only the note commit carries the
+    # region byte-for-byte -- and a base of HEAD would say "today's bytes equal
+    # today's bytes", which is green on a body corrupted yesterday.
+    note_line = len(split_keepends((tmp / "record.md").read_text(encoding="utf-8")))
+    _fx_stamp_above(tmp, "record.md", c_note, note_line - 1, note_line)
+    with (tmp / "record.md").open("a", encoding="utf-8") as fh:
+        fh.write(FIXTURE_CONT)
+    _fx_git(tmp, "add", "-A")
+    _fx_git(tmp, "commit", "-q", "-m", "stamp note 1 + follow-up prose")
+    c_cont = _fx_git(tmp, "rev-parse", "HEAD").strip()
+    return c_pre, c_note, c_cont
 
 
 def mutation_receipt() -> int:  # noqa: C901 -- one arm per branch, deliberately flat
@@ -1205,7 +1289,7 @@ def mutation_receipt() -> int:  # noqa: C901 -- one arm per branch, deliberately
     try:
         tmp = root / "fixture"
         tmp.mkdir()
-        c_pre, c_body, c_frozen = _fx_build(tmp)
+        c_pre, c_note, c_cont = _fx_build(tmp)
         pristine = (tmp / "record.md").read_text(encoding="utf-8")
         other_pristine = (tmp / "other.md").read_text(encoding="utf-8")
 
@@ -1223,7 +1307,7 @@ def mutation_receipt() -> int:  # noqa: C901 -- one arm per branch, deliberately
                 print(f"    {f}")
             return 1
         print(f"{TAG} receipt fixture built and GREEN unperturbed "
-              f"(base commit {c_body[:12]}, freeze commit {c_frozen[:12]}).")
+              f"(note-1 freeze base {c_note[:12]}, tree at {c_cont[:12]}).")
 
         def arm_catch(label: str, mutate) -> None:
             nonlocal ok
@@ -1258,13 +1342,22 @@ def mutation_receipt() -> int:  # noqa: C901 -- one arm per branch, deliberately
 
         # ---- CAN-IT-STAY-QUIET arms first: the inverse class, built for. -----
         def legit_append() -> None:
+            """The sanctioned Rule-12 move, performed exactly as a lane would.
+
+            Append a dated note; commit it (a note nobody committed has no
+            freeze event to anchor to); stamp it against THAT commit, capped at
+            the previous note so the two regions TILE rather than overlap.
+            """
             p = tmp / "record.md"
             with p.open("a", encoding="utf-8") as fh:
                 fh.write("\n" + FIXTURE_NOTE_2)
+            _fx_git(tmp, "add", "-A")
+            _fx_git(tmp, "commit", "-q", "-m", "append note 2")
+            c2 = _fx_git(tmp, "rev-parse", "HEAD").strip()
             lines = split_keepends(p.read_text(encoding="utf-8"))
-            prev_stamp = next(i for i, ln in enumerate(lines, 1) if STAMP_RE.search(ln))
-            insert_at = len(lines) - 1          # before the blank that precedes note 2
-            _fx_stamp_above(tmp, "record.md", c_frozen, insert_at - prev_stamp, insert_at)
+            prev_note = max(i for i, ln in enumerate(lines, 1) if STAMP_RE.search(ln))
+            note2 = len(lines)
+            _fx_stamp_above(tmp, "record.md", c2, note2 - 1 - prev_note, note2)
 
         arm_quiet(
             "a LEGITIMATE Rule-12 append below the boundary (a second dated note, "
@@ -1321,6 +1414,12 @@ def mutation_receipt() -> int:  # noqa: C901 -- one arm per branch, deliberately
         arm_catch(
             "a RULE-12 PROSE NOTE WITH NO STAMP -- the failure the gate exists to prevent",
             edit(lambda s: s + "\n" + FIXTURE_NOTE_2),
+        )
+        arm_catch(
+            "a NEIGHBOUR'S stamp does not serve an unstamped note -- the near-miss the "
+            "receipt caught in this gate's own first serve rule (a 40-line proximity "
+            "window let note 1's stamp wave note 2 through)",
+            edit(lambda s: s + "\n" + FIXTURE_NOTE_2 + "\nTrailing prose.\n"),
         )
         arm_catch(
             "a MALFORMED stamp (reads as guarded to a human, parses for no machine)",
