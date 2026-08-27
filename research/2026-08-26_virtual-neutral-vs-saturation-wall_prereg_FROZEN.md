@@ -1337,3 +1337,277 @@ who meets the corrected sibling first could otherwise bind §3's *"it"* to the `
 
 **End of AMENDMENT 1.** Nothing in this amendment is frozen text; it is dated, its justification is
 above it, and it is subject to review like any other appended content.
+
+---
+
+# 🔧 AMENDMENT 2 — 2026-08-27 (Rule-12, dated, APPENDED; the frozen body AND Amendment 1 are both untouched)
+
+**Scope.** This amendment corrects **Amendment 1**, not the frozen body. Every item below is a
+statement about text that Amendment 1 added on 2026-08-27; **nothing here reaches above the
+`AMENDMENT 1` heading**, and nothing here edits Amendment 1's own characters either — the
+corrections are stated here and Amendment 1's text is left as the dated record of what it said.
+
+**Item labels are `AM2.x`, deliberately.** §4's bins are named `A1`, `A2`, `A3`, `A4`; §5.8's
+engineering choices are `EC-n`; Amendment 1's items are `A1.n`. `AM2.x` collides with none of them.
+
+**Append-only receipt, re-proved rather than inherited, by two independent methods.**
+
+1. **No removed line.** `git diff 9b178a50 HEAD -- research/2026-08-26_virtual-neutral-vs-saturation-wall_prereg_FROZEN.md`
+   contains **no removed content line**: the count of lines matching `^-[^-]` is `0`. Every change to
+   this file since the pre-freeze commit `9b178a50` is an insertion. This is the receipt Amendment 1
+   claimed for itself; it is re-run here, not carried over.
+2. **Byte-prefix, which is strictly stronger.** A zero-deletion diff still permits an insertion in
+   the *middle* of the file. It is therefore also checked that the previous content is an exact
+   **byte prefix** of the new content — i.e. that everything before this amendment is untouched *in
+   place*, not merely un-deleted. Measured on the tree carrying this amendment:
+   the blob at `1d33b254` (frozen body **plus** the 🔒 FREEZE STAMP) is an exact byte prefix, and
+   the blob at the parent commit of this one (frozen body + stamp + **all of Amendment 1**) is an
+   exact byte prefix, byte counts `98 529` → `117 522`. Amendment 1's own cited blob id for the
+   pre-freeze body verifies too: `git rev-parse 9b178a50:<this file>` returns
+   `929b4ccb5a68a0fea00bd700394eaaa122935181`, and `1d33b254` added the stamp with **14 insertions
+   and 0 deletions**.
+
+   *Re-check command:* `git show HEAD~1:<this file> > /tmp/prev && cmp -n $(wc -c < /tmp/prev) /tmp/prev <this file>`.
+
+**Method note.** Both checks are about *this one file*. Neither says anything about other files on
+the branch, and neither would catch a change made and then reverted within a single commit.
+
+**What this amendment does NOT do.** It moves no $\tau_\beta$, no key edge, no bin definition, no
+tone set, no amplitude rung, no seed, no kernel path, no envelope arm, no observable, and **it does
+not move Amendment 1's selection of R1 either.** Every item below is a correction to a *disclosure*,
+an *enumeration*, or a *quotation*, plus one open question that is routed rather than answered.
+
+## AM2.1 — 🔒 A1.1(ii)'s disclosed triple is IMPOSSIBLE under the CORE that A1.2 freezes
+
+**The defect, as arithmetic rather than as an opinion.** A1.1(i) freezes
+$\mathrm{CORE} = \{\texttt{port // net.degree} : \texttt{port} \in \texttt{term.ports}\}$, and under
+A1.2(i)'s port set $[\,0\cdot3+0,\;0\cdot3+1,\;0\cdot3+2\,]$ every one of those three ports maps to
+node $0$. **So $|\mathrm{CORE}| = 1$.** A1.1(i) says exactly this in its own words: *"Under A1.2 this
+is the single node $u_{\text{seed}} = 0$."*
+
+With a one-element CORE, write $c_0$ for its element. Then, straight from A1.1(ii)'s own
+definitions:
+
+- **R1** $= \frac{1}{|\mathcal N|}\sum_{u\in\mathcal N}\min_{c\in\mathrm{CORE}} d(c,u)
+  = \frac{1}{|\mathcal N|}\sum_{u\in\mathcal N} d(c_0,u)$.
+- **R2** $= \frac{1}{|\mathrm{CORE}||\mathcal N|}\sum_{(c,u)} d(c,u)
+  = \frac{1}{|\mathcal N|}\sum_{u\in\mathcal N} d(c_0,u)$.
+- **R3** $= \frac{1}{|\mathrm{CORE}|}\sum_{c\in\mathrm{CORE}}\min_{u\in\mathcal N} d(c,u)
+  = \min_{u\in\mathcal N} d(c_0,u)$.
+
+Two consequences, both forced:
+
+1. **$\mathrm{R1} = \mathrm{R2}$ identically.** The all-pairs mean and the nearest-core mean are the
+   same sum when there is one core node. A1.1(ii)'s tie-break — *"R2 is necessarily the largest of
+   the three — an all-pairs mean is $\ge$ either nearest-member mean"* — degenerates to an equality
+   on the R1 side, so it cannot single out a largest value.
+2. **R3 is an integer.** It is a single unweighted-BFS hop count (§5.8 **EC-8**), not an average of
+   several, so it cannot be $4.500$ or $6.362$.
+
+**Therefore the disclosed triple `4.000 / 6.362 / 4.500` — three distinct values, two of them
+non-integer — cannot have been measured with the CORE this document freezes.** Under
+$|\mathrm{CORE}| = 1$ at most two distinct values are available, one of which must be a whole number.
+
+**What follows, and what deliberately does not.**
+
+- **The triple is withdrawn as a receipt.** It was measured on **some other core set**. **This
+  amendment does not identify that set and does not guess it** — the audit's report as received here
+  does not name it, and inventing one would be exactly the failure mode Amendment 1's own
+  *"this amendment does not guess"* clause was written to avoid. **The consequence is that the
+  numbers `4.000 / 6.362 / 4.500` are NOT reproducible as disclosed**, and no later document may
+  cite them as measurements of R1/R2/R3 on the frozen CORE.
+- **The motivating spread goes with it.** A1.1's defect statement says the readings *"disagree by
+  2.36 hops"*. That difference is `6.362 − 4.000`, i.e. it is computed from the withdrawn triple, so
+  **the specific spread is also not established for the frozen CORE.**
+- **The defect A1.1 exists to close is UNAFFECTED, and so is the freeze.** *"Mean distance from a
+  set to a set"* is genuinely ambiguous whatever the core turns out to be — R3 differs from R1
+  structurally, not numerically — so the aggregation rule still had to be frozen, and A1.1(ii)
+  froze it. Crucially, **A1.1 selected R1 on structural grounds and said so in its own text**:
+  *"both values are recorded and the selection above is made on the structural grounds given, not on
+  a value."* A selection that never consumed the numbers does not move when the numbers are
+  withdrawn. **R1 remains the frozen aggregation rule.**
+- **The reporting obligation is now the thing that carries the disclosure.** A1.1(ii)'s closing
+  requirement — every configuration reports $d_{\text{null}}$ under R1 *and* reports $|\mathcal N|$
+  and the null-set node index list — lets any reader recompute R1, R2 and R3 from the run's own
+  output. That obligation is unchanged and is now the only route by which a real triple enters the
+  record.
+
+## AM2.2 — 🔒 A1.1(i)'s "same node set in EVERY configuration of §5.9" is wrong on the $z=2$ fixture, and UNDETERMINED on the cold control
+
+A1.1(i) closes with: *"it is **the same node set in every configuration of §5.9** — every seed, both
+envelope arms, all four tone sets, all three amplitude rungs, the cold empty-vacuum control and the
+$z=2$ fixture."* Two of the eight items in that enumeration do not hold.
+
+### (a) The $z=2$ fixture — DROPPED from the enumeration, with the reason
+
+**CORE is not defined on the $z=2$ fixture, because that fixture has no `Termination` to define it
+from.** §7.3 runs it twice and **both runs are `term=None`**, verbatim: *"1. **`term=None`** — and
+asserts **NT-1, NT-2 and NT-3 all FAIL**…"* and *"2. warm-started at the exact ring mode
+`ring_mode(12, m)` with `term=None`…"*. A1.1(i)'s constructor reads `term.ports`; with `term = None`
+there is no `.ports`, so $\mathrm{CORE}$ is not a defined object there — it is not *empty*, it is
+*undefined*.
+
+**Nothing is lost by dropping it.** §7.3 binds the fixture out of every downstream quantity in as
+many words: *"Neither fixture run may appear in any bin, on any carrier, for any purpose other than
+this receipt."* $d_{\text{null}}$ is never computed on it, so CORE was never needed there. The
+corrected clause reads: **CORE is the same node set on every configuration that computes
+$d_{\text{null}}$**, and the $z=2$ fixture is not one of them.
+
+### (b) The cold empty-vacuum control — 🔶 **OPEN, ROUTED, NOT ANSWERED HERE**
+
+A1.1(i) asserts CORE is defined on the cold empty-vacuum control. **That assertion depends on
+whether the cold control carries a `Termination`, and the frozen body does not settle it.** Both
+readings are supported by frozen text, which is precisely why this amendment does not pick one:
+
+| reading | frozen text that supports it |
+|---|---|
+| **the control DOES carry a Termination** | §5.1 builds it from the physics carrier itself — *"`build_srs_net(L=6)` with $A_{\text{bond}} \equiv 0$ (cold, empty)"* (`:622`) — so `net.carrier == "srs-z3"` and §5.1's assertion gate (`:624`) does not exclude it. §4.4 **(A5)** requires $\mathcal N$ to be *computed* on it and compared against the physics run's, and §4.2 **(O1)**'s $\beta_u$ — the ratio of the quadrature-summed $\bigl|\sum_j a_{uj}v^{(m)}_{uj}\bigr|$ to the quadrature-summed $\sum_j a_{uj}\bigl|v^{(m)}_{uj}\bigr|$ — is $0/0$ at $v \equiv \mathbf 0$, so it needs a non-zero $v$ to be defined at all. §0's PHASE-STATE row (`:56`) says *"Both the cold arm and the graded arm are run"*, listing them as two arms of one thing. |
+| **the control does NOT carry a Termination** | §5.7 scopes its requirement to *"every **physics** configuration"* (`:687`) and §7 **NT-2** forbids `term=None` *"on the **physics path**"* (`:874`) — and §5.1 tags the cold run **CONTROL**, a role it lists separately from **PHYSICS carrier** (`:620`, `:622`). §5.9 likewise lists it as an addition to the arms rather than as one of them: *"Plus, per seed, one cold empty-vacuum control and one $z=2$ fixture run"* (`:708`). |
+
+**This amendment does not answer it.** The two readings have different consequences — an
+undriven cold control would return $\lVert v\rVert = 0$ by §7.1's own mechanism, which makes $\beta$
+a $0/0$ and would make **(A5)** inevaluable rather than merely negative — and choosing between them
+is a design decision about the run, not a reading of the text. **It is therefore stated as open and
+routed, not resolved.**
+
+> 🔶 **OPEN QUESTION OWED, and it BLOCKS the driver, not this document.** *Does the cold
+> empty-vacuum control carry a `Termination` (and if so, the same one A1.2 freezes)?* **It must be
+> answered by a further dated amendment before any driver for this lane is written**, because A1.1's
+> second bullet — the argument that CORE must not be amplitude-defined — is built on the control
+> being a place where $\mathcal N$ *can* be computed. Until it is answered, **A1.1(i)'s clause "the
+> cold empty-vacuum control" is UNDETERMINED**: not withdrawn, not affirmed.
+
+**Why no `_orchestration/open-items/` file is created on this branch for it, stated so the omission
+is visible rather than silent.** Amendment 1's non-rescue receipt cites, as evidence that no
+measurement exists to move a criterion toward, that *"`git diff --stat origin/main...HEAD` is one
+file"*. Adding a second file to this branch would invalidate a live receipt in order to record a
+question. **The routing item is therefore OWED on the orchestration side, not here**, and this
+paragraph is the record that it is owed.
+
+## AM2.3 — A1.1's *"the core"* enumeration is incomplete, and the omitted occurrence is one A1.2 leans on
+
+A1.1's defect statement says: *"The phrase occurs at §3.2 (`:405`) and §4.2 (`:478`), with a third
+bare **"the core"** at §4.2 **(O5)** (`:483`)."*
+
+**The full occurrence list in the frozen body**, obtained by `grep -in "core"` over lines `1`–`1073`
+(i.e. everything above the `AMENDMENT 1` heading) and then classifying each hit by hand:
+
+| line | text, in part | what it refers to |
+|---|---|---|
+| `:56` | §0 PHASE-STATE — *"driven up to but not beyond the shipped kernel clip **in the core**"* | **the driven region** — informal, spatial, and **not** introduced as the core/seed node set. **Omitted by A1.1, and it is the occurrence A1.2(ii) point 2 leans on** when it argues a plane drive has *"no `core` distinct from it"*. |
+| `:115` | *"$Z_{\text{core}}\to0$, $\Gamma\to-1$"* | **a different object** — the incumbent claim's A1 mass-core impedance. Not a node set. |
+| `:294` | *"$Z_{\text{core}} = Z_0\sqrt{S(A)}$"* | same as `:115`. |
+| `:295` | *"the electron's A1 mass core operates at…"* | same as `:115`, quoting `vocabulary-register.md:757`. |
+| `:405` | §3.2 — *"leaves the **core/seed node** in a finite connected component"* | the node set. **Note: "node", singular, not "node set"** — A1.1 describes `:405` and `:478` as carrying the same phrase; they do not, quite. |
+| `:478` | §4.2 **(O4)** — *"from the **core/seed node set** to $\mathcal N$"* | the node set. |
+| `:483` | §4.2 **(O5)** — bare *"the core"* | the node set. |
+
+**What changes.** The freeze does not: CORE as constructed in A1.1(i) is still the referent at
+`:405`, `:478` and `:483`. What changes is that **`:56` is now on the record as a fourth,
+differently-typed use** — a spatial gloss, not a node set — so a later reader who follows A1.2(ii)'s
+argument back to §0 does not find an unlisted occurrence and conclude the enumeration missed a
+definition site. And `:115`, `:294`, `:295` are named as the homonym they are, so *"core"* in this
+document is never silently read across from the impedance object to the node set.
+
+**Method, and its blind spot.** Single case-insensitive substring grep for `core` over the frozen
+body's line range, every hit read and classified by hand. It is substring-based: it catches
+`Z_{\text{core}}` and `core/seed`, and it would **miss** a synonym — *"the seed node"*, *"the driven
+node"*, *"$u_{\text{seed}}$"* — used without the word *core*. This table is therefore an
+enumeration of the word, not of the concept.
+
+## AM2.4 — A1.2(iv) calls its second clause *"§5.8's own next sentence, unchanged"*. It is reworded.
+
+**§5.8's actual next sentence**, verbatim at `:703-704`, reading the two lines whole:
+
+> *"**No other numerical parameter exists in the driver.** If one appears during implementation it
+> is a design defect and is reported as one, not tuned."*
+
+**A1.2(iv)'s replacement sentence**, verbatim as it stands:
+
+> *"The numerical parameters of the driver are **EC-1 … EC-12**, and any parameter that appears at
+> implementation time and is not on that list is a design defect and is reported as one, not
+> tuned."*
+
+**The difference, named.** *"If one appears during implementation"* became *"any parameter that
+appears at implementation time and is not on that list"*. The pronoun *"one"* — whose antecedent in
+§5.8 was *"[an]other numerical parameter"* relative to **EC-1 … EC-8** — is replaced by an explicit
+noun phrase whose exclusion set is **EC-1 … EC-12**. **That is a rewording with the referent made
+explicit, and it is a necessary one**, because A1.2(iv)'s whole point is that the list grew; a
+verbatim carry-over of the pronoun would have pointed at the old list.
+
+**The corrected description.** A1.2(iv)'s phrase *"§5.8's own next sentence, unchanged and still
+binding"* should be read as: **§5.8's own next sentence, restated with its referent made explicit —
+the obligation ("report it as a defect, do not tune it") is unchanged; the wording is not.** The
+quotation of §5.8 at `:703-704` above is the text of record for anyone who needs the original.
+
+## AM2.5 — A1.3's quotation of §4.2 is truncated without an ellipsis
+
+**A1.3 renders §4.2's sentence as:** *"**Measured, at freeze, over 20 000 random-phase draws at
+$z=3$ with log-normal magnitudes: mean $\beta = 0.5423$, max $\beta = 0.999993$**"* — closing the
+quotation there, with no ellipsis and no bracket.
+
+**The sentence at `:465-466` continues.** In full:
+
+> *"**Measured, at freeze, over 20 000 random-phase draws at $z=3$ with log-normal magnitudes: mean
+> $\beta = 0.5423$, max $\beta = 0.999993$, and the all-in-phase case returns exactly $1.0$**"*
+
+**The dropped clause is not inert.** *"the all-in-phase case returns exactly $1.0$"* is the
+**ceiling** half of the receipt — §4.2's next sentence calls the measurement *"confirming both the
+ceiling and the generic population"* — and A1.3's subject is the *generic population* half. Quoting
+only the half under discussion is legitimate; **doing it without an ellipsis is not**, because it
+presents a truncation as a whole sentence.
+
+**Correction of record.** Read A1.3's quotation as ending *"…max $\beta = 0.999993$, …"*. Nothing in
+A1.3's $\sigma$ recovery depends on the dropped clause — the inversion is driven by the **mean**,
+and the all-in-phase value $1.0$ is exact for any $\sigma$ (it is the $\beta_u = 1$ case of §4.2's
+own bound), so it carries no information about $\sigma$ at all. **A1.3's numbers, its scan and its
+conclusion that §4.2's "1.7 decades" stands are unaffected.**
+
+## AM2.6 — A1.5 minted a new universal while correcting an old one. Replaced by an enumeration.
+
+**What A1.5 says**, verbatim: *"**What no leaf computes is $M$'s SPECTRUM on a closed surface** — the
+only shipped eigenvalue read is on the *local-node* block
+(`src/scripts/vol_4_engineering/vacuum_varactor_scatter_figures.py:242`)."*
+
+**The first clause is TRUE and stands. The second is FALSE**, and it is the same error one level
+narrower than the *"no leaf computes $M$"* that A1.5 was written to disclose. Eigenvalue reads on
+this operator family exist beyond the local-node block, including over the **whole** assembled
+operator:
+
+- **`global_spectrum`** (`src/ave/solvers/node_scattering_multiplicity.py:153-162`) applies
+  `np.linalg.eigvals` to `assemble_global_scattering(net)` — the assembled
+  $\mathcal S = C\cdot\mathrm{blockdiag}(S)$ over the full $(N\cdot\text{degree})$ DOF space. Run on
+  this tree it returns `ndof = 192` for `build_srs_net(L=2)` and `ndof = 64` for
+  `build_diamond_net(L=4)`, with `is_orthogonal` and `all_eigs_unit_modulus` both `True`. **It is
+  exercised by a shipped test**, `test_assembled_lattice_operators_are_orthogonal`
+  (`src/tests/test_node_scattering_multiplicity.py:159-165`).
+- **`tlm_operator_spectrum`** (`src/scripts/vol_1_foundations/scx_phase1_crosscheck.py:438-454`)
+  takes `np.angle(np.linalg.eigvals(...))` of the engine's own one-step scatter+connect operator,
+  materialised column-by-column from `scalar_tlm_step` + `scatter_matrix(net.degree)`.
+- The local-node class has more members than the one cited — among them
+  **`local_scatter_spectrum`** (`src/ave/solvers/node_scattering_multiplicity.py:77-91`) and
+  **`src/tests/test_engine_constants_alignment.py:155-161`**.
+
+**The full enumeration, with the method that found it and that method's blind spots, lives in the
+sibling arc record** — `research/2026-08-26_virtual-neutral-boundary-arc_RECORD.md` §3 CAUTION 1, on
+branch `research/2026-08-26-virtual-neutral-arc` — and is **not duplicated here**, because a
+duplicated enumeration is a second thing to keep true. **What is stated here is the shape of the
+claim: an enumeration plus a method, never an "only".**
+
+**What this does to §3 of the frozen body: still nothing, and for the reason A1.5 already gave.**
+§3's *"UNKNOWN. No leaf in the corpus computes it."* (`:375`) and §3.2's *"This is the object the
+corpus has never computed"* (`:409`) both bind *"it"* to the column's `statement` row — *"does a
+**closed** set of simultaneously balanced nodes exist, and where"*. **A spectrum of $M$ over the
+whole periodic lattice is not a spectrum over a closed subset of nodes**, so the corrected picture
+leaves §3's reading exactly where A1.5 left it: **TRUE, and about the restriction, not about the
+operator and not about the existence of a spectrum.** If anything the enumeration sharpens §3 —
+it shows the whole-lattice spectrum is cheap and already shipped, so the missing object is the
+restriction alone.
+
+**No criterion, tolerance, bin edge, observable, geometry value or gate moves.**
+
+---
+
+**End of AMENDMENT 2.** Nothing in this amendment is frozen text. It corrects Amendment 1's
+disclosures, enumerations and quotations; it changes no frozen quantity; it leaves one question
+(AM2.2(b)) open and routed rather than answered.
