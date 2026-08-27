@@ -1617,3 +1617,53 @@ restriction alone.
 **End of AMENDMENT 2.** Nothing in this amendment is frozen text. It corrects Amendment 1's
 disclosures, enumerations and quotations; it changes no frozen quantity; it leaves one question
 (AM2.2(b)) open and routed rather than answered.
+
+---
+
+# AMENDMENT 3 — 2026-08-27 — the non-rescue receipt, restated in the form its content always had
+
+**Append-only. No frozen quantity moves. No criterion moves.** This amendment adds no
+disclosure about the physics and answers no open question; it repairs one *receipt* whose
+stated form was narrower than the fact it certifies, and it lands the routing item AM2.2(b)
+recorded as owed.
+
+## AM3.1 — the receipt
+
+Amendment 1 wrote the non-rescue receipt as: *"`git diff --stat origin/main...HEAD` is one
+file, and `research/drivers/` holds nothing for it."* The **content** that receipt certifies
+is stated in the same sentence: *"the branch still contains no driver for this lane, no
+solved state and no measured number from the pre-registered run."*
+
+The one-file form is a **proxy** for that content, and it is a brittle one: it is falsified
+by any second file, including a file that is not a measurement. AM2.2(b) hit exactly that,
+and declined to record a routed question rather than invalidate a receipt.
+
+**Restated, in the form the content always had, and checkable at any commit on this branch:**
+
+```
+git diff --name-only origin/main...HEAD          # the file set
+git ls-files research/drivers/ | grep -i virtual # empty: no driver for this lane
+```
+
+No path under `research/drivers/` exists for this lane; no `.json`, `.npz` or result document
+for it exists on the branch; the only files are this pre-registration and the open item added
+by this amendment.
+
+**Method, and what this does not establish.** The two commands above were run on this branch
+at the commit carrying this amendment. They report the file set and the driver directory. They
+do not establish that no measurement exists anywhere — only that none is on this branch, which
+is what Rule 11 needs here.
+
+## AM3.2 — the routing item AM2.2(b) recorded as owed
+
+`_orchestration/open-items/2026-08-27-prereg-control-termination.md` is added by this
+amendment. It carries the AM2.2(b) question — whether the cold empty-vacuum CONTROL carries a
+`Termination` — with both readings and the frozen text each rests on, and it answers neither.
+
+`A1.1(i)`'s clause stays **UNDETERMINED** exactly as AM2.2(b) left it. Adding the item records
+the question on the board; it does not settle it.
+
+---
+
+**End of AMENDMENT 3.** It restates one receipt and lands one routing item. It moves no frozen
+quantity, resolves no fork, and reports no measurement.
