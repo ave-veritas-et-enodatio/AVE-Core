@@ -34,6 +34,61 @@ caution 2), and it is **not** a new coinage — canon already writes
 "virtual-neutral surface" once, and "virtual ground" once, both cited in §5.
 
 ## §1 — The reframe, and what "virtual neutral" means on the schematic
+
+**Provenance — Grant, verbatim (2026-08-26):**
+
+> *"It makes sense to me that the 'boundary' is the virtual neutral, and isn't
+> resolvable in 'real space' but like only exist is any sense of a discrete
+> form in phase space. What does the equivalent circuit EE model/schematic
+> say?"*
+
+**And the directive governing the arc — Grant, verbatim:**
+
+> *"I think we need to be ok challenging past rulings that don't have hard math
+> tied to them."*
+
+### 1.1 What the schematic actually is `[CANON]`
+
+Every interior node of the chiral srs net is a **three-connected shunt
+junction**. Canon writes this in power-engineering words already, without
+hedging:
+
+> *"each interior node (e.g., carbon, nitrogen, oxygen) is a 3-connected WYE
+> junction — a three-phase node. A bond between two interior atoms (a
+> 'heavy-heavy' bond) represents a **balanced three-phase system**"*
+> — `manuscript/ave-kb/vol5/molecular-foundations/organic-circuitry/first-principles-bond-force-constants.md:110`
+
+The shipped operator is the admittance-weighted shunt reduction
+(`src/ave/solvers/vacuum_varactor_scatter.py:28-34, :156-185`):
+
+```
+V_u = 2 (Σ_j Y_j V_j^inc) / (Σ_k Y_k)          [the node voltage]
+S_ij = 2 Y_j / (Σ_k Y_k) − δ_ij                [the scatter]
+```
+
+### 1.2 The reframe in one sentence `[WALK]`
+
+Grant's move is to stop asking *"at what radius does `S(A)` hit threshold?"*
+and instead ask *"where does the phasor sum `Σ_j Y_j V_j^inc` vanish?"* — i.e.
+to treat the boundary as the locus where the Wye node sits at its own virtual
+neutral. On such a node the star point is at zero volts **with no conductor to
+ground and no saturation**: the leg phasors cancel each other. That is the
+`V_u = 0` branch of the reduction above.
+
+### 1.3 Why "not resolvable in real space" is the right instinct `[WALK]`
+
+An amplitude level-set is a **real-space** object: `A(r) = A_yield` has a
+radius, and you can point at it. A virtual neutral is a **port-space** object:
+it is a condition on the *relative phases and admittances of the legs meeting
+at one node*, not on any scalar field evaluated at a point. The set of
+`V^inc` vectors satisfying it is a **hyperplane through the origin** of the
+port space — a discrete-in-form object (a codimension-1 subspace with a
+definite dimension `z−1`) that has no radius at all.
+
+**This is the whole content of the reframe**, and §2 shows the schematic
+answers it *exactly*, with no approximation and no fitted parameter — and §3
+shows immediately why the exactness is a trap.
+
 ## §2 — ★ THE MEASURED CORE
 ## §3 — ★★ THE TWO CAUTIONS
 ## §4 — The consequence: FREE EVERYWHERE or ABSENT HERE, never in between
