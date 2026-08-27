@@ -529,6 +529,41 @@ register-move question: *which sector owns the wall* must settle before *which
 register the wall belongs to* is meaningful.
 
 ## §8 — The symmetric standard, both directions
+
+**Applied to AVE.** `[WALK]` Substituting a **nodal / symmetry plane** for a
+**PEC wall** is bread-and-butter EM cavity practice. Every microwave engineer
+who halves a cavity at its symmetry plane and applies a perfect-electric-wall
+boundary condition is doing exactly what §2.3 does: replacing a physical mirror
+with a **balance condition that reflects identically**. The `+1`-open /
+`−1`-short eigenmode split of a symmetric three-port (§2.1) is the standard
+even/odd-mode decomposition, and is in every microwave-network textbook.
+
+**Therefore: this is PEER-WITH-STANDARD-EE, and NOT an AVE-distinct chord.**
+The mathematics of §2 would be unremarkable in a filter-design paper. **The
+content is ONTOLOGICAL** — the claim on offer is not *"a balance plane reflects
+like a wall"* (known) but *"the electron's boundary **is** such a plane rather
+than a material threshold"*, which is a statement about **what the electron
+is**, not about how junctions scatter. No number in §2 is AVE-distinct; the
+question §4 relocates the problem to might be.
+
+**Applied the other way** (per the consensus-bias symmetric standard, because
+the same knife must cut both ways): `[WALK]` **the Standard Model does not
+derive the electron's confinement scale either.** The electron is a point
+particle by construction in the SM; its "size" is a form-factor bound, not a
+derived radius, and its mass is an input parameter fitted to measurement. A
+critique of AVE that reads *"the confinement surface is asserted, not derived
+from a solved BVP"* is a true critique — and it describes the incumbent
+framework as well, which does not even pose the BVP. **Neither framework gets
+credit here. AVE at least has an operator to be wrong with**, and §2 is
+measured on it.
+
+**And the discrimination check, stated plainly.** `[WALK]` Does this arc buy a
+number, organizing power, or neither? **Organizing power, and a small number of
+exact negative numbers.** It buys **zero** positive predictions. The one number
+that could matter — `Γ_bulk(√α) = −9.155e-4` — is a *constraint* on an existing
+canon reading, not a new observable. Anyone framing this arc as a chord is
+misframing it.
+
 ## §9 — Honest caveats, stated before the audit finds them
 ## §10 — ★ AUDIT CHARTER
 ## §11 — ★ KILL CONDITIONS
