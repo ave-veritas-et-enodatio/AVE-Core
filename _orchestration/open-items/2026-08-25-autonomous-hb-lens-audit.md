@@ -38,9 +38,11 @@ and the audit does not pre-empt that ruling in either direction.
    sweep.** Finding F4 cannot be closed until it is decided, and §7's reframe
    cannot say which integer it is computing.
 2. **Whether `A→1` is physics or the kernel clip.** Every solver in the round
-   failed at the saturation kernel's *declared* clip domain
-   (`A_cap=0.99 / S_min=0.05`). That is where a fold-based or bracing-based
-   selector would have to live, and it is currently unreachable numerically.
+   failed on the **approach to** the saturation kernel's *declared* clip domain
+   (`A_cap=0.99 / S_min=0.05`) — the furthest reaching `A_max = 0.986728`, still
+   short of the clip, so the domain itself was **never entered**. That is where a
+   fold-based or bracing-based selector would have to live, and it is currently
+   unreachable numerically.
 3. **What survives into G2.** §3.2's Lagrange-constraint / fixed-charge
    formulation **survived the audit intact** and one lane calls it *"the
    strongest formulation in the record."* §3.1 consequence 3 is falsified by

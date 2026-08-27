@@ -206,9 +206,10 @@ note is the correction of record.
 
 **Two further items measured against this record:** §3.4's backup selector
 (*"the fold IS the existence boundary"*, `:116-117`) is **measurably absent** —
-no turning point to `A_max 0.950`, and the top-end break is the saturation
-kernel's declared clip domain, which is also the **negative answer to charter
-item A5**. And §3.2's Lagrange-constraint formulation **survives the audit
+no turning point to `A_max 0.950`, and the top-end break is a numerical failure
+on the **approach to** the saturation kernel's declared clip domain
+(`A_max = 0.986728` against `A_cap = 0.99` — the clip is never entered), which
+is also the **negative answer to charter item A5**. And §3.2's Lagrange-constraint formulation **survives the audit
 intact** and is the strongest formulation in the record.
 
 **§7 is UNCHANGED and still governs.** This lens **mints nothing, moves no
