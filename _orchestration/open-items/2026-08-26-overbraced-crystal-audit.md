@@ -82,7 +82,10 @@ autonomous-harmonic-balance lens**. All three remain **LIVE and un-ruled**.
 **Only Grant rules that.** The open item `2026-08-25-autonomous-hb-lens-audit.md`
 stays open on its own terms.
 
-**Two open questions Grant has directed be settled by computation, not further
-walking** (record §10): **Q1** isostatic vs over-braced on srs-z3; **Q2**
-self-stress (`ω=0`) vs ringing (`ω≠0`). Q2 carries a three-way `ω` glyph
-collision that must be disambiguated before anything is computed.
+**Two open questions the record recommends be settled by computation, not
+further walking** (record §10 — **[WALK]**; §10 states in its own text that no
+committed primary source exists for a directive to that effect, so this is the
+record's recommendation and not a standing instruction): **Q1** isostatic vs
+over-braced on srs-z3; **Q2** self-stress (`ω=0`) vs ringing (`ω≠0`). Q2 carries
+a three-way `ω` glyph collision that must be disambiguated before anything is
+computed.
