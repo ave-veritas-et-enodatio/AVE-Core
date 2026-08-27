@@ -352,9 +352,10 @@ facts about a channel."*
 `[WALK]` **Re-presented from canon, with one column this record added.** The
 Symbol / Operational definition / Dimensionality cells are `[CANON]`, from
 [`boundary-observables-m-q-j.md`](../manuscript/ave-kb/common/boundary-observables-m-q-j.md):17–23
-(whose own table also carries EE / ME / QFT projection columns, dropped here, and
-orders the rows $\mathcal{M},\mathcal{Q},\mathcal{J}$). The **`quantized?`
-column is this record's own**: canon states *"$\in \mathbb{Z}$"* and
+(whose own table also carries a **Canonical name** column and EE / ME / QFT
+projection columns — all four dropped here — and orders the rows
+$\mathcal{M},\mathcal{Q},\mathcal{J}$). The **`quantized?` column is this
+record's own**: canon states *"$\in \mathbb{Z}$"* and
 *"half-integer per $SU(2)$ double-cover"* inside its cells, but carries no
 quantization column and nowhere states $\mathcal{M}$'s non-quantization in those
 words.
