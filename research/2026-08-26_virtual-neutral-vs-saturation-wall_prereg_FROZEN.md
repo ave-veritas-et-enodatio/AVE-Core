@@ -385,7 +385,190 @@ Any prose of the form *"the engine shows $\Gamma=-1$ at the wall nodes"* is **fo
 fence** regardless of what the numbers do, because §2.1 already established that sentence is true
 of empty vacuum.
 
-## §4 — THE FROZEN DISCRIMINATOR: observables, keys, and the exact bin definitions *(placeholder)*
+## §4 — THE FROZEN DISCRIMINATOR: observables, keys, and the exact bin definitions
+
+### §4.1 — The pre-registered discriminator table (frozen)
+
+| | **H-SAT — SATURATION WALL** | **H-VN — VIRTUAL NEUTRAL** |
+|---|---|---|
+| located by | $A(u)$ hitting threshold | $\sum_j Y_j v_j = 0$ |
+| needs a spatial gradient | **YES** | **NO** |
+| moves with drive amplitude | **YES** | **NO** — scale-invariant in $\lVert v\rVert$ |
+| moves with mode / tone | **NO** — the Axiom-4 kernel is frequency-blind | **YES** |
+
+### §4.2 — The observables, defined completely, before any run
+
+**(O1) The node-balance ratio $\beta_u$ — the primary field.** For node $u$, with `a_nodes` and the
+per-tone phasors $v^{(m)}$ as the shipped code produces them:
+
+$$\beta_u \;=\; \frac{\Bigl[\sum_m \bigl|\sum_j a_{uj}\,v^{(m)}_{uj}\bigr|^2\Bigr]^{1/2}}{\Bigl[\sum_m \sum_j \bigl(a_{uj}\,\bigl|v^{(m)}_{uj}\bigr|\bigr)^2\Bigr]^{1/2}}$$
+
+The numerator is the shipped `node_voltage` magnitude, tone-summed. The denominator is **the same
+sum with the cancellation removed** — each term's magnitude entered incoherently. Three properties,
+each of which is load-bearing and each of which is a theorem about the formula, not an assumption:
+
+- **$\beta_u \in [0,1]$**, by the triangle inequality on the numerator against a term-wise
+  Cauchy–Schwarz bound on the denominator. $\beta_u=0 \iff$ **perfect balance**;
+  $\beta_u \to$ its ceiling $\iff$ no cancellation at all.
+- **$\beta_u$ is INVARIANT under any rescale of $\lVert v\rVert$** — numerator and denominator are
+  both homogeneous of degree 1 in $v$. **So $\beta$ measures BALANCE, never SIZE, and cannot be
+  driven to zero by the solution shrinking.** This is the single most important property in this
+  document and it is the reason FL-4's silent zero cannot masquerade as a virtual neutral.
+- **$\beta_u$ is INVARIANT under a per-node UNIFORM rescale of $Y$** — a uniform factor cancels
+  out of `a_nodes` identically (§2.4). **So a per-node broadcast cannot produce a $\beta$ null.**
+  This is guard (b) discharged at the level of the observable's definition, not by a downstream
+  check.
+
+**(O2) The null set $\mathcal N$.** $\mathcal N = \{u : \beta_u < \tau_\beta\}$ with
+$\boxed{\tau_\beta = 1.0\times10^{-2}}$ **FROZEN**.
+
+*Justification, stated in both directions.* On a generic incident field at $z=3$ the coherent sum
+is $\sim1/\sqrt3$ of the incoherent one, so the generic population sits near $\beta\approx0.58$ —
+**$\tau_\beta$ is nearly two decades below it.** And the numerical floor of the solve is
+$\lesssim10^{-8}$ (§7 NT-4), so **$\tau_\beta$ is six decades above the instrument's noise.** *A
+threshold the instrument cannot resolve always fires; a threshold the instrument cannot reach
+never does.* Both edges are named so neither can be re-cut later.
+
+**(O3) The separation receipt.** $\mathrm{sep} = \bigl(\min_{u\notin\mathcal N}\beta_u\bigr) /
+\bigl(\max_{u\in\mathcal N}\beta_u\bigr)$, **COMPUTED and REPORTED for every configuration**.
+$\mathrm{sep} < 10$ ⇒ $\tau_\beta$ is not resolving two populations ⇒ **`ARTIFACT`** (§4.5).
+
+**(O4) The locus scalar $d_{\text{null}}$ — substrate-native, in hops.**
+$d_{\text{null}}$ = the **mean bond-graph (hop) distance from the core/seed node set to
+$\mathcal N$**, computed by BFS on the net's own `neighbors` lists. **Units: bonds. Never a
+Cartesian radius** (§0 coordinates).
+
+**(O5) The closure predicate $\mathcal C$.** As frozen in §3.2: `True` iff deleting $\mathcal N$
+leaves the core in a finite component not touching the periodic wrap.
+
+**(O6) The mode-sign pair $(\Gamma_{\text{common}},\Gamma_{\text{diff}})$ — SUPPLEMENTARY.** At
+fixed amplitude, on the frozen $\mathcal N$ from the primary run, drive the surface's outward-facing
+ports with (i) a **surface-common** incident set (equal amplitude and phase on every outward port)
+and (ii) a **surface-differential** set (outward-port weights satisfying $\sum_j Y_jv_j=0$ over the
+surface's outward port set). Apply the shipped `apply_M` once; project the reflected field back
+onto the same port set; report the two complex ratios.
+
+### §4.3 — The two keys (frozen)
+
+$$K_{\text{amp}} = \bigl|\,d_{\text{null}}(s_{\text{hi}}) - d_{\text{null}}(s_{\text{lo}})\,\bigr| \qquad\text{over the §5 amplitude ladder, at FIXED tone set}$$
+$$K_{\text{mode}} = \bigl|\,d_{\text{null}}(T_B) - d_{\text{null}}(T_A)\,\bigr| \qquad\text{over the §5 tone sets, at FIXED amplitude}$$
+
+Both in **hops**. Frozen edges, with the dead band between them:
+
+| verdict on a key | condition |
+|---|---|
+| **MOVES** | key $> 1.00$ hop |
+| **DEAD BAND** | $0.25 \le$ key $\le 1.00$ hop |
+| **STATIC** | key $< 0.25$ hop |
+
+**Why one hop.** One bond is the smallest displacement that puts the surface on a **different node
+set**; below one hop the surface has not moved anywhere the carrier can represent. The 0.25 floor
+is one quarter of that, four times the coarsest thing the graph can express.
+
+**★ THE STRUCTURAL PRECONDITION ON $K_{\text{amp}}$ — surfaced here, because it is not in the
+inherited claim set and it can void the amplitude arm outright.** $M$ is **linear in $v$ once the
+$Y$ field is fixed.** So in a *single* linear tone solve, scaling the drive scales the solution and
+**nothing moves** — $K_{\text{amp}} \equiv 0$ **by linearity, for both ontologies.** A zero there
+would be a structural null, not a virtual neutral. **Therefore the amplitude arm is only defined
+inside the self-consistent outer loop** (`solve_self_consistent`, `:714`), where the drive changes
+$A_{\text{bond}}$, which changes $Y$, which changes `a_nodes`. **Gate AMP-1 (§6) enforces this and
+a linear-solve amplitude arm is `ARTIFACT`, never `VIRTUAL-NEUTRAL`.**
+
+### §4.4 — 🔒 THE EXACT BIN DEFINITIONS
+
+**Evaluation order is FIXED and the first matching bin wins.** `ARTIFACT` and `INCONCLUSIVE` are
+evaluated FIRST and OVERRIDE everything, so no failed run can reach a selecting bin.
+
+> **BIN 0 — `INCONCLUSIVE`** *(evaluated first)*
+> Fires iff **any** of: the §7 non-triviality gate fails on any tone of any configuration; any
+> tone reports `converged == False`; any tone's `residual_rel` $\ge 1.0\times10^{-8}$; the outer
+> S-field loop does not reach `outer_tol` within `max_outer`; or any configuration fails to build.
+> **Mandatory bin. Never folded into any other. `INCONCLUSIVE` is reachable with the physics
+> entirely correct** (a solver stall reaches it), which is what makes it a real bin.
+
+> **BIN 1 — `ARTIFACT`** *(evaluated second; OVERRIDES bins 2–5)*
+> Fires iff **any** of:
+> **(A1)** $\mathcal N = \varnothing$ or $\mathcal N$ = all nodes, in any configuration —
+> $\beta$ resolved no surface.
+> **(A2)** $\mathcal C = $ `False` — $\mathcal N$ is not a closed surface (§3.2), so there is no
+> global object to bin.
+> **(A3)** $\mathrm{sep} < 10$ in any configuration — $\tau_\beta$ is not separating two
+> populations.
+> **(A4)** The converged $A_{\text{bond}}$ field is **per-node uniform to within $10^{-12}$** at
+> any node of $\mathcal N$ — the broadcast trap; the null could have been produced by uniformity
+> alone (guard b, `harmonic_balance_srs.py:191-195`).
+> **(A5)** $\mathcal N$ **equals** the cold empty-vacuum control run's null set (§3.1) — a surface
+> present in empty vacuum is not a confinement surface.
+> **(A6)** The amplitude arm was evaluated **outside** the self-consistent loop (gate AMP-1, §6),
+> or `max` $A_{\text{bond}}$ did not increase monotonically across the amplitude ladder — the knob
+> did not move the thing it exists to move.
+> **(A7)** Any §6 guard check returns FAIL.
+
+> **BIN 2 — `SATURATION`**
+> Fires iff **all** of: $K_{\text{amp}} > 1.00$ hop **AND** $K_{\text{mode}} < 0.25$ hop, **in every
+> one of the §5 configurations** (all seeds, both envelope modes, both tone pairs).
+
+> **BIN 3 — `VIRTUAL-NEUTRAL`**
+> Fires iff **all** of: $K_{\text{amp}} < 0.25$ hop **AND** $K_{\text{mode}} > 1.00$ hop, **in every
+> one of the §5 configurations** (all seeds, both envelope modes, both tone pairs).
+
+> **BIN 4 — `AMBIGUOUS`**
+> Fires iff none of bins 0–3 fires. Exhaustively, this is:
+> **(B4a) BOTH-FIRE** — $K_{\text{amp}} > 1.00$ **and** $K_{\text{mode}} > 1.00$. Both keys move
+> the surface; neither ontology is selected.
+> **(B4b) NEITHER-FIRES (`AMBIGUOUS-DEGENERATE`)** — $K_{\text{amp}} < 0.25$ **and**
+> $K_{\text{mode}} < 0.25$. The surface is insensitive to both knobs, so the run discriminates
+> nothing. **§9 pre-registers this as a real possibility with a real meaning.**
+> **(B4c) DEAD-BAND** — either key lands in $[0.25, 1.00]$.
+> **(B4d) CONFIGURATION DISAGREEMENT** — the keys select different bins across seeds, envelope
+> modes or tone pairs. **A bin that is not stable across the frozen robustness axes is not a bin.**
+> **(B4e) PRIMARY/SECONDARY CONTRADICTION** — the primary keys select bin 2 or 3 and the §4.6
+> mode-sign pair selects the other one.
+
+**Bin-integrity check, run now, before any value exists.** The four key-verdict states
+{MOVES, DEAD, STATIC} × {MOVES, DEAD, STATIC} tile into exactly one of bins 2, 3, 4 with no gap and
+no overlap: (MOVES, STATIC)→2, (STATIC, MOVES)→3, all seven remaining cells→4. Bins 0 and 1 are
+evaluated first and are disjoint from each other by construction (0 is about the solve, 1 is about
+the surface). **Every §8 falsifier routes to exactly one bin; none routes to two.** ✅
+
+**These edges cannot be re-cut after the push.** They are stated as absolute numbers on
+dimensionless, unit-free quantities (hops, ratios), so there is no unit choice, no normalisation
+and no fitted scale through which they could be moved.
+
+### §4.5 — The bins are not equally likely and the document says so before the run
+
+**§9 pre-registers `AMBIGUOUS` — specifically B4b, `AMBIGUOUS-ON-THIS-CARRIER` — as the most
+likely single outcome.** That is written before any measurement precisely so that landing there
+cannot later be presented as a disappointment requiring a rescue.
+
+### §4.6 — The SECONDARY test (mode-sign check) — SUPPLEMENTARY, and it can only *break* a bin
+
+At fixed amplitude, on the frozen $\mathcal N$, using O6:
+
+| pattern | reading |
+|---|---|
+| $\operatorname{sign}(\operatorname{Re}\Gamma_{\text{common}}) = +$ **and** $\operatorname{sign}(\operatorname{Re}\Gamma_{\text{diff}}) = -$, with $\bigl||\Gamma|-1\bigr| < 0.1$ on both | **VN key** — an OPEN on the breathing mode, a SHORT on the differential modes |
+| $\operatorname{sign}(\operatorname{Re}\Gamma_{\text{common}}) = \operatorname{sign}(\operatorname{Re}\Gamma_{\text{diff}}) = -$ | **SAT key** — a level-set mirror does not care which mode hits it |
+| anything else | **NO-KEY** — reports, selects nothing |
+
+**This is a SIGN FLIP BETWEEN MODES AT FIXED AMPLITUDE, against a MAGNITUDE RAMP WITH AMPLITUDE in
+the primary test — two different measurements, not a matter of precision.**
+
+**Binding asymmetry, frozen:** the secondary test **cannot select bin 2 or bin 3 on its own** and
+cannot upgrade a primary `AMBIGUOUS`. It has exactly one power: if it contradicts a primary bin-2
+or bin-3 selection, the verdict becomes **`AMBIGUOUS` (B4e)**. *A supplementary observable may
+break a verdict; it may never make one.*
+
+### §4.7 — The known imbalance behaviour is a CONTROL, and is fenced from $\alpha$
+
+Perturbing a balanced incident set by $\varepsilon$ gives $|V_{\text{node}}| = 2\varepsilon/3$ at
+$z=3$, and power-out / power-in stayed $1.000000$ at every $\varepsilon$ tested. **An imbalanced
+virtual-neutral wall does not dissipate — it TRANSMITS.** That is the correct shape for lossless
+confinement with finite external coupling and is consistent with Axiom 3.
+
+**It is entered here as a CONTROL and it is NOT a route to $\alpha$** — see guard (c), §6. **The
+result document may not contain the sentence "the wall falls short of unity by $\alpha$" in any
+form.**
 
 ## §5 — GEOMETRY AND PARAMETERS, FROZEN *(placeholder)*
 
