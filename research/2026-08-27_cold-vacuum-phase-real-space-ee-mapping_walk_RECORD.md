@@ -517,6 +517,123 @@ is proposing precisely what these two tests looked for and did not find.
 
 ## §7 — Where canon CONTRADICTS the walk
 
+Five collisions, ordered by how much they cost. **Flag-don't-fix: no canon was
+edited. Each is surfaced with verbatim evidence for Grant to rule on.**
+
+### C1 — A cold vacuum has NO $\Gamma=-1$ surface, but canon defines all three observables AT one
+
+`[CANON]` `manuscript/ave-kb/common/boundary-observables-m-q-j.md:11`, verified
+verbatim: *"At every $\Gamma = -1$ saturation surface $\partial\Omega$ in the
+substrate — the boundary where Axiom 4's kernel ... reaches $S(A) \to 0$
+locally — exactly **three integrated quantities are externally observable**."*
+
+Cold means $A=0$, $S(A)=1$ **everywhere**; no saturation surface exists. So the
+walk's item-7 move did not merely mis-explain the observables — **it reached for
+them from a regime in which canon does not define them.** This is the
+regime/phase-state error underneath the §0 refutation, and it is independent of
+the phasor/modulus category error. It also cuts against any future attempt to
+re-run item 7 in a repaired form: the observables live on the saturated wall,
+the junction spectrum being discussed is the cold node scatter, and §1's O1/O2
+homonym is the bridge that does not exist.
+
+### C2 — The $T_2$ name the walk uses is canon at $z=4$ ONLY; the ratified carrier is $z=3$
+
+Walk item 1 says the cold balanced condition *"collapses to the traceless
+subspace, which canon names $T_2$."* True at $z=4$ `[CANON]`
+(`k4-port-irrep-decomposition.md:23,:55`, quoted §5 S1). **But that leaf is
+$z=4$-only**, and the production carrier is not $z=4$.
+
+- `[CANON]` `unified-engine-design-doctrine.md:222`, verbatim: *"**Decision 1
+  (RATIFIED, Grant 2026-06-25): the production engine substrate is the chiral
+  z=3 srs net.**"*
+- `[CANON]` — the code says the coverage gap in its own words,
+  `src/ave/core/chiral_lattice.py:79`: *"# Op5 trivalent scatter — DERIVED, new
+  instantiation (**canon: n=4 only**)"*.
+- **Method, three ways, on the 310-line irrep leaf:** a full read; a
+  case-insensitive line grep for `srs|trivalent|degree-3|z ?= ?3` → **0 hits**;
+  a markup-stripped whitespace-normalised slurp for the same → **0 hits**. The
+  leaf's operator is $S = (1/2)\mathbf{1} - I$, i.e. $z=4$.
+- `[MEASURED]` §3.1: at $z=3$ the balanced eigenspace is **2-dimensional**, so
+  canon's *"$T_2$ ... **triply degenerate**"* and *"traceless **3D** subspace"*
+  have **no referent** on the ratified carrier.
+
+`[CANON]` canon names the $z=3$ balanced sector by **multiplicity, never by
+irrep** — `node-scattering-multiplicity.md:60-61`, verbatim: *"**$S_3$**:
+$\{+1\times 1,\ -1\times 2\}$ → differential multiplicity **2**. **$S_4$**:
+$\{+1\times 1,\ -1\times 3\}$ → differential multiplicity **3**."*
+
+**Asymmetry that saves half the item:** the $+1$/common half carries to $z=3$
+cleanly — `[MEASURED]` §3.1 at both valences. The **common-mode half of the
+entire walk is valence-robust; the $T_2$ label is not.** `[OPEN]` — whether the
+$z=3$ irrep naming gap gets closed is a Grant call, not this record's.
+
+### C3 — The star point does NOT float; the walk's own physical gloss is wrong
+
+The framing this walk was checked against reads: *"drive all ports equally and
+KCL has nowhere to send the net current, so the star point floats."*
+`[MEASURED]` §3.2 — **it does not float. It sits at exactly $2a$**, single-valued
+across every port (spread $0.0$), for every drive tested, at both valences and
+under grading. What is zero is **every port current**, not the node voltage.
+
+This is a **correction, not a demolition**: open-circuit voltage doubling at a
+defined node with zero port current *is* an open, so the walk's conclusion
+("$\Gamma=+1$ is an OPEN, no current") survives — §5 S5 — while its stated
+*reason* ("the star point floats / has no defined potential") is measured-false.
+The distinction matters because "floats" is what makes the leap to "nothing to
+reference it against" feel licensed, and that leap is what item 7 died on.
+`[CANON]` runs the same way: `k4-port-irrep-decomposition.md:85` glosses this
+eigenvalue as *"like a **DC bias** passing through a reflector unchanged"* — a
+**referenced** object, not an isolated one.
+
+### C4 — Walk item 4 cross-wires the A1 PORT amplitude with the A1 BIAS sector
+
+Item 4 says clause Q *"fixes the common-mode value."* Two different objects
+(§1, O1 vs O3):
+
+- **Clause Q's reference** is on $\varepsilon_{11}$, the bound-sector bias, for
+  an elliptic solve. `[CANON]` `manuscript/common_equations/eq_axiom_5.tex:87`:
+  *"the **quiescent reference (Q-point) that makes the potentials defined and
+  clause G's elliptic solve well-posed** — without it the conserved data is
+  unpinned far from sources and the potential problem has no boundary
+  condition."*
+- **What §4 measured** is a symmetry of **port amplitudes** $(V_{inc},V_{ref})$
+  under the cold TLM scatter-and-connect.
+
+These live in different spaces and are pinned by different constructions. The
+resemblance is real and interesting — both are a free additive constant on an
+A1-labelled object — but **identifying them is an assertion, not an
+observation**, and this record does not make it. Compounding it: the A1/bulk
+channel is **DEMOTED at HEAD**. `[CANON]`
+`k4-port-irrep-decomposition.md:118` and `common/port-register.md:49` both carry
+*"🔴 [DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION, not dead]"*, and the
+R40 replacement states the A1 slot has *"no independent propagating branch, no
+port and zero longitudinal characteristic speed."* **What survives untouched is
+exactly what this walk uses** — R40's own audited rationale,
+`k4-port-irrep-decomposition.md:300`: *"the irrep decomposition (group theory)
+**survives untouched**, but the A1 propagation-speed formula consumes the
+phantom."* So the port-space algebra is live; "A1 as a propagating bulk channel"
+is not, and no restatement may quietly use the second.
+
+### C5 — "The same fact as the srs manifold being topologically trivial" is an overreach
+
+Item 6 asserts the trivial-product bundle and the srs manifold's triviality are
+*"the same fact."* They are two different statements about two different
+objects:
+
+- The measured result `[CANON — research-grade]` is a **Chern number of the srs
+  Bloch band manifold over a $(k_z,\theta)$ parameter torus**
+  (`2026-07-02_cleave-registry-pump-chern-nband_result.md:36`).
+- The walk's object is a **port-amplitude structure over the node lattice**.
+
+Different base spaces, different fibers, different invariants. Additionally, the
+implication runs one way only: a trivial bundle forces $C=0$, but $C=0$ does not
+force triviality — the Chern number is one invariant among several, and a
+vanishing one is not a proof of a product structure. **The walk asserts an
+equivalence where at most a one-directional consistency holds.** `[MEASURED]`
+§3.3 gives item 6 the content it actually has — cold, the scatter is literally
+the same matrix at every node, and only a per-bond $Y$-gradient changes it —
+and that content needs neither the equivalence nor the noun.
+
 ## §8 — ★ AUDIT CHARTER
 
 ## §9 — ★ KILL CONDITIONS
