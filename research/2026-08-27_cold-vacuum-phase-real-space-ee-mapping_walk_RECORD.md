@@ -129,6 +129,32 @@ walk did not.
 
 ## §2 — The walk as asked and answered
 
+Grant's question had two halves: *what is the EE circuit mapping between phase
+space and real space with a cold vacuum*, and *isolated ground/ref?* The
+orchestrator's seven-item answer, carried as given, with this record's grade
+appended to each. **The grades are this record's; the items are the walk's.**
+
+| # | the walk's item, as answered | grade after this record |
+|---|---|---|
+| **1** | Cold, the network is a FLOATING polyphase mesh with no ground conductor; the balanced condition collapses to the traceless subspace, which canon names $T_2$ | **SUPPORTED, with a valence caveat** — collapse `[MEASURED]` §3; $T_2$ naming `[CANON]` at $z=4$ ONLY, and the ratified carrier is $z=3$ (§7, C2) |
+| **2** | The COMMON mode sees $\Gamma=+1$, an OPEN — galvanically isolated, no current, nothing to reference it against. The DIFFERENTIAL modes see $\Gamma=-1$, a SHORT — a virtual neutral pinned at 0 V in every cell, with no wire | **SUPPORTED on the circuit facts, CORRECTED on the gloss** — zero port current and the 0 V virtual neutral are `[MEASURED]` §3.2 and are stronger than the walk claimed; but the star point does **not** float (§7, C3) |
+| **3** | The reference structure is ASYMMETRIC: the differential subspace has a ground everywhere; the common mode has none and cannot have one | **SUPPORTED** `[MEASURED]` §3.2 and §4 — this is the walk's most robust item |
+| **4** | That makes clause Q's status precise — it fixes the common-mode value, and the choice is FREE because the mode is isolated. Which is what R55 ratified: *"a ground reference is a gauge choice, not a material primitive."* The gauge freedom is a property of an open circuit, not a convention adopted | **SUPPORTED-AND-SHARPENED IN THE COLD LIMIT, with a sector cross-wire** — the freedom is `[MEASURED]` exact at $A=0$ and degrades $\propto(1-S)$ (§4); the R55 quote is `[CANON]` but sits in the findings section, not the ruling (§5); and clause Q references $\varepsilon_{11}$, a **different object** from the port amplitudes measured here (§7, C4) |
+| **5** | It offers phase-only epistemology as a circuit fact: only differences are observable because only the differential subspace has a reference | **`[WALK]`, PLAUSIBLE, UNTESTED — and §4 puts a crack in it**: the asymmetry is exact only at $A=0$, so "only differences are observable" is a cold-limit statement, not a structural one. No readout model was built, so observability was never actually tested (§8, A5) |
+| **6** | Phase space is a FIBER over real space; cold, every fiber is identical, so the bundle is TRIVIAL — a product — and a product carries no topology, which is the same fact as the srs manifold being topologically trivial. A defect is a region where the bundle stops being trivial, and only a GRADIENT in $Y$ can twist it | **SPLIT.** "Cold, every fiber is identical / only a $Y$-gradient can twist it" is `[MEASURED]` §3.3 and is the item's real content. The **bundle noun is fenced** `[WALK — NOT-RATIFIED]` (§6, F1). The *"same fact as"* identification is an **overreach** (§7, C5) |
+| **7** | Whether the common-mode open explains $\mathcal{M}$ continuous vs $\mathcal{Q},\mathcal{J}$ integer | **REFUTED** — §0. Recorded as a closed negative |
+
+**What survives, stated in one paragraph.** Cold, the vacuum is a floating
+polyphase mesh whose every node splits its ports into one common direction that
+carries **zero current at a doubled voltage** and $z-1$ differential directions
+that carry **current at exactly zero volts**. The common direction is a
+symmetry of the cold dynamics — a genuine gauge freedom, `[MEASURED]` exact to
+machine precision — and that freedom is **not a convention; it is a property of
+the operator, and it dies continuously as the medium saturates.** That is the
+answer to *"isolated ground/ref?"*: **yes, cold, exactly; and only cold.**
+Everything the walk built on top of that — the observables story (item 7), the
+bundle noun (item 6) — is dead or fenced.
+
 ## §3 — MEASURED: the cold specialisation, reproduced
 
 ## §4 — MEASURED: the reference asymmetry is real, and the gauge freedom is COLD-ONLY
