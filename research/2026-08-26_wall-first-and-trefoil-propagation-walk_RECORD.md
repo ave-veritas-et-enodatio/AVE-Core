@@ -777,10 +777,25 @@ Per the arc's own discipline — §0's *"A second reason, structural"* records
 that every one of the four walks turned out, on verification, to be *"partly a
 rediscovery of something canon already carries"*, and **this section's response
 to that is to sweep the corpus before it writes** — the corpus was swept before
-this section was written. **It answers three of the four moving parts.** *(This sentence
-previously read "§0: its two predecessors died for walking before sweeping"; §0
-labels that form false, so the attribution is moved to the surviving rationale.
-The predecessors' failure modes are neither of them a sweep failure.)*
+this section was written. **It answers three of the four moving parts.**
+
+*(Sourcing note, corrected. This sentence previously read "§0: its two
+predecessors died for walking before sweeping", and a first correction said "§0
+labels that form false". **§0 does not label that form at all.** The forms §0
+labels false, by reading `:25-28`, are two others, verbatim: "both died at
+audit" and "both were carried into audit on a step their author had flagged as
+safe." Method: that is a read of the four-line span `:25-28`, not a search of
+§0; a form labelled false elsewhere in §0 would not appear in it. The reason the
+attribution is dropped is stronger than a wording mismatch: **§0 declines to
+characterise either predecessor as having died.** For the first — `:43` "Verdict
+PENDING as far as this record is concerned", and `:47-48` "this record does not
+characterize its verdict. Nothing here may be read as reporting one." For the
+second — `:52-53` "That is a flag raised in this record, not a verdict returned
+by an audit." A sentence asserting **why** they died presupposes a death §0
+withholds. The attribution is therefore moved to the surviving rationale, which
+needs no predecessor at all: sweeping before writing is this section's own
+discipline, adopted from §0's structural observation at `:75-79` that the walks
+kept rediscovering canon.)*
 
 **(1) Reading (a) is correct, and the scale problem dissolves in one line of
 arithmetic.** `[CANON]`
