@@ -462,6 +462,72 @@ argument on this object was adversarially refuted once already). Support for
 the *question* is not support for the *answer*.
 
 ## §7 — Provenance of the incumbent, and one correction that must propagate
+
+### 7.1 What `def-vyvsn1` actually rests on `[CANON]`
+
+`def-vyvsn1` is **SOLID** and is the **only SOLID electron-wall statement in the
+corpus**. It is not being superseded here — only Grant rules that. But
+Grant's directive is *"we need to be ok challenging past rulings that don't have
+hard math tied to them"*, so the honest inventory of what is tied to it:
+
+| field | what canon says, verbatim | reading |
+|---|---|---|
+| `dimension/type` (`vocabulary-register.md:753`) | *"voltage (both); **BOTH are CALIBRATION, not derived** (`V_snap ≡ m_e c²/e` definitional …; `V_yield ≡ √α · V_snap`, the **√α being the imported α-echo**)"* | the two thresholds are **calibration**, and their ratio is an **imported α-echo** — canon's own words |
+| `clm-cross-links` (`:756`) | *"**(none verified-specific yet)**"* | **no scored claim**, no numeric solidity attached |
+| `verification` (`:758`) | *"VERIFIED the Grant 2026-06-30 T2 ruling **landed in prose** at …; VERIFIED the A1-horn **reconciliation** …; VERIFIED the calibration **definitions** …"* | a **propagation** receipt — that the ruling was written down consistently — **not a derivation receipt** |
+| mechanism (`pair-production-axiom-derivation.md:102`) | *"Above `V_yield` the transverse micro-rotation wave's amplitude crosses Axiom-4 onset, `Γ → −1`, and the lattice self-creates its TIR cavity"* | **one sentence.** No solved BVP, no eigensolve |
+| shape-forcing (`vol9/ch3-pin-port-configuration/device-circuit-models.md:163`) | *"**Status: OPEN.** … What is **NOT** derived is the **shape-forcing chain**: **no solved boundary-value problem produces the electron's surface** from its `0₁`-unknot topology."* | canon **already** books the shape as underived |
+
+`[WALK]` So the incumbent's SOLID grade attaches to a **sector attribution**
+(which sector owns which threshold — genuinely adjudicated, 2026-06-30) and to a
+**calibration**, not to a derivation that the wall is an amplitude level-set.
+The level-set *character* of the wall is the part with no hard math tied to it,
+and it is precisely the part §2 and the register-move proposal touch.
+**Nothing in this arc touches the sector attribution, which is the part that
+was adjudicated.** `[OPEN]`
+
+### 7.2 ⚑ THE CORRECTION THAT MUST PROPAGATE `[CANON]`
+
+`vol9/ch3-pin-port-configuration/device-circuit-models.md:165` reads, verbatim:
+
+> *"**Two coincident `Γ=−1` walls — do NOT re-collide.** The confinement surface
+> is the **A1 MASS wall** (`Z_bulk→0`, the impedance-short `Γ=−1` of the
+> Pauli/TIR derivation). It is numerically coincident with — but a **DISTINCT
+> object** from — the **`Γ_spinor = −1`** topological `2π→4π` stability wall of
+> the T2 micro-rotation sector … Reading the two `−1`'s as one wall would wire
+> the cage into the charge-winding and break the two-"3"s orthogonality."*
+
+**`:165` does NOT argue against the A1/bulk wall. It ASSERTS it.** Its guard
+sentence warns against **colliding** the A1 mass wall with the `Γ_spinor` T2
+wall; it argues **on the A1 side**. **Any document that inherited the earlier
+framing — that `:165` is a prohibition against the 2026-06-30 ruling — is
+wrong and must be corrected.** Routed as
+`_orchestration/open-items/2026-08-26-device-circuit-models-165-correction.md`.
+
+### 7.3 ⚑ And the correction exposes a live canon-vs-canon tension `[CANON]`
+
+Reading `:165` correctly makes a **second** problem visible, which the earlier
+misreading concealed:
+
+| site | who owns the confinement surface |
+|---|---|
+| `device-circuit-models.md:165` | *"The confinement surface **is the A1 MASS wall**"* |
+| `vocabulary-register.md:751` (`def-vyvsn1`, **SOLID**) | *"`V_yield` … = the **transverse Cosserat (`T_2`) self-trap wall** … the **single-electron confining `Γ=−1` TIR cavity self-creates here**"*; and *"**The A1 mass channel does NOT saturate at `V_yield`**"* |
+| `pair-production-axiom-derivation.md:102` | *"a single electron's confining `Γ = −1` wall is **already here**"* — at `V_yield`, the **T2** threshold |
+
+`[MEASURED]` §2.5 puts a number on the A1 side of that tension: at
+`def-vyvsn1`'s own A1 operating point, `Γ_bulk = −9.155e-4`. `[WALK]` The A1
+branch **cannot** be the confinement surface at the amplitude canon assigns the
+A1 core. Either `:165` is using "A1 mass wall" for a different operating point
+than `def-vyvsn1` assigns, or the two sites disagree about sector ownership of
+the confinement surface — which is exactly the `A1 ⊥ T2` cross-wiring class the
+corpus already watches for.
+
+`[OPEN]` **This arc does not adjudicate it.** It records it, with numbers, and
+routes it. Resolving it is an audit/lane job, and it is upstream of the
+register-move question: *which sector owns the wall* must settle before *which
+register the wall belongs to* is meaningful.
+
 ## §8 — The symmetric standard, both directions
 ## §9 — Honest caveats, stated before the audit finds them
 ## §10 — ★ AUDIT CHARTER
