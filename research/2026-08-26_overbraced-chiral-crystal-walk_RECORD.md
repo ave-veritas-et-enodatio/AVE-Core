@@ -486,9 +486,12 @@ for the walk's novelty.** Every term the walk reached for was grepped before use
 with retrieval attached. **Precision correction, 2026-08-26:** this record does
 use the word `hyperstatic`, so the flat form of the sentence was false. Per §6.0's
 own recommendation the bare uses have been replaced with canon's `over-braced`;
-`hyperstatic` now appears **only as a parenthetical gloss on `over-braced`**
-(§2's definition sentence, B1 in §8, and the §10 Q1 heading) and never as the
-load-bearing term.
+`hyperstatic` now appears **as a parenthetical gloss on `over-braced` at exactly
+three sites** — §2's definition sentence, B1 in §8, and the §10 Q1 heading — and
+never as the load-bearing term anywhere. **Every remaining occurrence is inside
+this §6.0**, including the grep table's own row and this paragraph: those are the
+record talking *about* the word, not with it, and the earlier "only as a
+parenthetical gloss" phrasing did not say so.
 **[CANON-VERIFIED]**
 
 ### 6.1 ★ "Over-bracing = couple-stress" is ALREADY the corpus's identification
