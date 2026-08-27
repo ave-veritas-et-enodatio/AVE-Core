@@ -594,12 +594,79 @@ def is_load_bearing_source(rel: Path) -> bool:
     return len(parts) == 1 and parts[0] in _ERROR_SOURCE_ROOT_DOCS
 
 
+#: A Rule-12 machine freeze stamp, appended to the end of a note's own line by
+#: `verify-rule12-freeze.py`. Invisible in rendered Markdown, and therefore not
+#: authorship: see `_introduces_nothing`.
+_RULE12_STAMP = re.compile(r"  <!-- rule12-freeze:[^>]*?-->")
+
+
+def _added_from_diff_text(text: str) -> dict[Path, set[int]]:
+    """{path: added-line numbers} from a whole unified-0 diff. PURE, so testable.
+
+    Split out from the git call deliberately. The first attempt at the
+    freeze-stamp exemption below was "verified" by editing the WORKING TREE and
+    re-running the checker -- which diffs `<base>...HEAD`, the COMMITTED tree, so
+    the edit was never in the diff and the probe never exercised the code path.
+    It reported the same answer for a stamp-only change and for a real content
+    change, and either reading would have been a fiction. A pure function taking
+    diff TEXT can be driven with the exact hunk shapes that matter, with no
+    commit, no worktree state, and no authoring context.
+
+    FREEZE-STAMP EXEMPTION. A Rule-12 stamp (`verify-rule12-freeze.py`) rides at
+    the END of a note's own line, so installing 461 of them shifts NO line number
+    in a corpus carrying 17,012 `path:NN` cites. The cost is that a stamped line
+    is a MODIFIED line, hence a `+` line, so cites that were ALREADY on it read
+    as cites the branch ADDED and this ratchet demands excerpts for them.
+
+    The exemption is exact and cannot be leaned on: pair the `+` line with the
+    `-` line it replaced and strip the stamp. Only if what remains is the old
+    line BYTE-FOR-BYTE is the line skipped. Any other change -- including a new
+    cite added to a line that also got stamped -- leaves them different and the
+    line is still counted. A machine annotation is not read as authorship,
+    exactly as `kb_index_lib._normalize_text` does not read it as claim text.
+    """
+    added: dict[Path, set[int]] = {}
+    current: Path | None = None
+    lineno = 0
+    removed: list[str] = []
+    n_added_in_hunk = 0
+    for raw in text.splitlines():
+        file_match = _DIFF_FILE_RE.match(raw)
+        if file_match:
+            current = Path(file_match.group(1))
+            removed, n_added_in_hunk = [], 0
+            continue
+        hunk = _DIFF_HUNK_RE.match(raw)
+        if hunk:
+            lineno = int(hunk.group(1))
+            removed, n_added_in_hunk = [], 0
+            continue
+        if current is None:
+            continue
+        if raw.startswith("-") and not raw.startswith("---"):
+            removed.append(raw[1:])
+            continue
+        if raw.startswith("+") and not raw.startswith("+++"):
+            plus = raw[1:]
+            stamp_only = (
+                n_added_in_hunk < len(removed)
+                and _RULE12_STAMP.sub("", plus) == removed[n_added_in_hunk]
+            )
+            if not stamp_only:
+                added.setdefault(current, set()).add(lineno)
+            n_added_in_hunk += 1
+            lineno += 1
+    return added
+
+
 def added_lines_by_file(base_ref: str, repo_root: Path) -> dict[Path, set[int]]:
     """Map repo-relative .md path -> set of line numbers ADDED vs `base_ref`.
 
     Uses `git diff --unified=0 <base>...HEAD`, i.e. the merge-base three-dot
     form, so a branch is measured against what it actually introduced rather
-    than against unrelated drift on the base.
+    than against unrelated drift on the base. Note the HEAD: this measures the
+    COMMITTED tree, never the working tree. Parsing lives in
+    `_added_from_diff_text`.
     """
     proc = subprocess.run(
         ["git", "diff", "--unified=0", "--diff-filter=d", f"{base_ref}...HEAD", "--", "*.md"],
@@ -609,22 +676,7 @@ def added_lines_by_file(base_ref: str, repo_root: Path) -> dict[Path, set[int]]:
     )
     if proc.returncode != 0:
         raise RuntimeError(f"git diff against {base_ref!r} failed: {proc.stderr.strip()}")
-    added: dict[Path, set[int]] = {}
-    current: Path | None = None
-    lineno = 0
-    for raw in proc.stdout.splitlines():
-        file_match = _DIFF_FILE_RE.match(raw)
-        if file_match:
-            current = Path(file_match.group(1))
-            continue
-        hunk = _DIFF_HUNK_RE.match(raw)
-        if hunk:
-            lineno = int(hunk.group(1))
-            continue
-        if current is not None and raw.startswith("+") and not raw.startswith("+++"):
-            added.setdefault(current, set()).add(lineno)
-            lineno += 1
-    return added
+    return _added_from_diff_text(proc.stdout)
 
 
 def check_new_cites(base_ref: str, repo_root: Path) -> list[tuple[Path, int, str]]:
