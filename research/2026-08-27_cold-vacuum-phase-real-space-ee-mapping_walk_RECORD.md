@@ -157,6 +157,87 @@ bundle noun (item 6) — is dead or fenced.
 
 ## §3 — MEASURED: the cold specialisation, reproduced
 
+**Not taken on trust.** Reproduced this session on the shipped operators
+(`admittance_scatter` and `bond_admittance_from_saturation`,
+`src/ave/solvers/vacuum_varactor_scatter.py:156,188`; `scatter_matrix`,
+`build_srs_net`, `scalar_tlm_step`, `src/ave/core/chiral_lattice.py:81,206,294`).
+Driver: [`research/drivers/cold_vacuum_ee_mapping_walk.py`](drivers/cold_vacuum_ee_mapping_walk.py),
+committed with this record, read-only on every engine primitive. Worktree
+detached at `a3f4fef7` $=$ `origin/main`.
+
+### 3.1 The cold specialisation (M1, M2)
+
+At $A=0$ the Axiom-4 kernel gives $S(A)=1$, so $Y = Y_0/\sqrt{S} = Y_0$ at every
+bond and the varactor operator collapses to the bedrock $(2/z)J - I$.
+**`[MEASURED]` the collapse is BIT-IDENTICAL** (`np.array_equal`), at both
+valences — not merely close.
+
+| $z$ | varactor $=$ bedrock at $A{=}0$ | eigenvalues | $\#(+1)$ | $\#(-1)$ | $\|S\mathbf{1}-\mathbf{1}\|$ | $\|SB+B\|$, $B$ traceless |
+|---|---|---|---|---|---|---|
+| **3** (ratified srs carrier) | **bit-identical** | $\{+1,-1,-1\}$ | 1 | 2 | $1.9\times10^{-16}$ | $2.8\times10^{-17}$ (dim 2) |
+| **4** (diamond) | **bit-identical** | $\{+1,-1,-1,-1\}$ | 1 | 3 | $0.0$ | $1.7\times10^{-16}$ (dim 3) |
+
+**`[MEASURED]` the cold collapse to the traceless subspace is SPECIAL, not
+generic** — this is walk item 1's real content and it needed a contrast to be
+worth anything. Grading the admittances breaks the identification:
+
+| $Y$ | eigenvalues | residual on $v=(1,-1,0)$ (**traceless**) | residual on $\sum_j Y_j v_j = 0$ (**balanced**) |
+|---|---|---|---|
+| cold uniform $[1,1,1]$ | $\{+1,-1,-1\}$ | $0.0$ | $0.0$ |
+| graded $[10^{-2},1,10^{2}]$ | $\{+1,-1,-1\}$ | $\mathbf{3.4\times10^{-2}}$ | $0.0$ |
+| one bond at $10^{6}$ | $\{+1,-1,-1\}$ | $0.0$ *(coincidence — see note)* | $0.0$ |
+
+The spectrum $\{+1, -1^{(z-1)}\}$ is **invariant** under grading; what moves is
+*which subspace* carries the $-1$. Cold, and only cold, that subspace is
+$\{v : \sum_i v_i = 0\}$. **Note on the third row, stated so it is not
+over-read:** $v=(1,-1,0)$ happens to satisfy $\sum_j Y_j v_j = 1 - 1 + 0 = 0$
+for $Y=[1,1,10^6]$, so it is admittance-balanced by accident of the chosen test
+vector, not evidence that grading preserves tracelessness. The graded row is the
+discriminating one.
+
+### 3.2 The circuit reading — and it is STRONGER than the walk claimed (M3)
+
+Using the operator's own KCL (`vacuum_varactor_scatter.py:23-26`):
+$V_{node} = V^{inc}_i + V^{ref}_i$ at every port, $I_i = Y_i(V^{inc}_i -
+V^{ref}_i)$.
+
+**COMMON mode**, drive $V^{inc} = a\mathbf{1}$: `[MEASURED]`
+
+| $a$ | $V_{node}$ | port spread | $\max_i \|I_i\|$ |
+|---|---|---|---|
+| $+1.00$ | $+2.000000$ | $0.0$ | $1.1\times10^{-16}$ |
+| $+0.25$ | $+0.500000$ | $0.0$ | $2.8\times10^{-17}$ |
+| $-3.70$ | $-7.400000$ | $0.0$ | $0.0$ |
+
+**Every individual port current is identically zero at a doubled node voltage.**
+That is the textbook open circuit, and it is a stronger statement than the walk
+made: the walk said the *net* current has nowhere to go; measured, **no port
+carries any current at all.** Walk item 2's "no current" is `[MEASURED]`-correct
+and under-claimed.
+
+**DIFFERENTIAL mode**, $v$ with $\sum_j Y_j v_j = 0$: `[MEASURED]` at $z=3$ and
+$z=4$, cold and graded — $\max_i|V_{node,i}| = \mathbf{0.0}$ exactly, while
+$\max_i|I_i| = 2.0$ and $\sum_i I_i = 0.0$. **The node sits at exactly zero
+volts while real current flows through it.** That is precisely a virtual neutral
+with no wire. Walk item 2's second half is `[MEASURED]`-correct as stated.
+
+**The asymmetry (walk item 3) is therefore real and measured**: the differential
+sector is referenced to $0$ V at every node, in every cell, with no conductor;
+the common direction has no such pin — its node voltage is $2a$, whatever $a$ is.
+
+### 3.3 Fibers identical cold; only a $Y$-gradient twists anything (M1, M2)
+
+`[MEASURED]` — cold, the local scatter matrix is the **same matrix at every
+node** (it depends only on $z$ and on $Y$, and cold $Y$ is uniform everywhere),
+so the per-node port-space structure is literally a product over the node list.
+`[MEASURED]` — a per-**node**-uniform admittance **cancels** at the shunt
+junction (the common factor divides out of $2Y_j/\sum_k Y_k$), so a uniform
+saturation is also invisible; **only a per-BOND gradient in $Y$ changes the
+operator.** This is the shipped module's own load-bearing Finding 2, stated at
+`src/ave/solvers/vacuum_varactor_scatter.py:53-60` and re-measured here. Walk
+item 6's *"only a GRADIENT in $Y$ can twist it"* is the item's genuine content
+and it is `[MEASURED]`-correct. The **noun** it is dressed in is fenced — §6, F1.
+
 ## §4 — MEASURED: the reference asymmetry is real, and the gauge freedom is COLD-ONLY
 
 ## §5 — Where canon SUPPORTS the walk
