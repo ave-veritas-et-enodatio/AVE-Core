@@ -271,7 +271,7 @@ engaged (`S_min = 0.9682 < 1`).
 lane: the "all 24 sectors, no iteration" receipt is on `build_ring_net`, where
 `a_nodes` cancels and the nonlinearity is **structurally inert**
 (`src/ave/solvers/harmonic_balance_srs.py:1062-1070`; the module's own guard 4
-at `:677-680` says a per-node-uniform admittance cancels at the shunt junction).
+at `:670` says a per-node-uniform admittance cancels at the shunt junction).
 On the load-bearing **srs** net the wound seeds are **2 of 4 converged**.
 
 Two further corrections the round produced and the headline should carry:
@@ -516,7 +516,10 @@ domain.** `A_cap = 0.99` / `S_min = 0.05`
 (`src/ave/core/crystal_engine.py:63-64`, applied at `:192-195`:
 *"S(A)=√(1-A²), A=|V|/V_yield, clipped to [S_min, 1] (the A-034 kernel)"*).
 Convergence dies at `||v|| = 8.75`, `A_max = 0.986728`, `r_auto = 1.029e-01`
-after 600 outers — i.e. **exactly where `A_max` crosses `A_cap`.**
+after 600 outers — i.e. **convergence dies on the approach to `A_cap`**, with
+`A_max` still just short of the clip (`0.9867` against `A_cap = 0.99`). The
+branch is lost into the clip domain, not turned around by a fold; the next
+converged continuum sits beyond the gap at `||v|| = 10.25 → 10.5` (§2.5).
 
 **This is the direct answer to charter item A5**, whose own text warned that
 *"A false positive here would be a serious error"* (`RECORD.md:159`). **The
@@ -651,7 +654,7 @@ The charter is `research/2026-08-25_autonomous-harmonic-balance-lens_RECORD.md:1
 | # | charter item | class | disposition | what established it |
 |---|---|---|---|---|
 | **A1** | the shipped `harmonic_balance_srs` can be run autonomously — same fixed point, source dropped, one phase pinned | MACHINERY | **DISCHARGED — NEGATIVE** | Read-and-run: it is **not a flag flip**. `solve_tone` takes `theta: float` as an **INPUT** (`:534`, `:537`), never an unknown, and forms the *linear* system `(e^{iθ}I − M_FF)x = M_FT ŝ`. With `term=None`, `ŝ=0`, so `b=0`. On the shipped ring fixture (N=12, m=2, `θ=1.0471975511965976`) the true ring mode **is** a source-free fixed point (`r_auto = 5.73e-16`), yet `solve_tone(..., term=None)` returns **`‖v‖ = 0.000e+00` with `converged=True`** — in **three** configurations, including warm-started at the **exact** true mode. Separately, damped Picard + branch tracking + an imposed norm **does** converge; plain Picard stalls (48/48 branches failed). |
-| **A2a** | autonomous/oscillator HB is standard external prior art | EXTERNAL | **DISCHARGED — CONFIRMED, with the precondition dropped** | **The retrieval WAS run** (see the correction box below), against three named sources. The technique, the extra-unknown/extra-equation structure and the phase-pinning convention are **as described**. What the transfer omits: the counting yields an **ISOLATED** solution only because dissipation + active gain balance and pin the amplitude — the one ingredient Ax3 forbids. |
+| **A2a** | autonomous/oscillator HB is standard external prior art | EXTERNAL | **DISCHARGED — CONFIRMED, single-lane / tentative standing (FL-6)**, with the precondition dropped | **The retrieval WAS run** (see the correction box below), against three named sources. The technique, the extra-unknown/extra-equation structure and the phase-pinning convention are **as described**. What the transfer omits: the counting yields an **ISOLATED** solution only because dissipation + active gain balance and pin the amplitude — the one ingredient Ax3 forbids. **Standing caveat, reconciling this row with FL-6 (§8):** the retrieval was single-lane, was never run through the external-retrieval pipeline and never received an adversarial pass, so this row is **CONFIRMED at tentative standing, not discharged-with-authority.** |
 | **A2b** | its phase-normalization is the same move as clause Q | ASSEMBLY | **DISCHARGED — NEGATIVE** | **RESEMBLANCE, NOT THE SAME OBJECT. "NOT FIT to travel to a prereg as written."** Detail below. |
 | **A3** | topology is preserved by seeding the sector | NUMERICAL + CANON | **PARTIALLY DISCHARGED — negatively** | F2 + F3: the winding comes back **= the seed**, and the production reader is template-circular, so a `rigid_template` read **cannot discharge A3 without tautology**. The sub-question *"what is the discrete analogue of passing through zero"* got one partial answer (§2.4: the read is ill-defined at `\|v\|=0`; `np.angle(0)=0` returned `−3` **at** the zero crossing). **Not closed.** |
 | **A4** | the phase-space (2,3) is a PER-TANK object, so uniform imposition conflates per-tank trajectory with collective charge | CANON READING | **DISCHARGED — UNDERDETERMINED** (verdict is "canon does not decide") | A dedicated lane swept it by **two** methods (pattern + full read) against the whole canon set the charter names. Verdict: **canon never carves the scope, and where it speaks it EQUATES the per-bond chart with the collective boundary integer.** The record therefore **proposes a carve, it does not catch a conflation.** An independent checker confirmed every cite verbatim and **downgraded the finding MAJOR→MINOR** on the grounds that the record self-flags the reading and A4 exists to adjudicate exactly this. |
@@ -1103,7 +1106,7 @@ Flag-don't-fix. None of these was resolved here; each names who must resolve it.
 | **FL-5** | **`SrsCageWindingConfig` has no `winding_mode` field.** The `dispersive_vector` negative-control arm is **diamond-carrier only**; on the srs carrier the rigid template is the only representation and **there is no control arm at all**. | engine lane |
 | **FL-6** | **A2's retrieval carries single-lane standing.** Three sources are named (Wiley-IEEE *Analysis and Design of Autonomous Microwave Circuits*; Elsevier *A robust and efficient oscillator analysis technique using harmonic balance*; **arXiv 1006.4931**) but the retrieval was not run through the external-retrieval pipeline and never received an adversarial pass. **Tentative-standing, not discharged-with-authority.** | orchestrator lane — this is what the new open item tracks |
 | **FL-7** | **R43 breach in the merged record.** `RECORD.md:87-89` uses *"ground reference"* as the **warrant** for the clause-Q identification, unlabelled as an analogy, against the BINDING ruling at `vocabulary-register.md:500`. The record did not mint the mislabel — **R55 `:56-58` does the same thing** — so the sweep is wider than one file. | auditor lane — a wording repair plus a register sweep, not a physics change |
-| **FL-8** | **A quotation in the merged record whose string exists nowhere in the corpus.** `RECORD.md:118-119` presents an italic attributed quotation, *"converges 8/11/20/41 outers up the rungs but does not fix the top rung alone."* `git grep "8/11/20/41"` on main returns nothing. **The CONTENT is exactly right and reproduces** (`research/drivers/data/p2_scoping/accel.py` §B gives `it = 8, 11, 20, 41` at `D=0.3/0.5/0.7/0.8` and `{it:150, conv:false}` at `D=0.9`) — the referent is an uncommitted terminal session. Quote-hygiene, not fabrication. | auditor lane |
+| **FL-8** | **A quotation in the merged record whose string exists nowhere in the corpus except the record that quotes it.** `RECORD.md:118-119` presents an italic attributed quotation, *"converges 8/11/20/41 outers up the rungs but does not fix the top rung alone."* `git grep "8/11/20/41"` at this branch's base `a3f4fef7` returns **nothing other than the record's own line** (`RECORD.md:118`); it returned nothing at all when the originating lane filed this flag, at main `be669184`, with PR #1019 still unmerged. Either way the quotation has **no committed referent other than the record that quotes it.** **The CONTENT is exactly right and reproduces** (`research/drivers/data/p2_scoping/accel.py` §B gives `it = 8, 11, 20, 41` at `D=0.3/0.5/0.7/0.8` and `{it:150, conv:false}` at `D=0.9`) — the referent is an uncommitted terminal session. Quote-hygiene, not fabrication. | auditor lane |
 | **FL-9** | **The termination probe is unreplicated and the two runs disagree.** One lane: **50 of 176** free-slot eigenvalues remain unimodular. Another: **72 of 184**. Different plane/termination configs, both reported as the same probe. Neither leaned on it; nobody reconciled it. | whoever next uses a terminated autonomous operator |
 | **FL-10** | **`chk3.py` is scratchpad-only.** The F9/F10 receipt lives outside the repo; this doc's §4 block is now the durable record, but if F9/F10 are to gate anything the script belongs in `research/drivers/`. | this arc's next lane |
 | **FL-11** | **Uniqueness / basin structure uncharacterised.** Six trivial seeds gave six distinct θ. Combined with the rank-1 continuum, the solution set within a **single** sector is at least 1-parameter **and** multi-branch. Nobody characterised it. | next lane |
@@ -1112,9 +1115,14 @@ Flag-don't-fix. None of these was resolved here; each names who must resolve it.
 
 **FL-12 — the review phase's own findings were themselves only partly checked.**
 Of 28 review findings, **3** went to an independent checker and **all 3 were
-DOWNGRADED to MINOR** (two `EVIDENCE-VOID`, one `CONCLUSION-WRONG`). A fourth
-checker was dispatched and **never returned**. Six of the 28 went to the verify
-phase. **The remaining 19 have had no second pass of any kind.** Anything quoted
+DOWNGRADED to MINOR** (two `EVIDENCE-VOID`, one `CONCLUSION-WRONG`). Per the run
+journal's dispatch records the unreturned-checker count is **twelve**, not one:
+**twelve checker dispatches were issued and never returned.** (This flag as
+originally written said *"a fourth checker was dispatched and never returned"*,
+which reported a single instance of what the journal records twelve times. The
+journal is a run artifact and is not committed to this repo.) Six of the 28 went
+to the verify phase. **The remaining 19 have had no second pass of any kind.**
+Anything quoted
 from them — including several items in §5's table — carries **single-lane
 standing**. This doc marks lane provenance throughout for that reason.
 
@@ -1150,7 +1158,7 @@ Modalities not run, in the order they matter:
 
 | skill | fired | where |
 |---|---|---|
-| `verify-before-cite` | ✅ | every load-bearing cite re-verified in this worktree at `a3f4fef7`: `vocabulary-register.md:500`, `eq_axiom_5.tex:82`, R55 `:58`, `master-equation.md:20`/`:33`, `harmonic_balance_srs.py:146-149` and `:534/:537/:802-804`, `crystal_engine.py:63-64`/`:192-195`, R58 `:98`. The two-cite drifts the lanes found (`:23-26`→`:22-25`; `:480`→`:482`) are recorded rather than propagated |
+| `verify-before-cite` | ⚠ **partial** | the cites listed below WERE re-verified in this worktree at `a3f4fef7`, but the pass was **not exhaustive over every cite in the doc**, and this row previously claimed that it was. A later read found `harmonic_balance_srs.py` guard 4 cited as `:677-680` when the text is at `:670`, and FL-8's `git grep` claim stale against this branch's own base — both repaired 2026-08-26. Read the list as the set that was checked, not as a completeness claim. Checked: `vocabulary-register.md:500`, `eq_axiom_5.tex:82`, R55 `:58`, `master-equation.md:20`/`:33`, `harmonic_balance_srs.py:146-149` and `:534/:537/:802-804`, `crystal_engine.py:63-64`/`:192-195`, R58 `:98`. The two-cite drifts the lanes found (`:23-26`→`:22-25`; `:480`→`:482`) are recorded rather than propagated |
 | Rule-10 empirical-driver discipline | ✅ | `chk3.py` **re-run**, not copied: bit-identical at `a3f4fef7` (§4). A second convention-free run was written and executed to reconcile three apparently-conflicting multiplicity receipts |
 | `flag-don't-fix` | ✅ | §5.1 and §8. **The most consequential application ran against the dispatch brief itself** — the A2 "total coverage hole" it asked me to record does not exist in the form described, and I recorded the discrepancy rather than either complying or silently correcting |
 | `consensus-bias-symmetric-standard` | ✅ | §2.1's F1 box and §5.4's full ledger in **both** directions, including the one asymmetry running the other way (AVE's forbidden-wiring guard is stricter than anything SM has) |
