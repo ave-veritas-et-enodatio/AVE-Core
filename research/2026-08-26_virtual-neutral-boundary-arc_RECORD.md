@@ -347,6 +347,33 @@ kind. **This arc does neither, and takes no position.** `[OPEN]`
 table above. Any downstream prose must disambiguate.
 
 ## §4 — The consequence: FREE EVERYWHERE or ABSENT HERE, never in between
+
+`[WALK]` Put §2.1 and §2.5 side by side and the corpus's confinement number is
+caught between two walls with no gap:
+
+| the `−1` in question | where it lives | what §2 measures | verdict |
+|---|---|---|---|
+| the **`T2` irrep eigenvalue** `−1` (`k4-port-irrep-decomposition.md:23`) | the junction scatter's balanced subspace | present at **every node of empty cold vacuum**, at every grading, exactly, `z−1` fold | **FREE EVERYWHERE** — undiagnostic |
+| the **`A1` bulk/mass** `−1` (`Z_eff = Z₀√S → 0`) | the amplitude level-set, which *has* a radius and *could* localize | `−9.155e-4` at `def-vyvsn1`'s own operating point `A = √α` | **ABSENT HERE** — a 0.09% window |
+
+**The one that is free is not localizing. The one that would localize is not
+there.** And by the trace identity (§2.2) there is no intermediate settlement to
+be had by grading harder: at `z = 3` the diagonal sums to `−1` no matter what,
+so buying `Γ → −1` on one port sells `Γ ≥ 0` on another.
+
+`[OPEN]` **Therefore the localizing object cannot be the LOCAL eigenvalue at
+all.** If a virtual-neutral boundary exists, it is a **global** property — a
+closed surface of simultaneously balanced nodes, i.e. a statement about
+`M = C · blockdiag(S)`. This arc has established what the *local* operator can
+and cannot do. It has established **nothing** about `M`, and the corpus
+contains no leaf that computes `M`'s spectrum on a closed surface.
+
+`[WALK]` **The honest summary of the arc's own weight:** §2 is a set of exact,
+reproducible, negative results about the local junction. Its positive content
+is entirely a **relocation of the question**, not an answer to it. Anyone
+citing §2 as support for "the electron's boundary is a virtual neutral" is
+citing the wrong half.
+
 ## §5 — Canon already carries the structure — in four unconnected places — and has the slot
 ## §6 — Where Grant's reading is SUPPORTED (seven places)
 ## §7 — Provenance of the incumbent, and one correction that must propagate
