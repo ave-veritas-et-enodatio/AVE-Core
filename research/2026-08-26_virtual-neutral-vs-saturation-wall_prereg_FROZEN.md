@@ -332,7 +332,58 @@ orthogonality"* — which is an argument **on the A1 side**, not a prohibition a
 document that inherited the framing that `:165` is a prohibition against the 2026-06-30 ruling is
 wrong and must be corrected.** Recorded here; routed in §11.
 
-## §3 — SCOPE FENCE: the LOCAL junction property is a CONTROL; the GLOBAL surface is the RESULT *(placeholder)*
+## §3 — SCOPE FENCE: the LOCAL junction property is a CONTROL; the GLOBAL surface is the RESULT
+
+**This lane tests two things and they must never be reported as one.**
+
+| | **LOCAL** — the junction property | **GLOBAL** — the surface property |
+|---|---|---|
+| object | $S_u$, one node's scatter matrix | $M = C\cdot\mathrm{blockdiag}(S)$, the composed one-step map |
+| statement | $\operatorname{spec}(S_u) = \{+1\}\cup\{-1\}^{z-1}$ for any $Y>0$ | does a **closed** set of simultaneously balanced nodes exist, and where |
+| status | **PROVED in closed form and reproduced (§2.1). Free at every node of empty cold vacuum.** | **UNKNOWN. No leaf in the corpus computes it.** |
+| role in this lane | **CONTROL** | **THE RESULT** |
+| can it be a verdict? | **NO — never.** | **YES — this is what §4 bins.** |
+
+### §3.1 — Why the LOCAL property is a control and not a finding
+
+The BALANCED eigenvalue $-1$ is present at **every node of empty cold vacuum**, at every
+admittance grading, at every drive level and at every tone. **It therefore has zero discriminating
+power: it does not distinguish an electron from nothing.** Reporting it as a confinement result
+would be reporting a property of the shunt-junction *algebra* as a property of the *state*.
+
+It is run anyway, and it is run first, for exactly two purposes:
+
+1. **Instrument receipt.** If the shipped operator does not reproduce $\{+1\}\cup\{-1\}^{z-1}$ and
+   $\operatorname{tr}S = 2-z$ on the run's own graded $Y$ field, the instrument is broken and every
+   downstream number is void. **Gate LOC-1**, §6.
+2. **The negative control for the global test.** The null set the global test finds must be
+   **strictly smaller** than "every node". If the pre-registered null locus coincides with the
+   null locus of the **cold empty-vacuum control run**, the result is an `ARTIFACT` (§4) — because
+   a surface that is present in empty vacuum is not a confinement surface.
+
+### §3.2 — What "global" means here, operationally
+
+**The claim under test is a property of the composed map $M$, not of any $S_u$.** $M$ is built by
+the shipped `apply_M` (`harmonic_balance_srs.py:492-503`): scatter at every node, then apply the
+CONNECT permutation. The observable is the **node-voltage field** $V_u$ that $M$'s fixed point
+carries, read by the shipped `node_voltage` (`:506-512`).
+
+**A closed surface, defined so a machine can decide it (frozen):** the null set $\mathcal N$
+(§4.2) is a **CLOSED SURFACE** iff deleting $\mathcal N$'s nodes from the bond graph leaves the
+core/seed node in a **finite** connected component that does **not** touch the periodic wrap. This
+is a connected-components call on the net's own `neighbors` lists — bond-graph native, no Cartesian
+geometry, no posited sphere.
+
+**This is the object the corpus has never computed**, and it is the only thing in this document
+that could be a finding.
+
+### §3.3 — The fence, stated as a binding reporting rule
+
+**No sentence in the result document may report a LOCAL number as evidence for either ontology.**
+The LOCAL section of the result doc reports **PASS/FAIL of an instrument gate** and nothing else.
+Any prose of the form *"the engine shows $\Gamma=-1$ at the wall nodes"* is **forbidden by this
+fence** regardless of what the numbers do, because §2.1 already established that sentence is true
+of empty vacuum.
 
 ## §4 — THE FROZEN DISCRIMINATOR: observables, keys, and the exact bin definitions *(placeholder)*
 
