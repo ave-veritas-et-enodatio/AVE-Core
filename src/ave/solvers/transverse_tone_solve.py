@@ -147,6 +147,7 @@ __all__ = [
     "fit_two_waves_vector",
     "graded_coeffs",
     "interface_two_port_vector",
+    "known_case_chain",
     "make_vector_termination",
     "node_voltage_vector",
     "plane_binned_voltage_vector",
@@ -564,3 +565,212 @@ def solve_tone_vector(
         n_matvec=int(n_mv[0]),
         method="lgmres" + (f"+warmstart{warmstart}" if warmstart else ""),
     )
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# 5. WAVE-FIT + DE-EMBEDDING INSTRUMENTS ON THE VECTOR CONTAINER
+# ═════════════════════════════════════════════════════════════════════════════
+def plane_binned_voltage_vector(net, a_nodes: np.ndarray, v: np.ndarray,
+                                x_lo_cells: float, x_hi_cells: float):
+    """Node-voltage phasors averaged over thin x-planes in [x_lo, x_hi] (cells).
+
+    The transverse twin of `harmonic_balance_srs.plane_binned_voltage`:
+    averaging each distinct x-plane (over y, z and motif) isolates the
+    x-directed plane-wave content. Returns (x in CARTESIAN length where one
+    bond = 1.0, V of shape (n_planes, 2) -- the mean node-voltage phasor per
+    plane, PER POLARIZATION COMPONENT). The component axis is carried through
+    the average untouched: no polarization observable is formed here."""
+    xu = net.pos[:, 0] / net.a_cell
+    Vn = node_voltage_vector(a_nodes, v)
+    m = (xu >= x_lo_cells) & (xu <= x_hi_cells)
+    if not np.any(m):
+        raise ValueError(f"no nodes in the fit window [{x_lo_cells}, {x_hi_cells}] cells")
+    xr = np.round(xu[m], 6)
+    xs = np.unique(xr)
+    Vb = np.array([Vn[m][xr == x].mean(axis=0) for x in xs])
+    return xs * net.a_cell, Vb
+
+
+def fit_two_waves_vector(x: np.ndarray, V: np.ndarray, k: float) -> dict:
+    """Least-squares fit V(x)[:, c] ~ a_c e^{-ikx} + b_c e^{+ikx}, both
+    components at once against ONE k.
+
+    ONE k, not two, because the container's dispersion is component-blind by
+    construction (the graded step is S_u (x) I_2 and commutes with a global
+    SO(2) polarization rotation -- transverse_graded_scatter.gate_so2_equivariance,
+    reused as-is). Fitting a per-component k would manufacture a birefringence
+    the operator cannot express.
+
+    Returns a, b as (2,) complex arrays and the JOINT relative fit residual
+    (a computed receipt over both components together). Per-component agreement
+    with the scalar `harmonic_balance_srs.fit_two_waves` is a test receipt."""
+    x = np.asarray(x, dtype=np.float64)
+    V = np.asarray(V, dtype=np.complex128)
+    if V.ndim != 2 or V.shape[1] != 2:
+        raise ValueError(f"V must be (n_planes, 2); got {V.shape}")
+    E = np.column_stack([np.exp(-1j * k * x), np.exp(+1j * k * x)])
+    coef, *_ = np.linalg.lstsq(E, V, rcond=None)
+    resid = float(np.linalg.norm(E @ coef - V)) / max(float(np.linalg.norm(V)), 1e-300)
+    return {"a": coef[0].copy(), "b": coef[1].copy(), "k": float(k), "resid_rel": resid}
+
+
+def fit_k_vector(x: np.ndarray, V: np.ndarray, k_lo: float, k_hi: float) -> dict:
+    """Measure k by minimizing the JOINT two-wave fit residual over [k_lo, k_hi]
+    (bounded scalar minimization; the fit at the optimum is returned whole)."""
+    from scipy.optimize import minimize_scalar
+
+    res = minimize_scalar(
+        lambda k: fit_two_waves_vector(x, V, k)["resid_rel"],
+        bounds=(float(k_lo), float(k_hi)),
+        method="bounded",
+        options={"xatol": 1e-10},
+    )
+    return fit_two_waves_vector(x, V, float(res.x))
+
+
+def bond_gamma_vector(net, bt, v: np.ndarray, plane_cells: float, k: float,
+                      x_ref_cells: float, *, amp_floor: float = 1e-14) -> dict:
+    """The EXACT (V_inc, V_ref) port-phasor reflection reading at a single-bond
+    cut, referenced to the plane x_ref.
+
+    SCOPE FENCE, enforced: this is the ONE-DIMENSIONAL known-case reading. It
+    requires the plane to cross EXACTLY ONE bond, because then the bond's two
+    directed incident phasors ARE the forward and backward wave amplitudes --
+    no fitting, no de-embedding, no plane-wave assumption. On a multi-bond cut
+    (any 3-D carrier) that identification is false and this function raises;
+    use the fit + `interface_two_port_vector` chain there instead.
+
+        Gamma_c = (v_bwd_c / v_fwd_c) e^{2 i k (x_ref - x_mid)}
+
+    A component with no forward content (|v_fwd_c| <= amp_floor -- e.g. the
+    idle component of a linearly polarized launch) returns NaN and is reported
+    False in `excited`, rather than returning a 0/0 artifact.
+
+    NOTE on the cold reading: on a cold uniform chain the backward phasor is
+    IDENTICALLY 0.0 (nothing scatters backward at all), so the cold control
+    returns |Gamma| == 0 EXACTLY, bit-level. That exactness is the
+    uniform-broadcast cancellation identity showing itself -- guard (b): it is
+    an instrument control, not evidence about any wall."""
+    f, b = crossing_ports(net, bt, plane_cells)
+    if len(f) != 1:
+        raise ValueError(
+            f"bond_gamma_vector: plane x={plane_cells} crosses {len(f)} bonds; the exact "
+            "port-phasor reading is defined only on a SINGLE-bond (1-D chain) cut. Use "
+            "plane_binned_voltage_vector + fit_k_vector + interface_two_port_vector on a "
+            "multi-bond cut."
+        )
+    vf = np.asarray(v, dtype=np.complex128).reshape(-1, 2)[f[0]]
+    vb = np.asarray(v, dtype=np.complex128).reshape(-1, 2)[b[0]]
+    bond = int(bt.port_bond.ravel()[f[0]])
+    x_mid = float(bt.b_x0[bond] + 0.5 * bt.b_dx[bond])
+    phase = np.exp(2j * float(k) * (float(x_ref_cells) - x_mid) * net.a_cell)
+    excited = np.abs(vf) > float(amp_floor)
+    gamma = np.where(excited, vb / np.where(excited, vf, 1.0) * phase, np.nan + 0j)
+    return {"gamma": gamma, "excited": excited, "v_fwd": vf, "v_bwd": vb,
+            "x_mid": x_mid, "x_ref": float(x_ref_cells), "k": float(k)}
+
+
+def interface_two_port_vector(runs: list, *, per_component: bool = False,
+                              amp_floor: float = 1e-14) -> dict:
+    """Multi-load de-embedding of a transverse interface's own two-port response.
+
+    `runs` is a list of dicts with keys a, b, c, d, each a (2,) complex
+    polarization vector referenced at the interface plane (feed-side incident /
+    reflected, far-side transmitted / returning), i.e. the vector twin of the
+    scalar de-embedder's run record.
+
+    DEFAULT (per_component=False) -- ONE scalar (Gamma, T, Gamma', T') fitted
+    over ALL components of ALL runs. This is not an averaging convenience: it
+    is the S_u (x) I_2 MODEL, which the shipped operator satisfies by
+    construction, and the returned `resid_rel` is the COMPUTED receipt that the
+    model held on this data. A polarization-dependent interface would show up
+    as residual rather than be silently averaged into a wrong scalar
+    (reconcile-don't-declare). The scalar algebra itself is
+    `harmonic_balance_srs.interface_two_port`, called untouched on the stacked
+    rows -- so there is exactly one de-embedding implementation in the tree.
+
+    per_component=True -- de-embed each EXCITED component separately and report
+    `anisotropy` = |Gamma_0 - Gamma_1| (NaN when only one component carries
+    content, e.g. a linearly polarized launch). Use it to test the isotropy
+    rather than assume it; the default already fails loudly through resid_rel.
+
+    Rows whose feed-side and far-side content are both below `amp_floor` carry
+    no information and are dropped (an idle polarization component contributes
+    an all-zero row that would otherwise inflate the row count without
+    constraining anything); `n_rows` reports how many survived."""
+    if len(runs) < 2:
+        raise ValueError("need >= 2 load positions to separate Gamma from the load reflection")
+    arr = [{key: np.asarray(r[key], dtype=np.complex128).reshape(2) for key in "abcd"}
+           for r in runs]
+
+    def _rows(comps):
+        out = []
+        for r in arr:
+            for c in comps:
+                if abs(r["a"][c]) <= amp_floor and abs(r["d"][c]) <= amp_floor:
+                    continue
+                out.append({k: complex(r[k][c]) for k in "abcd"})
+        return out
+
+    if not per_component:
+        rows = _rows((0, 1))
+        if len(rows) < 2:
+            raise ValueError(
+                f"interface_two_port_vector: only {len(rows)} rows carry content above "
+                f"amp_floor={amp_floor:.1e} -- the de-embedding is underdetermined"
+            )
+        out = dict(interface_two_port(rows))
+        out.update({"n_rows": len(rows), "n_runs": len(arr), "per_component": None})
+        return out
+
+    per = {}
+    for c in (0, 1):
+        rows = _rows((c,))
+        per[c] = interface_two_port(rows) if len(rows) >= 2 else None
+    g0 = per[0]["gamma"] if per[0] else None
+    g1 = per[1]["gamma"] if per[1] else None
+    aniso = abs(g0 - g1) if (g0 is not None and g1 is not None) else float("nan")
+    return {"per_component": per, "anisotropy": float(aniso), "n_runs": len(arr),
+            "gamma": g0 if g1 is None else (g1 if g0 is None else 0.5 * (g0 + g1))}
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# 6. THE FROZEN KNOWN-CASE FIXTURE (guard (d))
+# ═════════════════════════════════════════════════════════════════════════════
+def known_case_chain(A: float, load: str = "magnetic", *, Y0: float = 1.0) -> dict:
+    """Build the FROZEN validate-on-known chain at grading amplitude A.
+
+    Carrier: `harmonic_balance_srs.build_ring_net(KNOWN_CASE_CHAIN["N"])` -- the
+    degree-2 ring FIXTURE, carrier tag "ring-z2-fixture", explicitly NOT a
+    physics carrier. It is chosen precisely because it makes the answer known:
+
+      * a plane cut crosses exactly ONE bond, so an imposed-incident termination
+        is an EXACT matched absorber (the bond amplitude is the only DOF
+        crossing the cut) -- no scaffold reflection to de-embed;
+      * at the cold/graded junction the shunt algebra gives, exactly,
+            Gamma = (Y_cold - Y_graded)/(Y_cold + Y_graded) = (sqrt(S) - 1)/(sqrt(S) + 1)
+        under the magnetic (mu-load) map Y = Y0/sqrt(S) -- the ANALYTIC Fresnel
+        step, with no fitted quantity anywhere in it;
+      * the TLM bond transit is one step regardless of admittance, so the
+        grading changes impedance and NOT delay: k = theta on both sides, which
+        removes the last free parameter from the check.
+
+    Returns net, bt, conn, a_nodes, Y_port and the frozen geometry, plus the
+    analytic target `gamma_analytic` for this A and load."""
+    from ave.solvers.harmonic_balance_srs import build_ring_net
+
+    g = KNOWN_CASE_CHAIN
+    net = build_ring_net(int(g["N"]))
+    bt = build_bond_table(net)
+    conn = net.connect_index()
+    A_bond = np.zeros(bt.n_bonds)
+    A_bond[(bt.b_mid > g["x_I"]) & (bt.b_mid < g["x_grade_hi"])] = float(A)
+    a_nodes, Y_port = graded_coeffs(bt, A_bond, load, Y0=Y0)
+    S = float(saturation_kernel(np.asarray(float(A))))
+    # z = Z_graded/Z_cold: sqrt(S) for the magnetic (mu) map, 1/sqrt(S) for electric
+    z = np.sqrt(S) if load == "magnetic" else 1.0 / np.sqrt(S)
+    return {
+        "net": net, "bt": bt, "conn": conn, "a_nodes": a_nodes, "Y_port": Y_port,
+        "A_bond": A_bond, "A": float(A), "load": load, "S": S,
+        "gamma_analytic": float((z - 1.0) / (z + 1.0)), "geom": dict(g),
+    }
