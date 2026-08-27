@@ -565,6 +565,52 @@ canon reading, not a new observable. Anyone framing this arc as a chord is
 misframing it.
 
 ## §9 — Honest caveats, stated before the audit finds them
+
+1. **§2 is ISOLATED-JUNCTION algebra.** Every number is computed on a single
+   `z`-port node with prescribed per-port admittances. Canon's own caveat
+   applies verbatim: *"the `−1/3` intercept belongs to the **isolated vertex,
+   which does not exist in-lattice**"*
+   (`research/2026-08-24_engine-gamma-meanstest_result.md:214-215`). Nothing in
+   §2 is an in-lattice result.
+2. **The composed map `M = C · blockdiag(S)` is UNCOMPUTED — by this arc and by
+   the corpus.** The whole positive content of the reframe lives there (§4).
+   A direct sum of operators each carrying `−1` says **nothing** about the
+   spectrum of `C` composed with it.
+3. **"Closed surface of simultaneously balanced nodes" is not yet a
+   well-posed condition.** Balanced *with respect to which incident field?*
+   The balance condition is on `V^inc`, which is itself dynamical. A
+   self-consistency requirement is implied and has not been written down, let
+   alone solved.
+4. **The level-set arithmetic assumes the varactor map `Y = Y₀/√S`.** That is
+   the shipped μ-load branch, correctly scoped
+   (`vacuum_varactor_scatter.py:44-52`; the ε-load `Z = Z₀/√S` is explicitly
+   FORBIDDEN at `crystal_engine.py:466-468`). If the wall's channel is not the
+   μ-load, §2.4's numbers do not apply to it.
+5. **§2.5 evaluates ONE branch.** `Γ_bulk` is the **A1 longitudinal** reflection.
+   The **T2 Cosserat** channel — the one `def-vyvsn1` actually assigns the
+   confining wall to — is **not computed anywhere in this arc**. The arc
+   therefore does **not** show "there is no wall"; it shows the **A1** branch is
+   transparent at `A = √α`.
+6. **A neutrality argument on this object has already been refuted once.**
+   `proton-identification.md:161-165`, 2026-08-23, baryon sector: *"no
+   neutrality/minimum-N argument may be built on it (both uses adversarially
+   refuted)"*. The lepton-sector version inherits the burden, not an exemption.
+7. **Register 4 is ambiguous as written** (caution 2): its own gloss points at
+   the hollow-vortex **pressure**-balance object. The proposed move is
+   under-determined until register 4 is split or unified.
+8. **S4 is un-audited chat.** The "matter IS the lattice lock-state so `Γ` has
+   no referent" support (§6) was **not** verified against a canon statement by
+   this arc. It is recorded at `[WALK]` and must not be cited as canon.
+9. **`α`-circularity watch.** §2.5's operating point `A = √α` is canon's own
+   **imported α-echo** (`vocabulary-register.md:753`). Any conclusion whose
+   magnitude depends on that operating point inherits the echo. `Γ_bulk =
+   −9.155e-4` is such a number; the **trace identity and spectrum theorem are
+   not** — they are `α`-free.
+10. **This arc reproduced numbers; it did not re-derive the operator.** The
+    shunt reduction itself is taken as shipped. If `admittance_scatter` is the
+    wrong operator for the wall region, every number in §2 is correct and
+    irrelevant.
+
 ## §10 — ★ AUDIT CHARTER
 ## §11 — ★ KILL CONDITIONS
 ## §12 — What this arc does NOT do
