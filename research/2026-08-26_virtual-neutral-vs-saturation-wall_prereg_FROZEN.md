@@ -1360,14 +1360,20 @@ engineering choices are `EC-n`; Amendment 1's items are `A1.n`. `AM2.x` collides
    the *middle* of the file. It is therefore also checked that the previous content is an exact
    **byte prefix** of the new content — i.e. that everything before this amendment is untouched *in
    place*, not merely un-deleted. Measured on the tree carrying this amendment:
-   the blob at `1d33b254` (frozen body **plus** the 🔒 FREEZE STAMP) is an exact byte prefix, and
-   the blob at the parent commit of this one (frozen body + stamp + **all of Amendment 1**) is an
-   exact byte prefix, byte counts `98 529` → `117 522`. Amendment 1's own cited blob id for the
-   pre-freeze body verifies too: `git rev-parse 9b178a50:<this file>` returns
-   `929b4ccb5a68a0fea00bd700394eaaa122935181`, and `1d33b254` added the stamp with **14 insertions
-   and 0 deletions**.
+   the blob at `1d33b254` (frozen body **plus** the 🔒 FREEZE STAMP, `77 130` bytes) is an exact
+   byte prefix, and so is the blob at `3dfbccea` (frozen body + stamp + **all of Amendment 1**,
+   `98 529` bytes). Amendment 1's own cited blob id for the pre-freeze body verifies too:
+   `git rev-parse 9b178a50:<this file>` returns `929b4ccb5a68a0fea00bd700394eaaa122935181`, and
+   `1d33b254` added the stamp with **14 insertions and 0 deletions**.
 
-   *Re-check command:* `git show HEAD~1:<this file> > /tmp/prev && cmp -n $(wc -c < /tmp/prev) /tmp/prev <this file>`.
+   *Re-check command, pinned to a commit rather than to `HEAD~1` on purpose:*
+   `git show 3dfbccea:<this file> > /tmp/prev && cmp -n $(wc -c < /tmp/prev) /tmp/prev <this file>`.
+
+   *Why no byte count for the current file appears above.* An earlier draft of this paragraph
+   quoted one, and the very next edit to this amendment changed it — the same self-referential
+   failure the frozen body's §7.3 anti-tautology note guards against. **The two cited counts are
+   properties of two fixed commits and cannot go stale; the length of this file is not cited at
+   all, and the prefix test does not need it.**
 
 **Method note.** Both checks are about *this one file*. Neither says anything about other files on
 the branch, and neither would catch a change made and then reverted within a single commit.
