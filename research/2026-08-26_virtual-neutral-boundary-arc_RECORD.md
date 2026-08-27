@@ -671,4 +671,100 @@ as a caveat.
 | **K9** | The `−1` eigenspace turns out **not** to be present in empty cold vacuum (e.g. the cold lattice's actual boundary conditions exclude it) | **Caution 1 is wrong**, balance is *not* cheap, and the arc's central negative inverts into a positive. This is the kill condition the arc would most like to lose to, which is exactly why it must be tested rather than assumed. |
 
 ## §12 — What this arc does NOT do
+
+- It does **not** supersede `def-vyvsn1`. **Only Grant rules that.** The
+  register-move proposal is routed, not applied.
+- It does **not** adjudicate the §7.3 canon tension over sector ownership of
+  the confinement surface. It records it with numbers and routes it.
+- It does **not** show "there is no electron wall". It shows the **A1**
+  branch is transparent at `A = √α`, and that the **T2** `−1` is free
+  everywhere. The T2 channel is **never computed here** (caveat 5).
+- It does **not** compute `M = C · blockdiag(S)`, which is where the entire
+  positive content of the reframe lives.
+- It does **not** mint a term, a claim id, a `def-` node, or a solidity score,
+  and moves no existing one.
+- It does **not** claim an AVE-distinct chord. §2 is peer-with-standard-EE
+  (§8); the content on offer is ontological.
+- It does **not** discharge the `proton-identification.md:161-165` fence, and
+  no neutrality argument may be built on §2 until that fence is engaged by name.
+
+---
+
 ## Appendix A — reproduction receipt
+
+**Environment.** Fresh worktree off `origin/main` @ `a3f4fef7`; branch
+`research/2026-08-26-virtual-neutral-arc`; `numpy` float64; RNG
+`np.random.default_rng(20260826)`.
+
+**Operator under test.** `src/ave/solvers/vacuum_varactor_scatter.py` —
+`admittance_scatter(Y)` (`:156-185`) and `saturation_kernel(A)` (`:125`),
+whose floors come from `src/ave/core/crystal_engine.py:63-64`
+(`A_cap = 0.99`, `S_min = 0.05`) and kernel from `:191-195`.
+Bulk reflection route: `crystal_engine.gamma_bulk` (`:463, :477-478`),
+`Z_eff = √S`, `Γ = (Z−1)/(Z+1)`. `α` from `src/ave/core/constants.py:163`
+(`ALPHA = 7.2973525693e-3`).
+
+**Results, as reproduced.**
+
+```
+R1 TRACE IDENTITY  Σ_i S_ii = 2 − z          (2000 random 6-decade draws per z)
+  n=2: target +0   max|dev| = 4.441e-16
+  n=3: target −1   max|dev| = 5.551e-16
+  n=4: target −2   max|dev| = 8.882e-16
+
+R2 JUNCTION SPECTRUM THEOREM                  (eig vs exact target; balanced-vector residual)
+  n=3 cold uniform          eig=[-1,-1,1]      resid=2.220e-16  |S·1−1|=1.110e-16  |S·v+v|/|v|=1.734e-16
+  n=3 random 4-decade       eig=[-1,-1,1]      resid=2.220e-16  |S·1−1|=2.220e-16  |S·v+v|/|v|=1.854e-16
+  n=3 one bond at 1e6       eig=[-1,-1,1]      resid=1.110e-16  |S·1−1|=1.110e-16  |S·v+v|/|v|=1.979e-16
+  n=4 cold uniform          eig=[-1,-1,-1,1]   resid=1.110e-16  |S·1−1|=0.000e+00  |S·v+v|/|v|=2.095e-16
+  n=4 random 4-decade       eig=[-1,-1,-1,1]   resid=2.220e-16  |S·1−1|=0.000e+00  |S·v+v|/|v|=2.005e-16
+  n=4 one bond at 1e6       eig=[-1,-1,-1,1]   resid=2.220e-16  |S·1−1|=0.000e+00  |S·v+v|/|v|=2.024e-16
+
+R3 BALANCED NODE = SIMULTANEOUS MIRROR        (2000 draws, ‖v_inc‖=1, Y over 4 decades)
+  n=3: max|v_ref + v_inc| = 2.498e-16   max|V_node| = 2.372e-16
+  n=4: max|v_ref + v_inc| = 2.220e-16   max|V_node| = 2.060e-16
+
+R4 LEVEL-SET ARITHMETIC, z=3, Y = Y0/√S       (Γ_port = S_pp; Σ Γ = −1 in every row)
+  S=[1,     1,     1    ]  Γ=[-0.333333, -0.333333, -0.333333]  Σ=-1.000000000000
+  S=[0.045, 0.045, 0.045]  Γ=[-0.333333, -0.333333, -0.333333]  Σ=-1.000000000000   |diff vs cold| = 0.000e+00
+  S=[0.045, 0.045, 1    ]  Γ=[-0.095895, -0.095895, -0.808210]  Σ=-1.000000000000
+  S=[0.045, 1,     1    ]  Γ=[+0.404234, -0.702117, -0.702117]  Σ=-1.000000000000
+
+  SHIPPED FLOORS: S(A_cap=0.99) = 0.141067359797
+    1 floored-sat + 2 cold : Γ=[+0.142088, -0.571044, -0.571044]  min=-0.571044
+    2 floored-sat + 1 cold : Γ=[-0.158104, -0.158104, -0.683793]  min=-0.683793   <- BEST CASE
+  UN-FLOORED ideal kernel, 2 saturated + 1 cold, Γ at the cold port:
+    A = 1 − 1e-02   S=1.410674e-01   Γ = -0.683793
+    A = 1 − 1e-03   S=4.471018e-02   Γ = -0.808770
+    A = 1 − 1e-06   S=1.414213e-03   Γ = -0.963088
+    A = 1 − 1e-09   S=4.472136e-05   Γ = -0.993335
+    A = 1 − 1e-12   S=1.414198e-06   Γ = -0.998812
+
+R5 A1 BULK BRANCH AT A = √α
+  shipped kernel  A=0.085424543132  S=0.996344642898  Z_eff=0.998170648185  Γ_bulk=-9.155133056e-04
+  ideal √(1−A²)   A=0.085424543132  S=0.996344642898  Z_eff=0.998170648185  Γ_bulk=-9.155133056e-04
+  (identical — neither floor is active at this amplitude)
+
+R6 FRESNEL-STEP CROSS-CHECK vs canon's recorded gate values
+  A=0.95  S=0.312249900  Γ=-0.283043788   canon `electron-bound-resonator-coverage.md:226`: "Γ_min(0.95)=−0.283"  ✓
+  A=0.99  S=0.141067360  Γ=-0.453922277   canon same line:                    "Γ_min(0.99)=−0.454"  ✓
+
+R7 z-SWEEP, cold uniform                     (Γ_port = 2/z − 1 = (2−z)/z; trace = 2−z)
+  z= 2  trace=+0.000000000000  Γ_port=+0.000000000  eig=[-1, 1]
+  z= 3  trace=-1.000000000000  Γ_port=-0.333333333  eig=[-1,-1, 1]
+  z= 4  trace=-2.000000000000  Γ_port=-0.500000000  eig=[-1,-1,-1, 1]
+  z= 6  trace=-4.000000000000  Γ_port=-0.666666667  eig=[-1 ×5, 1]
+  z=12  trace=-10.00000000000  Γ_port=-0.833333333  eig=[-1 ×11, 1]
+```
+
+**Independently reproduced in this arc:** R1 (trace identity), R2 (junction
+spectrum theorem), R3 (balanced mirror), R4 (level-set arithmetic **including
+the §2.4.1 label correction**), R5 (`Γ_bulk` at `A = √α`), R6 (Fresnel
+cross-check against two canon-recorded values), R7 (`z`-sweep, added by this
+arc — not in the brief).
+
+**Not reproduced, and not claimed:** the brief's *"shipped-engine interface
+measurement matching the analytic Fresnel step (−0.45409 measured vs −0.453922
+analytic at A=0.99, 1.7e-4)"*. This arc reproduced the **analytic** side
+(`−0.453922277`, matching canon's `−0.454`) but did **not** run the FDTD
+interface measurement that produced `−0.45409`. Audit item **A1** should.
