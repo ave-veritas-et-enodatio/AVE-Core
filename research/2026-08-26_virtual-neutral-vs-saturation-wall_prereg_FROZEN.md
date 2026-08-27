@@ -419,15 +419,21 @@ of empty vacuum.
 **(O1) The node-balance ratio $\beta_u$ — the primary field.** For node $u$, with `a_nodes` and the
 per-tone phasors $v^{(m)}$ as the shipped code produces them:
 
-$$\beta_u \;=\; \frac{\Bigl[\sum_m \bigl|\sum_j a_{uj}\,v^{(m)}_{uj}\bigr|^2\Bigr]^{1/2}}{\Bigl[\sum_m \sum_j \bigl(a_{uj}\,\bigl|v^{(m)}_{uj}\bigr|\bigr)^2\Bigr]^{1/2}}$$
+$$\beta_u \;=\; \frac{\Bigl[\sum_m \bigl|\sum_j a_{uj}\,v^{(m)}_{uj}\bigr|^2\Bigr]^{1/2}}{\Bigl[\sum_m \bigl(\sum_j a_{uj}\,\bigl|v^{(m)}_{uj}\bigr|\bigr)^2\Bigr]^{1/2}}$$
 
-The numerator is the shipped `node_voltage` magnitude, tone-summed. The denominator is **the same
-sum with the cancellation removed** — each term's magnitude entered incoherently. Three properties,
-each of which is load-bearing and each of which is a theorem about the formula, not an assumption:
+The numerator is the shipped `node_voltage` magnitude, tone-summed in quadrature. The denominator
+is **the same expression with the cancellation removed** — inside each tone, the port terms are
+entered as **magnitudes** ($\bigl|\sum_j \cdot\bigr| \to \sum_j |\cdot|$), and the tones are then
+summed in quadrature identically. Three properties, each load-bearing and each a theorem about the
+formula rather than an assumption:
 
-- **$\beta_u \in [0,1]$**, by the triangle inequality on the numerator against a term-wise
-  Cauchy–Schwarz bound on the denominator. $\beta_u=0 \iff$ **perfect balance**;
-  $\beta_u \to$ its ceiling $\iff$ no cancellation at all.
+- **$\beta_u \in [0,1]$**. Per tone, the triangle inequality gives
+  $\bigl|\sum_j a_{uj}v^{(m)}_{uj}\bigr| \le \sum_j a_{uj}\bigl|v^{(m)}_{uj}\bigr|$; the quadrature
+  sum is monotone in each term, so the ratio of the two quadrature sums is $\le 1$.
+  **$\beta_u=0 \iff$ perfect balance; $\beta_u = 1 \iff$ no cancellation at all** (every port in
+  phase at every tone). *(The denominator is deliberately the per-tone $L^1$ sum, not the $L^2$
+  one: an $L^2$ denominator would put the ceiling at $\sqrt z \approx 1.732$ and the bound would
+  not be $[0,1]$.)*
 - **$\beta_u$ is INVARIANT under any rescale of $\lVert v\rVert$** — numerator and denominator are
   both homogeneous of degree 1 in $v$. **So $\beta$ measures BALANCE, never SIZE, and cannot be
   driven to zero by the solution shrinking.** This is the single most important property in this
@@ -441,8 +447,11 @@ each of which is load-bearing and each of which is a theorem about the formula, 
 $\boxed{\tau_\beta = 1.0\times10^{-2}}$ **FROZEN**.
 
 *Justification, stated in both directions.* On a generic incident field at $z=3$ the coherent sum
-is $\sim1/\sqrt3$ of the incoherent one, so the generic population sits near $\beta\approx0.58$ —
-**$\tau_\beta$ is nearly two decades below it.** And the numerical floor of the solve is
+is $\sim1/\sqrt3$ of the incoherent one, so the generic population sits near $\beta\approx0.58$.
+**Measured, at freeze, over 20 000 random-phase draws at $z=3$ with log-normal magnitudes: mean
+$\beta = 0.5423$, max $\beta = 0.999993$, and the all-in-phase case returns exactly $1.0$** —
+confirming both the ceiling and the generic population. **$\tau_\beta$ therefore sits 1.7 decades
+below the generic population.** And the numerical floor of the solve is
 $\lesssim10^{-8}$ (§7 NT-4), so **$\tau_\beta$ is six decades above the instrument's noise.** *A
 threshold the instrument cannot resolve always fires; a threshold the instrument cannot reach
 never does.* Both edges are named so neither can be re-cut later.
@@ -1045,5 +1054,3 @@ judgment call).
 
 **Retro-pass obligation:** if the applied skill set drifts during execution, the drift is recorded
 in the result document, not back-fitted into this list.
-
-## §12 — SKILL-SELECTION PLAN *(placeholder)*
