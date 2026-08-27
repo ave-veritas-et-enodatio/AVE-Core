@@ -18,10 +18,22 @@ amplitude crosses a threshold.
 is SOLID and is the only SOLID electron-wall statement in the corpus. Nothing
 is edited, demoted, or re-graded by this item.
 
-**Why it is a move and not a mint.** Both registers already exist in canon, and
-`vocabulary-register.md`:404 (`def-anat3s`) already banks the conjecture the
-move would discharge — surface (ii) the balance shell is *"CONJECTURED ≡ wall
-per Ruling 6"*.
+**Why it is a move and not a mint.** Both registers already exist in canon, so
+the proposal uses a category canon already defines rather than minting one.
+
+> ⚑ **[OPEN] — corrected 2026-08-27.** An earlier version of this item added
+> that `vocabulary-register.md`:404 (`def-anat3s`) *"already banks the conjecture
+> the move would discharge"* — surface (ii), the balance shell, *"CONJECTURED ≡
+> wall per Ruling 6"*. **That performed the weld caution 2 below forbids.**
+> `def-anat3s`'s surface (ii) is the **real-space** `σ`-balance object: the
+> def-node's `axis:` is `spatial-Brillouin` (`:405`), its `dimension/type:` is
+> `length (L) — three distinct radial loci` (`:406`), and its balance-shell
+> anchor is `hollow-vortex-binding.md`:49,:133 (`:411`) — the same citation
+> caution 2 gives for the pressure-balance column. **Whether that surface is the
+> same surface as the port-space phasor balance is exactly what is
+> under-determined, and neither this item nor the record takes a position on
+> it.** The register move therefore does **not** discharge `def-anat3s`'s
+> surface-(ii) conjecture.
 
 **What is measured, and what it costs the incumbent.** On the shipped operator
 (`src/ave/solvers/vacuum_varactor_scatter.py`), reproduced in the record:
@@ -41,9 +53,16 @@ per Ruling 6"*.
    balanced nodes are **cheap, not special** — the `−1` eigenspace is present at
    **every node of empty cold vacuum**, where nothing is confined. The electron
    would have to be a **closed surface of simultaneously balanced nodes**, which
-   is a property of the composed map `M = C · blockdiag(S)` that **no leaf in
-   the corpus computes**. The register move buys a *relocated question*, not an
-   answer.
+   is a property of the composed map `M = C · blockdiag(S)`. **The corpus DOES
+   compute `M`** (`assemble_varactor_scattering`,
+   `src/ave/solvers/vacuum_varactor_scatter.py`:225; leaf
+   `vol4/circuit-theory/ch1-vacuum-circuit-analysis/vacuum-varactor-scatter-operator.md`:76-78)
+   — **what no leaf computes is `M`'s SPECTRUM on a closed surface**; the only
+   shipped eigenvalue read is the local-node one
+   (`src/scripts/vol_4_engineering/vacuum_varactor_scatter_figures.py`:242).
+   *(Corrected 2026-08-27: this item previously said the corpus does not compute
+   `M` at all, which was false — see the ⚑ in record §3 CAUTION 1.)* The register
+   move buys a *relocated question*, not an answer.
 2. **Register 4 is ambiguous as written.** Its own gloss
    (`boundary-observables-m-q-j.md`:61) illustrates BALANCE LOCUS with the
    **hollow-vortex balance shell** — a *real-space pressure* balance of two

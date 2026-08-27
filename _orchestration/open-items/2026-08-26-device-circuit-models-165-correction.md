@@ -28,6 +28,27 @@ earlier "prohibition" framing is wrong and must be corrected.**
 the A1 mass wall with the `Γ_spinor` T2 wall. It argues **on the A1 side**.
 Reading it as "`:165` forbids the A1 wall" inverts its position.
 
+**Where the misreading came from (added 2026-08-27).** It came into the arc from
+the **orchestrator dispatch brief that opened it** — the same brief the record
+corrects at §2.4.1 on the transposed level-set labels — **not from a corpus
+document.** A dispatch brief is not a tracked file, so this attribution carries
+no `file:line`; it is recorded so the misreading is sourced and cannot be
+re-inherited as if canon had said it.
+
+**Sweep status (added 2026-08-27) — PARTIAL; the method, not the corpus.** Two
+methods were run on branch `research/2026-08-26-virtual-neutral-arc`: **(1)** a
+regex over the whole tree (excluding `.git`) for any citation of
+`device-circuit-models` carrying a line number in `163–169`; **(2)** an
+independent grep for `prohibition` / `prohibits` across the whole tree, checked
+for co-occurrence with `device-circuit-models` or the A1 wall. **Neither method
+returned an in-corpus document framing `:165` as a prohibition.** The one
+substantive non-arc citer of `:165` —
+`research/2026-06-19_electrical-mechanical-projection-map.md`:65 — cites
+`:163, :165, :178` for the M/J/Q bijection refutation and takes no position on
+the wall; every other `:163` hit is the unrelated chiral-crystal
+non-reciprocity-magnitude topic. **This reports two searches, not a census** —
+item 2 below stays OPEN, because only reading establishes what exists.
+
 **★ And correcting it exposes a live canon-vs-canon tension** that the
 misreading concealed — this is the substantive half of the item:
 
