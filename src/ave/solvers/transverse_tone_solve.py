@@ -150,6 +150,7 @@ __all__ = [
     "make_vector_termination",
     "node_voltage_vector",
     "plane_binned_voltage_vector",
+    "plane_termination",
     "port_admittance",
     "signed_gamma",
     "solve_tone_vector",
@@ -249,3 +250,128 @@ def energy_Y_phasor(v: np.ndarray, Y_port: np.ndarray) -> float:
     reimplementation of it. Conservation under `apply_M_vector` is a gate."""
     Y = np.asarray(Y_port, dtype=np.float64)[:, :, None]
     return float((Y * np.abs(np.asarray(v)) ** 2).sum())
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# 3. TERMINATIONS ON THE VECTOR CONTAINER (the scaffold)
+# ═════════════════════════════════════════════════════════════════════════════
+@dataclass(frozen=True)
+class VectorTermination:
+    """Source/absorber termination: incident PORT slots with imposed 2-vectors.
+
+    The transverse twin of `harmonic_balance_srs.Termination`. One structural
+    difference, and it is deliberate: a terminated slot is a directed PORT, and
+    the imposed quantity is that port's full incident polarization 2-vector.
+
+    WHY PER-PORT AND NOT PER-COMPONENT: a bond has ONE impedance, so the
+    scaffold that terminates it is one physical boundary condition on the whole
+    transverse field there -- a per-COMPONENT termination would smuggle in
+    un-owned birefringent structure exactly the way a per-component loading map
+    would (the T2 component-scalar fence, transverse_graded_scatter.py:37-41).
+    A linearly polarized launch is expressed as drive = (s, 0): component 1 is
+    imposed to ZERO, which is a boundary condition, not an absence of one.
+
+    ports  : (n_T,) flat directed-port indices (u*degree + p) whose incident
+             wave is imposed.
+    paired : (n_T,) for each terminated slot, the flat SRC port whose V_ref
+             would have CONNECTed into it -- the wave the scaffold absorbs,
+             matched at the bond's own Y. A boundary condition, never a bulk
+             loss term (Ax3 untouched).
+    drive  : (n_tones, n_T, 2) complex imposed incident phasors s_hat. An
+             all-zero drive is a pure absorber -- and makes the tone problem
+             HOMOGENEOUS, which `solve_tone_vector` refuses by default (FL-4).
+    """
+
+    ports: np.ndarray
+    paired: np.ndarray
+    drive: np.ndarray
+
+    def __post_init__(self):
+        object.__setattr__(self, "ports", np.asarray(self.ports, dtype=np.int64))
+        object.__setattr__(self, "paired", np.asarray(self.paired, dtype=np.int64))
+        object.__setattr__(self, "drive", np.asarray(self.drive, dtype=np.complex128))
+        if self.drive.ndim != 3 or self.drive.shape[1:] != (len(self.ports), 2):
+            raise ValueError(
+                f"drive must be (n_tones, n_terminated_ports, 2); got {self.drive.shape} "
+                f"for {len(self.ports)} ports"
+            )
+        if len(self.paired) != len(self.ports):
+            raise ValueError("paired must match ports")
+
+    @property
+    def n_tones(self) -> int:
+        return int(self.drive.shape[0])
+
+    def is_homogeneous(self, tone_index: int = 0) -> bool:
+        """True when this termination imposes NO drive at the given tone -- i.e.
+        the tone's fixed-point problem is homogeneous and 0 solves it exactly
+        (the FL-4 condition; see `solve_tone_vector`)."""
+        return not (len(self.ports) and bool(np.any(self.drive[tone_index])))
+
+
+def make_vector_termination(net, bt, conn: tuple, specs: list, n_tones: int) -> VectorTermination:
+    """Assemble a VectorTermination from per-slot-set specs.
+
+    specs : list of (flat_incident_slots, drive) where drive is either
+            (n_tones, 2) -- applied uniformly over those slots -- or
+            (n_tones, n_slots, 2). Overlapping slot sets are rejected (a slot
+            can carry only one boundary condition). The paired SRC ports are
+            resolved from the connect map (dst -> src), exactly as the scalar
+            twin does."""
+    src_flat, dst_flat = conn
+    dst_to_src = {int(dj): int(sj) for sj, dj in zip(src_flat, dst_flat)}
+    ports, drives = [], []
+    for slots, drive in specs:
+        slots = np.asarray(slots, dtype=np.int64)
+        drive = np.asarray(drive, dtype=np.complex128)
+        if drive.shape == (n_tones, 2):
+            drive = np.repeat(drive[:, None, :], len(slots), axis=1)
+        if drive.shape != (n_tones, len(slots), 2):
+            raise ValueError(f"drive shape {drive.shape} != {(n_tones, len(slots), 2)}")
+        ports.append(slots)
+        drives.append(drive)
+    ports_all = np.concatenate(ports) if ports else np.zeros(0, dtype=np.int64)
+    if len(np.unique(ports_all)) != len(ports_all):
+        raise ValueError("terminated slots overlap between specs")
+    drive_all = (
+        np.concatenate(drives, axis=1)
+        if drives
+        else np.zeros((n_tones, 0, 2), dtype=np.complex128)
+    )
+    missing = [int(t) for t in ports_all if int(t) not in dst_to_src]
+    if missing:
+        raise ValueError(f"terminated slots absent from the connect map: {missing[:5]}")
+    paired = np.array([dst_to_src[int(t)] for t in ports_all], dtype=np.int64)
+    return VectorTermination(ports=ports_all, paired=paired, drive=drive_all)
+
+
+def plane_termination(net, bt, conn: tuple, planes_drives: list, n_tones: int) -> VectorTermination:
+    """Convenience assembler: terminate the incident slots of every bond
+    crossing each named x-plane.
+
+    planes_drives : list of (plane_cells, drive_fwd, drive_bwd), each drive
+                    (n_tones, 2) complex OR None. fwd = the +x-traveling
+                    incident slots at the plane, bwd = the -x-traveling ones
+                    (the split is `harmonic_balance_srs.crossing_ports`, reused
+                    untouched -- including its fail-loud empty-crossing guard
+                    and its wrap-aware plane test).
+
+    None means DO NOT TERMINATE that direction, and it is load-bearing: a
+    far-side load plane must leave the +x direction FREE (imposing 0 there
+    would delete the transmitted wave instead of absorbing it, and the
+    "absorber" would be a perfect mirror wearing an absorber's name). A
+    one-sided cut is the matched absorber; a two-sided cut is a hard boundary.
+
+    This lives in the module rather than in a test helper so the known-case
+    scaffold pattern is FROZEN with the geometry (guard (d)), not re-typed per
+    caller."""
+    specs = []
+    for plane, drive_fwd, drive_bwd in planes_drives:
+        f, b = crossing_ports(net, bt, plane)
+        for slots, drive in ((f, drive_fwd), (b, drive_bwd)):
+            if drive is None:
+                continue
+            specs.append((slots, np.asarray(drive, dtype=np.complex128)))
+    if not specs:
+        raise ValueError("plane_termination: every direction was None -- no boundary condition")
+    return make_vector_termination(net, bt, conn, specs, n_tones)
