@@ -27,7 +27,45 @@ result from this lane may be framed as a chord, as emergence, or as a falsificat
 
 ---
 
-## §0 — SECTOR HEADER *(placeholder — filled by its own commit)*
+## §0 — SECTOR HEADER (declared once, binding on every claim in this document)
+
+[`wall-taxonomy.md:160`](../manuscript/ave-kb/common/wall-taxonomy.md), verbatim, verified on this
+branch: *"Before asserting a wall anywhere: name (i) the **channel**, (ii) the **axis** it lives
+on, and (iii) the **phase-state** (cold/sub-yield vs saturated). A claim missing any of the three
+is not yet a claim about a wall."* Declared here for the whole document; **every §4 bin inherits
+this header and none of them may be quoted without it.**
+
+| axis | declaration |
+|---|---|
+| **CHANNEL** | **SCALAR shunt-junction channel only** — one scalar phasor per directed port, the Op5 port set that `vacuum_varactor_scatter.admittance_scatter` and `harmonic_balance_srs.apply_M` actually compute on. **No Cosserat micro-rotation DOF is carried, driven, graded or read.** |
+| **AXIS** | **node-voltage balance** — the shunt-junction KCL sum $\sum_j Y_j v_j$ at each node, evaluated by the shipped `harmonic_balance_srs.node_voltage`. This is a **network** axis, not a spatial-Brillouin one; the surface it defines is located in the bond graph, never on a Cartesian radius. |
+| **PHASE-STATE** | **GRADED, mixed** — cold ($A=0$) in the far field, driven up to but not beyond the shipped kernel clip in the core. Both the cold arm and the graded arm are run, and the cold arm is a **control**, not a result. Ruptured and pre-bond states are OUT OF SCOPE; no result may be extrapolated across a phase boundary. |
+| **MODE** | **DISCRIMINATOR** between two named ontologies (§1). Not a derivation, not an existence proof, not a measurement of any constant. |
+| **CARRIER** | **srs-z3**, `build_srs_net(L=6)` — the D1-ratified production carrier, and the same $L=6$ carrier the incumbent claim's own wall figure is drawn on. The z=2 ring is a **fixture** only (§5), and its own carrier tag says so: `carrier="ring-z2-fixture"  # known-case fixture, NOT a physics carrier` (`harmonic_balance_srs.py:1088`). |
+| **CROSS-WIRING CHECK** | **Performed.** Nothing in this lane couples the scalar channel to charge (Cosserat winding), to spin (the $\mu$ sign-selector), or to the A1 dilatation mass store. Both candidate ontologies are statements about **where a scalar node voltage vanishes**; neither is a statement about what the surface *carries*. |
+| **consistency-vs-emergence** | **CONSISTENCY / ontology-discrimination.** Declared before any run. Neither outcome is an emergence result: the run does not ask whether the substrate hosts a bound state, it asks which of two descriptions locates a surface that is assumed to exist. |
+
+**★ The one cross-wiring hazard this header exists to close.** [`k4-port-irrep-decomposition.md:23`](../manuscript/ave-kb/vol1/operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md)
+names the $-1$ eigenvalue *"$T_2$"*, and [`vocabulary-register.md:747-758`](../manuscript/ave-kb/common/vocabulary-register.md)
+(`def-vyvsn1`) puts the incumbent electron wall in the **transverse Cosserat $T_2$ sector**. **These
+are two different objects wearing one name and this document uses NEITHER name for its own
+observable.** The K4 leaf's $A_1 \oplus T_2$ split is the **port-space irrep decomposition of a
+$z=4$ scalar shunt junction** — it is the same linear algebra this lane generalises, on the same
+scalar port space, and it is *not* the Cosserat rotation sector. Throughout this document the two
+eigenspaces are called **COMMON** ($+1$, all ports equal) and **BALANCED** ($-1$, $\sum_j Y_j v_j =
+0$), and no sentence here licenses reading a BALANCED-subspace result as a statement about the
+$T_2$ micro-rotation channel or about `def-vyvsn1`'s threshold.
+
+**Circuit statement, before any framework word.** Lossless delay lines meet at 3-way shunt
+junctions. Some of the lines are varactor-loaded, so their admittances differ. **Question: when the
+common node voltage at a junction goes to zero, is that because the loading got extreme, or
+because the incoming waves cancelled?** Those are different circuits and they fail differently.
+
+**Coordinates (`phase-space-coordinate-check`).** The claim under test is a statement about the
+**node-voltage phasor field**, and every measurement below is taken in that field. The locus scalar
+is a **bond-graph hop count**, never a Cartesian radius — `build_bond_table`'s own docstring binds
+this: *"Canonical (min,max)-keyed undirected-bond tables from the net's own neighbor lists (**never
+a Cartesian distance posit**)"* (`harmonic_balance_srs.py:262-264`).
 
 ## §0.5 — GUARD DISCHARGE (a)–(e) *(placeholder)*
 
