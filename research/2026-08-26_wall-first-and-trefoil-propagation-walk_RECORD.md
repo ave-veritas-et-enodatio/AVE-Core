@@ -22,15 +22,26 @@ in here**, and are cited by document name only). The four walks collectively
 
 **The reason this record under-claims, stated first because it is the whole
 point.** This arc's two immediate predecessors were both walk-grade lenses, and
-**both were carried into audit on a step their author had flagged as safe — one
-verdict is PENDING, and one is a FLAG RAISED HERE.** (The flat form of this
-sentence, *"both died at audit"*, over-stated what this record can support; it is
-corrected here rather than in a later note.)
+they went wrong **in two different ways**. Two earlier forms of this sentence
+collapsed them into one — first *"both died at audit"*, then *"both were carried
+into audit on a step their author had flagged as safe."* **Both were false, and
+false in the direction that flatters the arc.** The corrected version is the
+less comfortable one, which is why it is stated at the top:
 
 - The **autonomous-HB lens** (`research/2026-08-25_autonomous-harmonic-balance-lens_RECORD.md`)
-  put its own worry on A3 (*"the most load-bearing unverified step"*, §6) —
-  topology-preservation on the discrete solve. **Verdict PENDING as far as this
-  record is concerned.** `[MEASURED-ELSEWHERE — the audit result doc
+  **named its own most load-bearing unverified step, and was built on anyway.**
+  `[CANON — per §0's key this tag means "verified at a file:line this session";
+  the cited source is a walk record, not a canon leaf]` `:131`, verbatim:
+  *"[Audit item A3 — this is the lens's most load-bearing unverified step.]"*,
+  and `:157`'s charter row says the same of A3 in the same words —
+  topology-preservation on the discrete solve. So this is **not** a case of
+  nobody seeing it coming. It was **flagged, in writing, in
+  the document, and the arc advanced past it.** That is a **process failure, not
+  bad luck.** Naming a risk is not managing one; a caveat is not a gate, and
+  that record's own §5 heading calls its list *"Honest caveats, stated before
+  the audit finds them"* — which is a disclosure mechanism, not a blocking one.
+  **Verdict PENDING as far as this record is concerned.**
+  `[MEASURED-ELSEWHERE — the audit result doc
   (research/2026-08-25_autonomous-hb-lens-audit_RESULT.md) is FORTHCOMING and is
   NOT in the repo at this record's base; it is the authority on where that lens
   actually died, and this record does not characterize its verdict. Nothing here
@@ -41,14 +52,25 @@ corrected here rather than in a later note.)
   three-surfaces-collapsed-into-one error. **That is a flag raised in this
   record, not a verdict returned by an audit** — §3.6 says in its own words that
   it *"does NOT resolve it"*, and routes the adjudication to the in-flight
-  electron-wall sweep (§9). It is listed here because it is an objection to a
-  step nobody in the arc was worried about, since "the wall" was assumed to be
-  one surface.
+  electron-wall sweep (§9). It is listed here because it is the **other** failure
+  mode, and the only one the discarded flourish described correctly: an objection
+  to a step **nobody in the arc was worried about**, since "the wall" was assumed
+  to be one surface.
 
-So the discipline applied here is: **the confident steps get the audit
-instructions, not the hedged ones.** §6's charter deliberately puts its
-sharpest attack instructions on the claims this arc states most fluently
-(W1-1, W3-3, W4-2), not on the ones it already hedges.
+**So two disciplines are applied here, not one — the flourish only ever answered
+the second.** For the unworried-step mode: **the confident steps get the audit
+instructions, not the hedged ones.** §6's charter deliberately puts its sharpest
+attack instructions on the claims this arc states most fluently (W1-1, W3-3,
+W4-2), not on the ones it already hedges. For the flagged-and-advanced-past
+mode, disclosure is not enough and this record does not pretend otherwise:
+**a flagged step has to BLOCK.** §6's preamble fences §§1–5 out of preregs,
+manuscript entries, claim ids and solidity numbers until the charter is run;
+§7's **K11** quarantines this entire record if any part of it is used to retire,
+supersede or re-scope an existing ruling before then; and the routing item
+carries the same fence. **Whether that fence holds is not
+something this record can certify about itself** — it can only ship it in its
+own text instead of leaving it to be applied from outside, which is what §7 and
+§8 are.
 
 **A second reason, structural.** Every one of the four walks turned out, on
 verification, to be **partly a rediscovery of something canon already carries**

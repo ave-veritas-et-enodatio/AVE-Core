@@ -35,15 +35,30 @@ the properties of the wall we can measure on the electron?"*
 
 ## Why it needs an adversarial audit specifically
 
-**Its two immediate predecessors were both carried into audit on a step their
-author had flagged as safe** — which is what §0 of the record says, and all it
-says: one verdict is **PENDING as far as that record is concerned** (the
-autonomous-HB lens; the record does not characterize it), and the other is **a
-flag raised inside the source record at §3.6, not a verdict returned by an
-audit**. The flat form of this sentence — *"both died at audit"* — is
-explicitly RETRACTED in §0 as over-stating what the record can support, so it
-must not be re-asserted here. The charter is therefore weighted **toward the
-fluent claims, not the hedged ones**.
+**Its two immediate predecessors went wrong in two DIFFERENT ways, and §0 of
+the record now says so.** Two earlier forms of this sentence — *"both died at
+audit"* and *"both were carried into audit on a step their author had flagged as
+safe"* — are RETRACTED in §0 as false in the direction that flatters the arc.
+Neither may be re-asserted here. What §0 says now:
+
+- The **autonomous-HB lens named its own most load-bearing unverified step and
+  was built on anyway** — `2026-08-25_autonomous-harmonic-balance-lens_RECORD.md`
+  `:131`, verbatim: *"[Audit item A3 — this is the lens's most load-bearing
+  unverified step.]"*, with `:157`'s charter row saying the same of A3.
+  **Flagged, in writing, and advanced past — a process
+  failure, not bad luck.** Its verdict is **PENDING as far as the source record
+  is concerned**, and that record deliberately does not characterize it.
+- The **electron-wall / saturation-tension reading** is the other mode: an
+  objection to a step **nobody in the arc was worried about**, raised as a flag
+  inside the source record at §3.6, **not a verdict returned by an audit**.
+
+**Both modes are live for this arc, and the charter answers only one of them.**
+It is weighted **toward the fluent claims, not the hedged ones** — which is the
+remedy for the second mode. The remedy for the first is not a charter weighting
+at all, it is the **blocking relationship at the bottom of this item**: a step
+this arc has flagged must stop the arc, not merely be disclosed. **An auditor
+should treat any attempt to advance past a flagged step before the charter runs
+as the failure mode this arc's predecessor already demonstrated.**
 
 **Three claims carry ★ and must not be skipped:**
 
