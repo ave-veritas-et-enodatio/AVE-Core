@@ -364,8 +364,9 @@ proposal (§7, and the routed open item) must therefore either (a) split
 register 4 into two sub-registers, or (b) argue that both are instances of one
 kind. **This arc does neither, and takes no position.** `[OPEN]`
 
-`[WALK]` ⚑ **The same collision runs through `def-anat3s`, and it is the one this
-record came closest to welding.** `vocabulary-register.md:404`'s surface **(ii)
+`[WALK]` ⚑ **The same collision runs through `def-anat3s`, and it is the one
+this record actually welded — at §5.2 and at support S2, until the repair below
+withdrew it.** `vocabulary-register.md:404`'s surface **(ii)
 the balance shell** — *"the `σ`-opposite-equal crossing, `≈ 1.6 ℓ_node`;
 **CONJECTURED `≡` wall** per Ruling 6"* — is **the left-hand column of the table
 above**, not the right: the def-node's own `axis:` is **`spatial-Brillouin`**
@@ -476,7 +477,7 @@ registers** and files the electron under register 1:
 > `hollow-vortex-binding.md:49`.)"* (`:61`)
 
 And `common/vocabulary-register.md:404` (`def-anat3s`) banks a balance-shell
-conjecture nearby:
+conjecture of its own:
 
 > *"**(ii) the balance shell** (the `σ`-opposite-equal crossing, `≈ 1.6 ℓ_node`;
 > **CONJECTURED `≡` wall** per Ruling 6)"*
