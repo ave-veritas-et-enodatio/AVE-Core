@@ -70,6 +70,14 @@ memory from a confident one.
 > walk's two load-bearing mechanisms. They are folded into **§4**, which was
 > revised in place; §6.3 and §7.2 were revised because the new measurements
 > contradicted what this record had already said. The revisions are in git.
+>
+> **★ SECOND AMENDMENT — see the dated STATUS NOTE at the end of this record.**
+> The A1–A7 audit completed after this section was written and **re-dispositioned
+> the first CRITICAL below**: the argument in `:78-84` is **REFUTED** (unanimously),
+> while its conclusion is **re-established on different receipts (F5/F6)**. The
+> governing statement is the **F1–F6 table** in
+> `research/2026-08-25_autonomous-hb-lens-audit_RESULT.md` §2 (F1 in full at its
+> §2.1). **Do not quote §1's first CRITICAL without it.**
 
 The autonomous-HB lens proposed replacing the driven existence test with a
 source-free nonlinear eigenvalue problem: *find `v ≠ 0` solving
@@ -82,6 +90,12 @@ source-free nonlinear eigenvalue problem: *find `v ≠ 0` solving
 eigenvector — 192 source-free solutions on empty cold vacuum, with no electron,
 no winding and no saturation anywhere in the problem.
 **[MEASURED-ELSEWHERE, VERIFY PENDING]**
+*(**Reconciling caveat, added 2026-08-26.** `192` is the dimension of an
+eigenBASIS, not a count of distinct solutions: this record's own KILL 2 (§4.2)
+measures **23 distinct `θ`** with multiplicities up to **34** on the very same
+`ndof = 192` operator, and the audit makes the same correction at its §2.1 —
+*"the '192' is a basis artifact."* Read the sentence above as "a
+192-dimensional eigenbasis spanning 23 distinct frequencies."* **[MEASURED-VERIFY-PASS]**)*
 
 **CRITICAL — the seed is the selection device.** Six independent random
 topologically-trivial seeds gave six *different* exact autonomous solutions
@@ -801,10 +815,15 @@ specific defects the review measured in the autonomous-HB lens. It escapes some
 of them. Scored against each **[ASSEMBLY of the VERIFY pass's reading; the
 measurements are [MEASURED-VERIFY-PASS]]**:
 
+**Row labels below follow the audit's own `D`-numbering
+(`research/2026-08-25_autonomous-hb-lens-audit_RESULT.md` §7), so the two ledgers
+can be read side by side.**
+
 | defect (from §1) | verdict | detail |
 |---|---|---|
+| **D1 — existence generic; one-parameter continuum; no selection; connected to `A→0`** (findings 1, 5) | **★ RELOCATED, NOT EVADED** | Added 2026-08-26; this row was missing and it is the one the walk most needs to see. The instinct is right — for a `Y`-unitary family `\|λ\|=1` is identically satisfied and imposes nothing, whereas a **collision** `λ_i = λ_j` is a genuine condition on the parameter, so replacing a vacuous condition with a codimension-≥1 one is the correct structural move. **But on this carrier the degeneracy is already generic and amplitude-rigid** (KILL 2, §4.2), so D1 comes back in a new coordinate rather than going away. |
 | **template-winding reader** (finding 3) | **★ EVADED OUTRIGHT** | the invariant never touches `srs_cage_winding` or `e_w`. **This is the one defect the walk dodges cleanly, and it should be credited plainly.** |
-| **amplitude selection** (finding 5, finding 6) | **EVADED IN KIND** | structural selection is lossless and needs no gain compression — the right *class* of answer for an Ax 3 medium. Note it is a **different cure** from the one the VERIFY pass measured: adding one norm/charge equation restores full rank; degeneracy selection adds **no** equation and picks isolated points on the existing family. **Both are legitimate.** |
+| **amplitude selection** (finding 5, finding 6) | **EVADED IN KIND** | structural selection is lossless and needs no gain compression — the right *class* of answer for an Ax 3 medium. Note it is a **different cure** from the one the VERIFY pass measured: adding one norm/charge equation restores full rank; degeneracy selection adds **no** equation and picks isolated points on the existing family. **Both are legitimate.** **★ Rider restored 2026-08-26 — the source sentence continues past this point:** the degeneracy route must still show the collisions are **finitely many, not symmetry-enforced, and at physical amplitudes.** **None of the three is measured, and the one relevant measurement (KILL 2) is adverse.** |
 | **seed-is-the-selector** (finding 2) | **EVADED IN PRINCIPLE, PARTIALLY RE-IMPORTED** | transport must track eigenvectors around the loop, and with **multiplicity up to 34** the abelian transport is ill-defined. **The choice of starting subspace inside a 34-dimensional block IS a seed.** |
 | **wrong sector / A1–T2 cross-wire** (finding 4) | **INHERITED IN FULL** | the walk says over-braced chiral **Cosserat** lattice, and a Maxwell–Calladine count on a Cosserat lattice **requires the micro-rotation DOF** — the exact channel `harmonic_balance_srs.py:147-149` says is absent. **★ This strengthens rather than weakens §5's T2 conclusion.** |
 
@@ -1040,3 +1059,61 @@ open.
 **It is a chat walk of exactly the grade that the lens it replaces was, on the
 day that lens was written — and that lens was measured dead the next day.** Read
 §7 and §9 before treating any of §§2–5 as more than a direction.
+
+
+---
+
+## 🔴 STATUS NOTE — 2026-08-26: §1's MOTIVATION HAS BEEN RE-DISPOSITIONED BY THE AUDIT
+
+**Additive only (Rule 12). Nothing above this line is edited by this note; §1 is
+preserved as written and this note is the correction of record.**
+
+The A1–A7 audit of the autonomous-HB lens completed after §1 of this record was
+written. Its disposition of the six review findings — the **F1–F6 table** in
+`research/2026-08-25_autonomous-hb-lens-audit_RESULT.md` §2, with F1 treated in
+full at that document's §2.1 — supersedes §1 as the statement of what was
+measured. **Read the F1–F6 table before quoting §1.**
+
+**§1's first CRITICAL still ships the F1 ARGUMENT, and that argument is
+REFUTED.** §1 `:78-84` runs the chain *`M` is `Y`-unitary for any `S`-field →
+every eigenvector is a source-free solution → 192 source-free solutions on empty
+cold vacuum → existence is vacuous.* The audit's verdict on F1 is
+**`CONCLUSION CONFIRMED / ARGUMENT REFUTED`**, and it is the one **unanimous**
+refutation of the round. The refutation: `S` is a function of `|v|`, so the cold
+eigenvectors are **not** solutions of the nonlinear problem — rebuilt from each
+eigenvector's own envelope, **0 of 192** pass at `A = √α = 0.0854` (median
+defect `9.4e-4`); the 192/192 pass at `A = 0` is `v = 0`.
+
+**The CONCLUSION survives, on different receipts (F5/F6), and those are the ones
+this walk's motivation should rest on:**
+
+- the unconstrained **square** autonomous system (phase pin only, no norm) is
+  **rank-deficient by exactly one**, with the null direction the **amplitude
+  rescale** — two independent lanes, `σ_min/σ_max = 3.207e-11` against
+  `σ_[-2]/σ_max = 8.280e-04` with rescale overlap `0.997`, and independently
+  `σ_min = 1.680e-11` against `σ_[-2] = 3.739e-04` with overlap `1.0000`;
+- the branch **runs continuously down to `A→0`**, where it **becomes** the cold
+  linear eigenmode — 30 sweep points converging at `~5e-15` from
+  `amp = 0.020` upward.
+
+So bare existence still carries near-zero discriminating content, and the
+one-parameter family is still there. **But the route to that conclusion is not
+"the operator is unitary, so every eigenvector solves it."** That move was also
+flagged by both F1 lanes as a **consensus-bias** hit — the identical inference
+would condemn Hartree–Fock/SCF, gap equations, lattice-QCD transfer matrices,
+the NLS/Gross–Pitaevskii bound-state literature, and stationary states in a
+finite box. It is withdrawn there and it should not be re-run here.
+
+**And the "192" is a basis count, not a count of distinct solutions.** This
+record's own **KILL 2** (§4.2) measures the cold spectrum at **23 distinct `θ`**
+with multiplicities up to **34** on the same `ndof = 192` operator. `192` is the
+dimension of an eigenBASIS; the distinct-frequency count is `23`. Wherever §1
+says *"192 source-free solutions"*, read *"a 192-dimensional eigenbasis spanning
+23 distinct frequencies."* The audit makes the same correction at its §2.1
+(*"the '192' is a basis artifact"*).
+
+**What does NOT change.** This walk's own two kills (§4.2) are unaffected —
+they were measured on this carrier by the VERIFY pass and are independent of
+F1's status. §9's verdict stands. The audit's own §7 assesses this reframe for
+**evasion vs inheritance only** and rules nothing about its truth; its `D1` row
+reads **RELOCATED, NOT EVADED**, which §7.7 of this record now carries.
