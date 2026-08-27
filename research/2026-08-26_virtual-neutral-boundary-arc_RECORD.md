@@ -438,6 +438,29 @@ ambiguous until register 4 is split or unified. That ambiguity is the open
 item, not a detail.
 
 ## §6 — Where Grant's reading is SUPPORTED (seven places)
+
+**Why this section exists.** This arc has a documented habit of reporting only
+the negative — §2 is four exact results, three of them negative, and §3/§4 are
+cautions. A record that stops there misreports the state. **Seven places the
+reading is right, listed at their honest grade:**
+
+| # | the support | grade | receipt |
+|---|---|---|---|
+| **S1** | **The engine's operative scatter equation is the Wye reduction.** Grant's "what does the schematic say" question has a literal answer in shipped code, not an analogy: `V_u = 2(Σ_j Y_j V_j^inc)/(Σ_k Y_k)`, and `V_u = 0` on balance. | `[MEASURED]` | `src/ave/solvers/vacuum_varactor_scatter.py:28-34, :156-185`; run in §2 |
+| **S2** | **Canon has the register slot AND the banked conjecture.** Register 4 (**BALANCE LOCUS**) exists and is un-tabulated for the electron; `def-anat3s` already says surface (ii) is *"**CONJECTURED `≡` wall**"*. The move discharges a banked conjecture rather than minting a category. | `[CANON]` | `common/boundary-observables-m-q-j.md:61`; `common/vocabulary-register.md:404` |
+| **S3** | **The rim-inversion he already ratified points the same way.** `def-satrim`/`clm-riminv` (**SOLID** def, claim solidity 0.55, Grant-ratified mapping): a saturated core is *"pinned **ON the RIM** … amplitude-frozen, **phase-topological**"*, and *"the dynamics and topology **swap roles**; the core's state space is the **BOUNDARY** of the baseline's."* A boundary that is a phase-space object, not a real-space one, is exactly what Grant said. | `[CANON]` | `common/vocabulary-register.md:1126` (`def-satrim`); `common/saturation-rim-inversion.md` |
+| **S4** | **His rejection of the propagation question was correct.** Asking "what `Γ` does the wall present to an incoming wave" presupposes a wave propagating *through* a medium the defect sits *in*. On this substrate matter **is** the lattice's lock-state, not an object embedded in it — so there is no second medium for `Γ` to be defined against, and the question has **no referent**. Killing it was right. | `[WALK]` — ★ **provenance: prior-session chat; this arc did NOT verify a canon statement of it.** The nearest in-corpus support is the `def-satrim` role-swap (S3) and `resonant-lc-solitons.md:52` (*"The particle dynamically weaves its **own** perfect topological mirror"*). Treat as un-audited. |
+| **S5** | **de Broglie survives the matched (reflector-free) reading — two routes, both in-corpus.** (i) **Turning point:** *"The matter wave **does not bounce off a physical tear** in the vacuum; it bounces when it simply runs out of kinetic energy… the local acoustic impedance becomes purely imaginary, forcing a total reflection."* (ii) **Self-match:** *"the precise radius where this trapped … wave achieves a **lossless resonant impedance match with itself** (`2πr = nλ`)."* Neither needs a material mirror. | `[CANON]`, with a caveat | `vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md:54`. ⚑ **Caveat:** the two immediately-preceding lines (`:50`, `:52`) carry `🔴 [DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION]`. Line `:54` itself carries **no** demotion marker, but it sits inside the demoted passage's argument; a lane citing it must check the R40-B2a re-derivation status first. |
+| **S6** | **Canon states the kernel-free `Γ = −1` and calls it a virtual ground, in as many words.** *"**Antisymmetric (differential) eigenmodes** `(1,−1,0)`, `(1,1,−2)` — memoryless value **`Γ_A = −1`**: the differential mode sees a **SHORT** (**the node is a virtual ground for it**)."* Written independently, from `C3v` symmetry, with no saturation kernel anywhere in the derivation — the same theorem §2.1 proves for graded `Y`. | `[CANON-adjacent]` — an in-corpus **research derivation**, not a KB leaf | `research/2026-07-10_x37-junction-parasitics_derivation.md:39-40` |
+| **S7** | **He reinvented, from EE intuition alone, a structure his own corpus carries in five unconnected places.** §5's table lists them; none cites any other; none is at the electron-wall site. That convergence is evidence the reading is picking up real structure in the operator, independent of whether it localizes anything. | `[WALK]` over `[CANON]` receipts | §5 table, rows 1–5 |
+
+`[WALK]` **What S1–S7 do and do not buy.** They establish that the reframe is
+**well-posed, operator-grounded, and already latent in the corpus**. They do
+**not** establish that the electron's boundary *is* a virtual neutral — that is
+blocked by caution 1 (balance is cheap) and by the §5.1 fence (a neutrality
+argument on this object was adversarially refuted once already). Support for
+the *question* is not support for the *answer*.
+
 ## §7 — Provenance of the incumbent, and one correction that must propagate
 ## §8 — The symmetric standard, both directions
 ## §9 — Honest caveats, stated before the audit finds them
