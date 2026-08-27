@@ -652,6 +652,8 @@ REFUTED).
   disabled or wrong-stencil operator validates a bug as physics.
 
 
+## §11 — ★ KILL CONDITIONS
+
 **Each of these, if it fires, kills a specific part of this record. They are
 written so that they CAN fire.** Any lane finding one reports it as a kill, not
 as a caveat.
