@@ -226,7 +226,53 @@ from dataclasses import dataclass
 from pathlib import Path
 
 TOOLS_DIR = Path(__file__).resolve().parent
-REPO = TOOLS_DIR.parents[2]
+
+
+def _repo_root_from(tools_dir: Path, cwd: Path | None = None) -> Path:
+    """The repository root, resolved so this module RUNS FROM ANYWHERE.
+
+    This used to be the one line ``TOOLS_DIR.parents[2]``, and that line took
+    CI red on the very commit that shipped this gate.
+
+    WHAT HAPPENED, because the shape matters more than the bug. The
+    anti-tautology probes copy this module to a temp directory and run it there.
+    In-tree the file sits at ``manuscript/ave-kb/tools/`` and ``parents[2]`` is
+    the repo root. In a temp directory it is whatever happens to be three levels
+    up -- and on macOS ``/tmp`` resolves to ``/private/tmp``, which HAS three
+    parents, so the lookup silently returned ``/`` and everything appeared to
+    work. On Linux ``/tmp`` has two, so the same line raised ``IndexError`` at
+    IMPORT time, the probe produced no output at all, and its assertion failed
+    with a message about a gate defect that did not exist.
+
+    That is the self-referential-fixture class -- a check that encodes an
+    incidental property of the tree it was authored in -- sitting INSIDE the
+    probe whose entire job is to catch that class. The green-locally/red-on-CI
+    asymmetry was not a flake; it WAS the defect, and a green local run is not
+    evidence for anything this function guards.
+
+    So: never index ``parents`` unguarded, prefer a root that actually proves
+    itself with a ``.git``, then ask git from the caller's directory, and fall
+    back to the cwd rather than raising. A wrong-but-defined root degrades one
+    scan; an exception at import time takes down every arm at once and reports
+    it as something else entirely.
+    """
+    parents = tools_dir.parents
+    if len(parents) >= 3 and (parents[2] / ".git").exists():
+        return parents[2]
+    here = cwd or Path.cwd()
+    try:
+        proc = subprocess.run(
+            ["git", "rev-parse", "--show-toplevel"],
+            cwd=here, capture_output=True, text=True, check=False,
+        )
+        if proc.returncode == 0 and proc.stdout.strip():
+            return Path(proc.stdout.strip())
+    except OSError:
+        pass
+    return here
+
+
+REPO = _repo_root_from(TOOLS_DIR)
 CONFIG_PATH = TOOLS_DIR / "rule12-freeze-config.json"
 
 # ---------------------------------------------------------------------------
@@ -1336,6 +1382,29 @@ def backfill(repo: Path, cfg: Config, paths: list[str] | None, dry_run: bool,
 # the current branch's shape, no hash of this file's own source. Everything the
 # receipt asserts is a property of the ALGORITHM, reproducible on a machine that
 # has never seen this repository.
+#
+# ...and "no authoring context" was WRONG here once, in the worst possible
+# place. The anti-tautology probes (see the test module) copy this file to a
+# temp directory and run it there. The repo root used to be `TOOLS_DIR.parents[2]`
+# -- correct at `manuscript/ave-kb/tools/`, an IndexError at `/tmp/xxxx/`. On
+# macOS `/tmp` resolves to `/private/tmp`, which HAS three parents, so it
+# silently returned `/` and every local run was green; on Linux CI it raised at
+# IMPORT time, the probe printed NOTHING, and because the arm assertions were
+# phrased "expected substring IN output" -- which empty output satisfies never --
+# the failure read as a gate defect that did not exist.
+#
+# Two lessons are now enforced in code rather than remembered. (1) `_repo_root_from`
+# never indexes `parents` unguarded, so this module runs from anywhere. (2) The
+# probe harness asserts LIVENESS FIRST, on positive evidence (the receipt's own
+# fixture-built marker), and reports PROBE CRASHED / GATE NOT LOAD-BEARING /
+# ARM STAYED GREEN as three DIFFERENT failures -- because a crashed probe and a
+# green arm mean opposite things, and conflating them turns a harness bug into a
+# confident, wrong claim about the thing under test. A probe that silently
+# returns empty output is strictly worse than no probe.
+#
+# Corollary, and the reason this paragraph is here rather than in a commit
+# message: A GREEN LOCAL RUN IS NOT EVIDENCE FOR THIS FILE. The local/CI
+# asymmetry was not a flake; it WAS the defect.
 
 FIXTURE_BODY = """# Synthetic Record -- Widget Impedance Walk
 
