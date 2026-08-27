@@ -1,14 +1,41 @@
 {
-  "_comment": "Scope + allow-list for verify-rule12-freeze.py (the Rule-12 append-only GATE). `enforced_globs` is where an unstamped prose Rule-12 note is a HARD FAIL. Notes outside it are COUNTED and PRINTED as a census on every run, never hidden -- an unenforced surface that is invisible is a hole; one that prints its own size every build is a queue. Every `allow_list` entry MUST carry path + match (a verbatim substring of the note line, so an entry cannot silently widen to a different note) + class + reason; an entry missing any of those FAILS the run, because an allow-list that accepts a bare path is a mute button rather than an exemption.",
+  "_comment": "Scope + allow-list for verify-rule12-freeze.py (the Rule-12 append-only GATE). `enforced_globs` is where an unstamped prose Rule-12 note is a HARD FAIL. Notes outside it are COUNTED and PRINTED as a census on every run, never hidden -- an unenforced surface that is invisible is a hole; one that prints its own size every build is a queue. Every `allow_list` entry MUST carry path + match (a verbatim substring of the note line, so an entry cannot silently widen to a different note) + class + reason; an entry missing any of those FAILS the run, because an allow-list that accepts a bare path is a mute button rather than an exemption. An EMPTY `enforced_globs` also FAILS: a gate that enforces nothing while printing OK is the failure mode this file exists to prevent.",
+  "_scope_note": "`*.md` -- corpus-wide, every tracked Markdown file. Deliberately not narrowed. Scoping the DETECTOR is exactly how a gate acquires a blind spot: the 2026-08-26 backfill found Rule-12 notes in 267 files across manuscript/ave-kb/ (121), research/ (119), _orchestration/ (27), so any narrower scope would have left a majority of the corpus's frozen bodies unguarded while the gate still printed OK. All 455 notes are stamped; the allow-list carries ONE entry, forced by another lane's byte-pin and NOT by a judgement call. One is the number to defend.",
   "_classes": {
     "known-pre-existing-violation": "The frozen body has ALREADY drifted. NOT repaired -- repairing it in place would compound the Rule-12 violation by destroying the evidence (flag-don't-fix). The entry carries the diff and the routing.",
     "not-a-freeze-note": "The line matches the detector's phrasing but asserts nothing about bytes in THIS file -- a survey/triage doc quoting another record's note, or a convention doc describing the rule.",
-    "direction-not-determinable": "The note names both directions (or neither) on one line, so `region` has no defensible value. Needs the record's author, not a guess.",
-    "generated-artifact": "The file is generated, so a stamp would be rewritten by its generator."
+    "direction-not-determinable": "The note names no direction at all, so `region` has no defensible value. (A note naming BOTH is not this class -- it gets two stamps.) Needs the record's author, not a guess.",
+    "generated-artifact": "The file is generated, so a stamp would be rewritten by its generator.",
+    "byte-pinned-by-another-gate": "Another gate keys on this file's BYTES -- a pinned blob hash, or an adjudication registry keyed on a line's stripped content. Writing a stamp into it breaks that gate, and re-keying someone else's gate so this one can pass is exactly the move this program forbids. The note goes unstamped, deliberately and on the record, with the consequence stated and a routed instruction for when the other pin retires."
   },
   "enforced_globs": [
     "*.md"
   ],
-  "allow_list": [],
-  "pending_stamp_on_landing": []
+  "allow_list": [
+    {
+      "path": "research/2026-08-05_approach-leak_result.md",
+      "match": "SCANFRAG REPAIR (orchestrator, 2026-08-06; body above preserved per Rule 12)",
+      "class": "byte-pinned-by-another-gate",
+      "reason": "research/drivers/approach_leak_v2.py READ_ONLY_ARTIFACTS byte-pins this file: its NC-BYTES gate compares `git hash-object` on the live file against a pinned blob, under the frozen purpose 'this lane wrote none of the ten read-only predecessor artifacts'. The 2026-08-26 backfill DID write a stamp here (region=above offset=0 lines=587 bytes=41917 base=f3607be8), and `approach_leak_v2_number_check.py` went RED on it -- caught by running all 34 lane checkers, not by review. The stamp was REVERTED, not the pin: re-pinning another lane's frozen gate so that this gate can pass is the move this program forbids, and the file's own Rule-12 note is exactly the kind of record a byte-pin is meant to protect. CONSEQUENCE, stated plainly: the 587-line body above that note is guarded by the v2 lane's blob pin instead of by this gate. That pin is STRICTER (whole-file) but it is not a Rule-12 gate -- it fires for any reason at all, and it will be retired when that lane is. ROUTED: when approach-leak v2's NC-BYTES pin is retired, drop this entry and run `verify-rule12-freeze.py --backfill --path research/2026-08-05_approach-leak_result.md`."
+    },
+    {
+      "path": "manuscript/ave-kb/common/port-register.md",
+      "match": "Superseded RULED-CONDITIONAL text — preserved verbatim per Rule 12; do NOT delete Grant's ruling text",
+      "class": "byte-pinned-by-another-gate",
+      "reason": "research/drivers/r40_preserved_span_number_check.py keys its GUARD_ADJUDICATED_FP registry on a line's STRIPPED CONTENT ('line numbers drift, bytes do not'), and this Q1 register row is ALREADY registered there as a hand-adjudicated false positive. The 2026-08-26 backfill appended a freeze stamp to it (region=below offset=0 lines=149 base=c9d71adc), which changed the line's bytes, un-keyed the existing adjudication, and made the R40 forward guard re-flag it -- caught by the pre-commit `make verify`, not by review. The STAMP was reverted, not the registry: adding this line's new byte-form to another lane's adjudication registry would silently orphan the entry they authored, and their check is not wrong -- my stamp is what moved. CONSEQUENCE, stated plainly: the 149 lines below this note are NOT guarded by this gate. ROUTED to the orchestrator, because the clean fix is one line in someone else's file and is theirs to make: teach the R40 guard's content key to strip freeze stamps, exactly as `kb_index_lib._normalize_text` now does -- a machine annotation that renders invisibly must be invisible to content-keyed tooling too. Then drop this entry and run `verify-rule12-freeze.py --backfill --path manuscript/ave-kb/common/port-register.md`."
+    }
+  ],
+  "pending_stamp_on_landing": [
+    {
+      "path": "research/2026-08-25_autonomous-harmonic-balance-lens_RECORD.md",
+      "reason": "Carries a Rule-12 note but is UNMERGED at the time of the backfill (branch research/2026-08-26-hb-lens-audit-result, owned by a concurrent lane). Not on main, so the backfill could not see it and did not touch it. Stamp it when it lands: `verify-rule12-freeze.py --backfill --path <path>`.",
+      "owner": "concurrent lane (hb-lens audit)"
+    },
+    {
+      "path": "research/2026-08-26_overbraced-crystal-walk_RECORD.md",
+      "reason": "The appended Rule-12 note on the overbraced-crystal record is UNMERGED (branch research/2026-08-26-overbraced-crystal-walk, owned by a concurrent lane). Same treatment on landing. Path is the expected landing path -- confirm the actual filename at merge.",
+      "owner": "concurrent lane (overbraced-crystal walk)"
+    }
+  ],
+  "_drift_survey": "research/2026-08-26_rule12-drift-candidates.json -- 125 drift CANDIDATES from the 2026-08-26 backfill. Regenerate with `verify-rule12-freeze.py --backfill --dry-run --drift-report <path>`. NOT adjudicated and NOT repaired."
 }

@@ -449,15 +449,15 @@ Fenced (see the self-suppression note).
    23. :221   [moved        ] [ID-TOKEN] -> ../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:20  excerpt-actually-at [36]
         resolved : manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md
         excerpt  : clm-533gvm
-        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r
+        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r  <!-- rule12-freeze: base=b4218d5b1c93126e5f75ebc3c88e53d7f78b3167 region=above offset=0 lines=113 bytes=9259 sha256=23d310efae8c26286912f43a3fce52e1d6d6f226bd670179ebbd89eac1b646a9 -->
    24. :221   [moved        ] [ID-TOKEN] -> ../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:20  excerpt-actually-at [36]
         resolved : manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md
         excerpt  : clm-533gvm
-        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r
+        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r  <!-- rule12-freeze: base=b4218d5b1c93126e5f75ebc3c88e53d7f78b3167 region=above offset=0 lines=3 bytes=269 sha256=52650e36a22af619a15e0dba05f3191af4c8607a30329758dd80726ad0307c60 -->
    25. :221   [moved        ] [ID-TOKEN] -> ../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:20  excerpt-actually-at [36]
         resolved : manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md
         excerpt  : clm-533gvm
-        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r
+        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r  <!-- rule12-freeze: base=b4218d5b1c93126e5f75ebc3c88e53d7f78b3167 region=above offset=0 lines=3 bytes=269 sha256=a280a3f39f12d0a41ab10cbb8d83bd1ce19545b4bc487bbdb9ca3e637fd2c1fc -->
    26. :221   [absent       ] [ID-TOKEN] -> ../vol2/quantum-orbitals/ch07-quantum-mechanics/helium-symmetric-cavity.md:52
         resolved : manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/helium-symmetric-cavity.md
         excerpt  : clm-533gvm
@@ -487,7 +487,7 @@ Fenced (see the self-suppression note).
    31. :55    [absent       ] [SHORT   ] -> ../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:20
         resolved : manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md
         excerpt  : k·R=3
-        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r
+        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r  <!-- rule12-freeze: base=b4218d5b1c93126e5f75ebc3c88e53d7f78b3167 region=above offset=0 lines=29 bytes=2262 sha256=fc309e66bf5b1a0ab3ad21096613670b6a6dd1e1e478cccfd484b1aec2fba41e -->
 
 ### manuscript/ave-kb/common/physics-lineage-map.md   [5 finding(s)]
    32. :225   [absent       ] [PROSE   ] -> the-abandoned-interior.md:24
@@ -725,15 +725,15 @@ Fenced (see the self-suppression note).
    88. :681   [moved        ] [ID-TOKEN] -> ../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:20  excerpt-actually-at [36]
         resolved : manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md
         excerpt  : clm-533gvm
-        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r
+        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r  <!-- rule12-freeze: base=b4218d5b1c93126e5f75ebc3c88e53d7f78b3167 region=above offset=0 lines=237 bytes=22231 sha256=12ba2bc4f8cda3ae50389490602d81fd8e0e4c4c8ec200a4660b80e4407ff9f0 -->
    89. :681   [moved        ] [ID-TOKEN] -> ../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:20  excerpt-actually-at [36]
         resolved : manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md
         excerpt  : clm-533gvm
-        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r
+        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r  <!-- rule12-freeze: base=b4218d5b1c93126e5f75ebc3c88e53d7f78b3167 region=above offset=0 lines=3 bytes=269 sha256=0d856586b35046f07254d1d83efd3dc197794dac866458ef0916f296b50ecde2 -->
    90. :681   [moved        ] [ID-TOKEN] -> ../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:20  excerpt-actually-at [36]
         resolved : manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md
         excerpt  : clm-533gvm
-        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r
+        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r  <!-- rule12-freeze: base=b4218d5b1c93126e5f75ebc3c88e53d7f78b3167 region=above offset=0 lines=3 bytes=269 sha256=ab032d1f6d728f0839e4db1f4ce5164f4d4cbb215a60377807d68fc300ce9fd7 -->
    91. :681   [absent       ] [ID-TOKEN] -> ../vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md:13
         resolved : manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md
         excerpt  : clm-533gvm
@@ -745,7 +745,7 @@ Fenced (see the self-suppression note).
    93. :681   [absent       ] [ID-TOKEN] -> ../vol3/cosmology/ch15-black-hole-orbitals/lattice-extreme-bh-rationality.md:28
         resolved : manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/lattice-extreme-bh-rationality.md
         excerpt  : clm-533gvm
-        at-line  : > **🔴 MAGNETIC-BRANCH = SIGN-SELECTOR, NOT CAGE-MECHANISM (2026-06-18, Rule 12 / PR#260 B3-DEGENERATE — body below PRESERVED unedited; Grant-ratified)
+        at-line  : > **🔴 MAGNETIC-BRANCH = SIGN-SELECTOR, NOT CAGE-MECHANISM (2026-06-18, Rule 12 / PR#260 B3-DEGENERATE — body below PRESERVED unedited; Grant-ratified)  <!-- rule12-freeze: base=b4218d5b1c93126e5f75ebc3c88e53d7f78b3167 region=below offset=0 lines=55 bytes=4808 sha256=c4e5c361ec2e10631a6583b354be0b830e05cc59db7e86186b24a882ac0ca4ae -->
 
 ### manuscript/ave-kb/common/translation-tables/translation-circuit.md   [9 finding(s)]
    94. :156   [absent       ] [PROSE   ] -> ../../vol4/claim-quality.md:1856
@@ -801,7 +801,7 @@ Fenced (see the self-suppression note).
   106. :510   [absent       ] [PROSE   ] -> ../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:20
         resolved : manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md
         excerpt  : status:proposed
-        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r
+        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r  <!-- rule12-freeze: base=b4218d5b1c93126e5f75ebc3c88e53d7f78b3167 region=above offset=0 lines=55 bytes=4808 sha256=c4e5c361ec2e10631a6583b354be0b830e05cc59db7e86186b24a882ac0ca4ae -->
   107. :518   [absent       ] [ID-TOKEN] -> ../CLAUDE.md:73
         resolved : manuscript/ave-kb/CLAUDE.md
         excerpt  : def-tk1xfm
@@ -809,31 +809,31 @@ Fenced (see the self-suppression note).
   108. :1039  [absent       ] [SHORT   ] -> ../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:20
         resolved : manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md
         excerpt  : [canon]
-        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r
+        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r  <!-- rule12-freeze: base=b4218d5b1c93126e5f75ebc3c88e53d7f78b3167 region=above offset=0 lines=7 bytes=551 sha256=d4ba8fab1c09aa043d58383a48cb5dc402b1d2fefcb71d55ebaa2e2bc0c49ab7 -->
   109. :1043  [absent       ] [SHORT   ] -> ../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:20
         resolved : manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md
         excerpt  : 5287ef32
-        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r
+        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r  <!-- rule12-freeze: base=b4218d5b1c93126e5f75ebc3c88e53d7f78b3167 region=above offset=0 lines=3 bytes=241 sha256=2e2e90fff17813ea539e623f2da98bdec51beda7b887c56875eab30920a94f7f -->
 
 ### manuscript/ave-kb/common/window-blind-bounding-plane.md   [1 finding(s)]
   110. :16    [absent       ] [SHORT   ] -> ../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:20
         resolved : manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md
         excerpt  : no-claim:
-        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r
+        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r  <!-- rule12-freeze: base=b4218d5b1c93126e5f75ebc3c88e53d7f78b3167 region=above offset=0 lines=5 bytes=320 sha256=d9aa5b1d55f63dc2913e4ba73476c0b9c522514f51386f71994f29b1fcd05744 -->
 
 ### manuscript/ave-kb/vol1/axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md   [3 finding(s)]
   111. :149   [absent       ] [ID-TOKEN] -> ../../../vol3/cosmology/ch15-black-hole-orbitals/lattice-extreme-bh-rationality.md:28
         resolved : manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/lattice-extreme-bh-rationality.md
         excerpt  : clm-533gvm
-        at-line  : > **🔴 MAGNETIC-BRANCH = SIGN-SELECTOR, NOT CAGE-MECHANISM (2026-06-18, Rule 12 / PR#260 B3-DEGENERATE — body below PRESERVED unedited; Grant-ratified)
+        at-line  : > **🔴 MAGNETIC-BRANCH = SIGN-SELECTOR, NOT CAGE-MECHANISM (2026-06-18, Rule 12 / PR#260 B3-DEGENERATE — body below PRESERVED unedited; Grant-ratified)  <!-- rule12-freeze: base=b4218d5b1c93126e5f75ebc3c88e53d7f78b3167 region=below offset=0 lines=3 bytes=267 sha256=ffde65ee2db8cb6c04b054394bdc437c0b9e4e91188bbdd5f4a4d738d457e306 -->
   112. :149   [moved        ] [ID-TOKEN] -> ../../dynamics/ch4-continuum-electrodynamics/master-equation.md:20  excerpt-actually-at [36]
         resolved : manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md
         excerpt  : clm-533gvm
-        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r
+        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r  <!-- rule12-freeze: base=b4218d5b1c93126e5f75ebc3c88e53d7f78b3167 region=above offset=0 lines=3 bytes=267 sha256=ffde65ee2db8cb6c04b054394bdc437c0b9e4e91188bbdd5f4a4d738d457e306 -->
   113. :149   [moved        ] [ID-TOKEN] -> ../../dynamics/ch4-continuum-electrodynamics/master-equation.md:20  excerpt-actually-at [36]
         resolved : manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md
         excerpt  : clm-533gvm
-        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r
+        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r  <!-- rule12-freeze: base=b4218d5b1c93126e5f75ebc3c88e53d7f78b3167 region=above offset=0 lines=3 bytes=267 sha256=cd6fc379f898fdd04a7dfbab236fd0201c9ed682852e77ab7baf0b9c2cdc812f -->
 
 ### manuscript/ave-kb/vol1/axioms-and-lattice/ch1-fundamental-axioms/single-substrate-scale.md   [3 finding(s)]
   114. :24    [absent       ] [SHORT   ] -> ../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/relativistic-inductor.md:28
@@ -895,17 +895,17 @@ Fenced (see the self-suppression note).
   125. :146   [moved        ] [ID-TOKEN] -> ../../dynamics/ch4-continuum-electrodynamics/master-equation.md:20  excerpt-actually-at [36]
         resolved : manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md
         excerpt  : clm-533gvm
-        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r
+        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r  <!-- rule12-freeze: base=b4218d5b1c93126e5f75ebc3c88e53d7f78b3167 region=above offset=0 lines=61 bytes=5404 sha256=0875a6065757f447f6c3d630c266f88c26ddb0fae61bfbcd2dd9c30e164bbc42 -->
   126. :146   [moved        ] [ID-TOKEN] -> ../../dynamics/ch4-continuum-electrodynamics/master-equation.md:20  excerpt-actually-at [36]
         resolved : manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md
         excerpt  : clm-533gvm
-        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r
+        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r  <!-- rule12-freeze: base=b4218d5b1c93126e5f75ebc3c88e53d7f78b3167 region=above offset=0 lines=3 bytes=267 sha256=9d2037dc6db1a1183f32bfd42fa9bb62613364b66160c7acdc83b32c08c4a6a0 -->
 
 ### manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/chirality-and-antimatter.md   [6 finding(s)]
   127. :12    [absent       ] [ID-TOKEN] -> ../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:20
         resolved : manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md
         excerpt  : def-5d2b8a
-        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r
+        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r  <!-- rule12-freeze: base=b4218d5b1c93126e5f75ebc3c88e53d7f78b3167 region=above offset=0 lines=5 bytes=363 sha256=5d8da455f686325a839a65cf60f4d8e86ff461578a8762b10e07f494a382ce69 -->
   128. :12    [absent       ] [ID-TOKEN] -> pair-production-axiom-derivation.md:27
         resolved : manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md
         excerpt  : def-5d2b8a
@@ -925,7 +925,7 @@ Fenced (see the self-suppression note).
   132. :69    [absent       ] [ID-TOKEN] -> ../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:20
         resolved : manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md
         excerpt  : def-7c3f9e
-        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r
+        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r  <!-- rule12-freeze: base=b4218d5b1c93126e5f75ebc3c88e53d7f78b3167 region=above offset=0 lines=19 bytes=1807 sha256=2d8e1104eb13c2807c9765ee120af3e7169dab3768cd9648c61dd09ddffbb446 -->
 
 ### manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/electron-bound-resonator-coverage.md   [5 finding(s)]
   133. :56    [absent       ] [PROSE   ] -> ../../../common/translation-tables/translation-circuit.md:637
@@ -943,7 +943,7 @@ Fenced (see the self-suppression note).
   136. :174   [absent       ] [IDENT   ] -> ../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:20
         resolved : manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md
         excerpt  : compute_Q_link
-        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r
+        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r  <!-- rule12-freeze: base=b4218d5b1c93126e5f75ebc3c88e53d7f78b3167 region=above offset=0 lines=17 bytes=1625 sha256=f0556f551188906fb8d894f0a1589731be8e29c16c5fb14742245b847b92f9b5 -->
   137. :174   [absent       ] [IDENT   ] -> torus-knot-uniqueness.md:23
         resolved : manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/torus-knot-uniqueness.md
         excerpt  : compute_Q_link
@@ -959,11 +959,11 @@ Fenced (see the self-suppression note).
   139. :14    [moved        ] [ID-TOKEN] -> ../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:20  excerpt-actually-at [36]
         resolved : manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md
         excerpt  : clm-533gvm
-        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r
+        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r  <!-- rule12-freeze: base=b4218d5b1c93126e5f75ebc3c88e53d7f78b3167 region=above offset=0 lines=15 bytes=1138 sha256=af46043d64cd21272e149824f81ac39fd85c90452cbb71722b720add360db02a -->
   140. :14    [moved        ] [ID-TOKEN] -> ../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:20  excerpt-actually-at [36]
         resolved : manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md
         excerpt  : clm-533gvm
-        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r
+        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r  <!-- rule12-freeze: base=b4218d5b1c93126e5f75ebc3c88e53d7f78b3167 region=above offset=0 lines=3 bytes=275 sha256=b9e408b2198107f17e5117f4746a687c2f09b9a4aa6fc64ac80b9aaf038c7979 -->
 
 ### manuscript/ave-kb/vol2/particle-physics/ch02-baryon-sector/proton-identification.md   [1 finding(s)]
   141. :157   [absent       ] [IDENT   ] -> ../../../common/dual-reactance-storage-taxonomy.md:221
@@ -1023,7 +1023,7 @@ Fenced (see the self-suppression note).
   151. :289   [absent       ] [SHORT   ] -> ../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:20
         resolved : manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md
         excerpt  : src/ave
-        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r
+        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r  <!-- rule12-freeze: base=b4218d5b1c93126e5f75ebc3c88e53d7f78b3167 region=above offset=0 lines=59 bytes=4401 sha256=f5776fd85b2cb9651a2a77b394c5d7d55f77c95e5448b2f5ee9f6479be3cc474 -->
   152. :341   [absent       ] [SHORT   ] -> ../../falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md:104
         resolved : manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md
         excerpt  : wejkhvnfb
@@ -1113,13 +1113,13 @@ Fenced (see the self-suppression note).
   169. :169   [absent       ] [PROSE   ] -> ../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:20
         resolved : manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md
         excerpt  : converter_on=False
-        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r
+        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r  <!-- rule12-freeze: base=b4218d5b1c93126e5f75ebc3c88e53d7f78b3167 region=above offset=0 lines=89 bytes=7312 sha256=b0a909c485204036bc86bf8cfecd0d3183e92f07d57fd0189ab0841cdd85ef99 -->
 
 ### manuscript/ave-kb/vol9/ch17-engine-requirements/index.md   [3 finding(s)]
   170. :19    [absent       ] [SHORT   ] -> ../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:20
         resolved : manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md
         excerpt  : ch3 index
-        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r
+        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r  <!-- rule12-freeze: base=b4218d5b1c93126e5f75ebc3c88e53d7f78b3167 region=above offset=0 lines=5 bytes=324 sha256=32d7b997d50d352c1cca97a316c715b421879771b8cf858f85a22593f76a75f8 -->
   171. :19    [absent       ] [SHORT   ] -> ../ch3-pin-port-configuration/device-circuit-models.md:201
         resolved : manuscript/ave-kb/vol9/ch3-pin-port-configuration/device-circuit-models.md
         excerpt  : ch3 index
@@ -1153,7 +1153,7 @@ Fenced (see the self-suppression note).
   178. :205   [absent       ] [SHORT   ] -> ../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:20
         resolved : manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md
         excerpt  : ch17 index
-        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r
+        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r  <!-- rule12-freeze: base=b4218d5b1c93126e5f75ebc3c88e53d7f78b3167 region=above offset=0 lines=33 bytes=3157 sha256=ca3ab6cfe37e2e424c0f5afc6b769e491940b4c210dd7ea72cf3ad82a671c491 -->
   179. :205   [absent       ] [SHORT   ] -> ../ch17-engine-requirements/index.md:19
         resolved : manuscript/ave-kb/vol9/ch17-engine-requirements/index.md
         excerpt  : ch17 index
@@ -1235,7 +1235,7 @@ Fenced (see the self-suppression note).
   195. :71    [absent       ] [PROSE   ] -> ../manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:20
         resolved : manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md
         excerpt  : 𝒬 = H_bel = ∫ ω·(∇×ω)
-        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r
+        at-line  : > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal r  <!-- rule12-freeze: base=b4218d5b1c93126e5f75ebc3c88e53d7f78b3167 region=above offset=0 lines=81 bytes=6905 sha256=b2878a5eed18d228bdaf6fa37f641928ae903eca10ed1c461e8bfb113520ba95 -->
   196. :85    [absent       ] [SHORT   ] -> ../manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/torus-knot-uniqueness.md:23
         resolved : manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/torus-knot-uniqueness.md
         excerpt  : Q_H = p·q

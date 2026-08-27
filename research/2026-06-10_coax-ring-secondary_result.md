@@ -1,6 +1,6 @@
 # RESULT — Coax-ring secondary route to α: the SCALE-FREE reactance-pair slosh is REAL (phasor-space), but the real-space b/a does NOT close (diverges at the α-free A→1 wall)
 
-> 🔴 **SUPERSEDED IN PART (2026-06-10) — see the VERDICT ADDENDUM at the foot of this doc.** The Arm-3 **SCALE-FREE** headline and the **§5 license EARNED** statements in this body (lines ~1, 21, 27, 98, 114, 146) are demoted to **UNRESOLVED** / **§5 license WITHHELD pending re-run**. Per Rule 12 the body below is preserved unedited; the dated addendum at the foot is the operative verdict.
+> 🔴 **SUPERSEDED IN PART (2026-06-10) — see the VERDICT ADDENDUM at the foot of this doc.** The Arm-3 **SCALE-FREE** headline and the **§5 license EARNED** statements in this body (lines ~1, 21, 27, 98, 114, 146) are demoted to **UNRESOLVED** / **§5 license WITHHELD pending re-run**. Per Rule 12 the body below is preserved unedited; the dated addendum at the foot is the operative verdict.  <!-- rule12-freeze: base=fd0bea611ad2ba299ff7de2503a5c3b14ed309c8 region=below offset=8 lines=146 bytes=17159 sha256=0bd2f656bb36e20812946aa615546621c8ed50394fe83feeb59204627f7322ab -->
 
 **Date:** 2026-06-10
 **Branch:** `analysis/2026-06-10-coax-ring-secondary` (worktree off `analysis/2026-06-10-sonic-horizon-closure`). Not pushed/merged.
@@ -155,7 +155,7 @@ Per the frozen synthesis map (prereg §7): **Arm-3 SCALE-FREE ∧ Arm-1 RATIO-DE
 
 ## 🔴 VERDICT ADDENDUM (2026-06-10) — record-honesty (Rule 12)
 
-**Status:** panel-mandated record-honesty fix. Per **Rule 12** this addendum is APPENDED; no body paragraph above is rewritten. Per **Rule 11** the frozen prereg (`2026-06-10_coax-ring-secondary_prereg.md`) is NOT edited. Every number below was re-verified this session against `results/coax_ring_secondary_results.json`, `results/coax_ring_scale_invariance_results.json`, and `src/scripts/vol_1_foundations/coax_ring_secondary.py`.
+**Status:** panel-mandated record-honesty fix. Per **Rule 12** this addendum is APPENDED; no body paragraph above is rewritten. Per **Rule 11** the frozen prereg (`2026-06-10_coax-ring-secondary_prereg.md`) is NOT edited. Every number below was re-verified this session against `results/coax_ring_secondary_results.json`, `results/coax_ring_scale_invariance_results.json`, and `src/scripts/vol_1_foundations/coax_ring_secondary.py`.  <!-- rule12-freeze: base=3dca3d69d5f0882201519f15c640c0d54ee224a1 region=above offset=0 lines=154 bytes=18146 sha256=2e9f8008c10d0b5469ac10aaa0979ac91fd44f3852612cefa2aaf5fac1b0ff36 -->
 
 **One-line:** the Arm-3 headline bin should read **UNRESOLVED, not SCALE-FREE**; the §5 license is **WITHHELD (license-pending-re-run, NOT closed-negative)**; and two of the three frozen Arm-3 predictions (the u↔ω observable and the ω∝1/r magnitude) **did not return the headline claim**. Arm-1 (RATIO-DERIVED) and Arm-2 (DIFFERENT) standing records are **unchanged**, qualifiers restated below.
 

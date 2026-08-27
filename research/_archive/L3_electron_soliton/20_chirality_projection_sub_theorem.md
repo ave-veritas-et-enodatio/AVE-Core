@@ -28,7 +28,7 @@ the AVE-HOPF table 1 to 10⁻¹².
 > chirality channels.
 
 > 🔴 **Correction (2026-06-09 — A43 stale-belief mirror).** The blockquote
-> above is preserved verbatim per Rule 12 but its framing is **superseded**.
+> above is preserved verbatim per Rule 12 but its framing is **superseded**.  <!-- rule12-freeze: base=7404d7281e8d53ff0b22721c9b5572bcc86f7fdf region=above offset=0 lines=30 bytes=1332 sha256=a0ee660d0344aef015e80ad1703db3f2f7fbfac7bff1cb2fd845dd66aac21225 -->
 > Per AVE-Core doc 108 / AVE-HOPF ch01 (`01_chiral_coupling_prediction.tex`,
 > adjudicated 2026-05-02):
 > - This is **one-parameter (α), not zero-parameter**. `α` is a

@@ -7,7 +7,7 @@
 **Phase-2 result**: [`2026-06-08_rrad-l-rectification_result.md`](2026-06-08_rrad-l-rectification_result.md) (rectification NOT confirmed — even-in-A kernel)
 **Canonical mechanism**: [dark-wake-bemf-foc-synthesis.md §1.2](../manuscript/ave-kb/common/dark-wake-bemf-foc-synthesis.md) (Op14/Lenz yield-freeze)
 
-> 🟠 **2026-06-09 REGIME-RESCOPE (Rule 12 — header-only addition; every line of the body below is PRESERVED VERBATIM).**
+> 🟠 **2026-06-09 REGIME-RESCOPE (Rule 12 — header-only addition; every line of the body below is PRESERVED VERBATIM).**  <!-- rule12-freeze: base=73a5b27f5c9aae231b10db7b3fd94dcfed9d758a region=below offset=0 lines=283 bytes=19450 sha256=f3e7d8f6021afe334cb33232ed36784c8ecae7e53e4bce8718ab6aa93cae97fe -->
 > **Governing discipline:** `ave-regime-phase-state-check`. **Adjudication:** Grant, 2026-06-09 (regime / phase-state discipline).
 >
 > **(a) This OUTCOME-B is a SUB-YIELD-LINEAR SHEAR/CHIRAL-ω regime null = a WRONG-REGIME ARTIFACT, not a falsification.** Rate-asymmetry / rectification can live ONLY in the BULK NEAR-YIELD (ruptured) regime. The §1.2 latch acts on the Cosserat-ω (shear/microrotation) sector under a time-symmetric carrier — the sub-yield-linear regime — where the Axiom-4 kernel is instantaneous and even-in-A (achromatic + reversible → ∮ = 0 *by construction*). A null in a regime that forbids the effect is uninformative as a falsification (`ave-regime-phase-state-check`: a null where the effect cannot exist is an artifact, not a falsification).

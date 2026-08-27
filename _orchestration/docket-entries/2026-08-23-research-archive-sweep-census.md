@@ -131,7 +131,7 @@ are UNTOUCHABLE — never archived, never rewritten, never banner-stamped."*
 | doc | receipt |
 |:--|:--|
 | `2026-05-17_substrate-velocity-honest-scoping-meta-doc.md` | `:69` — `\| αc/(2π) is FLOOR for decoupled populations \| … \| FALSIFIED \| WALKED BACK \|`; the doc's §1 is titled *"The three walk-back iterations (timeline)"* |
-| `2026-06-15_passive-eigenmode_result.md` | `:5` — `🔴 RULE-12 CORRECTION (2026-06-16; original NEGATIVE-A text below PRESERVED unedited)`; `:1` carries a `SURFACE-NOTE 2026-08-19` explicitly *"flagged for the pre-merge audit + Grant"* |
+| `2026-06-15_passive-eigenmode_result.md` | `:5` — `🔴 RULE-12 CORRECTION (2026-06-16; original NEGATIVE-A text below PRESERVED unedited)`; `:1` carries a `SURFACE-NOTE 2026-08-19` explicitly *"flagged for the pre-merge audit + Grant"* |  <!-- rule12-freeze: base=7f8c174eb31ae42c0ae7ac5182297ddbec5e4948 region=below offset=35 lines=22 bytes=1505 sha256=195f2be68dcd31e7cee09115e2e1f321a8dc4c1fb2fa2197ff964bcb7ef6ec2f -->
 | `2026-07-14_reflection-coefficient-correction-note.md` | `:1` — `# CORRECTION NOTE — _reflection_density Γ² coefficient 1/64 → 1/16`; the doc *is* the correction record |
 | `2026-08-12_layer-carve_walk-record.md` | `:24` — `## §1 — THE FOUR CORRECTIONS (orchestrator claims, withdrawn or repaired)` |
 | `2026-08-12_common-mode-continuum-image_derivation.md` | `:201` — `🔴 STRUCK 2026-08-12 (PR #963 adversarial audit)`; plus a `🔴 RETRACTED` block at `:256`. Also 11 days old — nothing has had time to supersede it |

@@ -156,7 +156,7 @@ All files in this directory are tracked / public-facing. They MUST follow the pu
 > do NOT append to `index.md`, which now says "Do not append to it." Rulings go to
 > **[`docket-entries/`](docket-entries/)**, one file per lane. Regenerate with
 > `python3 _orchestration/tools/generate_board.py`.
-> *(The original steps are preserved unrewritten below, per Rule 12.)*
+> *(The original steps are preserved unrewritten below, per Rule 12.)*  <!-- rule12-freeze: base=cd97c4308e175a5f6c89e70684da81eeed8c28cb region=below offset=0 lines=46 bytes=4267 sha256=d8b0f035976564c816d3e9cad0f33dc20f7f35e12d5a62ab68a55a1357809c63 -->
 
 1. **Start of orchestration session**: read `index.md` for cross-cutting state; read the active-epic doc(s) for current phase status.
 2. **During session**: update active epic doc(s) as phases close + new phases append. Update `index.md` if cross-cutting state changes (priority ladder shifts, open decisions resolve / appear).

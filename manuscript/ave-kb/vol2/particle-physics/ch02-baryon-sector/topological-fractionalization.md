@@ -48,7 +48,7 @@ The $6_{2}^{3}$ Borromean linkage possesses three-fold permutation symmetry ($\m
 
 
 > 🔴 **Dated surface note 2026-08-23 (θ-fork adjudication, Grant rulings (a)+(b); docket
-> `2026-08-23-theta-fork-ruling`). Body above preserved unedited (Rule 12).** Three carves on
+> `2026-08-23-theta-fork-ruling`). Body above preserved unedited (Rule 12).** Three carves on  <!-- rule12-freeze: base=429ec19ce470346b84377b1a7b079af8bfc6720e region=above offset=0 lines=50 bytes=3080 sha256=03e6a53c90d3b20835ba4190f889327277bd953a212b42c2e8b2e13fd4e1139e -->
 > the prose above, per the challenge audit run against this leaf's own provenance chain:
 >
 > 1. **The θ here is the 𝒥-dressing, not a vacuum angle** (post-ratification reading). Per

@@ -101,7 +101,7 @@ A1-HOPF passing at EE scale → cross-scale corroboration of $(2,q)$ topological
 
 **HOPF-02a DESIGN-COMPLETE; PHASE 0a artifact-generation pending**. Per AVE-HOPF HANDOFF.md: *"Next gate: physical fab order for HOPF-02a (user action; design package complete; Python KiCad emitter is the canonical fab path)."*
 
-> ⚠ **FAB-STATUS DISAMBIGUATION (2026-08-01; Rule 12 — the 2026-05-20 status line above is preserved
+> ⚠ **FAB-STATUS DISAMBIGUATION (2026-08-01; Rule 12 — the 2026-05-20 status line above is preserved  <!-- rule12-freeze: base=ab34f7389b732d75721d8008284da0e7781b6061 region=above offset=0 lines=103 bytes=8285 sha256=7b1f955c5af9447fe1d0e1bb167762229fb6584b5aa80de458012f821aa83be5 -->
 > verbatim, git is the trail).** The label *"PHASE 0a artifact-generation pending"* is stale in the
 > **opposite** direction from the usual error, so it is easy to misread in either direction:
 >

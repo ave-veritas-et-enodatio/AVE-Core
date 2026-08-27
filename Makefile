@@ -83,7 +83,7 @@ LEGACY_LANE_CHECK_ALIASES = \
 	verify-approach-leak-number-check \
 	verify-approach-leak-v2-number-check
 
-.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks refresh-provenance-baseline framing-audit verify-anchor-content verify-new-cite-excerpts verify-engine-capability-anchors test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup gamma-census $(LEGACY_LANE_CHECK_ALIASES)
+.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links verify-provenance-stamps verify-frozen-provenance verify-rule12-freeze verify-lane-number-checks refresh-provenance-baseline framing-audit verify-anchor-content verify-new-cite-excerpts verify-engine-capability-anchors test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup gamma-census $(LEGACY_LANE_CHECK_ALIASES)
 
 help:
 	@echo "Applied Vacuum Engineering (AVE-Core) Build System"
@@ -98,6 +98,7 @@ help:
 	@echo "  make verify-inter-repo-links : Same, but broken inter-repo links also gate (inter-repo: error)"
 	@echo "  make verify-provenance-stamps : Check research/ provenance stamps carry a resolvable artifact reference (baseline-gated)"
 	@echo "  make verify-frozen-provenance : Check research/ result-doc Frozen-label criteria appear byte-identically in the lane prereg (date-gated)"
+	@echo "  make verify-rule12-freeze : Rule-12 append-only GATE — every freeze stamp still matches its base commit + every prose Rule-12 note carries a stamp (gating; runs its mutation receipt)"
 	@echo "  make verify-lane-number-checks : Run EVERY research/drivers/*_number_check.py (auto-discovered) + each one's mutation receipt (gating)"
 	@echo "     ...one checker only : make verify-lane-number-checks LANE_CHECK_FILTER=<script-stem>   (e.g. LANE_CHECK_FILTER=srs_twist_coefficient_number_check)"
 	@echo "     legacy per-lane aliases (frozen set, kept for corpus cites): $(LEGACY_LANE_CHECK_ALIASES)"
@@ -134,7 +135,7 @@ setup:
 # =============================================================================
 # 1. Physics Verification (The "Simulate to Verify" Protocol)
 # =============================================================================
-verify: $(KB_VERIFY) verify-md-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks
+verify: $(KB_VERIFY) verify-md-links verify-provenance-stamps verify-frozen-provenance verify-rule12-freeze verify-lane-number-checks
 # UMBRELLA-GLOB ADOPTION 2026-08-06: the thirteen per-lane `verify-*-number-check`
 # prerequisites that used to be listed on the line above are GONE FROM THIS LINE and
 # from nowhere else -- `verify-lane-number-checks` now auto-discovers and runs all
@@ -415,6 +416,26 @@ verify-provenance-stamps:
 verify-frozen-provenance:
 	@echo "Checking research/ result-doc Frozen-label criteria appear byte-identically in the lane prereg (date-gated)..."
 	$(PYTHON) $(KB_TOOLS_DIR)/verify-frozen-provenance.py
+
+# RULE-12 APPEND-ONLY GATE.  Its OWN target with its OWN recipe body -- no recipe
+# line is shared with any other check.  The MUTATION RECEIPT runs on EVERY
+# invocation (16 arms, ~0.6 s, synthetic fixtures in a throwaway git repo), so the
+# gate cannot silently degrade into a no-op: a green `make verify` is also a proof
+# that this gate can still FIRE, and that it still STAYS QUIET under the sanctioned
+# append.  That second half is not padding -- a gate that reds on the correct
+# Rule-12 move gets switched off, and a switched-off gate protects nothing.
+#
+# DISCLOSED UNION-CONFLICT CLASS (carried forward unchanged from every lane
+# number-check block above): the `.PHONY` line, the `verify:` prerequisite line and
+# the `help` recipe ARE shared with every other check, and are a REAL union-conflict
+# class with any concurrently open lane.  The correct resolution is the UNION of all
+# targets, never a pick-one.  This lane touched exactly those three shared lines plus
+# this appended block.
+verify-rule12-freeze:
+	@echo "\n[Verify] Rule-12 append-only gate: mutation receipt (proving the gate can fire AND stay quiet)..."
+	$(PYTHON) $(KB_TOOLS_DIR)/verify-rule12-freeze.py --mutation-receipt
+	@echo "\n[Verify] Rule-12 append-only gate: freeze stamps vs their base commits + unstamped-note detector..."
+	$(PYTHON) $(KB_TOOLS_DIR)/verify-rule12-freeze.py
 
 # =============================================================================
 # UMBRELLA-GLOB LANE NUMBER-CHECKS -- ADOPTED 2026-08-06

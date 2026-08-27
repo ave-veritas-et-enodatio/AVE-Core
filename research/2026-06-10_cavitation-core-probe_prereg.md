@@ -74,7 +74,7 @@ With approximate mass conservation (mean ρ̄ ≈ 0 over the column), the **core
 
 ## 3. APPARATUS INVENTORY — the CLIP suspects (the rarefaction analog of S_min / A_cap)
 
-> 🔴 **POST-RUN AMENDMENT (2026-06-10) — see [§3 AMENDMENT](#3-amendment--2026-06-10-post-run-rule-12) at the end of this file (Rule 12: appended, the §3 table below is preserved verbatim). It records (a) a post-freeze inventory addition (`rho_diff`), (b) two inventoried-but-UNSWEPT knobs (`eps_den`, `cfl`/`dt`), (c) the "all clips swept 4× each" coverage overstatement corrected to 5-of-7-swept, and (d) the single-commit ordering caveat.**
+> 🔴 **POST-RUN AMENDMENT (2026-06-10) — see [§3 AMENDMENT](#3-amendment--2026-06-10-post-run-rule-12) at the end of this file (Rule 12: appended, the §3 table below is preserved verbatim). It records (a) a post-freeze inventory addition (`rho_diff`), (b) two inventoried-but-UNSWEPT knobs (`eps_den`, `cfl`/`dt`), (c) the "all clips swept 4× each" coverage overstatement corrected to 5-of-7-swept, and (d) the single-commit ordering caveat.**  <!-- rule12-freeze: base=693254433d4bfa3a1c99cce73d9d6ebb806389d1 region=below offset=0 lines=87 bytes=10436 sha256=9b743e740d2c1efcd9368ed8cc4aa0a0883d8ffb0fb2ac0898b9707fd41bb6cf -->
 
 Every numerical floor/clip/epsilon on `ρ̄` and `c_bulk²` is enumerated here BEFORE any run. The verdict must clear these (STEP 3 gate sweeps them):
 

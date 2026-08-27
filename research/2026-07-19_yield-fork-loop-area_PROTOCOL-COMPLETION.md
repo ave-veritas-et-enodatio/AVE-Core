@@ -71,7 +71,7 @@ The frozen bins equate "finite `∮`" with "dissipative." A first-order **overda
 
 ## POST-FREEZE CORRECTIONS — 2026-07-19 (implementer lane, review `wf_f0870d0d`)
 
-**Rule-12 append.** The frozen §0–§8 body above is preserved as-written. These are corrections/disclosures found by the post-run review; they do **not** retro-edit the frozen verdict (Rule-11).
+**Rule-12 append.** The frozen §0–§8 body above is preserved as-written. These are corrections/disclosures found by the post-run review; they do **not** retro-edit the frozen verdict (Rule-11).  <!-- rule12-freeze: base=a2af49b2a7231807ab230916f4ad0d7b5d51cd33 region=above offset=0 lines=73 bytes=8765 sha256=0a1f8415a17cc9970bfd35c31a362c519b2592b04f137a328d2a66f14c051f16 -->
 
 **C-1 (R-5 finding 11) — the "(verbatim)" provenance on the frozen bins is over-stated.** §1's "Frozen bins (**verbatim**)" is only partly accurate:
 - **Genuine, verbatim upstream:** the falsification **window `[0.85,0.95]`** is quoted verbatim from `#59` §11 / `59_memristive_yield_crossing_derivation.md:635` ("*measured peak outside [0.85, 0.95] … → different axiom-derivation required*"). Re-verified at HEAD.

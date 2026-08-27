@@ -110,7 +110,7 @@ Units: `(C/m)·(m/s) = C/s = A`, so `A_I = I_cell/I_max` is `A/A` = dimensionles
 
 ### The SCALAR threshold I_max is CLOSED (no free factor)
 
-> 🔴 **GRADE CORRECTED 2026-08-03 (Rule 12 — the body below is preserved verbatim; this header
+> 🔴 **GRADE CORRECTED 2026-08-03 (Rule 12 — the body below is preserved verbatim; this header  <!-- rule12-freeze: base=99994c97857cc8e9a825339f754763777d71789e region=below offset=0 lines=379 bytes=27089 sha256=8e3fbea865f7a768097762757685bf83d3a86bc64b8305b573e3b3dee5b52027 -->
 > supersedes it). The "fixed two independent ways" claim is ONE-LEGGED, and the surviving leg is
 > not an independent scale-fixer.** The corrected grade is **DEFINITIONAL-from-Ax2**, not
 > "closed by two independent routes". Both legs are refuted below by receipts the corpus already

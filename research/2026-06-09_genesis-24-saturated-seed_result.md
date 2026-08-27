@@ -9,9 +9,9 @@
 
 ---
 
-## 🔴 CORRECTING HEADER (2026-06-09, post-run demotion — Rule 12 / ave-walk-back; body preserved unchanged below)
+## 🔴 CORRECTING HEADER (2026-06-09, post-run demotion — Rule 12 / ave-walk-back; body preserved unchanged below)  <!-- rule12-freeze: base=df1c3f78f597f68a0378f5f7c5b1518a3248530a region=below offset=0 lines=1 bytes=1 sha256=01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b -->
 
-**Two over-claims in the body below are DEMOTED. The original reasoning is preserved verbatim (Rule 12);
+**Two over-claims in the body below are DEMOTED. The original reasoning is preserved verbatim (Rule 12);  <!-- rule12-freeze: base=df1c3f78f597f68a0378f5f7c5b1518a3248530a region=below offset=0 lines=44 bytes=3851 sha256=b6087a62b722f1bccab8a1a1744219b080e338e043c87a34b70d5a1d7d30ce35 -->
 where it conflicts with this header, this header governs.** A deterministic re-run of the driver added the
 decisive Arm-2 toroidal control (`arm12_toroidal` / `task1_toroidal_resolution` in the JSON) and the |L|
 range in the ledger. Both demotions are now backed by serialized JSON, not asserted.
@@ -59,7 +59,7 @@ cited accurately above and match the body's own §7 (`:242`) usage.
 
 ---
 
-## 🔴 ADDENDUM (2026-06-21, Rule 12 — EMF Lenz-sign correction; the CORRECTING HEADER above is the preserved record, this is the adjudicated successor)
+## 🔴 ADDENDUM (2026-06-21, Rule 12 — EMF Lenz-sign correction; the CORRECTING HEADER above is the preserved record, this is the adjudicated successor)  <!-- rule12-freeze: base=5a8b16e3fd7ea92a601a9bef8857350135ff6038 region=above offset=0 lines=47 bytes=3857 sha256=ac43f4cae6aa3724b54a2295b44302e74ed2bee4cc989c97eab4327d8971cd1e -->
 
 The CORRECTING HEADER's diagnosis of a *"non-conservative secular pump"* / *detonation* rested on the path-1
 EMF being wired `emf = +2·V_inc·∂L/∂V_sq`. That `+2` was a **sign-wiring bug**: the method's own docstring
@@ -207,7 +207,7 @@ poloidal (q=3) winder** — sharper than genesis-23's "the '3' never enters phas
 whole V-sector was unpopulated; here the toroidal half populates and winds, only the poloidal fibre is
 missing). **Figure 1 (right).**
 
-> **🔴 RETRACTION + ARM-2 TOROIDAL CONTROL (2026-06-09, Rule 12 — the §3 prose above is preserved; this
+> **🔴 RETRACTION + ARM-2 TOROIDAL CONTROL (2026-06-09, Rule 12 — the §3 prose above is preserved; this  <!-- rule12-freeze: base=df1c3f78f597f68a0378f5f7c5b1518a3248530a region=above offset=0 lines=117 bytes=7965 sha256=91c2bc99b5fde842e17ef9b97b3d4085dfe597f2da5174b0ad62a4a07dab8d9b -->
 > block governs).** The claim above that "the toroidal half populates and winds" is **withdrawn as
 > sub-gate.** The decisive Arm-2 (no-photon) toroidal control — `vinc_w_tor` AND `vinc_rel_tor` for BOTH
 > arms, all fracs, at the |ω|² density peak (CP7) — was serialized for the first time (the prior run

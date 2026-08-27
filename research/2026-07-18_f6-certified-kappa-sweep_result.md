@@ -8,7 +8,7 @@
 
 > ## 🔴 POST-REVIEW CORRECTION (2026-07-19, PR #726 review — 10 confirmed / 0 refuted)
 >
-> The **FROZEN §4 verdict (FOREIGN-EATER) and "the QUESTION is NOT decided" SURVIVE** — but the **mechanism story in the original verdict block below was WRONG**, and a broken observable **erased a real, mildly-favorable signal that this very run recorded.** This block is the corrected reading (Rule-12: the original text is preserved, struck through, immediately below). The corrected-observable re-derivation runs through §2–§7.
+> The **FROZEN §4 verdict (FOREIGN-EATER) and "the QUESTION is NOT decided" SURVIVE** — but the **mechanism story in the original verdict block below was WRONG**, and a broken observable **erased a real, mildly-favorable signal that this very run recorded.** This block is the corrected reading (Rule-12: the original text is preserved, struck through, immediately below). The corrected-observable re-derivation runs through §2–§7.  <!-- rule12-freeze: base=0dda5d9b29674dbc258036b8011075613c98d031 region=below offset=0 lines=152 bytes=33201 sha256=e3fdc05ebe37106c49fa373f898480b066f5559a808b9aff2cee7f9b8c3754d3 -->
 
 > ## ★ VERDICT — **FOREIGN-EATER** (frozen §4 tree, byte-faithful; self-check `match=True`) — corrected observable
 >

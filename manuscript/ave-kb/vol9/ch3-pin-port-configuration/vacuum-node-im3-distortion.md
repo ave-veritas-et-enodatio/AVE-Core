@@ -5,7 +5,7 @@ kind: leaf
 no-claim: "Vol-9 Class-C CONSISTENCY characterization datasheet — the vacuum-node IM3 / harmonic-distortion / nonlinear-birefringence δn(E) spectral signature. Re-expresses the Axiom-4 saturation kernel S(A)=√(1−A²) and the canonical Vol-4 IM3 leaf (intermodulation-distortion.md, clm-vjv4zf/clm-pp3qwf) as a node-level small-signal-distortion datasheet entry beneath the multi-port LC node. Originates NO new substrate primitive and NO value-prediction: the χ⁽³⁾ Taylor coefficients (½, ⅜, −¼, −½) are kernel-set O(1) (validate-on-known, HALT-on-mismatch in the driver); the bankable δn ratio 7.5/α³ is an α-ECHO at the value level. The ONE parameter-free AVE-distinct content is the E-vs-B keying asymmetry, surfaced here as a chord CANDIDATE with a clean falsifier, not a confirmed/bankable chord."
 -->
 
-> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**
+> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**  <!-- rule12-freeze: base=46162d6589f063f1cbc90712e1a7d24d613ca098 region=below offset=16 lines=59 bytes=8263 sha256=e29084d49902cf972898274f4fdcf109b91a3c3edc1a49b12069dcafe337c7cd -->
 > Every "7.5/α³ ≈ 1.93×10⁷" bankable-δn-ratio below carries an understated QED denominator ((3/45)α² is too
 > small by 1/(2πα) ≈ 21.8 vs the PVLAS-anchored magnetic leg). **Corrected (v3 headline, single instantaneous
 > footing — OPTION-B re-freeze 2026-07-07): 3.75π/α² ≈ 2.2×10⁵** (the 2026-07-03 QED-normalization step gave the

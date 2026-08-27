@@ -2,7 +2,7 @@
 
 # Passive winding-protected electron eigenmode — the hybrid (V,ω) breather — RESULT
 
-> **🔴 RULE-12 CORRECTION (2026-06-16; original NEGATIVE-A text below PRESERVED unedited).** The **BIN = NEGATIVE-A** banked here is **MIS-BINNED AND SUPERSEDED** — surfaced on two grounds, neither silently rewriting the verdict below:
+> **🔴 RULE-12 CORRECTION (2026-06-16; original NEGATIVE-A text below PRESERVED unedited).** The **BIN = NEGATIVE-A** banked here is **MIS-BINNED AND SUPERSEDED** — surfaced on two grounds, neither silently rewriting the verdict below:  <!-- rule12-freeze: base=f06327007d7464855986401fe9079384aa26e23f region=below offset=0 lines=381 bytes=29460 sha256=3f243ed894eae0502092dbb75869f87a1441504853ba5efd3aa3fe3c582cd24e -->
 > - **MIS-BINNED (verify panel `w92ft1gkc`, tracker Phase 3f):** §4 NEGATIVE-A's bin criterion is *"disperses / no standing mode."* But **F1+F2 PASS** at the production lattice — i.e. a **stable breather EXISTS** — so the NEGATIVE-A dispersion criterion was **NOT met**. The outcome the run actually hit was **(F1-pass, F4-fail)**: a stable mode that does not carry the conserved winding. That (F1-pass, F4-fail) outcome was **never provisioned in §4** — there is no §4 bin for it — so banking it as NEGATIVE-A forced it into the wrong (dispersion) box.
 > - **SUPERSEDED (tracker Phase 8):** the keystone was subsequently **redirected** from the held-invariant / winding-conserved framing to the **boundary M/Q/J test → alpha-free emergence** framing. This result's whole NEGATIVE-A axis is superseded by that Phase-8 reframe; it is retained per Rule 12 (substitution-not-retraction) for audit-trail, not as the live verdict.
 >

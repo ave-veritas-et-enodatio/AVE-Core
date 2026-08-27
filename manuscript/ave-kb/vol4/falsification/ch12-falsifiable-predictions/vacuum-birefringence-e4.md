@@ -5,7 +5,7 @@ kind: leaf
 claims: [clm-pp3qwf, clm-sve3xc]
 -->
 
-> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**
+> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**  <!-- rule12-freeze: base=3924169aa6aeb191e911294e41af176ee75531ae region=below offset=0 lines=16 bytes=1617 sha256=fb06f75bf12b5fc44b57d33fd72e41d5faa27c758eecfa5bb138914d0d7ef896 -->
 > The QED denominator of the matched-differential ratio in this leaf, $\delta n_{QED}=(3/45)\alpha^2(E/E_{crit})^2$,
 > is **understated by exactly $1/(2\pi\alpha)\approx21.8$**. Two independent external arbiters fix it:
 > **(a)** the module's OWN PVLAS-anchored magnetic leg ($3A_e B^2$, $A_e=1.32\times10^{-24}$ T$^{-2}$, textbook) —

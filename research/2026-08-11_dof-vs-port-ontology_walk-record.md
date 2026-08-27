@@ -2,7 +2,7 @@
 
 > ## 🔴 ADJUDICATED 2026-08-12 — **M1 IS REFUTED. ONTOLOGY-DEAD.**
 >
-> **Rule 12: everything below this header is PRESERVED UNEDITED.** No new hypothesis is substituted
+> **Rule 12: everything below this header is PRESERVED UNEDITED.** No new hypothesis is substituted  <!-- rule12-freeze: base=b7c93b7de7a6e80a4ba5370c48e66b1c77f42093 region=below offset=52 lines=251 bytes=22822 sha256=950da6a00c81bc4fbb8612415e44a79a2e7d0d007f21bf5d0bbb227a89aab34c -->
 > into M1's slot. The walk was built to be killed and it was killed **on its own frozen criterion**;
 > that is the record, and the record is what this document is for.
 >

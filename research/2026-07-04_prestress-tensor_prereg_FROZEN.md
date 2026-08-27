@@ -11,7 +11,7 @@ cold family `research/2026-07-04_srs-elastic-tensor_result.md`.
 **Result:** `research/2026-07-04_prestress-tensor_result.md`
 
 > **↗ POST-RUN AMENDMENTS (2026-07-04, orchestrator 16-agent review, PR #526 fix round — banner-
-> append only; the frozen body below is a record, NOT edited).** The bin verdict [MAP-DEFORMED] is
+> append only; the frozen body below is a record, NOT edited).** The bin verdict [MAP-DEFORMED] is  <!-- rule12-freeze: base=3f750c0b544ca87403e2b5d29f3d482dfb0f60b3 region=below offset=0 lines=317 bytes=22415 sha256=c7f19c41b4fc34fd5a8acfecb9cde68079bb5b19da81986af08d1fc12592a8f9 -->
 > EARNED (all three review lenses reproduce it). Two corrections to the frozen body's INTERPRETATION
 > (not its bins/gates):
 > - **MECHANISM (body §0 "breaks the degree-1 homogeneity").** RETRACTED as the mechanism. Verified
@@ -329,7 +329,7 @@ and a residual means the tension insertion is wrong). **This is the framing inpu
 engine-decided.**
 
 > **↗ ENGINE-DECIDED (2026-07-04, per Trigger-9 fork-to-computable; this appends the disposition —
-> prereg body above is a frozen record, banner-append only).** The residual-force discriminator ran
+> prereg body above is a frozen record, banner-append only).** The residual-force discriminator ran  <!-- rule12-freeze: base=7d2c656703d163ed646bf67e15dcaeca16cd3451 region=above offset=0 lines=302 bytes=21078 sha256=08f327ffc681df72a786d2c52fc97e6b49f83b838c7d7824a043b8ff0c0c7bf9 -->
 > and returned **reading A: self-balancing.** Max residual node force = **3.6×10⁻¹⁷** (relative
 > 4.2×10⁻¹⁶ — machine zero) under uniform bias bond tension at the cold srs geometry. The srs z=3
 > site symmetry (each node's three bond directions sum to zero) cancels the bias tensions at fixed

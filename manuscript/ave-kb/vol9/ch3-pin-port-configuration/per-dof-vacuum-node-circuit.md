@@ -5,7 +5,7 @@ kind: leaf
 no-claim: "Vol-9 Class-C CONSISTENCY re-expression — the per-DOF node-constitutive layer (reactive tensor (L_i,C_i) per translation DOF) BENEATH AVE_VACUUM_CELL (§1) and the graded vacuum impedance network (§6). Unifies three already-asserted behaviors (isotropic achromatic / deviatoric birefringence / high-k (qℓ)⁴ anisotropy) into one node-constitutive structure. Originates NO new substrate primitive and NO value-prediction; the c₀/Z₀ recovered in the isotropic continuum limit are KNOWN anchors (validate-on-known gate), not emergent values."
 -->
 
-> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**
+> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**  <!-- rule12-freeze: base=46162d6589f063f1cbc90712e1a7d24d613ca098 region=below offset=17 lines=112 bytes=16654 sha256=dab93b6415520172cdc2c210dc8b89635316341c16357200bfafecbfc5892809 -->
 > The birefringence coefficient ratio "7.5/α³ ≈ 1.93×10⁷" referenced below carries an understated QED
 > denominator. **Corrected (v3 headline, single instantaneous footing — OPTION-B re-freeze 2026-07-07):
 > 3.75π/α² ≈ 2.2×10⁵** (the 2026-07-03 QED-normalization step gave the propagating/mixed-footing 7.5π/α² ≈ 4.42×10⁵,

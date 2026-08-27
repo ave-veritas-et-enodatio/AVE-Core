@@ -10,7 +10,7 @@ strengthens:
 -->
 
 > 🔴 **PER-NODE / APPARATUS-VOLTAGE CORRECTION (2026-08-01 — propagation of the 2026-06-04 per-node
-> adjudication to this leaf; Rule 12, body preserved below unedited, git is the trail).**
+> adjudication to this leaf; Rule 12, body preserved below unedited, git is the trail).**  <!-- rule12-freeze: base=6afe374974cc24ab710ac25cc6686225e09c74cb region=below offset=0 lines=16 bytes=1239 sha256=98ce085569eaca4751e3b12dc289df9de98158d762fabc083a4b8a576e351b10 -->
 >
 > **The conflation.** Step 2 below ("Because $|-75\,\text{kV}| > 43.65\,\text{kV}$, the vacuum LC network
 > instantly saturates") reads the **apparatus** flyback voltage as if it were the **per-node** Axiom-4

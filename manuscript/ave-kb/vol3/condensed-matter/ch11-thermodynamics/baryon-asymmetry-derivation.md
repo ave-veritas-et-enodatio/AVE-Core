@@ -13,7 +13,7 @@ claims: [clm-uu6dl5]
 >
 > **Non-reproducible number + $\kappa_{FS}$ cold/thermal split.** $6.08 \times 10^{-10}$ / $0.38\%$ is reproduced by no code path. Engine-canonical (thermal $\kappa_{FS} = 24.95$): $6.05 \times 10^{-10}$ / 0.79%. Displayed cold $\pi/8\pi$ gives $6.01 \times 10^{-10}$ / 1.51%. Which $\kappa_{FS}$ is correct is OPEN for Grant (flag-don't-fix). Displayed number corrected to engine-canonical below.
 >
-> *Body below preserved per Rule 12; displayed result number corrected in place.*
+> *Body below preserved per Rule 12; displayed result number corrected in place.*  <!-- rule12-freeze: base=2896f3af6d6be67e4197b1d37e85c6c645e1f850 region=below offset=0 lines=16 bytes=1309 sha256=8a0f0d85a498399b937c37ffa88e021973c63c0b00d9d8c64865bd772a9cb591 -->
 
 ## Consistency-Check: Baryon Asymmetry
 

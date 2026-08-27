@@ -95,7 +95,7 @@ Substrate-native EE quantities NOT yet measured in the v6→v10 arc:
 
 ## §4 — Substrate-derived characteristic frequencies (multiple, distinct)
 
-🔴 **REVISED 2026-04-29 per auditor Finding 1+2 (Rule 12 retraction-preserves-body):** original §4 conflated bond-traversal with bond-pair LC tank resonance, and had a factor-of-2π math error in the chair-ring (1,1) eigenfrequency (was 0.0962·ω_C; correct is 0.605·ω_C). Original §4 text preserved below the corrected version; corrections in §4.0.
+🔴 **REVISED 2026-04-29 per auditor Finding 1+2 (Rule 12 retraction-preserves-body):** original §4 conflated bond-traversal with bond-pair LC tank resonance, and had a factor-of-2π math error in the chair-ring (1,1) eigenfrequency (was 0.0962·ω_C; correct is 0.605·ω_C). Original §4 text preserved below the corrected version; corrections in §4.0.  <!-- rule12-freeze: base=e753e40b0dced572f46b3866c19f165a7c9de627 region=below offset=0 lines=203 bytes=21807 sha256=3568cb0fc063985896c255387749fd6d594492de81f9c560cbe890721c74eb5e -->
 
 ### §4.0 — Three distinct substrate-derived frequencies (corrected)
 

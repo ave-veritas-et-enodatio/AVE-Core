@@ -30,7 +30,7 @@ $$\boxed{\; m_i c^2 \;=\; E_{\text{slosh},i} \;+\; E_{\text{twist},i} \;+\; n_i\
 
 > ### ★★ SCOPE BLOCK — THE ADDITIVE LEDGER IS **SUPERSEDED**: canon meters by **TRANSDUCTION**, Grant composes by **BIAS**
 >
-> *(2026-08-02/03 re-scope, **added structure**; the §§1–5 bodies below are **PRESERVED unedited** per Rule 12 and remain readable exactly as shipped. Three rulings are recorded here — **none of them this lane's**: one pre-existing canon ruling the shipped text failed to engage, and two Grant walk-rulings from 2026-08-03. This block **resolves nothing on its own**; it records what has been ruled and what remains open.)*
+> *(2026-08-02/03 re-scope, **added structure**; the §§1–5 bodies below are **PRESERVED unedited** per Rule 12 and remain readable exactly as shipped. Three rulings are recorded here — **none of them this lane's**: one pre-existing canon ruling the shipped text failed to engage, and two Grant walk-rulings from 2026-08-03. This block **resolves nothing on its own**; it records what has been ruled and what remains open.)*  <!-- rule12-freeze: base=34ef264cae2b011b700550156124e83b0edf3ab9 region=below offset=0 lines=30 bytes=3936 sha256=53ae4e1ba0f36c37b719021b4d764ac8026abf025c94234e68912f29aef11069 -->
 >
 > **Ruling 1 — CANON, 2026-06-20, Grant-ratified: the lepton tower is a TRANSDUCTION, not an addition.** The ruling's header, verbatim, [`master-equation.md`](../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):30:
 >
@@ -61,7 +61,7 @@ $$\boxed{\; m_i c^2 \;=\; E_{\text{slosh},i} \;+\; E_{\text{twist},i} \;+\; n_i\
 >
 > $$m_i c^2 \;=\; B^{(2,3)} \cdot \mathcal{E}(n_i) \qquad\text{(BIAS / multiplicative — Grant-ratified)}$$
 >
-> against the shipped additive form $m_ic^2 = E_{\text{slosh},i} + E_{\text{twist}}^{(2,3)} + E_{\text{exc}}(n_i)$, where $B^{(2,3)}$ is the **generation-common bias factor** carried by the shared ground and $\mathcal{E}(n_i)$ is the rung content. **The additive reading is hereby SUPERSEDED, not deleted:** §§2–5 below are preserved verbatim per Rule 12 and remain correct *as algebra on the additive premise* — they are simply no longer the ratified reading of the physics.
+> against the shipped additive form $m_ic^2 = E_{\text{slosh},i} + E_{\text{twist}}^{(2,3)} + E_{\text{exc}}(n_i)$, where $B^{(2,3)}$ is the **generation-common bias factor** carried by the shared ground and $\mathcal{E}(n_i)$ is the rung content. **The additive reading is hereby SUPERSEDED, not deleted:** §§2–5 below are preserved verbatim per Rule 12 and remain correct *as algebra on the additive premise* — they are simply no longer the ratified reading of the physics.  <!-- rule12-freeze: base=34ef264cae2b011b700550156124e83b0edf3ab9 region=below offset=0 lines=42 bytes=11646 sha256=f4a95b262f8fa2936003b003be8e9142e06d5fde828a42bd15f7db00df59bd64 -->
 >
 > > **★★ THE CARVE INVERTS — and this is the load-bearing consequence of Ruling 2.**
 > >
@@ -104,7 +104,7 @@ Every term is the corpus's own object, with its own status:
 
 ## §2 — The theorem (derived, algebraic, conditional) — **CONDITIONAL ON THE SUPERSEDED ADDITIVE READING**
 
-> **★ SCOPE (2026-08-03 re-scope; body below PRESERVED unedited per Rule 12).** §2 is exact algebra **on the additive premise of §1**, which the SCOPE BLOCK records as **SUPERSEDED** by Grant's ratified **bias** (multiplicative) composition law. The theorem is **not withdrawn and not wrong** — it is the *additive-law instance* of a common-mode cancellation whose *bias-law instance* reads: **a generation-common bias factor is invisible to every mass RATIO in the family iff it is generation-independent.** The structure survives; **which observable is blind inverts.** Read §2 as: *if* the ledger is additive, here is what its condition buys.
+> **★ SCOPE (2026-08-03 re-scope; body below PRESERVED unedited per Rule 12).** §2 is exact algebra **on the additive premise of §1**, which the SCOPE BLOCK records as **SUPERSEDED** by Grant's ratified **bias** (multiplicative) composition law. The theorem is **not withdrawn and not wrong** — it is the *additive-law instance* of a common-mode cancellation whose *bias-law instance* reads: **a generation-common bias factor is invisible to every mass RATIO in the family iff it is generation-independent.** The structure survives; **which observable is blind inverts.** Read §2 as: *if* the ledger is additive, here is what its condition buys.  <!-- rule12-freeze: base=34ef264cae2b011b700550156124e83b0edf3ab9 region=below offset=0 lines=71 bytes=14349 sha256=c99bfaeb74e9edd985ec005d49d3f76e145f5aaf0e3c5b569b39e4873fa056df -->
 
 > **[Resultbox]** *Common-Mode Twist-Ledger Theorem*
 >
@@ -324,7 +324,7 @@ The ledger's three terms are the clip's three parts:
 3. **Nothing here resolves open item 13** (sector-of-storage; `⚑ OPEN-IN-WALK`, Grant is walking it). **This leaf gives item 13 its bookkeeping instrument**: the theorem says which observables can and cannot bear on it, and §4.3's multiplication says what would have to be true *jointly* for the ladder to be disturbed. **That is a narrowing of the search space, not a ruling.**
 4. **No new axiom (A44).** The diagnosis in this space is unbuilt-ledger plus unadjudicated-symbol-collision — bookkeeping/engine-class, not axiom-class. **Do not draft an Ax 5 off this leaf.**
 5. **No slot refilled (Rule 12).** `clm-ka5zdx`'s open strengthen-by ([`vol2/claim-quality.md`](../../claim-quality.md):1258) stays exactly as canon wrote it. No existing claim's solidity is flipped by this leaf.
-6. **Sector-ownership (`A1 ⊥ T2` cross-wiring watch) — the shipped fence CLAIMED MORE THAN IT HELD.** *(Body preserved per Rule 12; 🔴 correction below.)*
+6. **Sector-ownership (`A1 ⊥ T2` cross-wiring watch) — the shipped fence CLAIMED MORE THAN IT HELD.** *(Body preserved per Rule 12; 🔴 correction below.)*  <!-- rule12-freeze: base=34ef264cae2b011b700550156124e83b0edf3ab9 region=below offset=0 lines=39 bytes=6756 sha256=93d9914405555b46ac114e0c814a6741a52862dd0eedd3e9fe92dad01c6e8ded -->
    > **Shipped text, preserved:** *"Mass is booked on A1 dilatation; the $(2,3)$ winding is booked on the Cosserat T2 grade ([`master-equation.md`](../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20). This leaf **does not cross-wire them**: it writes a budget with *both* grades' stores as named slots and proves an algebraic property of differences. Whether a T2 store belongs inside the A1-labelled invariant is precisely the question it declines to answer."*
 
    🔴 **CORRECTION (2026-08-02/03).** *"Does not cross-wire"* is **not** what §1's additive ledger does. Writing a **T2 store as a named additive slot inside the A1-labelled invariant $m_ic^2$** is precisely the operation the six 🔴 mass-sector banners foreclose (SCOPE BLOCK, sites 1–6): every one of them re-scopes a T2-side energy **out of** the rest-mass store. The fence asserted a guard it was simultaneously spending. Two corrections, both disclosures rather than resolutions:

@@ -1,6 +1,6 @@
 # FROZEN PREREG — The SATURATED srs Elastic-Tensor Arc: small-signal C_ij about a DC Q-point, swept across the full operating-point regime, both channel assignments
 
-> 🔴 **ERRATUM (2026-07-04, appended post-freeze — Rule 12, body preserved below unedited; git is the trail).**
+> 🔴 **ERRATUM (2026-07-04, appended post-freeze — Rule 12, body preserved below unedited; git is the trail).**  <!-- rule12-freeze: base=e765eda8eece5661fe256e7e69a2e57535244deb region=below offset=0 lines=308 bytes=22583 sha256=ed68ad046a4b51f53648981d08a50ea9daaae2867b49aebdd56890ba2cf6adab -->
 > **§0.6 (prereg line 123) arithmetic slip, NON-LOAD-BEARING.** The line reads
 > "`S_axial = S(√α) = √(1−α) = 0.992703`" and "`ρ_eff = 0.992703/0.10194 = 9.737`". The SYMBOLIC
 > form `√(1−α)` is correct (S(√α)=√(1−(√α)²)=√(1−α)), but its NUMERIC evaluation is wrong:

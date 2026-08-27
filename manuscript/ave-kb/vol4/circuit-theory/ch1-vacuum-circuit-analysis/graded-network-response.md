@@ -5,7 +5,7 @@ kind: leaf
 claims: [clm-gvn4r1]
 -->
 
-> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**
+> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**  <!-- rule12-freeze: base=46162d6589f063f1cbc90712e1a7d24d613ca098 region=below offset=6 lines=311 bytes=23251 sha256=32b5754357451a952618436b8e59186704153b6c1ee05049db19841e0429ce65 -->
 > Every "$7.5/\alpha^3\approx1.93\times10^7$" birefringence-ratio below carries an understated QED denominator
 > ($(3/45)\alpha^2$ too small by $1/(2\pi\alpha)\approx21.8$). **Corrected (v3 headline, single instantaneous footing —
 > OPTION-B re-freeze 2026-07-07): $3.75\pi/\alpha^2\approx2.2\times10^5$** (the 2026-07-03 QED-normalization step gave

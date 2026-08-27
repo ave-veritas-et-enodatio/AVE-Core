@@ -13,7 +13,7 @@
 
 ## 🔴 VERDICT ADDENDUM — handedness arm `BLIND → UNRESOLVED` (2026-06-10 panel follow-up; Rule 12 substitution-not-retraction)
 
-**Status:** the closure-arm **LOCK** verdict (§0, §2, §3, §5, §6) **STANDS UNCHANGED**. The **handedness arm** verdict is **RETRACTED from BLIND to UNRESOLVED** per Rule 12 — the original §0/§4/§7 BLIND text is **preserved below, unedited**; this header supersedes it. Panel: 2026-06-10 sonic-horizon-closure adversarial review (run `f1648a0c`, prereg `f8226ac0`).
+**Status:** the closure-arm **LOCK** verdict (§0, §2, §3, §5, §6) **STANDS UNCHANGED**. The **handedness arm** verdict is **RETRACTED from BLIND to UNRESOLVED** per Rule 12 — the original §0/§4/§7 BLIND text is **preserved below, unedited**; this header supersedes it. Panel: 2026-06-10 sonic-horizon-closure adversarial review (run `f1648a0c`, prereg `f8226ac0`).  <!-- rule12-freeze: base=2a788fec9221f80d6265e7b4d03810887fe88c73 region=below offset=27 lines=112 bytes=12239 sha256=10a95a7e7bc1e21f3376d309c98f1367f486d8aab1aad19d04846b61e15e4f44 -->
 
 **1. Why the handedness BLIND is not a valid null (the probe was degenerate in `m`).**
 The OAM probe `SonicHorizonFlow2D.add_oam_pulse` set the density perturbation as

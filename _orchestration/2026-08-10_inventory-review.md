@@ -491,7 +491,7 @@ Three flags inside Class G:
 
 **Evidence.** `research/2026-08-09_bound-response_result.md:19` (headline, verbatim):
 
-> **🔴 VERDICT AS RE-CUT AT THIS LANE'S OWN TIER-2 (2026-08-10, pre-presentation; the original DERIVED verdict below is PRESERVED per Rule 12 and OVERTURNED): `NOT-DERIVABLE` — the adjudicating structure is missing; enumerated.**
+> **🔴 VERDICT AS RE-CUT AT THIS LANE'S OWN TIER-2 (2026-08-10, pre-presentation; the original DERIVED verdict below is PRESERVED per Rule 12 and OVERTURNED): `NOT-DERIVABLE` — the adjudicating structure is missing; enumerated.**  <!-- rule12-freeze: base=7132aaeedd577f0773e2f918bcc57c1fb932f834 region=below offset=0 lines=324 bytes=47057 sha256=10cee32b7f8303baeb0e9375f923b269e7a551cc8ac16035402ea4956333147f -->
 
 The "kill flips polarity / it was the falsification of the IMPORT" reading is in the **preserved-and-overturned** block at `:21`, not the live verdict. What survives is stated at `:19` item (2):
 

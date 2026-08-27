@@ -1,4 +1,4 @@
-> **Notation (2026-06-18):** Substrate object symbol `$\mathcal{M}_A$` **retired** (Grant adjudication). Use prose: *substrate*, *chiral LC network*, *chiral Laves K4 Cosserat crystal*. Body below preserved per Rule-12.
+> **Notation (2026-06-18):** Substrate object symbol `$\mathcal{M}_A$` **retired** (Grant adjudication). Use prose: *substrate*, *chiral LC network*, *chiral Laves K4 Cosserat crystal*. Body below preserved per Rule-12.  <!-- rule12-freeze: base=b56a39db08f5f23df45c3ac01443ad55d3d30423 region=below offset=0 lines=2434 bytes=196294 sha256=8f95fe73db063fef43affc8739108995cf6ce4e822bca8940fd410cc037c5a56 -->
 
 # L3 Doc 100 — A47 v9 Reframing + Line-687 Retraction (Methodology Artifact)
 
@@ -2433,7 +2433,7 @@ The engine's empirical answer at the dq-frame phasor layer: Mode III at K4-TLM-a
 - "Reading (3) collapses three apparent tensions cleanly" — the tensions weren't collapsed; they were licensed away by an unverified premise
 - The §21.5 auditor-lane proposals (manuscript amendment, function rename) — withdrawn
 
-**What stands per Rule 12 preserve-body:** the §21 narrative is preserved below as audit trail. Implementer's good-faith misreading is part of the methodology evidence.
+**What stands per Rule 12 preserve-body:** the §21 narrative is preserved below as audit trail. Implementer's good-faith misreading is part of the methodology evidence.  <!-- rule12-freeze: base=e753e40b0dced572f46b3866c19f165a7c9de627 region=below offset=0 lines=433 bytes=35140 sha256=2dc33b06bc3e0ab3bedfc99cbfedea80d076bc03e3ee8b95dac3839d349fe573 -->
 
 **What §21 was actually trying to do** (correct version, per §25 reframe):
 - §20 corpus-drift finding (Vol 1 Ch 8 added 2026-04-19 post-IP-separation, structurally distinct from parent) is REAFFIRMED as correct
@@ -2867,7 +2867,7 @@ Adopting Path B reframe: ⚠⃝ → ✅ at 1% R-preservation, with r-drift docum
 
 — §23 closure of §17.4 Path 1 + reading-3-reframe per Grant 2026-04-30.
 
-[ABOVE: original §23 body preserved per Rule 12. Closure verdict retracted per §23 retraction header at top of section. — auditor pass 2026-04-30]
+[ABOVE: original §23 body preserved per Rule 12. Closure verdict retracted per §23 retraction header at top of section. — auditor pass 2026-04-30]  <!-- rule12-freeze: base=e753e40b0dced572f46b3866c19f165a7c9de627 region=above offset=0 lines=433 bytes=35140 sha256=2dc33b06bc3e0ab3bedfc99cbfedea80d076bc03e3ee8b95dac3839d349fe573 -->
 
 ---
 
@@ -2886,7 +2886,7 @@ Adopting Path B reframe: ⚠⃝ → ✅ at 1% R-preservation, with r-drift docum
 - The implementer's "honest read leans (a)" endorsement
 - The auditor's two-manuscripts-in-tension structural framing
 
-**What stands per Rule 12 preserve-body:** the §24 narrative is preserved below as audit trail. The Rule-14-failure-mode catch is part of the methodology evidence (presented framework-comparison menu instead of walking substrate; substrate-walk in NEXT turn ALSO landed at non-load-bearing layer because the substrate being walked was Golden-Torus-licensed).
+**What stands per Rule 12 preserve-body:** the §24 narrative is preserved below as audit trail. The Rule-14-failure-mode catch is part of the methodology evidence (presented framework-comparison menu instead of walking substrate; substrate-walk in NEXT turn ALSO landed at non-load-bearing layer because the substrate being walked was Golden-Torus-licensed).  <!-- rule12-freeze: base=e753e40b0dced572f46b3866c19f165a7c9de627 region=below offset=0 lines=177 bytes=17872 sha256=7ae9b0c6bf06bb8ad1d7d69f14aeb38120648c8c0e944a36f75cd08cf05ff025 -->
 
 **The actual Rule 16 questions owed to Grant** (per §25 bracket-Golden-Torus reframe): three specific questions about the packing-fraction canonical's chain, Cosserat reframe against unknot, and AVE-HOPF cross-anchor reframe. See §25.4.
 

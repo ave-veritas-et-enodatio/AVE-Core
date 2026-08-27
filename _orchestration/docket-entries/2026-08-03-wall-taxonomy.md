@@ -1,6 +1,6 @@
 ### ENTRY 2026-08-03-wall-taxonomy (2026-08-03): canonization — the WALL TAXONOMY leaf ($\Gamma=\pm1$ level-sets of DC operating-point fields, indexed by phase-space axis); zero ids minted, two open flags carried, one new flag surfaced
 
-> **⚑ REPAIR PASS 2026-08-03 (PR #860 audit, CLEAR-WITH-REPAIRS — 3 blocking + 11 warnings). Body below PRESERVED per Rule 12; this header records what the audit moved.**
+> **⚑ REPAIR PASS 2026-08-03 (PR #860 audit, CLEAR-WITH-REPAIRS — 3 blocking + 11 warnings). Body below PRESERVED per Rule 12; this header records what the audit moved.**  <!-- rule12-freeze: base=b5b41fe5c1993e98dee12242b252bd1d608d1f16 region=below offset=0 lines=34 bytes=16281 sha256=2c4774c6487e83a2020a9aa40aaf88b8bb87eb423e7d3125ae81b01254287966 -->
 >
 > **The entry's own title over-committed the phase.** The leaf is retitled **$\lvert\Gamma\rvert\to1$**, not $\Gamma=\pm1$: the shared object across the eight rows is a reflection **magnitude** running to unity; only rows 1–3 land on the real $\pm1$ (W10).
 >

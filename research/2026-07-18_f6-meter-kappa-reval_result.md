@@ -16,7 +16,7 @@
 > **even at the certified κ=0.012 (×3.6)** — a false kill with no κ-specific content.
 > **Restoring the frozen placement flips X2 to PASS at κ=0.03 (×128.7, N_det=0) and
 > at the reference κ=0.012 (×354.8), and the verdict FLIPS.** The pre-review verdict
-> body is preserved verbatim below (Rule 12); the corrected result is the **§C-post-review
+> body is preserved verbatim below (Rule 12); the corrected result is the **§C-post-review  <!-- rule12-freeze: base=be4e9fd8aa1f931770d7170b9c4cf1b024910062 region=below offset=0 lines=39 bytes=2833 sha256=b4325db09cf94e2102f63802d4c07aa8c62c200953576b9e0dfbd796474877bc -->
 > addendum** appended after §8. See §7 + the addendum for all nine findings by number.
 
 > ## ★ VERDICT (post-review, honest re-run) — **METER-VALID-KAPPA-BAND [0.030, 0.030]**
@@ -56,7 +56,7 @@
 
 ---
 
-> ## ⛔ SUPERSEDED (pre-review verdict — preserved verbatim per Rule 12; see the 🔴 header above)
+> ## ⛔ SUPERSEDED (pre-review verdict — preserved verbatim per Rule 12; see the 🔴 header above)  <!-- rule12-freeze: base=be4e9fd8aa1f931770d7170b9c4cf1b024910062 region=above offset=0 lines=39 bytes=2833 sha256=b4325db09cf94e2102f63802d4c07aa8c62c200953576b9e0dfbd796474877bc -->
 >
 > > ## ★ VERDICT — **METER-INVALID-AT-KAPPA**
 > >
@@ -103,7 +103,7 @@ Every drift fraction is `≥ 6 orders under` the `R_BATH_MAX = 0.2` ceiling; `a�
 > band **[1.07,1.38]** sits ON a genuine lattice line (14.6% of q-power). The **honest X2** with
 > the FROZEN `_place_detuned_band` reads **×354.8 @0.012-ref, ×128.7 @0.03 (both PASS, N_det=0)**;
 > ×2.6 @0.045 / ×1.0 @0.06 are a **drain-placement artifact** (§C3 disclosed-limitation), not a
-> physical loss. See the addendum. The pre-review table is preserved verbatim below (Rule 12).
+> physical loss. See the addendum. The pre-review table is preserved verbatim below (Rule 12).  <!-- rule12-freeze: base=be4e9fd8aa1f931770d7170b9c4cf1b024910062 region=below offset=0 lines=62 bytes=4986 sha256=741bd25e6e748a58b8e2681322fc95545d7b20d11da11ff7e27fbeba5b10c681 -->
 
 | κ | `E_bath_peak` resonant (`N_occ`) | detuned band | `E_bath_peak` detuned (`N_occ`) | **collapse ×** (frozen ≥100) | verdict |
 |---|---|---|---|---|---|
@@ -166,7 +166,7 @@ Robust `ω_d = 0.520` (9 near-resonant modes at every κ). The dressed teeth sta
 > orchestrator-routed "linewidth-tradeoff / Wigner–Weisskopf" reading is retracted by the same
 > measurement (`Γ_κ ≳ Δω_comb` — quasi-continuum true; but `Γ_κ ≪` the far-detune offset —
 > selectivity survives). The X3/X5 halves of the mechanism (floor, tare) stand. Text preserved
-> verbatim below (Rule 12).
+> verbatim below (Rule 12).  <!-- rule12-freeze: base=be4e9fd8aa1f931770d7170b9c4cf1b024910062 region=below offset=0 lines=33 bytes=5274 sha256=43e8445334692c6973be6585b191d11ec3c35a5cf89c475f497caa1faeee2aa6 -->
 
 > **One fact.** At κ=0.03–0.06 the coupling is strong enough that the cavity **fully discharges into whatever comb is attached** — `E_bath_peak/E0 ≥ 1` and `min E_lat/E0 = 0` at **every** band κ and operating point. This is the same fast, near-complete transfer the #722 probe found reaches the counting-arrow regime (`x_63 = 0.19·T_rec`, quasi-continuum populated). Every failure is downstream of it:
 
@@ -200,7 +200,7 @@ The §C1 discriminator was the **slope over the sweep's longest horizon** (`N_sw
 > that needs **NO rebuild**. The three "broken discriminators" below are **regime-honesty limits
 > of the frozen criteria at strong κ**, not coupler defects. The redesign fork **narrows** to
 > **"§D re-certification with regime-honest criteria"** vs **abandon** — see the §D SPEC in the
-> addendum. Text preserved verbatim below (Rule 12).
+> addendum. Text preserved verbatim below (Rule 12).  <!-- rule12-freeze: base=be4e9fd8aa1f931770d7170b9c4cf1b024910062 region=below offset=0 lines=43 bytes=5797 sha256=61152ed57aa1c81191240e0af76f2dab33d30776ded265c61b18f88332e61bcb -->
 
 The sweep is blocked pending a meter redesign. The redesign is **SPEC'd here as a finding, NOT built** (§C3; engine + meter module byte-untouched). A κ-honest meter must restore the three broken discriminators without re-breaking conservation:
 
@@ -244,7 +244,7 @@ No frozen §C threshold was loosened. A single mechanism explains every failure 
 
 - **Freeze margin (real):** §C frozen-by-push at `2026-07-18T07:21:52Z` (API committedDate; pushed `07:22:26Z`), **before any X-battery code existed**. First battery-code commit: this commit (see git log; the margin is the push→first-code interval, reported in the PR).
 - **Gates:** `ruff check` clean; `make verify` green; A-battery **V1–V6 byte-identical** (re-ran `METER-VALID-WITHIN-ENVELOPE`) and W-battery **W1–W6 byte-identical** (regression green — the X-battery is additive, opt-in `--x-battery`, A/W functions AST-identical to origin/main).
-- **Byte-untouched:** `src/ave/thermal/f6_bath_meter.py` (meter module) and the engine — verified `git diff origin/main` empty on the meter module. The only edits: the charter §C (append-only, 70 insertions/0 deletions above byte-identical) and `f6_bath_meter_validate.py` (X-battery additions + the `--x-battery` dispatch line).
+- **Byte-untouched:** `src/ave/thermal/f6_bath_meter.py` (meter module) and the engine — verified `git diff origin/main` empty on the meter module. The only edits: the charter §C (append-only, 70 insertions/0 deletions above byte-identical) and `f6_bath_meter_validate.py` (X-battery additions + the `--x-battery` dispatch line).  <!-- rule12-freeze: base=78b02db3c323ee4017b225371170e04b4b1913a5 region=above offset=21 lines=21 bytes=2601 sha256=3f03cd1164067f3a6d469cafeb1c1ca9b7e3328af26ff55514a9c4a400b3b89c -->
 
 *Honest closure (Rule 11): clean negative, single mechanism named (strong-coupling full-discharge → resonance-gating + floor + tare all break in the counting-arrow regime), branch closed, redesign SPEC'd not built. Nothing banked at emergence-class. The meter is **METER-INVALID-AT-KAPPA** across κ=0.03–0.06; the counting-arrow κ-sweep is **BLOCKED pending a meter redesign**; the feared secular-pump risk is **DISCONFIRMED** (conservation is κ-robust; the discriminators are not).* *(🔴 The METER-INVALID headline of this closing paragraph is SUPERSEDED — see the §C-post-review addendum. The verdict is **METER-VALID-KAPPA-BAND[0.030,0.030]**; the sweep is UNBLOCKED at κ=0.030.)*
 

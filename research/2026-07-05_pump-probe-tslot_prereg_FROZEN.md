@@ -9,7 +9,7 @@
 > critically, is a **LAB-FRAME** observable (it feels the axial spring through the bond slope).
 > This silent substitution is the root of the [ADJUDICATION-INVALID] verdict: the finite-difference
 > observable is not the frozen dynamical-probe observable, and it mixes in a kinematic tilt term the
-> frozen (bond-frame) arms never modeled. The frozen prereg body below is PRESERVED (Rule 12); this
+> frozen (bond-frame) arms never modeled. The frozen prereg body below is PRESERVED (Rule 12); this  <!-- rule12-freeze: base=5693e59b37627825b7b7a282f1c06fd8f59afbdb region=below offset=0 lines=170 bytes=18096 sha256=d19741df556bf8c783e5384d3d20cc3287396bd215d6e2ffb4e81fde5fd581d0 -->
 > banner records the deviation. A valid future adjudication must run the frozen dynamical probe (or
 > a bond-frame observable) — see `2026-07-05_pump-probe-tslot_result.md` §REQUIREMENTS.
 > (The one numeric correction: the DC-BIAS liveness prediction 1.0376 was for a zig-zag held bow,

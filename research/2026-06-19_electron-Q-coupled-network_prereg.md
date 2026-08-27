@@ -37,7 +37,7 @@ report honestly (moved-negative / solver-bug / re-derived-echo), NOT an error to
    tokens in the network-input / impedance / coupling / kernel code (grep-proven).
 3. Q is **α-INVARIANT** under the α→2α perturbation test (double α in constants,
    re-solve, Q must NOT move).
-4. 🔴 **RETRACTED (2026-06-20, Rule 12 — original criterion PRESERVED unedited below).**
+4. 🔴 **RETRACTED (2026-06-20, Rule 12 — original criterion PRESERVED unedited below).**  <!-- rule12-freeze: base=f87914faa8b66f7408dbfb60971ce6bfc81ab33d region=below offset=0 lines=170 bytes=9685 sha256=25d698b23ec4a244d4665537795a71d64482ef2ccdb4473f0575c35e9824b7df -->
    The original text read: *"The isolation validate-on-known gate (GATE1) passed
    FIRST."* This is FALSE as written. GATE1 (cold-cage `Q ≈ 30.8` reproduced in the
    `[20,45]` band) was **FAIL**, not pass — the eigenframe Q is the

@@ -13,7 +13,7 @@ path-stable: "referenced from vol3 as sec:induced_vacuum_impedance_mirror"
 
 <!-- DANGLING REFS: \ref{sec:topological_defects_lc}, \ref{sec:point_yield}, \ref{eq:dielectric_saturation} — not defined in Vol 4; presumed Vol 3 targets -->
 
-> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**
+> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**  <!-- rule12-freeze: base=46162d6589f063f1cbc90712e1a7d24d613ca098 region=below offset=7 lines=143 bytes=11956 sha256=b3e23fa6fdadeffb19aee363b59004ba85ca21bac42eb110f449426fc38cd999 -->
 > Every "$7.5/\alpha^3\approx1.93\times10^7$" (differential) and "$4.14\times10^6$" (single-arm) ratio below
 > carries an understated QED denominator ($(3/45)\alpha^2$ is too small by $1/(2\pi\alpha)\approx21.8$ vs the
 > PVLAS-anchored magnetic leg). **Corrected matched-differential ratio (v3 headline, single instantaneous footing —
@@ -164,7 +164,7 @@ electrode emits / the gap arcs before the probe accumulates a detectable phase.
 > the discriminators are **manifestation/structural-class**. Derivation + SNR:
 > [`research/2026-06-04_ivim-interferometric-rescope-result.md`](../../../../../research/2026-06-04_ivim-interferometric-rescope-result.md).
 
-> 🔴 **Scope reconciliation (2026-06-21, Rule 12 — body above PRESERVED verbatim; additive).**
+> 🔴 **Scope reconciliation (2026-06-21, Rule 12 — body above PRESERVED verbatim; additive).**  <!-- rule12-freeze: base=de6d464cbedebf39b2404f4a5abf8154036fefca region=above offset=0 lines=140 bytes=11671 sha256=e3ba85718ec600260eda423bc5c9ccef5c3c1cebd3cc6acdab1fba1915a2923d -->
 > Discriminator-(ii)'s claim "the AVE kernel keys off $|E|$ (isotropic → scalar phase, so
 > cross-polarized $\Delta\phi_\parallel - \Delta\phi_\perp = 0$)" is **correct only in the
 > CIRCULAR / ISOTROPIC-pump limit** — where the pump field magnitude $|E|$ has no preferred

@@ -240,7 +240,7 @@ This is corpus-rhetoric vs computational-reality gap, not just "asserted-not-der
 - Test infrastructure (test_ch8_alpha_golden_torus.py) hardens patches via tautological regression assertions (per auditor catalog candidate)
 - **Vol 2 Ch 1 photon-helical-confinement figure presents parametric visualization as "Simulation Output"; Vol 2 Ch 9 verification table presents the same picture as VALIDATED**
 
-Per Rule 12 retraction-preserves-body: §4.3 body preserved verbatim above; this §8.2 supplies the corrected reading.
+Per Rule 12 retraction-preserves-body: §4.3 body preserved verbatim above; this §8.2 supplies the corrected reading.  <!-- rule12-freeze: base=e753e40b0dced572f46b3866c19f165a7c9de627 region=above offset=0 lines=242 bytes=19481 sha256=2a9c0ede0b18318cd9120537a7e8a3483ee0af7269de9970eed04c723efe1cec -->
 
 ### §8.3 — Auditor's additional finding I missed: docstring overstates code
 

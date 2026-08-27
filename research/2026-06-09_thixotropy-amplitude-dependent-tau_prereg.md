@@ -141,7 +141,7 @@ The driver is **0D** (single-cell temporal kernel) — it captures the *temporal
 
 ## POST-FREEZE AMENDMENT — 2026-07-19 (implementer lane, review `wf_f0870d0d`)
 
-**Rule-12 append.** The frozen §A.0–§A.8 above is preserved as-written. This discloses a gate finding on §A.6; it does **not** retro-edit the frozen verdict (Rule-11). Verdict stays **B** — carried by the clean τ-swap sign-flip discriminator, not by the gate.
+**Rule-12 append.** The frozen §A.0–§A.8 above is preserved as-written. This discloses a gate finding on §A.6; it does **not** retro-edit the frozen verdict (Rule-11). Verdict stays **B** — carried by the clean τ-swap sign-flip discriminator, not by the gate.  <!-- rule12-freeze: base=a2af49b2a7231807ab230916f4ad0d7b5d51cd33 region=above offset=0 lines=143 bytes=22647 sha256=00ea758a6ebed021c09b8df5558727b09573694e275e0fb40ab0de5fb96e61cd -->
 
 **F-A2 — the §A.6 positive-control (instrument-liveness) gate is VACUOUS as coded, and its frozen `Δτ_rel≈2` outcome was unreachable.**
 - **The coded gate cannot fail.** `leg_a_thixotropy.py:151` codes liveness as `(Δτ_rel > tol_mem=1e-3) AND (|R| > tol_R=1e-3)`. But the **memoryless** single-τ arm already returns `Δτ_rel≈0.54`, `|R|≈0.20` — both `~500×` the `1e-3` threshold — and (F-A1) both are memoryless nonlinear-loop *artifacts* with **zero** sign-memory. So even a dead/memoryless instrument passes "live." The thresholds sit `~500×` **below** the F-A1 artifact background → the gate certifies nothing.

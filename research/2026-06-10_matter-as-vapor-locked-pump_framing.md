@@ -239,7 +239,7 @@ The whole picture turns on one untested event: **does a circulating core, driven
 
 ## §11 — THE CHANNEL LEDGER — longitudinal as the latent-heat projection (Grant-ratified 2026-06-10)
 
-**Date appended:** 2026-06-10 (Rule 12 dated append; §0–§10 bodies above are **preserved unedited**). **Status:** **Grant-ratified framing** (2026-06-10, *"proceed"*). This section ratifies a **framing**; it does **NOT** upgrade any hypothesis-class number in §0–§10. Those sections' own §-tags continue to govern — explicitly, the genesis-direction "latent heat `= mₑc²`" stays HYPOTHESIS-class per §6 / §7 N6 (see §11.2). **Disciplines fired:** `verify-before-cite` (every anchor grep-confirmed below; unpushed content cited by branch+commit), `consistency-vs-emergence` (each basis piece class-tagged), `ave-regime-phase-state-check` (§11.3 wrong-regime null), `flag-don't-fix` (§11.5 the un-anchored Tier-1 gate-labels, surfaced not resolved).
+**Date appended:** 2026-06-10 (Rule 12 dated append; §0–§10 bodies above are **preserved unedited**). **Status:** **Grant-ratified framing** (2026-06-10, *"proceed"*). This section ratifies a **framing**; it does **NOT** upgrade any hypothesis-class number in §0–§10. Those sections' own §-tags continue to govern — explicitly, the genesis-direction "latent heat `= mₑc²`" stays HYPOTHESIS-class per §6 / §7 N6 (see §11.2). **Disciplines fired:** `verify-before-cite` (every anchor grep-confirmed below; unpushed content cited by branch+commit), `consistency-vs-emergence` (each basis piece class-tagged), `ave-regime-phase-state-check` (§11.3 wrong-regime null), `flag-don't-fix` (§11.5 the un-anchored Tier-1 gate-labels, surfaced not resolved).  <!-- rule12-freeze: base=43bbc78a519f2b2d7cdbbd7fd6df69663ce68545 region=above offset=0 lines=241 bytes=33458 sha256=e7e609f76bebf6fcf2380b9e3a2b39f4f1a5524a0f4248f1d20372669fe32801 -->
 
 ### §11.1 — The statement (the channel)
 
@@ -283,7 +283,7 @@ These are **ratified design consequences** that feed the future v5 prereg. **Gat
 
 ### §11.6 — The Meissner-class reconciliation (N11): back-EMF = the field's Faraday port signature — Rule 12 dated note (2026-06-10)
 
-**Date appended:** 2026-06-10 (Rule 12; §11.1–§11.5 above preserved unedited). **Basis:** Grant rename-queue adjudication 2026-06-10, the **N11 reconciliation** (Group-3 ruling, rides with R2). **Disciplines:** `verify-before-cite`, `flag-don't-fix`.
+**Date appended:** 2026-06-10 (Rule 12; §11.1–§11.5 above preserved unedited). **Basis:** Grant rename-queue adjudication 2026-06-10, the **N11 reconciliation** (Group-3 ruling, rides with R2). **Disciplines:** `verify-before-cite`, `flag-don't-fix`.  <!-- rule12-freeze: base=c969e57503b10db1d6dd2ad1d0ac10ee8fef9347 region=above offset=0 lines=43 bytes=9957 sha256=27159ffcaa316a648d5910dd1066a51100e791d0ebf053f286160f283d20290c -->
 
 > **`flag-don't-fix` (placement):** the N11 ruling names *"the Meissner / D1-picture section"* of this doc, but **no section by that name exists here** — `grep -i meissner` across this file (and across all its git versions) returns **zero** hits. The Meissner / persistent-screening-current picture actually lives in **§11.1 L3** (the longitudinal field as the **order-parameter** channel, nonzero only in the broken phase) and in the dark-sector **novel-objects report N11** ("the Meissner-class snap picture", hypothesis-class). This note is therefore placed at §11 (its nearest existing home) and the absence of a literal "Meissner/D1" heading is **surfaced, not silently relocated**.
 

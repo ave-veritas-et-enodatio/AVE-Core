@@ -286,7 +286,7 @@ The structural picture stabilizes:
 
 ## §8.10 — Self-audit corrections per Grant directive 2026-05-01 (Rule 12 + A47 v11b)
 
-Grant prompted self-audit on the §8 framing: "do you agree?" — Rule 9 v2 strategic-pivot signal asking implementer to step back. Honest answer: **partial agreement; substantial reservations on §8 framing.** Four corrections owed per Rule 12 preserve-body discipline. §8.1-§8.9 preserved verbatim above; corrections appended here.
+Grant prompted self-audit on the §8 framing: "do you agree?" — Rule 9 v2 strategic-pivot signal asking implementer to step back. Honest answer: **partial agreement; substantial reservations on §8 framing.** Four corrections owed per Rule 12 preserve-body discipline. §8.1-§8.9 preserved verbatim above; corrections appended here.  <!-- rule12-freeze: base=e753e40b0dced572f46b3866c19f165a7c9de627 region=above offset=0 lines=288 bytes=21797 sha256=27ea92d5dda8e9b7ce565ad414a8f91eb46f072f48188c577c0c916bf80e8e4d -->
 
 ### §8.10.1 — 🔴 promotion in §8.8 was premature
 

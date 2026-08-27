@@ -111,4 +111,4 @@ P1(d): of 96 epic docs, 56 have NO status header, 23 use non-enum tokens, 0 are 
 > the figure/data migration REVIVED as a cleanup-epic Wave-3 lane bundled with the
 > drivers-verification lane.
 > **§6 (P3 preview): superseded** where the cleanup epic carries the same work; the migration lane
-> above is its survivor. Body above this line untouched (Rule 12).
+> above is its survivor. Body above this line untouched (Rule 12).  <!-- rule12-freeze: base=ddf4f241a3e51147ae33f77bf18a4b78895f4d59 region=above offset=0 lines=113 bytes=12201 sha256=dda984c914d8e373dcf1f2573786fd0618fe909a1457417560f3f4aa7b6b789d -->

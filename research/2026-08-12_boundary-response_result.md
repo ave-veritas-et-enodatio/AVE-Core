@@ -369,7 +369,7 @@ FLAG-3. §7: no chord. **No solidity moves anywhere.**
 
 # §9 — CLOSURE RECORD (2026-08-12, Tier-2 adversarial pass) — CURRENT STATUS, GOVERNS
 
-**Everything above is PRESERVED byte-unedited (Rule 12). This section supersedes it where they
+**Everything above is PRESERVED byte-unedited (Rule 12). This section supersedes it where they  <!-- rule12-freeze: base=94dab79d844d58c723b7e91fb60e37113ddb0674 region=above offset=0 lines=371 bytes=24450 sha256=e3493aec09edd5c97f2ddf4372d728c2ca6e39f13971793950e848c34f9e87fa -->
 conflict.** CLEARED-eligible: **NO.** Final verdict: **`STUCK-POINT-ON-FORK-1`**.
 
 ## §9.1 — The headline demotion (blocking item 1)

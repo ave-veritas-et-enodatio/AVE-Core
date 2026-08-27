@@ -28,7 +28,7 @@ a site that is not already a row.
 > Everything frozen above survives: full reads, grep-never-discharges, per-row fences
 > and ledgers. Banners landing after a pass append F-rows that wait for the NEXT pass.
 > Protocol text: the tracker's "Discharge protocol — COMBINED PASS" section. What
-> Grant now dispatches is the one pass, not eleven. Body above preserved (Rule 12).
+> Grant now dispatches is the one pass, not eleven. Body above preserved (Rule 12).  <!-- rule12-freeze: base=e45814f2afe043117aa2b6b08a427d96eb28669b region=above offset=0 lines=30 bytes=1760 sha256=a2cbae62882a6e48120434b762aafca7e91c0f6b6fedbe78cb133274925d3824 -->
 
 Poincaré cohesion, cosmic node-injection, and Layer-8 /
 derive-\(\{m_e,\alpha,G\}\) stay out of fence.

@@ -8,7 +8,7 @@ path-stable: "the canonical FORM-vs-VALUE organizing-frame leaf; the umbrella un
 
 # FORM-Deriving / VALUE-Importing — the Framework's Organizing Principle
 
-> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**
+> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**  <!-- rule12-freeze: base=46162d6589f063f1cbc90712e1a7d24d613ca098 region=below offset=231 lines=425 bytes=28073 sha256=55e4336acbfe09e4785b1850512dd00bb92a307105f4fc9533d65972775d91af -->
 > The birefringence-tooth "$7.5/\alpha^3\approx1.93\times10^7$" quoted below (as an example of an $\alpha$-echo
 > magnitude) carries an understated QED denominator. **Corrected (v3 headline, single instantaneous footing —
 > OPTION-B re-freeze 2026-07-07): $3.75\pi/\alpha^2\approx2.2\times10^5$** (the 2026-07-03 QED-normalization step

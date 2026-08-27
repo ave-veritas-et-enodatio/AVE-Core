@@ -102,7 +102,7 @@ Stop-and-surface triggers (do NOT decide): Γ-homonym resolution, universal-vs-e
 
 ---
 
-## ADDENDUM (2026-06-14, Rule-12 dated — body above preserved)
+## ADDENDUM (2026-06-14, Rule-12 dated — body above preserved)  <!-- rule12-freeze: base=9161d2bdb7285dc965864d7c4cd54961a56c6c22 region=above offset=0 lines=59 bytes=10953 sha256=30c5d4ea6733f1ca338963cdfa251ee6cf1673bf6a5589827ec4ac6d2c234503 -->
 
 The brief body above was written PRE-reconciliation. §3 ("The Γ-homonym — disambiguate + label, do NOT resolve") and §11(f) framed the Γ-homonym as an OPEN item to surface for the auditor, NOT to resolve. That instruction was correct for the pilot run. It has since been **adjudicated and is no longer open** — recorded here per Rule-12 (preserve the original body; append the resolution, do not rewrite §3).
 

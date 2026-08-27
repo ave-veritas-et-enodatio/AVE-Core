@@ -5,7 +5,7 @@ kind: leaf
 no-claim: "ARCHITECTURE / ONTOLOGY doctrine for the unified vacuum engine (CONSISTENCY-class — no new physics, no new derived number). Captures the engine-design conclusions worked out 2026-06-24/25 so future engine work stays ON TRACK and knows HOW TO USE the engine. Every load-bearing statement is grounded against an existing file:line or an existing research-doc verdict; the OPEN forks (§ honesty + § open-forks) are flagged-not-closed per flag-don't-fix. Extends `computational-solver-selection.md` (the FDTD-vs-K4 selection matrix) from solver-selection to engine-architecture; referenced from `../../../common/engine-capability-map.md`. Hosts no claim id and mints no number."
 -->
 
-> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**
+> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**  <!-- rule12-freeze: base=46162d6589f063f1cbc90712e1a7d24d613ca098 region=below offset=160 lines=158 bytes=12443 sha256=dfc408cbf6774909d3d00bf79781a3a033c320f3451bd887ab3820fb98143da6 -->
 > The E-route birefringence coefficient "$\sim7.5/\alpha^3\approx1.93\times10^7\times$ QED" quoted below carries an
 > understated QED denominator. **Corrected (v3 headline, single instantaneous footing — OPTION-B re-freeze
 > 2026-07-07): $3.75\pi/\alpha^2\approx2.2\times10^5$** (the 2026-07-03 QED-normalization step gave the

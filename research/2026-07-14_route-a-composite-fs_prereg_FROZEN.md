@@ -325,7 +325,7 @@ Checkpoint-8 emergence-hosting (this is a static eigenvalue, not an autonomous-h
 
 ## AMENDMENT A1 — 2026-07-14 — verbatim-quote correction (post-freeze; frozen body byte-untouched)
 
-Per the freeze rule (Rule 11 / Rule 12), amendments are appended below the frozen body; **no byte of the
+Per the freeze rule (Rule 11 / Rule 12), amendments are appended below the frozen body; **no byte of the  <!-- rule12-freeze: base=008eefe3e52bf9a37a1c41ec49bb62c0c11952e8 region=below offset=0 lines=33 bytes=2739 sha256=131bc1023176a370da521eff0d5d253f76ee033da683f1b22f384bed64921455 -->
 frozen pre-registration above this line is edited.** This amendment records a disclosed misquote surfaced by
 the PR #691 adversarial review (three lenses converged, MINOR).
 

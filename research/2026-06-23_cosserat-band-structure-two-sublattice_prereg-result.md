@@ -117,7 +117,7 @@ but "is the same operator, now on the correct two-sublattice basis."
 `κ_chiral` (saturation-only, `cosserat_field_3d.py:562`) cannot enter the cold bands. A nonzero residual would
 have signalled a bond-operator BUG, not a chord.
 
-> **⚑ AUDIT CAVEAT (2026-06-23, workflow w1ni1axfg — Rule 12, prose above PRESERVED unedited).**
+> **⚑ AUDIT CAVEAT (2026-06-23, workflow w1ni1axfg — Rule 12, prose above PRESERVED unedited).**  <!-- rule12-freeze: base=2e8fecb860bdd9d981b6dc2bf3dcda7a08d053a1 region=above offset=48 lines=71 bytes=8157 sha256=420eec17b41d2616dbbed080ec4f7005f0c29315b52610f8db66b0f16feada4e -->
 > The bit-exact V5 residual-0.0 is **NOT a strong independent falsifier** and must not be headlined as one.
 > The 12×12 `D(k)` is built as a **Hermitian quadratic form with REAL moduli (G, G_c, γ) and conjugate-phase
 > A/B coupling** (`dynamical_matrix_two_sublattice`: `Phi = 0.5*(Phi + Phi.conj().T)`, `G_cross_B = conj(G_cross)`).

@@ -10,7 +10,7 @@ strengthens:
 -->
 
 > 🔴 **PER-NODE / APPARATUS-VOLTAGE CORRECTION (2026-08-01 — propagation of the 2026-06-04 per-node
-> adjudication to this leaf; Rule 12, body preserved below unedited, git is the trail).**
+> adjudication to this leaf; Rule 12, body preserved below unedited, git is the trail).**  <!-- rule12-freeze: base=6afe374974cc24ab710ac25cc6686225e09c74cb region=below offset=34 lines=32 bytes=3262 sha256=aac5f57a4519421a2aafa88b794aafd0adaf745416249ac3683ac76fa0281015 -->
 >
 > **The conflation.** The "absolute hardware limit" below is built by taking the Topo-Kinematic
 > apparatus-scale grip voltage $V_{topo} = \xi_{topo}^{-1} F_{req}$ and comparing it **directly** against

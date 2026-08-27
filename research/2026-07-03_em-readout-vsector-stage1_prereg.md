@@ -152,7 +152,7 @@ The corpus treats two rotation-flavored fields as one: the node's EM-inductive r
 
 ---
 
-## 🔴 CORRECTION NOTE (2026-07-03, dated addendum — the frozen body above is PRESERVED unedited, per Rule-12 + the honest-handling instruction)
+## 🔴 CORRECTION NOTE (2026-07-03, dated addendum — the frozen body above is PRESERVED unedited, per Rule-12 + the honest-handling instruction)  <!-- rule12-freeze: base=acd2e51da8333846cb4bfbbf81e32bd5ec61c37c region=above offset=0 lines=154 bytes=21505 sha256=0ff2b3b35fedbbd292f5115543df1f014d1916e318d8544f9aac408ff77bbd85 -->
 
 **Target-(1) (build the TRANSDUCER) is Grant-CONFIRMED** (2026-07-03, verbatim relayed: *"474 merged, let's proceed"*; PR #474 MERGED, `origin/main` @ `9956c0b6`). The build is un-held and proceeds per §4–§7 as frozen.
 
