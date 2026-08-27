@@ -42,8 +42,9 @@ Full sweep receipts are in §5.2 of the source record. In brief:
 `de-broglie-standing-wave.md`:52 DID assign it (the electron's *"motion
 displaces the lattice, generating longitudinal acoustic pressure waves governed
 by the vacuum's Bulk Modulus"*), and :54 builds the whole atomic-orbital
-construction on it. **Both are 🔴 DEMOTED 2026-08-11 under R40-B2a
-(NEEDS-RE-DERIVATION, not dead)** — under ratified Axiom 5 clause G the A1/bulk
+construction on it. **The carrier is 🔴 DEMOTED 2026-08-11 under R40-B2a
+(NEEDS-RE-DERIVATION, not dead) at `:52`'s site, with `:54` named inside that
+row's rationale rather than carrying a stamp of its own** — under ratified Axiom 5 clause G the A1/bulk
 slot is a **bound response** with *"no independent propagating branch, no port
 and zero longitudinal characteristic speed"*, so a bulk wave speed and a bulk
 transit clock *"have no referent."*
@@ -58,8 +59,8 @@ is *owed, not held*.
 **R-2 — a labelling-vintage question that was NOT established this session.**
 `cosserat-mass-gap.md`:149 puts the flywheel gap on **"T2/ω"**, while
 `port-register.md`:47–50 puts the Cosserat micro-rotation on **channel 4**,
-whose irrep cell reads **"(micro-rot.)"** and not T2 — and :145's G2 relabel
-note says the photon is the transverse-**translational** u pair, *"NOT the
+whose irrep cell reads **"(micro-rot.)"** and not T2 — and
+`cosserat-mass-gap.md`:145's G2 relabel note says the photon is the transverse-**translational** u pair, *"NOT the
 microrotational ω."* **Are "T2/ω" (mass-gap leaf) and "channel 4 (micro-rot.)"
 (port register) the same object under two labelling vintages?** If they are not,
 the source record's §5.2(2) identification is weaker than it reads. This is a

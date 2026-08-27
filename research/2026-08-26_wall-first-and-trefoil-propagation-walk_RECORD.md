@@ -202,7 +202,11 @@ verbatim:
 > circulation, no net B-field — it is magnetically neutral** (load-bearing:
 > $\omega = 0$ is an *exact fixed point*; a term that spun the fabric below
 > threshold would "manufacture spin," wrong physics). The handed winding is
-> **parity**, not angular momentum."*
+> **parity**, not angular momentum …"*
+>
+> *(truncated; the source sentence continues* *"… net rotation* rate *lives only
+> at the cosmic boundary … never a per-node rest field."* *Emphasis is the
+> source's throughout.)*
 
 `[WALK]` So "handed load-free held twist" describes **empty space**. A test
 that confirms one has been created confirms the vacuum.
@@ -232,7 +236,8 @@ verbatim:
 > ***"Spin-up is what excitation does.** Apply a field or trap a soliton and
 > the fabric's gyroscopes spin up to net $\omega$, biased the **handed** way.
 > That net $\omega$ IS the **magnetic moment**; the spun-up region is the
-> electron **flywheel** ($L = I\omega$)."*
+> electron **flywheel** ($L = I\omega$) …"* *(truncated; the source continues
+> to the Larmor-precession / Bloch-sphere mapping. Emphasis is the source's.)*
 
 `[WALK]` So the carve canon already draws is **parity (everywhere, static) vs
 angular momentum (only where excited)**. A discriminating existence test has to
@@ -306,9 +311,10 @@ immediately-preceding framing of the existence question was:
 
 That is an **interior question**: "inside the gap" names an interior spectral
 property, and "localized rotational state" names an interior microrotation
-profile — `[CANON]` **exactly two of the four items the observability rule at
-`:37` lists as invisible** (*"interior eigenmode wavelengths, microrotation
-profiles"*). It is **retracted on those grounds**, per Rule 12: the wording is
+profile. `[CANON]` The observability rule at `:37` lists as invisible, verbatim,
+*"interior eigenmode wavelengths, microrotation profiles"*; `[WALK]` **mapping
+the retracted question's two nouns onto two of those four items is this record's
+own reading, not a canon statement.** It is **retracted on those grounds**, per Rule 12: the wording is
 preserved above, and it is not being replaced by silently re-scoping it. §3.4
 is a *different* question with a *new* framing, not a repair of this one.
 
@@ -342,9 +348,17 @@ facts about a channel."*
 
 ### §3.5 — ★ MASS AND CHARGE AS SHADOWS: the Stokes dimensional ladder
 
-`[CANON]` [`boundary-observables-m-q-j.md`](../manuscript/ave-kb/common/boundary-observables-m-q-j.md):17–23:
+`[WALK]` **Re-presented from canon, with one column this record added.** The
+Symbol / Operational definition / Dimensionality cells are `[CANON]`, from
+[`boundary-observables-m-q-j.md`](../manuscript/ave-kb/common/boundary-observables-m-q-j.md):17–23
+(whose own table also carries EE / ME / QFT projection columns, dropped here, and
+orders the rows $\mathcal{M},\mathcal{Q},\mathcal{J}$). The **`quantized?`
+column is this record's own**: canon states *"$\in \mathbb{Z}$"* and
+*"half-integer per $SU(2)$ double-cover"* inside its cells, but carries no
+quantization column and nowhere states $\mathcal{M}$'s non-quantization in those
+words.
 
-| Symbol | Operational definition | Dimensionality | quantized? |
+| Symbol | Operational definition | Dimensionality | quantized? `[WALK]` |
 |---|---|---|---|
 | $\mathcal{M}$ | $\int_\Omega (n(\mathbf{r}) - 1)\, dV$ | **3D volume** | **no** — a continuous integral |
 | $\mathcal{J}$ | $\mathrm{Wind}(\partial\Omega)$ | **2D surface** | **half-integer** per $SU(2)$ double-cover |
@@ -353,7 +367,7 @@ facts about a channel."*
 `[CANON]` `:23`, verbatim: *"Each invariant uses one fewer integration
 dimension than the substrate's 3D bulk … **The three dimensions are exhaustive:
 there is no fourth integrated boundary observable at this scale-invariant
-structure.**"*
+structure.**"* **(emphasis added — the source sets that sentence in plain text.)**
 
 `[WALK]` **The reading: this is why charge quantizes and mass does not.** You
 cannot link half a loop — linking is a count of crossings of a 1D curve, and
@@ -447,7 +461,7 @@ labelled walk-level at its own site):
 | Channel of interaction | At an ideal $\Gamma=-1$ wall | why |
 |---|---|---|
 | **transmission** | **zero** | $\lvert\Gamma\rvert = 1 \Rightarrow$ nothing crosses; the interior is hidden |
-| **absorption** | **zero** | *"**ideal saturation dissipates nothing** — it is a **lossless refusal**, Axiom-3-compatible"* ([`envelope-anatomy.md`](../manuscript/ave-kb/common/envelope-anatomy.md):101) |
+| **absorption** | **zero** — ⚑ *on one side of an open fork, see below* (canon's own in-cell qualifier at `:100`, restored here) | *"**ideal saturation dissipates nothing** — it is a **lossless refusal**, Axiom-3-compatible"* ([`envelope-anatomy.md`](../manuscript/ave-kb/common/envelope-anatomy.md):101) |
 | **reflection contact** | **MAXIMAL** | standing pattern with a node pinned at the wall; the **full** radiation-pressure / Maxwell-stress exchange happens there |
 
 `[CANON]` `:103`: *"**a $\Gamma=-1$ wall is maximally interacting and completely
@@ -478,7 +492,8 @@ correction to §2, and it is Grant's.** Everything §2 says is about a *surface*
 and a surface with $\lvert\Gamma\rvert = 1$ is, by construction, a **boundary
 condition**: a line in the bookkeeping where the field is told what to do. **It
 is not where anything *happens*.** What happens happens in the **gradient
-skin** hugging it, on the inside."*
+skin** hugging it, on the inside."* **(emphasis added on "It is not where
+anything happens" — the source italicises only "happens".)**
 
 `[CANON]` `:139`: *"**So the corpus's own answer to 'gradient vs wall' is: the
 gradient is the sub-yield, near-matched, energy-storing region; the wall is the
@@ -502,7 +517,8 @@ the fence on §3.2 (the skin section), verbatim:
 > skin structure at any wall … **Neither state changes this fence:** §3.2 is
 > still pictures, **nothing on `origin/main` measures a skin**, and a
 > `ROOT-CERTIFIED` verdict is instrument-class by its own lane's fence. **Do not
-> cite §3.2 as evidence of anything.**"*
+> cite §3.2 as evidence of anything.**"* **(emphasis added on the last sentence;
+> the source sets it in plain text.)**
 
 **That fence rides on everything in §3.7–§3.8 and on any downstream use of this
 record.** The skin is where the walk wants the physics to be; **nothing on
@@ -810,8 +826,12 @@ displaces the lattice, generating longitudinal acoustic pressure waves governed
 by the vacuum's **Bulk Modulus**"* — and `:54` builds the entire atomic-orbital
 construction on it (*"the atomic orbital is the precise radius where this
 trapped bulk-modulus acoustic wave achieves a lossless resonant impedance match
-with itself"*). **Both lines are 🔴 DEMOTED 2026-08-11 under R40-B2a
-(NEEDS-RE-DERIVATION, not dead)**, for the same reason as §1.3: under ratified
+with itself"*). **The carrier is demoted at `:52`'s site — 🔴 DEMOTED 2026-08-11
+under R40-B2a (NEEDS-RE-DERIVATION, not dead) — with `:54` named inside that
+row's rationale** (the leaf's own dated note: *"the matter-wave carrier is stated
+as a propagating bulk pressure wave (and :54 the orbital = trapped bulk-modulus
+acoustic resonance)"*). **There is no separate stamp at `:54`.** The reason is
+the same as §1.3's: under ratified
 Axiom 5 clause G the A1/bulk slot is a bound response with no propagating
 branch, so *"a bulk wave speed … and a bulk transit clock therefore have no
 referent."*
@@ -842,9 +862,12 @@ that the sweep did *not* find answered:
   puts the flywheel gap on *"$T_2$/$\omega$"*, while
   [`port-register.md`](../manuscript/ave-kb/common/port-register.md):47–50 puts
   the Cosserat micro-rotation on **channel 4**, whose irrep cell reads
-  *"(micro-rot.)"* and **not** $T_2$ — and `:145`'s G2 relabel note says the
-  photon is the transverse-**translational** $u$ pair, *"NOT the microrotational
-  $\omega$."* Whether *"$T_2/\omega$"* in the mass-gap leaf and *"channel 4
+  *"(micro-rot.)"* and **not** $T_2$ — and
+  [`cosserat-mass-gap.md`](../manuscript/ave-kb/vol1/axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md):145's
+  G2 relabel note says the photon is the transverse-**translational** $u$ pair,
+  *"NOT the microrotational $\omega$."* (**Cite re-anchored 2026-08-26** — the
+  bare `:145` read as `port-register.md`:145, which is a MIXED-BIN disclosure on
+  the `:49` row and not the G2 note.) Whether *"$T_2/\omega$"* in the mass-gap leaf and *"channel 4
   (micro-rot.)"* in the port register are the same object under two labelling
   vintages was **not** established this session. If they are not, §5.2(2)'s
   identification of the arc's guess with the ratified ruling is weaker than it
@@ -1019,9 +1042,12 @@ is a different question. **No Grant quote was guessed at.**
 **Canon citations:** every `[CANON]` cite in this record was verified by direct
 read against the worktree's `origin/main` base (`a3f4fef7`) **during this
 session**, per `verify-before-cite` (A43 v2). Where a cited line carries a
-demotion stamp, the stamp is carried with the cite rather than stripped —
-`port-register.md`:49 (§1.3) and `de-broglie-standing-wave.md`:52,:54 (§4.5,
-§5.2) are both 🔴 DEMOTED at their sites and are cited **as demoted**.
+demotion stamp, the stamp is carried with the cite rather than stripped.
+`port-register.md`:49 (§1.3) and `de-broglie-standing-wave.md`:52 (§4.5, §5.2)
+are 🔴 DEMOTED **at their own sites** and are cited as demoted. **`:54` is not:
+it is covered by `:52`'s row rationale, which names it, and carries no stamp of
+its own** — corrected 2026-08-26; the earlier form of this sentence claimed a
+stamp at `:54` that does not exist.
 
 **Known limits of this record's own verification:** the sweep in §5 used
 targeted greps plus direct reads; per `grep-completeness-false-negatives` a
