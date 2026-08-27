@@ -82,7 +82,8 @@ approach-not-arrival with the receipt attached.
 > lines below the same block's *"still just short of the clip"*), and **RESULT
 > §5's charter-disposition row for A5** (*"break **at** the kernel's declared
 > clip"*). Both are now repaired to approach-not-arrival with the receipt
-> attached, bringing PR #1022's total to **seven**.
+> attached, bringing the number of sites repaired on PR #1022 to **seven** —
+> which is a count of repairs made, not a claim that no eighth site exists.
 >
 > **The two false completeness claims, named:** (i) this paragraph's own *"All
 > were repaired"*, corrected above; and (ii) commit **`74b04ec9`**'s message,
