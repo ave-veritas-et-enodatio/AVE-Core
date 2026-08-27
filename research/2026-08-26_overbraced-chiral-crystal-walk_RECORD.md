@@ -310,9 +310,14 @@ dropped.
 Measured confirmation: the `θ=0` block stays exactly 34-dimensional from `A=0`
 through a random graded field. The only place bracing could change the effective
 count is **the rail**, where `S→0` and `Y→∞` (a compliance becoming a rigid
-constraint) — which is **exactly the kernel's declared clip domain**
-(`A_cap=0.99` / `S_min=0.05`), and exactly where every solver in the review
-failed. **So the walk's selection point, if it exists at all, sits at a
+constraint) — which is **the kernel's declared clip domain**
+(`A_cap=0.99` / `S_min=0.05`), and where every solver in the review died on the
+APPROACH: convergence broke at `A_max = 0.986728`, still just short of the clip
+(`A_cap = 0.99`), so the clip domain itself was never entered. **[The `0.986728`
+is MEASURED-ELSEWHERE — F8 in `research/2026-08-25_autonomous-hb-lens-audit_RESULT.md`
+§3, the same lane this record's closing STATUS NOTE points at. Not re-run here.
+The record previously said the solvers failed *at* the clip domain; they did
+not.]** **So the walk's selection point, if it exists at all, sits at a
 numerically-unreachable boundary that a separate finding showed to be a
 kernel-clip artifact rather than established physics.**
 
@@ -778,8 +783,9 @@ The walk has **not** escaped it by switching to structure; it has moved it.
 >
 > The only place bracing could change the effective count is the **rail**
 > (`S→0`, `Y→∞`, a compliance turning into a rigid constraint) — which is the
-> kernel's declared **clip domain** (`A_cap=0.99` / `S_min=0.05`) and the exact
-> region where every solver in the review failed. **The sparsifying mechanism, if
+> kernel's declared **clip domain** (`A_cap=0.99` / `S_min=0.05`), the region
+> every solver in the review died on the approach to without entering
+> (`A_max = 0.986728` against `A_cap = 0.99`). **The sparsifying mechanism, if
 > it exists, lives at a numerically-unreachable boundary that a separate finding
 > showed to be a kernel-clip artifact.**
 >
@@ -1022,8 +1028,9 @@ bonds**. Report `DOF`, `#C`, `rank`, `f = DOF − rank`, `s = #C − rank`,
   amplitude expecting it to move **[MEASURED-VERIFY-PASS]**. **The rail is the
   stated exception**: at `S→0`, `Y→∞`, a compliance becomes a rigid constraint
   and the effective count *can* change — but that is the kernel's declared clip
-  domain (`A_cap = 0.99` / `S_min = 0.05`) and exactly where every solver in the
-  review failed, so it is numerically unreachable, not a usable knob.
+  domain (`A_cap = 0.99` / `S_min = 0.05`), which no solver in the review
+  entered — convergence died on the approach, at `A_max = 0.986728` against
+  `A_cap = 0.99`. So it is numerically unreachable, not a usable knob.
   **[MEASURED-VERIFY-PASS / ASSEMBLY]** — the invariance is measured; the
   rigid-constraint reading of the rail is an assembly, matching §4.2's own dual
   tag on the same material.
