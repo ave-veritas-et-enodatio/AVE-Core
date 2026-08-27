@@ -66,33 +66,94 @@ adjudicated grade-assignment, not driver-validated) is quoted correctly.
 ## 3 — A cross-branch wording divergence that is now closed, recorded so it is not re-opened
 
 The clip-domain statements on PR #1020 and PR #1022 were **both** falsified by
-`A_max = 0.986728 < A_cap = 0.99` (F8, RESULT §3) — the sites saying the
-solvers failed *at*, *reached*, or *crossed* the clip. **Three on PR #1020**
-(record §4.2a, §7.2's amendment blockquote, §10's Q1 bullet) and, on PR #1022,
-five in the round that produced this item (RESULT §0's sector declaration,
-§2.5's F5 TRIM bullet, §7's FLAG 5, the routing item
-`2026-08-25-autonomous-hb-lens-audit.md`, and the status note appended to
-`2026-08-25_autonomous-harmonic-balance-lens_RECORD.md`) — each repaired to
+`A_max = 0.986728 < A_cap = 0.99` (F8, RESULT §3) — the sites saying the solvers
+failed *at*, *reached*, or *crossed* the clip, each repaired to
 approach-not-arrival with the receipt attached.
 
-> ⚑ **CORRECTED 2026-08-27 — that sweep was INCOMPLETE, and two claims that it
-> was complete were therefore false.** A later audit found **two more** sites on
-> PR #1022 carrying arrival-shaped wording: **RESULT §3/F8's own A5 sentence**
-> (*"the stall is a numerical failure **at the clip**, not a result"* — three
-> lines below the same block's *"still just short of the clip"*), and **RESULT
-> §5's charter-disposition row for A5** (*"break **at** the kernel's declared
-> clip"*). Both are now repaired to approach-not-arrival with the receipt
-> attached, bringing the number of sites repaired on PR #1022 to **seven** —
-> which is a count of repairs made, not a claim that no eighth site exists.
->
-> **The two false completeness claims, named:** (i) this paragraph's own *"All
-> were repaired"*, corrected above; and (ii) commit **`74b04ec9`**'s message,
-> *"After this commit every clip-domain statement on the branch agrees with
-> §3/F8's `A_max = 0.986728 < A_cap = 0.99`"* — which was **not** true when it
-> was written. That commit message stays as written (git is the audit trail);
-> **this note is its correction.** Both are the stranded-pointer class: a
-> completeness claim is a claim about a search, and neither search had covered
-> §3/F8's own prose or §5's disposition table.
+> ⚑ **CORRECTED 2026-08-27, second time. This section carried a running total —
+> first "five", then "seven" — and both were wrong.** A bare total is replaced
+> here by the **inventory**, keyed to the commit that made each repair, because
+> the totals kept failing in the same way: each one counted the *defect lists*
+> the rounds worked from, not the *repairs the branch contains*, and so it
+> silently dropped every repair made between two lists. The two commits it
+> dropped are `db3831a1` and `277557fa`, three sites between them.
+
+### 3a — PR #1022: the ten repaired sites, keyed by commit
+
+Line numbers are as at this branch's HEAD; the wording column is the text **as
+it now stands**, not the falsified text it replaced (that is in each commit's
+diff).
+
+| # | file | line | now reads, in part | repaired by |
+|---|------|------|--------------------|-------------|
+| 1 | `research/2026-08-25_autonomous-hb-lens-audit_RESULT.md` — §0 sector declaration | `:55` | *"is **approached but never entered** — every solver failed on the approach"* | `d28e76fc` |
+| 2 | `…_RESULT.md` — §2.5, the F5 TRIM bullet | `:401` | *"Picard stops converging on the APPROACH to the kernel's … clip"* | `d28e76fc` |
+| 3 | `…_RESULT.md` — §7, FLAG 5 | `:1051` | *"which **no solver in this review entered**: every one died on the approach"* | `d28e76fc` |
+| 4 | `…_RESULT.md` — §3/F8, the "not a fold" headline sentence | `:523` | *"it is the solver dying on the approach to the kernel's own declared clip domain"* | `277557fa` |
+| 5 | `…_RESULT.md` — §3/F8, the convergence-death receipt | `:528` | *"**convergence dies on the approach to `A_cap`**, with `A_max` still just short of the clip"* | `db3831a1` |
+| 6 | `…_RESULT.md` — §3/F8, the branch-loss clause | `:530` | *"branch is lost approaching the clip, not turned around by a fold"* | `277557fa` |
+| 7 | `…_RESULT.md` — §3/F8, the A5 answer sentence | `:535` | *"a numerical failure on the approach to the clip, not a result"* | `1a9afc85` |
+| 8 | `…_RESULT.md` — §5, the A5 charter-disposition row | `:671` | *"break on the approach to the kernel's clip domain (`A_max = 0.986728` against `A_cap = 0.99` — never entered)"* | `1a9afc85` |
+| 9 | `_orchestration/open-items/2026-08-25-autonomous-hb-lens-audit.md` — open question 2 | `:41` | *"failed on the **approach to** the saturation kernel's *declared* clip domain"* | `74b04ec9` |
+| 10 | `research/2026-08-25_autonomous-harmonic-balance-lens_RECORD.md` — the dated status note | `:210` | *"a numerical failure on the **approach to** the saturation kernel's declared clip domain"* | `74b04ec9` |
+
+Eight of the ten are in the audit RESULT doc; four of those eight are inside the
+single §3/F8 block, which is why a search that had already "done F8" kept
+missing the rest of it.
+
+**Method, stated so a later reader can re-run it and can see what it would
+miss.** Walk every commit on this branch — `git rev-list --reverse
+origin/main..HEAD` — and for each, `git show --format= -U0 <sha>` filtered to
+added/removed lines matching `clip|A_cap|0\.986728|approach`, case-insensitive;
+then read each surviving hunk and decide by hand whether it is a clip-domain
+wording repair or something else. **Blind spots this method has:** (a) it is
+token-based, so a repair phrased without any of those four tokens is invisible
+to it; (b) it reads diff lines, so a repair split across a line-rewrap would be
+attributed to whichever commit re-flowed it — `37c0abc8` was inspected on this
+run and is a pure rewrap, no wording change, which is why it carries no row;
+(c) it counts repairs **made**, and says nothing about whether an eleventh site
+exists that was never repaired at all.
+
+For (c) a separate check was run, and it answers a different question:
+`grep -rnE` across `research/` and `_orchestration/` for arrival-shaped
+phrasings — the verbs *at / reached / reaches / crosses / crossed / into*
+applied to the clip or to `A_cap` — with lines containing "approach" excluded.
+Re-run against this file's final state, it returns **one hit on this branch**:
+`research/2026-06-10_cavitation-core-probe_result.md:148`, an unrelated arc
+whose clip is `−0.95`, not `A_cap`. **That is a statement about that regex, not
+about the corpus** — it is one verb list, and a site that says the same thing
+in different words is outside it. It was deliberately re-run after the last
+edit to this item, because an earlier draft of this very paragraph cited a hit
+on its own line number, which the edit that shipped it then moved.
+
+### 3b — PR #1020's figure is NOT re-derived here
+
+The earlier text of this section put **three** sites on PR #1020 (record §4.2a,
+§7.2's amendment blockquote, §10's Q1 bullet). **That number is carried over
+from the round that wrote it and has not been re-derived by §3a's method.** PR
+#1020 is CLEAR and was deliberately untouched by this round, so nothing was
+checked on it beyond confirming it was left alone. A reader who needs the
+#1020 inventory should re-derive it the same way rather than trusting the
+carried-over count — the failure mode §3a documents (counting defect lists
+instead of repairs) applied to both branches' bookkeeping equally.
+
+### 3c — the false completeness claims, named
+
+1. This section's original *"All were repaired"* — corrected in the round that
+   raised the total to seven.
+2. Commit **`74b04ec9`**'s message, *"After this commit every clip-domain
+   statement on the branch agrees with §3/F8's `A_max = 0.986728 < A_cap =
+   0.99`"* — **not** true when written. That message stays as written (git is
+   the audit trail); this is its correction.
+3. The **"seven"** that replaced them. It carried a hedge — *"a count of
+   repairs made, not a claim that no eighth site exists"* — and the hedge was
+   pointed at the wrong risk. The number was not merely optimistic about
+   unrepaired sites; it was **wrong about repairs already in the branch**, by
+   three.
+
+All three are the same class: a completeness claim is a claim about a search,
+and each search was narrower than the sentence reporting it. §3a's response is
+not a better number, it is an enumeration plus the method that produced it.
 
 **Recorded because an earlier review note said PR #1020's twin passage had
 already been repaired and the branches therefore disagreed in precision. They
