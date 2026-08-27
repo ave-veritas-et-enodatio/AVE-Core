@@ -684,4 +684,76 @@ questions.
 
 ## §10 — What this record does NOT do
 
+It does not answer Grant's question canonically; it records a walk and grades it.
+It **mints no claim id**, moves no solidity, propagates to no leaf, edits no
+canon, and **supersedes nothing**. It does not re-open item 7. It does not
+promote the bundle noun (§6 F1), does not identify the port-amplitude symmetry
+with clause Q (§7 C4), and does not close the $z=3$ irrep naming gap (§7 C2) —
+all three are Grant's to rule on.
+
+It is **not** a discriminator and buys **no prediction**. The honest
+discrimination answer: §4 produces one measured scaling on the shipped operator
+and **zero forward predictions**. Its value, if it has any after audit, is that
+it converts one sentence of walk-grade assertion ("the gauge choice is free
+because the mode is isolated") into a measured property with a stated domain of
+validity — and shows that domain is **narrower than the walk assumed**.
+
+Three open threads are handed on, none resolved here: `[OPEN]` whether the
+saturated common mode is *actually* observable (§4.4, A3); `[OPEN]` whether the
+$z=3$ balanced sector gets a canonical irrep name (§7 C2); `[OPEN]` whether
+walk item 3's reference asymmetry has any consequence beyond restating the
+eigendecomposition — the possibility that it, too, is a projector tautology of
+the kind canon caught at `node-scattering-multiplicity.md:159` has **not** been
+ruled out, and A1/A3 should test for it.
+
 ## §11 — Method, and its known blind spots
+
+**Stated because a completeness claim without a method is not verifiable.** This
+record contains **no universal quantifier over the corpus**. Where a search
+returned nothing, the search is reported — not the corpus.
+
+**What I did.** Worktree detached at `a3f4fef7` ($=$ `origin/main`, verified by
+`git rev-parse`), branch `research/2026-08-27-cold-vacuum-ee-mapping`, all paths
+worktree-absolute, **no canon edited**. Measurements: the shipped operators via
+the committed driver, five suites (M1–M5), reproduced from a clean run before
+transcription into §3 and §4. Canon: every quoted line was **read at HEAD this
+session**, not carried from the three lane reports — including the lines the
+lanes had already quoted.
+
+**Enumerated searches and their outcomes** (each is a statement about the
+pattern, not about the corpus):
+
+| target | methods | result |
+|---|---|---|
+| `not a subspace of the phasor` | literal grep; whitespace-normalised slurp; **direct read** | greps **0 hits (FALSE NEGATIVE)**; read FOUND it at `translation-phase-space.md:293` |
+| `gauge choice, not a material primitive` | literal grep; markup-stripped normalised slurp | 1 + 2 hits, agreeing |
+| `srs\|trivalent\|degree-3\|z ?= ?3` in the irrep leaf | full read of 310 lines; line grep; markup-stripped slurp | **0 hits, three methods agreeing** |
+| the #417 decoupling | grep on `decoupl` in `research/`; then targeted read of the result doc and two KB leaves | found, cross-confirmed at 3 sites |
+
+**★ KNOWN BLIND SPOTS, stated plainly.**
+
+1. **Markdown emphasis inside a phrase defeats both of my primary search
+   methods.** Demonstrated live in §6 F1: `**not** a subspace of the phasor`
+   is invisible to a literal grep for `not a subspace of the phasor` AND to a
+   whitespace-only normaliser. Any "0 hits" in this record that was **not**
+   markup-stripped is weaker than it looks; the C2 result was markup-stripped
+   and the F1 failure is what taught me to do it.
+2. **Reading, not grep, is what establishes existence.** The C2 0-hit result is
+   backed by a full read of the leaf, so it is a claim about **that leaf**. It
+   is **not** a claim that no $z=3$ irrep naming exists anywhere — I did not
+   read the corpus, and A4 exists to test exactly that.
+3. **Tracked files only, at one commit.** Untracked working-tree files, other
+   branches, and the archive were not swept.
+4. **The measurements are on ONE container.** Scalar TLM, periodic srs $L=3$
+   ($N=216$), real amplitudes, one saturation clamp, one seed per suite. Every
+   §4 number inherits that. K1 and K2 exist because I consider this the most
+   likely place the record breaks.
+5. **I wrote the test knowing what the algebra predicts.** §4.1's exact symmetry
+   is forced by $S\mathbf{1}=\mathbf{1}$ plus CONNECT being a permutation — I
+   knew that before running it, which makes it a **confirmation**, not a
+   discovery, and raises the self-referential-gate risk that A1 is charged with
+   attacking. §4.2 and §4.3 are the parts I did **not** know in advance.
+6. **The three lane reports were inputs, not authorities.** Where I repeat a
+   lane's finding (the §0 kills, the continuous-eigenspace measurement) I
+   re-read its cited lines but did **not** re-run the L2 and L3 numerical work.
+   Those specific numbers are reported at the lanes' grade, not mine.
