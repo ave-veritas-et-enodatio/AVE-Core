@@ -146,7 +146,191 @@ orthogonality of the keys is therefore readable off the two call signatures.
 - **DOES NOT:** bear on whether the substrate hosts an electron. The run assumes a bound state and
   asks where its surface is; a null here is a null about **location**, never about **existence**.
 
-## §2 — REPRODUCTION GATE: the inherited claim set, re-derived on the shipped operator *(placeholder)*
+## §2 — REPRODUCTION GATE: the inherited claim set, re-derived on the shipped operator
+
+**Every number below was recomputed on this branch at `a3f4fef7`, on the shipped operator, before
+this document was opened.** Nothing here was taken on trust. Two entries came back **CORRECTED**
+and both corrections are stated in full rather than absorbed.
+
+### §2.1 — JUNCTION SPECTRUM THEOREM — REPRODUCED, and now proved in closed form
+
+For $S = \dfrac{2}{\sum_k Y_k}\,\mathbf{1}\,Y^{\!\top} - I$
+(`vacuum_varactor_scatter.py:28-34` derivation, `:156-185` implementation):
+$\mathbf{1}Y^{\!\top}$ is rank one with eigenvalue $Y^{\!\top}\mathbf 1 = \sum_k Y_k$ on the
+all-ones vector and $0$ on $\{v:\sum_j Y_jv_j=0\}$. Hence **for any $Y>0$ and any $z$:**
+
+$$\boxed{\ \operatorname{spec}(S) = \{+1 \ \text{(once, COMMON, } v=\mathbf 1,\ \text{an OPEN)}\}\ \cup\ \{-1 \ \text{(multiplicity } z-1,\ \text{BALANCED, } \textstyle\sum_j Y_jv_j=0,\ \text{a SHORT)}\}\ }$$
+
+**Saturation grading rotates the EIGENVECTORS and never the EIGENVALUES.** Measured
+$\max|\lambda-\lambda_{\text{exact}}|$ on the shipped `admittance_scatter`:
+
+| $z$ | cold-uniform | random 4-decade grading | one bond at $10^{6}$ |
+|---|---|---|---|
+| 2 | 0.000e+00 | 0.000e+00 | 0.000e+00 |
+| 3 | 2.220e-16 | 4.441e-16 | 1.110e-16 |
+| 4 | 1.110e-16 | 8.882e-16 | 2.220e-16 |
+
+**Consistent with canon at the one site canon states it:**
+[`k4-port-irrep-decomposition.md:23`](../manuscript/ave-kb/vol1/operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md)
+(*"$T_2$ eigenvalue $-1$, triply degenerate"*) and `:55` (*"Basis spans the traceless 3D subspace
+$\{v : \sum_i v_i = 0\}$"*). **Scope, stated because it is load-bearing: that leaf is the $z=4$
+$K_4$ 4-port at UNIFORM admittance**, where $\sum_i Y_iv_i=0$ degenerates to $\sum_iv_i=0$. The
+generalisation to arbitrary $z$ and to graded $Y$ is this lane's, is elementary, and mints nothing.
+
+### §2.2 — TRACE IDENTITY — REPRODUCED
+
+$\sum_i S_{ii} = \dfrac{2\sum_iY_i}{\sum_kY_k} - z = 2-z$ **exactly, for any admittances.** Measured
+$\max\bigl|\operatorname{tr}S-(2-z)\bigr|$ over 2000 random 12-decade draws: $4.441\times10^{-16}$
+($z{=}2$), $5.551\times10^{-16}$ ($z{=}3$), $8.882\times10^{-16}$ ($z{=}4$).
+
+**★ The consequence that closes one route by arithmetic.** At $z=3$ the three diagonal reflections
+must sum to $-1$. So **$\Gamma=-1$ on all three ports of an srs node is arithmetically
+unreachable** — it would need a trace of $-3$. Driving one port to $-1$ by grading *forces* the
+other two to sum to $0$. **A saturation-graded srs junction cannot be a three-port mirror.** The
+only way all three ports see $\Gamma=-1$ at once is the balanced *incident field*, where the
+reflection is a property of $v$, not of $S$'s diagonal.
+
+### §2.3 — THE BALANCED NODE IS A MIRROR WITH NO SATURATION — REPRODUCED
+
+The shunt reduction gives $V_u = 2\bigl(\sum_j Y_jV_j^{\text{inc}}\bigr)/\sum_kY_k$
+(`harmonic_balance_srs.node_voltage`, `:506-512`). With $\sum_j Y_jV_j^{\text{inc}}=0$:
+
+| $z$ | $|Y\!\cdot\!v^{\text{inc}}|$ | $\max|v^{\text{ref}}+v^{\text{inc}}|$ | $|V_{\text{node}}|$ |
+|---|---|---|---|
+| 3 | 7.067e-16 | **2.483e-16** | 1.420e-16 |
+| 4 | 0.000e+00 | **1.144e-16** | 0.000e+00 |
+
+$\Gamma=-1$ on **every port simultaneously**, with all admittances finite, all bonds sub-yield,
+and **Axiom 4 never invoked**. *(The inherited receipts were 1.1e-16 and 4.4e-16; this lane's
+independent draw gives 2.5e-16 and 1.1e-16. Same statement, different random vectors — both are
+machine epsilon and neither is a tighter claim than the other.)*
+
+### §2.4 — LEVEL-SET ARITHMETIC — REPRODUCED, with a **LABEL CORRECTION**
+
+Canon's own named wall value: [`resonant-lc-solitons.md:54`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md),
+verbatim, *"the set of 19 wall nodes at yield (A>0.9, S→0.045)"*. Evaluating
+$\Gamma_{pp} = 2Y_p/\sum_kY_k - 1$ with $Y=1/\sqrt S$:
+
+**⚑ THE PROBE-PORT CONVENTION, FROZEN, because it is what the numbers depend on.** $\Gamma$ is read
+**at the COLD port** — the radial bond pointing out of the shell, which is the port an incident
+wave actually arrives on. Reading at a saturated in-shell port gives entirely different numbers
+and is not the probe geometry.
+
+| configuration ($S_{\text{sat}}=0.045$) | $\Gamma$ at the COLD port | $\Gamma$ at a SATURATED port |
+|---|---|---|
+| all three bonds saturated (**uniform**) | **−0.3333333333** | −0.3333333333 |
+| **two** saturated, one cold | **−0.8082103319** | −0.0958948341 |
+| **one** saturated, two cold | **−0.7021169894** | +0.4042339788 |
+| cold vacuum (reference) | **−0.3333333333** | −0.3333333333 |
+
+> **🔧 CORRECTION 1 — the inherited pair of labels is TRANSPOSED.** The claim set this lane
+> inherited reads *"Two saturated one cold: −0.702. One saturated two cold: −0.808."* **Both values
+> reproduce to ten digits, attached to the opposite configurations.** −0.8082 is the **two**-saturated
+> case and −0.7021 is the **one**-saturated case. The corrected ordering is the physically
+> meaningful one — more saturated neighbours ⇒ closer to $-1$ — and the transposed version inverts
+> it. **No conclusion in the inherited set depends on the labels**, because the load-bearing row is
+> the uniform one; it is corrected here so the arithmetic can be checked rather than believed.
+
+**THE PUNCHLINE, UNCHANGED AND NOW SHARPER.** The sequence over the number of saturated bonds is
+$-1/3,\ -0.702,\ -0.808,\ -1/3$ — it is **NOT monotone and it returns to cold vacuum at full
+uniformity.** A uniformly saturated shell reflects **exactly** like cold vacuum, because the
+common factor $Y_0/\sqrt S$ cancels through a sum and a division. **The mirror is the GRADIENT at
+the shell edge, and the strongest mirror sits at maximal gradient, not at maximal saturation.**
+
+### §2.5 — SHIPPED-KERNEL CEILINGS — REPRODUCED, with a **KERNEL-PATH CORRECTION**
+
+| kernel state | $S$ | best-case $\Gamma$ (2 saturated + 1 cold, probed cold) |
+|---|---|---|
+| shipped `vacuum_varactor_scatter` at its clip $A_{\text{cap}}=0.99$ | **0.1410673598** | **−0.6837926976** |
+| canon's figure value $S=0.045$ | 0.045 | −0.8082103319 |
+| un-floored ideal kernel at $A=1-10^{-12}$ | 1.414198e-06 | −0.9988115061 |
+
+> **🔧 CORRECTION 2 — there are TWO live kernel-clip conventions in-tree and they do not meet.**
+> `vacuum_varactor_scatter.py:122` pins `A_cap=0.99, S_min=0.05`; because the cap binds first, its
+> **minimum reachable $S$ is 0.1410673598** and **$S=0.045$ is unreachable through that path**. The
+> figure the incumbent wall picture comes from uses a *different* path —
+> `src/scripts/viz/electron_lattice_scene.py:93-94` (`exponent=0.5`, `S_min=1e-3`) on
+> `srs_cage_winding.py:293` (`A_cap: float = 0.999`), whose $S(A_{\text{cap}})=0.0447$, which **is**
+> canon's 0.045. **So `resonant-lc-solitons.md:54`'s "(A>0.9, S→0.045)" is internally consistent** —
+> `A>0.9` is the *selection threshold* for the node set and `S→0.045` is the value at the *clip*,
+> $A=0.999$ — and the two numbers describe different things, not one thing. **§5 freezes the
+> `vacuum_varactor_scatter` path**, because that is the one `harmonic_balance_srs.bond_admittance`
+> delegates to; the divergence is routed as a flag in §11, not fixed here.
+
+### §2.6 — THE A1 BRANCH IS TRANSPARENT AT THE STATED OPERATING POINT — REPRODUCED EXACTLY
+
+$Z_{\text{core}} = Z_0\sqrt{S(A)}$, evaluated at `def-vyvsn1`'s own A1 operating point
+$A=\sqrt\alpha$ (`vocabulary-register.md:757`, verbatim: *"the electron's A1 mass core operates at
+strain $A=V_{\text{yield}}/V_{\text{snap}}=\sqrt\alpha$"*):
+
+| quantity | value at `a3f4fef7` |
+|---|---|
+| `ALPHA` | 0.0072973525693 |
+| $A_{\text{op}}=\sqrt\alpha$ | 0.085424543132 |
+| $S(A_{\text{op}})$ | 0.996344642898 |
+| $\sqrt{S}$ | 0.998170648185 |
+| **$\Gamma_{\text{bulk}}$** | **−9.155133055855e−04** |
+| $\Gamma_{\text{bulk}}(A{=}0.99)$, analytic Fresnel step | −0.453922 |
+
+**A 0.09% reflection. Not a mirror.** *(Both inherited values — −9.155133e−04 and the −0.453922
+analytic step — reproduce to every digit quoted.)*
+
+### §2.7 — WHAT §2 ESTABLISHES, AND WHAT IT DOES NOT
+
+**The consequence, stated as the fork it is.** The corpus confinement number is either
+
+- **FREE EVERYWHERE** — the BALANCED $-1$ is an eigenvalue of *every* node of *empty cold vacuum*
+  (§2.1), so it does not distinguish an electron from nothing; or
+- **ABSENT HERE** — the A1 $-1$, the one that would localise because an amplitude level set has a
+  radius, is $-9.155\times10^{-4}$ at the stated operating point (§2.6).
+
+**Never in between**, and §2.2 forecloses the obvious escape by arithmetic. **Therefore the
+localising object cannot be the LOCAL eigenvalue**; it would have to be a **closed surface of
+simultaneously balanced nodes** — a property of the composed map
+$M = C\cdot\mathrm{blockdiag}(S)$, which no leaf in the corpus computes and which §4 is built to
+measure.
+
+**⚠ §2 IS NOT A RESULT AND DOES NOT ADJUDICATE ANYTHING.** It is arithmetic on an operator. It
+does not show that a balance surface exists on the srs carrier, does not show that it is closed,
+does not show that a bound state sits inside one, and does not weigh on `def-vyvsn1`. **Every one
+of those is what §4 pre-registers, and all of them can come back NO.**
+
+### §2.8 — PROVENANCE OF THE INCUMBENT (verified, not summarised)
+
+`def-vyvsn1` is `SOLID` and is the only `SOLID` electron-wall statement in the corpus. Its own
+entry records, verbatim and verified on this branch:
+
+- `vocabulary-register.md:753` — *"BOTH are **CALIBRATION, not derived** ($V_{\text{snap}}\equiv
+  m_ec^2/e$ definitional with $m_e$ in voltage units; $V_{\text{yield}}\equiv\sqrt{\alpha}\cdot
+  V_{\text{snap}}$, the $\sqrt{\alpha}$ being **the imported $\alpha$-echo**)."*
+- `vocabulary-register.md:756` — `clm-cross-links:` *"(none verified-specific yet)"* — **no scored
+  claim, no numeric solidity.**
+- `vocabulary-register.md:758` — the `verification:` field records that the ruling **landed in
+  prose** at three sites. That is a **propagation** receipt, not a derivation receipt.
+- The mechanism sentence, `pair-production-axiom-derivation.md:102`, is **one sentence**: *"the
+  transverse micro-rotation wave's amplitude crosses Axiom-4 onset, $\Gamma \to -1$, and the
+  lattice self-creates its TIR cavity."* **No solved BVP, no eigensolve.**
+- Canon says so itself at [`device-circuit-models.md:163`](../manuscript/ave-kb/vol9/ch3-pin-port-configuration/device-circuit-models.md),
+  verbatim: *"What is **NOT** derived is the **shape-forcing chain**: no solved boundary-value
+  problem produces the electron's surface from its $0_1$-unknot topology."*
+
+**Grant directive governing this arc, verbatim:** *"I think we need to be ok challenging past
+rulings that don't have hard math tied to them."*
+
+**And this lane's own limit on that directive:** `SOLID` status plus an explicit Grant
+adjudication is not overturned by a discriminator run. §1.4 binds — the most this lane can produce
+is an input.
+
+### §2.9 — 🔧 CORRECTION 3 — the inherited reading of `device-circuit-models.md:165` was already wrong the other way
+
+`device-circuit-models.md:165` does **NOT** argue against the A1/bulk wall — **it asserts it**,
+verbatim: *"The confinement surface is the **A1 MASS wall** ($Z_{\mathrm{bulk}}\to0$, the
+impedance-short $\Gamma=-1$ of the Pauli/TIR derivation)."* Its guard sentence warns against
+**colliding** that A1 mass wall with the $\Gamma_{\text{spinor}}$ $T_2$ wall — *"Reading the two
+$-1$'s as one wall would wire the cage into the charge-winding and break the two-'3's
+orthogonality"* — which is an argument **on the A1 side**, not a prohibition against it. **Any
+document that inherited the framing that `:165` is a prohibition against the 2026-06-30 ruling is
+wrong and must be corrected.** Recorded here; routed in §11.
 
 ## §3 — SCOPE FENCE: the LOCAL junction property is a CONTROL; the GLOBAL surface is the RESULT *(placeholder)*
 
