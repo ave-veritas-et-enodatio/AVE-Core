@@ -279,6 +279,73 @@ operating point. `[OPEN]` Whether T3.3 should be re-run at `A = √α` is a
 question for the audit, not a ruling here.
 
 ## §3 — ★★ THE TWO CAUTIONS
+
+**These are not footnotes to §2. They are as load-bearing as §2, and they must
+travel with every downstream citation of it. Neither may be softened.**
+
+### ★ CAUTION 1 — a `−1` eigenvalue of a LOCAL junction is NOT confinement
+
+`[MEASURED]` The `−1` eigenspace of §2.1 has dimension `z−1`. The balance
+condition `Σ_j Y_j v_j = 0` is a **single linear equation** — **codimension 1**
+per node. Balanced port-vectors are therefore **CHEAP, not special**: they form
+a hyperplane through the origin at *every node of the lattice*, and they do so
+in **empty cold vacuum**, where `Y_j = Y₀` for all `j` and nothing whatsoever is
+confined.
+
+`[WALK]` The consequence is blunt. **A local `Γ = −1` that is present
+everywhere is undiagnostic — it does not distinguish an electron from
+nothing.** Reading the `T2` irrep's `−1` as "the confinement wall" reads a
+property of the *empty medium* as a property of a *particle*.
+
+`[CANON]` Canon carries the same warning from a different direction, on the
+`−1/3` floor: *"the `−1/3` intercept belongs to the **isolated vertex, which
+does not exist in-lattice**"* —
+`research/2026-08-24_engine-gamma-meanstest_result.md:214-215`. Every number in
+§2.4 is an **isolated-junction** number for exactly the same reason.
+
+`[OPEN]` **What the electron would have to be, if this route is right:** not a
+node with a balanced eigenvalue, but a **CLOSED SURFACE of SIMULTANEOUSLY
+balanced nodes** — a set of nodes on which the balance condition holds *jointly
+and self-consistently under the connect map*. That is a property of the
+**composed map**
+
+```
+M = C · blockdiag(S)
+```
+
+(`C` the connect/permutation map, `blockdiag(S)` the per-node scatter), and
+**no leaf in the corpus computes `M`.** The junction spectrum theorem says
+nothing about `M`'s spectrum: a direct sum of operators each having `−1` in its
+spectrum tells you nothing about the spectrum of `C` composed with that sum.
+**The entire physical question is displaced from §2 into an object this arc did
+not compute.**
+
+### ★ CAUTION 2 — the hollow-vortex BALANCE SHELL and the VIRTUAL NEUTRAL are DIFFERENT OBJECTS
+
+Both are called "balance loci". **Do not weld them.**
+
+| | hollow-vortex **balance shell** | **virtual neutral** |
+|---|---|---|
+| space | **real space** — a radius | **port space** — a hyperplane through the origin |
+| what balances | two **opposed scalars**: outward circulation pressure `∝ Γ²/R³` vs inward surface tension `σ/R` | `z` **phasors** on the legs of one Wye node: `Σ_j Y_j V_j^inc = 0` |
+| the balanced quantity | a **pressure** (dimensioned) | a **current sum** (KCL, phasor) |
+| result | `R* = Γ/√σ ≈ 1.6 ℓ_node` | `V_u = 0`, a **dimensionless** condition on a direction |
+| citation | `manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/hollow-vortex-binding.md:49` `[CANON]` | `src/ave/solvers/vacuum_varactor_scatter.py:28-34` `[MEASURED]` |
+
+`[WALK]` The collision is real and near: `boundary-observables-m-q-j.md:61`
+itself glosses register 4 as *"BALANCE LOCUS … cf. the hollow-vortex balance
+locus, `hollow-vortex-binding.md:49`"* — i.e. **the register-4 slot this arc
+proposes to move the electron into is currently illustrated by the
+pressure-balance object, not the phasor-balance one.** The register-move
+proposal (§7, and the routed open item) must therefore either (a) split
+register 4 into two sub-registers, or (b) argue that both are instances of one
+kind. **This arc does neither, and takes no position.** `[OPEN]`
+
+`[CANON]` The `Γ` symbol itself is overloaded across the two rows: in
+`hollow-vortex-binding.md` `Γ` is the **Cosserat circulation**; in §2 `Γ` is the
+**reflection coefficient**. Same glyph, different objects, one line apart in the
+table above. Any downstream prose must disambiguate.
+
 ## §4 — The consequence: FREE EVERYWHERE or ABSENT HERE, never in between
 ## §5 — Canon already carries the structure — in four unconnected places — and has the slot
 ## §6 — Where Grant's reading is SUPPORTED (seven places)
