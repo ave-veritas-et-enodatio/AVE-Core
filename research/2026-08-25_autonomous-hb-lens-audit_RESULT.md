@@ -1045,9 +1045,9 @@ bracing could change the effective count is the rail, where `S→0` and `Y→∞
 compliance becoming a rigid constraint) — and that is the kernel's declared clip
 domain (`A_cap=0.99 / S_min=0.05`), which **no solver in this review entered**:
 every one died on the approach, the furthest reaching `A_max = 0.986728` against
-`A_cap = 0.99` (F8, §3). **So the reframe's selection point, if it
-exists at all, sits precisely at the numerically-unreachable boundary that F8
-showed to be a kernel-clip artifact rather than established physics.**
+`A_cap = 0.99` (F8, §3). **So the reframe's selection point, if it exists at
+all, sits precisely at the numerically-unreachable boundary that F8 showed to be
+a kernel-clip artifact rather than established physics.**
 Determining whether `A→1` is physics or the clip is a **prerequisite** for the
 reframe, not an aside.
 

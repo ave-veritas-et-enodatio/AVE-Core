@@ -209,8 +209,9 @@ note is the correction of record.
 no turning point to `A_max 0.950`, and the top-end break is a numerical failure
 on the **approach to** the saturation kernel's declared clip domain
 (`A_max = 0.986728` against `A_cap = 0.99` — the clip is never entered), which
-is also the **negative answer to charter item A5**. And §3.2's Lagrange-constraint formulation **survives the audit
-intact** and is the strongest formulation in the record.
+is also the **negative answer to charter item A5**. And §3.2's
+Lagrange-constraint formulation **survives the audit intact** and is the
+strongest formulation in the record.
 
 **§7 is UNCHANGED and still governs.** This lens **mints nothing, moves no
 solidity, and does not supersede R58** — decision 1 and the (2,3) carrier fork
