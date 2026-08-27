@@ -375,3 +375,192 @@ def plane_termination(net, bt, conn: tuple, planes_drives: list, n_tones: int) -
     if not specs:
         raise ValueError("plane_termination: every direction was None -- no boundary condition")
     return make_vector_termination(net, bt, conn, specs, n_tones)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# 4. PER-TONE LINEAR SOLVE ON THE VECTOR CONTAINER
+#    (the algebraic fixed point, with computed receipts and the FL-4 fix)
+# ═════════════════════════════════════════════════════════════════════════════
+@dataclass
+class VectorToneSolution:
+    """One tone's transverse phasor solution + its receipts (always computed).
+
+    v            : (N, degree, 2) complex incident-port phasors.
+    v_norm       : ||v||_F -- carried EXPLICITLY because the relative residual
+                   alone cannot distinguish "solved" from "identically zero".
+    nontrivial   : v_norm > v_floor (COMPUTED, never declared). See the FL-4
+                   block in `solve_tone_vector`.
+    homogeneous  : the tone's problem had no imposed drive, so 0 is an exact
+                   solution of it.
+    residual_abs : ||e^{i theta} v - M v|| on the free slots.
+    residual_rel : residual_abs / v_norm -- and +inf when the solution is
+                   trivial, so a gate written as `residual_rel < tol` FAILS on
+                   a silent zero instead of passing it. (The scalar twin
+                   divides by a 1e-300 floor and returns 0.0 there, which reads
+                   as a perfect solve; that is exactly FL-4.)
+    converged    : the LINEAR SOLVER's own flag, verbatim. It is NOT a verdict:
+                   `converged and not nontrivial` is the FL-4 signature.
+    """
+
+    theta: float
+    v: np.ndarray
+    v_norm: float
+    nontrivial: bool
+    homogeneous: bool
+    residual_abs: float
+    residual_rel: float
+    converged: bool
+    n_matvec: int
+    method: str
+
+
+def _embed(x_free: np.ndarray, v_s: np.ndarray, mask_F: np.ndarray) -> np.ndarray:
+    v = v_s.copy()
+    v[mask_F] = x_free
+    return v
+
+
+def solve_tone_vector(
+    a_nodes: np.ndarray,
+    conn: tuple,
+    theta: float,
+    term: "VectorTermination | None" = None,
+    tone_index: int = 0,
+    *,
+    tol: float = 1e-11,
+    maxiter: int = 20000,
+    warmstart: int = 0,
+    x0: "np.ndarray | None" = None,
+    require_nontrivial: bool = True,
+    v_floor: float = 1e-12,
+) -> VectorToneSolution:
+    """Solve the source-terminated transverse phasor fixed point at one tone.
+
+    Equations, per polarization component and coupled only through the shared
+    per-node coefficients (the operator is S_u (x) I_2):
+
+        e^{i theta} v_F = (M v)_F   on free port slots F,
+        v_T             = s_hat     on terminated port slots T.
+
+    Eliminating v_T gives (e^{i theta} I - M_FF) x = M_FT s_hat, solved
+    matrix-free (scipy LGMRES) with an optional physical-transient warm start
+    v <- e^{-i theta}(P_free M v + inject) -- the damped power iteration whose
+    contraction IS the termination's absorption. The residual receipt is
+    computed from the operator on the ASSEMBLED solution, so the evidence is
+    solver-agnostic: whatever produced v, the receipt is the norm of the
+    fixed-point defect.
+
+    ┌── GUARD (e): FL-4, THE SILENT-ZERO TRAP -- FIXED HERE, NOT DOCUMENTED ──┐
+    │ theta is an INPUT, not an eigenvalue. With no imposed drive the system  │
+    │ is HOMOGENEOUS: (e^{i theta} I - M) x = 0, whose exact solution is      │
+    │ x = 0, which the linear solver duly returns with info == 0. MEASURED on │
+    │ the scalar twin (ring[12] at the exact ring mode, this branch):         │
+    │ ||v|| = 0.000e+00, converged = True, residual_rel = 0.000e+00 in FOUR   │
+    │ configurations -- warmstart 0 and 50 from a zero start, AND warm-started│
+    │ AT the true mode with x0 = v_true. A warm start cannot rescue it: the   │
+    │ right-hand side is zero, so the Krylov solve has nothing to build on.   │
+    │                                                                         │
+    │ THE FIX (two layers, both fail-loud):                                   │
+    │   1. the homogeneous case is DETECTED BEFORE the solve and REFUSED by   │
+    │      default -- a source-free fixed point at a POSITED theta is an      │
+    │      EIGENPROBLEM, not a linear solve, and asking this function for one │
+    │      is a category error that should raise, not return a zero;          │
+    │   2. every returned solution carries a COMPUTED `nontrivial` receipt,   │
+    │      and `residual_rel` is +inf (never 0.0) when the solution is        │
+    │      trivial, so a downstream gate written as `residual_rel < tol`      │
+    │      fails on a silent zero instead of passing it.                      │
+    │ `require_nontrivial=False` re-opens the degenerate branch for a caller  │
+    │ that deliberately wants it (a null control); the receipts still say so. │
+    │ "converged" is not "non-zero" (R58 section 4).                          │
+    └─────────────────────────────────────────────────────────────────────────┘
+    """
+    from scipy.sparse.linalg import LinearOperator, lgmres
+
+    a_nodes = np.asarray(a_nodes, dtype=np.float64)
+    N, d = a_nodes.shape
+    n_ports = N * d
+    ndof = n_ports * 2
+
+    homogeneous = term is None or term.is_homogeneous(tone_index)
+    if homogeneous and require_nontrivial:
+        raise ValueError(
+            "solve_tone_vector: the tone problem is HOMOGENEOUS (no imposed drive at "
+            f"tone_index={tone_index}; term is {'None' if term is None else 'all-zero'}). "
+            "theta is an INPUT here, so (e^{i theta} I - M) x = 0 and the linear solver "
+            "returns the exact solution x = 0 with converged=True and a relative residual "
+            "of 0.0 -- the FL-4 silent zero, measured in four configurations on the scalar "
+            "twin including a warm start AT the true mode. A source-free fixed point at a "
+            "posited theta is an EIGENPROBLEM, not a linear solve: impose a drive through "
+            "a VectorTermination, or pass require_nontrivial=False if the trivial branch is "
+            "genuinely what you want (the returned receipts will say nontrivial=False)."
+        )
+
+    mask_port = np.zeros(n_ports, dtype=bool)
+    if term is not None and len(term.ports):
+        mask_port[term.ports] = True
+    # flatten order of (N, degree, 2) is port-major, component-minor
+    mask_T = np.repeat(mask_port, 2)
+    mask_F = ~mask_T
+    eith = np.exp(1j * float(theta))
+
+    v_s = np.zeros(ndof, dtype=np.complex128)
+    if term is not None and len(term.ports):
+        v_s.reshape(-1, 2)[term.ports] = term.drive[tone_index]
+
+    def M_flat(vflat: np.ndarray) -> np.ndarray:
+        return apply_M_vector(a_nodes, conn, vflat.reshape(N, d, 2)).ravel()
+
+    b = M_flat(v_s)[mask_F]
+    nF = int(mask_F.sum())
+    n_mv = [1]  # the b evaluation
+
+    def matvec(x: np.ndarray) -> np.ndarray:
+        n_mv[0] += 1
+        vx = np.zeros(ndof, dtype=np.complex128)
+        vx[mask_F] = x
+        return eith * x - M_flat(vx)[mask_F]
+
+    x_init = None
+    if x0 is not None:
+        x_init = np.asarray(x0, dtype=np.complex128).ravel()[mask_F]
+    if warmstart > 0:
+        v_w = np.zeros(ndof, dtype=np.complex128) if x_init is None else _embed(x_init, v_s, mask_F)
+        inv_eith = np.exp(-1j * float(theta))
+        for _ in range(int(warmstart)):
+            v_new = inv_eith * M_flat(v_w)
+            v_new[mask_T] = v_s[mask_T]
+            v_w = v_new
+            n_mv[0] += 1
+        x_init = v_w[mask_F]
+
+    A = LinearOperator((nF, nF), matvec=matvec, dtype=np.complex128)
+    x, info = lgmres(A, b, x0=x_init, rtol=tol, atol=0.0, maxiter=maxiter)
+    v = _embed(x, v_s, mask_F)
+
+    defect = (eith * v - M_flat(v))[mask_F]
+    v_norm = float(np.linalg.norm(v))
+    residual_abs = float(np.linalg.norm(defect))
+    nontrivial = bool(v_norm > float(v_floor))
+    residual_rel = residual_abs / v_norm if nontrivial else float("inf")
+
+    if not nontrivial and require_nontrivial:
+        raise ValueError(
+            f"solve_tone_vector: the assembled solution is numerically ZERO "
+            f"(||v|| = {v_norm:.3e} <= v_floor = {v_floor:.1e}) while the linear solver "
+            f"reported info={info}. This is the FL-4 signature -- converged is not "
+            "non-zero (R58 section 4). Check that the termination actually imposes a "
+            "drive at this tone_index; pass require_nontrivial=False to accept it."
+        )
+
+    return VectorToneSolution(
+        theta=float(theta),
+        v=v.reshape(N, d, 2),
+        v_norm=v_norm,
+        nontrivial=nontrivial,
+        homogeneous=bool(homogeneous),
+        residual_abs=residual_abs,
+        residual_rel=float(residual_rel),
+        converged=bool(info == 0),
+        n_matvec=int(n_mv[0]),
+        method="lgmres" + (f"+warmstart{warmstart}" if warmstart else ""),
+    )
