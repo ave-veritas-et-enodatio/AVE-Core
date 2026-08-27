@@ -240,6 +240,95 @@ and it is `[MEASURED]`-correct. The **noun** it is dressed in is fenced — §6,
 
 ## §4 — MEASURED: the reference asymmetry is real, and the gauge freedom is COLD-ONLY
 
+This is the one place this record adds something the walk did not have and the
+three check lanes did not run. It bears on walk items 3, 4 and 5.
+
+**The test.** Walk item 4 says the common-mode reference *"choice is FREE
+because the mode is isolated"* — that the gauge freedom is a **property of the
+circuit**, not a convention. That is a testable statement about the dynamics:
+if it is true, adding a constant $\delta$ to **every** incident amplitude on
+**every** port of **every** node must be an exact symmetry of the lattice
+evolution. Measured on the shipped srs net ($L=3$, $N=216$ nodes, degree 3) by
+evolving two lattices that differ only by a global offset and tracking
+$\max|(B-A) - \delta|$.
+
+### 4.1 Cold: the offset is an EXACT symmetry `[MEASURED]`
+
+| $\delta$ | $\max|(B-A)-\delta|$ over 8 steps |
+|---|---|
+| $0.001$ | $1.6\times10^{-17}$ |
+| $0.01$ | $2.6\times10^{-17}$ |
+| $0.05$ | $9.0\times10^{-17}$ |
+
+**Floating-point zero.** The offset rides exactly, never decays, never couples
+into the differential sector, and is conserved for as long as the run lasts.
+Mechanically this is forced: $S(\mathbf{v} + \delta\mathbf{1}) = S\mathbf{v} +
+\delta\mathbf{1}$ because $\mathbf{1}$ is the $+1$ eigenvector, and CONNECT is a
+permutation, which fixes $\delta\mathbf{1}$. **So cold, the common-mode value is
+a genuine gauge freedom of the shipped dynamics** — an exact symmetry, measured,
+not a convention adopted. Walk item 4's core assertion is `[MEASURED]`-SUPPORTED
+in the cold limit. Cold energy drift over 40 steps: $2.7\times10^{-15}$
+relative — the evolution is unitary, so this is not a dissipative washout.
+
+### 4.2 Saturated: the symmetry BREAKS, structurally `[MEASURED]`
+
+Same test with the varactor reading the local $|V|$ per bond, at amplitudes far
+below yield so **no clipping occurs** (verified: zero clip events):
+
+| $\delta$ | break at **step 1** | break / $\delta$ at step 1 | after 8 steps |
+|---|---|---|---|
+| $0.001$ | $1.59\times10^{-6}$ | $1.585\times10^{-3}$ | $5.5\times10^{-6}$ |
+| $0.01$ | $1.59\times10^{-5}$ | $1.586\times10^{-3}$ | $5.5\times10^{-5}$ |
+| $0.05$ | $7.98\times10^{-5}$ | $1.596\times10^{-3}$ | $2.8\times10^{-4}$ |
+
+**Two controls that make this a result rather than an artifact.** (i) The
+breaking is present at **step 1** — it is structural, not an accumulated
+integration error or a chaotic divergence. (ii) `break/$\delta$` is **constant
+to three digits across a 50$\times$ span of $\delta$** — the effect is linear in
+the offset, so it is a fixed property of the operator at that saturation depth,
+not an amplification. (iii) Zero clip events, so it is not a saturation-cap
+artifact.
+
+### 4.3 ★ The gauge freedom degrades CONTINUOUSLY, tracking $(1-S)$ `[MEASURED]`
+
+There is no sharp cold/hot boundary. Sweeping the field scale at fixed
+$\delta = 0.01$:
+
+| field scale | $\max A$ | $1-S(\max A)$ | break / $\delta$ |
+|---|---|---|---|
+| $0$ (exact cold vacuum) | $0.0$ | $0.0$ | $\mathbf{1.7\times10^{-16}}$ |
+| $10^{-4}$ | $10^{-4}$ | $5.0\times10^{-9}$ | $2.3\times10^{-9}$ |
+| $10^{-3}$ | $10^{-3}$ | $5.0\times10^{-7}$ | $2.3\times10^{-7}$ |
+| $10^{-2}$ | $10^{-2}$ | $5.0\times10^{-5}$ | $2.3\times10^{-5}$ |
+| $10^{-1}$ | $0.1$ | $5.0\times10^{-3}$ | $2.3\times10^{-3}$ |
+| $3\times10^{-1}$ | $0.3$ | $4.6\times10^{-2}$ | $2.2\times10^{-2}$ |
+| $6\times10^{-1}$ | $0.6$ | $2.0\times10^{-1}$ | $1.0\times10^{-1}$ |
+
+**The breaking tracks $(1-S)$ across seven decades at a ratio of $\approx0.47$,
+and is machine-zero at $A=0$ exactly.**
+
+### 4.4 What this does and does not license
+
+**It SHARPENS walk item 4** `[MEASURED]`: the common-mode gauge freedom is not
+asserted, it is a measured exact symmetry of the shipped cold operator, and its
+gauge character has a **quantitative domain of validity** — it is exact at
+$A=0$ and degrades in proportion to local saturation depth.
+
+**It puts a crack in walk item 5.** *"Only differences are observable"* is a
+**cold-limit** statement, not a structural one. Wherever the medium is saturated
+the common direction stops being a symmetry direction, and a non-symmetry
+direction is, in principle, the kind of thing a measurement can see. `[OPEN]` —
+whether it is *actually* observable is NOT settled here: no readout model was
+built, and a broken symmetry is not automatically an observable. This is
+audit item **A5** and it is the most interesting thing this record raises.
+
+**It does NOT derive clause Q, and must not be read as doing so.** Clause Q
+fixes a reference on $\varepsilon_{11}$ in the **bound A1 / bias sector**
+(object **O3** of §1) for an elliptic solve; what is measured here is a symmetry
+of **port amplitudes in the cold TLM** (object **O1**). These are different
+objects in different spaces, and identifying them is exactly the cross-wire §7
+C4 flags. The resemblance is suggestive and it is `[OPEN]`, not banked.
+
 ## §5 — Where canon SUPPORTS the walk
 
 ## §6 — ★ MANDATORY FENCES (verified and quoted this session)
