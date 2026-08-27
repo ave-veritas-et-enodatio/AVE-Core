@@ -820,7 +820,7 @@ shipped code and reproduced:**
    with `info = 0`, DISCARDING any `x0`.** Reproduced on the installed SciPy 1.15.3: a call with
    $b=\mathbf 0$ and a non-zero `x0` returns $\lVert x\rVert = 0.0$, `info = 0`.
 4. `residual_rel` is then $0 / \max(0, 10^{-300}) = 0$ (`:606`), and `converged` is
-   `bool(info == 0)` = **`True`** (`:612`).
+   `bool(info == 0)` = **`True`** (`:611`).
 
 **This is why $\theta$ being an INPUT matters** (`:534-537`): with no drive, the system is
 **homogeneous**, and the warm-start path (`:586-597`) cannot rescue it because its only product is
@@ -876,9 +876,103 @@ the shipped `ToneSolution` fields. If a future change to `solve_tone` removed th
 assertion would fail — **which is the correct behaviour for a fixture that measures a defect** and
 is recorded here so that failure is read as "the defect is gone", not as "the gate is broken."
 
-## §8 — WHAT WOULD FALSIFY THE VIRTUAL-NEUTRAL READING *(placeholder)*
+## §8 — WHAT WOULD FALSIFY THE VIRTUAL-NEUTRAL READING — stated before the run, in the run's own terms
 
-## §9 — THE HONEST EXPECTED OUTCOME *(placeholder)*
+**H-VN is falsified by this run if any of the following is measured.** Each is stated as a
+numerical condition on a quantity §4 defines, so none of them can be argued about after the fact.
+
+| # | falsifier of **H-VN** | bin |
+|---|---|---|
+| **FS-1** | $K_{\text{amp}} > 1.00$ hop **and** $K_{\text{mode}} < 0.25$ hop, on every configuration. **The surface tracks the drive and ignores the tone — the H-SAT key fires and the H-VN key does not.** This is the clean falsification. | `SATURATION` |
+| **FS-2** | $\mathcal C = $ `False` — the balanced set exists but **is not closed**. H-VN requires a *closed surface* of simultaneously balanced nodes; an open sheet, a filament, or a scatter of isolated balanced nodes **does not confine anything** and does not support the register move. | `ARTIFACT` (A2) |
+| **FS-3** | $\mathcal N$ = the **cold empty-vacuum** control's null set. A balance surface that is already present in empty vacuum is the §3.1 free-everywhere object and diagnoses nothing. | `ARTIFACT` (A5) |
+| **FS-4** | $\mathcal N = \varnothing$ at every configuration — **no node is ever balanced to $\tau_\beta$** on the srs carrier with a bound state on it. H-VN's locating equation has no solutions, so H-VN has no referent here. | `ARTIFACT` (A1) |
+| **FS-5** | BCAST-1 fails at the null: the balanced nodes are exactly the nodes where the admittances happen to be uniform. **The null is then the broadcast artifact guard (b) exists to catch, not a virtual neutral.** | `ARTIFACT` (A4) |
+| **FS-6** | The §4.6 mode-sign pair returns the **SAT key** ($\operatorname{Re}\Gamma_{\text{common}}$ and $\operatorname{Re}\Gamma_{\text{diff}}$ both negative) while the primary keys select `VIRTUAL-NEUTRAL`. **A virtual neutral must be an OPEN on the breathing mode; a surface that shorts both modes is not one.** | `AMBIGUOUS` (B4e) |
+| **FS-7** | The bin is `VIRTUAL-NEUTRAL` under one envelope normalisation and not the other, or on one seed and not another, or on one tone pair and not the other. | `AMBIGUOUS` (B4d) |
+
+**And the symmetric statement, because a discriminator that can only kill one side is not one.
+H-SAT is falsified by:** $K_{\text{amp}} < 0.25$ **and** $K_{\text{mode}} > 1.00$ on every
+configuration (bin 3) — the surface ignores the drive and tracks the tone. **Plus one structural
+falsifier already banked at freeze:** the shipped kernel's clip puts the best single-node
+reflection at $-0.6837926976$ (§5.2), so **if the measured surface reflects harder than that, the
+reflection cannot be coming from single-node saturation on this kernel path.** *(That is a
+consistency observation, not a gating criterion — it is REPORTED, and it cannot move a bin.)*
+
+**★ The falsifier that is NOT here, and why.** *"The residual imbalance does not equal $\alpha$"*
+is **not** a falsifier of anything in this document, and its converse is not evidence. Guard (c)
+and gate ALPHA-1 forbid the mapping in both directions. **A run in which the residual imbalance
+came out at $1-\alpha$ would be reported as an instrument echo to be investigated, never as a
+result.**
+
+## §9 — THE HONEST EXPECTED OUTCOME
+
+**Written before any measurement, so that landing here cannot later be presented as a
+disappointment requiring a rescue.**
+
+### §9.1 — The most likely single outcome is `AMBIGUOUS-ON-THIS-CARRIER` (bin 4, B4b)
+
+**Three independent reasons, each of which alone would be enough:**
+
+1. **The carrier may not host a bound state sharp enough to have a surface.** The run *assumes* a
+   bound state and asks where its boundary is. On a $L=6$ periodic srs cell with a driven scaffold,
+   the converged $A$ field may be a broad, smooth hump with no sharp edge at all — in which case
+   $\mathcal N$ is either empty (A1) or fails the closure test (A2), and there is no surface to
+   bin. **This is the single most likely failure and it is a failure of the CARRIER to present the
+   object, not of either ontology.**
+2. **The shipped kernel cannot make a hard wall.** §5.2's clip puts the best single-node reflection
+   at $-0.684$, which is not a mirror. If H-SAT's surface needs a hard level set to be sharp, the
+   frozen kernel path may not be able to produce a sharp enough one for $K_{\text{amp}}$ to clear
+   one hop — landing $K_{\text{amp}}$ in the dead band (B4c) rather than at STATIC.
+3. **The two keys may not be cleanly separable on a $z=3$ periodic cell.** Changing $\theta$
+   changes the phasor field, which changes the DP-1 envelope, which changes $A$, which changes $Y$
+   — **the mode knob leaks into the amplitude channel through the self-consistent loop.** If that
+   leak is large, **both** keys fire and the verdict is B4a. **This is a real coupling in the
+   shipped operator and no amount of care in the driver removes it**; the design's answer is to
+   measure it and bin it honestly, not to pretend the knobs are independent.
+
+### §9.2 — What `AMBIGUOUS-ON-THIS-CARRIER` would MEAN
+
+**It would mean the discriminator does not resolve on this carrier, and nothing more.** In
+particular it would **NOT** mean:
+
+- that the register move is wrong (`AMBIGUOUS` selects nothing);
+- that `def-vyvsn1` is confirmed (an un-resolving test confirms no incumbent);
+- that the virtual-neutral picture is unfalsifiable (§8 lists seven ways this run could kill it);
+- that a larger $L$ or a different carrier would resolve it (that is a hypothesis for a **next**
+  prereg, not a conclusion of this one).
+
+**What it WOULD license** is one narrow, bankable statement: *the closed-balance-surface condition
+on $M = C\cdot\mathrm{blockdiag}(S)$ was computed for the first time, on the $L=6$ srs carrier, and
+the two ontologies' keys did not separate there — with the measured $K_{\text{amp}}$, $K_{\text{mode}}$,
+$\mathrm{sep}$ and closure receipts reported.* **That is a real result and it is worth the run**,
+because §2.7's fork means the corpus currently has **no** computed answer to the question at all.
+
+### §9.3 — Rough prior on the five bins, declared
+
+| bin | rough prior | why |
+|---|---|---|
+| `AMBIGUOUS` (all sub-cases) | **~45%** | §9.1's three reasons |
+| `ARTIFACT` | **~30%** | A1/A2 dominate — the surface may simply not close on a periodic $L=6$ cell |
+| `INCONCLUSIVE` | **~10%** | the self-consistent loop under strong grading is where Picard stalls |
+| `VIRTUAL-NEUTRAL` | **~10%** | it is the reading the arc favours, and that is exactly why it gets the lower number here |
+| `SATURATION` | **~5%** | §2.6 already measured the A1 branch as transparent at the stated operating point, so a clean amplitude key is the least expected |
+
+**These priors are not a prediction and they gate nothing.** They exist so that the strength of a
+surprise can be judged against something written down, and so that the arc's own preference is on
+the record as a preference **before** it can be mistaken for a finding.
+
+### §9.4 — The one outcome that would be a genuine surprise
+
+**A clean bin-3 `VIRTUAL-NEUTRAL` — $K_{\text{amp}} < 0.25$ and $K_{\text{mode}} > 1.00$ on all
+twelve configurations, with $\mathcal C$ = `True` and the §4.6 mode-sign pair returning the VN
+key.** That would discharge `def-anat3s`'s banked *"CONJECTURED $\equiv$ wall"* conjecture in the
+scalar channel and would be a real input to a register ruling.
+
+**It would still not be a chord.** It would be a statement about where a surface sits in a model
+we built, on a carrier we chose, in one channel, measured by an instrument that self-declares it
+mints no physics claims. **The §1.4 fence binds on a positive result exactly as hard as on a
+negative one** — and historically that is the direction in which this discipline slips.
 
 ## §10 — ANTI-RESCUE GUARD *(placeholder)*
 
