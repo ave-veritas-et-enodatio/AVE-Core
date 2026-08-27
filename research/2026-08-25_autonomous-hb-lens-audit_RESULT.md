@@ -516,14 +516,14 @@ The record's §3.4 backup selector, verbatim at
 
 Every point on the way up is an **exact source-free solution** at `~5e-15`.
 
-**The top-end break is not a fold — it is the kernel's own declared clip
-domain.** `A_cap = 0.99` / `S_min = 0.05`
+**The top-end break is not a fold — it is the solver dying on the approach to
+the kernel's own declared clip domain.** `A_cap = 0.99` / `S_min = 0.05`
 (`src/ave/core/crystal_engine.py:63-64`, applied at `:192-195`:
 *"S(A)=√(1-A²), A=|V|/V_yield, clipped to [S_min, 1] (the A-034 kernel)"*).
 Convergence dies at `||v|| = 8.75`, `A_max = 0.986728`, `r_auto = 1.029e-01`
 after 600 outers — i.e. **convergence dies on the approach to `A_cap`**, with
 `A_max` still just short of the clip (`0.9867` against `A_cap = 0.99`). The
-branch is lost into the clip domain, not turned around by a fold; the next
+branch is lost approaching the clip, not turned around by a fold; the next
 converged continuum sits beyond the gap at `||v|| = 10.25 → 10.5` (§2.5).
 
 **This is the direct answer to charter item A5**, whose own text warned that
