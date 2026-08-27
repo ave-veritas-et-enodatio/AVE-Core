@@ -267,7 +267,11 @@ ring_mode m=-2+noise -0.523598776       -2.0000   1.90e-15  True   -2.000
 Seeds `m ∈ {0,1,2,3,5,−2}` in → `{0,1,2,3,5,−2}` out, `θ = 2πm/24`, `r_auto`
 `1.6–3.0e-15`. And solver-independently: **all 24 sectors** `m = −11…12` are
 exactly solvable with **no iteration at all**, `r_auto ≤ 3.6e-15`, saturation
-engaged (`S_min = 0.9682 < 1`).
+engaged (**minimum `S` reached = `0.9682` < 1**). *(Symbol disambiguation only,
+2026-08-27: `0.9682` is **not** the kernel's `S_min` parameter, which is `0.05`
+(`crystal_engine.py:63-64`, and cited as `S_min` at §0, §2.5, §3/F8 and §10).
+The two are different quantities under one symbol; this note fixes the symbol
+and asserts nothing about what `0.9682` measures.)*
 
 **The caveat the reproduce lane did not apply to itself**, supplied by another
 lane: the "all 24 sectors, no iteration" receipt is on `build_ring_net`, where
@@ -528,8 +532,9 @@ converged continuum sits beyond the gap at `||v|| = 10.25 → 10.5` (§2.5).
 
 **This is the direct answer to charter item A5**, whose own text warned that
 *"A false positive here would be a serious error"* (`RECORD.md:159`). **The
-answer is negative: the stall is a numerical failure at the clip, not a
-result.**
+answer is negative: the stall is a numerical failure on the approach to the
+clip, not a result** — `A_max = 0.986728` against `A_cap = 0.99`, so the clip
+domain is never entered.
 
 **And A5 already had a second, independent negative answer from the review
 phase that the verify phase never saw.** One review lane ran the record's own
@@ -663,7 +668,7 @@ The charter is `research/2026-08-25_autonomous-harmonic-balance-lens_RECORD.md:1
 | **A2b** | its phase-normalization is the same move as clause Q | ASSEMBLY | **DISCHARGED — NEGATIVE** | **RESEMBLANCE, NOT THE SAME OBJECT. "NOT FIT to travel to a prereg as written."** Detail below. |
 | **A3** | topology is preserved by seeding the sector | NUMERICAL + CANON | **PARTIALLY DISCHARGED — negatively** | F2 + F3: the winding comes back **= the seed**, and the production reader is template-circular, so a `rigid_template` read **cannot discharge A3 without tautology**. The sub-question *"what is the discrete analogue of passing through zero"* got one partial answer (§2.4: the read is ill-defined at `\|v\|=0`; `np.angle(0)=0` returned `−3` **at** the zero crossing). **Not closed.** |
 | **A4** | the phase-space (2,3) is a PER-TANK object, so uniform imposition conflates per-tank trajectory with collective charge | CANON READING | **DISCHARGED — UNDERDETERMINED** (verdict is "canon does not decide") | A dedicated lane swept it by **two** methods (pattern + full read) against the whole canon set the charter names. Verdict: **canon never carves the scope, and where it speaks it EQUATES the per-bond chart with the collective boundary integer.** The record therefore **proposes a carve, it does not catch a conflation.** An independent checker confirmed every cite verbatim and **downgraded the finding MAJOR→MINOR** on the grounds that the record self-flags the reading and A4 exists to adjudicate exactly this. |
-| **A5** | the continuation stall may be a RESULT rather than a numerical failure | INTERPRETIVE | **DISCHARGED — NEGATIVE, twice, independently** | (1) **F8** (§3): no fold to `A_max 0.918`/`0.950`, `dθ/dA` monotone positive, break at the kernel's declared clip. (2) The review phase re-ran the record's own quoted ladder: `anderson(depth=6)` converges at the **same** `D=0.9` endpoint in **66 outers** where plain Picard fails at 150. **A fold is a property of the branch and is not cured by swapping the outer accelerator.** Charter warned *"A false positive here would be a serious error."* Answer: **numerical failure.** |
+| **A5** | the continuation stall may be a RESULT rather than a numerical failure | INTERPRETIVE | **DISCHARGED — NEGATIVE, twice, independently** | (1) **F8** (§3): no fold to `A_max 0.918`/`0.950`, `dθ/dA` monotone positive, break on the approach to the kernel's clip domain (`A_max = 0.986728` against `A_cap = 0.99` — never entered). (2) The review phase re-ran the record's own quoted ladder: `anderson(depth=6)` converges at the **same** `D=0.9` endpoint in **66 outers** where plain Picard fails at 150. **A fold is a property of the branch and is not cured by swapping the outer accelerator.** Charter warned *"A false positive here would be a serious error."* Answer: **numerical failure.** |
 | **A6** | dropping the scaffold dissolves decision 1 and the carrier fork rather than hiding them | LOGIC | **DISCHARGED — the claim is OVERSTATED-TO-FALSE** | That is **F2**. The fork **re-enters at the seed**, fully and intact, relocated to the initial condition. The tone set re-enters as an input constraint. |
 | **A7** | a source-free solution "cannot belong to the scaffold" | LOGIC | **DISCHARGED — VACUOUS, and stronger than A7's own hedge** | That is **F1** (§2.1), re-established on the F5/F6 receipts. The record hedged it *"true but possibly vacuous"*; the measurement says the sentence at `RECORD.md:98` is **false**, not merely vacuous. |
 | — | **consensus-bias symmetric standard** | required check | **DISCHARGED — thoroughly** | Twelve notes across six findings, run in **both** directions; in five instances a lane **withdrew its own or the finding's argument** on symmetric-standard grounds. §5.2 below. |

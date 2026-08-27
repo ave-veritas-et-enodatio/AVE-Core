@@ -66,13 +66,32 @@ adjudicated grade-assignment, not driver-validated) is quoted correctly.
 ## 3 — A cross-branch wording divergence that is now closed, recorded so it is not re-opened
 
 The clip-domain statements on PR #1020 and PR #1022 were **both** falsified by
-`A_max = 0.986728 < A_cap = 0.99` (F8, RESULT §3) — every site saying the
+`A_max = 0.986728 < A_cap = 0.99` (F8, RESULT §3) — the sites saying the
 solvers failed *at*, *reached*, or *crossed* the clip. **Three on PR #1020**
-(record §4.2a, §7.2's amendment blockquote, §10's Q1 bullet) and **five on
-PR #1022** (RESULT §0's sector declaration, §2.5's F5 TRIM bullet, §7's FLAG 5,
-the routing item `2026-08-25-autonomous-hb-lens-audit.md`, and the status note
-appended to `2026-08-25_autonomous-harmonic-balance-lens_RECORD.md`). All were
-repaired to approach-not-arrival with the receipt attached.
+(record §4.2a, §7.2's amendment blockquote, §10's Q1 bullet) and, on PR #1022,
+five in the round that produced this item (RESULT §0's sector declaration,
+§2.5's F5 TRIM bullet, §7's FLAG 5, the routing item
+`2026-08-25-autonomous-hb-lens-audit.md`, and the status note appended to
+`2026-08-25_autonomous-harmonic-balance-lens_RECORD.md`) — each repaired to
+approach-not-arrival with the receipt attached.
+
+> ⚑ **CORRECTED 2026-08-27 — that sweep was INCOMPLETE, and two claims that it
+> was complete were therefore false.** A later audit found **two more** sites on
+> PR #1022 carrying arrival-shaped wording: **RESULT §3/F8's own A5 sentence**
+> (*"the stall is a numerical failure **at the clip**, not a result"* — three
+> lines below the same block's *"still just short of the clip"*), and **RESULT
+> §5's charter-disposition row for A5** (*"break **at** the kernel's declared
+> clip"*). Both are now repaired to approach-not-arrival with the receipt
+> attached, bringing PR #1022's total to **seven**.
+>
+> **The two false completeness claims, named:** (i) this paragraph's own *"All
+> were repaired"*, corrected above; and (ii) commit **`74b04ec9`**'s message,
+> *"After this commit every clip-domain statement on the branch agrees with
+> §3/F8's `A_max = 0.986728 < A_cap = 0.99`"* — which was **not** true when it
+> was written. That commit message stays as written (git is the audit trail);
+> **this note is its correction.** Both are the stranded-pointer class: a
+> completeness claim is a claim about a search, and neither search had covered
+> §3/F8's own prose or §5's disposition table.
 
 **Recorded because an earlier review note said PR #1020's twin passage had
 already been repaired and the branches therefore disagreed in precision. They
