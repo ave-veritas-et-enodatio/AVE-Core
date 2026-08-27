@@ -204,8 +204,8 @@ enantiomorphs, both readings, converged at $n = 24/36/48$ (`:42`–`:47`).
 
 ### §2.2 — The reading
 
-`[WALK]` **The electron cannot be defined by a property the vacuum lacks in
-KIND.** Persistence, handedness, and lattice topology are all *properties of
+`[WALK]` **The electron cannot be defined by a property the vacuum ALREADY HAS
+in KIND.** Persistence, handedness, and lattice topology are all *properties of
 empty space* in this framework. Every existence test built on one of them has a
 positive control that the vacuum passes.
 
