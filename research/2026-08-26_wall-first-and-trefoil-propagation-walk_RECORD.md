@@ -773,9 +773,14 @@ untraced consequence here.
 
 ### §5.2 — ★ SWEEP RESULT: canon already answers most of it. **STOOD DOWN TO A POINTER.**
 
-Per the arc's own discipline (§0: its two predecessors died for walking before
-sweeping), the corpus was swept before this section was written. **It answers
-three of the four moving parts.**
+Per the arc's own discipline — §0's *"A second reason, structural"*: every one
+of the four walks turned out, on verification, to be *"partly a rediscovery of
+something canon already carries"*, so **an arc that keeps rediscovering canon
+sweeps before it writes** — the corpus was swept before this section was
+written. **It answers three of the four moving parts.** *(This sentence
+previously read "§0: its two predecessors died for walking before sweeping"; §0
+labels that form false, so the attribution is moved to the surviving rationale.
+The predecessors' failure modes are neither of them a sweep failure.)*
 
 **(1) Reading (a) is correct, and the scale problem dissolves in one line of
 arithmetic.** `[CANON]`
@@ -969,7 +974,7 @@ and its own verification chain.
 
 | # | if this is found… | …then this dies |
 |---|---|---|
-| **K1** | The P2 solve does **not** run solely in channel 3 (W1-1) | **§1 dies entirely.** The channel diagnosis is then an explanation for a phenomenon with a different cause, and §0's "explained by the channel, not by solver failure" is withdrawn |
+| **K1** | The P2 solve does **not** run solely in channel 3 (W1-1) | **§1 dies entirely.** The channel diagnosis is then an explanation for a phenomenon with a different cause, and §1.1's *"It would be explained by **the channel**, not by solver failure"* (`:129-130`) is withdrawn |
 | **K2** | The §1 argument does not survive re-statement on the Axiom-5 bound-response footing (W1-3) | **§1 dies as a mechanism** and survives at most as a coincidence. "Right answer, dead premise" becomes "dead premise, unsupported answer" |
 | **K3** | The audit finds the walk's linear-branch no-scale argument is void in a saturating medium (W1-2) | **§1.1's core inference dies.** A soliton is a counterexample in the corpus's own idiom |
 | **K4** | The channel-4-has-no-wall-at-$r_{sat}$ carve holds AND the charge is on channel 4 (W3-3) | **§3.4's re-posed question dies as posed.** "Is there a wall" would then be the wrong question for $\mathcal{Q}$, and the arc's headline reframe fails on its own central observable |
