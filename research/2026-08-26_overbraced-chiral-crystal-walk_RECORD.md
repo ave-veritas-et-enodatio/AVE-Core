@@ -1016,12 +1016,14 @@ bonds**. Report `DOF`, `#C`, `rank`, `f = DOF − rank`, `s = #C − rank`,
   answer's sign flips between them** (§4.4c) — **run both, and say which is
   physically right**;
 - **the count is amplitude-INVARIANT away from the rail** (§4.2a) — do not sweep
-  amplitude expecting it to move. **The rail is the stated exception**: at
-  `S→0`, `Y→∞`, a compliance becomes a rigid constraint and the effective count
-  *can* change — but that is the kernel's declared clip domain
-  (`A_cap = 0.99` / `S_min = 0.05`) and exactly where every solver in the review
-  failed, so it is numerically unreachable, not a usable knob.
-  **[MEASURED-VERIFY-PASS]**
+  amplitude expecting it to move **[MEASURED-VERIFY-PASS]**. **The rail is the
+  stated exception**: at `S→0`, `Y→∞`, a compliance becomes a rigid constraint
+  and the effective count *can* change — but that is the kernel's declared clip
+  domain (`A_cap = 0.99` / `S_min = 0.05`) and exactly where every solver in the
+  review failed, so it is numerically unreachable, not a usable knob.
+  **[MEASURED-VERIFY-PASS / ASSEMBLY]** — the invariance is measured; the
+  rigid-constraint reading of the rail is an assembly, matching §4.2's own dual
+  tag on the same material.
 - **the `θ=0` eigenspace dimension is NOT this count** (§4.4d, §4.5). Do not
   conflate them.
 
