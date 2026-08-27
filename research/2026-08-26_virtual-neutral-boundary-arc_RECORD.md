@@ -375,6 +375,68 @@ citing §2 as support for "the electron's boundary is a virtual neutral" is
 citing the wrong half.
 
 ## §5 — Canon already carries the structure — in four unconnected places — and has the slot
+
+`[CANON]` The balanced-polyphase condition is **already written in the
+corpus**, four times, by four different lanes, none of them citing any other,
+and **never at the electron-wall site**.
+
+| # | site | what it says, verbatim | scope |
+|---|---|---|---|
+| 1 | `vol1/operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md:23` | *"`T_2` eigenvalue \| `−1`, triply degenerate"* | the `z=4` `K4` 4-port only |
+| 1b | same leaf, `:55` | *"Basis spans the traceless 3D subspace `{v : Σ_i v_i = 0}` — **for every excitation at one port, an equal and opposite excitation exists at some combination of other ports.**"* | **that IS the balanced-polyphase condition**, in canon, at equal admittance |
+| 2 | `common/relational-cancellation-identity.md:265, :268` | instance 1: *"`Γ_end = −1/3` **exactly, at ALL orders**"* under uniform grading; instance 3: *"a uniform impedance scale cancels in `Γ = (2−z)/z`"* | status **PROPOSED**; fenced *"must NEVER be cited as a step in deriving any value"* (`:229`) |
+| 3 | `vol6/period-2/carbon/ee-equivalent.md:12` | *"establishing a **perfectly canceled vacuum 'neutral' node** in the geometric center — structurally analogous to a **Wye (Y) ground**"* | the C-12 nucleus; `clm-sd04x4` solidity **0.30**, **do-not-build** |
+| 4 | `vol2/particle-physics/ch02-baryon-sector/proton-identification.md:158-167` | Grant's own 2026-08-23 Route C: *"a **virtual-neutral surface** pinned by the mutual frustration of the cage's saturated strain projections"* | registered **candidate ontology ONLY** — see the fence below |
+| 5 | `vol5/molecular-foundations/organic-circuitry/first-principles-bond-force-constants.md:110` | *"each interior node … is a 3-connected **WYE junction — a three-phase node**"*, and a heavy-heavy bond is *"a **balanced three-phase system**"* | every srs interior node, already |
+
+`[CANON]` **The generalization is what is new, not the structure.** Site 1
+proves the `−1` eigenvalue for the **`z=4` `K4` 4-port at equal admittance**.
+§2.1 extends it to **arbitrary `z` and arbitrary graded `Y`**, with the
+eigenspace correctly re-weighted to `{v : Σ_j Y_j v_j = 0}`. That extension is
+this arc's only genuinely new algebra, and it is a two-line proof.
+
+### 5.1 ⚑ The fence canon puts on site 4 — which the arc must honour `[CANON]`
+
+Grant's own Route C entry is **explicitly fenced**, verbatim:
+
+> *"Registered as a candidate ontology **ONLY**: the cold-geometry-into-saturated-core
+> conditional is **undischarged**, and **no neutrality/minimum-N argument may be
+> built on it** (both uses **adversarially refuted**, see the docket).
+> Discriminator: the `def-cf1srf` shape-forcing BVP."*
+> — `proton-identification.md:161-165`
+
+`[WALK]` This is the sharpest constraint on the whole arc, and it did not come
+from the dispatch brief — it came from reading the leaf. **A neutrality
+argument built on the virtual neutral has already been adversarially refuted
+once, in the baryon sector, four days ago.** Nothing in §2 discharges the
+`cold-geometry-into-saturated-core` conditional; §2 is *isolated-junction*
+algebra. The lepton-sector version of the same move must expect the same
+attack, and §10/§11 are written accordingly.
+
+### 5.2 And canon has the SLOT `[CANON]`
+
+`common/boundary-observables-m-q-j.md:56-63` enumerates **four boundary
+registers** and files the electron under register 1:
+
+> *"**AMPLITUDE LEVEL-SET** — Electron, Nucleus, Atom rows: the boundary is the
+> locus where the saturation amplitude hits threshold (`S(A)→0`, `Γ→−1`)"* (`:58`)
+> … *"(**BALANCE LOCUS** — the fourth register — appears at the *Solar* rung …
+> not tabulated here; cf. the hollow-vortex balance locus,
+> `hollow-vortex-binding.md:49`.)"* (`:61`)
+
+And `common/vocabulary-register.md:404` (`def-anat3s`) already banks the
+conjecture the move would discharge:
+
+> *"**(ii) the balance shell** (the `σ`-opposite-equal crossing, `≈ 1.6 ℓ_node`;
+> **CONJECTURED `≡` wall** per Ruling 6)"*
+
+`[WALK]` So the proposal in §7 is to **move a row between two registers canon
+already defines**, and to **discharge a conjecture canon already banked** — not
+to mint a category. `[OPEN]` But per caution 2, register 4's *own gloss*
+currently points at the pressure-balance object, so the move as stated is
+ambiguous until register 4 is split or unified. That ambiguity is the open
+item, not a detail.
+
 ## §6 — Where Grant's reading is SUPPORTED (seven places)
 ## §7 — Provenance of the incumbent, and one correction that must propagate
 ## §8 — The symmetric standard, both directions
