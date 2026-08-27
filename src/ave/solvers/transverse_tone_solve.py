@@ -112,7 +112,6 @@ import numpy as np
 from ave.solvers.harmonic_balance_srs import (
     build_bond_table,
     crossing_ports,
-    fit_two_waves,
     interface_two_port,
     signed_gamma,
 )
