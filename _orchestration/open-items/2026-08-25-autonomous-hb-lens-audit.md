@@ -17,7 +17,7 @@ discharged or partially discharged; both required checks were run.
 **Verdict: the existence criterion as posed is DEAD.** *"Does a nontrivial
 source-free solution exist"* cannot return NO — existence is generic
 (one-parameter families at `r_auto ~5e-15`, in every winding sector,
-delocalized across 45–85 % of the lattice, running continuously to `A→0` where
+delocalized across 54–85 % of the lattice, running continuously to `A→0` where
 they **are** the cold lattice's own linear eigenmodes). The lens is repairable
 **only as a SELECTION test, never as an EXISTENCE test**, and only with four
 additions named in the result doc's §6.

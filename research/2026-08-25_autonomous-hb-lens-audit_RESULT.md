@@ -15,7 +15,7 @@
 >
 > "Does a nontrivial source-free solution exist" cannot return NO. Existence is
 > generic: continuous one-parameter families at machine-zero residual
-> (`r_auto ~ 5e-15`), in **every** winding sector, **delocalized** across 45–85 %
+> (`r_auto ~ 5e-15`), in **every** winding sector, **delocalized** across 54–85 %
 > of the lattice, running continuously down to `A→0` where they **are** the cold
 > empty lattice's own linear eigenmodes.
 
@@ -877,7 +877,7 @@ Three sentences:
 1. **"Does a nontrivial source-free solution exist" is dead as a criterion.**
    Existence is generic: continuous one-parameter families at machine-zero
    residual (`r_auto ~5e-15`), in **every** winding sector, **delocalized**
-   across 45–85 % of the lattice, running continuously down to `A→0` where they
+   across 54–85 % of the lattice, running continuously down to `A→0` where they
    **are** the cold empty lattice's own linear eigenmodes.
 2. **The lens is repairable, but only if it stops being an existence test.** It
    needs all four of:

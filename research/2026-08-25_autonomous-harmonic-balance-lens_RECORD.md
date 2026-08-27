@@ -187,7 +187,7 @@ then twelve refuter votes plus a completeness-critic synthesis. **Result:**
 **Headline disposition: the existence criterion as posed is DEAD.** *"Does a
 nontrivial source-free solution exist"* cannot return NO — existence is generic
 (continuous one-parameter families at `r_auto ~5e-15`, in every winding sector,
-delocalized across 45–85 % of the lattice, running continuously to `A→0` where
+delocalized across 54–85 % of the lattice, running continuously to `A→0` where
 they **are** the cold lattice's own linear eigenmodes). The lens is repairable
 **only as a SELECTION test, never as an EXISTENCE test.** All seven charter
 items are discharged or partially discharged; the disposition table is §5 of the
