@@ -22,18 +22,28 @@ in here**, and are cited by document name only). The four walks collectively
 
 **The reason this record under-claims, stated first because it is the whole
 point.** This arc's two immediate predecessors were both walk-grade lenses, and
-**both died at audit on the step their author was least worried about**:
+**both were carried into audit on a step their author had flagged as safe — one
+verdict is PENDING, and one is a FLAG RAISED HERE.** (The flat form of this
+sentence, *"both died at audit"*, over-stated what this record can support; it is
+corrected here rather than in a later note.)
 
 - The **autonomous-HB lens** (`research/2026-08-25_autonomous-harmonic-balance-lens_RECORD.md`)
   put its own worry on A3 (*"the most load-bearing unverified step"*, §6) —
-  topology-preservation on the discrete solve. `[MEASURED-ELSEWHERE — the audit
-  result doc, forthcoming, is the authority on where it actually died; this
-  record does not characterize its verdict.]`
+  topology-preservation on the discrete solve. **Verdict PENDING as far as this
+  record is concerned.** `[MEASURED-ELSEWHERE — the audit result doc
+  (research/2026-08-25_autonomous-hb-lens-audit_RESULT.md) is FORTHCOMING and is
+  NOT in the repo at this record's base; it is the authority on where that lens
+  actually died, and this record does not characterize its verdict. Nothing here
+  may be read as reporting one.]`
 - The **electron-wall / saturation-tension reading** carried into this arc by
   the orchestrator (electron core at $A=\sqrt\alpha$, $S\approx0.996$, versus a
-  wall requiring $S\to0$) is flagged **in §3.5 below as probably a
-  three-surfaces-collapsed-into-one error** — an error on a step nobody in the
-  arc was worried about, because "the wall" was assumed to be one surface.
+  wall requiring $S\to0$) is flagged **in §3.6 below** as probably a
+  three-surfaces-collapsed-into-one error. **That is a flag raised in this
+  record, not a verdict returned by an audit** — §3.6 says in its own words that
+  it *"does NOT resolve it"*, and routes the adjudication to the in-flight
+  electron-wall sweep (§9). It is listed here because it is an objection to a
+  step nobody in the arc was worried about, since "the wall" was assumed to be
+  one surface.
 
 So the discipline applied here is: **the confident steps get the audit
 instructions, not the hedged ones.** §6's charter deliberately puts its
@@ -43,11 +53,11 @@ sharpest attack instructions on the claims this arc states most fluently
 **A second reason, structural.** Every one of the four walks turned out, on
 verification, to be **partly a rediscovery of something canon already carries**
 — in two cases carrying Grant's own prior ruling. That is recorded as a result
-(§3.6, §5), not smoothed away. An arc that keeps rediscovering canon is an arc
+(§3.8, §5), not smoothed away. An arc that keeps rediscovering canon is an arc
 whose novelty claim should start at zero.
 
 **And a third, load-bearing one.** Verification this session found **three
-places where canon contradicts or demotes this arc's own framing** (§1.3, §3.4,
+places where canon contradicts or demotes this arc's own framing** (§1.3, §3.10,
 §4.5). They are surfaced, not resolved (flag-don't-fix). One of them — the R40
 demotion of channel 3's band entry — **removes the premise WALK 1 argues
 from**, while leaving WALK 1's conclusion standing for a *different* reason.
@@ -58,8 +68,13 @@ That is the single most important thing in this document.
 
 ### §1.1 — The reading
 
-`[WALK]` **The whole P2 arc has been solving in the one channel that
-structurally cannot localize.**
+`[WALK]` **IF the P2 arc has been solving in channel 3, it has been solving in
+the one channel with no scale to localize at.** Stated conditionally on purpose.
+The antecedent is **unverified** — audit item **W1-1** — and the consequent is an
+argument about a *linear* branch having no scale, which §1.2 records is **not**
+claimed to be sufficient to forbid localization in a nonlinear medium (audit item
+**W1-2**). Both are listed as NOT-claimed at §1.2 below, and the headline may not
+assert what the next subsection disclaims.
 
 `[CANON]` The port register's four inherent channels
 ([`port-register.md`](../manuscript/ave-kb/common/port-register.md):47–50, §1)
@@ -348,8 +363,15 @@ bolted onto charge; it is **the dimensionality of the integral that defines
 it**. $\mathcal{J}$ sits in between and is half-integral, which is what a 2D
 winding under a double cover should be.
 
-`[WALK]` **So Grant's "projected strain" framing is literally right for
-$\mathcal{M}$ and wrong for $\mathcal{Q}$.** $\mathcal{M}$ *is* an integrated
+`[WALK]` **So the "projected strain" framing is literally right for
+$\mathcal{M}$ and wrong for $\mathcal{Q}$.** *(De-attributed 2026-08-26. This
+sentence previously credited the framing to Grant. No primary source for it was
+found: the only corpus hit for the phrase is
+`_orchestration/docket-entries/2026-08-06-rulings-decision-batch.md`:75, a Grant
+verbatim in a different context — the kernel-combine fork's local-vs-projected
+strain-field question — which is **not** this framing. Per the record's own
+Provenance discipline an unsourced Grant attribution is de-attributed rather than
+guessed at; the framing is the **orchestrator's**.)* $\mathcal{M}$ *is* an integrated
 strain excess over a volume — projection language is exact. $\mathcal{Q}$ is
 not a projection of anything; it is a **linking count**, and no amount of
 strain-projection produces an integer.
@@ -628,6 +650,31 @@ nonzero frequency when its wavevector is zero. Open-vs-closed (topology),
 gapless-vs-gapped (dispersion) and massless-vs-massive (kinematics) are then the
 same fact in three registers.
 
+**★ FLAG-DON'T-FIX — THIS PARAGRAPH COLLIDES WITH RATIFIED CANON THIS SAME
+RECORD QUOTES AT §5.2.** The table row above identifies **channel 4's gap
+$m_\omega$** as the electron's **rest energy**. That is the exact reading the
+Grant-ratified 2026-06-20 sector re-scope **re-scoped away from**, quoted
+verbatim at **§5.2(2)**: *"the $T_2$/$\omega$ gap is the **FLYWHEEL frequency /
+clock gap** … re-scoped from '**the** rest mass.' The rest-mass *store* is the
+orthogonal **A1 longitudinal DILATATION** … **mass itself stays A1.**"* And
+**§5.2(3)** locates the rest energy somewhere else again — canonically at the
+**bond-pair LC tank at saturation onset**, Virially split between L and C, *"not
+in a channel gap at all"*, with `l3-electron-soliton-synthesis.md`:118 calling it
+*"structural, not predicted"*. `[CANON]`
+
+`[OPEN]` **Surfaced, not resolved.** Three readings are live and this record
+picks none: (i) §4.5's identification is simply wrong on the ratified
+assignment, and the gap sets the *clock* that sets the mass rather than being
+the mass — which is §5.2(2)'s own wording (*"the flywheel regulates the
+frequency that SETS the mass via Compton"*); (ii) §4.5 and §5.2 are talking about
+the same number under two ownerships, in which case **§5.3 R-3's identity-class
+tag rides** and neither may be headlined as emergence; (iii) the $T_2/\omega$ vs
+channel-4 labelling question of **§5.3 R-2** is unsettled, so it is not even
+established that §4.5's "channel 4" and §5.2's "$T_2/\omega$" name the same
+object. **Routing: audit item W4-6.** Also note the sector-ownership rule this
+record already quotes at §1.1 — *"MASS (A1) $\perp$ CHARGE/spin (T2) — never one
+phasor"* — which is the canon line §4.5's table row runs against.
+
 **★ CANON CONTRADICTS THE NESTING FRAMING (flag-don't-fix).** `[CANON]`
 [`wall-taxonomy.md`](../manuscript/ave-kb/common/wall-taxonomy.md):157 already
 carries multiple simultaneous $\Gamma$s on one object — but **per CHANNEL at
@@ -835,6 +882,7 @@ most likely to be where it dies.
 | **W4-2** | ★ "A $\Gamma=-1$ mirror wrapped in a $\Gamma=0$ envelope" — two $\Gamma$s at two RADII | CANON | canon's structure for multiple $\Gamma$s on one object is **per-channel at ONE surface** (`wall-taxonomy.md`:157), not radial nesting. Are these the same claim? If not, which is right? The walk asserts the nesting fluently and never checked |
 | **W4-3** | The trefoil is *re-registered* on successive bond-pairs; the orbit does not move | MECHANISM | there is **no mechanism** here, only a name. What enforces phase continuity across the hand-off? What does it cost? Is it representable on the shipped machinery at all? Treat "re-registration" as an unexplained primitive until shown otherwise |
 | **W4-4** | ★ LIVE CORPUS CONTRADICTION: matched (`peierls-nabarro-paradox.md`:12) vs *"permanent macroscopic Impedance Mismatch ($\Gamma=-1$) to the linear vacuum"* (`de-broglie-standing-wave.md`:52) | CANON, flag-don't-fix | both on `origin/main`. The PN parenthetical (match-for-translation / $\Gamma=-1$-for-confinement) is the *candidate* reconciliation, but the de-Broglie line is explicitly about **motion**. Do not smooth either. Route with the R40-B2a debt |
+| **W4-6** | ★ §4.5 identifies **channel 4's gap as the rest energy**; §5.2(2)'s Grant-ratified 2026-06-20 re-scope says the $T_2/\omega$ gap is the **FLYWHEEL clock gap** and *"mass itself stays A1"*, and §5.2(3) puts the rest energy at the **bond-pair LC tank at saturation onset**, *"not in a channel gap at all"* | CANON, flag-don't-fix | **Two sections of this record disagree, and the one that loses is the one quoting ratified canon.** Adjudicate which of the three readings at §4.5's ★ flag holds. Carry **§5.3 R-2** (is $T_2/\omega$ the same object as channel 4?) and **§5.3 R-3** (both canonical answers are IDENTITY-class) into the answer. Do **not** repair §4.5 by re-scoping it silently — the collision is the finding |
 | **W4-5** | open/closed ≡ gapless/gapped ≡ massless/massive is "one statement three ways" | PHYSICS | this is the arc's prettiest sentence, which is a reason to distrust it. Is the equivalence forced, or is it three true statements that happen to line up on two examples? Find a third case (the neutrino? the muon? a $T_2$ shear mode?) and see whether the triple still closes |
 | **W5-1** | §5's sweep is complete enough to stand the section down | SWEEP | **re-run the sweep by a second method.** Grep-completeness false-negatives are a known failure mode here; a "canon already answers it" verdict from one search is a claim about the pattern, not the corpus. Specifically re-check R-2 (the $T_2/\omega$ vs channel-4 labelling vintage), which was NOT established this session |
 
@@ -901,8 +949,17 @@ diagnosis.**
 - It **does not adjudicate** any of the forks it surfaces: the three-surfaces /
   saturation-tension question (§3.6), the near-yield dissipative-vs-reversible
   fork (§3.7), the cross-grade kernel-combine fork (§3.10), the matched-vs-
-  mismatched electron-translation contradiction (§4.5), or the R40-B2a bulk
-  re-derivation debt (§1.3, §5.2).
+  mismatched electron-translation contradiction (§4.5), the §4.5-vs-§5.2
+  rest-energy-channel collision (W4-6), or the R40-B2a bulk re-derivation debt
+  (§1.3, §5.2).
+  **⚠ One exception, named rather than hidden:** §3.5 **does** return a verdict —
+  *"the 'projected strain' framing is literally right for $\mathcal{M}$ and wrong
+  for $\mathcal{Q}$"* — on a question nobody routed to it. It is `[WALK]`-graded
+  and its own `[OPEN]` rider says the walk cannot distinguish "the dimension
+  forces the integer" from "the topology forces the integer and the dimension
+  labels it" (audit item **W3-2**), so the verdict is **not load-bearing** — but
+  "adjudicates nothing" is not literally true of this record and should not be
+  quoted as though it were.
 - It **does not resolve** the retraction in §3.3 by substitution. The retracted
   question is preserved; §3.4 is a differently-framed question, not a repair.
 - It **carries no engine output.** No solver was run, no driver was executed,
@@ -939,13 +996,23 @@ solver, which is cheap, and which would settle whether §1 has a subject.
 
 ## Provenance and honesty statement
 
-**Grant-attributed content, verbatim and complete:** §3.1 (*"yes, but what are
-the properties of the wall we can measure on the electron?"*) and §4.1 (*"how
-would the trefoil's phase space tube propagate vs the photon?"*). The 2026-08-03
-sentence quoted in §3.8 (*"There can still be a gradient toward the wall vs the
-wall itself"*) is Grant's but is **quoted from canon**
+**Grant-attributed content — the complete list, and it is now complete:** §3.1
+(*"yes, but what are the properties of the wall we can measure on the electron?"*)
+and §4.1 (*"how would the trefoil's phase space tube propagate vs the photon?"*),
+both verbatim `[sic]` from this session. The 2026-08-03 sentence quoted in §3.8
+(*"There can still be a gradient toward the wall vs the wall itself"*) is Grant's
+but is **quoted from canon**
 ([`wall-taxonomy.md`](../manuscript/ave-kb/common/wall-taxonomy.md):129), not
 from this conversation.
+
+**★ CORRECTION 2026-08-26 — the "complete" claim was false when written.** §3.5
+carried a **fourth** Grant attribution — a quoted *"projected strain"* framing —
+with **no cite and no `[sic]`**, which is exactly what this statement asserted
+did not exist. It has been **de-attributed to the orchestrator** at its own site
+rather than sourced: the only corpus hit for the phrase is
+`_orchestration/docket-entries/2026-08-06-rulings-decision-batch.md`:75, a Grant
+verbatim about the kernel-combine fork's local-vs-projected strain fields, which
+is a different question. **No Grant quote was guessed at.**
 
 **Everything else is orchestrator walk-level**, tagged `[WALK]` at its own site.
 
