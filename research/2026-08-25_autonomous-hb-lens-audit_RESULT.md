@@ -52,7 +52,9 @@ no KB leaf edited, no solidity moved, no register touched.
 
 **Sector declaration.** MODE numerical-lens-audit · REGIME driven-to-saturated
 (`A_bond` swept `0 → 0.95`, `S(A)` down to `0.31`; the kernel's clip domain
-`A_cap=0.99 / S_min=0.05` is reached and is where every solver failed) ·
+`A_cap=0.99 / S_min=0.05` is **approached but never entered** — every solver
+failed on the approach, the furthest reaching `A_max = 0.986728` against
+`A_cap = 0.99`, §3/F8) ·
 PHASE-STATE cold-through-saturated, no yield · CHANNEL **scalar / A1-adjacent
 longitudinal ONLY** — the T2/Cosserat channel is not wired in
 (`src/ave/solvers/harmonic_balance_srs.py:146-149`, verbatim: *"The T2/Cosserat
@@ -392,9 +394,10 @@ in §2.1 and are not repeated. What changes from the filing:
   drive amplitude in exactly the same way. This is a **G2-prereg requirement**,
   not a cost of adopting the lens.
 - **TRIM the "one family" wording.** Warm-started continuation runs `||v||`
-  `2.0 → 8.5` (`A_max → 0.950373`), then Picard stops converging where `A_max`
-  crosses the kernel's `A_cap=0.99 / S_min=0.05` clip
-  (`src/ave/core/crystal_engine.py:63-64`, `:192-195`), and `||v|| = 10.25 →
+  `2.0 → 8.5` (`A_max → 0.950373`), then Picard stops converging on the APPROACH
+  to the kernel's `A_cap=0.99 / S_min=0.05` clip
+  (`src/ave/core/crystal_engine.py:63-64`, `:192-195`) — at `A_max = 0.986728`,
+  still just short of the clip and never across it — and `||v|| = 10.25 →
   10.5` is a **second, distinct continuum** at `θ ≈ 2.334`. At least two
   continua with a solver-breakdown gap. **This strengthens the conclusion** —
   more branches, less selection — and it is also where F8 lives (§3).
@@ -1039,9 +1042,10 @@ where the eigenvalues sit.** Maxwell–Calladine is a **connectivity** count.
 amplitude-**invariant**. Measured confirmation: the `λ=+1` block stays exactly
 34-dimensional from `A=0` through a random graded field. The **only** place
 bracing could change the effective count is the rail, where `S→0` and `Y→∞` (a
-compliance becoming a rigid constraint) — and that is **exactly** the kernel's
-declared clip domain (`A_cap=0.99 / S_min=0.05`) and **exactly** where every
-solver in this review failed (F8). **So the reframe's selection point, if it
+compliance becoming a rigid constraint) — and that is the kernel's declared clip
+domain (`A_cap=0.99 / S_min=0.05`), which **no solver in this review entered**:
+every one died on the approach, the furthest reaching `A_max = 0.986728` against
+`A_cap = 0.99` (F8, §3). **So the reframe's selection point, if it
 exists at all, sits precisely at the numerically-unreachable boundary that F8
 showed to be a kernel-clip artifact rather than established physics.**
 Determining whether `A→1` is physics or the clip is a **prerequisite** for the
