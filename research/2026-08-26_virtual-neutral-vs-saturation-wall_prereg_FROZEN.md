@@ -804,7 +804,77 @@ amplitude-arm datum**, because $K_{\text{amp}} \equiv 0$ there for both ontologi
 mechanism finding about the instrument. It is not `INCONCLUSIVE` (which is a statement about the
 solve) and it is not `ARTIFACT` (which is a statement about the surface).
 
-## §7 — THE NON-TRIVIALITY GATE *(placeholder)*
+## §7 — THE NON-TRIVIALITY GATE — guard (e), and the live silent-zero trap it closes
+
+### §7.1 — The trap, verified at source on this branch
+
+`solve_tone(a_nodes, conn, theta, term=None, ...)` (`harmonic_balance_srs.py:534-541`) returns
+$\lVert v\rVert = 0$ with `converged=True` and `residual_rel = 0.0`. **Mechanism, read off the
+shipped code and reproduced:**
+
+1. With `term=None`, `_term_mask` returns an all-`False` mask (`:527-532`) and `v_s` stays all
+   zeros (`:565-567`).
+2. So the right-hand side is $b = M(v_s)\!\mid_{\text{free}} = \mathbf 0$ (`:572`).
+3. `lgmres(A, b, x0=x_init, rtol=tol, atol=0.0, ...)` (`:600`) is then called with $b=\mathbf 0$.
+   **SciPy's iterative solvers short-circuit on $\lVert b\rVert = 0$ and return the zero vector
+   with `info = 0`, DISCARDING any `x0`.** Reproduced on the installed SciPy 1.15.3: a call with
+   $b=\mathbf 0$ and a non-zero `x0` returns $\lVert x\rVert = 0.0$, `info = 0`.
+4. `residual_rel` is then $0 / \max(0, 10^{-300}) = 0$ (`:606`), and `converged` is
+   `bool(info == 0)` = **`True`** (`:612`).
+
+**This is why $\theta$ being an INPUT matters** (`:534-537`): with no drive, the system is
+**homogeneous**, and the warm-start path (`:586-597`) cannot rescue it because its only product is
+`x_init`, which `lgmres` discards at step 3. **Warm-starting at the exact true ring mode still
+returns zero.**
+
+**The module's only `term=None` disclosure covers a DIFFERENT function.** The
+`SCAFFOLD-ABSENT BRANCH` note at `:805-815` sits in `source_idle_report`'s docstring (that function
+is defined at `:787`) and is about *that* function returning literal zeros for
+`source_amp`/`exchange_amp`/`P_in`/`P_out`. **`solve_tone` carries no such note.**
+
+**Provenance, stated honestly.** The label *"FL-4"* for this trap is **lane-local and unregistered
+in the corpus** — `grep` across the tree returns **zero** hits for it in this sense; the only
+registered `FL-4` is an unrelated $K_4$-homonym flag at
+`research/2026-08-24_solver-crosscheck-phase0_requirements.md:385`. **The MECHANISM above is
+verified at source and reproduced; the LABEL is not a corpus object.** It is routed in §11.
+
+**The canonical statement of the rule**, verified verbatim on this branch at
+[`_orchestration/docket-entries/2026-08-25-ruling-r58-g2-decisions.md`](../_orchestration/docket-entries/2026-08-25-ruling-r58-g2-decisions.md) §4:
+*"**Mandatory regardless:** a **non-triviality gate** — "converged" is not "non-zero" (the lane
+produced a converged trivial solution that would have read as a result)."*
+
+### §7.2 — The gate, frozen. All four parts, on EVERY tone of EVERY configuration, evaluated BEFORE any $\beta$ is computed.
+
+| # | assertion | rationale |
+|---|---|---|
+| **NT-1** | $\lVert v^{(m)}\rVert > 10^{-6}\cdot s$ for every tone $m$, with $s$ the configuration's drive scale | A literal zero fails. The bound scales with the drive so it is a **relative** floor, not an absolute one that a small-drive rung could trip innocently. |
+| **NT-2** | `term is not None` **and** `len(term.ports) > 0`, asserted at the call site | **`term=None` is FORBIDDEN on the physics path.** This closes step 1 of §7.1 structurally. |
+| **NT-3** | $\lVert$`term.drive[m]`$\rVert > 0$ for every tone, asserted, **and** $\lVert b\rVert > 0$ asserted immediately after the RHS is formed | This is the assertion that makes SciPy's $\lVert b\rVert = 0$ early-return branch **unreachable**. It is placed on $b$ itself, not on a proxy. |
+| **NT-4** | `converged == True` **AND** `residual_rel` $< 10^{-8}$ **AND** $\lVert v\rVert > 0$ | **`converged` alone is never accepted** (R58 §4). Three conjuncts, because the trap satisfies the first and the third-with-zero simultaneously. |
+
+**Any NT failure routes to `INCONCLUSIVE` (bin 0). Never to a bin 2/3/4 verdict.**
+
+### §7.3 — The both-directions receipt (mandatory; the gate must be seen to fire)
+
+**FL4-FIXTURE.** On the z=2 ring fixture (`build_ring_net(12)`, §5.1), the driver runs the
+identical pipeline **twice**:
+
+1. **`term=None`** — and asserts **NT-1, NT-2 and NT-3 all FAIL**, with the returned
+   $\lVert v\rVert$ recorded as literally `0.0` and `converged` recorded as `True`. **This is the
+   receipt that the trap is real and that the gate catches it.**
+2. **warm-started at the exact ring mode** `ring_mode(12, m)` with `term=None` — and asserts the
+   result is **still** $\lVert v\rVert = 0$. **This is the receipt that a warm start does not
+   rescue it**, which is the part of the trap that would otherwise look like a safe workaround.
+
+**Neither fixture run may appear in any bin, on any carrier, for any purpose other than this
+receipt.** The ring's own carrier tag (`"ring-z2-fixture"  # known-case fixture, NOT a physics
+carrier`) binds this.
+
+**Anti-tautology property, stated explicitly.** The FL4-FIXTURE does **not** encode this lane's
+branch shape, live line numbers, or its own key bytes: it calls the shipped `solve_tone` and reads
+the shipped `ToneSolution` fields. If a future change to `solve_tone` removed the trap, part 1's
+assertion would fail — **which is the correct behaviour for a fixture that measures a defect** and
+is recorded here so that failure is read as "the defect is gone", not as "the gate is broken."
 
 ## §8 — WHAT WOULD FALSIFY THE VIRTUAL-NEUTRAL READING *(placeholder)*
 
