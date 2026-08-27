@@ -67,7 +67,25 @@ is a **bond-graph hop count**, never a Cartesian radius — `build_bond_table`'s
 this: *"Canonical (min,max)-keyed undirected-bond tables from the net's own neighbor lists (**never
 a Cartesian distance posit**)"* (`harmonic_balance_srs.py:262-264`).
 
-## §0.5 — GUARD DISCHARGE (a)–(e) *(placeholder)*
+## §0.5 — GUARD DISCHARGE (a)–(e), by name
+
+Five guards ride this arc. Each is named here with where it is discharged; each is a
+**pass/fail check with a criterion** in §6, not a reassurance.
+
+| guard | what it polices | discharged at |
+|---|---|---|
+| **(a) SECTOR HEADER on every claim** | `wall-taxonomy.md:160` — a claim missing channel/axis/phase-state is not yet a claim about a wall | **§0** (document-wide) + **gate SEC-1** (§6) |
+| **(b) THE STRUCTURAL-NULL TRAP** | `harmonic_balance_srs.py:191-195` — *"any null obtained through a per-node broadcast is an artifact, not a result"* | **§4.2** (in $\beta$'s definition, by construction) + **gate BCAST-1** (§6) + **bin A4** |
+| **(c) THE $\alpha$-ECHO TRAP** | the engine's radiative leak is literally `1.0 - alpha`; re-deriving 137 from the loaded port is adjudicated CIRCULAR, *"do NOT pose it"* | **gate ALPHA-1** (§6) + **§4.7** |
+| **(d) FREEZE + INSTRUMENT FENCE** | `harmonic_balance_srs` self-declares INSTRUMENT-GRADE INFRASTRUCTURE that *"mints no physics claims"* | **the freeze statement** + **§5** frozen geometry + **gate FENCE-1** (§6) |
+| **(e) THE SILENT-ZERO TRAP** | `solve_tone(..., term=None)` returns $\lVert v\rVert = 0$ with `converged=True`; *"converged" is not "non-zero"* | **§7** (the non-triviality gate) + **bin 0** |
+
+**⚑ Guard (b) is the one that bites this arc directly, and it is why $\beta$ is defined the way it
+is.** The entire content of the §2 finding is that **uniform grading cancels identically**. A
+broadcast-induced null would look **exactly** like a virtual neutral. So $\beta$ is built to be
+**invariant under a per-node uniform $Y$ rescale** (§4.2), which makes a broadcast structurally
+incapable of producing a $\beta$ null; BCAST-1 and bin A4 then catch the case where the *converged*
+$A$ field happens to be uniform at the null anyway.
 
 ## §1 — THE QUESTION, stated so it can return NO
 
@@ -667,7 +685,124 @@ design defect and is reported as one, not tuned.
 For each of the 3 seeds and each of the 2 envelope modes: the MODE arm runs the 4 tone sets at $s=1.0$ (4 solves), and the AMPLITUDE arm runs T_A at the 3 amplitude rungs inside `solve_self_consistent` (3 solves). Plus, per seed, one cold empty-vacuum control and one z=2 fixture run. **Every cell is run; no cell is dropped on the basis of what another cell
 returned.**
 
-## §6 — THE FIVE GUARDS AS PRE-REGISTERED CHECKS *(placeholder)*
+## §6 — THE FIVE GUARDS AS PRE-REGISTERED CHECKS
+
+**Every gate below is machine-evaluated and its result is REPORTED whether it passes or fails.
+UNRUN ≠ PASSED.** A gate that cannot be shown to fire in both directions is not a gate.
+
+### GATE SEC-1 — guard (a), the sector header
+
+**Check.** The result document's every numbered claim carries the §0 triple (channel, axis,
+phase-state) or an explicit pointer to it, and the driver's JSON stamps
+`{"channel": "scalar-shunt", "axis": "node-voltage-balance", "phase_state": <"cold"|"graded">}`
+on **every** configuration record.
+**PASS.** Every configuration record carries all three fields, and the `phase_state` field is
+COMPUTED from the converged $A$ field (`"cold"` iff $\max A_{\text{bond}} < 10^{-12}$), never
+declared.
+**FAIL.** Any record missing a field, or any record whose declared `phase_state` contradicts the
+computed one. → the run is **VOID**, not binned. *(A gate that consumes a self-declared field is a
+checklist, not a gate — so this one reconciles the label against the computed truth and a
+contradiction is a FAIL.)*
+
+### GATE BCAST-1 — guard (b), the structural-null trap
+
+**Check.** Two parts, both required.
+1. **NON-BROADCAST BY CONSTRUCTION.** The driver asserts that the converged $A_{\text{bond}}$ field
+   has $\mathrm{std}(A_{\text{bond}}) / \mathrm{mean}(A_{\text{bond}}) > 10^{-6}$ globally — the
+   grading is genuinely spatial, not a uniform level.
+2. **NON-BROADCAST AT THE NULL.** At every node $u \in \mathcal N$, the driver asserts that the
+   three incident port admittances are **not** equal to within $10^{-12}$ relative.
+**PASS.** Both assertions hold on every configuration.
+**FAIL.** Either fails → **bin A4, `ARTIFACT`**.
+**BOTH-DIRECTIONS RECEIPT (mandatory).** A mutation fixture runs the identical pipeline with a
+deliberately **per-node-uniform** $Y$ field and asserts BCAST-1 **FAILS** on it. *A gate that has
+never been seen to fire is not evidence.*
+
+### GATE ALPHA-1 — guard (c), the $\alpha$-echo trap
+
+**The adjudication being honoured, quoted verbatim from canon** and verified on this branch at
+[`device-circuit-models.md:207`](../manuscript/ave-kb/vol9/ch3-pin-port-configuration/device-circuit-models.md):
+*"The tempting follow-up — 'derive the loaded $Q=1/\alpha$ from the EM-port admittance' — is
+**ADJUDICATED CIRCULAR (do NOT pose it):** the engine's radiative leak is literally `1.0 - alpha`
+… = the instrument-echo trap … **no $\alpha$-free path to $137$.**"*
+
+**Check.** Three parts.
+1. **$\alpha$-FREE BY CONSTRUCTION.** A test asserts the driver module imports **no** $\alpha$
+   symbol — not `ALPHA`, not `ALPHA_COLD_INV`, not `Q_TANK` — and that no emitted number in the
+   results JSON is within $10^{-6}$ relative of $\alpha$, $1-\alpha$, $\sqrt\alpha$,
+   $\sqrt{1-\alpha}$, $\alpha^{-1}$ or $\alpha^{-3}$.
+2. **NO $|\Gamma|^2$-TO-$\alpha$ MAP.** The driver computes **no** quantity of the form
+   $1 - |\Gamma|^2$ and the result document contains **no** sentence mapping residual imbalance
+   onto $\alpha$ in any form.
+3. **THE FORBIDDEN SENTENCE, NAMED.** *"the wall falls short of unity by $\alpha$"* — and any
+   paraphrase — **may not appear in the result document.** It is named here explicitly because it
+   is exactly the number this arc would most like to explain, and because naming it is the only
+   way the prohibition can be checked rather than intended.
+**PASS.** All three hold.
+**FAIL.** Any fails → the run is **VOID**, not binned.
+
+**★ Why this gate has real work to do.** $\beta$'s ceiling and the level-set ceilings of §2.5 both
+sit in the neighbourhood of numbers that $\alpha$-adjacent quantities also occupy. **The gate is
+not decorative: the whole design is one coincidence away from an instrument echo, and the defence
+is that $\beta$ is $\alpha$-free by construction (pure linear algebra on $Y$ and $v$), not that
+anyone intends to be careful.**
+
+### GATE FENCE-1 — guard (d), the freeze and the instrument fence
+
+**The fence being honoured:** `harmonic_balance_srs` self-declares **INSTRUMENT-GRADE
+INFRASTRUCTURE** that *"mints no physics claims"*. This lane consumes it as an instrument and mints
+nothing through it.
+
+**Check.**
+1. **FREEZE-BY-PUSH.** This document's frozen content SHA is recorded in its own freeze commit and
+   the branch is pushed **before** any driver file exists in the tree. Verified by `git ls-remote`,
+   **never** by a push exit code.
+2. **FROZEN GEOMETRY.** Every §5 value enters the driver by named constant, and a test asserts the
+   driver contains no numeric literal for carrier size, tone, amplitude, seed, $\tau_\beta$, or
+   either key edge outside the frozen constant block.
+3. **NO ENGINE TOUCH.** The lane modifies **no** file under `src/ave/`. Verified by diff at PR.
+**PASS.** All three.
+**FAIL.** Any → the run is **VOID**.
+
+### GATE LOC-1 — the §3.1 instrument receipt (the LOCAL control)
+
+**Check.** On the run's **own** converged $Y$ field, at every node of every configuration:
+$\max\bigl|\operatorname{spec}(S_u) - \{+1\}\cup\{-1\}^{z-1}\bigr| < 10^{-12}$ and
+$\bigl|\operatorname{tr}S_u - (2-z)\bigr| < 10^{-12}$.
+**PASS.** Both, everywhere. **This is an instrument receipt and it is NOT evidence for either
+ontology** (§3.3).
+**FAIL.** → the run is **VOID** — the shipped operator is not the operator §2 characterised.
+
+### GATE AMP-1 — the §4.3 structural precondition on the amplitude arm
+
+**Check.** Every amplitude-arm datum comes from a `solve_self_consistent` call whose outer loop
+reports `converged=True` and $\ge 2$ outer iterations, **and** the achieved $\max A_{\text{bond}}$
+increases monotonically across $s = 1.0, 3.0, 10.0$.
+**PASS.** Both.
+**FAIL.** Either → **bin A6, `ARTIFACT`**. **A single linear tone solve can never supply an
+amplitude-arm datum**, because $K_{\text{amp}} \equiv 0$ there for both ontologies by linearity.
+
+### GATE SEP-1 — the §4.2 threshold-resolution receipt
+
+**Check.** $\mathrm{sep} \ge 10$ (O3) on every configuration; the value is REPORTED for each.
+**FAIL.** → **bin A3, `ARTIFACT`**.
+
+### §6.1 — Gate summary table
+
+| gate | guard | failure routes to |
+|---|---|---|
+| SEC-1 | (a) | VOID |
+| BCAST-1 | (b) | `ARTIFACT` (A4) |
+| ALPHA-1 | (c) | VOID |
+| FENCE-1 | (d) | VOID |
+| NT-1…NT-4 (§7) | (e) | `INCONCLUSIVE` (bin 0) |
+| LOC-1 | §3.1 | VOID |
+| AMP-1 | §4.3 | `ARTIFACT` (A6) |
+| SEP-1 | §4.2 | `ARTIFACT` (A3) |
+
+**VOID ≠ a bin.** A VOID run interprets nothing, produces no verdict, and is reported as a
+mechanism finding about the instrument. It is not `INCONCLUSIVE` (which is a statement about the
+solve) and it is not `ARTIFACT` (which is a statement about the surface).
 
 ## §7 — THE NON-TRIVIALITY GATE *(placeholder)*
 
