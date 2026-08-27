@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **aabc2a6c** (2026-08-26) · 468 index records · 331 claims · 2 PRs open
+Scanned tree **277557fa** (2026-08-27) · 468 index records · 331 claims · 7 PRs open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`a3f4fef7`). Every count below describes **aabc2a6c**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`a3f4fef7`). Every count below describes **277557fa**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -30,7 +30,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## What we are waiting on
 
-**45 of 78 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
+**45 of 79 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
 
 *Scope: this is a census of `open-items/`. `_orchestration/2026-07-10_rulings-docket.md` is the **paper timeline** — a dated continuation log, frozen at its 2026-07-21 tail per `docket-entries/README.md`, and the historical record of how each ruling was reached. It is read chronologically, not harvested; anything still live in it belongs here as its own file.*
 
@@ -104,6 +104,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [G2 freeze decisions — the four calls that must be frozen before the P2 existence solve runs](open-items/2026-08-25-g2-freeze-decisions.md) | OPEN | grant | 2026-08-25 |
 | [The storage clock and the response clock are the same number exactly — canon's 1.4e-5 near-collision is a linearization artifact](open-items/2026-08-25-storage-response-clock-identity.md) | OPEN | grant | 2026-08-25 |
 | [Charter A2 was discharged by ONE lane the verify phase never re-tested — prior-art retrieval and the clause-Q verdict both carry single-lane standing](open-items/2026-08-26-a2-prior-art-standing.md) | OPEN | lane | 2026-08-26 |
+| [Known-imperfect and deliberately-untouched — the closing inventory for the three 2026-08-26 walk/audit records](open-items/2026-08-27-repair-round-residuals.md) | OPEN | lane | 2026-08-27 |
 | [Sibling-repo debts — AVE-Fusion yield cross-wire + AVE-Bench-FemtoElectrometer stale sites](open-items/2026-07-03-sibling-repo-debts.md) | REGISTERED | unassigned | 2026-07-03 |
 | [The v3 ringdown instrument — the DISCRETE near-wall chain](open-items/2026-08-04-v3-ringdown-instrument.md) | REGISTERED | unassigned | 2026-08-04 |
 | [Hygiene backlog — Bell-arc citation follow-ups, FPR provenance re-grep, auditor-landing queue](open-items/2026-07-03-hygiene-backlog.md) | QUEUED | unassigned | 2026-07-03 |
@@ -136,6 +137,11 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 | PR | state | title |
 |---|---|---|
+| #1026 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] infra: Rule-12 append-only GATE (fr |
+| #1025 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: the virtual-neutral bound |
+| #1024 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] engine: BUILD-EO1-T2X — tone-solve  |
+| #1023 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: FROZEN prereg — virtual n |
+| #1022 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: the autonomous-HB lens au |
 | #1021 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: the wall-first reframe +  |
 | #1020 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: the over-braced-chiral-cr |
 
