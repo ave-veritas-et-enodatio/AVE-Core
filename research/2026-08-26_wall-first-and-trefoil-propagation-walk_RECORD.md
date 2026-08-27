@@ -773,11 +773,11 @@ untraced consequence here.
 
 ### §5.2 — ★ SWEEP RESULT: canon already answers most of it. **STOOD DOWN TO A POINTER.**
 
-Per the arc's own discipline — §0's *"A second reason, structural"*: every one
-of the four walks turned out, on verification, to be *"partly a rediscovery of
-something canon already carries"*, so **an arc that keeps rediscovering canon
-sweeps before it writes** — the corpus was swept before this section was
-written. **It answers three of the four moving parts.** *(This sentence
+Per the arc's own discipline — §0's *"A second reason, structural"* records
+that every one of the four walks turned out, on verification, to be *"partly a
+rediscovery of something canon already carries"*, and **this section's response
+to that is to sweep the corpus before it writes** — the corpus was swept before
+this section was written. **It answers three of the four moving parts.** *(This sentence
 previously read "§0: its two predecessors died for walking before sweeping"; §0
 labels that form false, so the attribution is moved to the surviving rationale.
 The predecessors' failure modes are neither of them a sweep failure.)*
