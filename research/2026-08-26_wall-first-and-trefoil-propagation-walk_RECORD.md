@@ -674,7 +674,8 @@ $m_\omega$** as the electron's **rest energy**. That is the exact reading the
 Grant-ratified 2026-06-20 sector re-scope **re-scoped away from**, quoted
 verbatim at **§5.2(2)**: *"the $T_2$/$\omega$ gap is the **FLYWHEEL frequency /
 clock gap** … re-scoped from '**the** rest mass.' The rest-mass *store* is the
-orthogonal **A1 longitudinal DILATATION** … **mass itself stays A1.**"* And
+orthogonal **A1 longitudinal DILATATION** … **mass itself stays A1.**"*
+**(emphasis added, as disclosed at §5.2(2).)** And
 **§5.2(3)** locates the rest energy somewhere else again — canonically at the
 **bond-pair LC tank at saturation onset**, Virially split between L and C, *"not
 in a channel gap at all"*, with `l3-electron-soliton-synthesis.md`:118 calling it
@@ -758,7 +759,8 @@ arithmetic.** `[CANON]`
 [`dama-alpha-slew-derivation.md`](../manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md):33,
 verbatim: *"the identity $\nu_{Compton} = m_e c^2/h$ holds because
 $\ell_{node} = \hbar/(m_e c)$ **by canonical AVE construction — the substrate
-spacing IS the electron reduced Compton wavelength**."* Same identity at
+spacing IS the electron reduced Compton wavelength**."* **(emphasis added —
+the source sets that whole parenthetical in plain text.)** Same identity at
 [`cosserat-mass-gap.md`](../manuscript/ave-kb/vol1/axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md):143
 and [`claim-quality.md`](../manuscript/ave-kb/claim-quality.md):202.
 `[WALK]` Therefore $\hbar\,m_\omega \sim \hbar c/\ell_{node} = \hbar c \cdot
@@ -785,7 +787,10 @@ since 2026-06-20.** `[CANON]`
 > orthogonality** (**A1 $\perp$ T2**). **The flywheel regulates the *frequency*
 > that SETS the mass via Compton $f = mc^2/\hbar$ → A1 depression depth**
 > (lepton tower: more torsion → faster flywheel → deeper A1 depression → more
-> mass); **mass itself stays A1.**"*
+> mass); **mass itself stays A1.**"* **(emphasis added on "The flywheel
+> regulates the *frequency* that SETS the mass … → A1 depression depth" and on
+> "mass itself stays A1." — the source sets both sentences in plain text,
+> italicising only "frequency that SETS" inside the first.)**
 
 `[WALK]` That is, word for word, the arc's guessed resolution: **mass is a
 configuration of the A1 sector (the depression depth), and the frequency that
@@ -794,7 +799,9 @@ ruling from two months earlier. Recorded as a result, per §0.
 
 **Rider that must ride** `[CANON]` `:151`: *"mass = A1" is
 **RATIFIED-CONSISTENCY** … the adjudicated grade-**ASSIGNMENT**, **NOT
-driver-validated**. **No driver discriminates A1-mass from T2-mass.**"* — and
+driver-validated**. **No driver discriminates A1-mass from T2-mass.**"*
+**(emphasis added on "ASSIGNMENT", which the source capitalises but sets in
+plain text; the remaining bolds in this quote are the source's own.)** — and
 that leaf's own §4 Verlet driver attributes the gap to the $T_2/\omega$ sector,
 i.e. the *other* side.
 
