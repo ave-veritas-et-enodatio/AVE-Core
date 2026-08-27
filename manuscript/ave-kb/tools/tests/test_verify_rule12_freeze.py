@@ -365,7 +365,18 @@ def test_backfill_touches_nothing_but_appends_a_stamp():
         repo.mkdir()
 
         def git(*a):
-            return mod.git_out(["-c", "user.email=t@example.invalid", "-c", "user.name=t", *a], repo)
+            # commit.gpgsign=false: a global `commit.gpgsign = true` makes every
+            # fixture commit die with "gpg failed to sign the data", which is a
+            # property of the developer's machine and not of the gate.
+            return mod.git_out(
+                [
+                    "-c", "user.email=t@example.invalid",
+                    "-c", "user.name=t",
+                    "-c", "commit.gpgsign=false",
+                    *a,
+                ],
+                repo,
+            )
 
         git("init", "-q", "-b", "t")
         # A trailing DOUBLE SPACE (a Markdown hard break) and a trailing TAB,
@@ -399,6 +410,71 @@ def test_backfill_touches_nothing_but_appends_a_stamp():
         assert not mod.scan(repo, cfg, ["rec.md"]).failures
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
+
+
+def test_second_arm_sees_what_the_gating_detector_cannot():
+    """The NON-GATING blind-spot arm, checked in BOTH directions.
+
+    A one-directional test here would be worthless: an arm that flags everything
+    also flags the two shapes below. So this asserts the arm fires on the two
+    families AND stays silent on a note the gating detector already recognises.
+    """
+    mod = _load()
+    text = (
+        "# Rec\n"
+        "\n"
+        "body line\n"
+        "\n"
+        "> **FIX 2031-01-01 (Rule 12 -- the body above is preserved verbatim).** Reason.\n"
+        "\n"
+        "> **FIX 2031-01-02.** Per Rule 12 this correction is appended and the\n"
+        "> body above is preserved unedited.\n"
+        "\n"
+        "> **FIX 2031-01-03 (Rule 12).** The claim body is preserved verbatim.\n"
+    )
+    notes = mod.find_notes("rec.md", text)
+    wrapped, directionless, guarded = mod.find_blind_spot_candidates("rec.md", text, notes, [])
+
+    # The single-line note IS recognised by the gating detector...
+    assert [n.line for n in notes] == [5], [n.line for n in notes]
+    # ...so the arm must NOT re-report it.
+    assert 5 not in {n.line for n in wrapped} | {n.line for n in directionless}
+
+    # (A) the marker on :7 and the direction on :8 -- invisible to the detector.
+    assert [n.line for n in wrapped] == [7], [(n.line, n.text) for n in wrapped]
+    # (B) ":10 names no direction, so it can never be stamped (`region` has no value).
+    assert [n.line for n in directionless] == [10], [(n.line, n.text) for n in directionless]
+    assert guarded == 0
+
+
+def test_coverage_measures_the_gap_the_stamp_does_not_cover():
+    """`stamp_coverage` must report LESS than the span when the run is short.
+
+    The claim this replaced was that consecutive tiles "cover every byte between
+    the oldest note and the newest, exactly once". Both directions are asserted:
+    a stamp that covers its whole span reports no gap, and one that covers part
+    of it reports the shortfall -- so a function hard-wired to either answer
+    fails here.
+    """
+    mod = _load()
+    note = "> **FIX (Rule 12 -- the body above is preserved verbatim).** r"
+    text = "a\nb\nc\nd\n" + note + "\ne\nf\n" + note + "\n"
+    notes = mod.find_notes("rec.md", text)
+    assert [n.line for n in notes] == [5, 8]
+
+    full = mod.Stamp(
+        path="rec.md", line=8, base="0" * 40, region="above",
+        offset=0, lines=2, nbytes=4, sha="0" * 64,
+    )
+    span, covered = mod.stamp_coverage(text, [full], notes)
+    assert (span, covered) == (2, 2), (span, covered)
+
+    short = mod.Stamp(
+        path="rec.md", line=8, base="0" * 40, region="above",
+        offset=0, lines=1, nbytes=2, sha="0" * 64,
+    )
+    span, covered = mod.stamp_coverage(text, [short], notes)
+    assert (span, covered) == (2, 1), (span, covered)
 
 
 if __name__ == "__main__":

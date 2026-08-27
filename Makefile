@@ -98,7 +98,7 @@ help:
 	@echo "  make verify-inter-repo-links : Same, but broken inter-repo links also gate (inter-repo: error)"
 	@echo "  make verify-provenance-stamps : Check research/ provenance stamps carry a resolvable artifact reference (baseline-gated)"
 	@echo "  make verify-frozen-provenance : Check research/ result-doc Frozen-label criteria appear byte-identically in the lane prereg (date-gated)"
-	@echo "  make verify-rule12-freeze : Rule-12 append-only GATE — every freeze stamp still matches its base commit + every prose Rule-12 note carries a stamp (gating; runs its mutation receipt)"
+	@echo "  make verify-rule12-freeze : Rule-12 append-only GATE — every freeze stamp still matches its base commit + every note the DETECTOR RECOGNISES carries a stamp; prints its own blind-spot counts and stamp coverage (gating; runs its mutation receipt)"
 	@echo "  make verify-lane-number-checks : Run EVERY research/drivers/*_number_check.py (auto-discovered) + each one's mutation receipt (gating)"
 	@echo "     ...one checker only : make verify-lane-number-checks LANE_CHECK_FILTER=<script-stem>   (e.g. LANE_CHECK_FILTER=srs_twist_coefficient_number_check)"
 	@echo "     legacy per-lane aliases (frozen set, kept for corpus cites): $(LEGACY_LANE_CHECK_ALIASES)"
@@ -434,7 +434,7 @@ verify-frozen-provenance:
 verify-rule12-freeze:
 	@echo "\n[Verify] Rule-12 append-only gate: mutation receipt (proving the gate can fire AND stay quiet)..."
 	$(PYTHON) $(KB_TOOLS_DIR)/verify-rule12-freeze.py --mutation-receipt
-	@echo "\n[Verify] Rule-12 append-only gate: freeze stamps vs their base commits + unstamped-note detector..."
+	@echo "\n[Verify] Rule-12 append-only gate: freeze stamps vs their base commits + unstamped-note detector (a green run states what it PROVED, not a universal — read its OK block)..."
 	$(PYTHON) $(KB_TOOLS_DIR)/verify-rule12-freeze.py
 
 # =============================================================================

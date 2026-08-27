@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Rule-12 append-only GATE: machine freeze stamps + unstamped-note detector.
+# NOTE: the module docstring is a RAW string. It quotes regexes verbatim, and a
+# bare `\.` inside a non-raw docstring is an invalid escape sequence (a
+# DeprecationWarning today, a SyntaxError later) -- while doubling the backslash
+# to silence it would print a regex a reader cannot paste.
+r"""Rule-12 append-only GATE: machine freeze stamps + unstamped-note detector.
 
 Rule 12 is the corpus's append-only discipline. Once a record is merged its body
 is FROZEN; a correction is made by APPENDING a dated note, never by editing the
@@ -75,10 +79,23 @@ So the stamp carries all three and the check is EXACT, not tolerant:
 Requiring all three is not belt-and-braces for its own sake -- it makes a red
 gate DIAGNOSTIC instead of merely loud. The mismatch pattern names the failure:
 
-    lines match, bytes differ                -> a within-line edit above the boundary
-    lines differ                             -> a line inserted into / deleted from the region
-    lines match, bytes match, sha differs    -> an equal-length substitution
+    bytes differ                             -> BYTE-EXTENT DRIFT: a within-line
+                                                edit inside the region, or the
+                                                window sliding because lines
+                                                moved on the stamp's other side
+    fewer lines exist than `lines`           -> FROZEN REGION TRUNCATED: lines
+                                                are GONE from the frozen body
+    bytes match, sha differs                 -> HASH MISMATCH: an equal-length
+                                                substitution
     all three match, base blob disagrees     -> the stamp's base SHA is wrong/tampered
+
+  A NOTE ON WHAT THE CHECKER CANNOT SAY. An earlier version of this table
+  offered a "lines differ" row. There is no such signal and there cannot be: the
+  checker reads EXACTLY ``lines`` lines on the declared side (``region_bytes``),
+  so the extracted line count is fixed by construction. A line inserted into or
+  deleted from the region surfaces as BYTE-EXTENT DRIFT plus HASH MISMATCH (the
+  window slid), or as TRUNCATED if the file ran short -- never as a line-count
+  disagreement. The two rows above are the two that actually fire.
 
 A gate that can only say "hash mismatch" invites the reader to assume the stamp
 rotted. One that can say "42 lines both sides, 3 bytes shorter, first difference
@@ -143,13 +160,63 @@ neighbour's stamp.
 WHERE THE STAMP GOES, AND THE MEASUREMENT THAT FORCED IT
 ---------------------------------------------------------
 The stamp is APPENDED TO THE END OF THE NOTE'S OWN LINE -- never inserted as a
-new line. That is not a style preference. This corpus cites by line number:
-measured over every tracked file at the time of writing, **17,012 `path:NN`
-line-cites** point into 2,749 Markdown targets. A backfill that inserted one
-stamp line per note would have shifted the target line of **7,273 of them**
-(6,787 inside `manuscript/ave-kb/` alone; worst single file 2,260 lines of
-shift). An append-only gate whose own installation silently invalidates seven
-thousand citations is not a gate, it is a corpus-wide cite-rot event.
+new line. That is not a style preference: this corpus cites by line number, and
+a backfill that inserted one stamp line per note would shift the target line of
+every cite below each note.
+
+THE MOTIVATING FIGURES, AND THEIR PROVENANCE, STATED HONESTLY. An earlier
+version of this paragraph asserted **17,012** ``path:NN`` line-cites into
+**2,749** Markdown targets, of which **7,273** would have shifted. Those numbers
+were measured at authoring time by a script this PR **does not ship**, so as
+written they were not reproducible from anything here -- which is the same
+defect as an unstamped freeze note: a claim with no way to re-run it.
+
+The method, stated inline so it can be re-run and so its choices are visible::
+
+    regex      ([A-Za-z0-9_./-]+\.md):([0-9]+)   over every tracked file
+    resolution exact repo-relative path first; else unique basename match;
+               else the tracked path with `raw` as a suffix
+    shift      a cite counts as shifted if its line is at or below the first
+               Rule-12 note line in its target
+
+Re-run that way on the tree carrying this file, the totals come out in the order
+of **16k cites into 1.4k targets with roughly 3.9k would-shift** -- materially
+different from the figures above, in every column. The difference is the
+RESOLUTION RULE, not the corpus: a stricter or looser basename policy moves the
+totals by thousands. **Neither set of figures is adopted here as fact, and no
+exact count is written into this docstring on purpose** -- the regex above
+matches text inside this very block, so any edit here perturbs the census that
+describes it. A number that changes when its own explanation is reworded is a
+number that goes stale silently, which is the failure this whole file is about.
+
+One-liner, so the claim is re-runnable rather than trusted::
+
+    python3 - <<'EOF'
+    import re, subprocess
+    from pathlib import Path
+    md = {p for p in subprocess.check_output(['git','ls-files'],text=True).split() if p.endswith('.md')}
+    by = {}
+    for p in md: by.setdefault(Path(p).name, []).append(p)
+    C = re.compile(r'([A-Za-z0-9_./-]+\.md):([0-9]+)')
+    n = 0; tgt = set()
+    for p in subprocess.check_output(['git','ls-files'],text=True).split():
+        try: t = Path(p).read_text(encoding='utf-8')
+        except Exception: continue
+        for raw, _ln in C.findall(t):
+            c = raw if raw in md else None
+            if c is None:
+                l = by.get(Path(raw).name)
+                if l and len(l) == 1: c = l[0]
+                elif l: c = next((x for x in l if x.endswith(raw)), None)
+            if c: n += 1; tgt.add(c)
+    print(n, len(tgt))
+    EOF
+
+WHAT DOES NOT DEPEND ON ANY OF THEM. The design choice needs no cite census at
+all: appending to the note line inserts NO line, so **zero** line numbers move,
+whatever the census says. That is provable from the backfill's own behaviour and
+is asserted by a test (the writer moves no line number). The figures were only
+ever motivation for a choice that is correct without them.
 
 Appending to the note line moves NOTHING: not one line number in the corpus
 changes. The line that grows is the NOTE -- the newest, correction-carrying
@@ -230,8 +297,20 @@ SCOPE HONESTY -- what this gate CANNOT catch
     DETECTED at stamping time and routed -- but a stamp minted today can only
     freeze today's bytes forward. It cannot restore what was already lost.
   * **A note whose prose avoids every surveyed phrasing.** A freeze asserted in
-    wording no corpus record has ever used is not recognised. The survey is
-    reported (``--census``) so the recognised set stays auditable.
+    wording no corpus record has ever used is not recognised.
+  * **A note the detector's LINE-BASED, DIRECTION-REQUIRED shape excludes.** Two
+    families, both real and both measured on every run by the NON-GATING second
+    arm (``find_blind_spot_candidates``): notes WRAPPED across two lines, and
+    notes naming NO DIRECTION. ``--census`` lists both, alongside the
+    out-of-enforced-scope census. (An earlier docstring cited ``--census`` as the
+    auditability escape hatch for the recognised phrasings; it never listed
+    those, and with ``enforced_globs = ["*.md"]`` its original list is
+    structurally empty. Repointing it at the UN-recognised set is what makes the
+    sentence true.)
+  * **Every line inside the coverage gap.** A stamp certifies the longest
+    contiguous unchanged run inside its tile -- not the tile and not the record
+    -- so the stamps cover materially less than the span they sit in. The scan
+    measures and prints the shortfall on every run.
   * **A stamp whose ``base`` is a commit that itself already carried the drift.**
     The gate proves body-at-HEAD == body-at-base. If base is chosen after the
     damage, both sides agree and the gate is green on a corrupted body. This is
@@ -244,8 +323,11 @@ SCOPE HONESTY -- what this gate CANNOT catch
     neighbouring note), while Rule 12 doctrinally freezes EVERY merged body.
     The wider surface is deliberately reported rather than gated: the corpus
     demonstrably repairs merged bodies (link and path repairs, status markers),
-    125 such edits are in the drift survey, and a gate that went red on all of
-    them from day one would be switched off within a week.
+    125 such edits are in the drift survey
+    (``research/2026-08-26_rule12-drift-candidates.json``, owned and queued at
+    ``_orchestration/open-items/2026-08-27-rule12-drift-survey.md``), and a gate
+    that went red on all of them from day one would be switched off within a
+    week.
   * **A file another gate BYTE-PINS.** One record (see the allow-list) cannot
     carry a stamp at all, because another lane pins its blob hash. Its body is
     guarded by that pin instead -- stricter, but not a Rule-12 gate.
@@ -508,6 +590,128 @@ def find_notes(path: str, text: str) -> list[Note]:
         if NOTE_MARKERS.search(probe) and DIRECTIONAL_ASSERTION.search(probe):
             out.append(Note(path, i, probe.rstrip()))
     return out
+
+
+#: Nouns a freeze assertion binds its preservation verb to when it names no
+#: direction: *"the body is preserved"*, *"claim text unedited"*. Used ONLY by
+#: the non-gating second arm below -- never by the gating detector, because a
+#: note with no direction cannot be stamped at all (``region`` has no value).
+BODY_NOUNS = (
+    r"(?:body|bodies|text|wording|prose|section|sections|paragraph|paragraphs"
+    r"|record|content|claim|entry|table|block|line|lines|sentence|sentences)"
+)
+DIRECTIONLESS_ASSERTION = re.compile(
+    rf"(?:{PRESERVE_VERBS}{_GAP}{BODY_NOUNS})|(?:{BODY_NOUNS}{_GAP}{PRESERVE_VERBS})",
+    re.IGNORECASE,
+)
+
+
+def find_blind_spot_candidates(
+    path: str, text: str, notes: list[Note], stamps: list[Stamp] | None = None
+) -> tuple[list[Note], list[Note], int]:
+    """The two families the GATING detector structurally cannot see. NON-GATING.
+
+    This arm exists because the summary line used to say *"every Rule-12 prose
+    note in enforced scope is served by a stamp"*, and that is not a statement
+    the gating detector can support. The detector recognises a note only when a
+    Rule-12 marker and a DIRECTIONAL preservation assertion land on ONE line.
+    Two families are therefore invisible to it by construction, and an invisible
+    family is a hole; a family that prints its own size every build is a queue.
+
+    **(A) WRAPPED.** Markdown wraps. When the marker is on line *i* and the
+    direction word lands on line *i+1*, the pair reads as a freeze note to a
+    human and as nothing at all to the detector.
+
+    **(B) DIRECTIONLESS.** A preservation verb bound to a BODY NOUN with no
+    direction anywhere on the line -- *"the claim body is preserved verbatim"*.
+    These cannot be stamped even in principle (``region`` would have no
+    defensible value), so they are not a backlog of missing stamps; they are a
+    backlog of notes whose AUTHOR has to say which way the body lies.
+
+    **What this arm is NOT.** It is not a defect count. Family (B) is dominated
+    by MENTIONS of the rule -- *"commit dccdc63e, all bodies preserved"* -- which
+    assert nothing about bytes in the file they sit in. That is exactly why the
+    gating detector requires a direction, and it is why this arm reports
+    CANDIDATES for triage and never fails a build. Both families are listed by
+    ``--census``.
+    """
+    known = {n.line for n in notes}
+    probes = [STAMP_RE.sub("", line) for line in text.splitlines()]
+    wrapped: list[Note] = []
+    directionless: list[Note] = []
+    guarded_lines: set[int] = set()
+    for st in stamps or []:
+        a, b = st.region_span
+        guarded_lines |= set(range(a, b + 1))
+    for i, probe in enumerate(probes, 1):
+        if i in known:
+            continue
+        if not NOTE_MARKERS.search(probe):
+            continue
+        # (A) the pair completes across the line break. BOTH orders are checked:
+        #     Markdown wraps wherever the column runs out, so the marker may sit
+        #     on either side of the break. An earlier version checked only
+        #     marker-then-direction and reported materially fewer; the ones it
+        #     missed were all direction-then-marker. No count is written here on
+        #     purpose -- the run PRINTS the measured number, and a number in a
+        #     comment is a number that goes stale silently.
+        hit = False
+        for other in (i, i - 2):          # 0-based indices of line i+1 and line i-1
+            if not (0 <= other < len(probes)):
+                continue
+            if (other + 1) in known:
+                continue
+            first, second = (probe, probes[other]) if other == i else (probes[other], probe)
+            joined = first.rstrip() + " " + second.lstrip()
+            if (
+                DIRECTIONAL_ASSERTION.search(joined)
+                and not DIRECTIONAL_ASSERTION.search(probe)
+                and not (
+                    NOTE_MARKERS.search(probes[other])
+                    and DIRECTIONAL_ASSERTION.search(probes[other])
+                )
+            ):
+                wrapped.append(Note(path, min(i, other + 1), joined.strip()))
+                hit = True
+                break
+        if hit:
+            continue
+        # (B) an assertion with no direction on the line at all.
+        if not re.search(DIRECTION_WORDS, probe, re.IGNORECASE) and DIRECTIONLESS_ASSERTION.search(
+            probe
+        ):
+            directionless.append(Note(path, i, probe.strip()))
+    n_guarded = sum(1 for n in wrapped + directionless if n.line in guarded_lines)
+    return wrapped, directionless, n_guarded
+
+
+def stamp_coverage(text: str, stamps: list[Stamp], notes: list[Note]) -> tuple[int, int]:
+    """(body lines between the oldest and newest note, lines a stamp covers).
+
+    THE MEASUREMENT THAT RETIRED A FALSE CLAIM. Two comments in the backfill
+    used to say consecutive notes' tiles *"cover every byte between the oldest
+    note and the newest, exactly once"*. They do not, and the gap is not small.
+    The backfill caps each tile at the neighbouring note and then takes the
+    LONGEST CONTIGUOUS UNCHANGED RUN inside that tile (``_longest``) -- because
+    a tile that has drifted anywhere cannot be frozen whole. So:
+
+        the stamp certifies the longest contiguous unchanged run inside each
+        tile. It does NOT certify the tile, and it does not certify the record.
+
+    Everything the run stops short of is uncovered, and an in-place rewrite
+    there is green. This function measures that gap so the number is printed
+    rather than assumed, on every run.
+    """
+    if not stamps or not notes:
+        return (0, 0)
+    note_lines = {n.line for n in notes}
+    lo, hi = min(note_lines), max(note_lines)
+    body = set(range(lo, hi + 1)) - note_lines
+    covered: set[int] = set()
+    for st in stamps:
+        a, b = st.region_span
+        covered |= set(range(a, b + 1))
+    return (len(body), len(body & covered))
 
 
 def find_stamps(path: str, text: str) -> tuple[list[Stamp], list[str]]:
@@ -911,10 +1115,24 @@ class ScanReport:
     n_notes_served: int = 0
     n_notes_allowed: int = 0
     census_unstamped: list[Note] = None  # type: ignore[assignment]
+    #: NON-GATING second arm (see ``find_blind_spot_candidates``).
+    wrapped_candidates: list[Note] = None  # type: ignore[assignment]
+    directionless_candidates: list[Note] = None  # type: ignore[assignment]
+    #: NON-GATING coverage measurement (see ``stamp_coverage``).
+    n_span_lines: int = 0
+    n_covered_lines: int = 0
+    n_coverage_files: int = 0
+    #: how many blind-spot candidates happen to sit inside SOME stamp's region
+    #: (i.e. are guarded by accident rather than by being recognised).
+    n_blind_spot_guarded: int = 0
 
     def __post_init__(self) -> None:
         if self.census_unstamped is None:
             self.census_unstamped = []
+        if self.wrapped_candidates is None:
+            self.wrapped_candidates = []
+        if self.directionless_candidates is None:
+            self.directionless_candidates = []
 
 
 def _dirs(note: Note) -> str:
@@ -949,6 +1167,20 @@ def scan(repo: Path, cfg: Config, paths: list[str] | None = None) -> ScanReport:
         # (b) every prose note must be served by a stamp
         notes = find_notes(rel, text)
         rep.n_notes += len(notes)
+
+        # (c) NON-GATING: the two families the gating detector cannot see, and
+        #     the measured coverage of what the stamps actually certify. Both
+        #     exist so the summary line can state what was PROVEN rather than a
+        #     universal the detector does not support.
+        wrapped, directionless, n_guarded = find_blind_spot_candidates(rel, text, notes, stamps)
+        rep.wrapped_candidates.extend(wrapped)
+        rep.directionless_candidates.extend(directionless)
+        rep.n_blind_spot_guarded += n_guarded
+        span, covered = stamp_coverage(text, stamps, notes)
+        if span:
+            rep.n_span_lines += span
+            rep.n_covered_lines += covered
+            rep.n_coverage_files += 1
         enforced = cfg.enforced(rel)
         for n in notes:
             if enforced:
@@ -1010,9 +1242,35 @@ def report(rep: ScanReport, cfg: Config, census: bool) -> int:
             f"invisible is a hole; one that prints its own size every build is a queue. "
             f"Run with --census to list it."
         )
+    n_wrapped = len(rep.wrapped_candidates)
+    n_dirless = len(rep.directionless_candidates)
+    print(
+        f"{TAG} detector blind spots (NON-GATING, candidates for triage): "
+        f"{n_wrapped} wrapped across two lines, {n_dirless} with no direction word. "
+        f"The gating detector needs a Rule-12 marker AND a directional preservation "
+        f"assertion on ONE line; neither family can satisfy that. Run with --census to list "
+        f"both. Of those {n_wrapped + n_dirless} candidate(s), {rep.n_blind_spot_guarded} "
+        f"sit inside some stamp's frozen region -- guarded by accident, not by being "
+        f"recognised. The directionless family is dominated by MENTIONS of the rule, not by "
+        f"freeze assertions -- it is a triage queue, not a defect count."
+    )
+    if rep.n_span_lines:
+        gap = rep.n_span_lines - rep.n_covered_lines
+        pct = 100.0 * rep.n_covered_lines / rep.n_span_lines
+        print(
+            f"{TAG} stamp coverage: {rep.n_covered_lines} of {rep.n_span_lines} body line(s) "
+            f"between the oldest and newest note, across {rep.n_coverage_files} file(s) "
+            f"({pct:.1f}%); {gap} line(s) inside those spans are covered by NO stamp and an "
+            f"in-place edit there is GREEN. A stamp certifies the longest contiguous "
+            f"UNCHANGED run inside its tile -- not the tile, and not the record."
+        )
     if census:
         for n in rep.census_unstamped:
             print(f"{TAG} census   {n.path}:{n.line}  {n.text.strip()[:160]}")
+        for n in rep.wrapped_candidates:
+            print(f"{TAG} census-wrapped        {n.path}:{n.line}  {n.text.strip()[:160]}")
+        for n in rep.directionless_candidates:
+            print(f"{TAG} census-directionless  {n.path}:{n.line}  {n.text.strip()[:160]}")
     for p in cfg.pending_on_landing:
         print(
             f"{TAG} pending  {p.get('path')} -- {p.get('reason')} "
@@ -1022,9 +1280,30 @@ def report(rep: ScanReport, cfg: Config, census: bool) -> int:
     if rep.failures:
         print(f"{TAG} {len(rep.failures)} finding(s) -- the append-only invariant is NOT proven.")
         return 1
+    # WHAT THIS LINE MAY SAY, AND WHY IT NO LONGER SAYS "EVERY".
+    #
+    # It used to read: "every freeze stamp's region is byte-identical to its base
+    # commit, and every Rule-12 prose note in enforced scope is served by a stamp."
+    # The first half is true. The second half was a universal over a set the
+    # DETECTOR defines, stated as if it were a universal over the corpus -- and the
+    # detector is line-based and direction-required, so two whole families of real
+    # freeze notes are outside it (printed above). A green run proves something
+    # narrower and it should say so, with the method attached, because a reader who
+    # believes the old sentence stops looking.
+    gap = rep.n_span_lines - rep.n_covered_lines
     print(
-        f"{TAG} OK -- every freeze stamp's region is byte-identical to its base commit, "
-        f"and every Rule-12 prose note in enforced scope is served by a stamp."
+        f"{TAG} OK -- what this run PROVED, stated as a measurement and not as a universal:\n"
+        f"{TAG}   1. all {rep.n_stamps} freeze stamp(s) present in the tree have regions "
+        f"byte-identical to their base commits;\n"
+        f"{TAG}   2. all {rep.n_notes_enforced} prose note(s) THE DETECTOR RECOGNISED in "
+        f"enforced scope are served by a stamp or allow-listed;\n"
+        f"{TAG}   3. those stamps cover {rep.n_covered_lines} of {rep.n_span_lines} body "
+        f"line(s) between each file's oldest and newest note -- {gap} line(s) are covered by "
+        f"no stamp.\n"
+        f"{TAG}   METHOD: a note is recognised only when a Rule-12 marker and a DIRECTIONAL "
+        f"preservation assertion fall on ONE line. BLIND SPOTS, measured above and listed by "
+        f"--census: notes wrapped across two lines; notes naming no direction; any phrasing "
+        f"the survey never saw; and every line inside the {gap}-line coverage gap."
     )
     return 0
 
@@ -1084,9 +1363,22 @@ def main(argv: list[str] | None = None) -> int:
 #      that matched is what is PROVABLY still frozen -- which may be less than
 #      the note claims. The stamp records the run, not the claim.
 #   4. Cap the walk at the neighbouring Rule-12 note, so consecutive notes TILE
-#      the record instead of overlapping: each note guards the body between it
-#      and its neighbour, and every byte between the oldest note and the newest
-#      is covered by exactly one stamp.
+#      the record instead of overlapping: each note's tile is the body between it
+#      and its neighbour, and no two tiles intersect.
+#
+#      WHAT A STAMP THEREFORE CERTIFIES -- and this is NARROWER than the tiling,
+#      which two earlier comments here got wrong by saying the stamps "cover
+#      every byte between the oldest note and the newest, exactly once":
+#
+#          the stamp certifies the LONGEST CONTIGUOUS UNCHANGED RUN inside its
+#          tile. NOT the tile. NOT the record.
+#
+#      Step 3 stops at the first difference, so a tile that drifted anywhere
+#      yields a stamp over only the run that survived. Everything the run stops
+#      short of is UNCOVERED, and an in-place edit there is green. That gap is
+#      real and large, not a rounding error: the scan MEASURES it and PRINTS it
+#      on every run (see `stamp_coverage`), rather than leaving a reader to
+#      infer coverage from a sentence.
 #
 # When the walk stops SHORT of the cap, the difference is CLASSIFIED rather than
 # assumed, because two very different things can stop it:
@@ -1228,15 +1520,21 @@ def derive_stamps(
     note_idx = {m - 1 for m in other} | {note.line - 1}   # 0-based note lines
     for direction in directions:
         # THE TILE is the primary range: from this note to its neighbour on the
-        # given side. That is what the note's own prose is about, it is bounded,
-        # and consecutive notes' tiles PARTITION the record -- together they
-        # cover every byte between the oldest note and the newest, exactly once.
+        # given side. That is what the note's own prose is about, and it is
+        # bounded. Consecutive tiles do not OVERLAP -- but they are not what the
+        # stamp certifies either: `_longest` below narrows each tile to the
+        # longest contiguous unchanged run inside it, so the stamps cover LESS
+        # than the tiling and strictly less than the record. The shortfall is
+        # measured and printed by `stamp_coverage`; it is not assumed away here.
         #
         # A maximal freeze (this note's whole side of the file) would be
         # DOCTRINALLY correct -- Rule 12 freezes every merged body, not just the
         # paragraph a note points at -- and is deliberately NOT the default. The
         # corpus demonstrably repairs merged bodies (link and path repairs,
-        # status markers): 125 such edits are in the drift survey. A gate that
+        # status markers): 125 such edits are in the drift survey, which is
+        # ROUTED at _orchestration/open-items/2026-08-27-rule12-drift-survey.md
+        # -- it was previously referenced only from this tool's own config, so a
+        # survey carrying a confirmed live violation had no owner. A gate that
         # went red on all of them from day one would be switched off in a week,
         # and a switched-off gate protects nothing. So the tile is the claim,
         # and the wider edits are REPORTED rather than gated.
@@ -1503,8 +1801,24 @@ FIXTURE_CONT = "\n## 3. Follow-up\n\nBench two repeated the sweep at 800 Hz.\n"
 
 
 def _fx_git(tmp: Path, *args: str) -> str:
+    """git in a throwaway fixture repo, with the developer's own config neutralised.
+
+    ``commit.gpgsign = true`` is a perfectly ordinary global setting, and under it
+    every ``git commit`` in these fixtures dies with ``error: gpg failed to sign
+    the data`` -- an unhandled ``GitError`` traceback out of ``--mutation-receipt``,
+    which ``make verify`` runs on every build. The receipt would then be red on a
+    machine where the gate itself is fine. Signing a fixture commit that is deleted
+    seconds later buys nothing, so it is turned off explicitly here rather than
+    left to whatever the machine happens to have set.
+    """
     return git_out(
-        ["-c", "user.email=receipt@example.invalid", "-c", "user.name=receipt", *args], tmp
+        [
+            "-c", "user.email=receipt@example.invalid",
+            "-c", "user.name=receipt",
+            "-c", "commit.gpgsign=false",
+            *args,
+        ],
+        tmp,
     )
 
 
