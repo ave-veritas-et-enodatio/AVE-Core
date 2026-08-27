@@ -314,9 +314,10 @@ property, and "localized rotational state" names an interior microrotation
 profile. `[CANON]` The observability rule at `:37` lists as invisible, verbatim,
 *"interior eigenmode wavelengths, microrotation profiles"*; `[WALK]` **mapping
 the retracted question's two nouns onto two of those four items is this record's
-own reading, not a canon statement.** It is **retracted on those grounds**, per Rule 12: the wording is
-preserved above, and it is not being replaced by silently re-scoping it. §3.4
-is a *different* question with a *new* framing, not a repair of this one.
+own reading, not a canon statement.** It is **retracted on those grounds**, per
+Rule 12: the wording is preserved above, and it is not being replaced by
+silently re-scoping it. §3.4 is a *different* question with a *new* framing, not
+a repair of this one.
 
 `[OPEN]` **What the retraction does NOT settle:** whether interior questions
 are illegitimate *as engine diagnostics* (they are clearly useful for debugging
@@ -867,11 +868,11 @@ that the sweep did *not* find answered:
   G2 relabel note says the photon is the transverse-**translational** $u$ pair,
   *"NOT the microrotational $\omega$."* (**Cite re-anchored 2026-08-26** — the
   bare `:145` read as `port-register.md`:145, which is a MIXED-BIN disclosure on
-  the `:49` row and not the G2 note.) Whether *"$T_2/\omega$"* in the mass-gap leaf and *"channel 4
-  (micro-rot.)"* in the port register are the same object under two labelling
-  vintages was **not** established this session. If they are not, §5.2(2)'s
-  identification of the arc's guess with the ratified ruling is weaker than it
-  reads.
+  the `:49` row and not the G2 note.) Whether *"$T_2/\omega$"* in the mass-gap
+  leaf and *"channel 4 (micro-rot.)"* in the port register are the same object
+  under two labelling vintages was **not** established this session. If they are
+  not, §5.2(2)'s identification of the arc's guess with the ratified ruling is
+  weaker than it reads.
 - `[OPEN]` **R-3 — the identity/emergence tag is load-bearing and should be
   stated wherever this is repeated.** Both canonical answers above are
   **IDENTITY-class** by their own leaves' words (*"placeholders calibrated to"*;
