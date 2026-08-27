@@ -1,0 +1,12 @@
+{
+  "_comment": "Scope + allow-list for verify-rule12-freeze.py (the Rule-12 append-only GATE). `enforced_globs` is where an unstamped prose Rule-12 note is a HARD FAIL. Notes outside it are COUNTED and PRINTED as a census on every run, never hidden -- an unenforced surface that is invisible is a hole; one that prints its own size every build is a queue. Every `allow_list` entry MUST carry path + match (a verbatim substring of the note line, so an entry cannot silently widen to a different note) + class + reason; an entry missing any of those FAILS the run, because an allow-list that accepts a bare path is a mute button rather than an exemption.",
+  "_classes": {
+    "known-pre-existing-violation": "The frozen body has ALREADY drifted. NOT repaired -- repairing it in place would compound the Rule-12 violation by destroying the evidence (flag-don't-fix). The entry carries the diff and the routing.",
+    "not-a-freeze-note": "The line matches the detector's phrasing but asserts nothing about bytes in THIS file -- a survey/triage doc quoting another record's note, or a convention doc describing the rule.",
+    "direction-not-determinable": "The note names both directions (or neither) on one line, so `region` has no defensible value. Needs the record's author, not a guess.",
+    "generated-artifact": "The file is generated, so a stamp would be rewritten by its generator."
+  },
+  "enforced_globs": [],
+  "allow_list": [],
+  "pending_stamp_on_landing": []
+}
