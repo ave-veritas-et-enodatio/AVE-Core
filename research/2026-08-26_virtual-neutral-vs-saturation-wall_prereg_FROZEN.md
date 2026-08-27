@@ -1311,5 +1311,29 @@ the phrase *"virtual neutral"* entered the corpus as **Grant's chat reading at s
 and this document's **H-VN is a narrowing of it** to one channel, one axis and one carrier — not an
 independent coinage.
 
+## A1.5 — DISCLOSURE (caught by the post-edit link sweep, not on the audit's list) — §3's *"No leaf in the corpus computes it"*
+
+**Why this is here.** The sibling arc record on branch
+`research/2026-08-26-virtual-neutral-arc` carried the sentence *"no leaf in the corpus computes
+`M`"* about the composed map $M = C\cdot\mathrm{blockdiag}(S)$. **That broader claim is FALSE and
+has been corrected there** (commit `78b4eccb`): `assemble_varactor_scattering`
+(`src/ave/solvers/vacuum_varactor_scatter.py:225`) builds $\mathcal S(A) = C\cdot
+\mathrm{blockdiag}(S_u)$ and returns it as a dense $(N\cdot\text{degree})^2$ operator, and the
+canonical leaf writes it in the same symbols
+(`manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/vacuum-varactor-scatter-operator.md:76-78`).
+**What no leaf computes is $M$'s SPECTRUM on a closed surface** — the only shipped eigenvalue read
+is on the *local-node* block (`src/scripts/vol_4_engineering/vacuum_varactor_scatter_figures.py:242`).
+
+**What this does to §3 of the frozen body: nothing, and here is why.** §3's GLOBAL column reads
+*"**UNKNOWN. No leaf in the corpus computes it.**"* (`:375`), and §3.2 closes with *"**This is the
+object the corpus has never computed**"* (`:409`). **In both, the referent is the column's own
+`statement` row — *"does a **closed** set of simultaneously balanced nodes exist, and where"* — and
+that reading is TRUE and survives.** It is not a claim that $M$ is absent from the tree. The
+disclosure is made because the two documents sit one day apart on the same question, and a reader
+who meets the corrected sibling first could otherwise bind §3's *"it"* to the `object` row instead.
+**No criterion, tolerance, bin edge, observable, geometry value or gate moves.**
+
+---
+
 **End of AMENDMENT 1.** Nothing in this amendment is frozen text; it is dated, its justification is
 above it, and it is subject to review like any other appended content.
