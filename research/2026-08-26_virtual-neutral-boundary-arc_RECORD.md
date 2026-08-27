@@ -325,14 +325,53 @@ operator, and the canonical leaf writes it in these same symbols:
 *"The assembled lattice operator is `𝓢(A) = C·blockdiag(S_u)`, where `C` is the
 lattice's own directed-edge CONNECT permutation"*
 (`manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/vacuum-varactor-scatter-operator.md:76-78`).
-**What no leaf computes is `M`'s SPECTRUM on a closed surface.** The only
-eigenvalue computation anywhere on this operator family is on the *local-node*
-block — `ev = np.sort(np.linalg.eigvals(S_local).real)`
-(`src/scripts/vol_4_engineering/vacuum_varactor_scatter_figures.py:242`), which
-the leaf reports as *"the local-node scatter spectra"*
-(`vacuum-varactor-scatter-operator.md:254-255`). The junction spectrum theorem
-says nothing about `M`'s spectrum: a direct sum of operators each having `−1` in
-its spectrum tells you nothing about the spectrum of `C` composed with that sum.
+**What no leaf computes is `M`'s SPECTRUM on a closed surface.** That claim
+stands. What does **not** stand — and what two earlier forms of this paragraph
+asserted — is any statement of the form *"the only eigenvalue computation on
+this operator family is …"*. **The tree contains several.** They are enumerated
+here rather than counted, and the method that found them is stated below so a
+reader can see what it would miss.
+
+**Eigen-reads on the node-scatter operator family, as found on this branch.**
+
+*Over the WHOLE assembled operator (every node, `N·degree` DOF):*
+
+| where | what it takes the spectrum of | receipt |
+|---|---|---|
+| `global_spectrum`, `src/ave/solvers/node_scattering_multiplicity.py:153-162` — `np.linalg.eigvals(M)` on `assemble_global_scattering(net)` | the assembled `𝓢 = C·blockdiag(S)` | run on this tree: `ndof = 192` for `build_srs_net(L=2)` (64 nodes × 3), `ndof = 64` for `build_diamond_net(L=4)`; `is_orthogonal` and `all_eigs_unit_modulus` both `True`. **Exercised by a shipped test**, `test_assembled_lattice_operators_are_orthogonal` (`src/tests/test_node_scattering_multiplicity.py:159-165`). |
+| `tlm_operator_spectrum`, `src/scripts/vol_1_foundations/scx_phase1_crosscheck.py:438-454` — `np.angle(np.linalg.eigvals(m))` | the engine's own one-step scatter+connect operator, materialized column-by-column from `scalar_tlm_step` + `scatter_matrix(net.degree)` | re-run here at `build_srs_net(3)`: `ndof = 648` (216 nodes × 3), `max(abs(abs(eig) − 1)) = 1.5e-14`. |
+
+*Over the SINGLE-NODE block only:*
+
+| where | operand |
+|---|---|
+| `local_scatter_spectrum`, `src/ave/solvers/node_scattering_multiplicity.py:77-91` — `np.linalg.eigh(S)` | `scatter_matrix(n)` |
+| `src/scripts/vol_4_engineering/vacuum_varactor_scatter_figures.py:242` — `ev = np.sort(np.linalg.eigvals(S_local).real)` | `admittance_scatter(np.ones(n))`; the leaf reports it as *"the local-node scatter spectra"* (`vacuum-varactor-scatter-operator.md:254-255`) |
+| `src/scripts/vol_1_foundations/chiral_lattice_optical_activity.py:26` | `scatter_matrix(3)` |
+| `src/tests/engine_acceptance/test_l0_medium.py:61` | `scatter_matrix(net.degree)` |
+| `src/tests/test_chiral_lattice_smokes.py:119` | `scatter_matrix(3)` |
+| `src/tests/test_engine_constants_alignment.py:155-161` | the `K4` scatter written out inline as `0.5·𝟙 − I`, asserting `{+1, −1, −1, −1}` |
+
+**None of these is a spectrum on a CLOSED SURFACE.** The first two are the
+*entire periodic lattice*; the rest are *one node*. The surviving gap is
+precisely and only the middle case — **a spectrum of `M` restricted to a closed
+subset of nodes** — and the enumeration above makes that gap sharper than the
+false universal did, because it shows the whole-lattice read is cheap and
+already shipped, so nothing but the restriction is missing.
+
+The figures script is worth one further note: it **assembles `M` itself**
+(`vacuum_varactor_scatter_figures.py:232-233`, both the bedrock and the varactor
+operator) and then takes the spectrum of the *local* block instead. And the two
+assemblers are the same family by their own documentation —
+`assemble_varactor_scattering`'s docstring calls itself a generalization of
+*"the bedrock `assemble_global_scattering`"*
+(`src/ave/solvers/vacuum_varactor_scatter.py:228-229`).
+
+**Method, and its blind spots.** `git grep -nE "eigvals|eigvalsh|eigh\(|\beig\(|eigs\(|eigsh\("` over tracked `src/`, intersected with the files that also mention `scatter_matrix` / `admittance_scatter` / `assemble_global_scattering` / `assemble_varactor_scattering`, then each surviving hit read by hand to decide whether its operand is in the family. **Blind spots:** (a) the intersection is *file*-level, so an eigen-read on the family in a file that never names one of those four symbols — e.g. one that receives the operator as an argument — is invisible to it; (b) it is token-based, so a `scipy.sparse.linalg` route or a wrapper API would not match; (c) the family membership call on each hit is a judgement, and the reads on `bloch_adjacency` (`harmonic_balance_srs.py:1027`, `:1050`) and on the graph adjacency (`scx_phase1_crosscheck.py:381`, `:659`, `:663`) were judged **out** of family on the grounds that an adjacency matrix is not `C·blockdiag(S)`. **And the surviving claim inherits all three.** *"No leaf computes `M`'s spectrum on a closed surface"* is still a universal over the corpus; it is retained because it is the arc's open question and because the enumeration above found nothing that contradicts it — but it rests on this same grep, so a closed-surface spectrum reached through (a), (b) or a mis-judged (c) would falsify it, and finding one is a legitimate way to close this arc's central gap.
+
+**The junction spectrum theorem still says nothing about `M`'s spectrum:** a
+direct sum of operators each having `−1` in its spectrum tells you nothing about
+the spectrum of `C` composed with that sum.
 **The entire physical question is displaced from §2 into an object this arc did
 not compute.**
 
@@ -342,6 +381,20 @@ not compute.**
 > in the same file. The open question survives in its narrower and correct form —
 > **the corpus computes `M`; it does not compute `M`'s spectrum on a closed
 > surface** — and that narrower form is what §4 and §9 caveat 2 now carry.
+>
+> ⚑ **Second correction, same day, and it is the same error one level down.**
+> The repair above replaced *"no leaf computes `M`"* with a **new** universal —
+> *"the only eigenvalue computation anywhere on this operator family is on the
+> local-node block"* — and that was **also false**. `global_spectrum`
+> (`node_scattering_multiplicity.py:153-162`) takes `np.linalg.eigvals` of the
+> whole assembled operator and is exercised by a shipped test; so does
+> `tlm_operator_spectrum` (`scx_phase1_crosscheck.py:438-454`); and the
+> figures-script read is one row of the single-node table above, not the whole
+> of it. **The paragraph above no longer states a universal at all, and it
+> states no total either — only the rows it found and the method.** It states an enumeration and the method
+> that produced it, because that is the only form of this claim that a reader
+> can check. The physics claim is unchanged and unweakened: what is missing is a
+> spectrum of `M` **restricted to a closed subset of nodes**.
 
 ### ★ CAUTION 2 — the hollow-vortex BALANCE SHELL and the VIRTUAL NEUTRAL are DIFFERENT OBJECTS
 
@@ -408,10 +461,17 @@ closed surface of simultaneously balanced nodes, i.e. a statement about
 `M = C · blockdiag(S)`. This arc has established what the *local* operator can
 and cannot do. It has established **nothing** about `M`. The corpus **does**
 compute `M` (`vacuum_varactor_scatter.py:225`; leaf
-`vacuum-varactor-scatter-operator.md:76-78`), but **no leaf computes `M`'s
-spectrum on a closed surface** — the shipped spectrum is the local-node one
-(`vacuum_varactor_scatter_figures.py:242`, leaf `:254-255`). **That gap, not the
-absence of the operator, is the open question.**
+`vacuum-varactor-scatter-operator.md:76-78`), and it **does** take spectra of
+this operator family — including of the *whole* assembled operator
+(`global_spectrum`, `node_scattering_multiplicity.py:153-162`, exercised by
+`test_node_scattering_multiplicity.py:159-165`). **What no leaf computes is
+`M`'s spectrum on a closed surface** — a spectrum restricted to a closed
+*subset* of nodes. §3 CAUTION 1 carries the enumerated list of the eigen-reads
+that do exist, whole-lattice and single-node, and the method that found them; do
+not restate it here as *"the only …"*, which is the form this sentence carried
+twice and which was false both times. **That gap — the restriction, not the
+absence of the operator and not the absence of a spectrum — is the open
+question.**
 
 `[WALK]` **The honest summary of the arc's own weight:** §2 is a set of exact,
 reproducible, negative results about the local junction. Its positive content
@@ -657,13 +717,18 @@ misframing it.
 2. **The composed map `M = C · blockdiag(S)` is UNCOMPUTED BY THIS ARC, and its
    SPECTRUM ON A CLOSED SURFACE is uncomputed by the corpus.** The operator
    itself ships (`vacuum_varactor_scatter.py:225`, leaf
-   `vacuum-varactor-scatter-operator.md:76-78`); what does not exist anywhere is
-   a spectrum of it taken on a closed set of nodes — the only shipped eigenvalue
-   read is the local-node one (`vacuum_varactor_scatter_figures.py:242`). The
-   whole positive content of the reframe lives in that gap (§4). A direct sum of
-   operators each carrying `−1` says **nothing** about the spectrum of `C`
-   composed with it. **(An earlier draft of this caveat said the corpus does not
-   compute `M` at all; that was false — see the ⚑ correction in §3 CAUTION 1.)**
+   `vacuum-varactor-scatter-operator.md:76-78`), **and so do spectra of it** —
+   `global_spectrum` (`node_scattering_multiplicity.py:153-162`) eigen-decomposes
+   the whole assembled operator and is covered by a shipped test
+   (`test_node_scattering_multiplicity.py:159-165`). What does not exist is a
+   spectrum taken on a **closed subset** of nodes. §3 CAUTION 1 enumerates the
+   eigen-reads found and states the method; **this caveat deliberately carries no
+   "only" and no total.** The whole positive content of the reframe lives in that
+   one gap (§4). A direct sum of operators each carrying `−1` says **nothing**
+   about the spectrum of `C` composed with it. **(Two earlier drafts of this
+   caveat were false: the first said the corpus does not compute `M` at all; the
+   second said the local-node read was the only shipped eigenvalue read. Both ⚑
+   corrections are in §3 CAUTION 1.)**
 3. **"Closed surface of simultaneously balanced nodes" is not yet a
    well-posed condition.** Balanced *with respect to which incident field?*
    The balance condition is on `V^inc`, which is itself dynamical. A

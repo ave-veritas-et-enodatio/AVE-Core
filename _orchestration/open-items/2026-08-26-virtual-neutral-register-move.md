@@ -57,12 +57,20 @@ the proposal uses a category canon already defines rather than minting one.
    compute `M`** (`assemble_varactor_scattering`,
    `src/ave/solvers/vacuum_varactor_scatter.py`:225; leaf
    `vol4/circuit-theory/ch1-vacuum-circuit-analysis/vacuum-varactor-scatter-operator.md`:76-78)
-   — **what no leaf computes is `M`'s SPECTRUM on a closed surface**; the only
-   shipped eigenvalue read is the local-node one
-   (`src/scripts/vol_4_engineering/vacuum_varactor_scatter_figures.py`:242).
-   *(Corrected 2026-08-27: this item previously said the corpus does not compute
-   `M` at all, which was false — see the ⚑ in record §3 CAUTION 1.)* The register
-   move buys a *relocated question*, not an answer.
+   — **what no leaf computes is `M`'s SPECTRUM on a CLOSED SUBSET of nodes.**
+   Spectra of this operator family do ship, including of the *whole* assembled
+   operator: `global_spectrum`
+   (`src/ave/solvers/node_scattering_multiplicity.py`:153-162), covered by
+   `src/tests/test_node_scattering_multiplicity.py`:159-165. The missing object
+   is the **restriction to a closed surface**, nothing wider.
+   *(Corrected twice on 2026-08-27. First: this item said the corpus does not
+   compute `M` at all — false. Second: the replacement said the local-node read
+   at `vacuum_varactor_scatter_figures.py`:242 was the only shipped eigenvalue
+   read — also false, and the same error one level narrower. Record §3 CAUTION 1
+   now carries the enumerated eigen-reads plus the method that found them, and
+   this item states no "only" and no total; read it there rather than
+   re-deriving a count here.)* The register move buys a *relocated question*,
+   not an answer.
 2. **Register 4 is ambiguous as written.** Its own gloss
    (`boundary-observables-m-q-j.md`:61) illustrates BALANCE LOCUS with the
    **hollow-vortex balance shell** — a *real-space pressure* balance of two
