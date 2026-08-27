@@ -26,15 +26,24 @@ the properties of the wall we can measure on the electron?"*
   in it is a pointer to someone else's measurement.
 - **It contains one retraction** (§3.3 — the orchestrator's own interior-framed
   question, *"does the lattice admit a localized rotational state inside the
-  gap?"*, retracted because it names two of the four quantities the
-  substrate-observability rule lists as invisible). That retraction is Rule-12
-  shaped: body preserved, slot **not** refilled.
+  gap?"*, retracted on the reading that its two nouns map onto two of the four
+  quantities the substrate-observability rule lists as invisible). **That
+  mapping is `[WALK]`-graded in the source record, not a canon statement** —
+  §3.3 tags it in its own words as *"this record's own reading, not a canon
+  statement"* (the walk record's reading, not the observability leaf's). The
+  retraction is Rule-12 shaped: body preserved, slot **not** refilled.
 
 ## Why it needs an adversarial audit specifically
 
-**Its two immediate predecessors both died at audit on the step their author
-was least worried about** — and the record says so in its own framing (§0). The
-charter is therefore weighted **toward the fluent claims, not the hedged ones**.
+**Its two immediate predecessors were both carried into audit on a step their
+author had flagged as safe** — which is what §0 of the record says, and all it
+says: one verdict is **PENDING as far as that record is concerned** (the
+autonomous-HB lens; the record does not characterize it), and the other is **a
+flag raised inside the source record at §3.6, not a verdict returned by an
+audit**. The flat form of this sentence — *"both died at audit"* — is
+explicitly RETRACTED in §0 as over-stating what the record can support, so it
+must not be re-asserted here. The charter is therefore weighted **toward the
+fluent claims, not the hedged ones**.
 
 **Three claims carry ★ and must not be skipped:**
 
@@ -52,7 +61,7 @@ charter is therefore weighted **toward the fluent claims, not the hedged ones**.
   **per-channel at ONE surface** (`wall-taxonomy.md`:157). Not obviously the
   same claim.
 
-**Full charter: §6 of the record — sixteen numbered claims (W1-1 … W5-1) with
+**Full charter: §6 of the record — eighteen numbered claims (W1-1 … W5-1) with
 per-claim attack instructions**, plus four mandatory riders (consensus-bias
 symmetric standard; `ave-discrimination-check`; `consistency-vs-emergence` on
 every §5 statement; a tautology check on §4.5's triple). **Kill conditions are
