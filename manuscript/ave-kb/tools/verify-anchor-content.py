@@ -603,14 +603,31 @@ _RULE12_STAMP = re.compile(r"  <!-- rule12-freeze:[^>]*?-->")
 def _added_from_diff_text(text: str) -> dict[Path, set[int]]:
     """{path: added-line numbers} from a whole unified-0 diff. PURE, so testable.
 
-    Split out from the git call deliberately. The first attempt at the
-    freeze-stamp exemption below was "verified" by editing the WORKING TREE and
-    re-running the checker -- which diffs `<base>...HEAD`, the COMMITTED tree, so
-    the edit was never in the diff and the probe never exercised the code path.
-    It reported the same answer for a stamp-only change and for a real content
-    change, and either reading would have been a fiction. A pure function taking
-    diff TEXT can be driven with the exact hunk shapes that matter, with no
-    commit, no worktree state, and no authoring context.
+    Split out from the git call deliberately, and the reason is a worked failure
+    rather than a design principle, because it lands harder that way.
+
+    THE SECOND CATCH. The freeze-stamp exemption below was first "verified" by
+    editing the WORKING TREE and re-running the checker. But `added_lines_by_file`
+    diffs `<base>...HEAD` -- the COMMITTED tree. The edit was never in the diff,
+    so the code path under test never ran. It returned the SAME answer for a
+    stamp-only change and for a real content change, and BOTH readings were
+    fictions: the first looked like confirmation that the exemption worked, the
+    second like proof it had blown a hole in the ratchet. Neither was a fact
+    about the code.
+
+    That is the same class as the bug that had taken CI red ONE HOUR EARLIER, in
+    a different file -- verifying against a state that is not the state being
+    tested -- committed by someone who had just been burned by it and was
+    actively looking for it. Which is the point: this failure mode is not caught
+    by intending to avoid it. The probe LOOKED like it ran (it printed output, it
+    exited cleanly), and only asking "what state did that command actually read?"
+    surfaces it.
+
+    So the parsing is a PURE function over diff TEXT: no commit, no worktree
+    state, no authoring context, drivable with the exact hunk shapes that matter.
+    Its tests construct the diff directly, so the thing under test is the thing
+    being tested. (Same reason `r40_preserved_span_number_check`'s
+    `_added_map_from_diff_text` is marked "pure; testable".)
 
     FREEZE-STAMP EXEMPTION. A Rule-12 stamp (`verify-rule12-freeze.py`) rides at
     the END of a note's own line, so installing 461 of them shifts NO line number

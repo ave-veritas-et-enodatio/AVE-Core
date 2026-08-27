@@ -42,6 +42,22 @@ def _load():
 #: got past import, built its fixture repo, and reached the arms -- so an arm
 #: that then stays green is a real finding about the gate. Its absence proves
 #: nothing about the gate at all.
+#:
+#: ★ DO NOT "SIMPLIFY" THE LIVENESS CHECK TO `stdout != ""`. That is the obvious
+#: refactor and it is wrong, in the direction that hides failures. Liveness is
+#: asserted on POSITIVE evidence -- this marker, which only appears once the
+#: fixture repo is built and the arms are about to run -- precisely because the
+#: interesting crash is NOT the silent one.
+#:
+#: A probe that dies at IMPORT prints nothing, and an emptiness check catches
+#: that. A probe that dies MID-RUN has already printed real receipt output, so
+#: `stdout != ""` is satisfied and it sails through as a live probe whose arms
+#: "stayed green" -- reporting a harness crash as a finding about the gate. That
+#: second shape is the one that grows more likely as the receipt grows, because
+#: every arm added before the crash point is more output that makes the probe
+#: look alive. `test_probe_harness_reports_CRASHED_on_partial_output` pins
+#: exactly this case; if you weaken the check to an emptiness test, that test is
+#: the one that will fail, and it is telling you the truth.
 _RECEIPT_ALIVE = "receipt fixture built and GREEN unperturbed"
 
 

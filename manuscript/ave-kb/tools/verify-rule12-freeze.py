@@ -180,6 +180,49 @@ repairing it would compound the violation by destroying the evidence. It is
 recorded, its diff is preserved in the entry, and it is routed.
 
 
+WHEN A STAMP MOVES BYTES SOMETHING ELSE KEYS ON: EXTRACTOR vs REGISTRY
+-----------------------------------------------------------------------
+RATIFIED RULE (2026-08-27). Installing stamps moved bytes that three other
+tools key on, and the three resolutions were not the same. The fork is general
+-- anyone moving bytes across this corpus will hit it -- so it is stated here as
+a rule rather than left implicit in three commit messages:
+
+    A MECHANICAL EXTRACTOR  ->  FIX THE EXTRACTOR.
+    A HUMAN-AUTHORED ADJUDICATION REGISTRY  ->  DEFER TO IT, AND ROUTE.
+
+The test is not "whose file is it". It is **what does the keyed byte MEAN**.
+
+  * An EXTRACTOR derives a fact from bytes: what text is this claim's rationale,
+    which lines did this branch add. A freeze stamp renders invisibly in
+    Markdown, so an extractor that reads it as content is drawing a FALSE
+    conclusion -- the stamp is not rationale, and a line that gained only a
+    stamp gained no cite. Making the annotation invisible to extraction is
+    restoring the extractor's own intent, not overriding it. Two were fixed
+    this way: ``kb_index_lib._normalize_text`` (stamps were landing inside
+    indexed claim rationales, three of them) and
+    ``verify-anchor-content._added_from_diff_text`` (a stamped line is a
+    MODIFIED line, hence a ``+`` line, so cites ALREADY on it read as cites the
+    branch ADDED). Both fixes are EXACT -- the exemption applies only when
+    stripping the stamp restores the previous bytes EXACTLY -- so neither
+    weakens the thing it exempts, and both carry a can-it-still-fire arm.
+
+  * A REGISTRY records a DECISION a person made, keyed by bytes: an adjudicated
+    false positive, a "this lane wrote none of these ten artifacts" pin. Its
+    key is not deriving anything; it is naming what was judged. Re-keying it to
+    accommodate my annotation would silently orphan someone's reading and
+    re-assert their judgement on bytes they never saw. So the STAMP gives way,
+    not the registry: two records go unstamped, both allow-listed with the
+    consequence stated plainly and a routed instruction for when the pin
+    retires (``research/drivers/approach_leak_v2.py`` blob pins;
+    ``research/drivers/r40_preserved_span_number_check.py``
+    ``GUARD_ADJUDICATED_FP``, keyed on a line's stripped content).
+
+The asymmetry is deliberate and is the point: a wrong extractor produces a false
+statement that nobody decided, and a re-keyed registry destroys a true statement
+that somebody did. Only one of those is repairable afterwards -- which is the
+same reason Rule 12 is append-only in the first place.
+
+
 SCOPE HONESTY -- what this gate CANNOT catch
 --------------------------------------------
   * **A body that drifted BEFORE it was stamped.** The backfill derives each
@@ -234,21 +277,43 @@ def _repo_root_from(tools_dir: Path, cwd: Path | None = None) -> Path:
     This used to be the one line ``TOOLS_DIR.parents[2]``, and that line took
     CI red on the very commit that shipped this gate.
 
-    WHAT HAPPENED, because the shape matters more than the bug. The
-    anti-tautology probes copy this module to a temp directory and run it there.
-    In-tree the file sits at ``manuscript/ave-kb/tools/`` and ``parents[2]`` is
-    the repo root. In a temp directory it is whatever happens to be three levels
-    up -- and on macOS ``/tmp`` resolves to ``/private/tmp``, which HAS three
-    parents, so the lookup silently returned ``/`` and everything appeared to
-    work. On Linux ``/tmp`` has two, so the same line raised ``IndexError`` at
-    IMPORT time, the probe produced no output at all, and its assertion failed
-    with a message about a gate defect that did not exist.
+    THE WORKED EXAMPLE, kept because it is the most transferable thing on this
+    branch: it is the mechanism by which a self-referential fixture is green on
+    EVERY developer machine and red ONLY in CI.
 
-    That is the self-referential-fixture class -- a check that encodes an
-    incidental property of the tree it was authored in -- sitting INSIDE the
-    probe whose entire job is to catch that class. The green-locally/red-on-CI
-    asymmetry was not a flake; it WAS the defect, and a green local run is not
-    evidence for anything this function guards.
+    The anti-tautology probes copy this module to a temp directory and run it
+    there. In-tree the file sits at ``manuscript/ave-kb/tools/``, so
+    ``parents[2]`` is the repo root. In a temp directory it is whatever happens
+    to be three levels up -- and the parent COUNT differs by platform:
+
+        macOS   ``/tmp/xxxx`` resolves to ``/private/tmp/xxxx``
+                parents = ``/private/tmp``, ``/private``, ``/``   -> THREE
+                ``parents[2]`` returns ``/``. No error. Silently wrong,
+                and nothing downstream in the receipt used it, so every
+                local run was GREEN.
+
+        Linux   ``/tmp/xxxx`` resolves to ``/tmp/xxxx``
+                parents = ``/tmp``, ``/``                          -> TWO
+                ``parents[2]`` raises ``IndexError`` at IMPORT time.
+                The probe printed NOTHING, and because the arm assertions
+                were phrased "expected substring IN output" -- which empty
+                output satisfies never -- CI reported a gate defect that
+                did not exist.
+
+    One symlink, one index, opposite outcomes. That is the self-referential-
+    fixture class (a check encoding an incidental property of the tree it was
+    authored in) sitting INSIDE the probe whose entire job is to catch that
+    class.
+
+    ★ THE TRANSFERABLE PART: the green-locally/red-on-CI asymmetry was NOT a
+    flake to be retried. It WAS the defect. A fixture that depends on where it
+    runs presents exactly as flakiness, and the instinct to re-run rather than
+    diagnose is precisely what it exploits -- a re-run on the same machine
+    reproduces the green, "confirms" the flake, and buries the finding. A green
+    local run is not evidence for anything this function guards; the property is
+    therefore also asserted DIRECTLY against a one-parent path
+    (``test_repo_root_resolves_from_a_shallow_path``), where no platform quirk
+    can hide it.
 
     So: never index ``parents`` unguarded, prefer a root that actually proves
     itself with a ``.git``, then ask git from the caller's directory, and fall
