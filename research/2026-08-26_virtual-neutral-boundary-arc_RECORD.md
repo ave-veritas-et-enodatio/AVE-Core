@@ -374,11 +374,18 @@ is entirely a **relocation of the question**, not an answer to it. Anyone
 citing §2 as support for "the electron's boundary is a virtual neutral" is
 citing the wrong half.
 
-## §5 — Canon already carries the structure — in four unconnected places — and has the slot
+## §5 — Canon already carries the structure — in five unconnected places — and has the slot
 
 `[CANON]` The balanced-polyphase condition is **already written in the
-corpus**, four times, by four different lanes, none of them citing any other,
-and **never at the electron-wall site**.
+corpus**, five times, by different lanes, none of them citing any other, and
+**never at the electron-wall site**.
+
+⚑ **Method, reported as a method and not as a corpus fact** (per the
+grep-completeness rule): the sites below were found by targeted greps
+(`virtual ground` / `virtual neutral` / `WYE` / `neutral node` / `traceless`)
+plus end-to-end reads of the five leaves named. **This is a statement about
+those searches, not a census.** There may be more sites; the audit sweep
+(item A8) should assume there are.
 
 | # | site | what it says, verbatim | scope |
 |---|---|---|---|
