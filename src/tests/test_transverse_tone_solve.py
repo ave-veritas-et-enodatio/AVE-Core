@@ -553,7 +553,10 @@ class TestBankedRegression:
                            load_planes=(11.5, 12.0, 12.5), feed=(1.5, 8.0),
                            margin=0.5, vector=True)
         g_v, _ = tt.signed_gamma(out["gamma"])
-        assert g_v == pytest.approx(BANKED_L24_A099_SCALAR_GAMMA, abs=1e-7), g_v
+        # MEASURED |diff| on this branch: 2.819e-13. Tolerance set two decades
+        # looser than that, to leave room for BLAS/platform drift in the LGMRES
+        # path without letting a real regression through.
+        assert g_v == pytest.approx(BANKED_L24_A099_SCALAR_GAMMA, abs=1e-11), g_v
         # and the analytic Fresnel step it is 1.7e-4 away from (the lattice
         # de-embed's own agreement with the continuum step -- an OTHER lane's
         # number, quoted, not re-derived here)
