@@ -400,6 +400,121 @@ sector error.
 
 ## §6 — ★ MANDATORY FENCES (verified and quoted this session)
 
+**These three fences are at least as load-bearing as the walk itself.** Each was
+verified independently at `a3f4fef7` — read, not inherited. A reader who takes
+the walk and drops these fences will reconstruct a claim canon has already
+fenced off.
+
+### F1 — The bundle noun is `[WALK — NOT-RATIFIED]`
+
+Walk item 6 calls phase space *"a FIBER over real space"* and reasons about a
+*"TRIVIAL bundle."* **That noun is explicitly un-ratified in canon, and the leaf
+that fences it also supplies the statement underneath it.**
+
+`[CANON]` `manuscript/ave-kb/common/translation-tables/translation-phase-space.md`,
+§3.2 — whose heading (`:290`) is itself the fence: *"### §3.2 — Fibered over the
+lattice, not containing it **[WALK — the bundle noun is NOT-RATIFIED]**"*.
+
+The ratifiable statement, `:292-294`: *"Standard property (5): real space sits
+INSIDE phase space as the $q$-half. The substrate inverts this: real space is
+**not** a subspace of the phasor coordinate space at all — canon states exactly
+*coordinates-distinct-from-real-space* (`def-69f472`, §1), with a tank plane
+attached at every lattice bond."*
+
+The fence proper, `:296-307`: *"**[WALK — NOT-RATIFIED]** The natural
+mathematical noun for "a phasor plane attached to every site" is a *fiber
+bundle* ... This noun is **walk-level and un-ratified**: canon commits only to
+the coordinates-distinct statement, and the corpus has an open adjudication
+posture on fiber-bundle language ... **Minting "fiber bundle" as a substrate
+noun would import the F11 abstraction the corpus explicitly contests.** The
+bundle noun therefore stays WALK until Grant adjudicates; the ratifiable content
+underneath it is only the canon coordinates-distinct statement plus Ax2's
+transduction constant."*
+
+The F11 clash it names, quoted at `:302` and `:303`: F11 asks whether internal
+symmetries are *"irreducible abstract structure (connections on fiber bundles),
+or the bookkeeping of a medium's topology and sectors?"* — and the AVE position
+*"CLASHES — SECTOR $\perp$ GAUGE canon."*
+
+**Consequence for this record.** Everything in walk item 6 that is stated in
+bundle language is WALK. What survives is (a) `[CANON]` real space is not a
+subspace of the phasor coordinate space, and (b) `[MEASURED]` §3.3, the cold
+scatter is the same matrix at every node and only a per-bond $Y$-gradient
+changes it. **Neither of those needs the noun.** This record uses the noun only
+in quoting the walk, and mints nothing.
+
+**★ METHOD WARNING, recorded because it cost this lane real time and will cost
+the next one the same.** My first two searches for this fence — a literal
+`git grep` and a whitespace-normalised full-corpus slurp — **both returned
+ZERO hits** on the phrase *"not a subspace of the phasor"*. The text is present.
+It reads `not a subspace of the phasor` with **markdown bold markers inside the
+phrase**: `**not** a subspace of the phasor`. Whitespace normalisation does not
+strip `*`. **A grep over this corpus that does not strip markdown emphasis will
+false-negative on any phrase containing a bolded word**, which in this corpus is
+most load-bearing phrases. The search that found it was a direct READ of the
+section. This is a fresh instance of the standing grep-false-negative pattern,
+with a new and specific cause.
+
+### F2 — Canon's documented projection chain is LOSSY and drops exactly the winding
+
+`[CANON]`
+`manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/finkelstein-misner-spin-half-derivation.md:142`,
+the row of the 5-level projection table, verbatim: *"| 2 | $\hat{\mathbf{n}}
+(\mathbf{r}) \in S^2$ via Hopf fibration $SU(2) \to S^2$ | **$w_1=2$ survives,
+$w_2=3$ DROPPED (lives in U(1) fibre)** |"*
+
+The mechanism, `:146`: *"The Hopf fibration $SU(2) \to S^2$ has $U(1)$ fibre.
+The U(1) fibre phase is precisely what carries the $4\pi$ closure ... **The U(1)
+fibre phase — and with it the $4\pi$ closure — was dropped at the projection
+step.**"*
+
+**Why this fences the walk.** Walk item 6 treats the phase-space-over-real-space
+relation as a structure from which one can read topology off cleanly. Canon's
+documented projection between these levels **destroys the topological
+information that matters** — $w_2=3$, the charge winding, is precisely what does
+not survive. So a projection argument in this neighbourhood cannot be assumed
+faithful; the one canon actually wrote down is not.
+
+**Scope honesty, and it matters.** This is the projection chain the corpus
+documents at **this** leaf, running Cosserat $\omega$-field $\to SU(2) \to S^2
+\to$ EM polarization. **It is not the phase-space-to-real-space map of walk item
+6** — different objects. I am not claiming it is the only projection chain in
+the corpus; I read this one and enumerate it. What it establishes is that
+**losslessness of a projection is something to be shown, never assumed**, and
+that the corpus has a worked case where the winding is exactly what is lost.
+
+### F3 — Real-space trap and phase-space winding measured physically DECOUPLED
+
+`[CANON]` `manuscript/ave-kb/common/relational-cancellation-identity.md:266`,
+verbatim: *"detuning the carriers to $\omega_b:\omega_s = 2:3$ makes the global
+phases wind **2:3** (measured ratio 0.644 vs the carrier ratio 0.667) — the
+winding follows the carriers ... **while the static topological charge
+$\mathrm{Link}(\partial\Omega,F)$ on its separate real-space coordinate does not
+move**."*
+
+The primary measurement, `research/2026-06-24_engine-phase-space-winding_result.md:44-45`
+(PR #417), verbatim: *"the winding ratio of the phase-space orbit is set by
+$\omega_b:\omega_s$, **the carrier ratio** — an **oscillator
+(Lissajous-of-the-carriers) artifact** — NOT by a topological (2,3) that would
+be carrier-independent."* And the discriminator, `:33`: *"the winding ratio
+tracks $\omega_b:\omega_s$ continuously (1:1$\to$0.93, 2:3$\to$0.65,
+3:2$\to$1.54, 1:2$\to$0.48), **which a topology-protected charge could NOT do**."*
+
+The consequence canon drew, `[CANON]`
+`manuscript/ave-kb/common/engine-capability-map.md:23` (a Rule-12 relabel):
+*"both internal dynamical loci now NEGATIVE: winding + H_couple does **NOT**
+pin the dispersing core ... the **(2,3) winding RIDES the cage as STATIC
+charge** (`Link`, un-walked-back), it does not pin the mass."*
+
+**Why this fences the walk.** The walk's item 6 proposes that a defect is *"a
+region where the bundle stops being trivial"* — one object with a real-space
+location and a phase-space twist, coupled. **Measured, they are not coupled.**
+The phase-space winding follows the carrier detuning; the real-space Link does
+not move. Two loci, tested, **both NEGATIVE for a joint dynamical object**
+(#415 real-space, #417 phase-space). Any restatement of item 6 that makes the
+real-space defect and the phase-space winding two aspects of one twisted bundle
+is proposing precisely what these two tests looked for and did not find.
+
 ## §7 — Where canon CONTRADICTS the walk
 
 ## §8 — ★ AUDIT CHARTER
