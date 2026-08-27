@@ -73,8 +73,11 @@ THE FOUR GUARDS, CARRIED EXPLICITLY
     is a dimensionless per-bond grading amplitude; no dimensionful V_yield /
     V_snap, hence no ALPHA, is reachable from this namespace. Nothing here maps
     a residual imbalance onto |Gamma|^2 = 1 - alpha, and no consumer may: the
-    engine's radiative leak is literally `1.0 - alpha` (cvr_model.py:161), so
-    that reading is an INSTRUMENT ECHO, adjudicated CIRCULAR, "do NOT pose it".
+    engine's radiative leak is literally `return 1.0 - alpha`
+    (src/scripts/vol_9_device/cvr_ee_sweep/cvr_model.py:171-178 -- line number
+    VERIFIED on this branch; the brief's ":161" points at gamma_of_A's
+    docstring, not at the leak), so that reading is an INSTRUMENT ECHO,
+    adjudicated CIRCULAR, "do NOT pose it".
 (d) FREEZE + FENCE -- the validate-on-known geometry is FROZEN in this module as
     `KNOWN_CASE_CHAIN` (a module constant, not a per-test literal), so a
     validation number cannot be produced against a quietly-retuned geometry. The
@@ -692,6 +695,10 @@ def interface_two_port_vector(runs: list, *, per_component: bool = False,
     `anisotropy` = |Gamma_0 - Gamma_1| (NaN when only one component carries
     content, e.g. a linearly polarized launch). Use it to test the isotropy
     rather than assume it; the default already fails loudly through resid_rel.
+    Its `gamma` key is the mean of the two component Gammas when both are
+    excited (the single excited one otherwise) -- a CONVENIENCE only, and
+    meaningless unless `anisotropy` is small, which is why `anisotropy` is
+    returned beside it and never folded into it.
 
     Rows whose feed-side and far-side content are both below `amp_floor` carry
     no information and are dropped (an idle polarization component contributes

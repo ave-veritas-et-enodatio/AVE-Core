@@ -87,6 +87,14 @@ class TestScalarParity:
         S_min=0.05 are inactive on A in [0, 0.99], which is what makes the
         exact-vs-clipped kernels identical there.)"""
         _net, bt, _conn = srs4
+        # the whole measured grid, INCLUDING A = 0.99 -- the banked L=24
+        # regression compares a tgs-kernel build against a driver number built
+        # on the hb (clipped) kernel at exactly that amplitude, so parity there
+        # is load-bearing and not incidental.
+        grid = np.array([0.0, 0.1, 0.5, 0.8, 0.9, 0.95, 0.9682, 0.98, 0.99])
+        assert np.array_equal(
+            tgs.bond_admittance(grid, "magnetic"), hb.bond_admittance(grid)
+        )
         A = slab(bt, 0.9)
         assert np.array_equal(tgs.bond_admittance(A, "magnetic"), hb.bond_admittance(A))
         a_v, Y_v = tt.graded_coeffs(bt, A, "magnetic")
