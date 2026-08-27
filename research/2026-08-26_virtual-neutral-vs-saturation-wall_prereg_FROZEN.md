@@ -1068,3 +1068,248 @@ judgment call).
 
 **Retro-pass obligation:** if the applied skill set drifts during execution, the drift is recorded
 in the result document, not back-fitted into this list.
+
+---
+
+# 🔧 AMENDMENT 1 — 2026-08-27 (Rule-12, dated, APPENDED; the frozen body above is untouched)
+
+**Authority for this form.** §10, verbatim: *"Any of these is a Rule-12 dated amendment with its
+own justification, appended below the frozen body — or it does not happen."*
+
+**Status of the frozen body.** Everything above this line is byte-identical to blob
+`929b4ccb5a68a0fea00bd700394eaaa122935181` (commit `9b178a50ab371753305cfdb301d0f1bfded3d9dd`),
+plus the 🔒 FREEZE STAMP block that commit `1d33b254` added. **No character of it is edited,
+widened, re-cut or re-labelled by this amendment**, and the `git diff` from `9b178a50` to the
+commit carrying this amendment is pure-addition on this file — no `-` line.
+
+**Why this is not a rescue, stated so it can be checked rather than trusted.** At the moment this
+is written the branch still contains **no driver for this lane, no solved state and no measured
+number from the pre-registered run**: `git diff --stat origin/main...HEAD` is one file, and
+`research/drivers/` holds nothing for it. Rule 11 protects a frozen criterion from being moved *by*
+a measurement; there is no measurement here to move one toward. **Two items below are BLOCKING
+repairs of things that were never frozen at all** — a primary observable that could not be
+evaluated as written, and a geometry left as a type constraint — and both are frozen here on
+structural grounds, before anything runs. The two MINOR items add reproducibility information and
+a disclosure.
+
+**What this amendment does NOT do.** It moves no $\tau_\beta$, no key edge (1.00 / 0.25 hop), no
+bin definition, no tone set, no amplitude rung, no seed, no kernel path and no envelope arm. It
+adds no observable and it removes none.
+
+## A1.1 — 🔒 BLOCKING — §4.2 (O4): the core/seed node set, and the ONE aggregation rule for $d_{\text{null}}$
+
+**The defect.** §4.2 **(O4)** defines the primary locus scalar as *"the **mean bond-graph (hop)
+distance from the core/seed node set to $\mathcal N$**"*. **The core/seed node set is never defined
+in the frozen body.** The phrase occurs at §3.2 (`:405`) and §4.2 (`:478`), with a third bare *"the
+core"* at §4.2 **(O5)** (`:483`), and it is defined at none of them. Separately, *"the mean distance
+from a SET to a SET"* is not one quantity: it admits at least three natural readings, and an
+adversarial audit measured all three on the frozen $L=6$ carrier at **4.000 / 6.362 / 4.500 hops**.
+$K_{\text{amp}}$ and $K_{\text{mode}}$ are *differences* of $d_{\text{null}}$ against key edges of
+**1.00 hop** and **0.25 hop**, so readings that disagree by 2.36 hops are readings that can select
+different bins. **Both keys are built on $d_{\text{null}}$, so this sits upstream of the whole
+discriminator.**
+
+### (i) THE CORE/SEED NODE SET — frozen, constructive
+
+> **CORE $\;\coloneqq\;$ the set of lattice nodes that own a terminated (driven) incident slot of
+> the `Termination` frozen in A1.2:**
+> $\mathrm{CORE} = \{\,\texttt{port // net.degree} \;:\; \texttt{port} \in \texttt{term.ports}\,\}$.
+> Under A1.2 this is the single node $u_{\text{seed}} = 0$, and it is **the same node set in every
+> configuration of §5.9** — every seed, both envelope arms, all four tone sets, all three amplitude
+> rungs, the cold empty-vacuum control and the $z=2$ fixture.
+
+Three properties, each of which the frozen body already requires:
+
+- **It is configuration-independent.** §4.3's keys are *differences* of $d_{\text{null}}$ taken
+  across configurations. A reference set that moved with the configuration would put its own motion
+  into the key, and `MOVES` would stop being a statement about the surface. Keying CORE to the drive
+  geometry — which neither §5.4's ladder nor §5.3's tone sets touch — makes each key a statement
+  about $\mathcal N$ alone.
+- **It is NOT defined by the amplitude field.** §4.4 **(A5)** requires $\mathcal N$ to be computed
+  on the **cold empty-vacuum control** and compared against the physics run's, and on that control
+  $A_{\text{bond}} \equiv 0$ everywhere — so the machinery that locates a surface must be
+  well-defined with no amplitude field at all. A *"core = the high-$A$ region"* reading is undefined
+  there, and on the physics runs it would move with the drive, which is H-SAT's own key. **An
+  amplitude-defined core would build the amplitude key into the reference and manufacture `MOVES`.**
+- **It is the object §3.2 encloses.** §3.2's closure predicate is *"leaves the core/seed node in a
+  **finite** connected component that does **not** touch the periodic wrap"*. That predicate needs a
+  node set a surface can enclose, and CORE is it.
+
+### (ii) THE AGGREGATION RULE — frozen, one rule
+
+> $$d_{\text{null}} \;=\; \frac{1}{|\mathcal N|}\sum_{u \in \mathcal N}\ \min_{c\,\in\,\mathrm{CORE}} d_{\text{hop}}(c,\,u)$$
+>
+> **In words, with no room left: for each node of the null set, take its hop distance to the
+> NEAREST core node; average those distances over the null set, one term per null node.**
+> $d_{\text{hop}}$ is unweighted BFS on the net's own `neighbors` lists (§5.8 **EC-8**). If
+> $\mathcal N = \varnothing$ the quantity is undefined and bin **A1** has already fired.
+
+**The three readings, named, with the one this document selects.**
+
+| # | reading | what it is a statistic OF |
+|---|---|---|
+| **R1** — ✅ **SELECTED** | mean over $u\in\mathcal N$ of $\min_{c\in\mathrm{CORE}} d(c,u)$ | **the surface** — every surface node counted once, measured to the object as one body |
+| R2 | mean over all pairs $(c,u)\in\mathrm{CORE}\times\mathcal N$ of $d(c,u)$ | the surface **and** the core's own extent, mixed together |
+| R3 | mean over $c\in\mathrm{CORE}$ of $\min_{u\in\mathcal N} d(c,u)$ | **the core** — nearest-wall clearance, blind to the far side of the surface |
+
+**Why R1, in one sentence.** $d_{\text{null}}$ exists to answer *"how far does the null surface sit
+from the object"*, and R1 is the only one of the three that averages over **the surface** while
+treating **the object as a single body** — R2's value grows with the core's own diameter, which is a
+property of the object and not of where the surface is, and R3 keys on the single closest piece of
+the surface, so a surface that moves outward on one side does not move R3 at all, which is exactly
+the motion §4.3's one-hop edge exists to detect.
+
+**Disclosure, so the choice is visibly made in the open.** The adversarial audit that surfaced this
+defect measured the three readings on the frozen $L=6$ carrier at **4.000, 6.362 and 4.500 hops**.
+R2 is necessarily the largest of the three — an all-pairs mean is $\ge$ either nearest-member mean,
+term by term — so **R2 = 6.362 hops**. **The audit's report as received here does NOT bind which of
+4.000 and 4.500 is R1 and which is R3, and this amendment does not guess:** both values are recorded
+and the selection above is made on the structural grounds given, not on a value. **No bin could have
+been consulted** — at the time of writing no $\mathcal N$, no $\beta$ and no $d_{\text{null}}$ from
+the pre-registered run exists anywhere in the tree, so no reading can be known to make a bin fire.
+
+**Reporting obligation (binding on the result document).** Every configuration reports
+$d_{\text{null}}$ under **R1**, and reports $|\mathcal N|$ and the **null-set node index list**
+alongside it, so any later reader can recompute R2 and R3 from the same null set without re-running
+the solve.
+
+## A1.2 — 🔒 BLOCKING — §5.7: the Termination geometry, frozen; and §5.8's exhaustiveness claim, CORRECTED
+
+**The defect.** §5.7 states a **type constraint only** — verbatim: *"A **real** `Termination` with a
+non-empty port set and a non-zero drive, on every physics configuration."* It names **no port set,
+no port count, no drive magnitude and no drive phase rule**. The termination is the only source in
+the box, so **it sets the entire field**: every $v$, every $A_{\text{bond}}$, every $\beta$, and
+therefore $\mathcal N$ itself, descends from it. §5.8 then asserts *"**No other numerical parameter
+exists in the driver.**"* — a claim **§5.7's own requirement contradicts**, because a real
+`Termination` cannot be built out of the numbers §5.8 lists.
+
+### (i) THE TERMINATION — frozen
+
+> **PORT SET.** The `net.degree = 3` incident slots at ONE node —
+> `ports = [u_seed*3 + 0, u_seed*3 + 1, u_seed*3 + 2]` with **$u_{\text{seed}} = 0$** — assembled
+> through the shipped `make_termination` (`harmonic_balance_srs.py:454`), which resolves `paired`
+> from the connect map itself. **No other slot is terminated anywhere on the lattice.**
+> **DRIVE MAGNITUDE.** $|\hat s| = s$ on each of the three slots, with $s$ the §5.4 drive scale — so
+> the §5.4 ladder is literally the per-slot incident magnitude and nothing else.
+> **DRIVE PHASE.** **COMMON** — within a tone, all three slots carry the *same* phase; across tones,
+> the per-tone phase $\varphi_m$ is drawn from the §5.5 integer seed. This is the *"drive-phase
+> pattern"* §5.5 already assigns to the seed: the seed sets the **inter-tone** phase pattern, and
+> that is the only thing it sets in the drive.
+> **NOTHING ELSE IS TERMINATED.** No absorbing plane, no sponge. The three terminated slots are the
+> only place a wave leaves the network — `Termination`'s own docstring: `paired` is *"the wave the
+> scaffold absorbs"* (`harmonic_balance_srs.py:387-389`) — which leaves the interior **lossless**,
+> as Axiom 3 requires.
+
+### (ii) WHY A COMPACT DRIVE AND NOT THE IN-TREE PLANE CONVENTION — structural, not a preference
+
+Every committed in-tree termination builds its port set from `crossing_ports`, a **plane** cut, at
+`x = 0.5` cells (`research/drivers/data/p2_scoping/accel.py:11`, `converge.py:13`, `scale.py:33`;
+`research/drivers/harmonic_balance_validation.py:118`). **A plane drive is structurally incompatible
+with this document, on two independent counts:**
+
+1. **§3.2's closure predicate becomes unsatisfiable by construction.** Under A1.1 the CORE is the
+   driven node set. A plane cut's driven nodes span the periodic box, so **they touch the periodic
+   wrap no matter what the field does** — and §3.2 requires deleting $\mathcal N$ to leave the core
+   *"in a finite connected component that does not touch the periodic wrap"*. Bin **A2** would then
+   fire in **every** configuration, and the run would be dead before it started: a result about the
+   termination, not about either ontology.
+2. **§0's PHASE-STATE row already excludes it.** §0 declares the run *"**GRADED, mixed** — cold
+   ($A=0$) in the far field, driven up to but not beyond the shipped kernel clip in the core."* A
+   plane source in a periodic box has **no far field** — it fills the box — and no *"core"*
+   distinct from it. §0 therefore already implies a compact drive; A1.2 states which one.
+
+**The smallest port set that is not dead on both counts is the `degree` slots at one node, and that
+is what is frozen.**
+
+### (iii) WHY THE COMMON DRIVE AND NOT A BALANCED ONE — anti-self-reference
+
+An incident set satisfying $\sum_j Y_j v_j = 0$ at the seed node **is the H-VN locating condition of
+§4.1**, and imposing it at the core would be assuming the answer at the one node the answer is
+measured from. Concretely: because all three of the seed node's incident slots are terminated, that
+node's incident vector **is** the imposed one, so a balanced drive would give
+$\beta_{u_{\text{seed}}} = 0$ *by construction of the drive* — putting CORE inside $\mathcal N$ and
+making §4.2 **(O5)**'s *"leaves the core in a finite component not touching the periodic wrap"*
+ill-posed, with the gate reading back its own input. The COMMON set is the opposite extreme: it gives
+$\beta_{u_{\text{seed}}} = 1$ **identically**, at every tone and every rung, which is the correct
+polarity for *"the object is a source and the surface is somewhere else."*
+
+### (iv) §5.8's EXHAUSTIVENESS CLAIM — CORRECTED
+
+**§5.8's sentence *"No other numerical parameter exists in the driver"* was FALSE as written**, and
+it was falsified by §5.7 on the same page rather than by anything discovered later. The register is
+completed here:
+
+| # | choice | value | why it cannot move a verdict |
+|---|---|---|---|
+| **EC-9** | `u_seed` | `0` | Fixed across every configuration and every seed, so it is common to both terms of every key difference and cancels out of $K_{\text{amp}}$ and $K_{\text{mode}}$ identically. **It is NOT claimed to be a physically distinguished site**, and no result may be read as a property of node 0. |
+| **EC-10** | terminated slot count | `net.degree = 3` | Not free — it is the carrier's own degree. Terminating fewer would leave the core node partly open to the interior field it exists to source. |
+| **EC-11** | per-slot drive magnitude | $s$ (the §5.4 rung) | $\beta$ is invariant under any rescale of $\lVert v\rVert$ (§4.2), so at fixed $Y$ this cannot move $\beta$ or $\mathcal N$. **It is frozen anyway** because inside `solve_self_consistent` it moves $A_{\text{bond}}$, which is precisely the knob §5.4's ladder exists to turn. |
+| **EC-12** | drive phase rule | COMMON within a tone; per-tone $\varphi_m$ from the §5.5 seed | §5.5's requirement that the bin be identical on all three seeds **is** the check on this choice — a bin that depends on $\varphi_m$ is `AMBIGUOUS` (B4d), never a verdict. |
+
+**The corrected sentence, which the result document quotes instead of §5.8's:** *"The numerical
+parameters of the driver are **EC-1 … EC-12**, and any parameter that appears at implementation time
+and is not on that list is a design defect and is reported as one, not tuned."* The second clause is
+§5.8's own next sentence, unchanged and still binding — **and it is the only thing that can make an
+exhaustiveness claim about this driver true, because no driver exists yet to check one against.**
+
+## A1.3 — MINOR — §4.2's $\beta$-population draw is missing its $\sigma$ (reproducibility hygiene)
+
+§4.2 reports, verbatim: *"**Measured, at freeze, over 20 000 random-phase draws at $z=3$ with
+log-normal magnitudes: mean $\beta = 0.5423$, max $\beta = 0.999993$**"* — and **does not report the
+log-normal's $\sigma$**. Because $\beta$ is scale-invariant (§4.2), the log-normal's median drops out
+and **$\sigma$ is the only parameter of that draw**; without it the number is not reproducible, and
+an independent auditor re-drawing at their own $\sigma$ obtained means of **0.60 – 0.83**.
+
+**Recovered by inversion, and disclosed as a recovery rather than as the original record.**
+Re-running the stated model ($z=3$, unit weights, uniform random phases, magnitudes log-normal of
+shape $\sigma$) at 20 000 draws $\times$ 40 repetitions:
+
+| $\sigma$ | 0.00 | 0.28 | 0.30 | 0.32 | 0.35 |
+|---|---|---|---|---|---|
+| mean $\beta$ | 0.52502 | 0.53964 | 0.54185 | 0.54419 | 0.54794 |
+
+so the reported 0.5423 corresponds to **$\sigma \approx 0.31$**, with a per-20 000-draw Monte-Carlo
+SD of 0.0021 on the mean (which pins $\sigma$ to roughly $\pm0.02$ at 1 SD). The reported
+$\max\beta = 0.999993$ sits inside the measured spread of the max over 20 000 draws
+($[0.99978,\,0.9999999]$ across repetitions), which corroborates both the draw count and the model.
+
+**The load-bearing consequence does not depend on $\sigma$, which is why the scan is reported and
+not just the inverted value.** Over $\sigma \in \{0,\,0.1,\,0.2,\,0.25,\,0.3,\,0.4,\,0.5,\,0.6,\,
+0.75,\,1.0,\,1.5,\,2.0\}$ the measured mean $\beta$ rises monotonically from
+**$0.5248 \pm 0.0002$** (at $\sigma = 0$, the equal-magnitude case; $2\times10^{6}$ draws $\times$ 5)
+to 0.7747 (at $\sigma = 2.0$). The smallest generic mean anywhere on that scan is **0.5248**, which
+puts $\tau_\beta = 1.0\times10^{-2}$ at $\log_{10}(0.5248/0.01) = \mathbf{1.72}$ **decades below the
+generic population for every $\sigma$ on the scan** — so §4.2's *"1.7 decades"* stands exactly as
+frozen.
+
+**This changes no frozen quantity.** $\tau_\beta$, its justification and both of its named edges are
+untouched. **Grade: reproducibility hygiene, not a result.**
+
+## A1.4 — MINOR — prior in-corpus "virtual neutral" sites, DISCLOSED
+
+The frozen body cites `boundary-observables-m-q-j.md:61`'s register 4 as H-VN's home, and does not
+disclose that the phrase already appears elsewhere in the corpus. **Full inventory on this branch:**
+`grep -rni -e 'virtual neutral' -e 'virtual-neutral'` across the whole tree excluding `.git`,
+**cross-checked with a second method** (a whitespace-tolerant slurp regex over every `.md`/`.py`/
+`.tex`, which returned the identical file set) — **four sites in three files, outside this
+document.**
+
+| # | site | verbatim | relation to this lane |
+|---|---|---|---|
+| 1 | `_orchestration/docket-entries/2026-08-23-route1-minimum-flip-ruling.md:25` | *"a zero-net \"virtual neutral\" core exists only with all three symmetric inputs engaged"* | **Same balance condition, different sector, different question.** A minimum-$N$ argument in the **baryon** sector on a 120° bond star — not a locus question and not on this carrier. This lane inherits nothing from it and tests nothing in it. |
+| 2 | `_orchestration/docket-entries/2026-08-23-saturation-locus-third-arm.md:6` | Grant, in chat, verbatim: *"Would the 'flux tubes' actual be the boundary of total saturation? separate from the vacuum, but a 'virtual neutral' equilibrium point where all strain inputs/projections are maxed out/saturated?"* | **This is where the phrase enters the corpus**, and it names a reading in which the virtual neutral and the saturation locus are **the same object**. This document tests them as **two ontologies that predict differently** (§4.1). The two framings are not the same one, and **this lane does not adjudicate between them.** |
+| 3 | `_orchestration/docket-entries/2026-08-23-saturation-locus-third-arm.md:12` | *"Tube = the **clipped equilibrium locus at the yield boundary** — a virtual-neutral surface pinned by the mutual frustration of the cage's saturated strain projections"* | The registered form of site 2, on the baryon $r_p$ KEEP-BOTH fork. That entry is **explicitly non-adjudicating**. |
+| 4 | `manuscript/ave-kb/vol2/particle-physics/ch02-baryon-sector/proton-identification.md:161` | *"(a virtual-neutral surface pinned by the mutual frustration of the cage's saturated strain projections)"* | The only **KB** site. It sits inside a 🔴 Rule-12 third-arm block whose own text reads *"Registered as a candidate ontology ONLY … no neutrality/minimum-N argument may be built on it (both uses adversarially refuted, see the docket)."* |
+
+**What the disclosure changes: nothing in §4, and one sentence of provenance.** All four sites are
+in the **baryon / flux-tube** context; this lane runs on the srs carrier with the scalar
+shunt-junction channel declared in §0, and **none of the four is a locus computation**. **No result
+from this lane may be read across to any of them** — in particular, site 4's own prohibition on
+building a neutrality or minimum-$N$ argument on the third arm is **not** discharged by anything
+this lane can return, in either direction. The one thing the inventory does change is provenance:
+the phrase *"virtual neutral"* entered the corpus as **Grant's chat reading at site 2, 2026-08-23**,
+and this document's **H-VN is a narrowing of it** to one channel, one axis and one carrier — not an
+independent coinage.
+
+**End of AMENDMENT 1.** Nothing in this amendment is frozen text; it is dated, its justification is
+above it, and it is subject to review like any other appended content.
