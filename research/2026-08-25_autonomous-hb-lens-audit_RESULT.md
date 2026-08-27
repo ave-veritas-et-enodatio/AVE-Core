@@ -1127,9 +1127,15 @@ journal's dispatch records the unreturned-checker count is **twelve**, not one:
 originally written said *"a fourth checker was dispatched and never returned"*,
 which reported a single instance of what the journal records twelve times. The
 journal is a run artifact and is not committed to this repo.) Six of the 28 went
-to the verify phase. **The remaining 19 have had no second pass of any kind.**
-Anything quoted
-from them — including several items in §5's table — carries **single-lane
+to the verify phase. **The remaining 19 have had no second pass of any kind** —
+meaning no RETURNED one. **Whether the twelve unreturned dispatches were aimed
+at findings inside that 19, at the 3 and 6 already covered, or across both, is
+NOT ESTABLISHED**: the dispatch targets exist only in the uncommitted run
+journal and this lane did not record them. The count is unaffected either way —
+a dispatch that never returned produced no coverage wherever it was aimed, so
+`28 = 3 + 6 + 19` stands as a partition by *returned* second passes. What is
+unknown is only whether any of the 19 had an attempt made on it. Anything
+quoted from them — including several items in §5's table — carries **single-lane
 standing**. This doc marks lane provenance throughout for that reason.
 
 ## §9 — WHAT THE AUDIT DID NOT COVER
@@ -1158,7 +1164,9 @@ Modalities not run, in the order they matter:
    the 24-ring. **Finite-size and continuum-limit behaviour of the branch:
    unknown.**
 6. **The A2 sources were never adversarially read** (FL-6), and **19 of 28
-   review findings never got a second pass** (FL-12).
+   review findings never got a returned second pass** (FL-12; twelve further
+   checker dispatches were issued and never returned, and whether they overlap
+   those 19 is not established).
 
 ## §10 — Skill-selection retro-pass
 
