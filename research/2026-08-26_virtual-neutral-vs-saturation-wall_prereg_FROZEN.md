@@ -570,7 +570,102 @@ confinement with finite external coupling and is consistent with Axiom 3.
 result document may not contain the sentence "the wall falls short of unity by $\alpha$" in any
 form.**
 
-## §5 — GEOMETRY AND PARAMETERS, FROZEN *(placeholder)*
+## §5 — GEOMETRY AND PARAMETERS, FROZEN
+
+### §5.1 — Carriers
+
+| role | object | why this one |
+|---|---|---|
+| **PHYSICS carrier** | `build_srs_net(L=6, enantiomorph="right")` — srs-z3, $N = 8L^3 = 1728$ nodes, degree 3, $B = 3N/2 = 2592$ bonds | The D1-ratified production carrier, **and the same $L=6$ carrier the incumbent claim's own wall figure is drawn on** (`resonant-lc-solitons.md:54`, verbatim: *"L=6, 1728 interior z=3 nodes"*). The run is therefore on the same object the incumbent illustrates, not on a convenient smaller one. |
+| **FIXTURE, never physics** | `build_ring_net(N=12)` — z=2, carrier tag `ring-z2-fixture` | The §7 non-triviality-gate host and the FL-4 reproduction fixture. **Its own carrier tag forbids physics use** and this document uses it for nothing else. |
+| **CONTROL** | `build_srs_net(L=6)` with $A_{\text{bond}} \equiv 0$ (cold, empty) | The §3.1 negative control, the A5 artifact test, and the LOC-1 instrument receipt. |
+
+**The carrier is asserted, not assumed:** the driver asserts `net.carrier == "srs-z3"` before any
+physics configuration runs, so a fixture net reaching the physics path fails loudly.
+
+### §5.2 — The saturation kernel path, FROZEN
+
+**`vacuum_varactor_scatter.saturation_kernel`, with the canonical engine values
+`A_cap = 0.99`, `S_min = 0.05`** (`vacuum_varactor_scatter.py:122`) — the path
+`harmonic_balance_srs.bond_admittance` (`:309-322`) actually delegates to.
+
+**Its measured consequence, banked at freeze so it cannot be discovered mid-run:** the cap binds
+before the floor, so the **minimum reachable $S$ is 0.1410673598** and the shipped scatter path's
+**best-case single-node reflection is $-0.6837926976$** (§2.5). **The physics arm therefore cannot
+produce a $|\Gamma| \to 1$ single-node mirror at all, and no result may be read as a failure to
+find one.** The alternative in-tree path (`graded_vacuum_network` / `srs_cage_winding`,
+`A_cap=0.999`, `S_min=1e-3`) is **NOT used** and the divergence is routed in §11.
+
+### §5.3 — Tone sets, FROZEN
+
+`ToneSet` enforces the **canonical open interval $(0,\pi)$** on every tone and raises otherwise
+(`harmonic_balance_srs.py:339-378`). Every value below is inside it, and $\theta \in \{0,\pi\}$ is
+structurally unreachable.
+
+| id | thetas (rad/step) | exact form | role |
+|---|---|---|---|
+| **T_A** | (0.6283185307179586,) | $(2\pi/10)$ | mode-key arm A, single tone |
+| **T_B** | (1.8849555921538759,) | $(6\pi/10)$ | mode-key arm B, single tone |
+| **T_A2** | (0.9424777960769379, 1.8849555921538759) | $(3\pi/10,\ 6\pi/10)$ | robustness: two-tone arm A |
+| **T_B2** | (0.6283185307179586, 2.5132741228718345) | $(2\pi/10,\ 8\pi/10)$ | robustness: two-tone arm B |
+
+$K_{\text{mode}}$ is evaluated on **both** pairs (T_A vs T_B, and T_A2 vs T_B2). Disagreement
+between the pairs is `AMBIGUOUS` (B4d).
+
+### §5.4 — Amplitude ladder, FROZEN
+
+Drive scale $s \in \{1.0,\ 3.0,\ 10.0\}$ — **one decade, log-spaced, three points.**
+$K_{\text{amp}}$ is evaluated between $s_{\text{lo}}=1.0$ and $s_{\text{hi}}=10.0$; the midpoint
+$s=3.0$ is a **monotonicity receipt**, not a data point.
+
+**Every rung reports its achieved $\max A_{\text{bond}}$.** If that does not increase monotonically
+across the three rungs, the amplitude arm is **`ARTIFACT` (A6)** — the knob did not move the thing
+it exists to move. **The amplitude arm runs ONLY inside `solve_self_consistent` (§4.3, gate
+AMP-1).**
+
+### §5.5 — Seeds, FROZEN
+
+`20260826`, `20260827`, `20260828` — three integer seeds, driving the drive-phase pattern and
+`A_init`. **The bin must be identical on all three.** Disagreement is `AMBIGUOUS` (B4d), never a
+majority vote.
+
+### §5.6 — The envelope-normalisation fork: NOT frozen by fiat, run as a ROBUSTNESS AXIS
+
+`envelope_A_bond`'s own docstring binds this, verbatim (`harmonic_balance_srs.py:631-634`):
+*"Two envelope forms exist in canon and this instrument supports BOTH — the choice is an **OPEN
+normalization fork** the G2 prereg must freeze, **NOT settled here** (post-re-audit demotion,
+2026-08-25; an earlier docstring asserted the two agree on traveling content — that was WRONG)."*
+
+**This lane does not own that fork and does not close it.** Both arms are run:
+`envelope_mode="c-state"` and `envelope_mode="full-tank"`. **The bin must be identical under both.**
+A bin that differs between the arms is `AMBIGUOUS` (B4d) — which is the honest outcome, because a
+verdict that depends on an un-adjudicated normalisation choice is a verdict about the choice.
+
+### §5.7 — Termination
+
+A **real** `Termination` with a non-empty port set and a non-zero drive, on every physics
+configuration. **`term=None` is FORBIDDEN on the physics path** (§7 NT-2) — see guard (e).
+
+### §5.8 — TAGGED ENGINEERING CHOICES (exhaustive; none can move a verdict)
+
+| # | choice | value | why it cannot move a verdict |
+|---|---|---|---|
+| EC-1 | inner-solve `tol` | $1.0\times10^{-11}$ | Sits three decades below NT-4's gating $10^{-8}$; the achieved `residual_rel` is COMPUTED and gated per tone. |
+| EC-2 | inner-solve `maxiter` | 20000 | Non-convergence routes to `INCONCLUSIVE`, never to a bin. |
+| EC-3 | outer `outer_tol` | $1.0\times10^{-10}$ | Same: a stalled outer loop is `INCONCLUSIVE`. |
+| EC-4 | outer `max_outer` | 200 | Same. |
+| EC-5 | outer `relax` | 0.5 | Under-relaxation changes the path to the fixed point, not the fixed point. The converged $A$ field is what is measured, and its convergence is gated by EC-3. |
+| EC-6 | `Y0` | 1.0 | A global admittance scale. **It cancels identically out of `a_nodes` (§2.4) and out of $\beta$ (§4.2), so it cannot move any observable in this document.** |
+| EC-7 | `v_norm` | 1.0 | The envelope normalisation constant. Held fixed across the whole run so the amplitude ladder moves the drive and nothing else. |
+| EC-8 | BFS hop metric | unweighted | The bond graph is the metric (§0 coordinates); there is no weight to choose. |
+
+**No other numerical parameter exists in the driver.** If one appears during implementation it is a
+design defect and is reported as one, not tuned.
+
+### §5.9 — Configuration matrix (the full frozen run)
+
+For each of the 3 seeds and each of the 2 envelope modes: the MODE arm runs the 4 tone sets at $s=1.0$ (4 solves), and the AMPLITUDE arm runs T_A at the 3 amplitude rungs inside `solve_self_consistent` (3 solves). Plus, per seed, one cold empty-vacuum control and one z=2 fixture run. **Every cell is run; no cell is dropped on the basis of what another cell
+returned.**
 
 ## §6 — THE FIVE GUARDS AS PRE-REGISTERED CHECKS *(placeholder)*
 
