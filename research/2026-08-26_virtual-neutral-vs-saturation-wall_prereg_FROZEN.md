@@ -974,8 +974,76 @@ we built, on a carrier we chose, in one channel, measured by an instrument that 
 mints no physics claims. **The §1.4 fence binds on a positive result exactly as hard as on a
 negative one** — and historically that is the direction in which this discipline slips.
 
-## §10 — ANTI-RESCUE GUARD *(placeholder)*
+## §10 — ANTI-RESCUE GUARD
 
-## §11 — ROUTED FLAGS *(placeholder)*
+**§9 puts ~75% of the probability mass on `AMBIGUOUS` or `ARTIFACT`.** The whole point of writing
+that down first is that discovering it mid-run must not become a licence to re-cut a bin.
+
+**Explicitly forbidden after this push:**
+
+- widening $\tau_\beta$, or moving either key edge (1.00 / 0.25 hop), or narrowing the dead band;
+- re-defining $\beta$, $d_{\text{null}}$, $\mathcal N$, $\mathcal C$ or $\mathrm{sep}$;
+- changing $L$, the tone sets, the amplitude ladder, the seeds, the kernel path, or the envelope
+  arms;
+- dropping a configuration, a seed, an envelope arm or a tone pair on the basis of what it returned;
+- promoting the §4.6 secondary test from breaking a verdict to making one;
+- converting an `ARTIFACT` or `INCONCLUSIVE` into a selecting bin by re-running with different EC
+  values;
+- reporting a LOCAL (§3) number as evidence for either ontology;
+- any sentence mapping a measured quantity onto $\alpha$ (gate ALPHA-1).
+
+**Any of these is a Rule-12 dated amendment with its own justification, appended below the frozen
+body — or it does not happen.**
+
+**And the specific rescue this arc is most likely to reach for, named in advance.** If
+$K_{\text{mode}}$ comes back at, say, 0.7 hops — inside the dead band, tantalisingly non-zero,
+"clearly" larger than $K_{\text{amp}}$ — **the verdict is `AMBIGUOUS` (B4c) and the correct
+reaction is to report 0.7 hops.** It is not to argue that hops are the wrong unit, that the dead
+band was set too wide, or that a ratio $K_{\text{mode}}/K_{\text{amp}}$ would have been the better
+statistic. **A ratio statistic is not in this document and cannot be added to it after the push.**
+
+**A negative or ambiguous verdict here is a clean result with a named mechanism, and that is the
+outcome to want.** The corpus currently has **no** computed answer to §2.7's fork; a measured "the
+keys do not separate on this carrier, and here is $K_{\text{amp}}$, $K_{\text{mode}}$ and the
+closure receipt" is strictly more than it has now.
+
+## §11 — ROUTED FLAGS (surfaced, NOT fixed by this lane)
+
+| # | flag | route |
+|---|---|---|
+| **VN-F1** | **Two live kernel-clip conventions.** `vacuum_varactor_scatter.py:122` pins `A_cap=0.99, S_min=0.05` (cap binds first ⇒ min $S$ = **0.1410673598**, and the `S_min=0.05` floor is **dead code** — it can never bind). `srs_cage_winding.py:293` pins `A_cap=0.999` and `electron_lattice_scene.py:93-94` pins `S_min=1e-3` (⇒ min $S$ = 0.0447 = canon's 0.045). **Two paths, two ceilings, and the corpus's headline wall value is reachable only through the second.** §5.2 freezes the first for this lane; nothing here adjudicates which is canonical. | auditor lane / kernel-convention adjudication |
+| **VN-F2** | **🔧 Inherited label transposition, CORRECTED at §2.4.** The claim set this lane inherited had the two-saturated and one-saturated level-set configurations **transposed** (−0.702 ↔ −0.808). Both values reproduce to ten digits; only the labels were swapped. **Any downstream document carrying the inherited pair must be corrected.** | orchestrator (propagate the correction) |
+| **VN-F3** | **🔧 `device-circuit-models.md:165` re-reading, CORRECTED at §2.9.** `:165` **asserts** the A1 mass wall; its guard sentence warns against colliding it with the $\Gamma_{\text{spinor}}$ $T_2$ wall, which is an argument **on** the A1 side. **Any document that inherited the framing that `:165` is a prohibition against the 2026-06-30 ruling is wrong and must be corrected.** | orchestrator (propagate the correction) |
+| **VN-F4** | **Cite drift on the canonical $\alpha$-echo trap pointer.** Canon cites the engine's radiative leak at `cvr_model.py:161 gamma_mag_sq_leak` at **two** sites — `electron-bound-resonator-coverage.md:172` and `device-circuit-models.md:207`. The real site on this branch is `src/scripts/vol_9_device/cvr_ee_sweep/cvr_model.py`, with `gamma_mag_sq_leak` at **`:170`** and the literal `return 1.0 - alpha` at **`:178`**; `:161` is `gamma_of_A`'s docstring. **Pure line drift — the adjudication and the content are correct at the real site**, and this lane honours the adjudication regardless (gate ALPHA-1). | auditor lane (cite-repair sweep) |
+| **VN-F5** | **The `solve_tone` silent-zero is UNDOCUMENTED at its own site.** The module's only `term=None` disclosure (`:805-815`) belongs to `source_idle_report` (`:787`); `solve_tone` (`:534`) carries none, and it is the function that returns $\lVert v\rVert=0$ with `converged=True` and `residual_rel=0`. **Mechanism verified at source and reproduced (§7.1). The label "FL-4" for it is lane-local and has ZERO corpus grep hits** — the only registered `FL-4` is an unrelated $K_4$-homonym flag at `research/2026-08-24_solver-crosscheck-phase0_requirements.md:385`. Suggested: a docstring disclosure at `solve_tone`, and a registered flag id if the corpus wants one. | engine/instrument lane (docstring); vocabulary lane (the duplicate `FL-4` label) |
+| **VN-F6** | **The envelope-normalisation fork is still OPEN** and this lane does not close it (§5.6). `envelope_A_bond`'s own docstring names the G2 prereg as its owner. This lane runs both arms and requires bin agreement; **a bin that depends on the arm is `AMBIGUOUS`, which is a finding about the fork.** | G2 prereg lane (owner); this lane reports only |
+| **VN-F7** | **The `K_amp`-inside-the-self-consistent-loop precondition (§4.3) is lane-derived**, is not in the inherited claim set, and is the sharpest structural-null trap in this design: $M$ is linear in $v$ at fixed $Y$, so a single-tone linear-solve amplitude arm returns $K_{\text{amp}}\equiv0$ for **both** ontologies. It is an accounting rule about the instrument, not a physics claim, but it is a lane-authored extension of the guard set and should be reviewed as one. | auditor lane (review at PR) |
+| **VN-F8** | **`resonant-lc-solitons.md:54`'s "(A>0.9, S→0.045)" reads as one condition and is two things** — a *selection threshold* ($A>0.9$ picks the node set) and a *clip value* ($S$ at $A=A_{\text{cap}}=0.999$). Verified internally consistent (§2.5), so this is a **legibility** flag, not a correctness one: the caption invites the reading $S(0.9)=0.045$, which is false ($S(0.9)=0.4358898944$). | auditor lane (caption legibility) |
+
+**None of the above is fixed, edited or propagated by this lane.** This lane's whole output is one
+frozen prereg.
+
+## §12 — SKILL-SELECTION PLAN (declared at freeze; retro-pass at lane close)
+
+`ave-prereg` (this freeze-by-push event; corpus inventory before any observable was defined) ·
+`verify-before-cite` (every file:line pointer in this document re-verified on this branch at
+`a3f4fef7`; four came back wrong and are corrected or flagged in §2 and §11) ·
+`substrate-native-check` (CP4 coordinates — the locus scalar is a bond-graph hop count, never a
+Cartesian radius; CP10 — the surface is a boundary condition read off $\Gamma$, never a bulk force
+term) · `phase-space-coordinate-check` (the claim lives in the node-voltage phasor field and the
+measurement is taken there) · `ave-regime-phase-state-check` (§0's PHASE-STATE row, and gate SEC-1
+which reconciles the declared phase-state against the computed one) ·
+`ave-structural-null-needs-stencil-lens` / guard (b) (the whole $\beta$ construction) ·
+`consistency-vs-emergence` (register declared in §0 and re-declared in the result doc; this is
+CONSISTENCY, not emergence) · `ave-discrimination-check` (§1.4 and §9.4 — what a positive result
+does and does not license) · `ave-driver-script-honesty` (§4.3's linearity disclosure and §5.8's
+exhaustive engineering-choice register are its output) · `ave-vocab-discipline` (§0's COMMON /
+BALANCED naming, chosen because both `A_1`/`T_2` are already taken by two different objects) ·
+`ave-mechanism-claims-discipline` (no headline without solidity or post-review; this lane produces
+a bin, not a mechanism) · stop-and-ask (two-attempt cap; a physics surprise is a stuck-point, not a
+judgment call).
+
+**Retro-pass obligation:** if the applied skill set drifts during execution, the drift is recorded
+in the result document, not back-fitted into this list.
 
 ## §12 — SKILL-SELECTION PLAN *(placeholder)*
