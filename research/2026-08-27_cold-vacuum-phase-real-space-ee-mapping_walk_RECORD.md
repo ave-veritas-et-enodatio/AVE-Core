@@ -636,7 +636,51 @@ and that content needs neither the equivalence nor the noun.
 
 ## §8 — ★ AUDIT CHARTER
 
+**Nothing in §2–§5 may reach a prereg, a leaf, or a ruling until these have been
+attacked.** Item 7 is already dead (§0) and is NOT re-litigated here — attacking
+it again is wasted budget. The live surface is items 1–6 and the §4 measurement.
+
+| # | claim under attack | class | how to attack it |
+|---|---|---|---|
+| **A1** | §4's headline: the global common-mode offset is an EXACT symmetry of the cold shipped dynamics, and breaks $\propto(1-S)$ | **NUMERICAL — highest priority, it is this record's only new content** | Re-run [`research/drivers/cold_vacuum_ee_mapping_walk.py`](drivers/cold_vacuum_ee_mapping_walk.py) independently. Then attack the setup, not the arithmetic: is the offset test **self-referential** (does the srs net's periodicity, or the seed, make the symmetry trivially true)? Try an OPEN/terminated box, a non-periodic net, $z=4$ diamond, and a complex-amplitude field. Does the $(1-S)$ tracking survive a different kernel clamp? **The failure mode to hunt: I built the test knowing the answer the algebra predicts.** |
+| **A2** | §3.2's circuit reading — zero port current at $V_{node}=2a$; exact-0 V node with current flowing | **MACHINERY** | Verify the current convention $I_i = Y_i(V^{inc}_i - V^{ref}_i)$ is the one the shipped module actually intends (`vacuum_varactor_scatter.py:23-26`), not my gloss on it. A sign or factor error here would invert the open/short reading. Check whether "port current" in the TLM register means what it means in a lumped network. |
+| **A3** | §4.4's crack in walk item 5: saturation makes the common mode a non-symmetry direction, so phase-only epistemology is a cold-limit statement | **INTERPRETIVE — the most likely place I overreached** | A broken symmetry is **not** automatically an observable. Build or name the readout model. Does any actual measurement couple to the common mode at $(1-S)>0$? If not, item 5 survives intact and §4.4 is a distinction without a difference. Attack this **before** anyone builds on it. |
+| **A4** | §7 C2: the $T_2$ label has no referent at $z=3$, and canon names that sector only by multiplicity | **CANON READING** | My 0-hit result rests on one leaf. Sweep for a $z=3$ irrep naming ELSEWHERE — and use a **markup-stripping** matcher (see §6 F1's method warning), because my own first two methods false-negatived on this corpus. If a $z=3$ irrep name exists, C2 weakens to a citation gap. |
+| **A5** | §7 C4: clause Q's $\varepsilon_{11}$ reference and the measured port-amplitude symmetry are DIFFERENT objects | **LOGIC + CANON** | Adversarial in **both directions**. If they are genuinely the same object, §4 is a candidate derivation route for clause Q's gauge half and that is a real result being under-claimed here. If they are genuinely different, check that §4 does not smuggle the identification back in through the word "gauge." |
+| **A6** | §7 C5: bundle-triviality and Chern-triviality are different statements | **MATH** | Is there a construction under which they ARE the same fact — same base, same fiber? If so C5 falls. If not, state what invariant WOULD be the right one for the port-space object, or record that none is defined. |
+| **A7** | §6 F3's use: the #417/#415 decoupling fences walk item 6's defect picture | **SCOPE** | #417 tested the coupled A1$\leftrightarrow\omega$ system's orbit; item 6 is about a $Y$-gradient in port space. Are these the same object? **I may be over-reaching the fence.** If they are different, F3 constrains less than §6 claims, and that must be recorded — a fence applied too widely is as much a defect as one dropped. |
+| **A8** | The whole framing: "cold vacuum" as a well-posed regime for this question | **PREMISE** | §7 C1 says the observables need a $\Gamma=-1$ surface that cold does not have. Does the cold regime support ANY of the objects the walk reasons about, or is the entire walk posed where its subject matter cannot exist? A null where the effect cannot exist is an artifact, not a result. |
+
+**Also required of the audit**, per standing discipline: the **consensus-bias
+symmetric standard** (would I flag the equivalent move in an SM/QED context? —
+note that reading a constraint structure off a mode decomposition is entirely
+standard practice there, so the flag must be on the OBJECT, not the move); the
+**discrimination check** (does any of §2–§5 buy a number, a discriminator, or
+only organizing power? — the honest expected answer is "one measured scaling
+and zero predictions"); and a **read-AND-run** pass on the driver rather than a
+read of this record's tables.
+
 ## §9 — ★ KILL CONDITIONS
+
+**Stated in advance so this record can fail cleanly rather than be quietly
+re-scoped.** Each is a condition under which a specific part of this record is
+DEAD, with no repair attempt.
+
+| # | if this is shown... | ...then this DIES |
+|---|---|---|
+| **K1** | The cold offset-symmetry (§4.1) is an artifact of the periodic box, the seed, or the scalar-TLM container — i.e. it fails on an open/terminated net | **§4 in its entirety**, and with it the only new content in this record. Walk item 4 reverts to un-measured assertion. **This is the primary kill.** |
+| **K2** | The $(1-S)$ tracking (§4.3) does not reproduce under a different saturation clamp or a different amplitude measure | **§4.3 and §4.4**. The gauge freedom would still be exact at $A=0$ (§4.1 is a separate measurement) but "degrades continuously, tracking $(1-S)$" would be withdrawn, and the crack in item 5 closes. |
+| **K3** | The port-current convention in §3.2 is wrong (sign, factor, or register) | **§3.2, §5 S5, and §7 C3** — the open/virtual-neutral reading and the correction to the walk's gloss all fall together. Walk items 2 and 3 revert to un-measured. |
+| **K4** | A $z=3$ irrep naming is found in canon | **§7 C2** narrows from "no referent" to a citation gap. Walk item 1 is then fully supported. *(This kill IMPROVES the walk — recorded so the record is not structurally biased toward its own findings.)* |
+| **K5** | Clause Q's reference and the port-amplitude symmetry are shown to be the same object | **§7 C4** dies, and §4 is **upgraded**, not downgraded — it would become a candidate derivation route for a POSTULATED clause. *(Also a kill that helps.)* |
+| **K6** | Anyone shows walk item 7 survives in a repaired form | **§0** — but note the bar: a repair must defeat *four* independent kills (phasor/modulus category, the $-1$-is-a-reference inversion, both-eigenspaces-continuous, and the tautology grading) **and** C1's regime problem. I record this as a kill condition rather than declaring it impossible, but I do not expect it and no lane should spend budget there without a new mechanism. |
+
+**Two-attempt cap applies.** Any lane that hits a stuck point on these — an
+ambiguous canon reading, a test that will not converge, a fence whose scope is
+unclear — stops after two attempts and returns a STUCK-POINT report to Grant
+rather than spiralling. §7 C2, §7 C4 and A7 are the three most likely
+stuck-points, and all three are Grant-intuition questions, not compute
+questions.
 
 ## §10 — What this record does NOT do
 
