@@ -331,6 +331,73 @@ C4 flags. The resemblance is suggestive and it is `[OPEN]`, not banked.
 
 ## §5 — Where canon SUPPORTS the walk
 
+**This section exists because this arc has a documented habit of reporting only
+the negative.** The walk is wrong in places (§7) and its headline item is dead
+(§0), but several of its steps are not merely plausible — they are what canon
+already says, and saying so is part of an honest record. Every quote below was
+read at `a3f4fef7` this session, not inherited from the lane reports.
+
+**S1 — The $A_1$/$T_2$ split of the port space is canon, verbatim, and the walk
+uses it correctly.** `[CANON]` `manuscript/ave-kb/common/port-register.md:37`
+(*"Taxonomy foundation `[canon]`"*): *"$A_1$ $=$ common-mode scalar/longitudinal
+(dilatation, mass), $T_2$ $=$ traceless triplet (shear, the photon/GW)."* And at
+the irrep leaf, `k4-port-irrep-decomposition.md:23`: *"$T_2$ eigenvalue: $-1$,
+triply degenerate (basis spans traceless 3D subspace...)"*, with `:55`: *"Basis
+spans the traceless 3D subspace $\{v : \sum_i v_i = 0\}$"*. Walk item 1's
+identification of the cold balanced subspace with canon's $T_2$ is **the
+corpus's own naming**, not an import — subject only to the $z$ caveat at §7 C2.
+
+**S2 — The identification of the common mode with the A1 dilatation is canon,
+explicitly, not a homonym.** `[CANON]`
+`manuscript/ave-kb/vol9/ch3-pin-port-configuration/node-scattering-multiplicity.md:100-101`:
+*"The longitudinal A1 dilatation **scalar IS the $+1$ common mode** of $S_n =
+(2/n)J - I$ (the all-ones eigenvector), and it is orthogonal to the entire $-1$
+differential sector by construction."* The walk was right to treat these as one
+object. **The caveat is not that it is false but that it is analytic** — canon
+grades the same identification *"true by construction, NOT a test"* (§0). It is
+a legitimate **redirect** and an illegitimate **explanation**; canon says so in
+its own words at `node-scattering-multiplicity.md:129-131`: *"A tautological-but-USEFUL
+sector redirect ... Useful as a redirect; not a test result."*
+
+**S3 — Clause Q really is a gauge/ground choice, and R55 really did rule it so.**
+`[CANON]` `_orchestration/docket-entries/2026-08-24-ruling-r55-axiom5-source-law.md:58`,
+verified two methods (literal grep plus a markup-stripped normalised slurp):
+*"A ground reference is a gauge choice, not a material primitive."* **Precision
+note, because verify-before-cite requires it:** that sentence sits in **§2 — The
+findings**, not in §3 — The ruling. The *substance* is nonetheless ratified —
+§3's own cut names *"where the reference sits (Q — the gauge/ground choice)"*
+and ratified consequence 1 reads *"clause Q is its reference fixing."* So walk
+item 4's attribution is **substantively correct and citationally loose**: it
+quotes a finding as if it were the ruling clause. Related `[CANON]` at
+`manuscript/common_equations/eq_axiom_5.tex:87`: clause Q is *"the quiescent
+reference (Q-point) that makes the potentials defined and clause G's elliptic
+solve well-posed."*
+
+**S4 — The srs manifold really is topologically trivial, and it was measured, not
+assumed.** `[CANON — research-grade]`
+`research/2026-07-02_cleave-registry-pump-chern-nband_result.md:36`: *"It
+reports 0 on the srs manifold because the srs manifold *is* topologically
+trivial in both readings."* This is a gate-validated result — the same
+integrator recovers a known $|C|=2$ that flips sign under pump reversal, and
+converges across $n=24/36/48$ — so the zero is not a trivially-returned zero.
+Walk item 6's triviality half has a real measured referent. **What it does not
+license is the identification** the walk makes between that manifold and the
+port-space bundle (§7 C5).
+
+**S5 — The walk's central circuit picture is measured-correct and was
+under-claimed.** Not canon, but this record's own measurement: §3.2's zero port
+currents at a doubled node voltage, and the exact-$0$ V node with real current
+flowing, are the open and the virtual neutral the walk described. Item 3's
+reference asymmetry is the walk's most robust claim and it survives everything
+in §7.
+
+**S6 — Sector-ownership discipline was honoured.** The walk kept mass on A1 and
+charge/spin on the Cosserat $(2,3)$ and never crossed them. `[CANON]`
+`boundary-observables-m-q-j.md:25`: *"MASS (A1) $\perp$ CHARGE/spin (T2) — never
+one phasor."* The cross-wire this record does flag (§7 C4) is a different one —
+A1-port-amplitude versus A1-bias-sector — and it is subtler than the classic
+sector error.
+
 ## §6 — ★ MANDATORY FENCES (verified and quoted this session)
 
 ## §7 — Where canon CONTRADICTS the walk
