@@ -19,6 +19,20 @@
 > two of them **correct** the inherited claim. They are banked here so the discriminator below
 > stands on verified arithmetic instead of on trust.
 
+> ### 🔒 FREEZE STAMP
+>
+> **FROZEN 2026-08-26.** The frozen content is the state of this file at commit
+> **`9b178a50ab371753305cfdb301d0f1bfded3d9dd`**, blob
+> **`929b4ccb5a68a0fea00bd700394eaaa122935181`**. This stamp is the only text added after that
+> commit, and it is **metadata about the freeze — it moves no criterion, tolerance, bin edge,
+> observable, geometry value or gate.** Everything Rule 11 binds is at the named blob.
+>
+> **At the moment of the freeze the tree contains NO driver for this lane, NO solved state, and
+> NO measured number from the pre-registered run.** The only measurements in this document are
+> §2's reproductions of an inherited claim set, computed before the document was opened, and the
+> §4.2 $\beta$-bound verification, computed while §4 was being written and disclosed in its own
+> commit.
+
 **Class:** **DISCRIMINATOR** (a sub-class of ADJUDICATION-INPUT). This lane **mints no
 `clm-`/`def-`/`exp-`/`sup-`/`ilk-`; edits no KB leaf, register, ledger, axiom or ruling;
 changes no solidity; propagates nothing; retires nothing.** It produces one verdict in one
