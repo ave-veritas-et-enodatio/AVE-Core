@@ -455,7 +455,9 @@ reason.
 ### F7 — DELOCALIZED (CRITICAL, CONFIRMED, was UNFILED)
 
 **Every converged autonomous solution measured in the round is delocalized.**
-Participation **86.6 – 164.0** of **192** dofs; inverse participation ratio
+Participation **86.6 – 164.0** of **192** dofs (span includes the **LINEAR
+control**; nonlinear converged solutions are **104.1 – 164.0**, i.e. **54–85 %**
+— see the receipt-precision correction below); inverse participation ratio
 **0.0061 – 0.0116** against a uniform-state IPR of **0.005208** (`= 1/192`).
 These are **extended lattice modes, not bound states.**
 
