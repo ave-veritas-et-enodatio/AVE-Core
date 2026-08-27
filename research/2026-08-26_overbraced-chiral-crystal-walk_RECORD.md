@@ -73,7 +73,8 @@ memory from a confident one.
 >
 > **★ SECOND AMENDMENT — see the dated STATUS NOTE at the end of this record.**
 > The A1–A7 audit completed after this section was written and **re-dispositioned
-> the first CRITICAL below**: the argument in `:78-84` is **REFUTED** (unanimously),
+> the first CRITICAL below**: the argument in that CRITICAL (*"the existence
+> criterion cannot fail"*) is **REFUTED** (unanimously),
 > while its conclusion is **re-established on different receipts (F5/F6)**. The
 > governing statement is the **F1–F6 table** in
 > `research/2026-08-25_autonomous-hb-lens-audit_RESULT.md` §2 (F1 in full at its
@@ -236,7 +237,16 @@ nothing is seeded (it is a transport integral, not a template — the direct ans
 to §1 finding 3), and it can return zero. **[WALK; the Berry/Chern/Weyl content
 is [EXTERNAL-UNRETRIEVED].]**
 
-> ### ★★ KILL 1 — the Chern integer is identically ZERO on this operator, by exact symmetry, at every amplitude. **[MEASURED-VERIFY-PASS]**
+> ### ★★ KILL 1 — the Chern integer is identically ZERO on this operator, by exact symmetry, at every amplitude.
+>
+> **★ SPLIT GRADE — the receipts and the inference are not the same class.**
+> The two receipts (`M` exactly real at every amplitude; `A(−k) = conj(A(k))` to
+> `0.000e+00`, i.e. exact spinless TRS) are **[MEASURED-VERIFY-PASS]**. The step
+> *"a real Bloch matrix has odd Berry curvature, therefore every band's Chern
+> number vanishes identically"* is a **standard-literature inference that was
+> NOT retrieved in this session** — **[EXTERNAL-UNRETRIEVED]**, the same class
+> §0 assigns to Berry/Chern generally. The kill is only as strong as that
+> inference, and B3 in §8 already carries the retrieval requirement.
 >
 > ```
 > net: N=64 degree=3 ndof=192 n_bonds=96
@@ -292,8 +302,11 @@ is [EXTERNAL-UNRETRIEVED].]**
 brief asserted [MEASURED-VERIFY-PASS / ASSEMBLY]:**
 
 **(a) Maxwell–Calladine is a CONNECTIVITY count and is therefore
-amplitude-INVARIANT.** `S(A)` changes bond **admittances** (`Y = Y0/√S`), not
-connectivity, so `(self-stress − mechanisms)` **cannot move with amplitude**.
+amplitude-INVARIANT away from the rail.** `S(A)` changes bond **admittances**
+(`Y = Y0/√S`), not connectivity, so `(self-stress − mechanisms)` **cannot move
+with amplitude anywhere the bonds stay compliant** — the rail is the stated
+exception and it is treated in the next two sentences, not a caveat to be
+dropped.
 Measured confirmation: the `θ=0` block stays exactly 34-dimensional from `A=0`
 through a random graded field. The only place bracing could change the effective
 count is **the rail**, where `S→0` and `Y→∞` (a compliance becoming a rigid
@@ -467,10 +480,16 @@ for the walk's novelty.** Every term the walk reached for was grepped before use
 | `Berry phase` | 2 | 3 | present, sparse |
 | `Chern` | 67 | 364 | **heavily used — and already COMPUTED on this carrier**, see §6.3 |
 
-**Consequence: the walk introduces no new term.** Where it reached for
+**Consequence: the walk introduces no new CANONICAL term.** Where it reached for
 `hyperstatic` and `Kane–Lubensky` (0 hits each), canon's existing `over-braced` /
 `isostatic` cover the first and the second should be introduced, if at all, only
-with retrieval attached. **[CANON-VERIFIED]**
+with retrieval attached. **Precision correction, 2026-08-26:** this record does
+use the word `hyperstatic`, so the flat form of the sentence was false. Per §6.0's
+own recommendation the bare uses have been replaced with canon's `over-braced`;
+`hyperstatic` now appears **only as a parenthetical gloss on `over-braced`**
+(§2's definition sentence, B1 in §8, and the §10 Q1 heading) and never as the
+load-bearing term.
+**[CANON-VERIFIED]**
 
 ### 6.1 ★ "Over-bracing = couple-stress" is ALREADY the corpus's identification
 
@@ -829,7 +848,7 @@ can be read side by side.**
 
 **And one defect it arguably WORSENS — delocalization.** Nothing about a
 self-stress state or a Chern integer makes a state **localized**. The self-stress
-space of a **periodic** hyperstatic frame is spanned by Bloch states at every
+space of a **periodic** over-braced frame is spanned by Bloch states at every
 `k`, and Chern integers are **bulk-band** properties. By bulk–boundary
 correspondence the localized object would sit at a **boundary or defect** — which
 the periodic srs torus with `term=None` **does not have**. This is consistent
@@ -847,7 +866,7 @@ Numbered **B1–B10** so they never collide with the autonomous-HB lens's A1–A
 
 | # | claim | class | how to attack it |
 |---|---|---|---|
-| **B1** | The srs-z3 lattice with Cosserat bonds is **over-braced (hyperstatic)** rather than isostatic — §4.4 | NUMERICAL + EXTERNAL | **the load-bearing one.** Do NOT accept the per-node arithmetic: compute `rank` of the equilibrium/compatibility matrix on the actual `build_srs_net` connectivity. Reuse `alpha_crystal_mc_count.py` (it is `ave.core`-free by design and has an import-graph guard). **Report the answer under BOTH bond conventions** — canon's 3-row (`:259-275`) and the walk's 6-row — and say which is physically right and why. Expect the sign to flip between them (§4.4c) |
+| **B1** | The srs-z3 lattice with Cosserat bonds is **over-braced (hyperstatic)** rather than isostatic — §4.4 | NUMERICAL + EXTERNAL | **the load-bearing one.** Do NOT accept the per-node arithmetic: compute `rank` of the equilibrium/compatibility matrix on the actual `build_srs_net` connectivity. **This is NOT a re-run of an existing driver.** `src/scripts/vol_1_foundations/alpha_crystal_mc_count.py` is **diamond-only** (`DiamondNet` / `build_diamond_net_standalone`) and its `assert "ave.core" not in sys.modules` guard at `:87` **blocks importing `build_srs_net` at all**, so "reuse the driver" is not an executable instruction. The executable form: **port the 3-row micropolar rigidity builder (`:259-275`) onto a standalone srs rebuild inside the same alpha-free module, mirroring exactly what that module already does for diamond** (standalone rebuild + `_verify_topology_parity` against the `ave.core` builder in `__main__`, which is the one place the guard permits the import). **Report the answer under BOTH bond conventions** — canon's 3-row (`:259-275`) and the walk's 6-row — and say which is physically right and why. Expect the sign to flip between them (§4.4c) |
 | **B2** | A **structural** amplitude-selector is the right class of mechanism for a lossless medium — §3 | LOGIC | class-level only. Attack: does "structural" actually exclude the failure mode, or just rename it? §7.2 says a linear self-stress subspace has the same degeneracy. Is there a *lossless* mechanism that isolates an amplitude at all? |
 | **B3** | Degeneracy-transported invariants (Berry/Chern/Weyl) supply a discrete, seed-free, can-return-zero observable — §4.2 | EXTERNAL + NUMERICAL | **MEASURED VACUOUS (KILL 1 / KILL 2, §4.2). This row is now: confirm the kills, then adjudicate the named escapes** — Z₂ vs Z, Wilczek–Zee non-abelian transport over the degenerate blocks, twisted boundary conditions. Still **retrieve** Berry/Chern/Weyl (all [EXTERNAL-UNRETRIEVED]). Also check the seed-free claim *operationally* against §7.7: inside a 34-dimensional block the starting subspace **is** a seed |
 | **B4** | An occupied-manifold invariant is well-defined on **unitary** `M` | MACHINERY | the hole §4.2 flags. `M` is unitary, not Hermitian; "occupied" needs a quasi-energy branch. Supply the construction or show it cannot be supplied here. **Compounded by §4.2(b): amplitude alone is a 1-D OPEN interval with no closed loops**, so name the ≥2-D parameter space or concede there isn't one |
@@ -892,8 +911,9 @@ is the right precedent):
   whether even that survives §6.
 
 **Lane note.** Run **B11 first** — it is one computation and it is decisive. Then
-**B12**. At least one lane should do **read-and-run** on B1 (the count is cheap
-and the driver exists), and at least one lane should take **B10 adversarially** —
+**B12**. At least one lane should do **read-and-run** on B1 (it needs a
+port, not a re-run — see the row), and at least one lane should take **B10
+adversarially** —
 treat the walk as fully redundant with existing corpus items and see what
 survives.
 
@@ -967,11 +987,16 @@ retraction), not this record's slot.
 
 ## §10 — The two open questions, routed to computation
 
-**Grant has directed that these be settled by computation rather than by further
-walking.** Both are framed as computable objects, with what is already known
+**These two are routed to COMPUTATION rather than to further walking.** **[WALK]**
+*(This record originally stated the routing as a Grant directive. No committed
+primary source for such a directive exists, and an unsourced attribution is
+exactly what the Provenance discipline forbids — so it is recorded here as this
+record's own recommendation. If a standing instruction to the same effect does
+exist, it should be attached verbatim with a citation before §10 is quoted as
+carrying one.)* Both are framed as computable objects, with what is already known
 attached.
 
-### Q1 — is the vacuum ISOSTATIC (critically braced) or HYPERSTATIC (over-braced)?
+### Q1 — is the vacuum ISOSTATIC (critically braced) or OVER-BRACED (hyperstatic)?
 
 **Computable form.** The **Maxwell–Calladine index** / **rank of the equilibrium
 (or compatibility) matrix** on the **actual srs connectivity** with **Cosserat
@@ -990,8 +1015,13 @@ bonds**. Report `DOF`, `#C`, `rank`, `f = DOF − rank`, `s = #C − rank`,
 - its Cosserat bond model is **3 rows per bond**, and the walk assumed 6; **the
   answer's sign flips between them** (§4.4c) — **run both, and say which is
   physically right**;
-- **the count is amplitude-INVARIANT** (§4.2a) — do not sweep amplitude expecting
-  it to move. **[MEASURED-VERIFY-PASS]**
+- **the count is amplitude-INVARIANT away from the rail** (§4.2a) — do not sweep
+  amplitude expecting it to move. **The rail is the stated exception**: at
+  `S→0`, `Y→∞`, a compliance becomes a rigid constraint and the effective count
+  *can* change — but that is the kernel's declared clip domain
+  (`A_cap = 0.99` / `S_min = 0.05`) and exactly where every solver in the review
+  failed, so it is numerically unreachable, not a usable knob.
+  **[MEASURED-VERIFY-PASS]**
 - **the `θ=0` eigenspace dimension is NOT this count** (§4.4d, §4.5). Do not
   conflate them.
 
@@ -1075,7 +1105,7 @@ full at that document's §2.1 — supersedes §1 as the statement of what was
 measured. **Read the F1–F6 table before quoting §1.**
 
 **§1's first CRITICAL still ships the F1 ARGUMENT, and that argument is
-REFUTED.** §1 `:78-84` runs the chain *`M` is `Y`-unitary for any `S`-field →
+REFUTED.** §1's *"the existence criterion cannot fail"* paragraph runs the chain *`M` is `Y`-unitary for any `S`-field →
 every eigenvector is a source-free solution → 192 source-free solutions on empty
 cold vacuum → existence is vacuous.* The audit's verdict on F1 is
 **`CONCLUSION CONFIRMED / ARGUMENT REFUTED`**, and it is the one **unanimous**
