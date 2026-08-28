@@ -271,6 +271,124 @@ flag; this record does not resolve it.**
 
 ## §4 — ★ THE DELTAS — what the sweep shows is NOT in canon
 
+Three findings. None is what the walk proposed. **DELTA-2 and DELTA-3 are
+surfaced, not fixed** (flag-don't-fix); neither is adjudicated here.
+
+### DELTA-1 `[ARITH]` — canon's gravity-ladder boundaries, expressed as radii
+
+Canon writes the ladder in `r = A/A_c` and the gravity amplitude as
+`ε₁₁ = 7GM/c²r` with `A_c = 1`. **Composing them gives a radius for each
+boundary. I found no site that writes those radii down** (method + blind spot:
+§9). Arithmetic on canon's own two definitions, `α = 7.2973525693e-3` from
+`src/ave/core/constants.py`:163:
+
+| landmark | `ε₁₁` | `r` in `GM/c²` | `r/r_s` |
+|---|---|---|---|
+| **Regime I → II** (`ε₁₁ = √(2α)`) | `0.120809` | `57.943` | **`28.97`** |
+| **Regime II → III** (`ε₁₁ = √3/2`) | `0.866025` | `8.0829` | **`4.042`** |
+| **Regime III → IV** (`ε₁₁ = 1`) `= r_sat` | `1.000000` | `7.0000` | **`3.500`** |
+| ISCO, Schwarzschild `a* = 0` | `1.1667` | `6` | `3` |
+| photon sphere | `2.3333` | `3` | `1.5` |
+| horizon `r_s` | `3.5` | `2` | `1` |
+
+**Three readings that fall straight out and that I did not find stated anywhere:**
+
+1. **Regime I ends at ~29 `r_s`** — far outside the horizon, and far outside
+   anything GR is precision-tested on. `[ARITH]`
+2. **Regime III (Yield) is a thin shell**, `3.500 r_s` to `4.042 r_s` — about
+   half a Schwarzschild radius thick. Regime II owns the whole span from
+   `4.04 r_s` out to `28.97 r_s`. `[ARITH]`
+3. **ISCO and the photon sphere are both INSIDE `r_sat`** on this ladder, i.e.
+   both sit in Regime IV. `[ARITH]` This is arithmetic, not a claim about
+   observables — and it must be read through the §3 row-3 fence, which scopes
+   `r_sat` to the **shear + matter** channel. Anyone tempted to turn it into an
+   observational statement should read `wall-taxonomy.md`:168 first.
+
+**Cross-check that the arithmetic is canon's, not mine:** the same formula at
+the solar surface returns `ε₁₁ = 1.4862×10⁻⁵`, which reproduces
+`domain-catalog.md`:50's corrected value; and at `r_s` it returns `7/2 = 3.5`,
+reproducing `:53`. `[ARITH]` + `[CANON]`
+
+### DELTA-2 ⚑ `[CANON]` — the gravity sector has at least FOUR control parameters, and they are compared against ONE boundary
+
+Enumerated by reading the leaves named below, not by pattern-matching (§9):
+
+| # | control parameter `A` | `A_c` | site | a worked value |
+|---|---|---|---|---|
+| 1 | `ε₁₁ = 7GM/c²r` — static radial bias, near zone | `1` | `domain-catalog.md`:45–47 | solar surface `1.486×10⁻⁵` |
+| 2 | `h` — GW strain, **far** zone | `√α = 0.0854` | `domain-catalog.md`:116–118 | LIGO `r ~ 10⁻²⁰` |
+| 3 | `g_N/a₀` — Newtonian accel. vs MOND scale | `a₀` | `domain-catalog.md`:126–128 | galactic rotation |
+| 4 | `A_gm` — gravitomagnetic (Lense–Thirring) phase-strain | (vs `0.121`) | `orbital-lc-friction-paradox.md`:12,:18 | solar system `~10⁻³⁴` |
+
+**The reader hazard, in one line: the SAME PLACE reads Regime I on one parameter
+and Regime IV on another, and no leaf my method reached carries a sentence
+saying so.**
+
+- **The Sun**: `ε₁₁ = 1.49×10⁻⁵` (#1) versus `A_gm ~ 10⁻³⁴` (#4). Both verdicts
+  are "Regime I" — but they are **29 orders of magnitude apart in
+  distance-from-the-boundary**, and `orbital-lc-friction-paradox.md`:14 reads the
+  smaller one as *"infinitely deep inside Regime I."*
+- **A neutron-star surface**: `domain-catalog.md`:52 — *"Neutron star (1.4 M⊙,
+  R = 10 km): `ε₁₁ ≈ 1.46` --- **Regime IV**"*; `:120` — *"A neutron star merger
+  **at the surface** (`h ~ 0.01`) reaches `r = 0.117 < √(2α) = 0.121` --- still
+  in **Regime I**."* **Same leaf, same body, same words "at the surface,"
+  opposite regimes.**
+
+**This is not a contradiction** — the leaf is organised per-domain and each
+domain is internally self-consistent; `h` is a far-zone radiated amplitude and
+`ε₁₁` is a near-zone static bias, and they are entitled to differ. **It is a
+missing reconciling sentence on a leaf whose whole job is regime
+classification**, and it is exactly the failure `wall-taxonomy.md` §4's
+operational rule exists to prevent (*"name (i) the channel, (ii) the axis …
+(iii) the phase-state"*).
+
+**And it bites this very walk.** The walk's row-2 entry *"LIGO merger peak
+`U ~ 0.1–0.3`"* is a **near-zone compactness** statement; canon's LIGO row is a
+**far-zone wave strain**. Two different coordinates, and the walk read them as
+one row. `[WALK]` → corrected in §3.
+
+### DELTA-3 ⚑ `[CANON]` — canon's GR-observable regime table puts Mercury in the wrong regime, under the wrong name
+
+[`orbital-regime-table.md`](../manuscript/ave-kb/vol3/cosmology/ch14-orbital-mechanics/orbital-regime-table.md):16
+(claim `clm-qyn8t0`, **solidity 0.55, `input-only`**), verbatim:
+
+```
+| Mercury precession | II (Yield) | $\Delta\phi$ = 43''/century | Exact match with GR |
+```
+
+**Two independent defects on one line.**
+
+1. **The NAME is wrong against the canonical ladder.**
+   `four-regimes.md`:27–28 names Regime **II "Nonlinear"** and Regime **III
+   "Yield."** The same table's next rows carry the same off-by-one — `:18` reads
+   *"III (Rupture)"* where `:29` names IV "Ruptured."
+2. **The ASSIGNMENT is wrong by about six orders of magnitude.** On canon's own
+   gravity control parameter, Mercury's orbit `a = 5.7909×10¹⁰ m` gives
+   `ε₁₁ = 7GM_⊙/(c²a) = 1.785×10⁻⁷` `[ARITH]`, i.e. `1.5×10⁻⁶` of the way to the
+   Regime I/II boundary at `0.1208`. **Mercury is deep Regime I.**
+
+**Why it matters more than a typo:** this is the one table my search found that
+maps a *GR observable* to an AVE regime, and it mis-files **the flagship
+solar-system GR test**. A reader answering Grant's question from that table gets
+"the classic GR test is nonlinear/yield," which inverts the answer.
+
+⚑ **Routed, not fixed.** Both defects are surfaced with receipts; neither is
+edited by this lane, and the owning leaf's author reading `four-regimes.md`
+decides the repair.
+
+### Residue from §2 `[WALK]`
+
+The nonlinearity-**location** contrast (GR: field equation; AVE: constitutive
+law) is the one framing statement I found no corpus site making. It is audit
+item **A2** and produces no number.
+
+### Homonym warning, noted in passing `[CANON]`
+
+`r_sat` names **two different radii** in canon: `7GM/c²` (the BH saturation
+boundary, this record) and `√(GM_⊙/a₀) ≈ 7,400 AU` (the solar Axiom-4 onset
+radius, `vol3/cosmology/ch06-solar-system/index.md`:11, whose Oort-containment
+framing was **retracted 2026-08-03**). Do not fuse them.
+
 ## §5 — The program consequence
 
 ## §6 — The GR-domain numbers: what I could source and what I could not
