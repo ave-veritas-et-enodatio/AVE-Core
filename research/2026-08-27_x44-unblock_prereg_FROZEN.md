@@ -12,7 +12,7 @@ structurally unreachable PASS bin (§1).
 
 ---
 
-<!-- SECTIONS -->
+
 
 ## 0 · Sector header (mandatory)
 
@@ -964,3 +964,52 @@ Conversely, the standard is not relaxed for AVE either: `η_mixed ≈ +0.83` is 
 gap between two of the engine's own registers, and §9 does not explain it away.
 
 ## 15 · Out of scope · Deliverables · Gates
+
+### 15.1 · Gates the run must execute (all of them, before binning)
+
+1. **Adjointness assertion** — `‖Div − Gradᵀ‖ = 0` (blind spot 4, §14.3). §4.2's
+   closed form is void without it.
+2. **Z-gate suite** (§11) — Z1…Z6, evaluated and reported **before** any selecting bin.
+3. **Y-gate suite** (§10.3) — convergence, `V_resid`, Gauss residual, resolution.
+4. **The four-coefficient discrimination sweep** `k ∈ {0, 1/7, 2/7, 1/2}` (P8).
+5. **FAM-B amplitude ladder** at N=24; **FAM-A** for the reported `η_mixed`.
+6. **Resolution receipt** `N ∈ {24, 32, 40}` at λ=1 (P7).
+7. **The P10 enumeration** — every engine observable that could respond to the weight
+   other than through the installed source, listed and tested, with the completeness
+   rule applied to the list.
+8. Existing `#86` suite and `engine_acceptance` consumers GREEN; `make verify` PASS;
+   `mass = A1` untouched.
+
+### 15.2 · Out of scope (flag, do not do)
+
+- Everything in §6.3 and §12.4.
+- Editing any canon leaf, ruling, or docket entry — including the two defects this
+  prereg flags (Ruling 1's code attribution, §3.3; the 2026-08-11 proposal's
+  direction ambiguity, §3.4). **FLAG-DON'T-FIX: the disambiguation is the
+  deliverable; the corrections are Grant's.**
+- Resolving the `√g₀₀` vs `1/n_scalar` `O(ε₁₁²)` fork (§3.4).
+- The corpus-wide `√S` census (a companion lane's six-function enumeration).
+- Building the `T_ij` / stress register (the X44b charter's own arc).
+
+### 15.3 · Deliverables
+
+- [x] **This FROZEN prereg** — pushed before any engine edit, driver, or test exists.
+- [x] `research/drivers/x44_unblock_regime_map.py` — the reachability arithmetic,
+      reproducible.
+- [x] `_orchestration/open-items/2026-08-27-x44-unblock.md` — ROUTED-TO-GRANT.
+- [x] Board regenerated from the derived sources.
+- [ ] Engine leg: the frozen weight behind an explicit mode, legacy modes retained
+      (KEEP-BOTH). **Does not exist at freeze time.**
+- [ ] `research/2026-08-27_x44-unblock_result.md` — must carry §13's post-dicted /
+      pre-registered split verbatim.
+- [ ] PR `[DO-NOT-MERGE][REVIEW: pending-orchestrator]` — no self-merge.
+
+### 15.4 · Freeze statement
+
+This document is **FROZEN**. Its bins (§10), its weight (§3), its `g_self` (§4.4),
+its families (§5.1), its predictions (§7), its falsifiers (§8) and its prohibitions
+(§12.4) may not be edited by the run they govern. Amendments, if any, are **new dated
+documents** — the frozen text is never rewritten. The freeze commit records the SHA
+of the frozen content.
+
+**Frozen bins enforce; flags do not.**
