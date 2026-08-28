@@ -163,6 +163,110 @@ verbatim). **This prereg never writes `g₀₀ = S` or `√g₀₀ = √S`.**
 
 ## 3 · THE FROZEN WEIGHT
 
+### 3.1 · The frozen form
+
+```
+n_scalar(r) = 1 + ε₁₁(r)/7                    # canon, ponderomotive-equivalence.md:14
+w(r)        = 1 / n_scalar(r)                 # THE FROZEN KOMAR / REDSHIFT SOURCE WEIGHT
+T₀₀^src     = T₀₀^matter · w                  # replaces the Picard source weight
+1 − w       = ε₁₁/7 + O(ε₁₁²)                 # LINEAR, coefficient k ≡ 1/7
+```
+
+`k` is a **document-local shorthand** for the leading clock coefficient defined by
+`1 − w = k·ε₁₁ + O(ε₁₁²)`. It is not a corpus symbol and mints nothing.
+
+**COINAGE-GREP (run this session, `git grep -rIl`, tracked tree @ `a3f4fef7`):**
+`n_scalar` 16 files · `n_{scalar}` 18 · `ponderomotive` 110 · `co-scaling` 27 ·
+`lapse clock` 2 · `kernel clock` 2. **Every name used in this prereg has prior
+corpus hits — ZERO new coinages.** Names follow D1's disambiguation table.
+
+### 3.2 · The derivation that selects it — five steps, each tagged
+
+**(1) DERIVED-from-structure.** Canon's source law
+(`manuscript/ave-kb/vol3/gravity/ch02-general-relativity/saturating-modulus-and-backreaction.md:50-53`,
+verified verbatim this session:
+`-\nabla\cdot[(c^4/7G)D(A)\nabla\varepsilon_{11}] = 4\pi T_{00}`, `D(A) = 1/S(A)`)
+puts the matter source alone on the RHS and the nonlinearity in the modulus on the
+LHS. The far-field monopole is therefore `∫T₀₀^src` **by Gauss** — an
+install-tautology. So the weight question reduces to exactly one physical question:
+**what IS a matter element's energy, read from infinity?**
+
+**(2) DERIVED-substrate.** Gravity in this sector is a **reactive frequency
+re-tuning of the LC network at invariant characteristic impedance** (`Z = Z₀`,
+reflectionless, `Γ = 0`). Ratio holds, product moves: `ω₀ → ω₀/m`. This is a
+**bias-point** effect, not a **modulus** effect — which is why a weight built from
+the modulus kernel is answering the wrong question.
+
+**(3) DERIVED-canon.** The co-scaling factor for a matter resonator is
+`n_scalar = 1 + ε₁₁/7`, via the `1/7` Lagrangian isotropic projection
+(`ponderomotive-equivalence.md:14`, verified verbatim: *"it couples to the spatial
+volume via the $1/7$ Lagrangian isotropic projection (derived in Chapter 4). The
+effective scalar refractive index perceived by mass is $n_{scalar}(r) = 1 +
+\epsilon_{11}(r)/7 = 1 + GM/c^{2}r$"*).
+
+**(4) DERIVED-canon-PRINTED.** The energy-read-at-infinity is **already written in
+canon** (`ponderomotive-equivalence.md:19`, verified verbatim):
+`U_{wave}(r) = \frac{m_i c^{2}}{n_{scalar}(r)} \approx m_i c^{2} - \frac{GM m_i}{r}`.
+The same leaf takes its gradient to recover `F = −GMm_i/r²` and WEP (`:22-30`).
+
+**(5) The only new step.** `T₀₀^src = T₀₀^matter / n_scalar`, **because `U_wave` IS
+the Komar integrand** — it is precisely "a matter element's energy read from
+infinity," which is what step (1) showed the weight must supply.
+
+**This is not a free choice.** Any other weight puts the engine's Picard source in
+contradiction with the canon leaf that derives Newtonian gravity and WEP.
+
+### 3.3 · Independent corroboration of the SLOPE (not of the choice)
+
+Four independent routes land on a **slope-1** clock. None of them is
+"it makes `η_mixed` small":
+
+1. **The derivation above** (ponderomotive, `n_scalar`).
+2. **Grant Ruling 1**, `_orchestration/2026-07-10_rulings-docket.md:855` heading
+   verbatim: *"Ruling 1 — F6 Komar-clock register: √S (slope-1) IS the clock —
+   CONFIRMED"*, grounded at `:869-871` on exactly the right physics: *"The
+   **Komar/Tolman ledger sums per-cell in-place readings** … so it weights by the
+   **slope-1** in-place clock"*.
+3. **The vol-3 W2 walk-back**, `temporal-spatial-lattice-decomposition.md:28`
+   (verified verbatim): the local clock rate / gravitational redshift is
+   *"a slope-1 quantity"*, bridged to the slope-2 propagation index by
+   `z = (n_temporal − 1)/2`.
+4. **The 2026-08-11 linearity audit's** lapse and substrate-side rows.
+
+> ⚠ **FLAG-DON'T-FIX — Ruling 1's code attribution is false by direct algebra.**
+> `_orchestration/2026-07-10_rulings-docket.md:858-860` certifies the live
+> `komar_weight` (`backreaction.py:235-252`, `return np.sqrt(S)`) as *"on the correct
+> side."* That function returns `(1−ε₁₁²)^{1/4}`, whose expansion about `ε₁₁ = 0`
+> has **zero linear term**. A ruling that a quantity is slope-1 cannot certify an
+> implementation whose slope is identically 0. **The ruling's physics is correct and
+> untouched; only its code attribution and its `√g₀₀ = √S` glyph-bridge fail.**
+> The ruled physics and the shipped code have been in silent disagreement since
+> 2026-07-14, invisible because both sides write `√S`. **This prereg flags it and
+> edits nothing** — the docket is a canon leaf and the correction is Grant's.
+> **Therefore the frozen weight is not a new proposal: it is the RULED one, written
+> in the register the engine actually uses.**
+
+### 3.4 · Which census member this is — and which it is NOT
+
+The frozen weight is the **substrate-side** `1/n_scalar`, **not** the metric lapse
+`√g₀₀`. They agree at first order (`k = 1/7` both) and part at `O(ε₁₁²)`. The
+substrate-side one is chosen because it **is not a GR import** — it is a substrate
+projection with a stated in-corpus derivation, which the lapse is not. At the
+engine's accessible amplitudes the two differ by `≈ (3/2)(ε₁₁/7)²`, far below every
+bin edge in §10, so **this fork changes no verdict in this run** and is recorded as
+a fork, not resolved.
+
+**The 2026-08-11 proposal is a LIVE CANDIDATE, not a settled answer**, and it carries
+a defect this prereg refuses to inherit. `research/2026-08-11_gravity-linearity-audit_result.md:658`
+(verified verbatim) says *"the source should carry the **co-scaling factor**, not the
+kernel"*, and `:645` names that factor as `m = 1 + ε₁₁/7 = 1/√g₀₀` — which is **> 1**.
+Taken literally the source would carry `m`, giving a mass **EXCESS**, contradicting
+the SUBTRACT ruling and driving `η` **up**. The physics needs `1/m`. **This prereg
+freezes `w = 1/n_scalar < 1`, the reciprocal of what that sentence literally says.**
+The proposal's own header (`:616-617`) tags §9 *"UN-AUDITED … no adversarial review,
+no second reader, no auditor"* and `:661` says *"⚠ **Proposed, not applied.**"* —
+so it is cited as corroboration of the slope, never as authority.
+
 ## 4 · The ledger algebra — exact, before any run
 
 ## 5 · ★ THE ACCESSIBLE REGIME, and the demonstration that the PASS bin lies inside it
