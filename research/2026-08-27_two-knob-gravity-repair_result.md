@@ -216,7 +216,59 @@ Corroborating detail I derived while checking Flag B: exact isotropic Schwarzsch
 
 ## §5 — The falsifier that already fired: ultrarelativistic convergence and SN1987A
 
-*(placeholder — §5)*
+### 5.1 — The theorem · **DERIVED**, and it imports nothing
+
+For **any** gapped dispersion $\omega^2 = c_{\rm eff}^2 k^2 + \Omega^2$, the gap term is negligible when $\omega \gg \Omega$. So an ultrarelativistic massive packet **must** trace the same ray as the massless mode of its own channel. This is a property of the dispersion relation. It uses no metric, no equivalence principle, and no GR input.
+
+I derived the deflection in closed form from the same Binet equation used in §2 (unbound orbit, $u = A(1+e\cos\phi)$, $\alpha = 2/e$, $e = 1/(Ab)$, $\ell_p = b^2E/\big(\mu(Wb_1 + Ea_1)\big)$, $E = W\gamma^2\beta^2$):
+
+$$\boxed{\;\frac{\alpha\,b}{GM/c^{2}} \;=\; 2a_1 \;+\; 2b_1\!\left(\frac{1}{\beta^{2}} - 1\right)\;} \qquad \xrightarrow[\ \beta\to1\ ]{}\ 2a_1$$
+
+The $\beta\to1$ limit is $2a_1$ — **exactly the massless ray of the same channel** — for any $b_1$. The theorem is visible in the algebra.
+
+| $v/c$ | GR $(a_1{=}2,\,b_1{=}1)$ | AVE as canon stands $(a_1{=}1,\,b_1{=}1)$ | ratio |
+|---|---|---|---|
+| 0.1 | `202.000000` | `200.000000` | 0.99010 |
+| 0.5 | `10.000000` | `8.000000` | 0.80000 |
+| 0.9 | `4.469136` | `2.469136` | 0.55249 |
+| 0.99 | `4.040608` | `2.040608` | 0.50502 |
+| 0.9999 | `4.000400` | `2.000400` | 0.50005 |
+| **photon** | `4.000000` | **`4.000000`** (light channel, $a_1 = 2$) | — |
+
+(Units $GM/bc^2$. My closed form reproduces L1's independent quadrature to every digit it reported: `202.0009 / 10.00004 / 4.46915 / 4.04062 / 4.000412` for GR, `200.0002 / 8.000006 / 2.469138 / 2.04061 / 2.000402` for AVE.)
+
+**AVE's massive packet converges to `2.000`, its own channel's photon sits at `4.000`. Ratio $1/2$, forever.** GR converges to $1$. This depends on $a_1$ **alone** — not on $b_1$, not on $b_2$, not on the repair, not on the missing photoelastic map. It is the cleanest discriminator in this whole arc, and the repair ($a_1 = 2$ for both channels) fixes it as a side effect.
+
+### 5.2 — SN1987A: my own arithmetic, my own method, stated
+
+**The coupling-selection rule is canon's, verified verbatim** at `double-deflection.md`:20:
+
+> **Matter (scalar coupling).** A fast-moving massive particle is an isotropic 3D volumetric wave packet carrying finite rest energy. It couples to the *scalar* (isotropic bulk) component of the lattice strain via the $1/7$ volumetric projection
+
+A neutrino has rest mass. By canon's own rule it takes $n = 1 + U$, while the photon takes $n = 1 + 2U$.
+
+**My method — deliberately chosen to avoid an enclosed-mass guess.** For a flat rotation curve, $GM(<r)/r = v_c^2$, so the index argument $U = GM(<r)/(c^2r) = (v_c/c)^2$ is **constant along the path**. With $v_c = 220$ km s$^{-1}$ and $D_{\rm LMC} = 51.4$ kpc:
+
+- $U = (v_c/c)^2 = 5.38523\times10^{-7}$
+- path length $= 1.58604\times10^{21}$ m
+- photon potential-delay excess $\int 2U\,dl/c = $ **`65.9498` d**
+- AVE matter excess $\int U\,dl/c = $ **`32.9749` d**
+- **predicted $\nu$-vs-$\gamma$ differential $= $ `32.9749` d $= 791$ h**
+- observed SN1987A $\nu$–$\gamma$ offset $\approx 3$ h $= 1.08\times10^4$ s
+- **ratio predicted / observed $= 264$**
+
+**And here is the model-free version of the same statement, which is the one to quote.** AVE-as-canon-stands predicts $(n_\nu - 1)/(n_\gamma - 1) = 1/2$ — a **50%** fractional difference in the two species' gravitational delay. The SN1987A coincidence bounds that fraction at $3\,\text{h} / 65.9\,\text{d} \approx 2\times10^{-3}$. **The violation is a factor of $\sim\!250$, and the factor is independent of the Galactic mass model** — the model enters both the numerator and the denominator of the fraction and cancels. A factor-2 error in $v_c^2$ moves the *days*; it does not move the $0.5$-versus-$2\times10^{-3}$ statement. (This lines up with the published SN1987A Shapiro-delay tests, which bound the species-differential at the few$\times10^{-3}$ level — **externally retrieved, tentative-standing**, not used to derive anything above.)
+
+### 5.3 — ⚑ Escape hatches, named before this is called a kill
+
+1. **Does canon actually assign the neutrino to the scalar channel?** The rule at `double-deflection.md`:20 is about *"a fast-moving massive particle"*, and I did not find a leaf that assigns the neutrino to a specific AVE channel. `neutrino-flavor-mixing.md`:12 treats MSW as *"impedance-dependent mode coupling between propagation channels"* without naming which channel carries the free neutrino. **This is genuinely open.** If AVE's neutrino turns out not to be an A1-massive packet, SN1987A stops being the cheap data point — but **the structural defect survives**, because the theorem is about any massive packet, and the same $1/2$ applies to a $0.9999c$ electron or proton.
+2. **The Galactic mass model.** Handled above by working in the fractional statement.
+3. **Is the $\sim$3 h offset the right observable?** It is an astrophysical coincidence (shock-breakout timing), not a null measurement. That loosens it by at most an order of magnitude and does not reach a factor of 250.
+
+### 5.4 — This test appears nowhere in the corpus
+
+Two independent searches over the whole worktree at `a3f4fef7` (`grep -ril` and `rg -il`, `.git` excluded) for `1987A` and `sn1987` return **0 files each**. Method blind spot: single-line regex; a phrase wrapped across lines would be missed; sibling repos under `AVE-staging/` were not searched. So: *absent from AVE-Core at `a3f4fef7` by these patterns*, not "absent from the program".
+
 
 ## §6 — Canon's competing Path-A route: what I verified, and what I do NOT assert
 
