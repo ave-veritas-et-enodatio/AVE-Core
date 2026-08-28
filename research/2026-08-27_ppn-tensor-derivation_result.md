@@ -326,7 +326,44 @@ So neither Cassini, nor solar-limb deflection, nor Mercury, nor LLR carries info
 
 ## §6 — The light result is a consistency check, not a derivation
 
-<!-- SECTION: light -->
+### §6.1 — What is genuinely good here
+
+Two things, and they are not nothing:
+
+1. **The metric emerged rather than being posited.** AVE does not start from a spacetime metric. It starts from a medium with an index, and the Gordon form *delivers* a Lorentzian metric whose null cone is the light cone. That is a real structural result and it is the reason the framework can talk about lensing at all.
+2. **A single non-birefringent light cone.** The transverse sector carries one index, so both polarizations see the same cone — the framework predicts **no vacuum birefringence from a static mass**, which is a genuine forward statement and is consistent with observation.
+
+### §6.2 — What is calibrated
+
+The deflection is $\delta = 2Q\,GM/(bc^2)$ with $Q$ the slope of the photon index. Everything observational rides on $Q$, and
+
+$$Q \;=\; \nu_{vac}\cdot c_1 \;=\; \frac{2}{7}\cdot 7 \;=\; 2,$$
+
+with **both factors GR-imported**:
+
+- $\nu_{vac} = 2/7$: value imported via $K=2G$. `one-seventh-impedance-projection.md`:18 verbatim — *"the *value* $\nu=2/7$ is **GR-imported** via $K=2G$ (PR#261), re-confirmed at the ratified $z=3$ srs carrier by PR#506"*.
+- $c_1 = 7$: canon identifies it as $2/\nu_{vac}$ (`claim-quality.md`:1131, and three further sites at §11 row C7); the $\kappa = c^4/7G$ that generates it is graded imported at `eq_axiom_5.tex`:134 — *"kappa = c^4/7G and nu = 2/7 stay GR-imported"*.
+
+**And they are reciprocal, so the product is an identity.** Canon says this in its own voice at `geo-synchronous-impedance.md`:20: *"The factor 7 from the K4 Poisson ratio $\nu_{vac} = 2/7$ **cancels** the factor 2/7 from the AVE-modified strain coupling, recovering exactly the GR $2GM/c^2 r$ Schwarzschild form."*
+
+> ### The honest sentence
+> **AVE derives that a single non-birefringent light cone exists and that its deflection is $2Q\,GM/(bc^2)$. The value $Q = 2$ is calibrated.**
+
+That sentence should replace any phrasing that presents $1.75''$ as an AVE output. It is not a retraction — the number is right and the mechanism is a real alternative mechanism — it is a **class** statement, and the corpus already has the machinery for it: `manuscript/consistency-manifest.yaml`:652 grades P10 `type: consistency_check`, and the leaf itself carries the 2026-05-17 scope correction (`einstein-lensing-deflection.md`:8) saying the recovery *"is therefore a **consistency check** … NOT an emergence test"*.
+
+### §6.3 — Constant-choice sensitivity, reported not hidden
+
+The limb deflection is a four-constant product and the corpus's constants are not all the IAU nominal set. Measured this lane:
+
+| $M_\odot$ source | $\delta_{limb}$ |
+|---|---|
+| `src/ave/core/constants.py`:132, `M_SUN = 1.989e30` (with `G = 6.6743e-11`) | $1.751710''$ |
+| $M_\odot = 1.98892\times10^{30}$ | $1.751640''$ |
+| IAU nominal $GM_\odot = 1.3271244\times10^{20}$ (bypasses $G$) | $1.751190''$ |
+
+with $R_\odot = 6.957\times10^8$ m from `src/ave/gravity/solar_impedance.py`:68 throughout. The spread is $\sim5\times10^{-4}$ arcsec, i.e. $\sim0.03\%$ — which is the same order as the $0.03\%$ error already booked for P10 in `manuscript/consistency-manifest.yaml`:654 and `README.md`:228. **The headline number is quoted here as $1.7517''$ from the in-tree constants.** A reconciliation that reports $1.7516''$ is using a slightly different $M_\odot$; the difference is bookkeeping, not physics, and it is stated rather than smoothed.
+
+The same sensitivity applies to Mercury: with the in-tree `M_SUN` the GR baseline is $42.9934''$/century and $F=1/6$ gives $7.1656''$; with IAU $GM_\odot$ the baseline is $42.9807''$ and $F=1/6$ gives $7.1634''$. **The verdict is $895\sigma$ either way** — the constant choice moves the third decimal of a number that is wrong by a factor of six.
 
 ## §7 — The fix is cheap and inside the framework
 
