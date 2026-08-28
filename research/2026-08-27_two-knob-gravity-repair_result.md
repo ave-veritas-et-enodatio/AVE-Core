@@ -362,7 +362,95 @@ L1 reported that the intermediate step *"the coefficient is 1"* reads $q/2 = \tf
 
 ## §8 — L2: the preferred-frame state. This outranks the perihelion
 
-*(placeholder — §8)*
+This section reports the `L2-preferred-frame` lane **as its journal entry actually states it**, with the cites I re-verified marked. L2's own verdict opens: *"AVE is a preferred-frame theory exactly, not approximately."* The reconciliation lane, which re-ran L2's greps independently, concluded: *"yes, there is a foundational gap here and it outranks the perihelion."* **I concur, and the reason is structural: the perihelion defect is a repairable wiring error with one number owed; this one is a class of arithmetic the corpus cannot presently perform at all.**
+
+### 8.1 — Does canon confront the aether-drift bounds?
+
+**Partly, in one channel, and not in the channel that matters.**
+
+Canon is **candid at the axiom level** — `eq_axiom_3.tex`:27, verified verbatim: *"**Lorentz invariance** follows only *in the continuum limit* — it is **emergent**, not exact: the discrete K4 substrate is a preferred-frame medium."* And `relational-cancellation-identity.md`:36 states the frame *is* detectable and *"the CMB dipole IS the detection"*. **This is not a hidden problem; canon names it.**
+
+What is missing is **arithmetic**. Two independent search methods over the whole worktree at `a3f4fef7` (`grep -ril` and `rg -il`, `.git` excluded) return:
+
+| pattern | files |
+|---|---|
+| `preferred-frame parameter` | **0** |
+| `crystal momentum` | **0** |
+| `umklapp` | **1** — `temporal-saturation-regime-classifier.md`, and there only inside a **gap list** |
+| `photoelast` (family) | **4** — all research/orchestration scoping docs; **none in `manuscript/` or `src/`** |
+
+L2 additionally reports that every `alpha_1` / `alpha_2` / `alpha_3` hit in the corpus is a nuclear-alpha or element-circuit symbol, never a PPN preferred-frame parameter, and that all 20 `Nordtvedt` hits are the $\eta_{\rm Nordtvedt}$ EP test, never expanded into its $\alpha_i$, $\zeta_i$ terms. **So the PPN preferred-frame parameters are absent from the corpus as physics objects.**
+
+The bounds L2 re-retrieved (**external, tentative-standing**): $|\alpha_1| < 3.4\times10^{-5}$, $|\alpha_2| < 1.6\times10^{-9}$, $|\alpha_3| < 4.0\times10^{-20}$. L2 flags that its dispatch's $\alpha_2 < 10^{-7}$ was **two orders too loose**, and that $\alpha_2$ is precisely the parameter a two-cone medium is most likely to source — it is what the spin-0/spin-1 vs spin-2 speed difference controls in vector-tensor and Einstein-aether theories, and AVE's ratio is $1.83$, not $1$.
+
+**And L2 declines to compute one.** Its finding 9, verbatim: *"I am NOT asserting an $\alpha_2$ value for AVE: the object required to compute one — the boost response and limiting speed of a bound matter excitation on a two-cone medium — is explicitly UNDERIVED in canon"*, citing `research/2026-08-06_lc1-one-speed_result.md`:340 row 5: *"the corpus does not establish the limiting speed of a bound matter excitation in a medium with $v_L > v_T$ … Enumerated, flagged (§10 FLAG-LC1-D), NOT folded into the verdict, and no speed is guessed."* **That absence IS the answer: the framework cannot presently compute the numbers the bounds constrain.**
+
+### 8.2 — Is the self-cancellation argument derived or asserted?
+
+**Asserted, at walk level — and canon's own cancellation leaf rules this case OUT of itself.**
+
+The self-cancellation framing lives at `_orchestration/2026-08-04_lorentz-compliance-arc-brief.md`:21-23 (L2's cite): *"Uniform saturation is unobservable from inside (self-cancellation — the phase-only doctrine IS the emergence mechanism)"* — an orchestration brief whose own header records five kill tests, all UNSTARTED.
+
+The canonical leaf that formalises cancellation excludes the frame case explicitly. `relational-cancellation-identity.md`:47-52, **verified verbatim at HEAD**:
+
+> ⚑ [`preferred-frame-and-emergent-lorentz.md`] is **NOT an instance** — it is this leaf's **contrast exhibit** (§2): its undetectability is *dynamical and finite*, and the frame it discusses *is* detectable.
+
+So canon claims a **finite dynamical suppression**, not an exact cancellation. The only quantified form of that suppression is the $(q\ell_{node})^4 \approx 2.2\times10^{-22}$ cubic-symmetry number — **and L2 shows it does not cover the boost channel.**
+
+### 8.3 — L2's refutation of the leaf's escape clause, which I re-verified verbatim
+
+`preferred-frame-and-emergent-lorentz.md`:112, **verified verbatim at HEAD**:
+
+> on weak-C-fails the recovered $O(k^2)$ term is the *isotropic* 2nd moment, so the leading *anisotropic* term is STILL quartic and a Hughes–Drever / cavity anisotropy bound (which tests frame-dependent $\delta c/c$, not an isotropic scalar dispersion) does not collide on either branch.
+
+**L2's counter, which is kinematics and does not depend on any coefficient:** an isotropic dispersive law $\omega^2 = c^2k^2(1 + a_2(k\ell)^2)$ makes $\omega^2 - c^2k^2 = a_2c^2\ell^2k^4 \neq 0$, and $k^4$ **is not boost-invariant**. *A term that is isotropic in one frame is anisotropic in every other.* Transporting through the plane-wave Doppler factor $D = \gamma(1-\beta\cos\theta)$ gives one-way $\delta v/c = 2a_2(k\ell)^2\beta\cos\theta$ and two-way $a_2(k\ell)^2\beta^2(5\cos^2\theta - 1)$.
+
+Numbers at $\beta_{\rm CMB} = 1.2342\times10^{-3}$, $\ell_{node} = 3.8616\times10^{-13}$ m, $a_2 = +0.056$, $\lambda = 633$ nm: one-way $2.0\times10^{-15}$, two-way sidereal $6.3\times10^{-18}$ — against the leaf's headline $(q\ell)^4 = 2.2\times10^{-22}$. **4.5 orders larger, with a $\nu^2$ rather than $\nu^4$ signature, landing AT the $\sim10^{-17}$ optical rotating-cavity class rather than below it.**
+
+**Two honest brakes, both from the lanes themselves.** (i) The *magnitude* rides $a_2 = +0.056$, which is a P1b eigensolve output that L2 mis-cited (§11) and which the reconciliation lane traced to a **demoted bullet** driven from an off-main branch — treat the number as a scoping estimate. (ii) The channel fires only on the **weak-C-fails** branch, gate `wejkhvnfb` OPEN. **The kinematic point does not depend on $a_2$ at all.**
+
+L2 also flags a citation-band mismatch in the leaf's headline comparison: `Nagel et al. 2015` is a $\sim$10 GHz **microwave** whispering-gallery experiment, and `Sanner et al. 2019` is a Yb$^+$ **optical-clock** (matter-sector) test — neither is an optical photon-sector cavity-anisotropy bound. The reconciliation lane partially softened this (the leaf does say *"per SME operator"* at `:22`); the band mismatch stands and it matters, because the boost channel scales as $\nu^2$ while the leaf's quartic scales as $\nu^4$, so instrument choice changes which channel dominates.
+
+### 8.4 — The $O(1)$ item that needs no $k$-expansion at all
+
+L2's sharpest number, reproduced independently by the reconciliation lane from #506's shipped moduli at $\rho^* = 9.7734$ ($C_{11} = 0.7279$, $C_{12} = 0.3232$, $C_{44} = 0.2488$): the cubic Christoffel branches give a transverse speed ratio $\sqrt{C_{44}/C'} = \sqrt{A} = 1.10885$ exactly, $A = 1.22955$ — a **10.32% direction-dependent shear speed and a 10.3% shear birefringence at zeroth order in $k$**. And because `port-register.md`:47 makes the photon the **transverse-$u$** branch, the photon rides the *same* rank-4 tensor as the shear GW.
+
+The group theory is why the quartic argument cannot reach it, and L2 verified it by explicit averaging over all 24 proper rotations of point group 432: **a rank-2 material tensor is forced to be exactly isotropic; a rank-4 elastic tensor retains three independent constants.** Cubic symmetry protects $\epsilon$ and $\mu$ exactly and does **not** protect $C_{ijkl}$.
+
+The only thing making the 10% vanish is the operating-point choice $\rho_{bond} = 1$ — where #506 records $A = 1.000$ **and** $K = -0.0589$, a negative bulk modulus at which the medium cannot carry A1 dilatation mass. **And the derivation that was supposed to force $\rho_{bond} = 1$ from Axiom 3 is 🔴 DEMOTED** (2026-08-11, R40-B2a), stamped at `preferred-frame-and-emergent-lorentz.md`:54 (I verified the stamp verbatim) but, per L2, **not** stamped on the two claim-quality rationale rows that assert *"the emergent-Lorentz isotropy is now protected two independent ways"* (`vol1/claim-quality.md`:1746, `vol4/claim-quality.md`:663). That is a demotion-propagation gap on the single load-bearing defence.
+
+### 8.5 — Umklapp and the discrete-translation / momentum-conservation question
+
+**Untreated, and the thresholds are exact because $\ell_{node}$ is definitional.** I recomputed all three from `constants.py`:293 ($\ell_{node} \equiv \hbar/m_ec$) and CODATA:
+
+| carrier | zone edge $q = \pi/\ell_{node}$ |
+|---|---|
+| photon | $E = \pi\,m_ec^2 = $ **`1.605351` MeV** (the $\pi$ is definitional, not a coincidence) |
+| electron | kinetic **`1.173718` MeV** |
+| **proton** | kinetic **`1.37335` keV** |
+
+**What this implies for momentum conservation.** On a lattice, spatial translation symmetry is **discrete**; the conserved bookkeeping quantity is crystal momentum defined **modulo a reciprocal-lattice vector**, and Umklapp is a reactive three-wave phase-matching condition (*not* a drag — see L2's import #3 in §10). Now read the axiom: `eq_axiom_3.tex`:27, **verified verbatim**, names its Noether legs as **time-translation invariance** and the **residual gauge family** $\mathbf A \to \mathbf A + \nabla\lambda(\mathbf x)$. **Spatial translation is not among them.** L2 reports that the only assertion of momentum conservation it found is a docstring at `src/ave/topological/vacuum_engine.py`:1477, and that the one place momentum closure was load-bearing — the dark wake — is 🔴 DEMOTED 2026-08-11 and self-flags at `dark-wake-bemf-foc-synthesis.md`:122 as *"an explicit open gap, not a framework claim."*
+
+$\alpha_3$ is precisely the PPN parameter that is nonzero for theories with a preferred frame **and** non-conserved momentum. It is bounded at $|\alpha_3| < 4\times10^{-20}$ — one of the tightest numbers in physics. **AVE has the first condition by its own axiom text and cannot presently rule out the second.**
+
+Two sharp consequences L2 names and canon does not carry: (a) if the weak-C gate fails for light, photons above $\sim$1.6 MeV are Bloch modes and vacuum Umklapp/Bragg opens — which MeV $\gamma$-ray astronomy excludes far more directly than the birefringence horn (LHAASO's 13 TeV photon from GRB221009A sits $2.5\times10^7$ zone edges out); (b) if the leaf's weak-C RESCOPE means the **centre-of-mass** wave rather than the soliton's internal mode, every cosmic ray above $\sim$keV has momentum defined only modulo a reciprocal-lattice vector. **Canon does not disambiguate the two readings.**
+
+### 8.6 — The two-cone theorem, and why the boost channel is not $(q\ell)^4$-suppressible
+
+L2's exact symbolic result: a boost $L(\beta)$ built to preserve the cone $\omega^2 = v_1^2q^2$ maps $\omega^2 = v_2^2q^2$ to a form with a cross term; requiring $L^{\mathsf T}Q(v_2)L = k\,Q(v_2)$ for **any** conformal $k$ returns the unique solution $\{\beta = 0, k = 1\}$. **With $v_1 \neq v_2$ the maximal common invariance group has no boost generator — rotations and translations only.**
+
+Canon supplies the two cones at `port-register.md`:47 (photon T2 at $c$) and `:49` (A1 bulk radiative at $\sqrt{10/3}\,c \approx 1.83c$). This is **not** a $(q\ell)^4$-suppressible statement: the cone ratio is $1.83$, not $1 + 10^{-22}$. And the floor survives the $K = 2G$ import — `research/2026-08-06_lc1-one-speed_result.md`:181-197 derives $v_L^2/v_T^2 = 4/3 + K/G$ and states that $v_L = c$ needs $K = -G/3$, *"a negative bulk modulus… There is no stable configuration of this medium with a single wave speed."* At $K = 0$ the ratio floor is still $\sqrt{4/3}$.
+
+**Correction I owe on this cite (verify-before-cite):** the reconciliation lane flagged that the row carrying the A1 speeds is **DEMOTED twice**. I checked: `port-register.md`:**49** — not `:50` as the reconciliation lane wrote — carries `🔴 [DEMOTED 2026-08-11 — R40-B1]` **and** `🔴 [DEMOTED 2026-08-11 — R40-B2a]`, two stamps on one row (count verified by `gsub` on the line, 2 hits). **The two-cone *existence* survives** because LC-1 §2.2 derives it independently of the row; the specific *values* $\sqrt2 c$ / $\sqrt{10/3}\,c$ ride a demoted row.
+
+### 8.7 — The $O(\beta^2)$ item L2 correctly refused to assert
+
+`research/2026-07-08_p6-lv-sector-classification_result.md`:44-50 assigns the frame anchor to **A1** and the LV response to **T2**. If a bound A1 excitation's kinematics track the A1 cone, a boosted atom's inertia rides $\gamma_L = 1/\sqrt{1-\beta^2/v_L^2}$ while its emission rides $\gamma_T$, and $\gamma_T/\gamma_L - 1 = 0.35\beta^2 = 5.3\times10^{-7}$ at $\beta_{\rm CMB}$ — Hughes–Drever / $\alpha_2$ shape, **four orders above the $|\alpha_2| < 1.6\times10^{-9}$ bound if the coefficient is $O(1)$.**
+
+L2 marks this **UNDERDETERMINED, not DERIVED**, because the premise — that a bound A1 excitation's kinematics track the A1 cone — is exactly FLAG-LC1-D. **That is the correct call and I am not upgrading it.** It is also the single calculation that would settle whether AVE's preferred frame is affordable.
+
+Canon does already carry one derived $O(\beta)$ preferred-frame prediction: `research/2026-07-08_p6-frame-boost-dependence_result.md`:31 gives a $P_{\rm flip}$ first-harmonic amplitude $4\beta \approx 4.94\times10^{-3}$ phased to the CMB dipole, self-described as *"a strong Lorentz-violation prediction in the nonlinear photon sector"*, with a nonlinear-SME bound check owed.
+
 
 ## §9 — L3: the constitutive map. Is $(2,1,\tfrac12)$ forced? No
 
