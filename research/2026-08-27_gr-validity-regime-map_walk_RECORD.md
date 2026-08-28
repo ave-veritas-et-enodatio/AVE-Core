@@ -109,6 +109,88 @@ prediction … The framework's *own* content lives in the **departures**."*
 
 ## §2 — Item 2 (the structural reading) — STANDS DOWN to canon, with one residue
 
+The walk's item 2 was flagged as *"the part most likely to be new."* **It is
+not.** Both halves are canon, byte-verified on this branch.
+
+**(a) The equation, including the `4π`.** `[CANON]`
+[`manuscript/common_equations/eq_axiom_5.tex`](../manuscript/common_equations/eq_axiom_5.tex):75–77,
+the ratified Substrate DC Bias clause **G**, verbatim:
+
+```latex
+    \mathbf{u}_0 = -\mathcal{A}_g\nabla\varepsilon_{11},\qquad
+    -\nabla\cdot\!\left[\kappa\, D(A)\,\nabla\varepsilon_{11}\right] = 4\pi\,T_{00},\qquad
+    \kappa = \frac{c^4}{7G}
+```
+
+The walk's stated form matches this, `4π` included.
+
+> **⚑ Do not "fix" the KB relay.** [`axiom-register.md`](../manuscript/ave-kb/common/axiom-register.md):361
+> still reads `−∇·[κD(A)∇ε₁₁] = T₀₀` with a **bare `T₀₀`**. That is a *verbatim
+> quotation of the pre-R49(a) ratified text and is deliberately byte-untouched*
+> — the carve is stated in `eq_axiom_5.tex`'s own R49(a) dated fragment
+> (*"the CANONICAL file is corrected in place with the fragment as its audit
+> trail, while every VERBATIM QUOTATION of the ratified clause is left
+> byte-untouched"*). The same fragment carries an **already-open** flag to the
+> ruling author about whether that carve was authorised. Nothing here reopens it.
+
+**(b) The `D(A)→1` linearization.** `[CANON]`
+[`saturating-modulus-and-backreaction.md`](../manuscript/ave-kb/vol3/gravity/ch02-general-relativity/saturating-modulus-and-backreaction.md):64,
+verbatim: *"In the weak field ($r\gg r_{\text{sat}}$: $A\to0$, $S\to1$, $D\to1$)
+the correction **vanishes** and the linear GR core is reproduced identically
+(**consistency**)."* The same leaf's §1 opens by calling the linear chain *"the
+**weak-field limit**"* in its own words. `eq_axiom_5.tex`'s phase-structure
+paragraph says it a third way: *"(b) At the saturation boundary: $D(A)$ carries
+clause G's response into the graded regime."*
+
+**And canon carves the regime condition apart from the state condition
+explicitly** — `eq_axiom_5.tex`, clause Q, verbatim: *"Clause Q is a statement
+about the substrate's **state**; it is not a claim that small-signal
+linearisation is valid, which is a **separate, separately-declared regime
+condition**."* `[CANON]` That sentence is the corpus already holding the
+distinction the walk proposed.
+
+### ⚑ The walk's premise is mis-attributed — flag, not fix
+
+The walk states: *"Prior lanes described it as 'linear Poisson with a constant
+modulus,' which is the cold-regime LIMIT, not the equation."*
+
+**The prior lane read the site it cited correctly.** That phrase is
+[`research/2026-08-11_gravity-linearity-audit_result.md`](2026-08-11_gravity-linearity-audit_result.md):188,
+and it labels **`gordon-optical-metric.md`:25**, which is
+`-\left(\frac{c^{4}}{7G}\right)\nabla^{2}\epsilon_{11}(r) = 4\pi Mc^{2}\delta^{3}(r)`
+— **byte-verified on this branch; there is no `D(A)` in it.** *"Linear Poisson
+with a CONSTANT modulus"* is an accurate description of that equation.
+
+**The same audit separately licenses the kernel form and says so.** `:215`
+licenses `backreaction.md`:50–53 (`D = 1/S`) as *"Kernel on the **MODULUS**.
+Correct role, correct place … No conflict"*, and `:195` quotes the `D→1`
+sentence and adds *"This site does not *compete* with the linear chain — it
+explicitly **defers** to it."*
+
+**So the real structure is two written equations at two sites, not one equation
+misread**: a linear-Poisson site that canon uses for the weak-field observable
+chain, and a `D(A)`-graded site that reduces to it. Whether canon *should* carry
+one law with two spellings is a live question — it is **not** a defect of the
+prior lane's reading, and the record does not carry it as one.
+
+### ⚠ Status caveat that must ride with any use of `D(A) = 1/S`
+
+`saturating-modulus-and-backreaction.md`:59 (the **BULK stiffens**, `D=1/S→∞`
+row) carries **🔴 DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION**. The
+demotion's own scope note, verbatim: *"The static elliptic `D(A)` dress profile
+itself survives (bound-response FORM)"* — what is demoted is the **divergent-
+bulk-modulus-halts-the-collapse stability argument**, whose carrier (a
+propagating A1/bulk branch) clause G replaces with a bound response. `[CANON]`
+
+### The one residue that survives as new
+
+`[WALK]` **The LOCATION contrast: GR puts its nonlinearity in the FIELD
+EQUATION (`G_μν` nonlinear in `g`); AVE puts its in the CONSTITUTIVE LAW (the
+saturation kernel grading the conductance `κD(A)`).** I found no corpus site
+stating this contrast (§9 states the search and its blind spot). It is a
+**framing claim, not a result** — it produces no number and predicts nothing on
+its own. Audit item **A2**.
+
 ## §3 — THE MAP, row by row, regraded
 
 ## §4 — ★ THE DELTAS — what the sweep shows is NOT in canon
