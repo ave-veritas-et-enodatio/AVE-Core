@@ -561,7 +561,39 @@ Every lane in this workflow returned an `imports_i_caught_myself_making` field. 
 
 ## §11 — Lane cite corrections (verify-before-cite)
 
-*(placeholder — §11)*
+Per A43 v2, every cite this document leans on was re-opened at HEAD `a3f4fef7` in this worktree. Where a lane's cite failed, I say so. **A cite correction is not a demerit on the lane; an unchecked cite that propagates is.**
+
+### 11.1 — Cites I re-verified verbatim and that hold
+
+| cite | what it carries |
+|---|---|
+| `temporal-spatial-lattice-decomposition.md`:24 | $n_{temporal}$ slope 2 = *"what a signal traversing the gradient accumulates"*; $\sqrt S \approx 1 - GM/c^2r$ = *"the proper tick of a clock sitting at $r$"*; the bridge $z = (n-1)/2$ — **all three on one line** |
+| `claim-quality-closure-roadmap.md`:205 | *"n_scalar(r) = 1 + GM/c²r for MASSIVE PARTICLES (ponderomotive, only time component at leading order)"* **and** the Path-A Lagrangian |
+| `anomalous-perihelion-advance.md`:10, :20 | the $V_{eff}$, the *"coefficient is 1"* claim, and the $6\pi GM/c^2a(1-e^2)$ conclusion (duplicated text, both lines) |
+| `ponderomotive-equivalence.md`:14, :19 | $n_{scalar} = 1 + \epsilon_{11}/7$ (speed slot) and $U_{wave} = m_ic^2/n_{scalar}$ (clock slot) |
+| `gordon-optical-metric.md`:17 | $g_{\mu\nu} = \eta_{\mu\nu} + (1 - 1/n^2)u_\mu u_\nu$ |
+| `double-deflection.md`:20, :22, :24, :26, :28, :60 | the coupling-selection rule, both index rows, the Poisson-ratio sentence, and the GR-imported provenance note |
+| `operators.md`:59, :123 | Op19 CANONICAL; *"BC (settled A1 strain = index)"* |
+| `eq_axiom_5.tex`:134 | *"kappa = c^4/7G and nu = 2/7 stay GR-imported (#261 untouched)"* |
+| `eq_axiom_3.tex`:27 | the Noether legs (time-translation + residual gauge), **and** *"the discrete K4 substrate is a preferred-frame medium"* |
+| `relational-cancellation-identity.md`:36, :47-52 | the frame is detectable; the contrast-exhibit carve |
+| `preferred-frame-and-emergent-lorentz.md`:54, :112 | the R40-B2a demotion stamp; the escape sentence |
+| `port-register.md`:47, :49, :50 | photon T2 at $c$; A1 at $\sqrt{10/3}c$; the gapped Cosserat branch |
+| `src/ave/core/constants.py`:293, :305 | $\ell_{node} \equiv \hbar/(m_ec)$; $\hbar\omega_C = m_ec^2$ |
+
+### 11.2 — Cite errors I found
+
+1. **L1: the Path-A Lagrangian is not at `anomalous-perihelion-advance.md`:10,:20.** Those lines carry the $V_{eff}$ and the conclusion. The Lagrangian $L = -mc^2\sqrt{1-n_{scalar}^2v^2/c^2}/n_{scalar}$ is at `claim-quality-closure-roadmap.md`:205. L1 did cite `:205` as carrying the same text; the *location of the Lagrangian specifically* is the correction. **Does not change L1's finding**, since the roadmap line is canon and states it.
+2. **Reconciliation lane: the double-demoted `port-register` row is line `:49`, not `:50`.** I verified by counting `DEMOTED` occurrences per line: `:47` $\to$ 0, `:48` $\to$ 0, **`:49` $\to$ 2**, `:50` $\to$ 0. The row identification ("row 3", the A1 bulk-longitudinal row) is correct; only the line number is off by one.
+3. **Reconciliation lane, on L3's `eq_axiom_4.tex` line numbers:** it reports them systematically off by $\sim$8 (L3 cited `:30-34, :16, :39, :42, :7`; actual `:38-42, :24, :47, :50, :10`), **content correct at the real lines**. I did not independently re-verify this one and flag it as second-hand.
+4. **Reconciliation lane, on L2's $a_2 = 0.056$:** it is **not** at `preferred-frame-and-emergent-lorentz.md`:108; it lives at `vol4/claim-quality.md` **inside a demotion notice**, from a driver on the off-main branch `engine/p1b-modes-live`. That materially weakens the *magnitude* of §8.3's boost-channel estimate (not its kinematics).
+5. **L1: `vol3/claim-quality.md`:44** — the sentence is on `:45`, same line as the $n_{spatial}$ statement. Second-hand from the reconciliation lane; not independently re-verified.
+
+### 11.3 — Two corpus-internal contradictions the lanes surfaced that I am forwarding without touching the leaves
+
+- **Un-propagated W1 walk-back.** `vol3/claim-quality.md`:45 still states *"Light deflection couples to a separate spatial component $n_{spatial} = 1 + (9/7)\varepsilon_{11}$"*, while the leaf it governs carries the 2026-06-05 **W1 walk-back** correcting exactly that attribution (*"Reading $n_{spatial}$ as the photon index gives $18GM/bc^2$ (4.5× GR)"*). The walk-back landed in the leaf and did not propagate to the claim-quality node or the `.index` rationale. (I re-read the W1 blockquote at `temporal-spatial-lattice-decomposition.md`:26 and it says what L1 quotes.)
+- **Two spellings of the gapped branch's slope.** `port-register.md`:49 writes $c_\kappa = \sqrt2\,c$; `cosserat-mass-gap.md`:18,:42,:59 write $c$. Since $v_{\rm group} \to c_\kappa$ as $k \to \infty$, the two spellings give asymptotic packet speeds differing by $\sqrt2$, and the `port-register` spelling puts a massive packet's ceiling **above** the T2 light characteristic. **This decides whether matter is sub- or super-luminal at high $k$ and is unresolved in canon.** It also intersects §5: the convergence theorem says a fast packet asymptotes to *its own channel's* massless ray, and which channel that is depends on this.
+
 
 ## §12 — Open items routed
 
