@@ -533,7 +533,38 @@ for m in ["GR_isotropic", "AVE_matter"]:
 
 ## §10 — METHOD, and its blind spots
 
-<!-- SECTION: method -->
+Every enumeration in this document — §4's four objects, §11's cite ledger, §12's flags, and the walk-back list in the routed open item — is **a statement about the searches and reads performed by this lane, not a statement about the corpus.** This section says what those were so a reader can judge the gap.
+
+### §10.1 — What was read
+
+Twenty-eight files were opened. Of those, twenty were read end to end: the eleven `vol3/gravity` KB leaves under `ch01-gravity-yield` and `ch02`/`ch03` that carry $\varepsilon_{11}$ or a refractive index, `manuscript/common_equations/eq_axiom_5.tex`, `anomalous-perihelion-advance.md`, `ponderomotive-equivalence.md`, and the four research docs named in the header. Eight were read only in the neighbourhoods returned by search: `manuscript/ave-kb/vol3/claim-quality.md` (two claim blocks), `manuscript/ave-kb/common/operators.md` (the operator table), `src/scripts/verify/gravity_ppn_coherence.py` (three regions), `manuscript/common_equations/eq_gravity_derived.tex` (first 80 lines), `manuscript/vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex` (the precession section), `manuscript/vol_3_macroscopic/chapters/02_general_relativity_and_gravity.tex` (the index section), `manuscript/consistency-manifest.yaml` (the P10 entry), and `LIVING_REFERENCE.md` (the pitfall table).
+
+### §10.2 — What was searched, and with what
+
+Search patterns run across `manuscript/`, `research/`, `_orchestration/`, `src/`, `README.md` and `LIVING_REFERENCE.md`:
+`IDENTICAL to GR Schwarzschild` · `derivation gap CLOSED` · `identical to GR` · `identical result obtained by General Relativity` · `Exact match with GR` · `recovered exactly` · `substrate-native at leading PPN-1` · `gives 3 exactly` · `\beta = \gamma = 1` · `4.226` · `42.98` · `43''` · `arcseconds per century` · `n_scalar` / `n_{scalar}` · `ponderomotive` (case-insensitive) · `clm-zf8eah` · `clm-qyn8t0` · `11/7` · `9/7` · `3/7` · `2/7` · `1/7` · `7 = 2/\nu_{vac}` · `r_sat = 7GM`.
+
+### §10.3 — ★ A measured tool hazard, and the second method
+
+**The session's `grep` is a wrapper around `ugrep` invoked with `--ignore-files`**, which honours ignore-file rules, and its `--include=*.md` handling emitted `No such file or directory` warnings on this tree. Both are false-negative generators.
+
+**So every enumeration below was re-run under `/usr/bin/grep`, a different binary with different ignore semantics.** Where the two agreed the count is reported; where a claim is "absent", a *second, non-grep* method was used as well:
+
+| claim | method 1 | method 2 | agree? |
+|---|---|---|---|
+| `IDENTICAL to GR Schwarzschild` appears at 3 places | wrapper `grep -rn` | `/usr/bin/grep -rn` | ✅ same 3 |
+| the ponderomotive $1/7$ matter index is **absent** from the 2026-06-05 PPN audit and its prereg | `/usr/bin/grep` for `1/7`, `ponderomotive`, `n_scalar`, `scalar index` → exit 1 on both files | **read** the audit's §1, which enumerates its structure list as S1–S4 and names each; the $1/7$ matter index is not among the four | ✅ |
+| the same index is absent from `gravity_ppn_coherence.py` | `grep -n "scalar\|1/7\|ponderomotive\|Rational(1"` → no hits | enumerate **every** `sp.Rational(` call in the file: `Rational(2,7)`, `Rational(9,7)`, `Rational(ns,nt)`, `Rational(9,2)` — and read the module docstring, which declares *"two refractive indices"* | ✅ |
+
+### §10.4 — Blind spots, named
+
+1. **This is a search, not a census.** No end-to-end read of `manuscript/` was performed. Sites that state the perihelion/deflection claim in wording none of §10.2's patterns match are **not** covered — and the open-items README's own measured lesson applies here: *"Items that announce themselves are the ones already tracked."* A site that says "AVE recovers the observed precession" without any of my tokens is invisible to this method.
+2. **Line-wrapped phrases.** Several of the patterns are long. A site that breaks `IDENTICAL to GR Schwarzschild` across a line would not match either grep. No wrap-tolerant (whitespace-normalising) pass was run.
+3. **Rendered PDF / figure text / notebook outputs** were not searched at all.
+4. **Downstream repositories.** Only `AVE-Core` was searched. Whether the claim propagated into other workspace repos is **unknown to this lane**.
+5. **The matter-sector result is conditional on M4** (`§1.3`), the assignment that a massive body moves on the Gordon metric built from $n_{scalar}$. That assignment is canon's, and it is graded soft by canon. If Grant rules it wrong, §0's matter rows are void — which is the *point* of §7, not a hedge against it.
+6. **No engine ran.** Nothing here is an empirical result about the lattice. `substrate-native-check` was fired (§13) and returned "no solver to scaffold"; the numerical work is quadrature on written metrics.
+7. **The external data are not re-derived and not re-fetched.** Cassini, LLR, the Mercury residual and the Hulse-Taylor rate are carried forward from the commissioning reconciliation and from the tree; see §11 rows U1–U4.
 
 ## §11 — Cite verification ledger
 
