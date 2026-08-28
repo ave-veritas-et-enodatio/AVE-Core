@@ -211,3 +211,124 @@ member" and it is honoured as written.
 a 39× margin**: `c` = `0.286110 / 0.286155 / 0.286184` at `N` = 24 / 32 / 40, a total
 drift of `2.58×10⁻⁴` against a `1×10⁻²` edge. The scoping lane's self-flagged blind spot
 — that it had run `N = 24` only — is closed, and the result is **not** an N=24 artifact.
+
+---
+
+## §4 — ★ WHY Z1 FIRED — the detector is an identity of its own target
+
+This is the section that decides the bin, so it is stated with its algebra and its
+counter-measurement rather than as a verdict.
+
+### §4.1 — The identity
+
+The frozen detector (§11.1, verbatim): *"recompute `Δ_clock^broadcast ≡ (1 − w̄)·M` with
+`w̄` the `T₀₀`-weighted mean of `w`, and compare."* Substituting the definitions of
+`Δ_clock` (§10.1) and of `w̄`:
+
+```
+w̄        ≡ Σ T₀₀ w / Σ T₀₀ = Σ T₀₀ w / M
+(1 − w̄)M  = M − Σ T₀₀ w  =  Σ T₀₀ − Σ T₀₀ w  =  Σ T₀₀ (1 − w)  ≡  Δ_clock
+```
+
+There is no approximation step. `Δ_clock` is a `T₀₀`-weighted **linear** functional of
+`w`, and the detector replaces `w` by its `T₀₀`-weighted mean before integrating against
+`T₀₀` again — so the averaging and the integration are the *same* operation performed
+twice, and the second one has nothing left to do. **The detector returns its own target
+for any weight, any field, any configuration.**
+
+### §4.2 — Measured, on three families including the shipped control
+
+| family | weight | frozen Z1 detector, max dev | fires at `< 0.10`? |
+|---|---|---|---|
+| CONTROL, FAM-A | shipped `(1−ε₁₁²)^{1/4}` | `1.4144×10⁻¹³` | **yes** |
+| FAM-A | frozen `1/(1+ε₁₁/7)` | `3.4861×10⁻¹⁴` | **yes** |
+| FAM-B (7 rungs, 32× span) | frozen `1/(1+ε₁₁/7)` | `6.3061×10⁻¹⁴` | **yes** |
+
+Every number is machine epsilon. **The gate fires on the shipped quadratic weight too**,
+which is the receipt that it is measuring the detector rather than the configuration: a
+weight whose spatial profile is entirely different fires the identical clause at the
+identical magnitude.
+
+### §4.3 — FLAGGED DIAGNOSTIC — what the gate was trying to ask, and the honest answer
+
+**Not part of any bin. Not an input to the verdict. Recorded so the reader can see which
+property made Z1 fire.** Z1's stated purpose (§11.1) is to catch a weight that is
+*"effectively a scalar broadcast … and carries no spatial physics whatsoever."* A
+detector that is not an identity of its target answers that. Replacing `w̄` with the
+**unweighted interior-lattice mean** of `w` — the same broadcast idea, without reusing
+`T₀₀` as the averaging measure:
+
+| family | unweighted-mean broadcast, max dev from `Δ_clock` |
+|---|---|
+| CONTROL, FAM-A (shipped weight) | **`0.9746`** |
+| FAM-A (frozen weight) | **`0.9004`** |
+| FAM-B (frozen weight) | **`0.8609`** |
+
+**86–97%.** On a detector that can register it, the weight's spatial structure carries
+almost all of `Δ_clock` — the opposite of degeneracy. The prereg's stated worry (§11.1:
+*"the blob is compact, so `ε₁₁` is nearly flat across the matter support and the weight's
+spatial content may not be resolvable by these families"*) is **not** what these
+configurations show, and the design change it proposed as the remedy (a broader source
+profile) is **not** indicated by this measurement.
+
+**None of that changes the bin.** The frozen clause is the frozen clause; it fired at its
+frozen edge; §15.4 says frozen bins enforce. The correction is a new dated document and
+is Grant's, not this run's — see §11.
+
+---
+
+## §5 — The measurements (printed as measurements; **UNINTERPRETABLE** as evidence)
+
+Everything below was computed and is published, per §1.3's demotion of `η_mixed` to a
+reported diagnostic and §10.2's UNINTERPRETABLE stamp on a Z-binned run. **No clause,
+claim or routing in this document rests on any number in this section.**
+
+### §5.1 — FAM-A under the frozen weight (`N = 24`, `Σ T₀₀ = 4.0`)
+
+| σ | `f` | `m_g` | `M_eff` | `Δ_clock` | `U_bind` | `c` | `c^D` | `max A` | conv |
+|---|---|---|---|---|---|---|---|---|---|
+| 1.40 | 0.054677 | 3.933715 | 3.768640 | 0.066285 | 0.231360 | 0.286502 | `0.285714246` | 0.1851 | True |
+| 1.80 | 0.038949 | 3.953620 | 3.837891 | 0.046381 | 0.162109 | 0.286110 | `0.285714204` | 0.1295 | True |
+| 2.20 | 0.029479 | 3.965254 | 3.878501 | 0.034742 | 0.121499 | 0.285942 | `0.285714219` | 0.0983 | True |
+| 2.60 | 0.023074 | 3.972786 | 3.905526 | 0.027006 | 0.094474 | 0.285856 | `0.285714319` | 0.0781 | True |
+
+`η_mixed = +0.828031`. The prereg's P6 wrote `+0.831 ± 0.010`; the measurement lands
+inside it. **P6 is POST-DICTED, not pre-registered** (§13.1) — the scoping lane had
+already measured `η_lin = +0.8280` on a monkeypatched weight before the freeze. This run
+reproduces it under a clean, gated, non-monkeypatched install, which is a **regression
+receipt, not evidence.**
+
+### §5.2 — FAM-B amplitude ladder (`N = 24`, `σ = 1.8`, 32× rest-energy span)
+
+| λ | `max A` | `f` | `c` | §5.3 bracket | in? | `c^D` | `⟨D⟩_w` | `χ` | `k_meas` | `V_resid` | Gauss | conv |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 0.25 | 0.0328 | 0.0102 | 0.285740 | [0.2844, 0.2859] | in | **`0.285715`** | 1.000088 | 0.996731 | 0.143326 | `1.51e-06` | `1.33e-06` | True |
+| 0.50 | 0.0653 | 0.0202 | 0.285815 | [0.2831, 0.2863] | in | **`0.285714`** | 1.000351 | 0.993509 | 0.143791 | `5.62e-07` | `5.02e-07` | True |
+| 1.00 | 0.1295 | 0.0389 | 0.286110 | [0.2805, 0.2882] | in | **`0.285714`** | 1.001385 | 0.987209 | 0.144708 | `2.85e-07` | `2.52e-07` | True |
+| 2.00 | 0.2533 | 0.0728 | 0.287252 | [0.2756, 0.2957] | in | **`0.285714`** | 1.005383 | 0.975200 | 0.146490 | `1.86e-07` | `1.55e-07` | True |
+| 4.00 | 0.4794 | 0.1271 | 0.291532 | [0.2673, 0.3263] | in | **`0.285714`** | 1.020361 | 0.953607 | 0.149807 | `9.16e-08` | `6.45e-08` | True |
+| 6.00 | 0.6707 | 0.1669 | 0.298100 | [0.2612, 0.3796] | in | **`0.285714`** | 1.043351 | 0.935235 | 0.152750 | `7.80e-07` | `6.60e-07` | True |
+| 8.00 | 0.8220 | 0.1955 | 0.306508 | [0.2570, 0.4591] | in | **`0.285714`** | 1.072778 | 0.919973 | 0.155284 | `6.04e-08` | `1.79e-08` | True |
+
+### §5.3 — Resolution receipt (λ = 1)
+
+| N | `c` | `c^D` | `max A` | `V_resid` | conv |
+|---|---|---|---|---|---|
+| 24 | 0.286110 | `0.285714` | 0.1295 | `2.85e-07` | True |
+| 32 | 0.286155 | `0.285714` | 0.1350 | `3.35e-07` | True |
+| 40 | 0.286184 | `0.285714` | 0.1383 | `2.62e-07` | True |
+
+Total drift `2.58×10⁻⁴` — **39× inside** the 1% edge.
+
+### §5.4 — P8 four-coefficient PROBE (λ = 1)
+
+**`k = 1/2` is installed here as a PROBE of instrument resolving power and is FORBIDDEN
+as a proposal** (§12.2). It is the coefficient that reconciles `η_mixed` exactly, it has
+no substrate route, and nothing in this document adopts it.
+
+| installed `k` | `2k/g_self` | measured `c` | measured `c^D` | `k_meas` | `Δ_clock` |
+|---|---|---|---|---|---|
+| 0 | 0 | `0.000000` | `0.000000` | `0.000000` | `0.000000` |
+| **1/7 (FROZEN)** | 0.285714 | `0.286110` | **`0.285714`** | 0.144708 | 0.046381 |
+| 2/7 | 0.571429 | `0.572199` | **`0.571429`** | 0.293017 | 0.090498 |
+| 1/2 (probe) | 1.000000 | `1.001296` | **`1.000000`** | 0.521932 | 0.152871 |
