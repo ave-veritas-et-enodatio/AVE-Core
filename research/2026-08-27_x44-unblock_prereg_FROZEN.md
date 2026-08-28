@@ -857,6 +857,46 @@ fitting: it must say so, and stop.**
 
 ## 13 · Disclosure — what is pre-registered vs what is already measured
 
+**A prereg that quietly pre-registers numbers someone already measured is not a
+prereg.** Two scoping lanes ran before this document was written, and part of the
+primary result is therefore **POST-DICTED**. Stating which part:
+
+### 13.1 · ALREADY MEASURED before this freeze — post-dicted, NOT pre-registered
+
+| quantity | value | source |
+|---|---|---|
+| `η_lin` under the derived linear weight, FAM-A, N=24 | **+0.8280** | scoping lane, monkeypatched `komar_weight`, this session |
+| `c_lin` across a 16× amplitude span | **0.2848 → 0.2780** (2.4% drift) | same lane |
+| `Δ_clock/U_bind` under the **shipped** weight | 0.0115 → 0.1950 (∝ λ) | same lane |
+| `∫T₀₀ε/U_bind` on FAM-A | 2.0058, 2.0029, 2.0016, 2.0010 | same lane |
+| `η` at `g_self = 2/7` | −0.0005 | same lane (run as a warning, §12.3) |
+| the accessible-regime bounds (§1.2, §5.2) | the λ-table | **this document's own driver** |
+
+**P6 (`η_mixed = +0.831 ± 0.010`) and the `c ≈ 2/7` anchor are consequently
+CONFIRMATORY, not predictive.** They are stated as predictions because the run must
+reproduce them under a clean, gated, non-monkeypatched install — but **no lane may
+bank them as a successful pre-registration.**
+
+### 13.2 · GENUINELY PRE-REGISTERED — not measured by anyone at freeze time
+
+| # | content | why it is new |
+|---|---|---|
+| **P9** | the D-consistent register `c^D = (2k/g_self)·χ` collapses the amplitude drift **exactly** | no lane has computed `U_bind^D`; the closed form separating `⟨D⟩_w` from `χ` is derived in §4.3 of this document |
+| **P7** | `c` at `N ∈ {24, 32, 40}` | the scoping lane ran **N=24 only** and flagged the missing resolution receipt as its own blind spot |
+| **P8** | the four-coefficient discrimination `k ∈ {0, 1/7, 2/7, 1/2}` | only `k = 1/7` was ever installed |
+| **P4** | the two-method identity with `⟨D⟩_w` and `χ` measured independently | `⟨D⟩_w` and `χ` have never been separated; the 2.4% drift was attributed to `D` without measuring it |
+| **P3** | the pre-computed bracket at every rung | the bracket is derived in §5.3 of this document |
+| **P10** | no engine observable discriminates weights independently of the install | not previously posed |
+| **Z1** | the broadcast-degeneracy detector | not previously posed; **expected to be the tightest gate** |
+| — | the amplitude band above λ=4 (`max A` to 0.783, and the `f` turnover) | the scoping lane stopped at λ=4 |
+
+### 13.3 · What this means for the arc's banking basis
+
+**Bin A, if it fires, banks on P9 + P7 + Z1 — the pre-registered clauses — with the
+post-dicted `c ≈ 2/7` and `η ≈ +0.83` reported as reproductions.** The result document
+must carry this split verbatim. **Reproducing a known number is a regression receipt,
+not evidence.**
+
 ## 14 · Method, blind spots, and the completeness statement
 
 ## 15 · Out of scope · Deliverables · Gates
