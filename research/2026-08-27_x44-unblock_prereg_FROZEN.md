@@ -568,6 +568,82 @@ against `w = 1/n_scalar`, nor as licence to search for a weight that zeroes it.
 
 ## 9 · The honest expected outcome — what a non-zero residual would MEAN
 
+**Reconciliation is NOT the only success, and this prereg does not treat it as one.**
+The expected outcome is: **the frozen weight PASSES every fireable gate, and
+`η_mixed` lands at ≈ +0.83, not 0.**
+
+### 9.1 · Why the two registers can legitimately differ
+
+`Δ_clock` and `U_bind` are **different functionals of different things**.
+`Δ_clock = k·Σ T₀₀ ε₁₁` is a **matter-weighted potential** integral — it lives where
+the matter is. `U_bind = ½g_self Σ|∇ε₁₁|²` is a **field-gradient** integral — it lives
+everywhere the field varies. Nothing requires them to be equal. Via the virial
+identity (§4.2) they are related, and the relation is:
+
+```
+c  =  Δ_clock / U_bind  =  (2k/g_self) · ⟨D⟩_w · χ  →  2k/g_self  =  2/7
+```
+
+`k = 1/7` is **derived** (§3.2); `g_self = 1` is **forced by the engine's own
+operator** (§4.4). Neither is free. So `c = 2/7 ≠ 1`, and the residual is
+**parameter-free and amplitude-invariant** — a structural property of the two
+registers, not a tuning failure and not a weight defect.
+
+**The mismatch factor is exactly `7/2`**, and it is not a new constant: it is the
+ratio of the `ε₁₁` register's **7** (`ε₁₁ = 7GM/c²r`,
+`temporal-spatial-lattice-decomposition.md:14`) to the Schwarzschild **2** — the same
+arithmetic that puts `r_sat = 7GM/c² = 3.5 r_s` (`manuscript/ave-kb/vol3/claim-quality.md:104`,
+verified verbatim). **The gap is a register-normalization mismatch between
+`Σ T₀₀^src` and `½g_self Σ|∇ε₁₁|²`, not a wrong functional form.**
+
+### 9.2 · What a non-zero `η_mixed` would MEAN — three readings, pre-declared
+
+If the weight passes and `η_mixed ≈ +0.83` stands, the prereg pre-commits that this
+is evidence for **one of these three**, and that the run does **not** adjudicate
+among them:
+
+1. **THE LABEL IS WRONG, NOT THE WEIGHT.** `M_eff = M − U_bind` may simply not be the
+   ADM mass conjugate to the engine's own far field. The clock-native inertial mass
+   would be `M − Δ_clock`. This is X44 §7 option 1, and it is *promoted* by this
+   result rather than refuted: the far-field register is derived and the
+   strain-energy register is a convention.
+2. **AN INGREDIENT IS STRUCTURALLY ABSENT.** The Tolman/Komar `+3∫p` stress term
+   exists for a static **force-balanced** source; the engine has no stress register
+   and `gaussian_blob` is a prescribed profile, not a hydrostatic equilibrium.
+   **Verified absent at HEAD by three methods this session:** (A) no `def`/`class`
+   matching `sigma_ij|stress_tensor|momentum_flux|force_density|T_ij|tolman` in the
+   gravity path — the three hits are `vol_1` prestress-elasticity and a `vol_4`
+   acoustic momentum flux, neither of which is the gravity register; (B) no
+   `*stress*`/`*tolman*`/`*tij*` filename under the gravity path; (C) **zero**
+   `Tolman` or `3∫p` hits anywhere in `src/`. The `2026-07-14_tij-x44b_CHARTER.md`
+   got its Grant GO six weeks ago; the build never happened.
+3. **THE TWO REGISTERS ARE GENUINELY DIFFERENT PHYSICAL QUANTITIES** and the engine
+   should carry both, labelled, rather than force them to agree.
+
+⚠ **The X44b expectation ladder does not survive this, and the prereg says so in
+advance.** X44 `§5b(ii)` (`research/2026-07-12_x44-komar-source_result.md:157-162`)
+predicts a linear clock gives `η ≈ −1`, from which stress must supply `+1` to reach
+0. That prediction holds at `g_self = 1/7`, **not** at the frozen family's
+`g_self = 1.0` (§4.5: `c = 2` needs `g_self = 2k = 1/7`). From `+0.83` the stress
+term must supply **−0.83 — the OPPOSITE SIGN.** So the ladder's directional logic is
+falsified as stated, and a lane reading `+0.83` as evidence about the stress term's
+magnitude would be reading a normalization mismatch.
+
+### 9.3 · ★ The deepest expected finding: the engine as built cannot falsify a weight
+
+Per §4.1 the far-field flux is `Σ T₀₀^src` **by construction**, and the ray-trace
+register collapses onto it. With a **prescribed** matter source, **only two registers
+are independent, and one of them is tautologically the thing you installed.** Their
+ratio is therefore a ratio of two *definitions*.
+
+**Pre-registered expectation (P10): no engine observable discriminates among clock
+weights independently of the install.** If that survives its falsifier (§7), then the
+honest verdict on X44 is not "reconciled" or "unreconciled" — it is that
+**the question as posed is not decidable by the engine as built**, and the missing
+capability is the force-balanced source with its own stress response. That is a
+sharper and more useful outcome than either bin of the old freeze, and this prereg
+counts it as a **success**, not a failure.
+
 ## 10 · ★ FROZEN BINS — exact edges, fixed evaluation order
 
 ## 11 · ★ NON-TRIVIALITY / STRUCTURAL-NULL GATE
