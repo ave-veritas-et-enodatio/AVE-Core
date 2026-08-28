@@ -391,6 +391,48 @@ framing was **retracted 2026-08-03**). Do not fuse them.
 
 ## §5 — The program consequence
 
+**Canon already states it for one rung.** `[CANON]`
+[`lattice-extreme-bh-rationality.md`](../manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/lattice-extreme-bh-rationality.md):74,
+verbatim: *"A faithful substrate must recover GR where GR is established. …
+**the lattice is rational at its limit** (CONSISTENCY). It is NOT a new
+prediction; the ringdown match in particular is consistency, not confirmation.
+The framework's *own* content lives in the **departures**."* The same leaf's §7
+names the departures: *"$2/7$ compactness, $\Gamma_{shear}=-1$ echoes, $7GM$
+Iron-K$\alpha$ inner edge."*
+
+**The ladder-wide form is what §4 buys.** `[WALK]`, and audit item **A5**:
+
+> The row with data precise enough to distinguish anything is **Regime I** — and
+> by DELTA-1 that row runs from **`28.97 r_s` outward**. AVE's own content, by
+> canon's own sentence above, lives **inboard of that**, in Regimes II–IV, where
+> `wall-taxonomy.md`:168 records that the surviving falsifiers are
+> **shear + matter** channels only and the photon channel is silent.
+
+**Consequence for how agreement should be read.** `[MEASURED-ELSEWHERE]` The
+sibling lane
+[`research/2026-08-27_ppn-tensor-derivation_result.md`](2026-08-27_ppn-tensor-derivation_result.md)
+on branch `research/2026-08-27-ppn-tensor-derivation` @ `50cb25c7` builds the
+per-step derived-vs-imported ledger for the solar-system chain (its §1.1 shared
+trunk, rows **T1 / T3 / T5 / T7**, each tagged `IMPORTED` at the site with its
+own receipt). **Cross-referenced, not restated** — that lane owns its evidence
+and its §1.4 states its own conclusion in its own words.
+
+> ⚑ **One dispatch phrasing I could not reproduce verbatim.** The dispatch says
+> the corpus *"anchors gravity to GR at **three separate points**, all in the
+> linear row."* **I found no such sentence, and no such count, in that result
+> doc** (searched: the string `three`, and the string `anchor`, over the whole
+> file; §9 states the method). The ledger it points at tags **four** shared-trunk
+> rows `IMPORTED`, of which two (`K = 2G`, `κ = c⁴/7G`) are GR-value imports, one
+> is the posited source law and one is Gordon 1923. **The count is the reader's
+> to take from the ledger; this record does not assert one.** Recorded as a
+> partial reproduction rather than silently restated, per flag-don't-fix.
+
+**What the consequence is NOT.** It is not a claim that agreement in Regime I is
+worthless — recovering a well-tested theory in its own regime is the minimum
+bar, and canon's own sentence says so. It is a claim about **where a
+discriminating test can live**, and DELTA-1 gives that region a radius for the
+first time in the corpus my method reached.
+
 ## §6 — The GR-domain numbers: what I could source and what I could not
 
 ## §7 — ★ AUDIT CHARTER (attack instructions + kill conditions)
