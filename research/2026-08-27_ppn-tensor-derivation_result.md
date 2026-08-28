@@ -23,7 +23,37 @@ Mixing an areal-radius statement with an isotropic-radius statement moves $\gamm
 
 ## §0 — VERDICT
 
-<!-- SECTION: verdict -->
+> # AVE has two metrics, so two gammas.
+> ### The optics sector is consistent with GR. The matter sector is off by a factor of six.
+
+Canon assigns light and matter **different refractive indices over the same strain field** — `n_\perp = 1 + \nu_{vac}\varepsilon_{11}` for the photon (Op19, `manuscript/ave-kb/common/operators.md`:59) and `n_{scalar} = 1 + \varepsilon_{11}/7` for a massive defect (`manuscript/ave-kb/vol3/gravity/ch03-macroscopic-relativity/ponderomotive-equivalence.md`:14). Fed through canon's own Gordon metric, those are two different spacetimes, and only one of them is GR.
+
+| quantity | AVE derived here | measured (external import) | tension |
+|---|---|---|---|
+| $\gamma$ (light) | $1$ | Cassini $1 \pm 2.3\times10^{-5}$ | **pass** |
+| solar-limb deflection | $1.7517''$ | $1.75''$ | **pass** |
+| $\gamma$ (matter) | **$0$ exactly** | $1$ | $\sim4.3\times10^{4}\sigma$ |
+| $\beta$ (matter) | **$3/2$ exactly** | LLR $1 \pm 1.1\times10^{-4}$ | $\sim4.5\times10^{3}\sigma$ |
+| Mercury perihelion | **$7.163''$/century** | $42.98 \pm 0.04$ | $895\sigma$ |
+| Hulse-Taylor periastron | **$0.7044^\circ$/yr** | $4.226595(5)$ | short by $3.522^\circ$/yr |
+
+$$F \;=\; \frac{2-\beta+2\gamma}{3} \;=\; \frac{2 - 3/2 + 0}{3} \;=\; \frac{1}{6}.$$
+
+**Independently confirmed by direct geodesic integration** (§9): apsidal-angle quadrature in the AVE matter metric returns $0.1666666632$ of the GR baseline $6\pi x$, while the same integrator on an isotropic-Schwarzschild **control** returns $1.000000289$ of it. The control is what makes the AVE number a measurement of the metric rather than of the integrator.
+
+### THE STRUCTURAL REASON — stated here, not only in §2
+
+A refractive index is **one** scalar function of $r$. A weak-field metric needs **two** independent functions, and $\gamma$ *is* the second one. Canon's own Gordon metric,
+`manuscript/ave-kb/vol3/gravity/ch03-macroscopic-relativity/gordon-optical-metric.md`:17 verbatim
+$g_{\mu\nu}^{AVE} = \eta_{\mu\nu} + \left(1 - \frac{1}{n^{2}(r)}\right)u_{\mu}u_{\nu}$,
+gives $g_{00} = -1/n^2$ and $g_{ij} = \delta_{ij}$ **exactly**, for any $n$ and any slope. A metric whose spatial part is flat has $\gamma = 0$ identically. No coefficient choice inside the $/7$ family can move it, because the family never enters $g_{ij}$ at all.
+
+### ⚠ WHAT THIS IS, AND WHAT IT IS NOT — read before quoting any number above
+
+- **This is not a new falsification of AVE's optics.** $\gamma_{light} = 1$ and $1.7517''$ hold. §6 argues they are a *calibrated consistency check* and not an emergence-class result, which is a downgrade of a claim's **class**, not of its truth.
+- **This is not an engine bug.** No engine ran. It is a property of two written constitutive statements and the metric canon writes for them.
+- **This does not adjudicate the fix.** §7 names the cheapest repair inside the framework. Naming a repair is not performing one, and this lane edits no canonical file.
+- **The matter-sector numbers are only as good as the assignment that produces them.** They follow from taking `ponderomotive-equivalence.md`:14 literally as the metric a massive test body moves in. Canon's own quality record calls that assignment *"asserted by mechanical analogy rather than derived from a wave-equation projection"* (`manuscript/ave-kb/vol3/claim-quality.md`:1158). **If that assignment falls, these numbers fall with it** — which is the point of §7.
 
 ## §1 — THE DERIVED-vs-IMPORTED LEDGER
 
