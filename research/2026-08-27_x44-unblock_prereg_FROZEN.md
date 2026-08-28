@@ -432,6 +432,68 @@ bracket rejects at every rung.
 
 ## 6 · Scope — the 91/9 split, and what this run is NOT about
 
+### 6.1 · The `u_field` deletion is independently justified — carried, not re-litigated
+
+X44's three-mode decomposition (`research/2026-07-12_x44-komar-source_result.md:177-179`,
+read verbatim): `ADD = +2.2792`, `matter = +1.1585`, `komar = +1.0479`. Of the total
+drop `1.2313`, **91.0% was deleting the double-counted `+u_field`** and **9.0% was
+the `√S` weight**.
+
+The deletion stands on **three grounds that do not depend on the weight question at
+all**, so this run inherits it and does not re-open it:
+
+1. **Canon's source law has no such term.**
+   `saturating-modulus-and-backreaction.md:50-53` (verified verbatim) puts the matter
+   source alone on the RHS; the nonlinearity lives in the modulus `D(A)` on the LHS.
+2. **Sign.** The engine's `u_field = +½κ|∇ε₁₁|²` is positive-definite and the code
+   says so (`backreaction.py:114-115`, verbatim: *"Sign: u_field ≥ 0
+   (positive-definite strain energy → self-reinforcing → the runaway-collapse
+   risk"*). Gravitational field energy is negative-definite. Canon states the
+   consequence directly (`saturating-modulus-and-backreaction.md:130`, verbatim):
+   *"capacitor-ADD reading would predict a mass *excess* and *repulsive* gravity —
+   falsified by every bound orbit."*
+3. **Measured.** Under ADD the flux certifies against `M+U` at
+   `η_one = +8.28×10⁻⁵` (`research/2026-07-12_x44-komar-source_result.md:286-288`)
+   against a ledger of `M−U` — a `2U` discrepancy, the signature of a sign flip, not
+   of a subtle overlap.
+
+**SCOPE: this run is scoped to the remaining 9% — the weight question — and to it
+alone.** The `u_field` deletion is a carried premise, and `source_mode="add_field"`
+stays callable for KEEP-BOTH regression only.
+
+### 6.2 · ⚠ But the inference "91/9 ⇒ the weight is a 9% correction" DOES NOT FOLLOW
+
+The 9% figure measures the **shipped quadratic** weight, which is a near-no-op **by
+construction**: its effect is `O(ε₁₁²)` where every other term in the ledger is
+`O(ε₁₁)`. It is a measurement of how little the **wrong** weight does, not of how
+little **the weight** matters.
+
+Recomputed against the frozen weight (exact algebra, §4.5; corroborated by the
+scoping lane's direct measurement `η_lin = +0.8280`):
+
+| step | `η_mixed` | Δ |
+|---|---|---|
+| ADD | +2.2792 | — |
+| → `matter` (delete `u_field`) | +1.1585 | **−1.1207** |
+| → shipped quadratic weight | +1.0479 | −0.1106 |
+| → **FROZEN `w = 1/n_scalar`** | **+0.8280** | **−0.3305** |
+
+**ADD → frozen weight: total `−1.4512`, of which deletion 77.2% and weight 22.8%.**
+The frozen weight does **3.0× the work of the shipped one.** The prereg carries the
+91/9 scoping as instructed, and simultaneously records that 91/9 is not a statement
+about the weight's importance.
+
+### 6.3 · Explicitly NOT in scope
+
+- The `T_ij` / stress register and the Tolman `+3∫p` term (the X44b charter's build
+  order; still unbuilt at HEAD — §9.3).
+- A force-balanced / hydrostatic source family (`gaussian_blob` is a prescribed
+  scalar profile, not a self-consistent equilibrium).
+- Any change to `g_self` (§12).
+- srs-z=3 migration of the gravity Grad/Div instrument.
+- The `√g₀₀` vs `1/n_scalar` `O(ε₁₁²)` fork (§3.4) — recorded, not resolved.
+- Any edit to a canon leaf, a ruling, or the docket. **FLAG-DON'T-FIX.**
+
 ## 7 · Pre-registered predictions
 
 ## 8 · What would FALSIFY the derived weight, in the run's own terms
