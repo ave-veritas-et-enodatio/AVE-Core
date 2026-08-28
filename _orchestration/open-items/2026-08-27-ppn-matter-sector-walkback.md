@@ -4,11 +4,15 @@ title: "Matter-sector PPN — sites claiming the perihelion derivation gap is CL
 status: ROUTED-TO-GRANT
 owner: grant
 opened: 2026-08-27
-source: manuscript/ave-kb/vol3/cosmology/ch14-orbital-mechanics/anomalous-perihelion-advance.md
-anchor: "IDENTICAL to GR Schwarzschild"
+source: manuscript/vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex
+anchor: "The same perihelion advance is derivable directly from the canonical temporal/spatial refractive metric"
 ---
 
 **ROUTED-TO-GRANT. This item supersedes nothing and rules nothing. Only Grant rules.**
+
+*(The frontmatter anchor points at Group C1, the sharpest single site — it asserts the exact
+`beta = gamma = 1` pair the result contradicts. The KB leaf's own paragraph is duplicated
+byte-for-byte at `:10` and `:20`, so it cannot serve as a unique anchor; the full set is below.)*
 
 Basis: [`research/2026-08-27_ppn-tensor-derivation_result.md`](../../research/2026-08-27_ppn-tensor-derivation_result.md).
 Sibling: `research/2026-08-27-two-knob-gravity-repair` (a repair reaching GR at $O(m)$; see "What the repair does NOT do" below).
