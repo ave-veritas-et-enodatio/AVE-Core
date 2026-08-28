@@ -511,7 +511,7 @@ The reconciliation lane pushed the same objection at this document's framing: in
 
 ## §10 — THE IMPORT AUDIT — where GR/SM/QED vocabulary did thinking that should have been done in medium terms
 
-Every lane in this workflow returned an `imports_i_caught_myself_making` field. This section collects all of them plus my own. **Grant asked for this specifically, and the pattern that emerges is worth more than any single number in this document:** in eighteen recorded catches across four lanes, the substitution *"metric $\to$ constitutive law"* changed the **answer**, not the prose, in at least six cases. GR/QED/SM vocabulary is not a style issue. **The words carry their frameworks' theorems, and the theorems do the thinking.**
+Every lane in this workflow returned an `imports_i_caught_myself_making` field. This section collects all of them plus my own. **Grant asked for this specifically, and the pattern that emerges is worth more than any single number in this document.** The enumeration below is complete with respect to the four lanes' returned `imports_i_caught_myself_making` fields plus my own working notes — **six** from L1, **four** from L2, **seven** from L3, **five** from the reconciliation lane, **four** of mine, and **three** near-misses recorded in the other direction (i.e. catches that cut *against* a lane's own thesis). It is not a claim about every import any lane made, only about the ones each lane recorded. In at least six of those, the substitution *"metric $\to$ constitutive law"* changed the **answer**, not the prose. GR/QED/SM vocabulary is not a style issue. **The words carry their frameworks' theorems, and the theorems do the thinking.**
 
 ### 10.1 — L1 (`group-vs-phase`) — six
 
