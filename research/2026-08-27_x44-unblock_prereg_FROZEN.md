@@ -706,6 +706,73 @@ part of bin A is banked on `η_mixed`.
 
 ## 11 · ★ NON-TRIVIALITY / STRUCTURAL-NULL GATE
 
+**A null obtained through a per-node broadcast or a degenerate configuration is an
+artifact, not a result.** Bin Z (§10.3) is evaluated first and overrides everything.
+This section states what each clause is *for*, and pre-computes what it will read on
+the frozen families so the gate cannot be silently satisfied.
+
+### 11.1 · Z1 — the per-node broadcast detector
+
+The failure mode: a weight that is effectively a **scalar broadcast** —
+`T₀₀^src = w̄ · T₀₀^matter` for a single number `w̄` — produces a perfectly clean
+`Δ_clock`, a perfectly clean `c`, and carries **no spatial physics whatsoever**. The
+weight's whole content is that it varies **with `ε₁₁(r)`**.
+
+**Detector:** recompute `Δ_clock^broadcast ≡ (1 − w̄)·M` with `w̄` the `T₀₀`-weighted
+mean of `w`, and compare. If the spatially-resolved and broadcast values agree to
+better than 10%, **the spatial structure is carrying <10% of the result and bin Z
+fires.** This is a genuine gate, not a formality: the blob is compact, so `ε₁₁` is
+nearly flat across the matter support, and **Z1 is the clause most likely to fire.**
+If it does, the honest reading is that the frozen families cannot resolve the
+weight's spatial content and a broader source profile is required — a **design**
+change, per §1.3, not a bin change.
+
+### 11.2 · Z2 — configuration non-degeneracy
+
+`η_mixed` is a **slope**; a family with no lever arm in `f` produces a slope that is
+pure noise. FAM-A spans `f = 0.0234 → 0.0561`, ratio **2.40** (edge: ≥2.0 — passes,
+and by a thin margin, which is itself worth recording). FAM-B spans `λ = 0.25 → 8`,
+ratio **32** (edge: ≥8 — passes). Both are stated so the run cannot quietly shrink a
+family and still bin.
+
+### 11.3 · Z3 — instrument resolving power
+
+If the four installed coefficients `k ∈ {0, 1/7, 2/7, 1/2}` do not produce four
+separated `c` values, the instrument cannot tell weights apart and **every** verdict —
+PASS included — is an artifact. Predicted separations in the linear limit are
+`c = 0, 0.2857, 0.5714, 1.0000`, i.e. adjacent gaps of ≈0.286 against a λ=1 bracket
+half-width of ≈0.004: a margin of **≈74×** against the required 10×. **This gate is
+expected to pass with room, and its purpose is to prove the gate could have failed.**
+
+### 11.4 · Z4/Z5/Z6 — degeneracy, phase-state, stencil
+
+- **Z4** guards the `∇ε₁₁ → 0` limit, where `U_bind → 0` and `c` is `0/0`.
+- **Z5** guards the declared phase-state. `max A ≥ 0.99` means the core is pinned
+  against the yield cap: `D = 1/S → ∞`, the Picard loop stops converging (measured:
+  λ ≥ 12, §1.2), and the run is no longer sub-yield. **A result read there would be
+  a wrong-regime artifact, which is not a falsification.**
+- **Z6** guards the stencil. Every `|∇ε₁₁|²` in every ledger term must come from the
+  native diamond-K4 `Grad` (`_build_native_grad_div`); the code names this the
+  load-bearing checkpoint (`backreaction.py:110-112`, verbatim: *"a Cartesian
+  np.gradient here would be a non-native leak (the load-bearing K4 checkpoint)"*).
+  **A structural null read off a Cartesian stencil would validate a stencil bug as
+  physics.**
+
+### 11.5 · The anti-tautology probe — can each gate fire in BOTH directions?
+
+| gate | can it FAIL? | demonstrated by |
+|---|---|---|
+| A1 `k_meas` | YES | installing `k = 2/7` or `1/2` moves it by 2–3.5× (§5.4) |
+| A2 bracket | YES | the **shipped** quadratic weight drifts 17× across FAM-B and misses at every rung |
+| A3 D-register | YES | if the drift is boundary leakage or clip rather than `⟨D⟩`, `c^D` will not collapse |
+| A4 `V_resid` | YES | it fails at λ ≥ 12, where the fixed point does not converge |
+| Z1 broadcast | YES | **expected to be the tightest clause** (§11.1) |
+| Z3 discrimination | YES | but with ≈74× margin — a receipt, not a risk |
+
+**No gate in this prereg is satisfied by its own construction, and none encodes the
+authoring context** (no branch shape, no live line numbers, no self-derived key
+values in any fixture).
+
 ## 12 · ★ ANTI-FITTING GUARD — the k = 1/2 trap, declared in advance
 
 ## 13 · Disclosure — what is pre-registered vs what is already measured
