@@ -173,7 +173,46 @@ Two calibration checks on the wrong-way branches, so the reader can see how shar
 
 ## §4 — The repair, and the two numbers canon already owns
 
-*(placeholder — §4)*
+### 4.1 — What the repair is, in medium terms
+
+A well-posed medium does not carry two unrelated indices. It carries **one speed function and one gap function**:
+
+$$\omega_{\rm light}^2 = c_{\rm eff}^2(r)\,k^2, \qquad \omega_{\rm matter}^2 = c_{\rm eff}^2(r)\,k^2 + \Omega^2(r)$$
+
+Same $c_{\rm eff}$, one extra term. So the matter packet **rides light's own characteristic speed** ($a_1 = 2$, whatever light uses) and carries its **own independently graded clock** ($b_1 = 1$, set by Newton). If that clock grades *multiplicatively* shell-by-shell — $\Omega = \Omega_\infty e^{-U}$ rather than $\Omega_\infty(1-U)$ — then $b_2 = \tfrac12$ and the bracket is $8 - 1 - 1 = 6$: **GR at $O(m)$, $\gamma = 1$, $\beta = 1$.**
+
+Note what this does **not** require: no new field, no new constant, no change to the $1/7 : 2/7$ projection ratio, and no metric.
+
+### 4.2 — Canon already owns both first-order numbers, in one leaf, under the right names
+
+`manuscript/ave-kb/vol3/gravity/ch01-gravity-yield/temporal-spatial-lattice-decomposition.md`:24, **verified verbatim at HEAD `a3f4fef7`**:
+
+> $n_{temporal}$ (slope 2) is the **bulk/coordinate-time** temporal propagation index — what a signal *traversing* the gradient accumulates (Shapiro-class integrated delay, $\approx 1/g_{00}$). It is **distinct** from the **local clock rate / gravitational redshift**, which is a slope-1 quantity: the proper tick of a clock *sitting* at $r$ is $\sqrt{g_{00}} = \sqrt{S} \approx 1 - GM/(c^2 r)$, giving redshift $z \approx GM/(c^2 r)$. The two are bridged by $z = (n_{temporal} - 1)/2$ — a propagating signal picks up $2\times$ the local clock effect.
+
+Read that against the two slots:
+
+| canon's object, same leaf, same line | this document's slot | value |
+|---|---|---|
+| $n_{temporal} = 1 + \tfrac27\varepsilon_{11} = 1 + 2U$, *"what a signal traversing the gradient accumulates"* | **speed** | $a_1 = 2$ |
+| $\sqrt{S} \approx 1 - GM/c^2r$, *"the proper tick of a clock sitting at $r$"* | **clock** | $b_1 = 1$ |
+| the bridge $z = (n_{temporal}-1)/2$ | **is literally** $b_1 = a_1/2$ | — |
+
+And `claim-quality-closure-roadmap.md`:205 names the projection's job in its own words, **verified verbatim**: *"n_scalar(r) = 1 + GM/c²r for MASSIVE PARTICLES (ponderomotive, **only time component at leading order**)."*
+
+**The $1/7$ projection was always the clock grading.** $(1/7)\cdot\varepsilon_{11} = (1/7)(7GM/c^2r) = U$, which is exactly the slope-1 clock. **The error was never the $1/7 : 2/7$ ratio.** The ratio is right and the $1/7$ is doing the job canon says it does. The error is feeding that $1/7$ into a **Gordon optical index**, which then overwrites the *speed* slot with the same number.
+
+### 4.3 — ⚑ Two flags on this reading, surfaced not resolved
+
+**Flag A — "channel-agnostic" is an interpretation, not a canon statement.** The brief that dispatched this lane called $n_{temporal}$ *channel-agnostic*. The leaf says *"what a signal traversing the gradient accumulates"*, which reads that way — but the same line also equates it to $\approx 1/g_{00}$, which is a **temporal-metric** object, and the leaf's own label is "temporal". Reading $n_{temporal}$ as the common $a_1$ of **both** channels is what the repair needs, and the leaf does not say it. **This is the interpretive step the repair rests on, and it is un-adjudicated.** Routed as an open item (§12).
+
+**Flag B — $1/|g_{00}|$ is not the optical index; they agree only at first order.** The reconciliation lane caught this and I reproduced it. For exact isotropic Schwarzschild:
+
+$$n_{opt} = 1 + 2U + \tfrac{7}{4}U^2, \qquad \frac{1}{|g_{00}|} = 1 + 2U + 2U^2$$
+
+They agree at $O(U)$ and split at $O(U^2)$ — **exactly the order where the perihelion lives.** Canon makes that identification at `temporal-spatial-lattice-decomposition.md`:24 (*"$\approx 1/g_{00}$"*, with the $\approx$ doing real work) and the identification is what generates the whole double-index structure: once $n = 1+2U$ is labelled *temporal only*, a separate "spatial" index $(9/7)$ and a separate matter scalar $(1/7)$ become necessary. **Read as a full optical index, $n = 1+2U$ already contains $\gamma = 1$.**
+
+Corroborating detail I derived while checking Flag B: exact isotropic Schwarzschild has grading exponents $(a_1, a_2, b_1, b_2) = (2, \tfrac94, 1, \tfrac12)$. So the repair's $b_2 = \tfrac12$ **is** GR's $\beta = 1$, and the exponential ansatz's $a_2 = 2$ differs from GR's $\tfrac94$ — a real difference that the NR perihelion cannot see (because $a_2$ drops out) but a relativistic orbit could.
+
 
 ## §5 — The falsifier that already fired: ultrarelativistic convergence and SN1987A
 
