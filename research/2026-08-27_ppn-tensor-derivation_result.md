@@ -55,6 +55,37 @@ gives $g_{00} = -1/n^2$ and $g_{ij} = \delta_{ij}$ **exactly**, for any $n$ and 
 - **This does not adjudicate the fix.** §7 names the cheapest repair inside the framework. Naming a repair is not performing one, and this lane edits no canonical file.
 - **The matter-sector numbers are only as good as the assignment that produces them.** They follow from taking `ponderomotive-equivalence.md`:14 literally as the metric a massive test body moves in. Canon's own quality record calls that assignment *"asserted by mechanical analogy rather than derived from a wave-equation projection"* (`manuscript/ave-kb/vol3/claim-quality.md`:1158). **If that assignment falls, these numbers fall with it** — which is the point of §7.
 
+
+### ★ FORWARD POINTER (added 2026-08-27, after the derivation above was frozen) — this is not a dead end
+
+A repair has since been derived on the sibling branch **`research/2026-08-27-two-knob-gravity-repair`**, by a route sharing no assumptions with anything above: a lossless graded LC ladder, WKB, Hamiltonian ray tracing on $H = \omega(k,r)$, **no metric anywhere**. It reproduces $F = 1/6$ exactly, with its own $60$-digit ray quadrature and its own GR isotropic-Schwarzschild control returning the textbook $6\pi x$.
+
+**Nothing above softens.** The number is now confirmed from two framings, and the sibling route locates the defect one level deeper than "a scalar index has no spatial part":
+
+> **The precession is set by three exponents of TWO independent constitutive functions** — the local characteristic speed $c_{eff} = 1/\sqrt{LC}$ and the local internal rest frequency $\Omega = \sqrt{S/C}$:
+> $$c_{eff} = c\,(1 - a_1U + a_2U^2),\qquad \Omega = \Omega_\infty(1 - b_1U + b_2U^2),\qquad U \equiv GM/c^2r$$
+> $$\Delta\phi = \frac{\pi GM}{c^2 \ell_p}\left(4a_1 - b_1 - \frac{2b_2}{b_1}\right).$$
+
+**The Gordon construction with a scalar index wires ONE knob into BOTH slots.** $n$ sets the speed *and* the clock: $c_{eff} = c/n$ **and** $\Omega = \Omega_\infty/n$. So $a_1 = b_1 = q$ is forced, $b_2 = q^2$, and
+
+$$4q - q - \frac{2q^2}{q} = q$$
+
+— the bracket **collapses to the bare index slope**. At $q = 1$ that is $\Delta\phi = \pi GM/(c^2\ell_p)$, exactly one sixth of GR's $6\pi$. **That identity is the $1/6$**, and it is a sharper statement of the same defect than "$\gamma = 0$ because $g_{ij} = \delta_{ij}$."
+
+**Verified against this document's own frame** (not carried on trust — the bridge is exact):
+
+$$\beta = \tfrac12 + b_2,\qquad \gamma = a_1 - b_1 \;\Longrightarrow\; F = \frac{2a_1 - b_2 - \tfrac12}{3},$$
+
+which reproduces $\Delta\phi = \pi(4a_1 - b_1 - 2b_2/b_1)\,m/\ell_p$ at $b_1 = 1$ identically. Checked at both endpoints: $(a_1,b_1,b_2) = (1,1,1)$ — the one-knob Gordon case — gives $\gamma = 0$, $\beta = 3/2$, $F = 1/6$; and $(2,1,\tfrac12)$ gives $\gamma = 1$, $\beta = 1$, $F = 1$, i.e. **GR at $O(m)$**, with the sibling branch reporting Mercury at $42.9801''$/century ($+0.0\sigma$).
+
+**And canon already carries both numbers, in one leaf.** `temporal-spatial-lattice-decomposition.md`:24 calls $n_{temporal} = 1 + 2U$ the *"**bulk/coordinate-time** temporal propagation index"* — that is $a_1 = 2$ — and in the same sentence calls the *"proper tick of a clock sitting at $r$"* $\sqrt{g_{00}} = \sqrt{S} \approx 1 - GM/(c^2r)$ — that is $b_1 = 1$. **So the $1/7$ projection is the CLOCK grading, and the error was feeding it into a Gordon optical index that then overwrote the SPEED slot with the same number.**
+
+> ### ⚠ CARRY THIS CAVEAT WITH EQUAL WEIGHT
+> **$(a_1, b_1, b_2) = (2, 1, \tfrac12)$ currently WORKS. Nothing yet FORCES it.**
+> Whether the substrate's constitutive map compels those three exponents, or merely admits them, is **the difference between a derivation and a fit**, and it is **OPEN**. Until it closes, the repair is a demonstration that the framework has room for GR — not a demonstration that the framework predicts GR. Read §6: this lane's verdict on *calibrated-vs-derived* applies to the repair exactly as it applies to $Q=2$.
+
+---
+
 ## §1 — THE DERIVED-vs-IMPORTED LEDGER
 
 **This is the most load-bearing section in the document.** A reproduction that imports its coefficients is a consistency check, not a derivation — so every step in both chains carries a tag. `DERIVED` = follows by algebra/calculus from the row above it. `IMPORTED` = its VALUE (or its truth) comes from outside the substrate chain, whether from GR, from a mechanical analogy, from CODATA/IAU, or from an observation.
