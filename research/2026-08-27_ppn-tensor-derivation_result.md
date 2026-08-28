@@ -160,7 +160,66 @@ $1/6$ is not a perturbation. Written out:
 
 ## §3 — Why the tensor repair failed
 
-<!-- SECTION: tensor-repair -->
+The obvious repair, once $\gamma = 0$ is on the table, is: *stop using a scalar index; build the genuine rank-2 strain tensor the substrate is supposed to have, and let its anisotropy grade $g_{ij}$.* That repair was attempted and it does not close. Three independent reasons, each fatal on its own.
+
+### §3.1 — $\varepsilon_{11} = 7GM/c^2r$ is not an elastic equilibrium field
+
+Canon's profile comes from a **scalar Poisson equation** — `gordon-optical-metric.md`:25, re-ratified as clause G at `eq_axiom_5.tex`:76:
+
+$$-\left(\frac{c^{4}}{7G}\right)\nabla^{2}\varepsilon_{11}(r) = 4\pi Mc^{2}\delta^{3}(r)
+\;\Longrightarrow\;
+\varepsilon_{11}(r) = \frac{7GM}{c^{2}r}$$
+
+(reproduced exactly this lane from the $-1/4\pi r$ Green's function). But **static elastic equilibrium is a different equation.** For a purely radial displacement $u_r(r)$ the Navier equation reduces to
+
+$$(\lambda+2\mu)\left[u'' + \frac{2u'}{r} - \frac{2u}{r^2}\right] = 0,$$
+
+and `sympy.dsolve` returns the **complete** solution space:
+
+```
+dsolve -> Eq(u(r), C1/r**2 + C2*r)
+eps_rr = -2*C1/r**3 + C2
+eps_tt =    C1/r**3 + C2
+```
+
+The spherically symmetric exterior strain field is $\{A,\; B/r^3\}$. **$1/r$ is not in that space.** A $1/r$ strain is not a solution of static elasticity around a point source at any moduli and any coupling — it is a solution of a *potential* problem that has been given a strain's name.
+
+### §3.2 — $\lambda$ and $\nu$ drop out entirely, so no $\nu$-dependent projection can arise
+
+Because $(\lambda + 2\mu) \neq 0$ divides out, the exterior solution space carries **no moduli at all**. Checked explicitly: the free symbols of $\varepsilon_{rr}$ and $\varepsilon_{tt}$ intersected with $\{\lambda,\mu\}$ is the **empty set**. So the anisotropy ratio of a genuine exterior elastic field is
+
+$$\frac{\varepsilon_{tt}}{\varepsilon_{rr}}\bigg|_{\text{decaying}} = \frac{B/r^3}{-2B/r^3} = -\frac{1}{2}\quad\textbf{independent of }\nu.$$
+
+**No $\nu$-dependent $/7$ projection can arise from exterior elasticity at any coefficient.** The $/7$ family is a Poisson-ratio family; the exterior elastic field has no Poisson ratio in it.
+
+### §3.3 — Following clause G forward gives a real tensor, at the wrong order and with the wrong trace
+
+Clause G's bound response is $\mathbf{u}_0 = -\mathcal{A}_g\nabla\varepsilon_{11}$ (`eq_axiom_5.tex`:75). Evaluated on the canon profile:
+
+$$u_0(r) = \frac{7\mathcal{A}_g GM}{c^2 r^2}\hat{r}.$$
+
+This **is** an exact static-equilibrium solution — the Navier residual on it is identically $0$, checked symbolically. It is the $B/r^2$ branch with $B = 7\mathcal{A}_gGM/c^2$. Its strain tensor is genuinely anisotropic, with ratio exactly $-1/2$. But:
+
+1. **It falls as $1/r^3$**, i.e. tidal order. A $1/r^3$ field cannot source a $1/r$ metric coefficient at *any* coupling constant — this is a scaling statement, not a magnitude statement, so no choice of $\mathcal{A}_g$ rescues it.
+2. **It is exactly trace-free.** $\theta_{\text{decaying}} = \varepsilon_{rr} + 2\varepsilon_{tt} = -2B/r^3 + 2B/r^3 = 0$, checked symbolically. The whole trace of $\{A r,\,B/r^2\}$ is $3A$ — it comes only from the uniform-dilatation branch, which is not localized and is not sourced by a point mass.
+
+Point 2 is worth stating in plumber terms: **an exterior static elastic field around a point source is volume-preserving.** Squeeze a shell inward radially and it fattens tangentially by exactly the amount that keeps the volume fixed; that is what $-1/2$ means. So the *isotropic* projection — the $\frac{1}{3}\theta$ that the $1/7$ coupling projects, `one-seventh-impedance-projection.md`:13 — is **identically zero** on a genuine exterior elastic field. If $\varepsilon_{11}$ were a mechanical strain, $n_{scalar}$ would be $1$ exactly and there would be **no gravity on matter at all.**
+
+### §3.4 — Canon already says this, in its own words
+
+That is not a lane-authored objection. `eq_axiom_5.tex`:145-149 records it:
+
+> `⚑ NON-CIRCULARITY OBSERVATION (R48 walk note; ROUTED to the residence-lane family,`
+> `recorded not adjudicated). Clause G is non-circular only if the bias eps_11 is a`
+> `DISTINCT object from mechanical strain (grad u). The A_g = c*l_node^2 hypothesis's`
+> `57-order miss is evidence FOR that distinctness — one object would have made`
+> `A_g ~ l_node^2 work. Stated as an observation with its routing, not as a finding.`
+
+and R55 renamed the object accordingly — `:45` verbatim: *"eps_11's canonical name is THE BIAS"*; `:73` verbatim: *"The operating-point **bias** $\varepsilon_{11}$ is the bound sector's potential"*.
+
+**The consequence canon has not drawn.** Op19 — `n(r) = 1 + \nu_{vac}\cdot\varepsilon_{11}$, `operators.md`:59, status **CANONICAL** — applies an **elastic Poisson contraction** ($\nu_{vac}$ is literally the ratio of transverse to axial *strain*) to an object canon's own newest ruling declares **is not an elastic strain**. The same holds for the $1/7$ isotropic projection at `one-seventh-impedance-projection.md`:13, which computes $\frac{1}{3}\theta$ from $\varepsilon_{11}$ using the uniaxial-strain relation $\varepsilon_{tt} = -\nu\varepsilon_{rr}$.
+
+This is surfaced, **not resolved** — the resolution is Grant's and is routed at `_orchestration/open-items/2026-08-27-eps11-four-objects.md`.
 
 ## §4 — `eps_11` is four objects across canon
 
