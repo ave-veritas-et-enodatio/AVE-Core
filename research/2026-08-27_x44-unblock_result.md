@@ -561,3 +561,108 @@ this tree, so I could not diff the implementations. Flagged in §11.
 **Because the run bins Z, none of the above is banked.** This table records what the
 pre-registered clauses did, so that the arc's next document can see which of them are
 worth re-registering once the two frozen-text defects are corrected.
+
+---
+
+## §10 — ★ ANTI-FITTING RECEIPT
+
+**The reconciliation was the test, never the selection criterion.** The check the guard
+demands, run and reported:
+
+- **Does the installed weight drive `η_mixed` to zero? NO.** `+1.047893 → +0.828031`.
+  A 21.0% improvement that still misses `|η| < 1×10⁻³`
+  (`src/tests/engine_acceptance/test_nordtvedt_eta.py:78`) by **~828×**, on the **same
+  side** as the weight it replaces. A derivation fitted to the reconciliation would have
+  landed on `k = 1/2`. It landed on `k = 1/7`.
+- **The reconciling coefficient was installed and measured, and NOT adopted.** §5.4
+  measures `k = 1/2` giving `c = 1.001296` — i.e. `η_mixed = 0` to the residual, exactly
+  as §4.5's algebra says. It is reported as a **probe of resolving power** and is
+  forbidden as a proposal (§12.2). Nothing in this document proposes it, and the engine
+  default is untouched.
+- **`g_self` was frozen at 1.0 and NOT swept.** The second trap — `η → 0` at
+  `g_self = 2/7 = ν_vac` — was not walked into: no `g_self` sweep was run at all, not
+  even as the labelled warning figure the prereg permits.
+- **The §6 correction does not rescue anything.** It moves two diagnostics (`k_meas`,
+  `c^D`) and leaves `η_mixed` exactly where it was (§6.5).
+- **Every prohibition in §12.4 held**: `k` unchanged from 1/7; `g_self` unchanged from
+  1.0; FAM-A and FAM-B unchanged; `U_bind^D` reported as a diagnostic and **not** promoted
+  to the headline ledger; `η_mixed` adjudicates nothing; and no named coefficient is
+  reported as a proposal.
+
+**Consensus-bias symmetric standard, applied both directions.** GR carries ADM, Komar and
+Bondi masses that differ, and is not faulted for it — so "AVE has more than one mass
+register" is **not** a finding here and is not reported as one. The finding is narrower and
+would be a defect in any framework: one symbol denoting two different functions of one
+variable, live in operative code, worth `0.22` in a shipped engine number. Conversely the
+standard is not relaxed for AVE either: `η_mixed ≈ +0.83` is a real gap between two of the
+engine's own registers and nothing in this document explains it away.
+
+---
+
+## §11 — Flags surfaced (NOT fixed by this lane)
+
+**FLAG-DON'T-FIX held throughout. Zero canon leaves, rulings or docket entries edited.**
+
+| # | flag | evidence | routing |
+|---|---|---|---|
+| **F-1** | **Z1, as frozen, is an identity of its own target** and has no resolving power. It fires on every weight including the shipped one. | §4.1 algebra; §4.2 measured `1.4e-13` on the control | the frozen prereg cannot be edited (§15.4). A corrected detector belongs in a **new dated prereg**. The unweighted-mean variant (§4.3) is offered as a starting point, not as a replacement gate. |
+| **F-2** | **The frozen closed form §4.3 / P9 carries a spurious `χ`**, from a `T₀₀^src` → `T₀₀^matter` swap between §4.2 and §4.3. It propagates into A1 (which then measures `k/χ`) and A3 (which then measures `\|1/χ − 1\|`). | §6.1–§6.3, verified to machine zero | same: new dated document. **The corrected form makes the weight look better, which is why §6.5 states its own suspicion and gives three checkable reasons.** |
+| **F-3** | **Ruling 1's code attribution is false by direct algebra** — re-flagged from prereg §3.3, unchanged. `_orchestration/2026-07-10_rulings-docket.md:858-860` certifies `komar_weight` as *"on the correct side"* of a slope-1 ruling; that function returns `(1−ε₁₁²)^{1/4}`, whose expansion has **zero** linear term. | measured here: the control's `Δ_clock` is `0.0026 … 0.0161` where the linear weight's is `0.0270 … 0.0663` — a 4–10× deficit, and the gap **grows** as amplitude falls, which is the signature of a quadratic standing in for a linear one | **Grant's.** The ruling's *physics* is untouched; only its code attribution and its `√g₀₀ = √S` glyph-bridge fail. |
+| **F-4** | **The 2026-08-11 proposal's direction ambiguity** — re-flagged from prereg §3.4, unchanged. `research/2026-08-11_gravity-linearity-audit_result.md:658` says the source should carry the co-scaling factor `m = 1 + ε₁₁/7 > 1`, which would give a mass **excess**. The physics needs `1/m`. | this run installs `1/m` and confirms it gives a **deficit** (`m_g < M` at every rung, §5.1) | **Grant's.** That document self-tags `⚑ UN-AUDITED`. |
+| **F-5** | **The scoping lane's `c_lin` drift is not reproduced.** It recorded `c` **falling** `0.2848 → 0.2780`; this run measures it **rising** `0.285740 → 0.306508`, and §6.1's algebra requires it to rise. | §9.1; `⟨D⟩_w` column tracks the rise exactly | the scoping lane's weight was monkeypatched and its code is not in this tree, so I could not diff the implementations. **Unexplained.** Anyone re-using that number should re-derive it. |
+| **F-6** | **The gravity Grad/Div instrument is the `#86` non-canonical diamond-K4 carrier**, not the D1 production srs-z=3. The engine emits its own `DeprecationWarning` saying so. | `gw_propagation.py:514`, `require_instrument_scope(Carrier.DIAMOND_Z4, …)` | pre-existing; migration is a separate charter (prereg §6.3). **Every verdict in this document is carrier-conditional.** |
+
+---
+
+## §12 — Method, blind spots, and the completeness statement
+
+### §12.1 — What was executed
+
+`make verify` **PASSED** (exit 0, full log). Regression: `pytest
+src/tests/test_grqed_stage3_backreaction.py src/tests/engine_acceptance/test_nordtvedt_eta.py
+src/tests/test_categorization_guards.py` → **33 passed**, 4 warnings, all four being the
+pre-existing diamond-z4 non-canonical-carrier `DeprecationWarning` on legacy call sites,
+none introduced by this change. Driver wall time 98.4 s; 11 solved configurations at
+N=24, 2 at N=32/40, 4 more for the `k` probe, plus the control's 4.
+
+### §12.2 — Two-method receipts taken on
+
+- **the weight call-site census** (§7.1) — `grep -rn --include` and `git grep`, with the
+  one disagreement between them explained (the untracked driver);
+- **the exact algebra** (§6.2) — closed-form derivation **and** numerical verification to
+  machine zero, on four rungs and four installed coefficients;
+- **the Z1 identity** (§4) — algebra **and** measurement on three families including the
+  shipped control, which is the leg that shows it is the detector and not the blob;
+- **the control** (§2) — reproduced against X44's banked table column by column.
+
+### §12.3 — ★ COMPLETENESS — what this method can and cannot support
+
+**No claim in this document is of the form "the only X", "no leaf", "every site" or a bare
+total.** Specifically:
+
+1. **§7's observable list is what I enumerated and tested**, not the engine's observables.
+   **Two of the prereg's own five candidates were not run** (two-mass nonlinearity,
+   `S_min`-independence) — stated in §7.3 as an execution gap in gate §15.1.7.
+2. **The call-site census (§7.1) is a claim about the two patterns I searched**, in `*.py`
+   under `src/` and `research/drivers/`. A weight applied under a different name, or
+   through a `getattr`, would evade both methods. I did not read every file.
+3. **This is NOT a corpus census of `√S`.** The two-function table this arc rests on is the
+   sweep lane's finding, and a companion lane enumerated **six** functions across three
+   ambiguity axes. **I re-ran neither.**
+4. **The regime is `σ = 1.8` for FAM-B and `N ∈ {24,32,40}` at λ=1 only.** A different blob
+   width could move the accessible band; the resolution receipt is at one amplitude.
+5. **The `√g₀₀` vs `1/n_scalar` `O(ε₁₁²)` fork is NOT resolved** (prereg §6.3). At these
+   amplitudes the two differ by `≈(3/2)(ε₁₁/7)²`, below every edge in play, so this run
+   does not distinguish them and does not claim to.
+6. **`Y2` fired on one rung and I did not chase it.** Whether `V_resid = 1.51e-6` at
+   λ=0.25 tightens under a smaller `outer_tol` / `picard_tol` is untested; changing a
+   solver tolerance mid-run would have been a deviation from the frozen configuration, so
+   it was not done.
+7. **The `η_mixed` slope is a 4-point least-squares fit** on FAM-A, whose `f` lever arm is
+   `2.37` — Z2's edge is `2.0`. The slope's own uncertainty is not quoted anywhere in this
+   arc, and I did not compute it.
+8. **The `Delta_clock` key returned by `solve_backreaction` still reports the `√S` reading
+   unconditionally**, by design for X44 regression continuity. Any downstream consumer
+   reading that key under `source_mode="ponderomotive"` gets the *other* weight's deficit.
+   The new `Delta_clock_src` key is the install-consistent one. This is a KEEP-BOTH
+   footgun that I introduced and am naming rather than hiding.
