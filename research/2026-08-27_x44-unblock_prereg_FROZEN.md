@@ -899,4 +899,68 @@ not evidence.**
 
 ## 14 · Method, blind spots, and the completeness statement
 
+### 14.1 · What I read in full this session
+
+`research/2026-07-12_x44-komar-source_prereg_FROZEN.md` (193 lines, complete);
+`research/2026-07-12_x44-komar-source_result.md` (295 lines, complete);
+`src/ave/gravity/backreaction.py` regions `:95-200`, `:230-300`;
+`src/ave/gravity/gw_propagation.py` regions `:514-582`, `:655-730`;
+`src/tests/engine_acceptance/_nordtvedt.py` `:96-178`;
+`src/tests/engine_acceptance/test_nordtvedt_eta.py` `:60-129`;
+`src/ave/solvers/graded_vacuum_network.py` `:222-231`.
+
+### 14.2 · What I verified by targeted read (every file:line in this document)
+
+Each citation below was read this session, in this worktree, at `a3f4fef7`:
+`ponderomotive-equivalence.md:14,:19` · `temporal-spatial-lattice-decomposition.md:14,:24,:28` ·
+`eq_axiom_4.tex:7,:10` · `saturating-modulus-and-backreaction.md:50-53,:130` ·
+`manuscript/ave-kb/vol3/claim-quality.md:104` · `backreaction.py:110-112,:114-115,:163,:191-194,:235-252,:646,:670` ·
+`gw_propagation.py:566-567,:578-579,:671-677,:700,:703,:705` ·
+`graded_vacuum_network.py:229-230` · `_nordtvedt.py:167-178` ·
+`test_nordtvedt_eta.py:78` · `research/2026-08-11_gravity-linearity-audit_result.md:645,:658,:661` ·
+`_orchestration/2026-07-10_rulings-docket.md:855,:857-860,:869-871`.
+
+### 14.3 · ★ COMPLETENESS — what my method can and cannot support
+
+**Two-method receipts taken on:**
+- the **stress/Tolman register absence** — three methods (§9.2): `def`/`class` regex
+  over `src/`, filename scan, and a `Tolman|3∫p` token count (0 hits);
+- the **accessible-regime bounds** — measured by driver **and** cross-checked against
+  the analytic `⟨D⟩`/`χ` envelope;
+- **`η(c)`** — closed-form algebra **and** agreement with X44's measured `η_matter`
+  to 0.23%.
+
+**Blind spots, stated:**
+
+1. **This is NOT a corpus census of `√S`.** §2's two-function table is the sweep's
+   finding, and a companion lane enumerated **six** distinct functions of `ε₁₁`
+   wearing the glyph family across three orthogonal ambiguity axes. **I did not
+   re-run that enumeration.** Everything §2 says is a claim about the sites it names
+   and I read — not about the corpus.
+2. **I did not read the frozen `#651` prereg**, only X44's prereg and result. The
+   family's provenance is taken from X44's own restatement.
+3. **The regime map is `σ = 1.8` only.** `f_sup ≈ 0.186` is measured at one blob
+   width at `N = 24`. A different `σ` or `N` could shift it — **though not by the
+   3.2× that would rescue the old PASS bin**, since the ceiling is set by the yield
+   cap, not by the profile.
+4. **`Div = Gradᵀ` is read off the construction** (`gw_propagation.py:566-567` vs
+   `:578-579`), **not** verified numerically. The run must assert
+   `‖Div − Gradᵀ‖ = 0` before trusting §4.2. *(Added to the run's gate list, §15.)*
+5. **I did not read the 2026-08-11 audit end-to-end**, only the cited lines. Its §9
+   is self-tagged `⚑ UN-AUDITED` and is used here as corroboration of the **slope
+   only**, never as authority (§3.4).
+6. **Grep-completeness.** Where I state a count, it is a count of what the stated
+   pattern matched, with the method named. **No claim in this document is of the form
+   "the only X" or "no leaf" or "every site".**
+
+### 14.4 · Consensus-bias symmetric standard — applied, both directions
+
+GR itself carries **ADM, Komar and Bondi** masses, which differ, and is not faulted
+for it. **"AVE has more than one mass register" is NOT a finding here and is not
+reported as one.** The finding is narrower and would be a defect in any framework:
+**one symbol denoting two different functions of one variable** (§2), and a ruling
+certifying a code object whose slope contradicts the ruling's own word (§3.3).
+Conversely, the standard is not relaxed for AVE either: `η_mixed ≈ +0.83` is a real
+gap between two of the engine's own registers, and §9 does not explain it away.
+
 ## 15 · Out of scope · Deliverables · Gates
