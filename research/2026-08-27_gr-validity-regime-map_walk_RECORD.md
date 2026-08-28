@@ -193,6 +193,82 @@ its own. Audit item **A2**.
 
 ## §3 — THE MAP, row by row, regraded
 
+The walk proposed a four-row map. Three rows survive; one is mis-bound.
+
+### Row 1 — cold / linear / sub-yield
+
+`[CANON]` **AVE side:** Regime I is *"Standard equations"*
+([`four-regimes.md`](../manuscript/ave-kb/vol1/operators-and-regimes/ch7-regime-map/four-regimes.md):26),
+and every solar-system and binary-pulsar body sits there by canon's own
+`ε₁₁ = 7GM/c²r` (§1, and §4 DELTA-1 for the boundary).
+
+`[MEASURED-ELSEWHERE]` **The AVE-must-match half is where the live work is.**
+`research/2026-08-27_ppn-tensor-derivation_result.md` on branch
+`research/2026-08-27-ppn-tensor-derivation` @ `50cb25c7` reports `γ_light = 1`
+(pass), `γ_matter = 0` and `β = 3/2` (refuted), and its ★ FORWARD POINTER
+records a repair on the sibling branch `research/2026-08-27-two-knob-gravity-repair`
+@ `849f6a97`. **Cited, not restated** — those lanes own their evidence, and the
+repair's own caveat rides with it, verbatim: *"`(a₁, b₁, b₂) = (2, 1, ½)`
+currently WORKS. Nothing yet FORCES it."*
+
+### Row 2 — ⚑ MIS-BOUND: two different nonlinearities in one row
+
+The walk pairs *"nonlinear approach — ~10% (LIGO)"* with *"`a₂ = 2` vs GR
+`9/4`."* **Those are not the same nonlinearity, and only one of them is a regime
+statement.**
+
+- **`a₂` is a post-Newtonian ORDER coefficient in the weak field.**
+  `[MEASURED-ELSEWHERE]` `research/2026-08-27_two-knob-gravity-repair_result.md`
+  @ `849f6a97`:214 — *"exact isotropic Schwarzschild has grading exponents
+  `(a₁, a₂, b₁, b₂) = (2, 9/4, 1, ½)`"*, against the exponential ansatz's
+  `a₂ = 2`. The expansion is in `U = GM/c²r` with `U ≪ 1`. On canon's gravity
+  ladder that is **Regime I** — the same row as row 1, not a second row.
+- **And the same lane says the divergence is invisible to a slow orbit**, `:96`
+  verbatim: *"**`a₂` drops out of the NR precession entirely.** … So GR's exact
+  isotropic `a₂ = 9/4` and the exponential repair's `a₂ = 2` are indistinguishable
+  here — a real difference that shows up only at relativistic speeds."*
+- **The Axiom-4 saturation nonlinearity is a different object** — it is
+  `Regime II`, `A ≥ √(2α) = 0.1208`, `Axiom 4 active`, and canon already places
+  a strong merger there via the GW-strain domain (`domain-catalog.md`:120).
+
+**Regraded row 2:** the AVE-distinct content at *post-Newtonian order* is
+`a₂ = 2` vs `9/4`, unmeasured and only reachable at relativistic orbital speeds;
+the AVE-distinct content at *saturation order* is the Regime-II entry canon
+already writes. **Keeping them in one row is the mistake `wall-taxonomy.md` §4's
+operational rule exists to prevent** — it mixes the *amplitude* question with an
+*expansion-order* question and calls both "nonlinear."
+
+### Row 3 — saturated: `r_sat = 7GM/c² = 3.5 r_s`
+
+`[CANON]` and **the fence the dispatch asked for is already written**, in
+[`wall-taxonomy.md`](../manuscript/ave-kb/common/wall-taxonomy.md):168, verbatim:
+
+> *"the owning claim is **`clm-law1ho`, solidity 0.55, build-band `input-only`**
+> — canon's own wording, *"use as input only, don't build deeper"* — and canon
+> **scopes the falsifier itself**: `r_sat = 3.5 r_s` is a **shear-mode + matter**
+> boundary, **NOT photon-geometric**; *"EHT shadow / photon-ring radius do NOT
+> discriminate `r_sat` from `r_s` (prior EHT-falsifier overclaim retracted
+> 2026-05-16 per Grant audit)."* **Do not read the falsifiability line as an
+> open observational test on the photon channel.**"*
+
+The two-channel reconciliation behind it is
+[`lattice-extreme-bh-rationality.md`](../manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/lattice-extreme-bh-rationality.md)
+§6: `r_s = 2GM/c²` is where the **transverse/EM** quantity `n−1` reaches 1;
+`r_sat = 7GM/c²` is where the **shear+bulk** `ε₁₁` reaches 1. **The "factor-3.5
+disagreement" is therefore not one quantity disagreeing — it is two channels'
+walls, and canon says so.** `[CANON]`
+
+### Row 4 — ruptured
+
+`[CANON]` on the ladder (`r ≥ 1`, `S = 0`, *"Topology destroyed"*). ⚑ **But the
+walk's spelling — `> V_snap` — puts row 4 on the AMPLITUDE axis while row 3 is
+on the SPACE axis**, and lands inside a threshold question canon has already
+flagged open: `four-regimes.md`:60 identifies `r₃ = 1.0` with **`V_yield`**,
+while the leaf's own `:82`–`:89` residue notes that the 2026-06-30 `def-vyvsn1`
+adjudication places Schwinger/pair-nucleation at **`V_snap`**, and flags two of
+its own lines as honesty-lag against it. **Anyone carrying row 4 must carry that
+flag; this record does not resolve it.**
+
 ## §4 — ★ THE DELTAS — what the sweep shows is NOT in canon
 
 ## §5 — The program consequence
