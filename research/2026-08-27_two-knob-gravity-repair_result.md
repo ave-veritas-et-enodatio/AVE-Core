@@ -57,7 +57,73 @@ Canon's matter channel has $a_1 = 1$; its light channel has $a_1 = 2$. **So an u
 
 ## §2 — The derivation, medium-native, with no metric anywhere
 
-*(placeholder — §2)*
+Every step below carries a **DERIVED** or **IMPORTED** tag. That ledger is the point of the document; the numbers are downstream of it. I re-did the whole chain myself in `sympy` and cross-checked the result with a 60-digit `mpmath` ray quadrature that uses no series expansion at all. Both legs are in [`research/drivers/two_knob_gravity_repro.py`](drivers/two_knob_gravity_repro.py).
+
+### Step 1 — the constitutive start · **DERIVED** (EE-native, lossless-reactive)
+
+A graded lossless LC ladder with a shunt stiffness:
+
+$$\partial_t\!\left[C(\mathbf r)\,\partial_t\psi\right] \;=\; \nabla\!\cdot\!\left[\tfrac{1}{L(\mathbf r)}\nabla\psi\right] - S(\mathbf r)\,\psi$$
+
+$C$, $L$, $S$ real — no $R$, no $G$, no dissipative term anywhere. WKB gives
+
+$$\omega^2 \;=\; c_{\rm eff}^2(\mathbf r)\,k^2 + \Omega^2(\mathbf r), \qquad c_{\rm eff}^2 = \frac{1}{LC}, \qquad \Omega^2 = \frac{S}{C}$$
+
+**Two knobs, and they are genuinely independent in the medium's own terms:** $c_{\rm eff}^2 = 1/(LC)$ is the *product*, while the achromatic-impedance theorem (`achromatic-impedance-matching.md`) pins the *ratio* $L/C \equiv Z_0^2$ — so $Z = Z_0$ constrains $L/C$ and says nothing about $LC$. The gap $\Omega^2 = S/C$ rides the Cosserat micro-rotation stiffness ($m_\omega^2 = 4G_c/I_\omega$, `port-register.md`:50), which no impedance theorem touches. *(Caveat recorded, not buried: the reconciliation lane pushed back on calling these "two independent knobs", on the ground that in a $Z$-matched medium a bound mode is a cavity mode of the **same** graded tensor and its clock is a second projection of one object rather than a free function. Both readings are live; §9 is where that matters.)*
+
+### Step 2 — the ray equations · **DERIVED**
+
+Hamiltonian ray tracing on $H = \omega(\mathbf k,\mathbf r)$: $\dot{\mathbf r} = \partial_{\mathbf k}\omega$, $\dot{\mathbf k} = -\partial_{\mathbf r}\omega$, with $\omega$ conserved (static medium) and the Bouguer invariant $r\,k\sin\psi = \text{const}$. With $u \equiv 1/r$ and $f(u) \equiv \big(\omega^2 - \Omega^2\big)/c_{\rm eff}^2$:
+
+$$\left(\frac{du}{d\phi}\right)^{2} = \frac{f(u)}{p_\phi^{2}} - u^{2} \qquad\Longrightarrow\qquad u'' + u = \frac{f'(u)}{2p_\phi^{2}}$$
+
+Nothing metric enters. This is the eikonal orbit of a wave in a graded medium.
+
+### Step 3 — the precession law · **DERIVED** (reproduced independently this session)
+
+With $c_{\rm eff} = c(1 - a_1U + a_2U^2)$, $\Omega = \Omega_\infty(1 - b_1U + b_2U^2)$, $U = GM/c^2r$, $W \equiv \Omega_\infty^2$, $E \equiv \omega^2 - W$, my `sympy` run returns
+
+$$f'(u)\big|_{u^0} = \frac{2m\,(Ea_1 + Wb_1)}{c^2}, \qquad f'(u)\big|_{u^1} = \frac{2m^2\,\big(3Ea_1^2 - 2Ea_2 + 4Wa_1b_1 - Wb_1^2 - 2Wb_2\big)}{c^2}$$
+
+so $u'' + (1-\varepsilon)u = 1/\ell_p$ and $\Delta\phi = \pi\varepsilon$ gives
+
+$$\boxed{\;\Delta\phi \;=\; \frac{\pi\,\mu\,\big(3Ea_1^{2} - 2Ea_2 + 4Wa_1b_1 - Wb_1^{2} - 2Wb_2\big)}{\ell_p\,\big(Ea_1 + Wb_1\big)}\;}\qquad \mu \equiv \frac{GM}{c^2}$$
+
+$$\text{NR limit } (E\to0):\qquad \Delta\phi \;=\; \frac{\pi GM}{c^{2}\ell_p}\left(4a_1 - b_1 - \frac{2b_2}{b_1}\right)$$
+
+**Both forms match L1's exactly** (`sympy` difference $\equiv 0$, printed in the driver). Two structural facts fall out of the formula and are worth naming because they are counter-intuitive:
+
+- **$a_2$ drops out of the NR precession entirely.** The *second-order speed* grading is unobservable in a slow orbit. So GR's exact isotropic $a_2 = 9/4$ and the exponential repair's $a_2 = 2$ are indistinguishable here — a real difference that shows up only at relativistic speeds.
+- **$b_2$ does not drop out.** The *second-order clock* grading is the whole $\beta$ sector.
+
+### Step 4 — the force law · **DERIVED in FORM, calibrated in VALUE**
+
+At low $k$, $\omega \approx \Omega(r)\big(1 + c_{\rm eff}^2k^2/2\Omega^2\big)$, $v_g = c_{\rm eff}^2k/\omega$, $\dot{\mathbf k} = -\nabla\Omega$, so
+
+$$\boxed{\;\mathbf a \;=\; -\,c^{2}\,\nabla \ln \Omega\;}$$
+
+**A body accelerates down the gradient of the logarithm of its own internal rest frequency.** That is Newtonian gravity with no metric, no equivalence principle and no geodesic — and it is the most transferable statement in this result. It is the FORM that makes $b_1$ the Newtonian knob.
+
+**But be precise about what it forces.** Substituting $\Omega = \Omega_\infty(1-b_1U)$ gives $\mathbf a = -b_1\,GM\hat{\mathbf r}/r^2$, so *Newton fixes $b_1 = 1$*. The **form** is derived; the **value** is a calibration to the Newtonian limit. L1 tagged $b_1 = 1$ DERIVED; the reconciliation lane corrected that to *"a fit to Newton"*, and **the reconciliation lane is right**. I carry the corrected tag. This is the framework's standing FORM-derived / VALUE-imported signature, third instance in this document alone.
+
+### Step 5 — cross-check against exact quadrature · **DERIVED** (no series used)
+
+Independent numeric leg: solve for $(\omega^2, p_\phi^2)$ such that the turning points sit exactly at $r_{peri} = 6\times10^6$, $r_{apo} = 10^7$ (units $GM/c^2 = 1$), then integrate the apsidal angle at 60 digits with the endpoint square-root singularities factored out. Result is $\Delta\phi\,\ell_p/(\pi GM/c^2)$:
+
+| grading model | analytic prediction | 60-digit quadrature |
+|---|---|---|
+| GR, exact isotropic Schwarzschild | 6 | `6.000002763` |
+| Gordon scalar $n = 1+U$ (**AVE matter, as canon stands**) | 1 | `0.9999999667` |
+| Gordon scalar $n = 1+2U$ (AVE light index) | 2 | `1.999999867` |
+| two-knob, exponential clock: $c_{\rm eff} = c\,e^{-2U}$, $\Omega = \Omega_\infty e^{-U}$ | 6 | `6.000003033` |
+| two-knob, **additive** clock ($b_2 = 0$) | 7 | `7.000006617` |
+
+The residual $\sim 3\times10^{-6}$ is the finite-orbit $O(GM/c^2r)$ correction, not integration error.
+
+### Step 6 — PPN identity · **DERIVED, and used ONLY as reporting language**
+
+$a_1 = 1+\gamma$, $b_1 = 1$, $b_2 = \beta - \tfrac12$ turns the NR bracket into $4 + 4\gamma - 2\beta$, and $6(2-\beta+2\gamma)/3$ expands to the same thing — `sympy` difference $\equiv 0$. **This is a verification that my ray formula is right, not its foundation.** The whole derivation above ran without it. I record the identity here because it is how a reader outside the program will check the algebra, and because it establishes that the $F = 1/6$ result the concurrent `ppn-tensor-derivation` lane reports is **not a PPN artifact** — the same number falls out of a construction with no metric in it.
+
 
 ## §3 — The defect: one knob wired to two slots. It is an identity, not an approximation
 
