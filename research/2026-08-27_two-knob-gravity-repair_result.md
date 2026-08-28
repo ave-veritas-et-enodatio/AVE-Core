@@ -597,12 +597,79 @@ Per A43 v2, every cite this document leans on was re-opened at HEAD `a3f4fef7` i
 
 ## §12 — Open items routed
 
-*(placeholder — §12)*
+Six items landed in `_orchestration/open-items/`. All six anchors were validated by `generate_board.py` (unique occurrence, $\geq$12 chars, resolve at HEAD). **Nothing in the KB was edited by this lane — flag-don't-fix throughout.**
+
+| file | status | owner | the question |
+|---|---|---|---|
+| `2026-08-27-two-knob-constitutive-forcing.md` | **ROUTED-TO-GRANT** | grant | **Is $(2,1,\tfrac12)$ forced?** Three sub-rulings: is $\Omega(r)$ a free constitutive function or a second projection of one tensor; does a bound packet ride light's $c_{\rm eff}$; does the constitutive response compose additively or multiplicatively (the $b_2$ gate). |
+| `2026-08-27-preferred-frame-boost-channel.md` | **ROUTED-TO-GRANT** | grant | The `(qℓ)⁴` defence covers rotations, not boosts; the leaf `:112` escape clause is wrong as kinematics; 10.3% acoustic birefringence at $\rho^*$ protected only by a **demoted** derivation; the corpus cannot compute $\alpha_1, \alpha_2$. |
+| `2026-08-27-lattice-momentum-umklapp.md` | **ROUTED-TO-GRANT** | grant | Momentum conservation is not among Ax3's stated Noether legs; Umklapp appears only in a gap list; thresholds $1.605$ MeV / $1.174$ MeV / $1.373$ keV. **The ruling sought is one word:** does weak-C's RESCOPE mean the internal mode or the centre-of-mass wave? |
+| `2026-08-27-bias-to-index-photoelastic-map.md` | OPEN | unassigned | Op19 uses a strain-per-strain ratio as a strain-per-index ratio; $p_{ijkl}$ unnamed in the corpus; the axioms alone give $O(A^2)$; a mechanical strain can never be GR's spatial sector. |
+| `2026-08-27-gapped-branch-slope-spelling.md` | OPEN | unassigned | $c_\kappa = \sqrt2 c$ (`port-register.md`:50) vs $c$ (`cosserat-mass-gap.md`:18,:42,:59) for the same branch, with the leaf's own §3.5 demoting the slope its §1 uses. Decides sub- vs super-luminal matter at high $k$. |
+| `2026-08-27-neutrino-channel-assignment.md` | OPEN | unassigned | Does canon assign the neutrino to the scalar $1/7$ channel? Gates the SN1987A data point (not the structural defect). |
+
+**Routing judgement, stated so it can be overruled.** Two lanes independently concluded the preferred-frame gap **outranks** the perihelion defect, and I concur — so the second and third items are routed at the same priority as the mandated one, not below it. The perihelion defect is a repairable wiring error with one number owed. The preferred-frame gap is a class of arithmetic the framework cannot presently perform, against three of the tightest bounds in physics.
+
+**Not routed, deliberately.** I did not draft an axiom candidate, a KB edit, a manual entry, or a methodology pivot. The `anomalous-perihelion-advance.md` / `clm-qyn8t0` walk-back that §6 implies is an **auditor-lane** action: this lane surfaces the empirical finding with the file:line and the verified arithmetic, and the auditor lands the retraction. Same for the un-propagated W1 walk-back at `vol3/claim-quality.md`:45 and the un-stamped R40-B2a demotion rows (§8.4, §11.3).
+
 
 ## §13 — Completeness method and its blind spots
 
-*(placeholder — §13)*
+**★ No "the only", no "no leaf", no "every", no "none", no bare total appears in this document as a claim about the corpus.** Where a count appears it is a statement about a search, and the search is described here.
+
+### 13.1 — What I read end to end
+
+`double-deflection.md` (68 lines), `gordon-optical-metric.md` (36), `ponderomotive-equivalence.md` (the relevant §), `temporal-spatial-lattice-decomposition.md` (§Derived Consequence 2 through the W2 walk-back), `anomalous-perihelion-advance.md`:8-32, `operators.md`:59 and :123, `eq_axiom_3.tex`:25-28, `eq_axiom_5.tex`:132-136, `port-register.md`:47-50, `relational-cancellation-identity.md`:36 and :47-52, `preferred-frame-and-emergent-lorentz.md`:54 and :112, `claim-quality-closure-roadmap.md`:205 (in full — a 4.5 kB single line), `constants.py`:291-306, and all four lane returns from the workflow journal in full (verdict, findings, `derived_vs_imported`, `imports_i_caught_myself_making` for each).
+
+### 13.2 — What I searched, how, and what the counts are counts OF
+
+Every count below is `files matching, in the AVE-Core worktree at a3f4fef7, .git excluded`, run **twice with two different tools** (`grep -ril` and `rg -il`) which agreed on every line:
+
+| pattern | files | so the claim is |
+|---|---|---|
+| `umklapp` | 1 | *"appears in one file, inside a gap list"* — verified by reading that file's hits |
+| `crystal momentum` | 0 | *"not present under this spelling"* |
+| `preferred-frame parameter` | 0 | *"not present under this spelling"* |
+| `photoelast` | 4 | *"four research/orchestration scoping files; none in `manuscript/` or `src/`"* |
+| `1987A` | 0 | *"this test appears nowhere under these two spellings"* |
+| `sn1987` | 0 | same |
+
+For the load-bearing ones I did not rely on my own search alone: the photoelastic absence's **primary receipt is not mine** — it is F-B4 at `research/2026-07-31_anisotropy-observable_scoping.md`:657, whose author verified it three ways on a widened pattern set **including `git log -S` over all of `origin/main`** to catch deleted content. My grep is a weaker second method and I report it as such.
+
+Line-count-based claims were also cross-checked by a second method: the `port-register.md` double-demotion was verified by **counting `DEMOTED` occurrences per line with `awk gsub`** (`:47`$\to$0, `:48`$\to$0, `:49`$\to$**2**, `:50`$\to$0), not by eyeballing a grep hit.
+
+### 13.3 — Blind spots I can name, and did not close
+
+1. **Single-line regex cannot catch phrases wrapped across lines** in LaTeX or Markdown. I mitigated with single-token patterns (`umklapp`, `photoelast`, `sn1987`) which are wrap-immune, but a wrapped multi-word phrase like *"preferred / frame parameter"* would still be missed.
+2. **I searched merged HEAD `a3f4fef7` only.** Material on open PRs is out of scope — including PR #1011, which L2 reports carries `clm-relcnc`'s minting authority.
+3. **Sibling repos under `AVE-staging/` were not searched.** In particular L2 reports that the Q-G24 primary source `AVE-QED/docs/analysis/2026-05-13_Q-G24_lorentz_from_axiom_4.md` exists on disk and it read that source only via a block quotation.
+4. **Binaries, PDFs and notebooks were not searched.**
+5. **Second-hand cite checks.** Three of the corrections in §11.2 (items 3, 4, 5) are the reconciliation lane's, forwarded, **not independently re-verified by me**. They are marked as such at the site.
+6. **I did not re-run L2's or L3's numerics.** The two-cone symbolic solve, the Christoffel branch speeds at $\rho^*$, the Fresnel-determinant factorisation, the $(P,Q)$ ray integrals, and the $a_2$ Doppler transport are **accepted as reported**, not reproduced. §7.1 marks each one "accepted, not re-run". What I did reproduce is listed in §7.1 as "reproduced" and is in the driver.
+7. **The Galactic mass model in §5.2** is a flat-rotation-curve idealisation, uncertain at the factor-$\sim$1.5 level. Handled by quoting the fractional statement, in which it cancels.
+
+So every absence in this document reads: *"absent from AVE-Core at `a3f4fef7` by these patterns"*, not *"absent from the program"*.
+
 
 ## §14 — Skill-selection plan and retro-pass
 
-*(placeholder — §14)*
+### 14.1 — Plan, written before the work
+
+| skill | why, in advance |
+|---|---|
+| `substrate-native-check` | The whole lane is a constitutive-map question. Fired **first**, before any algebra: the K4 / Cosserat / Op14 / phase-space-vs-real-space walk is what produced the "two knobs, not one index" framing that the result rests on. |
+| `verify-before-cite` | The dispatch asserted verbatim canon quotes I was told **not to trust**. Every load-bearing cite re-opened at HEAD (§11). |
+| `consistency-vs-emergence` | The result compares against CODATA-anchored targets (Mercury, HT, solar limb). Class had to be declared **before** the headline was written. |
+| `phase-space-coordinate-check` | Checked and **found not to bite**: the claim and the test are both in ray/real-space; there is no phase-space $\varphi^2$ prediction being compared against a lattice-Cartesian measurement here. Recorded as considered-and-negative rather than silently skipped. |
+| `ave-discrimination-check` | For the SN1987A falsifier — is the prediction AVE-distinct, or does GR make it too? (It is distinct: GR's ratio is 1.) |
+
+### 14.2 — Retro-pass, after the work (applied set drifted; here is the drift)
+
+- **`consistency-vs-emergence` was the highest-value fire, and it changed the document's shape.** The first draft of §0 headlined *"GR at $O(m)$ in one step."* The classification walk forced the caveat box to sit **above** the numbers, because $a_1$ is GR-imported through the $\nu_{vac}\cdot7$ chain canon itself stamps, $b_1$ is calibrated to Newton, and $b_2$ is asserted. **Class: repaired CONSISTENCY CHECK.** Not emergence, not a chord.
+- **`substrate-native-check` fired before the first line of algebra, per Rule 1, and it was decisive rather than ceremonial.** Had I started from a metric I would have reproduced $F = 1/6$ and concluded "AVE has no spatial curvature" — which is what a metric formulation says and which the reconciliation lane names as the wrong diagnosis. The slot question is invisible from inside $g_{\mu\nu}$.
+- **`verify-before-cite` returned five cite errors** (§11.2), two of which are corrections to the lanes I was consolidating and one of which is a correction to the dispatch brief's own attribution.
+- **Not fired, and it should have been: `pre-test-physics-check`.** This lane wrote no prereg and scaffolded no new driver in the engine sense, so the trigger did not obviously apply — but §6 is exactly the failure mode that skill exists to prevent. I spent two workings on a $V_{eff}$ decomposition before asking the plumber-physical question *"is the thing I am comparing even a property of the medium, or a property of my chart?"* **One question up front would have saved both.** Recorded as a real miss, not a formality.
+- **Rule 11 (honest closure) applied at §5.3.** The SN1987A result is strong enough to be tempting; three escape hatches are named **before** it is called a kill, and one of them (the neutrino's channel assignment) is genuinely open and is routed as its own item.
+- **Rule 12 not invoked.** Nothing here retracts a hypothesis of mine. The retractions this result implies for `clm-qyn8t0` and the un-propagated W1 walk-back are **auditor-lane** actions; this lane surfaces them with the arithmetic and stops (§12).
+- **Lane discipline held.** No axiom candidate drafted (per A44, the diagnosis is engine/leaf-violates-its-own-construction, not missing-axiom). No manual entry drafted. No methodology pivot proposed.
+
