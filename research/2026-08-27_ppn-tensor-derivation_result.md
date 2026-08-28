@@ -280,7 +280,49 @@ Object D is the **newest** ruling in the set (R55, 2026-08-24) and it is the one
 
 ## §5 — The /7 family is five contractions of one rank-2 tensor
 
-<!-- SECTION: seven-family -->
+### §5.1 — The identities
+
+Take **one** uniaxial strain tensor: a radial principal component $\varepsilon_{rr} = \varepsilon_{11}$ with the Poisson-contracted tangential components $\varepsilon_{tt} = -\nu_{vac}\varepsilon_{11}$, at $\nu_{vac} = 2/7$. Every member of the $/7$ family is a standard contraction of that one object. Verified symbolically:
+
+| number | contraction | value in $\varepsilon_{11}$ | canon's own name for it |
+|---|---|---|---|
+| $1/7$ | spherical part per direction, $\theta/3$ | $\varepsilon_{11}/7$ | *"The $1/7$ Isotropic Impedance Projection"*, `one-seventh-impedance-projection.md`:13 |
+| $2/7$ | tangential magnitude $\lvert\varepsilon_{tt}\rvert$ — which is $\nu_{vac}$ itself | $2\varepsilon_{11}/7$ | the vacuum Poisson ratio, `vacuum-poisson-ratio.md`:13 |
+| $3/7$ | the trace $\theta = (1-2\nu)\varepsilon_{11}$ | $3\varepsilon_{11}/7$ | implicit in `one-seventh-impedance-projection.md`:13; the $\sqrt{3/7}=\sqrt{1-2\nu_{vac}}$ dilatational signature at `manuscript/ave-kb/common/full-derivation-chain.md`:370 |
+| $9/7$ | von Mises equivalent of the deviator, $\sqrt{\tfrac32 e_{ij}e_{ij}}$ | $9\varepsilon_{11}/7$ | $n_{spatial}$, `temporal-spatial-lattice-decomposition.md`:19 |
+| $11/7$ | $2\varepsilon_{rr}-\theta$ (equivalently $\tfrac27+\tfrac97$) | $11\varepsilon_{11}/7$ | *"full lattice density"*, `LIVING_REFERENCE.md`:162 |
+
+with the deviator $e_{rr} = \tfrac67\varepsilon_{11}$, $e_{tt} = -\tfrac37\varepsilon_{11}$ giving
+$\sqrt{\tfrac32\left(\tfrac{36}{49}+2\cdot\tfrac{9}{49}\right)} = \sqrt{\tfrac{81}{49}} = \tfrac97$ **exactly**.
+
+And the denominator is not a free integer either:
+
+$$\nu = \frac{3K-2G}{2(3K+G)} \;\Longrightarrow\; \text{denominator} = 3\frac{K}{G}+1 \;\overset{K=2G}{=}\; 7.$$
+
+**"7" is identically $3K/G + 1$.** One imported ratio, $K=2G$, writes the whole family.
+
+> **⚑ HONEST SCOPE on this table.** Canon *derives* the $1/7$, $2/7$ and $3/7$ rows from the strain tensor explicitly at the cited sites. The $9/7$-as-von-Mises and $11/7$-as-$(2\varepsilon_{rr}-\theta)$ readings are **identifications made by this lane**, verified arithmetically; **I did not find a first-principles derivation of $9/7$ from the strain tensor at the sites I read** (`temporal-spatial-lattice-decomposition.md`, `eq_gravity_derived.tex`, `ch01-gravity-yield/index.md`, `translation-gravity.md` all *state* it as a decomposition component). Canon's own provenance for $11/7$ is the sum $\tfrac27+\tfrac97$, which is numerically the same thing. The table is offered as a unification observation, **not** as a claim that canon derived it this way.
+
+### §5.2 — One object, five views — and one degree of freedom
+
+The family is not five independent couplings that happen to share a denominator. It is one rank-2 tensor seen five ways, and that tensor is fixed by a **single scalar** $\varepsilon_{11}(r)$ through $\varepsilon_{tt} = -\nu\varepsilon_{rr}$ with $\nu$ imported.
+
+**That is the structural reason a scalar-index model results.** With one degree of freedom you can write one refractive index. You cannot write two independent metric functions, and the weak-field metric needs two. Everything in §2 follows from the object's rank, before any coefficient is chosen.
+
+### §5.3 — And solar-system gravity gives ZERO support to the $\nu_{vac}$ triangulation
+
+Two independent statements, both verified:
+
+1. **The light branch is $\nu$-blind by identity.** $Q = \nu_{vac}\cdot(2/\nu_{vac}) = 2$ (§1.2 L3). The deflection is $2Q\,GM/bc^2 = 4GM/bc^2$ for *any* $\nu_{vac}$. Canon states this cancellation itself at `geo-synchronous-impedance.md`:20. **A measurement that returns the same answer for every value of a parameter constrains that parameter not at all.**
+2. **The matter branch's PPN coefficients are coefficient-blind.** $\gamma = 0$ is forced by $g_{ij}=\delta_{ij}$ and $\beta = 3/2$ by the $1/n^2$ clock, for every $c_m$ (§1.3 M5/M6). The $\nu$-sensitive quantity $c_m(\nu) = \frac{2(1-2\nu)}{3\nu}$ never reaches an observable.
+
+So neither Cassini, nor solar-limb deflection, nor Mercury, nor LLR carries information about which member of the $/7$ family is right. **If $\nu_{vac} = 2/7$ is to be triangulated, it must be triangulated somewhere other than solar-system gravity.**
+
+> **⚑ FLAG — a handed-down phrasing I could reproduce only in part; flag-don't-fix.**
+> The reconciliation that commissioned this document stated the point as *"the $/7$ family is gauge at PPN order — the radial grading is absorbed by a constant areal shift with $dR/dr = 1$ identically at $O(m)$."*
+> **The Jacobian half reproduces exactly.** For a graded isotropic spatial metric $B(r) = 1+\kappa\varepsilon_{11}$ with $\varepsilon_{11}=7m/r$, the areal radius is $R = r\sqrt{B} = r + \tfrac{7\kappa}{2}m + O(m^2)$ — an **$r$-independent constant shift** — and sympy returns $dR/dr - 1 = 0$ at $O(m)$, identically.
+> **The inference half does not.** Carrying that same metric into Schwarzschild-form coordinates, I get $g_{RR} = 1 + 7\kappa\,m/R$, i.e. $\gamma = 7\kappa/2 \neq 0$. So a graded spatial metric is **not** gauge-removable, and "the $/7$ family is gauge" is not a statement I can reproduce in that form.
+> **The conclusion survives on stronger and different footing** — items 1 and 2 above — which is why it is stated that way in this section. The zero-support finding does not rest on the gauge argument. Recorded as a partial reproduction rather than silently restated, per flag-don't-fix.
 
 ## §6 — The light result is a consistency check, not a derivation
 
