@@ -269,6 +269,97 @@ so it is cited as corroboration of the slope, never as authority.
 
 ## 4 · The ledger algebra — exact, before any run
 
+Everything in this section is **exact algebra, derived before any run.** It fixes
+what the run can and cannot decide.
+
+### 4.1 · The three registers, and why only two are independent
+
+| register | definition | how it is obtained |
+|---|---|---|
+| `m_g` | `Σ_interior(L·ε₁₁)` — far-field Gauss flux | **≡ `Σ T₀₀^src` by the discrete divergence theorem — an INSTALL-TAUTOLOGY** |
+| `M_eff` | `M − U_bind`, `U_bind = ½ g_self Σ|∇ε₁₁|²` | strain-energy ledger (`backreaction.py:191-194`) |
+| `M_ray` | mass inferred from ray-trace deflection `δ = 4GM/(bc²)` | reads the far-field `1/r` coefficient of `ε₁₁` — **collapses onto `m_g` by Gauss** |
+
+**Only `m_g` and `M_eff` are independent, and `m_g` is tautologically the installed
+source.** This is the structural fact §9 turns into the run's headline.
+
+### 4.2 · The discrete virial identity — EXACT, by adjointness
+
+Verified by direct read this session: `Grad` is built from the shift blocks
+`0.25·p_m·(P_{−p} − I)` (`gw_propagation.py:566-567`) and `Div` from
+`0.25·p_m·(P_{+p} − I)` (`:578-579`). Since `P_{−p}ᵀ = P_{+p}`, **`Div = Gradᵀ`**, so
+`L = Div·diag(D)·Grad = Gradᵀ·diag(D)·Grad` is positive semi-definite and
+
+```
+Σ ε₁₁·(L ε₁₁)  ≡  Σ D·|∇ε₁₁|²                      … (V)  EXACT by adjointness
+```
+
+With Dirichlet-zero faces (`gw_propagation.py:671-677`) and `(Lε)_interior = T₀₀^src`
+from `spsolve` (`:703`), (V) becomes `Σ T₀₀^src ε₁₁ = Σ D|∇ε₁₁|²`, exact to the
+`spsolve` residual, the Picard fixed-point residual, and face leakage.
+
+### 4.3 · `c` — the adjudicated quantity — in closed form
+
+Define `Δ_clock ≡ Σ T₀₀^matter (1 − w)` and `c ≡ Δ_clock / U_bind`. Then, with
+`1 − w = kε₁₁/(1 + kε₁₁)` for the frozen `w = 1/n_scalar`:
+
+```
+        Δ_clock      2k                                  Σ D|∇ε₁₁|²
+c  =  ─────────  =  ────  ·  ⟨D⟩_w  ·  χ ,      ⟨D⟩_w ≡ ────────────  ,
+        U_bind      g_self                                Σ |∇ε₁₁|²
+
+                                     χ ≡ ⟨ 1/(1 + k ε₁₁) ⟩   (T₀₀ε₁₁-weighted)
+```
+
+Both `⟨D⟩_w ≥ 1` and `χ ≤ 1` are **measured directly from the solved field**, with no
+fit and no free parameter. Both → 1 as amplitude → 0.
+
+### 4.4 · `g_self` is NOT a free knob here — the operator fixes it
+
+The elliptic operator carries **no prefactor**: `L = (Div @ Dexp @ Grad).tocsr()`
+(`gw_propagation.py:700`) with `rhs = T00` (`:677`) — i.e. `κ_op ≡ 1` in lattice
+units. The variational energy whose stationarity gives `∇·(D∇ε) = T₀₀` is
+`½∫D|∇ε|²`, so the ledger normalization consistent with the engine's own operator is
+`g_self = κ_op = 1`. The shipped default is `g_self = 1.0`
+(`backreaction.py:163`). **`g_self = 1` is therefore the CONSISTENT choice, not a
+convention — and this prereg freezes it.** §12 records why this matters.
+
+### 4.5 · `η_mixed` is an exact function of `c` — which is why no bin is keyed on it
+
+With `f = U_bind/(M + U_bind)`, `m_g = M − Δ_clock` and `M_eff = M − U_bind`:
+
+```
+m_g / M_eff  =  ( 1 − (1+c)·f ) / ( 1 − 2f )
+```
+
+`η_mixed` is then the least-squares slope of `(ratio/ratio₀ − 1)` vs `f`
+(`src/tests/engine_acceptance/_nordtvedt.py:167-178`, read verbatim). Evaluated on
+the frozen `#651` family's own `f` values (0.0561, 0.0397, 0.0300, 0.0234 —
+`research/2026-07-12_x44-komar-source_result.md:62-65`):
+
+| `c` | what installs it | `η_mixed` (exact algebra) |
+|---|---|---|
+| 0 | bare `matter` control (no weight) | **+1.15581** |
+| **2/7 = 0.285714** | **the FROZEN weight, `k = 1/7`** | **+0.83127** |
+| 4/7 | a `k = 2/7` slope-2 weight | +0.50222 |
+| **1** | a `k = 1/2` weight | **0.00000 — EXACTLY** |
+| 2 | `k=1/7` at `g_self = 1/7` | −1.21399 |
+
+Two consequences, both load-bearing:
+
+1. **`η_mixed = 0` ⟺ `c = 1` EXACTLY**, identically in `f`. It is not approximately
+   zero at `c = 1`: the ratio becomes `(1−2f)/(1−2f) ≡ 1` for every member, so the
+   slope vanishes identically. **Reconciliation is the single condition
+   `Δ_clock = U_bind`, and nothing about the family can move it.** This is why
+   re-freezing the family could never have rescued the old PASS bin.
+2. The algebra reproduces the measured engine numbers to <0.5%: predicted
+   `η(c=0) = +1.1558` vs X44's measured `matter = +1.1585`
+   (`research/2026-07-12_x44-komar-source_result.md:177`) — 0.23%. That agreement is
+   the receipt that this closed form is the right model of the instrument.
+
+**Therefore `η_mixed` carries no information beyond `c`, and this prereg reports it
+without adjudicating on it.**
+
 ## 5 · ★ THE ACCESSIBLE REGIME, and the demonstration that the PASS bin lies inside it
 
 ## 6 · Scope — the 91/9 split, and what this run is NOT about
