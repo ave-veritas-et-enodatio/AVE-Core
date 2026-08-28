@@ -48,6 +48,8 @@ A refractive index is **one** scalar function of $r$. A weak-field metric needs 
 $g_{\mu\nu}^{AVE} = \eta_{\mu\nu} + \left(1 - \frac{1}{n^{2}(r)}\right)u_{\mu}u_{\nu}$,
 gives $g_{00} = -1/n^2$ and $g_{ij} = \delta_{ij}$ **exactly**, for any $n$ and any slope. A metric whose spatial part is flat has $\gamma = 0$ identically. No coefficient choice inside the $/7$ family can move it, because the family never enters $g_{ij}$ at all.
 
+**Stated one level deeper (§2.5):** the two functions a graded medium really has are the local characteristic speed $c_{eff}=1/\sqrt{LC}$ and the local internal rest frequency $\Omega=\sqrt{S/C}$, and a scalar index wires **one knob into both slots** — forcing the speed slope and the clock slope equal, which is $\gamma$ set to zero by construction.
+
 ### ⚠ WHAT THIS IS, AND WHAT IT IS NOT — read before quoting any number above
 
 - **This is not a new falsification of AVE's optics.** $\gamma_{light} = 1$ and $1.7517''$ hold. §6 argues they are a *calibrated consistency check* and not an emergence-class result, which is a downgrade of a claim's **class**, not of its truth.
@@ -188,6 +190,37 @@ $1/6$ is not a perturbation. Written out:
 | **total $F$** | **$1.000$** | **$0.167$** |
 
 **Five sixths of GR's perihelion advance is the $\gamma$ term.** A theory with $\gamma = 0$ does not get a slightly-wrong perihelion; it loses the dominant contribution and then over-subtracts on $\beta$. The two errors do not cancel — they compound, $-0.500$ instead of $-0.333$ on top of $0$ instead of $+0.667$.
+
+
+### §2.5 — Sharpened: one knob, two slots
+
+"A refractive index is one scalar function and the metric needs two" is correct but under-specific. **The two functions a lossless graded medium actually has are the local characteristic speed and the local internal rest frequency**, and they are independent:
+
+$$c_{eff}(r) = \frac{1}{\sqrt{L(r)C(r)}},\qquad \Omega(r) = \sqrt{\frac{S(r)}{C(r)}}.$$
+
+$c_{eff}$ is what a *signal crossing* the region does; $\Omega$ is what a *resonator sitting* in it does. In a general graded LC ladder $L$, $C$ and $S$ grade independently, so $c_{eff}$ and $\Omega$ carry **two** independent slopes. That is exactly the two functions the weak-field metric needs.
+
+**A scalar refractive index wires one knob into both slots.** Writing $n(r)$ and building the Gordon metric from it forces
+
+$$c_{eff} = \frac{c}{n}\quad\textbf{and}\quad \Omega = \frac{\Omega_\infty}{n}$$
+
+from the *same* $n$. In the $(a_1,b_1,b_2)$ language of the forward pointer that is $a_1 = b_1 = q$, $b_2 = q^2$, and the precession bracket collapses:
+
+$$4a_1 - b_1 - \frac{2b_2}{b_1} \;=\; 4q - q - 2q \;=\; q.$$
+
+**The precession degenerates to the bare index slope.** In this document's own coordinates the same collapse reads $\gamma = a_1 - b_1 = 0$: $\gamma$ *is* the gap between the speed slope and the clock slope, and a one-knob model sets that gap to zero by construction.
+
+So the three statements below are one statement seen three ways, and they are all exact:
+
+| framing | the defect |
+|---|---|
+| metric | $g_{ij} = \delta_{ij}$, so $\gamma \equiv 0$ |
+| constitutive | $a_1 = b_1$, so the speed slope and the clock slope cannot differ |
+| circuit | one graded parameter cannot set $\sqrt{LC}$ and $\sqrt{S/C}$ independently |
+
+**Plumber-physical:** the substrate is being modelled as a transmission line where changing the dielectric loading is the *only* thing gravity does. Then the wave slows and the tank detunes by the same factor, necessarily. GR says the tank detunes by $U$ while the wave slows by $2U$ — **the line's series and shunt elements do not grade together**, and the factor-of-two between them is $\gamma$.
+
+---
 
 ## §3 — Why the tensor repair failed
 
