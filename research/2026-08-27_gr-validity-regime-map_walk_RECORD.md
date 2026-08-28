@@ -304,6 +304,28 @@ boundary. I found no site that writes those radii down** (method + blind spot:
    `r_sat` to the **shear + matter** channel. Anyone tempted to turn it into an
    observational statement should read `wall-taxonomy.md`:168 first.
 
+> ### ⚠ THE CAVEAT THAT MUST RIDE WITH DELTA-1 — stated before the audit finds it
+>
+> **`ε₁₁ = 7GM/c²r` is the Green's-function solution of the LINEAR equation**
+> (`D = 1`; `gordon-optical-metric.md`:25, and `saturating-modulus-and-backreaction.md`
+> §1 calls that chain *"the **weak-field limit**"*). Using it to locate a boundary
+> where `D ≠ 1` **uses the weak-field profile outside its own validity.** Quantified
+> `[ARITH]`:
+>
+> | boundary | `A` | `D(A) = 1/√(1−A²)` | is the linear profile OK there? |
+> |---|---|---|---|
+> | I → II | `0.1208` | `1.0074` | **yes** — modulus off by 0.7% |
+> | II → III | `0.8660` | `2.0000` | **no** — the modulus has doubled |
+> | III → IV (`r_sat`) | `1` | `→ ∞` | **no** — the equation is singular there |
+>
+> **So the `28.97 r_s` row is self-consistent and the two inner rows are
+> idealizations.** They are *canon's own* idealization — `domain-catalog.md`:53
+> computes `ε₁₁ = 3.5` at `r_s` from the same linear profile, and `r_sat = 7GM/c²`
+> is *defined* that way — so DELTA-1 inherits the corpus's convention rather than
+> introducing one. **But no row inboard of `~29 r_s` should be quoted as a solved
+> radius of the graded equation.** Audit item **A7**; the graded profile is what
+> `src/ave/gravity/backreaction.py` relaxes for, and nothing in this record ran it.
+
 **Cross-check that the arithmetic is canon's, not mine:** the same formula at
 the solar surface returns `ε₁₁ = 1.4862×10⁻⁵`, which reproduces
 `domain-catalog.md`:50's corrected value; and at `r_s` it returns `7/2 = 3.5`,
