@@ -367,7 +367,52 @@ The same sensitivity applies to Mercury: with the in-tree `M_SUN` the GR baselin
 
 ## §7 — The fix is cheap and inside the framework
 
-<!-- SECTION: fix -->
+### §7.1 — The mechanism of the defect, exactly
+
+Take GR's own metric in isotropic coordinates ($m \equiv GM/c^2$):
+
+$$ds^2 = -\underbrace{\left(\frac{1-m/2R}{1+m/2R}\right)^{2}}_{A}c^2dt^2 + \underbrace{\left(1+\frac{m}{2R}\right)^{4}}_{B}\left(dR^2+R^2d\Omega^2\right)$$
+
+and define its optical index $n_{opt} \equiv \sqrt{B/A} = \dfrac{(1+m/2R)^3}{1-m/2R}$. Then, **exactly and not merely to leading order** (verified symbolically, `B/n_opt**2 - A == 0` returns `True`):
+
+$$g^{\text{GR}}_{\mu\nu} \;=\; B(R)\cdot g^{\text{Gordon}}_{\mu\nu}\big[n_{opt}\big].$$
+
+**GR's metric and the Gordon metric are conformally related, with conformal factor $\Omega^2 = B = 1 + 2U + O(U^2)$ — which is precisely $1 + 2\gamma U$ at $\gamma = 1$.**
+
+Null geodesics are conformally invariant. Timelike geodesics are not.
+
+> **That one sentence is the whole finding.** The Gordon optical metric is the *right* object for light and the *wrong* object for matter, by exactly the conformal factor. Light cannot see $\Omega^2$, so AVE's optics is correct. Matter can, so AVE's matter sector is missing exactly $\gamma$. And $\Omega^2$ is not a small correction — §2.4 shows it carries five sixths of the perihelion advance.
+
+Weak-field, $n_{opt} = 1 + 2m/R + O(m^2)$ — **slope 2, the same $Q=2$ AVE's transverse sector already has.** So the light sectors of the two theories coincide by construction, and the entire disagreement is the conformal factor that AVE's flat $g_{ij} = \delta_{ij}$ throws away.
+
+### §7.2 — The repair
+
+**Put matter on the same T2 cone the light is on** — i.e. treat the physical metric as $\Omega^2\times$(the optical metric) rather than as the optical metric — and everything is Schwarzschild at $O(m)$:
+
+$$-g_{00} = 1 - 2U + 2U^2,\qquad g_{ij} = (1+2U)\delta_{ij} \;\Longrightarrow\; \beta = 1,\;\gamma = 1,\;F = 1$$
+
+(verified symbolically; the series returns exactly those coefficients). In areal coordinates that is $g_{00} = -(1-2m/R)$, $g_{RR} = 1 + 2m/R$ at $O(m)$ — Schwarzschild, and with it Cassini, LLR, Mercury and Hulse-Taylor.
+
+**What must go is the separate scalar index assigned to matter.** $n_{scalar} = 1 + \varepsilon_{11}/7$ is the object that puts matter on a different cone from light, and it is exactly the assignment canon's own quality record grades as soft. `manuscript/ave-kb/vol3/claim-quality.md`:1158 verbatim:
+
+> *"The single soft joint is the coupling-selection step (massive packet → scalar $1/7$ bulk only; photon → transverse $2/7$ sector only), asserted by mechanical analogy rather than derived from a wave-equation projection."*
+
+and its own strengthen-by, `:1160`:
+
+> *"Derive the coupling selection (matter→scalar-bulk, light→transverse-shear) from a wave-equation projection of the massive vs massless dispersion onto the Cosserat strain tensor, replacing the mechanical-analogy assertion."*
+
+> ### **You are not missing a mechanism; you are missing a derivation of a coupling you asserted.**
+> The repair does not require a new axiom, a new sector, a new field or a new constant. It requires that the strengthen-by written at `claim-quality.md`:1160 in the framework's own hand be carried out — and it requires being willing to lose the $2:1$ *matter-vs-light* deflection ratio, which is what the two-cone assignment buys.
+
+### §7.3 — What the repair costs
+
+Stated plainly, because a repair whose cost is not stated is a rescue:
+
+- **The Double Deflection loses its headline framing.** `double-deflection.md`:39-46 sells $\delta_{light}/\delta_{matter} = (2/7)/(1/7) = 2$ with $\delta_{matter} = 2GM/(bc^2)$ **"(Newton / Soldner 1801)"**. On one cone there is no such ratio: a relativistic massive particle grazing the Sun deflects by the *same* $4GM/bc^2$ as light in the $v\to c$ limit, and the $2:1$ ratio is recovered only against the *non-relativistic* Newtonian corpuscle, which is a statement about $v \ll c$ rather than about two coupling channels.
+- **The $1/7$ isotropic projection loses its consumer.** Its only PPN-facing role is $n_{scalar}$. It may well survive elsewhere (it is also the $7$ in $G = \hbar c/7\xi m_e^2$), but the deflection-ratio consumer goes.
+- **It does not, by itself, make anything emergence-class.** Restoring $\Omega^2$ makes AVE agree with GR; §6's verdict on the light sector is unchanged and would extend to the matter sector. **The repair buys correctness, not distinctness.**
+
+**This lane does not perform the repair and takes no position on whether Grant wants it.** It is named because §0 would be dishonest without stating that the defect is local and cheap rather than structural and fatal.
 
 ## §8 — Two things logged for months and never named
 
