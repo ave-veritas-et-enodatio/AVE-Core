@@ -454,7 +454,60 @@ Canon does already carry one derived $O(\beta)$ preferred-frame prediction: `res
 
 ## §9 — L3: the constitutive map. Is $(2,1,\tfrac12)$ forced? No
 
-*(placeholder — §9)*
+This section reports the `L3-constitutive-map` lane **as its journal entry actually states it**. The brief that dispatched this document asked one question of L3: *is $(2,1,\tfrac12)$ forced?* **L3's answer is no, and its reason is sharper than "no".**
+
+### 9.1 — The headline: neither forced, nor forced elsewhere, nor simply free
+
+L3's verdict, in its own labels. Write the map as $\epsilon_{ij} = \epsilon_0\gamma_{ij}$, $\mu_{ij} = \mu_0\gamma_{ij}$ (which Ax3 **forces**, see 9.3), with $\gamma_\parallel = 1 + P\,U$ (radial) and $\gamma_\perp = 1 + Q\,U$ (tangential). Then:
+
+- **LIGHT:** $\alpha = 2Q\,(GM/c^2)/b$, **independent of $P$** — verified by L3 to 8 significant figures by numeric ray integration over eight $(P,Q)$ pairs, with $(P{=}0, Q{=}2)$ returning $\alpha b/m = -1.1\times10^{-7}$, i.e. exactly zero. $P$ is absorbed by the constant areal shift $R = r - \frac{P-Q}{2}(GM/c^2)$, $dR/dr = 1$ identically. L3 cross-checked this against **two GR charts of one spacetime** (Schwarzschild vs isotropic) that carry different tangential coefficients (1 vs 2) and identical $4m/b$ deflection.
+- **MATTER:** the bound resonator's eigenfrequency shift is $\delta\omega/\omega = -\big[f\,Q + (1-f)\tfrac{P+Q}{2}\big](GM/c^2r)$, with $f$ the mode's **radial $k$-power fraction**. The Newtonian limit (Pound–Rebka, GPS, $\sim10^{-5}$) demands that bracket $= 1$.
+
+**Three unknowns $(P, Q, f)$; two measurements.** Nothing in Ax1–Ax5 supplies any of the three. Worked cases from L3: $f = 1/3$ (isotropic 3D mode) gives $P + 2Q = 3$, so $Q = 2$ forces $P = -1$, **a value no canon leaf carries**; $f = 0$ gives $P = 0$; **$f = 1$ has NO solution**, so a purely-radial-$k$ bound mode is **excluded by data**.
+
+> **L3's own summary sentence:** *"the substrate forces a RELATION, not a number, and closing it requires declaring the bound mode's directional $k$-weighting — which is a real, currently-open substrate question (the electron's mode structure)."*
+
+**And note what this ledger does not even reach: $b_2$.** L3's three unknowns live at first order in $U$. The repair's $b_2 = \tfrac12$ is a *second-order clock* coefficient. **So the honest count is three unknowns and one asserted second-order coefficient against two measurements.** $Q = 2$ maps onto this document's $a_1 = 2$; there is no L3 counterpart to $b_2$ at all.
+
+### 9.2 — Why the map does not exist: a strain-per-strain ratio doing a strain-per-index job
+
+L3's cleanest finding, and the one that names an object the corpus is missing.
+
+Canon's only bias$\to$index bridge is **Op19**, `operators.md`:59, **verified verbatim**: *"Refractive Index | $n(r) = 1 + \nu_{vac}\cdot\varepsilon_{11}$ | 319 | CANONICAL"*, with $\nu_{vac} = 2/7$ glossed at the site as *"Poisson ratio: 2 compliance / 7 total modes"*, and classified at `:123` as *"**BC** (settled A1 strain = index)"*.
+
+The 2026-08-11 gravity-linearity audit licenses Op19 as *"Poisson-ratio kinematics … a **kinematic ratio** (transverse strain per longitudinal strain), **not a modulus**. Kinematic ratios are linear by construction; the kernel grades moduli, not kinematics."*
+
+**A strain-per-strain ratio lives entirely in the mechanical sector and carries no information about how strain grades $\epsilon$ or $\mu$.** The object that does is the rank-4 **photoelastic tensor** $\delta(\epsilon^{-1})_{ij} = p_{ijkl}\,e_{kl}$, which in a cubic lattice has three independent constants $(p_{11}, p_{12}, p_{44})$ and is an *independent material property in every real solid*. **This corpus has never named, derived, measured or bounded it** — F-B4 at `research/2026-07-31_anisotropy-observable_scoping.md`:657, which its own author verified three ways including `git log -S` over all of `origin/main`. My two independent methods reproduce the absence from `manuscript/` and `src/` (§13).
+
+L3 makes the audit's blind spot precise: *"the audit asked whether the LINEARITY is licensed and correctly answered yes; it did not ask whether the strain-to-INDEX conversion is licensed, and that conversion is the missing object."*
+
+Fitting the missing tensor to canon's own uniaxial-Poisson strain field gives $p_{11} = -1/9$, $p_{12} = -4/9$: **two parameters fitted to two data points, zero predictive content at $O(m)$.** L3 flags that itself.
+
+**Corroborating arithmetic I ran myself.** With $e_{rr} = \chi_{vol} = 7m/r$ and $e_{tt} = -\nu_{vac}e_{rr} = -2m/r$: $\theta = 3m/r$, so $\theta/3 = m/r = \tfrac17\chi_{vol}$ **exactly** — `double-deflection.md`:22-24's matter row uses $n - 1 = +(\text{mean strain})$. Its light row at `:28` uses $n - 1 = \nu_{vac}\chi_{vol} = 2m/r = -e_{tt}$, i.e. $n - 1 = -(\text{transverse strain})$. **Two opposite strain$\to$index sign conventions in two rows of one derivation.** L3 calls this a contradiction; I record it one notch weaker and say why: a genuine rank-4 $p_{ijkl}$ **can** carry opposite signs on $p_{11}$ and $p_{12}$, so this is not automatically fatal — it is evidence that *a single scalar Poisson projection cannot be the map*, which is L3's own conclusion arrived at from the other side. Either way it belongs on the board, and I have not touched the leaf.
+
+### 9.3 — What Ax3 *does* force, and it is real
+
+**Credit where the ledger earns it.** L3 derived, from `eq_axiom_3.tex`'s boundary form: $\min|\Gamma|^2$ with $\Gamma = (Z_2-Z_1)/(Z_2+Z_1)$ at **every** internal impedance boundary has global minimum $0$, attained iff $Z$ is spatially constant; a graded medium is a continuum of internal boundaries; therefore **Ax3 forces $Z(x) = Z_0$ and hence $\epsilon_{ij} \propto \mu_{ij}$ as tensors.** L3 then computed the Fresnel determinant of exactly that medium directly from Maxwell and found it factors as a **perfect square** — so:
+
+- **no gravitational birefringence at any order**, for any grading obeying Ax3-boundary, and no partial reflection of light off a gravitational gradient;
+- **the characteristic surface is a quadric, so an effective optical metric EMERGES as the inverse of the wave operator's principal symbol** — derived in the medium$\to$metric direction, not assumed.
+
+L3's own caveat, carried: this rides Ax3's *boundary* form, whose equivalence to the variational form is canon-flagged *"ASSERTED — an underived dynamics leg"*. And L3's own symmetric-standard note: GR gets no-birefringence from the equivalence principle; **this version is derived from a genuinely different premise and is machine-checkable, which the EP argument is not.**
+
+### 9.4 — L3's three structural results that constrain any future map
+
+1. **Ax4 is EVEN in $A$, so the axioms alone give $O(A^2)$, not $O(A)$.** $S(A) = \sqrt{1-A^2} = 1 - A^2/2 - \dots$, so any $X = X_0S^p$ is quadratic-leading and contributes **nothing** at $O(GM/c^2r)$. With $A = \varepsilon_{11} = 7GM/c^2r$ the solar-limb deflection is $3.58\times10^{-5}$″; with $A = r_s/r$ it is $2.92\times10^{-6}$″; measured $1.75$″. **The entire $O(m)$ gravitational sector comes from a coupling present in no axiom.** And canon has already disowned its only axiom-connected gravity-class constitutive row — the 2026-08-11 audit rules `graded-network-response.md`:147 *"UNLICENSED as a gravity index"* — **and put nothing in its place.**
+2. **GR's spatial sector cannot be a mechanical strain of this lattice at any coefficient.** A static spherically-symmetric displacement field has $e_{rr} = u'$, $e_{tt} = u/r$; these are equal (hydrostatic) iff $u \propto r$, a uniform dilatation with no falloff, which a localised source cannot produce. GR's $\gamma_{\rm PPN} = 1$ spatial sector in isotropic coordinates **is** exactly hydrostatic. So no improved strain field will ever fix it — **the fix has to be a constitutive grading, i.e. the photoelastic map.** Independently, Ax5 clause G's bound response is $u \propto 1/r^2$ (canon's own words at `eq_axiom_5.tex`), giving a $1/r^3$ mechanical strain — **two powers too fast to source a Newtonian potential.** L3 calls this the root of the $\gamma = 0$ result, deeper than the Gordon metric's $g_{ij} = \delta_{ij}$, which is a symptom. **I agree, and it is compatible with this document's diagnosis rather than competing with it:** §3 says the *matter* channel's clock and speed were fused; L3 says the *spatial* channel has no mechanical route at all. Both are true; the repair works because it grades a **constitutive** speed, not a cell length.
+3. **The $\kappa = -1$ "one cell per tick" candidate is REFUTED, not merely unforced.** $n\ell = \ell_0$ makes a bound mode spanning $N$ cells have $\omega = 2\pi c_0/(N\,n\ell) = 2\pi c_0/(N\ell_0)$, **identically position-independent** — deleting gravitational redshift, the Newtonian potential, Shapiro delay and deflection together. It is the lattice's synchronism/CFL condition, i.e. precisely the statement that a **uniform** grading is unobservable (which is why special relativity works on a lattice). Gravity is exactly the part that must **not** self-cancel. *L3's own scope caveat, carried honestly: the source document for that candidate is not committed at `a3f4fef7`, so L3 walked it from a one-line description and says so.*
+
+### 9.5 — Where L3 and the repair disagree, and I am not resolving it
+
+L3's finding 6 argues that canon's **two scalar indices at one point** ($n_{scalar} = 1+\tfrac17\chi_{vol}$, $n_\perp = 1+\tfrac27\chi_{vol}$) is the real defect: *"A medium has ONE constitutive tensor; two probes read different COMPONENTS of it, not different scalars."* Under that reading the factor of 2 in "double deflection" is **the signature that the response is a TENSOR**, not evidence of two coupling channels.
+
+The reconciliation lane pushed the same objection at this document's framing: in a $Z$-matched medium the bound mode is a cavity mode of the *same* graded tensor, so its clock is **not a free constitutive function** — and L1's "two independent knobs" reads as more freedom than the substrate has.
+
+**I am surfacing this, not resolving it.** It is a live disagreement between two lanes about what kind of object $\Omega(r)$ is, and it is exactly the question that decides whether $b_2$ can be derived or must be measured. Routed (§12).
+
 
 ## §10 — THE IMPORT AUDIT — where GR/SM/QED vocabulary did thinking that should have been done in medium terms
 
