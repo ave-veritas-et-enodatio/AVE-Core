@@ -416,7 +416,43 @@ Stated plainly, because a repair whose cost is not stated is a rescue:
 
 ## §8 — Two things logged for months and never named
 
-<!-- SECTION: logged -->
+Neither of these is a new observation. Both were written into the tree, correctly, by earlier lanes — and neither was ever named as the thing it is.
+
+### §8.1 — The $\gamma$ deficit was written down on 2026-05-17
+
+`research/2026-05-17_hulse-taylor-substrate-native-derivation-sketch.md`:49, verbatim:
+
+> ⚠️ **Rigor-pass annotation #1**: the angular momentum modification factor $(1 + \phi/c^2)$ is the AVE Gordon-form's specific structural prediction. In GR Schwarzschild isotropic coordinates, the corresponding factor is $(1 + GM/2c^2r)^4 / (1 - GM/2c^2r)^2 \approx 1 + 3GM/c^2r$ at leading order (cubed factor from spatial metric). **The factor 1 (AVE) vs factor 3 (Schwarzschild) difference at leading order is the substrate-vs-GR structural difference.**
+
+That factor is $1 + (1+2\gamma)U$ — the product of the lapse factor $(1+U)$ and the spatial factor $(1+2\gamma U)$. **AVE's "1" is $\gamma = 0$; Schwarzschild's "3" is $\gamma = 1$.** The annotation is the $\gamma$ deficit, correctly derived, correctly flagged as *"the substrate-vs-GR structural difference"* — and then not costed. The same document's `:80` says why:
+
+> ⚠️ **Rigor-pass annotation #2**: a full PPN-1 comparison requires deriving the substrate-native equivalent of GR's spatial-metric contribution to the orbit. … **This is the load-bearing computation that's been deferred for rigor pass.**
+
+**The deferred computation is the one performed in §2.** The reason the deferral looked cheap is `:73`, which observed that the $-GML^2/(mc^2r^3)$ coefficient is $1$ in both — true, and not sufficient: the $L_z$-modification factor at `:49` enters the *same* orbit integral, and it is where the $\gamma$ term lives. The document's own two annotations, read together, already contain the result. Fifteen months.
+
+### §8.2 — The $\beta$ question was written down on 2026-08-11
+
+`research/2026-08-11_gravity-linearity-audit_result.md`:432, verbatim:
+
+> | **R13** | site 15 vs lapse: **same** leading term `ε₁₁/7`, **different** functions — `C₃ − C₁ = −3ε₁₁²/98 ≠ 0`. Distinct clocks, not one clock twice. …
+
+That residual is not a curiosity. With $U = \varepsilon_{11}/7$:
+
+$$\frac{3\varepsilon_{11}^2}{98} \;=\; \frac{3}{2}\cdot\frac{\varepsilon_{11}^2}{49} \;=\; \frac{3}{2}U^2 \quad\textbf{exactly}$$
+
+(verified symbolically; `match: True`). And $\tfrac32 U^2$ is $\beta U^2$ at $\beta = 3/2$. **The unexplained residual IS the $\beta$ question**, written in a different variable.
+
+The two candidate clocks the audit was choosing between are the two candidate $\beta$'s:
+
+| candidate clock | $-g_{00}$ | $\beta$ |
+|---|---|---|
+| $C_1 = 1/(1+U)$ — the ponderomotive / index clock | $1-2U+3U^2$ | $\mathbf{3/2}$ |
+| $C_3 = \sqrt{1-2U}$ — the lapse clock as canon writes it | $1-2U$ | $\mathbf{0}$ |
+| GR | $1-2U+2U^2$ | $1$ |
+
+**GR sits precisely between AVE's two candidate clocks and equals neither.** The audit's §7 stuck-point — *"Is the gravitational clock a MODULUS effect or a BIAS-POINT effect?"* (`:566`) — is, in PPN coordinates, *"is $\beta$ equal to $3/2$ or to $0$?"*, and the answer observation gives is *neither*.
+
+That reframing does **not** resolve the stuck-point; §7 of that audit correctly refused to pick, and this lane does not pick either. What it does is tell the stuck-point what it costs: **both branches of a two-way fork fail LLR**, one at $4.5\times10^3\sigma$ and the other at $9.1\times10^3\sigma$. A fork whose two arms both miss by thousands of sigma is not a fork about which arm is right; it is evidence that the object being forked over — a single scalar clock with no spatial partner — is the wrong shape. Which is §7.
 
 ## §9 — Independent cross-check: direct geodesic integration
 
