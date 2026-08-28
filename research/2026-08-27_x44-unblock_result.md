@@ -332,3 +332,112 @@ no substrate route, and nothing in this document adopts it.
 | **1/7 (FROZEN)** | 0.285714 | `0.286110` | **`0.285714`** | 0.144708 | 0.046381 |
 | 2/7 | 0.571429 | `0.572199` | **`0.571429`** | 0.293017 | 0.090498 |
 | 1/2 (probe) | 1.000000 | `1.001296` | **`1.000000`** | 0.521932 | 0.152871 |
+
+---
+
+## §6 — ★ THE EXACT ALGEBRA — and a spurious factor in the frozen closed form
+
+The single most striking number in §5 is not `η_mixed`. It is the `c^D` column:
+**`0.285714` at every rung, at every resolution, at every installed `k`** — flat to six
+decimals across a 32× rest-energy span in which `⟨D⟩_w` moves by 7.3% and `χ` by 8.0%.
+
+That is not what the prereg predicted, and the difference is a **derivation defect in the
+frozen text**, not in the engine.
+
+### §6.1 — What the algebra actually gives
+
+For the frozen weight `w = 1/(1+kε₁₁)` there is an exact algebraic identity that the
+prereg does not use:
+
+```
+1 − w  =  kε/(1+kε)  =  k·ε·w                    …so
+Δ_clock ≡ Σ T₀₀(1−w) = k·Σ (T₀₀ w) ε  =  k · Σ T₀₀^src ε₁₁        … (★) EXACT
+```
+
+because `T₀₀^src ≡ T₀₀^matter·w` **is** the installed source. Feeding (★) into the
+prereg's own virial identity §4.2 — `Σ T₀₀^src ε₁₁ = Σ D|∇ε₁₁|²`, exact by adjointness,
+which §3.1 above asserted numerically for the first time:
+
+```
+Δ_clock =  k · Σ D|∇ε₁₁|²
+
+c    ≡ Δ_clock / U_bind    = Δ_clock / (½ g Σ|∇ε₁₁|²)   =  (2k/g)·⟨D⟩_w
+c^D  ≡ Δ_clock / U_bind^D  = Δ_clock / (½ g Σ D|∇ε₁₁|²) =  (2k/g)          ← EXACTLY
+```
+
+**`χ` does not appear in either.** `c^D = 2k/g_self` is a pure constant: independent of
+amplitude, of resolution, of `⟨D⟩_w`, of `χ`, and of the source profile.
+
+### §6.2 — Both steps verified numerically, as receipts
+
+| λ | `Δ_clock` | `k·Σ(T₀₀^src ε₁₁)` | rel dev | `c^D` | `2k/g` | rel dev |
+|---|---|---|---|---|---|---|
+| 0.25 | `0.00295887` | `0.00295887` | `6.22e-15` | `0.2857147` | `0.2857143` | `1.51e-06` |
+| 1.00 | `0.04638113` | `0.04638113` | `1.78e-15` | `0.2857142` | `0.2857143` | `2.85e-07` |
+| 4.00 | `0.67901225` | `0.67901225` | `4.44e-16` | `0.2857143` | `0.2857143` | `9.16e-08` |
+| 8.00 | `2.38417323` | `2.38417323` | `0.00e+00` | `0.2857143` | `0.2857143` | `6.04e-08` |
+
+(★) holds to machine zero. `c^D = 2k/g` holds to **exactly `V_resid`** — the rel dev
+column and the `V_resid` column of §5.2 are the same numbers, which is the receipt that
+the only thing separating `c^D` from `2/7` is the solver's virial residual.
+
+### §6.3 — Where the frozen text picked up the extra factor
+
+Prereg §4.2 states the virial identity **correctly**, with `T₀₀^src`:
+
+> *"(V) becomes `Σ T₀₀^src ε₁₁ = Σ D|∇ε₁₁|²`"*
+
+Prereg §4.3 then writes the closed form as `c = (2k/g_self)·⟨D⟩_w·χ`, and P9 as
+`c^D = (2k/g_self)·χ`. Those follow if the identity is substituted with
+`T₀₀^matter` in place of `T₀₀^src` — the two differ by exactly the factor
+`χ ≡ Σ T₀₀ε/(1+kε) / Σ T₀₀ε`, which is `Σ T₀₀^src ε / Σ T₀₀^matter ε`. **The slip is a
+single register swap between §4.2 and §4.3**, and `χ` is the artifact it leaves behind.
+
+`χ → 1` as amplitude → 0, so at the scoping lane's amplitudes the two forms are
+indistinguishable; across FAM-B's full span `χ` falls to `0.9200` and they part by 8%.
+
+### §6.4 — What that does to the selecting clauses (**for the record — NOT reached**)
+
+The run binned Z at step 1. Had it not, the selecting clauses would have evaluated as
+follows, and the reason each fails is the `χ` slip rather than the engine:
+
+| clause | edge | measured | | mechanism |
+|---|---|---|---|---|
+| **A1** `k_meas ∈ [0.142357, 0.143357]` at every rung | ±5e-4 about 1/7 | `0.143326 … 0.155284` | **fails** | `k_meas ≡ c·g/(2⟨D⟩_w·χ)` = **`k/χ`** identically. Verified: `k/χ` = `0.1447081` vs measured `0.1447081` at λ=1. The clause measures `1/(7χ)`, not `k`. |
+| **A2** `c` inside the §5.3 bracket at every rung | §5.3 table | in at **all 7** rungs | **holds** | the bracket was derived with the `χ` factor **and** the `⟨D⟩` factor as independent envelopes, so it is wide enough to contain the correct `c = (2k/g)⟨D⟩_w`. |
+| **A3** `\|c^D/((2k/g)·χ) − 1\| ≤ 1e-3` | 1e-3 | `3.28e-03 … 8.70e-02` | **fails** | `c^D/(2k/g) = 1` exactly, so the clause measures `\|1/χ − 1\|`, which is `1 − χ` to first order — i.e. it measures the spurious factor itself. |
+| **A4** `V_resid ≤ 1e-6` at every rung | 1e-6 | `1.51e-06` at λ=0.25 only | **fails** | the same small-amplitude precision effect as Y2. |
+
+With A1 failing and `k_meas(λ=1) = 0.144708` more than `0.01` from each of
+`{0, 2/7, 1/2}`, bin C would not have fired either, and the frozen ladder's terminal
+clause would have selected **bin D — WEIGHT FALSIFIED.**
+
+**That would have been the wrong verdict for the right procedure**, and saying so is the
+point of writing it down: a run that bins on a defective closed form falsifies the
+closed form, not the weight. The frozen ladder's own overriding gates caught the run
+before it got there, which is the design working — but they caught it via Z1, an
+unrelated defect, and that is luck rather than protection.
+
+**NOTHING IS RE-BINNED HERE.** The bin is Z. §6.4 exists so that a downstream lane
+inheriting this arc does not read "would have been D" out of a table and bank it.
+
+### §6.5 — The direction of the correction, stated so it cannot be mistaken for a rescue
+
+The corrected closed form makes the frozen weight look **better**, not worse: `c^D` is
+exactly `2k/g_self` with **zero** amplitude drift, where the prereg only hoped the drift
+would "vanish exactly" up to `χ`. **This is precisely the shape of finding that must be
+treated with suspicion**, because it is a correction that favours the thing under test,
+proposed by the lane testing it.
+
+Three reasons it is not fitting, offered so the reader can check rather than trust:
+
+1. **It is a derivation, not a fit.** (★) is two lines of algebra from the definition of
+   `w`, and it holds to machine zero (§6.2) for **every** installed `k` including the
+   forbidden `k = 1/2` (§5.4: `c^D` = `0.000000 / 0.285714 / 0.571429 / 1.000000`,
+   i.e. exactly `2k/g` in all four cases). A fit would not extend to a coefficient the
+   document forbids.
+2. **It does not move `η_mixed` at all.** `η_mixed` depends only on `c = Δ_clock/U_bind`,
+   which the correction leaves untouched — the correction concerns `k_meas` and `c^D`,
+   both diagnostics. `η_mixed` stays `+0.828031` and stays ~830× from reconciliation.
+3. **It does not change the bin.** Z1 fired at step 1 for an unrelated reason, and the
+   corrected algebra does not touch Z1.
