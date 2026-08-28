@@ -646,6 +646,64 @@ counts it as a **success**, not a failure.
 
 ## 10 · ★ FROZEN BINS — exact edges, fixed evaluation order
 
+### 10.1 · Frozen quantities and their exact definitions
+
+```
+w            = 1 / n_scalar = 1 / (1 + ε₁₁/7)          # THE FROZEN WEIGHT (§3)
+k            ≡ 1/7 = 0.1428571428…                     # installed clock coefficient
+g_self       ≡ 1.0                                     # FROZEN (operator-forced, §4.4)
+Δ_clock      ≡ Σ T₀₀^matter · (1 − w)
+U_bind       ≡ ½ g_self Σ |∇ε₁₁|²                      # shipped register
+U_bind^D     ≡ ½ g_self Σ D |∇ε₁₁|²                    # D-consistent register
+c            ≡ Δ_clock / U_bind                        # ★ THE ADJUDICATED QUANTITY
+c^D          ≡ Δ_clock / U_bind^D
+⟨D⟩_w        ≡ Σ D|∇ε₁₁|² / Σ|∇ε₁₁|²                   # measured from the field
+χ            ≡ Σ T₀₀ε₁₁/(1+kε₁₁) / Σ T₀₀ε₁₁            # measured from the field
+k_meas       ≡ c · g_self / (2 · ⟨D⟩_w · χ)            # → k if §4.3 is right
+V_resid      ≡ | Σ T₀₀^src ε₁₁ / Σ D|∇ε₁₁|² − 1 |      # virial-identity residual
+η_mixed      = slope per _nordtvedt.py:167-178          # REPORTED, NOT ADJUDICATED
+```
+
+### 10.2 · ★ EVALUATION ORDER — strictly sequential, first match wins, no appeal
+
+**Bins Z and Y are evaluated FIRST and are OVERRIDING. A run that enters Z or Y
+STOPS: it may not enter any selecting bin, and its `c`, `k_meas` and `η_mixed`
+are reported as UNINTERPRETABLE, not as evidence.**
+
+```
+STEP 1 → BIN Z (ARTIFACT)        — if any Z-clause fires, HALT. Report Z.
+STEP 2 → BIN Y (INCONCLUSIVE)    — if any Y-clause fires, HALT. Report Y.
+STEP 3 → BIN A                   — if all A-clauses hold, report A. STOP.
+STEP 4 → BIN B                   — if all B-clauses hold, report B. STOP.
+STEP 5 → BIN C                   — if any C-clause holds, report C. STOP.
+STEP 6 → BIN D                   — otherwise, report D.
+```
+
+### 10.3 · The bins, verbatim
+
+| bin | fires when (exact edges) | meaning |
+|---|---|---|
+| **Z — ARTIFACT** *(overriding, step 1)* | **ANY** of: **Z1** broadcast-degeneracy — recomputing `Δ_clock` with `w` replaced by its `T₀₀`-weighted scalar mean `w̄` changes it by **< 10%** (`\|Δ_clock^broadcast/Δ_clock − 1\| < 0.10`); **Z2** family degeneracy — FAM-A `max f / min f < 2.0`, **or** FAM-B `max λ / min λ < 8`; **Z3** discrimination failure — the four installed `k ∈ {0, 1/7, 2/7, 1/2}` do not give `c` values whose adjacent gaps each exceed **10×** the §5.3 bracket half-width at that rung; **Z4** field degeneracy — any slope-fit member has `U_bind/M < 1×10⁻³`; **Z5** phase-state breach — any member has `max A ≥ 0.99` (yield-pinned, outside the declared sub-yield state) | the null (or the pass) is a property of the configuration or the instrument, **not of the physics.** Nothing is banked. |
+| **Y — INCONCLUSIVE** *(overriding, step 2)* | **ANY** of: **Y1** any FAM-A or FAM-B member reports `converged = False`; **Y2** `V_resid > 1×10⁻⁶` on any member; **Y3** Gauss residual `\|m_g/Σ T₀₀^src − 1\| > 1×10⁻⁴`; **Y4** `c` drifts **> 1%** across `N ∈ {24, 32, 40}` at λ=1 | the run did not execute cleanly enough to read. Re-run, do not re-bin. |
+| **A — WEIGHT CONFIRMED, GAP STRUCTURAL** | **ALL** of: **A1** `k_meas ∈ [0.142357, 0.143357]` (`1/7 ± 5×10⁻⁴`) at **every** FAM-B rung; **A2** `c` inside the §5.3 pre-computed bracket at **every** FAM-B rung; **A3** `\|c^D / ((2k/g_self)·χ) − 1\| ≤ 1×10⁻³` at every rung *(the D-register prediction, P9)*; **A4** `V_resid ≤ 1×10⁻⁶` | the frozen weight behaves exactly as derived. **`η_mixed ≈ +0.83` is then a STRUCTURAL, parameter-free, amplitude-invariant register gap — not a weight defect and not closable by any substrate-derived weight.** Route §9.2's three readings to Grant. |
+| **B — WEIGHT CONFIRMED, RESIDUAL UNEXPLAINED** | **A1 and A2 hold**, but **A3 fails** at `> 1×10⁻³` and `≤ 1×10⁻¹` | the coefficient is right and the bracket holds, but the amplitude structure is **not** the binding register's missing `D`. §4.3's closed form is incomplete. Surface the residual; **do not adjust the weight.** |
+| **C — COEFFICIENT MISMATCH** | **A1 fails**, and `k_meas` at λ=1 lies within `±0.01` of one of `{0, 2/7, 1/2}` | the ledger requires a **named** coefficient that is not the derived one. **REPORT WHICH. DO NOT ADOPT IT** (§12). Route as a derivation conflict: canon's `1/7` projection vs whatever the ledger wants. |
+| **D — WEIGHT FALSIFIED** | none of the above | `k_meas` matches no named candidate, or the bracket fails with the drift unabsorbed by `⟨D⟩_w·χ`. The ponderomotive derivation (§3.2) is wrong **in the run's own terms** (§8 F1/F2/F3). |
+
+### 10.4 · Which clauses are ENTAILED — declared, so they cannot be banked as evidence
+
+**A1 is near-tautological** and is declared as such: `k_meas` inverts the closed form
+that the install itself satisfies, so it recovers what was installed unless the
+virial identity leaks. It is a **consistency clause**, not evidence for the weight.
+**A2 is partly independent** (its bracket uses no measured field quantity — only the
+accessible-band `ε₁₁` bounds). **A3 is the genuinely fireable clause**: nothing about
+the install forces the amplitude drift to be exactly `⟨D⟩_w`, and if the drift does
+not vanish under the operator's own variational register the closed form is wrong.
+**A4 can fail on boundary leakage, an unconverged fixed point, or the yield clip.**
+
+**Bin A is therefore banked on A3 + A4, with A1/A2 as consistency conditions.** No
+part of bin A is banked on `η_mixed`.
+
 ## 11 · ★ NON-TRIVIALITY / STRUCTURAL-NULL GATE
 
 ## 12 · ★ ANTI-FITTING GUARD — the k = 1/2 trap, declared in advance
