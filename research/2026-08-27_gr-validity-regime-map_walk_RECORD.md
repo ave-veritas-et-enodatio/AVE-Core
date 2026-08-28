@@ -432,7 +432,7 @@ Iron-K$\alpha$ inner edge."*
 
 **Consequence for how agreement should be read.** `[MEASURED-ELSEWHERE]` The
 sibling lane
-[`research/2026-08-27_ppn-tensor-derivation_result.md`](2026-08-27_ppn-tensor-derivation_result.md)
+`research/2026-08-27_ppn-tensor-derivation_result.md` (**not on this branch** — link deliberately omitted)
 on branch `research/2026-08-27-ppn-tensor-derivation` @ `50cb25c7` builds the
 per-step derived-vs-imported ledger for the solar-system chain (its §1.1 shared
 trunk, rows **T1 / T3 / T5 / T7**, each tagged `IMPORTED` at the site with its
