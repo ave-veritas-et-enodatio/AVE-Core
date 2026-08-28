@@ -666,3 +666,105 @@ total.** Specifically:
    reading that key under `source_mode="ponderomotive"` gets the *other* weight's deficit.
    The new `Delta_clock_src` key is the install-consistent one. This is a KEEP-BOTH
    footgun that I introduced and am naming rather than hiding.
+
+---
+
+## §13 — ★ DEVIATIONS FROM THE FROZEN PREREG — the full list
+
+The dispatch is explicit: *"if you changed anything not in the frozen prereg, that
+invalidates the run and you must say so rather than report a result."* Here is everything.
+
+### §13.1 — Frozen quantities: ZERO changed
+
+`w = 1/(1+ε₁₁/7)` · `k = 1/7` · `g_self = 1.0` · FAM-A `σ ∈ {1.4,1.8,2.2,2.6}` at
+`ΣT₀₀ = 4.0` · FAM-B `λ ∈ {0.25,0.5,1,2,4,6,8}` at `σ = 1.8` · `N ∈ {24,32,40}` ·
+`S_min = 1e-3` · `k`-probe `{0, 1/7, 2/7, 1/2}` · every bin edge in §10.3 · every §5.3
+bracket. **All as frozen.** The §5.3 brackets were **copied verbatim** into the driver
+rather than recomputed from this run's own field — a bracket regenerated from the data it
+judges would be self-referential.
+
+### §13.2 — What was ADDED (all of it prereg deliverables or their mechanics)
+
+1. **The engine leg** — `source_mode="ponderomotive"` + `ponderomotive_weight()` +
+   `PONDEROMOTIVE_K` in `backreaction.py`. This is deliverable §15.3's *"Engine leg: the
+   frozen weight behind an explicit mode, legacy modes retained (KEEP-BOTH)"*, which the
+   prereg records as **not existing at freeze time**. `komar` / `add_field` / `matter` are
+   bit-identical: `k_clock` is read by the new branch only.
+2. **`k_clock` pass-through** on `_nordtvedt.solve_config` — mechanically required by P8.
+   Default preserves every existing call.
+3. **`Delta_clock_src`** return key — the deficit of the weight actually installed. The
+   pre-existing `Delta_clock` key is **unchanged** and still reports the `√S` reading
+   unconditionally, for X44 regression continuity. **The driver does not read either key**;
+   it forms `Δ_clock` itself from `T₀₀^matter` and the installed `w`, per §10.1.
+4. **The driver** `research/drivers/x44_unblock_run.py` — deliverable §15.3.
+
+### §13.3 — ⚠ ONE DEFECT IN MY OWN INSTRUMENT, disclosed with its effect on the verdict
+
+**The first full execution of the driver reported `BIN Z — clause(s) Z1, Z6 fired`.** Z6
+fired on a bug I wrote: my structural stencil scan greped the driver's **own source text**
+for the Cartesian-gradient token, and matched the token sitting inside Z6's own gate
+description. That is the self-referential probe class, and it was removed rather than
+worked around: Z6 is now (a) behavioural — my `|∇ε₁₁|²` must be bit-identical to the
+engine's `field_energy_density`, measured deviation exactly `0.0` — and (b) structural,
+with the search token assembled at runtime so the scanner cannot match itself.
+
+**Effect on the verdict: none.** `Z1` fired in both executions at the identical value
+(`6.306066779870889×10⁻¹⁴`), and Z1 alone selects bin Z. Every other number in this
+document is from the corrected run. The bug is disclosed because a reader auditing the
+commit history will see the first run's output in the transcript, and because "my repair
+rounds introduce defects my own checks miss" is a measured property of my work, not a
+hypothetical.
+
+### §13.4 — Gate §15.1 execution status, item by item
+
+| # | gate | status |
+|---|---|---|
+| 1 | adjointness `‖Div − Gradᵀ‖ = 0` | **RUN — PASS**, structurally zero at N ∈ {24,32,40} (§3.1) |
+| 2 | Z-gate suite Z1…Z6 before any selecting bin | **RUN** (§3.2); Z1 fired |
+| 3 | Y-gate suite | **RUN** (§3.3); Y2 fired |
+| 4 | four-coefficient discrimination sweep | **RUN** (§5.4) |
+| 5 | FAM-B ladder at N=24; FAM-A for `η_mixed` | **RUN** (§5.1, §5.2) |
+| 6 | resolution receipt N ∈ {24,32,40} at λ=1 | **RUN — PASS** (§5.3) |
+| 7 | the P10 enumeration, completeness rule applied | **PARTIAL** — structural leg complete and two-method; numerical leg ran 5 of the 7 candidates, **2 of the prereg's own 5 not run** (§7.3). **This is the one gate not fully executed.** |
+| 8 | `#86` suite + `engine_acceptance` GREEN; `make verify` PASS; `mass = A1` untouched | **RUN — PASS**: 33 passed, `make verify` exit 0, no mass-sector file touched (§12.1) |
+
+### §13.5 — Does the §13.3 defect or the §13.4 gap invalidate the run?
+
+**No — and the reason is that neither touches the clause that selected the bin.** Bin Z
+was selected by Z1, whose value is an algebraic identity (§4.1) reproduced identically
+before and after the instrument fix, and confirmed independently on the shipped control.
+**But the run is UNINTERPRETABLE regardless**, because bin Z *means* uninterpretable. So
+the honest summary is: the run executed cleanly enough to establish that it cannot be
+read, and the reason it cannot be read is a defect in the frozen gate rather than in the
+engine or the configuration.
+
+---
+
+## §14 — What this unblocks, and what it does not
+
+**X44 is no longer unowned or unexecuted.** The named completion path was built, the
+weight was installed, the control was reproduced, every gate was run, and the arc now has
+a bin — `Z`, with its reason located to a single line of the frozen text.
+
+**What is now known that was not:**
+
+- The glyph collision is **live in operative code** and worth `0.22` in `η_mixed`. The
+  linear and quadratic weights are different functions of one variable and the engine can
+  now run either.
+- `Div = Gradᵀ` **exactly** — the freeze lane's blind spot 4 is closed.
+- `c` is **not** an N=24 artifact — the scoping lane's own flagged blind spot is closed
+  (drift `2.6×10⁻⁴` across N ∈ {24,32,40}).
+- `Δ_clock = k·Σ T₀₀^src ε₁₁` **exactly**, hence `c^D = 2k/g_self` **exactly** — a
+  parameter-free, amplitude-invariant, resolution-invariant identity that the frozen text
+  approximated and mis-stated.
+- The engine's far-field observables **all** collapse onto the installed source
+  (`≤ 1.9×10⁻⁴`), consistent with P10 and with the prereg's §9.3 expectation that
+  **the engine as built cannot falsify a clock weight** — the question needs the
+  force-balanced source with its own stress register, which is still unbuilt at HEAD.
+
+**What is NOT known, and is not claimed:** whether `w = 1/n_scalar` is the right weight.
+The run that would answer it needs two corrections to the frozen text (F-1, F-2) in a new
+dated prereg, and neither correction is this lane's to make.
+
+**Two decisions are Grant's, not this lane's:** F-3 (the ruling's code attribution) and
+F-4 (the 2026-08-11 proposal's direction). Both were re-flagged and neither was touched.
