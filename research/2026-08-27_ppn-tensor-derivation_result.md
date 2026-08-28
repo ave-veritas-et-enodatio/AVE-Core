@@ -568,7 +568,55 @@ Search patterns run across `manuscript/`, `research/`, `_orchestration/`, `src/`
 
 ## §11 — Cite verification ledger
 
-<!-- SECTION: cites -->
+**Provenance honesty.** The reconciliation that commissioned this document did **not** re-verify its four source lanes' `file:line` citations. Every cite carried forward was therefore re-opened on this branch at `a3f4fef7`. This table is the receipt.
+
+### §11.1 — Verified on this branch (opened, read, content matches the cited line)
+
+| # | cite | what it carries |
+|---|---|---|
+| C1 | `manuscript/ave-kb/vol3/gravity/ch03-macroscopic-relativity/gordon-optical-metric.md`:12, :17, :20, :25, :33 | Gordon-as-historical-import; the metric form; *"1D principal radial polarisation strain"*; the scalar Poisson equation; $\varepsilon_{11}=7GM/c^2r$ |
+| C2 | `manuscript/common_equations/eq_axiom_5.tex`:45, :73, :75, :76, :127-135, :145-149 | THE BIAS naming; bound-sector potential; $\mathbf u_0=-\mathcal A_g\nabla\varepsilon_{11}$; clause-G elliptic law with $\kappa=c^4/7G$; POSTULATED grade + *"kappa = c^4/7G and nu = 2/7 stay GR-imported"*; the non-circularity observation |
+| C3 | `manuscript/ave-kb/common/operators.md`:59 | Op19 $n(r)=1+\nu_{vac}\varepsilon_{11}$, status **CANONICAL**, $\nu_{vac}=2/7$ |
+| C4 | `manuscript/ave-kb/vol3/gravity/ch03-macroscopic-relativity/ponderomotive-equivalence.md`:14, :19 | $n_{scalar}(r)=1+\epsilon_{11}/7=1+GM/c^2r$ via *"the $1/7$ Lagrangian isotropic projection"*; $U_{wave}=m_ic^2/n_{scalar}$ |
+| C5 | `manuscript/ave-kb/vol3/gravity/ch01-gravity-yield/one-seventh-impedance-projection.md`:13, :18 | $\frac13\theta=\frac13(\frac37\epsilon_{11})\equiv\frac17\epsilon_{11}$; the GR-imported provenance note |
+| C6 | `manuscript/ave-kb/vol3/gravity/ch01-gravity-yield/vacuum-poisson-ratio.md`:13 | $\nu_{vac}=\frac{3K-2G}{2(3K+G)}=\frac{4}{14}=\frac27$ |
+| C7 | `7 = 2/\nu_{vac}` at **five line-hits across four files**: `manuscript/ave-kb/vol3/claim-quality.md`:1131 · `…/vol3/gravity/ch03-macroscopic-relativity/dielectric-rupture-event-horizon.md`:34 · `…/vol3/cosmology/ch15-black-hole-orbitals/lattice-extreme-bh-rationality.md`:99 · `…/vol3/cosmology/ch15-black-hole-orbitals/ave-bh-horizon-area-theorem.md`:20 and :35 | the $7$ is $\nu_{vac}$ inverted and doubled, not an independent constant. *(Found by pattern search; §10.4 blind spots apply — this is five hits my patterns reached, not a census.)* |
+| C8 | `manuscript/ave-kb/vol3/claim-quality.md`:1141, :1143-1146, :1149, :1158, :1160 | clm-zf8eah body, the *"asserted by **mechanical analogy**"* non-claim, the identical rationale sentence, and the strengthen-by that names the missing derivation |
+| C9 | `manuscript/ave-kb/vol3/gravity/ch02-general-relativity/double-deflection.md`:22, :24, :28, :39, :42, :44-46 | the two indices over $\chi_{vol}$; the *"isotropic spherical bulk tensor $\frac13\theta\delta_{ij}$"* sentence; $\chi_{vol}=7GM/c^2r$; Soldner/Einstein values |
+| C10 | `manuscript/vol_3_macroscopic/chapters/02_general_relativity_and_gravity.tex`:183-206 | the manuscript twin of C9 — **confirms the 2026-06-05 audit's S2 cite `:185-206` resolves correctly** |
+| C11 | `manuscript/ave-kb/vol3/cosmology/ch14-orbital-mechanics/anomalous-perihelion-advance.md`:10, :20, :44 | the two identical closure paragraphs and *"the identical result obtained by General Relativity"* |
+| C12 | `manuscript/vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex`:23, :70-72, :81 | regime-table row; the provenance warningbox asserting $\beta=\gamma=1$; the $43''$ paragraph |
+| C13 | `research/2026-05-17_hulse-taylor-substrate-native-derivation-sketch.md`:7, :33, :49, :73, :80, :93, :99 | `Status: SKETCHED, not rigorous`; the ponderomotive Lagrangian; annotation #1 (factor 1 vs 3); the coefficient-1 observation; annotation #2 (the deferred computation) |
+| C14 | `research/2026-05-17_hulse-taylor-substrate-native-derivation-result.md`:143, :145, :151 | the **Outcome C** finding: recovery *"structurally limited to OPTICS"*, mechanics *"asserted-via-borrowing, not derived"* |
+| C15 | `research/2026-08-11_gravity-linearity-audit_result.md`:432, :504-507, :566 | R13's $-3\varepsilon_{11}^2/98$; the four-clock table incl. the site-15 ponderomotive row; the MODULUS-vs-BIAS-POINT question |
+| C16 | `research/2026-06-05_gravity-ppn-coherence-result.md`:16, :18-35, :41, :69, :151 | *"touches **four** … statements"* + the S1–S4 list; the $\delta=2K\,GM/bc^2$ kernel; *"No canonical AVE statement derives β"*; the kernel-normalization caveat |
+| C17 | `src/scripts/verify/gravity_ppn_coherence.py`:142, :145-200, :349, :351, :367 | $F=(2-\beta+2\gamma)/3$; the *"two refractive indices"* docstring; the `beta=1` comment and the two `sp.Integer(1)` pins |
+| C18 | `manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/geo-synchronous-impedance.md`:20 | canon's own statement of the $7\times\frac27$ cancellation |
+| C19 | `manuscript/common_equations/eq_gravity_derived.tex`:20, :26, :50-56, :72-77 | $G=\hbar c/7\xi m_e^2$; $n(r)=1+2GM/rc^2$; the $(2/7,9/7)$ decomposition; the W1 walk-back comment |
+| C20 | `manuscript/ave-kb/vol3/gravity/ch01-gravity-yield/temporal-spatial-lattice-decomposition.md`:14, :19, :26 | *"The principal radial strain"*; $n_{spatial}$; the W1 walk-back |
+| C21 | `manuscript/ave-kb/vol3/gravity/ch03-macroscopic-relativity/transverse-refractive-index.md`:14, :16, :23 | principal radial tensile strain; $h_\perp=-\nu_{vac}\epsilon_{11}$ |
+| C22 | `manuscript/ave-kb/vol3/gravity/ch01-gravity-yield/gravitational-coupling-constant.md`:10 | the $G$-ruling: form-derived, value calibrated; *"the $1/7$ trace-reversed bulk projection"* |
+| C23 | `manuscript/consistency-manifest.yaml`:649-663 | P10 `type: consistency_check`, `error_percent: 0.03`, and the note naming the $1/7$ matter coupling |
+| C24 | `manuscript/ave-kb/vol3/claim-quality.md`:287-310 | clm-qyn8t0: *"identical to GR"*, and the rationale claiming the `"3"` recovered exactly |
+| C25 | `manuscript/ave-kb/claim-quality-closure-roadmap.md`:205 | the Foundation-Item-5 changelog entry |
+| C26 | `manuscript/ave-kb/vol3/cosmology/ch14-orbital-mechanics/orbital-regime-table.md`:16 | *"Exact match with GR"* |
+| C27 | `LIVING_REFERENCE.md`:162 · `manuscript/ave-kb/vol3/claim-quality.md`:48 | the $11/7$ *"full lattice density"* |
+| C28 | `manuscript/ave-kb/common/full-derivation-chain.md`:370 | $\sqrt{3/7}=\sqrt{1-2\nu_{vac}}$, the dilatational signature — corroborates $\theta=\frac37\varepsilon_{11}$ |
+| C29 | `src/ave/core/constants.py`:132 · `src/ave/gravity/solar_impedance.py`:68 | `M_SUN = 1.989e30`; `R_SUN = 6.957e8` |
+| C30 | `research/2026-07-20_q1-pulsar-hardening.md`:84 | *"The corpus already claims GR-consistency for periastron advance (the ponderomotive `n_scalar` derivation, structurally identical to GR)"* |
+
+### §11.2 — ⚠ Cites and numbers I could NOT confirm
+
+| # | item | status |
+|---|---|---|
+| **U1** | **Cassini $\gamma-1 = (2.1\pm2.3)\times10^{-5}$** | **NOT IN TREE as a PPN bound.** Searched `bertotti`, `tortora`, `iess`, `cassini` (excluding the ring-division and flyby uses): the only Bertotti–Iess–Tortora reference is `research/2026-07-20_scalar-gw-bulk-channel_derivation.md`:115, and it cites Cassini for the **Brans-Dicke $\omega_{BD}>4\times10^4$** bound, not for $\gamma$. Carried from the commissioning reconciliation. **Not re-fetched by this lane.** |
+| **U2** | **LLR $\lvert\beta-1\rvert\lesssim1.1\times10^{-4}$** | **NOT IN TREE.** `lunar laser` returns one hit, `…-derivation-result.md`:143, which names LLR as a *test class*, not a bound. Carried from the commissioning reconciliation. **Not re-fetched.** |
+| **U3** | **Mercury residual $42.98\pm0.04$ arcsec/century** | the $42.98$ appears in-tree at `research/2026-06-05_gravity-ppn-coherence-result.md`:67; **the $\pm0.04$ uncertainty does not.** Carried. The $895\sigma$ therefore inherits an unverified error bar — the *ratio* $6\times$ does not. |
+| **U4** | **Hulse-Taylor $\dot\omega = 4.226595(5)^\circ$/yr** | in-tree at `…-sketch.md`:140 and :169; the external primary source was **not re-fetched**. |
+| **U5** | **the handed-down $1.7516''$** | **could not be reproduced from any in-tree constant set.** Nearest is $1.751640''$ at $M_\odot=1.98892\times10^{30}$; in-tree `M_SUN` gives $1.751710''$ and IAU $GM_\odot$ gives $1.751190''$. This document quotes $\mathbf{1.7517''}$ and shows the spread (§6.3) rather than adopting a figure it cannot source. |
+| **U6** | **the handed-down $7.163''$/century** | reproduces at $7.1634''$ **only** with IAU nominal $GM_\odot$; the in-tree `M_SUN`/`G` pair gives $7.1656''$. Both are reported in §6.3. |
+| **U7** | `research/2026-07-20_q1-pulsar-hardening.md`:84 cites `claim-quality-closure-roadmap.md`**:204** | **stale by one line.** `:204` is blank at HEAD; the Foundation-Item-5 content it points at is `:205`. Pure line-drift, content correct at the real site. Recorded, not fixed. |
+| **U8** | *"at least four canonical sites"* claiming coefficient-1 closure | I found the claim at **more than four** places and enumerate what I found in the routed open item. I do not know whether that enumeration is complete; §10.4 states why. |
 
 ## §12 — Flags surfaced (NOT fixed by this lane)
 
