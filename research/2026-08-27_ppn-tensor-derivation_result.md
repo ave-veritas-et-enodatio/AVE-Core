@@ -107,7 +107,56 @@ gives $g_{00} = -1/n^2$ and $g_{ij} = \delta_{ij}$ **exactly**, for any $n$ and 
 
 ## §2 — Two metrics, two gammas: the derivation chain
 
-<!-- SECTION: chain -->
+### §2.1 — One strain field, two indices — canon's own words
+
+`manuscript/ave-kb/vol3/gravity/ch02-general-relativity/double-deflection.md`:39 states the split as a *feature*:
+
+$$\frac{\delta_{\text{light}}}{\delta_{\text{matter}}} = \frac{n_{\perp}-1}{n_{\text{scalar}}-1} = \frac{2/7}{1/7} = 2$$
+
+and `:44` names the matter value explicitly: $\delta_{\text{matter}} = 2GM/(bc^2)$, **"(Newton / Soldner 1801)"**. That is the *pre-relativistic* value. The matter sector's disagreement with GR is therefore not hidden anywhere — **it is the headline of canon's flagship gravity derivation**, stated as the thing that makes the framework interesting. What was never done is carry it into the orbital sector, where "matter gets the Newtonian coefficient" stops being a charming reframing of 1801 and starts being $895\sigma$ on Mercury.
+
+### §2.2 — Feed each index through canon's own metric
+
+Gordon (T7/T8), with $u_\mu$ the static observer:
+
+$$g_{\mu\nu} = \eta_{\mu\nu} + \left(1 - \tfrac{1}{n^2}\right)u_\mu u_\nu
+\;\Longrightarrow\;
+g_{00} = -\frac{1}{n^2},\qquad g_{ij} = \delta_{ij}.$$
+
+Verified symbolically — the full matrix comes back `[[-1/n**2,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]]`. **The spatial block is the identity, exactly, with no $n$ in it.** Against the isotropic PPN form $g_{ij} = (1+2\gamma U)\delta_{ij}$ that is $\gamma = 0$, and it is $\gamma = 0$ for *every* index the framework might assign — $n_\perp$, $n_{scalar}$, $n_{temporal}$, $n_{spatial}$, all of them.
+
+For the matter index $n_{scalar} = 1 + U$:
+
+$$-g_{00} = \frac{1}{(1+U)^2} = 1 - 2U + 3U^2 + O(U^3)$$
+
+against $-g_{00} = 1 - 2U + 2\beta U^2$, giving $2\beta = 3$, i.e.
+
+$$\boxed{\;\gamma = 0,\qquad \beta = \tfrac32,\qquad F = \frac{2-\beta+2\gamma}{3} = \frac{1}{6}\;}$$
+
+**Both are structural, not numerical.** $\gamma = 0$ survives any coefficient because the spatial metric is flat. $\beta = 3/2$ survives any coefficient because $(1+cU)^{-2}$ has the same $W^2/W$ ratio for every $c$ once $W \equiv cU$ is the effective potential. There is no knob in the $/7$ family that reaches either one.
+
+### §2.3 — The perihelion factor, and where it is already in the tree
+
+The PPN advance per orbit is $\Delta\phi = F\cdot 6\pi GM/(c^2a(1-e^2))$ with $F = (2-\beta+2\gamma)/3$. That function is **already shipped in the repository**, at `src/scripts/verify/gravity_ppn_coherence.py`:142 —
+
+```python
+    return sp.simplify((2 - beta + 2 * gamma) / 3)
+```
+
+— and the 2026-06-05 audit fed it $\gamma$ from the two *photon-candidate* indices while pinning $\beta = 1$ by hand. Feeding it the matter sector's own $(\gamma,\beta) = (0, 3/2)$ is a one-line change to an existing, merged instrument, and it returns $1/6$.
+
+### §2.4 — Why "$1/6$" and not "some correction"
+
+$1/6$ is not a perturbation. Written out:
+
+| contribution to $F$ | GR | AVE matter sector |
+|---|---|---|
+| $2/3$ (the Newtonian-limit piece) | $0.667$ | $0.667$ |
+| $-\beta/3$ | $-0.333$ | $-0.500$ |
+| $+2\gamma/3$ | $+0.667$ | $0.000$ |
+| **total $F$** | **$1.000$** | **$0.167$** |
+
+**Five sixths of GR's perihelion advance is the $\gamma$ term.** A theory with $\gamma = 0$ does not get a slightly-wrong perihelion; it loses the dominant contribution and then over-subtracts on $\beta$. The two errors do not cancel — they compound, $-0.500$ instead of $-0.333$ on top of $0$ instead of $+0.667$.
 
 ## §3 — Why the tensor repair failed
 
