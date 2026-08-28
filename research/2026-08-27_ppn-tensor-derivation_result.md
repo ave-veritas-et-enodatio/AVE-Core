@@ -223,7 +223,60 @@ This is surfaced, **not resolved** — the resolution is Grant's and is routed a
 
 ## §4 — `eps_11` is four objects across canon
 
-<!-- SECTION: four-objects -->
+The symbol $\varepsilon_{11}$ (also written $\epsilon_{11}$, and aliased $\chi_{vol}$) carries **four mutually inconsistent ontologies** across canon at HEAD. All four are simultaneously live; each is load-bearing for something. The sites below are the ones **this lane opened and read**; the method and its blind spots are §10.
+
+### Object A — a principal *component* of a rank-2 strain tensor
+
+| site | verbatim |
+|---|---|
+| `manuscript/ave-kb/vol3/gravity/ch03-macroscopic-relativity/gordon-optical-metric.md`:20 | *"the localised **1D principal radial polarisation strain** ($\epsilon_{11}$) field generates the $1/r$ Newtonian potential"* |
+| `manuscript/ave-kb/vol3/gravity/ch03-macroscopic-relativity/transverse-refractive-index.md`:14 | *"it exerts a radial pull, acting as the continuous source of the principal radial tensile strain ($\epsilon_{11} > 0$)"* |
+| `manuscript/ave-kb/vol3/gravity/ch01-gravity-yield/temporal-spatial-lattice-decomposition.md`:14 | *"The principal radial strain $\varepsilon_{11} = 7GM/(c^2 r)$ compresses the lattice asymmetrically."* |
+| `manuscript/common_equations/eq_gravity_derived.tex`:50 | *"The principal radial strain $\varepsilon_{11} = 7GM/(c^2 r)$ compresses the lattice asymmetrically."* |
+
+Under Object A the Poisson contraction is legitimate: `transverse-refractive-index.md`:16 uses $h_\perp = -\nu_{vac}\cdot\epsilon_{11}$, which is exactly the uniaxial-strain relation, and it needs $\varepsilon_{11}$ to be $\varepsilon_{rr}$.
+
+### Object B — a *volumetric trace*
+
+| site | verbatim |
+|---|---|
+| `manuscript/ave-kb/vol3/gravity/ch02-general-relativity/double-deflection.md`:22 | $n_{\text{scalar}}(\mathbf{r}) = 1 + \tfrac{1}{7}\chi_{vol}(\mathbf{r})$ |
+| `…double-deflection.md`:28 | $n_{\perp}(\mathbf{r}) = 1 + \nu_{vac}\,\chi_{vol}(\mathbf{r}) = 1 + \tfrac{2}{7}\chi_{vol}(\mathbf{r})$ |
+| `…double-deflection.md`:42 | *"With $\chi_{vol}(r) = 7GM/(c^2 r)$"* |
+| `manuscript/ave-kb/vol3/claim-quality.md`:1141 | *"with $\chi_{vol} = 7GM/(c^2 r)$"* |
+
+**Objects A and B are set numerically equal** ($\chi_{vol} = \varepsilon_{11} = 7GM/c^2r$) while being named differently — and canon's own trace formula says they cannot be equal. `one-seventh-impedance-projection.md`:13:
+
+$$\text{Isotropic Projection} = \frac{1}{3}\theta = \frac{1}{3}\left(\frac{3}{7}\epsilon_{11}\right) \equiv \frac{1}{7}\epsilon_{11}$$
+
+i.e. **$\theta = \frac{3}{7}\varepsilon_{11}$**. If $\chi_{vol}$ is the volumetric trace $\theta$, then $\chi_{vol} = \frac37\varepsilon_{11}$, and every coupling written against $\chi_{vol}$ is off by $3/7$ from the same coupling written against $\varepsilon_{11}$. Canon writes both spellings and equates the numbers.
+
+> **The discrepancy is exactly $3/7$**, i.e. $\approx 0.4286$. It is not a small print issue; it is a factor of $2.33$.
+
+`double-deflection.md`:24 makes the collision explicit in one sentence: *"This is the projection a 1D uniaxial stress makes onto the isotropic spherical bulk tensor $\tfrac{1}{3}\theta\delta_{ij}$"* — the argument is being **called** volumetric while being **used** as the 1D uniaxial component.
+
+### Object C — a scalar field solving a scalar Poisson equation
+
+| site | verbatim |
+|---|---|
+| `gordon-optical-metric.md`:25 | $-\left(\frac{c^{4}}{7G}\right)\nabla^{2}\epsilon_{11}(r) = 4\pi Mc^{2}\delta^{3}(r)$ |
+| `manuscript/common_equations/eq_axiom_5.tex`:76 | $-\nabla\cdot\!\left[\kappa\, D(A)\,\nabla\varepsilon_{11}\right] = 4\pi\,T_{00},\quad \kappa = \frac{c^4}{7G}$ |
+
+A single scalar obeying a single scalar elliptic equation. It has **one degree of freedom**, and §5 is the consequence.
+
+### Object D — a *potential*, explicitly NOT mechanical strain
+
+| site | verbatim |
+|---|---|
+| `eq_axiom_5.tex`:45 | `eps_11's canonical name is THE BIAS. "grade" demotes to informal use.` |
+| `eq_axiom_5.tex`:73 | *"The operating-point **bias** $\varepsilon_{11}$ is the bound sector's potential, and the **bound response** $\mathbf{u}_0$ is its gradient"* |
+| `eq_axiom_5.tex`:146-147 | `Clause G is non-circular only if the bias eps_11 is a` / `DISTINCT object from mechanical strain (grad u).` |
+
+Object D is the **newest** ruling in the set (R55, 2026-08-24) and it is the one that breaks the others: if $\varepsilon_{11}$ is a potential whose *gradient* is the displacement, then $\varepsilon_{11}$ has the dimensions and the role of $\phi$, not of $\partial u/\partial x$ — and every Poisson-ratio contraction applied to it (Op19, the $1/7$ projection, $h_\perp = -\nu\epsilon_{11}$) is applying a strain-to-strain relation to a non-strain.
+
+### What this does to the PPN result
+
+**Nothing.** $\gamma = 0$ follows from the Gordon metric's *form*, and $\beta = 3/2$ from the clock's *form*; both are blind to which object $\varepsilon_{11}$ is and to the coefficient in front of it (§1.4). The four-objects question does not rescue the matter sector — it is a separate, and separately serious, coherence defect that this lane surfaced while working the PPN chain. It is routed at `_orchestration/open-items/2026-08-27-eps11-four-objects.md` and **not adjudicated here**.
 
 ## §5 — The /7 family is five contractions of one rank-2 tensor
 
