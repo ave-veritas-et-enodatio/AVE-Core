@@ -435,6 +435,37 @@ first time in the corpus my method reached.
 
 ## §6 — The GR-domain numbers: what I could source and what I could not
 
+The dispatch said to verify these myself and mark any I could not source.
+**External retrieval was NOT performed** — this program routes prior-art
+retrieval through a gated pipeline, and self-fetching would bypass that gate.
+So every external figure below is either **arithmetic I ran**, **second-hand
+from a sibling lane that itself declined to re-fetch**, or **marked unsourced
+and routed**.
+
+| walk figure | status | basis |
+|---|---|---|
+| solar system `U = GM/rc² ~ 10⁻⁶ … 10⁻⁸` | **`[ARITH]` CONFIRMED** | `U(R_⊙) = 2.123×10⁻⁶`, `U(1 AU) = 9.874×10⁻⁹`, `U(Mercury a) = 2.551×10⁻⁸`. Inputs `G`, `c`, `M_SUN` from `src/ave/core/constants.py`:110,:132; `R_⊙ = 6.957×10⁸ m` IAU nominal, the same value `domain-catalog.md`:55 uses |
+| binary pulsars `~10⁻⁶` | **`[ARITH]` on UNRETRIEVED inputs** | `2.14×10⁻⁶` for `M_tot = 2.828 M_⊙`, `a = 1.950×10⁹ m` (PSR B1913+16). **The orbital elements are carried from discipline knowledge and were NOT retrieved this lane.** The arithmetic is mine; the inputs are not receipted |
+| LIGO merger peak `U ~ 0.1–0.3` | **`[ARITH]` GEOMETRIC, conditional** | `U = 1/2` at `r = r_s`, `1/4` at `2 r_s`, `1/6` at `3 r_s`. The band `0.1–0.3` is separations `≈1.7–5 r_s`. **That mergers peak in that separation band is discipline knowledge, not retrieved** |
+| LIGO **"~10% waveform precision"** | ★ **`[EXTERNAL]` UNSOURCED** | **I could not source this and did not retrieve it.** Routed to the gated external-retrieval pipeline as audit item **A4**. Nothing in this record depends on it |
+| "GR's `10⁻⁵`-precision domain" | **`[EXTERNAL]` SECOND-HAND** | Cassini `γ − 1 = (2.1 ± 2.3)×10⁻⁵` appears at `research/2026-08-27_ppn-tensor-derivation_result.md` §1.2 row L7 (branch `research/2026-08-27-ppn-tensor-derivation` @ `50cb25c7`), where it is itself tagged `IMPORTED` with the site's own note *"Not re-fetched by this lane"*. LLR `β = 1 ± 1.1×10⁻⁴` from the same doc's §0 table. **Second-hand at two removes; treat as tentative-standing** |
+| "nothing measured inside a horizon" | **DEFINITIONAL** | no causal signal reaches an exterior observer from inside; not an empirical claim requiring a source |
+
+**GR-test precision figures inside the KB.** My search (tokens `Cassini`,
+`Lunar Laser`, `LLR`, `Bertotti` over `manuscript/ave-kb`) returned figures of
+this class at **one** KB site:
+[`translation-circuit.md`](../manuscript/ave-kb/common/translation-tables/translation-circuit.md):156
+— *"WEP-CMRR `~10⁻¹⁵` (Eötvös / MICROSCOPE), SEP-CMRR `~10⁻⁴` (LLR-Nordtvedt,
+finite)"*. `[CANON]` **That is a statement about my search, not about the
+corpus**: a leaf stating a precision without any of those four tokens would not
+be returned. §9.
+
+**Net for the walk's item 1.** The claim *"GR's `10⁻⁵`-precision domain IS the
+linear regime"* is **supportable on the substrate side and second-hand on the
+GR side**. The substrate half is §1 + DELTA-1 and is receipted. The GR half
+rides two unreceipted externals and one unsourced figure. **Do not headline item
+1 until A4 closes.**
+
 ## §7 — ★ AUDIT CHARTER (attack instructions + kill conditions)
 
 ## §8 — What this record does NOT do
