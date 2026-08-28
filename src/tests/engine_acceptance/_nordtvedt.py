@@ -37,6 +37,7 @@ from ave.core.categorization import (
     require_ledger_pairing,
 )
 from ave.gravity.backreaction import (
+    PONDEROMOTIVE_K,
     _fit_inverse_power_model,
     field_energy_density,
     gaussian_blob,
@@ -100,9 +101,14 @@ def solve_config(
     g_self: float,
     s_min: float,
     source_mode: str = "komar",
+    k_clock: float = PONDEROMOTIVE_K,
 ) -> dict:
     """Run the landed two-way back-reaction solve for one configuration (verbatim
-    public entry point). Default source_mode is the X44 ruled Komar weight."""
+    public entry point). Default source_mode is the X44 ruled Komar weight.
+
+    ``k_clock`` is a pass-through read ONLY by ``source_mode="ponderomotive"``
+    (X44-unblock); every other mode ignores it, so the default call is unchanged.
+    """
     return solve_backreaction(
         N=N,
         T00_matter=T00_matter,
@@ -110,6 +116,7 @@ def solve_config(
         S_min=s_min,
         return_fields=True,
         source_mode=source_mode,
+        k_clock=k_clock,
     )
 
 
