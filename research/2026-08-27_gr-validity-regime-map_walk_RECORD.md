@@ -490,6 +490,88 @@ rides two unreceipted externals and one unsourced figure. **Do not headline item
 
 ## §7 — ★ AUDIT CHARTER (attack instructions + kill conditions)
 
+Nothing in §4 or §5 reaches a prereg, a leaf, or a solidity move before this
+runs. Every item carries **what would kill it**.
+
+| # | claim | class | how to attack it | ★ KILL CONDITION |
+|---|---|---|---|---|
+| **A1** | DELTA-1's boundary radii (`28.97 / 4.042 / 3.500 r_s`) are correct arithmetic **and** are not written at any canon site | `[ARITH]` + COMPLETENESS | re-run the arithmetic independently. Then search for the radii by a **different method than §9's** — e.g. read `ch7-regime-map/` and `vol3/gravity/ch01-gravity-yield/` end to end rather than grepping | **KILLED (novelty)** if any site states the I→II or II→III boundary as a radius. **KILLED (arithmetic)** if `7/√(2α) ≠ 57.94 GM/c²`. The two kills are separate; report which |
+| **A2** | The nonlinearity-**location** contrast (GR: field equation / AVE: constitutive law) is real and not in canon | `[WALK]` FRAMING | sweep for it. Then attack it **adversarially**: analogue-gravity recasts GR's nonlinearity as an effective medium and Gordon's own metric is that move — so is the "location" a structural fact or a choice of formulation? Apply the **consensus-bias symmetric standard** | **KILLED** if the contrast is formulation-dependent, i.e. if one can exhibit the same physics written either way. A framing that survives only in one gauge is not a structural statement |
+| **A3** | DELTA-2: four gravity control parameters, one boundary, and **no reconciling sentence** on the leaf | CANON READING | read [`domain-catalog.md`](../manuscript/ave-kb/vol1/operators-and-regimes/ch7-regime-map/domain-catalog.md) and the whole `ch7-regime-map/` index **end to end**, not by search | **KILLED** if a reconciling sentence exists anywhere in ch7. **PARTIALLY KILLED** if the four-parameter enumeration is wrong — report the corrected set, do not just say "more than four" |
+| **A4** | The LIGO "~10% waveform precision" figure | `[EXTERNAL]` UNSOURCED | route through the **gated external-retrieval pipeline**; do not self-fetch | Not kill/survive — **it either sources or it stays unsourced**. But if the real figure is far from 10%, §3 row 2's *"unmeasured"* framing has to move, and this record is wrong about it |
+| **A5** | The ladder-wide program consequence (§5) | LOGIC + DISCRIMINATION | apply **`ave-discrimination-check`**: does this buy a number, organizing power, or neither? Apply the **consensus-bias symmetric standard**: SM/QED also calibrate in the tested regime and claim content outside it — would this be flagged there? | ★ **KILLED AS A FINDING** if it reduces to *"AVE is untested"*. A statement that the distinctive content lives where no data exists is a restatement of untestedness unless a **reachable** observable is named. **Name one or record the kill** |
+| **A6** | DELTA-3: `orbital-regime-table.md`:16 is wrong on both the regime NAME and the ASSIGNMENT | CANON READING | verify both. Then check whether an **alternate naming convention was in force** when that leaf landed (git log the leaf; check `regimes-of-operation.md`, which uses *"Weakly non-linear / Strongly non-linear / TVS breakdown"*) | **DEFECT (1) KILLED** if a documented alternate convention covers it. **DEFECT (2) SURVIVES REGARDLESS** — `ε₁₁ = 1.785×10⁻⁷` is six orders from the boundary under every convention in the corpus |
+| **A7** | DELTA-1's inner rows, and the ISCO / photon-sphere reading | NUMERICAL | ★ **read-and-run**: relax [`src/ave/gravity/backreaction.py`](../src/ave/gravity/backreaction.py) and get the **graded** `ε₁₁(r)` profile. Compare the actual `A = √(2α)`, `√3/2` and `A → 1` radii against the linear-profile values in the table | **KILLED** if the graded radii differ materially from `4.042 / 3.500 r_s`. The `28.97 r_s` row should survive (`D = 1.0074` there); **if it does not, DELTA-1 fails entirely** |
+| **A8** | This record's own §2 mis-attribution finding | LOGIC | check that `gordon-optical-metric.md`:25 really carries no `D(A)`, and that the 2026-08-11 audit really licenses both sites. Then ask the harder question this record ducked: **should canon carry one bias law with two spellings?** | **KILLED** if the two sites are in fact one equation and the prior lane did mis-read it — in which case the walk's item-2 premise is right and §2 is wrong |
+
+**Also required of the audit, per standing discipline:** the
+**structural-null stencil lens** on A7 (a graded elliptic solve on a Cartesian
+stencil is not the K4 operator — `saturating-modulus-and-backreaction.md` §3
+states the native-`Grad` requirement), and **PML/interior-cell exclusion** if any
+field-density extraction is done.
+
 ## §8 — What this record does NOT do
 
+- It **mints nothing, moves no solidity, edits no canonical file.**
+- It **does not fix** DELTA-2 or DELTA-3. Both are surfaced with receipts and
+  routed to their leaves' owners and to Grant.
+- It **does not adjudicate** the `V_yield`/`V_snap` residue at
+  `four-regimes.md`:82–89, the `4π` relay carve at `axiom-register.md`:361, or
+  the R40-B2a `D(A)` demotion. All three are pre-existing, all three are cited
+  where they bear.
+- It **does not restate** the PPN or two-knob lanes' evidence. Those lanes own
+  their results; this record points.
+- It **does not claim** that Regime-I agreement is worthless, nor that AVE
+  predicts anything in Regimes II–IV. §5 is a statement about **where a test
+  could live**, gated on **A5**.
+- It **asserts no completeness.** Every "I found no site" is a statement about
+  the method in §9.
+
 ## §9 — METHOD, and its blind spots
+
+**What was read end to end** (12 files): `four-regimes.md`,
+`domain-catalog.md`, `temporal-saturation-regime-classifier.md`,
+`orbital-regime-table.md`, `regimes-of-operation.md` (first 60 lines, then the
+regime tables), `strain-registers.md` (§0–§3), `eq_axiom_5.tex` clause block +
+its R49(a) fragment + derivation-grade note, `saturating-modulus-and-backreaction.md`
+§1–§3 + the R40-B2a demotion block, `lattice-extreme-bh-rationality.md` §4–§7,
+`wall-taxonomy.md` §4–§6, `research/2026-08-25_autonomous-harmonic-balance-lens_RECORD.md`
+(structure mirror), and `research/2026-08-11_gravity-linearity-audit_result.md`
+§3.
+
+**What was read in neighbourhoods only**: `axiom-register.md` (the clause-G
+region and the Axiom-5 row), `research/2026-08-27_ppn-tensor-derivation_result.md`
+(§0, §1.1–§1.4, §5.3, §6), `research/2026-08-27_two-knob-gravity-repair_result.md`
+(the `a₂` neighbourhoods), `manuscript/ave-kb/.index/claims.jsonl` (solidity
+lookups), `src/ave/core/regime_map.py` (the domain-example block),
+`src/ave/core/constants.py` (the named constants).
+
+**What was searched, and with what.** `grep -rn` over `manuscript/`, `research/`
+and `src/` for: `Clause G`; `clm-law1ho`; GR-validity phrasings
+(`GR (is|remains|stays) (valid|correct|exact|recovered)`, `where GR (is|breaks)`,
+`GR'?s? (validated|tested|validity|domain of validity)`); nonlinearity-location
+phrasings; `Cassini|Lunar Laser|LLR|Bertotti`; the numeric tokens `28.9`,
+`57.94`, `8.083`, `4.042`; and a two-method cross-check for DELTA-1's absence
+(numeric-token grep **and** a per-file scan for leaves co-mentioning `r_sat` with
+`√(2α)`/`0.121`, which returned 15 files, each inspected).
+
+**Blind spots, named.**
+
+1. **A leaf stating a GR-test precision without the tokens `Cassini`, `LLR`,
+   `Lunar Laser`, `Bertotti` would not be returned by §6's search.** The §6 KB
+   result is a statement about that search.
+2. **DELTA-1's absence claim rests on token and co-mention searches**, not on
+   reading `ch7-regime-map/` and `vol3/gravity/` end to end. A leaf writing
+   `r = 57.94 GM/c²` in a different normalization (e.g. `29 r_g`, or in `ℓ_node`)
+   would be missed. That is exactly what **A1** must close by a different method.
+3. **DELTA-2's "four control parameters" is an enumeration from the leaves I
+   read**, not a corpus census. There may be more. **A3** must enumerate, not
+   confirm.
+4. **No engine was run.** Every number here is closed-form arithmetic on canon's
+   written definitions. The graded profile that **A7** needs is unrun.
+5. **`git grep` pathspec globs and shell-escaped `$…$` patterns are a measured
+   false-negative source in this workspace.** Where a search underpins a
+   negative claim above, a second method is stated; where it is not, the claim is
+   phrased as a statement about the search.
+6. **The PPN and two-knob lanes' numbers were accepted as reported**, not
+   reproduced. They are tagged `[MEASURED-ELSEWHERE]` with branch and SHA.
