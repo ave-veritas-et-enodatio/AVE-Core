@@ -34,7 +34,7 @@ Canon assigns light and matter **different refractive indices over the same stra
 | solar-limb deflection | $1.7517''$ | $1.75''$ | **pass** |
 | $\gamma$ (matter) | **$0$ exactly** | $1$ | $\sim4.3\times10^{4}\sigma$ |
 | $\beta$ (matter) | **$3/2$ exactly** | LLR $1 \pm 1.1\times10^{-4}$ | $\sim4.5\times10^{3}\sigma$ |
-| Mercury perihelion | **$7.163''$/century** | $42.98 \pm 0.04$ | $895\sigma$ |
+| Mercury perihelion | **$7.166''$/century** *(in-tree constants; $7.163''$ with IAU $GM_\odot$ — §6.3)* | $42.98 \pm 0.04$ | $895\sigma$ |
 | Hulse-Taylor periastron | **$0.7044^\circ$/yr** | $4.226595(5)$ | short by $3.522^\circ$/yr |
 
 $$F \;=\; \frac{2-\beta+2\gamma}{3} \;=\; \frac{2 - 3/2 + 0}{3} \;=\; \frac{1}{6}.$$
@@ -128,7 +128,7 @@ which reproduces $\Delta\phi = \pi(4a_1 - b_1 - 2b_2/b_1)\,m/\ell_p$ at $b_1 = 1
 | M5 | $\gamma_{matter} = 0$ **exactly** | **DERIVED** | immediate from T8: $g_{ij} = \delta_{ij}$, so $2\gamma U \equiv 0$. Holds for **any** $n$ and any coefficient |
 | M6 | $\beta_{matter} = 3/2$ **exactly** | **DERIVED — and coefficient-BLIND** | $-g_{00} = (1+c_mU)^{-2} = 1 - 2c_mU + 3c_m^2U^2$; against $1 - 2W + 2\beta W^2$ with $W = c_mU$ this is $\beta = 3/2$ **for every $c_m$**. Verified symbolically |
 | M7 | $F = (2-\beta+2\gamma)/3 = 1/6$ | **DERIVED** | standard PPN perihelion factor; the same function the 2026-06-05 verify script already ships (`src/scripts/verify/gravity_ppn_coherence.py`:142) |
-| M8 | Mercury $7.163''$/century | **DERIVED** ← **IMPORTED inputs** | orbital elements $a,e,P$ are external observational inputs; $GM_\odot$ imported. GR baseline reproduces $42.98''$ |
+| M8 | Mercury $7.166''$/century (in-tree constants) / $7.163''$ (IAU $GM_\odot$) | **DERIVED** ← **IMPORTED inputs** | orbital elements $a,e,P$ are external observational inputs; $GM_\odot$ imported. GR baseline reproduces $42.98''$ |
 | M9 | Hulse-Taylor $0.7044^\circ$/yr | **DERIVED** ← **IMPORTED baseline** | $F\times4.226595$; the $4.226595(5)$ is the measured/GR value, imported |
 | M10 | LLR $\lvert\beta-1\rvert \lesssim 1.1\times10^{-4}$ | **IMPORTED** | external observational datum. Not re-fetched by this lane — see §11 |
 
