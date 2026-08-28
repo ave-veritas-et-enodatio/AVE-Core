@@ -494,6 +494,29 @@ That factor is $1 + (1+2\gamma)U$ — the product of the lapse factor $(1+U)$ an
 
 **The deferred computation is the one performed in §2.** The reason the deferral looked cheap is `:73`, which observed that the $-GML^2/(mc^2r^3)$ coefficient is $1$ in both — true, and not sufficient: the $L_z$-modification factor at `:49` enters the *same* orbit integral, and it is where the $\gamma$ term lives. The document's own two annotations, read together, already contain the result. Fifteen months.
 
+
+#### §8.1a — Why the sketch's "coefficient 1 in both ✓" did not catch it — VERIFIED, and one part NOT verified
+
+The sketch's own Lagrangian at `:33`, $L_{test} = -mc^2\sqrt{1-n_{scalar}^2v^2/c^2}\,/\,n_{scalar}$, **is** the geodesic Lagrangian of the Gordon scalar metric $ds^2 = -c^2dt^2/n^2 + d\mathbf{x}^2$ — confirmed by direct construction. So the sketch and §2 are describing the same dynamics, and they reach opposite conclusions. Two defects were found, and they are reported at different confidence.
+
+**(i) A chart-slot mismatch — VERIFIED, and it is the substantive one.** Writing the orbit equation as $(du/d\varphi)^2 = c_0 + c_1u + c_2u^2 + c_3u^3$, sympy returns, exactly:
+
+| chart | $c_2$ | $c_3$ | where the precession lives |
+|---|---|---|---|
+| **Gordon / AVE**, $A = 1/n^2$, $B=1$ | $E^2m^2/L^2 - 1$ | $\mathbf{0}$ | entirely in $c_2$: $\delta = m/\ell_p \Rightarrow \Delta\phi = \pi m/\ell_p$ |
+| **Schwarzschild, areal** | $\mathbf{-1}$ *(exactly)* | $2m$ | entirely in $c_3$: $\Delta\phi = 3\pi c_3/\ell_p = 6\pi m/\ell_p$ |
+| **Schwarzschild, isotropic** | $-1 + 6m^2/L^2$ | $O(m^3/L^2)$, negligible | entirely in $c_2$: $\delta = 6m/\ell_p \Rightarrow 6\pi m/\ell_p$ |
+
+**In the Gordon chart the $u^3$ slot is empty and the $u^2$ slot carries everything; in the areal chart it is exactly the other way round.** The sketch matched its own chart's $1/r^3$ term against the *areal* textbook $V_{eff}^{Schw}$ (`:71`) and concluded *"coefficient **1** in both ✓"* (`:73`). It matched **the slot that carries nothing in its chart against the slot that carries everything in the other**, and never compared the $u^2$ coefficients — which is where its own theory's entire precession sits. The two-chart comparison is the error; there is no disagreement about the textbook Schwarzschild value.
+
+**(ii) An arithmetic slip at `:37` — VERIFIED, but not load-bearing.** The weak-field expansion of that same Lagrangian, taken jointly in $\phi/c^2$ and $v^2/c^2$ at virial order, returns
+
+$$L \approx m\left(-c^2 + \phi + \frac{v^2}{2} - \frac{\phi^2}{c^2} + \frac{\phi v^2}{2c^2} + \frac{v^4}{8c^2}\right),$$
+
+with the $\phi^2/c^2$ coefficient $\mathbf{-1}$. The sketch's `:37` writes $-\tfrac12$. The $\phi v^2/2c^2$ and $v^4/8c^2$ terms match. **Recorded as a numeric discrepancy in a document its own header grades `Status: SKETCHED, not rigorous` (`:7`) — not as an accusation against ratified canon**, and the verdict does not rest on it: §9's geodesic integration never uses that expansion.
+
+> **⚠ WHAT I COULD NOT VERIFY.** The commissioning amendment stated this defect as *"its 'coefficient is 1' reads $q/2 = 1/2$ in its own chart where GR reads $3/2$."* **I could not reproduce the numerals $1/2$ and $3/2$** under any normalisation I tried, so **this document does not carry them.** What is carried is the table above, which is exact and reproducible. If the $1/2$-vs-$3/2$ reading is the sibling lane's own and is sound in its own normalisation, it belongs in that lane's document, not restated here on trust.
+
 ### §8.2 — The $\beta$ question was written down on 2026-08-11
 
 `research/2026-08-11_gravity-linearity-audit_result.md`:432, verbatim:
