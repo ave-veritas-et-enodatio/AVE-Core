@@ -725,4 +725,26 @@ Search patterns run across `manuscript/`, `research/`, `_orchestration/`, `src/`
 
 ## §13 — Skill-selection retro-pass
 
-<!-- SECTION: retro -->
+| skill | fired | where |
+|---|---|---|
+| `substrate-native-check` | ✅ | walked before any numerical work. **Returned "no solver to scaffold"** — this lane writes no operator, observer or eigsolver. The checkpoint that did bite is the K4/Cosserat one: it is what surfaced that $\varepsilon_{11}$'s ontology (§4) is unsettled *before* the elastic-repair attempt, which is why §3 tested the Navier solution space rather than assuming a strain |
+| `pre-test-physics-check` | ✅ | the plumber-physical question surfaced to Grant is §2.5's: *does the substrate's series impedance and its shunt impedance grade together under gravity, or by a factor of two?* That is $\gamma$, in EE terms, and it is routed inside the F1 item |
+| `phase-space-coordinate-check` | ✅ | the corpus claim is in real-space orbital coordinates and the test is in real-space orbital coordinates. The **gauge** analogue of the check is what §0's coordinate declaration and §9's control exist for: PPN $\gamma$ is not gauge-invariant between areal and isotropic radius, and §8.1a shows a prior lane lost exactly that way |
+| `consistency-vs-emergence` | ✅ | tagged per branch in §1.4: the light branch is **CONSISTENCY** (a calibrated identity), the matter branch is a **refuted forward derivation**. Neither is headlined as emergence |
+| `verify-before-cite` | ✅ | §11. Thirty cite groups re-opened on this branch; eight items marked **unconfirmed**, including two external PPN bounds that are not in the tree at all |
+| `ave-canonical-source` | ✅ | $G$, $M_\odot$, $R_\odot$ taken from `src/ave/core/constants.py` and `src/ave/gravity/solar_impedance.py`, and the constant-choice spread reported (§6.3) rather than a single number quoted |
+| `flag-don't-fix` | ✅ | eleven flags, zero edits to `manuscript/`, `src/`, or any prior research doc. Two routed as open-item files |
+| `ave-discrimination-check` | ✅ | §6.2: the light branch's one number is $\nu_{vac}\cdot(2/\nu_{vac})$, which is an identity — so the branch is **not** AVE-distinct and cannot be, and §5.3 says what that costs the $\nu_{vac}$ triangulation |
+| `ave-mechanism-claims-discipline` | ✅ | §7's conformal-factor mechanism is stated **with** its solidity: verified exactly (`B/n_opt**2 - A == 0` returns `True`), and its consequence for the framework is routed to Grant, not asserted |
+| `structural-null-needs-a-stencil-lens` | ✅ | $\gamma = 0$ is a null. It was checked against a **planted-defect positive control** (§9.3's alt-clock row returning its own $F = 2/3$) so that a null produced by a broken integrator could not pass as physics |
+| `stop-and-ask` | ✅ (1 stuck-point, handled inside the 2-attempt cap) | reconstructing the handed-down *"the $/7$ family is gauge at PPN order"* argument. Two attempts; the Jacobian half reproduced and the inference half did not. **Stopped**, recorded both halves in §5.3, and re-derived the conclusion on independent grounds rather than spiralling |
+| `read-don't-grep-for-completeness` | ✅ | §10. Twenty files read end to end; every absence claim carries a second, non-grep method; the enumerations are stated as products of a search |
+| `grep-completeness-false-negatives` | ✅ | measured on this session: the shell `grep` is `ugrep --ignore-files` and warned on `--include`. Every enumeration re-run under `/usr/bin/grep` (§10.3) |
+
+**Drift from the plan.** Two skills fired unplanned. `structural-null-needs-a-stencil-lens` fired when it became clear the headline is a **null** ($\gamma = 0$) and therefore owed a control — that is what put §9.3's positive control in. `ave-discrimination-check` fired on the light branch once the $Q = 2$ identity surfaced; it was planned only for the matter branch. No planned skill went unfired.
+
+**Retro-pass addendum (2026-08-27, post-freeze — the two-knob amendment).** A repair was derived on a sibling branch after §0–§13 were frozen, and the instruction was *"a pointer plus a sharpening, both additive."* Three skills fired on that pass:
+
+- `verify-before-cite` — the amendment carried a specific accusation (*"reads $q/2 = 1/2$ … where GR reads $3/2$"*) against a corpus document. **Verified before writing, per the instruction.** Two defects reproduced exactly (§8.1a); the numeral pair did not reproduce and **is not carried**.
+- `consistency-vs-emergence` — the repair's caveat is carried at equal weight in the forward pointer: $(2,1,\tfrac12)$ **works**, nothing yet **forces** it, and that is the derivation-vs-fit line this document already draws for $Q = 2$.
+- `flag-don't-fix` — the repair was **not** allowed to soften §0, and F10 records explicitly that it does **not** reduce the walk-back debt.
