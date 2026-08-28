@@ -775,6 +775,86 @@ values in any fixture).
 
 ## 12 · ★ ANTI-FITTING GUARD — the k = 1/2 trap, declared in advance
 
+**The reconciliation is the TEST, never the selection criterion.** This section
+records the traps in advance so that no downstream lane can walk into one and call
+it a result.
+
+### 12.1 · The selection receipt
+
+The frozen weight was selected by the ponderomotive derivation (§3.2) — five steps,
+four of them already printed in canon — and by nothing else. **The check the guard
+demands has been run: does the selected weight drive `η_mixed` to zero? IT DOES NOT.**
+It moves `η_mixed` from `+1.048` (shipped quadratic) to `+0.831` — a 21% improvement
+that still **misses the reconcile tolerance `|η| < 1×10⁻³`
+(`src/tests/engine_acceptance/test_nordtvedt_eta.py:78`, verified verbatim) by
+~830×**, and misses on the **same side** as the weight it replaces.
+
+**A derivation that were fitted to the reconciliation would have landed on `k = 1/2`.
+It landed on `k = 1/7`.** That is the receipt.
+
+### 12.2 · ★ TRAP 1 — the reconciling coefficient is `k = 1/2`, and it is FORBIDDEN
+
+§4.5 is exact: `η_mixed = 0 ⟺ c = 1 ⟺ k = g_self/2 = 1/2`. So there **exists** a
+clock coefficient that reconciles perfectly, and it is a suspiciously
+respectable-looking number — "half the potential" wears the pedigree of the `½` in
+the self-energy integral that avoids counting pairs twice.
+
+**There is no substrate route to `k = 1/2`.** The projection canon derives is `1/7`
+(`ponderomotive-equivalence.md:14`). `k = 1/2` is pure fitting dressed in a familiar
+factor.
+
+**PRE-DECLARED:** if the run measures `k_meas ≈ 1/2`, that is **bin C**, reported as
+*"the ledger requires a coefficient the substrate does not derive"* — a **derivation
+conflict routed to Grant**. It is **not** licence to install `k = 1/2`.
+
+### 12.3 · ★ TRAP 2 — `η → 0` is reachable by tuning `g_self`, and `g_self` is FROZEN
+
+`c = 2k⟨D⟩_w·χ/g_self`, so `η → 0` is reachable at
+**`g_self = 2k = 2/7`** — and `2/7` is `ν_vac`, a canonical AVE constant living in
+the same file (`src/ave/gravity/backreaction.py:646`, verified verbatim:
+`nu_vac: float = 2.0 / 7.0`; `:670`: *"trace-reversed Poisson ratio (2/7); maps ε₁₁
+→ refractive index"*). A scoping lane measured `η_lin = −0.0005` at exactly
+`g_self = 0.2857`.
+
+**This is a COINCIDENCE, not a chord, and the provenance trace dissolves it:**
+
+| side | construction | value |
+|---|---|---|
+| the reconciling `g_self` | (2 from the **discrete virial identity** on `Gradᵀ D Grad` with Dirichlet faces) × (1/7 from the **ponderomotive isotropic projection**) | 2/7 |
+| `ν_vac` | `(3K − 2G)/(2(3K + G))` evaluated at `K = 2G` — a **Poisson ratio** | 2/7 |
+
+Different parts, no shared factor, same number — the ½/¼ over-determination tell.
+And the deeper tell: `c = 2k/g_self = 1` **forces** `g_self = 2k` **algebraically**
+from the two coefficients that were put in. **Reading `g_self` off a reconciliation
+condition is the definition of back-solving.**
+
+**PRE-DECLARED:** `g_self ≡ 1.0` is **FROZEN** for this run (§4.4 shows it is forced
+by the engine's own operator, `κ_op ≡ 1`, not chosen). **No `g_self` sweep may enter
+any bin.** A `g_self` sweep may be run and reported **only** as a labelled warning
+figure, exactly as here. X44 §4b fenced this in words
+(`research/2026-07-12_x44-komar-source_result.md:90-92`: *"a retune to force
+`U_bind ≈ Δ_clock` would manufacture η→0"*); this prereg makes the fence numeric and
+records that the target has **moved closer** — under the shipped quadratic weight the
+manufacture required cranking amplitude ~10× out of band, under the derived weight it
+requires only `g_self = 2/7`.
+
+### 12.4 · The prohibition list — frozen
+
+For the duration of this arc, **none of the following may be done, and none may enter
+a bin**:
+
+1. Changing `k` away from `1/7` because a different value reconciles.
+2. Changing `g_self` away from `1.0` for any reason.
+3. Re-freezing FAM-A or FAM-B to move `f` toward the reconcile point.
+4. Adopting the D-consistent register `U_bind^D` as the *headline* ledger because it
+   is tidier — it is a **diagnostic** (A3) in this run; promoting it is a separate,
+   Grant-gated decision.
+5. Reading `η_mixed` as an adjudication of anything (§4.5, §10).
+6. Reporting bin C's named coefficient as a proposal rather than a conflict.
+
+**If a lane finds itself preferring a functional form because it reconciles, that is
+fitting: it must say so, and stop.**
+
 ## 13 · Disclosure — what is pre-registered vs what is already measured
 
 ## 14 · Method, blind spots, and the completeness statement
