@@ -456,7 +456,80 @@ That reframing does **not** resolve the stuck-point; §7 of that audit correctly
 
 ## §9 — Independent cross-check: direct geodesic integration
 
-<!-- SECTION: geodesic -->
+The PPN algebra of §2 is a series expansion. A series expansion can be right about the coefficients and wrong about the observable if the coefficients were read off in the wrong gauge. So the perihelion factor was **also** obtained by direct orbit integration, with a GR control.
+
+### §9.1 — Method
+
+For a static isotropic metric $ds^2 = -A(R)c^2dt^2 + B(R)(dR^2+R^2d\Omega^2)$, a timelike equatorial geodesic with $u = 1/R$ obeys
+
+$$\left(\frac{du}{d\varphi}\right)^2 \;=\; f(u) \;\equiv\; \frac{B(u)}{L^2}\!\left(\frac{E^2}{A(u)} - 1\right) - u^2 ,$$
+
+with $E^2$ and $L^2$ fixed **linearly** by requiring $f(u_1) = f(u_2) = 0$ at the chosen apsides. The apsidal angle is $\Phi = \int_{u_1}^{u_2} du/\sqrt{f(u)}$ and the precession per orbit is $2\Phi - 2\pi$. The endpoint inverse-square-root singularities are removed exactly by $u = \bar u + \Delta u\sin\psi$, which turns $(u-u_1)(u_2-u)$ into $\Delta u^2\cos^2\psi$.
+
+**Two implementation notes, because they were both failure modes here:**
+
+1. **float64 is not enough.** At $x = m/p \sim 10^{-6}$, $f(u)$ is a difference of $O(1)$ quantities whose result is $O(10^{-12})$; the first attempt returned `nan` for every model including the GR control. Run at `mpmath.mp.dps = 60`.
+2. **The quadrature must not sample the endpoints.** Tanh-sinh (`mp.quad`) evaluates at $\psi = \pm\pi/2$ exactly and divides by zero on the removable singularity. Gauss-Legendre (`mp.quadgl`) never does.
+
+Both are reported because a reader who reruns this with `numpy` and `scipy.quad` will get `nan` and conclude the metric is pathological. It is not; the integrator was.
+
+### §9.2 — Results
+
+Eccentricity $0.2$; $x \equiv m/p$ with $p$ the semi-latus rectum; ratio is to the **GR baseline** $6\pi x$.
+
+| metric | $x$ | precession/orbit [rad] | $\div\,6\pi x$ | PPN prediction |
+|---|---|---|---|---|
+| **GR isotropic Schwarzschild** *(CONTROL)* | $8.333\times10^{-6}$ | $1.57084175053\times10^{-4}$ | $1.000028918$ | $1$ |
+| **GR isotropic Schwarzschild** *(CONTROL)* | $8.333\times10^{-7}$ | $1.57080086903\times10^{-5}$ | $1.000002892$ | $1$ |
+| **GR isotropic Schwarzschild** *(CONTROL)* | $8.333\times10^{-8}$ | $1.57079678102\times10^{-6}$ | $1.000000289$ | $1$ |
+| GR PPN form $(\gamma{=}\beta{=}1)$ | $8.333\times10^{-8}$ | $1.57079651791\times10^{-6}$ | $1.000000122$ | $1$ |
+| **AVE matter** $g_{00}{=}-1/(1{+}U)^2$, $g_{ij}{=}\delta$ | $8.333\times10^{-6}$ | $2.61798842386\times10^{-5}$ | $\mathbf{0.1666663194}$ | $1/6 = 0.1\overline{6}$ |
+| **AVE matter** | $8.333\times10^{-7}$ | $2.61799333258\times10^{-6}$ | $\mathbf{0.1666666319}$ | $1/6$ |
+| **AVE matter** | $8.333\times10^{-8}$ | $2.61799382345\times10^{-7}$ | $\mathbf{0.1666666632}$ | $1/6$ |
+| AVE alt-clock $g_{00}{=}-(1{-}2U)$, $g_{ij}{=}\delta$ | $8.333\times10^{-8}$ | $1.04719798753\times10^{-6}$ | $0.6666669444$ | $2/3$ |
+
+Every row converges to its PPN prediction as $x\to0$ with residual $\propto x$, which is the expected $O(U^2)$ PPN-2 contamination and is the same size on the control as on the AVE rows.
+
+### §9.3 — Why the control is the point
+
+**`UNRUN ≠ PASSED`, and `NO-CONTROL ≠ MEASURED`.** An integrator that returns $1/6$ on the AVE metric proves nothing on its own — it could be an integrator that returns $1/6$ on everything. The GR row is the same code, the same quadrature, the same precision, the same apsides, changing only $A(R)$ and $B(R)$, and it returns the textbook $6\pi x$ to $2.9\times10^{-7}$ relative. **The fourth row is a second control**: the PPN-form metric $(1-2U+2U^2,\,1+2U)$ truncated at $O(U^2)$ also returns $1$, confirming the reader is a PPN reader and not a Schwarzschild reader.
+
+The alt-clock row is a **planted-defect positive control**: it is a metric with a *different* known $(\beta,\gamma) = (0,0)$, and the integrator returns its $F = 2/3$ rather than either $1$ or $1/6$. The instrument discriminates.
+
+### §9.4 — Reproduction
+
+Self-contained; no repository imports, no engine, ~2 s.
+
+```python
+import mpmath as mp
+mp.mp.dps = 60
+
+def AB(model):
+    if model == "GR_isotropic":  # CONTROL
+        return (lambda u: ((1-u/2)/(1+u/2))**2, lambda u: (1+u/2)**4)
+    if model == "AVE_matter":    # Gordon: g00 = -1/n^2, g_ij = delta, n = 1+u
+        return (lambda u: 1/(1+u)**2, lambda u: mp.mpf(1))
+    raise ValueError(model)
+
+def precession(model, u1, u2):
+    A, B = AB(model)                       # units G = M = c = 1
+    sol = mp.lu_solve(mp.matrix([[B(u1)/A(u1), -u1**2],
+                                 [B(u2)/A(u2), -u2**2]]), mp.matrix([B(u1), B(u2)]))
+    X, Y = sol[0], sol[1]                  # X = E^2, Y = L^2
+    f = lambda u: (B(u)/Y)*(X/A(u) - 1) - u**2
+    g = lambda u: f(u)/((u-u1)*(u2-u))     # removable at both endpoints
+    um, du = (u1+u2)/2, (u2-u1)/2
+    val = mp.quadgl(lambda s: 1/mp.sqrt(g(um + du*mp.sin(s))),
+                    [-mp.pi/2, 0, mp.pi/2], maxdegree=8)
+    return 2*val - 2*mp.pi
+
+rp, ecc = mp.mpf("1e7"), mp.mpf("0.2")
+a = rp/(1-ecc); u2 = 1/rp; u1 = 1/(a*(1+ecc)); x = 1/(a*(1-ecc**2))
+for m in ["GR_isotropic", "AVE_matter"]:
+    print(m, mp.nstr(precession(m, u1, u2)/(6*mp.pi*x), 10))
+# GR_isotropic 1.000000289
+# AVE_matter   0.1666666632
+```
 
 ## §10 — METHOD, and its blind spots
 
