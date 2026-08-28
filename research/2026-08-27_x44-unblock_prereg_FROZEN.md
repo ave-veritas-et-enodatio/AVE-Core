@@ -362,6 +362,74 @@ without adjudicating on it.**
 
 ## 5 · ★ THE ACCESSIBLE REGIME, and the demonstration that the PASS bin lies inside it
 
+This is the section the superseded prereg did not have. It states what the
+configuration can reach, and then shows the PASS bin lies **inside** it.
+
+### 5.1 · The frozen families
+
+- **FAM-A — the frozen `#651` family** (continuity with X44, and the `η_mixed`
+  report): `N = 24`, `σ ∈ {1.4, 1.8, 2.2, 2.6}`, `Σ T₀₀^matter = 4.0`,
+  `g_self = 1.0`, `S_min = 1e-3`.
+- **FAM-B — the amplitude ladder** (the invariance test): `N = 24`, `σ = 1.8`,
+  `λ ∈ {0.25, 0.5, 1, 2, 4, 6, 8}`, i.e. `Σ T₀₀^matter = 4λ` — a **32× rest-energy
+  span**, every member converged (§1.2).
+
+### 5.2 · Computed accessible bounds (measured, §1.2 driver)
+
+| quantity | FAM-A | FAM-B (converged) | hard ceiling |
+|---|---|---|---|
+| `max ε₁₁` (= `max A`) | 0.079 – 0.188 | **0.0329 – 0.7827** | `A = 1` (yield cap, `gw_propagation.py:705`) |
+| `U_bind/M` | 0.024 – 0.059 | **0.0104 – 0.2283** | ≈0.223 (turns over) |
+| `f = U/(M+U)` | 0.0234 – 0.0561 | **0.0103 – 0.1859** | **sup ≈ 0.186, NON-MONOTONE** |
+| Picard | converged | converged | fails for λ ≳ 12 |
+
+**The accessible band is `f ≤ 0.186` and `ε₁₁ ≤ 0.783`, at any amplitude.**
+
+### 5.3 · ★ The old PASS bin was OUTSIDE this band; the new one is INSIDE it
+
+**OLD.** PASS required `|η_mixed| < 1e-3` ⟺ `c = 1` (§4.5, exactly) ⟺
+`Δ_clock = U_bind` ⟺ `f ~ 0.6`. Reachable supremum of `f` is **0.186**.
+**Ratio needed/reachable = 3.2×, and `f` turns over before it — so no amplitude
+reaches it.** The bin could not fire.
+
+**NEW.** The PASS bin is a bracket on `c` **computed from the accessible band's own
+`ε₁₁` bounds**, via the closed form `c = (2k/g_self)·⟨D⟩_w·χ` (§4.3) with
+`⟨D⟩_w ∈ [1, D_max]`, `χ ∈ [χ_min, 1]`, `D_max = (1−max A²)^{−1/2}`,
+`χ_min = (1 + k·max A)^{−1}`, `2k/g_self = 2/7 = 0.285714`:
+
+| λ | `max ε₁₁` | `f` | `χ_min` | `D_max` | **PASS bracket for `c`** |
+|---|---|---|---|---|---|
+| 0.25 | 0.0329 | 0.0103 | 0.99532 | 1.00054 | **[0.2844, 0.2859]** |
+| 0.50 | 0.0658 | 0.0204 | 0.99069 | 1.00217 | **[0.2831, 0.2863]** |
+| 1.00 | 0.1310 | 0.0397 | 0.98163 | 1.00869 | **[0.2805, 0.2882]** |
+| 2.00 | 0.2575 | 0.0749 | 0.96452 | 1.03490 | **[0.2756, 0.2957]** |
+| 4.00 | 0.4830 | 0.1298 | 0.93545 | 1.14205 | **[0.2673, 0.3263]** |
+| 6.00 | 0.6584 | 0.1654 | 0.91403 | 1.32861 | **[0.2612, 0.3796]** |
+| 8.00 | 0.7827 | 0.1859 | 0.89943 | 1.60669 | **[0.2570, 0.4591]** |
+
+**The PASS bracket is DERIVED FROM the accessible band, so it lies inside it by
+construction.** That is the structural repair: the old PASS bin was an externally
+imposed tolerance on a quantity whose zero sat outside the reachable set; the new one
+is a prediction *about* the reachable set, evaluated everywhere on it.
+
+### 5.4 · …and the FAIL side is reachable too — demonstrated by weights that exist
+
+A bracket only PASS can enter is as defective as one only FAIL can enter. Predicted
+`c` in the linear limit for the four candidate weights (`c = 2k/g_self`):
+
+| weight | `k` | predicted `c` | inside the λ=1 bracket [0.2805, 0.2882]? |
+|---|---|---|---|
+| shipped quadratic `(1−ε₁₁²)^{1/4}` | 0 (no linear term) | → 0 (X44 measured 0.046 at λ=1) | **NO — fails by ~6×** |
+| **FROZEN `w = 1/n_scalar`** | **1/7** | **0.285714** | **YES** |
+| slope-2 propagation index | 2/7 | 0.571429 | **NO — fails by 2×** |
+| the reconciling weight | 1/2 | 1.000000 | **NO — fails by 3.5×** |
+
+Every non-frozen candidate misses the bracket by **≥ 2×** while the bracket's own
+width is **≤ 3%** at λ=1. The instrument separates all four, and the **shipped
+quadratic weight is a live existence proof that the FAIL side fires** — X44 already
+measured `c` running from 0.0115 to 0.195 across this ladder, a 17× drift, which the
+bracket rejects at every rung.
+
 ## 6 · Scope — the 91/9 split, and what this run is NOT about
 
 ## 7 · Pre-registered predictions
