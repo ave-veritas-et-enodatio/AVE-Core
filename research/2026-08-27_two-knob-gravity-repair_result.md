@@ -315,7 +315,50 @@ L1 reported that the intermediate step *"the coefficient is 1"* reads $q/2 = \tf
 
 ## §7 — The DERIVED / IMPORTED ledger, step by step
 
-*(placeholder — §7)*
+### 7.1 — DERIVED (from a constitutive law, with no metric in the chain)
+
+| # | step | who | my status |
+|---|---|---|---|
+| D1 | $\omega^2 = c_{\rm eff}^2k^2 + \Omega^2$, $c_{\rm eff}^2 = 1/(LC)$, $\Omega^2 = S/C$, from a graded lossless LC ladder with shunt stiffness | L1 | reproduced |
+| D2 | $v_p v_g = c_{\rm eff}^2$ identically; $\omega/\Omega = 1/\sqrt{1-v^2/c_{\rm eff}^2}$ falls out of the gapped branch with no relativity postulated | L1 | accepted, not re-derived |
+| D3 | force law $\mathbf a = -c^2\nabla\ln\Omega$ | L1 | reproduced — **FORM derived, $b_1{=}1$ VALUE calibrated to Newton** |
+| D4 | $\Delta\phi = \dfrac{\pi GM}{c^2\ell_p}\big(4a_1 - b_1 - 2b_2/b_1\big)$, and the exact $E,W$ form | L1 | **reproduced in `sympy`, difference $\equiv 0$** |
+| D5 | Gordon scalar $\Rightarrow a_1 = b_1$, $b_2 = a_1^2$ FORCED $\Rightarrow$ bracket $=$ bare index slope $\Rightarrow F = 1/6$ | L1 | **reproduced, 2 methods** (`0.9999999667`) |
+| D6 | Ax3 $\min|\Gamma|^2 \Rightarrow Z(x) = Z_0 \Rightarrow \epsilon_{ij}\propto\mu_{ij} \Rightarrow$ Fresnel determinant is a perfect square $\Rightarrow$ **no gravitational birefringence at any order**, and the optical metric *emerges* as the inverse principal symbol | L3 | accepted, not re-run — **credited: a real derivation from a non-GR premise** |
+| D7 | Ax4's kernel $\sqrt{1-A^2}$ is **even** $\Rightarrow$ zero $O(m)$ index gradient $\Rightarrow$ solar-limb deflection $3.6\times10^{-5}$″ against $1.75$″ | L3 | accepted, not re-run |
+| D8 | two distinct cones ($v_L^2/v_T^2 = 4/3 + K/G \geq 4/3$) $\Rightarrow$ the medium's invariance group has **no boost generator** | L2 | accepted, not re-run |
+| D9 | ultrarelativistic-convergence theorem; AVE leaves it at exactly half | L1 | **reproduced, and upgraded to closed form** (§5.1) |
+| D10 | $n_{opt}$ and $1/|g_{00}|$ agree at $O(U)$, split at $O(U^2)$ ($7/4$ vs $2$) | recon | **reproduced** |
+| D11 | exact isotropic Schwarzschild has $(a_1,a_2,b_1,b_2) = (2, \tfrac94, 1, \tfrac12)$ | mine | derived here |
+| D12 | canon's Path-A Lagrangian has an **exactly quadratic** $f(u)$, so $\Delta\phi = \pi q GM/c^2\ell_p$ non-perturbatively | mine | derived here (§6.2) |
+| D13 | $\alpha b/(GM/c^2) = 2a_1 + 2b_1(1/\beta^2 - 1)$ in closed form | mine | derived here (§5.1) |
+| D14 | cubic point group protects rank-2 **exactly** and does **not** protect rank-4 — so a cubic lattice does not make the deflection isotropic for free; that is an extra condition on the missing $p_{ijkl}$ ($p_{11} - p_{12} = 2p_{44}$) | L2 + recon | accepted, not re-run |
+
+### 7.2 — IMPORTED, with canon's own stamp at file:line
+
+| # | object | canon's own words | verified |
+|---|---|---|---|
+| I1 | $\kappa = c^4/7G$ **and** $\nu_{vac} = 2/7$ | `eq_axiom_5.tex`:134 — *"kappa = c^4/7G and nu = 2/7 stay GR-imported (#261 untouched)"* | ✅ verbatim |
+| I2 | $\nu_{vac} = 2/7$ not crystalline-forced | `double-deflection.md`:60 — *"$\nu=2/7$ is **not** crystalline-lattice-forced — it is the GR-imported $K=2G$ value"*, re-confirmed at the ratified $z{=}3$ srs carrier by PR#506 | ✅ verbatim |
+| I3 | therefore $\varepsilon_{11} = 7GM/c^2r$, and therefore $a_1 = \nu_{vac}\cdot 7 = 2$ | rides I1+I2 through the elliptic solve | ✅ chain checked |
+| I4 | Ax4's yield anchor $A_{yield}$ | `eq_axiom_4.tex` — *"inherits from the GR-imported $K=2G$ — FORM-derived, VALUE-imported"* | reported by L3/recon; line number contested (§11) |
+| I5 | $b_1 = 1$ | **not stamped anywhere as an import.** It is calibrated to the Newtonian limit through $\mathbf a = -c^2\nabla\ln\Omega$. Tagged here as VALUE-calibrated | mine |
+| I6 | Mercury / Hulse–Taylor / solar-limb / Cassini targets | data, used only at the reporting step | — |
+| I7 | $v_c = 220$ km/s, $D_{\rm LMC} = 51.4$ kpc, SN1987A $\sim$3 h offset | external astrophysical inputs, tentative-standing | — |
+
+### 7.3 — ASSERTED (the one that decides the result)
+
+| # | object | status |
+|---|---|---|
+| **A1** | $b_2 = \tfrac12$, equivalently *"the clock grades multiplicatively, $\Omega = \Omega_\infty e^{-U}$"* | **ASSERTED.** No axiom, no leaf, and no lane derives it. It is worth $179\sigma$ on Mercury. |
+| **A2** | that $n_{temporal}$'s slope 2 is the **speed** grading of *both* channels rather than a temporal-metric component | **INTERPRETIVE.** §4.3 Flag A. |
+
+### 7.4 — The one-line reading of the ledger
+
+**AVE forces the FORM and imports the VALUE — third and fourth instance in this document alone.** The precession law's *shape* (two constitutive functions, three exponents, $a_2$ absent) is genuinely derived from the medium. Every *number* that enters it is either GR-imported ($a_1 = 2$, through the $\nu_{vac}\cdot 7$ chain canon itself stamps), calibrated to a measurement ($b_1 = 1$ to Newton), or asserted ($b_2 = \tfrac12$).
+
+**Symmetric-standard check, in AVE's disfavour and then in its favour.** GR fixes **one** constant ($G$, from the Newtonian limit) and then *predicts* the deflection factor 2 relative to Soldner and the perihelion $6\pi$. AVE, as this ledger stands, spends two measurements on two constants and asserts a third. **That is genuinely weaker and I report it as weaker.** Conversely: D6 — Ax3's $\min|\Gamma|^2 \Rightarrow Z = Z_0 \Rightarrow$ zero gravitational birefringence, with the optical metric falling out as the **inverse principal symbol of the wave operator** — is a real derivation from a premise GR does not have, it runs in the medium$\to$metric direction, and it is machine-checkable. GR gets the same fact from the equivalence principle, which is not.
+
 
 ## §8 — L2: the preferred-frame state. This outranks the perihelion
 
