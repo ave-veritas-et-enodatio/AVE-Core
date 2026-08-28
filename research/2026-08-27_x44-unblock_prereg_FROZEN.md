@@ -532,6 +532,40 @@ nonlinearity ratio, `shape_dev` vs Stage-1, and the `S_min`-independence check.
 
 ## 8 · What would FALSIFY the derived weight, in the run's own terms
 
+Stated before the run, in the run's own measurable terms. Any ONE of these fires
+**FALSIFIED-WEIGHT** (§10 bin D):
+
+- **F1 — WRONG COEFFICIENT.** The linear-limit anchor `c₀` (P5) lands outside
+  `0.285714 ± 0.001`. The frozen weight's entire content at leading order is the
+  coefficient `k = 1/7`; `c₀ = 2k/g_self` reads it back. A landing at `0.5714` says
+  the ledger wants `k = 2/7` (the slope-2 propagation index — i.e. W2's
+  disambiguation is inverted); at `1.0`, `k = 1/2` (§12).
+- **F2 — WRONG FUNCTIONAL FORM.** `c` drifts with amplitude **beyond** the §5.3
+  bracket, or the drift is **not** accounted for by the measured `⟨D⟩_w·χ` (P4
+  fails at ≥1e-3). A weight that is not linear-plus-`1/n_scalar`-curvature drifts in
+  a way the closed form cannot absorb — the shipped quadratic weight drifts 17× and
+  is the worked example.
+- **F3 — THE D-REGISTER PREDICTION FAILS.** `c^D` (P9) does **not** collapse to
+  `(2/7)·χ`. Then the amplitude structure is not the binding register's missing `D`,
+  and §4.3's closed form — on which the entire bracket rests — is wrong.
+- **F4 — RESOLUTION.** `c` drifts >1% across `N ∈ {24, 32, 40}` (P7). The verdict
+  would then be an N=24 artifact. *(This is a live risk: the scoping lane ran N=24
+  only and flagged the absence of a resolution receipt as its own blind spot.)*
+- **F5 — THE IDENTITY LEAKS.** P2 fails at >1e-6, i.e. `Σ T₀₀^src ε₁₁ ≠ Σ D|∇ε₁₁|²`.
+  Then the ledger comparison is contaminated by boundary flux or an unconverged
+  fixed point and **no bin may be entered** (§10 evaluation order puts this first).
+- **F6 — DISCRIMINATION FAILS.** The four installed `k` values (P8) do **not**
+  produce four separated `c` values. The instrument then has no resolving power and
+  every result is an artifact (§11).
+
+**F1 is the sharpest.** It is a direct, single-number read of the clock coefficient
+the engine's own ledger requires, with the four candidates separated by ≥2× against
+a bracket ≤3% wide.
+
+**What does NOT falsify the weight:** `η_mixed ≠ 0`. That is expected (§9), and the
+prereg commits in advance that a non-zero `η_mixed` will not be read as evidence
+against `w = 1/n_scalar`, nor as licence to search for a weight that zeroes it.
+
 ## 9 · The honest expected outcome — what a non-zero residual would MEAN
 
 ## 10 · ★ FROZEN BINS — exact edges, fixed evaluation order
