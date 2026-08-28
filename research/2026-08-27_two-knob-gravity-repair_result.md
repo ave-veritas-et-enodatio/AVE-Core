@@ -127,7 +127,49 @@ $a_1 = 1+\gamma$, $b_1 = 1$, $b_2 = \beta - \tfrac12$ turns the NR bracket into 
 
 ## §3 — The defect: one knob wired to two slots. It is an identity, not an approximation
 
-*(placeholder — §3)*
+**This is the load-bearing paragraph of the document.**
+
+`gordon-optical-metric.md`:17 writes the construction verbatim:
+
+> $$g_{\mu\nu}^{AVE} = \eta_{\mu\nu} + \left(1 - \frac{1}{n^{2}(r)}\right) u_{\mu} u_{\nu}$$
+
+For a **static** medium, $u^\mu = (1,0,0,0)$, and with $\eta = \mathrm{diag}(-1,1,1,1)$ this gives, **exactly**:
+
+$$g_{00} = -\frac{1}{n^{2}}, \qquad g_{ij} = \delta_{ij}$$
+
+Now project the gapped branch onto it. $g^{\mu\nu}p_\mu p_\nu = -M^2$ with $g^{00} = -n^2$, $g^{ij} = \delta^{ij}$ gives $\omega^2 = (k^2 + M^2)/n^2$, i.e.
+
+$$c_{\rm eff} = \frac{c}{n} \qquad\textbf{AND}\qquad \Omega = \frac{\Omega_\infty}{n}$$
+
+**One knob wired to both slots.** For $n = 1 + a_N U$ the `sympy` expansion returns $c_{\rm eff}/c$ and $\Omega/\Omega_\infty$ as the *same* series, so
+
+$$a_1 = b_1 = a_N \quad\text{and}\quad b_2 = a_N^2 \quad\text{are FORCED}$$
+
+and the NR bracket collapses:
+
+$$4a_N - a_N - \frac{2a_N^2}{a_N} \;=\; a_N \qquad\text{— the bare index slope, with no room for a second constitutive number.}$$
+
+**This is an identity, not an approximation.** There is no expansion order at which the Gordon scalar construction recovers a second knob, no weak-field limit in which it becomes accurate, and no choice of $n(r)$ that repairs it — every scalar index gives $\Delta\phi/(\pi GM/c^2\ell_p) = $ its own slope, so the only $n$ that gives $6$ is $n = 1 + 6U$, which then breaks light deflection by $3\times$ and Newton by $6\times$.
+
+For canon's matter index $n_{scalar} = 1 + GM/c^2r$ (`ponderomotive-equivalence.md`:14, `double-deflection.md`:22, `closure-roadmap`:205): slope $1$, so $\Delta\phi = \pi GM/c^2\ell_p$ and
+
+$$F \;\equiv\; \frac{\Delta\phi_{\rm AVE}}{\Delta\phi_{\rm GR}} \;=\; \frac{1}{6}$$
+
+**Confirming the concurrent lane's arithmetic.** `research/2026-08-27-ppn-tensor-derivation` reports $F = 1/6$ from a PPN-tensor route. I reproduce it here from a construction with no metric in it, by two independent methods (series Binet and 60-digit quadrature), and the quadrature lands `0.9999999667`. **That lane's number is right.** What this document supersedes is its OUTLOOK: $F = 1/6$ is not a statement about AVE's spatial sector being absent, it is a statement about **one number being asked to do two jobs**, and it is repairable without touching the $1/7 : 2/7$ projection ratio.
+
+### The observational cost of the swap, my numbers
+
+Orbital elements are mine (Mercury $a = 5.790905\times10^{10}$ m, $e = 0.205630$, $P = 87.9691$ d; $GM_\odot = 1.32712440018\times10^{20}$ m$^3$s$^{-2}$; PSR B1913+16 $M_{tot} = 2.828378\,M_\odot$, $P_b = 0.322997448911$ d, $e = 0.6171334$; $R_\odot = 6.957\times10^8$ m):
+
+| observable | AVE as canon stands | repaired $(2,1,\tfrac12)$ | measured |
+|---|---|---|---|
+| Mercury perihelion | **`7.163446`** ″/cy — **$-895.4\sigma$** | `42.980676` ″/cy — $+0.017\sigma$ | $42.98\pm0.04$ |
+| Hulse–Taylor periastron | **`0.70443293`** °/yr | `4.2265976` °/yr | $4.226585(4)$ |
+| solar-limb deflection | `1.75119` ″ (light channel, $a_1=2$) | `1.75119` ″ | $1.7509$ |
+| matter deflection at $v\to c$ | **half the photon** (§5) | equal to the photon | equal (GR) |
+
+Two calibration checks on the wrong-way branches, so the reader can see how sharp $b_2$ is: matter riding the *light* index ($a_1=b_1=2$, $F=1/3$) gives `14.326892` ″/cy ($-716\sigma$); the repair with an **additive** clock ($b_2 = 0$, bracket $= 7$) gives `50.144122` ″/cy ($+179\sigma$). **$b_2$ moves Mercury by $179\sigma$.** It is not a rounding detail; it is the single remaining underived number in the $O(m)$ sector.
+
 
 ## §4 — The repair, and the two numbers canon already owns
 
