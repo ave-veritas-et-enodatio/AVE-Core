@@ -441,3 +441,123 @@ Three reasons it is not fitting, offered so the reader can check rather than tru
    both diagnostics. `η_mixed` stays `+0.828031` and stays ~830× from reconciliation.
 3. **It does not change the bin.** Z1 fired at step 1 for an unrelated reason, and the
    corrected algebra does not touch Z1.
+
+---
+
+## §7 — P10: does any engine observable respond to the weight independently of the install?
+
+**Pre-registered claim (P10, §7):** *"no engine observable discriminates clock weights
+independently of the install."* Falsifier: exhibit one that does.
+
+### §7.1 — Structural leg (the code path)
+
+The weight reaches the field through exactly one door. Two methods, both run this
+session at this branch:
+
+- **Method A** — `grep -rn "komar_weight\|ponderomotive_weight" src/ research/drivers --include=*.py`
+- **Method B** — `git grep -n "komar_weight\|ponderomotive_weight" -- '*.py'` (tracked tree)
+
+Both return the same executable sites in `src/`: `backreaction.py:325` and `:327` (inside
+`build_picard_source`, forming `T00_src`), and `:481`, `:487`, `:489` (the `Delta_clock`
+/ `Delta_clock_src` **diagnostics**, which are computed after the solve and fed to
+nothing). The remaining hits are the two `def` lines and one docstring cross-reference.
+**Method B does not see the driver, because the driver was untracked when the census
+ran** — that is the difference between the two listings, and it is stated rather than
+smoothed over.
+
+So the weight enters the solved field **only** as `T₀₀^src = T₀₀^matter·w`. Any observable
+read off `ε₁₁` is a function of the installed source and of nothing else about `w`.
+
+### §7.2 — Numerical leg
+
+Five observables, measured under all four installed `k` at λ=1, each normalised by that
+run's **own** `Σ T₀₀^src`, then compared against the frozen `k = 1/7` member:
+
+| observable | max relative spread across `k ∈ {0, 1/7, 2/7, 1/2}` |
+|---|---|
+| far-field Gauss flux `m_g` | `4.73×10⁻⁷` |
+| exterior monopole coefficient `b` of the `a + b/r` fit | `1.17×10⁻⁵` |
+| ray-traced deflection `δ` at `b = 6` | `1.93×10⁻⁴` |
+| enclosed-flux plateau at `r = 8` | `8.96×10⁻⁶` |
+| enclosed-flux plateau at `r = 10` | `5.33×10⁻⁷` |
+| exterior `ε₁₁` shape on the `6 ≤ r ≤ 10` shell | `9.88×10⁻⁷` |
+
+Every observable collapses onto the installed source to within the solve residual. The
+largest, the ray-trace at `1.9×10⁻⁴`, is the eikonal integrator's own step error and is
+still three orders below the `k`-induced change in `Σ T₀₀^src` itself (`4.000 → 3.847`,
+a 3.8% swing). **P10 found no counterexample.**
+
+### §7.3 — ★ COMPLETENESS on this list
+
+**This is the list I enumerated and tested — not a claim about the engine's observables.**
+It was assembled from the prereg's own §7 candidate list (ray-trace deflection, monopole
+plateau, two-mass nonlinearity ratio, `shape_dev` vs Stage-1, `S_min`-independence) plus
+the two the code path exposes. **Two of the prereg's five candidates were NOT run**: the
+two-mass nonlinearity ratio (`check4_two_mass_superposition_engages_nonlinearity`) and
+the `S_min`-independence sweep (`check2_smin_independent_emergent_rs`). Both exist in the
+engine and both were skipped for run cost after the structural leg made the outcome
+determinate; **that is a gap in this run's execution of gate §15.1.7, and it is stated as
+one, not argued away.** The structural leg does not depend on the enumeration being
+complete — it depends on the call-site census, which was two-method — but P10's numerical
+leg is weaker than the prereg asked for.
+
+---
+
+## §8 — Derived vs imported ledger
+
+| ingredient | status | provenance |
+|---|---|---|
+| `n_scalar = 1 + ε₁₁/7` | **DERIVED-canon** | `manuscript/ave-kb/vol3/gravity/ch03-macroscopic-relativity/ponderomotive-equivalence.md:14` — the `1/7` Lagrangian isotropic projection |
+| `U_wave = m_i c²/n_scalar` — the energy read at infinity | **DERIVED-canon, PRINTED** | same leaf `:19`; the leaf then takes its gradient to recover `F = −GMm_i/r²` and WEP |
+| `w = 1/n_scalar` as the Komar source weight | **DERIVED, one new step** | the prereg's §3.2 step (5): recognising `U_wave` **as** the Komar integrand. Everything else was already in canon. |
+| `k = 1/7` | **DERIVED** (from the above) | FROZEN; not swept, not fitted |
+| `g_self = 1.0` | **FORCED** by the engine's own operator | `L = (Div @ Dexp @ Grad)` with no prefactor, `gw_propagation.py:700`; `rhs = T00`, `:677` ⇒ `κ_op ≡ 1` |
+| `Div = Gradᵀ` | **DERIVED, and now ASSERTED** | read off `gw_propagation.py:566-567` vs `:578-579`; **measured `nnz = 0` this session** (§3.1) |
+| `Δ_clock = k·Σ T₀₀^src ε₁₁` | **DERIVED this session** (§6.1) | two lines from the definition of `w`; verified to machine zero |
+| `c^D = 2k/g_self` | **DERIVED this session** (§6.1) | consequence of the above + the virial identity |
+| `ε₁₁ = 7GM/(c²r)` | **canon** | `temporal-spatial-lattice-decomposition.md:14` |
+| the modulus `c⁴/7G`, and `G` | **IMPORTED** | gravity-sector constant; `K = 2G` is GR-imported (PR #261). Unchanged by this run. |
+| the diamond-K4 Grad/Div stencil | **IMPORTED instrument, non-canonical** | `#86` leg; D1 production carrier is srs-z=3. Every verdict carrier-conditional. |
+| `η_mixed` slope definition | **IMPORTED** | `src/tests/engine_acceptance/_nordtvedt.py:167-178`, unmodified |
+| the `u_field` deletion | **CARRIED PREMISE**, not re-litigated | prereg §6.1's three independent grounds |
+
+---
+
+## §9 — Disclosure: pre-registered vs post-dicted (§13, carried verbatim as required)
+
+The prereg §13.3 requires this split to appear in the result document. **Reproducing a
+known number is a regression receipt, not evidence.**
+
+### §9.1 — ALREADY MEASURED before the freeze — POST-DICTED, not pre-registered
+
+| quantity | prereg's recorded value | this run |
+|---|---|---|
+| `η_lin` under the derived linear weight, FAM-A, N=24 | `+0.8280` | **`+0.828031`** — reproduced |
+| `c_lin` across a 16× amplitude span | `0.2848 → 0.2780` (2.4% drift) | **`0.285740 → 0.291532`** over the same span — the *sign of the drift is opposite*, see below |
+| `Δ_clock/U_bind` under the **shipped** weight | `0.0115 → 0.1950` | control `c` = `0.0269 → 0.0679` on FAM-A (different family; not directly comparable) |
+| `∫T₀₀ε/U_bind` on FAM-A | `2.0058, 2.0029, 2.0016, 2.0010` | consistent with `⟨D⟩_w` = `1.0029 … 1.0005` here |
+| `η` at `g_self = 2/7` | `−0.0005` | **NOT RUN** — `g_self` is frozen at 1.0 and no sweep was performed (§12.4.2) |
+
+⚠ **One post-dicted number did NOT reproduce, and it matters.** The scoping lane recorded
+`c_lin` **falling** with amplitude (`0.2848 → 0.2780`). This run measures it **rising**
+(`0.285740 → 0.306508`), and §6.1 says it must rise, since `c = (2k/g)·⟨D⟩_w` with
+`⟨D⟩_w ≥ 1` monotone in amplitude. The measured `⟨D⟩_w` column (`1.000088 → 1.072778`)
+tracks it exactly. **The scoping lane's `c_lin` drift is not reproduced here and the
+disagreement is unexplained** — its weight was monkeypatched and its numbers are not in
+this tree, so I could not diff the implementations. Flagged in §11.
+
+### §9.2 — GENUINELY PRE-REGISTERED — the only clauses that could have banked
+
+| # | content | outcome |
+|---|---|---|
+| **P9** | `c^D` collapses the amplitude drift exactly | **fired, and the prereg's form is wrong** — the drift collapses *more* exactly than predicted, to `2k/g` with no `χ` (§6) |
+| **P7** | `c` at `N ∈ {24, 32, 40}` | **passes**, drift `2.58×10⁻⁴` vs a 1% edge (§5.3) |
+| **P8** | four-coefficient discrimination | **passes**, `c^D` = exactly `2k/g` for all four (§5.4) |
+| **P4** | two-method identity with `⟨D⟩_w` and `χ` measured independently | **the identity as written is wrong** (§6.3); the corrected one holds to `V_resid` |
+| **P3** | the pre-computed bracket at every rung | **holds at all 7 rungs** (§5.2) |
+| **P10** | no observable discriminates weights independently of the install | **no counterexample found**, with a stated execution gap (§7.3) |
+| **Z1** | the broadcast-degeneracy detector | **fired — and is an identity of its own target** (§4) |
+
+**Because the run bins Z, none of the above is banked.** This table records what the
+pre-registered clauses did, so that the arc's next document can see which of them are
+worth re-registering once the two frozen-text defects are corrected.
