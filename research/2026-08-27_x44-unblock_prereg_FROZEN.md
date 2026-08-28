@@ -119,6 +119,48 @@ not produce.
 
 ## 2 · What was actually blocking X44: a DEFINITIONAL obstruction
 
+X44 froze bin (iii) UNRECONCILED with `η_mixed = +1.048` and has sat unowned since.
+A sweep this session established that **the obstruction was DEFINITIONAL, not
+physics: the glyph `√S` denotes two different functions of `ε₁₁`, and the
+reconciliation bridged them on the symbol.**
+
+| | site (verified this session) | form | leading deficit `1 − w` |
+|---|---|---|---|
+| **engine** | `src/ave/gravity/backreaction.py:250-252` → `src/ave/solvers/graded_vacuum_network.py:229-230` | `w = √( (1−A²)^{0.5} ) = (1−A²)^{1/4}` | **`ε₁₁²/4` — QUADRATIC** |
+| **vol-3 canon (W2)** | `temporal-spatial-lattice-decomposition.md:24`, `:28`, with `ε₁₁` at `:14` | `√g₀₀ = √S ≈ 1 − GM/(c²r)` | **`ε₁₁/7` — LINEAR** |
+
+Verified verbatim this session:
+`graded_vacuum_network.py:229-230` — `base = np.maximum(1.0 - A**2, 0.0)` /
+`S = base**exponent`; `backreaction.py:251-252` — `S = saturation_kernel(A,
+exponent=0.5, S_min=S_min)` / `return np.sqrt(S)`. Composed, `w = (1−A²)^{1/4}`,
+whose Taylor expansion about `ε₁₁ = 0` has **no linear term at all.**
+And `temporal-spatial-lattice-decomposition.md:24` verbatim: *"the proper tick of a
+clock sitting at $r$ is $\sqrt{g_{00}} = \sqrt{S} \approx 1 - GM/(c^2 r)$"*.
+
+**The two sides of X44's reconciliation were therefore never comparable.**
+`η_mixed ≈ +1.05` measured the gap between a linear object and a quadratic object
+that share a symbol. That is a bookkeeping defect any framework would own — it is
+NOT the observation that AVE has more than one clock notion. GR carries ADM, Komar
+and Bondi masses without that being a defect (symmetric-standard check applied, both
+directions). The defect here is narrower: **one symbol denoting two different
+functions of one variable.**
+
+**The root, one level deeper** (D1 lane, credited): the false link is not the
+exponent but the identity `g₀₀ = S` itself. With `g₀₀ = 1 − A` affine in the metric
+strain and `S(A) = √(1−A²)` even in `A`, `S = g₀₀` forces `2g₀₀(1−g₀₀) = 0`, i.e.
+`A ∈ {0, 1}` and nothing between — and those two points are exactly Axiom 4's two
+gravitational anchors. Every canonical check of the identity was performed at the
+only two radii where it cannot fail. Axiom 4's own dialect list
+(`manuscript/common_equations/eq_axiom_4.tex:10`, verbatim: *"the same $S(A)$
+function governs strain expressed as … $r_s/r$ (gravitational metric strain)"`*)
+keeps `A` affine in the metric strain under either reading, so **the dialect fork
+does not rescue `g₀₀ = S`.**
+
+**Consequence for this prereg.** Every weight below is named by its **function of
+`ε₁₁`**, never by the glyph `√S`. The bare glyph `S` appears in this document ONLY
+as the Axiom-4 kernel `S(A) = √(1−(A/A_yield)²)` (`eq_axiom_4.tex:7`, verified
+verbatim). **This prereg never writes `g₀₀ = S` or `√g₀₀ = √S`.**
+
 ## 3 · THE FROZEN WEIGHT
 
 ## 4 · The ledger algebra — exact, before any run
