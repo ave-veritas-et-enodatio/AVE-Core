@@ -1,3 +1,29 @@
+> 🔴 **BLOCKED BY BLIND AUDIT 2026-08-28 — DO NOT ACT ON THIS RECORD AS
+> WRITTEN.** Three blocking defects, independently reproduced by the
+> orchestrator. Verdict:
+> [`..._BLIND-AUDIT.md`](2026-08-28_machian-boundary-first-principles-audit_BLIND-AUDIT.md).
+>
+> **What is wrong.** (B1) The record's central verdict names the wrong half:
+> canon's own `ilk-gravmb` (`interlock-register.md:216`) books the ξ
+> termination as the **VALUE-fitted** half, and its **derived-FORM** half is
+> the `Γ = 0` achromatic lens — **so §1 Q3's result IS canon's form half,
+> presented here as a demolition of it.** (B2) §1's central negative is false:
+> a shorted line gives `Z_in → jωL_p·l`, **exactly linear in cell count**, and
+> canon's coupling sits in a *static* law where `βl = 0`; linear-in-`N`
+> requires `Z_L = 0` exactly, making canon's `Γ = −1` **load-bearing**, the
+> opposite of §1's conclusion. (B3) The Jacobian argument substitutes the
+> operator's Green's function for its coefficient, and its numerical kill
+> (`2.894e-39` vs `3.456e38`) is a tautology — those are exact reciprocals.
+>
+> **What survives untouched:** the `x = x` identity (§2), the `H_∞`
+> double-booking and every number in §5, row 7's empty `Γ` cell (§4 i), the
+> missing-Jacobian *observation* (§3), and all collateral arithmetic (§7).
+> **DECISION 2 stands. DECISION 1 is malformed and re-posed in the routing
+> item.**
+>
+> Preserved unrewritten as the audit trail. Corrections live in the audit
+> companion, not in edits to the text below.
+
 # AUDIT RECORD — asking the Machian-boundary question from AVE first principles, and auditing the KB's answer under the same lens (2026-08-28)
 
 **Status: AUDIT RESULT, FLAG-DON'T-FIX. Nothing here is a ruling, and nothing

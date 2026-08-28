@@ -4,7 +4,9 @@
 
 # AVE program board
 
-Scanned tree **a3f4fef7** (2026-08-25) · 468 index records · 331 claims · 12 PRs open
+Scanned tree **13ffe0c2** (2026-08-28) · 468 index records · 331 claims · 13 PRs open
+
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`a3f4fef7`). Every count below describes **13ffe0c2**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -101,7 +103,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [Two different lengths may share the name ell_c — the sqrt(6) Cosserat coupling length vs the weak-range construction](open-items/2026-08-25-ell-c-name-collision.md) | OPEN | grant | 2026-08-25 |
 | [G2 freeze decisions — the four calls that must be frozen before the P2 existence solve runs](open-items/2026-08-25-g2-freeze-decisions.md) | OPEN | grant | 2026-08-25 |
 | [The storage clock and the response clock are the same number exactly — canon's 1.4e-5 near-collision is a linearization artifact](open-items/2026-08-25-storage-response-clock-identity.md) | OPEN | grant | 2026-08-25 |
-| [G's derived-FORM half — the cosmic-termination mechanism does not survive Axioms 1-4, and H_infinity is booked two incompatible ways](open-items/2026-08-28-machian-form-half-adjudication.md) | OPEN | grant | 2026-08-28 |
+| [The taxonomy layer promotes the xi termination as physics with an empty Gamma, while canon's own ilk-gravmb ruling books it VALUE-fitted; and H_infinity is booked two incompatible ways](open-items/2026-08-28-machian-form-half-adjudication.md) | OPEN | grant | 2026-08-28 |
 | [Sibling-repo debts — AVE-Fusion yield cross-wire + AVE-Bench-FemtoElectrometer stale sites](open-items/2026-07-03-sibling-repo-debts.md) | REGISTERED | unassigned | 2026-07-03 |
 | [The v3 ringdown instrument — the DISCRETE near-wall chain](open-items/2026-08-04-v3-ringdown-instrument.md) | REGISTERED | unassigned | 2026-08-04 |
 | [Hygiene backlog — Bell-arc citation follow-ups, FPR provenance re-grep, auditor-landing queue](open-items/2026-07-03-hygiene-backlog.md) | QUEUED | unassigned | 2026-07-03 |
@@ -134,6 +136,7 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 | PR | state | title |
 |---|---|---|
+| #1032 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: first-principles audit of |
 | #1031 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: FROZEN prereg — X44 unblo |
 | #1030 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: where GR is validated on  |
 | #1029 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: the two-knob gravity repa |
