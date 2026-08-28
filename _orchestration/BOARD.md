@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **04bb9c64** (2026-08-28) · 468 index records · 331 claims · 11 PRs open
+Scanned tree **fc80803c** (2026-08-28) · 468 index records · 331 claims · 12 PRs open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`a3f4fef7`). Every count below describes **04bb9c64**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`a3f4fef7`). Every count below describes **fc80803c**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -136,6 +136,7 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 | PR | state | title |
 |---|---|---|
+| #1031 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: FROZEN prereg — X44 unblo |
 | #1030 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: where GR is validated on  |
 | #1029 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: the two-knob gravity repa |
 | #1028 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: PPN tensor derivation — m |
