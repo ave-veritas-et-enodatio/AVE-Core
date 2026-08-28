@@ -9,7 +9,17 @@
 
 ## SECTOR DECLARATION (read before any standard-physics word below)
 
-<!-- SECTION: sector-declaration -->
+**Which sector?** The A1 dilatation (bound / mass) sector and the T2 transverse (Cosserat shear / optical) sector, treated as two *separate* propagation cones. That separation is the whole finding.
+
+**Does the engine carry that DOF?** Not exercised here. This is an analytical lane on canon's written constitutive statements plus a high-precision ODE/quadrature cross-check; no lattice integrator was run.
+
+**Cold or saturated?** **COLD, sub-yield, lossless-reactive throughout.** Every number below is first-order-in-$m/r$ weak field, $\varepsilon_{11} \lesssim 10^{-6}$ at solar-system radii. Axiom-4 saturation is inactive at this amplitude and no saturation kernel enters any result. A saturated-regime restatement is **not** attempted and nothing here scopes to $r \to r_{sat}$.
+
+**Regime / phase-state:** crystalline phase, static (no bias-propagation dynamics invoked), single isolated spherically symmetric source, test-particle limit.
+
+**Coordinates.** Every metric statement is in **isotropic coordinates**, and the PPN coefficients are read off the standard isotropic-gauge forms
+$-g_{00} = 1 - 2U + 2\beta U^2 + \dots$, $g_{ij} = (1 + 2\gamma U)\delta_{ij}$, with $U \equiv GM/(c^2 r)$.
+Mixing an areal-radius statement with an isotropic-radius statement moves $\gamma$ by construction; §9's control exists to catch exactly that.
 
 ## §0 — VERDICT
 
