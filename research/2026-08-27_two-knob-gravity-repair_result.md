@@ -23,7 +23,7 @@ Setting $(a_1, b_1, b_2) = (2, 1, \tfrac12)$ — the matter packet riding **ligh
 
 ### ⚠ THE CAVEAT, stated at the same volume as the fix
 
-**$(2,1,\tfrac12)$ currently WORKS. Nothing yet FORCES it.** The difference between a derivation and a fit is exactly whether the constitutive map compels those exponents, and lane L3 was charged with that question. **It found that the map does not exist** — canon's only bias$\to$index object is Op19 (`operators.md`:59, status CANONICAL), whose licensed coefficient $\nu_{vac}$ is *"a kinematic ratio (transverse strain per longitudinal strain), not a modulus"* (2026-08-11 linearity audit), i.e. a strain-per-strain ratio being used as a strain-per-**index** ratio. The object that performs that conversion in any real medium is the rank-4 photoelastic tensor $p_{ijkl}$, which this corpus has never named, derived, measured or bounded (F-B4, `research/2026-07-31_anisotropy-observable_scoping.md`:657). L3's own finding, restated in its own labels: with $\gamma_\parallel = 1 + P\,U$, $\gamma_\perp = 1 + Q\,U$, deflection fixes $Q = 2$ and the Newtonian limit fixes one combination of $(P, Q, f)$ — **three unknowns, two measurements, so a one-parameter family survives.** $Q = 2$ is neither forced, nor forced elsewhere, nor simply free. And $b_2 = \tfrac12$ is a **third** number that L3's ledger does not reach at all: it follows if the clock grades multiplicatively ($\Omega = \Omega_\infty e^{-U}$) and from nothing else yet written.
+**$(2,1,\tfrac12)$ currently WORKS. Nothing yet FORCES it.** The difference between a derivation and a fit is exactly whether the constitutive map compels those exponents, and lane L3 was charged with that question. **It found no derivation of the map.** The one bias$\to$index object L3 located in the sites it read is Op19 (`operators.md`:59, status CANONICAL), whose licensed coefficient $\nu_{vac}$ is *"a kinematic ratio (transverse strain per longitudinal strain), not a modulus"* (2026-08-11 linearity audit), i.e. a strain-per-strain ratio being used as a strain-per-**index** ratio. The object that performs that conversion in any real medium is the rank-4 photoelastic tensor $p_{ijkl}$, which **F-B4 records as never named, derived, measured or bounded in this corpus** (`research/2026-07-31_anisotropy-observable_scoping.md`:657, verified three ways by its author including `git log -S` over all of `origin/main` — that receipt is F-B4's, not this lane's). L3's own finding, restated in its own labels: with $\gamma_\parallel = 1 + P\,U$, $\gamma_\perp = 1 + Q\,U$, deflection fixes $Q = 2$ and the Newtonian limit fixes one combination of $(P, Q, f)$ — **three unknowns, two measurements, so a one-parameter family survives.** $Q = 2$ is neither forced, nor forced elsewhere, nor simply free. And $b_2 = \tfrac12$ is a **third** number that L3's ledger does not reach at all: it follows if the clock grades multiplicatively ($\Omega = \Omega_\infty e^{-U}$) and from nothing else yet written.
 
 **So the honest class of this result is:** the $F=1/6$ diagnosis is **DERIVED** and is a genuine internal defect; the repair is a **CONSISTENCY-class recalibration** that spends AVE's two already-imported numbers ($a_1 = 2$ from the GR-imported $\nu_{vac}\cdot 7$ chain; $b_1 = 1$ from Newton) plus one **ASSERTED** number ($b_2 = \tfrac12$). It mints nothing, moves no solidity, and is not an emergence claim.
 
@@ -265,7 +265,7 @@ A neutrino has rest mass. By canon's own rule it takes $n = 1 + U$, while the ph
 2. **The Galactic mass model.** Handled above by working in the fractional statement.
 3. **Is the $\sim$3 h offset the right observable?** It is an astrophysical coincidence (shock-breakout timing), not a null measurement. That loosens it by at most an order of magnitude and does not reach a factor of 250.
 
-### 5.4 — This test appears nowhere in the corpus
+### 5.4 — Two searches for this test return zero hits
 
 Two independent searches over the whole worktree at `a3f4fef7` (`grep -ril` and `rg -il`, `.git` excluded) for `1987A` and `sn1987` return **0 files each**. Method blind spot: single-line regex; a phrase wrapped across lines would be missed; sibling repos under `AVE-staging/` were not searched. So: *absent from AVE-Core at `a3f4fef7` by these patterns*, not "absent from the program".
 
@@ -350,7 +350,7 @@ L1 reported that the intermediate step *"the coefficient is 1"* reads $q/2 = \tf
 
 | # | object | status |
 |---|---|---|
-| **A1** | $b_2 = \tfrac12$, equivalently *"the clock grades multiplicatively, $\Omega = \Omega_\infty e^{-U}$"* | **ASSERTED.** No axiom, no leaf, and no lane derives it. It is worth $179\sigma$ on Mercury. |
+| **A1** | $b_2 = \tfrac12$, equivalently *"the clock grades multiplicatively, $\Omega = \Omega_\infty e^{-U}$"* | **ASSERTED.** None of the four lanes derives it, and it is not in any axiom file or leaf any lane read. That is a statement about what was read (§13.1), not about the corpus. It is worth $179\sigma$ on Mercury. |
 | **A2** | that $n_{temporal}$'s slope 2 is the **speed** grading of *both* channels rather than a temporal-metric component | **INTERPRETIVE.** §4.3 Flag A. |
 
 ### 7.4 — The one-line reading of the ledger
@@ -429,7 +429,7 @@ The only thing making the 10% vanish is the operating-point choice $\rho_{bond} 
 | electron | kinetic **`1.173718` MeV** |
 | **proton** | kinetic **`1.37335` keV** |
 
-**What this implies for momentum conservation.** On a lattice, spatial translation symmetry is **discrete**; the conserved bookkeeping quantity is crystal momentum defined **modulo a reciprocal-lattice vector**, and Umklapp is a reactive three-wave phase-matching condition (*not* a drag — see L2's import #3 in §10). Now read the axiom: `eq_axiom_3.tex`:27, **verified verbatim**, names its Noether legs as **time-translation invariance** and the **residual gauge family** $\mathbf A \to \mathbf A + \nabla\lambda(\mathbf x)$. **Spatial translation is not among them.** L2 reports that the only assertion of momentum conservation it found is a docstring at `src/ave/topological/vacuum_engine.py`:1477, and that the one place momentum closure was load-bearing — the dark wake — is 🔴 DEMOTED 2026-08-11 and self-flags at `dark-wake-bemf-foc-synthesis.md`:122 as *"an explicit open gap, not a framework claim."*
+**What this implies for momentum conservation.** On a lattice, spatial translation symmetry is **discrete**; the conserved bookkeeping quantity is crystal momentum defined **modulo a reciprocal-lattice vector**, and Umklapp is a reactive three-wave phase-matching condition (*not* a drag — see L2's import #3 in §10). Now read the axiom: `eq_axiom_3.tex`:27, **verified verbatim**, names its Noether legs as **time-translation invariance** and the **residual gauge family** $\mathbf A \to \mathbf A + \nabla\lambda(\mathbf x)$. **Spatial translation is not among them.** L2 reports that the sole assertion of momentum conservation **its** search surfaced is a docstring at `src/ave/topological/vacuum_engine.py`:1477, and that the one place momentum closure was load-bearing — the dark wake — is 🔴 DEMOTED 2026-08-11 and self-flags at `dark-wake-bemf-foc-synthesis.md`:122 as *"an explicit open gap, not a framework claim."*
 
 $\alpha_3$ is precisely the PPN parameter that is nonzero for theories with a preferred frame **and** non-conserved momentum. It is bounded at $|\alpha_3| < 4\times10^{-20}$ — one of the tightest numbers in physics. **AVE has the first condition by its own axiom text and cannot presently rule out the second.**
 
@@ -477,7 +477,7 @@ Canon's only bias$\to$index bridge is **Op19**, `operators.md`:59, **verified ve
 
 The 2026-08-11 gravity-linearity audit licenses Op19 as *"Poisson-ratio kinematics … a **kinematic ratio** (transverse strain per longitudinal strain), **not a modulus**. Kinematic ratios are linear by construction; the kernel grades moduli, not kinematics."*
 
-**A strain-per-strain ratio lives entirely in the mechanical sector and carries no information about how strain grades $\epsilon$ or $\mu$.** The object that does is the rank-4 **photoelastic tensor** $\delta(\epsilon^{-1})_{ij} = p_{ijkl}\,e_{kl}$, which in a cubic lattice has three independent constants $(p_{11}, p_{12}, p_{44})$ and is an *independent material property in every real solid*. **This corpus has never named, derived, measured or bounded it** — F-B4 at `research/2026-07-31_anisotropy-observable_scoping.md`:657, which its own author verified three ways including `git log -S` over all of `origin/main`. My two independent methods reproduce the absence from `manuscript/` and `src/` (§13).
+**A strain-per-strain ratio lives entirely in the mechanical sector and carries no information about how strain grades $\epsilon$ or $\mu$.** The object that does is the rank-4 **photoelastic tensor** $\delta(\epsilon^{-1})_{ij} = p_{ijkl}\,e_{kl}$, which in a cubic lattice has three independent constants $(p_{11}, p_{12}, p_{44})$ and is an *independent material property in every real solid*. **F-B4 records that it has never been named, derived, measured or bounded in this corpus** — `research/2026-07-31_anisotropy-observable_scoping.md`:657, whose author verified that three ways on a widened pattern set including `git log -S` over all of `origin/main`. **That receipt is F-B4's, not mine.** My own two-method grep is weaker corroboration and returns 4 files, none in `manuscript/` or `src/` (§13).
 
 L3 makes the audit's blind spot precise: *"the audit asked whether the LINEARITY is licensed and correctly answered yes; it did not ask whether the strain-to-INDEX conversion is licensed, and that conversion is the missing object."*
 
@@ -615,7 +615,7 @@ Six items landed in `_orchestration/open-items/`. All six anchors were validated
 
 ## §13 — Completeness method and its blind spots
 
-**★ No "the only", no "no leaf", no "every", no "none", no bare total appears in this document as a claim about the corpus.** Where a count appears it is a statement about a search, and the search is described here.
+**★ This document makes no unqualified "the only" / "no leaf" / "every" / "none" claim about the corpus, and no bare total.** A scan of my own first pass found four; they are corrected in the shipped version, and I record that they were mine. Where a count appears it is a statement about a search, and the search is described here.
 
 ### 13.1 — What I read end to end
 
