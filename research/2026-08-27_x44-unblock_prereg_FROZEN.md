@@ -496,6 +496,40 @@ about the weight's importance.
 
 ## 7 · Pre-registered predictions
 
+Numbers committed before the run. Each prediction is tagged **ENTAILED** (true by
+construction — declared so it cannot be banked as evidence) or **FIREABLE** (can
+fail).
+
+| # | prediction | value | status |
+|---|---|---|---|
+| **P1** | Gauss flux ≡ `Σ T₀₀^src` | rel. residual < 1e-4 | **ENTAILED** (install-tautology) |
+| **P2** | virial identity (V): `Σ T₀₀^src ε₁₁ / Σ D\|∇ε₁₁\|²` | `1 ± 1e-6` | **ENTAILED by adjointness**; fires only on face leakage / non-convergence / clip |
+| **P3** | `c` inside the §5.3 bracket at every FAM-B rung | see §5.3 table | **FIREABLE** |
+| **P4** | `\|c / ((2k/g_self)·⟨D⟩_w·χ) − 1\|`, with `⟨D⟩_w`, `χ` measured independently | ≤ 1e-3 | **FIREABLE** (two-method) |
+| **P5** | linear-limit anchor: `c` extrapolated to λ→0 | **0.285714 ± 0.001** | **FIREABLE** |
+| **P6** | `η_mixed` on FAM-A (reported, **not adjudicated**) | **+0.831 ± 0.010** | **REPORTED** |
+| **P7** | resolution receipt: `c` at `N ∈ {24, 32, 40}` | drift < 1% | **FIREABLE** |
+| **P8** | discrimination: install `k ∈ {0, 1/7, 2/7, 1/2}`; each gives `c ≈ 2k/g_self` | 0, 0.2857, 0.5714, 1.0000 | **FIREABLE** (instrument resolving power) |
+| **P9** | D-consistent register `c^D ≡ Δ_clock/(½g_self Σ D\|∇ε₁₁\|²) = (2k/g_self)·χ` — the `⟨D⟩` drift vanishes **exactly** | matches `(2/7)·χ` to ≤1e-3 | **FIREABLE** |
+| **P10** | **no engine observable discriminates clock weights independently of the install** (§9.1) | — | **FIREABLE by counterexample** |
+
+**P4 and P9 are the load-bearing fireable pair.** P4 says the closed form is the
+right model of the instrument; P9 says the residual amplitude drift is entirely the
+binding register's omission of `D`, and vanishes exactly when the register the
+operator's own variational structure selects (`½∫D|∇ε|²`) is used instead. **P9 can
+fail** — if the drift does not vanish under the D-consistent register, the drift is
+something else (boundary, convergence, clip) and the closed form is incomplete.
+
+**P8 is the non-triviality leg**, not a physics prediction: it establishes that the
+instrument separates the four candidates by ≥2× while the bracket is ≤3% wide
+(§5.4). Installing `k = 1/2` is a **probe**, not a proposal — §12.
+
+**P10 is the structural claim** and the one this prereg most expects to survive. Its
+falsifier is exhibiting a single engine observable that responds to the weight other
+than through the installed source. Candidates to be enumerated and tested in the run:
+the ray-trace deflection `δ = 4GM/(bc²)`, the monopole plateau, the two-mass
+nonlinearity ratio, `shape_dev` vs Stage-1, and the `S_min`-independence check.
+
 ## 8 · What would FALSIFY the derived weight, in the run's own terms
 
 ## 9 · The honest expected outcome — what a non-zero residual would MEAN
