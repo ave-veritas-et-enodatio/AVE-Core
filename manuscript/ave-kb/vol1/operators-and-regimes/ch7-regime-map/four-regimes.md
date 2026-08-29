@@ -113,4 +113,6 @@ $$
 
 To leading order, $\Delta S \approx r^2/2$. At the derived boundary $r_1 = \sqrt{2\alpha}$, $\Delta S = \alpha \approx 1/137$. This validates the use of unmodified Maxwell/Newton equations in all terrestrial laboratory experiments except those explicitly designed to approach $V_{yield}$ (e.g., asymmetrical high-voltage capacitors).
 
+> **Do not fuse with Op19 (2026-08-28; [`def-ln3str`](../../../common/vocabulary-register.md); [`hop-lc-constitutive-grading.md`](../../../vol3/gravity/ch03-macroscopic-relativity/hop-lc-constitutive-grading.md)).** Regime I "Linear" here means the **kernel is frozen** ($O(r^2)$ dropped; hop $L,C$ from Ax4 are constant). It does **not** mean hop $L,C\propto\varepsilon_{11}$. The gravitational index $n=1+\nu_{\mathrm{vac}}\varepsilon_{11}$ is Op19, a **different** expansion, still inside this same $r$ band. Solar-system $\varepsilon_{11}$ is deep Regime I (`domain-catalog.md`:50).
+
 ---

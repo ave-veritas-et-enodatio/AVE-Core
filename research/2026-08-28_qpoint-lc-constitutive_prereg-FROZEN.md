@@ -202,3 +202,17 @@ PREREG (target: constitutive map ε₁₁ ↦ (L, C, S) on a frozen graph, Z pin
   Falsifier: a step that needs embedding node motion after F1-projection and
     irrep projection are exhausted — route to Grant, do not slide nodes.
 ```
+
+---
+
+## Rule-12 amendment A1 (2026-08-28) — KB + vocab landing; Grant's linear-regime question
+
+**Does not edit any frozen bin, tolerance, edge, or §6 label.** The freeze header's "edits no KB" was true at freeze-by-push (`2704bc79`). This amendment records the documentation Grant asked for after the freeze.
+
+**Answer (locked as restatement of canon, not a new derivation):** hop $L$ and $C$ **do not scale linearly in strain from Axiom 4.** Three senses (`def-ln3str`):
+
+- **K (kernel):** $S(r)$ is even. Regime I ($r<\sqrt{2\alpha}$) freezes hop $L,C$ from Ax4. Solar $\varepsilon_{11}=1.486\times10^{-5}$ is deep Regime I. Kernel $\delta L/L$ at the limb is $O(10^{-10})$.
+- **P (Op19):** $n=1+\nu_{\mathrm{vac}}\varepsilon_{11}$ is linear in $\varepsilon_{11}$ at leading order, still inside Regime I, **different expansion**. Coefficient imported.
+- **Z (SYM):** $L\propto C$ at every gravity-class strain ($Z$ pinned). Not linear-in-strain.
+
+**KB home:** `manuscript/ave-kb/vol3/gravity/ch03-macroscopic-relativity/hop-lc-constitutive-grading.md` (no-claim, WALK). Vocabulary: rider on `def-q1escn` (gravity-scope Q-point, not node-slide); new `def-ln3str` (ambiguous disambiguation, not a coinage). Phase-1 constitutive derivation is **not** started by this amendment. Forks F1–F3 stay Grant-routed.

@@ -25,8 +25,8 @@ All physical domains in the AVE framework reduce to a single dimensionless contr
 
 | Document | Contents |
 |---|---|
-| [Four Regimes](./four-regimes.md) | Regime classification, boundary derivations, semiconductor analogy, perturbative expansion |
+| [Four Regimes](./four-regimes.md) | Regime classification, boundary derivations, semiconductor analogy, perturbative expansion. **Do not fuse Regime I "Linear" with Op19 linear-in-$\varepsilon_{11}$** ([`def-ln3str`](../../../common/vocabulary-register.md); [`hop-lc-constitutive-grading.md`](../../../vol3/gravity/ch03-macroscopic-relativity/hop-lc-constitutive-grading.md)) |
 | [Domain Catalog](./domain-catalog.md) | Eight domain control parameters: EM dielectric, EM field, gravitational, BCS, magnetic, nuclear, GW, galactic |
-| [Regime Equation Sets](./regime-equation-sets.md) | Constitutive parameter table across four regimes ($\varepsilon_{eff}$, $\mu_{eff}$, $c_{eff}$, $Z_{eff}$, $C_{eff}$, $Q$) |
+| [Regime Equation Sets](./regime-equation-sets.md) | Constitutive parameter table across four regimes ($\varepsilon_{eff}$, $\mu_{eff}$, $c_{eff}$, $Z_{eff}$, $C_{eff}$, $Q$). Column I is the **kernel freeze**, not Op19 |
 | [Dimensional Analysis](./dimensional-analysis.md) | Universal dimensionless master equation |
 | [Experimental Design Space](./experimental-design-space.md) | 18-row experiment/object table mapping to regime diagram |
