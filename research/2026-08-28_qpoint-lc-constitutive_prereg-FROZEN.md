@@ -216,3 +216,15 @@ PREREG (target: constitutive map ε₁₁ ↦ (L, C, S) on a frozen graph, Z pin
 - **Z (SYM):** $L\propto C$ at every gravity-class strain ($Z$ pinned). Not linear-in-strain.
 
 **KB home:** `manuscript/ave-kb/vol3/gravity/ch03-macroscopic-relativity/hop-lc-constitutive-grading.md` (no-claim, WALK). Vocabulary: rider on `def-q1escn` (gravity-scope Q-point, not node-slide); new `def-ln3str` (ambiguous disambiguation, not a coinage). Phase-1 constitutive derivation is **not** started by this amendment. Forks F1–F3 stay Grant-routed.
+
+---
+
+## Rule-12 amendment A2 (2026-08-28) — option-1 audit fence; does not edit A1 body
+
+**Does not edit any frozen bin, tolerance, edge, or §6 label.** Grant greenlit option 1 of the hop-lc documentation audit (same PR). A1's K-bullet "Kernel $\delta L/L$ at the limb is $O(10^{-10})$" is **superseded as identification**: the pointer is kernel $\Delta S\approx\varepsilon_{11}^2/2\sim10^{-10}$ at the solar limb (`domain-catalog.md`:47, :50), **not** a derived hop $\delta L/L$. A1's "freezes hop $L,C$ from Ax4" is **superseded** as SYM-table column I frozen. Hop TL $L,C$ co-scale with $n$ remains an **unlicensed** bond-TL identification (Phase-1); achromatic matching licenses $\mu,\varepsilon$ only. Leaf writes Cosserat / gap shunt as $S_\gamma$ so it is not the kernel $S(r)$; the freeze body's $S$ in $\Omega^2=S/C$ is that shunt (Fork F1). Dropped: "kernel-linear"; uncited Mercury $\sim10^{-7}$; unlabeled $O(m)$. INVARIANT-S2 `:75` **not** touched. WD `:46` / Mercury-II-Yield **not** swept.
+
+---
+
+## Rule-12 amendment A3 (2026-08-28) — "hop" was TLM slang for the bond; does not edit freeze body, A1, or A2
+
+**Does not edit any frozen bin, tolerance, edge, or §6 label.** Grant asked for the registered noun. Freeze §0 row 3 "series `L` and shunt `C` of the hop" and the later "EM hop" meant the **bond** (`def-b0nd01`) TL pair (`translation-circuit.md`:98). Live KB writes **bond TL** $L',C'$. The 2026-08-28 filename `hop-lc-constitutive-grading.md` is a Rule-12 stub; live path is `bond-lc-constitutive-grading.md`. `def-ln3str` **id unchanged**; surface form is now "linear (bond TL $L,C$ vs strain)". "Hop" stays in freeze/A1/A2 as historical wording. Does **not** start Phase-1. Does **not** touch hopping unknot or mechanical→EM hop (different objects). Sibling PRs #1028–#1032 **not** edited.
