@@ -12,7 +12,7 @@ anchor: "Follow-up is spillover S10 (and board `ker-y-vs-m-eigenmode`)"
 
 **Grant (later):** P6 closed as a **#1020 follow-up**. Analysis stays here, not in the PR rewrite.
 
-Two circuit objects (walk §4.5): (i) \(\ker Y\) / DC circulating current, zero terminal excitation; (ii) eigenvector of the scatter map \(M\) at \(|\lambda|=1\), frequency \(\theta\). Maxwell–Calladine was the unwritten weld that treated them as one “knot.” Do **not** mint that name. Q1-style counts stay in S5 if wanted later.
+Two circuit objects (picture-lock P6 / signed walk §1 P6): (i) \(\ker Y\) / DC circulating current, zero terminal excitation; (ii) eigenvector of the scatter map \(M\) at \(|\lambda|=1\), frequency \(\theta\). Maxwell–Calladine was the unwritten weld that treated them as one “knot.” Do **not** mint that name. Q1-style counts stay in S5 if wanted later.
 
 **Clause Q** is a lens on the DC arm (Q-point / reference-fixing; R43: never “ground”), not a verdict. Split the \(\omega\) glyph (microrotation field vs rate vs HB \(\theta\)) before any compute.
 

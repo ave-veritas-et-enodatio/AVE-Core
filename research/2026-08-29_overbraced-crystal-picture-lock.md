@@ -2,7 +2,7 @@
 
 **Status: LANDED 2026-08-29** on `research/2026-08-26-overbraced-crystal-walk` (PR #1020). Working-pad copy remains gitignored at `.agents/handoffs/2026-08-29_PR1020_picture-lock.md`. This file is the tracked record.
 
-**Next:** rewrite [`2026-08-26_overbraced-chiral-crystal-walk_RECORD.md`](2026-08-26_overbraced-chiral-crystal-walk_RECORD.md) to this signed set. Do not start #1021. Do not mint `def-` on this PR. Spillover that is **not** that rewrite lives in [`2026-08-29_picture-lock-spillover.md`](2026-08-29_picture-lock-spillover.md).
+**Rewrite landed 2026-08-29.** [`2026-08-26_overbraced-chiral-crystal-walk_RECORD.md`](2026-08-26_overbraced-chiral-crystal-walk_RECORD.md) now teaches this signed set. Pre-rewrite teaching body is at `9efcc8db`. Do not start #1021. Do not mint `def-` on this PR. Spillover that is **not** that rewrite lives in [`2026-08-29_picture-lock-spillover.md`](2026-08-29_picture-lock-spillover.md).
 
 **Round 4 — 2026-08-29.** Mapping + ordinary flags walked. Pads landed.
 
@@ -149,6 +149,8 @@ PR files: walk record, `_orchestration/open-items/2026-08-26-overbraced-crystal-
 
 **Recommended hold (until rewrite):** do not merge; do not start #1021; do not land BOARD.md as-is; rewrite exclusions = mapping table + §9.1 sentence + EXTERNAL names as teaching.
 
+**Rewrite 2026-08-29:** those exclusions are now the signed walk. Lens-4 rewrite-BLOCKER (§9.1 keeping §2 live) is addressed. `BOARD.md` restored from `origin/main` (not regenerated on this branch).
+
 ---
 
 ## Vocab queue (round 2)
@@ -243,4 +245,4 @@ Workshop is the chat. Archive is these tracked files on PR #1020.
 | [`../_orchestration/open-items/2026-08-29-phase-space-tank-state.md`](../_orchestration/open-items/2026-08-29-phase-space-tank-state.md) | S9 |
 | [`../_orchestration/open-items/2026-08-29-ker-y-vs-m-eigenmode.md`](../_orchestration/open-items/2026-08-29-ker-y-vs-m-eigenmode.md) | S10 |
 
-**Known holes (not missing signs):** vocab “DRAFT below” for over-braced was never written (senses live in S5); Kane–Lubensky never explained in-pad (do not mint). Full back-and-forth wording lives in the session transcript, not duplicated here. `BOARD.md` on this branch is **not** program state (Lens 4 FLAG); not regenerated in this land.
+**Known holes (not missing signs):** vocab “DRAFT below” for over-braced was never written (senses live in S5); Kane–Lubensky never explained in-pad (do not mint). Full back-and-forth wording lives in the session transcript, not duplicated here. `BOARD.md` on this branch is **not** program state (Lens 4 FLAG); restored from `origin/main` on the rewrite land, not regenerated.

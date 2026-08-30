@@ -31,7 +31,7 @@
 | S10 | Dual-arm analysis: \(\ker Y\) vs \(M\)-eigenmode (P6/P7) | **Closed as #1020 follow-up.** Analyze, do not pick. Drop Maxwell–Calladine weld. Not this HB code. | [`2026-08-29-ker-y-vs-m-eigenmode`](../_orchestration/open-items/2026-08-29-ker-y-vs-m-eigenmode.md) |
 | S6 | Dielectric-Lagrangian “capacitive **edges** / inductive **nodes**” vs Kirchhoff nodes=\(C\), struts=\(L\) | not yet walked | this file |
 | S11 | P0 leftovers: extra KVL loops vs A1 headroom; BH-host unsigned | PARKED — not #1020. Do not pick in the rewrite. | this file |
-| S13 | #1020 Lens-4 ordinary flags | Walked 2026-08-29. Rewrite-BLOCKER: §9.1 keeps §2 live. FLAG: BOARD 0-PRs, chk3.py missing, EXTERNAL teaching, vocab:510 as CANON on a PROPOSED node. | picture-lock Lens 4 |
+| S13 | #1020 Lens-4 ordinary flags | Walked 2026-08-29. Rewrite-BLOCKER **addressed** (signed walk dropped §9.1). FLAG remaining: receipts copied (chk3.py absent); EXTERNAL names not taught; vocab:510 not cited as CANON. BOARD restored from `origin/main`, not regenerated. | picture-lock Lens 4 |
 
 ---
 
@@ -112,7 +112,7 @@ Smith chart is a **ratio**: \(\Gamma = V_{\mathrm{ref}}/V_{\mathrm{inc}}\) (rung
 
 1. **Signed:** the #1020 HB code is stretch/A1-only; Cosserat \(\gamma_c\) (flywheel mutual-\(L\)) is unwired. That code cannot hold a twist.
 2. Do **not** promote “therefore the knot cannot exist.”
-3. On a later #1020 wording pass: remaining live content is Grant’s spiderweb/over-brace metaphor, not an HB selector (P4 killed Chern).
+3. **#1020 wording pass done (2026-08-29):** remaining live content is Grant’s spiderweb/over-brace metaphor, not an HB selector (P4 killed Chern).
 4. A Cosserat-wired HB is a **new effort**, not this PR.
 
 ---
@@ -147,3 +147,4 @@ Smith chart is a **ratio**: \(\Gamma = V_{\mathrm{ref}}/V_{\mathrm{inc}}\) (rung
 - **2026-08-29 P1←P2:** proposed close — lattice is space; phase space is tank-state coordinates. P3: stretch-only ≠ voltage synonym; HB \(A\) sweep ≠ SYM \(L{+}C\). P7: Q2 restatable, not a compute green light.
 - **2026-08-29 ordinary flags:** Lens 4 walked. Rewrite-BLOCKER is §9.1 “§2 not wrong.” BOARD.md 0-PRs FLAG.
 - **2026-08-29 pads landed:** tracked copies on PR #1020. `BOARD.md` not regenerated (Lens 4 FLAG).
+- **2026-08-29 rewrite:** walk RECORD replaced with signed teaching; routing item no longer commissions B11/B12/B1; `BOARD.md` restored from `origin/main`. S13 rewrite-BLOCKER closed.
