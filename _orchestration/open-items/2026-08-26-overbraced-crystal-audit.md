@@ -14,6 +14,12 @@ autonomous-harmonic-balance lens
 open item `2026-08-25-autonomous-hb-lens-audit.md`) after that lens's core
 existence criterion was measured vacuous in review.
 
+**Picture-lock signed 2026-08-29** (tracked):
+[`research/2026-08-29_overbraced-crystal-picture-lock.md`](../../research/2026-08-29_overbraced-crystal-picture-lock.md).
+Rewrite of the walk is gated on that lock. Do not commission B11/B12/B1 as
+written — Chern-as-knot and Maxwell–Calladine-as-knot are mapping failures;
+the HB code is an A1 instrument, not a Cosserat bench.
+
 Provenance, Grant verbatim: *"for question two I want you to think through how
 you can tie not in a spiderweb, except that spider is an over braced chiral
 chrystal."* (typos transcribed as spoken; the reading is in §0/provenance of the

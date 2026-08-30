@@ -9,6 +9,13 @@ audit before any part of it reaches a prereg** — the charter is §8, the kill
 conditions are §9, and the routing item is
 [`_orchestration/open-items/2026-08-26-overbraced-crystal-audit.md`](../_orchestration/open-items/2026-08-26-overbraced-crystal-audit.md).
 
+**Picture-lock (tracked, 2026-08-29).** Signed and killed pictures, mapping, and
+ordinary flags:
+[`2026-08-29_overbraced-crystal-picture-lock.md`](2026-08-29_overbraced-crystal-picture-lock.md).
+Spillover that is not this rewrite:
+[`2026-08-29_picture-lock-spillover.md`](2026-08-29_picture-lock-spillover.md).
+Rewrite of this record is gated on that lock.
+
 > **★ HEADLINE, added by same-day amendment.** The adversarial VERIFY pass landed
 > mid-write and measured **both** of this walk's load-bearing mechanisms
 > **vacuous on the shipped carrier**: the Chern integer is identically zero at
