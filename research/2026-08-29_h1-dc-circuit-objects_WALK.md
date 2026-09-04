@@ -186,3 +186,22 @@ Do **not** mint a photoelastic tensor. `grep photoelastic manuscript/ave-kb` fro
 ## Grant sign line
 
 **Signed 2026-08-30:** close stands; translate photoelastic to EE-native lattice terms (done above); commit/push this note; then write the S9 prereg on this branch. How to **model** the tank-state chart \((V_{\mathrm{inc}},V_{\mathrm{ref}})\) and how it couples, or how bulk \(n,Z\), clocks, and gravity-as-differential emerge from the join that survives H1.
+
+---
+
+## Follow-ups (not this lane)
+
+Parked. Not a mint on this PR. Not a `#1020` rewrite. Not S9
+characterization (that stays Grant-dispatched, same branch, after review).
+
+1. **Amend `def-69f472`** (vocab PR). Do not mint a second `def-`. Keep the
+   A46 size-leak flag. Fiber-bundle noun stays WALK. Smith-as-ontology stays
+   Grant-gated.
+2. **Optional `translation-circuit.md` row** for varactor-biased GRIN (SYM:
+   \(Z=Z_0\), \(\Gamma=0\)) / varactor-biased impedance-gradient (ASYM: \(Z\)
+   moves, \(\Gamma\neq 0\)). Hub names are in this note; spoke mint waits
+   Grant.
+3. **S1 Kirchhoff pairing labels** — wording PR; leapfrog equations stay.
+   Strain-on-\(I\) vs TKI (`def-1mpanl`) is the collision.
+4. **H2 constitutive-slot pick** — `clm-acdc07` gravity \(=S(A)\) vs Op19
+   linear-in-\(\varepsilon_{11}\). This close does not pick.
