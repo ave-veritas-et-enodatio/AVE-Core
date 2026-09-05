@@ -193,9 +193,10 @@ Do **not** mint a photoelastic tensor. `grep photoelastic manuscript/ave-kb` fro
 
 ## Follow-ups (not this lane)
 
-Parked. Not a mint on this PR. Not a `#1020` rewrite. Not S9
-characterization (that stays Grant-dispatched, same branch, after this
-G-PORTS Rule-12 amend).
+Parked. Not a mint on this PR. Not a `#1020` rewrite. S9 characterization
+landed 2026-09-04 on this branch as
+`research/2026-09-04_s9-tank-state-chart-join_WALK.md` (WALK-GRADE; still
+not a mint).
 
 1. **Amend `def-69f472`** (vocab PR). Do not mint a second `def-`. Keep the
    A46 size-leak flag. Fiber-bundle noun stays WALK. Smith-as-ontology stays

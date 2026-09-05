@@ -9,6 +9,8 @@
 
 **Rule-12 amendment 2026-09-04 (orchestrator review #1034, Findings 1–3).** G-PORTS tightened: load-bearing distinctness is Object 1 terminals \(\neq\) Object 2/3 terminals. Object 2 vs Object 3 is KEEP-BOTH descriptions of one photon-port line (distributed vs lumped), not Bin C. Gravity cite path qualified to `common/claim-quality.md:1374–1379` (`clm-acdc07`; unqualified `claim-quality.md:1379` collides with `vol4/claim-quality.md` Sagnac). Characterization still unstarted. H1 hub-cell sentence no longer names Op16 as live (this freeze’s G-OP16 already forbade that).
 
+**Rule-12 amendment 2026-09-04 (characterization).** Join note: [`research/2026-09-04_s9-tank-state-chart-join_WALK.md`](2026-09-04_s9-tank-state-chart-join_WALK.md). Freeze body (bins, gates, identities) unchanged. G-MINT still binds: this pointer is not a hub edit.
+
 **Not this lane:** Chern-as-knot; Maxwell–Calladine; pick of \(\ker Y\) vs \(M\) (S10); over-braced `def-` (S5); extra-KVL vs headroom (S11); canonical “ground” (R43); Smith-ℂP¹ un-park; \((2,1,1/2)\); a value of \(\mathcal{A}_g\) (R48); coinage “Q-point gravity”; `#1033` \(\varepsilon_{11}\) as Q-point as TKI-forced (H5 stays `[branch:#1033]` WALK). Uniform \(A\) unread. Bond \(L,C\leftrightarrow\mu,\varepsilon\) **graded** map unlicensed.
 
 ---
@@ -212,4 +214,4 @@ Do **not** mint a photoelastic tensor. Linear-in-strain vs kernel-\(A^2\) remain
 
 ---
 
-> **Freeze provenance.** SVA v0.2-pilot §0 filled, all 11 rows. Corpus-grep 2026-08-30 (AVE-Core hub + sibling mirrors as KB echoes, not independent join content). Hub cites byte-checked on this worktree against `origin/main` leaves. H1 @ `48eead40` already on `origin/analysis/2026-08-29-tank-state-h1-join` before this file existed. **This document commits ALONE and pushes FIRST;** characterization, if any, commits second. **Rule-12 amend 2026-09-04** (G-PORTS / cite path / H1 Op16 alignment) is on this same freeze file; still no characterization. `[DO-NOT-MERGE]`.
+> **Freeze provenance.** SVA v0.2-pilot §0 filled, all 11 rows. Corpus-grep 2026-08-30 (AVE-Core hub + sibling mirrors as KB echoes, not independent join content). Hub cites byte-checked on this worktree against `origin/main` leaves. H1 @ `48eead40` already on `origin/analysis/2026-08-29-tank-state-h1-join` before this file existed. **This document commits ALONE and pushes FIRST;** characterization commits second as `research/2026-09-04_s9-tank-state-chart-join_WALK.md`. **Rule-12 amend 2026-09-04** (G-PORTS / cite path / H1 Op16 alignment) is on this same freeze file. `[DO-NOT-MERGE]`.
