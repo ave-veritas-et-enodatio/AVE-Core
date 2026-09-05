@@ -2,6 +2,8 @@
 
 **Status:** WALK-GRADE close of hold **H1**. **Grant signed 2026-08-30** to proceed (photoelastic → EE-native lattice terms; then commit/push; then S9 prereg). Still no `translation-circuit.md` row, `def-`, or `clm-` on this lane — those wait a later mint, not the prereg.
 
+**Review amend 2026-09-04 (PR #1034, Rule 12):** SECTOR no longer calls Object 2 and Object 3 orthogonal 2-ports (they are distributed vs lumped of one T2 line). Op16 struck from the hub-cell sentence (FLAG-CEFF-CITE; aligns S9 G-OP16). Close of H1 is unchanged: DC prestress is not on Kirchhoff \(L\)-edges.
+
 **Class:** records / circuit-object identification. Consistency / organizing — not an emergence test (`consistency-vs-emergence`). Mints nothing. Does not edit `kirchhoff-network-method.md` (S1 is a parked wording PR). Does not rewrite PR #1020.
 
 **Branch:** `analysis/2026-08-29-tank-state-h1-join` off `origin/main` @ `a3f4fef7`. Isolated worktree. **Not** `#1020` (`research/2026-08-26-overbraced-crystal-walk`) and **not** `#1033` (`research/2026-08-28-qpoint-constitutive`).
@@ -12,7 +14,7 @@
 
 ## Sector / regime (declare first)
 
-**SECTOR:** three **orthogonal** circuit objects on one K4/srs graph. A1 ⊥ T2 is already hub (`master-equation.md:20`). EE is operational, not ontological (`def-1mpanl` ANALOGY; Cosserat co-equal via TKI). No spoke-to-spoke weld.
+**SECTOR:** three **named** circuit objects on one K4/srs graph. The load-bearing orthogonal split is A1 ⊥ T2 (`master-equation.md:20`). Object 1 is the A1 2-port. Objects 2 and 3 are two descriptions of the **same** photon-port T2 line (distributed TL vs its \(\omega\tau\ll 1\) lumped limit — KEEP-BOTH, not a third orthogonal 2-port; `z0-derivation.md:115–124`). EE is operational, not ontological (`def-1mpanl` ANALOGY; Cosserat co-equal via TKI). No spoke-to-spoke weld.
 
 **REGIME:** sub-yield lossless-reactive interior (Axiom 3) plus the DC (`.OP`) limit of that same lossless network. Not Regime IV. Not a source-free electron finder.
 
@@ -121,7 +123,7 @@ That is A1 **grading** the photon-port small-signal constitutives. **EE-native l
 | birefringence from prestress | **ASYM** (ε-only): \(Z\) moves, \(\Gamma\neq 0\) — varactor-biased **impedance-gradient** |
 | isotropic index shift, no reflection | **SYM** (ε and μ co-scale): \(Z=Z_0\), \(\Gamma=0\) — varactor-biased **GRIN** (matched line) |
 
-Do **not** mint a photoelastic tensor. `grep photoelastic manuscript/ave-kb` from this worktree returned **0** hits; the 2026-07-31 anisotropy scoping already recorded that the corpus has no measured \(p_{ijkl}\). The live hub cell is INVARIANT-S2 SYM/ASYM + Op14/Op16, already EE (`translation-circuit.md:112–118`: Q-point, common-mode, differential, SYM, ASYM). Bond \(L,C\leftrightarrow\mu,\varepsilon\) stays unlicensed.
+Do **not** mint a photoelastic tensor. `grep photoelastic manuscript/ave-kb` from this worktree returned **0** hits; the 2026-07-31 anisotropy scoping already recorded that the corpus has no measured \(p_{ijkl}\). The live hub cell is INVARIANT-S2 SYM/ASYM + Op14, already EE (`translation-circuit.md:112–118`: Q-point, common-mode, differential, SYM, ASYM). Op16 is FLAG-CEFF-CITE vacated (`operators.md:212–235`); do not cite as settled. Bond \(L,C\leftrightarrow\mu,\varepsilon\) stays unlicensed.
 
 **Not** “one voltage on one capacitor”: Object 1’s DC \(V_Q\) is not Object 2’s \(V_{\mathrm{inc}}\). Object 2’s AC is the readout (`clm-acdc07` (i)):
 
@@ -192,7 +194,8 @@ Do **not** mint a photoelastic tensor. `grep photoelastic manuscript/ave-kb` fro
 ## Follow-ups (not this lane)
 
 Parked. Not a mint on this PR. Not a `#1020` rewrite. Not S9
-characterization (that stays Grant-dispatched, same branch, after review).
+characterization (that stays Grant-dispatched, same branch, after this
+G-PORTS Rule-12 amend).
 
 1. **Amend `def-69f472`** (vocab PR). Do not mint a second `def-`. Keep the
    A46 size-leak flag. Fiber-bundle noun stays WALK. Smith-as-ontology stays
