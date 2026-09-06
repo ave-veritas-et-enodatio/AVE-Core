@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **31bcfa7d** (2026-08-25) · 468 index records · 331 claims · 1 PR open
+Scanned tree **6370cb1b** (2026-09-06) · 468 index records · 331 claims · 15 PRs open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`be669184`). Every count below describes **31bcfa7d**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`6b8b49a0`). Every count below describes **6370cb1b**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -30,7 +30,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## What we are waiting on
 
-**44 of 77 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
+**49 of 83 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
 
 *Scope: this is a census of `open-items/`. `_orchestration/2026-07-10_rulings-docket.md` is the **paper timeline** — a dated continuation log, frozen at its 2026-07-21 tail per `docket-entries/README.md`, and the historical record of how each ruling was reached. It is read chronologically, not harvested; anything still live in it belongs here as its own file.*
 
@@ -71,6 +71,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [INVARIANT-S2 vs master-equation — which sector hosts the mu-branch wave-channel short](open-items/2026-08-25-invariant-s2-sector-split.md) | ROUTED-TO-GRANT | grant | 2026-08-25 |
 | [Sector-of-storage — where the compression store lives (A1 canon vs the T2/swing label)](open-items/2026-07-26-sector-of-storage.md) | OPEN-IN-WALK | grant | 2026-07-26 |
 | [The quark-charge dressing — CP-parity underived (both adjectives asserted), N=3 fed in; four vacuum-side investigation routes GO'd](open-items/2026-08-23-theta-dressing-open-questions.md) | OPEN-IN-WALK | lane | 2026-08-23 |
+| [AC readout of DC strain / gravity-as-differential-bias needs a signed 1:1 Kirchhoff map (strain is the network state, not a continuum field plus a probe)](open-items/2026-08-29-acdc-gravity-circuit-map.md) | OPEN-IN-WALK | grant | 2026-08-29 |
 | [A RESOLVED stamp asserts its own propagation, and the propagation never happened (Row 11 MOND)](open-items/2026-05-19-row11-mond-propagation.md) | OPEN | unassigned | 2026-05-19 |
 | [Two infra gaps still open — no conflict-marker hook, and no structural worktree-leak fix](open-items/2026-05-28-infra-hygiene-gaps.md) | OPEN | unassigned | 2026-05-28 |
 | [Means-test corpus extensions — the corpus grew, but in a different direction](open-items/2026-05-28-means-test-corpus-extensions.md) | OPEN | unassigned | 2026-05-28 |
@@ -103,6 +104,10 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [Two different lengths may share the name ell_c — the sqrt(6) Cosserat coupling length vs the weak-range construction](open-items/2026-08-25-ell-c-name-collision.md) | OPEN | grant | 2026-08-25 |
 | [G2 freeze decisions — the four calls that must be frozen before the P2 existence solve runs](open-items/2026-08-25-g2-freeze-decisions.md) | OPEN | grant | 2026-08-25 |
 | [The storage clock and the response clock are the same number exactly — canon's 1.4e-5 near-collision is a linearization artifact](open-items/2026-08-25-storage-response-clock-identity.md) | OPEN | grant | 2026-08-25 |
+| [Over-braced chiral crystal walk — picture-lock applied; signed WALK-GRADE teaching (do not commission Chern / Maxwell–Calladine)](open-items/2026-08-26-overbraced-crystal-audit.md) | OPEN | lane | 2026-08-26 |
+| [Analyze ker Y (DC loop current) and M-eigenmodes as two arms — do not pick; drop Maxwell–Calladine as the knot identity](open-items/2026-08-29-ker-y-vs-m-eigenmode.md) | OPEN | grant | 2026-08-29 |
+| [Phase space = native tank-state chart (Grant-signed sentence); amend def-69f472; characterize coupling to vacuum / matter / light / gravity (or bulk emergence)](open-items/2026-08-29-phase-space-tank-state.md) | OPEN | grant | 2026-08-29 |
+| [Print is ahead of the KB on the 18/49 ringdown — clm-395gps re-band is owed](open-items/2026-09-06-clm-395gps-reband-owed.md) | OPEN | grant | 2026-09-06 |
 | [Sibling-repo debts — AVE-Fusion yield cross-wire + AVE-Bench-FemtoElectrometer stale sites](open-items/2026-07-03-sibling-repo-debts.md) | REGISTERED | unassigned | 2026-07-03 |
 | [The v3 ringdown instrument — the DISCRETE near-wall chain](open-items/2026-08-04-v3-ringdown-instrument.md) | REGISTERED | unassigned | 2026-08-04 |
 | [Hygiene backlog — Bell-arc citation follow-ups, FPR provenance re-grep, auditor-landing queue](open-items/2026-07-03-hygiene-backlog.md) | QUEUED | unassigned | 2026-07-03 |
@@ -113,6 +118,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [BUILD-class instruments — quantum-seeded floor, arrow instruments, CVR bench](open-items/2026-07-20-build-class-instruments.md) | PARKED | grant | 2026-07-20 |
 | [Vessel-state shell → γ_c couple-stress → (2,3) winding — the wall-asymmetry carrier candidate](open-items/2026-07-20-vessel-state-shell-walk.md) | PARKED | grant | 2026-07-20 |
 | [D5 — the WD / Q=ℓ tag question, deliberately held by ruling](open-items/2026-08-04-d5-wd-qell-tag-hold.md) | PARKED | grant | 2026-08-02 |
+| [Kirchhoff-method leaf: keep the LC leapfrog; relabel V/I parentheticals to TKI (voltage=stress, current=velocity) — not a #1020 rewrite](open-items/2026-08-29-kirchhoff-pairing-labels.md) | PARKED | grant | 2026-08-29 |
 
 ## Ruling-token coverage
 
@@ -135,7 +141,21 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 | PR | state | title |
 |---|---|---|
-| #1019 | CLEARED | [REVIEW: CLEARED] research: the autonomous-harmonic-balance lens (UNAUDITED) + i |
+| #1035 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] docs+ci: manuscript-reconciliation  |
+| #1034 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: H1 three-object close + S |
+| #1033 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: ε11 as Q-point; constitut |
+| #1032 | unlabelled | [DO-NOT-MERGE][REVIEW: BLOCKED by blind audit] research: Machian-G boundary audi |
+| #1031 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: FROZEN prereg — X44 unblo |
+| #1030 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: where GR is validated on  |
+| #1029 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: the two-knob gravity repa |
+| #1028 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: PPN tensor derivation — m |
+| #1027 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: the cold-vacuum phase-spa |
+| #1026 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] infra: Rule-12 append-only GATE (fr |
+| #1025 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: the virtual-neutral bound |
+| #1024 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] engine: BUILD-EO1-T2X — tone-solve  |
+| #1023 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: FROZEN prereg — virtual n |
+| #1022 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: the autonomous-HB lens au |
+| #1021 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: the wall-first reframe +  |
 
 <!-- /volatile -->
 
