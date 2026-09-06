@@ -83,7 +83,7 @@ LEGACY_LANE_CHECK_ALIASES = \
 	verify-approach-leak-number-check \
 	verify-approach-leak-v2-number-check
 
-.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks refresh-provenance-baseline framing-audit verify-anchor-content verify-new-cite-excerpts verify-engine-capability-anchors test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup gamma-census $(LEGACY_LANE_CHECK_ALIASES)
+.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-fired-riders verify-inter-repo-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks refresh-provenance-baseline framing-audit verify-anchor-content verify-new-cite-excerpts verify-engine-capability-anchors test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup gamma-census $(LEGACY_LANE_CHECK_ALIASES)
 
 help:
 	@echo "Applied Vacuum Engineering (AVE-Core) Build System"
@@ -134,7 +134,7 @@ setup:
 # =============================================================================
 # 1. Physics Verification (The "Simulate to Verify" Protocol)
 # =============================================================================
-verify: $(KB_VERIFY) verify-md-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks
+verify: $(KB_VERIFY) verify-md-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-fired-riders
 # UMBRELLA-GLOB ADOPTION 2026-08-06: the thirteen per-lane `verify-*-number-check`
 # prerequisites that used to be listed on the line above are GONE FROM THIS LINE and
 # from nowhere else -- `verify-lane-number-checks` now auto-discovers and runs all
@@ -399,6 +399,10 @@ verify-approach-leak-number-check:
 # ALIAS since 2026-08-06 (umbrella-glob): body is one filtered delegation; the checker gates via auto-discovery, not via this name. Comment above preserved as history.
 verify-approach-leak-v2-number-check:
 	@$(MAKE) --no-print-directory verify-lane-number-checks LANE_CHECK_FILTER=approach_leak_v2_number_check
+
+verify-fired-riders:
+	@echo "[Verify] FIRED prereg riders reached the corpus..."
+	@$(PYTHON) manuscript/ave-kb/tools/verify-fired-riders.py
 
 verify-md-links:
 	@echo "Checking Markdown link integrity + cited-id validity (inter-repo: warn)..."
