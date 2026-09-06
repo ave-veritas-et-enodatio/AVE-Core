@@ -31,6 +31,41 @@
 - **CRIB-4 — validation-headline scope.** BCS "0.00% error" → definitional identity at per-material calibration, not a fit (`ave-kb/claim-quality.md:171-182`); ringdown "1.7%" → cold Schwarzschild a\*=0 single-point anchor, spin scope per Ruling B1; "10–18% LIGO match" → retracted frame-mixed artifact (#774/#780) — strike per Rule 12, no replacement number; Petermann "50 ppm" → the landed q-g19a numbers + scope (`q-g19a-petermann-saliency-closure.md:92,:121`); "most direct experimental validation"-class sentences demoted to the claim-quality grade.
 - **CRIB-5 — TKI transformer status.** Sites citing the EM-Ω ↔ mechanical-ρc isomorphism carry `def-tk1xfm` **RATIFIED SOLID (2026-07-21)** with its REGIME FENCE and strength ceiling, quoted from `common/vocabulary-register.md:435-441` — not the pre-ratification "exact dimensional isomorphism" absolutism.
 
+> ### ★ CRIB CORRECTIONS — 2026-09-06 re-validation. Read before applying CRIB-1 or CRIB-4.
+>
+> **CRIB-1′ — the parenthetical is now backwards.** CRIB-1 prescribes *"the K = 2G operating point
+> (form-derived; value GR-imported…)"*. Canon at `common/form-deriving-value-importing.md:116-117` now
+> reads verbatim: *"This row is the one where **even the FORM is imported**"*, and Grant **Ruling 1**
+> (`7a6f4ba6`, 2026-08-03 — **one day after this board was ratified**) calls K=2G *"a constitutive
+> **FORM** import edge … NOT a 4th calibration input; count stays 3"*. **Applying CRIB-1's
+> parenthetical as written now asserts exactly what the ruling denies.**
+> Additionally **R52** (`2026-08-12-ruling-r52-k2g-operating-point.md` §1-§2) retires *identity /
+> relation / lock / magic angle* as load-bearing nouns and canonizes **"the moduli Q-point"**; R52 is
+> self-labelled *chat-walk grade and UN-AUDITED* and its §7 re-points are flag-don't-fix, so treat the
+> noun as canonical and the rest as unratified.
+> ⚠ **The corpus is not single-voiced here:** the same file's table row at `:87` still reads *"the
+> substrate forces the **form** of the elastic response"* alongside `:116-117`'s opposite. **That seam
+> is itself a close-out item and CRIB-1′ cannot be finalized until it is ruled.**
+> *Scope note: no live finding is a bare CRIB-1 application — its label work was discharged by #839 and
+> #853 — so this blocks nothing in the live set. It matters for future waves and for two routed items
+> (`vol_1/02:133`, `vol_5/02:546`) that hang on the same question.*
+>
+> **CRIB-4′ — the Petermann limb is superseded.** CRIB-4 says replace the "50 ppm" headline with *"the
+> landed q-g19a numbers + scope"*. The 2026-08-03 ruling instead **struck the ppm labels outright with
+> no replacement number**: `q-g19a-petermann-saliency-closure.md:95` — *"**No ppm-level deviation figure
+> is defensible here**"* — and `:101` — *"**None is replaced by another ppm number**"*. **Apply
+> strike-no-refill, not the crib's "landed numbers" instruction.** The crib's cite `:92,:121` is stale;
+> the content is now at `:14`, `:95`, `:99-103`.
+> ⚠ **Residue:** the 2026-08-04 handoff claims #857 *"struck the ppm labels corpus-wide"*, but the
+> commit scoped itself to *"the ruled `.tex` and `.py` sites"*. A one-pattern grep for `50 ppm` still
+> returns ≥8 unstruck sites (`vol2/claim-quality.md:1443`, `q-g20a-lamb-shift-structural-closure.md:{18,53,66}`,
+> `electron-identification.md:{93,105}`, `q-g27-muon-cosserat-saliency.md:80`, `ch06…/index.md:36`,
+> `claim-quality-closure-roadmap.md:145`). Variants were not swept; the true count is likely higher.
+>
+> **CRIB-2, CRIB-3, CRIB-5 — VALID.** Re-pin two shifted cites: `def-t2ph01` is now
+> `vocabulary-register.md:864` and `def-4b1a2c` is `:523`. **CRIB-5 has zero live sites** in the
+> re-validated set (`vol_1/02:39` and `vol_4/01:15` both discharged).
+
 Discipline riders on every crib application: Rule 12 strike-don't-delete with dated banners; **no value refills** into struck slots unless independently verified; frozen preregs byte-untouched; cite-shift sweep AFTER content settles.
 
 ## §4 Sequencing + lane tracker (ratified)
@@ -72,9 +107,17 @@ Collision ledger: `docs/factor7-and-782-basis-notes` (vol1 ch07 / vol3 ch07 / vo
 
 Refuted-finding note: the four REFUTED findings are dropped from execution but listed in §5 with reasons. The two ch15 refutations are CLASS-level only (the interim note at `:31` already discloses the retraction); the #780 per-occurrence rewrite obligation is unaffected and lives in the gated wave.
 
-## §6 CLOSE-OUT — waves 1 + 2 EXECUTED AND MERGED (2026-08-03)
+## §6 CLOSE-OUT — waves 1 + 2 MERGED 2026-08-03; ringdown wave FIRED 2026-08-05
 
-**All 12 epic PRs merged by Grant 2026-08-03.** Audit tags `audit/2026-08-03_mr-*` (9) pin every lane tip at review state; branches auto-deleted on merge, tips recovered from the merge commits' second parents.
+> **[Header corrected 2026-09-06 — the original read "waves 1 + 2 EXECUTED AND MERGED (2026-08-03)"
+> and the subsections below asserted the ringdown gate still held. It fired two days later.]**
+
+**All 16 epic PRs merged by Grant 2026-08-03.** Audit tags `audit/2026-08-03_mr-*` (**12**) pin most lane tips at review state; branches auto-deleted on merge, tips recovered from the merge commits' second parents.
+
+> **[CORRECTED 2026-09-06]** This line originally read *"All 12 epic PRs"* and *"(9)"* — the two
+> counts were transposed. `git tag -l 'audit/2026-08-03_mr-*'` returns **12**, all verified ancestors
+> of `main`; the table below lists **16** PRs. The original *"pin every lane tip"* also over-reached:
+> no `mr-` tag maps to #825, #826, #827, #836, #839 or #840 — **six merged lanes are untagged.**
 
 | Lane | PR | Outcome |
 |---|---|---|
@@ -97,31 +140,203 @@ Refuted-finding note: the four REFUTED findings are dropped from execution but l
 
 **Every lane was independently audited refute-by-default; every audit found something real.** The defects that mattered most were caught in *orchestration artifacts*, not implementer output: a false BYTE-IDENTICAL claim (#842), an invented reconciling value with zero provenance (#847 — retracted), a REFUTED finding dispatched as work (#852 — reverted), a route-to-core mirror-pair breach (#853 — ratified with reasoning, veto open), and three stale cites in this board itself.
 
-### STILL GATED — the ringdown wave does NOT open
+### ~~STILL GATED — the ringdown wave does NOT open~~ → **THE GATE FIRED 2026-08-05**
 
-The cold-Q derivation arc **landed and returned a non-verdict**: #845 reports **`SOLVER-NOT-CERTIFIED`**, so all four frozen physics bins read *N/A — not adjudicated*. #854 (contour-certified solver v2) is the live retry. **The gate therefore HOLDS**: vol3 ch08 + ch15, `backmatter/07:{85,211,213}`, and the ringdown-dependent mirror sites stay unexecuted. The known cost, disclosed in print: `backmatter/07` prints a withdrawal at `:145` while `:211/:213` still print the withdrawn claim.
+> **[CORRECTED 2026-09-06.** The subsection this replaces asserted the gate HELD and that
+> `backmatter/07:{211,213}` still printed the withdrawn claim. **Both were false within ~48 hours
+> of being written.** Git is the trail for the original wording.**]**
 
-### OWED — board corrections (next board touch)
-1. `backmatter/01_appendices.tex:{132,135,196}` → re-tag crib-covered-mechanical (mirror-pair parity; ratification fragment `2026-08-03-backmatter-mirror-tag-ratification.md` is the authority until then).
-2. vol5 `07_solvent_damping.tex:41` (k_HB) → flip `[mechanical]` to routed (the #825 audit upgraded it to a ×9.96 contradiction vs INVARIANT-C3).
-3. finding-16 verify note: the neon caption cite is `:53` — the note's ":54, not :53" is wrong; the ORIGINAL finding was right.
-4. `A_heavy_element_catalog.tex:20` was dispatched as EXECUTE while tagged `[REFUTED — dropped]` (orchestrator error; reverted in #852).
+**The gate was on CERTIFICATION, not on a favourable outcome — and certification landed.** #845 and
+#854 both returned `SOLVER-NOT-CERTIFIED`, but their successor **v2.4-root / #861 returned
+`ROOT-CERTIFIED`** (`research/2026-08-03_coldq-pole-v2.4-root_result.md:1,:15`). Its physics verdict is
+a **clean large negative** — `BIN-1-MISS` (29.1%), `BIN-2-MISS` (56.2%), and at `:19` *"the
+`(1+ν_vac)` rider **FIRED** … the assertion is **falsified as a derivation of the eigenfrequency**"*.
 
-### OWED — addenda (out-of-set sites found by lanes, each with receipts in its PR)
-vol1 `07_regime_map.tex:19` (B1 tag, released by #820); vol2 `09_computational_proof.tex:50` ("sub-3 Å" in the Accuracy column vs `clm-u4vmgk`); vol6 `circuits/circuit_h1.tex:18` (INVARIANT-N1); `backmatter/12_mathematical_closure.tex:201` sentence-1 (CRIB-4 superlative, out-of-set under the same-sentence rule but its evidentiary count was just reduced 4→3); vol4 status-sync (4 leaves incl. `measurement-coupling-probe.md:273`); the dark-TikZ sweep (**23 of 29** standalones carry `darkbg`; several are orphans — restyle-vs-retire per figure).
+**Authorization chain, verified:** `2026-08-04_doc-lane-reconciliation-handoff.md:17-24` records
+*"the ringdown wave is no longer cert-blocked; it is HELD-BY-SEQUENCE"*; Grant then ruled the batch
+verbatim `[sic]` at `docket-entries/2026-08-04-rulings-ringdown-wave-batch.md:7-9` (item 6 = *"the
+whole wave fires ONCE at the sequence point"*). The wave fired as **PR #883** (`76df7dab`,
+`docs/ringdown-wave-0805`) and **PR #898** (`c4fdced0`). **The wave did not fire without authority.**
 
-### OPEN — routed to core / awaiting Grant
-- **Petermann split (physics):** the KB leaf carries `C_2 = −0.32846` (50 ppm vs PDG) while the live driver returns `−0.328427` (~158 ppm). Load-bearing in the g−2 thread. Routed by #847.
-- **Cite-rot fix option** (#850): `verify-md-links` still strips `:NN` (`strip_target`, unchanged at HEAD) — #849 improved only the ADVISORY `verify-anchor-content` (markdown-link anchor form). The gating checker remains line-blind and the ~1,800 backticked-bare cites remain wholly unchecked. Options (1)–(4) stand.
-- **Rule-12 banner form:** in-doc verbatim `%`-preservation blocks vs the standing git-only-audit-trail directive. Wave-1/2 lanes used in-doc per the §3 rider; a ruling would settle future waves.
-- **Dedup-completion class** extended to *clause* byte-identity (orchestrator-ruled, #842) — veto open.
-- **`07` in-print seam** accepted as the cost of gating — confirm.
+**Per-finding status of the 12 gated findings, re-validated 2026-09-06 at `6b8b49a0`:**
+
+| Gated finding | Status |
+|---|---|
+| vol3 ch15:271, :290, :292 (×2), :354, :387 | **DISCHARGED** (6) |
+| vol9 ch03:205 | **DISCHARGED** |
+| `backmatter/07:85, :211, :213` | **DISCHARGED** (3) |
+| vol3 ch15:250 | **STILL-LIVE** — the wave rewrote `:273/:292/:294/:408` and stepped over this line |
+| vol3 ch15:337 | **SPLIT** — caption discharged; the raster `bh_untapped_predictions.png` has **0 commits** since the board base and still plots the retracted comparison |
+
+**The in-print seam is CLOSED, not disclosed.** At HEAD `backmatter/07:145` reads *"In-chapter seam ---
+RESOLVED 2026-08-05 (R11; the fix was held for this wave and has now fired)"* and `:212-214` reads
+*"**Seam resolved 2026-08-05 (R11).** … withdrawn with no replacement"*.
+
+**What did NOT fire: the ch08 half of the chapter-level rule.** `vol3 ch08`'s only ringdown-lane commit
+is a `hulse_taylor` figure regeneration; its saturation-ratio rulers (`:11`, `:372`) were **passed over,
+not held** — so they are STILL-LIVE, not GATED.
+
+**The one genuine remaining GATED finding is not ringdown at all:** `vol_9/14_phase_diagrams.tex:105`,
+held by `2026-08-03-mr-handoff-mechanical.md:5` and `2026-08-02-mr-ringdown-adjacent.md:4` — *"the
+RULING requested is on the LEAF pair, not the print."* **Still owed, and now wider than when written:**
+the leaf `lattice-extreme-bh-rationality.md` carries the *"<2% zero-parameter"* headline un-bannered at
+`:5/:10/:41/:75`, and the **ringdown** component of that "<2%" is precisely what the v2.4 rider falsified.
+
+### ~~OWED — board corrections~~ → **ALL FOUR APPLIED 2026-08-03; a FIFTH is now owed**
+
+> **[CORRECTED 2026-09-06.** This list was written by the close-out commit `745b5951` (2026-08-03,
+> 05:47) and items 1 and 2 were discharged by `14ba1806` (06:50) and `87aacc31` (06:52) **inside the
+> same PR (#855)**, without updating the list. **The board has been recording as owed what it had
+> already paid, for five weeks.]**
+
+| # | Item | Status |
+|---|---|---|
+| 1 | `backmatter/01_appendices.tex:{132,135,196}` → re-tag crib-covered-mechanical | **DONE** — `14ba1806`. §5 headers all carry `~~[route-to-core]~~ → **[crib-covered-mechanical]**` |
+| 2 | vol5 `07_solvent_damping.tex:41` (k_HB) → flip `[mechanical]` to routed | **DONE** — `87aacc31`; §4(ii) carries the ×9.96 re-derivation |
+| 3 | finding-16 neon caption cite is `:53`, not `:54` | **DONE** — `04e0c41f` |
+| 4 | `A_heavy_element_catalog.tex:20` dispatched while `[REFUTED — dropped]` | **DONE** — `c9735ee3` recorded it *and* added the §4 REFUTED-blocks-dispatch gate; edit reverted in #852 |
+| **5** | **vol9 finding #13 is a board-assembly copy-paste defect** | **NEWLY OWED, struck in this pass** — see the §5 vol9 block. Verified three ways at `19285c5d`. |
+
+**Item 1's own cites have since rotted** (re-verified 2026-09-06): at HEAD
+`backmatter/01_appendices.tex:{132,135,196}` no longer hold that content — Rheological Tuning is now
+`:161`, the K=2G DE-CLAIM banner `:209`, the κ_rot DE-CLAIM `:295`, and `:160` (which §4(i) names as
+the banner site) is **blank**. Any future consumer of item 1 must re-pin before acting.
+
+### ~~OWED — addenda~~ → **ALL SIX DONE**
+
+| Addendum | Status |
+|---|---|
+| vol1 `07_regime_map.tex:19` (B1 tag) | DONE — `b5fc6bee`, **PR #862** |
+| vol2 `09_computational_proof.tex:50` ("sub-3 Å") | DONE — Rule-12 scope note now at `:55-60` |
+| vol6 `circuits/circuit_h1.tex:18` (INVARIANT-N1) | DONE — `36058f25`; both PDFs regenerated |
+| `backmatter/12_mathematical_closure.tex:201` (CRIB-4 superlative) | DONE — `c7657ff9`, PR #859 |
+| vol4 status-sync (4 leaves) | DONE — `6d5e0ddc` |
+| dark-TikZ sweep | DONE — **PR #893** (post-close-out, so §6 could not know). Count corrected **23→22** of 29; 8 remain, each with a disclosed carve-out |
+
+> **Two PRs post-date this §6 table entirely and are absent from it: #862 and #893.** Anything reading
+> the §6 PR list as the execution record is missing both.
+
+### ~~OPEN — routed to core / awaiting Grant~~ → **FOUR OF FIVE RULED OR MOOT**
+
+> **[CORRECTED 2026-09-06.** Every item below was re-checked against `docket-entries/` at `6b8b49a0`.**]**
+
+| Item | State | Receipt |
+|---|---|---|
+| **Petermann split** | **RULED 2026-08-03 — and the premise was wrong.** It was never a physics split: `-0.328427` was a **97 ppm instrument artifact** (retardation applied by truncated integer index), repaired analytically. Grant verbatim `[sic]`: *"1, follow your rec"* | `docket-entries/2026-08-03-petermann-amendments.md:9,:15`; leaf `q-g19a-petermann-saliency-closure.md:102` — *"retired as artifact-class"* |
+| **Cite-rot fix (#850)** | **PARTLY DISCHARGED.** `strip_target` is unchanged — but it was **bypassed**, not fixed: a separate parser (`iter_line_cites`, `check_line_cites`) now asserts cited lines exist. **11,168 backticked-bare cites are parsed for the first time.** §6's *"~1,800 remain wholly unchecked"* is superseded. Option (1) still not implemented | `docket-entries/2026-08-05-cite-rot-line-existence.md:3,:26`; `verify-md-links.py:541,:652` |
+| **Rule-12 banner form** | **RULED 2026-08-04 (R7):** *"rendered current-status notes stay; verbatim prior-wording `%` duplication drops (git is the trail)."* | `docket-entries/2026-08-04-rulings-doc-lane-figures-conventions.md:7,:20-22` |
+| **Dedup-completion class** | **RULED 2026-08-04 (R9/R10)** — no veto exercised, lane ratifications stand. ⚠ Live residue: `vol_9/15_falsification_tests.tex:217-218` still prints *"orchestrator-ruled, Grant veto open"* | same file `:25-26`; handoff `:64-65` |
+| **`07` in-print seam** | **MOOT** — R11 ruled, fired 2026-08-05, seam closed | `07:145`, `:212-214` |
+
+**What survives, and it is larger than the ppm dispute it replaced:** the **factor-2 normalization
+fork** — `q-g19a…:47` implies `C₂ = ⟨·⟩/(πα)` while `:48` asserts `2⟨·⟩/(πα)`, two lines apart in one
+display block. **Every value in the leaf and in the repaired driver halves if it resolves the other
+way.** Status ROUTED-TO-GRANT at `open-items/2026-08-03-factor-2-normalization-fork.md:4`, live on
+`BOARD.md:58`.
+
+**And one item that is NOT on any list and has no owner — a print-ahead-of-KB inversion.**
+`backmatter/07:145` prints that a ROOT-CERTIFIED instrument's rider fired, *falsifying
+`r_eff = r_sat/(1+ν_vac)` as a derivation of the eigenfrequency*, while `vol3/claim-quality.md:198`
+still books that exact chain as a **zero-free-parameter derived prediction** and `:217` reads
+*"Solidity 0.55 UNCHANGED"*. On a corpus whose standing rule is KB-is-truth-source, **print is ahead of
+the KB** — the same failure class §2 item 1 opened this epic to fix, pointing the other way. Re-banding
+`clm-395gps` is a physics adjudication, not propagation; it is routed to Grant via an auditor-lane
+proposal.
+
+## §7 RE-VALIDATION AGAINST `main` @ `6b8b49a0` (2026-09-06) — the operative work-list
+
+**Method:** ten volume lanes, each re-reading its §5 slice at `6b8b49a0`, each challenged by an
+independent refute-by-default verifier, then a synthesis that re-verified ten load-bearing items
+first-hand. Full record: `research/2026-09-06_mr-board-revalidation_RESULT.md`.
+**§5 remains the authoritative per-finding register** (§4 authority rule); §7 states each finding's
+CURRENT disposition against it.
+
+| Verdict | Count | Meaning |
+|---|---:|---|
+| DISCHARGED | 108 | closed by the waves — 70% of the board |
+| **STILL-LIVE** | **38** | wrong in print right now |
+| **SUPERSEDED** | **6** | the KB moved; the board's prescribed fix is now the WRONG fix |
+| VACATED | 1 | vol9 #13, struck above — never an independent finding |
+| GATED | 1 | `vol_9/14_phase_diagrams.tex:105`, and it is not a ringdown item |
+| **REGRESSED** | **0** | nothing the waves fixed drifted back |
+
+The counts sum to 154. The board carries 158 `####` blocks, of which 4 are `[REFUTED — dropped]`.
+
+**Caveat on the zero.** Every lane tested *"is the fix present at HEAD"*, not *"was it un-fixed and
+re-fixed inside the window."* The zero is a statement about the tip, not the path.
+
+### §7.1 The 38 live findings, by execution class
+
+| Class | n | Fires |
+|---|---:|---|
+| **A** mechanical / crib-covered | 8 | immediately |
+| **B** KB-lockstep (4 print sites + 6 KB leaves) | 4 | print + KB together, never apart |
+| **C** no KB home at all | 5 | author a leaf, or strike the claim |
+| **D** needs a Grant ruling | 17 | ruling packet per lane; 3 also sit behind the ch08/ch15 gate |
+| **E** non-text artifact | 4 | figure / generator work, not a `.tex` edit |
+
+**Volume distribution:** vol5 8 · vol6 7 · vol1 5 (+1 KB leaf) · vol0 4 · vol2 3 · vol3 3 ·
+vol9 2 (+1 mirror) · backmatter 2 · papers 2 · vol4 1.
+
+**Cheapest to fire — zero rulings:** vol9 (both sites class A) and the four crib-free A's.
+**Heaviest:** vol6 (4 D + 2 B + 1 C across 5 files); its class-C appendix must be authored first
+because two of its D-items collapse into it.
+**No prose work available:** vol3 (2 gated + 1 raster) and papers (2 artifacts, `main.tex`
+submission-gated).
+
+**Cold files — 7 files / 11 sites have ZERO commits of any kind since the board base**, so no lane,
+addendum or incidental traffic ever reached them: `vol_1/05_universal_spatial_tension.tex`,
+`vol_2/11_standard_model_overdrive.tex` (×2), `vol_5/06_biophysics_pharmacology.tex`,
+`vol_6/B_high_z_boundary.tex` (×3), `vol_6/10_oxygen.tex`, `ave-kb/vol4/…/op21-multi-mode-mode-counting.md`,
+`papers/…/main.tex` (×2). A further 10 files saw only non-epic traffic. The remaining 14 sites are
+**lane-ran-and-missed**, a structurally different defect class.
+
+### §7.2 ★ THREE PATH CORRECTIONS — the live set carried wrong paths
+
+1. The protein-translation site is **`manuscript/common/translation_protein.tex:31`**, not
+   `vol_5/common/…`.
+2. The 18/49 mirror is **`vol_9/12_cosmological_characteristics.tex:195`**, not `vol_3/…`.
+   ⚠ **#842 had that file open and edited a different line** — brief the CRIB-4 pass to cover
+   **both** `:195` and `vol_9/14_phase_diagrams.tex:279`.
+3. `vol_3/15_black_hole_orbital_resonance.tex:354` is now the `\includegraphics` line; the board's
+   `:354` axiom-coverage-table row has moved.
+
+### §7.3 The 6 SUPERSEDED — strike these, do NOT execute them
+
+Executing any of these now lands a wrong edit.
+
+| Site | The board wanted | What landed after 2026-08-02 |
+|---|---|---|
+| `vol_0/02_analytical_summaries.tex:35` | carve K=2G out of "zero further free parameters" | **Grant Ruling 1** (`7a6f4ba6`, **one day later**) forbids exactly that booking |
+| `vol_2/06_electroweak_and_higgs.tex:363-365` | repair the Δc provenance to "K4 connectivity = trefoil crossing number" | ★ the KB then carved **the wave's own replacement text** — `chiral-screening.md:28-48` grades that leg *"ASSERTED — and in tension with canon"*. Un-propagated to print; the ch03 mirror at `03_neutrino_sector.tex:159` carries all three legs |
+| `vol_3/04_generative_cosmology.tex:186,:189-190` | route to core | WHICH-MOMENT declaration (2026-08-03) constrains the FORM of any answer but **does not pick one** — the routing STANDS |
+| `vol_3/08_gravitational_waves.tex:371` | soften "exclusively transverse" to admit a bulk admixture | **R40/#930 killed the bulk radiative port outright.** The admixture wording is now the DEMOTED text; executing this **re-introduces a killed claim** |
+| `vol_9/01_general_description.tex:45` | reconcile print to a LIVE independent bulk radiative port | `port-register.md:87` now ends `🔴 [DEMOTED 2026-08-11 — R40-B2a]`. ⚠ **Trap:** the leaf's frontmatter at `:5` still asserts the old exclusion verbatim — a `:5`-only re-check reads the finding as still-good and is wrong |
+| `papers/…/main.tex:488` | pull `I_max ≈ 116 A` toward the KB's 124.4 A | the board compared two different objects; `theorem-thesaurus.md` §6 later minted a **three-sense `I_max` row** naming both, differing by exactly `4π√α`, and `:312` now requires a quoted `I_max` to **name its TIER** |
+
+### §7.4 What the 190-site staleness scan does and does not cover
+
+A parallel mechanical scan (`manuscript/ave-kb/tools/audit-tex-kb-staleness.py`) found **0 dead KB
+paths and 0 dead claim-ids**, but **190 cite-sites (159 distinct, 56 files) where the cited leaf gained
+a demotion marker after the citing `.tex` was last touched**.
+
+**That population is DISJOINT from the 38 — zero exact `file:line` overlap**, and only 12 of the 34
+live files appear in it at all, at different lines. The two measure different questions: the board
+asked *does print contradict the KB as of 2026-08-02*; the scan asks *has the cited leaf been demoted
+since the print was touched*. The waves answered the first and reset the clock; the 190 is what
+accumulated after.
+
+**Two calibrations must travel with any dispatch over it:**
+- **A mechanical flag is a candidate, not a defect.** Three scan-flagged sites adjudicated during
+  re-validation came back **benign, three of three**.
+- **The scan cannot find supersession.** All 6 §7.3 findings were found by *reading*; the scan flagged
+  4 of those 6 files at *other* lines. It measures cite-level marker addition; supersession is semantic.
 
 ## §5 The classified board (154 findings, post-verify)
 
 (Appended below verbatim from the sweep+verify pipeline output; per-finding format: severity / class / disposition / file:line / printed excerpt / KB truth / verify note.)
 
-## vol0 — 12 findings
+### vol0 — 12 findings
 
 #### [HIGH] [missing-retraction] [ruling-needed] (verify-CORRECTED) manuscript/vol_0_engineering_compendium/chapters/02_analytical_summaries.tex:36
 - PRINTED: \item \textbf{Macroscopic Rheological Yield Stress (Bingham-Plastic Limit):} $\tau_{yield} = \frac{\hbar c}{\ell_{node}^4} \left( \frac{1}{\alpha^2} \right) \approx 7.21 \times 10^{34}\text{ Pa}$   [printed live, under the chapter heading "Summary of Exact Analytical Derivations"]
@@ -707,7 +922,17 @@ There are no fake Euclidean axes. The network operates strictly through 4-port $
 - PRINTED: \item $K_{vac} = 2 G_{vac}$ + $\nu_{vac} = 2/7$: \emph{cross-validated} (substrate-axiomatic from EMT at $p^* = 8\pi\alpha$; consistent with gradient-index refraction in Vol~3 gravity).
 - KB TRUTH: 'cross-validated ... substrate-axiomatic from EMT' is the strongest form of the retracted claim. manuscript/ave-kb/vol1/claim-quality.md:665 (strengthen-by, STAYS OPEN 2026-07-04 PR #508): 'the genuine 48x48 chiral micropolar Bloch eigensolve on the ratified srs-z3 net does NOT close it ... K=2G stays GR-imported (PR #261).' Vol 9's own ch01:60 prints the correct status: '$K = 2G$ ($\nu_{vac} = 2/
 
-#### [MEDIUM] [overclaim] [mechanical] (verify-CORRECTED) manuscript/vol_9_vacuum_datasheet/chapters/10_magnetic_microrotational_characteristics.tex:64
+#### ~~[MEDIUM] [overclaim] [mechanical] (verify-CORRECTED) manuscript/vol_9_vacuum_datasheet/chapters/10_magnetic_microrotational_characteristics.tex:64~~ **[STRUCK 2026-09-06 — BOARD-ASSEMBLY DEFECT, not a physics finding]**
+
+> **Struck by the 2026-09-06 re-validation (5th owed board correction).** This entry is a
+> copy-paste artifact of the assembly pass, verified three ways at `19285c5d` (the board's own base):
+> **(a)** its anchor `10_magnetic_microrotational_characteristics.tex:64` holds `\begin{itemize}` there —
+> the PRINTED excerpt never lived at that line; **(b)** its `PRINTED` and `KB TRUTH` fields are
+> **byte-identical** to finding #15's, whose `:196` anchor does hold that sentence; **(c)** its
+> `VERIFY NOTE` is **byte-identical to finding #11's**, which is about `$c_L/c_T=\sqrt{10/3}$` and
+> `ch03a:75` and has nothing to do with spin. Its substance is fully carried and correctly
+> dispositioned at **#15**. **Do not re-derive it.** Counted OUT of the live set; the 154 total is
+> unchanged because #13 was never an independent finding.
 - PRINTED: The Cosserat microrotational DOF is the substrate-native origin of intrinsic spin-$\tfrac{1}{2}$.   [companion :25 "produces the SU(2) / SO(3) double-cover spin-$\tfrac{1}{2}$ representation classically via the Finkelstein--Misner kink mechanism"; ch11:9; ch16:154]
 - KB TRUTH: #584/#585 [SPIN-HALF-POSITED]. manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/electron-identification.md:89 grades Spin-1/2 as 'STRUCTURE axiom-derived / SELECTION posited' — 'the $2T \subset SU(2)$ double-cover STRUCTURE is axiom-derived (K4-native); the spin-1/2 SELECTION (fermion over boson) is POSITED/import — $\pi_1 = \mathbb{Z}_2$ ADMITS both statistics ... and forces neithe
 - VERIFY NOTE: Printed quote verbatim at :64 and the ch03a:75 caption companion confirmed verbatim ('$c_L/c_T=\sqrt{10/3}\approx1.826$ $\alpha$-free derived'). The divergence is real. The defect is the KB pointer: the finding attributes the VRH-average-ONLY / K=2G RE-EXPRESSION / NOT-lattice-emergent table row to srs-band-structure.md:81. That row is at :116. Verified two ways: grep -n '10/3' on the leaf returns
