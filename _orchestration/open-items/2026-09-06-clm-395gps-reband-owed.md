@@ -29,12 +29,16 @@ far.*
   axiom-grounded steps ... with zero free parameters — a genuine 1.7%-error category-(iv) derived
   prediction."*
 
-**★ CITE CORRECTION vs the brief that opened this item.** The brief cited `:217` as reading
-*"Solidity 0.55 UNCHANGED"*. At HEAD that literal string is not at `:217`: `:216` carries
-`- solidity: 0.55 ...` and `:217` carries the rationale quoted above. (The nearest
-`GRADES DELIBERATELY UNMOVED` banner in that file is at `:347` and belongs to a **different**
-claim, `:350`/`:354`.) The substance of the inversion is unaffected — the grade is unmoved and
-the derived-prediction language stands — but the pointer is `:216`/`:217`, not a single line.
+**★ THE BRIEF'S CITE WAS CORRECT — an earlier "CITE CORRECTION" in this item was
+itself wrong and is withdrawn (2026-09-06, same day, caught by the sweep's own auditor).**
+`manuscript/ave-kb/vol3/claim-quality.md:217` **does** carry the literal string
+*"Solidity 0.55 UNCHANGED"*. Verified by reading the line: it is a **single line of 1396
+characters**, and the string sits near its tail — which is why a windowed or truncated read
+reports it absent. The pointer `:217` stands; nothing about the inversion changes.
+**The general lesson, worth more than the fix:** in this corpus a "the cite is wrong"
+finding must be established by reading the WHOLE line, because multi-hundred-character
+single lines are common in the claim-quality files and every truncating tool lies about them
+the same way.
 
 **Status: OWED AND ROUTED. Nothing is adjudicated here.** This item registers the gap; it does
 not propose a band, does not move `solidity`, and mints no id. Note in particular that the print
