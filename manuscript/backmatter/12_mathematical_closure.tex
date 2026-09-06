@@ -63,11 +63,12 @@ Dynamic Output -- Generated from src/ave/core/constants.py
 
 ==========================================================
 VERIFICATION COMPLETE: STRICT GEOMETRIC CLOSURE
-168/168 framework files -- zero Standard Model parameters.  [STATIC 2026-04-13]
+168/168 framework files -- zero Standard Model parameters.
+[STATIC 2026-04-13 -- not generated; see the scope note below]
 ==========================================================
 \end{verbatim}
 
-\noindent\textbf{Scope of the ``Dynamic Output'' label (2026-09-06).} Every value in the block above except the two lines tagged \texttt{[STATIC]} is emitted by \texttt{src/scripts/vol\_2\_subatomic/generate\_verification\_trace.py}, which imports them from \texttt{src/ave/core/constants.py} and substitutes them as format placeholders. The two tagged figures --- the test-suite tally and the framework-file count --- are \emph{literals inside that generator's format string}, not computed by it. Both date from the initial release (2026-04-13) and have never been regenerated; the repository has grown substantially since. They are \textbf{deliberately not refreshed here}: re-minting a new number under a label that promises it is generated would reproduce the defect rather than repair it. Retiring the promise for these two lines, and leaving the figures as a dated snapshot, is the honest state until a generator actually computes them.
+\noindent\textbf{Scope of the ``Dynamic Output'' label (2026-09-06).} Every value in the block above except the two lines tagged \texttt{[STATIC]} is emitted by \texttt{\seqsplit{src/scripts/vol\_2\_subatomic/generate\_verification\_trace.py}}, which imports them from \texttt{src/ave/core/constants.py} and substitutes them as format placeholders. The two tagged figures --- the test-suite tally and the framework-file count --- are \emph{literals inside that generator's format string}, not computed by it. Both date from the initial release (2026-04-13) and have never been regenerated; the repository has grown substantially since. They are \textbf{deliberately not refreshed here}: re-minting a new number under a label that promises it is generated would reproduce the defect rather than repair it. Retiring the promise for these two lines, and leaving the figures as a dated snapshot, is the honest state until a generator actually computes them.
 
 \section{The Directed Acyclic Graph (DAG) Proof}
 To definitively establish that the Applied Vacuum Engineering (AVE) framework possesses strict mathematical closure without phenomenological curve-fitting, the framework maps the Directed Acyclic Graph (DAG) of its derivations.

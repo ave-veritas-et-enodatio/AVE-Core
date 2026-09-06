@@ -101,7 +101,8 @@ Dynamic Output — Generated from src/ave/core/constants.py
 
 ==========================================================
 VERIFICATION COMPLETE: STRICT GEOMETRIC CLOSURE
-168/168 framework files — zero Standard Model parameters.  [STATIC 2026-04-13]
+168/168 framework files — zero Standard Model parameters.
+[STATIC 2026-04-13 -- not generated; see the scope note below]
 ==========================================================
 """.format(
         l_node=L_NODE,
