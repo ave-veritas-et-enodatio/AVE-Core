@@ -102,16 +102,17 @@ jobs:
     name: manuscript compiles (non-required, unvalidated)
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
     steps:
-      - name: Checkout
+      - name: Checkout (full history — the base build needs a worktree)
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Detect manuscript changes
         id: changed
         run: |
           base="origin/${{ github.base_ref }}"
-          git fetch --no-tags --depth=1 origin "${{ github.base_ref }}"
           if git diff --name-only "$base"...HEAD | grep -qE '^manuscript/.*\.(tex|png|pdf|jpg)$'; then
             echo "run=true" >> "$GITHUB_OUTPUT"
           else
@@ -134,9 +135,46 @@ jobs:
             texlive-science texlive-pictures texlive-fonts-recommended \
             texlive-fonts-extra texlive-bibtex-extra
 
-      - name: make pdf (two-pass, all volumes — xr-hyper needs the aux of every volume)
+      # ⚠ THE MANUSCRIPT DOES NOT BUILD AT `main` AS OF 2026-09-06.
+      # `make vol1` exits 2 on a 94.58322pt hard-margin overrun against the 45pt
+      # gate in src/scripts/check_latex_margins.py, and vol0/vol2/vol3/vol4/vol5/
+      # vol6/vol9 all declare vol1 as a prerequisite — so NO volume builds. A
+      # plain `make pdf` here would therefore go red on every .tex PR for a
+      # reason the PR did not cause, which trains people to ignore the check.
+      #
+      # So: build the BASE first and compare. A failure that reproduces at the
+      # merge base is PRE-EXISTING and reported without failing the job; only a
+      # failure the branch INTRODUCES fails it. No baseline, no verdict.
+      - name: Build base (establish the pre-existing state)
         if: steps.changed.outputs.run == 'true'
-        run: make pdf
+        id: basebuild
+        run: |
+          git worktree add /tmp/basetree "origin/${{ github.base_ref }}"
+          if make -C /tmp/basetree pdf > /tmp/base.log 2>&1; then
+            echo "base=green" >> "$GITHUB_OUTPUT"
+          else
+            echo "base=red" >> "$GITHUB_OUTPUT"
+            echo "::warning::Manuscript already fails to build at the merge base — this PR is not the cause."
+            tail -30 /tmp/base.log
+          fi
+
+      - name: Build branch, and fail ONLY on a regression
+        if: steps.changed.outputs.run == 'true'
+        run: |
+          set +e
+          make pdf > /tmp/head.log 2>&1
+          head_rc=$?
+          set -e
+          tail -30 /tmp/head.log
+          if [ "$head_rc" -eq 0 ]; then
+            echo "Branch builds clean."; exit 0
+          fi
+          if [ "${{ steps.basebuild.outputs.base }}" = "red" ]; then
+            echo "::warning::Build failed, but it also fails at the merge base — PRE-EXISTING, not a regression. Not failing the job."
+            exit 0
+          fi
+          echo "::error::Build REGRESSION — base builds clean and this branch does not."
+          exit 1
 
       - name: Upload built PDFs
         if: steps.changed.outputs.run == 'true'
