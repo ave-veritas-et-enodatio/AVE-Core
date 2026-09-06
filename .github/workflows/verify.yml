@@ -48,15 +48,24 @@ jobs:
   # what a branch ADDS against the merge base, so it is meaningless on a push
   # to main. Needs full history (fetch-depth: 0) for the merge-base diff.
   #
-  # SEPARATE JOB, and keep it NON-required in branch protection until the
-  # orchestrator flips it — same posture as the engine-sims job below, and for
-  # the same reason: this is a workflow change with blast radius past the
-  # checker itself. Back-tested over the last 25 merges to main, it would have
+  # SEPARATE JOB. Back-tested over the last 25 merges to main, it would have
   # blocked 4 of the 20 PR merges (each adding 1-8 excerpt-less KB cites) — which
-  # is the intended behaviour, not a defect, but it is the orchestrator's call
-  # to make it blocking, not the implementer's.
+  # is the intended behaviour, not a defect.
+  #
+  # ORCHESTRATOR FLIP, 2026-09-06 (manuscript-reconciliation close-out, Phase B):
+  # measured against every open PR at the time of the flip — 14 of 15 already
+  # PASS; the single failure (#1033) is independently blocked pending an
+  # adversarial pass, so the flip blocks nothing that was otherwise ready. The
+  # job is hereby declared READY TO BE MARKED REQUIRED.
+  #
+  # ⚠ THE ENFORCEMENT HALF IS NOT IN THIS FILE. Marking a check "required" is a
+  # GitHub branch-protection setting, not a workflow key. Renaming the job here
+  # does NOT gate anything by itself, and the rename CHANGES THE CHECK NAME, so
+  # the branch-protection entry must be (re)added under the new name or the old
+  # entry silently matches nothing. Until an admin does that, this remains
+  # advisory in effect — do not read the name as proof of enforcement.
   new-cite-excerpts:
-    name: new-cite excerpt ratchet (non-required)
+    name: new-cite excerpt ratchet
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -73,6 +82,69 @@ jobs:
 
       - name: make verify-new-cite-excerpts
         run: make verify-new-cite-excerpts CITE_BASE=origin/${{ github.base_ref }}
+
+  # Manuscript compile gate. Until 2026-09-06 there was NO TeX toolchain in CI at
+  # all: a wave that edited .tex had no automated proof it still compiled, only a
+  # promise in a PR body. `make volN` already runs check_latex_margins.py on the
+  # .log, so Overfull/margin regressions fail the build rather than being hidden.
+  #
+  # Path-filtered: only runs when .tex or figure assets change, so the ~3-4 min
+  # TeX install does not tax every PR.
+  #
+  # ⚠ NON-REQUIRED AND UNVALIDATED AT AUTHORING TIME. This job was written from a
+  # static read of the Makefile (pdflatex + bibtex) and of every \usepackage in
+  # manuscript/ — it has never executed. Its FIRST CI RUN IS ITS VALIDATION. Do not
+  # mark it required, and do not read a green tick on some other PR as evidence it
+  # works, until it has actually compiled this repo's volumes at least once. If the
+  # package set below is short, the failure mode is a missing-.sty error naming the
+  # package to add.
+  manuscript-pdf:
+    name: manuscript compiles (non-required, unvalidated)
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Detect manuscript changes
+        id: changed
+        run: |
+          base="origin/${{ github.base_ref }}"
+          git fetch --no-tags --depth=1 origin "${{ github.base_ref }}"
+          if git diff --name-only "$base"...HEAD | grep -qE '^manuscript/.*\.(tex|png|pdf|jpg)$'; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "No manuscript .tex/figure changes — skipping compile."
+          fi
+
+      - name: Set up Python
+        if: steps.changed.outputs.run == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install TeX
+        if: steps.changed.outputs.run == 'true'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends \
+            texlive-latex-base texlive-latex-recommended texlive-latex-extra \
+            texlive-science texlive-pictures texlive-fonts-recommended \
+            texlive-fonts-extra texlive-bibtex-extra
+
+      - name: make pdf (two-pass, all volumes — xr-hyper needs the aux of every volume)
+        if: steps.changed.outputs.run == 'true'
+        run: make pdf
+
+      - name: Upload built PDFs
+        if: steps.changed.outputs.run == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: manuscript-pdfs
+          path: build/*.pdf
+          if-no-files-found: warn
 
   # Opt-in lane: the slow tier-1/2 engine-simulation tests (`-m engine_sim`).
   # Runs on the same triggers so engine PRs get coverage feedback, but it is a
