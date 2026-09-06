@@ -74,22 +74,54 @@ CANDIDATES, not verdicts** — see §4.
 
 ## §3 — WHAT THE EPIC'S OWN STATE IS
 
-The 2026-08-02 manuscript-reconciliation board
-(`_orchestration/2026-08-02_manuscript-reconciliation-board.md`, 154 classified
-findings, Grant-ratified verbatim *"proceed"*) is based on `main` @ `19285c5d`.
+> 🔴 **CORRECTED 2026-09-06, same day, before any lane consumed this.** The
+> first version of this section said *"the waves did not execute"* and *"exactly
+> one merge touched a volume `.tex`"*. **Both were false.** They came from four
+> `git log` path globs — `manuscript/vol_0`, `vol_1`, `vol_2`, `vol_9` — that
+> match **zero files**, because the real directories are
+> `vol_0_engineering_compendium`, `vol_1_foundations`, `vol_2_subatomic`,
+> `vol_9_vacuum_datasheet`. A zero result from a glob that matches nothing is
+> not evidence. The corrected query (`-- 'manuscript/*.tex'`) returns **18
+> merges**. This is the corpus's own named failure mode — a command that
+> succeeded on the wrong state — and the standing rule it violates is: **verify
+> any path filter matches a non-zero file set before trusting a zero result.**
 
-**Since that base, exactly one merge touched a volume `.tex`** (`ff06fffd`,
-oort-walkback-propagation). Meanwhile:
+**The epic EXECUTED.** Board §6 records all 12 epic PRs merged by Grant on
+2026-08-03: #825 #826 #827 #831 #836 #839 #840 #842 #843 #844 #846 #847 #848
+#850 #852 #853. Audit tags `audit/2026-08-03_mr-*` pin each lane tip.
+
+What §6 records as NOT done, as of 2026-08-03:
+
+- **STILL GATED — the ringdown wave (12 findings).** The cold-Q arc landed a
+  **non-verdict**: #845 = `SOLVER-NOT-CERTIFIED`, all four frozen physics bins
+  read *N/A*. #854 was the live retry. vol3 ch08 + ch15, `backmatter/07:{85,
+  211,213}` and the ringdown mirror sites stayed unexecuted. **Disclosed cost,
+  in print:** `backmatter/07` prints a withdrawal at `:145` while `:211/:213`
+  still print the withdrawn claim.
+- **OWED — 4 board corrections** (`backmatter/01_appendices.tex:{132,135,196}`
+  re-tag; vol5 `07_solvent_damping.tex:41` mechanical→routed; the neon caption
+  cite is `:53` not `:54`; `A_heavy_element_catalog.tex:20` dispatched as
+  EXECUTE while `[REFUTED — dropped]`, reverted in #852).
+- **OWED — addenda**, six site-classes with receipts in their PRs.
+- **OPEN — 5 routed to core/Grant**, including the Petermann split
+  (`C_2 = -0.32846` leaf vs `-0.328427` driver, ~158 ppm, load-bearing in g-2)
+  and the cite-rot fix option (#850 — `verify-md-links` still strips `:NN`, so
+  ~1,800 backticked bare cites remain wholly unchecked).
+
+**What is therefore still unknown, and is the actual open question:** the
+post-wave state of the 154 findings five weeks later. The board's dispositions
+were 58 ruling-needed / 46 mechanical / 33 route-to-core / 12 gated-ringdown /
+1 defer-to-live-lane. A re-validation lane against `6b8b49a0` is running.
+
+**What the churn numbers do say** (these were computed correctly and stand):
 
 ```
-KB commits since board base:   288   (190 KB files changed)
-tex commits since board base:  187   (121 tex files changed)
+KB commits since board base 19285c5d:   288   (190 KB files changed)
+tex commits since board base:           187   (121 tex files changed)
 ```
 
-**The waves did not execute, and the board is now five weeks stale against both
-sides.** Its 154 findings need re-validation against `6b8b49a0` before any of
-them is dispatched; a finding whose cite has drifted is a vacated argument, not
-a wrong one.
+Both sides moved substantially after the waves landed, which is what the 190
+material-lag sites in §1 measure.
 
 ## §4 — CALIBRATION, AND WHY THE HEADLINE NUMBER MOVED THREE TIMES
 
