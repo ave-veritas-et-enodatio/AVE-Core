@@ -1,0 +1,368 @@
+# manuscript .tex vs KB staleness audit
+# repo HEAD: 6b8b49a0
+# .tex scanned: 210   KB records: 468
+
+## S1_DEAD_PATH  --  0
+## S2_DEAD_ID  --  0
+## S3a_BUILD_BAND_UNDISCLOSED  --  5
+## S4a_TIME_LAG_MATERIAL  --  190
+## S5_LINE_DRIFT  --  49
+## S4b_TIME_LAG_COSMETIC  --  17
+## S3b_NODE_STATUS_INFO  --  25
+## S3c_BUILD_BAND_DISCLOSED  --  17
+## S3d_BUILD_BAND_INDEX_ROW  --  6
+
+=== S3a_BUILD_BAND_UNDISCLOSED (5) ===
+manuscript/vol_9_vacuum_datasheet/chapters/02_absolute_maximum_ratings.tex:35	clm-ezai5b	build_band=do-not-build, solidity=0.4
+manuscript/vol_9_vacuum_datasheet/chapters/02_absolute_maximum_ratings.tex:38	clm-uu6dl5	build_band=do-not-build, solidity=0.4
+manuscript/vol_9_vacuum_datasheet/chapters/16_cross_volume_reference.tex:189	clm-ezai5b	build_band=do-not-build, solidity=0.4
+manuscript/vol_9_vacuum_datasheet/chapters/16_cross_volume_reference.tex:197	clm-uu6dl5	build_band=do-not-build, solidity=0.4
+manuscript/vol_9_vacuum_datasheet/figures/g_star_comparison.tex:32	clm-uu6dl5	build_band=do-not-build, solidity=0.4
+
+=== S4a_TIME_LAG_MATERIAL (190) ===
+manuscript/backmatter/01_appendices.tex:70	ave-kb/vol1/claim-quality.md	leaf newer by 5 d -- added: 🔴, demot, solidity, walk-back
+manuscript/backmatter/01_appendices.tex:209	ave-kb/common/claim-quality.md	leaf newer by 17 d -- added: 🔴, demot, solidity, walk-back
+manuscript/backmatter/01_appendices.tex:209	ave-kb/common/engine-capability-map.md	leaf newer by 16 d -- added: 🔴, demot, solidity, walk-back
+manuscript/backmatter/01_appendices.tex:209	ave-kb/common/engine-capability-map.md	leaf newer by 16 d -- added: 🔴, demot, solidity, walk-back
+manuscript/backmatter/01_appendices.tex:209	ave-kb/common/form-deriving-value-importing.md	leaf newer by 3 d -- added: REFUTED
+manuscript/backmatter/01_appendices.tex:209	ave-kb/vol1/claim-quality.md	leaf newer by 5 d -- added: 🔴, demot, solidity, walk-back
+manuscript/backmatter/01_appendices.tex:295	ave-kb/common/engine-capability-map.md	leaf newer by 16 d -- added: 🔴, demot, solidity, walk-back
+manuscript/backmatter/01_appendices.tex:295	ave-kb/common/form-deriving-value-importing.md	leaf newer by 3 d -- added: REFUTED
+manuscript/backmatter/01_appendices.tex:295	ave-kb/vol1/claim-quality.md	leaf newer by 5 d -- added: 🔴, demot, solidity, walk-back
+manuscript/backmatter/02_full_derivation_chain.tex:763	ave-kb/vol1/claim-quality.md	leaf newer by 2 d -- added: 🔴, demot, solidity, walk-back
+manuscript/backmatter/03_geometric_inevitability.tex:12	ave-kb/vol1/ch8-alpha-golden-torus.md	leaf newer by 18 d -- added: supersed, WALK-BACK
+manuscript/backmatter/03_geometric_inevitability.tex:300	ave-kb/common/dual-reactance-storage-taxonomy.md	leaf newer by 50 d -- added: 🔴, demot, solidity, walk-back
+manuscript/backmatter/05_universal_solver_toolchain.tex:78	ave-kb/common/vocabulary-register.md	leaf newer by 17 d -- added: STRUCK, SUPERSED, supersed, 🔴
+manuscript/backmatter/05_universal_solver_toolchain.tex:90	ave-kb/vol3/claim-quality.md	leaf newer by 5 d -- added: struck, supersed, 🔴, corrected
+manuscript/backmatter/05_universal_solver_toolchain.tex:153	ave-kb/vol3/claim-quality.md	leaf newer by 5 d -- added: struck, supersed, 🔴, corrected
+manuscript/backmatter/05_universal_solver_toolchain.tex:491	ave-kb/common/vocabulary-register.md	leaf newer by 17 d -- added: STRUCK, SUPERSED, supersed, 🔴
+manuscript/backmatter/05_universal_solver_toolchain.tex:496	ave-kb/vol3/claim-quality.md	leaf newer by 5 d -- added: struck, supersed, 🔴, corrected
+manuscript/backmatter/05_universal_solver_toolchain.tex:510	ave-kb/common/vocabulary-register.md	leaf newer by 17 d -- added: STRUCK, SUPERSED, supersed, 🔴
+manuscript/backmatter/05_universal_solver_toolchain.tex:521	ave-kb/vol3/claim-quality.md	leaf newer by 5 d -- added: struck, supersed, 🔴, corrected
+manuscript/backmatter/05_universal_solver_toolchain.tex:546	ave-kb/vol3/claim-quality.md	leaf newer by 5 d -- added: struck, supersed, 🔴, corrected
+manuscript/backmatter/05_universal_solver_toolchain.tex:554	ave-kb/common/operators.md	leaf newer by 1 d -- added: VACATED, vacated
+manuscript/backmatter/06_spice_verification_manual.tex:202	ave-kb/common/operators.md	leaf newer by 5 d -- added: VACATED, vacated
+manuscript/backmatter/06_spice_verification_manual.tex:208	ave-kb/common/theorem-thesaurus.md	leaf newer by 9 d -- added: 🔴, STRUCK, demot, solidity
+manuscript/backmatter/07_universal_saturation_kernel.tex:145	ave-kb/common/axiom-register.md	leaf newer by 12 d -- added: solidity, SUPERSED, supersed
+manuscript/backmatter/12_mathematical_closure.tex:138	ave-kb/common/form-deriving-value-importing.md	leaf newer by 0 d -- added: REFUTED
+manuscript/backmatter/12_mathematical_closure.tex:138	ave-kb/common/theorem-thesaurus.md	leaf newer by 2 d -- added: 🔴, demot, solidity, walk-back
+manuscript/backmatter/12_mathematical_closure.tex:138	ave-kb/vol1/claim-quality.md	leaf newer by 2 d -- added: 🔴, demot, solidity, walk-back
+manuscript/backmatter/appendix_c_derived_numerology.tex:83	ave-kb/common/form-deriving-value-importing.md	leaf newer by 8 d -- added: REFUTED
+manuscript/backmatter/appendix_c_derived_numerology.tex:83	ave-kb/common/theorem-thesaurus.md	leaf newer by 10 d -- added: corrected, 🔴, STRUCK, demot
+manuscript/backmatter/appendix_vacuum_engineering.tex:71	ave-kb/common/form-deriving-value-importing.md	leaf newer by 8 d -- added: REFUTED
+manuscript/backmatter/appendix_vacuum_engineering.tex:71	ave-kb/common/theorem-thesaurus.md	leaf newer by 10 d -- added: corrected, 🔴, STRUCK, demot
+manuscript/backmatter/appendix_vacuum_engineering.tex:71	ave-kb/vol1/claim-quality.md	leaf newer by 10 d -- added: 🔴, WALK-BACK, demot, solidity
+manuscript/frontmatter/00_foreword.tex:10	ave-kb/common/historical-precedents.md	leaf newer by 4 d -- added: 🔴
+manuscript/frontmatter/00_foreword.tex:10	ave-kb/common/the-abandoned-interior.md	leaf newer by 4 d -- added: 🔴
+manuscript/frontmatter/00_foreword.tex:82	ave-kb/common/historical-precedents.md	leaf newer by 4 d -- added: 🔴
+manuscript/vol_0_engineering_compendium/chapters/01_theoretical_stress_tests.tex:20	ave-kb/common/claim-quality.md	leaf newer by 17 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_0_engineering_compendium/chapters/01_theoretical_stress_tests.tex:48	ave-kb/vol1/claim-quality.md	leaf newer by 5 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_0_engineering_compendium/chapters/02_analytical_summaries.tex:32	ave-kb/common/claim-quality.md	leaf newer by 22 d -- added: 🔴, solidity, Solidity, corrected
+manuscript/vol_0_engineering_compendium/chapters/02_analytical_summaries.tex:113	ave-kb/common/appendices-overview.md	leaf newer by 9 d -- added: 🔴, struck, demot, solidity
+manuscript/vol_0_engineering_compendium/chapters/02_analytical_summaries.tex:164	ave-kb/common/form-deriving-value-importing.md	leaf newer by 7 d -- added: REFUTED
+manuscript/vol_0_engineering_compendium/chapters/02_analytical_summaries.tex:164	ave-kb/common/theorem-thesaurus.md	leaf newer by 9 d -- added: 🔴, STRUCK, demot, solidity
+manuscript/vol_0_engineering_compendium/chapters/02_analytical_summaries.tex:169	ave-kb/vol2/claim-quality.md	leaf newer by 21 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_0_engineering_compendium/chapters/02_analytical_summaries.tex:190	ave-kb/common/claim-quality.md	leaf newer by 22 d -- added: 🔴, solidity, Solidity, corrected
+manuscript/vol_0_engineering_compendium/chapters/03_computational_graph.tex:24	ave-kb/common/claim-quality.md	leaf newer by 23 d -- added: 🔴, solidity, Solidity, corrected
+manuscript/vol_0_engineering_compendium/chapters/03_computational_graph.tex:74	ave-kb/common/claim-quality.md	leaf newer by 23 d -- added: 🔴, solidity, Solidity, corrected
+manuscript/vol_0_engineering_compendium/chapters/03_computational_graph.tex:74	ave-kb/common/engine-capability-map.md	leaf newer by 21 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_0_engineering_compendium/chapters/03_computational_graph.tex:74	ave-kb/common/engine-capability-map.md	leaf newer by 21 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_0_engineering_compendium/chapters/03_computational_graph.tex:74	ave-kb/common/form-deriving-value-importing.md	leaf newer by 8 d -- added: REFUTED
+manuscript/vol_0_engineering_compendium/chapters/03_computational_graph.tex:74	ave-kb/vol1/claim-quality.md	leaf newer by 10 d -- added: 🔴, WALK-BACK, demot, solidity
+manuscript/vol_0_engineering_compendium/chapters/04_dcve.tex:37	ave-kb/common/claim-quality.md	leaf newer by 23 d -- added: 🔴, solidity, Solidity, corrected
+manuscript/vol_0_engineering_compendium/chapters/04_dcve.tex:37	ave-kb/vol2/claim-quality.md	leaf newer by 21 d -- added: 🔴, SUPERSED, solidity, demot
+manuscript/vol_0_engineering_compendium/chapters/04_dcve.tex:83	ave-kb/common/engine-capability-map.md	leaf newer by 21 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_0_engineering_compendium/chapters/04_dcve.tex:83	ave-kb/common/form-deriving-value-importing.md	leaf newer by 8 d -- added: REFUTED
+manuscript/vol_0_engineering_compendium/chapters/04_dcve.tex:83	ave-kb/vol1/claim-quality.md	leaf newer by 10 d -- added: 🔴, WALK-BACK, demot, solidity
+manuscript/vol_1_foundations/chapters/02_macroscopic_moduli.tex:43	ave-kb/common/vocabulary-register.md	leaf newer by 12 d -- added: STRUCK, corrected, supersed, struck
+manuscript/vol_1_foundations/chapters/03_quantum_and_signal_dynamics.tex:84	ave-kb/common/substrate-native-terminology.md	leaf newer by 5 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_1_foundations/chapters/04_continuum_electrodynamics.tex:42	ave-kb/claim-quality-closure-roadmap.md	leaf newer by 4 d -- added: walk-back, Walk-back
+manuscript/vol_1_foundations/chapters/04_continuum_electrodynamics.tex:42	ave-kb/common/engine-capability-map.md	leaf newer by 11 d -- added: 🔴
+manuscript/vol_1_foundations/chapters/06_universal_operators.tex:124	ave-kb/common/substrate-native-terminology.md	leaf newer by 5 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_1_foundations/chapters/06_universal_operators.tex:126	ave-kb/common/substrate-native-terminology.md	leaf newer by 5 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_1_foundations/chapters/06_universal_operators.tex:327	ave-kb/vol1/operators-and-regimes/ch6-universal-operators/srs-vertex-scattering.md	leaf newer by 5 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_2_subatomic/chapters/01_topological_matter.tex:170	ave-kb/vol2/claim-quality.md	leaf newer by 16 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_2_subatomic/chapters/01_topological_matter.tex:218	ave-kb/vol2/particle-physics/ch02-baryon-sector/proton-identification.md	leaf newer by 16 d -- added: 🔴, refuted
+manuscript/vol_2_subatomic/chapters/01_topological_matter.tex:237	ave-kb/vol2/particle-physics/ch02-baryon-sector/proton-identification.md	leaf newer by 16 d -- added: 🔴, refuted
+manuscript/vol_2_subatomic/chapters/01_topological_matter.tex:242	ave-kb/vol4/claim-quality.md	leaf newer by 5 d -- added: 🔴, WALK-BACK, Demot, demot
+manuscript/vol_2_subatomic/chapters/02_baryon_sector.tex:120	ave-kb/common/form-deriving-value-importing.md	leaf newer by 8 d -- added: REFUTED
+manuscript/vol_2_subatomic/chapters/02_baryon_sector.tex:126	ave-kb/common/theorem-thesaurus.md	leaf newer by 10 d -- added: corrected, 🔴, STRUCK, demot
+manuscript/vol_2_subatomic/chapters/02_baryon_sector.tex:235	ave-kb/vol2/particle-physics/ch02-baryon-sector/proton-identification.md	leaf newer by 21 d -- added: 🔴, refuted
+manuscript/vol_2_subatomic/chapters/02_baryon_sector.tex:268	ave-kb/vol2/particle-physics/ch02-baryon-sector/proton-identification.md	leaf newer by 21 d -- added: 🔴, refuted
+manuscript/vol_2_subatomic/chapters/02_baryon_sector.tex:357	ave-kb/vol2/particle-physics/ch02-baryon-sector/neutron-identification.md	leaf newer by 21 d -- added: 🔴
+manuscript/vol_2_subatomic/chapters/02_baryon_sector.tex:362	ave-kb/vol2/particle-physics/ch02-baryon-sector/neutron-identification.md	leaf newer by 21 d -- added: 🔴
+manuscript/vol_2_subatomic/chapters/04_quantum_spin.tex:111	ave-kb/vol2/claim-quality.md	leaf newer by 21 d -- added: 🔴, SUPERSED, solidity, demot
+manuscript/vol_2_subatomic/chapters/05_electroweak_gauge_theory.tex:35	ave-kb/common/vocabulary-register.md	leaf newer by 12 d -- added: STRUCK, corrected, supersed, struck
+manuscript/vol_2_subatomic/chapters/05_electroweak_gauge_theory.tex:51	ave-kb/common/vocabulary-register.md	leaf newer by 12 d -- added: STRUCK, corrected, supersed, struck
+manuscript/vol_2_subatomic/chapters/06_electroweak_and_higgs.tex:232	ave-kb/common/vocabulary-register.md	leaf newer by 22 d -- added: STRUCK, struck, SUPERSED, supersed
+manuscript/vol_2_subatomic/chapters/06_electroweak_and_higgs.tex:233	ave-kb/common/engine-capability-map.md	leaf newer by 20 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_2_subatomic/chapters/06_electroweak_and_higgs.tex:618	ave-kb/vol2/particle-physics/ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md	leaf newer by 0 d -- added: struck, STRUCK
+manuscript/vol_2_subatomic/chapters/06_electroweak_and_higgs.tex:722	ave-kb/vol2/particle-physics/ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md	leaf newer by 0 d -- added: struck, STRUCK
+manuscript/vol_2_subatomic/chapters/06_electroweak_and_higgs.tex:770	ave-kb/vol2/particle-physics/ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md	leaf newer by 0 d -- added: struck, STRUCK
+manuscript/vol_2_subatomic/chapters/12_the_millennium_prizes.tex:112	ave-kb/vol1/operators-and-regimes/ch6-universal-operators/srs-band-structure.md	leaf newer by 5 d -- added: 🔴, Demot, demot, walk-back
+manuscript/vol_3_macroscopic/chapters/02_general_relativity_and_gravity.tex:240	ave-kb/common/operators.md	leaf newer by 1 d -- added: VACATED, vacated
+manuscript/vol_3_macroscopic/chapters/02_general_relativity_and_gravity.tex:251	ave-kb/common/operators.md	leaf newer by 1 d -- added: VACATED, vacated
+manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex:461	ave-kb/vol3/claim-quality.md	leaf newer by 5 d -- added: struck, supersed, 🔴, corrected
+manuscript/vol_3_macroscopic/chapters/05_cosmology_dark_sector.tex:65	ave-kb/vol3/claim-quality.md	leaf newer by 10 d -- added: struck, supersed, CORRECTED, 🔴
+manuscript/vol_3_macroscopic/chapters/06_solar_system.tex:105	ave-kb/vol3/claim-quality.md	leaf newer by 5 d -- added: struck, supersed, 🔴, corrected
+manuscript/vol_3_macroscopic/chapters/06_solar_system.tex:160	ave-kb/vol4/claim-quality.md	leaf newer by 5 d -- added: 🔴, WALK-BACK, Demot, demot
+manuscript/vol_3_macroscopic/chapters/11_thermodynamics_and_entropy.tex:201	ave-kb/vol1/operators-and-regimes/ch6-universal-operators/srs-band-structure.md	leaf newer by 5 d -- added: 🔴, Demot, demot, walk-back
+manuscript/vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex:228	ave-kb/common/substrate-native-terminology.md	leaf newer by 24 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:31	ave-kb/common/axiom-register.md	leaf newer by 12 d -- added: solidity, SUPERSED, supersed
+manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:70	ave-kb/common/axiom-register.md	leaf newer by 12 d -- added: solidity, SUPERSED, supersed
+manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:330	ave-kb/common/engine-capability-map.md	leaf newer by 11 d -- added: 🔴
+manuscript/vol_3_macroscopic/chapters/21_black_hole_interior_regime_iv.tex:228	ave-kb/common/axiom-register.md	leaf newer by 12 d -- added: solidity, SUPERSED, supersed
+manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex:18	ave-kb/common/vocabulary-register.md	leaf newer by 15 d -- added: STRUCK, SUPERSED, supersed, 🔴
+manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex:342	ave-kb/common/substrate-native-terminology.md	leaf newer by 2 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex:517	ave-kb/vol1/operators-and-regimes/ch6-universal-operators/srs-vertex-scattering.md	leaf newer by 2 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex:995	ave-kb/common/vocabulary-register.md	leaf newer by 15 d -- added: STRUCK, SUPERSED, supersed, 🔴
+manuscript/vol_4_engineering/chapters/11_experimental_falsification.tex:312	ave-kb/vol4/claim-quality.md	leaf newer by 2 d -- added: 🔴, WALK-BACK, Demot, demot
+manuscript/vol_4_engineering/chapters/12_falsifiable_predictions.tex:189	ave-kb/vol4/falsification/ch12-falsifiable-predictions/k4-bloch-dispersion-quartic.md	leaf newer by 45 d -- added: corrected
+manuscript/vol_4_engineering/chapters/13_future_geometries.tex:315	ave-kb/common/vocabulary-register.md	leaf newer by 22 d -- added: STRUCK, struck, SUPERSED, supersed
+manuscript/vol_5_biology/chapters/02_organic_circuitry.tex:58	ave-kb/common/vocabulary-register.md	leaf newer by 17 d -- added: STRUCK, SUPERSED, supersed, 🔴
+manuscript/vol_6_periodic_table/chapters/00_introduction.tex:36	ave-kb/common/form-deriving-value-importing.md	leaf newer by 8 d -- added: REFUTED
+manuscript/vol_6_periodic_table/chapters/00_introduction.tex:36	ave-kb/common/theorem-thesaurus.md	leaf newer by 10 d -- added: corrected, 🔴, STRUCK, demot
+manuscript/vol_9_vacuum_datasheet/chapters/01_general_description.tex:20	ave-kb/common/axiom-register.md	leaf newer by 17 d -- added: solidity, demot, SUPERSED, supersed
+manuscript/vol_9_vacuum_datasheet/chapters/01_general_description.tex:22	ave-kb/common/axiom-register.md	leaf newer by 17 d -- added: solidity, demot, SUPERSED, supersed
+manuscript/vol_9_vacuum_datasheet/chapters/01_general_description.tex:26	ave-kb/common/form-deriving-value-importing.md	leaf newer by 3 d -- added: REFUTED
+manuscript/vol_9_vacuum_datasheet/chapters/01_general_description.tex:45	ave-kb/common/wall-taxonomy.md	leaf newer by 5 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/chapters/01_general_description.tex:45	ave-kb/vol3/cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md	leaf newer by 5 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/chapters/01_general_description.tex:45	ave-kb/vol9/ch3-pin-port-configuration/device-circuit-models.md	leaf newer by 9 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/chapters/01_general_description.tex:45	ave-kb/vol9/ch4-dc-electrical-characteristics/three-channel-impedances.md	leaf newer by 5 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/chapters/01_general_description.tex:45	ave-kb/vol9/ch4-dc-electrical-characteristics/three-channel-impedances.md	leaf newer by 5 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/chapters/01_general_description.tex:58	ave-kb/common/form-deriving-value-importing.md	leaf newer by 3 d -- added: REFUTED
+manuscript/vol_9_vacuum_datasheet/chapters/01_general_description.tex:58	ave-kb/common/vocabulary-register.md	leaf newer by 17 d -- added: STRUCK, SUPERSED, supersed, 🔴
+manuscript/vol_9_vacuum_datasheet/chapters/01_general_description.tex:64	ave-kb/common/translation-tables/translation-circuit.md	leaf newer by 16 d -- added: 🔴, corrected, supersed, STRUCK
+manuscript/vol_9_vacuum_datasheet/chapters/02_absolute_maximum_ratings.tex:18	ave-kb/vol1/operators-and-regimes/ch7-regime-map/four-regimes.md	leaf newer by 11 d -- added: 🔴
+manuscript/vol_9_vacuum_datasheet/chapters/02_absolute_maximum_ratings.tex:88	ave-kb/common/vocabulary-register.md	leaf newer by 12 d -- added: STRUCK, corrected, supersed, struck
+manuscript/vol_9_vacuum_datasheet/chapters/03_pin_port_configuration.tex:35	ave-kb/common/translation-tables/translation-circuit.md	leaf newer by 16 d -- added: 🔴, corrected, supersed, STRUCK
+manuscript/vol_9_vacuum_datasheet/chapters/03_pin_port_configuration.tex:103	ave-kb/common/operators.md	leaf newer by 1 d -- added: VACATED, vacated
+manuscript/vol_9_vacuum_datasheet/chapters/03_pin_port_configuration.tex:158	ave-kb/vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md	leaf newer by 5 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/chapters/03_pin_port_configuration.tex:171	ave-kb/common/operators.md	leaf newer by 1 d -- added: VACATED, vacated
+manuscript/vol_9_vacuum_datasheet/chapters/03_pin_port_configuration.tex:173	ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md	leaf newer by 5 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/chapters/03_pin_port_configuration.tex:213	ave-kb/common/vocabulary-register.md	leaf newer by 17 d -- added: STRUCK, SUPERSED, supersed, 🔴
+manuscript/vol_9_vacuum_datasheet/chapters/03_pin_port_configuration.tex:230	ave-kb/common/operators.md	leaf newer by 1 d -- added: VACATED, vacated
+manuscript/vol_9_vacuum_datasheet/chapters/03_pin_port_configuration.tex:250	ave-kb/common/operators.md	leaf newer by 1 d -- added: VACATED, vacated
+manuscript/vol_9_vacuum_datasheet/chapters/03_pin_port_configuration.tex:255	ave-kb/common/translation-tables/translation-circuit.md	leaf newer by 16 d -- added: 🔴, corrected, supersed, STRUCK
+manuscript/vol_9_vacuum_datasheet/chapters/03_pin_port_configuration.tex:271	ave-kb/common/vocabulary-register.md	leaf newer by 17 d -- added: STRUCK, SUPERSED, supersed, 🔴
+manuscript/vol_9_vacuum_datasheet/chapters/03_pin_port_configuration.tex:274	ave-kb/common/translation-tables/translation-circuit.md	leaf newer by 16 d -- added: 🔴, corrected, supersed, STRUCK
+manuscript/vol_9_vacuum_datasheet/chapters/03a_device_circuit_models.tex:8	ave-kb/vol9/ch3-pin-port-configuration/device-circuit-models.md	leaf newer by 4 d -- added: 🔴
+manuscript/vol_9_vacuum_datasheet/chapters/03a_device_circuit_models.tex:25	ave-kb/vol9/ch3-pin-port-configuration/device-circuit-models.md	leaf newer by 4 d -- added: 🔴
+manuscript/vol_9_vacuum_datasheet/chapters/03a_device_circuit_models.tex:49	ave-kb/vol9/ch3-pin-port-configuration/device-circuit-models.md	leaf newer by 4 d -- added: 🔴
+manuscript/vol_9_vacuum_datasheet/chapters/03a_device_circuit_models.tex:72	ave-kb/common/axiom-register.md	leaf newer by 12 d -- added: solidity, SUPERSED, supersed
+manuscript/vol_9_vacuum_datasheet/chapters/03a_device_circuit_models.tex:79	ave-kb/vol9/ch3-pin-port-configuration/device-circuit-models.md	leaf newer by 4 d -- added: 🔴
+manuscript/vol_9_vacuum_datasheet/chapters/03a_device_circuit_models.tex:84	ave-kb/common/axiom-register.md	leaf newer by 12 d -- added: solidity, SUPERSED, supersed
+manuscript/vol_9_vacuum_datasheet/chapters/03a_device_circuit_models.tex:134	ave-kb/vol2/particle-physics/ch01-topological-matter/electron-bound-resonator-coverage.md	leaf newer by 3 d -- added: DEMOT, demot
+manuscript/vol_9_vacuum_datasheet/chapters/03a_device_circuit_models.tex:144	ave-kb/vol9/ch3-pin-port-configuration/device-circuit-models.md	leaf newer by 4 d -- added: 🔴
+manuscript/vol_9_vacuum_datasheet/chapters/03a_device_circuit_models.tex:148	ave-kb/vol9/ch3-pin-port-configuration/device-circuit-models.md	leaf newer by 4 d -- added: 🔴
+manuscript/vol_9_vacuum_datasheet/chapters/03a_device_circuit_models.tex:155	ave-kb/vol9/ch3-pin-port-configuration/device-circuit-models.md	leaf newer by 4 d -- added: 🔴
+manuscript/vol_9_vacuum_datasheet/chapters/04_dc_electrical_characteristics.tex:127	ave-kb/vol9/ch3-pin-port-configuration/device-circuit-models.md	leaf newer by 4 d -- added: 🔴
+manuscript/vol_9_vacuum_datasheet/chapters/05_ac_electrical_characteristics.tex:327	ave-kb/vol9/ch3-pin-port-configuration/device-circuit-models.md	leaf newer by 6 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/chapters/05_ac_electrical_characteristics.tex:483	ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/node-up-small-large-signal.md	leaf newer by 2 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/chapters/06_temperature_characteristics.tex:8	ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md	leaf newer by 6 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/chapters/06_temperature_characteristics.tex:36	ave-kb/common/trampoline-framework.md	leaf newer by 12 d -- added: 🔴
+manuscript/vol_9_vacuum_datasheet/chapters/06_temperature_characteristics.tex:36	ave-kb/vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md	leaf newer by 6 d -- added: 🔴, corrected, struck, Demot
+manuscript/vol_9_vacuum_datasheet/chapters/06_temperature_characteristics.tex:41	ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md	leaf newer by 6 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/chapters/06_temperature_characteristics.tex:69	ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md	leaf newer by 6 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/chapters/06_temperature_characteristics.tex:94	ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md	leaf newer by 6 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/chapters/06_temperature_characteristics.tex:95	ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md	leaf newer by 6 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/chapters/06_temperature_characteristics.tex:96	ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md	leaf newer by 6 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/chapters/06_temperature_characteristics.tex:97	ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md	leaf newer by 6 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/chapters/06_temperature_characteristics.tex:99	ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md	leaf newer by 6 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/chapters/06_temperature_characteristics.tex:100	ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md	leaf newer by 6 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/chapters/06_temperature_characteristics.tex:177	ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md	leaf newer by 6 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/chapters/06_temperature_characteristics.tex:195	ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md	leaf newer by 6 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/chapters/06_temperature_characteristics.tex:210	ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md	leaf newer by 6 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/chapters/06_temperature_characteristics.tex:213	ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md	leaf newer by 6 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/chapters/06_temperature_characteristics.tex:217	ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md	leaf newer by 6 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/chapters/07_saturation_characteristics.tex:19	ave-kb/CLAUDE.md	leaf newer by 17 d -- added: supersed
+manuscript/vol_9_vacuum_datasheet/chapters/07_saturation_characteristics.tex:68	ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/node-up-small-large-signal.md	leaf newer by 5 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/chapters/07_saturation_characteristics.tex:68	ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md	leaf newer by 5 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/chapters/07_saturation_characteristics.tex:129	ave-kb/vol1/operators-and-regimes/ch7-regime-map/four-regimes.md	leaf newer by 16 d -- added: 🔴
+manuscript/vol_9_vacuum_datasheet/chapters/07_saturation_characteristics.tex:141	ave-kb/vol1/operators-and-regimes/ch7-regime-map/four-regimes.md	leaf newer by 16 d -- added: 🔴
+manuscript/vol_9_vacuum_datasheet/chapters/07_saturation_characteristics.tex:169	ave-kb/vol4/claim-quality.md	leaf newer by 5 d -- added: 🔴, WALK-BACK, Demot, demot
+manuscript/vol_9_vacuum_datasheet/chapters/07_saturation_characteristics.tex:230	ave-kb/common/translation-tables/translation-circuit.md	leaf newer by 16 d -- added: 🔴, corrected, supersed, STRUCK
+manuscript/vol_9_vacuum_datasheet/chapters/07_saturation_characteristics.tex:264	ave-kb/CLAUDE.md	leaf newer by 17 d -- added: supersed
+manuscript/vol_9_vacuum_datasheet/chapters/07_saturation_characteristics.tex:266	ave-kb/vol1/operators-and-regimes/ch7-regime-map/four-regimes.md	leaf newer by 16 d -- added: 🔴
+manuscript/vol_9_vacuum_datasheet/chapters/07_saturation_characteristics.tex:271	ave-kb/common/translation-tables/translation-circuit.md	leaf newer by 16 d -- added: 🔴, corrected, supersed, STRUCK
+manuscript/vol_9_vacuum_datasheet/chapters/07_saturation_characteristics.tex:273	ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md	leaf newer by 5 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/chapters/08_breakdown_characteristics.tex:51	ave-kb/vol1/operators-and-regimes/ch7-regime-map/four-regimes.md	leaf newer by 16 d -- added: 🔴
+manuscript/vol_9_vacuum_datasheet/chapters/08_breakdown_characteristics.tex:70	ave-kb/vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md	leaf newer by 5 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/chapters/08_breakdown_characteristics.tex:112	ave-kb/common/translation-tables/translation-circuit.md	leaf newer by 16 d -- added: 🔴, corrected, supersed, STRUCK
+manuscript/vol_9_vacuum_datasheet/chapters/08_breakdown_characteristics.tex:144	ave-kb/common/translation-tables/translation-circuit.md	leaf newer by 16 d -- added: 🔴, corrected, supersed, STRUCK
+manuscript/vol_9_vacuum_datasheet/chapters/08_breakdown_characteristics.tex:177	ave-kb/vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md	leaf newer by 5 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/chapters/08_breakdown_characteristics.tex:179	ave-kb/vol1/operators-and-regimes/ch7-regime-map/four-regimes.md	leaf newer by 16 d -- added: 🔴
+manuscript/vol_9_vacuum_datasheet/chapters/08_breakdown_characteristics.tex:183	ave-kb/common/translation-tables/translation-circuit.md	leaf newer by 16 d -- added: 🔴, corrected, supersed, STRUCK
+manuscript/vol_9_vacuum_datasheet/chapters/10_magnetic_microrotational_characteristics.tex:65	ave-kb/CLAUDE.md	leaf newer by 18 d -- added: supersed
+manuscript/vol_9_vacuum_datasheet/chapters/14_phase_diagrams.tex:124	ave-kb/vol1/operators-and-regimes/ch7-regime-map/four-regimes.md	leaf newer by 11 d -- added: 🔴
+manuscript/vol_9_vacuum_datasheet/chapters/14_phase_diagrams.tex:315	ave-kb/vol1/operators-and-regimes/ch7-regime-map/four-regimes.md	leaf newer by 11 d -- added: 🔴
+manuscript/vol_9_vacuum_datasheet/chapters/15_falsification_tests.tex:115	ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md	leaf newer by 5 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/chapters/15_falsification_tests.tex:117	ave-kb/vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md	leaf newer by 5 d -- added: 🔴, corrected, struck, Demot
+manuscript/vol_9_vacuum_datasheet/chapters/15_falsification_tests.tex:125	ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md	leaf newer by 5 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/chapters/15_falsification_tests.tex:146	ave-kb/vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md	leaf newer by 5 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/chapters/15_falsification_tests.tex:247	ave-kb/common/form-deriving-value-importing.md	leaf newer by 3 d -- added: REFUTED
+manuscript/vol_9_vacuum_datasheet/chapters/15_falsification_tests.tex:247	ave-kb/common/vocabulary-register.md	leaf newer by 17 d -- added: STRUCK, SUPERSED, supersed, 🔴
+manuscript/vol_9_vacuum_datasheet/chapters/19_calibration_parameter_justification.tex:18	ave-kb/common/form-deriving-value-importing.md	leaf newer by 21 d -- added: REFUTED
+manuscript/vol_9_vacuum_datasheet/chapters/19_calibration_parameter_justification.tex:18	ave-kb/common/vocabulary-register.md	leaf newer by 36 d -- added: STRUCK, struck, corrected, SUPERSED
+manuscript/vol_9_vacuum_datasheet/chapters/19_calibration_parameter_justification.tex:20	ave-kb/common/interlock-register.md	leaf newer by 22 d -- added: refuted, solidity, supersed
+manuscript/vol_9_vacuum_datasheet/figures/a1_spatial_cavity_mode_fft.tex:35	ave-kb/vol9/ch3-pin-port-configuration/device-circuit-models.md	leaf newer by 9 d -- added: 🔴, demot, solidity, walk-back
+manuscript/vol_9_vacuum_datasheet/figures/circuit_bond_transmission_line.tex:60	ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/graded-network-response.md	leaf newer by 27 d -- added: Corrected, struck
+manuscript/vol_9_vacuum_datasheet/figures/electron_selfbiased_multiport.tex:52	ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md	leaf newer by 10 d -- added: 🔴, struck, demot, solidity
+manuscript/vol_9_vacuum_datasheet/figures/node_circulator_ring.tex:50	ave-kb/vol9/ch3-pin-port-configuration/device-circuit-models.md	leaf newer by 57 d -- added: struck, supersed, 🔴, demot
+manuscript/vol_9_vacuum_datasheet/figures/two_natured_electron.tex:46	ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md	leaf newer by 5 d -- added: demot, solidity, walk-back
+
+=== S5_LINE_DRIFT (49) ===
+manuscript/backmatter/01_appendices.tex:209	ave-kb/common/claim-quality.md:291	anchor unverified: leaf changed after this .tex
+manuscript/backmatter/01_appendices.tex:209	ave-kb/common/engine-capability-map.md:184	anchor unverified: leaf changed after this .tex
+manuscript/backmatter/01_appendices.tex:209	ave-kb/common/engine-capability-map.md:184	anchor unverified: leaf changed after this .tex
+manuscript/backmatter/01_appendices.tex:209	ave-kb/common/form-deriving-value-importing.md:184	anchor unverified: leaf changed after this .tex
+manuscript/backmatter/01_appendices.tex:295	ave-kb/common/engine-capability-map.md:184	anchor unverified: leaf changed after this .tex
+manuscript/backmatter/03_geometric_inevitability.tex:12	ave-kb/vol1/ch8-alpha-golden-torus.md:11	anchor unverified: leaf changed after this .tex
+manuscript/backmatter/05_universal_solver_toolchain.tex:78	ave-kb/common/vocabulary-register.md:261	anchor unverified: leaf changed after this .tex
+manuscript/backmatter/05_universal_solver_toolchain.tex:90	ave-kb/vol3/claim-quality.md:204	anchor unverified: leaf changed after this .tex
+manuscript/backmatter/05_universal_solver_toolchain.tex:491	ave-kb/common/vocabulary-register.md:261	anchor unverified: leaf changed after this .tex
+manuscript/backmatter/05_universal_solver_toolchain.tex:496	ave-kb/vol3/claim-quality.md:204	anchor unverified: leaf changed after this .tex
+manuscript/backmatter/05_universal_solver_toolchain.tex:510	ave-kb/common/vocabulary-register.md:261	anchor unverified: leaf changed after this .tex
+manuscript/backmatter/05_universal_solver_toolchain.tex:521	ave-kb/vol3/claim-quality.md:204	anchor unverified: leaf changed after this .tex
+manuscript/backmatter/05_universal_solver_toolchain.tex:546	ave-kb/vol3/claim-quality.md:205	anchor unverified: leaf changed after this .tex
+manuscript/backmatter/05_universal_solver_toolchain.tex:554	ave-kb/common/operators.md:189	anchor unverified: leaf changed after this .tex
+manuscript/backmatter/06_spice_verification_manual.tex:202	ave-kb/common/operators.md:145	anchor unverified: leaf changed after this .tex
+manuscript/vol_0_engineering_compendium/chapters/03_computational_graph.tex:74	ave-kb/common/claim-quality.md:291	anchor unverified: leaf changed after this .tex
+manuscript/vol_0_engineering_compendium/chapters/03_computational_graph.tex:74	ave-kb/common/engine-capability-map.md:184	anchor unverified: leaf changed after this .tex
+manuscript/vol_0_engineering_compendium/chapters/03_computational_graph.tex:74	ave-kb/common/engine-capability-map.md:184	anchor unverified: leaf changed after this .tex
+manuscript/vol_0_engineering_compendium/chapters/03_computational_graph.tex:74	ave-kb/common/form-deriving-value-importing.md:184	anchor unverified: leaf changed after this .tex
+manuscript/vol_0_engineering_compendium/chapters/04_dcve.tex:83	ave-kb/common/engine-capability-map.md:184	anchor unverified: leaf changed after this .tex
+manuscript/vol_1_foundations/chapters/02_macroscopic_moduli.tex:43	ave-kb/common/vocabulary-register.md:435	anchor unverified: leaf changed after this .tex
+manuscript/vol_1_foundations/chapters/03_quantum_and_signal_dynamics.tex:84	ave-kb/common/substrate-native-terminology.md:50	anchor unverified: leaf changed after this .tex
+manuscript/vol_1_foundations/chapters/04_continuum_electrodynamics.tex:42	ave-kb/claim-quality-closure-roadmap.md:832	anchor unverified: leaf changed after this .tex
+manuscript/vol_1_foundations/chapters/04_continuum_electrodynamics.tex:42	ave-kb/common/engine-capability-map.md:190	anchor unverified: leaf changed after this .tex
+manuscript/vol_1_foundations/chapters/06_universal_operators.tex:124	ave-kb/common/substrate-native-terminology.md:52	anchor unverified: leaf changed after this .tex
+manuscript/vol_1_foundations/chapters/06_universal_operators.tex:126	ave-kb/common/substrate-native-terminology.md:45	anchor unverified: leaf changed after this .tex
+manuscript/vol_2_subatomic/chapters/02_baryon_sector.tex:357	ave-kb/vol2/particle-physics/ch02-baryon-sector/neutron-identification.md:52	anchor unverified: leaf changed after this .tex
+manuscript/vol_2_subatomic/chapters/02_baryon_sector.tex:362	ave-kb/vol2/particle-physics/ch02-baryon-sector/neutron-identification.md:52	anchor unverified: leaf changed after this .tex
+manuscript/vol_2_subatomic/chapters/06_electroweak_and_higgs.tex:770	ave-kb/vol2/particle-physics/ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md:110	anchor unverified: leaf changed after this .tex
+manuscript/vol_3_macroscopic/chapters/02_general_relativity_and_gravity.tex:240	ave-kb/common/operators.md:54	anchor unverified: leaf changed after this .tex
+manuscript/vol_3_macroscopic/chapters/02_general_relativity_and_gravity.tex:251	ave-kb/common/operators.md:56	anchor unverified: leaf changed after this .tex
+manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex:461	ave-kb/vol3/claim-quality.md:202	anchor unverified: leaf changed after this .tex
+manuscript/vol_3_macroscopic/chapters/05_cosmology_dark_sector.tex:65	ave-kb/vol3/claim-quality.md:261	anchor unverified: leaf changed after this .tex
+manuscript/vol_3_macroscopic/chapters/06_solar_system.tex:105	ave-kb/vol3/claim-quality.md:355	anchor unverified: leaf changed after this .tex
+manuscript/vol_3_macroscopic/chapters/06_solar_system.tex:160	ave-kb/vol4/claim-quality.md:1123	anchor unverified: leaf changed after this .tex
+manuscript/vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex:228	ave-kb/common/substrate-native-terminology.md:31	anchor unverified: leaf changed after this .tex
+manuscript/vol_5_biology/chapters/02_organic_circuitry.tex:58	ave-kb/common/vocabulary-register.md:435	anchor unverified: leaf changed after this .tex
+manuscript/vol_9_vacuum_datasheet/chapters/03_pin_port_configuration.tex:103	ave-kb/common/operators.md:45	anchor unverified: leaf changed after this .tex
+manuscript/vol_9_vacuum_datasheet/chapters/03a_device_circuit_models.tex:35	ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/cvr-dc-operating-point.md:43	anchor unverified: leaf changed after this .tex
+manuscript/vol_9_vacuum_datasheet/chapters/07_saturation_characteristics.tex:68	ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md:129	anchor unverified: leaf changed after this .tex
+manuscript/vol_9_vacuum_datasheet/chapters/07_saturation_characteristics.tex:169	ave-kb/vol4/claim-quality.md:51	anchor unverified: leaf changed after this .tex
+manuscript/vol_9_vacuum_datasheet/chapters/14_phase_diagrams.tex:235	ave-kb/common/translation-tables/translation-circuit.md:133	anchor unverified: leaf changed after this .tex
+manuscript/vol_9_vacuum_datasheet/chapters/14_phase_diagrams.tex:321	ave-kb/vol3/gravity/ch03-macroscopic-relativity/dielectric-rupture-event-horizon.md:133	out of range (leaf has 43 lines)
+manuscript/vol_9_vacuum_datasheet/chapters/15_falsification_tests.tex:117	ave-kb/common/trampoline-framework.md:192	anchor unverified: leaf changed after this .tex
+manuscript/vol_9_vacuum_datasheet/chapters/15_falsification_tests.tex:117	ave-kb/vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md:39	anchor unverified: leaf changed after this .tex
+manuscript/vol_9_vacuum_datasheet/chapters/15_falsification_tests.tex:125	ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md:39	anchor unverified: leaf changed after this .tex
+manuscript/vol_9_vacuum_datasheet/chapters/15_falsification_tests.tex:125	ave-kb/vol4/falsification/ch11-experimental-bench-falsification/epistemology-of-falsification.md:39	out of range (leaf has 28 lines)
+manuscript/vol_9_vacuum_datasheet/figures/electron_selfbiased_multiport.tex:52	ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md:133	anchor unverified: leaf changed after this .tex
+manuscript/vol_9_vacuum_datasheet/figures/two_natured_electron.tex:46	ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:20	anchor unverified: leaf changed after this .tex
+
+=== S4b_TIME_LAG_COSMETIC (17) ===
+manuscript/vol_0_engineering_compendium/chapters/02_analytical_summaries.tex:169	ave-kb/CONVENTIONS.md	leaf newer by 15 d
+manuscript/vol_1_foundations/chapters/01_fundamental_axioms.tex:127	ave-kb/common/trampoline-framework.md	leaf newer by 8 d
+manuscript/vol_9_vacuum_datasheet/chapters/03a_device_circuit_models.tex:35	ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/cvr-dc-operating-point.md	leaf newer by 11 d
+manuscript/vol_9_vacuum_datasheet/chapters/03a_device_circuit_models.tex:79	ave-kb/vol9/ch3-pin-port-configuration/per-dof-vacuum-node-circuit.md	leaf newer by 11 d
+manuscript/vol_9_vacuum_datasheet/chapters/03a_device_circuit_models.tex:87	ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/vacuum-varactor-scatter-operator.md	leaf newer by 11 d
+manuscript/vol_9_vacuum_datasheet/chapters/05_ac_electrical_characteristics.tex:522	ave-kb/vol9/ch3-pin-port-configuration/per-dof-vacuum-node-circuit.md	leaf newer by 12 d
+manuscript/vol_9_vacuum_datasheet/chapters/05_ac_electrical_characteristics.tex:649	ave-kb/CLAUDE.md	leaf newer by 14 d
+manuscript/vol_9_vacuum_datasheet/chapters/11_topological_characteristics.tex:178	ave-kb/common/translation-tables/translation-circuit.md	leaf newer by 11 d
+manuscript/vol_9_vacuum_datasheet/chapters/12_cosmological_characteristics.tex:169	ave-kb/vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md	leaf newer by 6 d
+manuscript/vol_9_vacuum_datasheet/chapters/14_phase_diagrams.tex:124	ave-kb/CLAUDE.md	leaf newer by 12 d
+manuscript/vol_9_vacuum_datasheet/chapters/14_phase_diagrams.tex:235	ave-kb/common/translation-tables/translation-circuit.md	leaf newer by 11 d
+manuscript/vol_9_vacuum_datasheet/chapters/14_phase_diagrams.tex:284	ave-kb/common/translation-tables/translation-circuit.md	leaf newer by 11 d
+manuscript/vol_9_vacuum_datasheet/chapters/14_phase_diagrams.tex:317	ave-kb/CLAUDE.md	leaf newer by 12 d
+manuscript/vol_9_vacuum_datasheet/chapters/14_phase_diagrams.tex:323	ave-kb/vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md	leaf newer by 1 d
+manuscript/vol_9_vacuum_datasheet/chapters/14_phase_diagrams.tex:324	ave-kb/common/translation-tables/translation-circuit.md	leaf newer by 11 d
+manuscript/vol_9_vacuum_datasheet/chapters/15_falsification_tests.tex:117	ave-kb/common/trampoline-framework.md	leaf newer by 11 d
+manuscript/vol_9_vacuum_datasheet/figures/circuit_bond_transmission_line.tex:60	ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/z0-derivation.md	leaf newer by 0 d
+
+=== S3b_NODE_STATUS_INFO (25) ===
+manuscript/backmatter/01_appendices.tex:38	ilk-gravmb	status=proposed (convention for this node class)
+manuscript/backmatter/02_full_derivation_chain.tex:786	ilk-gravmb	status=proposed (convention for this node class)
+manuscript/backmatter/04_physics_engine_architecture.tex:202	ilk-gravmb	status=proposed (convention for this node class)
+manuscript/backmatter/05_universal_solver_toolchain.tex:78	def-quant3	status=ambiguous (convention for this node class)
+manuscript/backmatter/05_universal_solver_toolchain.tex:491	def-quant3	status=ambiguous (convention for this node class)
+manuscript/backmatter/05_universal_solver_toolchain.tex:510	def-quant3	status=ambiguous (convention for this node class)
+manuscript/backmatter/05_universal_solver_toolchain.tex:511	def-quant3	status=ambiguous (convention for this node class)
+manuscript/backmatter/05_universal_solver_toolchain.tex:512	def-3638f2	status=ambiguous (convention for this node class)
+manuscript/backmatter/12_mathematical_closure.tex:83	ilk-gravmb	status=proposed (convention for this node class)
+manuscript/backmatter/appendix_vacuum_engineering.tex:181	ilk-gravmb	status=proposed (convention for this node class)
+manuscript/frontmatter/00_foreword.tex:61	ilk-gravmb	status=proposed (convention for this node class)
+manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex:995	def-7c3f9e	status=ambiguous (convention for this node class)
+manuscript/vol_4_engineering/chapters/13_future_geometries.tex:315	def-7c3f9e	status=ambiguous (convention for this node class)
+manuscript/vol_9_vacuum_datasheet/chapters/02_absolute_maximum_ratings.tex:88	def-bdual1	status=proposed (convention for this node class)
+manuscript/vol_9_vacuum_datasheet/chapters/12_cosmological_characteristics.tex:34	ilk-gravmb	status=proposed (convention for this node class)
+manuscript/vol_9_vacuum_datasheet/chapters/12_cosmological_characteristics.tex:54	ilk-gravmb	status=proposed (convention for this node class)
+manuscript/vol_9_vacuum_datasheet/chapters/12_cosmological_characteristics.tex:136	ilk-gravmb	status=proposed (convention for this node class)
+manuscript/vol_9_vacuum_datasheet/chapters/12_cosmological_characteristics.tex:212	ilk-gravmb	status=proposed (convention for this node class)
+manuscript/vol_9_vacuum_datasheet/chapters/14_phase_diagrams.tex:9	ilk-gravmb	status=proposed (convention for this node class)
+manuscript/vol_9_vacuum_datasheet/chapters/16_cross_volume_reference.tex:99	ilk-gravmb	status=proposed (convention for this node class)
+manuscript/vol_9_vacuum_datasheet/chapters/19_calibration_parameter_justification.tex:39	ilk-cmptrp	status=proposed (convention for this node class)
+manuscript/vol_9_vacuum_datasheet/chapters/19_calibration_parameter_justification.tex:43	ilk-rr14gt	status=proposed (convention for this node class)
+manuscript/vol_9_vacuum_datasheet/chapters/19_calibration_parameter_justification.tex:45	ilk-gravmb	status=proposed (convention for this node class)
+manuscript/vol_9_vacuum_datasheet/chapters/19_calibration_parameter_justification.tex:47	ilk-gravmb	status=proposed (convention for this node class)
+manuscript/vol_9_vacuum_datasheet/chapters/19_calibration_parameter_justification.tex:82	ilk-gravmb	status=proposed (convention for this node class)
+
+=== S3c_BUILD_BAND_DISCLOSED (17) ===
+manuscript/backmatter/02_full_derivation_chain.tex:1253	clm-4vwsjc	build_band=do-not-build, solidity=0.4 -- banner present nearby (honest)
+manuscript/backmatter/03_geometric_inevitability.tex:441	clm-4vwsjc	build_band=do-not-build, solidity=0.4 -- banner present nearby (honest)
+manuscript/vol_1_foundations/chapters/01_fundamental_axioms.tex:266	clm-sw5oao	build_band=do-not-build, solidity=0.25 -- banner present nearby (honest)
+manuscript/vol_2_subatomic/chapters/09_computational_proof.tex:58	clm-u4vmgk	build_band=do-not-build, solidity=0.3 -- banner present nearby (honest)
+manuscript/vol_2_subatomic/chapters/10_open_problems.tex:108	clm-4vwsjc	build_band=do-not-build, solidity=0.4 -- banner present nearby (honest)
+manuscript/vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex:228	clm-k3p9wz	build_band=do-not-build, solidity=0.2 -- banner present nearby (honest)
+manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex:342	clm-h55fy1	build_band=do-not-build, solidity=0.3 -- banner present nearby (honest)
+manuscript/vol_4_engineering/chapters/11_experimental_falsification.tex:114	clm-oiw6cb	build_band=do-not-build, solidity=0.4 -- banner present nearby (honest)
+manuscript/vol_4_engineering/chapters/11_experimental_falsification.tex:312	clm-qagkgy	build_band=do-not-build, solidity=0.3 -- banner present nearby (honest)
+manuscript/vol_5_biology/chapters/01_biophysics_intro.tex:118	clm-u4vmgk	build_band=do-not-build, solidity=0.3 -- banner present nearby (honest)
+manuscript/vol_5_biology/chapters/01_biophysics_intro.tex:141	clm-u4vmgk	build_band=do-not-build, solidity=0.3 -- banner present nearby (honest)
+manuscript/vol_6_periodic_table/chapters/07_boron.tex:52	clm-l416hl	build_band=do-not-build, solidity=0.4 -- banner present nearby (honest)
+manuscript/vol_6_periodic_table/chapters/12_neon.tex:91	clm-f8k2um	build_band=do-not-build, solidity=0.3 -- banner present nearby (honest)
+manuscript/vol_6_periodic_table/chapters/12_neon.tex:91	clm-y7uvdc	build_band=do-not-build, solidity=0.3 -- banner present nearby (honest)
+manuscript/vol_6_periodic_table/chapters/14_magnesium.tex:39	clm-f8k2um	build_band=do-not-build, solidity=0.3 -- banner present nearby (honest)
+manuscript/vol_9_vacuum_datasheet/chapters/12_cosmological_characteristics.tex:157	clm-uu6dl5	build_band=do-not-build, solidity=0.4 -- banner present nearby (honest)
+manuscript/vol_9_vacuum_datasheet/figures/k4_irrep_decomposition.tex:74	clm-9kd2t3	build_band=do-not-build, solidity=0.42 -- banner present nearby (honest)
+
+=== S3d_BUILD_BAND_INDEX_ROW (6) ===
+manuscript/vol_2_subatomic/chapters/10_open_problems.tex:419	clm-4vwsjc	build_band=do-not-build, solidity=0.4 -- lookup-table provenance row, not an assertion
+manuscript/vol_2_subatomic/chapters/10_open_problems.tex:421	clm-xhdai6	build_band=do-not-build, solidity=0.4 -- lookup-table provenance row, not an assertion
+manuscript/vol_9_vacuum_datasheet/chapters/12_cosmological_characteristics.tex:138	clm-uu6dl5	build_band=do-not-build, solidity=0.4 -- lookup-table provenance row, not an assertion
+manuscript/vol_9_vacuum_datasheet/chapters/16_cross_volume_reference.tex:42	clm-ezai5b	build_band=do-not-build, solidity=0.4 -- lookup-table provenance row, not an assertion
+manuscript/vol_9_vacuum_datasheet/chapters/16_cross_volume_reference.tex:45	clm-uu6dl5	build_band=do-not-build, solidity=0.4 -- lookup-table provenance row, not an assertion
+manuscript/vol_9_vacuum_datasheet/chapters/16_cross_volume_reference.tex:151	clm-ezai5b	build_band=do-not-build, solidity=0.4 -- lookup-table provenance row, not an assertion
+
+=== FILES BY FINDING COUNT ===
+  17  manuscript/backmatter/05_universal_solver_toolchain.tex
+  16  manuscript/vol_9_vacuum_datasheet/chapters/06_temperature_characteristics.tex
+  14  manuscript/backmatter/01_appendices.tex
+  14  manuscript/vol_9_vacuum_datasheet/chapters/03a_device_circuit_models.tex
+  13  manuscript/vol_9_vacuum_datasheet/chapters/07_saturation_characteristics.tex
+  12  manuscript/vol_9_vacuum_datasheet/chapters/03_pin_port_configuration.tex
+  11  manuscript/vol_9_vacuum_datasheet/chapters/01_general_description.tex
+  11  manuscript/vol_9_vacuum_datasheet/chapters/15_falsification_tests.tex
+  10  manuscript/vol_0_engineering_compendium/chapters/03_computational_graph.tex
+  10  manuscript/vol_9_vacuum_datasheet/chapters/14_phase_diagrams.tex
+   8  manuscript/vol_2_subatomic/chapters/02_baryon_sector.tex
+   7  manuscript/vol_0_engineering_compendium/chapters/02_analytical_summaries.tex
+   7  manuscript/vol_9_vacuum_datasheet/chapters/08_breakdown_characteristics.tex
+   6  manuscript/vol_0_engineering_compendium/chapters/04_dcve.tex
+   6  manuscript/vol_2_subatomic/chapters/06_electroweak_and_higgs.tex
+   5  manuscript/vol_1_foundations/chapters/06_universal_operators.tex
+   4  manuscript/vol_1_foundations/chapters/04_continuum_electrodynamics.tex
+   4  manuscript/vol_2_subatomic/chapters/01_topological_matter.tex
+   4  manuscript/vol_3_macroscopic/chapters/02_general_relativity_and_gravity.tex
+   4  manuscript/vol_3_macroscopic/chapters/06_solar_system.tex
+   4  manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex
+   4  manuscript/vol_9_vacuum_datasheet/chapters/02_absolute_maximum_ratings.tex
+   4  manuscript/vol_9_vacuum_datasheet/chapters/05_ac_electrical_characteristics.tex
+   3  manuscript/backmatter/03_geometric_inevitability.tex
+   3  manuscript/backmatter/06_spice_verification_manual.tex
+   3  manuscript/backmatter/12_mathematical_closure.tex
+   3  manuscript/backmatter/appendix_vacuum_engineering.tex
+   3  manuscript/frontmatter/00_foreword.tex
+   3  manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex
+   3  manuscript/vol_9_vacuum_datasheet/chapters/19_calibration_parameter_justification.tex
