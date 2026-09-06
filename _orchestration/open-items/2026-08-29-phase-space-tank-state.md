@@ -14,6 +14,8 @@ anchor: "the $(V_{inc}, V_{ref})$ / Clifford-torus **phasor coordinate space** �
 
 **Theory next step (Grant):** fundamentally characterize how to **model** that chart and how it is **coupled** to the vacuum and to matter/light/gravity, or how bulk properties emerge.
 
-**Do not start a derivation until a prereg.** Already on the shelf: the T0–T5 ladder, `clm-acdc07`, the Round-3 1:1 table, H1–H6 (H1 still load-bearing: not one voltage on one capacitor). The gap is the **join that survives H1**, not a green-field ontology.
+**Ship-time currency 2026-09-06:** H1 closed and S9 characterization (WALK-GRADE, modeling) are on PR **#1034**. This item's remaining live action is the vocab amend of `def-69f472` (not #1020, not #1034). Do not start a second characterization.
+
+**2026-08-29 snapshot (kept):** Do not start a derivation until a prereg. Already on the shelf: the T0–T5 ladder, `clm-acdc07`, the Round-3 1:1 table, H1–H6 (H1 was load-bearing: not one voltage on one capacitor). The gap was the **join that survives H1**, not a green-field ontology.
 
 Full record: [`research/2026-08-29_picture-lock-spillover.md`](../../research/2026-08-29_picture-lock-spillover.md) S9.

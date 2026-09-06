@@ -4,6 +4,8 @@
 
 **Status: LANDED 2026-08-29** on `research/2026-08-26-overbraced-crystal-walk` (PR #1020). Working-pad copy remains gitignored at `.agents/handoffs/2026-08-29_picture-lock-spillover.md`.
 
+**Ship-time currency 2026-09-06 (merge of #1020).** H1 close + S9 characterization (WALK-GRADE, modeling) live on PR **#1034**. S9 "Gated on H1" / "derivation not started" in the table below is the 2026-08-29 snapshot. H2–H6 still held. Vocab (`def-69f472`) and S1/S5/S8/S10/S11 still parked here.
+
 **#1020 picture-lock stays** [`2026-08-29_overbraced-crystal-picture-lock.md`](2026-08-29_overbraced-crystal-picture-lock.md) (P0–P7 + mapping + ordinary flags + the 1:1 table). This file is everything that is **not** that PR’s rewrite.
 
 ---
@@ -27,7 +29,7 @@
 | S4 | SM/QED/GR leakage CI (warn vs fail) | Grant-gated epic | plan |
 | S5 | over-braced `def-` (and self-stress / hyperstatic / knot vs `def-kn0t01`) | **Parked for later adjudication.** Collision list below. Not minted on #1020. | this file |
 | S8 | P5 bench fact: scalar HB cannot hold Cosserat twist | **SIGNED** as instrument limit. “Therefore no knot” killed. Cosserat-wired HB later. | this file |
-| S9 | Phase-space tank-state: `def-69f472` amend + coupling/bulk-emergence characterization | Sentence SIGNED. Vocab not minted. Derivation **not started** (prereg first). Gated on H1. | [`2026-08-29-phase-space-tank-state`](../_orchestration/open-items/2026-08-29-phase-space-tank-state.md) |
+| S9 | Phase-space tank-state: `def-69f472` amend + coupling/bulk-emergence characterization | Sentence SIGNED. Vocab not minted. Characterization on **#1034** (WALK-GRADE). Remaining live action = vocab amend. | [`2026-08-29-phase-space-tank-state`](../_orchestration/open-items/2026-08-29-phase-space-tank-state.md) |
 | S10 | Dual-arm analysis: \(\ker Y\) vs \(M\)-eigenmode (P6/P7) | **Closed as #1020 follow-up.** Analyze, do not pick. Drop Maxwell–Calladine weld. Not this HB code. | [`2026-08-29-ker-y-vs-m-eigenmode`](../_orchestration/open-items/2026-08-29-ker-y-vs-m-eigenmode.md) |
 | S6 | Dielectric-Lagrangian “capacitive **edges** / inductive **nodes**” vs Kirchhoff nodes=\(C\), struts=\(L\) | not yet walked | this file |
 | S11 | P0 leftovers: extra KVL loops vs A1 headroom; BH-host unsigned | PARKED — not #1020. Do not pick in the rewrite. | this file |
@@ -148,3 +150,4 @@ Smith chart is a **ratio**: \(\Gamma = V_{\mathrm{ref}}/V_{\mathrm{inc}}\) (rung
 - **2026-08-29 ordinary flags:** Lens 4 walked. Rewrite-BLOCKER is §9.1 “§2 not wrong.” BOARD.md 0-PRs FLAG.
 - **2026-08-29 pads landed:** tracked copies on PR #1020. `BOARD.md` not regenerated (Lens 4 FLAG).
 - **2026-08-29 rewrite:** walk RECORD replaced with signed teaching; routing item no longer commissions B11/B12/B1; `BOARD.md` restored from `origin/main`. S13 rewrite-BLOCKER closed.
+- **2026-09-06 ship-time:** pointer-only — H1/S9 characterization on #1034; do not treat this file's 2026-08-29 H1-gate as live program state after #1020 merges.

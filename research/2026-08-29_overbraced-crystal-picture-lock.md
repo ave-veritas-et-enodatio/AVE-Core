@@ -4,6 +4,8 @@
 
 **Rewrite landed 2026-08-29.** [`2026-08-26_overbraced-chiral-crystal-walk_RECORD.md`](2026-08-26_overbraced-chiral-crystal-walk_RECORD.md) now teaches this signed set. Pre-rewrite teaching body is at `9efcc8db`. Do not start #1021. Do not mint `def-` on this PR. Spillover that is **not** that rewrite lives in [`2026-08-29_picture-lock-spillover.md`](2026-08-29_picture-lock-spillover.md).
 
+**Ship-time currency 2026-09-06 (merge of #1020).** H1 close and S9 characterization live on PR **#1034** (files disjoint from this PR; merge this first). P2's "Gated on H1" / "do not start a derivation" below is the 2026-08-29 snapshot. Vocab amend of `def-69f472` remains later. Do not mint on this merge.
+
 **Round 4 — 2026-08-29.** Mapping + ordinary flags walked. Pads landed.
 
 ## Pictures (resume)

@@ -50,7 +50,7 @@ frozen Chern-as-knot kill list.
 **Follow-ups live on spillover items, not as this walk's next compute.**
 
 - S8 Cosserat-wired HB (new experiment)
-- S9 tank-state coupling (gated on H1)
+- S9 tank-state coupling (H1 closed on #1034; remaining = `def-69f472` vocab amend)
 - S10 \(\ker Y\) vs \(M\); analyze, do not pick
 - S11 P0 leftovers (2)(3)
 - S5 over-braced `def-` (KEEP-ALL; no mint)
