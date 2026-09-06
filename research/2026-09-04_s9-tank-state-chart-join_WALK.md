@@ -2,6 +2,8 @@
 
 **Status:** WALK-GRADE characterization of the join that survives H1. **Not a hub mint.** No `clm-` / `def-` / `translation-circuit.md` row / Kirchhoff / `CLAUDE.md` / `def-69f472` body edit. No engine run. `[DO-NOT-MERGE]`.
 
+**Review amend 2026-09-05 (self-review of this note):** (1) the join’s first sentence is the photon-port / T2 *sector* of a bond, not “each bond is Object 2.” (2) CLOCK-OP14 is an \(S(A_0)\) shear matter-clock, not Object 2’s EM clock. (3) Smith is cited as the T4 *ratio construction*, not as the Golden-Torus T2 plane. Bin A modeling verdict unchanged.
+
 **Freeze (binding):** [`research/2026-08-30_s9-tank-state-chart-join_prereg-FROZEN.md`](2026-08-30_s9-tank-state-chart-join_prereg-FROZEN.md) @ `7ffca034` (Rule-12 G-PORTS amend). This note is the freeze’s “commits second” characterization. Verdict cites **only** that freeze’s bins and gates.
 
 **H1 close (consumed, not re-litigated):** [`research/2026-08-29_h1-dc-circuit-objects_WALK.md`](2026-08-29_h1-dc-circuit-objects_WALK.md). Grant signed 2026-08-30.
@@ -28,7 +30,7 @@ This is **not** a constitutive-slot pick, not a chord, not a `def-` lock, and no
 
 ## The join (the open piece)
 
-**Space is the graph.** Each bond is a lossless line. Light’s traveling-wave state on that line is the pair \((V_{\mathrm{inc}},V_{\mathrm{ref}})\) — Object 2 (`photon-ee-mapping.md:69–71`). That pair **is** the tank-state chart this lane was asked to model. Smith throws away overall amplitude and common phase; it is a ratio chart of that state, not the state (`translation-phase-space.md:102`, T2→T4).
+**Space is the graph.** The **photon-port / T2 sector** of a bond is a lossless line. Light’s traveling-wave state on that sector is the pair \((V_{\mathrm{inc}},V_{\mathrm{ref}})\) — Object 2 (`photon-ee-mapping.md:69–71`). That pair **is** the light-sector tank-state chart this lane was asked to model. The same physical bond still carries Object 1 (A1 compliance) as a **different** 2-port (`CLAUDE.md:73`); do not read “bond = Object 2.” Smith throws away overall amplitude and common phase; it is a ratio chart of Object 2’s state, not the state (`translation-phase-space.md:102`, T4 ratio construction — not an identification of Object 2 with the Golden-Torus T2 plane, which stays H4).
 
 **DC prestress is a different 2-port.** Object 1 is the A1 bond-compliance capacitor \(C_{\mathrm{eff}}=C_0/S\) (`CLAUDE.md:73`). It holds DC voltage at zero current. Its Q-point \(A_0\) is an **external parameter** of Object 2’s small-signal constitutives, not a third phasor on the same chart (`master-equation.md:20` — never wire the winding into the breather’s own \((V_{\mathrm{inc}},V_{\mathrm{ref}})\)).
 
@@ -59,11 +61,11 @@ $$
 
 (`photon-ee-mapping.md:69–71`.) This is Object 2. H3 stays listed: light is this pair, not the A1 varactor’s own `.AC`.
 
-**T4 ratio.** \(\Gamma=V_{\mathrm{ref}}/V_{\mathrm{inc}}\) is the Smith disk (`translation-phase-space.md:102`). Ontology stays pointer-PARKED (`translation-phase-space.md:29–32`). This note does not un-park ℂP¹. Treating the disk as the tank state would be Bin D; the signed sentence does not need the disk to name the state.
+**T4 ratio.** \(\Gamma=V_{\mathrm{ref}}/V_{\mathrm{inc}}\) is the Smith disk — the **ratio construction** at `translation-phase-space.md:102` (overall amplitude and common phase drop out). That leaf’s **T2 rung** is the Golden-Torus / electron bond-pair plane; this note does **not** identify Object 2 with that plane. Ontology stays pointer-PARKED (`translation-phase-space.md:29–32`). This note does not un-park ℂP¹. Treating the disk as the tank state would be Bin D; the signed sentence does not need the disk to name the state.
 
 **\(A_0\) is not a third phasor.** Putting \(A_0\) on the same chart as \((V_{\mathrm{inc}},V_{\mathrm{ref}})\) would be Bin B. A1 ⊥ T2 already forbids that weld (`master-equation.md:20`).
 
-**Homonym KEEP-ALL (not collapsed here).** Two live uses of \((V_{\mathrm{inc}},V_{\mathrm{ref}})\): photon I/Q (Object 2, independent forward/back waves) vs A1-breather phasor (`master-equation.md:20`: \(V_{\mathrm{ref}}\) a read-only projection of the same scalar \(V\)). Two English uses of \(T_2\): photon-port irrep vs charge/winding. H1 already KEEP-ALL’d both. This join uses Object 2’s photon-port pair as the **light-sector** tank chart. Electron \((2,3)\) winding stays H4.
+**Homonym KEEP-ALL (not collapsed here).** Three live uses of \((V_{\mathrm{inc}},V_{\mathrm{ref}})\): photon I/Q (Object 2, independent forward/back waves); A1-breather phasor (`master-equation.md:20`: \(V_{\mathrm{ref}}\) a read-only projection of the same scalar \(V\)); Golden-Torus / electron bond-pair T2 rung (`translation-phase-space.md:100`). Two English uses of \(T_2\): photon-port irrep vs charge/winding. H1 already KEEP-ALL’d the first two T2 English uses. This join uses Object 2’s photon-port pair as the **light-sector** tank chart. Electron \((2,3)\) winding stays H4.
 
 **`def-69f472` not amended.** The signed sentence (phase space = native state-coordinate chart of the lattice tanks, distinct from the graph that is space; Smith = ratio, not the state) is **used**, not minted. Amendment text is a later vocab PR. A46 size-leak flag stays. Fiber-bundle noun unused.
 
@@ -98,7 +100,7 @@ What the join **does** say, without picking a slot: whatever index is later awar
 
 **Clocks — Op14 may be cited; Op16 may not (G-OP16).**
 
-- **CLOCK-OP14:** \(\omega_{\mathrm{local}}/\omega_{\mathrm{global}}=\sqrt{S}=(1-A^2)^{1/4}\) (`op14-local-clock-modulation.md:19`). **DEMONSTRATED** if recited. Recited here as an exhibited consequence of the grader, not a new derivation.
+- **CLOCK-OP14:** \(\omega_{\mathrm{local}}/\omega_{\mathrm{global}}=\sqrt{S}=(1-A^2)^{1/4}\) (`op14-local-clock-modulation.md:19`). **DEMONSTRATED** if recited. This is an \(S(A_0)\) **shear matter-clock** identity, exhibited not derived. It is **not** Object 2’s EM phase clock and is **not** a consequence of the Object 1 → Object 2 constitutive grade. Hub splits \(c_{\mathrm{EM}}\) from \(c_{\mathrm{shear}}\) (`CLAUDE.md:79–80`); this recitation does not weld them.
 - **CLOCK-1** (slope-1 redshift): PEER-with-GR / ENTAILED if used. **Not re-run.**
 - **CLOCK-OP16:** **not cited.** FLAG-CEFF-CITE vacated (`operators.md:212–235`). `CLAUDE.md:75` names Op16 in the same operating-point paragraph as W6; this join uses W6 / `:73` / `translation-circuit.md:117–118` and does **not** take the Op16 wave-speed clause as support.
 
