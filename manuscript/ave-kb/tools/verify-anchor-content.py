@@ -630,8 +630,8 @@ def _added_from_diff_text(text: str) -> dict[Path, set[int]]:
     `_added_map_from_diff_text` is marked "pure; testable".)
 
     FREEZE-STAMP EXEMPTION. A Rule-12 stamp (`verify-rule12-freeze.py`) rides at
-    the END of a note's own line and inserts no new line, so installing 461 of
-    them shifts no line number in any file they touch. That is a property of the
+    the END of a note's own line and inserts no new line, so installing the
+    branch's 431 of them shifts no line number in any file they touch. That is a property of the
     PLACEMENT, not a survey result: appending to an existing line leaves the line
     count identical, and `test_backfill_touches_nothing_but_appends_a_stamp`
     asserts exactly that (`len(b_lines) == len(a_lines)`, "the writer moved a

@@ -1833,8 +1833,18 @@ def backfill(repo: Path, cfg: Config, paths: list[str] | None, dry_run: bool,
             # here and silently ate a TRAILING SPACE off one note line -- a
             # content change beyond adding a stamp, and in Markdown trailing
             # whitespace is a hard line break, so it can change rendering. Caught
-            # by auditing all 453 changed line pairs against origin/main and
-            # requiring each to differ by EXACTLY an appended stamp; 452 did.
+            # by auditing the changed line pairs against origin/main and
+            # requiring each to differ by EXACTLY an appended stamp -- one did
+            # not, and that one WAS this defect. Those figures were 453 pairs of
+            # which 452 were clean, measured on the 2026-08-27 tree. RE-MEASURED
+            # 2026-09-06, after 30 spurious stamps were reverted (27 fenced
+            # transcript rows + 3 quotation table rows): 423 pairs across 261
+            # files, every one differing by exactly an appended stamp. The only
+            # non-stamp .md delta on the branch is the GENERATED _orchestration/
+            # BOARD.md. Method: `git diff -U0 <merge-base> HEAD -- '*.md'`,
+            # pairing each hunk's - and + lines and stripping the stamp; a file
+            # rewritten wholesale rather than line-modified would not be paired
+            # by it and so would not be checked.
             out[idx] = cur[: len(cur) - len(eol)] + "  " + line + eol
             n_written += 1
             print(
