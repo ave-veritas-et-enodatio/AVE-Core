@@ -15,8 +15,14 @@ node's phasor sum cancels (`Σ_j Y_j V_j^inc = 0`), not where a scalar
 amplitude crosses a threshold.
 
 **★ IT DOES NOT SUPERSEDE `def-vyvsn1`. Only Grant rules that.** `def-vyvsn1`
-is SOLID and is the only SOLID electron-wall statement in the corpus. Nothing
-is edited, demoted, or re-graded by this item.
+is SOLID, and the record found **no second SOLID electron-wall statement** —
+an enumeration with a method, not a census: of the **72 `def-` nodes** in
+`common/vocabulary-register.md`, **30** carry a `status:` beginning `SOLID` and
+**one** of those names the electron together with `wall`/`confin`; the
+cross-check grep's only competing wall-anatomy nodes are graded below SOLID
+(`clm-3surfa` 0.45; `def-anat3s` *"NOT SOLID"*). Method, both passes, and
+their blind spots are at record §7.1 — read them there. Nothing is edited,
+demoted, or re-graded by this item.
 
 **Why it is a move and not a mint.** Both registers already exist in canon, so
 the proposal uses a category canon already defines rather than minting one.
@@ -68,9 +74,13 @@ the proposal uses a category canon already defines rather than minting one.
    at `vacuum_varactor_scatter_figures.py`:242 was the only shipped eigenvalue
    read — also false, and the same error one level narrower. Record §3 CAUTION 1
    now carries the enumerated eigen-reads plus the method that found them, and
-   this item states no "only" and no total; read it there rather than
-   re-deriving a count here.)* The register move buys a *relocated question*,
-   not an answer.
+   **this caution states no "only" and no total about the eigen-reads**; read
+   it there rather than re-deriving a count here. ⚑ **Scope of that
+   certification, corrected:** it covers the eigen-read count only — it was
+   never true of the whole item, which carries an enumeration-with-method at
+   the top about the SOLID electron-wall statement. A certification that
+   overreaches its own body is the failure it is meant to prevent.)* The
+   register move buys a *relocated question*, not an answer.
 2. **Register 4 is ambiguous as written.** Its own gloss
    (`boundary-observables-m-q-j.md`:61) illustrates BALANCE LOCUS with the
    **hollow-vortex balance shell** — a *real-space pressure* balance of two

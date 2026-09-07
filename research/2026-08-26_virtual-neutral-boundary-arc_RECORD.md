@@ -508,15 +508,34 @@ graded there `[CANON-adjacent]`, *"an in-corpus research derivation, not a KB
 leaf"*. **⚑ Six sites in the tracked corpus, not five.** The earlier "five times"
 total counted the KB rows only and did not reconcile against this record's own
 S6 — even though the `virtual ground` grep listed in the method note below is
-exactly what found that site. None of the six cites any other, and none is at
-the electron-wall site.
+exactly what found that site. **None of the six cites any other, and none is at
+the electron-wall site** — both of those are enumerations, checked one way
+each; the method note below says how, and what it would miss.
 
-⚑ **Method, reported as a method and not as a corpus fact** (per the
-grep-completeness rule): the sites below were found by targeted greps
-(`virtual ground` / `virtual neutral` / `WYE` / `neutral node` / `traceless`)
-plus end-to-end reads of the five leaves named. **This is a statement about
-those searches, not a census.** There may be more sites; the audit sweep
-(item A8) should assume there are.
+⚑ **Method, and its blind spots — reported as a method and not as a corpus
+fact** (per the grep-completeness rule).
+
+- **How the sites were found.** Targeted greps (`virtual ground` /
+  `virtual neutral` / `WYE` / `neutral node` / `traceless`) plus end-to-end
+  reads of the five KB leaves named; the `virtual ground` grep is also what
+  surfaced the sixth site (S6).
+- **How "none cites any other" was checked.** One way: a basename grep of each
+  of the six files for the other five basenames — every file returns only its
+  own name.
+- **How "none is at the electron-wall site" was checked.** By reading the six
+  paths against the three wall sites this record itself names in §7.3
+  (`vocabulary-register.md:751` `def-vyvsn1`; `device-circuit-models.md:165`;
+  `pair-production-axiom-derivation.md:102`). None of the six is one of them.
+- **Blind spots.** (a) The site search is token-based on five surface forms, so
+  a leaf stating the balanced-polyphase condition in other words — *star
+  point*, *common-mode / differential*, *zero-sequence* — is invisible to it.
+  (b) The cross-citation check is by **basename**, so a citation by claim-id,
+  by leaf title, or in prose without the filename is not caught. (c) "The
+  electron-wall site" is §7.3's list of three; a fourth wall site would move
+  that answer.
+
+**This is a statement about those searches, not a census.** There may be more
+sites; the audit sweep (item A8) should assume there are.
 
 | # | site | what it says, verbatim | scope |
 |---|---|---|---|
@@ -603,7 +622,7 @@ reading is right, listed at their honest grade:**
 | **S4** | **His rejection of the propagation question was correct.** Asking "what `Γ` does the wall present to an incoming wave" presupposes a wave propagating *through* a medium the defect sits *in*. On this substrate matter **is** the lattice's lock-state, not an object embedded in it — so there is no second medium for `Γ` to be defined against, and the question has **no referent**. Killing it was right. | `[WALK]` — ★ **provenance: prior-session chat; this arc did NOT verify a canon statement of it.** The nearest in-corpus support is the `def-satrim` role-swap (S3) and `resonant-lc-solitons.md:52` (*"The particle dynamically weaves its **own** perfect topological mirror"*). Treat as un-audited. |
 | **S5** | **de Broglie survives the matched (reflector-free) reading — two routes, both in-corpus.** (i) **Turning point:** *"The matter wave **does not bounce off a physical tear** in the vacuum; it bounces when it simply runs out of kinetic energy… the local acoustic impedance becomes purely imaginary, forcing a total reflection."* (ii) **Self-match:** *"the precise radius where this trapped … wave achieves a **lossless resonant impedance match with itself** (`2πr = nλ`)."* Neither needs a material mirror. | `[CANON]`, with a caveat | `vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md:54`. ⚑ **Caveat:** the two immediately-preceding lines (`:50`, `:52`) carry `🔴 [DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION]`. Line `:54` itself carries **no** demotion marker, but it sits inside the demoted passage's argument; a lane citing it must check the R40-B2a re-derivation status first. |
 | **S6** | **Canon states the kernel-free `Γ = −1` and calls it a virtual ground, in as many words.** *"**Antisymmetric (differential) eigenmodes** `(1,−1,0)`, `(1,1,−2)` — memoryless value **`Γ_A = −1`**: the differential mode sees a **SHORT** (**the node is a virtual ground for it**)."* Written independently, from `C3v` symmetry, with no saturation kernel anywhere in the derivation — the same theorem §2.1 proves for graded `Y`. | `[CANON-adjacent]` — an in-corpus **research derivation**, not a KB leaf | `research/2026-07-10_x37-junction-parasitics_derivation.md:39-40` |
-| **S7** | **He reinvented, from EE intuition alone, a structure his own corpus carries in six unconnected places.** §5's table lists five of them; **S6 above is the sixth**. None cites any other; none is at the electron-wall site. That convergence is evidence the reading is picking up real structure in the operator, independent of whether it localizes anything. | `[WALK]` over `[CANON]` receipts | §5 table rows 1–5, **plus S6** |
+| **S7** | **He reinvented, from EE intuition alone, a structure his own corpus carries in six unconnected places.** §5's table lists five of them; **S6 above is the sixth**. *None cites any other; none is at the electron-wall site* — enumerations, not universals: §5's method note carries the two checks and their blind spots, and this row inherits both. That convergence is evidence the reading is picking up real structure in the operator, independent of whether it localizes anything. | `[WALK]` over `[CANON]` receipts | §5 table rows 1–5, **plus S6** |
 
 `[WALK]` **What S1–S7 do and do not buy.** They establish that the reframe is
 **well-posed, operator-grounded, and already latent in the corpus**. They do
@@ -616,8 +635,24 @@ the *question* is not support for the *answer*.
 
 ### 7.1 What `def-vyvsn1` actually rests on `[CANON]`
 
-`def-vyvsn1` is **SOLID** and is the **only SOLID electron-wall statement in the
-corpus**. It is not being superseded here — only Grant rules that. But
+`def-vyvsn1` is **SOLID**, and this record found **no second SOLID electron-wall
+statement** — stated as an enumeration and a method, not as a census. **Method,
+two passes.** (1) A block-scan of all **72 `def-` nodes** in
+`common/vocabulary-register.md`: **30** carry a `status:` line beginning
+`SOLID`, and of those **exactly one** — `def-vyvsn1` (`:748`) — names the
+electron together with `wall`/`confin`. (2) Cross-check: `git grep -n 'SOLID'
+-- manuscript/` intersected with `wall`. Its only competing wall-anatomy nodes
+are graded **below** SOLID and disqualify themselves — `clm-3surfa` at
+**solidity 0.45**, *"use as input only, don't build deeper"*
+(`.index/claims.jsonl`), and `def-anat3s`, whose own text reads *"the FORM is
+ruled; every numerical value is gate-measured, **NOT SOLID**"*
+(`vocabulary-register.md:404`). **Blind spots:** both passes are token-based on
+`electron` + `wall`/`confin` and scoped to `vocabulary-register.md` and
+`manuscript/`, so a SOLID wall statement carried in a **leaf body**, in a
+`clm-` node outside the register, or phrased without those tokens would not be
+caught.
+
+It is not being superseded here — only Grant rules that. But
 Grant's directive is *"we need to be ok challenging past rulings that don't have
 hard math tied to them"*, so the honest inventory of what is tied to it:
 
