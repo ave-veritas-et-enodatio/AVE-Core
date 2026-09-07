@@ -43,12 +43,25 @@
 > relation / lock / magic angle* as load-bearing nouns and canonizes **"the moduli Q-point"**; R52 is
 > self-labelled *chat-walk grade and UN-AUDITED* and its §7 re-points are flag-don't-fix, so treat the
 > noun as canonical and the rest as unratified.
-> ⚠ **The corpus is not single-voiced here:** the same file's table row at `:87` still reads *"the
-> substrate forces the **form** of the elastic response"* alongside `:116-117`'s opposite. **That seam
-> is itself a close-out item and CRIB-1′ cannot be finalized until it is ruled.**
+> ⚠ **[CORRECTED 2026-09-07 — `:87` vs `:116-117` is a SCOPE SPLIT, not a seam, and it was ruled
+> 34 days before CRIB-1′ was written.]** This paragraph previously read the two lines as opposites and
+> minted a close-out item blocking CRIB-1′ — on a question the same **Ruling 1** it invokes three lines
+> above had already settled. Ruling 1's docket record cites `:87` as **support**, not contradiction:
+> `docket-entries/2026-08-03-rulings-mr-batch.md:45` states `K = 2G` is *"the one row where **even the
+> FORM is imported**"* and then grounds that on `form-deriving-value-importing.md:87` itself — that
+> row's *"What is the chord (FORM)"* cell claims only *"the substrate forces the form of the elastic
+> response `K/G = f(ρ)`"*, *"i.e. the functional shape, while the **lock** `K = 2G` itself is the
+> import"*. **Generic shape: substrate-forced. Specific lock: GR-imported.** One object each; no
+> contradiction to rule. **CRIB-1′ is finalizable on this axis**, and its prescription stands as
+> stated above — apply the `:116-117` / Ruling-1 wording, not CRIB-1's original parenthetical.
 > *Scope note: no live finding is a bare CRIB-1 application — its label work was discharged by #839 and
-> #853 — so this blocks nothing in the live set. It matters for future waves and for two routed items
-> (`vol_1/02:133`, `vol_5/02:546`) that hang on the same question.*
+> #853 — so this blocks nothing in the live set. The genuinely open K=2G question is the one docket
+> `:42-44` records as an **OPEN research item, routed and NOT attempted** — derive `K = 2G` as
+> substrate-forced rather than GR-imported. Read at HEAD, that is the question both routed sites turn
+> on, and neither turns on a textual reading of `:87`: `vol_1/02_macroscopic_moduli.tex:133` asserts
+> *"The substrate-scale derivation closes the magic-angle equation $K(u_0^*) = 2 G(u_0^*)$"* and
+> `vol_5/02_organic_circuitry.tex:546` asserts *"determined by Axioms 1 and 2 ($K=2G$ selects the dense
+> Face-Centered Cubic layout)"*. Both claim substrate-forcing; both wait on the same open derivation.*
 >
 > **CRIB-4′ — the Petermann limb is superseded.** CRIB-4 says replace the "50 ppm" headline with *"the
 > landed q-g19a numbers + scope"*. The 2026-08-03 ruling instead **struck the ppm labels outright with
