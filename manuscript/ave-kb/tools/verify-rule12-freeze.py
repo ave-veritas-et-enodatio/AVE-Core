@@ -249,13 +249,43 @@ recorded, its diff is preserved in the entry, and it is routed.
 
 WHEN A STAMP MOVES BYTES SOMETHING ELSE KEYS ON: EXTRACTOR vs REGISTRY
 -----------------------------------------------------------------------
-RATIFIED RULE (2026-08-27). Installing stamps moved bytes that three other
-tools key on, and the three resolutions were not the same. The fork is general
--- anyone moving bytes across this corpus will hit it -- so it is stated here as
-a rule rather than left implicit in three commit messages:
+RULE (author-stated, 2026-08-27). Installing stamps moved bytes that three
+other tools key on, and the three resolutions were not the same. The fork is
+general -- anyone moving bytes across this corpus will hit it -- so it is stated
+here as a rule rather than left implicit in three commit messages:
 
     A MECHANICAL EXTRACTOR  ->  FIX THE EXTRACTOR.
     A HUMAN-AUTHORED ADJUDICATION REGISTRY  ->  DEFER TO IT, AND ROUTE.
+
+STANDING OF THAT RULE, STATED RATHER THAN AVERAGED. An earlier version of this
+paragraph headed it "RATIFIED RULE (2026-08-27)". That word had no receipt: no
+docket entry carries it, it has no R-number, and it went through no review. It
+is the AUTHOR'S generalisation of three resolutions made on this branch. The two
+halves do not have the same standing, and collapsing them under one word is what
+made the label wrong:
+
+  * The REGISTRY half has upstream authority, for its MECHANISM. R39 -- see
+    `_orchestration/docket-entries/2026-08-09-ruling-r39-sixtags.md`, the
+    convention line at lines 15-17 -- ratifies: "Rule-12 preserved spans are
+    byte-fenced against ALL later passes, mechanical included; their audit
+    findings live in ledgers, not in-span." That is this half exactly: the
+    mechanical pass gives way, and the finding is ROUTED rather than written
+    in-span. Two caveats a reader should not have to reconstruct. (i) R39's SCOPE
+    is Rule-12 PRESERVED SPANS; carrying the mechanism across to human-authored
+    adjudication REGISTRIES in driver code (`approach_leak_v2` blob pins, R40
+    `GUARD_ADJUDICATED_FP`) is the author's extension, not R39's text. (ii) R39's
+    Grant-verbatim content is the reading selection at line 5 ("a on the six
+    tags."); the convention line at 15-17 is ratified WITH that reading, not
+    separately quoted from Grant.
+
+  * The EXTRACTOR half is NOT RATIFIED and has no upstream ruling at all. R39 is
+    silent on it: it says what a mechanical pass may not touch, never that a
+    mechanical extractor should be CHANGED to accommodate one. That is the half
+    which authorised edits to two other lanes' tools
+    (`kb_index_lib._normalize_text`, `verify-anchor-content._added_from_diff_text`),
+    so it is the half a reviewer should press on. Both edits are exact and each
+    carries a can-it-still-fire arm -- but "exact and tested" is a property of
+    the code, not authority for the rule.
 
 The test is not "whose file is it". It is **what does the keyed byte MEAN**.
 
