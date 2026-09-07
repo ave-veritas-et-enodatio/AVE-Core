@@ -48,15 +48,24 @@ jobs:
   # what a branch ADDS against the merge base, so it is meaningless on a push
   # to main. Needs full history (fetch-depth: 0) for the merge-base diff.
   #
-  # SEPARATE JOB, and keep it NON-required in branch protection until the
-  # orchestrator flips it — same posture as the engine-sims job below, and for
-  # the same reason: this is a workflow change with blast radius past the
-  # checker itself. Back-tested over the last 25 merges to main, it would have
+  # SEPARATE JOB. Back-tested over the last 25 merges to main, it would have
   # blocked 4 of the 20 PR merges (each adding 1-8 excerpt-less KB cites) — which
-  # is the intended behaviour, not a defect, but it is the orchestrator's call
-  # to make it blocking, not the implementer's.
+  # is the intended behaviour, not a defect.
+  #
+  # ORCHESTRATOR FLIP, 2026-09-06 (manuscript-reconciliation close-out, Phase B):
+  # measured against every open PR at the time of the flip — 14 of 15 already
+  # PASS; the single failure (#1033) is independently blocked pending an
+  # adversarial pass, so the flip blocks nothing that was otherwise ready. The
+  # job is hereby declared READY TO BE MARKED REQUIRED.
+  #
+  # ⚠ THE ENFORCEMENT HALF IS NOT IN THIS FILE. Marking a check "required" is a
+  # GitHub branch-protection setting, not a workflow key. Renaming the job here
+  # does NOT gate anything by itself, and the rename CHANGES THE CHECK NAME, so
+  # the branch-protection entry must be (re)added under the new name or the old
+  # entry silently matches nothing. Until an admin does that, this remains
+  # advisory in effect — do not read the name as proof of enforcement.
   new-cite-excerpts:
-    name: new-cite excerpt ratchet (non-required)
+    name: new-cite excerpt ratchet
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -73,6 +82,179 @@ jobs:
 
       - name: make verify-new-cite-excerpts
         run: make verify-new-cite-excerpts CITE_BASE=origin/${{ github.base_ref }}
+
+  # Manuscript compile gate. Until 2026-09-06 there was NO TeX toolchain in CI at
+  # all: a wave that edited .tex had no automated proof it still compiled, only a
+  # promise in a PR body. `make volN` already runs check_latex_margins.py on the
+  # .log, so Overfull/margin regressions fail the build rather than being hidden.
+  #
+  # Path-filtered: only runs when .tex or figure assets change, so the ~3-4 min
+  # TeX install does not tax every PR.
+  #
+  # ⚠ EXECUTION HISTORY — MEASURED, replacing an earlier note here that said this
+  # job "has never executed. Its FIRST CI RUN IS ITS VALIDATION."
+  # It has executed twice, and both runs were vacuous:
+  #
+  #   Actions job 101579155504 (commit 126a723b) — conclusion `success`
+  #   Actions job 101585646220 (commit 75e4eff8) — conclusion `success`
+  #
+  # Neither typeset a page. In both, the base build and the branch build died at
+  # `! LaTeX Error: File 'lmodern.sty' not found.` while reading
+  # manuscript/structure/preamble.tex:11, and both artifact uploads logged
+  # `##[warning]No files were found with the provided path: build/*.pdf`.
+  # Base-build step durations: 7 s and 5 s; branch-build steps: 1 s and 1 s.
+  # Two defects produced that green tick, and both are addressed below:
+  #   (1) `--no-install-recommends` drops Debian's `lmodern` package, which is
+  #       where `lmodern.sty` lives — it is a *Recommended* of
+  #       texlive-latex-recommended, not a dependency. Job 101585646220's apt
+  #       output lists `lmodern` under "Recommended packages" and installs only
+  #       `fonts-lmodern` (the font files), so the .sty never arrived.
+  #   (2) Because that failure reproduced identically at the merge base, the
+  #       base-comparison logic booked an ENVIRONMENT failure as PRE-EXISTING
+  #       and exited 0. A check that cannot fail is not a check.
+  #
+  # ⚠ STILL NON-REQUIRED. The repair below is validated only to the extent it can
+  # be off CI: check_tex_packages.py was run locally against this tree (31
+  # distinct packages, all resolving under TeX Live 2025) and its failure path
+  # was exercised against a fixture that names an unresolvable package (exit 1,
+  # missing name reported). Whether apt on ubuntu-latest supplies every one of
+  # those 31 is NOT established here and is what the next real run measures. Do
+  # not mark this required, and do not read a green tick as proof until a run
+  # shows the preflight passing AND PDFs in the artifact.
+  manuscript-pdf:
+    name: manuscript compiles (non-required)
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout (full history — the base build needs a worktree)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect manuscript changes
+        id: changed
+        run: |
+          base="origin/${{ github.base_ref }}"
+          if git diff --name-only "$base"...HEAD | grep -qE '^manuscript/.*\.(tex|png|pdf|jpg)$'; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "No manuscript .tex/figure changes — skipping compile."
+          fi
+
+      - name: Set up Python
+        if: steps.changed.outputs.run == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # `lmodern` is listed EXPLICITLY. It is the package carrying lmodern.sty,
+      # which manuscript/structure/preamble.tex:11 loads and which
+      # `--no-install-recommends` otherwise skips (see the execution-history note
+      # above). The flag is KEPT rather than dropped, and the cost of dropping it
+      # is what that decision rests on: job 101585646220's apt output lists ~50
+      # Recommended packages for this set — `dvisvgm`, `cm-super`, `tex-gyre`,
+      # `tipa`, `texlive-plain-generic`, `default-jre` and roughly forty
+      # `fonts-*` families. No \usepackage in this tree names any of them BY THAT
+      # NAME — but a Debian package can carry a .sty under a different name, so
+      # that is a weak argument and is not what this rests on. What it rests on is
+      # the preflight step below: if the list is short by another package, that
+      # step fails the job and names the package, instead of letting the build
+      # silently compile nothing.
+      - name: Install TeX
+        if: steps.changed.outputs.run == 'true'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends \
+            texlive-latex-base texlive-latex-recommended texlive-latex-extra \
+            texlive-science texlive-pictures texlive-fonts-recommended \
+            texlive-fonts-extra texlive-bibtex-extra lmodern
+
+      # ★ THE ENVIRONMENT/CONTENT SPLIT, FIRST HALF. This step asks only "can this
+      # machine resolve what the sources ask for", before any typesetting, and it
+      # is NOT compared against a base build — a missing .sty fails identically at
+      # every ref, so a base comparison would launder it exactly as it did on
+      # 2026-09-06. Its own selftest runs first so a clean result is a
+      # measurement rather than a silence.
+      - name: TeX toolchain preflight (environment, not content)
+        if: steps.changed.outputs.run == 'true'
+        run: |
+          python3 src/scripts/check_tex_packages.py --selftest
+          python3 src/scripts/check_tex_packages.py manuscript
+
+      # ⚠ THE MANUSCRIPT'S BUILD STATE AT `main` IS NOT ASSUMED HERE.
+      # A plain `make pdf` that goes red on every .tex PR for a reason the PR did
+      # not cause trains people to ignore the check. So: build the BASE first and
+      # compare. A CONTENT failure that reproduces at the merge base is
+      # PRE-EXISTING and reported without failing the job; only a failure the
+      # branch INTRODUCES fails it.
+      #
+      # ★ THE ENVIRONMENT/CONTENT SPLIT, SECOND HALF. "Pre-existing" is available
+      # ONLY to a build that got far enough to typeset. A base build that dies on
+      # a missing .sty/.cls, or because a binary is absent, is an environment
+      # defect: it fails the job outright and is never booked as pre-existing.
+      - name: Build base (establish the pre-existing state)
+        if: steps.changed.outputs.run == 'true'
+        id: basebuild
+        env:
+          ENV_FAILURE_RE: "! LaTeX Error: File `[^']*\\.(sty|cls)' not found\\.|(pdflatex|bibtex|latexmk|python3?): (not found|command not found)|kpathsea: Running mktexfmt"
+        run: |
+          git worktree add /tmp/basetree "origin/${{ github.base_ref }}"
+          if make -C /tmp/basetree pdf > /tmp/base.log 2>&1; then
+            echo "base=green" >> "$GITHUB_OUTPUT"
+          else
+            tail -30 /tmp/base.log
+            if grep -qE "$ENV_FAILURE_RE" /tmp/base.log; then
+              echo "::error::ENVIRONMENT failure at the merge base — the toolchain could not run, so this says NOTHING about the manuscript and is NOT pre-existing content debt. Matching line(s):"
+              grep -nE "$ENV_FAILURE_RE" /tmp/base.log | head -5
+              exit 1
+            fi
+            echo "base=red" >> "$GITHUB_OUTPUT"
+            echo "::warning::Manuscript already fails to build at the merge base, and the failure is CONTENT (no missing .sty/.cls, no missing binary) — this PR is not the cause."
+          fi
+
+      - name: Build branch, and fail ONLY on a regression
+        if: steps.changed.outputs.run == 'true'
+        env:
+          ENV_FAILURE_RE: "! LaTeX Error: File `[^']*\\.(sty|cls)' not found\\.|(pdflatex|bibtex|latexmk|python3?): (not found|command not found)|kpathsea: Running mktexfmt"
+        run: |
+          set +e
+          make pdf > /tmp/head.log 2>&1
+          head_rc=$?
+          set -e
+          tail -30 /tmp/head.log
+          # Reconcile the exit code against what is on disk: a rc=0 that produced
+          # no PDF is the shape that made both 2026-09-06 runs green, and it is a
+          # contradiction, not a pass.
+          pdfs=$(ls -1 build/*.pdf 2>/dev/null | wc -l | tr -d ' ')
+          echo "PDFs in build/: $pdfs"
+          if [ "$head_rc" -eq 0 ] && [ "$pdfs" -eq 0 ]; then
+            echo "::error::make pdf exited 0 and produced ZERO PDFs. The exit code and the filesystem disagree; the exit code is not evidence."
+            exit 1
+          fi
+          if [ "$head_rc" -eq 0 ]; then
+            echo "Branch builds clean — $pdfs PDF(s)."; exit 0
+          fi
+          if grep -qE "$ENV_FAILURE_RE" /tmp/head.log; then
+            echo "::error::ENVIRONMENT failure on this branch — missing .sty/.cls or missing binary. Not a manuscript verdict, and not eligible for the pre-existing path. Matching line(s):"
+            grep -nE "$ENV_FAILURE_RE" /tmp/head.log | head -5
+            exit 1
+          fi
+          if [ "${{ steps.basebuild.outputs.base }}" = "red" ]; then
+            echo "::warning::Build failed on content, and it also fails on content at the merge base — PRE-EXISTING, not a regression. Not failing the job."
+            exit 0
+          fi
+          echo "::error::Build REGRESSION — base builds clean and this branch does not."
+          exit 1
+
+      - name: Upload built PDFs
+        if: steps.changed.outputs.run == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: manuscript-pdfs
+          path: build/*.pdf
+          if-no-files-found: warn
 
   # Opt-in lane: the slow tier-1/2 engine-simulation tests (`-m engine_sim`).
   # Runs on the same triggers so engine PRs get coverage feedback, but it is a

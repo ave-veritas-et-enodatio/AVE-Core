@@ -1,0 +1,71 @@
+{
+  "_doc": "Registry of FROZEN PREREG RIDERS and their firing status. A rider is a numeric or categorical threshold stated IN ADVANCE in a frozen prereg, whose crossing falsifies a NAMED chain. When one fires, every site printing that chain's OUTPUT VALUES is stale -- and no other checker in this repo can see that, because the board and the staleness scan both key on CITATIONS while supersession of this kind lives in VALUES. Authoring a row is a reading job, done once; verify-fired-riders.py then enforces it mechanically. Inventory source: research lane 2026-09-06, 17 riders swept, 5 FIRED.",
+  "_pattern_rule": "output_patterns must be DISTINCTIVE. A bare short decimal ('1.08', '0.367') or a bare percent ('1.7%') matches half the corpus and is excluded by hand -- an over-broad pattern makes the checker cry wolf and get ignored, which is worse than no checker. When in doubt leave the pattern out and rely on the ledger check.",
+  "riders": [
+    {
+      "rider_id": "RD-NUVAC-EIGENFREQ",
+      "fired": "FIRED",
+      "fired_date": "2026-08-03",
+      "prereg": "research/2026-08-03_coldq-pole-v2.4-root_prereg-FROZEN.md:582",
+      "receipt": "research/2026-08-03_coldq-pole-v2.4-root_result.md:19",
+      "condition": "if BIN-1's derived omega_R*M_g deviates from 18/49 by more than 3 percent, the standing chain's r_eff = r_sat/(1+nu_vac) assertion is FALSIFIED as a derivation of the eigenfrequency, and that is a GOOD outcome",
+      "measured": "omega_R*M_g = 0.2648078872629827 vs 18/49 = 0.3673469387755102 -> -27.91% against a frozen 3% trip level",
+      "falsified_chain": "r_eff = r_sat/(1+nu_vac) = 49 M_g/9 AS A DERIVATION OF the l=2 eigenfrequency. The VALUE 18/49 is untouched (still -1.69% from GR exact); what is falsified is its PROVENANCE as a zero-free-parameter derivation.",
+      "ledger_slug": null,
+      "output_patterns": ["18/49", "\\frac{18}{49}", "\\tfrac{18}{49}", "49M_g/9", "49 M_g/9", "0.3673469387755102", "0.2648078872629827"],
+      "note": "UNPROPAGATED as of 6b8b49a0. Nine KB sites carry the chain, zero mention v2.4; only two print sites carry current status. Re-band proposal is routed to Grant. ROUTING CITE REPAIRED 2026-09-07: this row previously pointed at open-items/2026-09-06-clm-395gps-reband-owed.md, which exists at neither open-items/ nor _orchestration/open-items/ at this tip -- `git grep -l reband-owed` returns only this file. The live record of the routing is the board, _orchestration/2026-08-02_manuscript-reconciliation-board.md:299-301 (re-pinned 2026-09-07 from :242-244, which the same push's board edits shifted): re-banding clm-395gps is a physics adjudication, not propagation, and is routed to Grant via an auditor-lane proposal. NOT re-derived here: the 'nine KB sites / two print sites' counts above are the authoring lane's and describe the chain r_eff = r_sat/(1+nu_vac), not the value 18/49; a value-grep measures a different object and neither confirms nor refutes them."
+    },
+    {
+      "rider_id": "RD-KAPPAMAX-PULSAR-KILLLINE",
+      "fired": "FIRED",
+      "fired_date": "2026-07-20",
+      "prereg": "research/2026-07-20_envelope-sector-reduction_prereg-FROZEN.md:43-56",
+      "receipt": "research/2026-07-20_envelope-sector-reduction_result.md",
+      "condition": "kappa_max kill-line on the far-field radiative bulk port, frozen with the numbers table before the run",
+      "measured": "F_bulk/F_shear in [0.015, 0.177], headline 0.033, against a pulsar-timing budget",
+      "falsified_chain": "Reading A of the port-register Q1 row -- an INDEPENDENT far-field radiative bulk port for gravitating sources",
+      "ledger_slug": "q1-reading-A-radiative-bulk-port",
+      "output_patterns": ["F_bulk/F_shear", "ENVELOPE-RADIATES", "kappa_max", "κ_max"],
+      "note": "REFERENCE CASE -- this is what correct propagation looks like. Reached the falsification ledger as a full dated entry with a scope-lock, plus the port register. It is the known-positive control for this checker."
+    },
+    {
+      "rider_id": "RD-S3-CAVITY-PIN-BREAK",
+      "fired": "FIRED",
+      "fired_date": "2026-06-24",
+      "prereg": "research/2026-06-24_engine-s3-cavity-pinning_prereg.md:15-16 (the two-sided disposition), :23-30 (the MAKE-OR-BREAK pre-statement)",
+      "receipt": "research/2026-06-24_engine-s3-cavity-pinning_result.md:4, :23, :25",
+      "condition": "frozen two-sided disposition, prereg :15-16 -- TRUE (pinned) = the electron's localization mechanism is demonstrated as boundary/topological; FALSE (disperses) = a DEEPER negative, RETRACT do not refill (Rule 12) -- with the :28 BREAK arm reading 'reproduces Stage-2 Mode-III ... winding+H_couple+cavity does NOT pin the core'. HALT GATE 2 (energy conservation, prereg :65) is the instrument gate the verdict had to clear, not the rider.",
+      "measured": "the BREAK arm -- i.e. the FALSE arm -- fired. Result :25: 'DISPOSITION: the BREAK branch FIRED.' Verdict :4: 'DISPERSE-FALSIFIED -- the winding + H_couple + cavity does NOT pin the dispersing A1 core. Energy-conservation-certified (physics, not numerics).' The TRUE arm, which is the one that would have DEMONSTRATED boundary/topological localization, did NOT fire.",
+      "falsified_chain": "the sanctioned successor localization mechanism (result :6): that the S1-conserved (2,3) Cosserat winding omega + the S2 conservative A1<->omega lock H_couple + the |Gamma|->1 cavity at V_snap HOLDS the A1 core Stage-2 showed disperses bare. NOT the bulk-cage chain -- that is Stage-2's separate falsification, carried by the ledger's stage2-native-cage entry.",
+      "ledger_slug": null,
+      "output_patterns": ["H_couple", "cavity-pinning"],
+      "note": "DISCLOSED DEBT (2026-09-07): S3 has NO entry of its own in genesis-chord-falsification-ledger.md, so ledger_slug is null rather than pointing at another lane's heading. Enumerated at this tip: the ledger carries 16 '### ' headings and none is S3/cavity-pinning; the nearest, 'stage2-native-cage' (:82), is the STAGE-2 lane -- its prereg is 2026-06-23_engine-stage2-native-cage_prereg.md while S3's is 2026-06-24_engine-s3-cavity-pinning_prereg.md. S3 appears in that ledger only as PROSE inside the Stage-2 entry, at :86 and :88, which no slug can address. The firing DID reach the KB, as LOCALIZER RELABEL Rule-12 banners at common/engine-capability-map.md:23, vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:110 and vol2/particle-physics/ch01-topological-matter/electron-identification.md:15. Landing PRs measured from the commits: result doc via #411 (d805eb32); the engine-capability-map relabel via #418 (4c5a2201). Both PRs #403 and #404 are the Stage-2 native-cage lane, not this one. output_patterns were re-picked so check [3] can actually report: against the checker's own MARKER filter at this tip, 'H_couple' leaves 3 of 12 lines and 'cavity-pinning' leaves 2 of 7, whereas 'DISPERSE-FALSIFIED' would leave 0 of 8 (the string contains FALSIFI, which the filter matches) and would have been a pattern that can never fire."
+    },
+    {
+      "rider_id": "RD-ATOMQ-BIN2-KILL",
+      "fired": "FIRED",
+      "fired_date": "2026-07-13",
+      "prereg": "research/2026-07-13_t1-atom-q-cascade-gate_prereg_FROZEN.md:202-205",
+      "receipt": "research/2026-07-13_t1-atom-q-cascade-gate_RESULT.md:137-145",
+      "condition": "frozen bins plus a frozen numeric tolerance on the atom-rung wall Q",
+      "measured": "bin (ii) NO-DISTINCT",
+      "falsified_chain": "the multi-stage CASCADE-FILTER ontology as carrying distinct content at the ATOM rung",
+      "ledger_slug": null,
+      "output_patterns": ["cascade-filter", "CASCADE-FILTER"],
+      "note": "PARTIAL propagation: reached research/orchestration (PR #668 merged) but the KB Q-ladder rung relabel was left ROUTED. No falsification-ledger entry found."
+    },
+    {
+      "rider_id": "RD-SCREEN-RESIDUE-1XDP",
+      "fired": "FIRED",
+      "fired_date": "2026-08-09",
+      "prereg": "research/2026-08-09_screening-theorem_prereg-FROZEN.md:53-64",
+      "receipt": "research/2026-08-09_screening-theorem_result.md:206",
+      "condition": "frozen verdict grammar: RESIDUE-EXCEEDS vs RESIDUE-CLEARS at 1x DP",
+      "measured": "residue exceeds; 252.8x DP, 20.5 sigma",
+      "falsified_chain": "the screening theorem's claimed REACH over the radiating moment",
+      "ledger_slug": null,
+      "output_patterns": ["RESIDUE-EXCEEDS", "SEAL-DERIVED"],
+      "note": "PARTIAL, then overtaken by a later ruling one day after. No falsification-ledger entry found. Verify before acting -- the overtaking may have made propagation moot."
+    }
+  ]
+}
