@@ -9,18 +9,22 @@ Statements below carry a grade tag: `[WALK]` (the walk's own reading),
 raises and does not answer). **That is a coverage statement, not a universal,
 and it is now measured rather than asserted (2026-09-06).** A paragraph scan of
 §§1–5 — blank-line-delimited blocks, minus headings, table rows, blockquote
-bodies and display maths — finds **17 blocks carrying no tag of their own.**
-Most are quote lead-ins (*"`[leaf]`:33–39, verbatim:"*) or statements about this
-record's own bookkeeping; a handful are ★ / headline sentences whose grade rides
-on the tagged paragraph directly beneath them. **Method and its blind spots:**
-the scan keys on the four tag tokens per block, so a block whose tag sits in a
-neighbouring block counts as untagged even where no reader would misgrade it,
-and a statement carrying the WRONG tag is invisible to it entirely — the scan
-proves placement, never correctness. Where a bolded headline is followed by a
-`[CANON]` cite, the tag governs the **cite**: §5.2's four headlines were
+bodies and display maths — finds **18 blocks carrying no tag of their own**, and
+they enumerate exactly: **4** quote lead-ins (*"`[leaf]`:33–39, verbatim:"*),
+**4** ★ / headline sentences whose grade rides on the tagged paragraph directly
+beneath them, and **10** statements about this record's own bookkeeping
+(including the 2026-09-06 Rule-12-stamp note at §3.3). **Method and its blind
+spots:** the scan keys on the four tag tokens per block, so a block whose tag
+sits in a neighbouring block counts as untagged even where no reader would
+misgrade it, and a statement carrying the WRONG tag is invisible to it entirely
+— the scan proves placement, never correctness. The **18** is the scan's; the
+**4 / 4 / 10** split is a READ of those eighteen blocks, not a second pattern
+match — a pattern match on them undercounted the lead-ins by one. Where a bolded
+headline is followed by a `[CANON]` cite, the tag governs the **cite**: §5.2's
+four headlines were
 untagged on exactly that pattern and now carry their own. Audit charter is §6;
-kill conditions are §7; the
-routing item is `_orchestration/open-items/2026-08-26-wall-first-reframe-audit.md`.
+kill conditions are §7; the routing item is
+`_orchestration/open-items/2026-08-26-wall-first-reframe-audit.md`.
 
 
 
@@ -654,11 +658,15 @@ most fluently, per §0.
 repaired.** `clm-ghs75o`'s quality block
 ([`claim-quality.md`](../manuscript/ave-kb/vol2/claim-quality.md) — id comment
 at `:975`, quality block `:986`–`:995`) reads, at `:991` verbatim: *"solidity:
-0.30 (do not build on, rework needed) [= min(0.30, 1.00)]"* — `:987`
-confidence 0.3, rationale ending *"Asserted mechanism."*, and its
-own non-claims say *"the matched-impedance slipstream mechanism is asserted at
-the qualitative level"* with *"no onset-velocity threshold and no slipstream
-coupling constant"* produced. `[WALK]` **§4.3, §4.5 and the W4-4 contradiction
+0.30 (do not build on, rework needed) [= min(0.30, 1.00)]"* — with `:987`
+confidence 0.3 and the `:992` rationale ending *"Asserted mechanism."* The two
+supporting quotes sit in **different fields**, and are attributed here as such:
+the entry's **non-claims** block says *"The matched-impedance slipstream
+mechanism is asserted at the qualitative level … the leaf does not produce a
+quantitative threshold for the onset velocity or a coupling constant for the
+slipstream dynamics"*, and the **rationale** field (`:992`) says *"no
+onset-velocity threshold and no slipstream coupling constant are produced (the
+entry acknowledges this)."* `[WALK]` **§4.3, §4.5 and the W4-4 contradiction
 all build on this line anyway.** The quote is accurate and the leaf is canon —
 but it is canon whose own quality entry says not to build on it, and the walk
 built. That is a defect in the walk's footing, carried here so it travels with
@@ -886,7 +894,8 @@ below; the IDENTIFICATION of the arc's guess with it is this record's reading �
 > *(**TRUNCATED at "mass itself stays A1."** — the `…` marks inside the quote
 > are elisions within the quoted span; this is the marker owed at its END. The
 > source LINE continues, and its continuation QUALIFIES what is quoted above.
-> Verbatim, the next sentence: "(⚠ 2026-06-20 CORRECTION: FOC does NOT FORCE A1
+> The next sentence, verbatim apart from collapsing its markdown link to the
+> bare filename: "(⚠ 2026-06-20 CORRECTION: FOC does NOT FORCE A1
 > ⊥ T2 — the temporal-within-tank "FOC d-q" reading is RETRACTED, `clm-533gvm`
 > solidity 0.30; the canonical FOC homes are SPATIAL inter-object 90°. A1 ⊥ T2
 > stands FOC-INDEPENDENT on the grade decomposition; REFUTED flag at
@@ -931,8 +940,8 @@ use here. `consistency-vs-emergence` class: **IDENTITY** (the leaf says so
 itself — *structural, not predicted*).
 
 `[WALK]` **(4) The one part that is genuinely LIVE is already routed, and is not
-new.** `[CANON]` The corpus *did* answer "which channel's dispersion does a moving
-electron obey" —
+new.** `[CANON]` The corpus *did* answer "which channel's dispersion does a
+moving electron obey" —
 [`de-broglie-standing-wave.md`](../manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md):52:
 the electron *"does not travel as a shear wave at $c_0$; instead, its motion
 displaces the lattice, generating longitudinal acoustic pressure waves governed
@@ -1137,13 +1146,15 @@ solver, which is cheap, and which would settle whether §1 has a subject.
 **two** items. §3.1 (*"yes, but what are the properties of the wall we can
 measure on the electron?"* — an **assent and a question**, graded as such at its
 own site) and §4.1 (*"how would the trefoil's phase space tube propagate vs the
-photon?"*), both verbatim `[sic]` from this session. **Method:** a read of §§1–9
-for every quotation attributed to Grant, plus a corpus grep for the one
-attributed phrase that carried no cite. **Blind spot:** a Grant framing carried
-in the record's own voice — paraphrased rather than quoted, and therefore
-wearing no quotation marks and no `[sic]` — is exactly what the read cannot see,
-and is the failure the correction below records. So this is a **measured
-enumeration, not a proof of completeness.** The 2026-08-03 sentence quoted in §3.8
+photon?"*), both verbatim `[sic]` from this session. **Method (re-run
+2026-09-06):** a grep of this file for `Grant` co-occurring with `[sic]` /
+`verbatim` / `attribut`, which returns §3.1, §4.1, and §3.8's canon-quoted
+2026-08-03 sentence — and nothing else. **Blind spot, and it is the one that
+already bit:** a Grant framing carried in the record's own voice — paraphrased
+rather than quoted, wearing no quotation marks and no `[sic]` — matches none of
+those tokens and is invisible to that grep. That is exactly the failure the
+correction below records. So this is a **measured enumeration, not a proof of
+completeness.** The 2026-08-03 sentence quoted in §3.8
 (*"There can still be a gradient toward the wall vs the wall itself"*) is Grant's
 but is **quoted from canon**
 ([`wall-taxonomy.md`](../manuscript/ave-kb/common/wall-taxonomy.md):129), not
