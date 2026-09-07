@@ -30,8 +30,21 @@ audit charter is §10, the kill conditions are §11, and the routing items are
 **power-engineering** sense: the node of a Wye (star) connection that sits at
 zero potential *because the phasor sum of the leg currents cancels*, with no
 conductor to ground. It is **not** the hollow-vortex "balance shell" (§3
-caution 2), and it is **not** a new coinage — canon already writes
-"virtual-neutral surface" once, and "virtual ground" once, both cited in §5.
+caution 2), and it is **not** a new coinage — but the two surface forms do
+**not** sit at the same grade, and an earlier wording here filed both under
+"canon". Measured on this branch: **"virtual-neutral surface" returns exactly
+one hit under `manuscript/`** —
+`vol2/particle-physics/ch02-baryon-sector/proton-identification.md:161`, cited
+at §5 row 4. **"virtual ground" returns ZERO hits under `manuscript/`** — three
+methods: `git grep -in`, `grep -rniE 'virtual[-_[:space:]]+ground'`, and a
+separator-tolerant Perl slurp over every `.md`/`.tex` under `manuscript/`. The
+phrase occurs only under `research/` — 8 lines in 4 files, counting every
+tracked hit outside this arc's own two documents; the one this record
+uses is `research/2026-07-10_x37-junction-parasitics_derivation.md:40`, cited at
+**§6 support S6 — not §5** — and graded there `[CANON-adjacent]`, *"an in-corpus
+research derivation, not a KB leaf"*. **Blind spot:** all three methods are
+token-based on those two surface forms, so a site stating the same object in
+other words is not caught.
 
 ## §1 — The reframe, and what "virtual neutral" means on the schematic
 
@@ -93,9 +106,15 @@ shows immediately why the exactness is a trap.
 
 **Reproduction discipline.** Every number in this section was **recomputed in
 this arc**, from the shipped operator, on a fresh worktree at `a3f4fef7`, and is
-**not** inherited from the dispatch brief. The script and its verbatim output
-are in Appendix A. Where the brief and the reproduction disagree, the
-reproduction wins and the disagreement is recorded (§2.4.1).
+**not** inherited from the dispatch brief. **Appendix A carries the verbatim
+output and the operator-under-test pointers — it does NOT carry a script, and
+no `.py` ships on this branch.** Measured: `git diff --name-status` from the
+merge-base `a3f4fef7` to this tip lists **four files, all `.md`**
+(`_orchestration/BOARD.md`, the two open items, this record); `git status
+--untracked-files=all` shows no untracked `.py` either. The receipt is therefore
+a **transcript, not a re-runnable artifact**, and §10 item A1 is scoped to that.
+Where the brief and the reproduction disagree, the reproduction wins and the
+disagreement is recorded (§2.4.1).
 
 ### 2.1 The junction spectrum theorem `[MEASURED]`
 
@@ -479,11 +498,18 @@ is entirely a **relocation of the question**, not an answer to it. Anyone
 citing §2 as support for "the electron's boundary is a virtual neutral" is
 citing the wrong half.
 
-## §5 — Canon already carries the structure — in five unconnected places — and has the slot
+## §5 — The structure is already in the corpus — five KB leaves plus one research derivation — and canon has the slot
 
 `[CANON]` The balanced-polyphase condition is **already written in the
-corpus**, five times, by different lanes, none of them citing any other, and
-**never at the electron-wall site**.
+corpus**. The table below enumerates **five sites under `manuscript/ave-kb/`**.
+A **sixth** — `research/2026-07-10_x37-junction-parasitics_derivation.md:39-40`,
+the `C3v` differential-mode `Γ_A = −1` — is recorded at **§6 support S6**, and
+graded there `[CANON-adjacent]`, *"an in-corpus research derivation, not a KB
+leaf"*. **⚑ Six sites in the tracked corpus, not five.** The earlier "five times"
+total counted the KB rows only and did not reconcile against this record's own
+S6 — even though the `virtual ground` grep listed in the method note below is
+exactly what found that site. None of the six cites any other, and none is at
+the electron-wall site.
 
 ⚑ **Method, reported as a method and not as a corpus fact** (per the
 grep-completeness rule): the sites below were found by targeted greps
@@ -502,7 +528,10 @@ those searches, not a census.** There may be more sites; the audit sweep
 | 5 | `vol5/molecular-foundations/organic-circuitry/first-principles-bond-force-constants.md:110` | *"each interior node … is a 3-connected **WYE junction — a three-phase node**"*, and a heavy-heavy bond is *"a **balanced three-phase system**"* | every srs interior node, already |
 
 `[CANON]` **The generalization is what is new, not the structure.** Site 1
-proves the `−1` eigenvalue for the **`z=4` `K4` 4-port at equal admittance**.
+proves the `−1` eigenvalue for the **`z=4` `K4` 4-port at equal admittance**,
+and the S6 derivation proves it for the **`z=3` `C3v` 3-port, also at equal
+admittance** (*"Three identical semi-infinite lines"*,
+`2026-07-10_x37-junction-parasitics_derivation.md:37`).
 §2.1 extends it to **arbitrary `z` and arbitrary graded `Y`**, with the
 eigenspace correctly re-weighted to `{v : Σ_j Y_j v_j = 0}`. That extension is
 this arc's only genuinely new algebra, and it is a two-line proof.
@@ -574,7 +603,7 @@ reading is right, listed at their honest grade:**
 | **S4** | **His rejection of the propagation question was correct.** Asking "what `Γ` does the wall present to an incoming wave" presupposes a wave propagating *through* a medium the defect sits *in*. On this substrate matter **is** the lattice's lock-state, not an object embedded in it — so there is no second medium for `Γ` to be defined against, and the question has **no referent**. Killing it was right. | `[WALK]` — ★ **provenance: prior-session chat; this arc did NOT verify a canon statement of it.** The nearest in-corpus support is the `def-satrim` role-swap (S3) and `resonant-lc-solitons.md:52` (*"The particle dynamically weaves its **own** perfect topological mirror"*). Treat as un-audited. |
 | **S5** | **de Broglie survives the matched (reflector-free) reading — two routes, both in-corpus.** (i) **Turning point:** *"The matter wave **does not bounce off a physical tear** in the vacuum; it bounces when it simply runs out of kinetic energy… the local acoustic impedance becomes purely imaginary, forcing a total reflection."* (ii) **Self-match:** *"the precise radius where this trapped … wave achieves a **lossless resonant impedance match with itself** (`2πr = nλ`)."* Neither needs a material mirror. | `[CANON]`, with a caveat | `vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md:54`. ⚑ **Caveat:** the two immediately-preceding lines (`:50`, `:52`) carry `🔴 [DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION]`. Line `:54` itself carries **no** demotion marker, but it sits inside the demoted passage's argument; a lane citing it must check the R40-B2a re-derivation status first. |
 | **S6** | **Canon states the kernel-free `Γ = −1` and calls it a virtual ground, in as many words.** *"**Antisymmetric (differential) eigenmodes** `(1,−1,0)`, `(1,1,−2)` — memoryless value **`Γ_A = −1`**: the differential mode sees a **SHORT** (**the node is a virtual ground for it**)."* Written independently, from `C3v` symmetry, with no saturation kernel anywhere in the derivation — the same theorem §2.1 proves for graded `Y`. | `[CANON-adjacent]` — an in-corpus **research derivation**, not a KB leaf | `research/2026-07-10_x37-junction-parasitics_derivation.md:39-40` |
-| **S7** | **He reinvented, from EE intuition alone, a structure his own corpus carries in five unconnected places.** §5's table lists them; none cites any other; none is at the electron-wall site. That convergence is evidence the reading is picking up real structure in the operator, independent of whether it localizes anything. | `[WALK]` over `[CANON]` receipts | §5 table, rows 1–5 |
+| **S7** | **He reinvented, from EE intuition alone, a structure his own corpus carries in six unconnected places.** §5's table lists five of them; **S6 above is the sixth**. None cites any other; none is at the electron-wall site. That convergence is evidence the reading is picking up real structure in the operator, independent of whether it localizes anything. | `[WALK]` over `[CANON]` receipts | §5 table rows 1–5, **plus S6** |
 
 `[WALK]` **What S1–S7 do and do not buy.** They establish that the reframe is
 **well-posed, operator-grounded, and already latent in the corpus**. They do
@@ -775,7 +804,7 @@ REFUTED).
 
 | # | claim | class | how to attack it |
 |---|---|---|---|
-| **A1** | **The §2 numbers are what the shipped operator produces.** Spectrum theorem, trace identity, balanced mirror, level-set arithmetic, `Γ_bulk(√α) = −9.155133e-04`. | MACHINERY — **read AND run** | Re-run Appendix A independently, from a clean worktree, without reading this record's numbers first. Then diff. Do not accept the table; regenerate it. Check `saturation_kernel`'s floors are actually inactive at `A=√α` as claimed. |
+| **A1** | **The §2 numbers are what the shipped operator produces.** Spectrum theorem, trace identity, balanced mirror, level-set arithmetic, `Γ_bulk(√α) = −9.155133e-04`. | MACHINERY — **read AND run** | ⚑ **No script ships on this branch** — Appendix A is a transcript, not a re-runnable artifact (§2 reproduction discipline), so the lane must **write its own driver** against `admittance_scatter` / `saturation_kernel` / `gamma_bulk` at the pointers Appendix A lists, from a clean worktree, without reading this record's numbers first. Then diff. Do not accept the table; regenerate it. Check `saturation_kernel`'s floors are actually inactive at `A=√α` as claimed. |
 | **A2** | **The spectrum theorem generalizes the `K4` irrep result rather than restating it.** `k4-port-irrep-decomposition.md:23,:55` is the `z=4`, equal-admittance case; §2.1 claims arbitrary `z` and arbitrary graded `Y`. | CANON + ALGEBRA | Verify the leaf's scope is really equal-admittance (is `Y` even a variable there?). Then check the rank-one proof: is `{v : Σ_j Y_j v_j = 0}` genuinely the kernel of `𝟙Yᵀ`, and is the arc's re-weighting of the eigenspace right, or has it quietly assumed `Y` symmetric-positive in a way that fails somewhere? |
 | **A3** | ★ **Caution 1 is right: a local `−1` is not confinement, and the electron would have to be a closed surface of simultaneously balanced nodes.** | LOGIC — **the load-bearing step** | Adversarial. Is "codimension 1 per node ⇒ cheap" actually the right cheapness measure once the connect map couples nodes? Try to construct a counterargument in which local balance *does* localize. And: is "closed surface of simultaneously balanced nodes" even well-posed (caveat 3)? If it is not, the arc's positive content is empty, not merely deferred. |
 | **A4** | ★ **Caution 2 is right: the hollow-vortex balance shell and the virtual neutral are different objects and must not be welded.** | CANON + VOCAB | Attack from both sides. (a) Find any corpus site that already treats them as one — if canon has welded them, that is a finding. (b) Argue the *unification* case honestly: is there a formulation in which a phasor balance and a pressure balance are instances of one kind? The arc took no position; the audit should. |
@@ -844,6 +873,11 @@ as a caveat.
 ---
 
 ## Appendix A — reproduction receipt
+
+**What this appendix is.** A **transcript** of the run, plus the pointers needed
+to rebuild it. **It ships no script**, and no `.py` is added by this branch
+(§2 reproduction discipline carries the measurement). Re-running it means
+writing a fresh driver against the operators named below.
 
 **Environment.** Fresh worktree off `origin/main` @ `a3f4fef7`; branch
 `research/2026-08-26-virtual-neutral-arc`; `numpy` float64; RNG
