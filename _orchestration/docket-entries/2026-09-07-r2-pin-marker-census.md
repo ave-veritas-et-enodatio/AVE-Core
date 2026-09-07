@@ -54,6 +54,28 @@ Classification of those 525:
 | UNRESOLVED-PATH | 34 | path names nothing anywhere (house shorthand, sibling-repo files, line-wrapped names) — already advisory-reported |
 | SKIPPED-SHAPE | 6 | glob / home-dir / ephemeral target — out of scope for both tools |
 
+### 2b. Where the split between DEAD and UNRESOLVED-PATH was drawn, and why
+
+Read literally, "resolves to nothing and no prose claims it is pinned" covers
+the 34 UNRESOLVED-PATH rows too. They are split out because the gate splits
+them: a cite whose PATH fails is advisory (`broken backtick path`), a cite
+whose LINE fails is gating (`dead line cite`), and only the second changes
+behaviour when the exemption is re-keyed. Under the single-bucket reading the
+numbers are LIVE 480 / TRUE-PIN 5 / DEAD 34.
+
+Those 34 are not 34 defects. Checked structurally: **29 name a basename the
+repo has never had**, so they cannot be renames — they are house shorthand
+(`vol_0/02_analytical_summaries.tex` for the `vol_0_engineering_compendium/
+chapters/` file), sibling-repo paths, skill files under `~/.claude`, and names
+truncated by line-wrapping. Four of the remaining five are the same board
+shorthand. **One is real rot**, and it is a good advertisement for the re-key:
+
+> `_orchestration/2026-07_repo-conventions.md:184` cites
+> `research/2026-06-22_birefringence-vca-bench-arc.md:75` — the file lives under
+> `_orchestration/`, not `research/`. The citing sentence says *"At HEAD, ...
+> reads ..."*, so it is a live claim about a path that resolves nowhere, and it
+> has been riding a provenance SHA's row-level exemption.
+
 (Re-running the census on this branch AFTER the §5 pilot returns 523 / TRUE-PIN
 3: the two migrated cites leave the bare-cite grammar once they carry a marker,
 which is exactly the behaviour a marker-only gate wants.)
