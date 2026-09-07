@@ -400,11 +400,6 @@ verify-approach-leak-number-check:
 verify-approach-leak-v2-number-check:
 	@$(MAKE) --no-print-directory verify-lane-number-checks LANE_CHECK_FILTER=approach_leak_v2_number_check
 
-CITE_BASE ?= origin/main
-verify-inbound-cite-shift:
-	@echo "[Verify] Inbound cite shift (cites INTO files this branch changed)..."
-	@$(PYTHON) manuscript/ave-kb/tools/verify-inbound-cite-shift.py $$(git merge-base $(CITE_BASE) HEAD) HEAD
-
 verify-fired-riders:
 	@echo "[Verify] FIRED prereg riders reached the corpus..."
 	@$(PYTHON) manuscript/ave-kb/tools/verify-fired-riders.py
@@ -771,3 +766,14 @@ distclean: clean
 	@echo "[DistClean] Removing ALL build artifacts including PDFs..."
 	rm -rf $(OUT_DIR)
 	@echo "[DistClean] Done."
+
+# Appended at EOF deliberately. This target's first placement inserted 5 lines
+# above Makefile:448 and shifted six corpus cites into this file (+5 each) --
+# caught by this very checker on its own landing PR. One of the six citers is
+# research/2026-08-08_overlap-integral_prereg-FROZEN.md, a FROZEN prereg that
+# must not be rewritten, so re-pinning was not an available fix. The last
+# corpus-cited Makefile line is :474; appending past it shifts nothing.
+CITE_BASE ?= origin/main
+verify-inbound-cite-shift:
+	@echo "[Verify] Inbound cite shift (cites INTO files this branch changed)..."
+	@$(PYTHON) manuscript/ave-kb/tools/verify-inbound-cite-shift.py $$(git merge-base $(CITE_BASE) HEAD) HEAD
