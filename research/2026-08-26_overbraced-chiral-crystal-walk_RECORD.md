@@ -58,6 +58,22 @@ the observed strain is the **AC readout** (plus the real-space envelope
 > **Method:** case-insensitive `sign`-family census over all lines, plus a second sweep for
 > non-`sign` grade words (LOCKED/RATIFIED/SETTLED/CONFIRMED/FINAL/STANDS). **Blind spot:** a grade
 > asserted without any of those tokens would not be caught.
+>
+> **Residue named 2026-09-06 (third pass, completeness).** That census left **one** positive token
+> standing in this file, and the second-pass wording above did not say so — read on its own it
+> implied the file was clear. It is not: §5 `:255` still reads *"AC/DC 1:1; **epistemology
+> signed**; same-mesh / \(L\)-edge DC **held**"*. That row is **deliberately left as written**,
+> because it grades a **different claim** from the P0–P5 pictures — the S2 epistemology (*"AC reads
+> a DC differential on a real medium"*), whose receipt shape is not a chat nod:
+> [`2026-08-29_overbraced-crystal-picture-lock.md`](2026-08-29_overbraced-crystal-picture-lock.md):196
+> attributes it to an *"Adversarial audit"*, and Grant's recorded line agrees with **that audit's
+> split** (sign the epistemology, hold H1–H6). **No record of that audit exists in the tracked
+> tree** — searched every tracked file and `git log --all` over this arc's files and messages; no
+> lens list, no findings table, no result doc — so the third pass could neither establish the
+> adversarial prong nor rule it out. **Routed to Grant, not cleared.** The sibling sites carrying
+> the same S2 grade are listed in
+> [`2026-08-29_picture-lock-spillover.md`](2026-08-29_picture-lock-spillover.md)'s own correction
+> banner. Everything in §1–§4 remains as this second pass left it.
 
 ## §1 — Chat-agreed pictures (P0–P7) — WALK-GRADE, UNAUDITED
 

@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **ae0ed14d** (2026-09-06) · 468 index records · 331 claims · 15 PRs open
+Scanned tree **1a0ccedf** (2026-09-06) · 468 index records · 331 claims · 19 PRs open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`6b8b49a0`). Every count below describes **ae0ed14d**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`5a36cea5`). Every count below describes **1a0ccedf**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -104,7 +104,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [Two different lengths may share the name ell_c — the sqrt(6) Cosserat coupling length vs the weak-range construction](open-items/2026-08-25-ell-c-name-collision.md) | OPEN | grant | 2026-08-25 |
 | [G2 freeze decisions — the four calls that must be frozen before the P2 existence solve runs](open-items/2026-08-25-g2-freeze-decisions.md) | OPEN | grant | 2026-08-25 |
 | [The storage clock and the response clock are the same number exactly — canon's 1.4e-5 near-collision is a linearization artifact](open-items/2026-08-25-storage-response-clock-identity.md) | OPEN | grant | 2026-08-25 |
-| [Over-braced chiral crystal walk — picture-lock applied; signed WALK-GRADE teaching (do not commission Chern / Maxwell–Calladine)](open-items/2026-08-26-overbraced-crystal-audit.md) | OPEN | lane | 2026-08-26 |
+| [Over-braced chiral crystal walk — picture-lock applied; WALK-GRADE, UNAUDITED teaching (do not commission Chern / Maxwell–Calladine)](open-items/2026-08-26-overbraced-crystal-audit.md) | OPEN | lane | 2026-08-26 |
 | [Analyze ker Y (DC loop current) and M-eigenmodes as two arms — do not pick; drop Maxwell–Calladine as the knot identity](open-items/2026-08-29-ker-y-vs-m-eigenmode.md) | OPEN | grant | 2026-08-29 |
 | [Phase space = native tank-state chart (Grant-agreed in chat, WALK-GRADE, UNAUDITED); amend def-69f472; characterize coupling to vacuum / matter / light / gravity (or bulk emergence)](open-items/2026-08-29-phase-space-tank-state.md) | OPEN | grant | 2026-08-29 |
 | [Sibling-repo debts — AVE-Fusion yield cross-wire + AVE-Bench-FemtoElectrometer stale sites](open-items/2026-07-03-sibling-repo-debts.md) | REGISTERED | unassigned | 2026-07-03 |
@@ -140,7 +140,11 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 | PR | state | title |
 |---|---|---|
-| #1035 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] docs+ci: manuscript-reconciliation  |
+| #1040 | unlabelled | [DO-NOT-MERGE] provenance: un-stamp the confinement clause from the 2026-06-30 r |
+| #1039 | unlabelled | [DO-NOT-MERGE][REVIEW: CLEARANCE WITHDRAWN — ratchet RED] docs: epic residue swe |
+| #1038 | unlabelled | [DO-NOT-MERGE][REVIEW: CLEARANCE WITHDRAWN — required check RED] docs: epic Phas |
+| #1037 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator — re-verify vs new main] docs: epic  |
+| #1036 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] docs: class-1 status-word correctio |
 | #1034 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: H1 three-object close + S |
 | #1033 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: ε11 as Q-point; constitut |
 | #1032 | unlabelled | [DO-NOT-MERGE][REVIEW: BLOCKED by blind audit] research: Machian-G boundary audi |

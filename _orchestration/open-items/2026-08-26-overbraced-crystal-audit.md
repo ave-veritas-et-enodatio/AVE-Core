@@ -1,6 +1,6 @@
 ---
 id: overbraced-crystal-audit
-title: "Over-braced chiral crystal walk — picture-lock applied; signed WALK-GRADE teaching (do not commission Chern / Maxwell–Calladine)"
+title: "Over-braced chiral crystal walk — picture-lock applied; WALK-GRADE, UNAUDITED teaching (do not commission Chern / Maxwell–Calladine)"
 status: OPEN
 owner: lane
 opened: 2026-08-26
@@ -8,11 +8,11 @@ source: research/2026-08-26_overbraced-chiral-crystal-walk_RECORD.md
 anchor: "Picture-lock applied 2026-08-29"
 ---
 
-**Picture-lock applied 2026-08-29. The walk is rewritten to the signed set.**
+**Picture-lock applied 2026-08-29. The walk is rewritten to that lock’s set, graded WALK-GRADE, UNAUDITED.**
 This item routes that record. It does **not** commission B11 / B12 / B1, a
 Chern(\(A\)) scaffold test, or a Maxwell–Calladine rank as the knot.
 
-Signed teaching:
+Teaching (**WALK-GRADE, UNAUDITED**):
 [`research/2026-08-26_overbraced-chiral-crystal-walk_RECORD.md`](../../research/2026-08-26_overbraced-chiral-crystal-walk_RECORD.md).
 Lock:
 [`research/2026-08-29_overbraced-crystal-picture-lock.md`](../../research/2026-08-29_overbraced-crystal-picture-lock.md).
@@ -67,3 +67,16 @@ is S10 (dual-arm analysis). Glyph split before any compute.
 
 The 2026-08-26 teaching body (Chern/MC as knot, §9.1 keeping §2 live) is
 preserved at commit `9efcc8db`. Do not quote it as live.
+
+**Status-word correction 2026-09-06 (class-1 demotion; completeness sweep).** Grant ratified
+2026-09-03 that *signed* means **an adversarial pass AND a physical/logical review with him**;
+chat agreement alone is chat-walk grade. No adversarial pass is recorded for the #1020 P0–P7
+pictures, so the three `signed` tokens this item carried are demoted **in place** to the grade
+the lock now states. **Nothing is withdrawn** — the routing, the do-not-commission list, the
+kills and the receipts are byte-unchanged. **Prior wording, preserved verbatim per Rule 12:**
+the front-matter title read *“picture-lock applied; signed WALK-GRADE teaching”*; `:11` read
+*“The walk is rewritten to the signed set.”*; `:15` read *“Signed teaching:”*. Because
+`BOARD.md` is generated from this front-matter, the board row is regenerated in the same commit.
+Companion corrections: [`research/2026-08-29_overbraced-crystal-picture-lock.md`](../../research/2026-08-29_overbraced-crystal-picture-lock.md),
+[`research/2026-08-26_overbraced-chiral-crystal-walk_RECORD.md`](../../research/2026-08-26_overbraced-chiral-crystal-walk_RECORD.md),
+[`research/2026-08-29_picture-lock-spillover.md`](../../research/2026-08-29_picture-lock-spillover.md).
