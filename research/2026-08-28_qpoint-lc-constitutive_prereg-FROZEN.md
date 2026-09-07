@@ -244,3 +244,28 @@ PREREG (target: constitutive map ε₁₁ ↦ (L, C, S) on a frozen graph, Z pin
 **Provenance of the fence, recorded because it was a same-day inversion.** `d1b55e87` (22:38) read *"so hop `L` and `C` **co-scale with `n`**"* — unconditional. `f943a034` (23:50) inverted it to the unqualified refusal, in the same commit that added A2 and A3. The flip **is** disclosed, by A2 itself; what does **not** exist anywhere in the tree is the **charter or the verdict** of the "hop-lc documentation audit" A2 credits — *"Grant greenlit option 1"* is **author-stated**, with no docket entry, no record doc, and no reviewer. Treat A2's fence as author-stated, and this amendment likewise.
 
 **Forks F1–F3 stay Grant-routed. No solidity moves. Phase-1 is still not started.** This lane remains **UNAUDITED** — an adversarial pass is owed on the repaired scope, not only on the original fence.
+
+---
+
+## Rule-12 amendment A5 (2026-09-06) — CLASS 1 status-word demotion; APPENDED, the frozen body is byte-untouched
+
+**This amendment edits nothing.** Two Class-1 sites sit inside the frozen body and are therefore **byte-untouchable**; they ride this dated note instead:
+
+| Site | Frozen wording (unchanged, quoted) | How to read it |
+|---|---|---|
+| `:4` | *"Grant signed the lattice picture in-session 2026-08-28 (vertices unmoved; ε₁₁ = DC Q-point; observed matter/waves are AC)."* | **Grant-agreed (chat), WALK-GRADE, UNAUDITED.** The receipt is session agreement; the reasoning is not recorded, and no adversarial pass has run on this lane. |
+| `:33` | *"## §1 — Signed ontology (Grant, 2026-08-28) — LOCKED"* | **Session-agreed ontology (Grant, chat).** "LOCKED" is this lane's own abort-condition — a derivation violating §1 is aborted (`:35`) — **not** a canon ratification, and not a docket ruling. |
+
+**Why the demotion.** Grant ratified the convention 2026-09-03, verbatim: *"signed meaning passed adversarial pass plus physical/logical review with me."* This lane holds the second half only, and holds it as chat agreement. Neither receipt for the first half exists: there is no adversarial review of this branch, and no docket entry for it.
+
+**The agreement is not withdrawn or weakened** — §1's six items remain exactly what Grant said in session, and the freeze's own honest framing at `:35` (*"These are session-signed, not derived here"*) already said so. Only the grading word moves.
+
+**Propagated on the KB side** (live text, editable, so edited rather than noted):
+
+- `bond-lc-constitutive-grading.md:5` — frontmatter `no-claim` "(Grant-signed 2026-08-28)" → "(Grant-agreed in chat 2026-08-28; no adversarial pass has run)", leaf tagged WALK-GRADE, **UNAUDITED**.
+- `bond-lc-constitutive-grading.md:11` — "Grant signed the lattice picture" → "Grant **agreed the lattice picture in chat**", with the 2026-09-03 convention quoted and the missing receipt named.
+- `bond-lc-constitutive-grading.md:17` — "§1 — Signed ontology" → "§1 — **Session-agreed** ontology (Grant, chat …; WALK-GRADE, UNAUDITED)".
+- `bond-lc-constitutive-grading.md:26` — the paragraph re-reading Grant's session phrase *"micropolar inductance"* as \(S_\gamma\) was the **orchestrator's** correction of Grant's words, sitting under a heading carrying Grant's signature. It is lifted into its own **"Naming correction (orchestrator; Fork F1 — not Grant's wording, not ratified)"** block. This freeze already kept it separate at `:44`; the leaf had collapsed it.
+- `vocabulary-register.md` `def-q1escn` — the **"★ GRAVITY-SCOPE RIDER (2026-08-28, Grant-signed picture, PR #1033)"** was appended into the **`verification`** field of a **SOLID** node, a field the register defines at its own `:61` as *"the verify-before-cite result for this entry."* A session picture cannot occupy that slot. The rider is **tagged inside** the field with an explicit NOT-A-VERIFICATION-RESULT delimiter (`⟦BEGIN/END TAGGED NON-VERIFICATION BLOCK⟧`) rather than moved to a bullet of its own — the register is anchored by line number by an external gate fixture (`research/drivers/iomega_law_number_check.py` cites `vocabulary-register.md:526`), so the repair is kept **line-count-neutral** and no other lane's gate is touched. Regraded **RESTATEMENT (def-q1escn R43 × `domain-catalog.md`:45-47 / `clm-82dxbj` solidity 0.63, input-only × `CLAUDE.md`:75), WALK-assembled, UNAUDITED, no ruling**, and the **Axiom-5 noun seam** it inherits is recorded rather than glossed: clause **G**'s object is *the bias* ε₁₁ (`eq_axiom_5.tex`:73) and clause **Q**'s is *the Q-point* (`:82`-`:87`); the register lists them as separate canonical nouns (`translation-circuit.md`:1107-1108). The rider's unqualified *"this **same noun**"* fused them. **Unadjudicated; recorded, not resolved.** R43 licenses the name only.
+
+**No finding is removed by any of the above, and no solidity moves.** Forks F1–F3 stay Grant-routed. An adversarial pass on this lane is still owed.

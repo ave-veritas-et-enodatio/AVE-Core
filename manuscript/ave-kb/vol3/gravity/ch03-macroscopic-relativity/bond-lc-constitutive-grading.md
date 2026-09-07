@@ -2,19 +2,19 @@
 
 <!-- kb-frontmatter
 kind: leaf
-no-claim: "WALK-GRADE ontology + constitutive-inventory leaf (Grant-signed 2026-08-28). Records (i) ε11 as DC Q-point of the A1 tank on a frozen graph, (ii) SYM pinning of bond-TL L/C, (iii) the three non-interchangeable senses of 'linear' for L,C vs strain. Mints no clm-/def- here (the linear-homonym lives as def-ln3str in the vocabulary register). Every quantitative statement is a POINTER to an existing claim or a named open fork. Does not plant (2,1,1/2) or slide vertices."
+no-claim: "WALK-GRADE, UNAUDITED ontology + constitutive-inventory leaf (Grant-agreed in chat 2026-08-28; no adversarial pass has run). Records (i) ε11 as DC Q-point of the A1 tank on a frozen graph, (ii) SYM pinning of bond-TL L/C, (iii) the three non-interchangeable senses of 'linear' for L,C vs strain. Mints no clm-/def- here (the linear-homonym lives as def-ln3str in the vocabulary register). Every quantitative statement is a POINTER to an existing claim or a named open fork. Does not plant (2,1,1/2) or slide vertices."
 path-stable: "referenced from vol3 ch3 as the bond-TL constitutive companion of achromatic-impedance-matching; vocabulary home def-ln3str. Former 2026-08-28 filename hop-lc-constitutive-grading.md is a Rule-12 stub (hop was TLM slang for the bond, def-b0nd01)."
 -->
 
 # Bond \(L\), \(C\) constitutive grading — Q-point, SYM, and which "linear"
 
-**Status: WALK-GRADE.** Grant signed the lattice picture 2026-08-28 (session; PR #1033). This leaf is the KB home of that picture and of the regime answer to *"under what strain do \(L\) and \(C\) scale linearly?"* It originates **no** new claim-id. Forks F1–F3 of the frozen prereg stay Grant-routed.
+**Status: WALK-GRADE, UNAUDITED.** Grant **agreed the lattice picture in chat** 2026-08-28 (session; PR #1033) — chat agreement, reasoning not recorded, and **no adversarial pass has run on this leaf**. Under the 2026-09-03 convention, "signed" means an adversarial pass **and** physical/logical review with Grant; neither receipt exists here, so the word is not used. Read every "signed" this branch inherited as **chat-agreed, walk-grade**. This leaf is the KB home of that picture and of the regime answer to *"under what strain do \(L\) and \(C\) scale linearly?"* It originates **no** new claim-id. Forks F1–F3 of the frozen prereg stay Grant-routed.
 
 > **Vocabulary.** Reuse [`def-q1escn`](../../../common/vocabulary-register.md) (Q-point). Do not coin "Q-point gravity." The object whose \(L,C\) are graded is the **bond** ([`def-b0nd01`](../../../common/vocabulary-register.md)) — a lattice edge whose EE projection is a distributed TL (\(L',C'\) per unit length; [`translation-circuit.md`](../../../common/translation-tables/translation-circuit.md):98). The 2026-08-28 surface form "hop \(L,C\)" was TLM slang for one graph step along that bond; it is **not** a second object, and it is retired as a live label (collision with hopping unknot / port hop). The three senses of "linear" for bond TL \(L,C\) are the disambiguation node [`def-ln3str`](../../../common/vocabulary-register.md) (id unchanged). Former path: [`hop-lc-constitutive-grading.md`](hop-lc-constitutive-grading.md).
 
 ---
 
-## §1 — Signed ontology (Grant, 2026-08-28)
+## §1 — Session-agreed ontology (Grant, chat, 2026-08-28; WALK-GRADE, UNAUDITED)
 
 1. **The lattice is the space.** A node is a graph vertex (six Cosserat DOFs + operating point \(A\)). There is no embedding \(\mathbb{R}^3\) the bricks fly through.
 2. **Observed matter and light are AC** on that net. All measurement is AC ([`clm-acdc07`](../../../common/form-deriving-value-importing.md)).
@@ -23,7 +23,11 @@ path-stable: "referenced from vol3 ch3 as the bond-TL constitutive companion of 
 5. **Vertices stay put on this lane.** Bound response \(\mathbf{u}_0 = -\mathcal{A}_g\nabla\varepsilon_{11}\) is a second layer, **unvalued** (R48). Geometric \(\theta=\nabla\cdot\mathbf{u}\) is not consumed here.
 6. **The relative frame down-regulates** via the local cell \((\Omega,\,c_{\mathrm{eff}},\,Z)\) without vertices leaving the graph.
 
-Microrotation \(\to\) inductive flywheel; translation / bond-stretch \(\to\) capacitance; the **bond** is a distributed TL (\(L'\) and \(C'\)) ([`translation-circuit.md`](../../../common/translation-tables/translation-circuit.md):98–104). Session "micropolar inductance" maps onto the **Cosserat / gap shunt stiffness** \(S_\gamma\) in \(\Omega^2=S_\gamma/C\), not onto the TL series \(L\). (The frozen prereg writes this as \(S\) in \(\Omega^2=S/C\).) That naming is Fork F1, not a silent rewrite. \(S_\gamma\) is **not** the Ax4 kernel \(S(r)\) of §3.
+The six items above are Grant’s, in chat. **Everything below this line is the orchestrator’s, not Grant’s** — filed separately because the frozen prereg already keeps it separate ([`research/2026-08-28_qpoint-lc-constitutive_prereg-FROZEN.md`](../../../../../research/2026-08-28_qpoint-lc-constitutive_prereg-FROZEN.md):44, *"Naming correction, frozen as a fork not a silent rewrite"*), and the earlier draft of this leaf collapsed it into the section carrying Grant’s name.
+
+### Naming correction (orchestrator; Fork F1 — not Grant’s wording, not ratified)
+
+Microrotation \(\to\) inductive flywheel; translation / bond-stretch \(\to\) capacitance; the **bond** is a distributed TL (\(L'\) and \(C'\)) ([`translation-circuit.md`](../../../common/translation-tables/translation-circuit.md):98–104). Grant’s session phrase was **"micropolar inductance"**; the orchestrator reads it as the **Cosserat / gap shunt stiffness** \(S_\gamma\) in \(\Omega^2=S_\gamma/C\), not the TL series \(L\). (The frozen prereg writes this as \(S\) in \(\Omega^2=S/C\).) That re-reading is **Fork F1, Grant-routed and open** — a correction of Grant’s words by the lane, not something Grant said or approved; it is recorded here rather than applied silently under his signature. \(S_\gamma\) is **not** the Ax4 kernel \(S(r)\) of §3.
 
 ---
 
