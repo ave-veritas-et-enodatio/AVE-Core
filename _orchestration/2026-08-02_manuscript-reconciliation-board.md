@@ -59,9 +59,9 @@
 > `:42-44` records as an **OPEN research item, routed and NOT attempted** — derive `K = 2G` as
 > substrate-forced rather than GR-imported. Read at HEAD, that is the question both routed sites turn
 > on, and neither turns on a textual reading of `:87`: `vol_1/02_macroscopic_moduli.tex:133` asserts
-> *"The substrate-scale derivation closes the magic-angle equation $K(u_0^*) = 2 G(u_0^*)$"* and
-> `vol_5/02_organic_circuitry.tex:546` asserts *"determined by Axioms 1 and 2 ($K=2G$ selects the dense
-> Face-Centered Cubic layout)"*. Both claim substrate-forcing; both wait on the same open derivation.*
+> "The substrate-scale derivation closes the magic-angle equation" (for the K=2G operating point) and
+> `vol_5/02_organic_circuitry.tex:546` asserts "determined by Axioms 1 and 2 ($K=2G$ selects the dense
+> Face-Centered Cubic layout)". Both claim substrate-forcing; both wait on the same open derivation.*
 >
 > **CRIB-4′ — the Petermann limb is superseded.** CRIB-4 says replace the "50 ppm" headline with *"the
 > landed q-g19a numbers + scope"*. The 2026-08-03 ruling instead **struck the ppm labels outright with
