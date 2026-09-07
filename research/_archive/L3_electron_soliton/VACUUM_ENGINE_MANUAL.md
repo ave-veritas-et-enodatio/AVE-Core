@@ -3194,7 +3194,7 @@ Engine `EngineConfig.temperature` parameter is **IC-only randomization machinery
 
 **Updated framing (pending O.1f result with corrected IC, in flight at this manual edit):** "First stable static-residual finding at chair-ring geometry under V_inc-only IC; corpus-canonical (V_inc, V_ref) quadrature eigenmode IC retest (O.1f) launched as path (1) per A39 v2 dual-criterion. If O.1f returns dominant ω = 1.5·ω_C oscillation, substrate ℓ=2 cavity mode confirmed at chair-ring per A38 + A40 mediated-through-substrate framing. If ω_C oscillation, surprising — characterize-as-itself per Rule 10. If still DC-dominated, structural finding that engine doesn't sustain ANY oscillating mode at chair-ring from corpus-canonical eigenmode IC — pushes framework decision toward (i) FDTD or (iii) different engine architecture."
 
-**Original body preserved below per Rule 12 retraction-preserves-body discipline; spatial-scale caveat (Caveat 1 amplitude normalization; Caveat 2 Op10 field-mismatch) and partial 2.A pair-production evidence sections remain accurate. The "first stable bound-mode" framing alone is what's retracted; A47 v3 escalation candidate stands; A47 v7 NEW addition documents the L-state IC infrastructure systematically underused across L3 arc; A48 candidate update lands in closure-extended footer thermal-regime + first-positive-bound-mode extensions per Rule 12 v2 cumulative-learning discipline.**
+**Original body preserved below per Rule 12 retraction-preserves-body discipline; spatial-scale caveat (Caveat 1 amplitude normalization; Caveat 2 Op10 field-mismatch) and partial 2.A pair-production evidence sections remain accurate. The "first stable bound-mode" framing alone is what's retracted; A47 v3 escalation candidate stands; A47 v7 NEW addition documents the L-state IC infrastructure systematically underused across L3 arc; A48 candidate update lands in closure-extended footer thermal-regime + first-positive-bound-mode extensions per Rule 12 v2 cumulative-learning discipline.**  <!-- rule12-freeze: base=e753e40b0dced572f46b3866c19f165a7c9de627 region=below offset=0 lines=720 bytes=114563 sha256=ab7e542006f7a6d9835d574ef32745c838540b1c341fe6d2693a5a40a0fde444 -->
 
 ---
 
@@ -3915,7 +3915,7 @@ Both tests show **partial realization of corpus mechanisms** but neither cleanly
 
 ---
 
-*r8.10 FFT-cavity-vs-flux-discriminator extension + L-state-conjugate sector debt finding (2026-04-30, post-O.1 FFT + A47 v7 corrected via verbatim code-grep + O.1f path-1 launched): the first-positive-bound-mode finding from the prior extension has been recontextualized via FFT discriminator per Rule 12 retraction-preserves-body. **A44 reframed (above)**: O.1 shell mode is quasi-static field residual NOT oscillating bound mode.
+*r8.10 FFT-cavity-vs-flux-discriminator extension + L-state-conjugate sector debt finding (2026-04-30, post-O.1 FFT + A47 v7 corrected via verbatim code-grep + O.1f path-1 launched): the first-positive-bound-mode finding from the prior extension has been recontextualized via FFT discriminator per Rule 12 retraction-preserves-body. **A44 reframed (above)**: O.1 shell mode is quasi-static field residual NOT oscillating bound mode.  <!-- rule12-freeze: base=e753e40b0dced572f46b3866c19f165a7c9de627 region=above offset=0 lines=720 bytes=114563 sha256=ab7e542006f7a6d9835d574ef32745c838540b1c341fe6d2693a5a40a0fde444 -->
 
 **O.1 FFT discriminator result (agent-reported uncommitted, ω_C=1.0 expected for corpus electron, 1.5·ω_C expected for substrate ℓ=2 cavity per A38):**
 

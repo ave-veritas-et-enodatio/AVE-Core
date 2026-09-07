@@ -10,7 +10,7 @@ strengthens:
 -->
 
 > 🔴 **PER-NODE / APPARATUS-VOLTAGE CORRECTION (2026-08-01 — propagation of the 2026-06-04 per-node
-> adjudication to this leaf; Rule 12, body preserved below unedited, git is the trail).**
+> adjudication to this leaf; Rule 12, body preserved below unedited, git is the trail).**  <!-- rule12-freeze: base=6afe374974cc24ab710ac25cc6686225e09c74cb region=below offset=0 lines=13 bytes=935 sha256=d9025f134e18d346263918ba58b25d1fc0fb7af8783d58867f905e368fc9fa87 -->
 >
 > **The conflation.** The Falsification Criteria below read the **apparatus** voltage (the 80 kV Marx
 > transient across the electrode standoff) as if it were the **per-node** Axiom-4 kernel argument

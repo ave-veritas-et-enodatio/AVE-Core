@@ -7,7 +7,7 @@ claims: [clm-bqtasn]
 
 # Q-G20f Vacuum Polarization: Matches QED at All Observable Scales
 
-> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**
+> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**  <!-- rule12-freeze: base=46162d6589f063f1cbc90712e1a7d24d613ca098 region=below offset=29 lines=44 bytes=3215 sha256=c65a567c50a5bb5a9571ceab42164c2480a57edbff39dc4dcaa649cfdef802ec -->
 > The E-route birefringence ratio "$7.5/\alpha^3\approx1.93\times10^7$" referenced below carries an understated
 > QED denominator. **Corrected (v3 headline, single instantaneous footing — OPTION-B re-freeze 2026-07-07):
 > $3.75\pi/\alpha^2\approx2.2\times10^5$** (the 2026-07-03 QED-normalization step gave the propagating/mixed-footing

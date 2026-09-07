@@ -33,7 +33,7 @@
 > The real charge-distinct chord — candidates **#2 (handedness-magnitude)** and
 > **#3 ((q·ℓ_node))** — stays **DEFERRED to the unbuilt cage⊗winding engine.**
 >
-> *Per Rule-12 / audit-trail-in-git: the original body below is preserved verbatim.
+> *Per Rule-12 / audit-trail-in-git: the original body below is preserved verbatim.  <!-- rule12-freeze: base=59f4d574baaedf71820397538e35903f52b76e4d region=below offset=0 lines=285 bytes=16568 sha256=4d80716ab7e04f484b7201b9e11a37c5e29a0bf14f5a08f4b65e8efafafcf8cc -->
 > Read every "RESOLVED/DERIVED chord" and "(d_sat/r)²" claim through this header.*
 
 ---

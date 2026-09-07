@@ -17,7 +17,7 @@ pre-committed before any operator was built).
 > a projector-algebra **tautology** (scramble-invariant, true by construction), NOT
 > a discriminating-test result; Fork-A was MISCAST (it presupposed longitudinal
 > confinement is a differential-sector question — it is not). The headline body is
-> preserved below per Rule 12; read it together with the corrected §2 and §5. Honest
+> preserved below per Rule 12; read it together with the corrected §2 and §5. Honest  <!-- rule12-freeze: base=b638fc683ceae711af39dc97ee607c7d185a6350 region=below offset=0 lines=69 bytes=4667 sha256=7d31e9fbbb3def83146663194d9da6680013d41f91774b82a8e88001b7f8f00a -->
 > net: the bedrock + four validate-on-known anchors are the genuine (sound)
 > deliverables; the longitudinal-containment claim was never a real test.
 
@@ -87,7 +87,7 @@ retraction in `research/2026-06-19_electron-Q-coupled-network_prereg.md:40`).
 > IS the +1 common mode and is orthogonal to the entire −1 differential sector BY
 > DEFINITION. R3 is TRUE, but true by construction, not because a test discriminated
 > it. The honest net outcome of this gate is stated in the corrected §5. The
-> original §2 body is preserved unchanged below per Rule 12 (substitution-not-
+> original §2 body is preserved unchanged below per Rule 12 (substitution-not-  <!-- rule12-freeze: base=b638fc683ceae711af39dc97ee607c7d185a6350 region=below offset=0 lines=174 bytes=11395 sha256=fb91efcce3d0d6ca130e11f8633193404a0bf7ccceb25851a15ccbfe68e807f8 -->
 > retraction forbidden).
 >
 > Regression marker encoding this finding:

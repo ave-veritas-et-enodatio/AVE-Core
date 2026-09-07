@@ -129,7 +129,7 @@ verbatim content, do not reframe one to match the other.
 
 ---
 
-## ERRATA (append-only; freeze integrity — body above unedited)
+## ERRATA (append-only; freeze integrity — body above unedited)  <!-- rule12-freeze: base=aaacc5ae027e477b8f0cf6fc622c5bd9ed2e787a region=above offset=0 lines=131 bytes=10523 sha256=9aac447ac9bc73aa34d50c339fa3fb076dbbbc7053df6abfd742b784bd5418f1 -->
 
 This prereg is frozen. Citation-offset corrections surfaced during the PR #556 fix round are recorded
 here as ERRATA-append rather than by editing the frozen table (Rule 11 / freeze integrity). The verbatim

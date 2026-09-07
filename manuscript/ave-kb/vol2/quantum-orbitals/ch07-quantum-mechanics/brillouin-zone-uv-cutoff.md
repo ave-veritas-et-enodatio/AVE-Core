@@ -8,7 +8,7 @@ claims: [clm-1wmyx3]
 
 # Brillouin-Zone UV Cutoff: the 1-loop integral is FINITE by mode-count (engine capability)
 
-> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**
+> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**  <!-- rule12-freeze: base=46162d6589f063f1cbc90712e1a7d24d613ca098 region=below offset=5 lines=95 bytes=7119 sha256=dfb9554fe7661c37ad67de44b1fcdb5af3034e2ab1f450c859431bf8db3bd841 -->
 > The E-route birefringence "$7.5/\alpha^3$ α-echo" referenced below carries an understated QED denominator.
 > **Corrected (v3 headline, single instantaneous footing — OPTION-B re-freeze 2026-07-07):
 > $3.75\pi/\alpha^2\approx2.2\times10^5$** (the 2026-07-03 QED-normalization step gave the propagating/mixed-footing

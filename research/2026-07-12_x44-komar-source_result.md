@@ -123,7 +123,7 @@ The historical check4 g_self-ON/OFF discriminator is therefore vacuous under Kom
 Post-review, the mechanism resolves to a four-step closure chain — WHY the
 density-only √S implementation could not reconcile, and what a faithful test needs:
 
-> 🔴 **FALSIFYING-EVIDENCE HEADER — bullet (i) is the FALSIFIED SIDE (2026-07-14; Rule-12 — the bullet body below is PRESERVED VERBATIM, git is the trail).**
+> 🔴 **FALSIFYING-EVIDENCE HEADER — bullet (i) is the FALSIFIED SIDE (2026-07-14; Rule-12 — the bullet body below is PRESERVED VERBATIM, git is the trail).**  <!-- rule12-freeze: base=ffff2429b5b44608956f99ce31ebcc80d68a656c region=below offset=0 lines=101 bytes=7569 sha256=4f98de21a0b15a22503ea1445ca130a420792b9f9bb9383e8d7a2e965c2dfaa3 -->
 > Grant **Ruling 1 (F6, in-chat 2026-07-14; ruling record: PR #695 docket continuation)** adjudicated the F6 fork in favour of
 > **√S slope-1 IS the Komar / local-clock weight** — the W2 walk-back and the RULED-(c) `komar_weight` **prevail**, and **this
 > bullet (i)'s "wrong strain-register" diagnosis is the falsified side.** Bullet (i) argues the shipped `√S` weight is the *EM*
@@ -225,7 +225,7 @@ density-only √S implementation could not reconcile, and what a faithful test n
      **structurally reachable**, so a miss would be a real falsification of (c) — not
      a regime artifact (§4b).
 
-> 🔴 **CORRECTION NOTE — option 5(a)'s label is the upstream mislabel, FALSIFIED (2026-07-14; Grant Ruling 1, F6; body above preserved per Rule-12; ruling record: PR #695 docket continuation).**
+> 🔴 **CORRECTION NOTE — option 5(a)'s label is the upstream mislabel, FALSIFIED (2026-07-14; Grant Ruling 1, F6; body above preserved per Rule-12; ruling record: PR #695 docket continuation).**  <!-- rule12-freeze: base=ffff2429b5b44608956f99ce31ebcc80d68a656c region=above offset=0 lines=101 bytes=7569 sha256=4f98de21a0b15a22503ea1445ca130a420792b9f9bb9383e8d7a2e965c2dfaa3 -->
 > Option 5(a) proposes "a **linear-in-ε clock weight** — the engine's OWN gravitational redshift register (`n = 1 + (2/7)ε`), NOT
 > the EM operating-point `√S`." Per **Ruling 1**, that attribution is **inverted**: `n = 1 + (2/7)ε` is the **slope-2**
 > bulk/coordinate-time propagation (Shapiro / deflection) index — the ray-trace optical / refractive index (`backreaction.py:647-651`

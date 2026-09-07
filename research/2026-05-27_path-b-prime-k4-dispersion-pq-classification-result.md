@@ -187,7 +187,7 @@ Per the prereg §3 outcome-probability table and the §0/§1 priors-updates from
 
 ## §4-AMENDMENT (Rule 12, 2026-05-27 post-orchestration-run) — empirical Phase 2 outcome + canonical reframing
 
-**Rule 12 discipline note**: §4 body above ("EMPIRICAL MEASUREMENT — BLOCKED IN SANDBOX") is preserved verbatim. This amendment subsection appends the Phase 2 empirical result + the canonical-positioning reframing surfaced by orchestration-session Explore deep-search concurrent with the driver run. The PARTIAL Phase 1 closure remains the honest record of the implementor session; the FALSIFIED Phase 2 closure is the honest record of the orchestration-session driver run.
+**Rule 12 discipline note**: §4 body above ("EMPIRICAL MEASUREMENT — BLOCKED IN SANDBOX") is preserved verbatim. This amendment subsection appends the Phase 2 empirical result + the canonical-positioning reframing surfaced by orchestration-session Explore deep-search concurrent with the driver run. The PARTIAL Phase 1 closure remains the honest record of the implementor session; the FALSIFIED Phase 2 closure is the honest record of the orchestration-session driver run.  <!-- rule12-freeze: base=ca7eb78a426f3e40359d501438e13d4a96fa1fbf region=above offset=0 lines=120 bytes=12450 sha256=70884f0efaeb2079775fa439bdd1d50b56128b7a36d91031596a91bb1baea46b -->
 
 ### §4-A.1 Phase 2 execution path — orchestration session
 

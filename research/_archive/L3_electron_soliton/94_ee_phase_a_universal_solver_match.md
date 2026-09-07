@@ -265,7 +265,7 @@ Pre-flight 1-step smoke: ω max grew from 0.86 → 60,785 (**~70,000× blowup**)
 | Faraday residual | 99.98% | **10,885%** | catastrophic ⚠ |
 | A²_mean steady | 0.902 | 0.902 | V-sector saturation bounded ✓ |
 
-**🔴 RETRACTED 2026-04-29 same-day per Rule 12 — Q1 engine-investigation surfaced that this diagnosis is wrong. Original text preserved below; retraction reason follows.**
+**🔴 RETRACTED 2026-04-29 same-day per Rule 12 — Q1 engine-investigation surfaced that this diagnosis is wrong. Original text preserved below; retraction reason follows.**  <!-- rule12-freeze: base=e753e40b0dced572f46b3866c19f165a7c9de627 region=below offset=0 lines=56 bytes=8334 sha256=c795ba96bdcff9c9cdcbaa3564697be65c57bd1e84ca53ba050954f98e547d11 -->
 
 **Original diagnosis (RETRACTED):** asymmetric saturation between V and ω sectors. The V sector has Ax 4 saturation actively bounding V_inc² ≤ V_yield² — it stays at the ℓ=2 cavity mode regardless of LC coupling. The ω sector either lacks the corresponding magnetic-saturation Ax 4 kernel (μ_eff = μ_0·S(B/B_snap) → 0 should bound ω at saturation per [eq_axiom_4](../../manuscript/common_equations/eq_axiom_4.tex)) or the kernel isn't being triggered effectively in this engine config. With LC coupling enabled, energy pumps from V into ω through Maxwell-Heaviside coupling without an effective ω-side bound. ω explodes, ring localization fails, trap dissolves.
 

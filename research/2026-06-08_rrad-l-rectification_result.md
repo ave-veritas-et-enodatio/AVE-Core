@@ -8,7 +8,7 @@
 **Adjudication seed**: [`AVE-Propulsion-ionpump/research/2026-06-08_NEXT-STEP_Rrad-L_core-brief.md`] §"ADJUDICATION 2026-06-08 (Grant)".
 **Home leaf (mechanism)**: AVE-Propulsion `manuscript/vol_propulsion/chapters/03_acoustic_rectification.tex`.
 
-> 🟠 **2026-06-09 REGIME-RESCOPE (Rule 12 — header-only addition; every line of the body below is PRESERVED VERBATIM).**
+> 🟠 **2026-06-09 REGIME-RESCOPE (Rule 12 — header-only addition; every line of the body below is PRESERVED VERBATIM).**  <!-- rule12-freeze: base=73a5b27f5c9aae231b10db7b3fd94dcfed9d758a region=below offset=0 lines=296 bytes=21080 sha256=e68e3710546fd27c7fc557e4277f2fd548e141ad3db83bf31f8f40f2ea3adfda -->
 > **Governing discipline:** `ave-regime-phase-state-check`. **Adjudication:** Grant, 2026-06-09 (regime / phase-state discipline).
 >
 > **(a) This OUTCOME-B is a SUB-YIELD-LINEAR SHEAR/CHIRAL-ω regime null = a WRONG-REGIME ARTIFACT, not a falsification.** Rate-asymmetry / rectification can live ONLY in the BULK NEAR-YIELD (ruptured) regime. The chiral-ω-Beltrami drive here lives in the sub-yield-linear shear sector, where the Axiom-4 kernel is instantaneous and even-in-A (achromatic + reversible → ∮ = 0 *by construction*). A null in a regime that forbids the effect is uninformative as a falsification (`ave-regime-phase-state-check`: declare MODE + REGIME + PHASE-STATE; a null where the effect cannot exist is an artifact, not a falsification).

@@ -114,7 +114,7 @@ Thermometer re-fire remains **GATED**. Next hypothesis under the same discrimina
 
 ## Post-adversarial-review amendments — 2026-07-16 (append-only; §0–§5 body byte-untouched)
 
-> 🔴 **Rule-12 supersession (2026-07-16, post-review).** PR #711's independent adversarial review (11 findings confirmed, 1 refuted) voided the **detector infrastructure** while the **verdict** survives untouched: Arm A is **BIAS-MOVED** on the independent protected-core `S_core` knife (ΔS_core = 1.421e-1 ≫ BIAS_TOL = 5e-3, 28×). Per the freeze discipline the §0–§5 body above is preserved **byte-for-byte**; the corrections below are dated amendments that supersede only the specific §5 claims they cite. The Arm A negative stands and is banked (see A7). The no-smuggle rail **passed** — see A2.
+> 🔴 **Rule-12 supersession (2026-07-16, post-review).** PR #711's independent adversarial review (11 findings confirmed, 1 refuted) voided the **detector infrastructure** while the **verdict** survives untouched: Arm A is **BIAS-MOVED** on the independent protected-core `S_core` knife (ΔS_core = 1.421e-1 ≫ BIAS_TOL = 5e-3, 28×). Per the freeze discipline the §0–§5 body above is preserved **byte-for-byte**; the corrections below are dated amendments that supersede only the specific §5 claims they cite. The Arm A negative stands and is banked (see A7). The no-smuggle rail **passed** — see A2.  <!-- rule12-freeze: base=7f65fd679ef8be5322df14c338cd41df78dc2086 region=above offset=0 lines=116 bytes=6654 sha256=e4b4ee37af3475abbd120cf4a96bfd42e9aa6c4855e9ad3e61cc40197384b0bd -->
 
 ### A1 — Mode-count "detector LIVE" headline RETRACTED (findings 0 / 4 / 7 — CRITICAL, three lenses converged)
 

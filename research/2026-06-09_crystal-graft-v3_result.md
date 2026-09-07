@@ -9,7 +9,7 @@
 
 ## 🔴 FINAL-VERDICT ADDENDUM — 2026-06-09 adversarial panel: **B → C** (`survives_adversarial = FALSE`)
 
-> **Rule 12 walk-back (substitution-not-retraction): the doc body below is PRESERVED UNCHANGED; this
+> **Rule 12 walk-back (substitution-not-retraction): the doc body below is PRESERVED UNCHANGED; this  <!-- rule12-freeze: base=4627651aa9f6d9ffd71de2ed0d99e38a3a9305f5 region=below offset=85 lines=158 bytes=13063 sha256=a1dbfad6a5642d69ad34162017bc607896f8b0539845e27059a93596564c8b3e -->
 > dated header SUPERSEDES the `## VERDICT — B` headline that follows.** A 4-lens adversarial panel
 > (graft-v3 adversarial panel + synthesis, 2026-06-09) DEMOTED the run from **B** to **C**. Two lenses are
 > FATAL. The surviving result is real but strictly narrower than the body claims. The slot is NOT refilled

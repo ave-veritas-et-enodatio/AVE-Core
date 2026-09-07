@@ -151,7 +151,7 @@ The master-equation bulk-V self-trap is **v14-Mode-I-VALIDATED** (`two-engine-ar
 
 ## Amendment 1 — auditor pre-driver review (2026-06-13)
 
-> **Rule-12 dated addendum** (the frozen body above is preserved). Folds the auditor's pre-driver review; **supersedes the §3 verdict bins**. No data has been seen — this remains a pre-run pre-registration.
+> **Rule-12 dated addendum** (the frozen body above is preserved). Folds the auditor's pre-driver review; **supersedes the §3 verdict bins**. No data has been seen — this remains a pre-run pre-registration.  <!-- rule12-freeze: base=89cc31f6d26e4d9fc9f850fd3abfc46f9f3ec843 region=above offset=57 lines=96 bytes=8225 sha256=806fbdf1f3f4c4644ea8d05621d9c09b54644066c3c3dcbf499a8068744f5d36 -->
 
 **A1 — self-focus is the PRIMARY signal, robust to BOTH traps.** The discriminator is **`max|A|_interior` GROWTH** (the `c_eff(V)` self-steepening dynamics — does the field amplify toward `A→1`), **NOT** the `gamma_bulk` magnitude. This dodges *both* the plant-vs-emerge trap (it's the dynamic, not the t=0 read) *and* the `n=S^{1/4}`-vs-`S^{1/2}` exponent defect (which lives in `gamma_bulk()`, a downstream read of A — not in A itself). `gamma_bulk_min` deepening *below* its t=0 value is **corroborating**; its magnitude stays apparatus-qualified, never a verdict axis.
 

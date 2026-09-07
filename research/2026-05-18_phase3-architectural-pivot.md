@@ -1,4 +1,4 @@
-> **Notation (2026-06-18):** Substrate object symbol `$\mathcal{M}_A$` **retired** (Grant adjudication). Use prose: *substrate*, *chiral LC network*, *chiral Laves K4 Cosserat crystal*. Body below preserved per Rule-12.
+> **Notation (2026-06-18):** Substrate object symbol `$\mathcal{M}_A$` **retired** (Grant adjudication). Use prose: *substrate*, *chiral LC network*, *chiral Laves K4 Cosserat crystal*. Body below preserved per Rule-12.  <!-- rule12-freeze: base=b56a39db08f5f23df45c3ac01443ad55d3d30423 region=below offset=0 lines=123 bytes=9206 sha256=1d049abe54513e99d0d0c2b901d03b95197a896e761618af8430c61381a23be6 -->
 
 # Cosserat-Lagrangian Engine Phase 3 Architectural Pivot
 

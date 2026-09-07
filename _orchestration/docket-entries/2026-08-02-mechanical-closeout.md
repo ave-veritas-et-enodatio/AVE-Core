@@ -14,7 +14,7 @@ A second copy goes stale on its own clock, and this one did twice — the pre-20
 
 **Kept locally (map-row-scoped, which is what this leaf owns):** the four rows of *this* map with no ratings-table row (A1-HOPF, C1-BH-RING, C5-CMB-AXIS, C3-MUON-DELTA) under the original *AVE-distinctness × accessibility × decisiveness* rule, plus the explicitly-NOT-ranked retired/regime-artifact paragraph.
 
-**Rule 12:** the `#823` re-derived block is preserved verbatim in a new dated `<details>` citing this ruling verbatim; the pre-2026-08-01 block's existing `<details>` is untouched. **+22 lines, all below `:428`.**
+**Rule 12:** the `#823` re-derived block is preserved verbatim in a new dated `<details>` citing this ruling verbatim; the pre-2026-08-01 block's existing `<details>` is untouched. **+22 lines, all below `:428`.**  <!-- rule12-freeze: base=19ff95c542a834fb4a10d8831a64f65e8b1cfd0b region=below offset=10 lines=38 bytes=5222 sha256=31c21127077b2af22c7601e5522d7720c339a21be225f6e081e05d91f3f52d53 -->
 
 #### ITEM B (ruling 5) — the 2026-08-01/02 ruling batch enumerated
 

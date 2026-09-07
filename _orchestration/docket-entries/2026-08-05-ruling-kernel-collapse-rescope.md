@@ -36,4 +36,4 @@ fourth-channel row (inverted content per PR #890), and the approach-leak lane on
 **⚑ SUPERSEDED AS THE CITABLE RULED TEXT, 2026-08-06** — re-issued with the cross-grade
 combine-member fence and the corrected engine-receipt statement as
 `2026-08-06-ruling-kernel-collapse-rescope-v2.md` (Grant GO, decision-batch R5). This
-record is preserved unedited above per Rule 12; cite the v2.
+record is preserved unedited above per Rule 12; cite the v2.  <!-- rule12-freeze: base=a3dee5994eb86bfe8d174b93fb8f4476328a988c region=above offset=0 lines=38 bytes=2765 sha256=f145a74352123f33e5291d44c70f52b46e89bb1f7a23057e60b3189389f253cc -->

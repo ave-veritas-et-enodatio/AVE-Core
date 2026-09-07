@@ -6,7 +6,7 @@
 
 ---
 
-## 🔴 RETRACTION HEADER (2026-06-27 — Rule 12 / ave-walk-back; body preserved unchanged below)
+## 🔴 RETRACTION HEADER (2026-06-27 — Rule 12 / ave-walk-back; body preserved unchanged below)  <!-- rule12-freeze: base=5d99ae7705a9e1458f9a4f1af08f8ff9d18a4280 region=below offset=0 lines=110 bytes=9325 sha256=75749abbf5ea5bd1f227d370338f21f4f040ba76943055f62b79525ea9147ecf -->
 
 **This result is RETRACTED as an ARTIFACT.** An adversarial audit (task #83) found the headline claims —
 "emergent $\bar{\varepsilon} \to \alpha$" (§0.3, §3 table, §4.3) and "balanced flywheel lock" (§0.2, §4.2) —

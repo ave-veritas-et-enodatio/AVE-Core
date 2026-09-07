@@ -14,7 +14,7 @@
 > prereg + version + verification chain.** Lane: `_orchestration/2026-06-15_passive-eigenmode-solve.md`.
 > **Rule 11 — commitment written BEFORE the driver; no knobs tuned to force a result.**
 
-> **🟢 RULE-12 TERMINOLOGY ANNOTATION (2026-06-15, post-freeze; frozen body below PRESERVED unedited —
+> **🟢 RULE-12 TERMINOLOGY ANNOTATION (2026-06-15, post-freeze; frozen body below PRESERVED unedited —  <!-- rule12-freeze: base=c84f95b5baf3ed8ce8f9fd46a7570982da42936d region=below offset=0 lines=311 bytes=24270 sha256=173cf26dbe7a02c1c821d32bcb391fe6edd2965cd106f2690cb528bfe6046b94 -->
 > no falsifier/bin change).** Reconciliation against `common/substrate-native-terminology.md` (the
 > EE-native leak-check). (a) **Flag-A impedance half is now CANONICAL:** `INVARIANT-S2` "Q1 = (B)"
 > (Grant-ratified 2026-06-15) splits the sectors at the impedance level — **Z→0 = A1 longitudinal

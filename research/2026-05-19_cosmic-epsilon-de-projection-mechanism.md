@@ -1,4 +1,4 @@
-> **Notation (2026-06-18):** Substrate object symbol `$\mathcal{M}_A$` **retired** (Grant adjudication). Use prose: *substrate*, *chiral LC network*, *chiral Laves K4 Cosserat crystal*. Body below preserved per Rule-12.
+> **Notation (2026-06-18):** Substrate object symbol `$\mathcal{M}_A$` **retired** (Grant adjudication). Use prose: *substrate*, *chiral LC network*, *chiral Laves K4 Cosserat crystal*. Body below preserved per Rule-12.  <!-- rule12-freeze: base=b56a39db08f5f23df45c3ac01443ad55d3d30423 region=below offset=0 lines=463 bytes=42638 sha256=df8822758389bb64aaa542d1c8f090ddff11a948e0ebf53bc8157957a020aeaa -->
 
 # Cosmic-ε / DE Projection Mechanism (β Session 2)
 

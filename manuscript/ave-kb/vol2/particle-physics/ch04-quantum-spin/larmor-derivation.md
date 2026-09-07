@@ -52,7 +52,7 @@ $$
 > \boldsymbol{\omega}_L \times \mathbf{L} = \mathbf{L} \times (-\gamma \mathbf{B}_0) \implies \boldsymbol{\omega}_L = -\gamma \mathbf{B}_0
 > $$
 >
-> Taking the magnitude yields the exact Larmor frequency ($\omega_L = \gamma B_0$), ~~proving that quantum NMR spectral lines are purely classical gyroscopic resonances.~~ recovering the NMR line position as a classical gyroscopic precession rate. This is an *ontological reinterpretation*, not a novel numerical prediction: the observable was already the textbook one, and what changes is the mechanism assigned to it. *(Clause struck 2026-08-02 per Rule 12 — the original is preserved above and in git, not deleted; see the scope banner below.)*
+> Taking the magnitude yields the exact Larmor frequency ($\omega_L = \gamma B_0$), ~~proving that quantum NMR spectral lines are purely classical gyroscopic resonances.~~ recovering the NMR line position as a classical gyroscopic precession rate. This is an *ontological reinterpretation*, not a novel numerical prediction: the observable was already the textbook one, and what changes is the mechanism assigned to it. *(Clause struck 2026-08-02 per Rule 12 — the original is preserved above and in git, not deleted; see the scope banner below.)*  <!-- rule12-freeze: base=7c354baa9b74053b57c1093e1daeb5bb0c158e3a region=above offset=0 lines=54 bytes=3051 sha256=eb09b655eed00939c7f4f5f4800ffeec6946aa56efc58a149f5ebe2faadb8fa3 -->
 
 > **[2026-08-02 — scope of the equivalence, per `clm-salw2h`; KB-lockstep with the merged print correction]**
 >

@@ -1,4 +1,4 @@
-# RESULT — [CONSTRAINT-DEPENDENT] (CORRECTED). The bond-frame T-slot content of a traveling wave is CONSTRAINT-DEPENDENT: COLD on fixed-contour hosts (ring/pinned), SOFT by ⟨dy²⟩/2 on the free host. The #526 fork DISSOLVES into a boundary-condition question for Grant. The original [DC-ONLY-DERIVED] verdict below is SUPERSEDED (Rule 12, preserved).
+# RESULT — [CONSTRAINT-DEPENDENT] (CORRECTED). The bond-frame T-slot content of a traveling wave is CONSTRAINT-DEPENDENT: COLD on fixed-contour hosts (ring/pinned), SOFT by ⟨dy²⟩/2 on the free host. The #526 fork DISSOLVES into a boundary-condition question for Grant. The original [DC-ONLY-DERIVED] verdict below is SUPERSEDED (Rule 12, preserved).  <!-- rule12-freeze: base=a91bc805896b9d63a9cea132b5a0c2356f39ab50 region=below offset=0 lines=488 bytes=37562 sha256=b3191803ed2768119cda450435a3fd2c2c555df897c6d41188a155b6ee9d0c1d -->
 
 > ## 🔴 SUPERSEDED VERDICT (2026-07-05, orchestrator review of PR #533 — 12 confirmed, 2 CRITICAL, 0 refuted)
 >

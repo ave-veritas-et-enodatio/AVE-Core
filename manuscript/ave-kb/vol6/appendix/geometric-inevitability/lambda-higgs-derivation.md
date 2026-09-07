@@ -17,7 +17,7 @@ claims: [clm-ome498]
 >
 > **(2) $\lambda_H = 1/(2 N_{K4})$ derivation is NOT independent of $g_* = 7^3/N_{K4}$ derivation** (per `ave-independence-check` trigger 2 broadened): both use the SAME axiomatic constant $N_{K4} = 4$ (K4 unit-cell vertices, Axiom 1). They are ONE axiom manifesting in two places via derived identities, NOT two independent confirmations. When citing $\lambda_H$ + $g_*$ jointly in evidence lists, count as ONE evidence line. This is the Foundation Item 4 gravitational-redshift pattern (one underlying constant appearing as if it were two independent confirmations).
 >
-> *Body below preserved per Rule 12.*
+> *Body below preserved per Rule 12.*  <!-- rule12-freeze: base=547be01ccd6fb26a027420bc8b1c672d631aa6ff region=below offset=0 lines=24 bytes=1014 sha256=cce8b30df5f6dee78671243616532d465fd494f541969069b81b737d30ee0152 -->
 
 The Standard Model Higgs quartic self-coupling $\lambda$ is measured as $\approx 0.129$. AVE derives it from the K4 unit cell topology.
 

@@ -43,7 +43,7 @@ Any $\theta \ne 0$ gives the neutron an electric dipole moment $d_n \propto \the
 ---
 
 > 🔴 **Dated scope carve 2026-08-23 (θ-fork adjudication, Grant rulings (a)+(b); docket
-> `2026-08-23-theta-fork-ruling`). Body above preserved unedited (Rule 12).**
+> `2026-08-23-theta-fork-ruling`). Body above preserved unedited (Rule 12).**  <!-- rule12-freeze: base=429ec19ce470346b84377b1a7b079af8bfc6720e region=above offset=0 lines=45 bytes=2059 sha256=555527e4d285a22123799c98e6bc903a38000dcb836dd3733e5c291249139df9 -->
 >
 > 1. **Scope: the θ of this theorem is the GLOBAL vacuum angle** — the angle of the
 >    defect-free, asymptotic ground state (proof step 1's E=B=0 state). The corpus also

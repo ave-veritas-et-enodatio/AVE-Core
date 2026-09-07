@@ -1,6 +1,6 @@
 # PREREG (FROZEN) — The bond-frame 2nd-order content of a traveling transverse wave on a CLEAN periodic-ring host: closing the #526 T-slot fork ANALYTICALLY
 
-> ## ↗ ERRATA BANNER (2026-07-05, orchestrator review of PR #533 — banner-append only; the frozen body below is a record, NOT edited)
+> ## ↗ ERRATA BANNER (2026-07-05, orchestrator review of PR #533 — banner-append only; the frozen body below is a record, NOT edited)  <!-- rule12-freeze: base=7abf5af97209feca67aa6950f7dbd76dd198b927 region=below offset=0 lines=135 bytes=21911 sha256=bfa4276f75a87dc5ff3dfc18bd29afe6712a1cf86d3d97bd17020a421acd3a5a -->
 > The bin OUTCOME is [CONSTRAINT-DEPENDENT] (this prereg's own bin (iv)), not the [DC-ONLY-DERIVED] the
 > #533 result claimed. The FROZEN bins and adjudication contract below are UNCHANGED and CORRECT — the
 > #533 result mis-routed them (it never ran the cross-host measurement bin (iv) required). Two frozen-body

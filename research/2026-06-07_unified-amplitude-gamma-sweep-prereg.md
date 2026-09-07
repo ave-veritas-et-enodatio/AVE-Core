@@ -28,7 +28,7 @@ This is the substrate-native test of **FORK A (calibration crux)**: rest-energy-
 
 **Secondary prediction:** A monotonic trend — `Γ_min` becomes more negative as seed amplitude increases, while `energy_growth_ratio` increases super-linearly past `A_peak ≈ 0.85`.
 
-> 🔴 **Post-run note (W2, Rule 12):** SPLIT verdict — the `Γ_min`-monotonic clause is CONFIRMED; the **super-linear `energy_growth_ratio` clause is FALSIFIED** (`energy_growth_ratio ≈ 1.0` for 12/13 rows, no parametric pump). Prediction body preserved above; see §8.2 for the adjudication split.
+> 🔴 **Post-run note (W2, Rule 12):** SPLIT verdict — the `Γ_min`-monotonic clause is CONFIRMED; the **super-linear `energy_growth_ratio` clause is FALSIFIED** (`energy_growth_ratio ≈ 1.0` for 12/13 rows, no parametric pump). Prediction body preserved above; see §8.2 for the adjudication split.  <!-- rule12-freeze: base=e88eff77a7d8f049705bc54a1d3a7bbb4572b54d region=above offset=0 lines=30 bytes=1778 sha256=2128f621eb11f6ef6da76eaf04d62e4afe7f43ea2d354149353c7ccc049236d7 -->
 
 ## §3 Inputs / forbidden inputs
 

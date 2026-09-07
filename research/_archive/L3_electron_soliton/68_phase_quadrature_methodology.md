@@ -1,4 +1,4 @@
-> **Notation (2026-06-18):** Substrate object symbol `$\mathcal{M}_A$` **retired** (Grant adjudication). Use prose: *substrate*, *chiral LC network*, *chiral Laves K4 Cosserat crystal*. Body below preserved per Rule-12.
+> **Notation (2026-06-18):** Substrate object symbol `$\mathcal{M}_A$` **retired** (Grant adjudication). Use prose: *substrate*, *chiral LC network*, *chiral Laves K4 Cosserat crystal*. Body below preserved per Rule-12.  <!-- rule12-freeze: base=b56a39db08f5f23df45c3ac01443ad55d3d30423 region=below offset=0 lines=337 bytes=26210 sha256=4cdedf61c25506bd3f4726bbd827e28554fd85209c1bac15883eaef799d4a864 -->
 
 # 68 — F17-K: Phase-Quadrature S₁₁ Methodology for Single-Electron Validation
 

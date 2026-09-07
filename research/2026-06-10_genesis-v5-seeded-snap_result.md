@@ -180,7 +180,7 @@ charge, no quantized spin, no de Broglie, and a geometric (not chiral) twin**. N
 
 ## 🔴 ADDENDUM — 2026-06-10 (Rule-12, append-only; v5 panel ruling)
 
-**Rule 12 / append-only:** the bodies above (§0–§8) are PRESERVED verbatim and SUPERSEDED here, not
+**Rule 12 / append-only:** the bodies above (§0–§8) are PRESERVED verbatim and SUPERSEDED here, not  <!-- rule12-freeze: base=93da170e767520c930756554bce15c403d35c41c region=above offset=0 lines=182 bytes=14188 sha256=3cbd305235e9a77ed31d66c12108087a8683b0d5d13118e765e299306e64120e -->
 rewritten. The frozen prereg `@454acf19` (single file, 285 insertions) is untouched. Every number below
 re-verified against `research/2026-06-10_genesis-v5-seeded-snap_results.json` and the engine/driver
 (`src/ave/core/unified_genesis_engine.py`, `src/scripts/vol_1_foundations/genesis_v5_seeded_snap_run.py`,

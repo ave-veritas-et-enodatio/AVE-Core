@@ -74,7 +74,7 @@ A Phase-C banner (or later KB audit) that lands **after** a pass has started **a
 
 ## Discharge protocol (every F-row)
 
-> **Superseded 2026-08-18** by the combined-pass protocol above (Wave-2 ruling D7-A); body preserved (Rule 12) — every frozen requirement below still binds, only the one-full-universe-pass-per-row *scoping* is replaced.
+> **Superseded 2026-08-18** by the combined-pass protocol above (Wave-2 ruling D7-A); body preserved (Rule 12) — every frozen requirement below still binds, only the one-full-universe-pass-per-row *scoping* is replaced.  <!-- rule12-freeze: base=0316211661e880e569debeac1c5c73fa0c1e4fb1 region=above offset=0 lines=76 bytes=6950 sha256=b143aabb5b0b032c13fd8b117a68b9a92447f31743947c95eb8d68ab08043ffc -->
 
 For **this corpse only** (the verbatim fragment + K# in the row):
 

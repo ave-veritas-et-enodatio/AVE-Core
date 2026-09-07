@@ -1,4 +1,4 @@
-> **Notation (2026-06-18):** Substrate object symbol `$\mathcal{M}_A$` **retired** (Grant adjudication). Use prose: *substrate*, *chiral LC network*, *chiral Laves K4 Cosserat crystal*. Body below preserved per Rule-12.
+> **Notation (2026-06-18):** Substrate object symbol `$\mathcal{M}_A$` **retired** (Grant adjudication). Use prose: *substrate*, *chiral LC network*, *chiral Laves K4 Cosserat crystal*. Body below preserved per Rule-12.  <!-- rule12-freeze: base=b56a39db08f5f23df45c3ac01443ad55d3d30423 region=below offset=0 lines=285 bytes=25061 sha256=ffd9fa1e6908a6a8ce95afddc4991d0b0c91de751cfcd195375754531ab457f8 -->
 
 # Phase 2-A Pre-Registration — Master-Vacuum-Equation Derivation of Born-Rule Click-Probability Scaling
 

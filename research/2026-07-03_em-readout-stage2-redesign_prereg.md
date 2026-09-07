@@ -10,7 +10,7 @@
 
 ---
 
-## 🔴 RETRACTED 2026-07-03 — THE UN-RIGGABLE-ESCAPE CLAIM WAS FALSE (Rule-12; body below PRESERVED unedited)
+## 🔴 RETRACTED 2026-07-03 — THE UN-RIGGABLE-ESCAPE CLAIM WAS FALSE (Rule-12; body below PRESERVED unedited)  <!-- rule12-freeze: base=4037b7e27f87008850b06a9c5863ccae7e76137f region=below offset=0 lines=122 bytes=17555 sha256=2d41d76295bc0e40655ccdc50bd8c7bf08871e19319493186c69ace75a8f8bac -->
 
 **HOLD-POINT PANEL VERDICT: NO-GO from both lanes. The instrument is RETIRED; the decisive winding runs never unlocked.** The panel's blocker is CONFIRMED — I re-verified every load-bearing claim myself before accepting (flag-don't-fix applies to panel claims; the Stage-1b precedent), and all held.
 

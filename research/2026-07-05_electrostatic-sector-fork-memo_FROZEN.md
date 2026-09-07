@@ -6,7 +6,7 @@
 >
 > This memo is FROZEN as of this commit. The three pre-registered outcome bins ([A-CONSISTENT] /
 > [B-AVE] / [C-EXCLUDED]) and the rejection of Keith's "radiative-not-static" arm are now **IMMUTABLE**:
-> any later change is an **ERRATA BANNER ONLY** (append-only; the frozen body below is a record, NOT
+> any later change is an **ERRATA BANNER ONLY** (append-only; the frozen body below is a record, NOT  <!-- rule12-freeze: base=4747630bf35e5e5abdd816ca022e8fcb5ba343ca region=below offset=0 lines=216 bytes=17043 sha256=d68938b1b7d66d17da90c72c5a1824ffc6a377f39ce11da503ce220432cdc4ae -->
 > edited). **This freeze GATES Problem 3** — the muonic-hydrogen 2S–2P adjudicator (§1 Problem 3, §3
 > [A]/[B]/[C], §4) fires on this freeze. The commit-time ordering (this freeze committed before any
 > Arm-2 edit in the same PR) is the proof that Problem 3 was gated, not run, at freeze time.

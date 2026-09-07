@@ -8,7 +8,7 @@ vacuum birefringence** (the bankable chord, clm-pp3qwf, reusing the saturating-�
 are **dormant in the QED regime** (recover-QED at low momentum / low field). The inherited continuum QED core
 is the low-momentum / weak-field limit and is NOT re-derived here.
 
-> 🔴 **==== v3-SUPERSESSION STAMP — added 2026-08-02; document-scoped; Rule 12, every body below preserved verbatim (git is the trail). ====**
+> 🔴 **==== v3-SUPERSESSION STAMP — added 2026-08-02; document-scoped; Rule 12, every body below preserved verbatim (git is the trail). ====**  <!-- rule12-freeze: base=982cd40c32114d3b23489a38f0de6bced3a95d66 region=below offset=0 lines=284 bytes=24969 sha256=3c54ec1007fcbf21541938d62d8bb79500c1fe13b68dee9bbd849a0ebe8cbcf5 -->
 >
 > **Every statement of the birefringence MAGNITUDE in this document is the v1 form** $\delta n_{AVE}/\delta n_{QED} = 7.5/\alpha^3 \approx 1.93\times10^7$. **That normalization is SUPERSEDED.** The footing was re-frozen (2026-07-03, again 2026-07-05) and the **live v3 value is** $\delta n_{AVE}/\delta n_{QED} = 15\pi/(4\alpha^2) = 3.75\pi/\alpha^2 \approx 2.2\times10^5$, **boxed** at [`vacuum-birefringence-e4.md`](../manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md):104; that leaf's `:106` records the $7.5/\alpha^3$ form explicitly as **v1 convention history** (v2 $= 7.5\pi/\alpha^2 \approx 4.42\times10^5$ sits between them, QED-normalized but mixed-footing).
 >

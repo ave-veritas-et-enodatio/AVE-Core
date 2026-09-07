@@ -33,7 +33,7 @@ Heat, as a bound structure feels it, is **phase-diffusion between soliton clocks
 
 Matching the docket Entry 14 ★#1 / ★#2. **The two-tank check has FIRED (PR #707, verdict `ADDITIVE-ARTIFACT`); the two items now diverge in status.**
 
-**★ #1 — "temperature = clock phase-diffusion width/rate" — 🔴 DEMOTED to NOT-DEMONSTRATED-AS-POSED / RE-GATED (PR #707, 2026-07-15; prior PROPOSED text preserved below, Rule-12).**
+**★ #1 — "temperature = clock phase-diffusion width/rate" — 🔴 DEMOTED to NOT-DEMONSTRATED-AS-POSED / RE-GATED (PR #707, 2026-07-15; prior PROPOSED text preserved below, Rule-12).**  <!-- rule12-freeze: base=779405b979efc94181ccc28078721bf8061342a7 region=below offset=0 lines=53 bytes=9552 sha256=3ff41b1eff2da8f2d54856f53238577cfb7268ecf728cfa210ea9e60c62a8693 -->
 
 > *(Prior status, preserved verbatim, Rule-12):* ★ #1 — "temperature = clock phase-diffusion width." PROPOSED-DEFINITIONAL — not solid until measured; consistent with the FDT anchor (a wider clock-detuning distribution = a hotter bath = more Johnson-Nyquist strain-noise) but not derived.
 

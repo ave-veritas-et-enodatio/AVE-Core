@@ -3,7 +3,7 @@
 > ## 🔴 SUPERSEDED VERDICT (2026-07-05, orchestrator review of PR #532 — 12 confirmed, 3 CRITICAL, 5 MAJOR, 0 refuted)
 >
 > **The live verdict is [ADJUDICATION-INVALID — LAB-FRAME OBSERVABLE / FORK STILL OPEN], NOT
-> [EXCLUDES-DC_ONLY].** The original body below is PRESERVED (Rule 12) as the record of the
+> [EXCLUDES-DC_ONLY].** The original body below is PRESERVED (Rule 12) as the record of the  <!-- rule12-freeze: base=404577efa94d846486198a4f486130d6159b3056 region=below offset=0 lines=12 bytes=1036 sha256=41c12de9aaf1ed6116e0fab3799028adade6b4eb127dbaf19cf7afaa66a6b474 -->
 > invalid adjudication, with the load-bearing false claims corrected here. Rule 11: no rescue —
 > the mechanism DIES, the fork stays OPEN. Summary of what the review verified (all reproduced
 > this session — see §HONEST RE-ANALYSIS):
@@ -16,7 +16,7 @@
 >    cycle-MEAN configuration is **0.9973 (COLD)** — there is NO deposited DC bias the slow probe
 >    feels; the stiffening lives entirely in the cycle-averaged AC slope oscillation. **RETRACTED:**
 >    the Jensen-deposited-DC mechanism, the "AC deposits DC — yes" clm-acdc07 framing, the PONDER
->    cross-link, and the #518 fallout row (Rule 12: preserved-struck below, NOT refilled).
+>    cross-link, and the #518 fallout row (Rule 12: preserved-struck below, NOT refilled).  <!-- rule12-freeze: base=404577efa94d846486198a4f486130d6159b3056 region=below offset=76 lines=377 bytes=26639 sha256=dac423ff5bea451eb451c17c644d335ede34fe6950d539c1226c3ad1f979d2e5 -->
 > 2. **CRITICAL-2 — the ⟨A_bond⟩=+0.0045 "deposit" is a BOUNDARY ARTIFACT.** The drive pins
 >    u[0]=0 (Dirichlet), letting the wall exert an arbitrary mean axial force. The cycle-mean
 >    strain at the probe is actually **−0.0026 (pinned)** and **−0.0083 (free drive end)** — it

@@ -12,7 +12,7 @@
 
 ## 0. VERDICT — **LOCK** (with a clip-cleared floor-crossing)
 
-> 🔴 **SUPERSEDED — 2026-06-10 PANEL REVIEW (Rule 12 / A47 v11b: header added, body below preserved verbatim — NOT rewritten). The standing verdict is now CLIP, not LOCK; this LOCK is DEMOTED. Read §0-bis (PANEL VERDICT ADDENDUM, immediately below this section) for the final verdict and its driver. Do not cite the §0 LOCK body as the standing result.**
+> 🔴 **SUPERSEDED — 2026-06-10 PANEL REVIEW (Rule 12 / A47 v11b: header added, body below preserved verbatim — NOT rewritten). The standing verdict is now CLIP, not LOCK; this LOCK is DEMOTED. Read §0-bis (PANEL VERDICT ADDENDUM, immediately below this section) for the final verdict and its driver. Do not cite the §0 LOCK body as the standing result.**  <!-- rule12-freeze: base=5c6362e20befc337e041cc6b0715ef6e21aa677d region=below offset=0 lines=11 bytes=1718 sha256=1c1c8458e73d67c61931570a02331a5408e09bea0f751570049653eb0bd15b96 -->
 
 > **A genuinely circulating bulk-density core, rarefied by its OWN rotation (centrifugal pressure deficit), REACHES and CROSSES the candidate cavitation floor `ρ̄_cav = −1/φ ≈ −0.618` at a critical drive `M_edge* ≈ 0.75–0.8` — decisively beating the prior-art counter-propagating-beam floor of −0.26. The bulk stiffness collapses through zero into the tensile-failure region (`c_bulk²_core` goes from +0.25 at M=0.7 to −0.86, −2.78, −5.53 at M=0.8, 0.9, 1.0). BUT the three discriminating FLASH signatures are all NEGATIVE: (ii) the energy partition is SMOOTH across the crossing (no latent-release discontinuity); (iii) `pocket_cells_final = 0` (no persistent tensile-failure defect); (iv) on de-energize the core REFILLS (−0.93 → −0.07; reversible). The core RINGS and REBOUNDS — bounded oscillation, not runaway. That is the prereg's LOCK bin: pocket-COMPLIANCE, not a discontinuous phase-change. At over-drive (`M_edge ≥ 1.1`) the deepest reading pins at the apparatus clip `rho_floor = −0.95` (CLIP regime — flagged as apparatus, not physics).**
 
@@ -24,7 +24,7 @@ This is reported as the discipline at full strength (Rule 11): **the data were N
 
 ## 0-bis. PANEL VERDICT ADDENDUM — 2026-06-10 (cavitation-core-probe adversarial review)
 
-**Final verdict: CLIP.** The §0 LOCK verdict is **DEMOTED** (preserved verbatim above per Rule 12 / A47 v11b; this addendum supersedes it, it is not rewritten). Panel two-lens disposition **converges on a single root defect**: **Lens-1 (LOCK-as-a-physics-event) is REFUTED** (= true; the LOCK verdict does not survive); **Lens-2 returns WARN, with finding F5 converging on the same defect** named in (a) below.
+**Final verdict: CLIP.** The §0 LOCK verdict is **DEMOTED** (preserved verbatim above per Rule 12 / A47 v11b; this addendum supersedes it, it is not rewritten). Panel two-lens disposition **converges on a single root defect**: **Lens-1 (LOCK-as-a-physics-event) is REFUTED** (= true; the LOCK verdict does not survive); **Lens-2 returns WARN, with finding F5 converging on the same defect** named in (a) below.  <!-- rule12-freeze: base=5c6362e20befc337e041cc6b0715ef6e21aa677d region=above offset=0 lines=11 bytes=1718 sha256=1c1c8458e73d67c61931570a02331a5408e09bea0f751570049653eb0bd15b96 -->
 
 ### (a) The demotion driver — the dynamics never integrated `c²<0`
 

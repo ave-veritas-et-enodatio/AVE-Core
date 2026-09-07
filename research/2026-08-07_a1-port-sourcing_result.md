@@ -30,7 +30,7 @@ receipted profile). **PHASE-STATE** — cold-reactive far field (radiation is a 
 > UNCHANGED; the flux material stands as supporting analysis whose anchor premise carries
 > **CONTESTED-BY-GRANT status per R24** (the def-9a4f07 identity is NOT ratified; the
 > GW-formation walk gates it — see the R23/R24 addendum at the end of this doc). The headline
-> text below is PRESERVED as the pre-R23 review-repaired state (Rule 12).
+> text below is PRESERVED as the pre-R23 review-repaired state (Rule 12).  <!-- rule12-freeze: base=7a5cd4f22290c08f07dba3bf51d769431fa5c2cd region=below offset=0 lines=537 bytes=48082 sha256=a71034f5d5ff08eef33c91741dd504aaaebd2671d839cde2eb818df9e2b3de47 -->
 >
 > **VERDICT (pre-R23 form, preserved): `RADIATIVE(2)` — the multipole ORDER is settled on
 > receipted structure; the FLUX floor is a SHEAR-ANCHORED bound whose anchor is canon's own

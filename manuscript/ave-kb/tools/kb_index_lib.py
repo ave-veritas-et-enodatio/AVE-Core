@@ -670,9 +670,20 @@ def _parse_scalar_number_line(line: str) -> float | None:
     return float(num_match.group(0)) if num_match else None
 
 
+#: Rule-12 machine freeze stamps (``verify-rule12-freeze.py``). They ride at the
+#: end of a Rule-12 note's own line so that installing them shifts NO line
+#: numbers anywhere in the corpus, and some of those note lines are
+#: claim-register fields -- three ``- rationale:`` bullets among them. A stamp
+#: is a machine annotation, invisible in rendered Markdown; it must be equally
+#: invisible to content EXTRACTION, or the KB claim index ends up carrying HTML
+#: comments inside its rationale strings. Stripped at the single funnel every
+#: extracted field already passes through.
+_RULE12_STAMP = re.compile(r"<!--\s*rule12-freeze:[^>]*?-->")
+
+
 def _normalize_text(s: str) -> str:
     """Collapse internal whitespace runs and line breaks to single spaces."""
-    return re.sub(r"\s+", " ", s).strip()
+    return re.sub(r"\s+", " ", _RULE12_STAMP.sub("", s)).strip()
 
 
 def _depends_on_bullet_head(stripped: str) -> str:

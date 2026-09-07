@@ -1,6 +1,6 @@
 # 96 — Foundation Audit Test 1: Substrate-Intrinsic 1.50·ω_C Resonance
 
-**Status:** implementer-drafted, 2026-04-30. First test in the foundation-audit reframe (Grant 2026-04-30 directive: "fix/audit the foundation" — pivot from corpus-prediction-tests to bench-level engine characterization). Companion to [doc 94 §12](94_ee_phase_a_universal_solver_match.md#12) which is amended below per Rule 12 retraction-preserves-body.
+**Status:** implementer-drafted, 2026-04-30. First test in the foundation-audit reframe (Grant 2026-04-30 directive: "fix/audit the foundation" — pivot from corpus-prediction-tests to bench-level engine characterization). Companion to [doc 94 §12](94_ee_phase_a_universal_solver_match.md#12) which is amended below per Rule 12 retraction-preserves-body.  <!-- rule12-freeze: base=e753e40b0dced572f46b3866c19f165a7c9de627 region=below offset=0 lines=148 bytes=12029 sha256=9ab13b97f9a082895cf7428af03bf413e87da383d79fb516d9a007f6e718ec20 -->
 
 **Finding:** the K4 substrate at LINEAR amplitude with NO seeded topology (single delta pulse, V_pulse = 0.01·V_SNAP) rings at **ω = 1.50·ω_C** as its dominant non-Nyquist resonance. This is the SAME frequency the chair-ring + saturated + helical IC produced (1.48·ω_C) across multiple Phase A tests. **The frequency is substrate-intrinsic, not topology-derived from universal-solver formula at chair-ring r_eff.**
 
@@ -149,7 +149,7 @@ After Tests 1-4, the engine's bench behavior will be characterized to high preci
 
 ## §10 — Addendum 2026-04-30 same-day: Test 1 extensions REFINE the finding
 
-🔴 **Per Rule 12 retraction-preserves-body, refining §1-§5 framing per Test 1 extensions empirical results.** Original framing preserved above; this addendum surfaces the corrected nuance.
+🔴 **Per Rule 12 retraction-preserves-body, refining §1-§5 framing per Test 1 extensions empirical results.** Original framing preserved above; this addendum surfaces the corrected nuance.  <!-- rule12-freeze: base=e753e40b0dced572f46b3866c19f165a7c9de627 region=above offset=0 lines=148 bytes=12029 sha256=9ab13b97f9a082895cf7428af03bf413e87da383d79fb516d9a007f6e718ec20 -->
 
 **What §1-§5 said:** the K4 substrate has an intrinsic resonance at ω = 1.50·ω_C (the chair-ring's 1.48·ω_C frequency observation was substrate-intrinsic, not topology-derived).
 

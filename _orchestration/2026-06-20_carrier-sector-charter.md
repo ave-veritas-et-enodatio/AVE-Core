@@ -173,7 +173,7 @@ off `origin/main` @ `d83f77c3`)
 
 ---
 
-## 7 — CLOSURE STATUS (2026-06-20, Rule-12 ADDITION — §1-§6 above PRESERVED unedited)
+## 7 — CLOSURE STATUS (2026-06-20, Rule-12 ADDITION — §1-§6 above PRESERVED unedited)  <!-- rule12-freeze: base=b91ee7374a730765a50b89fd7fbe3a05cb661629 region=above offset=0 lines=175 bytes=9639 sha256=eca6e0b3fd2a85e3345a15c1d91b103bd2213bb60bdf9be4028b2d00a3bf808a -->
 
 > **This section RECORDS the carrier-sector adjudication outcomes reached 2026-06-20. The
 > roadmap (§4), the BAR (§5), and the Part-2 scope (§6) above are PRESERVED as the founding

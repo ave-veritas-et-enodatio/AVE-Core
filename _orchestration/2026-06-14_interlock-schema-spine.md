@@ -70,7 +70,7 @@ Return: (a) worktree/branch/base SHA (+ live origin head, + any surface drift); 
 
 ---
 
-## G-RULING ADDENDUM (2026-06-14, Rule 12 — body above preserved verbatim)
+## G-RULING ADDENDUM (2026-06-14, Rule 12 — body above preserved verbatim)  <!-- rule12-freeze: base=4c08455644851244599c3089f7b2d67219a031fc region=above offset=0 lines=72 bytes=13728 sha256=377b2975cd91fb58693d4b337f924976b6c7a27ab52a2b54c8cbd6f5a872c9cd -->
 
 Grant's adjudication landed AFTER the 6-commit Part-2 build above. This addendum records its application; the original brief body is unchanged. **Nothing self-merges — push + PR only; `main` protected.**
 

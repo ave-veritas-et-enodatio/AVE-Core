@@ -212,7 +212,7 @@ A substrate-native scope tension I do NOT resolve unilaterally (flag-don't-fix f
 > crossing A_wall=0.99479 (not √α, not 1−α, not the A→1 yield wall); K=2G's GR-import grade (PR#261)
 > is UNTOUCHED. Provenance: `research/2026-07-04_saturated-elastic-tensor_result.md` (VERDICT BOX +
 > § MODEL SCOPE); driver `src/scripts/vol_1_foundations/saturated_elastic_tensor.py`. *(This result
-> body is a frozen record; banner-append only — the flag above is unedited.)*
+> body is a frozen record; banner-append only — the flag above is unedited.)*  <!-- rule12-freeze: base=47824371962a10ea8bb42a59c734b3d2f92ea16e region=above offset=0 lines=214 bytes=14377 sha256=ca8274bd45dae9ec0ea493b33e49c06673aba6c235ed3de14db3c05577f0e096 -->
 
 ---
 

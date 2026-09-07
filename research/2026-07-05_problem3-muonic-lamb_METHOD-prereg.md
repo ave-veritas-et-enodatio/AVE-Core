@@ -4,7 +4,7 @@
 **Class:** METHOD pre-registration (frozen BEFORE any Problem-3 shift number is computed).
 **Gates on:** the FROZEN electrostatic-sector fork memo.
 
-> ## Post-freeze notes (append-only caveats on the frozen body below)
+> ## Post-freeze notes (append-only caveats on the frozen body below)  <!-- rule12-freeze: base=878676d5142974e6707d073ea00d0b4ea20707a8 region=below offset=0 lines=204 bytes=15621 sha256=044d2e9226bb62179538523b5eed5d9b3dabc04af5674c6ce189cef3eb33d6b8 -->
 > **N1 — sign convention.** The §7 falsifier clause "*If the
 > shift is NEGATIVE (it should be positive — field enhanced), my sign/inversion-branch is wrong*" is
 > written in the positive-test-charge (δV) convention, which is the WRONG frame for the observable. The

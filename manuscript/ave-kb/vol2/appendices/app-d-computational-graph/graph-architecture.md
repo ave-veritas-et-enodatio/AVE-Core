@@ -13,7 +13,7 @@ The first step in simulating the vacuum is establishing the 3D coordinate positi
 
 **The Poisson-Disk Solution:** To satisfy macroscopic isotropy while enforcing the microscopic hardware cutoff, the software must generate the node coordinates using a **Poisson-Disk Hard-Sphere Sampling Algorithm**. By enforcing an exclusion radius of $r_{min} = l_{node}$ during genesis, the lattice settles into a packing fraction of $\approx 0.17$--$0.18$, creating a stable, sparse dielectric substrate.
 
-**Rheological Tuning:** ~~Simulation confirms that the "Trace-Reversed" mechanical state ($K=2G$) is an emergent property of the Chiral LC coupling modulus.~~ *(provenance sentence struck 2026-08-02 per Rule 12 — preserved verbatim above and in git, not deleted; see the DE-CLAIM banner below.)*
+**Rheological Tuning:** ~~Simulation confirms that the "Trace-Reversed" mechanical state ($K=2G$) is an emergent property of the Chiral LC coupling modulus.~~ *(provenance sentence struck 2026-08-02 per Rule 12 — preserved verbatim above and in git, not deleted; see the DE-CLAIM banner below.)*  <!-- rule12-freeze: base=8acacec120ab392e67efbe8524d8b90fe09cc381 region=above offset=0 lines=15 bytes=1071 sha256=f989536d39c1bcd40333c8b46da78e615962934bdb9ec5d23f868ae73297820a -->
 - **Low Coupling ($k_{couple} < 3.0$):** The lattice behaves as a standard Cauchy solid ($K/G \approx 1.67$).
 - **High Coupling ($k_{couple} > 4.5$):** The lattice undergoes a phase transition, locking microrotations to shear vectors, driving the bulk modulus to roughly twice the shear modulus ($K/G \approx 1.78 - 2.0$).
 

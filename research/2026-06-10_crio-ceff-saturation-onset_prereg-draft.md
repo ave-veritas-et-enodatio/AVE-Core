@@ -1,6 +1,6 @@
 # Prereg (DRAFT): cRIO C_eff(V) Saturation-Onset Discriminator — the program's first real-hardware bench
 
-> 🔴 **§11 ITEMS 1-2 RESOLVED — GATE NO LONGER BLOCKING (2026-08-01; Rule 12, body preserved below
+> 🔴 **§11 ITEMS 1-2 RESOLVED — GATE NO LONGER BLOCKING (2026-08-01; Rule 12, body preserved below  <!-- rule12-freeze: base=a1534da4ab0d7989c61d3ead966e4e38e0360b9b region=below offset=0 lines=419 bytes=30703 sha256=186a46c7d48f4b83cc91d4fea57929139cd5060ae33adb4c93205072cc564a21 -->
 > unedited, git is the trail).**
 >
 > §11 still lists items 1 and 2 as open decisions for Grant, item 1 explicitly marked **"Blocking"** for

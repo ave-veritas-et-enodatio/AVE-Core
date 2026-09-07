@@ -130,7 +130,7 @@ Thermometer re-fire remains **GATED**. Full `node_creation` mint remains **NO** 
 
 # Post-freeze amendments (append-only)
 
-> **Freeze rule.** §0–§5 above are the **frozen body** and are byte-untouched. Post-fire adversarial-review corrections are recorded here as dated amendments only (Rule-12 preserve-under-supersession). The banked **BIAS-MOVED** verdict and its `ΔS_core = −0.017146` basis are **unchanged**; these amendments repair *labels and demonstrations*, not the classifier or any bin.
+> **Freeze rule.** §0–§5 above are the **frozen body** and are byte-untouched. Post-fire adversarial-review corrections are recorded here as dated amendments only (Rule-12 preserve-under-supersession). The banked **BIAS-MOVED** verdict and its `ΔS_core = −0.017146` basis are **unchanged**; these amendments repair *labels and demonstrations*, not the classifier or any bin.  <!-- rule12-freeze: base=bc44f7a5a067aa410c9ee2a2c7d93b51bb07b558 region=above offset=0 lines=132 bytes=8702 sha256=68d81765e469abc92dd883bf621575c944302bf4663497031550b3ead4b67bde -->
 
 ## Amendment A1 — 2026-07-16 — mode-count "LIVE" demoted (twin-64)
 

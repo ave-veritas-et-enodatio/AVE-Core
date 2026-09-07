@@ -1,7 +1,7 @@
 # PREREG (FROZEN) — C_eff↑ vs ε_eff↓ inverse-monotonicity root (INVARIANT-S2)
 
 **Date:** 2026-06-15 · **Lane:** [`_orchestration/2026-06-15_ceff-epsilon-monotonicity.md`](../_orchestration/2026-06-15_ceff-epsilon-monotonicity.md) · **Branch:** `analysis/2026-06-15-ceff-epsilon-monotonicity`
-**Rule-11 FREEZE:** verdict bins + discriminator below are frozen at authoring. Post-freeze changes append a Rule-12 amendment; they do not edit the frozen text.
+**Rule-11 FREEZE:** verdict bins + discriminator below are frozen at authoring. Post-freeze changes append a Rule-12 amendment; they do not edit the frozen text.  <!-- rule12-freeze: base=dce9be0ba1a764370f9ca208a2b04d998fd5da85 region=below offset=0 lines=54 bytes=6570 sha256=f35642b482e1a7c46986698c810a4ebbe90646877d4d0290b87f73047101c154 -->
 
 ## Question
 

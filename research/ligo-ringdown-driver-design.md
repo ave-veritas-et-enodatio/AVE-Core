@@ -418,7 +418,7 @@ Until then, v2 formula is canonical for AVE Kerr-corrected ringdown predictions 
 
 ## §10 Phase-5 decay-time τ refinement (2026-05-18) — RESOLVES v1 τ under-prediction via lattice-Q preservation
 
-> **🔴 RETRACTED (2026-07-21, Grant Ruling B1; §10 body below preserved verbatim per Rule 12).** The
+> **🔴 RETRACTED (2026-07-21, Grant Ruling B1; §10 body below preserved verbatim per Rule 12).** The  <!-- rule12-freeze: base=984c954897dc88cb5b1ad4f0d0688dbc087f7ba4 region=below offset=0 lines=70 bytes=5719 sha256=d5994ac9534ba6c3b227d019f1272ac3cf63e52ede3adfd6d5d10e938ff15114 -->
 > Phase-5 load-bearing hypothesis — **"Q is invariant across v1/v2 cavity-radius refinements"** (§10.2:429,
 > $Q_{v2} = Q_{v1} \Rightarrow \tau_{v2} = \tau_{v1}\cdot\omega_{R,v1}/\omega_{R,v2}$) — is **RETRACTED**.
 > Empirically, under the committed corpus-pinned Model-B damping law

@@ -534,7 +534,7 @@ Surfaced for adjudication, not silently resolved (flag-don't-fix):
 
 ---
 
-## THESIS UPGRADE CANDIDATE (2026-06-10, Rule-12 note — proposal body above PRESERVED unedited)
+## THESIS UPGRADE CANDIDATE (2026-06-10, Rule-12 note — proposal body above PRESERVED unedited)  <!-- rule12-freeze: base=2fade0d23e60fa2efdd9d673d6cb7e4834f84fa6 region=above offset=38 lines=498 bytes=33590 sha256=14e49169ecea0cd72332c88159b9168b044a8f9a679f124d26be5a95898c2ec8 -->
 
 **Two deletions → THREE (the frame).** A later Grant adjudication
 (2026-06-10, the lattice-rest-frame exchange) added a **third deletion** to the

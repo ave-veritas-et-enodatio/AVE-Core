@@ -9,7 +9,7 @@
 
 ---
 
-> 🔴 **VERDICT RE-BINNED — DEPOSIT-SURVIVES-NO-QUANTIZATION → DEPOSIT-DRAINED-AGAIN (2026-06-10 demotion addendum, §11 below).** Per the prereg's OWN frozen F-NETFIELD survival gate (gap-to-accumulator ≲ 1 OOM, `prereg:147,183-184`) — which the driver NEVER COMPUTED (docstring-only, `genesis_v7_quadrature_run.py:388`). Computed from the raw JSON the gate FAILS: **ISO 3.34 OOM, FULL 4.03 OOM**, both in the prereg's ≈4-OOM DRAINED band. The §1 "D14 SURVIVES (not DEPOSIT-DRAINED-AGAIN)" headline is SUPERSEDED. Per Rule 12 §§0–10 are PRESERVED UNCHANGED — read them through §11; the frozen prereg (`d4b4af4b`) is untouched.
+> 🔴 **VERDICT RE-BINNED — DEPOSIT-SURVIVES-NO-QUANTIZATION → DEPOSIT-DRAINED-AGAIN (2026-06-10 demotion addendum, §11 below).** Per the prereg's OWN frozen F-NETFIELD survival gate (gap-to-accumulator ≲ 1 OOM, `prereg:147,183-184`) — which the driver NEVER COMPUTED (docstring-only, `genesis_v7_quadrature_run.py:388`). Computed from the raw JSON the gate FAILS: **ISO 3.34 OOM, FULL 4.03 OOM**, both in the prereg's ≈4-OOM DRAINED band. The §1 "D14 SURVIVES (not DEPOSIT-DRAINED-AGAIN)" headline is SUPERSEDED. Per Rule 12 §§0–10 are PRESERVED UNCHANGED — read them through §11; the frozen prereg (`d4b4af4b`) is untouched.  <!-- rule12-freeze: base=64cc11ca71e2aec28c894c5e9b361478444abb07 region=below offset=0 lines=157 bytes=21164 sha256=d3a20764206c94e158bc7c11c57d6e013a3411af9245cb85141a09a73eccdeb2 -->
 
 ## 0. THE QUESTION — answered from the numbers
 
@@ -167,7 +167,7 @@ The prereg's one plumber-physical question (the chiral-mirror AM over-constraint
 
 ## 11. DEMOTION ADDENDUM (2026-06-10) — 🔴 RE-BINNED to DEPOSIT-DRAINED-AGAIN; §§0–10 PRESERVED UNCHANGED (Rule 12 / KEEP-BOTH)
 
-**This addendum RE-BINS the §1 verdict. Per Rule 12 the bodies of §§0–10 are preserved verbatim; the frozen prereg (`d4b4af4b`) is untouched. Every number below was re-verified against `research/2026-06-10_genesis-v7-quadrature-run_results.json` and `src/scripts/vol_1_foundations/genesis_v7_quadrature_run.py` this session (verify-before-cite).**
+**This addendum RE-BINS the §1 verdict. Per Rule 12 the bodies of §§0–10 are preserved verbatim; the frozen prereg (`d4b4af4b`) is untouched. Every number below was re-verified against `research/2026-06-10_genesis-v7-quadrature-run_results.json` and `src/scripts/vol_1_foundations/genesis_v7_quadrature_run.py` this session (verify-before-cite).**  <!-- rule12-freeze: base=64cc11ca71e2aec28c894c5e9b361478444abb07 region=below offset=0 lines=29 bytes=7671 sha256=5d0f856b5f3ce7373135a80fd23c1e3bfbf49cab70128b925cb760ead8619d4d -->
 
 **(a) RE-BIN: DEPOSIT-SURVIVES-NO-QUANTIZATION → DEPOSIT-DRAINED-AGAIN, on the prereg's OWN frozen gate.** The frozen §6 / F-NETFIELD survival gate (`prereg:147,183-184`): the net-field poloidal deposit SURVIVES iff its **gap to the accumulator is ≲ 1 OOM**; a ≈4-OOM gap is DEPOSIT-DRAINED-AGAIN (the v6 band). **The driver NEVER COMPUTED this gate** — it appears only in the `analyze()` docstring (`genesis_v7_quadrature_run.py:388`; `grep -i netfield` over the driver returns that line ONLY), with no executable assertion. Computed here from the raw JSON, the gate **FAILS in both configs**:
 - **ISO:** `pol_deposit_accum = 0.3783` vs `|C_pol| = 1.741e-4` → **3.34 OOM**.

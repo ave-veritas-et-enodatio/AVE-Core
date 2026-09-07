@@ -422,6 +422,71 @@ def test_fixture_trees_are_pruned_from_the_advisory_crawl() -> None:
         assert "broken.md" not in crawled
 
 
+def test_freeze_stamp_exemption_is_exact():
+    """A Rule-12 freeze stamp is not authorship — but only when it is ALL that changed.
+
+    Driven with synthetic DIFF TEXT rather than a worktree edit, because that
+    is the only way to exercise this code path at all: `added_lines_by_file`
+    diffs `<base>...HEAD`, the COMMITTED tree, so an uncommitted edit is never
+    in the diff. The first attempt to verify this exemption did exactly that and
+    got the same answer for a stamp-only change and for a real content change —
+    a probe that never ran, reported as a result.
+
+    The three cases that matter, and the middle one is the can-it-still-fire arm
+    without which this exemption would be a silent hole in the ratchet.
+    """
+    mod = _load_module()
+    stamp = ("  <!-- rule12-freeze: base=" + "a" * 40 + " region=above offset=0 "
+             "lines=3 bytes=99 sha256=" + "b" * 64 + " -->")
+    body = "See [`x.md`](../x.md):73 for the wall."
+
+    def diff(minus: str, plus: str) -> str:
+        return (
+            "diff --git a/doc.md b/doc.md\n"
+            "--- a/doc.md\n"
+            "+++ b/doc.md\n"
+            "@@ -97 +97 @@\n"
+            f"-{minus}\n"
+            f"+{plus}\n"
+        )
+
+    # (1) STAMP ONLY -> not authorship, line is NOT counted.
+    assert mod._added_from_diff_text(diff(body, body + stamp)) == {}, (
+        "a line whose only change is an appended freeze stamp was counted as added"
+    )
+
+    # (2) STAMP *AND* REAL CONTENT -> still counted. The arm that keeps the
+    #     exemption from becoming a hole: a new cite smuggled onto a stamped line.
+    grew = body + " also [`y.md`](../y.md):12" + stamp
+    assert mod._added_from_diff_text(diff(body, grew)) == {Path("doc.md"): {97}}, (
+        "a NEW cite added to a line that also got stamped slipped through the "
+        "freeze-stamp exemption -- the ratchet has a hole"
+    )
+
+    # (3) A PLAIN added line with no stamp anywhere -> counted, as always.
+    plain = (
+        "diff --git a/doc.md b/doc.md\n"
+        "--- a/doc.md\n"
+        "+++ b/doc.md\n"
+        "@@ -0,0 +5 @@\n"
+        f"+{body}\n"
+    )
+    assert mod._added_from_diff_text(plain) == {Path("doc.md"): {5}}
+
+    # (4) A stamp-shaped suffix on a line with NO `-` twin (a pure insertion)
+    #     is still an added line: there is nothing it could be identical to.
+    inserted = (
+        "diff --git a/doc.md b/doc.md\n"
+        "--- a/doc.md\n"
+        "+++ b/doc.md\n"
+        "@@ -0,0 +8 @@\n"
+        f"+{body + stamp}\n"
+    )
+    assert mod._added_from_diff_text(inserted) == {Path("doc.md"): {8}}, (
+        "a newly INSERTED line was waved through because it happened to carry a stamp"
+    )
+
+
 if __name__ == "__main__":
     test_link_form_and_bare_form_stale_anchors_are_both_caught()
     test_cite_re_branches_and_cite_path_helper()

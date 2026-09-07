@@ -47,5 +47,5 @@ sector's first forward test.
 **⚑ SUPERSEDED, 2026-08-10 (R44):** this record's session was accidentally reset
 mid-conversation (Grant, verbatim in the R44 record); the FINAL R43 scope is the
 full ratification — Tier A + S + G + Q — per
-`2026-08-10-ruling-r43-ratification.md`. Body preserved above per Rule 12; cite the
+`2026-08-10-ruling-r43-ratification.md`. Body preserved above per Rule 12; cite the  <!-- rule12-freeze: base=d8396aa9cf05cd99dd24ea5b2949919286dace25 region=above offset=0 lines=49 bytes=2603 sha256=86d1acda0f8ccb70faa403392922ea2e3fc9ca981d888ca4014b5050edf18942 -->
 full record.

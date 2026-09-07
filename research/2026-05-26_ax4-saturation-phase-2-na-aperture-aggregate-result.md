@@ -1,4 +1,4 @@
-> **Notation (2026-06-18):** Substrate object symbol `$\mathcal{M}_A$` **retired** (Grant adjudication). Use prose: *substrate*, *chiral LC network*, *chiral Laves K4 Cosserat crystal*. Body below preserved per Rule-12.
+> **Notation (2026-06-18):** Substrate object symbol `$\mathcal{M}_A$` **retired** (Grant adjudication). Use prose: *substrate*, *chiral LC network*, *chiral Laves K4 Cosserat crystal*. Body below preserved per Rule-12.  <!-- rule12-freeze: base=b56a39db08f5f23df45c3ac01443ad55d3d30423 region=below offset=0 lines=518 bytes=54231 sha256=058c97ae685cf98618275cc12d28328ce7f4d1c62b8dbb72ad84b814f282e645 -->
 
 # Phase 2-NA Result — Aperture-Aggregate Skewness + Kurtosis-Excess under DC Bias with Metric-Lensing Convolution
 

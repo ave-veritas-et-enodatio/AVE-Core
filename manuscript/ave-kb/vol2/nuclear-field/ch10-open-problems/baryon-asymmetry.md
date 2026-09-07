@@ -15,7 +15,7 @@ claims: [clm-4vwsjc]
 >
 > **$\kappa_{FS}$ cold-vs-thermal inconsistency (flagged, not silently resolved).** The body displays the **cold** form $\delta_{CP} = \pi/8\pi = 1/8 = 0.125$ ([`constants.py:727`](../../../../../src/ave/core/constants.py) `KAPPA_FS_COLD = 8\pi`), but the engine uses the **thermal** $\kappa_{FS} = 24.95$ ([`constants.py:791`](../../../../../src/ave/core/constants.py)) giving $\delta_{CP} = 0.126$. The engine (thermal) is the live, CI-gated code path and is treated as canonical here. Whether cold or thermal $\kappa_{FS}$ is the *physically correct* divisor for the baryogenesis δ_CP is a substrate-physics call left OPEN for Grant adjudication (flag-don't-fix); it does not affect the order-of-magnitude conclusion (both give $\eta \sim 6 \times 10^{-10}$).
 >
-> *Body below preserved verbatim per Rule 12; only the displayed result number and the headline framing line are corrected in place (marked).*
+> *Body below preserved verbatim per Rule 12; only the displayed result number and the headline framing line are corrected in place (marked).*  <!-- rule12-freeze: base=f11a6ed7e7e83658e5a5eaecd59d303d276b3b5b region=below offset=0 lines=56 bytes=2961 sha256=749763b1cd001ae9a81186fd986ed47dbf59322e3202a43262e3feea4129d463 -->
 
 ### The Problem
 
