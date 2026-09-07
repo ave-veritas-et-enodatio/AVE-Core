@@ -31,7 +31,35 @@ reading, and it is the next stage.
 `do-not-build` cites in non-comment `.tex` lines. **The `.tex` corpus scanned is
 210 files** (212 minus 2 tool-test fixtures, which are deliberate negative cases).
 
-## §1 — THE ONE NUMBER THAT MATTERS: 190
+> 🔴 **CORRECTED 2026-09-06 — the 190 is a CANDIDATE count with ~99% noise, not a
+> defect count. An adjudication lane read all 79 vol9 S4a sites by hand and
+> measured a TRUE-POSITIVE RATE OF 1.3%: one real propagation debt, 74 benign,
+> three pre-existing dead anchors the signal did not and could not find.**
+>
+> **The cause is structural, and my earlier calibration in §4 answered the wrong
+> question.** S4a asks *"did the cited leaf gain a grading marker anywhere since
+> this `.tex` was touched"*. It has **no reach test** — nothing connects the marker
+> to the sentence doing the citing. The large registry leaves legitimately carry
+> dozens of demotions (`vocabulary-register.md` alone: **34** strong-marker added
+> lines since 2026-08-01), so every one of the ~60 sites citing such a leaf trips
+> the flag no matter what was demoted. §4 below weighed strong-vs-weak marker
+> tokens and concluded "189 of 190 carry a strong marker" — **true, and
+> irrelevant**: the markers are real, they just do not reach the citing assertion.
+>
+> **And the signal is blind to the class that actually matters.** Both true
+> positives the lane found are **print asserting demoted content at a line carrying
+> no cite at all** — invisible to any cite-keyed scan, including this one.
+>
+> **What the scan IS good for: a leaf index.** The 159 distinct sites factorize to
+> **~22 distinct leaves**. Reading each leaf's demoted anchors once, then grepping
+> print for those anchors, answers every site citing it at about a fifth of the
+> cost of site-walking. That is the shape the remaining sweep should take.
+>
+> **What survives untouched:** S1 = 0 and S2 = 0 (referential integrity is clean,
+> and those are exact checks, not heuristics), and the five S3a build-band sites,
+> which are claim-id lookups rather than diff heuristics.
+
+## §1 — ~~THE ONE NUMBER THAT MATTERS: 190~~ → a candidate count, measured 1.3% true-positive
 
 **189 of 190 material time-lag sites carry a STRONG marker** — the diff of the
 cited leaf, since the citing `.tex` was last committed, ADDS at least one of

@@ -12,6 +12,33 @@ five mechanical signals; it adjudicates nothing and edits nothing.
                   KB does not license building on
   S4 TIME-LAG     the cited KB leaf's last commit is NEWER than the citing .tex's
                   last commit: the print cannot reflect the leaf's current content
+
+                  *** MEASURED 2026-09-06: S4a's TRUE-POSITIVE RATE IS 1.3% ***
+                  An adjudication lane read all 79 vol9 S4a sites by hand: 1 real
+                  propagation debt, 74 benign, 3 pre-existing dead anchors the
+                  signal did not and could not find. DO NOT quote an S4a count as
+                  a defect count -- it is a candidate count with ~99% noise.
+
+                  WHY, and it is structural, not a tuning problem. S4a asks "did
+                  the cited leaf gain a grading marker anywhere since this .tex
+                  was touched". It has NO REACH TEST -- nothing connects the
+                  marker to the sentence that cites the leaf. The big registry
+                  leaves legitimately carry dozens of demotions (vocabulary-
+                  register.md: 34 strong-marker added lines since 2026-08-01),
+                  so every one of the ~60 sites citing such a leaf trips the flag
+                  regardless of what was demoted. An earlier calibration in this
+                  file weighted strong-vs-weak marker tokens; that was answering
+                  the wrong question -- the markers are real, they just do not
+                  reach the citing assertion.
+
+                  AND IT IS BLIND TO THE CLASS THAT MATTERS. Both true positives
+                  the lane found are print asserting demoted content at a line
+                  carrying NO CITE AT ALL, which no cite-keyed scan can see.
+
+                  USE IT AS A LEAF INDEX, NOT A SITE LIST. The 159 distinct sites
+                  factorize to ~22 distinct LEAVES. Reading each leaf's demoted
+                  anchors once, then grepping print for those anchors, answers
+                  every site citing it and costs about a fifth of site-walking.
   S5 LINE-DRIFT   a :NNN line anchor that is now out of range, or whose leaf changed
                   after the .tex (the anchor may point at different bytes)
 
@@ -127,7 +154,7 @@ def main():
                 if leaf_epoch > tex_epoch:
                     days = (leaf_epoch - tex_epoch)/86400.0
                     kind = leaf_delta_kind(full, tex)
-                    bucket = 'S4a_TIME_LAG_MATERIAL' if kind else 'S4b_TIME_LAG_COSMETIC'
+                    bucket = 'S4a_TIME_LAG_LEAF_CHANGED' if kind else 'S4b_TIME_LAG_COSMETIC'
                     why = 'leaf newer by %.0f d%s' % (days, (' -- ' + kind) if kind else '')
                     findings[bucket].append((tex,n,rel,why))
                     per_file[tex]+=1
@@ -179,7 +206,7 @@ def main():
                     findings['S3b_NODE_STATUS_INFO'].append(
                         (tex,n,cid,'status=%s (convention for this node class)'%status))
 
-    order = ['S1_DEAD_PATH','S2_DEAD_ID','S3a_BUILD_BAND_UNDISCLOSED','S4a_TIME_LAG_MATERIAL','S5_LINE_DRIFT','S4b_TIME_LAG_COSMETIC','S3b_NODE_STATUS_INFO','S3c_BUILD_BAND_DISCLOSED','S3d_BUILD_BAND_INDEX_ROW']
+    order = ['S1_DEAD_PATH','S2_DEAD_ID','S3a_BUILD_BAND_UNDISCLOSED','S4a_TIME_LAG_LEAF_CHANGED','S5_LINE_DRIFT','S4b_TIME_LAG_COSMETIC','S3b_NODE_STATUS_INFO','S3c_BUILD_BAND_DISCLOSED','S3d_BUILD_BAND_INDEX_ROW']
     print('# manuscript .tex vs KB staleness audit')
     print('# repo HEAD: %s' % sh(['git','rev-parse','--short','HEAD']))
     print('# .tex scanned: %d   KB records: %d' % (len(tex_files), len(claims)))
