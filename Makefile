@@ -675,17 +675,25 @@ paper:
 	cd $(PAPER_DIR) && latexmk -pdf -jobname=$(PAPER_JOB) main.tex
 	@echo "[Paper] Done: $(PAPER_DIR)/$(PAPER_JOB).pdf"
 
+# EXIT STATUS: each `for` loop below is ONE recipe line, run by /bin/sh with no
+# `-e` (this Makefile sets neither SHELL nor .SHELLFLAGS), so without an explicit
+# `|| exit 1` a failing iteration neither aborts the loop nor fails the line --
+# the line's status is the LAST iteration's. Measured on this recipe with a stub
+# for $(MAKE) (GNU Make 3.81, /bin/sh): before the guard,
+# `make pdf VOLUMES="FAILVOL GOODVOL"` exited 0 and still printed the
+# all-volumes-generated line, while `VOLUMES="GOODVOL FAILVOL"` exited 2. The
+# `|| exit 1` makes the first failing volume fail the target in either order.
 pdf_manuscript:
 	@echo "[Build] Compiling Volumes 0–VI + Vol IX (two-pass for cross-volume xr-hyper resolution)..."
 	@echo "[Build] === Pass 1 (collect aux files) ==="
 	@for dir in $(VOLUMES); do \
-		$(MAKE) --no-print-directory _compile_vol VOL=$$dir; \
+		$(MAKE) --no-print-directory _compile_vol VOL=$$dir || exit 1; \
 	done
 	@echo "[Build] === Pass 2 (resolve cross-volume refs) ==="
 	@for dir in $(VOLUMES); do \
-		$(MAKE) --no-print-directory _compile_vol VOL=$$dir; \
+		$(MAKE) --no-print-directory _compile_vol VOL=$$dir || exit 1; \
 	done
-	@echo "[Build] All 8 volume PDFs generated in $(OUT_DIR)/"
+	@echo "[Build] $(words $(VOLUMES)) volume PDFs generated in $(OUT_DIR)/"
 
 _compile_vol:
 	$(call COMPILE_VOL,$(VOL))
