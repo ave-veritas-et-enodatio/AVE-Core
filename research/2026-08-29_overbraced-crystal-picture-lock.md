@@ -8,6 +8,10 @@
 
 **Round 4 — 2026-08-29.** Mapping + ordinary flags walked. Pads landed.
 
+**Status-word correction 2026-09-06 (class-1 demotion; correction-PR against `main`, since #1020 is merged).** Grant ratified 2026-09-03 that *signed* means “passed adversarial pass plus physical/logical review with me.” No such receipt exists for any picture in this file — the recorded receipts are chat nods, one recorded **uncertainty** (P1), and for P5 no Grant assent at all. Every `Status: SIGNED` header below is therefore demoted **in place** to **Grant-agreed (chat), WALK-GRADE, UNAUDITED** (P5 to **WALK-GRADE, UNAUDITED**), each with its receipt stated. **No finding is withdrawn; only the grading word moved.** The kills (P4), the CLOSED verdicts (P6/P7), and every mapping-failure call stand exactly as recorded.
+
+**Scope of that demotion — enumerated.** The token `SIGNED`/`signed` survives as a *positive* grade in **14 further occurrences across 13 lines**, all of them derived restatements of the same five pictures, left **byte-unchanged** so the Lens-3 mapping audit and the Round-3 table stay as recorded: `:5`, `:114`, `:115`, `:116`, `:118` (Lens-3 Verdict cells P0 / P1–P2 / P3 / P5), `:128`, `:158`, `:171`, `:184` (**two** tokens), `:185`, `:231`, `:233`, `:247`. **All 14 carry the demoted grade above.** Deliberately *not* touched, because they are denials or future-tense asks rather than claims of signature: `:88` (“not a signed identification”), `:145` (“unsigned picture”), `:183` (“stays unsigned”), `:196` (“sign the epistemology … **do not** sign …” — a recommendation), `:237` (“waits on Grant sign-off”), `:254` (“not missing signs”). **Method:** `grep -n -i 'sign'` over this file, cross-checked against a full read of all 250 pre-correction lines; two grep hits were false positives (`assign` `:205`, `signal` `:219`), and this correction block’s own `:11`/`:13` carry the token as the *object* of the correction, not as a grade. **Blind spot:** a restatement of a verdict phrased *without* the token `sign` (e.g. “locked”, “settled”, “agreed set”) is not caught by the grep leg and would only be caught by the read leg, which was run once, by one reader.
+
 ## Pictures (resume)
 
 ### P0 — What “over-braced” is for
@@ -16,7 +20,7 @@
 
 **Circuit restatement (partially agreed):** Prestressed A1 **compliance** (varactor headroom, H6) so .AC can stay on the reactive arc. Uniform host-universe bias would be unread common-mode. **Not** DC voltage on the Kirchhoff \(L\)-struts (H1). BH-interior / impedance-bubble is **cosmology-scale intuition**, not ontology.
 
-**Status: SIGNED for #1020.** Over-brace is for lossless projected strain; that strain is AC readout, not a second field. **(2)** and **(3)** parked as spillover S11 (Grant 2026-08-29: they are not this PR).
+**Status: Grant-agreed (chat), WALK-GRADE, UNAUDITED — for #1020.** Over-brace is for lossless projected strain; that strain is AC readout, not a second field. **(2)** and **(3)** parked as spillover S11 (Grant 2026-08-29: they are not this PR). *Receipt:* the recorded Grant line above is a working-description/intuition statement and the circuit restatement is tagged **partially agreed** — no adversarial pass and no logical review with Grant is recorded.
 
 **Def:** parked in spillover S5. Not minted here.
 
@@ -24,23 +28,23 @@
 
 **Grant:** The strain projected from a 3D phase-space knot. Cannot picture whether 3D phase space *is* the vacuum’s physical reality, or the mapping between the physical vacuum and projected strain in our reality. **This turn:** update P1 to match P2.
 
-**Signed (Grant 2026-08-29):** The vacuum’s *space* is the lattice (graph). Phase space is **not** that space and **not** a discardable plot. It is the **native state-coordinate chart of the tanks on that graph** \((V_{\mathrm{inc}},V_{\mathrm{ref}})\). The knot is a winding in those coordinates. Observed / “projected” strain is the AC readout (and the real-space envelope \(S(A(r))\)).
+**Grant-agreed (chat), WALK-GRADE, UNAUDITED (2026-08-29):** The vacuum’s *space* is the lattice (graph). Phase space is **not** that space and **not** a discardable plot. It is the **native state-coordinate chart of the tanks on that graph** \((V_{\mathrm{inc}},V_{\mathrm{ref}})\). The knot is a winding in those coordinates. Observed / “projected” strain is the AC readout (and the real-space envelope \(S(A(r))\)).
 
-**Canon:** `def-kn0t01`; #1033 lattice-is-the-space; `def-69f472` (ambiguous only for the A46 size leak).
+**Canon:** `def-kn0t01` (status **SOLID**); `def-69f472` (ambiguous only for the A46 size leak). **Not canon:** “lattice-is-the-space” — `[branch:#1033]` unmerged, **zero reviews**, not in this PR’s tree; chat-agreed only. The phrase also has no canon leg of its own: 0 hits for the literal token `lattice-is-the-space` anywhere in the tracked tree outside this line (`grep -rn` over the repo, `.git` excluded; a canon leg phrased without that token would not be caught by that pattern).
 
-**Status: SIGNED.**
+**Status: Grant-agreed (chat), WALK-GRADE, UNAUDITED.** *Receipt:* the recorded Grant line above states **uncertainty** — “Cannot picture whether 3D phase space *is* the vacuum’s physical reality, or the mapping between the physical vacuum and projected strain in our reality” — not a review.
 
 ### P2 — Is phase space an analytical tool?
 
 **Grant:** Agreed the honest sentence. Track it for vocab/`def-`. Most important next theory step: characterize how to **model** that chart and how it is **coupled** to the vacuum and to matter/light/gravity (or how bulk properties emerge).
 
-**Signed sentence:** Phase space is the native **state-coordinate chart of the lattice tanks**, distinct from the graph that is physical space. Smith is a **ratio chart** of that state, not the state itself.
+**Grant-agreed sentence (chat, WALK-GRADE, UNAUDITED):** Phase space is the native **state-coordinate chart of the lattice tanks**, distinct from the graph that is physical space. Smith is a **ratio chart** of that state, not the state itself.
 
 **Vocab:** amend `def-69f472` (do not mint a second noun). A46 size-leak flag stays until that leak dies. Not minted this session. Fiber-bundle noun stays WALK.
 
 **Theory next step:** spillover S9 — characterization / coupling / bulk emergence. Prior art already exists (ladder, `clm-acdc07`, Round-3 table, H1–H6). Do **not** start a derivation until a prereg. Gated on H1.
 
-**Status: SIGNED** (sentence). Coupling program is spillover, not #1020.
+**Status: Grant-agreed (chat), WALK-GRADE, UNAUDITED** (sentence; *receipt:* “Agreed the honest sentence” above). Coupling program is spillover, not #1020.
 
 ### P3 — Which amplitude?
 
@@ -52,7 +56,7 @@
 
 **Modify then rerun:** only as a **new** experiment (S8 Cosserat-wired HB; or an A1-only \(\ker Y\)/\(M\) study that does not claim the knot). Not a #1020 patch.
 
-**Status: SIGNED** (dead as stated). Instrument kept; Cosserat/SYM jobs are spillover.
+**Status: Grant-agreed (chat), WALK-GRADE, UNAUDITED** (dead as stated; *receipt:* “Two-knob + stretch-sector **agreed** (2026-08-29 later)” above). Instrument kept; Cosserat/SYM jobs are spillover.
 
 ### P4 — Chern / Berry / degeneracy selector
 
@@ -66,7 +70,7 @@
 
 **Plumber restatement (not a new hypothesis):** The HB code under discussion only wires the stretch / A1 scalar channel. Neighbor-to-neighbor *twist* (Cosserat \(\gamma_c\), inductive lacing of flywheels) is not in that solver. If the object is a held twist, a stretch-only model is the wrong bench.
 
-**Status: SIGNED** (bench fact / instrument limit). “Therefore no knot” stays **KILLED**. Cosserat-wired HB = S8 later effort.
+**Status: WALK-GRADE, UNAUDITED** (bench fact / instrument limit). **No Grant receipt at all:** the recorded Grant line above is *“Does not understand; dig in more”*, and no assent is recorded after the plumber restatement; the receipt for the bench fact is the author-stated code check below. “Therefore no knot” stays **KILLED**. Cosserat-wired HB = S8 later effort.
 
 **HB code:** `src/ave/solvers/harmonic_balance_srs.py` — phasor KCL \(e^{i\theta}v=M(S)v\) on srs z=3. Scalar / A1-adjacent only. T2 not wired (module `:147–149`). Instrument-grade; mints no physics.
 
@@ -211,7 +215,7 @@ On the graph (K4-graph column owns KCL/KVL, `lattice-model-register.md`):
 
 | Last-reply concept | Circuit object (1:1) | Equation / SPICE name | Canon row | Grade |
 |---|---|---|---|---|
-| DC strain \(\varepsilon_{11}\) / Q-point \(A\) | DC **voltage** on the A1 varactor (bias \(V_Q\)); DC **charge** \(Q=\int C\,dV\) = static **displacement**. Constitutive \(C(V)\) is the map. Continuum \(\varepsilon_{11}\) = long-wave dilatation of those \(\Delta Q\). | .OP node voltages | `def-q1escn`; `translation-circuit.md:112`; bond-lc §1.3 | IDENTIFIED in #1033; TKI split stress vs strain is the honest 1:1 |
+| DC strain \(\varepsilon_{11}\) / Q-point \(A\) | DC **voltage** on the A1 varactor (bias \(V_Q\)); DC **charge** \(Q=\int C\,dV\) = static **displacement**. Constitutive \(C(V)\) is the map. Continuum \(\varepsilon_{11}\) = long-wave dilatation of those \(\Delta Q\). | .OP node voltages | `def-q1escn`; `translation-circuit.md:112`; bond-lc §1.3 | **HELD** — this PR’s own spillover holds it: [`2026-08-29_picture-lock-spillover.md`](2026-08-29_picture-lock-spillover.md):69 H5, *“\(\varepsilon_{11}\) as A1 Q-point is #1033 WALK-GRADE, not TKI-forced (stress vs strain)”*. Competing identification on `[branch:#1033]` (unmerged, zero reviews). TKI split stress vs strain is the honest 1:1 |
 | AC is the readout, not a second strain field | Small-signal \(v(t), i(t)\) on the same net after linearization | .AC / HB | `clm-acdc07` (i); `.OP/.AC` tool row ⚠ | canon measurement; tool row consolidation |
 | Light | Traveling wave on T2/EM ports: \(V_{\mathrm{inc}},V_{\mathrm{ref}}\) on the bond TLs | Telegrapher + scatter \(M\) | photon-ee-mapping; I/Q row | canon |
 | Matter (soliton) | Self-biased multi-port: DC \(V_Q\) + AC winding (transformer turns) behind a \(\Gamma=-1\) wall | .OP then .AC around it | `resonant-lc-solitons.md`; \(\Gamma=-1\) short | canon re-expression |
