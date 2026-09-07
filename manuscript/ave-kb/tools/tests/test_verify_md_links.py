@@ -774,6 +774,26 @@ def test_pin_marker_grammar_unit_both_directions() -> None:
     assert vml._PIN_SHA_RE.match("a" * 40) and not vml._PIN_SHA_RE.match("a" * 41)
 
 
+def test_marker_regex_does_not_match_inside_another_word() -> None:
+    """`` spin:`...` `` is not a pin marker, and "spin" is everywhere here.
+
+    An unguarded `pin:` matches inside `spin:`, `unpin:`, `repin:`. Guarding it
+    is one lookbehind; not guarding it turns a physics word into a gating
+    finding on any row that also carries a cite.
+    """
+    vml = _load_module()
+    for decoy in ("spin", "unpin", "repin", "Xpin", "a_pin"):
+        line = f"the {decoy}:`aaaaaaa1` of it, per `some/leaf.md:12`"
+        assert not list(vml.iter_orphan_pins(line)), decoy
+        assert vml._PIN_ANYWHERE_RE.search(line) is None, decoy
+    # ... and the bare token on the same shape still IS one.
+    real = "the pin:`aaaaaaa1` of it, per `some/leaf.md:12`"
+    assert [n for n, _ in vml.iter_orphan_pins(real)] == [1], real
+    # A marker bound to its cite is not an orphan, on the same line shape.
+    bound = "per `some/leaf.md:12` pin:`aaaaaaa1` of it"
+    assert not list(vml.iter_orphan_pins(bound)), bound
+
+
 def test_strip_target_has_no_pin_arm() -> None:
     """The marker lives OUTSIDE the link, so the link pass never meets one.
 

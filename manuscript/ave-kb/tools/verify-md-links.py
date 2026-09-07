@@ -506,8 +506,10 @@ _PIN_SHA_RE = re.compile(r"^[0-9a-f]{7,40}$")
 # canonical backticked body; `badpin` is the unbackticked mis-spelling.
 _PIN_AFTER_CITE_RE = re.compile(r"[ \t]*pin:(?:`(?P<pin>[^`\n]*)`|(?P<badpin>[^\s`]+))")
 # Every marker-shaped token on a line, used ONLY to find well-formed markers
-# that bound to no cite at all (`orphan pin marker`).
-_PIN_ANYWHERE_RE = re.compile(r"pin:`(?P<pin>[^`\n]*)`")
+# that bound to no cite at all (`orphan pin marker`). The lookbehind is not
+# decoration: unguarded, this matches inside `` spin:`...` `` — and "spin" is
+# one of the most common words in this corpus.
+_PIN_ANYWHERE_RE = re.compile(r"(?<![A-Za-z0-9_])pin:`(?P<pin>[^`\n]*)`")
 
 # One inline code span (no nested backticks).
 _INLINE_SPAN_RE = re.compile(r"`([^`\n]+)`")
