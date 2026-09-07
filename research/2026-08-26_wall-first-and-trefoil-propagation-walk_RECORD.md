@@ -361,6 +361,18 @@ Rule 12: the wording is preserved above, and it is not being replaced by
 silently re-scoping it. §3.4 is a *different* question with a *new* framing, not
 a repair of this one.
 
+*(⚑ **Rule-12 machine freeze stamp OWED, not written — 2026-09-06.** The
+sentence above is a `region=above` prose freeze note in exactly the class the
+append-only gate on `[branch:#1026]` recognises. That is measured, not guessed:
+that branch's detector was run against this file and returns **this one line,
+and zero stamps**, with the gate's own `enforced_globs` set to `*.md` —
+corpus-wide — so an unstamped note here is a HARD FAIL once #1026 lands. **The
+stamp format does not exist on this branch**: `verify-rule12-freeze.py` is on
+neither this branch nor `origin/main`, so a stamp written here could not be
+verified by anything and would be a receipt with no check behind it. It is also
+premature — a stamp pins bytes to a base commit, and this record is unmerged and
+still being edited. **Owed at merge; it will red #1026's gate until written.**)*
+
 `[OPEN]` **What the retraction does NOT settle:** whether interior questions
 are illegitimate *as engine diagnostics* (they are clearly useful for debugging
 a solver) versus illegitimate *as existence verdicts*. The walk asserts only
