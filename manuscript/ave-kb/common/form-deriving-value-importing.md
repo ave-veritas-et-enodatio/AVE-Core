@@ -114,7 +114,7 @@ definitional anchor. **The FORM-DERIVING half applies to all of them.**
 >
 > **(b) The OPEN research item (routed, NOT attempted).** Derive `K = 2G` as
 > **substrate-forced** rather than GR-imported. This row is the one where **even
-> the FORM is imported**, so closing it would be **this meta-finding's own
+> the FORM is imported** — ★**and *which* FORM, because one word covers two objects here.** The imported FORM is the **lock** `K = 2G` itself, a single point on the family; it is **not** the functional shape `K/G = f(ρ)`, which this row's own "What is the chord (FORM)" cell at `:87` records as substrate-forced (that cell's words: the substrate forces the *form* of the elastic response `K/G = f(ρ)`) and which the closed `z=4` sub-route at `:131` independently fixes. **Two objects, one word:** the `:87` cell and this paragraph are scoped to different objects, both stand as written, and neither withdraws the other. The reconciliation predates this clause — `_orchestration/docket-entries/2026-08-03-rulings-mr-batch.md`:45, verbatim: *"while the **lock** `K = 2G` itself is the import"*. So closing it would be **this meta-finding's own
 > completion for this row** — it would move `K = 2G` from *import-of-a-form* to
 > *derivation-of-a-form*, which is a strictly different move from flipping a
 > value (α's `fitted→real`, G's Chain B′). **Named attack point:** PR #261's
