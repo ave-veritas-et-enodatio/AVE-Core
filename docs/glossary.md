@@ -106,8 +106,8 @@ Session 2026-06-07 reframe vocabulary. **All entries are CONSISTENCY-CLASS** (re
 | Sense | What "linear" means | Regime | Bond TL $L,C$ vs strain? |
 |---|---|---|---|
 | **K — kernel (Ax4)** | Taylor of $S(r)=\sqrt{1-r^2}$ is even; Regime I drops $O(r^2)$ | $r<\sqrt{2\alpha}$; solar $\varepsilon_{11}$ is here | **Constant** from the kernel. Not $L,C\propto\varepsilon_{11}$. |
-| **P — Op19 / photoelastic** | $n=1+\nu_{\mathrm{vac}}\varepsilon_{11}$; under SYM, $\mu,\varepsilon$ co-scale with $n$. Bond TL $L,C$ co-scale with $n$ only under an unlicensed bond-TL identification. | Same weak-field band as K | **Linear in $\varepsilon_{11}$**, different expansion. Coefficient GR-imported. |
-| **Z — SYM co-scale** | $Z=\sqrt{L/C}$ pinned | All gravity-class loading | $L\propto C$ (each other), not linear in strain. |
+| **P — Op19 / photoelastic** | $n=1+\nu_{\mathrm{vac}}\varepsilon_{11}$; under SYM, $\mu,\varepsilon$ co-scale with $n$. Bond TL $L,C$ co-scale with $n$ **on the T2/EM channel** ($L=\mu_0$, $C=\varepsilon_0$ is the Class A identity in the **Line-property constant** row of §1.7 above, `docs/glossary.md:96`); for the **whole three-channel bond** no single $(L,C)$ exists to identify. | Same weak-field band as K | **Linear in $\varepsilon_{11}$**, different expansion. Coefficient GR-imported. |
+| **Z — SYM co-scale** | $Z=\sqrt{L/C}$ pinned — **same channel condition as P**: on the T2/EM channel only ($Z_{shear}$, $Z_{bulk}$ are not in $Z_0$ units) | All gravity-class loading, T2/EM channel | $L\propto C$ (each other), not linear in strain. |
 
 Gravitational $\varepsilon_{11}$ is the DC **Q-point** of the A1 tank ([`def-q1escn`](../manuscript/ave-kb/common/vocabulary-register.md)), not a slide of the graph vertex.
 

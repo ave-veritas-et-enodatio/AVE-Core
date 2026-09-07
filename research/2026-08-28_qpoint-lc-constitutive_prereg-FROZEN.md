@@ -228,3 +228,19 @@ PREREG (target: constitutive map ε₁₁ ↦ (L, C, S) on a frozen graph, Z pin
 ## Rule-12 amendment A3 (2026-08-28) — "hop" was TLM slang for the bond; does not edit freeze body, A1, or A2
 
 **Does not edit any frozen bin, tolerance, edge, or §6 label.** Grant asked for the registered noun. Freeze §0 row 3 "series `L` and shunt `C` of the hop" and the later "EM hop" meant the **bond** (`def-b0nd01`) TL pair (`translation-circuit.md`:98). Live KB writes **bond TL** $L',C'$. The 2026-08-28 filename `hop-lc-constitutive-grading.md` is a Rule-12 stub; live path is `bond-lc-constitutive-grading.md`. `def-ln3str` **id unchanged**; surface form is now "linear (bond TL $L,C$ vs strain)". "Hop" stays in freeze/A1/A2 as historical wording. Does **not** start Phase-1. Does **not** touch hopping unknot or mechanical→EM hop (different objects). Sibling PRs #1028–#1032 **not** edited.
+
+---
+
+## Rule-12 amendment A4 (2026-09-06) — channel scope of the A2 fence; APPENDED, edits no frozen body, A1, A2 or A3
+
+**Does not edit any frozen bin, tolerance, edge, or §6 label, and does not touch a byte of the freeze body, A1, A2 or A3.** A2's fence — *"Hop TL `L,C` co-scale with `n` remains an **unlicensed** bond-TL identification (Phase-1); achromatic matching licenses `μ,ε` only"* (`:224`) — is **right for the whole three-channel bond and wrong by omission for the channel this freeze's own §0 names**.
+
+- **§0 row 1 (`:19`) names the channel:** *"hop delay / `c_eff` of the **gapless T2/EM channel**."* §1 `:50`/`:52` repeat it as "the EM hop"; A3 (`:230`) rewrites "hop" to the bond (`def-b0nd01`).
+- **On that channel the identification is canon's own Class-A identity, not a Phase-1 open item:** `translation-circuit.md` §10.1 tabulates `L = μ₀` (*"series line inductance / inertia"*) at `:811` and `C = ε₀` (*"shunt line capacitance / compliance"*) at `:812`, both graded **A identity (§1)**; the rendered mirror is `docs/glossary.md:96`.
+- **The refusal survives for the whole bond**, because a bond is not one line: three wired reactance channels `Z_EM` / `Z_shear` / `Z_bulk` (`def-gv1net`, `vocabulary-register.md:715-726`; `three-channel-impedances.md:20-22`), of which only `Z_EM ≡ Z_0` is electrical — `Z_shear` and `Z_bulk` are mechanical/acoustic and not in `Z_0` units (`resonant-lc-solitons.md:133`). There is no single `(L,C)` for "the bond" to identify with `μ,ε`.
+
+**Applied on the branch (KB side, this is a scoping repair and no ruling):** every live fence site now carries the channel qualifier — `bond-lc-constitutive-grading.md` new §2.1 plus §2 / Sense P / Sense Z / §4; `translation-circuit.md:117`; `vocabulary-register.md` `def-ln3str` adjudicated-meaning, the (P) and (Z) flag bullets, and the verification field; `regime-equation-sets.md:27`; `docs/glossary.md:109` and `:110`. **Sense Z is now stated conditionally exactly as Sense P is** — its earlier unconditional "definitional once `Z=√(L/C)` is pinned" carried the same identification it was refusing elsewhere.
+
+**Provenance of the fence, recorded because it was a same-day inversion.** `d1b55e87` (22:38) read *"so hop `L` and `C` **co-scale with `n`**"* — unconditional. `f943a034` (23:50) inverted it to the unqualified refusal, in the same commit that added A2 and A3. The flip **is** disclosed, by A2 itself; what does **not** exist anywhere in the tree is the **charter or the verdict** of the "hop-lc documentation audit" A2 credits — *"Grant greenlit option 1"* is **author-stated**, with no docket entry, no record doc, and no reviewer. Treat A2's fence as author-stated, and this amendment likewise.
+
+**Forks F1–F3 stay Grant-routed. No solidity moves. Phase-1 is still not started.** This lane remains **UNAUDITED** — an adversarial pass is owed on the repaired scope, not only on the original fence.
