@@ -23,7 +23,7 @@ reading, and it is the next stage.
 | **S3a** build-band violation, **undisclosed** | **5** | printed prose leaning on a `do-not-build` claim with no banner nearby |
 | S3c build-band cite, **disclosed** | 17 | banner or inline caveat present — honest |
 | S3d build-band cite in a lookup-table row | 6 | provenance pointer, not an assertion |
-| **S4a** time-lag, **material** | **190** | the cited leaf gained a walk-back / demotion / retraction **after** the `.tex` was last touched |
+| **S4a** time-lag, **leaf changed** | **190** *(candidate count — TP rate 1.3%, see the correction below)* | the cited leaf gained a walk-back / demotion / retraction **after** the `.tex` was last touched. *Bucket renamed `S4a_TIME_LAG_MATERIAL` → `S4a_TIME_LAG_LEAF_CHANGED` 2026-09-06: "material" claimed a reach the check does not perform.* |
 | S4b time-lag, cosmetic | 17 | leaf changed, but not in a way that reaches print |
 | **S5** line-anchor drift | **49** | a `:NNN` anchor that is out of range, or whose leaf changed after the `.tex` |
 
