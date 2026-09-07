@@ -32,14 +32,14 @@
       "rider_id": "RD-S3-CAVITY-PIN-BREAK",
       "fired": "FIRED",
       "fired_date": "2026-06-24",
-      "prereg": "research/2026-06-24_engine-s3-cavity-pinning_prereg.md:23-30",
-      "receipt": "research/2026-06-24_engine-s3-cavity-pinning_result.md:25",
-      "condition": "MAKE-OR-BREAK frozen pre-statement plus HALT GATE 2",
-      "measured": "BREAK branch fired; localization is BOUNDARY/TOPOLOGICAL, not bulk-cage",
-      "falsified_chain": "Bulk-cage / real-space cavity localization of the electron",
-      "ledger_slug": "stage2-native-cage",
-      "output_patterns": ["Mode-I PERSIST", "stage2-native-cage"],
-      "note": "Propagated (PRs #403/#404). Ledger entry present at genesis-chord-falsification-ledger.md."
+      "prereg": "research/2026-06-24_engine-s3-cavity-pinning_prereg.md:15-16 (the two-sided disposition), :23-30 (the MAKE-OR-BREAK pre-statement)",
+      "receipt": "research/2026-06-24_engine-s3-cavity-pinning_result.md:4, :23, :25",
+      "condition": "frozen two-sided disposition, prereg :15-16 -- TRUE (pinned) = the electron's localization mechanism is demonstrated as boundary/topological; FALSE (disperses) = a DEEPER negative, RETRACT do not refill (Rule 12) -- with the :28 BREAK arm reading 'reproduces Stage-2 Mode-III ... winding+H_couple+cavity does NOT pin the core'. HALT GATE 2 (energy conservation, prereg :65) is the instrument gate the verdict had to clear, not the rider.",
+      "measured": "the BREAK arm -- i.e. the FALSE arm -- fired. Result :25: 'DISPOSITION: the BREAK branch FIRED.' Verdict :4: 'DISPERSE-FALSIFIED -- the winding + H_couple + cavity does NOT pin the dispersing A1 core. Energy-conservation-certified (physics, not numerics).' The TRUE arm, which is the one that would have DEMONSTRATED boundary/topological localization, did NOT fire.",
+      "falsified_chain": "the sanctioned successor localization mechanism (result :6): that the S1-conserved (2,3) Cosserat winding omega + the S2 conservative A1<->omega lock H_couple + the |Gamma|->1 cavity at V_snap HOLDS the A1 core Stage-2 showed disperses bare. NOT the bulk-cage chain -- that is Stage-2's separate falsification, carried by the ledger's stage2-native-cage entry.",
+      "ledger_slug": null,
+      "output_patterns": ["H_couple", "cavity-pinning"],
+      "note": "DISCLOSED DEBT (2026-09-07): S3 has NO entry of its own in genesis-chord-falsification-ledger.md, so ledger_slug is null rather than pointing at another lane's heading. Enumerated at this tip: the ledger carries 16 '### ' headings and none is S3/cavity-pinning; the nearest, 'stage2-native-cage' (:82), is the STAGE-2 lane -- its prereg is 2026-06-23_engine-stage2-native-cage_prereg.md while S3's is 2026-06-24_engine-s3-cavity-pinning_prereg.md. S3 appears in that ledger only as PROSE inside the Stage-2 entry, at :86 and :88, which no slug can address. The firing DID reach the KB, as LOCALIZER RELABEL Rule-12 banners at common/engine-capability-map.md:23, vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:110 and vol2/particle-physics/ch01-topological-matter/electron-identification.md:15. Landing PRs measured from the commits: result doc via #411 (d805eb32); the engine-capability-map relabel via #418 (4c5a2201). Both PRs #403 and #404 are the Stage-2 native-cage lane, not this one. output_patterns were re-picked so check [3] can actually report: against the checker's own MARKER filter at this tip, 'H_couple' leaves 3 of 12 lines and 'cavity-pinning' leaves 2 of 7, whereas 'DISPERSE-FALSIFIED' would leave 0 of 8 (the string contains FALSIFI, which the filter matches) and would have been a pattern that can never fire."
     },
     {
       "rider_id": "RD-ATOMQ-BIN2-KILL",
