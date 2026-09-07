@@ -125,12 +125,29 @@ Refuted-finding note: the four REFUTED findings are dropped from execution but l
 > **[Header corrected 2026-09-06 — the original read "waves 1 + 2 EXECUTED AND MERGED (2026-08-03)"
 > and the subsections below asserted the ringdown gate still held. It fired two days later.]**
 
-**All 16 epic PRs merged by Grant 2026-08-03.** Audit tags `audit/2026-08-03_mr-*` (**12**) pin most lane tips at review state; branches auto-deleted on merge, tips recovered from the merge commits' second parents.
+**All 16 epic PRs merged by Grant 2026-08-03.** Audit tags `audit/2026-08-03_mr-*` (**12**) pin **9** of the 16 lane tips below at review state; branches auto-deleted on merge, tips recovered from the merge commits' second parents.
 
-> **[CORRECTED 2026-09-06]** This line originally read *"All 12 epic PRs"* and *"(9)"* — the two
-> counts were transposed. `git tag -l 'audit/2026-08-03_mr-*'` returns **12**, all verified ancestors
-> of `main`; the table below lists **16** PRs. The original *"pin every lane tip"* also over-reached:
-> no `mr-` tag maps to #825, #826, #827, #836, #839 or #840 — **six merged lanes are untagged.**
+> **[CORRECTED 2026-09-06; RE-CORRECTED 2026-09-07 — the corrected FIGURES were right, the untagged
+> count was one short, and the causal account is withdrawn.]** Measured at this tip, each with its
+> method:
+> - `git tag -l 'audit/2026-08-03_mr-*'` returns **12**, and each of the 12 is an ancestor of `main`
+>   (`git merge-base --is-ancestor <tag> main`, twelve for twelve).
+> - The table below lists **16** PRs.
+> - **9 of the 12 tags land on a table PR:** #842, #843, #844, #846, #847, #848, #850, #852, #853.
+>   Method: for each tag commit, `is-ancestor` of `<merge>^2` AND NOT of `<merge>^1`, tested against
+>   all 16 merge commits.
+> - **The other 3 land on PRs that are not in this table at all:** `mr-board-corrections-0803` →
+>   **#858** (`eb914bd1`), `mr-addenda-0803` → **#859** (`6d5e0ddc`), `mr-petermann-artifact-record` →
+>   **#857** (`11f82f4c`).
+> - **7 table lanes are untagged**, enumerated: **#825, #826, #827, #831, #836, #839, #840.** 9 + 7 = 16.
+>   ★ The 2026-09-06 correction said six and omitted **#831**.
+>
+> **No diagnosis is offered for how the pre-correction numbers arose, and the "transposed" account is
+> withdrawn.** A transposition would require true values of 9 PRs and 12 tags; the measured values are
+> 16 and 12, and 9 is not the PR count under any reading given here. All 12 tags are **lightweight
+> refs** — `git cat-file -t <tag>` returns `commit`, not `tag`, twelve for twelve — so they carry no
+> tagger metadata and no creation date. Creation order is not recoverable, so no account of the
+> original numbers can be measured. The figures above are measured; the story is not available.
 
 | Lane | PR | Outcome |
 |---|---|---|
@@ -197,10 +214,24 @@ the leaf `lattice-extreme-bh-rationality.md` carries the *"<2% zero-parameter"* 
 
 ### ~~OWED — board corrections~~ → **ALL FOUR APPLIED 2026-08-03; a FIFTH is now owed**
 
-> **[CORRECTED 2026-09-06.** This list was written by the close-out commit `745b5951` (2026-08-03,
-> 05:47) and items 1 and 2 were discharged by `14ba1806` (06:50) and `87aacc31` (06:52) **inside the
-> same PR (#855)**, without updating the list. **The board has been recording as owed what it had
-> already paid, for five weeks.]**
+> **[CORRECTED 2026-09-06; RE-CORRECTED 2026-09-07 — the thesis stands, the PR attribution was
+> wrong.]** This list was written by the close-out commit `745b5951` (2026-08-03 05:47) and **all four
+> items were discharged inside the next 70 minutes** — `14ba1806` (06:50), `87aacc31` (06:52),
+> `04e0c41f` (06:54), `c9735ee3` (06:57) — **without updating the list. The board has therefore been
+> recording as owed what it had already paid, for 34 days** (2026-08-03 → the 2026-09-06
+> re-validation). That much holds.
+>
+> ★ **What was wrong: the PR.** All four SHAs rode **#858** — a separate corrections PR, *"five queued
+> corrections (four orchestrator errors)"*, merged `2026-08-04T14:25:12Z`. **#855's branch carries
+> exactly one commit, `745b5951`:** `git log --oneline 6dc63365^1..6dc63365^2` returns one line, while
+> `git log --oneline 9256e826^1..9256e826^2` returns all five #858 commits. #855 merged
+> `2026-08-05T00:50:38Z`, about ten and a half hours AFTER #858 — which is why an `--is-ancestor` test
+> against #855's merge commit answers true and is not evidence of authorship.
+>
+> ★ **The truth is arguably worse than the withdrawn version.** These were not quietly paid inside the
+> close-out's own PR. A dedicated corrections PR paid them, and that PR even carries its own audit tag
+> (`audit/2026-08-03_mr-board-corrections-0803` → `eb914bd1`, a #858 commit). The board went on booking
+> them owed anyway.
 
 | # | Item | Status |
 |---|---|---|
