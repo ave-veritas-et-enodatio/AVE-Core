@@ -2,7 +2,7 @@
 
 **Status: LANDED 2026-08-29** on `research/2026-08-26-overbraced-crystal-walk` (PR #1020). Working-pad copy remains gitignored at `.agents/handoffs/2026-08-29_PR1020_picture-lock.md`. This file is the tracked record.
 
-**Rewrite landed 2026-08-29.** [`2026-08-26_overbraced-chiral-crystal-walk_RECORD.md`](2026-08-26_overbraced-chiral-crystal-walk_RECORD.md) now teaches this signed set. Pre-rewrite teaching body is at `9efcc8db`. Do not start #1021. Do not mint `def-` on this PR. Spillover that is **not** that rewrite lives in [`2026-08-29_picture-lock-spillover.md`](2026-08-29_picture-lock-spillover.md).
+**Rewrite landed 2026-08-29.** [`2026-08-26_overbraced-chiral-crystal-walk_RECORD.md`](2026-08-26_overbraced-chiral-crystal-walk_RECORD.md) now teaches this **WALK-GRADE, UNAUDITED** set (see the status-word correction below). Pre-rewrite teaching body is at `9efcc8db`. Do not start #1021. Do not mint `def-` on this PR. Spillover that is **not** that rewrite lives in [`2026-08-29_picture-lock-spillover.md`](2026-08-29_picture-lock-spillover.md).
 
 **Ship-time currency 2026-09-06 (merge of #1020).** H1 close and S9 characterization live on PR **#1034** (files disjoint from this PR; merge this first). P2's "Gated on H1" / "do not start a derivation" below is the 2026-08-29 snapshot. Vocab amend of `def-69f472` remains later. Do not mint on this merge.
 
@@ -10,7 +10,7 @@
 
 **Status-word correction 2026-09-06 (class-1 demotion; correction-PR against `main`, since #1020 is merged).** Grant ratified 2026-09-03 that *signed* means “passed adversarial pass plus physical/logical review with me.” No such receipt exists for any picture in this file — the recorded receipts are chat nods, one recorded **uncertainty** (P1), and for P5 no Grant assent at all. Every `Status: SIGNED` header below is therefore demoted **in place** to **Grant-agreed (chat), WALK-GRADE, UNAUDITED** (P5 to **WALK-GRADE, UNAUDITED**), each with its receipt stated. **No finding is withdrawn; only the grading word moved.** The kills (P4), the CLOSED verdicts (P6/P7), and every mapping-failure call stand exactly as recorded.
 
-**Scope of that demotion — enumerated.** The token `SIGNED`/`signed` survives as a *positive* grade in **14 further occurrences across 13 lines**, all of them derived restatements of the same five pictures, left **byte-unchanged** so the Lens-3 mapping audit and the Round-3 table stay as recorded: `:5`, `:114`, `:115`, `:116`, `:118` (Lens-3 Verdict cells P0 / P1–P2 / P3 / P5), `:128`, `:158`, `:171`, `:184` (**two** tokens), `:185`, `:231`, `:233`, `:247`. **All 14 carry the demoted grade above.** Deliberately *not* touched, because they are denials or future-tense asks rather than claims of signature: `:88` (“not a signed identification”), `:145` (“unsigned picture”), `:183` (“stays unsigned”), `:196` (“sign the epistemology … **do not** sign …” — a recommendation), `:237` (“waits on Grant sign-off”), `:254` (“not missing signs”). **Method:** `grep -n -i 'sign'` over this file, cross-checked against a full read of all 250 pre-correction lines; two grep hits were false positives (`assign` `:205`, `signal` `:219`), and this correction block’s own `:11`/`:13` carry the token as the *object* of the correction, not as a grade. **Blind spot:** a restatement of a verdict phrased *without* the token `sign` (e.g. “locked”, “settled”, “agreed set”) is not caught by the grep leg and would only be caught by the read leg, which was run once, by one reader.
+**Scope of that demotion — enumerated (second pass, 2026-09-06).** The first pass moved the `Status:` headers only, left the derived restatements standing, and offered them for overrule. A cross-branch audit took the overrule — one class gets one rule text, and the derived restatements need it too, or the Lens-3 mapping table read on its own still shows `SIGNED.` as a live verdict with this correction 100 lines away — and Grant confirmed. The 14 positive `SIGNED`/`signed` tokens on 13 lines are therefore demoted **in place** to the two grades the headers already carry. To **WALK-GRADE, UNAUDITED**: `:5` and `:158` (the P0–P7 set and the walk it teaches — a mixed set, so graded at its weakest member), `:118` and `:185` (P5, which has no Grant receipt at all). To **Grant-agreed (chat), WALK-GRADE, UNAUDITED**: `:114`, `:115`, `:116` (Lens-3 Verdict cells P0 / P1–P2 / P3), `:128`, `:171`, `:184` (**two** tokens), `:231`, `:233` (Round-3 grade cells). `:247` is an inventory noun rather than a verdict and now reads “grades/kills”. **No verdict content moved — only the grading word.** The kill and closure words are untouched: **KILLED** at `:65`, `:73`, `:117`; **CLOSED** at `:88`, `:102`, `:185`, `:232`; **MAPPING FAILURE** at `:117`, `:119`. Left as written because they deny a signature or ask for one: `:88`, `:114`, `:115` (“not a signed identification”, “unsigned (S11)”, “not signed”), `:145`, `:183`, `:196` (a recommendation to sign, not a signature), `:237` (“waits on Grant sign-off”), `:254`; likewise `_orchestration/open-items/2026-08-29-acdc-gravity-circuit-map.md`, whose title asks *for* a signed map. **Method:** a case-insensitive census of the substring `sign`, line by line over all 254 lines, cross-checked against the first pass’s enumeration (which it reproduced exactly) and against a full read of the file; `assign` `:205` and `signal` `:219` are the two false positives, and `:11`/`:13` carry the token as the *object* of the correction. **Blind spots:** the census keys on that substring, so a restatement graded with some other word — “locked”, “settled”, “agreed set” — is invisible to it and would surface only in the read leg, which was run once, by one reader; and the census covers this file, so the same token in [`2026-08-26_overbraced-chiral-crystal-walk_RECORD.md`](2026-08-26_overbraced-chiral-crystal-walk_RECORD.md) and [`2026-08-29_picture-lock-spillover.md`](2026-08-29_picture-lock-spillover.md) is un-swept and outside this PR’s scope.
 
 ## Pictures (resume)
 
@@ -111,11 +111,11 @@
 
 | #1020 picture / join | Spoke (what the walk wrote) | Hub cell (what it must be) | Verdict |
 |---|---|---|---|
-| P0 over-brace for lossless projected strain | civil “over-braced / hyperstatic”; BH-host cosmology | A1 varactor **headroom** so .AC stays on the reactive arc; uniform bias = unread common-mode. (a) vs extra KVL loops = S11 | SIGNED hub use. Spoke names are gloss. BH-host = cosmology spoke, unsigned (S11) |
-| P1/P2 knot in phase space | “3D phase space” / 3D Smith | Tank-state chart \((V_{\mathrm{inc}},V_{\mathrm{ref}})\); Smith = \(\Gamma\) **ratio** (T4), not the state | SIGNED. Direct “Smith = phase space” would be a failure; not signed |
-| P3 HB amplitude | (none if kept as \(A\)) | Ax4 envelope; \(Y=Y_0/\sqrt{S(A)}\); Z **moves** — not SYM \(L{+}C\) | SIGNED. Gravity Op19 is a **different** hub slot |
+| P0 over-brace for lossless projected strain | civil “over-braced / hyperstatic”; BH-host cosmology | A1 varactor **headroom** so .AC stays on the reactive arc; uniform bias = unread common-mode. (a) vs extra KVL loops = S11 | **Grant-agreed (chat), WALK-GRADE, UNAUDITED** hub use. Spoke names are gloss. BH-host = cosmology spoke, unsigned (S11) |
+| P1/P2 knot in phase space | “3D phase space” / 3D Smith | Tank-state chart \((V_{\mathrm{inc}},V_{\mathrm{ref}})\); Smith = \(\Gamma\) **ratio** (T4), not the state | **Grant-agreed (chat), WALK-GRADE, UNAUDITED**. Direct “Smith = phase space” would be a failure; not signed |
+| P3 HB amplitude | (none if kept as \(A\)) | Ax4 envelope; \(Y=Y_0/\sqrt{S(A)}\); Z **moves** — not SYM \(L{+}C\) | **Grant-agreed (chat), WALK-GRADE, UNAUDITED**. Gravity Op19 is a **different** hub slot |
 | P4 Chern / Berry / degeneracy | TI / SM band topology | **No hub cell.** Integer selector was supposed to be winding \((2,3)\) / \(\Gamma=-1\) wall, which this code cannot see | **MAPPING FAILURE.** KILLED. Direct Chern↔knot |
-| P5 pin-jointed / bracing = couple-stress | civil pin-joint; trampoline “over-bracing = \(\sigma^A\)” | A1 stretch vs T2 **mutual-\(L\)** (\(\gamma_c\)). Scalar HB = no flywheel transformer | SIGNED as **instrument limit**. Hub already in trampoline + `translation-circuit.md`:101. Walk’s “therefore no knot” is not a hub statement |
+| P5 pin-jointed / bracing = couple-stress | civil pin-joint; trampoline “over-bracing = \(\sigma^A\)” | A1 stretch vs T2 **mutual-\(L\)** (\(\gamma_c\)). Scalar HB = no flywheel transformer | **WALK-GRADE, UNAUDITED** as **instrument limit**. Hub already in trampoline + `translation-circuit.md`:101. Walk’s “therefore no knot” is not a hub statement |
 | P6 Maxwell–Calladine / self-stress = knot | structural rigidity \(\ker(R^T)\) | \(\ker Y\) (DC loop, no terminal source) **or** \(M\)-eigenmode — two hub objects | **MAPPING FAILURE** as a weld. Hub split is S10. Do not mint MC |
 | P7 clause Q as AC phase-norm | (wrong job) | Q-point / clause Q = **DC** reference-fixing | Already split. Rewrite must keep DC |
 | Kane–Lubensky | topological-mechanics | none in corpus (0 hits) | EXTERNAL. Do not mint. Do not use as hub |
@@ -125,7 +125,7 @@
 **Identity-collapse probe (do not collapse):**
 - S5 over-braced senses (trampoline \(\sigma^A\) vs P0 headroom vs MC count vs lever) — KEEP-ALL.
 - \(\ker Y\) vs \(M\)-eigenmode — Grant: **analyze**, do not pick (S10).
-- Kernel \(A\) vs \(\varepsilon_{11}\) / Op19 \(n\) — two knobs, signed split.
+- Kernel \(A\) vs \(\varepsilon_{11}\) / Op19 \(n\) — two knobs, **Grant-agreed (chat), WALK-GRADE, UNAUDITED** split.
 - Clause Q vs AC phase-normalization — already two jobs.
 
 **Hub cells the rewrite may teach:** A1 varactor headroom; tank-state \((V_{\mathrm{inc}},V_{\mathrm{ref}})\); A1 vs T2 (no mutual-\(L\) in this solver); \(\ker Y\) and \(M\) as **two** operators.
@@ -155,7 +155,7 @@ PR files: walk record, `_orchestration/open-items/2026-08-26-overbraced-crystal-
 
 **Recommended hold (until rewrite):** do not merge; do not start #1021; do not land BOARD.md as-is; rewrite exclusions = mapping table + §9.1 sentence + EXTERNAL names as teaching.
 
-**Rewrite 2026-08-29:** those exclusions are now the signed walk. Lens-4 rewrite-BLOCKER (§9.1 keeping §2 live) is addressed. `BOARD.md` restored from `origin/main` (not regenerated on this branch).
+**Rewrite 2026-08-29:** those exclusions are now the **WALK-GRADE, UNAUDITED** walk. Lens-4 rewrite-BLOCKER (§9.1 keeping §2 live) is addressed. `BOARD.md` restored from `origin/main` (not regenerated on this branch).
 
 ---
 
@@ -168,7 +168,7 @@ PR files: walk record, `_orchestration/open-items/2026-08-26-overbraced-crystal-
 | hyperstatic | Likely gloss of over-braced; 0 hits on main before the walk | OPEN: useful? |
 | Kane–Lubensky | Why-imported; 0 corpus hits | Explain; do not mint |
 | knot | Adjudicate vs `def-kn0t01` | OPEN |
-| phase-space | Amend `def-69f472` with P2 signed sentence (not a second `def-`) | TRACKED; not minted this session |
+| phase-space | Amend `def-69f472` with P2’s **Grant-agreed (chat), WALK-GRADE, UNAUDITED** sentence (not a second `def-`) | TRACKED; not minted this session |
 
 Synonym check: use `theorem-thesaurus.md` for **theorems**; `vocabulary-register.md` for **nouns**. Vocab lens must ask “synonym of an existing `def-` / TH-row?” before “new def.”
 
@@ -181,8 +181,8 @@ Synonym check: use `theorem-thesaurus.md` for **theorems**; `vocabulary-register
 3. P4-class: **leak lexicon** (warn vs fail) as a future CI; skill HARD-GATED.
 4. Mapping + ordinary flags walked 2026-08-29. Rewrite next. Do not start #1021.
 5. P0 (2)(3) parked spillover S11 (not #1020). BH-host stays unsigned cosmology intuition.
-6. P1 SIGNED; P2 sentence SIGNED → `def-69f472` amend + S9 coupling characterization (prereg before derive).
-7. P5 SIGNED (instrument limit). P6/P7 CLOSED for #1020; analysis = S10.
+6. P1 **Grant-agreed (chat), WALK-GRADE, UNAUDITED**; P2 sentence **Grant-agreed (chat), WALK-GRADE, UNAUDITED** → `def-69f472` amend + S9 coupling characterization (prereg before derive).
+7. P5 **WALK-GRADE, UNAUDITED** (instrument limit). P6/P7 CLOSED for #1020; analysis = S10.
 8. **Spillover tracker** (not the per-PR picture-lock): [`2026-08-29_picture-lock-spillover.md`](2026-08-29_picture-lock-spillover.md) — Kirchhoff wording PR, leakage CI, synonym lens, mapping audit holds, S9/S10. Do not fold into #1020 rewrite.
 
 ---
@@ -228,9 +228,9 @@ On the graph (K4-graph column owns KCL/KVL, `lattice-model-register.md`):
 | ASYM (not gravity) | Only \(C'\) (\(\varepsilon\)) grades; \(Z\) moves | mismatch, \(\Gamma\neq 0\) | `translation-circuit.md:118` | canon vacuum-mirror channel |
 | \(\mathbf{u}_0=-\mathcal{A}_g\nabla\varepsilon_{11}\) | Net force from a voltage gradient | **unvalued** (R48) | bond-lc §1.5 | no circuit number |
 | Topology / charge | Integer winding / flux linkage (transformer turns), **not** a voltage | holonomy on the graph; DC linking | `clm-acdc07` (topology); TKI | second DC class |
-| P0 over-brace / prestress | (a) DC \(V_Q\) so AC swing stays on the reactive arc (class-A bias); (b) extra branches ⇒ extra KVL loops. Uniform host-universe bias = unread common-mode. | .OP bias; extra loops | not a `def-` yet | SIGNED for #1020 as lossless projected strain; (a) vs (b) and BH-host are S11 |
+| P0 over-brace / prestress | (a) DC \(V_Q\) so AC swing stays on the reactive arc (class-A bias); (b) extra branches ⇒ extra KVL loops. Uniform host-universe bias = unread common-mode. | .OP bias; extra loops | not a `def-` yet | **Grant-agreed (chat), WALK-GRADE, UNAUDITED** for #1020 as lossless projected strain; (a) vs (b) and BH-host are S11 |
 | P6 circulating “self-stress” | DC loop current in inductor cycles at \(\omega=0\) | \(\ker Y(\omega=0)\), \(V_L=0\) | TH-5; not Maxwell–Calladine | CLOSED for #1020; analysis is S10 |
-| Phase-space knot | AC state of the tanks: \((V_{\mathrm{inc}},V_{\mathrm{ref}})\) / \((2,3)\) phasors. **Not** a geometric threading of the graph. | state vector of .AC | `def-kn0t01` | P1/P2 SIGNED |
+| Phase-space knot | AC state of the tanks: \((V_{\mathrm{inc}},V_{\mathrm{ref}})\) / \((2,3)\) phasors. **Not** a geometric threading of the graph. | state vector of .AC | `def-kn0t01` | P1/P2 **Grant-agreed (chat), WALK-GRADE, UNAUDITED** |
 
 **WEP caution:** `translation-circuit.md:156` CMRR for equivalence is **coupling-level** (gravitational charge \(\equiv\) inertial mass). Uniform-bias unreadability is **readout-level**. Same English word, two registers (`def-` common-mode KEEP-ALL).
 
@@ -244,7 +244,7 @@ Workshop is the chat. Archive is these tracked files on PR #1020.
 
 | Artifact | Holds |
 |---|---|
-| this file | P0–P7 signs/kills; Lens 3 mapping; Lens 4 ordinary flags; Round-3 1:1 table; vocab queue |
+| this file | P0–P7 grades/kills; Lens 3 mapping; Lens 4 ordinary flags; Round-3 1:1 table; vocab queue |
 | [`2026-08-29_picture-lock-spillover.md`](2026-08-29_picture-lock-spillover.md) | S1–S11, H1–H6, Kirchhoff names, P2 sentence, S9 coupling, S10 dual-arm |
 | [`../_orchestration/open-items/2026-08-29-kirchhoff-pairing-labels.md`](../_orchestration/open-items/2026-08-29-kirchhoff-pairing-labels.md) | S1 |
 | [`../_orchestration/open-items/2026-08-29-acdc-gravity-circuit-map.md`](../_orchestration/open-items/2026-08-29-acdc-gravity-circuit-map.md) | S2 |
