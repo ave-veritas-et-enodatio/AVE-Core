@@ -1076,8 +1076,13 @@ one."
 authority also flags it as defective (`:236-245`: its code attribution is false by direct
 algebra). A ruling cannot simultaneously be the authority for a weight and be carrying a
 flagged false attribution without the reader being told which half is load-bearing. It is
-the **slope** that is load-bearing, and the slope is independently carried by §3.3 items 1,
-3 and 4.
+the **slope** that is load-bearing, and the slope is carried without Ruling 1 by §3.3
+**item 1** (the ponderomotive derivation, canon-printed) and **item 3** (the vol-3 W2
+walk-back, `temporal-spatial-lattice-decomposition.md:28`, quoted verbatim in §3.3).
+§3.3 **item 4** is a weaker leg and is named as one here: the row it rests on is
+self-tagged `UN-AUDITED` in its own source
+(`research/2026-08-11_gravity-linearity-audit_result.md:428`, row **R10**, *"§9.1
+(UN-AUDITED)"*) — the same document §3.4 already flags for a direction ambiguity.
 
 **Effect on this run: NONE.** No bin edge in §10, no falsifier in §8, and no prediction in
 §7 is keyed on the word "RULED." The run binned **Z — ARTIFACT** on clause Z1 (result §0),
