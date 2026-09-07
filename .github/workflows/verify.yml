@@ -158,10 +158,10 @@ jobs:
       # `tipa`, `texlive-plain-generic`, `default-jre` and roughly forty
       # `fonts-*` families. No \usepackage in this tree names any of them BY THAT
       # NAME — but a Debian package can carry a .sty under a different name, so
-      # that is a weak argument and is not what this rests on. The preflight step
-      # below is:
-      # if the list is short by another package, the job fails and names it,
-      # instead of silently compiling nothing.
+      # that is a weak argument and is not what this rests on. What it rests on is
+      # the preflight step below: if the list is short by another package, that
+      # step fails the job and names the package, instead of letting the build
+      # silently compile nothing.
       - name: Install TeX
         if: steps.changed.outputs.run == 'true'
         run: |

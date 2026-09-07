@@ -16,6 +16,17 @@ file on a non-comment `\noindent\textbf{Limits}` line, against
 # BOARD RE-VALIDATION AGAINST `main` @ `6b8b49a0`
 ### 2026-08-02 manuscript-reconciliation board, §5 — 154 findings, ten lanes each verified refute-by-default
 
+> **[SCOPE NOTE 2026-09-07 — the board cites in this document are pinned to `6b8b49a0`, and the same
+> push that landed this file also rewrote the board.]** Nine bare `:NNN` cites here address the
+> reconciliation board rather than a `.tex` file: `:45`, `:60`, `:124`, `:532`, `:635`, `:710`, `:761`,
+> `:785`, `:835`. All nine were checked at `6b8b49a0` — the base this re-validation names and was run
+> against — and all nine hold the content claimed for them there. None of them holds it at the branch
+> tip; the board went from 877 lines at `6b8b49a0` to 1,222 across this push. They are left as
+> measured rather than re-pinned, because re-pinning a dated measurement onto a later tree makes the
+> measurement unreproducible. **Re-derive board line numbers before acting on any of them.** One item here is
+> already discharged and should not be chased: the vol0 §5 header, reported below at board `:124` as an
+> H2 that a `^### vol` enumeration would silently skip, is an H3 at the tip.
+
 **Headline: the epic worked. 108 of 154 are discharged. 38 are still in print. 0 regressed. And board §6 is stale in two places that would have mis-routed the next lane — the ringdown gate FIRED on 2026-08-05, and all four OWED corrections were applied on 2026-08-03 to a list that still says they're owed.**
 
 ---

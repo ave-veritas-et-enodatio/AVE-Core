@@ -81,6 +81,19 @@
 
 Discipline riders on every crib application: Rule 12 strike-don't-delete with dated banners; **no value refills** into struck slots unless independently verified; frozen preregs byte-untouched; cite-shift sweep AFTER content settles.
 
+> **[2026-09-07 — the last rider on the line above is the step that catches CITE-SHIFT, and it was not
+> run on this branch.]** *Cite-shift* is a cite that was correct at the commit that wrote it and dead at
+> the end of the same push, because a later commit in that push moved the target. It is a coordinate
+> failure, not a truth failure: the quoted content is right and the line number is not, which is why
+> content review does not catch it. Measured on `docs/2026-09-06-manuscript-kb-sync` after the second
+> blind audit: **five** dead cites minted by the branch's own repair commits — four inside §7.1's
+> correction block and one in the `RD-NUVAC-EIGENFREQ` row of `_orchestration/fired-riders.json` — all
+> five re-pinned, none deleted. The re-audit books it as the sixth recurrence of this class across two
+> PRs in this epic; that count is the re-audit's, not re-derived here. The rider is not restated here.
+> **How to run it:** after content settles, re-derive the set of line-cites the branch ADDS that point
+> into files the branch also CHANGES, check each at the tip, re-pin the dead ones — then re-run the
+> same derivation on your own edited output before pushing, because re-pinning shifts lines too.
+
 ## §4 Sequencing + lane tracker (ratified)
 
 | Wave | Lane | Scope | Status |
@@ -330,16 +343,17 @@ because two of its D-items collapse into it.
 > **[CORRECTED 2026-09-07 — this section's gate language contradicted §6 and §7's own verdict table
 > and would have mis-routed a lane. The class-D row's gate-deferral clause is struck, and vol3 is
 > struck from the no-prose-work line; git carries the prior wording (R7).]** Measured:
-> **(1)** The ringdown gate is not open — §6 `:143-159` records it **fired 2026-08-05**, as PR #883
+> **(1)** The ringdown gate is not open — §6 `:186-202` records it **fired 2026-08-05**, as PR #883
 > (`76df7dab`) and #898 (`c4fdced0`), so no finding can be deferred to that gate.
-> **(2)** vol3's two ch08 sites are actionable prose — §6 `:175-177` rules them *"passed over, not
+> **(2)** vol3's two ch08 sites are actionable prose — §6 `:218-220` rules them *"passed over, not
 > held — so they are STILL-LIVE, not GATED"*, and both anchors still hold that content at HEAD:
 > `vol_3_macroscopic/chapters/08_gravitational_waves.tex:11` and `:372` each print the `$\sim 28$
 > orders of magnitude below the dielectric hardware snap limit` saturation ruler. ⚠ `:371`, one line
 > above the second, is the *"exclusively … transverse"* sentence — §7.3 **SUPERSEDED**, do not execute
 > it; the two are one line apart.
-> **(3)** GATED is **1** and it is not vol3: §7's table and `:260` name `vol_9/14_phase_diagrams.tex:105`,
-> which `:179-183` calls *"not a ringdown item"*.
+> **(3)** GATED is **1** and it is not vol3: §7's verdict table names it at `:317` —
+> `vol_9/14_phase_diagrams.tex:105`, *"and it is not a ringdown item"* — and §6 `:222-226` books the
+> same site as the one genuine remaining GATED finding, *"not ringdown at all"*.
 > **Not re-derived:** the struck class-D gate count. With the gate fired and GATED = 1 it is not
 > reproducible from this file, and no replacement number is minted here from a re-classification I
 > did not run. The class-D total of 17 stands as the lanes reported it; what changes is that no
@@ -394,10 +408,25 @@ carrier, so the measurement below is propagated here rather than left in the too
   An adjudication lane read **all 79 vol9 S4a sites** by hand: **1** real propagation debt, **74**
   benign, **3** pre-existing dead anchors the signal did not and could not find. Do not quote an S4a
   count as a defect count. Receipts:
-  [`research/2026-09-06_manuscript-kb-staleness-audit_RESULT.md:34-60`](../research/2026-09-06_manuscript-kb-staleness-audit_RESULT.md)
+  [`research/2026-09-06_manuscript-kb-staleness-audit_RESULT.md:34-67`](../research/2026-09-06_manuscript-kb-staleness-audit_RESULT.md)
   and the tool's own docstring,
   [`manuscript/ave-kb/tools/audit-tex-kb-staleness.py:16-41`](../manuscript/ave-kb/tools/audit-tex-kb-staleness.py).
   *(This replaces the earlier calibration here, which generalized from three adjudicated sites.)*
+- ⚠ **[RECONCILED 2026-09-07 — the split above does not close, and a carrier has to say so.]**
+  Arithmetic, done here: **1 + 74 + 3 = 78, not 79.** Read as a partition of the 79, one flagged
+  site is unenumerated; read the other way — the three dead anchors are the ones *"the signal did
+  not and could not find"*, so they were never S4a flags — only **1 + 74 = 75** of the 79 are
+  enumerated and **four** are unaccounted. **The authoritative figure is the 1.3%.** It survives
+  both readings (1/79 = 1.27%, 1/78 = 1.28%; 2/79 = 2.5% does not round to it) and it is the part
+  that carries the instruction: candidate count, not defect count. **The two counts below disagree
+  and both are propagated as-is:** the bullet opening *"The signal is blind to the class that
+  matters"* says **two** true positives and says both carry no cite at all; this bullet says
+  **one**, and a site with no cite cannot be an S4a flag, so they cannot both be the numerator of
+  1.3%. **Not re-derived here:** which count is that numerator, and what the unaccounted site(s)
+  were. The lane's site-by-site record is not in this repo — a corpus grep for this calibration
+  returns three carriers and no data (this board, `audit-tex-kb-staleness.py`, and the result doc),
+  each repeating the same split. Quote **1.3%, candidate-not-defect**; do not quote 1/74/3 as a
+  closed partition.
 - ★ **THE CAUSE IS STRUCTURAL, NOT A TUNING PROBLEM — S4a has NO REACH TEST.** It asks only whether
   the cited leaf gained a grading marker anywhere since the `.tex` was touched; nothing connects the
   marker to the sentence doing the citing. The big registry leaves legitimately carry dozens of
