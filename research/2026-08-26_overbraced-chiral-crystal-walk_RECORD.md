@@ -61,11 +61,11 @@ the observed strain is the **AC readout** (plus the real-space envelope
 >
 > **Residue named 2026-09-06 (third pass, completeness).** That census left **one** positive token
 > standing in this file, and the second-pass wording above did not say so — read on its own it
-> implied the file was clear. It is not: §5 `:255` still reads *"AC/DC 1:1; **epistemology
+> implied the file was clear. It is not: §5 `:271` still reads *"AC/DC 1:1; **epistemology
 > signed**; same-mesh / \(L\)-edge DC **held**"*. That row is **deliberately left as written**,
 > because it grades a **different claim** from the P0–P5 pictures — the S2 epistemology (*"AC reads
 > a DC differential on a real medium"*), whose receipt shape is not a chat nod:
-> [`2026-08-29_overbraced-crystal-picture-lock.md`](2026-08-29_overbraced-crystal-picture-lock.md):196
+> [`2026-08-29_overbraced-crystal-picture-lock.md`](2026-08-29_overbraced-crystal-picture-lock.md):198
 > attributes it to an *"Adversarial audit"*, and Grant's recorded line agrees with **that audit's
 > split** (sign the epistemology, hold H1–H6). **No record of that audit exists in the tracked
 > tree** — searched every tracked file and `git log --all` over this arc's files and messages; no
