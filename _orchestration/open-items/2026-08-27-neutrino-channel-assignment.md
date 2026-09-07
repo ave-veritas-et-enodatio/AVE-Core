@@ -46,6 +46,7 @@ defect survives regardless**, because the theorem is about any massive packet â€
 the same factor of 2 applies to a `0.9999c` electron or proton, and the same
 `n_matter/n_light = 1/2` applies to the Shapiro-class delay of any of them.
 
-**Corpus state:** two independent search methods return **0 files** for `1987A`
-and `sn1987` anywhere in AVE-Core at `a3f4fef7`. This test appears nowhere in the
-corpus.
+**Corpus state:** two independent search methods (`grep -ril` and `rg -il`,
+`.git` excluded) return **0 files** for `1987A` and `sn1987` in AVE-Core at
+`a3f4fef7`. So: *absent from AVE-Core at `a3f4fef7` under these two spellings*,
+not "absent from the program" â€” single-line regex, sibling repos not searched.

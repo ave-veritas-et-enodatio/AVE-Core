@@ -1,6 +1,6 @@
 ---
 id: bias-to-index-photoelastic-map
-title: "Op19 converts strain to index with a strain-per-strain ratio -- the rank-4 photoelastic tensor that would do the job is unnamed in the corpus"
+title: "Op19 converts strain to index with a strain-per-strain ratio -- the rank-4 photoelastic tensor that would do the job is unnamed in the sites F-B4 searched"
 status: OPEN
 owner: unassigned
 opened: 2026-08-27
@@ -11,7 +11,8 @@ anchor: "(settled A1 strain = index)"
 Surfaced by the `L3-constitutive-map` lane; the sign arithmetic below was
 re-derived independently by the `two-knob-gravity-repair` lane. **This is the
 runner-up to `2026-08-27-two-knob-constitutive-forcing` and is the bigger of the
-two.** Every `O(m)` gravity number in the corpus runs through this step.
+two.** Every `O(m)` gravity number the four lanes traced runs through this
+step; that is a statement about what was traced, not a census of the corpus.
 
 **The step.** `operators.md`:59 carries Op19, `n(r) = 1 + ν_vac·ε₁₁`, status
 **CANONICAL**, classified at `:123` as *"BC (settled A1 strain = index)"*. The
@@ -24,11 +25,13 @@ moduli, not kinematics."*
 no information about how strain grades ε or μ.** The object that performs that
 conversion in every real solid is the rank-4 photoelastic tensor,
 `δ(ε⁻¹)_ij = p_ijkl·e_kl`, with three independent constants `(p11, p12, p44)` on
-a cubic lattice. **The corpus has never named, derived, measured or bounded it**
-— F-B4 at `research/2026-07-31_anisotropy-observable_scoping.md`:657, verified
-three ways by its own author including `git log -S` over all of `origin/main`;
-independently reproduced by two later lanes (4 files, all research/orchestration
-scoping docs; **none in `manuscript/` or `src/`**).
+a cubic lattice. **F-B4 records that it has never been named, derived,
+measured or bounded in this corpus** — `research/2026-07-31_anisotropy-observable_scoping.md`:657,
+verified three ways by its own author including `git log -S` over all of
+`origin/main`. **That receipt is F-B4's, not this lane's.** Two later lanes
+corroborate it more weakly with a two-method `photoelast` grep (4 files, all
+research/orchestration scoping docs; **none in `manuscript/` or `src/`**;
+single-line regex, AVE-Core at `a3f4fef7` only).
 
 **L3's sharpest sentence:** *"the audit asked whether the LINEARITY is licensed
 and correctly answered yes; it did not ask whether the strain-to-INDEX conversion
@@ -48,7 +51,8 @@ is licensed, and that conversion is the missing object."*
    point group protects rank-2 exactly and rank-4 not at all. The missing
    `p_ijkl` gives an isotropic `O(m)` deflection **iff `p11 − p12 = 2p44`**;
    otherwise light bending carries a **quadrupole relative to the substrate
-   crystal axes** — a clean sidereal falsifier nobody has written down.
+   crystal axes** — a clean sidereal falsifier that none of the four lanes'
+   reads found written down.
 3. **A mechanical strain can never be the answer.** A static spherically
    symmetric displacement has `e_rr = u'`, `e_tt = u/r`; hydrostatic iff
    `u ∝ r`, which a localised source cannot produce. GR's `γ_PPN = 1` spatial
@@ -62,8 +66,9 @@ is licensed, and that conversion is the missing object."*
 `O(GM/c²r)`. Solar-limb deflection from Ax4 alone: `3.58e-5″` (A = ε₁₁) or
 `2.92e-6″` (A = r_s/r) against `1.75″`. And the 2026-08-11 audit already ruled
 `graded-network-response.md`:147 *"UNLICENSED as a gravity index"* — **so the
-gravity sector has formally disowned its only axiom-connected constitutive law
-and put nothing in its place.** That consequence has not previously been stated.
+gravity sector has formally disowned the one axiom-connected constitutive law
+that audit reached, and put nothing in its place.** No lane in this workflow
+found that consequence stated anywhere it read.
 
 **A flag, recorded one notch weaker than L3 stated it.** `double-deflection.md`
 uses **opposite** strain→index sign conventions in two rows of one derivation:

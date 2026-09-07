@@ -25,18 +25,19 @@ As the ledger stands the answer looks like *no*, three times over:
 |---|---|
 | `a₁ = 2` | **GR-IMPORTED.** It is `ν_vac · 7`, and canon stamps both factors: `eq_axiom_5.tex`:134 *"kappa = c^4/7G and nu = 2/7 stay GR-imported (#261 untouched)"*; `double-deflection.md`:60 *"ν=2/7 is **not** crystalline-lattice-forced"*. |
 | `b₁ = 1` | **CALIBRATED to Newton.** The FORM `a = −c²∇ln Ω` is derived; the VALUE is whatever makes it Newtonian. |
-| `b₂ = ½` | **ASSERTED.** Equivalent to "the clock grades multiplicatively, `Ω = Ω_∞ e^(−U)`". No axiom, no leaf, no lane derives it. Worth **179σ** on Mercury if it is 0 instead. |
+| `b₂ = ½` | **ASSERTED.** Equivalent to "the clock grades multiplicatively, `Ω = Ω_∞ e^(−U)`". None of the four lanes derives it, and it is not in any axiom file or leaf any lane read — a statement about what was read, not about the corpus. Worth **179σ** on Mercury if it is 0 instead. |
 
-**And the L3 lane found the map itself does not exist.** Canon's only bias→index
-object is Op19 (`operators.md`:59, CANONICAL), whose licensed coefficient the
-2026-08-11 linearity audit calls *"a kinematic ratio (transverse strain per
-longitudinal strain), not a modulus"* — a strain-per-strain ratio doing a
-strain-per-**index** job. The object that performs that conversion in any real
-medium is the rank-4 photoelastic tensor `p_ijkl`, which this corpus has never
-named (separate item: `2026-08-27-bias-to-index-photoelastic-map`). Working in
-L3's own labels (`γ_∥ = 1 + P·U`, `γ_⊥ = 1 + Q·U`, `f` = the bound mode's radial
-`k`-power fraction): deflection fixes `Q = 2` **independent of P**, the Newtonian
-limit fixes `[f·Q + (1−f)(P+Q)/2] = 1` — **three unknowns, two measurements, so a
+**And the L3 lane found no derivation of the map.** The one bias→index object
+it located in the sites it read is Op19 (`operators.md`:59, CANONICAL), whose
+licensed coefficient the 2026-08-11 linearity audit calls *"a kinematic ratio
+(transverse strain per longitudinal strain), not a modulus"* — a
+strain-per-strain ratio doing a strain-per-**index** job. The object that
+performs that conversion in any real medium is the rank-4 photoelastic tensor
+`p_ijkl`, which F-B4 records as never named in this corpus (separate item:
+`2026-08-27-bias-to-index-photoelastic-map`). Working in L3's own labels
+(`γ_∥ = 1 + P·U`, `γ_⊥ = 1 + Q·U`, `f` = the bound mode's radial `k`-power
+fraction): deflection fixes `Q = 2` **independent of P**, the Newtonian limit
+fixes `[f·Q + (1−f)(P+Q)/2] = 1` — **three unknowns, two measurements, so a
 one-parameter family survives.** `b₂` is a *fourth* number that ledger does not
 reach at all.
 

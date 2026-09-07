@@ -60,10 +60,12 @@ is arithmetic.**
    R40-B2a. The cone EXISTENCE is derived independently at LC-1 §2.2.)*
 
 **What canon cannot presently do.** Two independent search methods over the
-worktree at `a3f4fef7` return **0 files** for `preferred-frame parameter`. The
-PPN preferred-frame parameters are absent from the corpus as physics objects,
-against bounds of `|α₁| < 3.4e-5`, `|α₂| < 1.6e-9` (externally retrieved,
-tentative-standing). L2 **declined to assert an `α₂`** and said why, citing
+worktree at `a3f4fef7` return **0 files** for `preferred-frame parameter`. **No
+PPN preferred-frame parameter surfaced as a physics object under that spelling,
+or under L2's `alpha_1`/`alpha_2`/`alpha_3`/`Nordtvedt` sweep** (forwarded, not
+re-run here; single-line regex, AVE-Core only, so a leaf computing one without
+those spellings would not be caught) — against bounds of `|α₁| < 3.4e-5`,
+`|α₂| < 1.6e-9` (externally retrieved, tentative-standing). L2 **declined to assert an `α₂`** and said why, citing
 `research/2026-08-06_lc1-one-speed_result.md`:340 row 5: *"the corpus does not
 establish the limiting speed of a bound matter excitation in a medium with
 v_L > v_T … NOT folded into the verdict, and no speed is guessed."*

@@ -37,10 +37,12 @@ preferred frame AND non-conserved momentum. It is bounded at `|α₃| < 4e-20`**
 physics. Canon has the first condition by its own axiom text (`:27`, above) and
 cannot presently rule out the second.
 
-**Umklapp is named in the corpus only as a known gap.** Two independent search
-methods over the worktree at `a3f4fef7`: `umklapp` → **1 file**
-(`temporal-saturation-regime-classifier.md`), where it appears inside a gap list;
-`crystal momentum` → **0 files**.
+**Two searches find Umklapp named only inside a gap list.** Two independent
+methods over the worktree at `a3f4fef7` (`grep -ril` and `rg -il`, `.git`
+excluded): `umklapp` → **1 file** (`temporal-saturation-regime-classifier.md`),
+where the hits sit inside a gap list; `crystal momentum` → **0 files**. Blind
+spot: single-line regex on two spellings, AVE-Core only — a treatment worded
+without either token, or one in a sibling repo, would not be caught.
 
 **The thresholds are exact, because `ℓ_node` is definitional.** From
 `constants.py`:293 (`ℓ_node ≡ ħ/(m_e c)`) with CODATA:
