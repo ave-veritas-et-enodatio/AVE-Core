@@ -269,3 +269,29 @@ PREREG (target: constitutive map ε₁₁ ↦ (L, C, S) on a frozen graph, Z pin
 - `vocabulary-register.md` `def-q1escn` — the **"★ GRAVITY-SCOPE RIDER (2026-08-28, Grant-signed picture, PR #1033)"** was appended into the **`verification`** field of a **SOLID** node, a field the register defines at its own `:61` as *"the verify-before-cite result for this entry."* A session picture cannot occupy that slot. The rider is **tagged inside** the field with an explicit NOT-A-VERIFICATION-RESULT delimiter (`⟦BEGIN/END TAGGED NON-VERIFICATION BLOCK⟧`) rather than moved to a bullet of its own — the register is anchored by line number by an external gate fixture (`research/drivers/iomega_law_number_check.py` cites `vocabulary-register.md:526`), so the repair is kept **line-count-neutral** and no other lane's gate is touched. Regraded **RESTATEMENT (def-q1escn R43 × `domain-catalog.md`:45-47 / `clm-82dxbj` solidity 0.63, input-only × `CLAUDE.md`:75), WALK-assembled, UNAUDITED, no ruling**, and the **Axiom-5 noun seam** it inherits is recorded rather than glossed: clause **G**'s object is *the bias* ε₁₁ (`eq_axiom_5.tex`:73) and clause **Q**'s is *the Q-point* (`:82`-`:87`); the register lists them as separate canonical nouns (`translation-circuit.md`:1107-1108). The rider's unqualified *"this **same noun**"* fused them. **Unadjudicated; recorded, not resolved.** R43 licenses the name only.
 
 **No finding is removed by any of the above, and no solidity moves.** Forks F1–F3 stay Grant-routed. An adversarial pass on this lane is still owed.
+
+---
+
+## Rule-12 amendment A6 (2026-09-06) — CLASS 4: the mint receipt, measured; APPENDED, the frozen body is byte-untouched
+
+**This amendment edits nothing.** The freeze header at `:4` states, and still states byte-for-byte:
+
+> **Mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-`; edits no KB leaf, register, ledger, or ruling; changes no solidity.**
+
+**That receipt is false at the branch tip, and this is the measurement.** Counted by re-running the derived index and diffing `manuscript/ave-kb/.index/claims.jsonl` against `origin/main`:
+
+| Prefix | Minted on this branch | Ids |
+|---|---|---|
+| `def-` | **1** | `def-ln3str` — *linear (bond TL $L$, $C$ vs strain)*, `node_type: definition`, **`status: ambiguous`**, `open_ambiguity: true`, canonical path `common/vocabulary-register.md` |
+| `clm-` | 0 | — |
+| `exp-` | 0 | — |
+| `sup-` | 0 | — |
+| `ilk-` | 0 | — |
+
+Zero ids are removed or re-graded; `claims.jsonl` is `+1 / -0`, and no other file under `.index/` changes. **Method:** `make refresh-kb-metadata`, then `git diff origin/main...HEAD -- manuscript/ave-kb/.index/` parsed per JSON line. **Blind spot:** this counts what the *materialized index* holds; a register bullet the emitter does not parse would not appear (the emitter reads five required fields per INVARIANT-S12 and ignores additional bullets, `vocabulary-register.md`:62).
+
+**This is a PR-body silence, not a covert mint.** The header's `:4` wording is a **freeze-time** statement, true at `2704bc79` when the prereg pushed alone. The mint is **already disclosed** by amendment **A1** (`:218`), verbatim: *"Vocabulary: rider on `def-q1escn` (gravity-scope Q-point, not node-slide); new `def-ln3str` (ambiguous disambiguation, not a coinage)."* A1 also already supersedes the header's "edits no KB" clause on the same grounds (`:210`). And the node minted is a **permitted restatement node** — `status: ambiguous` is the register's own value for *"≥2 corpus meanings, no locked sense, canon gated"* (`vocabulary-register.md`:57); it locks no meaning, adds no physics, and originates no `clm-`.
+
+**Read the `:4` header, therefore, as:** *mints no `clm-`/`exp-`/`sup-`/`ilk-`; mints exactly one `def-` — `def-ln3str`, `status: ambiguous`, disclosed by A1; edits KB leaf/register per A1 and A3; changes no solidity.* The last clause is unchanged and holds: `make refresh-kb-metadata` reports **0** solidity lines rewritten.
+
+The PR body is corrected in the same round to say the same thing, so the disclosure does not live only inside the frozen document.
