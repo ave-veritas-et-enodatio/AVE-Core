@@ -272,7 +272,7 @@ re-fixed inside the window."* The zero is a statement about the tip, not the pat
 | **A** mechanical / crib-covered | 8 | immediately |
 | **B** KB-lockstep (4 print sites + 6 KB leaves) | 4 | print + KB together, never apart |
 | **C** no KB home at all | 5 | author a leaf, or strike the claim |
-| **D** needs a Grant ruling | 17 | ruling packet per lane; 3 also sit behind the ch08/ch15 gate |
+| **D** needs a Grant ruling | 17 | ruling packet per lane — see the gate correction below |
 | **E** non-text artifact | 4 | figure / generator work, not a `.tex` edit |
 
 **Volume distribution:** vol5 8 · vol6 7 · vol1 5 (+1 KB leaf) · vol0 4 · vol2 3 · vol3 3 ·
@@ -281,8 +281,25 @@ vol9 2 (+1 mirror) · backmatter 2 · papers 2 · vol4 1.
 **Cheapest to fire — zero rulings:** vol9 (both sites class A) and the four crib-free A's.
 **Heaviest:** vol6 (4 D + 2 B + 1 C across 5 files); its class-C appendix must be authored first
 because two of its D-items collapse into it.
-**No prose work available:** vol3 (2 gated + 1 raster) and papers (2 artifacts, `main.tex`
-submission-gated).
+**No prose work available:** papers (2 artifacts, `main.tex` submission-gated).
+
+> **[CORRECTED 2026-09-07 — this section's gate language contradicted §6 and §7's own verdict table
+> and would have mis-routed a lane. The class-D row's gate-deferral clause is struck, and vol3 is
+> struck from the no-prose-work line; git carries the prior wording (R7).]** Measured:
+> **(1)** The ringdown gate is not open — §6 `:143-159` records it **fired 2026-08-05**, as PR #883
+> (`76df7dab`) and #898 (`c4fdced0`), so no finding can be deferred to that gate.
+> **(2)** vol3's two ch08 sites are actionable prose — §6 `:175-177` rules them *"passed over, not
+> held — so they are STILL-LIVE, not GATED"*, and both anchors still hold that content at HEAD:
+> `vol_3_macroscopic/chapters/08_gravitational_waves.tex:11` and `:372` each print the `$\sim 28$
+> orders of magnitude below the dielectric hardware snap limit` saturation ruler. ⚠ `:371`, one line
+> above the second, is the *"exclusively … transverse"* sentence — §7.3 **SUPERSEDED**, do not execute
+> it; the two are one line apart.
+> **(3)** GATED is **1** and it is not vol3: §7's table and `:260` name `vol_9/14_phase_diagrams.tex:105`,
+> which `:179-183` calls *"not a ringdown item"*.
+> **Not re-derived:** the struck class-D gate count. With the gate fired and GATED = 1 it is not
+> reproducible from this file, and no replacement number is minted here from a re-classification I
+> did not run. The class-D total of 17 stands as the lanes reported it; what changes is that no
+> D-item may be deferred on the ground that a gate holds it.
 
 **Cold files — 7 files / 11 sites have ZERO commits of any kind since the board base**, so no lane,
 addendum or incidental traffic ever reached them: `vol_1/05_universal_spatial_tension.tex`,
