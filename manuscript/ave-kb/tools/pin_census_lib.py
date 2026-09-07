@@ -9,23 +9,36 @@ the CITING LINE carries a backticked short SHA anywhere on it
 rows are hundreds to thousands of characters wide, so one provenance SHA
 silently exempts every other cite that shares its row. Ruling R2
 (`_orchestration/docket-entries/2026-08-06-rulings-decision-batch.md`) replaces
-the heuristic with an author-declared PER-CITE marker:
+the heuristic with an author-declared PER-CITE marker.
 
-    <path>:<line>@<sha>          <path>:<start>-<end>@<sha>
+THE TOKEN IS NOT COINED HERE. It was written on 2026-08-06 and already lives in
+canon at `manuscript/ave-kb/CONVENTIONS.md` (search "Author-declared pin
+marker"):
+
+    per `some-leaf.md:42` pin:`c4a546dc` -- *"the sentence that line carried then"*
+
+i.e. `` pin:`<7-40 hex>` `` placed immediately after the location cite it pins,
+binding the nearest cite to its LEFT. This module READS that convention; it does
+not get a vote on the spelling. An earlier round of this lane invented a second
+token (`path:NN@<sha>`) for the same concept without checking whether one
+existed -- a homonym, which `ave-vocab-discipline`'s COINAGE rule answers
+directly: an existing meaning is REUSED, not silently overloaded.
 
 This module answers the question the migration needs answered first: of the
 cites the heuristic exempts today, which ones did the author actually MEAN
 historically?  Three classes:
 
-  TRUE-PIN  the cite does not resolve at HEAD, AND the pin is corroborated --
-            either it RESOLVES at a SHA named on its own line (the objective
-            arm), or the line carries historical-pin prose (the prose arm).
+  TRUE-PIN  the cite does not resolve at HEAD, AND it RESOLVES at a SHA named
+            on its own line.  Resolution at the SHA is NECESSARY: prose may
+            corroborate a pin but can never establish one (see THE PROSE ARM
+            IS NOT SUFFICIENT, below).
   LIVE      the cite resolves at HEAD.  It is a normal live cite that merely
             shares a row with somebody else's provenance SHA.  These are the
             false negatives R2 was ruled to eliminate: the gate is not checking
             them today, and it should be.
-  DEAD      the cite resolves at neither HEAD nor any SHA on its line, and no
-            prose claims it is pinned.  Real rot, hidden by the exemption.
+  DEAD      the cite resolves at neither HEAD nor any SHA on its line, though
+            its path does resolve at HEAD.  Real rot, hidden by the exemption --
+            and STILL DEAD when the line claims a pin in prose.
 
 plus two bookkeeping classes that are NOT defects and NOT migration subjects:
 
@@ -42,6 +55,19 @@ Every extraction and resolution primitive here is imported from
 `_HISTORICAL_PIN_RE`).  A census that used its own regex would be measuring a
 different population than the gate acts on, and the counts would not be an
 argument about the gate.
+
+THE PROSE ARM IS NOT SUFFICIENT
+-------------------------------
+An earlier revision classified `resolving or prose` as TRUE-PIN, so PROSE ALONE
+carried a cite into the migratable class.  That is a laundering machine: a row
+reading ``| run at the time of `b649f9f2` | rot `target.md:99` |`` -- where line
+99 exists neither at HEAD nor at `b649f9f2` -- came out TRUE-PIN and would have
+been REWRITTEN to carry a pin marker, converting undiscovered rot into a signed
+author declaration that the rot is deliberate.  A pin marker must never be
+applied to a cite that resolves at NEITHER end.  So resolution at the SHA is the
+necessary condition, and `prose_marker` is recorded, reported, and never
+sufficient.  A DEAD row whose line claims a pin in prose is the loudest thing
+this census can find, and `pin-census.py` prints that sub-count separately.
 
 THE OBJECTIVE ARM
 -----------------
@@ -105,23 +131,65 @@ PIN_PROSE_PATTERNS: tuple[str, ...] = (
 )
 _PIN_PROSE_RE = re.compile("|".join(PIN_PROSE_PATTERNS), re.IGNORECASE)
 
-# The per-cite marker this migration installs.  Kept here so the census, the
-# migrator and any future consumer share ONE definition.
-MARKER_RE = re.compile(r"@(?P<sha>[0-9a-f]{7,40})")
-# A fully-marked cite, as written: `path.md:12@abcdef1` / `path.md:8-24@abcdef1`.
-#
-# ★ The `(?:-{1,2}\d+)?` half is load-bearing and is the reason this constant
-# exists rather than being retyped at each site. The obvious hand-written probe
-# `:[0-9]+@[0-9a-f]{7}` MISSES every RANGE cite -- `foo.md:50-57@6621dae` has
-# `-57` between the digits and the `@` -- so a coinage/adoption grep written
-# that way silently under-collects. It did, here, on this migration's own
-# second file. Use this constant, or copy it whole.
-MARKED_CITE_TAIL_RE = re.compile(r":(?P<start>\d+)(?:-{1,2}(?P<end>\d+))?@(?P<sha>[0-9a-f]{7,40})")
+# ---------------------------------------------------------------------------
+# The marker, as CONVENTIONS.md defines it.  One definition, shared by the
+# census, the migrator and any future consumer, so nobody retypes it wrong.
+# ---------------------------------------------------------------------------
+
+#: `` pin:`c4a546dc` `` -- the author-declared marker itself, anywhere in a text.
+PIN_MARKER_RE = re.compile(r"pin:`(?P<sha>[0-9a-f]{7,40})`")
+
+#: The same marker where it must sit to BIND a cite: immediately to the cite's
+#: right, separated by nothing but inline whitespace.  Used as a lookahead after
+#: a cite occurrence, which is what makes both the census's `already_marked` and
+#: the migrator's idempotence positional rather than line-scoped.
+TRAILING_MARKER_RE = re.compile(r"[ \t]*pin:`[0-9a-f]{7,40}`")
 
 
 def count_markers(text: str) -> int:
-    """Occurrences of the per-cite pin marker in `text` (range form included)."""
-    return len(MARKED_CITE_TAIL_RE.findall(text))
+    """Occurrences of the author-declared pin marker in `text`."""
+    return len(PIN_MARKER_RE.findall(text))
+
+
+def cite_occurrence_re(form: str, path: str, start: int | None, end: int | None) -> re.Pattern:
+    """A regex matching this cite WHERE IT IS WRITTEN, in its own form.
+
+    Needed because the marker attaches to the cite's right-hand edge, and that
+    edge is in a different place in each of the three forms:
+
+        backticked   `path:12`                -> after the closing backtick
+        link-in      [text](path:12)          -> after the closing paren
+        link-ext     [text](path):12          -> after the line suffix
+
+    ★ RANGE SEPARATOR. `LineCite.as_written` NORMALISES `:133--147` to
+    `:133-147`, so a migrator that searched for `as_written` literally would
+    silently skip every double-dash range in the corpus. This builds the line
+    suffix from the parsed numbers with `-{1,2}`, so both spellings match.
+    """
+    body = re.escape(path)
+    if start is not None:
+        body += rf":{start}"
+        if end is not None and end != start:
+            body += rf"-{{1,2}}{end}"
+        body += r"(?!\d)"
+    if form == "link-in":
+        return re.compile(r"\[[^\]]*\]\(\s*" + body + r"\s*\)")
+    if form == "link-ext":
+        head = re.escape(path)
+        suffix = body[len(re.escape(path)):]
+        return re.compile(r"\[[^\]]*\]\(\s*" + head + r"\s*\)" + suffix)
+    return re.compile(r"`\s*" + body + r"\s*`")
+
+
+def marked_occurrences(line: str, form: str, path: str,
+                       start: int | None, end: int | None) -> tuple[int, int]:
+    """`(occurrences, of which already carry a trailing marker)` on `line`."""
+    total = marked = 0
+    for m in cite_occurrence_re(form, path, start, end).finditer(line):
+        total += 1
+        if TRAILING_MARKER_RE.match(line, m.end()):
+            marked += 1
+    return total, marked
 
 
 class ShaTree:
@@ -212,7 +280,10 @@ class CensusRow:
     source: str            # repo-relative citing file
     lineno: int            # line in the citing file
     form: str              # backticked | link-in | link-ext
-    as_written: str        # the cite text
+    as_written: str        # the cite text, NORMALISED (`:133--147` -> `:133-147`)
+    path: str              # the cited path, exactly as written
+    start: int | None      # cited line
+    end: int | None        # range end (== start for a single line)
     line_shas: tuple[str, ...]
     line_len: int
     cites_on_line: int
@@ -220,6 +291,10 @@ class CensusRow:
     resolving_shas: tuple[str, ...]    # SHAs on the line at which it DOES resolve
     prose_marker: bool
     klass: str
+    #: True when at least one occurrence of this cite on its line already
+    #: carries a trailing `` pin:`sha` ``. A line that writes the same cite
+    #: twice, once marked and once not, reports True and is left to a human --
+    #: the migrator's per-occurrence lookahead still marks only the bare one.
     already_marked: bool = False
     head_candidates: tuple[str, ...] = field(default_factory=tuple)
 
@@ -259,11 +334,13 @@ def classify(
                 dict.fromkeys(m.group(0).strip("`") for m in vml._HISTORICAL_PIN_RE.finditer(line))
             )
             prose = bool(_PIN_PROSE_RE.search(line))
-            already = bool(MARKED_CITE_TAIL_RE.search(cite.as_written))
+            _total, _marked = marked_occurrences(line, cite.form, cite.path, cite.start, cite.end)
+            already = _marked > 0
             cited_last = max(cite.start, cite.end or cite.start)
 
             if vml.cite_target_uncheckable(cite.path):
                 rows.append(CensusRow(rel_source, cite.lineno, cite.form, cite.as_written,
+                                      cite.path, cite.start, cite.end,
                                       shas, len(line), per_line[cite.lineno], None, (), prose,
                                       "SKIPPED-SHAPE", already))
                 continue
@@ -294,9 +371,13 @@ def classify(
                             resolving.append(sha)
                             break
 
+            # ★ RESOLUTION AT THE SHA IS NECESSARY. `prose` is deliberately
+            # absent from this ladder: see THE PROSE ARM IS NOT SUFFICIENT in
+            # the module docstring. A cite that resolves at neither end is rot,
+            # and rot with a confident sentence beside it is still rot.
             if at_head:
                 klass = "LIVE"
-            elif resolving or prose:
+            elif resolving:
                 klass = "TRUE-PIN"
             elif not cands:
                 klass = "UNRESOLVED-PATH"
@@ -304,6 +385,7 @@ def classify(
                 klass = "DEAD"
 
             rows.append(CensusRow(rel_source, cite.lineno, cite.form, cite.as_written,
+                                  cite.path, cite.start, cite.end,
                                   shas, len(line), per_line[cite.lineno],
                                   at_head if cands else None,
                                   tuple(dict.fromkeys(resolving)), prose, klass, already,

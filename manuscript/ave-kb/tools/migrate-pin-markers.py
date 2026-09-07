@@ -1,19 +1,31 @@
 #!/usr/bin/env python3
-"""Rewrite TRUE-PIN line-cites to carry the per-cite `@<sha>` marker (ruling R2).
+"""Rewrite TRUE-PIN line-cites to carry the author-declared pin marker (R2).
 
-TOKEN (fixed by the ruling's dispatch, not by this script):
+TOKEN -- READ FROM CANON, NOT COINED HERE.  `manuscript/ave-kb/CONVENTIONS.md`
+("Author-declared pin marker", written 2026-08-06) already fixes the form:
 
-    <path>:<line>@<sha>          <path>:<start>-<end>@<sha>
+    per `some-leaf.md:42` pin:`c4a546dc` -- *"the sentence that line carried then"*
 
-meaning "this cite is DELIBERATELY pinned to the repo state at <sha>"; the SHA
-is 7-40 lowercase hex and the marker exempts EXACTLY the cite it is attached to.
+`` pin:`<7-40 lowercase hex>` `` sits immediately to the RIGHT of the cite it
+pins and binds that cite alone -- which is the whole content of R2, because the
+heuristic it replaces is row-scoped.  This script writes exactly that token in
+exactly that position, in each of the three cite forms:
+
+    backticked   `path:12` pin:`sha`
+    link-in      [text](path:12) pin:`sha`
+    link-ext     [text](path):12 pin:`sha`
+
+A marked cite carries a backticked SHA on its line, so it stays exempt under the
+OLD heuristic too: the migration needs no flag day, exactly as CONVENTIONS says.
 
 WHAT IT TOUCHES
 ---------------
-Only cites `pin_census_lib.classify` returns as TRUE-PIN, and by default only
-those ALSO named in a hand-verified allow-list (`--verified`).  The allow-list
-is not belt-and-braces: the classifier's TRUE-PIN precision was MEASURED by hand
-on its whole corpus population and came out 2/5.  The failure mode is specific
+Only cites `pin_census_lib.classify` returns as TRUE-PIN -- which since the D2
+repair requires the cite to RESOLVE AT A SHA ON ITS OWN ROW, so a confident
+sentence can no longer carry rot into this script -- and by default only those
+ALSO named in a hand-verified allow-list (`--verified`).  The allow-list is not
+belt-and-braces: the classifier's TRUE-PIN precision was MEASURED by hand on its
+whole corpus population, twice, and came out 2/5 both times.  The failure mode is specific
 and unfixable by regex — a line-cite can EXIST at a SHA that happens to sit on
 its row for an unrelated reason (a session stamp, a ruling id), which is a
 line-existence coincidence, not an author's pin.  So the classifier proposes and
@@ -39,8 +51,8 @@ mistake "refused" for "nothing to do".
 
 DRY RUN IS THE DEFAULT.  `--apply` writes.
 
-    python3 manuscript/ave-kb/tools/migrate-pin-markers.py --dir _orchestration \
-        --verified _orchestration/docket-entries/2026-09-07-r2-pin-verified.txt
+    python3 manuscript/ave-kb/tools/migrate-pin-markers.py \
+        --verified _orchestration/docket-entries/2026-09-07-r2-pin-verified.tsv
     ... same, plus --apply
 
 EXIT CODES
@@ -59,10 +71,13 @@ from pathlib import Path
 
 _HERE = Path(__file__).resolve().parent
 
-# Measured by hand over the FULL corpus TRUE-PIN population (2026-09-07); see
-# the docket fragment named in --help output. Printed by --allow-unverified so
-# nobody bulk-migrates without seeing it.
-MEASURED_TRUE_PIN_PRECISION = "2/5 (40%) hand-confirmed, whole population"
+# Measured by hand over the FULL corpus TRUE-PIN population (2026-09-07), and
+# re-measured independently when the token was re-keyed to `` pin:`sha` ``; both
+# passes read all five cites at HEAD and at the pinned SHA and both landed on
+# the same two. See `_orchestration/docket-entries/2026-09-07-r2-pin-marker-
+# census.md` for the per-cite both-ways receipts. Printed by --allow-unverified
+# so nobody bulk-migrates without seeing it.
+MEASURED_TRUE_PIN_PRECISION = "2/5 (40%) hand-confirmed, whole population, two independent passes"
 
 
 def _load_lib():
@@ -119,15 +134,30 @@ def marker_for(row) -> str | None:
     return None
 
 
-def rewrite_line(line: str, as_written: str, sha: str) -> tuple[str, int]:
-    """Append `@sha` to every un-marked occurrence of `as_written` on `line`.
+def rewrite_line(line: str, row, sha: str, lib) -> tuple[str, int]:
+    """Insert `` pin:`sha` `` after every UNMARKED occurrence of this cite.
 
-    IDEMPOTENT by construction: the negative lookahead `(?!@[0-9a-f])` means an
-    already-marked cite is not a match, so a second pass finds nothing to do.
-    The `(?![0-9])` guard stops `foo.md:8` matching the head of `foo.md:80`.
+    Placement, not substitution: the marker goes immediately to the right of the
+    cite as written, in whichever of the three forms it was written -- which is
+    why this takes the row (form + path + line numbers) rather than a string.
+
+    IDEMPOTENT by inspection, not by hope: each occurrence is skipped when
+    `TRAILING_MARKER_RE` already matches at its right edge, so a second pass
+    finds nothing to do even though the cite -- unlike under the `@sha`
+    spelling -- REMAINS a well-formed cite that the census still classifies.
+
+    Right-to-left so an earlier insertion cannot shift a later match's offsets.
     """
-    pattern = re.compile(re.escape(as_written) + r"(?![0-9])(?!@[0-9a-f])")
-    return pattern.subn(f"{as_written}@{sha}", line)
+    occurrences = list(
+        lib.cite_occurrence_re(row.form, row.path, row.start, row.end).finditer(line)
+    )
+    out, hits = line, 0
+    for m in reversed(occurrences):
+        if lib.TRAILING_MARKER_RE.match(out, m.end()):
+            continue
+        out = out[: m.end()] + f" pin:`{sha}`" + out[m.end():]
+        hits += 1
+    return out, hits
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -156,7 +186,9 @@ def main(argv: list[str] | None = None) -> int:
 
     file_index, _ = vml.build_kbleaf_target_index(repo_root)
     rows = lib.classify(repo_root, vml, file_index, md_files)
-    candidates = [r for r in rows if r.klass == "TRUE-PIN"]
+    # `already_marked` rows are the migration's own output on a re-run; a
+    # marked cite is still a well-formed cite, so it is still classified.
+    candidates = [r for r in rows if r.klass == "TRUE-PIN" and not r.already_marked]
 
     allow = load_allowlist(args.verified) if args.verified else None
     if allow is not None:
@@ -190,7 +222,7 @@ def main(argv: list[str] | None = None) -> int:
             idx = row.lineno - 1
             if idx >= len(lines):
                 continue
-            new, n = rewrite_line(lines[idx], row.as_written, marker_for(row))
+            new, n = rewrite_line(lines[idx], row, marker_for(row), lib)
             lines[idx] = new
             file_hits += n
         updated = "".join(lines)
@@ -210,7 +242,9 @@ def main(argv: list[str] | None = None) -> int:
     scope = args.subdir or "corpus"
     print()
     print(f"=== migrate-pin-markers — scope: {scope} — {'APPLIED' if args.apply else 'DRY RUN'} ===")
-    print(f"TRUE-PIN candidates in scope : {len(rows and [r for r in rows if r.klass == 'TRUE-PIN'])}")
+    all_true_pin = [r for r in rows if r.klass == "TRUE-PIN"]
+    print(f"TRUE-PIN candidates in scope : {len(all_true_pin)}")
+    print(f"  already marked             : {sum(1 for r in all_true_pin if r.already_marked)}")
     if allow is not None:
         print(f"  not on the allow-list      : {len(skipped_unverified)} (left alone)")
     print(f"files rewritten              : {changed_files}")

@@ -65,13 +65,19 @@ def main(argv: list[str] | None = None) -> int:
     file_index, _ = vml.build_kbleaf_target_index(repo_root)
     rows = lib.classify(repo_root, vml, file_index, md_files)
 
-    # Counted by READING the files, not off `rows`: appending `@sha` takes a
-    # cite out of the bare-cite grammar, so a migrated cite is invisible to
-    # `iter_line_cites` and can never show up as a row.
+    # Counted by READING the files, not off `rows`. A `` pin:`sha` `` marker
+    # sits OUTSIDE the cite token, so -- unlike the `@sha` spelling an earlier
+    # revision used -- a marked cite REMAINS a well-formed cite and keeps being
+    # classified. This count is therefore markers-in-text, and `already marked`
+    # below is the per-cite view of the same thing.
     marked = 0
     for f in md_files:
         try:
-            marked += lib.count_markers(f.read_text(encoding="utf-8"))
+            # Fence-stripped, so this counts markers in PROSE and matches the
+            # population `iter_line_cites` walks. Unstripped it would also count
+            # CONVENTIONS.md's own fenced example of the token, which is
+            # documentation of the grammar, not a pin on a real cite.
+            marked += lib.count_markers(vml.strip_fences(f.read_text(encoding="utf-8")))
         except (OSError, UnicodeDecodeError):
             continue
 
@@ -85,7 +91,8 @@ def main(argv: list[str] | None = None) -> int:
     print(f"line-cites on SHA-bearing lines : {len(rows)}")
     print(f"  ... on distinct lines         : {len(sha_lines)}")
     print(f"  ... of those, lines >500 chars: {len(wide)}")
-    print(f"cites already carrying @sha     : {marked}")
+    print(f"pin:`sha` markers in prose      : {marked}")
+    print(f"  ... cites bound by one        : {sum(1 for r in rows if r.already_marked)}")
     print()
     for klass in CLASSES:
         print(f"  {klass:<16} {counts.get(klass, 0):>5}")
@@ -99,11 +106,21 @@ def main(argv: list[str] | None = None) -> int:
               "   <- rot the exemption hides")
     tp = [r for r in rows if r.klass == "TRUE-PIN"]
     if tp:
-        by_sha = sum(1 for r in tp if r.resolving_shas)
-        by_prose_only = sum(1 for r in tp if not r.resolving_shas and r.prose_marker)
         print()
-        print(f"  TRUE-PIN corroborated by SHA-resolution : {by_sha}")
-        print(f"  TRUE-PIN corroborated by prose only     : {by_prose_only}")
+        print(f"  TRUE-PIN resolving at a row SHA (all, by construction) : {sum(1 for r in tp if r.resolving_shas)}")
+        print(f"  TRUE-PIN also corroborated by prose                    : {sum(1 for r in tp if r.prose_marker)}")
+        print(f"  TRUE-PIN already carrying a marker                     : {sum(1 for r in tp if r.already_marked)}")
+
+    # The loudest thing this census can find: a cite that resolves at NEITHER
+    # end, on a line whose prose asserts it is deliberately pinned. Before the
+    # D2 repair these were classified TRUE-PIN on the prose alone and were
+    # migratable -- i.e. the tool would have signed rot as an author's intent.
+    laundering = [r for r in rows if r.prose_marker and r.klass in ("DEAD", "UNRESOLVED-PATH")]
+    if laundering:
+        print()
+        print(f"  ⚠ prose claims a pin but the cite resolves at NEITHER end : {len(laundering)}")
+        for r in laundering:
+            print(f"      {r.source}:{r.lineno}  {r.as_written}  [{r.klass}]")
 
     for klass in args.listing or ():
         print()
