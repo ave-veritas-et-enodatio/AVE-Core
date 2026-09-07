@@ -41,12 +41,12 @@ and the audit does not pre-empt that ruling in either direction.
    the result doc reports, the three carrying an `A_max` all stopped on the
    **approach to** the saturation kernel's *declared* clip domain
    (`A_cap=0.99 / S_min=0.05`): `0.91819`, `0.950373` and `0.986728`, all short
-   of `A_cap = 0.99`. **The result doc's §2.5 records a
-   second converged continuum with no reported `A_max`, so whether the domain
-   itself was entered is NOT ESTABLISHED rather than excluded** — RESULT §3/F8's
-   scope box carries the enumeration, the method and its blind spots. That is
-   where a fold-based or bracing-based selector would have to live, and no run
-   in the round is reported reaching it.
+   of `A_cap = 0.99`. **The result doc's §2.5 records a second converged
+   continuum with no reported `A_max`, so whether the domain itself was entered
+   is NOT ESTABLISHED rather than excluded** — RESULT §3/F8's scope box carries
+   the enumeration, the method and its blind spots. That is where a fold-based
+   or bracing-based selector would have to live, and no run in the round is
+   reported reaching it.
 3. **What survives into G2.** §3.2's Lagrange-constraint / fixed-charge
    formulation **survived the audit intact** and one lane calls it *"the
    strongest formulation in the record."* §3.1 consequence 3 is falsified by

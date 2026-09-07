@@ -63,12 +63,20 @@ defect list. **Surfaced under flag-don't-fix rather than fixed.** The physics is
 unaffected: the rider's content (mass = A1 is RATIFIED-CONSISTENCY, an
 adjudicated grade-assignment, not driver-validated) is quoted correctly.
 
-## 3 — A cross-branch wording divergence that is now closed, recorded so it is not re-opened
+## 3 — A cross-branch wording divergence, twice repaired, recorded so it is not re-opened
 
 The clip-domain statements on PR #1020 and PR #1022 were **both** falsified by
 `A_max = 0.986728 < A_cap = 0.99` (F8, RESULT §3) — the sites saying the solvers
 failed *at*, *reached*, or *crossed* the clip, each repaired to
 approach-not-arrival with the receipt attached.
+
+> ⚑ **RE-OPENED AND RE-REPAIRED 2026-09-06 (`0dc6f611`).** This section
+> previously called the divergence *"now closed"*. It was not: the
+> approach-not-arrival wording those repairs installed asserted a **universal
+> over the round** — see §3c entry 4 — which the RESULT's own §2.5 falsifies.
+> The header is corrected rather than the record deleted, and the accurate
+> statement is that the divergence has now been repaired **twice**, on different
+> axes: first arrival→approach, then universal→enumeration.
 
 > ⚑ **CORRECTED 2026-08-27, second time. This section carried a running total —
 > first "five", then "seven" — and both were wrong.** A bare total is replaced
@@ -84,18 +92,35 @@ Line numbers are as at this branch's HEAD; the wording column is the text **as
 it now stands**, not the falsified text it replaced (that is in each commit's
 diff).
 
+> ⚑ **RE-DERIVED 2026-09-06.** A later round (commit `0dc6f611`) corrected the
+> *completeness* defect these repairs introduced — four of them stated the clip
+> result as a universal over the round rather than as the runs measured — and
+> its edits moved the line column. **Every line below was re-derived against
+> HEAD after that commit** by grepping each row's own wording; rows **1, 3, 8
+> and 9** also carry re-stated wording, because the text they quoted no longer
+> exists. Rows 2, 4, 5, 6, 7 and 10 quote text that is unchanged. The
+> `repaired by` column is unchanged and still names the commit that made the
+> *approach-not-arrival* repair, not the later completeness repair.
+
 | # | file | line | now reads, in part | repaired by |
 |---|------|------|--------------------|-------------|
-| 1 | `research/2026-08-25_autonomous-hb-lens-audit_RESULT.md` — §0 sector declaration | `:55` | *"is **approached but never entered** — every solver failed on the approach"* | `d28e76fc` |
-| 2 | `…_RESULT.md` — §2.5, the F5 TRIM bullet | `:401` | *"Picard stops converging on the APPROACH to the kernel's … clip"* | `d28e76fc` |
-| 3 | `…_RESULT.md` — §7, FLAG 5 | `:1051` | *"which **no solver in this review entered**: every one died on the approach"* | `d28e76fc` |
-| 4 | `…_RESULT.md` — §3/F8, the "not a fold" headline sentence | `:523` | *"it is the solver dying on the approach to the kernel's own declared clip domain"* | `277557fa` |
-| 5 | `…_RESULT.md` — §3/F8, the convergence-death receipt | `:528` | *"**convergence dies on the approach to `A_cap`**, with `A_max` still just short of the clip"* | `db3831a1` |
-| 6 | `…_RESULT.md` — §3/F8, the branch-loss clause | `:530` | *"branch is lost approaching the clip, not turned around by a fold"* | `277557fa` |
-| 7 | `…_RESULT.md` — §3/F8, the A5 answer sentence | `:535` | *"a numerical failure on the approach to the clip, not a result"* | `1a9afc85` |
-| 8 | `…_RESULT.md` — §5, the A5 charter-disposition row | `:671` | *"break on the approach to the kernel's clip domain (`A_max = 0.986728` against `A_cap = 0.99` — never entered)"* | `1a9afc85` |
-| 9 | `_orchestration/open-items/2026-08-25-autonomous-hb-lens-audit.md` — open question 2 | `:41` | *"failed on the **approach to** the saturation kernel's *declared* clip domain"* | `74b04ec9` |
+| 1 | `research/2026-08-25_autonomous-hb-lens-audit_RESULT.md` — §0 sector declaration | `:55` | *"is **approached, and entry is NOT ESTABLISHED** — of the clip-directed runs this doc reports, the three carrying an `A_max` give …"* | `d28e76fc`, re-scoped `0dc6f611` |
+| 2 | `…_RESULT.md` — §2.5, the F5 TRIM bullet | `:409` | *"Picard stops converging on the APPROACH to the kernel's … clip"* | `d28e76fc` |
+| 3 | `…_RESULT.md` — §7, FLAG 5 | `:1095` | *"which **no clip-directed run in this doc is reported reaching**"* | `d28e76fc`, re-scoped `0dc6f611` |
+| 4 | `…_RESULT.md` — §3/F8, the "not a fold" headline sentence | `:531` | *"it is the solver dying on the approach to the kernel's own declared clip domain"* | `277557fa` |
+| 5 | `…_RESULT.md` — §3/F8, the convergence-death receipt | `:536` | *"**convergence dies on the approach to `A_cap`**, with `A_max` still just short of the clip"* | `db3831a1` |
+| 6 | `…_RESULT.md` — §3/F8, the branch-loss clause | `:538` | *"branch is lost approaching the clip, not turned around by a fold"* | `277557fa` |
+| 7 | `…_RESULT.md` — §3/F8, the A5 answer sentence | `:543` | *"a numerical failure on the approach to the clip, not a result"* | `1a9afc85` |
+| 8 | `…_RESULT.md` — §5, the A5 charter-disposition row | `:708` | *"break on the approach to the kernel's clip domain (`A_max = 0.986728` against `A_cap = 0.99` — **that run** stopped short …)"* | `1a9afc85`, re-scoped `0dc6f611` |
+| 9 | `_orchestration/open-items/2026-08-25-autonomous-hb-lens-audit.md` — open question 2 | `:42` | *"all stopped on the **approach to** the saturation kernel's *declared* clip domain"* | `74b04ec9`, re-scoped `0dc6f611` |
 | 10 | `research/2026-08-25_autonomous-harmonic-balance-lens_RECORD.md` — the dated status note | `:210` | *"a numerical failure on the **approach to** the saturation kernel's declared clip domain"* | `74b04ec9` |
+
+**A new site, not on the ten.** `0dc6f611` also added a scope box in §3/F8
+carrying the enumeration, the method and four blind spots. It is the one place
+the clip result is stated in full. **Rows 1, 3, 8, 9 and 10 — the five that had
+carried a universal — now point at it instead of restating it**, which is why
+none of them re-mints one; rows 2, 4, 5, 6 and 7 were already scoped to the run
+they describe and needed no pointer.
 
 Eight of the ten are in the audit RESULT doc; four of those eight are inside the
 single §3/F8 block, which is why a search that had already "done F8" kept
@@ -137,7 +162,12 @@ checked on it beyond confirming it was left alone. A reader who needs the
 carried-over count — the failure mode §3a documents (counting defect lists
 instead of repairs) applied to both branches' bookkeeping equally.
 
-### 3c — the false completeness claims, named
+### 3c — the false completeness claims found so far, named
+
+**This is a list of the ones that have been caught, not a claim that the list is
+closed** — entry 4 was added after this heading first read *"the false
+completeness claims, named"*, which is the same definite-article error the
+entries below describe.
 
 1. This section's original *"All were repaired"* — corrected in the round that
    raised the total to seven.
@@ -151,7 +181,18 @@ instead of repairs) applied to both branches' bookkeeping equally.
    unrepaired sites; it was **wrong about repairs already in the branch**, by
    three.
 
-All three are the same class: a completeness claim is a claim about a search,
+4. **The wording §3a's repairs installed** — *"the clip domain is never entered
+   — every solver failed on the approach, the furthest reaching
+   `A_max = 0.986728`"* and its three siblings. Corrected 2026-09-06 in
+   `0dc6f611`. The round that made the approach-not-arrival repairs replaced an
+   arrival claim with a **universal over the round**, and the audit RESULT's own
+   §2.5 falsifies it: the second converged continuum at `||v|| = 10.25 → 10.5`
+   is recorded with **no `A_max`**, so *"the furthest reaching"* was never
+   established. **This is the same failure one turn later — a repair round
+   introducing the defect the next round finds — which is the arithmetic this
+   whole item was opened to record.**
+
+All four are the same class: a completeness claim is a claim about a search,
 and each search was narrower than the sentence reporting it. §3a's response is
 not a better number, it is an enumeration plus the method that produced it.
 
