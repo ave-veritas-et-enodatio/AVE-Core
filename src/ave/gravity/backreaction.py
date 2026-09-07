@@ -252,6 +252,63 @@ def komar_weight(eps11: np.ndarray, *, S_min: float = 1e-3) -> np.ndarray:
     return np.sqrt(S)
 
 
+# The ponderomotive clock coefficient: the 1/7 Lagrangian isotropic projection
+# (`manuscript/ave-kb/vol3/gravity/ch03-macroscopic-relativity/ponderomotive-equivalence.md:14`,
+# `n_scalar(r) = 1 + ε₁₁(r)/7`). NOT a free knob — see the X44-unblock FROZEN
+# prereg §3.2 (`research/2026-08-27_x44-unblock_prereg_FROZEN.md`).
+#
+# ★ STATUS OF THAT PREREG — do not read it as live without this. It was RUN, and the run
+# bins `Z — ARTIFACT`: clause Z1 fired at step 1, the run is UNINTERPRETABLE per the
+# prereg's own §10.2, and NOTHING IS BANKED. Read the result FIRST:
+# `research/2026-08-27_x44-unblock_result.md` §0. Two of the prereg's own frozen clauses
+# are flagged there and are NOT repaired (§15.4 forbids editing frozen text; a correction
+# needs a new dated prereg):
+#   F-1 — the §11.1 Z1 detector is an algebraic identity of its own target, so it has no
+#         resolving power and fires on the shipped `komar_weight` too (result §4.1-§4.2).
+#   F-2 — the §4.3 / P9 closed form carries a spurious `χ`; the exact algebra is
+#         `c^D = 2k/g_self`, with no `χ` and no amplitude drift (result §6.1-§6.3).
+# Neither touches the constant below: it is derived in §3.2 (never fitted to `η_mixed`),
+# and on its own it installs nothing — it is only the default `k` of
+# :func:`ponderomotive_weight`, which is read ONLY under `source_mode="ponderomotive"`.
+PONDEROMOTIVE_K: float = 1.0 / 7.0
+
+
+def ponderomotive_weight(eps11: np.ndarray, *, k: float = PONDEROMOTIVE_K) -> np.ndarray:
+    r"""
+    The substrate-side Komar / redshift source weight ``w = 1/n_scalar`` (X44-unblock).
+
+    .. math::
+        A = \mathrm{clip}(|\varepsilon_{11}|,0,1),\quad
+        n_{scalar} = 1 + k A,\quad
+        w = 1/n_{scalar},\quad
+        1 - w = k A + O(A^2)
+
+    This is the energy of a matter element **read from infinity**, already printed in
+    canon: ``U_wave(r) = m_i c²/n_scalar(r) ≈ m_i c² − GM m_i/r``
+    (`ponderomotive-equivalence.md:19`). It is the **LINEAR** clock —
+    ``1 − w = ε₁₁/7 + O(ε₁₁²)`` — as distinct from :func:`komar_weight`, whose
+    composed form ``(1−ε₁₁²)^{1/4}`` has **no linear term at all**. The two wore the
+    same glyph ``√S`` in prose; they are different functions of ε₁₁ (prereg §2).
+
+    Substrate-side, NOT the metric lapse ``√g₀₀``: the two agree at first order
+    (``k = 1/7`` both) and part at ``O(ε₁₁²)``; the fork is recorded, not resolved
+    (prereg §3.4).
+
+    Args:
+        eps11: (N,N,N) strain field ε₁₁.
+        k: the clock coefficient. Default ``1/7`` — the canon projection. Other
+            values exist ONLY for the pre-registered four-coefficient discrimination
+            probe ``k ∈ {0, 1/7, 2/7, 1/2}`` (prereg P8). ``k = 1/2`` reconciles
+            ``η_mixed`` exactly and is **FORBIDDEN as a proposal** (prereg §12.2):
+            installing it is a probe of instrument resolving power, never a claim.
+
+    Returns:
+        (N,N,N) weight w ∈ (0, 1], with w = 1 where ε₁₁ = 0.
+    """
+    A = np.clip(np.abs(eps11), 0.0, 1.0)
+    return 1.0 / (1.0 + float(k) * A)
+
+
 def build_picard_source(
     T00_matter: np.ndarray,
     eps11: np.ndarray,
@@ -260,25 +317,36 @@ def build_picard_source(
     g_self: float = 1.0,
     S_min: float = 1e-3,
     source_mode: str = "komar",
+    k_clock: float = PONDEROMOTIVE_K,
 ) -> tuple[np.ndarray, np.ndarray]:
     r"""
     Assemble the Picard source ``T₀₀^src`` and the diagnostic ``u_field``.
 
-    * ``source_mode="komar"`` (default, X44): ``T₀₀^src = T₀₀^matter · √S(A)``.
+    * ``source_mode="komar"`` (default, X44): ``T₀₀^src = T₀₀^matter · √S(A)`` —
+      the QUADRATIC weight, ``1 − w = ε₁₁²/4 + O(ε₁₁⁴)``.
+    * ``source_mode="ponderomotive"`` (X44-unblock): ``T₀₀^src = T₀₀^matter/n_scalar``,
+      ``n_scalar = 1 + k·A`` — the LINEAR weight, ``1 − w = k·ε₁₁ + O(ε₁₁²)``.
     * ``source_mode="add_field"`` (legacy KEEP-BOTH): ``T₀₀^src = T₀₀^matter + u_field``.
     * ``source_mode="matter"`` (diagnostic control): ``T₀₀^src = T₀₀^matter`` — no
-      √S weight and no u_field; isolates whether Komar weighting engages nonlinearity.
+      weight and no u_field; isolates whether weighting engages nonlinearity.
+
+    ``k_clock`` is read ONLY by ``source_mode="ponderomotive"``; every other mode
+    ignores it, so the legacy modes are bit-identical to their pre-X44-unblock
+    behaviour (KEEP-BOTH).
     """
     u_field = field_energy_density(eps11, Grad, kappa=g_self)
     if source_mode == "komar":
         T00_src = T00_matter * komar_weight(eps11, S_min=S_min)
+    elif source_mode == "ponderomotive":
+        T00_src = T00_matter * ponderomotive_weight(eps11, k=k_clock)
     elif source_mode == "add_field":
         T00_src = T00_matter + u_field
     elif source_mode == "matter":
         T00_src = np.asarray(T00_matter, dtype=float).copy()
     else:
         raise ValueError(
-            f"unknown source_mode={source_mode!r}; expected 'komar', 'add_field', or 'matter'"
+            f"unknown source_mode={source_mode!r}; expected 'komar', 'ponderomotive', "
+            "'add_field', or 'matter'"
         )
     return T00_src, u_field
 
@@ -298,6 +366,7 @@ def solve_backreaction(
     inner_mix: float = 0.3,
     return_fields: bool = True,
     source_mode: str = "komar",
+    k_clock: float = PONDEROMOTIVE_K,
 ) -> dict:
     r"""
     Solve the TWO-WAY back-reaction to a self-consistent fixed point.
@@ -333,16 +402,20 @@ def solve_backreaction(
         outer_mix: outer under-relaxation (1.0 = pure Picard).
         inner_picard, inner_mix: the inner Stage-1 relaxation controls.
         return_fields: include the converged ε₁₁ / sources / radius grid.
-        source_mode: ``"komar"`` (default, X44), ``"add_field"`` (legacy), or
-            ``"matter"`` (diagnostic bare-source control).
+        source_mode: ``"komar"`` (default, X44), ``"ponderomotive"`` (X44-unblock
+            linear clock ``1/n_scalar``), ``"add_field"`` (legacy), or ``"matter"``
+            (diagnostic bare-source control).
+        k_clock: the ponderomotive clock coefficient; read ONLY by
+            ``source_mode="ponderomotive"``. Default ``1/7`` (canon projection).
 
     Returns:
         dict: eps11, T00_matter, T00_total (=T00^src), u_field, M_matter, U_bind, M_eff,
-        source_mode, Delta_clock, converged, n_outer, contraction_factor, …
+        source_mode, Delta_clock, Delta_clock_src, converged, n_outer,
+        contraction_factor, …
     """
     from ave.gravity.gw_propagation import _build_native_grad_div, relax_finite_core_strain
 
-    if source_mode not in ("komar", "add_field", "matter"):
+    if source_mode not in ("komar", "ponderomotive", "add_field", "matter"):
         raise ValueError(f"unknown source_mode={source_mode!r}")
 
     c = N // 2
@@ -364,7 +437,8 @@ def solve_backreaction(
     for it in range(max_outer):
         n_outer = it + 1
         T00_total, u_field = build_picard_source(
-            T00_matter, eps, Grad, g_self=g_self, S_min=S_min, source_mode=source_mode
+            T00_matter, eps, Grad, g_self=g_self, S_min=S_min, source_mode=source_mode,
+            k_clock=k_clock,
         )
         res = relax_finite_core_strain(
             N=N,
@@ -413,11 +487,23 @@ def solve_backreaction(
         dH_over_H_tail = float("nan")
 
     T00_total, u_field = build_picard_source(
-        T00_matter, eps, Grad, g_self=g_self, S_min=S_min, source_mode=source_mode
+        T00_matter, eps, Grad, g_self=g_self, S_min=S_min, source_mode=source_mode,
+        k_clock=k_clock,
     )
     massinfo = effective_mass(T00_matter, eps, Grad, g_self=g_self)
     # Fireable X44 identity: clock deficit vs strain binding (different functionals).
     Delta_clock = float((T00_matter * (1.0 - komar_weight(eps, S_min=S_min))).sum())
+    # X44-unblock: the clock deficit of the weight ACTUALLY INSTALLED by source_mode
+    # (prereg §10.1, `Δ_clock ≡ Σ T₀₀^matter (1 − w)`). `Delta_clock` above stays the
+    # √S reading unconditionally, for regression continuity with X44 (KEEP-BOTH); the
+    # two coincide under source_mode="komar" and differ under "ponderomotive".
+    if source_mode == "ponderomotive":
+        _w_src = ponderomotive_weight(eps, k=k_clock)
+    elif source_mode == "komar":
+        _w_src = komar_weight(eps, S_min=S_min)
+    else:
+        _w_src = np.ones_like(eps)  # add_field / matter install no clock weight
+    Delta_clock_src = float((T00_matter * (1.0 - _w_src)).sum())
 
     out = {
         "M_matter": massinfo["M_matter"],
@@ -426,6 +512,8 @@ def solve_backreaction(
         "binding_fraction": massinfo["binding_fraction"],
         "source_mode": source_mode,
         "Delta_clock": Delta_clock,
+        "Delta_clock_src": Delta_clock_src,
+        "k_clock": float(k_clock),
         "converged": converged,
         "n_outer": n_outer,
         "contraction_factor": contraction_factor,

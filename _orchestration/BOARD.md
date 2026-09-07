@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **31bcfa7d** (2026-08-25) · 468 index records · 331 claims · 1 PR open
+Scanned tree **2326107c** (2026-09-06) · 468 index records · 331 claims · 16 PRs open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`be669184`). Every count below describes **31bcfa7d**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`6b8b49a0`). Every count below describes **2326107c**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -30,7 +30,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## What we are waiting on
 
-**44 of 77 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
+**45 of 78 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
 
 *Scope: this is a census of `open-items/`. `_orchestration/2026-07-10_rulings-docket.md` is the **paper timeline** — a dated continuation log, frozen at its 2026-07-21 tail per `docket-entries/README.md`, and the historical record of how each ruling was reached. It is read chronologically, not harvested; anything still live in it belongs here as its own file.*
 
@@ -69,6 +69,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [gamma_c and G_c are both called 'the Cosserat couple-stress modulus' in one leaf, differ dimensionally, and a joint-falsification claim reads them as identical](open-items/2026-08-24-gammac-gc-modulus-identity.md) | ROUTED-TO-GRANT | grant | 2026-08-24 |
 | [The Axiom-4 kernel argument "A" carries two normalizations across axiom-level and SOLID leaves (yield-denominated vs bare/snap) — VOCABULARY only](open-items/2026-08-24-kernel-argument-normalization.md) | ROUTED-TO-GRANT | grant | 2026-08-24 |
 | [INVARIANT-S2 vs master-equation — which sector hosts the mu-branch wave-channel short](open-items/2026-08-25-invariant-s2-sector-split.md) | ROUTED-TO-GRANT | grant | 2026-08-25 |
+| [X44 bin-(iii) UNRECONCILED sat unowned for six weeks — the obstruction was DEFINITIONAL (a two-function glyph collision) and the frozen PASS bin was structurally unreachable; the replacement FROZEN prereg was RUN the same day and bins Z — ARTIFACT (Z1 fired on the instrument, nothing banked), leaving SEVEN decisions routed to Grant](open-items/2026-08-27-x44-unblock.md) | ROUTED-TO-GRANT | grant | 2026-08-27 |
 | [Sector-of-storage — where the compression store lives (A1 canon vs the T2/swing label)](open-items/2026-07-26-sector-of-storage.md) | OPEN-IN-WALK | grant | 2026-07-26 |
 | [The quark-charge dressing — CP-parity underived (both adjectives asserted), N=3 fed in; four vacuum-side investigation routes GO'd](open-items/2026-08-23-theta-dressing-open-questions.md) | OPEN-IN-WALK | lane | 2026-08-23 |
 | [A RESOLVED stamp asserts its own propagation, and the propagation never happened (Row 11 MOND)](open-items/2026-05-19-row11-mond-propagation.md) | OPEN | unassigned | 2026-05-19 |
@@ -135,7 +136,22 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 | PR | state | title |
 |---|---|---|
-| #1019 | CLEARED | [REVIEW: CLEARED] research: the autonomous-harmonic-balance lens (UNAUDITED) + i |
+| #1036 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] docs: class-1 status-word correctio |
+| #1035 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] docs+ci: manuscript-reconciliation  |
+| #1034 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: H1 three-object close + S |
+| #1033 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: ε11 as Q-point; constitut |
+| #1032 | unlabelled | [DO-NOT-MERGE][REVIEW: BLOCKED by blind audit] research: Machian-G boundary audi |
+| #1031 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: FROZEN prereg — X44 unblo |
+| #1030 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: where GR is validated on  |
+| #1029 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: the two-knob gravity repa |
+| #1028 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: PPN tensor derivation — m |
+| #1027 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: the cold-vacuum phase-spa |
+| #1026 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] infra: Rule-12 append-only GATE (fr |
+| #1025 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: the virtual-neutral bound |
+| #1024 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] engine: BUILD-EO1-T2X — tone-solve  |
+| #1023 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: FROZEN prereg — virtual n |
+| #1022 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: the autonomous-HB lens au |
+| #1021 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: the wall-first reframe +  |
 
 <!-- /volatile -->
 
