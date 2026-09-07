@@ -1,0 +1,27 @@
+# R2 per-cite pin markers — HAND-VERIFIED allow-list for migrate-pin-markers.py
+#
+# Format: <source repo-relative path> TAB <line in source> TAB <cite as written>
+#
+# A row lands here only after a human RESOLVED THE CITED LINE BOTH WAYS — read
+# it at HEAD (absent) and at the SHA on its row (present, and saying what the
+# citing prose says it says). The classifier proposes; this file disposes. Its
+# measured TRUE-PIN precision was 2/5 over the whole corpus population, so the
+# classifier alone is not licence to rewrite anything.
+#
+# Verified 2026-09-07 against base 5a36cea5.
+#
+# (1) stage15_layer_b_coupled_stability.py:58 @b2de04fc
+#     HEAD: no file of that name is tracked anywhere in the repo.
+#     @b2de04fc: src/scripts/vol_1_foundations/stage15_layer_b_coupled_stability.py
+#     line 58 reads `OMEGA_BLOWUP_FACTOR = 1e3` — exactly the constant the
+#     citing sentence names. The row's own prose says "branch-only" and
+#     "prereg `b2de04fc`", tying the SHA to this cite.
+_orchestration/2026-06-16_standing-decisions-audit-lane.md	123	stage15_layer_b_coupled_stability.py:58
+#
+# (2) _orchestration/exp-a1-hopf.md:50-57 @6621dae
+#     HEAD: the doc was moved to _orchestration/experimental/a1-hopf/, so the
+#     path as written resolves nowhere.
+#     @6621dae: lines 50-57 are the "Walk-back targets (Phase 1 of parent
+#     epic)" table the citing sentence describes. The row's prose pins it
+#     explicitly — "audit verification at AVE-Core HEAD `6621dae`".
+_orchestration/experimental/a1-hopf/exp-a1-hopf-repo-audit.md	417	_orchestration/exp-a1-hopf.md:50-57

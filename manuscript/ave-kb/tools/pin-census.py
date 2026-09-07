@@ -65,6 +65,16 @@ def main(argv: list[str] | None = None) -> int:
     file_index, _ = vml.build_kbleaf_target_index(repo_root)
     rows = lib.classify(repo_root, vml, file_index, md_files)
 
+    # Counted by READING the files, not off `rows`: appending `@sha` takes a
+    # cite out of the bare-cite grammar, so a migrated cite is invisible to
+    # `iter_line_cites` and can never show up as a row.
+    marked = 0
+    for f in md_files:
+        try:
+            marked += lib.count_markers(f.read_text(encoding="utf-8"))
+        except (OSError, UnicodeDecodeError):
+            continue
+
     counts = Counter(r.klass for r in rows)
     sha_lines = {(r.source, r.lineno) for r in rows}
     wide = {(r.source, r.lineno) for r in rows if r.line_len > 500}
@@ -75,7 +85,7 @@ def main(argv: list[str] | None = None) -> int:
     print(f"line-cites on SHA-bearing lines : {len(rows)}")
     print(f"  ... on distinct lines         : {len(sha_lines)}")
     print(f"  ... of those, lines >500 chars: {len(wide)}")
-    print(f"already carrying an @sha marker : {sum(1 for r in rows if r.already_marked)}")
+    print(f"cites already carrying @sha     : {marked}")
     print()
     for klass in CLASSES:
         print(f"  {klass:<16} {counts.get(klass, 0):>5}")

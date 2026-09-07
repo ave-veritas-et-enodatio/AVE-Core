@@ -109,7 +109,19 @@ _PIN_PROSE_RE = re.compile("|".join(PIN_PROSE_PATTERNS), re.IGNORECASE)
 # migrator and any future consumer share ONE definition.
 MARKER_RE = re.compile(r"@(?P<sha>[0-9a-f]{7,40})")
 # A fully-marked cite, as written: `path.md:12@abcdef1` / `path.md:8-24@abcdef1`.
+#
+# ★ The `(?:-{1,2}\d+)?` half is load-bearing and is the reason this constant
+# exists rather than being retyped at each site. The obvious hand-written probe
+# `:[0-9]+@[0-9a-f]{7}` MISSES every RANGE cite -- `foo.md:50-57@6621dae` has
+# `-57` between the digits and the `@` -- so a coinage/adoption grep written
+# that way silently under-collects. It did, here, on this migration's own
+# second file. Use this constant, or copy it whole.
 MARKED_CITE_TAIL_RE = re.compile(r":(?P<start>\d+)(?:-{1,2}(?P<end>\d+))?@(?P<sha>[0-9a-f]{7,40})")
+
+
+def count_markers(text: str) -> int:
+    """Occurrences of the per-cite pin marker in `text` (range form included)."""
+    return len(MARKED_CITE_TAIL_RE.findall(text))
 
 
 class ShaTree:

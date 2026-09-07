@@ -229,8 +229,9 @@ def test_marker_is_not_yet_a_homonym_in_this_repo():
     repo_root = TOOLS.parents[2]
     if not (repo_root / ".git").exists():
         pytest.skip("not a git checkout")
+    # Range-aware on purpose: `:[0-9]+@...` misses `foo.md:50-57@sha`.
     out = subprocess.run(
-        ["git", "-C", str(repo_root), "grep", "-lIE", r":[0-9]+@[0-9a-f]{7}", "--",
+        ["git", "-C", str(repo_root), "grep", "-lIE", r":[0-9]+(-{1,2}[0-9]+)?@[0-9a-f]{7}", "--",
          "*.md"],
         capture_output=True, text=True,
     ).stdout.split()
