@@ -8,6 +8,16 @@
 
 **#1020 picture-lock stays** [`2026-08-29_overbraced-crystal-picture-lock.md`](2026-08-29_overbraced-crystal-picture-lock.md) (P0–P7 + mapping + ordinary flags + the 1:1 table). This file is everything that is **not** that PR’s rewrite.
 
+**Status-word correction 2026-09-06 (class-1 demotion; third pass — completeness sweep of the sibling files).** Grant ratified 2026-09-03 that *signed* means **an adversarial pass AND a physical/logical review with him**; chat agreement alone is chat-walk grade. The same demotion already applied to the P0–P7 grades in [`2026-08-29_overbraced-crystal-picture-lock.md`](2026-08-29_overbraced-crystal-picture-lock.md) and in [`2026-08-26_overbraced-chiral-crystal-walk_RECORD.md`](2026-08-26_overbraced-chiral-crystal-walk_RECORD.md) is applied here, to the **same claims**, so this file cannot be read on its own as a live signature. **No finding is withdrawn; only the grading word moved.** The kills, the CLOSED verdicts, the H1–H6 holds and every parked/KEEP-ALL call stand exactly as recorded.
+
+**Prior wording, preserved verbatim per Rule 12** — 15 positive tokens on 11 lines, each demoted **in place** to the grade its picture already carries on the lock (P0/P1/P2/P3 → **Grant-agreed (chat), WALK-GRADE, UNAUDITED**; P5 and the walk it teaches → **WALK-GRADE, UNAUDITED**, P5 having no Grant assent at all):
+
+> `:18` *“P0 **SIGNED for #1020**; … P1/P2 sentence **SIGNED**. P3 **SIGNED** (dead as stated; no same-setup rerun). P5 instrument limit **SIGNED**.”* (four tokens) · `:31` *“**SIGNED** as instrument limit”* · `:32` *“Sentence SIGNED”* · `:36` *“signed walk dropped §9.1”* · `:74` *“**P1 — signed.**”* · `:101` *“(SIGNED sentence; vocab not minted)”* · `:105` *“**Grant-signed sentence (2026-08-29):**”* · `:113` *“## S8 — P5 (SIGNED)”* · `:115` *“1. **Signed:**”* · `:126` *“**Signed target:**”* · `:152` *“walk RECORD replaced with signed teaching”*. Line numbers are pre-correction.
+
+**Deliberately NOT demoted — routed to Grant, do not read as cleared.** The **S2 epistemology** track (*“AC reads a DC differential on a real medium”*) is a different claim from the P0–P7 pictures and carries a different receipt shape: [`2026-08-29_overbraced-crystal-picture-lock.md`](2026-08-29_overbraced-crystal-picture-lock.md):198 attributes it to an *“Adversarial audit”*, and Grant’s recorded line agrees with that audit’s split rather than merely nodding at a picture. **No record of that audit exists in the tracked tree** (searched: every tracked file, and `git log --all` over the arc’s files and messages — no lens list, no findings table, no result doc), so this pass can neither establish the adversarial prong nor rule it out, and demoting on a guess would be a wrong edit in the other direction. Left as written pending Grant — **line numbers as of this commit**: `:26`, `:37`, `:69`, `:71` here; `:271` in the walk RECORD; `:13` in [`../_orchestration/open-items/2026-08-29-acdc-gravity-circuit-map.md`](../_orchestration/open-items/2026-08-29-acdc-gravity-circuit-map.md); `:198` on the lock.
+
+**Method (two independent legs).** *Leg 1* — case-insensitive census of the substring `sign`, line by line, over all 153 pre-correction lines of this file: 20 hits, of which 15 are the positive P-picture grades demoted above, 4 are the S2-epistemology track left standing, and 5 deny a signature (pre-correction `:35` “BH-host unsigned”, `:63` “Not signed (holds)”, `:95` “not as a signed identity”, `:97` “unsigned intuition” × 2, `:148` “recorded unsigned”). Every other `sign` hit in the file as it now stands is this correction’s own text. *Leg 2* — the arc’s file universe rebuilt structurally rather than by regex, as the union of every path touched by the six arc commits (`9efcc8db`, `52898d6b`, `0b2f4d56`, `ae0ed14d`, `8670d938`, `1a0ccedf`) and every tracked file linking to the lock or the RECORD, then each read end to end: 8 arc files plus the generated `BOARD.md`, matching leg 1’s file set exactly. A separate sweep for non-`sign` grade words (`Canon`/`CANON`/`LOCKED`/`RATIFIED`/`SETTLED`/`CONFIRMED`/`FINAL`/`STANDS`/`Status:`) over the arc files found **no** un-demoted grade on a #1020 picture; the surviving `Canon` uses cite `def-69f472` / `def-kn0t01` / the S9 shelf, which is accurate. **Blind spot:** a grade asserted with none of those tokens — an English paraphrase such as “that one is settled between us” — is invisible to leg 1 and would surface only in leg 2’s read, which was run once, by one reader.
+
 ---
 
 ## Grant status (2026-08-29)
@@ -15,7 +25,7 @@
 - Mapping **makes sense** (epistemology).
 - **Agrees** with the Kirchhoff reading below and with the audit holds: sign “AC reads a DC differential on a real medium”; **do not** sign “same scalar Kirchhoff mesh” or “\(\varepsilon_{11}\) is \(V\) on the \(L\)-edges.”
 - Kirchhoff leaf **not edited** this session. Wording PR is S1, parked.
-- P0 **SIGNED for #1020**; leftovers (2)(3) are spillover S11. P1/P2 sentence **SIGNED**. P3 **SIGNED** (dead as stated; no same-setup rerun). P5 instrument limit **SIGNED**. P6 **CLOSED for #1020** (S10). P7: analyze, do not pick — **CLOSED for #1020**; analysis is S10.
+- P0 **Grant-agreed (chat), WALK-GRADE, UNAUDITED for #1020**; leftovers (2)(3) are spillover S11. P1/P2 sentence **Grant-agreed (chat), WALK-GRADE, UNAUDITED**. P3 **Grant-agreed (chat), WALK-GRADE, UNAUDITED** (dead as stated; no same-setup rerun). P5 instrument limit **WALK-GRADE, UNAUDITED**. P6 **CLOSED for #1020** (S10). P7: analyze, do not pick — **CLOSED for #1020**; analysis is S10.
 
 ---
 
@@ -28,12 +38,12 @@
 | S3 | Vocab lens: synonym vs new `def-` (theorem-thesaurus + register) | plan delta; not a #1020 rewrite | plan |
 | S4 | SM/QED/GR leakage CI (warn vs fail) | Grant-gated epic | plan |
 | S5 | over-braced `def-` (and self-stress / hyperstatic / knot vs `def-kn0t01`) | **Parked for later adjudication.** Collision list below. Not minted on #1020. | this file |
-| S8 | P5 bench fact: scalar HB cannot hold Cosserat twist | **SIGNED** as instrument limit. “Therefore no knot” killed. Cosserat-wired HB later. | this file |
-| S9 | Phase-space tank-state: `def-69f472` amend + coupling/bulk-emergence characterization | Sentence SIGNED. Vocab not minted. Characterization on **#1034** (WALK-GRADE). Remaining live action = vocab amend. | [`2026-08-29-phase-space-tank-state`](../_orchestration/open-items/2026-08-29-phase-space-tank-state.md) |
+| S8 | P5 bench fact: scalar HB cannot hold Cosserat twist | **WALK-GRADE, UNAUDITED** as instrument limit. “Therefore no knot” killed. Cosserat-wired HB later. | this file |
+| S9 | Phase-space tank-state: `def-69f472` amend + coupling/bulk-emergence characterization | Sentence **Grant-agreed (chat), WALK-GRADE, UNAUDITED**. Vocab not minted. Characterization on **#1034** (WALK-GRADE). Remaining live action = vocab amend. | [`2026-08-29-phase-space-tank-state`](../_orchestration/open-items/2026-08-29-phase-space-tank-state.md) |
 | S10 | Dual-arm analysis: \(\ker Y\) vs \(M\)-eigenmode (P6/P7) | **Closed as #1020 follow-up.** Analyze, do not pick. Drop Maxwell–Calladine weld. Not this HB code. | [`2026-08-29-ker-y-vs-m-eigenmode`](../_orchestration/open-items/2026-08-29-ker-y-vs-m-eigenmode.md) |
 | S6 | Dielectric-Lagrangian “capacitive **edges** / inductive **nodes**” vs Kirchhoff nodes=\(C\), struts=\(L\) | not yet walked | this file |
 | S11 | P0 leftovers: extra KVL loops vs A1 headroom; BH-host unsigned | PARKED — not #1020. Do not pick in the rewrite. | this file |
-| S13 | #1020 Lens-4 ordinary flags | Walked 2026-08-29. Rewrite-BLOCKER **addressed** (signed walk dropped §9.1). FLAG remaining: receipts copied (chk3.py absent); EXTERNAL names not taught; vocab:510 not cited as CANON. BOARD restored from `origin/main`, not regenerated. | picture-lock Lens 4 |
+| S13 | #1020 Lens-4 ordinary flags | Walked 2026-08-29. Rewrite-BLOCKER **addressed** (the **WALK-GRADE, UNAUDITED** walk dropped §9.1). FLAG remaining: receipts copied (chk3.py absent); EXTERNAL names not taught; vocab:510 not cited as CANON. BOARD restored from `origin/main`, not regenerated. | picture-lock Lens 4 |
 
 ---
 
@@ -71,7 +81,7 @@
 
 **Not minted** into `translation-circuit.md`. Full 1:1 table remains on the picture-lock until H1 is closed.
 
-**P1 — signed.** Lattice is space; knot is tank-state winding; projected strain is AC readout.
+**P1 — Grant-agreed (chat), WALK-GRADE, UNAUDITED.** Lattice is space; knot is tank-state winding; projected strain is AC readout.
 
 ---
 
@@ -98,11 +108,11 @@ Also parked here: **self-stress** (MC kernel vs writhe self-subtraction vs walk 
 
 ---
 
-## P2 note — Smith vs phase space (SIGNED sentence; vocab not minted)
+## P2 note — Smith vs phase space (Grant-agreed (chat), WALK-GRADE, UNAUDITED sentence; vocab not minted)
 
 Canon (`def-69f472`): phase space = \((V_{\mathrm{inc}},V_{\mathrm{ref}})\) / Clifford-torus **phasor coordinates**, not real space.
 
-**Grant-signed sentence (2026-08-29):** Phase space is the native **state-coordinate chart of the lattice tanks**, distinct from the graph that is physical space. Smith is a **ratio chart** of that state, not the state itself.
+**Grant-agreed sentence (chat, WALK-GRADE, UNAUDITED — 2026-08-29):** Phase space is the native **state-coordinate chart of the lattice tanks**, distinct from the graph that is physical space. Smith is a **ratio chart** of that state, not the state itself.
 
 Amend `def-69f472` on a vocab PR (not #1020, not #1033). Keep the A46 size-leak flag. Do not mint a second `def-`. Fiber-bundle noun stays WALK (`translation-phase-space.md` §3.2). Smith-as-ontology stays Grant-gated.
 
@@ -110,9 +120,9 @@ Smith chart is a **ratio**: \(\Gamma = V_{\mathrm{ref}}/V_{\mathrm{inc}}\) (rung
 
 ---
 
-## S8 — P5 (SIGNED)
+## S8 — P5 (WALK-GRADE, UNAUDITED)
 
-1. **Signed:** the #1020 HB code is stretch/A1-only; Cosserat \(\gamma_c\) (flywheel mutual-\(L\)) is unwired. That code cannot hold a twist.
+1. **WALK-GRADE, UNAUDITED:** the #1020 HB code is stretch/A1-only; Cosserat \(\gamma_c\) (flywheel mutual-\(L\)) is unwired. That code cannot hold a twist.
 2. Do **not** promote “therefore the knot cannot exist.”
 3. **#1020 wording pass done (2026-08-29):** remaining live content is Grant’s spiderweb/over-brace metaphor, not an HB selector (P4 killed Chern).
 4. A Cosserat-wired HB is a **new effort**, not this PR.
@@ -123,7 +133,7 @@ Smith chart is a **ratio**: \(\Gamma = V_{\mathrm{ref}}/V_{\mathrm{inc}}\) (rung
 
 **Do not derive this session.** Prereg before any characterization.
 
-**Signed target:** how the tank-state chart is modeled, and how it couples to the vacuum and to matter / light / gravity — or how bulk properties emerge from it.
+**Grant-agreed (chat), WALK-GRADE, UNAUDITED target:** how the tank-state chart is modeled, and how it couples to the vacuum and to matter / light / gravity — or how bulk properties emerge from it.
 
 **Already on the shelf (do not re-derive as new):** `translation-phase-space.md` ladder T0–T5; `clm-acdc07`; Round-3 1:1 table; H1–H6; photon-ee-mapping; `bond-lc-constitutive-grading.md`; INVARIANT-S2 SYM/ASYM.
 
@@ -149,5 +159,5 @@ Smith chart is a **ratio**: \(\Gamma = V_{\mathrm{ref}}/V_{\mathrm{inc}}\) (rung
 - **2026-08-29 P1←P2:** proposed close — lattice is space; phase space is tank-state coordinates. P3: stretch-only ≠ voltage synonym; HB \(A\) sweep ≠ SYM \(L{+}C\). P7: Q2 restatable, not a compute green light.
 - **2026-08-29 ordinary flags:** Lens 4 walked. Rewrite-BLOCKER is §9.1 “§2 not wrong.” BOARD.md 0-PRs FLAG.
 - **2026-08-29 pads landed:** tracked copies on PR #1020. `BOARD.md` not regenerated (Lens 4 FLAG).
-- **2026-08-29 rewrite:** walk RECORD replaced with signed teaching; routing item no longer commissions B11/B12/B1; `BOARD.md` restored from `origin/main`. S13 rewrite-BLOCKER closed.
+- **2026-08-29 rewrite:** walk RECORD replaced with the **WALK-GRADE, UNAUDITED** teaching; routing item no longer commissions B11/B12/B1; `BOARD.md` restored from `origin/main`. S13 rewrite-BLOCKER closed.
 - **2026-09-06 ship-time:** pointer-only — H1/S9 characterization on #1034; do not treat this file's 2026-08-29 H1-gate as live program state after #1020 merges.
