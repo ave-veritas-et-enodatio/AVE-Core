@@ -630,8 +630,19 @@ def _added_from_diff_text(text: str) -> dict[Path, set[int]]:
     `_added_map_from_diff_text` is marked "pure; testable".)
 
     FREEZE-STAMP EXEMPTION. A Rule-12 stamp (`verify-rule12-freeze.py`) rides at
-    the END of a note's own line, so installing 461 of them shifts NO line number
-    in a corpus carrying 17,012 `path:NN` cites. The cost is that a stamped line
+    the END of a note's own line and inserts no new line, so installing 461 of
+    them shifts no line number in any file they touch. That is a property of the
+    PLACEMENT, not a survey result: appending to an existing line leaves the line
+    count identical, and `test_backfill_touches_nothing_but_appends_a_stamp`
+    asserts exactly that (`len(b_lines) == len(a_lines)`, "the writer moved a
+    line number"). An earlier version of this paragraph sized the stake as "a
+    corpus carrying 17,012 `path:NN` cites"; that figure is WITHDRAWN as fact --
+    it was measured by a script neither PR ships, and a re-run under a stated
+    resolution rule lands in a different order of magnitude in every column (see
+    "THE MOTIVATING FIGURES, AND THEIR PROVENANCE, STATED HONESTLY" in
+    `verify-rule12-freeze.py`). No count is needed here, which is why none is
+    written: zero cites shift whether the corpus carries sixteen thousand or
+    sixty. The cost is that a stamped line
     is a MODIFIED line, hence a `+` line, so cites that were ALREADY on it read
     as cites the branch ADDED and this ratchet demands excerpts for them.
 
