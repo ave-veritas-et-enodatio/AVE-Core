@@ -256,6 +256,20 @@ def komar_weight(eps11: np.ndarray, *, S_min: float = 1e-3) -> np.ndarray:
 # (`manuscript/ave-kb/vol3/gravity/ch03-macroscopic-relativity/ponderomotive-equivalence.md:14`,
 # `n_scalar(r) = 1 + ε₁₁(r)/7`). NOT a free knob — see the X44-unblock FROZEN
 # prereg §3.2 (`research/2026-08-27_x44-unblock_prereg_FROZEN.md`).
+#
+# ★ STATUS OF THAT PREREG — do not read it as live without this. It was RUN, and the run
+# bins `Z — ARTIFACT`: clause Z1 fired at step 1, the run is UNINTERPRETABLE per the
+# prereg's own §10.2, and NOTHING IS BANKED. Read the result FIRST:
+# `research/2026-08-27_x44-unblock_result.md` §0. Two of the prereg's own frozen clauses
+# are flagged there and are NOT repaired (§15.4 forbids editing frozen text; a correction
+# needs a new dated prereg):
+#   F-1 — the §11.1 Z1 detector is an algebraic identity of its own target, so it has no
+#         resolving power and fires on the shipped `komar_weight` too (result §4.1-§4.2).
+#   F-2 — the §4.3 / P9 closed form carries a spurious `χ`; the exact algebra is
+#         `c^D = 2k/g_self`, with no `χ` and no amplitude drift (result §6.1-§6.3).
+# Neither touches the constant below: it is derived in §3.2 (never fitted to `η_mixed`),
+# and on its own it installs nothing — it is only the default `k` of
+# :func:`ponderomotive_weight`, which is read ONLY under `source_mode="ponderomotive"`.
 PONDEROMOTIVE_K: float = 1.0 / 7.0
 
 
