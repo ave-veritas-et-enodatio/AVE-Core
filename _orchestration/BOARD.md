@@ -4,9 +4,9 @@
 
 # AVE program board
 
-Scanned tree **59dbd753** (2026-08-27) · 468 index records · 331 claims · 9 PRs open
+Scanned tree **00d0b230** (2026-09-06) · 468 index records · 331 claims · 16 PRs open
 
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`a3f4fef7`). Every count below describes **59dbd753**. Regenerate on main before reading these as program state.
+> ⚑ **This board was generated from a tree that is not `origin/main`** (`6b8b49a0`). Every count below describes **00d0b230**. Regenerate on main before reading these as program state.
 
 ## The number that frames everything
 
@@ -106,7 +106,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [Two different lengths may share the name ell_c — the sqrt(6) Cosserat coupling length vs the weak-range construction](open-items/2026-08-25-ell-c-name-collision.md) | OPEN | grant | 2026-08-25 |
 | [G2 freeze decisions — the four calls that must be frozen before the P2 existence solve runs](open-items/2026-08-25-g2-freeze-decisions.md) | OPEN | grant | 2026-08-25 |
 | [The storage clock and the response clock are the same number exactly — canon's 1.4e-5 near-collision is a linearization artifact](open-items/2026-08-25-storage-response-clock-identity.md) | OPEN | grant | 2026-08-25 |
-| [Op19 converts strain to index with a strain-per-strain ratio -- the rank-4 photoelastic tensor that would do the job is unnamed in the corpus](open-items/2026-08-27-bias-to-index-photoelastic-map.md) | OPEN | unassigned | 2026-08-27 |
+| [Op19 converts strain to index with a strain-per-strain ratio -- the rank-4 photoelastic tensor that would do the job is unnamed in the sites F-B4 searched](open-items/2026-08-27-bias-to-index-photoelastic-map.md) | OPEN | unassigned | 2026-08-27 |
 | [The gapped Cosserat branch has two canon spellings whose asymptotic packet speeds differ by sqrt(2), and one exceeds the light characteristic](open-items/2026-08-27-gapped-branch-slope-spelling.md) | OPEN | unassigned | 2026-08-27 |
 | [Does canon assign the neutrino to the scalar (1/7) matter channel? It gates the SN1987A falsifier](open-items/2026-08-27-neutrino-channel-assignment.md) | OPEN | unassigned | 2026-08-27 |
 | [Sibling-repo debts — AVE-Fusion yield cross-wire + AVE-Bench-FemtoElectrometer stale sites](open-items/2026-07-03-sibling-repo-debts.md) | REGISTERED | unassigned | 2026-07-03 |
@@ -141,6 +141,14 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 | PR | state | title |
 |---|---|---|
+| #1036 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] docs: class-1 status-word correctio |
+| #1035 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] docs+ci: manuscript-reconciliation  |
+| #1034 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: H1 three-object close + S |
+| #1033 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: ε11 as Q-point; constitut |
+| #1032 | unlabelled | [DO-NOT-MERGE][REVIEW: BLOCKED by blind audit] research: Machian-G boundary audi |
+| #1031 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: FROZEN prereg — X44 unblo |
+| #1030 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: where GR is validated on  |
+| #1029 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: the two-knob gravity repa |
 | #1028 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: PPN tensor derivation — m |
 | #1027 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: the cold-vacuum phase-spa |
 | #1026 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] infra: Rule-12 append-only GATE (fr |
@@ -149,7 +157,6 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 | #1023 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: FROZEN prereg — virtual n |
 | #1022 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: the autonomous-HB lens au |
 | #1021 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: the wall-first reframe +  |
-| #1020 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: the over-braced-chiral-cr |
 
 <!-- /volatile -->
 
