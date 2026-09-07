@@ -156,9 +156,10 @@ jobs:
       # is what that decision rests on: job 101585646220's apt output lists ~50
       # Recommended packages for this set — `dvisvgm`, `cm-super`, `tex-gyre`,
       # `tipa`, `texlive-plain-generic`, `default-jre` and roughly forty
-      # `fonts-*` families — none of which any \usepackage in this tree names.
-      # Pulling all of that to obtain one .sty trades a large install for no
-      # coverage. The preflight step below is what makes the narrow list safe:
+      # `fonts-*` families. No \usepackage in this tree names any of them BY THAT
+      # NAME — but a Debian package can carry a .sty under a different name, so
+      # that is a weak argument and is not what this rests on. The preflight step
+      # below is:
       # if the list is short by another package, the job fails and names it,
       # instead of silently compiling nothing.
       - name: Install TeX

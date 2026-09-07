@@ -60,8 +60,9 @@ reading, and it is the next stage.
 > heuristics); the five S3a build-band sites (claim-id lookups, not diff
 > heuristics); S3c = 17 and S3d = 6, which reconcile with S3a to the independent
 > 28-cite recount in §0; S4b = 17; and **S5 = 49 — untouched is not endorsed.**
-> S5 was not re-measured by the vol9 lane at all, and §5 below already grades it
-> *"mostly unverified-not-broken"*: only anchors past end-of-file are hard errors.
+> This correction measured S4a and reports no S5 figure; §5 below grades S5
+> independently as *"mostly unverified-not-broken"* — only anchors past
+> end-of-file are hard errors.
 > **Method for this list:** read off the §0 signal table row by row, so every
 > bucket printed there is accounted for above or is S4a itself.
 

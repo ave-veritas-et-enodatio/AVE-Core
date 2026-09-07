@@ -419,8 +419,9 @@ carrier, so the measurement below is propagated here rather than left in the too
   4 of those 6 files at *other* lines. It measures cite-level marker addition; supersession is semantic.
 - **What the correction does NOT touch:** S1 = 0 and S2 = 0 (exact checks, not heuristics) and the
   five S3a build-band sites (claim-id lookups, not diff heuristics). **S5's 49 is also untouched, and
-  that is not the same as endorsed** — it was never re-measured by the vol9 lane, and the result doc's
-  §5 already grades it *"mostly unverified-not-broken"*.
+  that is not the same as endorsed** — the correction is about S4a and reports no S5 figure, while the
+  result doc's §5 independently grades S5 *"mostly unverified-not-broken"* (only anchors past
+  end-of-file are hard errors).
 
 ## §5 The classified board (154 findings, post-verify)
 
