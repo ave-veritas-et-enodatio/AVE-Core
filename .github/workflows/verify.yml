@@ -83,6 +83,50 @@ jobs:
       - name: make verify-new-cite-excerpts
         run: make verify-new-cite-excerpts CITE_BASE=origin/${{ github.base_ref }}
 
+  # FIRED prereg riders — its OWN job. Grant ruling 2026-09-07, verbatim: "move it
+  # to its own job."
+  #
+  # It arrived on 2026-09-06 (PR #1035) as a prerequisite of the `verify:` target,
+  # which put a new hard-fail checker INSIDE the single branch-protection-required
+  # check Grant ratified in R3 (_orchestration/docket-entries/
+  # 2026-08-06-rulings-decision-batch.md, "requiring only the `make verify + make
+  # test` check"). Blast radius, MEASURED both directions in a throwaway worktree at
+  # 5a36cea5 — verify-fired-riders.py returns 2, aborting `make verify` for EVERY PR
+  # in the repo, if EITHER:
+  #   (a) the liveness-control row RD-KAPPAMAX-PULSAR-KILLLINE is removed from
+  #       _orchestration/fired-riders.json                              -> exit 2
+  #   (b) the heading its ledger_slug names is renamed in
+  #       manuscript/ave-kb/common/genesis-chord-falsification-ledger.md -> exit 2
+  # Untouched, it exits 0.
+  #
+  # The abort is CORRECT design and is preserved unchanged: the control exists so a
+  # broken finder cannot report a false clean. The defect was placement — a broken
+  # finder took down the ratified gate instead of its own check. Split here so it
+  # red-lights only itself.
+  #
+  # Stdlib-only (json, os, re, subprocess, sys), so no uv and no dependency install:
+  # same setup as the new-cite-excerpts job above.
+  #
+  # NON-REQUIRED, per R3's posture for new checkers. Branch protection at the time of
+  # this change is exactly ["make verify + make test"] with enforce_admins true, so
+  # adding this job changes no enforcement. Marking it required is a
+  # branch-protection setting, not a workflow key — an admin action, not this file's.
+  fired-riders:
+    name: fired prereg riders (non-required)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: make verify-fired-riders
+        run: make verify-fired-riders
+
   # Manuscript compile gate. Until 2026-09-06 there was NO TeX toolchain in CI at
   # all: a wave that edited .tex had no automated proof it still compiled, only a
   # promise in a PR body. `make volN` already runs check_latex_margins.py on the
