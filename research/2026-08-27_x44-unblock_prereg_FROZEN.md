@@ -1013,3 +1013,95 @@ documents** — the frozen text is never rewritten. The freeze commit records th
 of the frozen content.
 
 **Frozen bins enforce; flags do not.**
+
+---
+
+## POST-FREEZE APPENDED NOTES (dated; the §0–§15 body above is BYTE-UNTOUCHED)
+
+> Appended below the freeze line per the freeze rail (`§15.4`: *"the frozen text is never
+> rewritten"*). Nothing above this line is edited. The bins (§10), the weight (§3), the
+> `g_self` (§4.4), the families (§5.1), the predictions (§7), the falsifiers (§8) and the
+> prohibitions (§12.4) are unchanged, and **no verdict in
+> `research/2026-08-27_x44-unblock_result.md` moves.** These notes correct an **authority
+> label** and add a **status pointer** — nothing else.
+>
+> **Frozen-content receipt, re-verified 2026-09-06.** The body above is byte-identical to
+> blob `1ea7b129d7527f9e4a7e0585f9066b1e8a65e803`, the blob of this path at freeze commit
+> `44e0315a` (`git rev-parse 44e0315a:research/2026-08-27_x44-unblock_prereg_FROZEN.md`).
+> This file's blob at tip differs from that frozen blob **by this appended section and by
+> nothing else.**
+
+### 2026-09-06 — NOTE 1 (authority label): §3.3's *"it is the RULED one"* overstates what Ruling 1 is
+
+**The site (frozen, not edited).** §3.3, the closing sentence of the FLAG-DON'T-FIX block
+(`:246-247`): *"Therefore the frozen weight is not a new proposal: it is the RULED one,
+written in the register the engine actually uses."* The cited authority is item 2 of the
+same subsection (`:225-229`), **Grant Ruling 1** at
+`_orchestration/2026-07-10_rulings-docket.md:855`.
+
+**What that authority actually is — quoted at its own docket lines.** Ruling 1 sits inside
+the block *"Continuation — 2026-07-14 (late): five in-chat rulings, walk-level context"*
+(`:831`). That block's header says, verbatim:
+
+> `:833` — *"Five rulings Grant made **in-chat** during the late 2026-07-14 session"*
+> `:834` — *"This continuation is **documentation-only**"*
+> `:836` — *"**Nothing here is executed.**"*
+> `:838-839` — *"Every downstream consequence — KB edits, re-tag propagation, docket
+> row-moves, the meter build, prereg freezes, auditor items — is **REGISTERED-NOT-EXECUTED**
+> and **HELD** pending Grant's adjudication of the remaining opens and a full
+> possibility-map review"*
+> `:840` — *"Nothing here canonizes. **DO-NOT-MERGE**; only the orchestrator/Grant merges."*
+
+And the ruling and its walk are both **self-labelled as paraphrase**: `:857`
+*"**Ruling (paraphrase, faithful).**"* and `:864` *"**The walk that grounded it
+(paraphrase).**"*
+
+**The relabel.** Wherever §3.3 leans on Ruling 1 as authority, read it as:
+**in-chat paraphrase, REGISTERED-NOT-EXECUTED per docket** — not as an executed or
+canonized ruling. "Ruling 1" is also **block-local numbering** inside that 2026-07-14
+continuation (`### Ruling 1` … `### Ruling 10`); it is not a globally unique identifier,
+and the `R1`/`R6`/`R8`/`R10` tokens elsewhere in the same file (`:390`, `:404`, `:435`) are
+**adversarial-review finding numbers on an unrelated scheme**. Cite it as
+`2026-07-10_rulings-docket.md:855` (the line), not by number alone.
+
+**The narrower true statement.** The frozen weight's authority is **§3.2's ponderomotive
+derivation**, whose steps are canon-printed at `ponderomotive-equivalence.md:14,:19` — that
+is untouched by this note and is where §3 actually rests. What Ruling 1 supplies is what
+§3.3's own heading already scopes it to: *"Independent corroboration of the **SLOPE** (not
+of the choice)."* So the accurate form of `:246-247` is: **the frozen weight agrees in slope
+with an in-chat ruling that the docket registered and HELD** — not that it *is* "the RULED
+one."
+
+**Named here, because §3.3 does both at once.** The same block that leans on Ruling 1 as
+authority also flags it as defective (`:236-245`: its code attribution is false by direct
+algebra). A ruling cannot simultaneously be the authority for a weight and be carrying a
+flagged false attribution without the reader being told which half is load-bearing. It is
+the **slope** that is load-bearing, and the slope is independently carried by §3.3 items 1,
+3 and 4.
+
+**Effect on this run: NONE.** No bin edge in §10, no falsifier in §8, and no prediction in
+§7 is keyed on the word "RULED." The run binned **Z — ARTIFACT** on clause Z1 (result §0),
+which is independent of this label. This note changes no verdict and repairs no frozen text.
+
+### 2026-09-06 — NOTE 2 (status pointer): this prereg WAS RUN — `BIN Z — ARTIFACT` — and two of its own frozen clauses are flagged
+
+Anyone arriving at this document from a code comment, a board row or a cite should read the
+result before treating any frozen clause as live:
+**`research/2026-08-27_x44-unblock_result.md`.**
+
+- **Verdict: `BIN Z — ARTIFACT`.** Clause **Z1** fired at step 1; the run is
+  UNINTERPRETABLE per §10.2 and **nothing is banked** (result §0).
+- **F-1 — §11.1's Z1 is, as frozen, an algebraic identity of its own target.**
+  `(1−w̄)M ≡ Σ T₀₀(1−w) ≡ Δ_clock` for **any** `w`, so the detector fires on the shipped
+  quadratic weight too (measured `1.4×10⁻¹³`). The gate has **no resolving power** (result
+  §4.1–§4.2).
+- **F-2 — §4.3 / P9's closed form carries a spurious `χ`.** The exact algebra gives
+  `c^D = 2k/g_self` exactly, with no `χ` and no amplitude drift; the slip is a
+  `T₀₀^src → T₀₀^matter` register swap between §4.2 (correct) and §4.3. It propagates into
+  **A1** (which then measures `k/χ`) and **A3** (which then measures `|1/χ − 1|`) (result
+  §6.1–§6.3).
+
+**Both defects are in the FROZEN text above and are NOT repaired here.** Per §15.4 a
+corrected Z1 detector and a corrected closed form belong in a **new dated prereg**, not in
+an edit to this one. These notes flag; the corrections are Grant's call (routed as decision
+6 on `_orchestration/open-items/2026-08-27-x44-unblock.md`).
