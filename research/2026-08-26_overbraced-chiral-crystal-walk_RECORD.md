@@ -1,12 +1,12 @@
 # LENS RECORD — over-braced chiral crystal (2026-08-26; picture-lock 2026-08-29)
 
-**Status: WALK-GRADE. Picture-lock applied 2026-08-29; this file is the signed teaching.**
+**Status: WALK-GRADE, UNAUDITED. Picture-lock applied 2026-08-29; this file is the teaching that lock produced.**
 Nothing here is a claim, a ruling, a `def-`, or a `clm-`. It does not
 supersede R58 decision 1, the carrier fork, or the autonomous-HB lens.
 Only Grant rules those.
 
 **This PR is the record of Grant's spiderweb / over-brace metaphor, the
-signed tank-state picture, and the instrument receipts that killed the
+chat-agreed tank-state picture, and the instrument receipts that killed the
 2026-08-26 Chern / Maxwell–Calladine teaching.** Follow-ups that are not
 this rewrite live in
 [`2026-08-29_picture-lock-spillover.md`](2026-08-29_picture-lock-spillover.md).
@@ -40,18 +40,31 @@ not a Chern selector and not a Maxwell–Calladine identity.
 
 The 2026-08-26 opening move was: frozen connectivity cannot be re-routed,
 so the knot is not a threading of the graph. **That sentence stays.** The
-signed close is: the knot is a **winding in the tank-state chart**, and
+chat-agreed close is: the knot is a **winding in the tank-state chart**, and
 the observed strain is the **AC readout** (plus the real-space envelope
 \(S(A(r))\)). The lattice graph **is** space.
 
 ---
 
-## §1 — Signed pictures (P0–P7)
+> **Status-word correction 2026-09-06 (class-1, second pass).** Grant ratified 2026-09-03 that
+> *signed* means **an adversarial pass AND a physical/logical review with him**. The P0–P5 grades
+> below rest on recorded chat agreement with no adversarial pass, so they carry the demoted grade.
+> P5 takes the weaker form because its recorded Grant line is *"Does not understand; dig in more"* —
+> not agreement at all. **Nothing below is withdrawn:** the P4 kill, the P6/P7 closures and every
+> mapping-failure call are byte-unchanged. This sweep is the companion to the same correction in
+> `2026-08-29_overbraced-crystal-picture-lock.md`, which said this file *"now teaches this
+> WALK-GRADE, UNAUDITED set"* while this file still called itself *signed* — that contradiction is
+> what this pass closes.
+> **Method:** case-insensitive `sign`-family census over all lines, plus a second sweep for
+> non-`sign` grade words (LOCKED/RATIFIED/SETTLED/CONFIRMED/FINAL/STANDS). **Blind spot:** a grade
+> asserted without any of those tokens would not be caught.
+
+## §1 — Chat-agreed pictures (P0–P7) — WALK-GRADE, UNAUDITED
 
 All of this section is the 2026-08-29 lock. Grade: **[WALK]** except where
 a receipt is marked.
 
-**P0 — over-brace, SIGNED for this PR.** Over-brace is for lossless
+**P0 — over-brace, **Grant-agreed (chat), WALK-GRADE, UNAUDITED** for this PR.** Over-brace is for lossless
 propagation of projected strain. That strain is AC readout, not a second
 field. Circuit gloss (partial): A1 varactor **headroom** so .AC stays on
 the reactive arc (H6). Uniform host-universe bias would be unread
@@ -60,7 +73,7 @@ Extra KVL loops vs A1 headroom, and BH-host / impedance-bubble, are
 spillover **S11** — not picked here. No `over-braced` `def-` (S5
 KEEP-ALL).
 
-**P1 / P2 — SIGNED.** The vacuum's *space* is the lattice (graph). Phase
+**P1 / P2 — **Grant-agreed (chat), WALK-GRADE, UNAUDITED**.** The vacuum's *space* is the lattice (graph). Phase
 space is **not** that space and **not** a discardable plot. It is the
 native **state-coordinate chart of the lattice tanks**
 \((V_{\mathrm{inc}},V_{\mathrm{ref}})\). The knot is a winding in those
@@ -70,7 +83,7 @@ Amend `def-69f472` later (S9); do not mint a second noun. A46 size-leak
 flag stays. Fiber-bundle noun stays WALK. Smith-as-ontology stays
 Grant-gated.
 
-**P3 — SIGNED, dead as stated.** This HB run is dead as a source-free
+**P3 — **Grant-agreed (chat), WALK-GRADE, UNAUDITED**, dead as stated.** This HB run is dead as a source-free
 electron finder, as an isolated-amplitude selector, as a gravity SYM
 \(L{+}C\) experiment, or as a Chern/degeneracy selector. It is **not**
 dead as an A1 phasor-KCL **instrument**. Same-setup rerun: **no**.
@@ -86,7 +99,7 @@ knot is a mapping failure (no hub cell; the integer selector that would
 matter is winding / \(\Gamma=-1\), which this code cannot see). Keep as
 EXTERNAL / leak example. Leakage CI is S4, not this PR.
 
-**P5 — SIGNED as instrument limit.** `harmonic_balance_srs.py` is stretch
+**P5 — **WALK-GRADE, UNAUDITED** as instrument limit.** `harmonic_balance_srs.py` is stretch
 / A1-adjacent only. T2 / Cosserat \(\gamma_c\) (flywheel mutual-\(L\)) is
 not wired (`:147–149`; A1 ⊥ T2 at
 [`master-equation.md`](../manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20).
