@@ -52,9 +52,12 @@ no KB leaf edited, no solidity moved, no register touched.
 
 **Sector declaration.** MODE numerical-lens-audit · REGIME driven-to-saturated
 (`A_bond` swept `0 → 0.95`, `S(A)` down to `0.31`; the kernel's clip domain
-`A_cap=0.99 / S_min=0.05` is **approached but never entered** — every solver
-failed on the approach, the furthest reaching `A_max = 0.986728` against
-`A_cap = 0.99`, §3/F8) ·
+`A_cap=0.99 / S_min=0.05` is **approached, and entry is NOT ESTABLISHED** — of
+the clip-directed runs this doc reports, the three carrying an `A_max` give
+`0.91819` (rail sweep), `0.950373` (last converged continuation point) and
+`0.986728` (the divergent step), all below `A_cap = 0.99`, while §2.5's
+**second converged continuum** at `||v|| = 10.25 → 10.5` carries none; §3/F8's
+scope box holds the enumeration, the method and its blind spots) ·
 PHASE-STATE cold-through-saturated, no yield · CHANNEL **scalar / A1-adjacent
 longitudinal ONLY** — the T2/Cosserat channel is not wired in
 (`src/ave/solvers/harmonic_balance_srs.py:146-149`, verbatim: *"The T2/Cosserat
@@ -363,7 +366,12 @@ lane reconciled them.** Cosserat ω / K4 `V_inc·Φ_link` / K4 `V_inc·V_ref`
 Clifford torus, against `master-equation.md:33`'s *"share no
 $(V_{inc},V_{ref})$ phasor"*. **The F4 verdict literally depends on which
 reading is canonical.** F4 is reported BLOCKED, not adjudicated. This is charter
-item A4, and §5 records that A4 got zero coverage.
+item A4 — and **§5 records the opposite of zero coverage**: the A4 row is
+**DISCHARGED — UNDERDETERMINED**, swept by a dedicated lane using two methods
+(pattern + full read), and §5.1's table lists *"A4 — ZERO COVERAGE"* as one of
+five synthesis claims that are **true of the verify phase and false of the
+audit**. What is unresolved here is the canon collision itself, not the
+coverage.
 
 **One methodological self-indictment, recorded because it is instructive.** The
 refuting lane accused the finding of a vocab-cage error (using A1⊥T2 outside the
@@ -533,8 +541,37 @@ converged continuum sits beyond the gap at `||v|| = 10.25 → 10.5` (§2.5).
 **This is the direct answer to charter item A5**, whose own text warned that
 *"A false positive here would be a serious error"* (`RECORD.md:159`). **The
 answer is negative: the stall is a numerical failure on the approach to the
-clip, not a result** — `A_max = 0.986728` against `A_cap = 0.99`, so the clip
-domain is never entered.
+clip, not a result** — `A_max = 0.986728` against `A_cap = 0.99`, so **that run**
+stopped short of the clip domain.
+
+> ⚑ **SCOPE OF THE CLIP STATEMENT — corrected 2026-09-06.** Four sites in this
+> doc — **§0's sector declaration, this sentence, §5's A5 charter row and §7's
+> FLAG 5** — previously stated the clip result as a **universal over the round**
+> rather than as the runs it measured (the prior wording is in the commits; git
+> is the trail). Two sites outside this doc carried the same universal and were
+> corrected in the same pass: the lens record's dated status note and the
+> routing item's open question 2. **This doc's own §2.5 falsifies that
+> universal**: the second converged
+> continuum at `||v|| = 10.25 → 10.5` is recorded with **no `A_max` at all**.
+> What is established is the enumeration. **Of the runs this doc reports as
+> pushing toward the clip, three carry an `A_max`:** `0.91819` (rail sweep, §3
+> table), `0.950373` (last converged continuation point, `||v||=8.5`) and
+> `0.986728` (the divergent step at `||v||=8.75`) — **all below `A_cap = 0.99`.**
+> A **fourth** clip-relevant run, §2.5's converged continuum at
+> `||v|| = 10.25 → 10.5`, carries **none**. Whether the clip domain is entered
+> anywhere in the round is therefore **NOT ESTABLISHED**, not excluded.
+> **Method:** `grep -n "A_max\|0\.986728\|clip"` over this file, then read every
+> hit and keep the ones attached to a clip-directed continuation or rail push —
+> which excludes the `A_max` figures elsewhere in the doc that belong to the
+> low-amplitude sweeps, the drive-ratio sweep and the seed table; cross-checked
+> by grepping `10.25`/`10.5`/`2.334` for a reported amplitude on the second
+> continuum, which returns none. **Blind spots:** (a) a run whose `A_max` was
+> measured but never written into this doc is invisible to the method; (b) an
+> amplitude reported for the second continuum under a different label — not
+> `A_max`, and not keyed to those `||v||` values — would not be caught; (c) the
+> keep/discard step is a judgement call made by reading, so a clip-directed run
+> the reader classifies differently would change the three; (d) this says
+> nothing about lanes whose journals were never committed (FL-12).
 
 **And A5 already had a second, independent negative answer from the review
 phase that the verify phase never saw.** One review lane ran the record's own
@@ -668,7 +705,7 @@ The charter is `research/2026-08-25_autonomous-harmonic-balance-lens_RECORD.md:1
 | **A2b** | its phase-normalization is the same move as clause Q | ASSEMBLY | **DISCHARGED — NEGATIVE** | **RESEMBLANCE, NOT THE SAME OBJECT. "NOT FIT to travel to a prereg as written."** Detail below. |
 | **A3** | topology is preserved by seeding the sector | NUMERICAL + CANON | **PARTIALLY DISCHARGED — negatively** | F2 + F3: the winding comes back **= the seed**, and the production reader is template-circular, so a `rigid_template` read **cannot discharge A3 without tautology**. The sub-question *"what is the discrete analogue of passing through zero"* got one partial answer (§2.4: the read is ill-defined at `\|v\|=0`; `np.angle(0)=0` returned `−3` **at** the zero crossing). **Not closed.** |
 | **A4** | the phase-space (2,3) is a PER-TANK object, so uniform imposition conflates per-tank trajectory with collective charge | CANON READING | **DISCHARGED — UNDERDETERMINED** (verdict is "canon does not decide") | A dedicated lane swept it by **two** methods (pattern + full read) against the whole canon set the charter names. Verdict: **canon never carves the scope, and where it speaks it EQUATES the per-bond chart with the collective boundary integer.** The record therefore **proposes a carve, it does not catch a conflation.** An independent checker confirmed every cite verbatim and **downgraded the finding MAJOR→MINOR** on the grounds that the record self-flags the reading and A4 exists to adjudicate exactly this. |
-| **A5** | the continuation stall may be a RESULT rather than a numerical failure | INTERPRETIVE | **DISCHARGED — NEGATIVE, twice, independently** | (1) **F8** (§3): no fold to `A_max 0.918`/`0.950`, `dθ/dA` monotone positive, break on the approach to the kernel's clip domain (`A_max = 0.986728` against `A_cap = 0.99` — never entered). (2) The review phase re-ran the record's own quoted ladder: `anderson(depth=6)` converges at the **same** `D=0.9` endpoint in **66 outers** where plain Picard fails at 150. **A fold is a property of the branch and is not cured by swapping the outer accelerator.** Charter warned *"A false positive here would be a serious error."* Answer: **numerical failure.** |
+| **A5** | the continuation stall may be a RESULT rather than a numerical failure | INTERPRETIVE | **DISCHARGED — NEGATIVE, twice, independently** | (1) **F8** (§3): no fold to `A_max 0.918`/`0.950`, `dθ/dA` monotone positive, break on the approach to the kernel's clip domain (`A_max = 0.986728` against `A_cap = 0.99` — **that run** stopped short; whether the clip domain is entered anywhere in the round is NOT ESTABLISHED, §3/F8's scope box). (2) The review phase re-ran the record's own quoted ladder: `anderson(depth=6)` converges at the **same** `D=0.9` endpoint in **66 outers** where plain Picard fails at 150. **A fold is a property of the branch and is not cured by swapping the outer accelerator.** Charter warned *"A false positive here would be a serious error."* Answer: **numerical failure.** |
 | **A6** | dropping the scaffold dissolves decision 1 and the carrier fork rather than hiding them | LOGIC | **DISCHARGED — the claim is OVERSTATED-TO-FALSE** | That is **F2**. The fork **re-enters at the seed**, fully and intact, relocated to the initial condition. The tone set re-enters as an input constraint. |
 | **A7** | a source-free solution "cannot belong to the scaffold" | LOGIC | **DISCHARGED — VACUOUS, and stronger than A7's own hedge** | That is **F1** (§2.1), re-established on the F5/F6 receipts. The record hedged it *"true but possibly vacuous"*; the measurement says the sentence at `RECORD.md:98` is **false**, not merely vacuous. |
 | — | **consensus-bias symmetric standard** | required check | **DISCHARGED — thoroughly** | Twelve notes across six findings, run in **both** directions; in five instances a lane **withdrew its own or the finding's argument** on symmetric-standard grounds. §5.2 below. |
@@ -876,9 +913,16 @@ prohibition against**. One lane then **measured** the forbidden condition:
 `V_ref` is a **rank-192-of-192** image of `V_inc`. **F4 is an application of
 AVE's own rule, not an imported one.**
 
-**Net answer to the required check: yes, in six named places, and the lanes
-caught all six themselves. No unflagged instance of AVE being held to a harsher
-standard remains in this verdict set.**
+**Net answer to the required check: yes, in the six places enumerated above, and
+the lanes caught all six themselves.** **Method, so the reader can see what it
+would miss:** the six are the harsher-standard instances that a lane *wrote
+down* — read out of the six review reports and the twelve verify votes, one
+finding at a time. **Blind spots:** (a) an asymmetry no lane articulated leaves
+no trace to read, so this is a count of flagged instances, **not** a claim that
+none remains unflagged; (b) FL-12 records that 19 of the 28 review findings
+never got a returned second pass, so their asymmetries were checked once at
+most; (c) the run journals are uncommitted, so the count cannot be re-derived
+from this repo.
 
 ## §6 — THE BOTTOM LINE
 
@@ -1048,11 +1092,14 @@ amplitude-**invariant**. Measured confirmation: the `λ=+1` block stays exactly
 34-dimensional from `A=0` through a random graded field. The **only** place
 bracing could change the effective count is the rail, where `S→0` and `Y→∞` (a
 compliance becoming a rigid constraint) — and that is the kernel's declared clip
-domain (`A_cap=0.99 / S_min=0.05`), which **no solver in this review entered**:
-every one died on the approach, the furthest reaching `A_max = 0.986728` against
-`A_cap = 0.99` (F8, §3). **So the reframe's selection point, if it exists at
-all, sits precisely at the numerically-unreachable boundary that F8 showed to be
-a kernel-clip artifact rather than established physics.**
+domain (`A_cap=0.99 / S_min=0.05`), which **no clip-directed run in this doc is
+reported reaching**: the three such runs carrying an `A_max` give `0.91819`,
+`0.950373` and `0.986728`, all below `A_cap = 0.99`, and §2.5's second converged
+continuum carries none — so entry is **NOT ESTABLISHED** rather than excluded
+(F8, §3, and its scope box for the method and its blind spots). **So the reframe's
+selection point, if it exists at all, sits at a boundary this round never
+reported reaching, and which F8 showed to be a kernel-clip artifact rather than
+established physics.**
 Determining whether `A→1` is physics or the clip is a **prerequisite** for the
 reframe, not an aside.
 
@@ -1186,7 +1233,7 @@ Modalities not run, in the order they matter:
 | `phase-space-coordinate-check` | ✅ | §2.4 — the audit's own barrier is a **grade** mismatch (A1-adjacent scalar solve vs T2 winding sector), and the *name*-match-vs-*grade*-match distinction is carried through F4 and §7 FLAG 7 |
 | `mechanism-claims-discipline` | ✅ | every headline carries its solidity and its measuring lane; F4 is reported **BLOCKED** rather than adjudicated because its verdict depends on an unresolved canon collision |
 | stop-and-ask | ✅ (0 stuck-points) | nothing stalled; the one place a two-attempt cap would have fired — reconciling the three multiplicity receipts — resolved on the first convention-free measurement |
-| `substrate-native-check` | ➖ **not fired, and correctly** | no solver, observer, eigsolver or operator was scaffolded by this lane. Every number here was measured by a prior lane or re-run unmodified |
+| `substrate-native-check` | ➖ **not fired — scoped to solver/operator scaffolding, and that scope is not the whole of what this lane ran** | No solver, eigsolver or operator implementation was written or modified. **But "every number was measured by a prior lane or re-run unmodified" was false as written and is withdrawn:** §4's convention-free eigenvalue clustering (`:621-630`) is a **measurement this lane wrote and executed** on the shipped operator — the row above records it, and §10's own drift note calls it *"one unplanned skill fired … the only place this doc adds evidence rather than landing it."* **Enumeration of this lane's own runs: two** — `chk3.py` re-run unmodified at `a3f4fef7`, and the convention-free clustering companion. **Method:** read §4 and §10 in full and grep the doc for `re-ran\|re-run\|this lane's own`. **Blind spot:** a run this lane made but never wrote into the doc is invisible to this count. Whether the skill *should* have fired on the companion is **not adjudicated here** |
 | `ave-prereg` | ➖ not applicable | this is an audit disposition, not a test |
 
 **Drift from the plan:** one unplanned skill fired — the convention-free

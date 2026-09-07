@@ -208,8 +208,11 @@ note is the correction of record.
 (*"the fold IS the existence boundary"*, `:116-117`) is **measurably absent** —
 no turning point to `A_max 0.950`, and the top-end break is a numerical failure
 on the **approach to** the saturation kernel's declared clip domain
-(`A_max = 0.986728` against `A_cap = 0.99` — the clip is never entered), which
-is also the **negative answer to charter item A5**. And §3.2's
+(`A_max = 0.986728` against `A_cap = 0.99` — **that run** stopped short of the
+clip; the result doc's §2.5 records a second converged continuum with no
+reported `A_max`, so whether the clip domain is entered anywhere in the round is
+**NOT ESTABLISHED**, and §3/F8's scope box carries the enumeration, the method
+and its blind spots), which is also the **negative answer to charter item A5**. And §3.2's
 Lagrange-constraint formulation **survives the audit intact** and is the
 strongest formulation in the record.
 
