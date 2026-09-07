@@ -34,6 +34,7 @@ Derives gravity as electromagnetic densification of the vacuum LC network via a 
 | [Transverse Refractive Index](transverse-refractive-index.md) | Derivation from transverse strain and optical density |
 | [Refractive Index of Gravity](refractive-index-of-gravity.md) | $n(r) = 1 + 2GM/(c^2 r)$, galactic refractive deficit, intergalactic $c_{max}$ |
 | [Achromatic Impedance Matching](achromatic-impedance-matching.md) | Symmetric impedance scaling preserves $Z_0$ across all gradients |
+| [Bond $L$, $C$ constitutive grading](bond-lc-constitutive-grading.md) | WALK: $\varepsilon_{11}$ as Q-point (vertices unmoved); SYM pins $L/C$; three senses of "linear" for bond TL $L,C$ vs strain (`def-ln3str`). Former path [`hop-lc-constitutive-grading.md`](hop-lc-constitutive-grading.md) is a Rule-12 stub. |
 | [Einstein Lensing Deflection](einstein-lensing-deflection.md) | Snell's Law integration reproduces $\delta = 4GM/(bc^2)$ |
 | [Cauchy Implosion Resolution](cauchy-implosion-resolution.md) | $K_{vac} \equiv 2G_{vac}$ resolves negative bulk modulus paradox |
 | [Dielectric Rupture / Event Horizon](dielectric-rupture-event-horizon.md) | Schwarzschild radius as Axiom 4 dielectric saturation boundary |
