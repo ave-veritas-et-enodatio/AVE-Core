@@ -331,7 +331,7 @@ Executing any of these now lands a wrong edit.
 | `vol_9/01_general_description.tex:45` | reconcile print to a LIVE independent bulk radiative port | `port-register.md:87` now ends `🔴 [DEMOTED 2026-08-11 — R40-B2a]`. ⚠ **Trap:** the leaf's frontmatter at `:5` still asserts the old exclusion verbatim — a `:5`-only re-check reads the finding as still-good and is wrong |
 | `papers/…/main.tex:488` | pull `I_max ≈ 116 A` toward the KB's 124.4 A | the board compared two different objects; `theorem-thesaurus.md` §6 later minted a **three-sense `I_max` row** naming both, differing by exactly `4π√α`, and `:312` now requires a quoted `I_max` to **name its TIER** |
 
-### §7.4 What the 190-site staleness scan does and does not cover
+### §7.4 What the staleness scan does and does not cover — the 190 is a CANDIDATE count
 
 A parallel mechanical scan (`manuscript/ave-kb/tools/audit-tex-kb-staleness.py`) found **0 dead KB
 paths and 0 dead claim-ids**, but **190 cite-sites (159 distinct, 56 files) where the cited leaf gained
@@ -343,11 +343,40 @@ asked *does print contradict the KB as of 2026-08-02*; the scan asks *has the ci
 since the print was touched*. The waves answered the first and reset the clock; the 190 is what
 accumulated after.
 
-**Two calibrations must travel with any dispatch over it:**
-- **A mechanical flag is a candidate, not a defect.** Three scan-flagged sites adjudicated during
-  re-validation came back **benign, three of three**.
+**Calibrations that must travel with any dispatch over it.** This section appoints itself the
+carrier, so the measurement below is propagated here rather than left in the tool and the result doc.
+
+- ★ **THE TRUE-POSITIVE RATE IS 1.3%, MEASURED — the 190 is a candidate count, not a defect count.**
+  An adjudication lane read **all 79 vol9 S4a sites** by hand: **1** real propagation debt, **74**
+  benign, **3** pre-existing dead anchors the signal did not and could not find. Do not quote an S4a
+  count as a defect count. Receipts:
+  [`research/2026-09-06_manuscript-kb-staleness-audit_RESULT.md:34-60`](../research/2026-09-06_manuscript-kb-staleness-audit_RESULT.md)
+  and the tool's own docstring,
+  [`manuscript/ave-kb/tools/audit-tex-kb-staleness.py:16-41`](../manuscript/ave-kb/tools/audit-tex-kb-staleness.py).
+  *(This replaces the earlier calibration here, which generalized from three adjudicated sites.)*
+- ★ **THE CAUSE IS STRUCTURAL, NOT A TUNING PROBLEM — S4a has NO REACH TEST.** It asks only whether
+  the cited leaf gained a grading marker anywhere since the `.tex` was touched; nothing connects the
+  marker to the sentence doing the citing. The big registry leaves legitimately carry dozens of
+  demotions (`vocabulary-register.md`: **34** strong-marker added lines since 2026-08-01), so every
+  one of the ~60 sites citing such a leaf trips the flag regardless of what was demoted. The result
+  doc's §4 weighting of strong-vs-weak marker tokens ("189 of 190 carry a strong marker") is true and
+  **irrelevant** — the markers are real, they just do not reach the citing assertion.
+- ★ **BUCKET RENAMED:** `S4a_TIME_LAG_MATERIAL` → `S4a_TIME_LAG_LEAF_CHANGED`. "Material" claimed a
+  reach the check does not perform. A dispatch quoting the old label is quoting a claim the tool
+  never made.
+- **The signal is blind to the class that matters.** Both true positives the lane found are **print
+  asserting demoted content at a line carrying NO CITE AT ALL** — invisible to any cite-keyed scan,
+  this one included.
+- **USE IT AS A LEAF INDEX, NOT A SITE LIST.** The 159 distinct sites factorize to **~22 distinct
+  leaves**. Read each leaf's demoted anchors once, then grep print for those anchors: that answers
+  every site citing it at about a fifth of the cost of site-walking, and it can also see the no-cite
+  class.
 - **The scan cannot find supersession.** All 6 §7.3 findings were found by *reading*; the scan flagged
   4 of those 6 files at *other* lines. It measures cite-level marker addition; supersession is semantic.
+- **What the correction does NOT touch:** S1 = 0 and S2 = 0 (exact checks, not heuristics) and the
+  five S3a build-band sites (claim-id lookups, not diff heuristics). **S5's 49 is also untouched, and
+  that is not the same as endorsed** — it was never re-measured by the vol9 lane, and the result doc's
+  §5 already grades it *"mostly unverified-not-broken"*.
 
 ## §5 The classified board (154 findings, post-verify)
 

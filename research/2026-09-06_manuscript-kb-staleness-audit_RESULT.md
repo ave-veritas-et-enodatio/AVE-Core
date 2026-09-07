@@ -55,9 +55,15 @@ reading, and it is the next stage.
 > print for those anchors, answers every site citing it at about a fifth of the
 > cost of site-walking. That is the shape the remaining sweep should take.
 >
-> **What survives untouched:** S1 = 0 and S2 = 0 (referential integrity is clean,
-> and those are exact checks, not heuristics), and the five S3a build-band sites,
-> which are claim-id lookups rather than diff heuristics.
+> **What this correction does NOT touch, enumerated rather than summarized:** S1 = 0
+> and S2 = 0 (referential integrity is clean, and those are exact checks, not
+> heuristics); the five S3a build-band sites (claim-id lookups, not diff
+> heuristics); S3c = 17 and S3d = 6, which reconcile with S3a to the independent
+> 28-cite recount in §0; S4b = 17; and **S5 = 49 — untouched is not endorsed.**
+> S5 was not re-measured by the vol9 lane at all, and §5 below already grades it
+> *"mostly unverified-not-broken"*: only anchors past end-of-file are hard errors.
+> **Method for this list:** read off the §0 signal table row by row, so every
+> bucket printed there is accounted for above or is S4a itself.
 
 ## §1 — ~~THE ONE NUMBER THAT MATTERS: 190~~ → a candidate count, measured 1.3% true-positive
 
