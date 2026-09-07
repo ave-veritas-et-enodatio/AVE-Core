@@ -83,10 +83,29 @@ Line-cite (`path.ext:NN`) pass — added 2026-08-05, cite-rot options (2)+(3):
   untracked local files resolve paths a fresh clone cannot) — measure in a
   pristine `git worktree`, per the docket fragment's §2 measurement basis.
 
-  Deliberately-historical cites ("§9 as shipped on `c4a546dc`") are skipped by
-  a backticked-SHA-on-the-line heuristic — the corpus has no machine-readable
-  marker for them, which is itself recorded as a finding at
-  `_HISTORICAL_PIN_RE`. Byte-frozen documents (`research/*_prereg-FROZEN.md`,
+  Deliberately-historical cites are exempt, in one of TWO ways (R2, landed
+  2026-09-07 — the convention an author reads is `manuscript/ave-kb/`
+  CONVENTIONS.md, "Author-declared pin marker"):
+
+    MARKER-EXEMPT    the cite carries an author-declared per-cite pin,
+                     `path.ext:NN@<sha>` (7-40 lowercase hex), in any of the
+                     three written forms. Exempts exactly the cite it is
+                     written on and nothing else on the line. The `<sha>` is
+                     resolved against the repo's own object store: a marker
+                     naming no commit is a GATING `unknown pin sha`, and a
+                     malformed one (`@zzz`, `@12`) is a GATING
+                     `malformed pin marker` whose cite is then checked as if
+                     unmarked — a marker the tool cannot read exempts nothing.
+    HERITAGE-EXEMPT  no marker, but the citing LINE carries a backticked SHA.
+                     The pre-R2 line-scoped heuristic, GRANDFATHERED and still
+                     honoured, but counted apart so the migration is
+                     measurable. `HERITAGE_PIN_EXEMPTION` is the re-key switch
+                     (`--no-heritage-pin-exemption` previews the flip); it
+                     ships ON and flipping it is not this change.
+
+  Every run prints the three-way split and the marker-keyed ratio. The
+  measurement that motivated the marker, and its 2026-09-07 re-measurement,
+  are at `_HISTORICAL_PIN_RE`. Byte-frozen documents (`research/*_prereg-FROZEN.md`,
   dated result docs, `_orchestration/docket-entries/*`) are never forced to
   change: they are all outside the error-source set, so their findings are
   warn-only by the pre-existing source-gating rule; `WAIVED_LINE_CITE` is the
@@ -120,6 +139,7 @@ import argparse
 import json
 import logging
 import re
+import subprocess
 import sys
 from collections import Counter
 from dataclasses import dataclass
@@ -304,8 +324,17 @@ def strip_fences(text: str) -> str:
 
 
 def strip_target(target: str) -> str:
-    """Strip a trailing #anchor and a trailing :linenum suffix from a target."""
+    """Strip a trailing #anchor, :linenum suffix and `@<sha>` pin from a target.
+
+    The pin arm exists because the LINK pass and the line-cite pass see the
+    same `[t](path.md:42@<sha>)` text. Without it the link pass tries to resolve
+    a filename ending `@<sha>`, finds nothing, and reports `broken intra` on a
+    cite the line-cite pass has correctly exempted — one gate contradicting the
+    other on the same token.
+    """
     target = target.split("#", 1)[0]
+    # Strip a trailing `:NN[-MM]@<pin>` marker suffix (path/file.md:42@abc1234).
+    target = re.sub(r":\d+(?:-{1,2}\d+)?@[^\s)]+$", "", target)
     # Strip a trailing :NNN line-number suffix (path/file.md:42).
     target = re.sub(r":\d+$", "", target)
     return target
@@ -429,23 +458,66 @@ _CITE_PATH = r"(?:[\w.+@-]+/)*[\w.+@-]+\.(?:" + "|".join(_CITE_EXTS) + r")"
 # leading digit of a following range half.
 _CITE_LINE = r":(?P<start>\d+)(?:-{1,2}(?P<end>\d+))?(?!\d)"
 
+# --- R2 author-declared pin marker: `path.ext:NN@<sha>` ---------------------
+#
+# The marker is PART OF THE CITE TOKEN, not a neighbour of it. That is the
+# whole design: it binds lexically to the one cite it is written on, so no
+# proximity rule (line-scoped, nearest-to-the-left, or otherwise) is needed to
+# say WHICH cite a SHA pins — the question R2 ruled unanswerable by regex.
+#
+# CAPTURE IS PERMISSIVE, VALIDATION IS STRICT, DELIBERATELY. If the regex only
+# matched well-formed hex, a typo (`@zzz`, `@12`) would fall off the cite
+# grammar entirely and the cite would go silently unparsed — an author who
+# meant "exempt this" would get neither the exemption nor an error. So the
+# capture takes any marker-shaped run of characters and `_PIN_SHA_RE` decides;
+# a marker that fails is reported (`malformed pin marker`) and the cite is
+# checked as if unmarked.
+_CITE_PIN = r"(?:@(?P<pin>[^\s`)\]|]+))?"
+_PIN_SHA_RE = re.compile(r"^[0-9a-f]{7,40}$")
+
 # One inline code span (no nested backticks).
 _INLINE_SPAN_RE = re.compile(r"`([^`\n]+)`")
 # A span is a cite only when its ENTIRE stripped body is a path (+ optional
 # line suffix). Anything else in the backticks — prose, a formula, a shell
 # snippet — is not a location cite, and requiring a whole-body match is what
 # keeps the backticked form's false-positive rate at zero-by-construction.
-_BARE_CITE_RE = re.compile(r"^(?P<path>" + _CITE_PATH + r")(?:" + _CITE_LINE + r")?$")
+# The pin marker rides all three written forms. It is only reachable AFTER a
+# `:NN` — a pin with no line has nothing to pin, and admitting `path.md@sha`
+# would collide with the `@` that `_CITE_PATH` already allows inside a segment.
+_BARE_CITE_RE = re.compile(
+    r"^(?P<path>" + _CITE_PATH + r")(?:" + _CITE_LINE + _CITE_PIN + r")?$"
+)
 _LINK_IN_CITE_RE = re.compile(
-    r"\[[^\]]*\]\(\s*(?P<path>" + _CITE_PATH + r")" + _CITE_LINE + r"\s*\)"
+    r"\[[^\]]*\]\(\s*(?P<path>" + _CITE_PATH + r")" + _CITE_LINE + _CITE_PIN + r"\s*\)"
 )
 _LINK_EXT_CITE_RE = re.compile(
-    r"\[[^\]]*\]\(\s*(?P<path>" + _CITE_PATH + r")\s*\)" + _CITE_LINE
+    r"\[[^\]]*\]\(\s*(?P<path>" + _CITE_PATH + r")\s*\)" + _CITE_LINE + _CITE_PIN
 )
 
 # A cite deliberately pinned to a PAST repo state is correct as written even
 # when it does not resolve at HEAD (e.g. a frozen prereg's
 # "§9 (as shipped on `c4a546dc`)", where the SHA predates a renumber).
+#
+# ── RESOLVED 2026-09-07 (R2 pin marker) ────────────────────────────────────
+# The finding recorded below — "the corpus has NO machine-readable marker for a
+# historical cite" — is now FALSE, and this block is its resolution record. The
+# marker exists (`path.ext:NN@<sha>`, `_CITE_PIN` above), it is PER-CITE, and
+# the pass now sorts every historical pin into THREE dispositions:
+#
+#   MARKER-EXEMPT    the cite itself carries `@<sha>`. Precise. Decided before
+#                    path resolution, and validated against the object store.
+#   HERITAGE-EXEMPT  no marker, but the LINE carries a backticked SHA — the
+#                    line-scoped heuristic described below. GRANDFATHERED per
+#                    R2, still honoured, counted separately.
+#   CHECKED          everything else.
+#
+# The migration's progress is exactly the ratio of the first to the second, and
+# it is printed on every run. The re-key ("exemption becomes marker-only once
+# migrated") is a SWITCH, `HERITAGE_PIN_EXEMPTION` — built, left ON.
+#
+# The paragraph and the measurement below are PRESERVED as the record of the
+# defect that motivated the marker. They describe the HERITAGE arm, which is
+# still live for every unmarked cite. ────────────────────────────────────────
 #
 # FINDING, recorded rather than papered over: the corpus has NO machine-readable
 # marker for a historical cite. The convention is free prose — "as shipped on",
@@ -486,6 +558,39 @@ _LINK_EXT_CITE_RE = re.compile(
 # exactly where cite-rot concentrates. This is a precision disclosure, not a
 # defect report (today's hidden-dead count is zero); the fix, if the residue
 # ever bites, is an explicit per-cite historical marker, not a wider SHA regex.
+#
+# RE-MEASURED 2026-09-07 on a pristine `git worktree` of `5a36cea5`. ADDITIVE —
+# the 2026-08-05 / `d5a1b06b` figures above are the historical record and stay
+# as written. R2's ruling text quotes the "96" from that snapshot; it has since
+# drifted, so cite THIS block for a current number and that one for the ruling.
+#
+#   OPERATIVE COUNTS — what the pass actually exempts (a cite reaches this
+#   verdict only if it parses, resolves, and carries a `:NN`), read straight off
+#   the printed `pin dispositions` line:
+#     - corpus-wide : 480 HERITAGE-EXEMPT, 0 MARKER-EXEMPT, 13,644 CHECKED
+#                     → migration 0/480 marker-keyed (0.0%) at landing
+#     - KB tree only:  141 HERITAGE-EXEMPT, 0 MARKER-EXEMPT,  2,837 CHECKED
+#
+#   PARSED COUNTS — every `:NN` cite this file's grammar sees on a SHA-bearing
+#   line, resolvable or not (the population a migration sweep must walk):
+#     - KB only     : 156 line-cites on  74 SHA-bearing lines
+#     - corpus-wide : 525 line-cites on 271 SHA-bearing lines,
+#                     182 of those lines longer than 500 characters
+#
+#   SECOND METHOD, per the grep-completeness rule — an independent scan that
+#   does NOT import this module (git ls-files + its own fence stripper + a
+#   contiguous `path.ext:NN` regex): KB 115 cites / 56 lines, corpus 585 / 298,
+#   168 long lines. The two disagree BY CONSTRUCTION and the gap is the
+#   definition, not an error: method 1 counts the `[t](path):NN` link-ext form
+#   (KB house style) that a contiguous regex cannot see, and method 2 counts
+#   non-backticked cites in plain prose that method 1's whole-span rule
+#   rejects. Method 1 is the operative one — the gate exempts only what it
+#   parses. Neither is quotable without its inclusion rule.
+#
+#   HIDDEN-DEAD, re-run: still ZERO. Re-running the whole corpus with
+#   `--no-heritage-pin-exemption` demotes all 480 to CHECKED and the dead count
+#   is unchanged at 11 (gating 0); only the blank-line advisory moves,
+#   1,112 → 1,144. So the heritage arm is still hiding no dead cite today.
 _HISTORICAL_PIN_RE = re.compile(r"`[0-9a-f]{7,40}`")
 
 # Sibling-repo cite target (`AVE-Foo/...`, `Applied-Vacuum-Engineering/...`).
@@ -527,15 +632,23 @@ class LineCite:
     path: str  # target path as written
     start: int | None  # cited line, or None when the cite carries no :NN
     end: int | None  # range end for `:NN-MM`, else == start
-    pinned: bool  # the citing line carries a backticked SHA (historical pin)
+    pinned: bool  # HERITAGE: the citing LINE carries a backticked SHA
+    pin: str | None = None  # MARKER: this CITE carries `@<sha>`, as written
 
     @property
     def as_written(self) -> str:
         if self.start is None:
             return self.path
         if self.end is not None and self.end != self.start:
-            return f"{self.path}:{self.start}-{self.end}"
-        return f"{self.path}:{self.start}"
+            base = f"{self.path}:{self.start}-{self.end}"
+        else:
+            base = f"{self.path}:{self.start}"
+        return f"{base}@{self.pin}" if self.pin is not None else base
+
+    @property
+    def pin_wellformed(self) -> bool:
+        """True iff this cite carries a marker AND the marker is a short SHA."""
+        return self.pin is not None and bool(_PIN_SHA_RE.match(self.pin))
 
 
 def iter_line_cites(text: str):
@@ -546,14 +659,18 @@ def iter_line_cites(text: str):
             for match in regex.finditer(line):
                 start = int(match.group("start"))
                 end = int(match.group("end")) if match.group("end") else start
-                yield LineCite(lineno, form, match.group("path"), start, end, pinned)
+                yield LineCite(
+                    lineno, form, match.group("path"), start, end, pinned, match.group("pin")
+                )
         for span in _INLINE_SPAN_RE.finditer(line):
             match = _BARE_CITE_RE.match(span.group(1).strip())
             if not match:
                 continue
             start = int(match.group("start")) if match.group("start") else None
             end = int(match.group("end")) if match.group("end") else start
-            yield LineCite(lineno, "backticked", match.group("path"), start, end, pinned)
+            yield LineCite(
+                lineno, "backticked", match.group("path"), start, end, pinned, match.group("pin")
+            )
 
 
 def cite_target_uncheckable(target: str) -> bool:
@@ -637,6 +754,74 @@ class TargetLineCache:
 # structural decoration (blockquote marker, list bullet, table rule, hr).
 _CONTENTLESS_LINE_RE = re.compile(r"^[\s>*+\-|#=_~`]*$")
 
+# --- pin-marker SHA validation ---------------------------------------------
+#
+# A pin to a state that does not exist is not a pin. `@deadbee` must not buy an
+# exemption, so a well-formed marker is resolved against the repo's own object
+# store and a miss is a GATING finding.
+#
+# FAIL-OPEN, AND ONLY HERE. If the object store cannot answer at all — no `git`
+# on PATH, or the tree is not a checkout — validation is DISABLED wholesale
+# rather than failing every pin. Rationale: this tool ships inside `make
+# verify`, so a false FAIL red-lights the whole repo, and "I cannot check" is
+# not evidence of "the pin is bad". CI runs `actions/checkout` with
+# `fetch-depth: 0` (.github/workflows/verify.yml), so the full history IS
+# present there and the check is live where it matters.
+#
+# An AMBIGUOUS short SHA also fails, deliberately: a prefix matching two
+# objects names no single state. The git message is carried into the finding
+# detail so the author sees "ambiguous", not "nonexistent" — the fix is to
+# lengthen the marker, not to delete it.
+
+
+def make_commit_resolver(repo_root: Path):
+    """Return a cached `sha -> bool` commit-existence predicate, or None.
+
+    None means "cannot answer here" and disables marker-SHA validation.
+    """
+    try:
+        probe = subprocess.run(
+            ["git", "-C", str(repo_root), "rev-parse", "--git-dir"],
+            capture_output=True,
+            text=True,
+            timeout=30,
+        )
+    except (OSError, subprocess.SubprocessError) as exc:
+        logger.info("pin-sha validation disabled (git unavailable: %s)", exc)
+        return None
+    if probe.returncode != 0:
+        logger.info("pin-sha validation disabled (%s is not a git checkout)", repo_root)
+        return None
+
+    cache: dict[str, bool] = {}
+
+    def commit_exists(sha: str) -> bool:
+        if sha not in cache:
+            try:
+                result = subprocess.run(
+                    ["git", "-C", str(repo_root), "cat-file", "-t", f"{sha}^{{commit}}"],
+                    capture_output=True,
+                    text=True,
+                    timeout=30,
+                )
+            except (OSError, subprocess.SubprocessError) as exc:
+                logger.warning("pin-sha lookup failed for %s: %s", sha, exc)
+                cache[sha] = True  # cannot answer -> do not manufacture a failure
+            else:
+                cache[sha] = result.returncode == 0 and result.stdout.strip() == "commit"
+        return cache[sha]
+
+    return commit_exists
+
+
+# HERITAGE EXEMPTION SWITCH (R2: "the gate's exemption re-keys to marker-only
+# once migrated"). The switch is BUILT AND LEFT ON. Flipping it is the
+# migration's terminal step, not this change: the grandfathered population is
+# counted separately on every run so the distance to that step is measurable,
+# and `--no-heritage-pin-exemption` previews the flip without committing to it.
+HERITAGE_PIN_EXEMPTION = True
+
+
 # (source repo-relative path, cite as written) pairs adjudicated
 # report-don't-fix — a `dead line cite` that is KNOWN and deliberately left, e.g.
 # inside a byte-frozen document. Mirrors WAIVED_KBLEAF, including its
@@ -656,6 +841,8 @@ def check_line_cites(
     file_index: dict[str, list[tuple[str, ...]]],
     line_cache: TargetLineCache,
     waived: frozenset[tuple[str, str]] = WAIVED_LINE_CITE,
+    heritage_exemption: bool = HERITAGE_PIN_EXEMPTION,
+    commit_exists=None,
 ) -> tuple[list[Finding], Counter, set[tuple[str, str]]]:
     """Check every `path.ext:NN` location cite in one markdown file.
 
@@ -699,6 +886,40 @@ def check_line_cites(
         if cite_target_uncheckable(cite.path):
             stats["skipped_shape"] += 1
             continue
+
+        # DISPOSITION 1 — MARKER-EXEMPT. Decided BEFORE path resolution: a cite
+        # pinned to a past state is expected not to resolve at HEAD, so running
+        # it through the resolver would only manufacture a `broken backtick
+        # path` advisory for a cite that is correct as written.
+        if cite.pin is not None:
+            if not cite.pin_wellformed:
+                stats["pin_malformed"] += 1
+                findings.append(
+                    Finding(
+                        md_file,
+                        cite.lineno,
+                        "malformed pin marker",
+                        cite.as_written,
+                        "marker must be @<7-40 lowercase hex>; cite is NOT exempt",
+                    )
+                )
+                # Fall through. An unreadable marker buys nothing — the cite is
+                # checked exactly as if it had never carried one.
+            elif commit_exists is not None and not commit_exists(cite.pin):
+                stats["pin_unknown_sha"] += 1
+                findings.append(
+                    Finding(
+                        md_file,
+                        cite.lineno,
+                        "unknown pin sha",
+                        cite.as_written,
+                        f"@{cite.pin} resolves to no commit in this repo",
+                    )
+                )
+                continue
+            else:
+                stats["exempt_marker"] += 1
+                continue
         candidates = resolve_cite_candidates(cite.path, md_file, repo_root, file_index)
         if not candidates:
             if cite.form == "backticked":
@@ -712,10 +933,17 @@ def check_line_cites(
         if cite.start is None:
             stats["path_only"] += 1  # `path.md` with no :NN — path checked, no line
             continue
+        # DISPOSITION 2 — HERITAGE-EXEMPT. The pre-R2 line-scoped heuristic:
+        # no marker on this cite, but the LINE carries a backticked SHA
+        # somewhere. Grandfathered per R2 and still honoured, but counted on
+        # its own so the migration's remaining distance is a printed number.
         if cite.pinned:
-            stats["skipped_historical_pin"] += 1
-            continue
+            if heritage_exemption:
+                stats["exempt_heritage"] += 1
+                continue
+            stats["heritage_demoted"] += 1
 
+        # DISPOSITION 3 — CHECKED.
         stats["checked"] += 1
         cited_last = max(cite.start, cite.end or cite.start)
         longest = max(line_cache.count(c) for c in candidates)
@@ -1010,6 +1238,8 @@ def scan(
     check_ids_enabled: bool,
     file_index: dict[str, list[tuple[str, ...]]] | None = None,
     waived_line_cites: frozenset[tuple[str, str]] = WAIVED_LINE_CITE,
+    heritage_exemption: bool = HERITAGE_PIN_EXEMPTION,
+    commit_exists=None,
 ) -> tuple[list[Finding], Counter]:
     """Crawl every markdown file once, running all md-side passes on it.
 
@@ -1033,7 +1263,14 @@ def scan(
             findings.extend(check_ids(md_file, body, known_ids))
         if file_index is not None:
             cite_findings, cite_stats, matched = check_line_cites(
-                md_file, text, repo_root, file_index, line_cache, waived_line_cites
+                md_file,
+                text,
+                repo_root,
+                file_index,
+                line_cache,
+                waived_line_cites,
+                heritage_exemption,
+                commit_exists,
             )
             findings.extend(cite_findings)
             stats.update(cite_stats)
@@ -1059,6 +1296,16 @@ _ADVISORY_CITE_KINDS = {"broken backtick path", "blank line cite", "waived line 
 # Line-cite kinds that ALWAYS gate (a waiver outliving its subject is a lie in
 # the tool's own bookkeeping, exactly as for `stale kbleaf waiver`).
 _LINE_CITE_GATING_KINDS = {"stale line-cite waiver"}
+
+# Pin-marker kinds. Both gate through `is_error_source`, exactly like `dead
+# line cite` — they are not a new gating CLASS, they are the same class applied
+# to a cite whose author declared an exemption the tool could not honour:
+#   `malformed pin marker` — `@zzz` / `@12`: unreadable, so it exempts nothing.
+#   `unknown pin sha`      — well-formed but names no commit here.
+# Both measured ZERO corpus-wide at the landing commit (`:NN@` had 0 hits in
+# the whole tracked tree, two methods), so neither can red-light a live tree on
+# day one; both fire the moment someone types a marker wrong.
+_PIN_MARKER_KINDS = {"malformed pin marker", "unknown pin sha"}
 
 
 def is_gating(finding: Finding, repo_root: Path) -> bool:
@@ -1168,6 +1415,24 @@ def main(argv: list[str] | None = None) -> int:
         help="disable the `path.ext:NN` cited-line existence check",
     )
     parser.add_argument(
+        "--no-heritage-pin-exemption",
+        action="store_true",
+        help=(
+            "MIGRATION PREVIEW (R2). Drop the grandfathered line-scoped "
+            "SHA-on-the-line exemption and check those cites; only the "
+            "per-cite `@<sha>` marker exempts. Not the default — flipping it "
+            "for real is the migration's terminal step."
+        ),
+    )
+    parser.add_argument(
+        "--no-pin-sha-check",
+        action="store_true",
+        help=(
+            "do not resolve `@<sha>` pin markers against the repo object store "
+            "(escape hatch for a checkout without the pinned history)"
+        ),
+    )
+    parser.add_argument(
         "--advisory-cites",
         choices=("summary", "report", "off"),
         default="summary",
@@ -1192,10 +1457,13 @@ def main(argv: list[str] | None = None) -> int:
     if not (args.no_line_check and args.no_kbleaf_check):
         indexes = build_kbleaf_target_index(repo_root)
 
+    commit_exists = None if args.no_pin_sha_check else make_commit_resolver(repo_root)
     findings, cite_stats = scan(
         repo_root,
         check_ids_enabled=not args.no_id_check,
         file_index=None if args.no_line_check or indexes is None else indexes[0],
+        heritage_exemption=not args.no_heritage_pin_exemption,
+        commit_exists=commit_exists,
     )
 
     kbleaf_checked = kbleaf_skipped = 0
@@ -1243,10 +1511,43 @@ def main(argv: list[str] | None = None) -> int:
             f"| advisory — blank: {cite_stats['blank']}  "
             f"broken backtick path: {cite_stats['unresolved_backtick_path']}  "
             f"| skipped — shape: {cite_stats['skipped_shape']}  "
-            f"historical-pin: {cite_stats['skipped_historical_pin']}  "
             f"path-only: {cite_stats['path_only']}",
             file=sys.stderr,
         )
+        # The three dispositions of a historical pin, printed separately
+        # because the MIGRATION'S PROGRESS IS EXACTLY THE RATIO between the
+        # first two (R2: the exemption re-keys to marker-only once migrated).
+        marker = cite_stats["exempt_marker"]
+        heritage = cite_stats["exempt_heritage"]
+        exempt_total = marker + heritage
+        pct = f"{100.0 * marker / exempt_total:.1f}%" if exempt_total else "n/a"
+        print(
+            f"[verify-md-links] pin dispositions: "
+            f"MARKER-EXEMPT: {marker}  "
+            f"HERITAGE-EXEMPT: {heritage}  "
+            f"CHECKED: {cite_stats['checked']}  "
+            f"| migration: {marker}/{exempt_total} exemptions marker-keyed ({pct})  "
+            f"heritage exemption: {'ON' if not args.no_heritage_pin_exemption else 'OFF'}"
+            + (
+                f"  (demoted to CHECKED: {cite_stats['heritage_demoted']})"
+                if args.no_heritage_pin_exemption
+                else ""
+            ),
+            file=sys.stderr,
+        )
+        if cite_stats["pin_malformed"] or cite_stats["pin_unknown_sha"]:
+            print(
+                f"[verify-md-links] pin markers REJECTED: "
+                f"malformed: {cite_stats['pin_malformed']}  "
+                f"unknown sha: {cite_stats['pin_unknown_sha']}",
+                file=sys.stderr,
+            )
+        elif commit_exists is None and not args.no_pin_sha_check:
+            print(
+                "[verify-md-links] pin-sha validation DISABLED "
+                "(no git object store to resolve `@<sha>` against)",
+                file=sys.stderr,
+            )
 
     # Exit 1 iff there is >=1 gating error (error-source broken-intra or
     # unknown-id), plus broken-inter under --inter-repo error. Warn-only

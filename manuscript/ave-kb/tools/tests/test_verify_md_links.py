@@ -340,7 +340,9 @@ def test_line_cite_historical_pin_not_flagged() -> None:
     assert [c.as_written for c in pinned] == ["target.md:999"], pinned
 
     _, _, stats = _scan_linecheck(vml)
-    assert stats["skipped_historical_pin"] == 1, stats
+    # Counter renamed at the R2 pin-marker landing: this is the HERITAGE
+    # disposition, now counted apart from the marker one.
+    assert stats["exempt_heritage"] == 1, stats
     # The same cite text appears unpinned twice elsewhere in the fixture and
     # IS flagged there, so the skip is the pin's doing, not the target's.
     assert stats["dead"] >= 3
@@ -488,3 +490,218 @@ if __name__ == "__main__":
     test_strip_fences_keeps_inline_spans()
     test_cite_target_uncheckable_shapes()
     print("OK: all self-tests passed")
+
+
+# --- R2 author-declared pin marker (`path.ext:NN@<sha>`) --------------------
+#
+# Fixture tree is SYNTHETIC end to end: its own repo root, its own 20-line
+# target, and SYNTHETIC SHAs resolved by an injected predicate — no live commit,
+# no live corpus line number, no branch shape. `_FAKE_COMMITS` is the whole
+# object store these tests know about.
+
+_PINCHECK = _FIXTURES / "pincheck"
+_PIN_CITER = "manuscript/ave-kb/common/citer.md"
+_PIN_NOTES = "research/2026-01-01_fixture_notes.md"
+_FAKE_COMMITS = {"aaaaaaa1"}
+
+
+def _fake_commit_exists(sha: str) -> bool:
+    return sha in _FAKE_COMMITS
+
+
+def _scan_pincheck(vml, heritage=True, commit_exists=_fake_commit_exists):
+    """Run the line-cite pass over the pin fixture repo."""
+    repo_root = _PINCHECK.resolve()
+    file_index, _ = vml.build_kbleaf_target_index(repo_root)
+    findings, stats = vml.scan(
+        repo_root,
+        check_ids_enabled=False,
+        file_index=file_index,
+        heritage_exemption=heritage,
+        commit_exists=commit_exists,
+    )
+    return repo_root, findings, stats
+
+
+def test_pin_marker_is_per_cite_not_per_line() -> None:
+    """★ THE R2 PROPERTY. One long row; the marker exempts ITS cite and no other.
+
+    The heritage heuristic skips every line-cite on any SHA-bearing line, and
+    the KB's rows run to thousands of characters mixing one provenance SHA with
+    several live cites. The marker must not inherit that. The fixture's star row
+    carries a marker-pinned cite that is DEAD at HEAD (`target.md:900@aaaaaaa1`,
+    against a 20-line target) beside an unmarked cite that is equally dead
+    (`target.md:901`), and carries NO standalone backticked SHA — so heritage
+    cannot fire and the only thing on trial is the marker's scope.
+
+    If this test fails, nothing else in the change matters.
+    """
+    vml = _load_module()
+    repo_root, findings, _ = _scan_pincheck(vml)
+
+    star = [c for c in vml.iter_line_cites((_PINCHECK / _PIN_CITER).read_text(encoding="utf-8"))
+            if c.as_written in ("target.md:900@aaaaaaa1", "target.md:901")]
+    assert len(star) == 2, star
+    assert len({c.lineno for c in star}) == 1, "both cites must share one line"
+    row = (_PINCHECK / _PIN_CITER).read_text(encoding="utf-8").splitlines()[star[0].lineno - 1]
+    assert len(row) > 500, len(row)  # ledger-row shaped, like the real corpus
+    assert not vml._HISTORICAL_PIN_RE.search(row), "heritage must not be in play here"
+
+    dead = _cites(findings, repo_root, "dead line cite", _PIN_CITER)
+    # The unmarked neighbour FAILS ...
+    assert "target.md:901" in dead, dead
+    # ... and the marked one does not, though it is just as dead at HEAD.
+    assert "target.md:900@aaaaaaa1" not in dead, dead
+    gating = [
+        f for f in findings
+        if f.kind == "dead line cite"
+        and f.target == "target.md:901"
+        and vml.is_gating(f, repo_root)
+    ]
+    assert gating, "the unmarked dead cite on the star row must flip the exit code"
+
+
+def test_pin_marker_both_directions() -> None:
+    """Every arm of the marker, in both directions."""
+    vml = _load_module()
+    repo_root, findings, stats = _scan_pincheck(vml)
+    dead = _cites(findings, repo_root, "dead line cite", _PIN_CITER)
+    malformed = _cites(findings, repo_root, "malformed pin marker", _PIN_CITER)
+    unknown = _cites(findings, repo_root, "unknown pin sha", _PIN_CITER)
+
+    # GOOD: a marked cite that is dead at HEAD passes, in all three forms.
+    for marked in (
+        "target.md:900@aaaaaaa1",  # backticked
+        "target.md:905@aaaaaaa1",  # link-ext
+        "target.md:906@aaaaaaa1",  # link-in
+        "target.md:5@aaaaaaa1",  # marked and still live
+        "gone-in-a-rename.md:7@aaaaaaa1",  # marked, path itself gone
+    ):
+        assert marked not in {f.target for f in findings}, marked
+    assert stats["exempt_marker"] == 5, stats
+
+    # BAD: an unmarked dead cite still fails.
+    assert "target.md:901" in dead and "target.md:907" in dead, dead
+
+    # BAD: a well-formed marker naming no commit is NOT a pin.
+    assert unknown == ["target.md:5@ffffff09"], unknown
+    assert stats["pin_unknown_sha"] == 1, stats
+    assert all(vml.is_gating(f, repo_root) for f in findings if f.kind == "unknown pin sha")
+
+    # BAD: a malformed marker exempts nothing — it is reported AND the cite is
+    # still checked, so both halves land.
+    assert malformed == ["target.md:903@12", "target.md:904@zzz"], malformed
+    assert stats["pin_malformed"] == 3, stats  # + the non-error-source arm
+    assert "target.md:903@12" in dead and "target.md:904@zzz" in dead, dead
+
+
+def test_pin_marker_path_pinned_away_is_not_a_broken_path() -> None:
+    """A marker on a since-renamed path is exempt, not a `broken backtick path`.
+
+    The disposition is decided BEFORE resolution, so a cite pinned to a state
+    where the file still existed does not collect a path advisory either.
+    """
+    vml = _load_module()
+    repo_root, findings, _ = _scan_pincheck(vml)
+    advisory = _cites(findings, repo_root, "broken backtick path", _PIN_CITER)
+    assert "gone-in-a-rename.md:7@aaaaaaa1" not in advisory, advisory
+    assert advisory == [], advisory
+
+
+def test_pin_marker_source_gating_respected() -> None:
+    """The new kinds are source-scoped like `dead line cite`, not unconditional."""
+    vml = _load_module()
+    repo_root, findings, _ = _scan_pincheck(vml)
+    outside = [
+        f for f in findings
+        if f.kind in vml._PIN_MARKER_KINDS
+        and str(f.file.resolve().relative_to(repo_root)) == _PIN_NOTES
+    ]
+    assert [f.target for f in outside] == ["target.md:908@zzz"], outside
+    assert not vml.is_gating(outside[0], repo_root), "non-KB source must warn, not gate"
+
+
+def test_three_dispositions_counted_separately() -> None:
+    """MARKER-EXEMPT / HERITAGE-EXEMPT / CHECKED are three distinct counters."""
+    vml = _load_module()
+    _, _, stats = _scan_pincheck(vml)
+    assert stats["exempt_marker"] == 5, stats
+    assert stats["exempt_heritage"] == 1, stats  # the one bare-SHA row
+    assert stats["checked"] >= 4, stats
+    # No cite is counted in two dispositions at once.
+    parsed = [
+        c for c in vml.iter_line_cites((_PINCHECK / _PIN_CITER).read_text(encoding="utf-8"))
+        if c.start is not None
+    ]
+    assert stats["exempt_marker"] + stats["exempt_heritage"] + stats["checked"] == len(parsed)
+
+
+def test_heritage_switch_is_built_and_left_on() -> None:
+    """R2's re-key switch exists and fires, and the default keeps heritage ON."""
+    vml = _load_module()
+    assert vml.HERITAGE_PIN_EXEMPTION is True, "the switch must ship in the ON position"
+
+    # ON (default): the grandfathered cite is exempt.
+    repo_root, findings, stats = _scan_pincheck(vml, heritage=True)
+    assert "target.md:902" not in _cites(findings, repo_root, "dead line cite", _PIN_CITER)
+    assert stats["exempt_heritage"] == 1 and stats["heritage_demoted"] == 0, stats
+
+    # OFF (migration preview): the same cite is checked, and it is dead.
+    repo_root, findings, stats = _scan_pincheck(vml, heritage=False)
+    assert "target.md:902" in _cites(findings, repo_root, "dead line cite", _PIN_CITER)
+    assert stats["exempt_heritage"] == 0 and stats["heritage_demoted"] == 1, stats
+    # Marker exemption is untouched by the switch — that is the point of re-keying.
+    assert stats["exempt_marker"] == 5, stats
+
+
+def test_pin_sha_validation_fails_open_when_it_cannot_answer() -> None:
+    """No object store -> validation disabled, never a manufactured failure."""
+    vml = _load_module()
+    _, findings, stats = _scan_pincheck(vml, commit_exists=None)
+    assert stats["pin_unknown_sha"] == 0, stats
+    assert not [f for f in findings if f.kind == "unknown pin sha"]
+    # `@ffffff09` now buys an exemption, so the marker count rises by exactly one.
+    assert stats["exempt_marker"] == 6, stats
+
+
+def test_pin_sha_resolver_reads_the_real_object_store() -> None:
+    """`make_commit_resolver` answers true for a live commit, false for a fake.
+
+    The live value is READ AT RUNTIME (`git rev-parse HEAD`), never hardcoded —
+    the test pins no repo state, it exercises the plumbing.
+    """
+    import subprocess
+
+    vml = _load_module()
+    repo_root = vml.find_repo_root(Path(__file__).resolve())
+    resolver = vml.make_commit_resolver(repo_root)
+    if resolver is None:
+        return  # no git here; the fail-open path is covered by the test above
+    head = subprocess.run(
+        ["git", "-C", str(repo_root), "rev-parse", "HEAD"],
+        capture_output=True, text=True, check=True,
+    ).stdout.strip()
+    assert resolver(head) is True
+    assert resolver(head[:8]) is True
+    assert resolver("deadbeef" * 5) is False
+
+
+def test_pin_marker_grammar_rejects_non_shas() -> None:
+    """Unit-level both-directions on the marker grammar itself."""
+    vml = _load_module()
+    text = (_PINCHECK / _PIN_CITER).read_text(encoding="utf-8")
+    by_written = {c.as_written: c for c in vml.iter_line_cites(text)}
+
+    assert by_written["target.md:900@aaaaaaa1"].pin_wellformed is True
+    assert by_written["target.md:903@12"].pin_wellformed is False  # too short
+    assert by_written["target.md:904@zzz"].pin_wellformed is False  # not hex
+    # A cite with no marker is not "malformed", it simply has none.
+    assert by_written["target.md:907"].pin is None
+    assert by_written["target.md:907"].pin_wellformed is False
+    # A malformed marker still parses as a cite (path + line survive), which is
+    # what makes it checkable rather than silently invisible.
+    assert by_written["target.md:903@12"].path == "target.md"
+    assert by_written["target.md:903@12"].start == 903
+    # Uppercase hex is not the token.
+    assert not vml._PIN_SHA_RE.match("AAAAAAA1")
+    assert vml._PIN_SHA_RE.match("a" * 40) and not vml._PIN_SHA_RE.match("a" * 41)
