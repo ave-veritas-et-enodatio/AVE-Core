@@ -1,0 +1,992 @@
+# ARC RECORD — the VIRTUAL-NEUTRAL boundary: is the electron's wall a level-set in real space, or a balance locus in port space? (2026-08-26)
+
+**Status: NEW ARC, WALK-GRADE, UNAUDITED — except §2, which is MEASURED and
+independently reproduced. Nothing here is a claim, a ruling, or a supersession.**
+The arc does **not** supersede `def-vyvsn1`; only Grant rules that. It
+**requires an adversarial audit before any part of it reaches canon** — the
+audit charter is §10, the kill conditions are §11, and the routing items are
+`_orchestration/open-items/2026-08-26-virtual-neutral-register-move.md` and
+`_orchestration/open-items/2026-08-26-device-circuit-models-165-correction.md`.
+
+**GRADE TAGS.** Every statement below carries one:
+`[MEASURED]` computed on the shipped operator, reproduced in this arc, numbers in §2/Appendix ·
+`[CANON]` verified canon, file:line quoted · `[WALK]` this arc's reading, un-audited ·
+`[OPEN]` what the arc raises and does not answer.
+
+---
+
+## §0 — Sector declaration (before any physics word)
+
+| | |
+|---|---|
+| **MODE** | static / stationary. No drive, no pump, no time-dependence is invoked anywhere in §2. |
+| **REGIME** | linear-in-the-scatter. The junction reduction is exact for **any** fixed per-port admittances; saturation enters only through the value of `Y`, never through the algebra. |
+| **PHASE-STATE** | **both**, deliberately. §2.1–§2.3 hold at **cold vacuum** (`S=1`, all `Y` equal) *and* at arbitrary grading up to 4 decades. §2.4 is the **saturated-shell** arithmetic at canon's own named yield level-set. §2.5 is the **sub-saturated A1 core** at `A=√α`. |
+| **SECTOR** | §2.1–§2.4 are **port-space / junction-scatter** — sector-agnostic linear algebra on the shunt reduction, which is the same operator whichever channel rides it. §2.5 is explicitly the **A1 longitudinal / bulk-dilatation** branch. The **T2 Cosserat** channel is *named* but never computed here. |
+| **Does the engine carry this DOF?** | Yes for the scatter (`vacuum_varactor_scatter.py`, shipped, run in this arc). **No** for the composed map `M = C · blockdiag(S)` — see §4 `[OPEN]`. |
+| **Cold vs saturated** | The load-bearing surprise of §2.4 is precisely that a **uniformly** saturated shell is *indistinguishable* from cold vacuum at the junction. Any statement that omits "uniform vs graded" is underspecified. |
+
+**Vocabulary fence, stated up front.** "Virtual neutral" is used here in its
+**power-engineering** sense: the node of a Wye (star) connection that sits at
+zero potential *because the phasor sum of the leg currents cancels*, with no
+conductor to ground. It is **not** the hollow-vortex "balance shell" (§3
+caution 2), and it is **not** a new coinage — but the two surface forms do
+**not** sit at the same grade, and an earlier wording here filed both under
+"canon". Measured on this branch: **"virtual-neutral surface" returns exactly
+one hit under `manuscript/`** —
+`vol2/particle-physics/ch02-baryon-sector/proton-identification.md:161`, cited
+at §5 row 4. **"virtual ground" returns ZERO hits under `manuscript/`** — three
+methods: `git grep -in`, `grep -rniE 'virtual[-_[:space:]]+ground'`, and a
+separator-tolerant Perl slurp over every `.md`/`.tex` under `manuscript/`. The
+phrase occurs only under `research/` — 8 lines in 4 files, counting every
+tracked hit outside this arc's own two documents; the one this record
+uses is `research/2026-07-10_x37-junction-parasitics_derivation.md:40`, cited at
+**§6 support S6 — not §5** — and graded there `[CANON-adjacent]`, *"an in-corpus
+research derivation, not a KB leaf"*. **Blind spot:** all three methods are
+token-based on those two surface forms, so a site stating the same object in
+other words is not caught.
+
+## §1 — The reframe, and what "virtual neutral" means on the schematic
+
+**Provenance — Grant, verbatim (2026-08-26):**
+
+> *"It makes sense to me that the 'boundary' is the virtual neutral, and isn't
+> resolvable in 'real space' but like only exist is any sense of a discrete
+> form in phase space. What does the equivalent circuit EE model/schematic
+> say?"*
+
+**And the directive governing the arc — Grant, verbatim:**
+
+> *"I think we need to be ok challenging past rulings that don't have hard math
+> tied to them."*
+
+### 1.1 What the schematic actually is `[CANON]`
+
+Every interior node of the chiral srs net is a **three-connected shunt
+junction**. Canon writes this in power-engineering words already, without
+hedging:
+
+> *"each interior node (e.g., carbon, nitrogen, oxygen) is a 3-connected WYE
+> junction — a three-phase node. A bond between two interior atoms (a
+> 'heavy-heavy' bond) represents a **balanced three-phase system**"*
+> — `manuscript/ave-kb/vol5/molecular-foundations/organic-circuitry/first-principles-bond-force-constants.md:110`
+
+The shipped operator is the admittance-weighted shunt reduction
+(`src/ave/solvers/vacuum_varactor_scatter.py:28-34, :156-185`):
+
+```
+V_u = 2 (Σ_j Y_j V_j^inc) / (Σ_k Y_k)          [the node voltage]
+S_ij = 2 Y_j / (Σ_k Y_k) − δ_ij                [the scatter]
+```
+
+### 1.2 The reframe in one sentence `[WALK]`
+
+Grant's move is to stop asking *"at what radius does `S(A)` hit threshold?"*
+and instead ask *"where does the phasor sum `Σ_j Y_j V_j^inc` vanish?"* — i.e.
+to treat the boundary as the locus where the Wye node sits at its own virtual
+neutral. On such a node the star point is at zero volts **with no conductor to
+ground and no saturation**: the leg phasors cancel each other. That is the
+`V_u = 0` branch of the reduction above.
+
+### 1.3 Why "not resolvable in real space" is the right instinct `[WALK]`
+
+An amplitude level-set is a **real-space** object: `A(r) = A_yield` has a
+radius, and you can point at it. A virtual neutral is a **port-space** object:
+it is a condition on the *relative phases and admittances of the legs meeting
+at one node*, not on any scalar field evaluated at a point. The set of
+`V^inc` vectors satisfying it is a **hyperplane through the origin** of the
+port space — a discrete-in-form object (a codimension-1 subspace with a
+definite dimension `z−1`) that has no radius at all.
+
+**This is the whole content of the reframe**, and §2 shows the schematic
+answers it *exactly*, with no approximation and no fitted parameter — and §3
+shows immediately why the exactness is a trap.
+
+## §2 — ★ THE MEASURED CORE
+
+**Reproduction discipline.** Every number in this section was **recomputed in
+this arc**, from the shipped operator, on a fresh worktree at `a3f4fef7`, and is
+**not** inherited from the dispatch brief. **Appendix A carries the verbatim
+output and the operator-under-test pointers — it does NOT carry a script, and
+no `.py` ships on this branch.** Measured: `git diff --name-status` from the
+merge-base `a3f4fef7` to this tip lists **four files, all `.md`**
+(`_orchestration/BOARD.md`, the two open items, this record); `git status
+--untracked-files=all` shows no untracked `.py` either. The receipt is therefore
+a **transcript, not a re-runnable artifact**, and §10 item A1 is scoped to that.
+Where the brief and the reproduction disagree, the reproduction wins and the
+disagreement is recorded (§2.4.1).
+
+### 2.1 The junction spectrum theorem `[MEASURED]`
+
+**Statement.** For `S = (2/ΣY)·𝟙·Yᵀ − I` and **any** per-port admittances
+`Y > 0`, the spectrum is exactly:
+
+| eigenvalue | multiplicity | eigenspace | circuit reading |
+|---|---|---|---|
+| `+1` | 1 | `span{(1,1,…,1)}` — all ports equal | the **COMMON / breathing** mode sees an **OPEN** |
+| `−1` | `z−1` | `{v : Σ_j Y_j v_j = 0}` — the **BALANCED** subspace | the **DIFFERENTIAL** modes see a **SHORT** |
+
+**Proof sketch.** `S = (2/ΣY)·𝟙 Yᵀ − I` is rank-one plus a multiple of the
+identity. `𝟙 Yᵀ` has one nonzero eigenvalue `Yᵀ𝟙 = ΣY` with right eigenvector
+`𝟙`, and a kernel of dimension `z−1` equal to `{v : Yᵀv = 0}`. So `S𝟙 = 2𝟙 − 𝟙 = +𝟙`,
+and `Sv = 0 − v = −v` for every `v` in the kernel. Nothing about the *values*
+of `Y` enters. **Saturation grading rotates the EIGENVECTORS and never the
+EIGENVALUES.**
+
+**Reproduced.** `n = 3` and `n = 4`, three loadings each — cold-uniform
+(`S=1`), random 4-decade grading, and one bond at `1e6` — eigenvalue residual
+vs the exact target `≤ 2.220e-16`; `|S·𝟙 − 𝟙| ≤ 2.220e-16`; balanced-vector
+residual `|S·v + v|/|v| ≤ 2.095e-16`.
+
+### 2.2 The trace identity `[MEASURED]`
+
+**Statement.** `Σ_i S_ii = 2 − z` **exactly**, for any admittances. Immediate
+from §2.1 (`trace = sum of eigenvalues = (+1) + (z−1)(−1)`), and equally from
+the closed form (`Σ_i [2Y_i/ΣY − 1] = 2 − z`).
+
+**Reproduced.** 2000 random 6-decade draws per `z`:
+
+| `z` | target trace | max deviation, 2000 draws |
+|---|---|---|
+| 2 | `+0` | `4.441e-16` |
+| 3 | `−1` | `5.551e-16` |
+| 4 | `−2` | `8.882e-16` |
+
+**Why it bites.** At `z = 3` the three diagonal reflections are constrained to
+sum to `−1`. Driving one port to `Γ = −1` by grading therefore **forces the
+other two to sum to 0** — at least one of them must be non-negative. **`Γ = −1`
+on all three ports of an srs node is ARITHMETICALLY UNREACHABLE by any
+saturation grading whatsoever.** This is a conservation law on the diagonal,
+not a numerical limit; no kernel, no floor, and no operating point can evade it.
+
+Cold-uniform closed form, reproduced over `z ∈ {2,3,4,6,12}`:
+`Γ_port = 2/z − 1 = (2−z)/z`, which canon already writes at
+`manuscript/ave-kb/common/relational-cancellation-identity.md:268` `[CANON]`.
+
+### 2.3 The balanced node is a MIRROR, with no saturation `[MEASURED]`
+
+**Statement.** If `Σ_j Y_j V_j^inc = 0` then `V_u = 0`, and therefore
+`V_p^ref = V_u − V_p^inc = −V_p^inc` on **every port simultaneously** — a
+`Γ = −1` mirror on all `z` ports at once.
+
+**Reproduced.** 2000 draws per `n`, `Y` spanning 4 decades, `V^inc`
+unit-normalised and constructed to satisfy the balance condition exactly:
+
+| `n` | `max‖v_ref + v_inc‖` | `max|V_node|` |
+|---|---|---|
+| 3 | `2.498e-16` | `2.372e-16` |
+| 4 | `2.220e-16` | `2.060e-16` |
+
+**All admittances finite. All bonds sub-yield. Axiom 4 never invoked.** The
+mirror is produced by *cancellation*, not by *stiffness*.
+
+*(Reproduction note: an un-normalised `V^inc` inflates the absolute residual to
+`~1e-12` purely through the dynamic range of the constructed vector. That is
+conditioning, not physics; the normalised figures above are the honest ones.)*
+
+### 2.4 Level-set arithmetic at canon's own named wall `[MEASURED]` + `[CANON]`
+
+Canon names the wall nodes and their kernel value:
+
+> *"the ring of open markers is the set of **19 wall nodes at yield (A>0.9,
+> S→0.045)** — the `Z_core→0`, `Γ=−1` short-circuit boundary derived above
+> rendered on the real carrier"*
+> — `manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md:54`
+
+Evaluating the shipped scatter on a `z=3` node with `Y = Y₀/√S` per bond:
+
+| bond loading (S per bond) | `Γ` on each port | most negative `Γ` |
+|---|---|---|
+| **cold vacuum** `[1, 1, 1]` | `−1/3, −1/3, −1/3` | `−0.333333` |
+| **uniformly saturated shell** `[0.045, 0.045, 0.045]` | `−1/3, −1/3, −1/3` | `−0.333333` |
+| 2 saturated, 1 cold `[0.045, 0.045, 1]` | `−0.095895, −0.095895, −0.808210` | `−0.808210` (at the **cold** port) |
+| 1 saturated, 2 cold `[0.045, 1, 1]` | `+0.404234, −0.702117, −0.702117` | `−0.702117` (at a **cold** port) |
+
+**★ A UNIFORMLY SATURATED SHELL REFLECTS EXACTLY LIKE COLD VACUUM.** Not
+approximately — the measured difference is `0.000e+00`, bit-identical, because
+the common factor `Y₀/√S` cancels identically through the ratio `2Y_j/ΣY`.
+**The mirror is the GRADIENT at the shell edge, never the saturation level.**
+
+Canon banks this same cancellation independently, at
+`relational-cancellation-identity.md:265` (instance 1, *"`Γ_end = −1/3` exactly,
+at ALL orders … max deviation 5.6e-17"*) and `:268` (instance 3, *"a uniform
+impedance scale cancels in `Γ = (2−z)/z`"*) `[CANON]`. That leaf's own status
+is **PROPOSED** and it carries an explicit fence — *"must NEVER be cited as a
+step in deriving any value"* (`:229`) — so it is cited here as **corroboration
+of an independently-measured algebraic fact**, never as a derivation step.
+
+**Best achievable with the SHIPPED kernel floors** (`A_cap = 0.99`,
+`S_min = 0.05` → `S(A_cap) = 0.141067`): the optimum is 2 bonds floored-saturated
++ 1 cold, read at the cold port, giving **`Γ = −0.683793`**. Un-floored ideal
+kernel, same configuration:
+
+| `A` | `S = √(1−A²)` | best `Γ` |
+|---|---|---|
+| `1 − 1e-2` | `1.411e-1` | `−0.683793` |
+| `1 − 1e-3` | `4.471e-2` | `−0.808770` |
+| `1 − 1e-6` | `1.414e-3` | `−0.963088` |
+| `1 − 1e-9` | `4.472e-5` | `−0.993335` |
+| `1 − 1e-12` | `1.414e-6` | `−0.998812` |
+
+Reaching `|Γ| = 0.9988` on **one** port requires `A = 1 − 10⁻¹²` — and by §2.2
+the other two ports then sum to `−1 − (−0.998812) = ` **`−0.001188`**, i.e. to
+essentially **zero**: each of them sits at `−0.000594`. **Buying a near-perfect
+mirror on one port leaves the remaining pair collectively transparent.**
+*(Corrected 2026-08-27: this line previously read `+0.9988`, which is the wrong
+sign and the wrong magnitude — the trace identity gives `−1 − Γ`, not `−Γ`.)*
+
+#### 2.4.1 ⚑ A correction to the dispatch brief `[MEASURED]`
+
+The brief supplied *"Two saturated one cold: −0.702. One saturated two cold:
+−0.808."* **These two labels are transposed.** The reproduction gives
+2-saturated-1-cold → `−0.808210` and 1-saturated-2-cold → `−0.702117`. The
+number **set** is exactly right; the assignment is not.
+
+Two independent cross-checks confirm the reproduction's assignment:
+(i) monotonicity — more saturated bonds raise `ΣY` faster than they raise `Y_p`
+at the cold port, so `Γ_cold = 2Y_cold/ΣY − 1` must be *more* negative with two
+saturated bonds than with one; (ii) the shipped-floor best case `−0.683793`
+arises from the **2-saturated-1-cold** configuration, and the ideal-kernel
+sweep at `A = 1−1e-3` (`S = 0.0447 ≈ 0.045`, two saturated) returns `−0.808770`
+— the `−0.808` family. Any downstream document that inherited the brief's
+assignment must be corrected.
+
+### 2.5 The A1 branch is TRANSPARENT at the stated operating point `[MEASURED]` + `[CANON]`
+
+Canon's bulk-branch impedance route is `Z_eff = Z₀√S`, `Γ = (Z−1)/(Z+1)`
+(`src/ave/core/crystal_engine.py:463, 477-478` — *"`Z_eff = Z0·√S → 0` … `Γ → −1`"*).
+`def-vyvsn1` puts the electron's **A1 mass core** at `A = V_yield/V_snap = √α`.
+Evaluating canon's own formula at canon's own operating point:
+
+| | value |
+|---|---|
+| `A = √α` | `0.085424543132` |
+| `S(√α)` (shipped kernel and ideal kernel agree — no floor is active) | `0.996344642898` |
+| `Z_eff = √S` | `0.998170648185` |
+| **`Γ_bulk`** | **`−9.155133056e-04`** |
+
+**That is a 0.09% reflection. It is not a mirror; it is a window.**
+
+Three cross-checks, all `[CANON]`:
+
+1. `def-vyvsn1`'s own open-ambiguity flag already states the physics:
+   *"the electron's A1 mass core operates at strain `A = V_yield/V_snap = √α` …
+   **sub-saturated** (`S(√α) = √(1−α) ≈ 0.996`), which is why the mass channel
+   does not run away"* — `manuscript/ave-kb/common/vocabulary-register.md:757`.
+   The measured `S = 0.996344642898` **is** canon's `≈ 0.996`. The arc's number
+   is not news to canon; it is canon's own number, carried out to `Γ`.
+2. `pair-production-axiom-derivation.md:103` says the same in prose:
+   *"deeply **sub-saturated**. This is *why* the electron binds: the `S→0`
+   varactor runaway never fires on the mass channel."*
+3. The engine acceptance suite's own Fresnel step reproduces:
+   `Γ_bulk(A=0.95) = −0.283044` and `Γ_bulk(A=0.99) = −0.453922`, matching
+   canon's recorded gate values *"`Γ_min(0.95)=−0.283`, `Γ_min(0.99)=−0.454`"*
+   at `manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/electron-bound-resonator-coverage.md:226`.
+
+#### 2.5.1 ⚑ What the acceptance gate actually tested `[CANON]` + `[WALK]`
+
+The same canon line records the gate's own verdict verbatim:
+
+> *"**T3.3** `Γ=−1` wall | `Γ_bulk` crosses `−0.25`, monotone toward `−1`, `→0`
+> vacuum; **literal `−1` unreachable** | **PASS** — `Γ_min(0.95)=−0.283`,
+> `Γ_min(0.99)=−0.454`, vacuum=0, **floor>−1**. α-FREE"*
+> — `electron-bound-resonator-coverage.md:226` (`sup-1ecv2m`)
+
+`[WALK]` So canon has already booked *"literal −1 unreachable"* on this branch
+and passed the rung on a `−0.25` threshold — but it probed at `A = 0.95` and
+`A = 0.99`, **amplitudes the electron's own A1 core never reaches**, because
+`def-vyvsn1` pins that core at `A = √α = 0.0854`. At the operating point the
+gate's subject actually occupies, `Γ_bulk = −9.155e-4` — **273× weaker than the
+gate's own `−0.25` threshold**. The gate is not wrong; it is evaluated off the
+operating point. `[OPEN]` Whether T3.3 should be re-run at `A = √α` is a
+question for the audit, not a ruling here.
+
+## §3 — ★★ THE TWO CAUTIONS
+
+**These are not footnotes to §2. They are as load-bearing as §2, and they must
+travel with every downstream citation of it. Neither may be softened.**
+
+### ★ CAUTION 1 — a `−1` eigenvalue of a LOCAL junction is NOT confinement
+
+`[MEASURED]` The `−1` eigenspace of §2.1 has dimension `z−1`. The balance
+condition `Σ_j Y_j v_j = 0` is a **single linear equation** — **codimension 1**
+per node. Balanced port-vectors are therefore **CHEAP, not special**: they form
+a hyperplane through the origin at *every node of the lattice*, and they do so
+in **empty cold vacuum**, where `Y_j = Y₀` for all `j` and nothing whatsoever is
+confined.
+
+`[WALK]` The consequence is blunt. **A local `Γ = −1` that is present
+everywhere is undiagnostic — it does not distinguish an electron from
+nothing.** Reading the `T2` irrep's `−1` as "the confinement wall" reads a
+property of the *empty medium* as a property of a *particle*.
+
+`[CANON]` Canon carries the same warning from a different direction, on the
+`−1/3` floor: *"the `−1/3` intercept belongs to the **isolated vertex, which
+does not exist in-lattice**"* —
+`research/2026-08-24_engine-gamma-meanstest_result.md:214-215`. Every number in
+§2.4 is an **isolated-junction** number for exactly the same reason.
+
+`[OPEN]` **What the electron would have to be, if this route is right:** not a
+node with a balanced eigenvalue, but a **CLOSED SURFACE of SIMULTANEOUSLY
+balanced nodes** — a set of nodes on which the balance condition holds *jointly
+and self-consistently under the connect map*. That is a property of the
+**composed map**
+
+```
+M = C · blockdiag(S)
+```
+
+(`C` the connect/permutation map, `blockdiag(S)` the per-node scatter). **The
+corpus DOES compute `M`.** `assemble_varactor_scattering`
+(`src/ave/solvers/vacuum_varactor_scatter.py:225`) builds
+`𝓢(A) = C @ blockdiag(S_u)` and returns it as a dense `(N·degree, N·degree)`
+operator, and the canonical leaf writes it in these same symbols:
+*"The assembled lattice operator is `𝓢(A) = C·blockdiag(S_u)`, where `C` is the
+lattice's own directed-edge CONNECT permutation"*
+(`manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/vacuum-varactor-scatter-operator.md:76-78`).
+**What no leaf computes is `M`'s SPECTRUM on a closed surface.** That claim
+stands. What does **not** stand — and what two earlier forms of this paragraph
+asserted — is any statement of the form *"the only eigenvalue computation on
+this operator family is …"*. **The tree contains several.** They are enumerated
+here rather than counted, and the method that found them is stated below so a
+reader can see what it would miss.
+
+**Eigen-reads on the node-scatter operator family, as found on this branch.**
+
+*Over the WHOLE assembled operator (every node, `N·degree` DOF):*
+
+| where | what it takes the spectrum of | receipt |
+|---|---|---|
+| `global_spectrum`, `src/ave/solvers/node_scattering_multiplicity.py:153-162` — `np.linalg.eigvals(M)` on `assemble_global_scattering(net)` | the assembled `𝓢 = C·blockdiag(S)` | run on this tree: `ndof = 192` for `build_srs_net(L=2)` (64 nodes × 3), `ndof = 64` for `build_diamond_net(L=4)`; `is_orthogonal` and `all_eigs_unit_modulus` both `True`. **Exercised by a shipped test**, `test_assembled_lattice_operators_are_orthogonal` (`src/tests/test_node_scattering_multiplicity.py:159-165`). |
+| `tlm_operator_spectrum`, `src/scripts/vol_1_foundations/scx_phase1_crosscheck.py:438-454` — `np.angle(np.linalg.eigvals(m))` | the engine's own one-step scatter+connect operator, materialized column-by-column from `scalar_tlm_step` + `scatter_matrix(net.degree)` | re-run here at `build_srs_net(3)`: `ndof = 648` (216 nodes × 3), `max(abs(abs(eig) − 1)) = 1.5e-14`. |
+
+*Over the SINGLE-NODE block only:*
+
+| where | operand |
+|---|---|
+| `local_scatter_spectrum`, `src/ave/solvers/node_scattering_multiplicity.py:77-91` — `np.linalg.eigh(S)` | `scatter_matrix(n)` |
+| `src/scripts/vol_4_engineering/vacuum_varactor_scatter_figures.py:242` — `ev = np.sort(np.linalg.eigvals(S_local).real)` | `admittance_scatter(np.ones(n))`; the leaf reports it as *"the local-node scatter spectra"* (`vacuum-varactor-scatter-operator.md:254-255`) |
+| `src/scripts/vol_1_foundations/chiral_lattice_optical_activity.py:26` | `scatter_matrix(3)` |
+| `src/tests/engine_acceptance/test_l0_medium.py:61` | `scatter_matrix(net.degree)` |
+| `src/tests/test_chiral_lattice_smokes.py:119` | `scatter_matrix(3)` |
+| `src/tests/test_engine_constants_alignment.py:155-161` | the `K4` scatter written out inline as `0.5·𝟙 − I`, asserting `{+1, −1, −1, −1}` |
+
+**None of these is a spectrum on a CLOSED SURFACE.** The first two are the
+*entire periodic lattice*; the rest are *one node*. The surviving gap is
+precisely and only the middle case — **a spectrum of `M` restricted to a closed
+subset of nodes** — and the enumeration above makes that gap sharper than the
+false universal did, because it shows the whole-lattice read is cheap and
+already shipped, so nothing but the restriction is missing.
+
+The figures script is worth one further note: it **assembles `M` itself**
+(`vacuum_varactor_scatter_figures.py:232-233`, both the bedrock and the varactor
+operator) and then takes the spectrum of the *local* block instead. And the two
+assemblers are the same family by their own documentation —
+`assemble_varactor_scattering`'s docstring calls itself a generalization of
+*"the bedrock `assemble_global_scattering`"*
+(`src/ave/solvers/vacuum_varactor_scatter.py:228-229`).
+
+**Method, and its blind spots.** `git grep -nE "eigvals|eigvalsh|eigh\(|\beig\(|eigs\(|eigsh\("` over tracked `src/`, intersected with the files that also mention `scatter_matrix` / `admittance_scatter` / `assemble_global_scattering` / `assemble_varactor_scattering`, then each surviving hit read by hand to decide whether its operand is in the family. **Blind spots:** (a) the intersection is *file*-level, so an eigen-read on the family in a file that never names one of those four symbols — e.g. one that receives the operator as an argument — is invisible to it; (b) it is token-based, so a `scipy.sparse.linalg` route or a wrapper API would not match; (c) the family membership call on each hit is a judgement, and the reads on `bloch_adjacency` (`harmonic_balance_srs.py:1027`, `:1050`) and on the graph adjacency (`scx_phase1_crosscheck.py:381`, `:659`, `:663`) were judged **out** of family on the grounds that an adjacency matrix is not `C·blockdiag(S)`. **And the surviving claim inherits all three.** *"No leaf computes `M`'s spectrum on a closed surface"* is still a universal over the corpus; it is retained because it is the arc's open question and because the enumeration above found nothing that contradicts it — but it rests on this same grep, so a closed-surface spectrum reached through (a), (b) or a mis-judged (c) would falsify it, and finding one is a legitimate way to close this arc's central gap.
+
+**The junction spectrum theorem still says nothing about `M`'s spectrum:** a
+direct sum of operators each having `−1` in its spectrum tells you nothing about
+the spectrum of `C` composed with that sum.
+**The entire physical question is displaced from §2 into an object this arc did
+not compute.**
+
+> ⚑ **Correction, 2026-08-27 (post-audit).** This paragraph previously read *"no
+> leaf in the corpus computes `M`"* — **that was FALSE**: `M` is shipped forty
+> lines below `admittance_scatter` (`:156-185`), the very function this arc ran,
+> in the same file. The open question survives in its narrower and correct form —
+> **the corpus computes `M`; it does not compute `M`'s spectrum on a closed
+> surface** — and that narrower form is what §4 and §9 caveat 2 now carry.
+>
+> ⚑ **Second correction, same day, and it is the same error one level down.**
+> The repair above replaced *"no leaf computes `M`"* with a **new** universal —
+> *"the only eigenvalue computation anywhere on this operator family is on the
+> local-node block"* — and that was **also false**. `global_spectrum`
+> (`node_scattering_multiplicity.py:153-162`) takes `np.linalg.eigvals` of the
+> whole assembled operator and is exercised by a shipped test; so does
+> `tlm_operator_spectrum` (`scx_phase1_crosscheck.py:438-454`); and the
+> figures-script read is one row of the single-node table above, not the whole
+> of it. **The paragraph above no longer states a universal at all, and it
+> states no total either — only the rows it found and the method.** It states an enumeration and the method
+> that produced it, because that is the only form of this claim that a reader
+> can check. The physics claim is unchanged and unweakened: what is missing is a
+> spectrum of `M` **restricted to a closed subset of nodes**.
+
+### ★ CAUTION 2 — the hollow-vortex BALANCE SHELL and the VIRTUAL NEUTRAL are DIFFERENT OBJECTS
+
+Both are called "balance loci". **Do not weld them.**
+
+| | hollow-vortex **balance shell** | **virtual neutral** |
+|---|---|---|
+| space | **real space** — a radius | **port space** — a hyperplane through the origin |
+| what balances | two **opposed scalars**: outward circulation pressure `∝ Γ²/R³` vs inward surface tension `σ/R` | `z` **phasors** on the legs of one Wye node: `Σ_j Y_j V_j^inc = 0` |
+| the balanced quantity | a **pressure** (dimensioned) | a **current sum** (KCL, phasor) |
+| result | `R* = Γ/√σ ≈ 1.6 ℓ_node` | `V_u = 0`, a **dimensionless** condition on a direction |
+| citation | `manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/hollow-vortex-binding.md:49` `[CANON]` | `src/ave/solvers/vacuum_varactor_scatter.py:28-34` `[MEASURED]` |
+
+`[WALK]` The collision is real and near: `boundary-observables-m-q-j.md:61`
+itself glosses register 4 as *"BALANCE LOCUS … cf. the hollow-vortex balance
+locus, `hollow-vortex-binding.md:49`"* — i.e. **the register-4 slot this arc
+proposes to move the electron into is currently illustrated by the
+pressure-balance object, not the phasor-balance one.** The register-move
+proposal (§7, and the routed open item) must therefore either (a) split
+register 4 into two sub-registers, or (b) argue that both are instances of one
+kind. **This arc does neither, and takes no position.** `[OPEN]`
+
+`[WALK]` ⚑ **The same collision runs through `def-anat3s`, and it is the one
+this record actually welded — at §5.2 and at support S2, until the repair below
+withdrew it.** `vocabulary-register.md:404`'s surface **(ii)
+the balance shell** — *"the `σ`-opposite-equal crossing, `≈ 1.6 ℓ_node`;
+**CONJECTURED `≡` wall** per Ruling 6"* — is **the left-hand column of the table
+above**, not the right: the def-node's own `axis:` is **`spatial-Brillouin`**
+(`:405`), its `dimension/type:` is **`length (L) — three distinct radial loci`**
+(`:406`), and its balance-shell anchor is `hollow-vortex-binding.md:49,:133`
+(`:411`) — the same citation the real-space column carries. **Whether the
+phasor balance and that real-space `σ`-balance are the same surface is exactly
+what is under-determined here, and this record takes no position on it.** Any
+sentence saying the phasor move *"discharges"* `def-anat3s`'s banked conjecture
+performs the weld this caution forbids. `[OPEN]`
+
+`[CANON]` The `Γ` symbol itself is overloaded across the two rows: in
+`hollow-vortex-binding.md` `Γ` is the **Cosserat circulation**; in §2 `Γ` is the
+**reflection coefficient**. Same glyph, different objects, one line apart in the
+table above. Any downstream prose must disambiguate.
+
+## §4 — The consequence: FREE EVERYWHERE or ABSENT HERE, never in between
+
+`[WALK]` Put §2.1 and §2.5 side by side and the corpus's confinement number is
+caught between two walls with no gap:
+
+| the `−1` in question | where it lives | what §2 measures | verdict |
+|---|---|---|---|
+| the **`T2` irrep eigenvalue** `−1` (`k4-port-irrep-decomposition.md:23`) | the junction scatter's balanced subspace | present at **every node of empty cold vacuum**, at every grading, exactly, `z−1` fold | **FREE EVERYWHERE** — undiagnostic |
+| the **`A1` bulk/mass** `−1` (`Z_eff = Z₀√S → 0`) | the amplitude level-set, which *has* a radius and *could* localize | `−9.155e-4` at `def-vyvsn1`'s own operating point `A = √α` | **ABSENT HERE** — a 0.09% window |
+
+**The one that is free is not localizing. The one that would localize is not
+there.** And by the trace identity (§2.2) there is no intermediate settlement to
+be had by grading harder: at `z = 3` the diagonal sums to `−1` no matter what,
+so buying `Γ → −1` on one port drives the other two to sum to `−1 − Γ → 0` —
+**the remaining pair goes collectively transparent**, and in the exact `Γ = −1`
+limit at least one of them must carry `Γ ≥ 0`. *(At the §2.4 best case
+`Γ = −0.998812` the other two sum to `−0.001188`, both at `−0.000594`; the
+"`Γ ≥ 0` on another" form holds only in the unreachable exact limit.)*
+
+`[OPEN]` **Therefore the localizing object cannot be the LOCAL eigenvalue at
+all.** If a virtual-neutral boundary exists, it is a **global** property — a
+closed surface of simultaneously balanced nodes, i.e. a statement about
+`M = C · blockdiag(S)`. This arc has established what the *local* operator can
+and cannot do. It has established **nothing** about `M`. The corpus **does**
+compute `M` (`vacuum_varactor_scatter.py:225`; leaf
+`vacuum-varactor-scatter-operator.md:76-78`), and it **does** take spectra of
+this operator family — including of the *whole* assembled operator
+(`global_spectrum`, `node_scattering_multiplicity.py:153-162`, exercised by
+`test_node_scattering_multiplicity.py:159-165`). **What no leaf computes is
+`M`'s spectrum on a closed surface** — a spectrum restricted to a closed
+*subset* of nodes. §3 CAUTION 1 carries the enumerated list of the eigen-reads
+that do exist, whole-lattice and single-node, and the method that found them; do
+not restate it here as *"the only …"*, which is the form this sentence carried
+twice and which was false both times. **That gap — the restriction, not the
+absence of the operator and not the absence of a spectrum — is the open
+question.**
+
+`[WALK]` **The honest summary of the arc's own weight:** §2 is a set of exact,
+reproducible, negative results about the local junction. Its positive content
+is entirely a **relocation of the question**, not an answer to it. Anyone
+citing §2 as support for "the electron's boundary is a virtual neutral" is
+citing the wrong half.
+
+## §5 — The structure is already in the corpus — five KB leaves plus one research derivation — and canon has the slot
+
+`[CANON]` The balanced-polyphase condition is **already written in the
+corpus**. The table below enumerates **five sites under `manuscript/ave-kb/`**.
+A **sixth** — `research/2026-07-10_x37-junction-parasitics_derivation.md:39-40`,
+the `C3v` differential-mode `Γ_A = −1` — is recorded at **§6 support S6**, and
+graded there `[CANON-adjacent]`, *"an in-corpus research derivation, not a KB
+leaf"*. **⚑ Six sites in the tracked corpus, not five.** The earlier "five times"
+total counted the KB rows only and did not reconcile against this record's own
+S6 — even though the `virtual ground` grep listed in the method note below is
+exactly what found that site. **None of the six cites any other, and none is at
+the electron-wall site** — both of those are enumerations, checked one way
+each; the method note below says how, and what it would miss.
+
+⚑ **Method, and its blind spots — reported as a method and not as a corpus
+fact** (per the grep-completeness rule).
+
+- **How the sites were found.** Targeted greps (`virtual ground` /
+  `virtual neutral` / `WYE` / `neutral node` / `traceless`) plus end-to-end
+  reads of the five KB leaves named; the `virtual ground` grep is also what
+  surfaced the sixth site (S6).
+- **How "none cites any other" was checked.** One way: a basename grep of each
+  of the six files for the other five basenames — every file returns only its
+  own name.
+- **How "none is at the electron-wall site" was checked.** By reading the six
+  paths against the three wall sites this record itself names in §7.3
+  (`vocabulary-register.md:751` `def-vyvsn1`; `device-circuit-models.md:165`;
+  `pair-production-axiom-derivation.md:102`). None of the six is one of them.
+- **Blind spots.** (a) The site search is token-based on five surface forms, so
+  a leaf stating the balanced-polyphase condition in other words — *star
+  point*, *common-mode / differential*, *zero-sequence* — is invisible to it.
+  (b) The cross-citation check is by **basename**, so a citation by claim-id,
+  by leaf title, or in prose without the filename is not caught. (c) "The
+  electron-wall site" is §7.3's list of three; a fourth wall site would move
+  that answer.
+
+**This is a statement about those searches, not a census.** There may be more
+sites; the audit sweep (item A8) should assume there are.
+
+| # | site | what it says, verbatim | scope |
+|---|---|---|---|
+| 1 | `vol1/operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md:23` | *"`T_2` eigenvalue \| `−1`, triply degenerate"* | the `z=4` `K4` 4-port only |
+| 1b | same leaf, `:55` | *"Basis spans the traceless 3D subspace `{v : Σ_i v_i = 0}` — **for every excitation at one port, an equal and opposite excitation exists at some combination of other ports.**"* | **that IS the balanced-polyphase condition**, in canon, at equal admittance |
+| 2 | `common/relational-cancellation-identity.md:265, :268` | instance 1: *"`Γ_end = −1/3` **exactly, at ALL orders**"* under uniform grading; instance 3: *"a uniform impedance scale cancels in `Γ = (2−z)/z`"* | status **PROPOSED**; fenced *"must NEVER be cited as a step in deriving any value"* (`:229`) |
+| 3 | `vol6/period-2/carbon/ee-equivalent.md:12` | *"establishing a **perfectly canceled vacuum 'neutral' node** in the geometric center — structurally analogous to a **Wye (Y) ground**"* | the C-12 nucleus; `clm-sd04x4` solidity **0.30**, **do-not-build** |
+| 4 | `vol2/particle-physics/ch02-baryon-sector/proton-identification.md:158-167` | Grant's own 2026-08-23 Route C: *"a **virtual-neutral surface** pinned by the mutual frustration of the cage's saturated strain projections"* | registered **candidate ontology ONLY** — see the fence below |
+| 5 | `vol5/molecular-foundations/organic-circuitry/first-principles-bond-force-constants.md:110` | *"each interior node … is a 3-connected **WYE junction — a three-phase node**"*, and a heavy-heavy bond is *"a **balanced three-phase system**"* | every srs interior node, already |
+
+`[CANON]` **The generalization is what is new, not the structure.** Site 1
+proves the `−1` eigenvalue for the **`z=4` `K4` 4-port at equal admittance**,
+and the S6 derivation proves it for the **`z=3` `C3v` 3-port, also at equal
+admittance** (*"Three identical semi-infinite lines"*,
+`2026-07-10_x37-junction-parasitics_derivation.md:37`).
+§2.1 extends it to **arbitrary `z` and arbitrary graded `Y`**, with the
+eigenspace correctly re-weighted to `{v : Σ_j Y_j v_j = 0}`. That extension is
+this arc's only genuinely new algebra, and it is a two-line proof.
+
+### 5.1 ⚑ The fence canon puts on site 4 — which the arc must honour `[CANON]`
+
+Grant's own Route C entry is **explicitly fenced**, verbatim:
+
+> *"Registered as a candidate ontology **ONLY**: the cold-geometry-into-saturated-core
+> conditional is **undischarged**, and **no neutrality/minimum-N argument may be
+> built on it** (both uses **adversarially refuted**, see the docket).
+> Discriminator: the `def-cf1srf` shape-forcing BVP."*
+> — `proton-identification.md:161-165`
+
+`[WALK]` This is the sharpest constraint on the whole arc, and it did not come
+from the dispatch brief — it came from reading the leaf. **A neutrality
+argument built on the virtual neutral has already been adversarially refuted
+once, in the baryon sector, four days ago.** Nothing in §2 discharges the
+`cold-geometry-into-saturated-core` conditional; §2 is *isolated-junction*
+algebra. The lepton-sector version of the same move must expect the same
+attack, and §10/§11 are written accordingly.
+
+### 5.2 And canon has the SLOT `[CANON]`
+
+`common/boundary-observables-m-q-j.md:56-63` enumerates **four boundary
+registers** and files the electron under register 1:
+
+> *"**AMPLITUDE LEVEL-SET** — Electron, Nucleus, Atom rows: the boundary is the
+> locus where the saturation amplitude hits threshold (`S(A)→0`, `Γ→−1`)"* (`:58`)
+> … *"(**BALANCE LOCUS** — the fourth register — appears at the *Solar* rung …
+> not tabulated here; cf. the hollow-vortex balance locus,
+> `hollow-vortex-binding.md:49`.)"* (`:61`)
+
+And `common/vocabulary-register.md:404` (`def-anat3s`) banks a balance-shell
+conjecture of its own:
+
+> *"**(ii) the balance shell** (the `σ`-opposite-equal crossing, `≈ 1.6 ℓ_node`;
+> **CONJECTURED `≡` wall** per Ruling 6)"*
+
+⚑ `[OPEN]` **That shell is the REAL-SPACE object, and this record does not weld
+the two.** `def-anat3s`'s own `axis:` is `spatial-Brillouin` (`:405`), its
+`dimension/type:` is `length (L) — three distinct radial loci` (`:406`), and
+surface (ii)'s anchor is `hollow-vortex-binding.md:49,:133` (`:411`) — caution
+2's left-hand column. **Whether the phasor balance and that `σ`-balance are the
+same surface is exactly what is under-determined, and this record takes no
+position.** An earlier draft of this section said the move *"discharges"* the
+banked conjecture; that sentence performed the weld caution 2 forbids and is
+withdrawn here.
+
+`[WALK]` So the proposal in §7 is to **move a row between two registers canon
+already defines** — not to mint a category. `[OPEN]` It does **not** discharge
+`def-anat3s`'s surface-(ii) conjecture, and per caution 2 register 4's *own
+gloss* currently points at the pressure-balance object, so the move as stated is
+ambiguous until register 4 is split or unified. That ambiguity is the open
+item, not a detail.
+
+## §6 — Where Grant's reading is SUPPORTED (seven places)
+
+**Why this section exists.** This arc has a documented habit of reporting only
+the negative — §2 is four exact results, three of them negative, and §3/§4 are
+cautions. A record that stops there misreports the state. **Seven places the
+reading is right, listed at their honest grade:**
+
+| # | the support | grade | receipt |
+|---|---|---|---|
+| **S1** | **The engine's operative scatter equation is the Wye reduction.** Grant's "what does the schematic say" question has a literal answer in shipped code, not an analogy: `V_u = 2(Σ_j Y_j V_j^inc)/(Σ_k Y_k)`, and `V_u = 0` on balance. | `[MEASURED]` | `src/ave/solvers/vacuum_varactor_scatter.py:28-34, :156-185`; run in §2 |
+| **S2** | **Canon has the register slot.** Register 4 (**BALANCE LOCUS**) exists and is un-tabulated for the electron, so the move uses a category canon already defines rather than minting one. | `[CANON]`, with a caveat | `common/boundary-observables-m-q-j.md:61`. ⚑ **Caveat:** `def-anat3s`'s banked surface-(ii) conjecture is **not** part of this support row and is **not** discharged by the move — that shell is the **real-space** `σ`-balance object (`common/vocabulary-register.md:404`; `axis: spatial-Brillouin` `:405`; `dimension/type: length (L)` `:406`; anchored to `hollow-vortex-binding.md:49,:133` at `:411`). Whether it is the same surface as the phasor balance is exactly what is under-determined (caution 2), and **this record takes no position.** |
+| **S3** | **The rim-inversion he already ratified points the same way.** `def-satrim`/`clm-riminv` (`def-satrim` is *"SOLID for the NAME/term"* only; the physics grade is `clm-riminv`, **0.55, consistency-class**; Grant-ratified mapping): a saturated core is *"pinned **ON the RIM** … amplitude-frozen, **phase-topological**"*, and *"the dynamics and topology **swap roles**; the core's state space is the **BOUNDARY** of the baseline's."* A boundary that is a phase-space object, not a real-space one, is exactly what Grant said. | `[CANON]`, with a caveat | `common/vocabulary-register.md:1126` (`def-satrim`); `common/saturation-rim-inversion.md`. ⚑ **Caveat — the def-node carries an A46 guard against exactly the cross-reading this row makes.** Its `axis:` line reads *"(A46 COORDINATE DISCIPLINE: a **PHASE-SPACE** state-space reading, **NOT** a real-space radial profile — must not be conflated with the envelope wall/knee real-space loci)"* (`:1131`); this row is about the electron's **boundary**, so it must be read as support for the *character* of Grant's reading only, never as licence to identify the rim with a real-space wall locus. And the status line is not a physics grade: *"**This locks the TERM, not a physics grade** (a `def-` node carries no solidity)"* (`:1133`) — so this row grades no higher than `clm-riminv`'s **0.55**. |
+| **S4** | **His rejection of the propagation question was correct.** Asking "what `Γ` does the wall present to an incoming wave" presupposes a wave propagating *through* a medium the defect sits *in*. On this substrate matter **is** the lattice's lock-state, not an object embedded in it — so there is no second medium for `Γ` to be defined against, and the question has **no referent**. Killing it was right. | `[WALK]` — ★ **provenance: prior-session chat; this arc did NOT verify a canon statement of it.** The nearest in-corpus support is the `def-satrim` role-swap (S3) and `resonant-lc-solitons.md:52` (*"The particle dynamically weaves its **own** perfect topological mirror"*). Treat as un-audited. |
+| **S5** | **de Broglie survives the matched (reflector-free) reading — two routes, both in-corpus.** (i) **Turning point:** *"The matter wave **does not bounce off a physical tear** in the vacuum; it bounces when it simply runs out of kinetic energy… the local acoustic impedance becomes purely imaginary, forcing a total reflection."* (ii) **Self-match:** *"the precise radius where this trapped … wave achieves a **lossless resonant impedance match with itself** (`2πr = nλ`)."* Neither needs a material mirror. | `[CANON]`, with a caveat | `vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md:54`. ⚑ **Caveat:** the two immediately-preceding lines (`:50`, `:52`) carry `🔴 [DEMOTED 2026-08-11 — R40-B2a: NEEDS RE-DERIVATION]`. Line `:54` itself carries **no** demotion marker, but it sits inside the demoted passage's argument; a lane citing it must check the R40-B2a re-derivation status first. |
+| **S6** | **Canon states the kernel-free `Γ = −1` and calls it a virtual ground, in as many words.** *"**Antisymmetric (differential) eigenmodes** `(1,−1,0)`, `(1,1,−2)` — memoryless value **`Γ_A = −1`**: the differential mode sees a **SHORT** (**the node is a virtual ground for it**)."* Written independently, from `C3v` symmetry, with no saturation kernel anywhere in the derivation — the same theorem §2.1 proves for graded `Y`. | `[CANON-adjacent]` — an in-corpus **research derivation**, not a KB leaf | `research/2026-07-10_x37-junction-parasitics_derivation.md:39-40` |
+| **S7** | **He reinvented, from EE intuition alone, a structure his own corpus carries in six unconnected places.** §5's table lists five of them; **S6 above is the sixth**. *None cites any other; none is at the electron-wall site* — enumerations, not universals: §5's method note carries the two checks and their blind spots, and this row inherits both. That convergence is evidence the reading is picking up real structure in the operator, independent of whether it localizes anything. | `[WALK]` over `[CANON]` receipts | §5 table rows 1–5, **plus S6** |
+
+`[WALK]` **What S1–S7 do and do not buy.** They establish that the reframe is
+**well-posed, operator-grounded, and already latent in the corpus**. They do
+**not** establish that the electron's boundary *is* a virtual neutral — that is
+blocked by caution 1 (balance is cheap) and by the §5.1 fence (a neutrality
+argument on this object was adversarially refuted once already). Support for
+the *question* is not support for the *answer*.
+
+## §7 — Provenance of the incumbent, and one correction that must propagate
+
+### 7.1 What `def-vyvsn1` actually rests on `[CANON]`
+
+`def-vyvsn1` is **SOLID**, and this record found **no second SOLID electron-wall
+statement** — stated as an enumeration and a method, not as a census. **Method,
+two passes.** (1) A block-scan of all **72 `def-` nodes** in
+`common/vocabulary-register.md`: **30** carry a `status:` line beginning
+`SOLID`, and of those **exactly one** — `def-vyvsn1` (`:748`) — names the
+electron together with `wall`/`confin`. (2) Cross-check: `git grep -n 'SOLID'
+-- manuscript/` intersected with `wall`. Its only competing wall-anatomy nodes
+are graded **below** SOLID and disqualify themselves — `clm-3surfa` at
+**solidity 0.45**, *"use as input only, don't build deeper"*
+(`.index/claims.jsonl`), and `def-anat3s`, whose own text reads *"the FORM is
+ruled; every numerical value is gate-measured, **NOT SOLID**"*
+(`vocabulary-register.md:404`). **Blind spots:** both passes are token-based on
+`electron` + `wall`/`confin` and scoped to `vocabulary-register.md` and
+`manuscript/`, so a SOLID wall statement carried in a **leaf body**, in a
+`clm-` node outside the register, or phrased without those tokens would not be
+caught.
+
+It is not being superseded here — only Grant rules that. But
+Grant's directive is *"we need to be ok challenging past rulings that don't have
+hard math tied to them"*, so the honest inventory of what is tied to it:
+
+| field | what canon says, verbatim | reading |
+|---|---|---|
+| `dimension/type` (`vocabulary-register.md:753`) | *"voltage (both); **BOTH are CALIBRATION, not derived** (`V_snap ≡ m_e c²/e` definitional …; `V_yield ≡ √α · V_snap`, the **√α being the imported α-echo**)"* | the two thresholds are **calibration**, and their ratio is an **imported α-echo** — canon's own words |
+| `clm-cross-links` (`:756`) | *"**(none verified-specific yet)**"* | **no scored claim**, no numeric solidity attached |
+| `verification` (`:758`) | *"VERIFIED the Grant 2026-06-30 T2 ruling **landed in prose** at …; VERIFIED the A1-horn **reconciliation** …; VERIFIED the calibration **definitions** …"* | a **propagation** receipt — that the ruling was written down consistently — **not a derivation receipt** |
+| mechanism (`pair-production-axiom-derivation.md:102`) | *"Above `V_yield` the transverse micro-rotation wave's amplitude crosses Axiom-4 onset, `Γ → −1`, and the lattice self-creates its TIR cavity"* | **one sentence.** No solved BVP, no eigensolve |
+| shape-forcing (`vol9/ch3-pin-port-configuration/device-circuit-models.md:163`) | *"**Status: OPEN.** … What is **NOT** derived is the **shape-forcing chain**: **no solved boundary-value problem produces the electron's surface** from its `0₁`-unknot topology."* | canon **already** books the shape as underived |
+
+`[WALK]` So the incumbent's SOLID grade attaches to a **sector attribution**
+(which sector owns which threshold — genuinely adjudicated, 2026-06-30) and to a
+**calibration**, not to a derivation that the wall is an amplitude level-set.
+The level-set *character* of the wall is the part with no hard math tied to it,
+and it is precisely the part §2 and the register-move proposal touch.
+**Nothing in this arc touches the sector attribution, which is the part that
+was adjudicated.** `[OPEN]`
+
+### 7.2 ⚑ THE CORRECTION THAT MUST PROPAGATE `[CANON]`
+
+`vol9/ch3-pin-port-configuration/device-circuit-models.md:165` reads, verbatim:
+
+> *"**Two coincident `Γ=−1` walls — do NOT re-collide.** The confinement surface
+> is the **A1 MASS wall** (`Z_bulk→0`, the impedance-short `Γ=−1` of the
+> Pauli/TIR derivation). It is numerically coincident with — but a **DISTINCT
+> object** from — the **`Γ_spinor = −1`** topological `2π→4π` stability wall of
+> the T2 micro-rotation sector … Reading the two `−1`'s as one wall would wire
+> the cage into the charge-winding and break the two-"3"s orthogonality."*
+
+**`:165` does NOT argue against the A1/bulk wall. It ASSERTS it.** Its guard
+sentence warns against **colliding** the A1 mass wall with the `Γ_spinor` T2
+wall; it argues **on the A1 side**.
+
+**Where the "prohibition" framing came from, named.** It came into this arc from
+the **orchestrator dispatch brief that opened the arc** — the same brief §2.4.1
+corrects on the transposed level-set labels — **not from a corpus document**. A
+dispatch brief is not a tracked file, so this attribution carries no `file:line`;
+it is stated here as the arc's own provenance record so the misreading is not
+left un-sourced and cannot be re-inherited as if canon had said it.
+
+**The sweep for in-corpus inheritors, with its method — reported as a search, not
+as a census.** Two methods were run on this branch: **(1)** a regex over the whole
+tree (excluding `.git`) for any citation of `device-circuit-models` carrying a
+line number in `163–169`; **(2)** an independent grep for `prohibition` /
+`prohibits` across the whole tree, checked for any co-occurrence with
+`device-circuit-models` or with the A1 wall. **Neither method returned an
+in-corpus document that frames `:165` as a prohibition.** The one substantive
+non-arc citer of `:165`, `research/2026-06-19_electrical-mechanical-projection-map.md:65`,
+cites `:163, :165, :178` for the M/J/Q bijection refutation and takes no position
+on the wall; every other `:163` hit is the unrelated chiral-crystal
+non-reciprocity-magnitude topic. **This is a statement about those two searches.
+It is not a claim that the corpus contains no inheritor** — only reading finds
+what a pattern cannot. The obligation to complete it stays open at
+`_orchestration/open-items/2026-08-26-device-circuit-models-165-correction.md`
+("Work to do", item 2), which is where this correction is routed.
+
+### 7.3 ⚑ And the correction exposes a live canon-vs-canon tension `[CANON]`
+
+Reading `:165` correctly makes a **second** problem visible, which the earlier
+misreading concealed:
+
+| site | who owns the confinement surface |
+|---|---|
+| `device-circuit-models.md:165` | *"The confinement surface **is the A1 MASS wall**"* |
+| `vocabulary-register.md:751` (`def-vyvsn1`, **SOLID**) | *"`V_yield` … = the **transverse Cosserat (`T_2`) self-trap wall** … the **single-electron confining `Γ=−1` TIR cavity self-creates here**"*; and *"**The A1 mass channel does NOT saturate at `V_yield`**"* |
+| `pair-production-axiom-derivation.md:102` | *"a single electron's confining `Γ = −1` wall is **already here**"* — at `V_yield`, the **T2** threshold |
+
+`[MEASURED]` §2.5 puts a number on the A1 side of that tension: at
+`def-vyvsn1`'s own A1 operating point, `Γ_bulk = −9.155e-4`. `[WALK]` The A1
+branch **cannot** be the confinement surface at the amplitude canon assigns the
+A1 core. Either `:165` is using "A1 mass wall" for a different operating point
+than `def-vyvsn1` assigns, or the two sites disagree about sector ownership of
+the confinement surface — which is exactly the `A1 ⊥ T2` cross-wiring class the
+corpus already watches for.
+
+`[OPEN]` **This arc does not adjudicate it.** It records it, with numbers, and
+routes it. Resolving it is an audit/lane job, and it is upstream of the
+register-move question: *which sector owns the wall* must settle before *which
+register the wall belongs to* is meaningful.
+
+## §8 — The symmetric standard, both directions
+
+**Applied to AVE.** `[WALK]` Substituting a **nodal / symmetry plane** for a
+**PEC wall** is bread-and-butter EM cavity practice. Every microwave engineer
+who halves a cavity at its symmetry plane and applies a perfect-electric-wall
+boundary condition is doing exactly what §2.3 does: replacing a physical mirror
+with a **balance condition that reflects identically**. The `+1`-open /
+`−1`-short eigenmode split of a symmetric three-port (§2.1) is the standard
+even/odd-mode decomposition, and is in every microwave-network textbook.
+
+**Therefore: this is PEER-WITH-STANDARD-EE, and NOT an AVE-distinct chord.**
+The mathematics of §2 would be unremarkable in a filter-design paper. **The
+content is ONTOLOGICAL** — the claim on offer is not *"a balance plane reflects
+like a wall"* (known) but *"the electron's boundary **is** such a plane rather
+than a material threshold"*, which is a statement about **what the electron
+is**, not about how junctions scatter. No number in §2 is AVE-distinct; the
+question §4 relocates the problem to might be.
+
+**Applied the other way** (per the consensus-bias symmetric standard, because
+the same knife must cut both ways): `[WALK]` **the Standard Model does not
+derive the electron's confinement scale either.** The electron is a point
+particle by construction in the SM; its "size" is a form-factor bound, not a
+derived radius, and its mass is an input parameter fitted to measurement. A
+critique of AVE that reads *"the confinement surface is asserted, not derived
+from a solved BVP"* is a true critique — and it describes the incumbent
+framework as well, which does not even pose the BVP. **Neither framework gets
+credit here. AVE at least has an operator to be wrong with**, and §2 is
+measured on it.
+
+**And the discrimination check, stated plainly.** `[WALK]` Does this arc buy a
+number, organizing power, or neither? **Organizing power, and a small number of
+exact negative numbers.** It buys **zero** positive predictions. The one number
+that could matter — `Γ_bulk(√α) = −9.155e-4` — is a *constraint* on an existing
+canon reading, not a new observable. Anyone framing this arc as a chord is
+misframing it.
+
+## §9 — Honest caveats, stated before the audit finds them
+
+1. **§2 is ISOLATED-JUNCTION algebra.** Every number is computed on a single
+   `z`-port node with prescribed per-port admittances. Canon's own caveat
+   applies verbatim: *"the `−1/3` intercept belongs to the **isolated vertex,
+   which does not exist in-lattice**"*
+   (`research/2026-08-24_engine-gamma-meanstest_result.md:214-215`). Nothing in
+   §2 is an in-lattice result.
+2. **The composed map `M = C · blockdiag(S)` is UNCOMPUTED BY THIS ARC, and its
+   SPECTRUM ON A CLOSED SURFACE is uncomputed by the corpus.** The operator
+   itself ships (`vacuum_varactor_scatter.py:225`, leaf
+   `vacuum-varactor-scatter-operator.md:76-78`), **and so do spectra of it** —
+   `global_spectrum` (`node_scattering_multiplicity.py:153-162`) eigen-decomposes
+   the whole assembled operator and is covered by a shipped test
+   (`test_node_scattering_multiplicity.py:159-165`). What does not exist is a
+   spectrum taken on a **closed subset** of nodes. §3 CAUTION 1 enumerates the
+   eigen-reads found and states the method; **this caveat deliberately carries no
+   "only" and no total.** The whole positive content of the reframe lives in that
+   one gap (§4). A direct sum of operators each carrying `−1` says **nothing**
+   about the spectrum of `C` composed with it. **(Two earlier drafts of this
+   caveat were false: the first said the corpus does not compute `M` at all; the
+   second said the local-node read was the only shipped eigenvalue read. Both ⚑
+   corrections are in §3 CAUTION 1.)**
+3. **"Closed surface of simultaneously balanced nodes" is not yet a
+   well-posed condition.** Balanced *with respect to which incident field?*
+   The balance condition is on `V^inc`, which is itself dynamical. A
+   self-consistency requirement is implied and has not been written down, let
+   alone solved.
+4. **The level-set arithmetic assumes the varactor map `Y = Y₀/√S`.** That is
+   the shipped μ-load branch, correctly scoped
+   (`vacuum_varactor_scatter.py:44-52`; the ε-load `Z = Z₀/√S` is explicitly
+   FORBIDDEN at `crystal_engine.py:466-468`). If the wall's channel is not the
+   μ-load, §2.4's numbers do not apply to it.
+5. **§2.5 evaluates ONE branch.** `Γ_bulk` is the **A1 longitudinal** reflection.
+   The **T2 Cosserat** channel — the one `def-vyvsn1` actually assigns the
+   confining wall to — is **not computed anywhere in this arc**. The arc
+   therefore does **not** show "there is no wall"; it shows the **A1** branch is
+   transparent at `A = √α`.
+6. **A neutrality argument on this object has already been refuted once.**
+   `proton-identification.md:161-165`, 2026-08-23, baryon sector: *"no
+   neutrality/minimum-N argument may be built on it (both uses adversarially
+   refuted)"*. The lepton-sector version inherits the burden, not an exemption.
+7. **Register 4 is ambiguous as written** (caution 2): its own gloss points at
+   the hollow-vortex **pressure**-balance object. The proposed move is
+   under-determined until register 4 is split or unified.
+8. **S4 is un-audited chat.** The "matter IS the lattice lock-state so `Γ` has
+   no referent" support (§6) was **not** verified against a canon statement by
+   this arc. It is recorded at `[WALK]` and must not be cited as canon.
+9. **`α`-circularity watch.** §2.5's operating point `A = √α` is canon's own
+   **imported α-echo** (`vocabulary-register.md:753`). Any conclusion whose
+   magnitude depends on that operating point inherits the echo. `Γ_bulk =
+   −9.155e-4` is such a number; the **trace identity and spectrum theorem are
+   not** — they are `α`-free.
+10. **This arc reproduced numbers; it did not re-derive the operator.** The
+    shunt reduction itself is taken as shipped. If `admittance_scatter` is the
+    wrong operator for the wall region, every number in §2 is correct and
+    irrelevant.
+
+## §10 — ★ AUDIT CHARTER
+
+**Nothing in this record reaches canon, a prereg, or a ruling until this
+charter has been run adversarially.** Run it as a multi-lens review with at
+least one lane doing **read-AND-run** on the shipped operator (A1), one lane
+treating A6 adversarially, and one lane on the canon-tension pair (A8/A9).
+Findings get the standard per-finding verify pass (CONFIRMED / DOWNGRADED /
+REFUTED).
+
+| # | claim | class | how to attack it |
+|---|---|---|---|
+| **A1** | **The §2 numbers are what the shipped operator produces.** Spectrum theorem, trace identity, balanced mirror, level-set arithmetic, `Γ_bulk(√α) = −9.155133e-04`. | MACHINERY — **read AND run** | ⚑ **No script ships on this branch** — Appendix A is a transcript, not a re-runnable artifact (§2 reproduction discipline), so the lane must **write its own driver** against `admittance_scatter` / `saturation_kernel` / `gamma_bulk` at the pointers Appendix A lists, from a clean worktree, without reading this record's numbers first. Then diff. Do not accept the table; regenerate it. Check `saturation_kernel`'s floors are actually inactive at `A=√α` as claimed. |
+| **A2** | **The spectrum theorem generalizes the `K4` irrep result rather than restating it.** `k4-port-irrep-decomposition.md:23,:55` is the `z=4`, equal-admittance case; §2.1 claims arbitrary `z` and arbitrary graded `Y`. | CANON + ALGEBRA | Verify the leaf's scope is really equal-admittance (is `Y` even a variable there?). Then check the rank-one proof: is `{v : Σ_j Y_j v_j = 0}` genuinely the kernel of `𝟙Yᵀ`, and is the arc's re-weighting of the eigenspace right, or has it quietly assumed `Y` symmetric-positive in a way that fails somewhere? |
+| **A3** | ★ **Caution 1 is right: a local `−1` is not confinement, and the electron would have to be a closed surface of simultaneously balanced nodes.** | LOGIC — **the load-bearing step** | Adversarial. Is "codimension 1 per node ⇒ cheap" actually the right cheapness measure once the connect map couples nodes? Try to construct a counterargument in which local balance *does* localize. And: is "closed surface of simultaneously balanced nodes" even well-posed (caveat 3)? If it is not, the arc's positive content is empty, not merely deferred. |
+| **A4** | ★ **Caution 2 is right: the hollow-vortex balance shell and the virtual neutral are different objects and must not be welded.** | CANON + VOCAB | Attack from both sides. (a) Find any corpus site that already treats them as one — if canon has welded them, that is a finding. (b) Argue the *unification* case honestly: is there a formulation in which a phasor balance and a pressure balance are instances of one kind? The arc took no position; the audit should. |
+| **A5** | **The uniform-saturation cancellation is exact and not an artifact of the varactor map.** §2.4's headline (`saturated shell ≡ cold vacuum`). | NUMERICAL + SCOPE | Re-derive with a *different* admittance map (`Y ∝ S`, `Y ∝ 1/S`, `Y ∝ S^{1/4}`) and confirm the cancellation is a property of the **ratio** `2Y_j/ΣY`, not of `√S`. Then check caveat 4: does the μ-load scoping actually hold at the wall? |
+| **A6** | **The arc relocates the question rather than hiding it** (§4). | LOGIC — adversarial | Find where the amplitude level-set re-enters in disguise. Candidates: the *gradient* at the shell edge (§2.4's own conclusion) is itself an amplitude-derived object — does that smuggle register 1 back in under register 4's name? |
+| **A7** | **`def-vyvsn1`'s SOLID grade attaches to a sector attribution and a calibration, not to a derivation of the level-set character** (§7.1). | CANON PROVENANCE | Verify all four rows of the §7.1 table by reading the fields, not this record. Then check the arc's disclaimer holds: does anything in §2/§7 in fact touch the adjudicated sector attribution? If it does, the arc has overreached. |
+| **A8** | ★ **`device-circuit-models.md:165` ASSERTS the A1 wall** (§7.2), and any document inheriting the "prohibition" framing is wrong. | CANON READING | Read `:163-167` end to end. Confirm the guard sentence's target. Then **sweep** for downstream inheritors of the misreading — and per the grep-completeness rule, cross-check any "N sites / none found" claim with a second method, and report the method, not the corpus. |
+| **A9** | ★ **There is a live canon-vs-canon tension over which sector owns the confinement surface** (§7.3): `:165` says A1; `def-vyvsn1` (SOLID) + `pair-production:102` say T2 at `V_yield`. | CANON COHERENCE | Determine whether this is a genuine contradiction, an operating-point mismatch, or a homonym (two objects both called "the confinement surface"). This is **upstream** of the register-move question. If it is a real contradiction, it outranks everything else in this record. |
+| **A10** | **The T3.3 acceptance gate was evaluated off the operating point** (§2.5.1): probed at `A = 0.95/0.99`, while `def-vyvsn1` pins the A1 core at `A = √α = 0.0854`. | GATE AUDIT | Read `sup-1ecv2m` and the driver `src/tests/engine_acceptance/test_l3_mass_cage.py`. Is the probe amplitude a deliberate scope choice with a stated rationale, or an unexamined default? Does the gate claim to bear on the electron's actual operating point? Per the self-referential-gate class: can the gate fire in both directions? |
+| **A11** | **The seven supports (§6) are at their stated grades** — in particular S4 is chat-only and S5 sits beside a demoted passage. | EVIDENCE HYGIENE | Verify each receipt. Try to promote S4 by finding a canon statement of it — or confirm none exists. Check whether R40-B2a's re-derivation debt reaches `:54`. Downgrade anything that does not hold. |
+| **A12** | **The §2.4.1 transposition correction is right**, and the brief's assignment is the wrong one. | NUMERICAL | Recompute independently. If the *brief* is right and this record is wrong, that is a serious error in a section labelled MEASURED and must be reported as such. |
+
+**Also required of the audit, explicitly:**
+
+- **The consensus-bias symmetric standard** (§8): would the equivalent move be
+  flagged in an SM/QED context? Apply the knife in both directions and say so.
+- **The discrimination check**: does this arc buy a number, organizing power,
+  or neither? The expected honest answer is *"organizing power plus exact
+  negative constraints; zero positive predictions."* If a lane reports more
+  than that, the lane is the finding.
+- **The §5.1 fence**: `proton-identification.md:161-165` already refuted two
+  neutrality arguments built on the virtual neutral. Any audit that recommends
+  building one here must engage that docket first, by name.
+- **Structural-null stencil check**: §2's negatives are computed on the shunt
+  reduction. Confirm that operator is substrate-native for the wall region (a
+  `z=3` srs junction), not a Cartesian or `z=4`-`K4` stand-in — a null on a
+  disabled or wrong-stencil operator validates a bug as physics.
+
+
+## §11 — ★ KILL CONDITIONS
+
+**Each of these, if it fires, kills a specific part of this record. They are
+written so that they CAN fire.** Any lane finding one reports it as a kill, not
+as a caveat.
+
+| # | if this is shown | then |
+|---|---|---|
+| **K1** | The shipped `admittance_scatter` is **not** the operator that governs the wall region (a different reduction, a different `z`, a non-shunt topology, or the wall is not at a node at all) | **§2 is correct and irrelevant.** The entire measured core is voided as evidence about the electron wall. Kills the arc, not the algebra. |
+| **K2** | A **closed surface of simultaneously balanced nodes cannot be well-posed** — the self-consistency condition of caveat 3 is vacuous or contradictory | **§4's positive content is empty.** The arc reduces to a set of exact negative results with no relocated question. The register-move proposal dies with it. |
+| **K3** | `Γ_bulk(A=√α) = −9.155e-4` fails to reproduce, or the operating point `A = √α` is **not** what `def-vyvsn1` assigns the A1 core | **§2.5, §4 and §7.3 all fall.** The A1-transparency finding is the arc's only quantitative constraint on canon; without it the arc constrains nothing. |
+| **K4** | The trace identity is **not** binding at the wall — e.g. the wall nodes are not `z=3`, or the relevant reflection is not the scatter diagonal | **§2.2's "arithmetically unreachable" claim falls**, and with it the strongest form of §4's dichotomy. |
+| **K5** | Canon **already** treats the phasor balance and the pressure balance as one object, with a receipt | **Caution 2 is wrong as stated** and must be rewritten as a unification, not a separation. (This would be a finding *for* the arc's boldness and *against* its accuracy.) |
+| **K6** | `device-circuit-models.md:165` does **not** assert the A1 wall on a full reading of `:163-167` | **§7.2 is wrong**, the routed correction item must be withdrawn, and §7.3's tension may dissolve. |
+| **K7** | The §2.4.1 transposition is **backwards** — the brief's assignment is correct | **A MEASURED-labelled section is wrong.** Report as a first-class error; re-audit every other number in §2 before trusting any of them. |
+| **K8** | A neutrality argument on the virtual neutral is refuted in the lepton sector on the same grounds as the 2026-08-23 baryon refutation | **The register-move proposal is dead on arrival** and the open item is closed negative rather than routed to Grant. |
+| **K9** | The `−1` eigenspace turns out **not** to be present in empty cold vacuum (e.g. the cold lattice's actual boundary conditions exclude it) | **Caution 1 is wrong**, balance is *not* cheap, and the arc's central negative inverts into a positive. This is the kill condition the arc would most like to lose to, which is exactly why it must be tested rather than assumed. |
+
+## §12 — What this arc does NOT do
+
+- It does **not** supersede `def-vyvsn1`. **Only Grant rules that.** The
+  register-move proposal is routed, not applied.
+- It does **not** adjudicate the §7.3 canon tension over sector ownership of
+  the confinement surface. It records it with numbers and routes it.
+- It does **not** show "there is no electron wall". It shows the **A1**
+  branch is transparent at `A = √α`, and that the **T2** `−1` is free
+  everywhere. The T2 channel is **never computed here** (caveat 5).
+- It does **not** compute `M = C · blockdiag(S)`, which is where the entire
+  positive content of the reframe lives.
+- It does **not** mint a term, a claim id, a `def-` node, or a solidity score,
+  and moves no existing one.
+- It does **not** claim an AVE-distinct chord. §2 is peer-with-standard-EE
+  (§8); the content on offer is ontological.
+- It does **not** discharge the `proton-identification.md:161-165` fence, and
+  no neutrality argument may be built on §2 until that fence is engaged by name.
+
+---
+
+## Appendix A — reproduction receipt
+
+**What this appendix is.** A **transcript** of the run, plus the pointers needed
+to rebuild it. **It ships no script**, and no `.py` is added by this branch
+(§2 reproduction discipline carries the measurement). Re-running it means
+writing a fresh driver against the operators named below.
+
+**Environment.** Fresh worktree off `origin/main` @ `a3f4fef7`; branch
+`research/2026-08-26-virtual-neutral-arc`; `numpy` float64; RNG
+`np.random.default_rng(20260826)`.
+
+**Operator under test.** `src/ave/solvers/vacuum_varactor_scatter.py` —
+`admittance_scatter(Y)` (`:156-185`) and `saturation_kernel(A)` (`:125`),
+whose floors come from `src/ave/core/crystal_engine.py:63-64`
+(`A_cap = 0.99`, `S_min = 0.05`) and kernel from `:191-195`.
+Bulk reflection route: `crystal_engine.gamma_bulk` (`:463, :477-478`),
+`Z_eff = √S`, `Γ = (Z−1)/(Z+1)`. `α` from `src/ave/core/constants.py:163`
+(`ALPHA = 7.2973525693e-3`).
+
+**Results, as reproduced.**
+
+```
+R1 TRACE IDENTITY  Σ_i S_ii = 2 − z          (2000 random 6-decade draws per z)
+  n=2: target +0   max|dev| = 4.441e-16
+  n=3: target −1   max|dev| = 5.551e-16
+  n=4: target −2   max|dev| = 8.882e-16
+
+R2 JUNCTION SPECTRUM THEOREM                  (eig vs exact target; balanced-vector residual)
+  n=3 cold uniform          eig=[-1,-1,1]      resid=2.220e-16  |S·1−1|=1.110e-16  |S·v+v|/|v|=1.734e-16
+  n=3 random 4-decade       eig=[-1,-1,1]      resid=2.220e-16  |S·1−1|=2.220e-16  |S·v+v|/|v|=1.854e-16
+  n=3 one bond at 1e6       eig=[-1,-1,1]      resid=1.110e-16  |S·1−1|=1.110e-16  |S·v+v|/|v|=1.979e-16
+  n=4 cold uniform          eig=[-1,-1,-1,1]   resid=1.110e-16  |S·1−1|=0.000e+00  |S·v+v|/|v|=2.095e-16
+  n=4 random 4-decade       eig=[-1,-1,-1,1]   resid=2.220e-16  |S·1−1|=0.000e+00  |S·v+v|/|v|=2.005e-16
+  n=4 one bond at 1e6       eig=[-1,-1,-1,1]   resid=2.220e-16  |S·1−1|=0.000e+00  |S·v+v|/|v|=2.024e-16
+
+R3 BALANCED NODE = SIMULTANEOUS MIRROR        (2000 draws, ‖v_inc‖=1, Y over 4 decades)
+  n=3: max|v_ref + v_inc| = 2.498e-16   max|V_node| = 2.372e-16
+  n=4: max|v_ref + v_inc| = 2.220e-16   max|V_node| = 2.060e-16
+
+R4 LEVEL-SET ARITHMETIC, z=3, Y = Y0/√S       (Γ_port = S_pp; Σ Γ = −1 in every row)
+  S=[1,     1,     1    ]  Γ=[-0.333333, -0.333333, -0.333333]  Σ=-1.000000000000
+  S=[0.045, 0.045, 0.045]  Γ=[-0.333333, -0.333333, -0.333333]  Σ=-1.000000000000   |diff vs cold| = 0.000e+00
+  S=[0.045, 0.045, 1    ]  Γ=[-0.095895, -0.095895, -0.808210]  Σ=-1.000000000000
+  S=[0.045, 1,     1    ]  Γ=[+0.404234, -0.702117, -0.702117]  Σ=-1.000000000000
+
+  SHIPPED FLOORS: S(A_cap=0.99) = 0.141067359797
+    1 floored-sat + 2 cold : Γ=[+0.142088, -0.571044, -0.571044]  min=-0.571044
+    2 floored-sat + 1 cold : Γ=[-0.158104, -0.158104, -0.683793]  min=-0.683793   <- BEST CASE
+  UN-FLOORED ideal kernel, 2 saturated + 1 cold, Γ at the cold port:
+    A = 1 − 1e-02   S=1.410674e-01   Γ = -0.683793
+    A = 1 − 1e-03   S=4.471018e-02   Γ = -0.808770
+    A = 1 − 1e-06   S=1.414213e-03   Γ = -0.963088
+    A = 1 − 1e-09   S=4.472136e-05   Γ = -0.993335
+    A = 1 − 1e-12   S=1.414198e-06   Γ = -0.998812
+
+R5 A1 BULK BRANCH AT A = √α
+  shipped kernel  A=0.085424543132  S=0.996344642898  Z_eff=0.998170648185  Γ_bulk=-9.155133056e-04
+  ideal √(1−A²)   A=0.085424543132  S=0.996344642898  Z_eff=0.998170648185  Γ_bulk=-9.155133056e-04
+  (identical — neither floor is active at this amplitude)
+
+R6 FRESNEL-STEP CROSS-CHECK vs canon's recorded gate values
+  A=0.95  S=0.312249900  Γ=-0.283043788   canon `electron-bound-resonator-coverage.md:226`: "Γ_min(0.95)=−0.283"  ✓
+  A=0.99  S=0.141067360  Γ=-0.453922277   canon same line:                    "Γ_min(0.99)=−0.454"  ✓
+
+R7 z-SWEEP, cold uniform                     (Γ_port = 2/z − 1 = (2−z)/z; trace = 2−z)
+  z= 2  trace=+0.000000000000  Γ_port=+0.000000000  eig=[-1, 1]
+  z= 3  trace=-1.000000000000  Γ_port=-0.333333333  eig=[-1,-1, 1]
+  z= 4  trace=-2.000000000000  Γ_port=-0.500000000  eig=[-1,-1,-1, 1]
+  z= 6  trace=-4.000000000000  Γ_port=-0.666666667  eig=[-1 ×5, 1]
+  z=12  trace=-10.00000000000  Γ_port=-0.833333333  eig=[-1 ×11, 1]
+```
+
+**Independently reproduced in this arc:** R1 (trace identity), R2 (junction
+spectrum theorem), R3 (balanced mirror), R4 (level-set arithmetic **including
+the §2.4.1 label correction**), R5 (`Γ_bulk` at `A = √α`), R6 (Fresnel
+cross-check against two canon-recorded values), R7 (`z`-sweep, added by this
+arc — not in the brief).
+
+**Not reproduced, and not claimed:** the brief's *"shipped-engine interface
+measurement matching the analytic Fresnel step (−0.45409 measured vs −0.453922
+analytic at A=0.99, 1.7e-4)"*. This arc reproduced the **analytic** side
+(`−0.453922277`, matching canon's `−0.454`) but did **not** run the FDTD
+interface measurement that produced `−0.45409`. Audit item **A1** should.
