@@ -1,8 +1,8 @@
-# RESULT — the two-knob gravity repair: GR at $O(m)$ from wave mechanics, and the SN1987A falsifier on the scalar-index construction
+# RESULT (CONSISTENCY-CLASS, UNAUDITED) — the two-knob gravity repair: GR at $O(m)$ from wave mechanics, and the SN1987A falsifier on the scalar-index construction
 
 **Date:** 2026-08-27 · **Branch:** `research/2026-08-27-two-knob-gravity-repair` · **Base:** `origin/main` @ `a3f4fef7`
 **Lane:** implementer. Consolidates a four-lane derive workflow (`L1-group-vs-phase`, `L2-preferred-frame`, `L3-constitutive-map`, reconciliation) whose complete returns were read from the workflow journal, not from a summary.
-**Concurrent lane, do not conflict:** `research/2026-08-27-ppn-tensor-derivation` documents the prior $F = 1/6$ result. **This document confirms that lane's arithmetic and supersedes its OUTLOOK.**
+**Concurrent lane, do not conflict:** `research/2026-08-27-ppn-tensor-derivation` documents the prior $F = 1/6$ result. **This document confirms that lane's arithmetic and reaches a different outlook from it.**
 **Artifacts:** driver [`research/drivers/two_knob_gravity_repro.py`](drivers/two_knob_gravity_repro.py) · record [`research/drivers/two_knob_gravity_repro_results.json`](drivers/two_knob_gravity_repro_results.json)
 
 ---
@@ -33,7 +33,7 @@ Because the gap drops out of $\omega^2 = c_{\rm eff}^2 k^2 + \Omega^2$ as $\omeg
 
 $$\frac{\alpha\, b}{GM/c^2} \;=\; 2a_1 + 2b_1\!\left(\frac{1}{\beta^2} - 1\right) \;\xrightarrow[\beta\to1]{}\; 2a_1$$
 
-Canon's matter channel has $a_1 = 1$; its light channel has $a_1 = 2$. **So an ultrarelativistic massive packet deflects at exactly HALF the photon value, forever** — $2.000400$ vs $4.000400$ (GR) in units $GM/bc^2$ at $v = 0.9999c$. This depends on $a_1$ alone: not on $b_2$, not on the repair, not on the photoelastic map. It is the sharpest single statement in this document, and it is already excluded by SN1987A (§5).
+Canon's matter channel has $a_1 = 1$; its light channel has $a_1 = 2$. **So an ultrarelativistic massive packet deflects at exactly HALF the photon value, forever** — $2.000400$ vs $4.000400$ (GR) in units $GM/bc^2$ at $v = 0.9999c$. This depends on $a_1$ alone: not on $b_2$, not on the repair, not on the photoelastic map. It is the sharpest single statement in this document, and SN1987A bounds it at a factor of $\sim\!250$ (§5) — on one gate that §5.3 records as **genuinely open**, the neutrino's channel assignment.
 
 **Two lanes' verdicts I am NOT folding into this headline, because at least one of them outranks it:** L2 established that the medium carries at least two characteristic cones and therefore has **no boost generator in its invariance group**, and that canon cannot presently compute the PPN preferred-frame parameters $\alpha_1, \alpha_2, \alpha_3$ that measure the cost of that (§8). That is a foundational gap; the perihelion defect is a repairable wiring error.
 
@@ -155,7 +155,7 @@ For canon's matter index $n_{scalar} = 1 + GM/c^2r$ (`ponderomotive-equivalence.
 
 $$F \;\equiv\; \frac{\Delta\phi_{\rm AVE}}{\Delta\phi_{\rm GR}} \;=\; \frac{1}{6}$$
 
-**Confirming the concurrent lane's arithmetic.** `research/2026-08-27-ppn-tensor-derivation` reports $F = 1/6$ from a PPN-tensor route. I reproduce it here from a construction with no metric in it, by two independent methods (series Binet and 60-digit quadrature), and the quadrature lands `0.9999999667`. **That lane's number is right.** What this document supersedes is its OUTLOOK: $F = 1/6$ is not a statement about AVE's spatial sector being absent, it is a statement about **one number being asked to do two jobs**, and it is repairable without touching the $1/7 : 2/7$ projection ratio.
+**Confirming the concurrent lane's arithmetic.** `research/2026-08-27-ppn-tensor-derivation` reports $F = 1/6$ from a PPN-tensor route. I reproduce it here from a construction with no metric in it, by two independent methods (series Binet and 60-digit quadrature), and the quadrature lands `0.9999999667`. **That lane's number is right.** Where this document reaches a different outlook is on what $F = 1/6$ MEANS: $F = 1/6$ is not a statement about AVE's spatial sector being absent, it is a statement about **one number being asked to do two jobs**, and it is repairable without touching the $1/7 : 2/7$ projection ratio.
 
 ### The observational cost of the swap, my numbers
 
@@ -214,7 +214,7 @@ They agree at $O(U)$ and split at $O(U^2)$ — **exactly the order where the per
 Corroborating detail I derived while checking Flag B: exact isotropic Schwarzschild has grading exponents $(a_1, a_2, b_1, b_2) = (2, \tfrac94, 1, \tfrac12)$. So the repair's $b_2 = \tfrac12$ **is** GR's $\beta = 1$, and the exponential ansatz's $a_2 = 2$ differs from GR's $\tfrac94$ — a real difference that the NR perihelion cannot see (because $a_2$ drops out) but a relativistic orbit could.
 
 
-## §5 — The falsifier that already fired: ultrarelativistic convergence and SN1987A
+## §5 — The falsifier, and the channel assignment that gates it: ultrarelativistic convergence and SN1987A
 
 ### 5.1 — The theorem · **DERIVED**, and it imports nothing
 
