@@ -1,0 +1,122 @@
+{
+  "exact_form_matches_L1": true,
+  "nr_form_matches_L1": true,
+  "exact_dphi": "pi*m*(3*E*a1**2 - 2*E*a2 + 4*W*a1*b1 - W*b1**2 - 2*W*b2)/(l_p*(E*a1 + W*b1))",
+  "nr_dphi": "pi*m*(4*a1*b1 - b1**2 - 2*b2)/(b1*l_p)",
+  "a2_absent_from_NR": true,
+  "b2_present_in_NR": true,
+  "brackets": {
+    "GR / two-knob repair (2, 1, 1/2)": "6",
+    "Gordon scalar n=1+U  (AVE matter, canon)": "1",
+    "Gordon scalar n=1+2U (AVE light index)": "2",
+    "two-knob, ADDITIVE clock b2=0": "7"
+  },
+  "ppn_identity_holds": true,
+  "gordon_g00": "-1/n**2",
+  "gordon_forces_a1_eq_b1": true,
+  "gordon_series": "a_N**2*m**2*u**2 - a_N*m*u + 1",
+  "gordon_bracket_is_bare_slope": "a_N",
+  "pathA_f_is_quadratic": true,
+  "pathA_eps": "m*q/l_p",
+  "pathA_dphi_over_pi_GM_c2_lp": "q",
+  "GR_isotropic_exponents": {
+    "a1": "2",
+    "a2": "9/4",
+    "b1": "1",
+    "b2": "1/2"
+  },
+  "n_opt_vs_inv_g00": {
+    "n_opt": "7*U**2/4 + 2*U + 1",
+    "one_over_abs_g00": "2*U**2 + 2*U + 1"
+  },
+  "deflection_closed_form": "2*a1 - 2*b1 + 2*b1/beta**2",
+  "deflection_beta_to_1": "2*a1",
+  "deflection_table": {
+    "0.1": {
+      "GR_a1_2": 202.0,
+      "AVE_canon_a1_1": 200.0
+    },
+    "0.5": {
+      "GR_a1_2": 10.0,
+      "AVE_canon_a1_1": 8.0
+    },
+    "0.9": {
+      "GR_a1_2": 4.469135802469136,
+      "AVE_canon_a1_1": 2.4691358024691357
+    },
+    "0.99": {
+      "GR_a1_2": 4.040608101214162,
+      "AVE_canon_a1_1": 2.0406081012141617
+    },
+    "0.9999": {
+      "GR_a1_2": 4.000400060008001,
+      "AVE_canon_a1_1": 2.000400060008001
+    }
+  },
+  "quadrature": {
+    "GR isotropic EXACT (predict 6)": {
+      "quadrature": "6.000002763",
+      "analytic": 6
+    },
+    "Gordon n=1+U  AVE matter (predict 1)": {
+      "quadrature": "0.9999999667",
+      "analytic": 1
+    },
+    "Gordon n=1+2U AVE light  (predict 2)": {
+      "quadrature": "1.999999867",
+      "analytic": 2
+    },
+    "two-knob exponential      (predict 6)": {
+      "quadrature": "6.000003033",
+      "analytic": 6
+    },
+    "two-knob additive b2=0    (predict 7)": {
+      "quadrature": "7.000006617",
+      "analytic": 7
+    }
+  },
+  "mercury": {
+    "canon Gordon n=1+U (bracket 1)": {
+      "arcsec_per_century": "7.163446",
+      "sigma_vs_42.98pm0.04": "-895.414"
+    },
+    "matter on light index (2)": {
+      "arcsec_per_century": "14.326892",
+      "sigma_vs_42.98pm0.04": "-716.328"
+    },
+    "two-knob repair / GR (6)": {
+      "arcsec_per_century": "42.980676",
+      "sigma_vs_42.98pm0.04": "0.0168943"
+    },
+    "two-knob additive b2=0 (7)": {
+      "arcsec_per_century": "50.144122",
+      "sigma_vs_42.98pm0.04": "179.103"
+    }
+  },
+  "mercury_measured": "42.98 +/- 0.04 arcsec/century",
+  "hulse_taylor": {
+    "repair_or_GR_deg_per_yr": "4.2265976",
+    "canon_one_sixth_deg_per_yr": "0.70443293",
+    "measured": "4.226585(4) deg/yr"
+  },
+  "solar_limb_arcsec": {
+    "a1=1": "0.8755952",
+    "a1=2": "1.75119"
+  },
+  "solar_limb_measured": "1.7509 arcsec",
+  "sn1987a": {
+    "method": "flat rotation curve v_c=220 km/s -> U = (v_c/c)^2 constant along the path",
+    "U": "5.38523e-7",
+    "photon_excess_days": "65.9498",
+    "ave_matter_excess_days": "32.9749",
+    "predicted_nu_gamma_differential_days": "32.9749",
+    "observed_offset_hours": 3,
+    "ratio_predicted_over_observed": "263.799",
+    "model_free_statement": "AVE predicts (n_nu-1)/(n_gamma-1) = 0.5; SN1987A bounds the species differential at ~ 3h/65.9d = 2e-3. The mass model cancels out of the fraction."
+  },
+  "umklapp_zone_edge": {
+    "photon_MeV": "1.605351",
+    "electron_kinetic_MeV": "1.173718",
+    "proton_kinetic_keV": "1.373348"
+  }
+}
