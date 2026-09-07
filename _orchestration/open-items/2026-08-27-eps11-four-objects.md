@@ -13,6 +13,8 @@ anchor: "DISTINCT object from mechanical strain"
 Basis: [`research/2026-08-27_ppn-tensor-derivation_result.md`](../../research/2026-08-27_ppn-tensor-derivation_result.md) §3–§5.
 Surfaced while working the PPN chain; **independent of the PPN verdict**, which is blind to which object `eps_11` is (result doc §4, last paragraph).
 
+**⚑ Attribution corrected 2026-09-06.** Consequence 2 below, and its heading, previously credited **R55** with declaring `eps_11` not-an-elastic-strain. R55 does not say that: R55 §3, ratified consequence 2, verbatim (`_orchestration/docket-entries/2026-08-24-ruling-r55-axiom5-source-law.md`:125-126) is *"No renaming of the object, only re-grading of its container."* The naming is R43+R50, the distinctness is R48's un-adjudicated walk note, and **the finding itself is unchanged** — only the authority credited for it.
+
 ## The question
 
 **What kind of object is `eps_11`?** Canon carries four incompatible answers at HEAD, all live, each load-bearing for something.
@@ -36,9 +38,9 @@ Canon's own trace formula, `one-seventh-impedance-projection.md`:13:
 
 i.e. **`theta = (3/7) eps_11`**. So the volumetric trace is `3/7` of the principal component — yet `double-deflection.md`:42 sets `chi_vol(r) = 7GM/c^2r`, the same value canon gives `eps_11`. Every coupling written against `chi_vol` is a factor `7/3 ≈ 2.33` from the same coupling written against `eps_11`. Canon writes both spellings and equates the numbers. `double-deflection.md`:24 shows the collision inside one sentence: *"the projection a 1D uniaxial stress makes onto the isotropic spherical bulk tensor (1/3) theta delta_ij"* — the argument is **named** volumetric and **used** as the uniaxial component.
 
-### 2. Op19 applies an elastic Poisson contraction to an object R55 says is not an elastic strain
+### 2. Op19 applies an elastic Poisson contraction to an object canon's own walk note records as possibly not an elastic strain
 
-`operators.md`:59, status **CANONICAL**: `n(r) = 1 + nu_vac * eps_11`. `nu_vac` is literally the ratio of transverse to axial **strain** (`vacuum-poisson-ratio.md`:13), and `transverse-refractive-index.md`:16 uses it as exactly that: `h_perp = -nu_vac * eps_11`. Under object **D** — the newest ruling, R55 2026-08-24 — `eps_11` is a *potential whose gradient is the displacement*, so applying a strain-to-strain relation to it is a category error. The same applies to the `1/7` isotropic projection at `one-seventh-impedance-projection.md`:13.
+`operators.md`:59, status **CANONICAL**: `n(r) = 1 + nu_vac * eps_11`. `nu_vac` is literally the ratio of transverse to axial **strain** (`vacuum-poisson-ratio.md`:13), and `transverse-refractive-index.md`:16 uses it as exactly that: `h_perp = -nu_vac * eps_11`. Under object **D** — the R43+R50 vocabulary block (`eq_axiom_5.tex`:40, :45) plus R48's non-circularity walk note (`:145-149`), all three anchor lines last written 2026-08-10 in commit `a00eda3c`; **not R55**, whose 2026-08-24 name clause reads *"No renaming of the object, only re-grading of its container"* (`_orchestration/docket-entries/2026-08-24-ruling-r55-axiom5-source-law.md`:125-126) and whose consequence 4 reads *"Content untouched"* (`:131`) — `eps_11` is a *potential whose gradient is the displacement*, so applying a strain-to-strain relation to it is a category error. **Grade, stated plainly: the walk note is conditional (*"non-circular **only if** …"*) and self-marked *"recorded not adjudicated."* Nothing in canon RULES that `eps_11` is not a strain — which is part of why this item is routed rather than resolved.** The same applies to the `1/7` isotropic projection at `one-seventh-impedance-projection.md`:13.
 
 ### 3. If `eps_11` WERE a mechanical strain, there would be no gravity on matter at all
 
