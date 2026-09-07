@@ -93,14 +93,16 @@ it now stands**, not the falsified text it replaced (that is in each commit's
 diff).
 
 > ⚑ **RE-DERIVED 2026-09-06.** A later round (commit `0dc6f611`) corrected the
-> *completeness* defect these repairs introduced — four of them stated the clip
-> result as a universal over the round rather than as the runs measured — and
-> its edits moved the line column. **Every line below was re-derived against
-> HEAD after that commit** by grepping each row's own wording; rows **1, 3, 8
-> and 9** also carry re-stated wording, because the text they quoted no longer
-> exists. Rows 2, 4, 5, 6, 7 and 10 quote text that is unchanged. The
-> `repaired by` column is unchanged and still names the commit that made the
-> *approach-not-arrival* repair, not the later completeness repair.
+> *completeness* defect these repairs introduced — **six of the ten sites
+> (rows 1, 3, 7, 8, 9, 10)** stated the clip result as a universal over the
+> round rather than as the runs measured — and its edits moved the line column.
+> **Every line below was re-derived against HEAD after that commit** by grepping
+> each row's own wording, one row at a time. Rows **1, 3, 8 and 9** also carry
+> re-stated wording, because the fragment they quoted no longer exists; rows 7
+> and 10 were edited but the fragment they quote survived verbatim, and rows 2,
+> 4, 5 and 6 were not edited at all. The `repaired by` column is unchanged and
+> still names the commit that made the *approach-not-arrival* repair, not the
+> later completeness repair.
 
 | # | file | line | now reads, in part | repaired by |
 |---|------|------|--------------------|-------------|
@@ -117,10 +119,10 @@ diff).
 
 **A new site, not on the ten.** `0dc6f611` also added a scope box in §3/F8
 carrying the enumeration, the method and four blind spots. It is the one place
-the clip result is stated in full. **Rows 1, 3, 8, 9 and 10 — the five that had
-carried a universal — now point at it instead of restating it**, which is why
-none of them re-mints one; rows 2, 4, 5, 6 and 7 were already scoped to the run
-they describe and needed no pointer.
+the clip result is stated in full. **Rows 1, 3, 8, 9 and 10 now point at it
+instead of restating it**, which is why none of them re-mints a universal; row 7
+sits immediately above the box and needs no pointer, and rows 2, 4, 5 and 6 were
+already scoped to the run they describe.
 
 Eight of the ten are in the audit RESULT doc; four of those eight are inside the
 single §3/F8 block, which is why a search that had already "done F8" kept
