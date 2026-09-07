@@ -10,8 +10,11 @@ anchor: "Does the lattice form a $\Gamma = -1$ saturation surface around a regio
 
 **A four-walk arc, recorded 2026-08-26, WALK-GRADE and UNAUDITED.** It re-poses
 the electron-existence question from *"does a state exist?"* to *"is there a
-wall?"*, on Grant's ratifying question (verbatim, `[sic]`): *"yes, but what are
-the properties of the wall we can measure on the electron?"*
+wall?"*, on Grant's assent and question (verbatim, `[sic]`): *"yes, but what are
+the properties of the wall we can measure on the electron?"* **That line is an
+assent plus a demand for a measurable, with no reasoning recorded. Its receipt
+is chat agreement — WALK-GRADE, UNAUDITED. It is not a ratification and it does
+not authorise the reframe.**
 
 ## What it does NOT do — read this before anything else
 

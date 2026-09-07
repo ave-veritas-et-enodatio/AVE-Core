@@ -285,12 +285,19 @@ key on the *rate*, not the winding.
 
 ## §3 — WALK 3: wall first, contents never
 
-### §3.1 — Grant's ratification of the reframe (verbatim, `[sic]`)
+### §3.1 — Grant's assent and question on the reframe (verbatim, `[sic]`)
 
 > **"yes, but what are the properties of the wall we can measure on the electron?"**
 
 **That is the complete Grant-attributed content of this walk.** Everything from
 §3.2 down is orchestrator walk-level reading, labelled as such.
+
+`[WALK]` **What that line is, graded.** It is an **assent and a question** — one
+word of agreement, then a demand for what is measurable — and **no reasoning is
+recorded with it.** Its receipt is **chat agreement: WALK-GRADE, UNAUDITED**,
+which is the grade this whole record carries. **It is not a ratification**, it
+does not authorise the reframe, and nothing downstream may cite it as though it
+did. The agreement itself stands exactly as quoted; only the grading word moves.
 
 ### §3.2 — `[CANON]` The substrate-observability rule makes interiors unobservable IN PRINCIPLE
 
