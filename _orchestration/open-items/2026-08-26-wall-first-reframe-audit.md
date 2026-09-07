@@ -22,9 +22,21 @@ not authorise the reframe.**
   carrier fork.** Both stay **LIVE and un-ruled**, exactly as
   `research/2026-08-25_autonomous-harmonic-balance-lens_RECORD.md` §7 left them.
   This arc is not a candidate to replace them and does not claim to be.
-- **It retires nothing, supersedes nothing, and adjudicates nothing.** It mints
-  zero ids and moves zero solidity. **Only Grant rules that anything is
-  retired.**
+- **It retires nothing and supersedes nothing.** It mints zero ids and moves
+  zero solidity. **Only Grant rules that anything is retired.**
+- **"Adjudicates nothing" is NOT literally true of the record, and must not be
+  quoted as though it were** — the record says so itself at §8. **One** verdict
+  is returned where none was routed: §3.5's *"the 'projected strain' framing is
+  literally right for $\mathcal{M}$ and wrong for $\mathcal{Q}$."* It is
+  `[WALK]`-graded, and its own `[OPEN]` rider (audit item **W3-2**) says the
+  walk cannot distinguish *"the dimension forces the integer"* from *"the
+  topology forces the integer and the dimension labels it"* — so it is **not
+  load-bearing**, and it is the only one. **Method for that count, and its blind
+  spot:** it is a read of §8's own enumeration — the forks it names as declined
+  are §3.6, §3.7, §3.10, §4.5, W4-6 and the R40-B2a debt — plus the one
+  exception §8 names against itself. A verdict returned somewhere in §§1–5 and
+  **not** surfaced in §8 would not be caught by that read; only a full re-read
+  of §§1–5 would settle it, and none was run for this item.
 - **It carries no engine output.** No solver was run. Every empirical statement
   in it is a pointer to someone else's measurement.
 - **It contains one retraction** (§3.3 — the orchestrator's own interior-framed

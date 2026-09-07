@@ -3,10 +3,23 @@
 **Status: WALK-GRADE, UNAUDITED. Nothing here is a claim, a ruling, a
 retraction, or a design decision.** Four connected chat walks between Grant and
 the orchestrator on 2026-08-26, recorded as ONE arc because they are one arc.
-Every statement below carries a grade tag: `[WALK]` (the walk's own reading),
+Statements below carry a grade tag: `[WALK]` (the walk's own reading),
 `[CANON]` (verified against a file:line this session), `[MEASURED-ELSEWHERE]`
 (an audit/driver finding, cited not re-run), `[OPEN]` (a question the walk
-raises and does not answer). Audit charter is §6; kill conditions are §7; the
+raises and does not answer). **That is a coverage statement, not a universal,
+and it is now measured rather than asserted (2026-09-06).** A paragraph scan of
+§§1–5 — blank-line-delimited blocks, minus headings, table rows, blockquote
+bodies and display maths — finds **17 blocks carrying no tag of their own.**
+Most are quote lead-ins (*"`[leaf]`:33–39, verbatim:"*) or statements about this
+record's own bookkeeping; a handful are ★ / headline sentences whose grade rides
+on the tagged paragraph directly beneath them. **Method and its blind spots:**
+the scan keys on the four tag tokens per block, so a block whose tag sits in a
+neighbouring block counts as untagged even where no reader would misgrade it,
+and a statement carrying the WRONG tag is invisible to it entirely — the scan
+proves placement, never correctness. Where a bolded headline is followed by a
+`[CANON]` cite, the tag governs the **cite**: §5.2's four headlines were
+untagged on exactly that pattern and now carry their own. Audit charter is §6;
+kill conditions are §7; the
 routing item is `_orchestration/open-items/2026-08-26-wall-first-reframe-audit.md`.
 
 
@@ -625,6 +638,20 @@ most fluently, per §0.
 > $\Gamma \to -1$ — the short-circuit / TIR wall that *confines* the electron,
 > not a match.)"*
 
+`[CANON]` **⚑ The SOLIDITY CEILING on that quote, disclosed rather than
+repaired.** `clm-ghs75o`'s quality block
+([`claim-quality.md`](../manuscript/ave-kb/vol2/claim-quality.md) — id comment
+at `:975`, quality block `:986`–`:995`) reads, at `:991` verbatim: *"solidity:
+0.30 (do not build on, rework needed) [= min(0.30, 1.00)]"* — `:987`
+confidence 0.3, rationale ending *"Asserted mechanism."*, and its
+own non-claims say *"the matched-impedance slipstream mechanism is asserted at
+the qualitative level"* with *"no onset-velocity threshold and no slipstream
+coupling constant"* produced. `[WALK]` **§4.3, §4.5 and the W4-4 contradiction
+all build on this line anyway.** The quote is accurate and the leaf is canon —
+but it is canon whose own quality entry says not to build on it, and the walk
+built. That is a defect in the walk's footing, carried here so it travels with
+every downstream use rather than being discovered later.
+
 ### §4.3 — The reading
 
 `[WALK]` **The electron and the photon propagate the same way.** Both are
@@ -804,8 +831,8 @@ needs no predecessor at all: sweeping before writing is this section's own
 discipline, adopted from §0's structural observation at `:75-79` that the walks
 kept rediscovering canon.)*
 
-**(1) Reading (a) is correct, and the scale problem dissolves in one line of
-arithmetic.** `[CANON]`
+`[WALK]` **(1) Reading (a) is correct, and the scale problem dissolves in one
+line of arithmetic.** `[CANON]`
 [`dama-alpha-slew-derivation.md`](../manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md):33,
 verbatim: *"the identity $\nu_{Compton} = m_e c^2/h$ holds because
 $\ell_{node} = \hbar/(m_e c)$ **by canonical AVE construction — the substrate
@@ -825,8 +852,10 @@ agreement is a **calibration identity, not an emergence** — `consistency-vs-em
 class: **IDENTITY**. Anyone reading "the gap comes out at $m_e c^2$" as a
 prediction has read a definition as a result.
 
-**(2) The arc's "natural resolution" is already RATIFIED CANON, and has been
-since 2026-06-20.** `[CANON]`
+`[WALK]` **(2) The arc's "natural resolution" is already RATIFIED CANON, and has
+been since 2026-06-20.** *(The ratified re-scope is `[CANON]` and is quoted
+below; the IDENTIFICATION of the arc's guess with it is this record's reading —
+§5.3 **R-2** records that it was not established this session.)* `[CANON]`
 [`cosserat-mass-gap.md`](../manuscript/ave-kb/vol1/axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md):149,
 **🔴 SECTOR RE-SCOPE, Grant-ratified mass-sector ruling**, verbatim:
 
@@ -841,6 +870,19 @@ since 2026-06-20.** `[CANON]`
 > regulates the *frequency* that SETS the mass … → A1 depression depth" and on
 > "mass itself stays A1." — the source sets both sentences in plain text,
 > italicising only "frequency that SETS" inside the first.)**
+>
+> *(**TRUNCATED at "mass itself stays A1."** — the `…` marks inside the quote
+> are elisions within the quoted span; this is the marker owed at its END. The
+> source LINE continues, and its continuation QUALIFIES what is quoted above.
+> Verbatim, the next sentence: "(⚠ 2026-06-20 CORRECTION: FOC does NOT FORCE A1
+> ⊥ T2 — the temporal-within-tank "FOC d-q" reading is RETRACTED, `clm-533gvm`
+> solidity 0.30; the canonical FOC homes are SPATIAL inter-object 90°. A1 ⊥ T2
+> stands FOC-INDEPENDENT on the grade decomposition; REFUTED flag at
+> `master-equation.md`:20.)" — so the **A1 $\perp$ T2** orthogonality quoted
+> above STANDS, but on the grade decomposition and **not** on the FOC reading
+> the same line retracts. The line then preserves the
+> $m_e c^2 = \hbar\omega_C = T_{EM}\,\ell_{node}$ chain and closes "Body
+> preserved per Rule-12.")*
 
 `[WALK]` That is, word for word, the arc's guessed resolution: **mass is a
 configuration of the A1 sector (the depression depth), and the frequency that
@@ -855,8 +897,8 @@ plain text; the remaining bolds in this quote are the source's own.)** — and
 that leaf's own §4 Verlet driver attributes the gap to the $T_2/\omega$ sector,
 i.e. the *other* side.
 
-**(3) "Where does the rest energy come from" has a canonical answer that is
-neither channel's gap.** `[CANON]`
+`[WALK]` **(3) "Where does the rest energy come from" has a canonical answer
+that is neither channel's gap.** `[CANON]`
 [`l3-electron-soliton-synthesis.md`](../manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/l3-electron-soliton-synthesis.md)
 §3 (`:86`–`:118`), heading verbatim *"Rest-energy Virial sum (**structural, not
 predicted**)"*:
@@ -876,8 +918,8 @@ relation a rest energy") imports a field-theory intuition the corpus does not
 use here. `consistency-vs-emergence` class: **IDENTITY** (the leaf says so
 itself — *structural, not predicted*).
 
-**(4) The one part that is genuinely LIVE is already routed, and is not new.**
-`[CANON]` The corpus *did* answer "which channel's dispersion does a moving
+`[WALK]` **(4) The one part that is genuinely LIVE is already routed, and is not
+new.** `[CANON]` The corpus *did* answer "which channel's dispersion does a moving
 electron obey" —
 [`de-broglie-standing-wave.md`](../manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md):52:
 the electron *"does not travel as a shear wave at $c_0$; instead, its motion
@@ -1079,10 +1121,17 @@ solver, which is cheap, and which would settle whether §1 has a subject.
 
 ## Provenance and honesty statement
 
-**Grant-attributed content — the complete list, and it is now complete:** §3.1
-(*"yes, but what are the properties of the wall we can measure on the electron?"*)
-and §4.1 (*"how would the trefoil's phase space tube propagate vs the photon?"*),
-both verbatim `[sic]` from this session. The 2026-08-03 sentence quoted in §3.8
+**Grant-attributed content — the enumeration, and the method that produced it:**
+**two** items. §3.1 (*"yes, but what are the properties of the wall we can
+measure on the electron?"* — an **assent and a question**, graded as such at its
+own site) and §4.1 (*"how would the trefoil's phase space tube propagate vs the
+photon?"*), both verbatim `[sic]` from this session. **Method:** a read of §§1–9
+for every quotation attributed to Grant, plus a corpus grep for the one
+attributed phrase that carried no cite. **Blind spot:** a Grant framing carried
+in the record's own voice — paraphrased rather than quoted, and therefore
+wearing no quotation marks and no `[sic]` — is exactly what the read cannot see,
+and is the failure the correction below records. So this is a **measured
+enumeration, not a proof of completeness.** The 2026-08-03 sentence quoted in §3.8
 (*"There can still be a gradient toward the wall vs the wall itself"*) is Grant's
 but is **quoted from canon**
 ([`wall-taxonomy.md`](../manuscript/ave-kb/common/wall-taxonomy.md):129), not
