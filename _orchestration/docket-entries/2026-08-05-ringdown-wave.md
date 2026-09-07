@@ -277,7 +277,7 @@ repair was executed** (`sed` read + `grep -n` cross-check, both reported below):
 | `:127` | `\begin{itemize}` opening the three-benchmark list |
 | `:129` | the LIGO bullet — the **Rule-12-preserved body**, exactly as the house pattern requires |
 | `:131` | `\end{itemize}` — the list closes **two lines after** the cited site |
-| `:133` | **`\noindent \textbf{Scope correction (2026-07-21, ringdown MATCH-ARTIFACT walk-back + B1 re-bank; body above preserved per Rule 12).}`** |  <!-- rule12-freeze: base=abb8cd36ad1d638ddc0ca5eb2ecae1a09493cf2a region=above offset=0 lines=142 bytes=9321 sha256=0698dc23c7012abc46b279c24b5f4d92b708a5c2bd8deb069d2329aebacd4c5d -->
+| `:133` | **`\noindent \textbf{Scope correction (2026-07-21, ringdown MATCH-ARTIFACT walk-back + B1 re-bank; body above preserved per Rule 12).}`** |
 
 `:133` retracts the figures as a **MATCH-ARTIFACT** (naming both compensating errors), states
 verbatim *"The ``outperforming GR Kerr QNM for $\tau$'' clause rode the **same** compensation and

@@ -354,7 +354,7 @@ Nine of the thirteen containing declarations are **CLEAN on reading**, in three 
 
 | # | tagged site | the declaration, verbatim | why it is inside |
 |---|---|---|---|
-| 1 | `manuscript/vol_4_engineering/chapters/11_experimental_falsification.tex`:142 | :113 — *"the four retrospective signatures below (proton-radius, neutron-lifetime, Hubble-tension, LIGO-echo) are **PRESERVED verbatim**"* ; :114 — *"body below preserved per Rule 12"* | inside `\subsection{LIGO GW150914 Black Hole Echoes}` (:139–:152), which **is** the fourth of the four named signatures |  <!-- rule12-freeze: base=4d1c259c002e1f7d38acf921f527ec67f2dc8d25 region=below offset=0 lines=27 bytes=2180 sha256=8eeb1efd0c06915252c646f7e510a4a1765724b7255d282044f02ee6fcf6780b -->
+| 1 | `manuscript/vol_4_engineering/chapters/11_experimental_falsification.tex`:142 | :113 — *"the four retrospective signatures below (proton-radius, neutron-lifetime, Hubble-tension, LIGO-echo) are **PRESERVED verbatim**"* ; :114 — *"body below preserved per Rule 12"* | inside `\subsection{LIGO GW150914 Black Hole Echoes}` (:139–:152), which **is** the fourth of the four named signatures |
 | 2 | same file :147 | same | the figure caption inside that subsection |
 | 3 | same file :151 | same | the closing paragraph of that subsection |
 | 4 | `manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex`:151 | :18 — *"Scope of the isomorphism (2026-08-02 …; **the section body below is preserved per Rule~12**)"* | `\section{The Topo-Kinematic Circuit Identity}` runs :12–:549; the declared span is :19–:549 |

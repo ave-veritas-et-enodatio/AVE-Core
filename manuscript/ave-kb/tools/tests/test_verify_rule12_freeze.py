@@ -477,6 +477,83 @@ def test_coverage_measures_the_gap_the_stamp_does_not_cover():
     assert (span, covered) == (2, 1), (span, covered)
 
 
+def test_a_fenced_line_is_not_a_gating_note_but_is_still_counted():
+    """A Rule-12-shaped line inside a code fence is a TRANSCRIPT, not a note.
+
+    Regression for a real defect. The 2026-08-26 backfill wrote 27 stamps into
+    `_orchestration/2026-08-03_link-form-anchor-drift-triage.md`, every one onto
+    an `at-line :` row of a FENCED tool transcript -- i.e. onto a verbatim
+    quotation of some OTHER file's Rule-12 note. Two things were wrong with that
+    at once: the stamps certified spans of a triage report nobody had frozen,
+    and inside a fence an HTML comment renders as VISIBLE literal text, which
+    falsifies the "renders invisibly" premise the whole stamp design rests on.
+
+    BOTH DIRECTIONS, because a rule that only ever suppresses is indistinguishable
+    from a broken detector:
+      * the fenced line must NOT be a gating note, and must appear in the fenced
+        family instead;
+      * the identical line OUTSIDE the fence must still be a gating note.
+
+    ANTI-TAUTOLOGY ARM: the fenced line is asserted to satisfy BOTH detector
+    regexes on its own. That is what proves it is excluded by the FENCE RULE and
+    not merely by phrasing the regexes happen to miss -- without it this test
+    would pass on a detector that had stopped recognising the line for any reason.
+    """
+    mod = _load()
+    note = "> **FIX (Rule 12 -- the body above is preserved verbatim).** r"
+
+    probe = mod.STAMP_RE.sub("", note)
+    assert mod.NOTE_MARKERS.search(probe), "fixture stopped matching the marker regex"
+    assert mod.DIRECTIONAL_ASSERTION.search(probe), "fixture stopped matching the direction regex"
+
+    text = "intro\n" + note + "\n\n```text\n" + note + "\n```\n" + note + "\n"
+    #        1          2                 3   4          5           6        7
+
+    lines = mod.fenced_line_numbers(text)
+    assert lines == {5}, lines
+
+    assert [n.line for n in mod.find_notes("rec.md", text)] == [2, 7]
+
+    fenced, n_guarded = mod.find_fenced_candidates("rec.md", text)
+    assert [n.line for n in fenced] == [5], [n.line for n in fenced]
+    assert n_guarded == 0
+
+    # ...and the fenced line is NOT re-counted into either of the other two
+    # non-gating families, which would move a number without changing a fact.
+    wrapped, directionless, _ = mod.find_blind_spot_candidates(
+        "rec.md", text, mod.find_notes("rec.md", text), []
+    )
+    assert 5 not in {n.line for n in wrapped + directionless}
+
+
+def test_fence_scanner_edge_cases():
+    """Tildes, long fences, info strings, indentation, and an unclosed fence.
+
+    Each arm is a way the scanner could be wrong in the direction that matters:
+    closing a fence too early (content leaks back into the gating detector) or
+    too late (real notes get silently suppressed).
+    """
+    mod = _load()
+    f = mod.fenced_line_numbers
+
+    # tilde fences work exactly like backtick fences
+    assert f("a\n~~~\nX\n~~~\nb\n") == {3}
+    # a fence opened with one character is NOT closed by the other
+    assert f("a\n~~~\nX\n```\nb\n") == {3, 4, 5}
+    # the closing fence must be at least as long as the opener
+    assert f("a\n````\nX\n```\nY\n````\nb\n") == {3, 4, 5}
+    # an INFO STRING is allowed on the opener and forbidden on the closer
+    assert f("a\n```python\nX\n```\nb\n") == {3}
+    assert f("a\n```\nX\n```python\nY\n```\nb\n") == {3, 4, 5}
+    # up to three spaces of indentation still opens/closes a fence; four does not
+    assert f("a\n   ```\nX\n   ```\nb\n") == {3}
+    assert f("a\n    ```\nX\n    ```\nb\n") == set()
+    # an unclosed fence runs to end of file (CommonMark)
+    assert f("a\n```\nX\nY\n") == {3, 4}
+    # no fences at all suppresses nothing
+    assert f("a\nb\nc\n") == set()
+
+
 if __name__ == "__main__":
     for name, fn in sorted(globals().items()):
         if name.startswith("test_") and callable(fn):

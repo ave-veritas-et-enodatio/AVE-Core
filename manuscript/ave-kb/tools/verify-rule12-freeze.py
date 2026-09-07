@@ -606,6 +606,60 @@ class Note:
         return out
 
 
+#: A Markdown fenced code block delimiter: ``` or ~~~ (three or more), indented
+#: up to three spaces, optionally carrying an info string on the OPENING fence.
+FENCE_RE = re.compile(r"^ {0,3}(?P<fence>`{3,}|~{3,})(?P<info>.*)$")
+
+
+def fenced_line_numbers(text: str) -> set[int]:
+    """1-based line numbers INSIDE fenced code blocks (delimiters excluded).
+
+    WHY THE GATE HAS TO KNOW ABOUT FENCES. The whole stamp design rests on one
+    premise, stated in the module docstring: the stamp is an HTML comment, *so it
+    renders invisibly*. That premise is FALSE inside a fenced code block, where
+    Markdown renders the comment as literal visible text. A stamp written there
+    is not an invisible annotation -- it is a visible edit to the record it
+    claims to be protecting.
+
+    And a line inside a fence is not prose in this file at all. The 2026-08-26
+    backfill wrote 27 stamps into
+    ``_orchestration/2026-08-03_link-form-anchor-drift-triage.md``, every one of
+    them onto an ``at-line :`` row of a fenced TOOL TRANSCRIPT -- i.e. onto a
+    verbatim quotation of some OTHER file's Rule-12 note. Those stamps certified
+    spans of a triage report that nobody had frozen, and the document's own
+    header says the block is *"Fenced (see the self-suppression note)."* All 27
+    were reverted; the detector now skips fenced lines so the writer cannot
+    re-install them.
+
+    BLIND SPOT, stated rather than left to be discovered: only BACKTICK and
+    TILDE fences are recognised. A four-space INDENTED code block is not, so a
+    Rule-12-shaped line inside one is still read as prose. Unclosed fences run to
+    end of file, which is CommonMark's rule.
+    """
+    out: set[int] = set()
+    opener: str | None = None
+    open_len = 0
+    start = 0
+    lines = text.splitlines()
+    for i, line in enumerate(lines, 1):
+        m = FENCE_RE.match(line)
+        if opener is None:
+            if m:
+                opener, open_len, start = m.group("fence")[0], len(m.group("fence")), i
+            continue
+        if (
+            m
+            and m.group("fence")[0] == opener
+            and len(m.group("fence")) >= open_len
+            and not m.group("info").strip()
+        ):
+            out |= set(range(start + 1, i))
+            opener = None
+    if opener is not None:
+        out |= set(range(start + 1, len(lines) + 1))
+    return out
+
+
 def find_notes(path: str, text: str) -> list[Note]:
     """Prose Rule-12 notes, with any freeze stamp STRIPPED before matching.
 
@@ -613,13 +667,53 @@ def find_notes(path: str, text: str) -> list[Note]:
     line (see the placement note in the module docstring), so skipping stamped
     lines would make every stamped note invisible to the detector -- and the
     accounting that says "this note is served" would be counting nothing.
+
+    Lines inside FENCED CODE BLOCKS are skipped: see ``fenced_line_numbers`` for
+    why a stamp cannot go there. They are not dropped silently -- they are
+    counted and listed by ``find_fenced_candidates``, so the surface is a queue
+    rather than a hole.
     """
     out: list[Note] = []
+    fenced = fenced_line_numbers(text)
     for i, line in enumerate(text.splitlines(), 1):
+        if i in fenced:
+            continue
         probe = STAMP_RE.sub("", line)
         if NOTE_MARKERS.search(probe) and DIRECTIONAL_ASSERTION.search(probe):
             out.append(Note(path, i, probe.rstrip()))
     return out
+
+
+def find_fenced_candidates(
+    path: str, text: str, stamps: list[Stamp] | None = None
+) -> tuple[list[Note], int]:
+    """Rule-12-SHAPED lines sitting inside fenced code blocks. NON-GATING.
+
+    The third blind-spot family. These read as freeze notes to the detector's
+    regexes but cannot be stamped, because a stamp inside a fence renders as
+    visible literal text. Almost all of them are transcripts and quotations that
+    assert nothing about bytes in the file they sit in -- but "almost all" is not
+    "all", so the count is PRINTED every run and ``--census`` lists them. If a
+    record ever puts its real freeze note inside a fence, it shows up here.
+
+    Returns the candidates and how many of them happen to fall inside some
+    stamp's frozen region -- guarded by accident rather than by being recognised.
+    """
+    fenced = fenced_line_numbers(text)
+    if not fenced:
+        return ([], 0)
+    guarded: set[int] = set()
+    for st in stamps or []:
+        a, b = st.region_span
+        guarded |= set(range(a, b + 1))
+    out: list[Note] = []
+    for i, line in enumerate(text.splitlines(), 1):
+        if i not in fenced:
+            continue
+        probe = STAMP_RE.sub("", line)
+        if NOTE_MARKERS.search(probe) and DIRECTIONAL_ASSERTION.search(probe):
+            out.append(Note(path, i, probe.rstrip()))
+    return (out, sum(1 for n in out if n.line in guarded))
 
 
 #: Nouns a freeze assertion binds its preservation verb to when it names no
@@ -667,6 +761,11 @@ def find_blind_spot_candidates(
     """
     known = {n.line for n in notes}
     probes = [STAMP_RE.sub("", line) for line in text.splitlines()]
+    # Fenced lines belong to the THIRD family (``find_fenced_candidates``), not
+    # to these two. Without this skip a transcript row inside a fence would be
+    # re-counted here the moment the gating detector stopped claiming it, which
+    # would move a number without changing a fact.
+    fenced = fenced_line_numbers(text)
     wrapped: list[Note] = []
     directionless: list[Note] = []
     guarded_lines: set[int] = set()
@@ -674,7 +773,7 @@ def find_blind_spot_candidates(
         a, b = st.region_span
         guarded_lines |= set(range(a, b + 1))
     for i, probe in enumerate(probes, 1):
-        if i in known:
+        if i in known or i in fenced:
             continue
         if not NOTE_MARKERS.search(probe):
             continue
@@ -1148,6 +1247,10 @@ class ScanReport:
     #: NON-GATING second arm (see ``find_blind_spot_candidates``).
     wrapped_candidates: list[Note] = None  # type: ignore[assignment]
     directionless_candidates: list[Note] = None  # type: ignore[assignment]
+    #: THIRD non-gating family: Rule-12-shaped lines inside fenced code blocks,
+    #: where a stamp would render as visible literal text (``fenced_line_numbers``).
+    fenced_candidates: list[Note] = None  # type: ignore[assignment]
+    n_fenced_guarded: int = 0
     #: NON-GATING coverage measurement (see ``stamp_coverage``).
     n_span_lines: int = 0
     n_covered_lines: int = 0
@@ -1163,6 +1266,8 @@ class ScanReport:
             self.wrapped_candidates = []
         if self.directionless_candidates is None:
             self.directionless_candidates = []
+        if self.fenced_candidates is None:
+            self.fenced_candidates = []
 
 
 def _dirs(note: Note) -> str:
@@ -1206,6 +1311,9 @@ def scan(repo: Path, cfg: Config, paths: list[str] | None = None) -> ScanReport:
         rep.wrapped_candidates.extend(wrapped)
         rep.directionless_candidates.extend(directionless)
         rep.n_blind_spot_guarded += n_guarded
+        fenced, n_fenced_guarded = find_fenced_candidates(rel, text, stamps)
+        rep.fenced_candidates.extend(fenced)
+        rep.n_fenced_guarded += n_fenced_guarded
         span, covered = stamp_coverage(text, stamps, notes)
         if span:
             rep.n_span_lines += span
@@ -1284,6 +1392,16 @@ def report(rep: ScanReport, cfg: Config, census: bool) -> int:
         f"recognised. The directionless family is dominated by MENTIONS of the rule, not by "
         f"freeze assertions -- it is a triage queue, not a defect count."
     )
+    n_fenced = len(rep.fenced_candidates)
+    print(
+        f"{TAG} inside fenced code blocks (NON-GATING, third family): {n_fenced} "
+        f"Rule-12-shaped line(s); {rep.n_fenced_guarded} of them sit inside some stamp's "
+        f"frozen region. A stamp cannot go here: inside a fence an HTML comment renders as "
+        f"VISIBLE literal text, so the 'renders invisibly' premise the stamp design rests on "
+        f"is false there. Almost all are transcripts and quotations of OTHER files' notes, "
+        f"which assert nothing about bytes in the file they sit in -- but 'almost all' is not "
+        f"'all', so they are printed rather than dropped. Run with --census to list them."
+    )
     if rep.n_span_lines:
         gap = rep.n_span_lines - rep.n_covered_lines
         pct = 100.0 * rep.n_covered_lines / rep.n_span_lines
@@ -1301,6 +1419,8 @@ def report(rep: ScanReport, cfg: Config, census: bool) -> int:
             print(f"{TAG} census-wrapped        {n.path}:{n.line}  {n.text.strip()[:160]}")
         for n in rep.directionless_candidates:
             print(f"{TAG} census-directionless  {n.path}:{n.line}  {n.text.strip()[:160]}")
+        for n in rep.fenced_candidates:
+            print(f"{TAG} census-fenced         {n.path}:{n.line}  {n.text.strip()[:160]}")
     for p in cfg.pending_on_landing:
         print(
             f"{TAG} pending  {p.get('path')} -- {p.get('reason')} "
@@ -1331,9 +1451,12 @@ def report(rep: ScanReport, cfg: Config, census: bool) -> int:
         f"line(s) between each file's oldest and newest note -- {gap} line(s) are covered by "
         f"no stamp.\n"
         f"{TAG}   METHOD: a note is recognised only when a Rule-12 marker and a DIRECTIONAL "
-        f"preservation assertion fall on ONE line. BLIND SPOTS, measured above and listed by "
-        f"--census: notes wrapped across two lines; notes naming no direction; any phrasing "
-        f"the survey never saw; and every line inside the {gap}-line coverage gap."
+        f"preservation assertion fall on ONE line, OUTSIDE a fenced code block. BLIND SPOTS, "
+        f"measured above and listed by --census: notes wrapped across two lines; notes naming "
+        f"no direction; the {len(rep.fenced_candidates)} Rule-12-shaped line(s) inside fences, "
+        f"which cannot carry a stamp at all; lines inside four-space INDENTED code blocks, "
+        f"which the fence scanner does not recognise; any phrasing the survey never saw; and "
+        f"every line inside the {gap}-line coverage gap."
     )
     return 0
 
