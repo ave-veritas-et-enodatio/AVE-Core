@@ -173,16 +173,72 @@ ways, and they agree:
    The 11 dead cites are pre-existing and unrelated to the exemption.
 
 So the marker migration is not a prerequisite for the re-key. It buys machine-
-readability for two cites; the re-key buys 480 cites of coverage. If only one of
-the two halves of R2 ever lands, it should be the re-key.
+readability for four cites; the re-key buys ~480 cites of coverage. If only one
+of the two halves of R2 ever lands, it should be the re-key.
 
-## 4. Classifier precision — RE-VERIFIED BY HAND, cite by cite, both ways
+### 3b. ✅ THE FLIP LANDED — 2026-09-12, post-integration numbers
 
-The whole plan rests on **TRUE-PIN = 5**, so all five were read again, by a
+Both halves are merged, the four marks are placed, and the exemption is **OFF**.
+Measured on the integrated branch at `42dd7b40` through the real CLI (no forced
+flags, so the constant is what decides the run):
+
+| counter | exemption ON | exemption OFF |
+|---|---:|---:|
+| MARKER-EXEMPT | 8 | 8 |
+| HERITAGE-EXEMPT | 485 | **0** |
+| CHECKED | 13,644 | **14,129** (+485) |
+| `dead line cite` | **11** | **11** (+0 — and the **same eleven**, diffed byte for byte) |
+| GATING dead | **0** | **0** |
+| `blank line cite` (advisory, never gating) | 1,112 | 1,144 (+32) |
+| gating errors | 0 | 0 |
+| exit code | **0** | **0** |
+
+**ZERO cites newly gate**, so the flip ran. The dead-cite SETS were diffed, not
+just their counts — the stricter test, and they are identical.
+
+Numbers differ slightly from §3's 2026-09-07 measurement (485 vs 480, +32 vs
++30) for the reason §5's caveat (b) already names: the docket entries and tools
+merged in this branch are themselves part of the corpus now, and they carry
+cites. Nothing load-bearing moves.
+
+**⚠ The flip was not the one line the switch's own comment promised.**
+`main()` bound `heritage_exemption=not args.no_heritage_pin_exemption` — the CLI
+flag, never `HERITAGE_PIN_EXEMPTION`. Setting the constant False alone would
+have changed **nothing that `make verify` runs**: a switch nobody had exercised
+through `main()` was decorative, and the terminal step could have been reported
+as landed without altering one check. Now the constant is the default and the
+flag an override, with a regression test that was verified to FAIL when the
+original binding is put back.
+
+**⚠ And LIVE still means the cited LINE EXISTS, not that its content still
+matches.** The 485 cites of coverage this buys are line-existence coverage. A
+45-cite read of the LIVE population on 2026-09-12 found **7 pointing at a line
+that no longer says what the citing sentence says it says** — 15.6%, Wilson 95%
+CI [7.7%, 28.8%], i.e. roughly 37–138 of the population — with a judgment-free
+floor of **24 LIVE cites resolving to a line that is literally empty at HEAD**
+and 33 to a line the gate's own `_CONTENTLESS_LINE_RE` calls contentless. Three
+of the seven are **status inversions**, not line shifts: a docket calls a claim
+"STILL ASSERTED LIVE" at a line that now reads CONTESTED; another flags a leaf
+for stating LINEAR at a line that now states QUADRATIC under a RESOLVED note; a
+result doc flags a leaf for "PR-pending" text that no longer exists in the file
+at all. Re-running the gate with the exemption off over those seven produces
+**five findings of no kind at all and two ADVISORY blanks** — so the flip
+neither fixes the rot nor reveals it. `verify-anchor-content.py` is the advisory
+home for content matching. **Do not read "LIVE 480 / DEAD 0" as "the corpus is
+clean."**
+
+## 4. Classifier precision — TRUE-PIN = **4 / 5** (byte-level, 2026-09-12)
+
+> ⛔ **THIS SECTION'S ORIGINAL VERDICT WAS `2 / 5` AND IT WAS WRONG.** The
+> correct count is **4 / 5**. The table below is the ORIGINAL, left standing
+> because §4d needs it as the exhibit; **rows 3 and 4 are SUPERSEDED** and the
+> corrected dispositions are in §4e. Read §4d before you use anything here.
+
+The whole plan rests on the TRUE-PIN count, so all five were read again, by a
 second reader who did not share the first reader's notes: resolve the cited line
 at HEAD, resolve it at the SHA on its row, and compare what the line SAYS there
 against what the citing sentence CLAIMS it says. Both passes landed on the same
-two. **2 / 5.**
+two. **2 / 5** — *and that is the finding this section now exists to correct.*
 
 | # | cite | at HEAD | at the row SHA | verdict |
 |---|---|---|---|---|
@@ -204,6 +260,86 @@ stamp, a branch-HEAD run stamp, a ruling id. Line-existence at the SHA is
 > clean rename** (#5). All three are also rename-broken, so "rename" does not
 > discriminate; what discriminates is whether the SHA-resolved line says what
 > the sentence says.
+
+### 4d. ★ HOW 5 → 2 → 4 HAPPENED — R2's own thesis, demonstrated on R2's own verification
+
+**This corpus writes table rows thousands of characters long.** The line under
+dispute, `manuscript/ave-kb/common/closure-roadmap.md:80`, is **3,964 bytes**
+(3,924 Unicode characters). Some KB rows reach 6,112.
+
+Three readings of that one line, three different answers, one shared defect:
+
+| pass | date | method | verdict |
+|---|---|---|---|
+| 1 | 2026-09-07 | the line-scoped SHA heuristic — is there a SHA *somewhere* on the row? | **5 / 5** |
+| 2 | 2026-09-07 | two independent hand readers, `sed -n Np \| cut -c1-N` | **2 / 5** |
+| 3 | 2026-09-12 | substring search across the WHOLE line, character offset quoted | **4 / 5** |
+
+* Pass 1 saw a SHA on the row and concluded "pinned". That coarseness **is the
+  defect R2 exists to end.**
+* Pass 2 read the row's OPENING — *"a C5-CMB-AXIS Planck-driver row"* — and
+  concluded "contradicted, NOT A PIN". The claim it was checking for sat
+  **1,173 characters further along the same line.**
+* The orchestrator then relayed the 2/5 verdict twice without opening the line.
+
+**All three substituted a ROW-LEVEL read for a PER-CITE read.** Pass 2's two
+readers AGREED — and agreed *precisely because* they made the same read of the
+same head of the same line. Independent verification is not independent when
+both verifiers truncate at the same offset.
+
+The receipts, so this is checkable rather than asserted:
+
+```text
+#3  at 4457d3e, closure-roadmap.md:80 is 3,964 bytes
+    "Outcome D (DATA INSUFFICIENT at 3σ)"   -> character offset 1,173
+    "CMB-Hubble = 74.6° at 1.82σ"           -> character offset 1,213
+    the citing sentence at claim-quality-closure-roadmap.md:87 claims exactly
+    this, and the cite is CORRECT AS WRITTEN.
+
+#4  at 5f926ad, the SAME content sits at :81, not :80.
+    :81 is 3,964 bytes; "CMB-LSS = 27.9"    -> character offset 1,260
+    :80 is 3,257 bytes and contains NONE of "27.9" / "CMB-LSS" /
+        "DATA INSUFFICIENT"  (control, run to make the off-by-one decidable)
+    -> the cite is off by EXACTLY ONE LINE. Repair, then mark.
+```
+
+**The operating rule that comes out of this.** When you resolve a cite, search
+the **whole line** for the claimed content and **quote the matched region with
+its character offset**. Never characterise a line by its opening.
+`sed -n Np | cut -c1-N` is how this went wrong three times; it is not a
+verification method on this corpus.
+
+A live 45-cite re-audit of the LIVE population on 2026-09-12 measured the same
+exposure from the other side: **8 of 45 sampled targets sit on a line over 1,000
+characters**, the citing side is worse (**median citing line 1,051 chars, 23/45
+over 1,000, 7/45 over 3,000**), and **five MATCH verdicts would have become
+false DRIFT reports** under a head-of-row read — including
+`port-register.md:87`, where the verbatim clause sits at offset 1,207 of 3,179
+and the head reads as an unrelated table row. That is this same failure
+reproduced on a different line, by a different reader, on the same day.
+
+### 4e. The corrected dispositions, and what was done
+
+| # | cite | corrected verdict | action taken 2026-09-12 |
+|---|---|---|---|
+| 1 | `_orchestration/2026-06-16_standing-decisions-audit-lane.md:123` → `stage15_layer_b_coupled_stability.py:58` | ✅ **TRUE PIN** (unchanged) | already marked at `b2de04fc`; left alone. Literal marker forms: §5 |
+| 2 | `…/a1-hopf/exp-a1-hopf-repo-audit.md:417` → `_orchestration/exp-a1-hopf.md:50-57` | ✅ **TRUE PIN** (unchanged) | already marked at `6621dae`; left alone. Literal marker forms: §5 |
+| 3 | `manuscript/ave-kb/claim-quality-closure-roadmap.md:87` → `closure-roadmap.md:80` | ✅ **TRUE PIN — and the cite is CORRECT AS WRITTEN.** §4's "contradicted" is withdrawn | MARKED at `4457d3e`; no other change. Literal marker forms: §5 |
+| 4 | `manuscript/ave-kb/claim-quality-closure-roadmap.md:89` → `closure-roadmap.md:80` | ✅ **TRUE PIN, cite off by exactly one line.** §4's "contradicted" is withdrawn | REPAIRED `:80` → `:81`, then MARKED at `5f926ad`. Literal marker forms: §5 |
+| 5 | `research/2026-05-19_cosmic-epsilon-de-projection-mechanism.md:20` → `_orchestration/cosmic-epsilon-de-projection-scoping.md:9-17` | ❌ **NOT A PIN** (unchanged) — blob byte-identical at `20bb659` and HEAD (`7fc4fc59`), only the directory moved | PATH REPAIR only, to `_orchestration/theoretical/…`; deliberately NOT marked |
+
+**Four marks, one path repair, zero content corrections.** Every change is a
+pointer. No numeric or physics claim was touched — that is Grant's, not a
+lane's, and nothing here reached for it.
+
+> ⚠ **And the document that defines the marker was minting false instances of
+> it.** With the gate half merged, the checker flagged this docket's own two
+> illustrative markers — the `some-leaf.md` token in §1 (a 4-space indented
+> block, which the checker does not blank) and the `renamed-away.md` example in
+> §4b — as `pin does not resolve at its own sha` and
+> `orphan pin marker`. Warn-only, because `_orchestration/` is not an error
+> source, and still exactly the standing trap: **a repair minting a fresh
+> instance of the class it was fixing.** Both are now inside ``` fences.
 
 Sample checks on the classes that are not being rewritten:
 
@@ -290,17 +426,25 @@ The thing the old test was actually asserting — *0 prior corpus hits* — is a
 dated measurement, not an invariant. It lives in §1 and in CONVENTIONS.md, where
 a measurement belongs.
 
-## 5. The migration — done, and it is two cites
+## 5. The migration — done, and it is FOUR cites
 
-Not a pilot. The census in §2 is corpus-wide and §4 read its whole TRUE-PIN
-population by hand, so there is nothing left to scale up to. **Both
-hand-confirmed cites are marked; the three misses are left alone.**
+Not a pilot. The census in §2 is corpus-wide and §4/§4e read its whole TRUE-PIN
+population by hand, so there is nothing left to scale up to. **All four
+hand-confirmed cites are marked; the one non-pin got a path repair.**
 
-    _orchestration/2026-06-16_standing-decisions-audit-lane.md:123
-      `stage15_layer_b_coupled_stability.py:58` pin:`b2de04fc`
+```text
+_orchestration/2026-06-16_standing-decisions-audit-lane.md:123
+  `stage15_layer_b_coupled_stability.py:58` pin:`b2de04fc`      (2026-09-07)
 
-    _orchestration/experimental/a1-hopf/exp-a1-hopf-repo-audit.md:417
-      `_orchestration/exp-a1-hopf.md:50-57` pin:`6621dae`
+_orchestration/experimental/a1-hopf/exp-a1-hopf-repo-audit.md:417
+  `_orchestration/exp-a1-hopf.md:50-57` pin:`6621dae`           (2026-09-07)
+
+manuscript/ave-kb/claim-quality-closure-roadmap.md:87
+  `closure-roadmap.md:80` pin:`4457d3e`                         (2026-09-12)
+
+manuscript/ave-kb/claim-quality-closure-roadmap.md:89
+  `closure-roadmap.md:81` pin:`5f926ad`   (:80 -> :81 repaired) (2026-09-12)
+```
 
 Corpus-wide, before → after (base `5a36cea5` → migration commit; measured with
 this docket excluded, see the note below):
@@ -350,21 +494,32 @@ with the cite marked on byte-identical content at an ordinary path.
 
 ## 7. Open for Grant
 
-1. **Re-key now.** §3 says the two halves are independent and the re-key is
-   free: dropping the row-scoped exemption today makes ZERO cites newly gate.
-   The gate lane can land it without waiting on anything here.
-2. **Three cites want a PATH REPAIR, not a marker** (§4, rows 3/4/5), and a
-   fourth wants a marker nobody can currently write (§2b, the branch-only
-   `screened-winding-probe` cite — a genuine pin whose enabling SHA is not on
-   its row). That is corpus editing, not tooling. Route it or leave it.
-3. **Prose-declared pins that still resolve — 28 of the 480 LIVE.** An author
-   wrote "as shipped at", the cite resolves anyway, so it is LIVE and the
-   migrator leaves it. Under a marker-only gate these are checked and pass.
-   Confirm that is the wanted posture rather than marking them for intent.
+> **Items 1 and 2 are DISCHARGED as of 2026-09-12** and are struck below rather
+> than deleted. Items 3 and 5 remain open. Item 4 was actioned.
+
+1. ~~**Re-key now.**~~ **DONE** — §3b. Exemption OFF, zero cites newly gate.
+2. ~~**Three cites want a PATH REPAIR, not a marker.**~~ **CORRECTED and DONE** —
+   §4d/§4e. It was ONE path repair (#5), not three; #3 and #4 were TRUE PINs
+   that a head-of-row read mistook for contradictions, and #4 additionally
+   needed a one-line pointer repair. All four marks are placed.
+3. **STILL OPEN — prose-declared pins that still resolve, 28 of the ~480 LIVE.**
+   An author wrote "as shipped at", the cite resolves anyway, so it is LIVE and
+   the migrator leaves it. Under the now-live marker-only gate these are checked
+   and pass. Confirm that is the wanted posture rather than marking them for
+   intent.
 4. **`CONVENTIONS.md` §"Author-declared pin marker" must not be marked
-   superseded.** It is the token. Its "Grandfathering" paragraph still quotes
-   R2's KB-scoped **96 at `d5a1b06b`**; §2 here re-measures that as **525
-   corpus-wide / 156 KB-only at `5a36cea5`**, and the "until migrated" framing
-   is now wrong in shape — there is no large grandfathered population to
-   migrate, there are five candidates and two real ones. That paragraph is a
-   one-line correction for whoever lands the re-key.
+   superseded.** It is the token — and it was not: the 2026-09-12 edit is
+   additive, retiring the *heritage heuristic* section while preserving its
+   description verbatim as a blockquoted historical record. Its "Grandfathering"
+   paragraph still quotes R2's KB-scoped **96 at `d5a1b06b`**; §2 here
+   re-measures that as **525 corpus-wide / 156 KB-only at `5a36cea5`**. That
+   stale figure is **still open** for whoever next touches the section.
+5. **★ NEW, and the bigger number — CONTENT drift under a clean gate.** §3b:
+   ~15.6% of LIVE cites (Wilson 95% CI [7.7%, 28.8%]) point at a line that no
+   longer says what the citing sentence says it says, with a zero-judgment floor
+   of 24 cites resolving to a literally empty line and 52 landing on a line
+   whose banner now reads DEMOTED / RETRACTED / CONTESTED. Three sampled
+   instances are live claims on main that their own targets contradict. The
+   line-existence gate cannot see any of this and the flip does not change it.
+   Decide whether `verify-anchor-content.py` gets a scoped content pass; the 24
+   blank-line cites are a same-day, zero-judgment cleanup list.
