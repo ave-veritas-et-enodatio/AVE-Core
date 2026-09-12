@@ -483,6 +483,49 @@ they simply stop being exempted when the heritage switch flips (§3).
 > this file excluded; the difference is entirely this entry's own worked
 > examples.
 
+## 5c. The inbound-shift metric is NOT zeroable by repairing, and that is structural
+
+Run at the integration tip against `5a36cea5`, `verify-inbound-cite-shift.py`
+(borrowed from `infra/2026-09-07-inbound-cite-shift-checker`, not merged)
+reports **SHIFTED = 5**, before and after repair. The number does not move, and
+the reason is worth writing down because the next lane will hit it.
+
+**Attribution first** — the same checker run at every point in the chain:
+
+```text
+5a36cea5..d2b164e3   marker branch alone        SHIFTED=5
+5a36cea5..f7b0f143   migration branch alone     SHIFTED=0
+5a36cea5..c3330e3e   both merged, no lane work  SHIFTED=5
+5a36cea5..<tip>      + marks + flip + docket    SHIFTED=5
+```
+
+All five are inherited from the marker branch, which added ~720 lines to
+`verify-md-links.py`. The marking, the flip and this correction added **zero**.
+
+**Then the decomposition of the five that remain:**
+
+* **3 are this lane's own repairs being counted.** The checker asks
+  `base[N] == tip[N]?`. A deliberate repair re-points a cite to a NEW line
+  number, so `base[N]` is by construction some unrelated text and the cite is
+  reported as shifted — *even though it now resolves at HEAD to exactly the
+  content its citer names, which was verified byte-identical before the hop.*
+  The metric cannot distinguish "re-pointed correctly" from "newly broken". It
+  is a **detector, not a scoreboard**: a non-zero count is a prompt to read,
+  and repairing honestly will not drive it to zero.
+* **2 are marker false positives.**
+  `2026-08-02-cite-rot-checker-gap.md:6` and `:51` both carry
+  `` pin:`50ce52c1` ``. They are deliberately historical and the marker says
+  so — which is the whole point of the token this docket is about. The shift
+  checker has no marker awareness, so it reports a correctly pinned cite as
+  rot. **That is a real gap in that checker against the now-live convention**,
+  and it is the cleanest follow-on available: teach it to skip
+  `` pin:`<sha>` ``-marked cites, exactly as `verify-md-links` does.
+
+**Zero real rot remains.** One pre-existing CONTENT mismatch was FLAGGED, not
+fixed: the cleanup-ledger cite calls its target the `WAIVED_KBLEAF` frozenset,
+and it is not — nor was it at the merge-base. The hop restores the base
+relationship and nothing more; the claim is a reader's call.
+
 ## 6. Refusals, by construction
 
 `migrate-pin-markers.py` will not machine-edit a byte-frozen document. Any
