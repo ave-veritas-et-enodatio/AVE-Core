@@ -414,7 +414,7 @@ Per scope constraint ("If you find a stale matrix row or KB leaf in AVE-Core tha
 
 2. **`manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-hopf-02.md:82, :84, :85`** — citations of `AVE-HOPF/hardware/BOM.md`, `TEST_PROCEDURE.md`, `assembly_guide/`. Same root cause as #1; same walk-back gate. Flag.
 
-3. **`_orchestration/exp-a1-hopf.md:50-57` Phase 1 walk-back section** — claims `torus-knot-baryon-predictions.md` + `project-hopf-02.md` are stale Phase 1 walk-back targets, but audit verification at AVE-Core HEAD `6621dae` shows both at-canon (refreshed against PDG 2024 + FI-13 RESOLVED). Flag — orchestration adjudicates whether Phase 1 walk-back is COMPLETE (update sub-epic Phase 1 to ✓ DONE) or whether walk-back scope encompasses additional content.
+3. **`_orchestration/exp-a1-hopf.md:50-57` pin:`6621dae` Phase 1 walk-back section** — claims `torus-knot-baryon-predictions.md` + `project-hopf-02.md` are stale Phase 1 walk-back targets, but audit verification at AVE-Core HEAD `6621dae` shows both at-canon (refreshed against PDG 2024 + FI-13 RESOLVED). Flag — orchestration adjudicates whether Phase 1 walk-back is COMPLETE (update sub-epic Phase 1 to ✓ DONE) or whether walk-back scope encompasses additional content.
 
 4. **Pointer-opacity violations in PUBLIC AVE-Core** — 18 explicit `AVE-HOPF/...` paths in `_orchestration/exp-a1-hopf.md`, 10+ in `project-hopf-02.md`. Per `ave-ip-divide-discipline` Step 4 Class F, these should use opaque `<!-- private-downstream: APP-XX -->` pointers. Flag — orchestration adjudicates whether this is sub-epic-level or corpus-wide IP-divide walk-back priority.
 

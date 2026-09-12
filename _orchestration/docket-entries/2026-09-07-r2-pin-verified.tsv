@@ -1,0 +1,42 @@
+# R2 author-declared pin markers — HAND-VERIFIED allow-list for migrate-pin-markers.py
+#
+# Token: `` pin:`<sha>` ``, per manuscript/ave-kb/CONVENTIONS.md, "Author-declared
+# pin marker" (written 2026-08-06). Not coined here and not re-spelled here.
+#
+# Format: <source repo-relative path> TAB <line in source> TAB <cite as written>
+#
+# A row lands here only after a human RESOLVED THE CITED LINE BOTH WAYS — read
+# it at HEAD (absent) and at the SHA on its row (present, and saying what the
+# citing prose says it says). The classifier proposes; this file disposes. Its
+# measured TRUE-PIN precision is 2/5 over the whole corpus population — measured
+# independently twice, on 2026-09-07, by two readers who did not share notes and
+# who landed on the same two cites — so the classifier alone is not licence to
+# rewrite anything.
+#
+# Verified against base 5a36cea5. The three classifier TRUE-PINs NOT listed here
+# are itemised, with their both-ways reads, in §4 of
+# _orchestration/docket-entries/2026-09-07-r2-pin-marker-census.md. They want a
+# PATH REPAIR, not a marker.
+#
+# (1) stage15_layer_b_coupled_stability.py:58 pin:`b2de04fc`
+#     HEAD: no file of that name is tracked anywhere in the repo (0 hits in
+#     `git ls-files`, 0 on disk) — the driver lived on a branch that never
+#     landed, so no path repair is possible even in principle.
+#     @b2de04fc: src/scripts/vol_1_foundations/stage15_layer_b_coupled_stability.py
+#     is 242 lines and line 58 reads `OMEGA_BLOWUP_FACTOR = 1e3   # |ω|max/seed
+#     > this → blow-up flag` — exactly the constant the citing sentence names.
+#     The row's own prose says "branch-only" and "prereg `b2de04fc`", tying the
+#     SHA to this cite.
+_orchestration/2026-06-16_standing-decisions-audit-lane.md	123	stage15_layer_b_coupled_stability.py:58
+#
+# (2) _orchestration/exp-a1-hopf.md:50-57 pin:`6621dae`
+#     HEAD: the doc moved to _orchestration/experimental/a1-hopf/, so the path
+#     as written resolves nowhere. A path repair would be WRONG here: at HEAD
+#     the section has moved to :63 AND been rewritten to "✓ DONE 2026-05-20",
+#     while the citing sentence is a dated audit finding about the STALE claim.
+#     @6621dae: lines 50-57 are the "Walk-back targets (Phase 1 of parent
+#     epic)" table naming torus-knot-baryon-predictions.md and project-hopf-02.md
+#     — the two leaves the citing sentence says the section claims are stale.
+#     The row's prose pins it explicitly — "audit verification at AVE-Core HEAD
+#     `6621dae`".
+_orchestration/experimental/a1-hopf/exp-a1-hopf-repo-audit.md	417	_orchestration/exp-a1-hopf.md:50-57
