@@ -481,7 +481,7 @@ same backticked SHA the current rule keys on, so a marked cite is exempt under
 **Grandfathering.** The KB line-cites currently exempted by a bare
 SHA-on-the-line keep their exemption until migrated — they are *unmarked*, not
 wrong. Population as measured on a pristine checkout of `d5a1b06b`:
-`manuscript/ave-kb/tools/verify-md-links.py`:465 — `96 KB line-cites sit on a
+`manuscript/ave-kb/tools/verify-md-links.py`:581 — `96 KB line-cites sit on a
 SHA-bearing line (3.6% of the KB's 2,681),` (of which `85 are actually exempted
 here`, `:466`).
 
