@@ -3,7 +3,7 @@
 - **Class: tooling gap, ROUTED for a decision. No physics, no corpus claim.** Surfaced by the KB-lockstep lane (#847 flag 5) and independently verified at source by the orchestrator. The manuscript-reconciliation epic has been paying for this by hand all session — every lane's "verify-before-cite two-method" pass is manual compensation for a check the toolchain does not perform.
 
 **The gap, verified at source.**
-- `manuscript/ave-kb/tools/verify-md-links.py:216-221` — `strip_target()` does exactly what its docstring says: `target = re.sub(r":\d+$", "", target)`. The **gating** link checker validates the PATH and, by construction, **never the line number**. A cite that says `foo.md:42` passes gating whether the content is at `:42`, at `:900`, or gone.
+- `manuscript/ave-kb/tools/verify-md-links.py:216-221` pin:`50ce52c1` — `strip_target()` does exactly what its docstring says: `target = re.sub(r":\d+$", "", target)`. The **gating** link checker validates the PATH and, by construction, **never the line number**. A cite that says `foo.md:42` passes gating whether the content is at `:42`, at `:900`, or gone.
 - There IS a dedicated drift checker — `manuscript/ave-kb/tools/verify-anchor-content.py`, wired into `make verify` at `Makefile:129` — but it is **WARN-CLASS, NON-GATING** (leading `-`, output labelled advisory), and its coverage model is *structurally partial*: it can only check a cite that happens to carry a **nearby backtick excerpt**, which it then searches for within ±10 lines of the cited line.
 
 **Measured exposure (run at `origin/main`, 2026-08-02).** From the advisory checker's own summary:
@@ -48,4 +48,4 @@ This upgrades option (2) below from "nice hardening" to "closes a class of silen
 
 Orchestrator's walked lean, for what it is worth: **(2) + (3)** — (2) is zero-FP and closes the hard-fail class immediately; (3) stops the backlog growing. (1) is the right eventual state but wants its FP-triage first. **Not executed — this fragment routes the decision, it does not take it.**
 
-- **Receipts:** `manuscript/ave-kb/tools/verify-md-links.py:216-221` (strip_target, verbatim); `Makefile:102` (gating set — `verify-md-links` present, `verify-anchor-content` absent); `Makefile:128-130` (advisory block, leading `-`); `manuscript/ave-kb/tools/verify-anchor-content.py` header (coverage model + FP classes, verbatim); checker summary counts as tabulated above, reproducible via `python3 manuscript/ave-kb/tools/verify-anchor-content.py`.
+- **Receipts:** `manuscript/ave-kb/tools/verify-md-links.py:216-221` pin:`50ce52c1` (strip_target, verbatim); `Makefile:102` (gating set — `verify-md-links` present, `verify-anchor-content` absent); `Makefile:128-130` (advisory block, leading `-`); `manuscript/ave-kb/tools/verify-anchor-content.py` header (coverage model + FP classes, verbatim); checker summary counts as tabulated above, reproducible via `python3 manuscript/ave-kb/tools/verify-anchor-content.py`.

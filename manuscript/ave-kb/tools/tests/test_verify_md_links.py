@@ -340,7 +340,9 @@ def test_line_cite_historical_pin_not_flagged() -> None:
     assert [c.as_written for c in pinned] == ["target.md:999"], pinned
 
     _, _, stats = _scan_linecheck(vml)
-    assert stats["skipped_historical_pin"] == 1, stats
+    # Counter renamed at the R2 pin-marker landing: this is the HERITAGE
+    # disposition, now counted apart from the marker one.
+    assert stats["exempt_heritage"] == 1, stats
     # The same cite text appears unpinned twice elsewhere in the fixture and
     # IS flagged there, so the skip is the pin's doing, not the target's.
     assert stats["dead"] >= 3
@@ -488,3 +490,476 @@ if __name__ == "__main__":
     test_strip_fences_keeps_inline_spans()
     test_cite_target_uncheckable_shapes()
     print("OK: all self-tests passed")
+
+
+# --- R2 author-declared pin marker (`` pin:`<sha>` ``) ----------------------
+#
+# The token is the CORPUS'S OWN, defined at manuscript/ave-kb/CONVENTIONS.md on
+# 2026-08-06. These tests split into two halves on purpose:
+#
+#   GRAMMAR / BINDING — the static `pincheck/` fixture tree. Synthetic repo
+#     root, synthetic 20-line target, synthetic SHAs, pin validation OFF. No
+#     live line number, no live commit, no branch shape, nothing about this
+#     repo's own state is asserted anywhere.
+#   OBJECT STORE — `test_pin_resolution_*`, against a throwaway git repo the
+#     test BUILDS in a temp dir. Real commits, real trees, real shallow clone.
+#     Also nothing to do with this repo.
+
+_PINCHECK = _FIXTURES / "pincheck"
+_PIN_CITER = "manuscript/ave-kb/common/citer.md"
+_PIN_NOTES = "research/2026-01-01_fixture_notes.md"
+
+
+def _scan_pincheck(vml, heritage=True, pin_store=None):
+    """Run the line-cite pass over the pin fixture repo (validation off)."""
+    repo_root = _PINCHECK.resolve()
+    file_index, _ = vml.build_kbleaf_target_index(repo_root)
+    findings, stats = vml.scan(
+        repo_root,
+        check_ids_enabled=False,
+        file_index=file_index,
+        heritage_exemption=heritage,
+        pin_store=pin_store,
+    )
+    return repo_root, findings, stats
+
+
+def _pin_cites(vml):
+    text = (_PINCHECK / _PIN_CITER).read_text(encoding="utf-8")
+    return {c.as_written: c for c in vml.iter_line_cites(text)}
+
+
+def test_pin_marker_is_per_cite_not_per_line() -> None:
+    """★ THE R2 PROPERTY. One long row; the marker exempts ITS cite and no other.
+
+    The heritage heuristic skips every line-cite on any SHA-bearing line, and
+    the KB's rows run to thousands of characters mixing one provenance SHA with
+    several live cites. The marker must not inherit that. The fixture's star row
+    carries a marker-pinned cite that is DEAD at HEAD (``target.md:900``
+    ``pin:`aaaaaaa1` ``, against a 20-line target) beside an unmarked cite that
+    is equally dead (`target.md:901`).
+
+    Note what makes this test possible at all: the marker spells its SHA in
+    backticks, so the row WOULD read as heritage-exempt on the marker's own
+    SHA — handing back the row-scoped coarseness. `iter_line_cites` masks
+    markers before asking the heritage question, and `cite.pinned` being False
+    for both cites here is that mask being load-bearing.
+
+    If this test fails, nothing else in the change matters.
+    """
+    vml = _load_module()
+    repo_root, findings, _ = _scan_pincheck(vml)
+
+    by_written = _pin_cites(vml)
+    star = [by_written["target.md:900 pin:`aaaaaaa1`"], by_written["target.md:901"]]
+    assert len({c.lineno for c in star}) == 1, "both cites must share one line"
+    row = (_PINCHECK / _PIN_CITER).read_text(encoding="utf-8").splitlines()[star[0].lineno - 1]
+    assert len(row) > 500, len(row)  # ledger-row shaped, like the real corpus
+    assert vml._HISTORICAL_PIN_RE.search(row), "the raw row DOES carry a backticked sha ..."
+    assert not any(c.pinned for c in star), "... and it must not count as heritage"
+
+    dead = _cites(findings, repo_root, "dead line cite", _PIN_CITER)
+    # The unmarked neighbour FAILS ...
+    assert "target.md:901" in dead, dead
+    # ... and the marked one does not, though it is just as dead at HEAD.
+    assert "target.md:900 pin:`aaaaaaa1`" not in dead, dead
+    gating = [
+        f
+        for f in findings
+        if f.kind == "dead line cite"
+        and f.target == "target.md:901"
+        and vml.is_gating(f, repo_root)
+    ]
+    assert gating, "the unmarked dead cite on the star row must flip the exit code"
+
+
+def test_pin_marker_all_three_written_forms() -> None:
+    """The marker rides the backticked, link-in and link-ext cite forms alike."""
+    vml = _load_module()
+    repo_root, findings, stats = _scan_pincheck(vml)
+    reported = {f.target for f in findings}
+    for marked in (
+        "target.md:900 pin:`aaaaaaa1`",  # backticked
+        "target.md:905 pin:`aaaaaaa1`",  # link-ext
+        "target.md:906 pin:`aaaaaaa1`",  # link-in
+        "target.md:5 pin:`aaaaaaa1`",  # marked and still live
+        "gone-in-a-rename.md:7 pin:`aaaaaaa1`",  # marked, path itself gone
+    ):
+        assert marked in _pin_cites(vml), f"{marked} must PARSE as a marked cite"
+        assert marked not in reported, f"{marked} must not be reported"
+    # A marker on a since-renamed path is exempt, not a `broken backtick path`:
+    # the disposition is decided before HEAD resolution runs.
+    assert _cites(findings, repo_root, "broken backtick path", _PIN_CITER) == []
+    assert stats["exempt_marker"] == 14, stats
+
+
+def test_pin_marker_survives_trailing_punctuation() -> None:
+    """★ DEFECT (1). Sentence punctuation after a marker must not break it.
+
+    A glued `@<sha>` marker has no closing delimiter, so `...:900@1cde93ca.`
+    captures the SHA as `1cde93ca.`, calls it malformed, and red-lights
+    `make verify` on a legitimate pin at the end of a sentence. The corpus's
+    token closes with a backtick, so the SHA cannot absorb what follows it.
+    Every cite below is dead at HEAD; each must be silently exempt.
+    """
+    vml = _load_module()
+    repo_root, findings, _ = _scan_pincheck(vml)
+    by_written = _pin_cites(vml)
+    reported = {f.target for f in findings}
+    dead = _cites(findings, repo_root, "dead line cite", _PIN_CITER)
+
+    cases = {
+        920: "full stop",
+        921: "comma",
+        922: "semicolon",
+        923: "close paren",
+        924: "single emphasis",
+        925: "double emphasis",
+        926: "end of line",
+        930: "inside a pipe-delimited table cell",
+        940: "inside a blockquote",
+    }
+    for line, why in cases.items():
+        written = f"target.md:{line} pin:`aaaaaaa1`"
+        cite = by_written.get(written)
+        assert cite is not None, f"{why}: marker did not bind ({written})"
+        assert cite.pin == "aaaaaaa1", f"{why}: captured {cite.pin!r}, punctuation swallowed"
+        assert cite.pin_wellformed, why
+        assert written not in reported, f"{why}: reported {written}"
+        assert f"target.md:{line}" not in dead, why
+
+    # CONTROL, same table: the unmarked neighbour in the next row IS dead, so
+    # the table cases above are exempt by their marker and not by the table.
+    assert "target.md:931" in dead, dead
+
+
+def test_pin_marker_rejections_both_directions() -> None:
+    """A marker the tool cannot read exempts NOTHING, and says so."""
+    vml = _load_module()
+    repo_root, findings, stats = _scan_pincheck(vml)
+    dead = _cites(findings, repo_root, "dead line cite", _PIN_CITER)
+    malformed = _cites(findings, repo_root, "malformed pin marker", _PIN_CITER)
+    orphan = _cites(findings, repo_root, "orphan pin marker", _PIN_CITER)
+
+    assert malformed == [
+        "target.md pin:`aaaaaaa1`",  # nothing to pin — no :NN
+        "target.md:903 pin:`zzz`",  # not hex
+        "target.md:904 pin:`12`",  # too short
+        "target.md:909 pin:aaaaaaa1",  # unbackticked: no closing delimiter
+    ], malformed
+    # ... and each of those cites is then CHECKED, so both halves land. The
+    # dead finding carries the marker in its text, because the author has to be
+    # shown the marker that did not work.
+    for still_checked in (
+        "target.md:903 pin:`zzz`",
+        "target.md:904 pin:`12`",
+        "target.md:909 pin:aaaaaaa1",
+    ):
+        assert still_checked in dead, (still_checked, dead)
+
+    # A well-formed marker that MISSED the cite on its row is reported rather
+    # than dropped, and the cite it was aimed at stays gated.
+    assert orphan == ["pin:`aaaaaaa3`"], orphan
+    assert "target.md:910" in dead, dead
+    # BOTH DIRECTIONS on the narrowing: the same token, on a row carrying no
+    # location cite, is documentation and must NOT be reported. Without this
+    # arm the gate red-lights any file that DESCRIBES the marker — which the
+    # KB's own CONVENTIONS.md does, in a table, with real-looking SHAs.
+    assert "pin:`aaaaaaa2`" not in orphan, orphan
+    assert stats["pin_orphan"] == 1 and stats["pin_malformed"] == 5, stats  # +1 non-KB
+
+
+def test_pin_marker_source_gating_respected() -> None:
+    """The new kinds are source-scoped like `dead line cite`, not unconditional."""
+    vml = _load_module()
+    repo_root, findings, _ = _scan_pincheck(vml)
+    inside = [
+        f
+        for f in findings
+        if f.kind in vml._PIN_MARKER_KINDS
+        and str(f.file.resolve().relative_to(repo_root)) == _PIN_CITER
+    ]
+    assert inside and all(vml.is_gating(f, repo_root) for f in inside), inside
+
+    outside = [
+        f
+        for f in findings
+        if f.kind in vml._PIN_MARKER_KINDS
+        and str(f.file.resolve().relative_to(repo_root)) == _PIN_NOTES
+    ]
+    assert [f.target for f in outside] == ["target.md:908 pin:`zzz`"], outside
+    assert not vml.is_gating(outside[0], repo_root), "non-KB source must warn, not gate"
+
+
+def test_three_dispositions_counted_separately() -> None:
+    """MARKER-EXEMPT / HERITAGE-EXEMPT / CHECKED are three distinct counters."""
+    vml = _load_module()
+    _, _, stats = _scan_pincheck(vml)
+    assert stats["exempt_marker"] == 14, stats
+    assert stats["exempt_heritage"] == 1, stats  # the one bare-SHA prose row
+    assert stats["checked"] >= 4, stats
+    # ★ NO CITE IS COUNTED IN TWO DISPOSITIONS AT ONCE, and none falls between
+    # them: the three counters must partition every parsed `:NN` cite in the
+    # whole fixture tree. Counted from a LIST over every file `scan` walks —
+    # not from a by-text mapping, since two cites may be written identically.
+    parsed = [
+        c
+        for md in vml.iter_markdown_files(_PINCHECK.resolve())
+        for c in vml.iter_line_cites(md.read_text(encoding="utf-8"))
+        if c.start is not None
+    ]
+    assert parsed, "the fixture must actually contain cites"
+    assert stats["exempt_marker"] + stats["exempt_heritage"] + stats["checked"] == len(parsed)
+
+
+def test_heritage_switch_is_built_and_default_off_ready() -> None:
+    """R2's re-key switch exists, fires, and the shipped default keeps it ON."""
+    vml = _load_module()
+    assert vml.HERITAGE_PIN_EXEMPTION is True, "the switch must ship in the ON position"
+
+    # ON (default): the grandfathered cite is exempt.
+    repo_root, findings, on_stats = _scan_pincheck(vml, heritage=True)
+    assert "target.md:902" not in _cites(findings, repo_root, "dead line cite", _PIN_CITER)
+    assert on_stats["exempt_heritage"] == 1 and on_stats["heritage_demoted"] == 0, on_stats
+
+    # OFF: the same cite is checked, and it is dead.
+    repo_root, findings, off_stats = _scan_pincheck(vml, heritage=False)
+    assert "target.md:902" in _cites(findings, repo_root, "dead line cite", _PIN_CITER)
+    assert off_stats["exempt_heritage"] == 0 and off_stats["heritage_demoted"] == 1, off_stats
+    # Marker exemption is untouched by the switch — that is the point of re-keying.
+    assert off_stats["exempt_marker"] == 14, off_stats
+
+
+def test_heritage_flip_preview_equals_the_actual_flip() -> None:
+    """The printed cost of the flip is the SAME arithmetic as the flip.
+
+    A preview that is computed a second way is a second implementation, and it
+    drifts. Both arms call `_cite_verdict`, so the preview counted with the
+    exemption ON must equal the deltas measured with it OFF — on any corpus.
+    """
+    vml = _load_module()
+    _, _, on_stats = _scan_pincheck(vml, heritage=True)
+    _, _, off_stats = _scan_pincheck(vml, heritage=False)
+
+    assert on_stats["heritage_flip_dead"] == off_stats["dead"] - on_stats["dead"], (
+        on_stats,
+        off_stats,
+    )
+    assert on_stats["heritage_flip_blank"] == off_stats["blank"] - on_stats["blank"]
+    assert off_stats["checked"] - on_stats["checked"] == on_stats["exempt_heritage"]
+    # The fixture's one heritage cite is dead, so the preview is non-trivially
+    # exercised rather than passing on a pair of zeroes.
+    assert on_stats["heritage_flip_dead"] == 1, on_stats
+    assert on_stats["heritage_flip_dead_gating"] == 1, on_stats
+
+
+def test_pin_marker_grammar_unit_both_directions() -> None:
+    """Unit-level both-directions on the marker grammar itself."""
+    vml = _load_module()
+    by_written = _pin_cites(vml)
+
+    assert by_written["target.md:900 pin:`aaaaaaa1`"].pin_wellformed is True
+    assert by_written["target.md:903 pin:`zzz`"].pin_wellformed is False  # not hex
+    assert by_written["target.md:904 pin:`12`"].pin_wellformed is False  # too short
+    assert by_written["target.md:909 pin:aaaaaaa1"].pin_wellformed is False  # unbackticked
+    # A cite with no marker is not "malformed", it simply has none.
+    assert by_written["target.md:907"].pin is None
+    assert by_written["target.md:907"].pin_wellformed is False
+    # A malformed marker still parses as a cite (path + line survive), which is
+    # what makes it checkable rather than silently invisible.
+    assert by_written["target.md:903 pin:`zzz`"].path == "target.md"
+    assert by_written["target.md:903 pin:`zzz`"].start == 903
+    # Uppercase hex is not the token.
+    assert not vml._PIN_SHA_RE.match("AAAAAAA1")
+    assert vml._PIN_SHA_RE.match("a" * 40) and not vml._PIN_SHA_RE.match("a" * 41)
+
+
+def test_marker_regex_does_not_match_inside_another_word() -> None:
+    """`` spin:`...` `` is not a pin marker, and "spin" is everywhere here.
+
+    An unguarded `pin:` matches inside `spin:`, `unpin:`, `repin:`. Guarding it
+    is one lookbehind; not guarding it turns a physics word into a gating
+    finding on any row that also carries a cite.
+    """
+    vml = _load_module()
+    for decoy in ("spin", "unpin", "repin", "Xpin", "a_pin"):
+        line = f"the {decoy}:`aaaaaaa1` of it, per `some/leaf.md:12`"
+        assert not list(vml.iter_orphan_pins(line)), decoy
+        assert vml._PIN_ANYWHERE_RE.search(line) is None, decoy
+    # ... and the bare token on the same shape still IS one.
+    real = "the pin:`aaaaaaa1` of it, per `some/leaf.md:12`"
+    assert [n for n, _ in vml.iter_orphan_pins(real)] == [1], real
+    # A marker bound to its cite is not an orphan, on the same line shape.
+    bound = "per `some/leaf.md:12` pin:`aaaaaaa1` of it"
+    assert not list(vml.iter_orphan_pins(bound)), bound
+
+
+def test_strip_target_has_no_pin_arm() -> None:
+    """The marker lives OUTSIDE the link, so the link pass never meets one.
+
+    This is the cross-pass property: `[t](leaf.md:42) pin:`sha`` gives the link
+    pass exactly the target it always saw, so the two passes cannot disagree
+    about one token — and a filename that legitimately contains `@` is not
+    mangled on its way through.
+    """
+    vml = _load_module()
+    assert vml.strip_target("a/b.md:42") == "a/b.md"
+    assert vml.strip_target("a/b.md#anchor") == "a/b.md"
+    assert vml.strip_target("a/mail@host.md:9") == "a/mail@host.md"
+    assert vml.strip_target("a/b.md") == "a/b.md"
+
+
+# --- the object-store arm: does the pin resolve AT ITS OWN SHA? -------------
+
+
+def _git(repo, *args):
+    import subprocess
+
+    return subprocess.run(
+        ["git", "-C", str(repo), *args], capture_output=True, text=True, check=True
+    ).stdout.strip()
+
+
+def _build_pin_repo(root):
+    """A two-commit repo: `doc.md` is 30 lines at c1, 5 lines at c2 (HEAD)."""
+    import subprocess
+
+    root.mkdir(parents=True, exist_ok=True)
+    subprocess.run(["git", "-C", str(root), "init", "-q", "-b", "main"], check=True)
+    _git(root, "config", "user.email", "fixture@example.invalid")
+    _git(root, "config", "user.name", "fixture")
+    nested = root / "deep" / "dir"
+    nested.mkdir(parents=True)
+    (nested / "doc.md").write_text("\n".join(f"line {i}" for i in range(1, 31)) + "\n")
+    _git(root, "add", "-A")
+    _git(root, "commit", "-qm", "thirty lines")
+    first = _git(root, "rev-parse", "HEAD")
+    (nested / "doc.md").write_text("\n".join(f"line {i}" for i in range(1, 6)) + "\n")
+    _git(root, "add", "-A")
+    _git(root, "commit", "-qm", "truncated to five")
+    return first, _git(root, "rev-parse", "HEAD")
+
+
+def test_pin_resolution_both_directions() -> None:
+    """★ DEFECT (2). A pin is honoured only when its own claim is TRUE.
+
+    Before this arm the marker was an opt-out by assertion: `dead.md:99999`
+    plus ANY real short SHA exited 0. Now the cited path AND line must exist at
+    the pinned commit.
+    """
+    vml = _load_module()
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp) / "repo"
+        first, head = _build_pin_repo(root)
+        store = vml.PinStore(root)
+        assert store.enabled and not store.incomplete
+
+        # TRUE: line 25 existed at the first commit (30 lines), by the direct
+        # resolution and by the corpus's bare-basename shorthand alike.
+        assert store.verdict(first[:8], "deep/dir/doc.md", 25, "")[0] == vml.PIN_OK
+        assert store.verdict(first[:8], "doc.md", 25, "")[0] == vml.PIN_OK
+        assert store.verdict(first[:8], "dir/doc.md", 25, "deep")[0] == vml.PIN_OK
+
+        # FALSE, and this is the arm that was missing: the commit is real, and
+        # the file was never that long at it.
+        assert store.verdict(head[:8], "deep/dir/doc.md", 25, "")[0] == vml.PIN_NO_RESOLVE
+        assert store.verdict(first[:8], "deep/dir/doc.md", 9999, "")[0] == vml.PIN_NO_RESOLVE
+        # FALSE: no such path at that commit, however real the commit is.
+        assert store.verdict(first[:8], "never/existed.md", 1, "")[0] == vml.PIN_NO_RESOLVE
+
+        # FALSE: a well-formed sha that is in no complete checkout.
+        assert store.verdict("f" * 12, "deep/dir/doc.md", 1, "")[0] == vml.PIN_NO_SHA
+
+
+def test_pin_resolution_fails_open_on_a_shallow_clone() -> None:
+    """★ THE FAIL-OPEN BOUNDARY. A truncated history must never red-light.
+
+    `make verify` runs this tool, so "the commit is not in MY checkout" must
+    not read as "the pin is bad" when the checkout is the incomplete thing.
+    Same missing sha, two checkouts, two verdicts — that is the boundary being
+    a boundary and not a mood.
+    """
+    import subprocess
+
+    vml = _load_module()
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp) / "repo"
+        first, _ = _build_pin_repo(root)
+        shallow = Path(tmp) / "shallow"
+        subprocess.run(
+            ["git", "clone", "-q", "--depth", "1", "--no-local", root.as_uri(), str(shallow)],
+            check=True,
+            capture_output=True,
+        )
+        deep_store, shallow_store = vml.PinStore(root), vml.PinStore(shallow)
+        assert deep_store.incomplete is False
+        assert shallow_store.incomplete is True, "clone --depth 1 must read as incomplete"
+        assert first not in _git(shallow, "log", "--format=%H"), "sha must be absent there"
+
+        # COMPLETE checkout, sha absent  -> GATING.
+        assert deep_store.verdict("f" * 12, "deep/dir/doc.md", 1, "")[0] == vml.PIN_NO_SHA
+        # INCOMPLETE checkout, sha absent -> honoured, never a manufactured fail.
+        assert shallow_store.verdict(first, "deep/dir/doc.md", 25, "")[0] == vml.PIN_UNVERIFIED
+        # ... but a sha the shallow clone DOES have is still judged on merit.
+        head = _git(shallow, "rev-parse", "HEAD")
+        assert shallow_store.verdict(head, "deep/dir/doc.md", 3, "")[0] == vml.PIN_OK
+        assert shallow_store.verdict(head, "deep/dir/doc.md", 25, "")[0] == vml.PIN_NO_RESOLVE
+
+
+def test_pin_validation_disabled_when_there_is_no_store() -> None:
+    """No object store at all -> every marker honoured, nothing manufactured."""
+    vml = _load_module()
+    with tempfile.TemporaryDirectory() as tmp:
+        store = vml.PinStore(Path(tmp))
+        assert store.enabled is False
+        assert store.verdict("a" * 8, "anything.md", 1, "")[0] == vml.PIN_UNVERIFIED
+    # And the switch honours --no-pin-sha-check the same way.
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp) / "repo"
+        _build_pin_repo(root)
+        assert vml.PinStore(root, enabled=False).enabled is False
+
+
+def test_pin_resolution_end_to_end_through_the_gate() -> None:
+    """The verdicts reach the exit code: a false pin GATES, a true pin does not.
+
+    Driven through `scan` over a real repo whose KB tree cites its own history,
+    so the finding, its gating status and the marker's effect are all observed
+    together rather than at the unit boundary.
+    """
+    vml = _load_module()
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp) / "repo"
+        first, _ = _build_pin_repo(root)
+        kb = root / "manuscript" / "ave-kb"
+        kb.mkdir(parents=True)
+        (kb / "leaf.md").write_text(
+            "# leaf\n"
+            f"true pin: `deep/dir/doc.md:25` pin:`{first[:8]}`\n"
+            f"false pin, never that long: `deep/dir/doc.md:9999` pin:`{first[:8]}`\n"
+            "unknown sha: `deep/dir/doc.md:25` pin:`ffffff09`\n"
+        )
+        root = root.resolve()  # macOS /var -> /private/var; is_error_source resolves
+        file_index, _ = vml.build_kbleaf_target_index(root)
+        findings, stats = vml.scan(
+            root,
+            check_ids_enabled=False,
+            file_index=file_index,
+            pin_store=vml.PinStore(root),
+        )
+        by_kind = {}
+        for f in findings:
+            by_kind.setdefault(f.kind, []).append(f.target)
+
+        assert by_kind.get("pin does not resolve at its own sha") == [
+            f"deep/dir/doc.md:9999 pin:`{first[:8]}`"
+        ], by_kind
+        assert by_kind.get("unknown pin sha") == [
+            "deep/dir/doc.md:25 pin:`ffffff09`"
+        ], by_kind
+        # The true pin is exempt and reported nowhere.
+        assert stats["exempt_marker"] == 1, stats
+        assert stats["pin_unresolved"] == 1 and stats["pin_unknown_sha"] == 1, stats
+        # Both rejections gate — a KB leaf is an error source.
+        rejected = [f for f in findings if f.kind in vml._PIN_MARKER_KINDS]
+        assert len(rejected) == 2 and all(vml.is_gating(f, root) for f in rejected)

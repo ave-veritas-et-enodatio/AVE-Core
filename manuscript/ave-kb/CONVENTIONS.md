@@ -385,6 +385,8 @@ that file for another reason.
 | `verify-md-links` — cited line EXISTS | all three cite forms | yes, from a KB source |
 | `verify-md-links` — cited line is blank / decoration-only | all forms | no (advisory) |
 | `verify-md-links` — backticked-bare cite path resolves | backticked form | no (advisory) |
+| `verify-md-links` — `` pin:`<sha>` `` marker is well formed and bound to a cite | all three cite forms | yes, from a KB source |
+| `verify-md-links` — the pin RESOLVES at its own sha (path + line) | all three cite forms | yes, from a KB source |
 | `verify-new-cite-excerpts` — added cites carry an excerpt | KB tree + root docs | yes |
 | `verify-engine-capability-anchors` — doctrine YAML cells are text-anchors | `engine_capability_matrix.yaml` loop-gap-doctrine cites | yes |
 | `verify-anchor-content` — excerpt still at the cited line | cites with an excerpt | no (advisory) |
@@ -393,17 +395,25 @@ Line **existence** gates; line **content drift** does not. Writing the excerpt i
 what moves a cite from the second row to the first.
 
 **Deliberately-historical cites** — a pointer pinned to a past repo state — are
-skipped by the line-existence check when the line carries a **backticked short
-SHA** (`` as shipped on `c4a546dc` ``). That backticked SHA is the only marker
-the corpus has; write it if a cite is meant to be read against a past commit.
+exempt from the line-existence check in one of **two** ways. Write the first
+one. The second is what unmarked legacy rows still ride on.
 
-⚠ **That skip is LINE-scoped, and it is coarse.** A SHA anywhere on a line
-exempts **every** location cite on that line — including live ones. On a KB
+1. **MARKER-EXEMPT (write this).** The cite carries the author-declared pin
+   marker `` pin:`<short-sha>` ``; see the next section. Exempts **that cite
+   only**.
+2. **HERITAGE-EXEMPT (legacy, still honoured).** The cite carries no marker but
+   its **line** carries a backticked short SHA (`` as shipped on `c4a546dc` ``).
+
+⚠ **The heritage skip is LINE-scoped, and it is coarse.** A SHA anywhere on a
+line exempts **every** location cite on that line — including live ones. On a KB
 ledger row (routinely 500–2,000 characters, mixing one provenance SHA with
 several live derivation cites) this silently switches line-checking off for the
-whole row. So: **do not park a live cite on the same line as a provenance SHA**
-if you want it checked. Measured cost and precision, with worked instances, in
-§5 of `_orchestration/docket-entries/2026-08-05-cite-rot-line-existence.md`.
+whole row. So, until a row is migrated: **do not park a live cite on the same
+line as a provenance SHA** if you want it checked. Measured cost and precision,
+with worked instances, in §5 of
+`_orchestration/docket-entries/2026-08-05-cite-rot-line-existence.md`; the
+2026-09-07 re-measurement is in the checker, at
+`manuscript/ave-kb/tools/verify-md-links.py` (search `RE-MEASURED 2026-09-07`).
 
 ### Author-declared pin marker — the forward convention (2026-08-06)
 
@@ -411,8 +421,7 @@ Ruled at `_orchestration/docket-entries/2026-08-06-rulings-decision-batch.md`:24
 (R2) — *"no line-scoped regex can say which cite a row-level SHA pins"*. The
 heuristic above is not repairable in place, because the thing it is missing is
 not a better pattern but an **author declaration**. This section is the
-declaration's form. **Convention text only — the checker still reads the
-bare-SHA heuristic; the gate re-key is a separate follow-on (below).**
+declaration's form.
 
 **Form.** A deliberately-historical cite carries the marker
 `` pin:`<short-sha>` `` immediately after the location cite it pins:
@@ -448,6 +457,88 @@ grandfathered set carries markers, `_HISTORICAL_PIN_RE` re-keys from the
 line-scoped `` `[0-9a-f]{7,40}` `` to the cite-scoped marker, and the bare-SHA
 exemption retires. That is a checker edit; writing the convention first is what
 makes the sweep mechanical rather than a judgement call per row.
+
+#### The checker now reads this marker (2026-09-07)
+
+Additive to everything above; the form and the scope rule are unchanged, and
+nothing already written needs rewriting. `verify-md-links.py`, inside
+`make verify`, honours `` pin:`<sha>` `` as a **per-cite** exemption from the
+cited-line-existence check. Three things a writer needs that the 2026-08-06 text
+could not yet say:
+
+**1. Binding is by ADJACENCY.** The checker binds a marker to the cite it
+*directly follows* — only spaces or tabs may sit between them, which is what the
+Form line above says ("immediately after"). That is deliberately narrower than
+the Scope rule's "nearest cite to its left": adjacency is decidable by reading
+two adjacent tokens, so it cannot mis-bind across a ledger row. A well-formed
+marker adjacent to no cite is **not** silently dropped — it is reported as
+`orphan pin marker`, so the narrower rule fails loudly instead of quietly. Write
+the marker against its cite and the two rules agree.
+
+`orphan pin marker` is reported only on a line that also carries a location
+cite: a marker that misses its cite misses it on a line that has one, and a
+`` pin:`…` `` on a line with no cite is somebody *describing* the token —
+this very section does it in the table below — not a mis-placed marker.
+
+**2. The pin must be TRUE, not merely well formed.** The checker resolves the
+marker against the repo's own object store and honours it only if the cite's
+own claim holds there: `<path>` exists at `<sha>` **and** has at least `<line>`
+lines. Without that arm the marker would be an opt-out by assertion — append any
+real short SHA to any dead cite and the gate goes quiet. This is exactly the
+hand-verification a pin deserves ("read it at HEAD, then read it at the SHA"),
+done by the machine.
+
+| written | disposition |
+|---|---|
+| `` pin:`50ce52c1` `` on a cite that resolves at `50ce52c1` | **MARKER-EXEMPT** |
+| `` pin:`50ce52c1` `` on a cite that does **not** resolve there | `pin does not resolve at its own sha` — **FAILS** |
+| `` pin:`ffffff09` `` — well formed, names no commit | `unknown pin sha` — **FAILS** |
+| `` pin:`zzz` ``, `` pin:`12` ``, or unbackticked `pin:50ce52c1` | `malformed pin marker` — **FAILS**, and the cite is then line-checked as if unmarked |
+| a well-formed marker next to no cite | `orphan pin marker` — **FAILS** |
+
+All five gate from a KB source, exactly like `dead line cite`, and warn
+elsewhere. **A marker the tool cannot read, or cannot confirm, exempts nothing.**
+
+**3. Where it fails OPEN, and where it does not.** This check reads git, and it
+ships inside `make verify`, where a false failure red-lights the repo — so *"I
+cannot look"* must never read as *"the pin is bad"*. With no object store at all
+(no `git`, not a checkout) validation is **disabled** and every marker is
+honoured, printed loudly. On a **shallow or partial clone** a missing commit is
+**honoured** — a truncated history is a fact about the checkout, not about the
+cite. On a **complete** checkout a missing commit **fails**: full history and
+the commit is not in it means the SHA is wrong or names a state nobody can read.
+CI checks out with `fetch-depth: 0`, so the failing arm is the live one where it
+matters.
+
+**Why the backticks are load-bearing.** They delimit the SHA from the sentence
+around it, so `` pin:`c4a546dc` `` survives a following `.` `,` `;` `)` `*`
+`**`, a table cell's `|`, and end-of-line unharmed. A marker glued to the cite
+with no closing delimiter (`…:42@c4a546dc.`) captures the full stop as part of
+the SHA and red-lights a legitimate pin. Regression-tested across all of those
+positions, plus a table cell and a blockquote, in
+`manuscript/ave-kb/tools/tests/test_verify_md_links.py`.
+
+**A marker is not prose.** The heritage rule keys on a backticked SHA written as
+provenance prose; the marker's own SHA is masked out before that question is
+asked. Otherwise marking a row would re-exempt the whole row on the marker's own
+SHA — handing back the coarseness R2 named. A row that also carries a real prose
+SHA still reads as heritage, which is what keeps the migration flag-day-free.
+
+**Migration progress and the re-key, printed on every run.** The checker counts
+the two dispositions apart and prints the ratio, plus what the re-key would
+cost:
+
+```
+[verify-md-links] pin dispositions: MARKER-EXEMPT: N  HERITAGE-EXEMPT: M
+  CHECKED: …  | migration: N/(N+M) exemptions marker-keyed  heritage exemption: ON
+[verify-md-links] heritage flip preview (…): M cite(s) become CHECKED
+  -> newly dead: …  (GATING: …)  newly blank-advisory: …
+```
+
+`HERITAGE_PIN_EXEMPTION` in `verify-md-links.py` is R2's re-key switch: **one
+line, default-off-ready, and shipped ON**. `--no-heritage-pin-exemption`
+performs the flip for a single run. Read the printed preview, not a number
+written here — a census in prose lies within the month.
 
 ---
 
