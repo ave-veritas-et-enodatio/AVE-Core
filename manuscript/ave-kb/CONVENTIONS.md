@@ -395,25 +395,58 @@ Line **existence** gates; line **content drift** does not. Writing the excerpt i
 what moves a cite from the second row to the first.
 
 **Deliberately-historical cites** — a pointer pinned to a past repo state — are
-exempt from the line-existence check in one of **two** ways. Write the first
-one. The second is what unmarked legacy rows still ride on.
+exempt from the line-existence check by **exactly one route**, since
+**2026-09-12**:
 
-1. **MARKER-EXEMPT (write this).** The cite carries the author-declared pin
+1. **MARKER-EXEMPT — the only route.** The cite carries the author-declared pin
    marker `` pin:`<short-sha>` ``; see the next section. Exempts **that cite
-   only**.
-2. **HERITAGE-EXEMPT (legacy, still honoured).** The cite carries no marker but
-   its **line** carries a backticked short SHA (`` as shipped on `c4a546dc` ``).
+   only**, and only when the pin's own claim resolves at that SHA.
 
-⚠ **The heritage skip is LINE-scoped, and it is coarse.** A SHA anywhere on a
-line exempts **every** location cite on that line — including live ones. On a KB
-ledger row (routinely 500–2,000 characters, mixing one provenance SHA with
-several live derivation cites) this silently switches line-checking off for the
-whole row. So, until a row is migrated: **do not park a live cite on the same
-line as a provenance SHA** if you want it checked. Measured cost and precision,
-with worked instances, in §5 of
-`_orchestration/docket-entries/2026-08-05-cite-rot-line-existence.md`; the
-2026-09-07 re-measurement is in the checker, at
-`manuscript/ave-kb/tools/verify-md-links.py` (search `RE-MEASURED 2026-09-07`).
+A cite with no marker is CHECKED, whatever else is written on its line.
+
+#### ⛔ RETIRED 2026-09-12 — the line-scoped SHA skip (2026-08-05 → 2026-09-12)
+
+*Kept as the record of what the corpus ran on for five weeks, not as guidance.
+Nothing below is live. If you are reading a row written in that window, this is
+the rule it was written under.*
+
+> **HERITAGE-EXEMPT (legacy).** The cite carried no marker but its **line**
+> carried a backticked short SHA (`` as shipped on `c4a546dc` ``), and that
+> exempted it.
+>
+> ⚠ **The heritage skip was LINE-scoped, and it was coarse.** A SHA anywhere on
+> a line exempted **every** location cite on that line — including live ones. On
+> a KB ledger row (routinely 500–2,000 characters, mixing one provenance SHA
+> with several live derivation cites) this silently switched line-checking off
+> for the whole row. Measured cost and precision, with worked instances, in §5
+> of `_orchestration/docket-entries/2026-08-05-cite-rot-line-existence.md`; the
+> 2026-09-07 re-measurement is in the checker, at
+> `manuscript/ave-kb/tools/verify-md-links.py` (search `RE-MEASURED 2026-09-07`).
+
+**What the retirement cost, measured on the live corpus at `42dd7b40`** — the
+same `_cite_verdict` the CHECKED arm uses, run over all 485 formerly-exempt
+cites:
+
+| | exemption ON | exemption OFF |
+|---|---:|---:|
+| CHECKED | 13,644 | **14,129** (+485) |
+| HERITAGE-EXEMPT | 485 | **0** |
+| MARKER-EXEMPT | 8 | 8 |
+| `dead line cite` | 11 | **11** (+0, and the **same eleven** byte for byte) |
+| GATING dead | 0 | **0** |
+| `blank line cite` (advisory, never gating) | 1,112 | 1,144 (+32) |
+| exit code | 0 | **0** |
+
+**Zero cites newly gate.** The heritage arm was hiding no dead cite on flip day.
+
+⚠ **`LIVE` still means the cited LINE EXISTS — not that its content still
+matches.** This retirement buys line-existence coverage on 485 more cites and
+buys nothing at all against content rot. A 45-cite read of the LIVE population
+(2026-09-12) found 7 cites — 15.6%, Wilson 95% CI [7.7%, 28.8%] — pointing at a
+line that no longer says what the citing sentence says it says, with a
+judgment-free floor of 24 LIVE cites resolving to a line that is literally empty
+at HEAD. Content matching is `verify-anchor-content.py`'s advisory job, not this
+gate's.
 
 ### Author-declared pin marker — the forward convention (2026-08-06)
 
@@ -535,10 +568,20 @@ cost:
   -> newly dead: …  (GATING: …)  newly blank-advisory: …
 ```
 
-`HERITAGE_PIN_EXEMPTION` in `verify-md-links.py` is R2's re-key switch: **one
-line, default-off-ready, and shipped ON**. `--no-heritage-pin-exemption`
-performs the flip for a single run. Read the printed preview, not a number
-written here — a census in prose lies within the month.
+`HERITAGE_PIN_EXEMPTION` in `verify-md-links.py` is R2's re-key switch, and it
+**ships OFF since 2026-09-12**. The `HERITAGE-EXEMPT` count and the
+`heritage flip preview` line are therefore dormant: nothing is exempt by
+heritage any more, and the run prints `heritage exemption: OFF (demoted to
+CHECKED: N)` instead. Both are kept live rather than deleted, because they are
+the arms that would measure the cost again if the exemption were ever restored.
+
+⚠ **The flip was never the "one line" the comment promised, and that is worth
+knowing before trusting the next such switch.** `main()` bound
+`heritage_exemption=not args.no_heritage_pin_exemption` — it read the CLI flag
+and never the constant, so setting the constant False alone would have changed
+nothing that `make verify` runs. A switch nobody had exercised through `main()`
+was decorative. It is now the default with the flag as an override, and
+`test_main_honours_the_constant_not_only_the_flag` fails if that regresses.
 
 ---
 

@@ -256,12 +256,25 @@ _CITER = "manuscript/ave-kb/common/citer.md"
 _FROZEN = "research/2026-01-01_fixture_prereg-FROZEN.md"
 
 
-def _scan_linecheck(vml, waived=frozenset()):
-    """Run the line-cite pass over the linecheck fixture repo."""
+def _scan_linecheck(vml, waived=frozenset(), heritage=True):
+    """Run the line-cite pass over the linecheck fixture repo.
+
+    `heritage` is pinned ON by default rather than inherited from
+    `HERITAGE_PIN_EXEMPTION`. These fixtures were written when the exemption
+    was the shipped default and their expected finding sets encode that arm;
+    the flip of 2026-09-12 changed the DEFAULT, not the arm, and the arm is
+    still reachable and still has to behave. `test_linecheck_fixture_under_the
+    _shipped_default` below asserts the post-flip default separately, so both
+    states are covered rather than one silently replacing the other.
+    """
     repo_root = _LINECHECK.resolve()
     file_index, _ = vml.build_kbleaf_target_index(repo_root)
     findings, stats = vml.scan(
-        repo_root, check_ids_enabled=False, file_index=file_index, waived_line_cites=waived
+        repo_root,
+        check_ids_enabled=False,
+        file_index=file_index,
+        waived_line_cites=waived,
+        heritage_exemption=heritage,
     )
     return repo_root, findings, stats
 
@@ -712,10 +725,15 @@ def test_three_dispositions_counted_separately() -> None:
     assert stats["exempt_marker"] + stats["exempt_heritage"] + stats["checked"] == len(parsed)
 
 
-def test_heritage_switch_is_built_and_default_off_ready() -> None:
-    """R2's re-key switch exists, fires, and the shipped default keeps it ON."""
+def test_heritage_switch_shipped_off_and_both_arms_still_fire() -> None:
+    """R2's re-key switch exists, fires both ways, and now ships OFF.
+
+    Flipped 2026-09-12 (R2 terminal step), measured free on the live corpus:
+    485 cites moved HERITAGE-EXEMPT -> CHECKED, `dead line cite` stayed at 11
+    and stayed the SAME eleven, GATING dead 0 -> 0.
+    """
     vml = _load_module()
-    assert vml.HERITAGE_PIN_EXEMPTION is True, "the switch must ship in the ON position"
+    assert vml.HERITAGE_PIN_EXEMPTION is False, "the switch ships OFF since 2026-09-12"
 
     # ON (default): the grandfathered cite is exempt.
     repo_root, findings, on_stats = _scan_pincheck(vml, heritage=True)
@@ -728,6 +746,73 @@ def test_heritage_switch_is_built_and_default_off_ready() -> None:
     assert off_stats["exempt_heritage"] == 0 and off_stats["heritage_demoted"] == 1, off_stats
     # Marker exemption is untouched by the switch — that is the point of re-keying.
     assert off_stats["exempt_marker"] == 14, off_stats
+
+
+def test_linecheck_fixture_under_the_shipped_default() -> None:
+    """The post-flip DEFAULT checks the grandfathered cite instead of skipping it.
+
+    `_scan_linecheck` pins the heritage arm ON so the pre-flip fixtures keep
+    testing what they were written to test. This is the other half: run the
+    same fixture with the arm left at whatever the module ships, and assert
+    the shipped state is the demoting one. Without this the suite would go on
+    proving the OLD default forever while `make verify` ran the new one.
+    """
+    vml = _load_module()
+    repo_root = _LINECHECK.resolve()
+    file_index, _ = vml.build_kbleaf_target_index(repo_root)
+    findings, stats = vml.scan(repo_root, check_ids_enabled=False, file_index=file_index)
+
+    assert stats["exempt_heritage"] == 0, stats
+    assert stats["heritage_demoted"] == 1, stats
+    # The demoted cite is the fixture's one SHA-on-the-line cite, and it is dead.
+    assert "target.md:999" in _cites(findings, repo_root, "dead line cite", _CITER)
+
+
+def test_main_honours_the_constant_not_only_the_flag() -> None:
+    """★ THE FLIP MUST BE THE ONE LINE THE COMMENT PROMISES.
+
+    Regression on a real defect found at the 2026-09-12 landing: `main()` bound
+    `heritage_exemption=not args.no_heritage_pin_exemption`, reading the CLI
+    flag and NEVER the constant. Setting `HERITAGE_PIN_EXEMPTION = False` was
+    therefore a no-op for every ordinary run, `make verify` included — the
+    switch was decorative and the migration's terminal step could have been
+    "landed" without changing a single check.
+
+    Both directions, through `main()` itself and WITH NO FLAG ON THE COMMAND
+    LINE, on a throwaway repo whose one heritage-exempt cite is dead: constant
+    OFF -> exit 1; constant monkeypatched back ON -> exit 0. If the binding
+    ever stops reading the constant, the second arm keeps passing and the
+    first one flips.
+    """
+    vml = _load_module()
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        leaf = root / "manuscript" / "ave-kb" / "common"
+        leaf.mkdir(parents=True)
+        # 3 lines. `:99` is rot; `:2` is live. Both sit on a line carrying a
+        # backticked SHA, so both are HERITAGE-EXEMPT while the arm is ON.
+        (leaf / "target.md").write_text("one\ntwo\nthree\n", encoding="utf-8")
+        (leaf / "citer.md").write_text(
+            "# citer\n\n"
+            "- measured at `b649f9f2` — see `target.md:99` for the claim.\n",
+            encoding="utf-8",
+        )
+        argv = ["--root", str(root), "--no-id-check", "--no-kbleaf-check",
+                "--no-pin-sha-check"]
+
+        # The whole point: NO FLAG IS PASSED. Whatever decides this run is the
+        # module-level constant, or the constant is decorative.
+        assert vml.HERITAGE_PIN_EXEMPTION is False
+        assert vml.main(argv) == 1, "shipped default must CHECK the grandfathered dead cite"
+
+        vml.HERITAGE_PIN_EXEMPTION = True
+        try:
+            assert vml.main(argv) == 0, "with the exemption ON the same cite is skipped"
+        finally:
+            vml.HERITAGE_PIN_EXEMPTION = False
+
+        # And the flag still works as an override in the one direction it has.
+        assert vml.main(argv + ["--no-heritage-pin-exemption"]) == 1
 
 
 def test_heritage_flip_preview_equals_the_actual_flip() -> None:

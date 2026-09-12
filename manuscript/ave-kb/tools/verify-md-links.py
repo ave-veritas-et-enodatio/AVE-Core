@@ -1078,23 +1078,32 @@ class _DisabledPinStore:
 _NULL_PIN_STORE = _DisabledPinStore()
 
 
-# ── HERITAGE EXEMPTION SWITCH ──────────────────────────────────────────────
-# R2: "the gate's exemption re-keys to marker-only once migrated". The switch is
-# BUILT, DEFAULT-OFF-READY, AND LEFT ON — the flip is the ONE line below and
-# nothing else.
+# ── HERITAGE EXEMPTION SWITCH — FLIPPED OFF 2026-09-12 ─────────────────────
+# R2: "the gate's exemption re-keys to marker-only once migrated". The corpus
+# half landed (the four TRUE-PIN cites are marked), so the terminal step ran.
 #
-# WHY IT IS STILL ON, given that the flip is measured free. Turning it off is a
-# statement about the CORPUS ("no cite needs a row-level SHA any more"), not
-# about this tool, and the corpus half of R2 — marking the genuinely-historical
-# cites — is a different lane's landing. Flipping ahead of it would gate cites
-# whose marker is written but not merged.
+# HISTORICAL RECORD OF THE PRE-FLIP STATE, kept because it is the record:
+# from 2026-08-05 to 2026-09-12 a cite was exempt when the LINE IT SAT ON
+# carried a backticked SHA anywhere — line-scoped, not cite-scoped. On rows
+# thousands of characters long that exempted cites having nothing to do with
+# the SHA. That coarseness is the defect R2 exists to end. It is now gone: the
+# per-cite `` pin:`<sha>` `` marker is the ONLY route to an exemption, and a
+# marker is honoured only when its claim resolves at its own SHA.
 #
-# WHAT IT COSTS, measured on the live corpus by every run rather than argued:
-# the `heritage flip preview` line prints how many currently-exempt cites would
-# be CHECKED, how many would report dead, and how many of those would GATE. Read
-# that line, not this comment — a comment that carries a census lies within the
-# month. `--no-heritage-pin-exemption` performs the flip for one run.
-HERITAGE_PIN_EXEMPTION = True  # ← the flip: one line, default-off-ready
+# WHAT THE FLIP COST, measured on the live corpus at 42dd7b40 rather than
+# argued — the same `_cite_verdict` the CHECKED arm uses, run over all 485:
+#   CHECKED 13,644 -> 14,129 (+485)   HERITAGE-EXEMPT 485 -> 0
+#   dead line cite 11 -> 11 (+0), and the SAME ELEVEN cites byte for byte
+#   GATING dead 0 -> 0                exit 0 -> 0
+#   blank line cite 1,112 -> 1,144 (+32, advisory, never gating)
+# Zero cites newly gate. The heritage arm was hiding no dead cite on flip day.
+#
+# ⚠ THE FLIP WAS NEVER THE ONE LINE THIS COMMENT PROMISED. `main()` bound
+# `heritage_exemption=not args.no_heritage_pin_exemption`, reading the CLI flag
+# and NOT this constant, so setting it False alone would have changed nothing
+# that `make verify` runs. The constant is now the default and the flag an
+# override, which is what makes the line below load-bearing.
+HERITAGE_PIN_EXEMPTION = False  # ← flipped 2026-09-12 (R2 terminal step)
 
 
 # (source repo-relative path, cite as written) pairs adjudicated
@@ -1822,11 +1831,14 @@ def main(argv: list[str] | None = None) -> int:
         indexes = build_kbleaf_target_index(repo_root)
 
     pin_store = PinStore(repo_root, enabled=not args.no_pin_sha_check)
+    # The constant is the default; the flag can only force it further OFF.
+    heritage_on = HERITAGE_PIN_EXEMPTION and not args.no_heritage_pin_exemption
     findings, cite_stats = scan(
         repo_root,
         check_ids_enabled=not args.no_id_check,
         file_index=None if args.no_line_check or indexes is None else indexes[0],
-        heritage_exemption=not args.no_heritage_pin_exemption,
+        # The constant is the default; the flag can only force it further OFF.
+        heritage_exemption=heritage_on,
         pin_store=pin_store,
     )
 
@@ -1891,10 +1903,10 @@ def main(argv: list[str] | None = None) -> int:
             f"HERITAGE-EXEMPT: {heritage}  "
             f"CHECKED: {cite_stats['checked']}  "
             f"| migration: {marker}/{exempt_total} exemptions marker-keyed ({pct})  "
-            f"heritage exemption: {'ON' if not args.no_heritage_pin_exemption else 'OFF'}"
+            f"heritage exemption: {'ON' if heritage_on else 'OFF'}"
             + (
                 f"  (demoted to CHECKED: {cite_stats['heritage_demoted']})"
-                if args.no_heritage_pin_exemption
+                if not heritage_on
                 else ""
             ),
             file=sys.stderr,
@@ -1930,11 +1942,12 @@ def main(argv: list[str] | None = None) -> int:
                 file=sys.stderr,
             )
         # ★ WHAT THE HERITAGE FLIP WOULD COST, measured on THIS corpus by the
-        # same function that would do the checking. Printed on every ordinary
-        # run so the terminal step of R2's migration is a number a reader can
-        # act on rather than a promise. Under --no-heritage-pin-exemption the
-        # flip has already happened, so there is nothing to preview.
-        if not args.no_heritage_pin_exemption:
+        # same function that would do the checking. Dormant since the flip
+        # landed on 2026-09-12 — `heritage_on` is False, nothing is exempt by
+        # heritage, and there is nothing left to preview. Kept live rather than
+        # deleted: it is the arm that would measure the cost again if the
+        # exemption were ever restored.
+        if heritage_on:
             print(
                 f"[verify-md-links] heritage flip preview "
                 f"(--no-heritage-pin-exemption / HERITAGE_PIN_EXEMPTION = False): "

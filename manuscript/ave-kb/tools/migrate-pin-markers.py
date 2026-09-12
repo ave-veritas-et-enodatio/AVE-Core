@@ -25,11 +25,17 @@ repair requires the cite to RESOLVE AT A SHA ON ITS OWN ROW, so a confident
 sentence can no longer carry rot into this script -- and by default only those
 ALSO named in a hand-verified allow-list (`--verified`).  The allow-list is not
 belt-and-braces: the classifier's TRUE-PIN precision was MEASURED by hand on its
-whole corpus population, twice, and came out 2/5 both times.  The failure mode is specific
+whole corpus population three times, and the three passes returned 5/5, then
+2/5, then -- byte-level, 2026-09-12 -- 4/5.  The 2/5 pass was wrong, and HOW it
+was wrong is the reason this allow-list exists at all: it characterised a
+3,964-BYTE table row by its first 100 bytes and never searched the rest of the
+line for the content the citing sentence claimed, which sat at character offset
+1,173.  Two independent readers agreed, and agreed because they made the same
+read of the same head of the same line.  The residual failure mode is specific
 and unfixable by regex — a line-cite can EXIST at a SHA that happens to sit on
 its row for an unrelated reason (a session stamp, a ruling id), which is a
 line-existence coincidence, not an author's pin.  So the classifier proposes and
-a human disposes.  `--allow-unverified` exists for the case where the census has
+a human disposes -- and the human searches the WHOLE line, with an offset.  `--allow-unverified` exists for the case where the census has
 been re-read end to end; it prints the measured precision before it runs.
 
 LIVE and DEAD cites are never touched, and neither are UNRESOLVED-PATH /
@@ -71,13 +77,19 @@ from pathlib import Path
 
 _HERE = Path(__file__).resolve().parent
 
-# Measured by hand over the FULL corpus TRUE-PIN population (2026-09-07), and
-# re-measured independently when the token was re-keyed to `` pin:`sha` ``; both
-# passes read all five cites at HEAD and at the pinned SHA and both landed on
-# the same two. See `_orchestration/docket-entries/2026-09-07-r2-pin-marker-
-# census.md` for the per-cite both-ways receipts. Printed by --allow-unverified
-# so nobody bulk-migrates without seeing it.
-MEASURED_TRUE_PIN_PRECISION = "2/5 (40%) hand-confirmed, whole population, two independent passes"
+# Measured by hand over the FULL corpus TRUE-PIN population, THREE times:
+# 5/5 (2026-09-07, line-scoped SHA heuristic), 2/5 (2026-09-07, two independent
+# hand passes), 4/5 (2026-09-12, byte-level with character offsets quoted). The
+# 4/5 supersedes: the 2/5 pass read two 3,964-byte rows by their opening ~100
+# bytes and called them "contradicted" while the claimed content sat at offset
+# 1,173 of the same line. See `_orchestration/docket-entries/2026-09-07-r2-pin-
+# marker-census.md` §4 for the per-cite both-ways receipts and §4d for how
+# 5 -> 2 -> 4 happened. Printed by --allow-unverified so nobody bulk-migrates
+# without seeing it.
+MEASURED_TRUE_PIN_PRECISION = (
+    "4/5 (80%) hand-confirmed byte-level 2026-09-12, whole population, three passes "
+    "(5/5 heuristic -> 2/5 head-of-row -> 4/5 byte-level); the 4/5 supersedes"
+)
 
 
 def _load_lib():

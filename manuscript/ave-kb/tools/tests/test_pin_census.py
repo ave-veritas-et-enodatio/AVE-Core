@@ -73,11 +73,31 @@ def repo(tmp_path: Path) -> tuple[Path, str]:
     return root, old[:8]
 
 
+def _bare(row) -> str:
+    """The cite WITHOUT its marker — a key that survives being marked.
+
+    ★ `CensusRow.as_written` is not that key. At the R2 pin-marker landing
+    `LineCite.as_written` began INCLUDING the marker, so an already-marked
+    `` `renamed-away.md:15` `` reports as `renamed-away.md:15 pin:`<sha>``.
+    These tests keyed on it and started raising KeyError the moment the two
+    lanes were merged — a test-only break (the census computes
+    `already_marked` from `marked_occurrences` and the migrator matches with
+    `cite_occurrence_re`, neither of which reads `as_written`), but the fix
+    belongs here rather than in a rewritten expectation: the identity of a
+    cite is its path and line, before and after marking.
+    """
+    if row.start is None:
+        return row.path
+    if row.end is not None and row.end != row.start:
+        return f"{row.path}:{row.start}-{row.end}"
+    return f"{row.path}:{row.start}"
+
+
 def _classify(root: Path):
     vml = lib.load_vml()
     file_index, _ = vml.build_kbleaf_target_index(root)
     md = list(vml.iter_markdown_files(root))
-    return {r.as_written: r for r in lib.classify(root, vml, file_index, md)}
+    return {_bare(r): r for r in lib.classify(root, vml, file_index, md)}
 
 
 def _write(root: Path, rel: str, body: str) -> Path:
