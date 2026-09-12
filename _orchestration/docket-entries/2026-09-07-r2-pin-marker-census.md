@@ -14,7 +14,9 @@ otherwise resolve paths a fresh clone cannot).
 
 ## 1. The token — READ FROM CANON, NOT COINED
 
-    per `some-leaf.md:42` pin:`c4a546dc` — *"the sentence that line carried then"*
+```text
+per `some-leaf.md:42` pin:`c4a546dc` — "the sentence that line carried then"
+```
 
 `` pin:`<7–40 lowercase hex>` ``, immediately to the RIGHT of the cite it pins,
 binding **the nearest cite to its left and no other**. This is not this lane's
@@ -254,7 +256,11 @@ Both directions, on a synthetic two-commit repo, at the CLI:
 | input | census | migrator |
 |---|---|---|
 | BAD — `target.md:99`, prose-pinned, out of range at HEAD **and** at the SHA | `TRUE-PIN 0 / DEAD 1`, ⚠ line fires | `cites marked: 0`, exit **0**, file byte-identical |
-| GOOD — same row, `renamed-away.md:15`, resolves at the SHA | `TRUE-PIN 1 / DEAD 0`, no ⚠ | marked, exit **0**, line becomes ``pinned `renamed-away.md:15` pin:`2b653449` `` |
+| GOOD — same row, `renamed-away.md:15`, resolves at the SHA | `TRUE-PIN 1 / DEAD 0`, no ⚠ | marked, exit **0**, line gains the marker — literal form in the fence below |
+
+```text
+pinned `renamed-away.md:15` pin:`2b653449`
+```
 
 The corpus count does not move: all 5 classifier TRUE-PINs already resolved at a
 row SHA, so **TRUE-PIN stays 5 before and after the D2 repair**. The defect was

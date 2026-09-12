@@ -17,7 +17,7 @@
 
 ## §0 — Why this doc exists (Session 2 entry-point)
 
-Session 1 produced the scoping doc + projection-chain inventory + three plumber-physical questions; Grant adjudicated Q1/Q2/Q3 in `_orchestration/cosmic-epsilon-de-projection-scoping.md:9-17`. This doc executes Session 2's deliverable: **walk through the 6-component projection chain** identified in `research/2026-05-19_cosmic-epsilon-de-projection-scoping.md` §2 (line 65 onward), in projection order from substrate dynamics to $\rho_\Lambda$ at the macroscopic Friedmann equation, with the Op14 cosmic-horizon profile leaf (Phase 1 of this session, committed at `20bb659`) inserted as Component 5.
+Session 1 produced the scoping doc + projection-chain inventory + three plumber-physical questions; Grant adjudicated Q1/Q2/Q3 in `_orchestration/theoretical/cosmic-epsilon-de-projection-scoping.md:9-17`. This doc executes Session 2's deliverable: **walk through the 6-component projection chain** identified in `research/2026-05-19_cosmic-epsilon-de-projection-scoping.md` §2 (line 65 onward), in projection order from substrate dynamics to $\rho_\Lambda$ at the macroscopic Friedmann equation, with the Op14 cosmic-horizon profile leaf (Phase 1 of this session, committed at `20bb659`) inserted as Component 5.
 
 **EXPLICIT CONSTRAINTS** (carried forward from Session 1 brief CRITICAL FAILURE MODES, `_orchestration/cosmic-epsilon-de-projection-scoping.md:133-139`):
 
