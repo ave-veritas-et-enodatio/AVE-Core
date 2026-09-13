@@ -83,8 +83,8 @@ jobs:
       - name: make verify-new-cite-excerpts
         run: make verify-new-cite-excerpts CITE_BASE=origin/${{ github.base_ref }}
 
-  # FIRED prereg riders — its OWN job. Grant ruling 2026-09-07, verbatim: "move it
-  # to its own job."
+  # FIRED prereg riders — its OWN job. Grant ruling R59, 2026-09-13 (receipt:
+  # _orchestration/docket-entries/2026-09-13-ruling-r59-fired-riders-own-job.md).
   #
   # It arrived on 2026-09-06 (PR #1035) as a prerequisite of the `verify:` target,
   # which put a new hard-fail checker INSIDE the single branch-protection-required
@@ -107,9 +107,9 @@ jobs:
   # Stdlib-only (json, os, re, subprocess, sys), so no uv and no dependency install:
   # same setup as the new-cite-excerpts job above.
   #
-  # NON-REQUIRED, per R3's posture for new checkers. Branch protection at the time of
-  # this change is exactly ["make verify + make test"] with enforce_admins true, so
-  # adding this job changes no enforcement. Marking it required is a
+  # NON-REQUIRED: not among branch protection's required contexts. Protection at the
+  # time of this change is exactly ["make verify + make test"] (R3) with enforce_admins
+  # true, so adding this job changes no enforcement. Marking it required is a
   # branch-protection setting, not a workflow key — an admin action, not this file's.
   fired-riders:
     name: fired prereg riders (non-required)
