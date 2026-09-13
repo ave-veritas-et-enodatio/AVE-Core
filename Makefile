@@ -83,7 +83,7 @@ LEGACY_LANE_CHECK_ALIASES = \
 	verify-approach-leak-number-check \
 	verify-approach-leak-v2-number-check
 
-.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-fired-riders verify-inter-repo-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks refresh-provenance-baseline framing-audit verify-anchor-content verify-new-cite-excerpts verify-engine-capability-anchors test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup gamma-census $(LEGACY_LANE_CHECK_ALIASES)
+.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-fired-riders verify-inbound-cite-shift verify-inter-repo-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks refresh-provenance-baseline framing-audit verify-anchor-content verify-new-cite-excerpts verify-engine-capability-anchors test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup gamma-census $(LEGACY_LANE_CHECK_ALIASES)
 
 help:
 	@echo "Applied Vacuum Engineering (AVE-Core) Build System"
@@ -766,3 +766,14 @@ distclean: clean
 	@echo "[DistClean] Removing ALL build artifacts including PDFs..."
 	rm -rf $(OUT_DIR)
 	@echo "[DistClean] Done."
+
+# Appended at EOF deliberately. This target's first placement inserted 5 lines
+# above Makefile:448 and shifted six corpus cites into this file (+5 each) --
+# caught by this very checker on its own landing PR. One of the six citers is
+# research/2026-08-08_overlap-integral_prereg-FROZEN.md, a FROZEN prereg that
+# must not be rewritten, so re-pinning was not an available fix. The last
+# corpus-cited Makefile line is :474; appending past it shifts nothing.
+CITE_BASE ?= origin/main
+verify-inbound-cite-shift:
+	@echo "[Verify] Inbound cite shift (cites INTO files this branch changed)..."
+	@$(PYTHON) manuscript/ave-kb/tools/verify-inbound-cite-shift.py $$(git merge-base $(CITE_BASE) HEAD) HEAD
