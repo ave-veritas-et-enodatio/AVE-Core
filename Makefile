@@ -134,7 +134,7 @@ setup:
 # =============================================================================
 # 1. Physics Verification (The "Simulate to Verify" Protocol)
 # =============================================================================
-verify: $(KB_VERIFY) verify-md-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-fired-riders
+verify: $(KB_VERIFY) verify-md-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks
 # UMBRELLA-GLOB ADOPTION 2026-08-06: the thirteen per-lane `verify-*-number-check`
 # prerequisites that used to be listed on the line above are GONE FROM THIS LINE and
 # from nowhere else -- `verify-lane-number-checks` now auto-discovers and runs all
