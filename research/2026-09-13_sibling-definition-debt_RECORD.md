@@ -1,12 +1,38 @@
-# WALK RECORD — the sibling definition debt: one defect, two sector contents, two far-field read-outs (2026-09-13)
+# WALK RECORD — the sibling definition debt: two sector contents (two objects), two far-field read-outs, one enclosing boundary (2026-09-13)
 
-**Status: WALK-GRADE / DEFINITION-DEBT throughout. Nothing here is a claim, a ruling, or a
-promotion.** Mints no `clm-` / `def-` / `exp-` / `sup-` / `ilk-`, moves no solidity, edits no KB
-leaf, no manuscript file, no engine file. Grade stays WALK / DEFINITION-DEBT until the Claims
-Gate says otherwise. No FACT promotion. No merge. No driven-G2 / existence-campaign stab
+**Status: WALK-GRADE / DEFINITION-DEBT throughout. Nothing here is a claim or a promotion; the
+one ruling it carries (O1 / O2, next block) is Grant's, banked verbatim, not made here.** Mints no
+`clm-` / `def-` / `exp-` / `sup-` / `ilk-`, moves no solidity, edits no KB leaf, no manuscript
+file, no engine file. Grade stays WALK / DEFINITION-DEBT until the Claims Gate says otherwise.
+No FACT promotion. No merge. No driven-G2 / existence-campaign stab
 (fenced: [`2026-08-24-static-existence-epic-tracker`](../_orchestration/open-items/2026-08-24-static-existence-epic-tracker.md),
 [`2026-08-25-g2-freeze-decisions`](../_orchestration/open-items/2026-08-25-g2-freeze-decisions.md)).
 No Op16 form pick. No second force is invented, and A1 ⊥ T2 is not collapsed.
+
+> **★ RULING BANKED — 2026-09-13 (Grant, via AVE Orchestrator; MATH agrees, Grant confirms).**
+> Received against PR #1044 at `5095d4a7`; applied in place below, with the superseded wording
+> quoted here so nothing is lost (git carries the trail).
+>
+> - **O1 — NOUN: RULED.** Use **qualified "port family" only**. The **R38/R40 fence is mandatory
+>   on every use**: the A1 bound response is **NOT a register PORT** ($\mathrm{Re}\,Z>0$). Never
+>   write unqualified "port family" for the A1 slot. ("Read-out family" is **not** adopted.)
+> - **O2 — STATUS: RULED — DERIVATION TARGET.** *"one defect ($0_1$) carries both A1 and T2
+>   contents"* is a **derivation target, not a packaging definition**. Co-ownership is **not
+>   asserted as definition** anywhere below — asserting it would smuggle past canon's *"two
+>   objects, not one"* (C1). **Clause S stays mechanism-agnostic until derived.**
+> - **Standing:** grade remains **WALK / DEFINITION-DEBT**; no promote; **no KB / manuscript leaf
+>   lands before #1034 (H1) is reviewed**; #1044 is not merged unless/until Orchestrator + Grant
+>   say so.
+> - **Superseded wording (quoted for the trail).** Title read *"one defect, two sector contents,
+>   two far-field read-outs"*. §3 header read *"One real-space defect. Two orthogonal sector
+>   contents (A1 ⊥ T2). Two far-field read-outs, each a surface integral over the same enclosing
+>   boundary, neither a shared phasor."* C1 closed *"So the honest noun is **one real-space
+>   defect** … carrying **two sector contents**."* C2 closed *"the packaging must either qualify
+>   "port" in the def-portmp sense every time, or use **read-out family**."* P0 opened *"The
+>   electron is one real-space defect"*; P2 listed *"one defect"* under Shared; P3 closed *"Two
+>   read-outs of one defect are not two forces."* §4 rows O1 / O2 read OWED-DEFINITION / OWED
+>   (unadjudicated); §5 bullet 2 read *"Does not pick 'read-out family' over 'port family'"*;
+>   §6 items 1–2 were open Grant questions.
 
 **Lane:** Lane A — physics advance (the lattice-free / sibling-far-fields north star). The
 brief's primary notes (the Orchestrator-box tracker item **MATH-1**, "sibling definition debt +
@@ -36,6 +62,7 @@ not derive.
 | working branch | `claude/lane-a-sibling-def-debt` off `451bf480` |
 | shared-checkout collision (receipt) | reflog of the primary checkout: `08:59:24 checkout: moving from main to claude/lane-a-sibling-def-debt` (this lane) → `09:00:01 checkout: moving from claude/lane-a-sibling-def-debt to main` (**a concurrent session, not this lane**, 37 s later). The first commit attempt therefore ran on `main` and was **refused by the commit gate** (exit 1) — **nothing landed on `main`**; the staged file was unstaged and the lane moved to a dedicated worktree (`~/AVE-staging/wt-lane-a-sibling-def-debt`, same branch, same base). The documented shared-working-tree failure mode (`CLAUDE.md` §Pre-commit discipline), met live. |
 | commit-gate note | the refusal was `research/drivers/r40_quote_claim_strength_number_check.py` — 26 violations, **all** inside three `.claude/worktrees/wf_*/` copies of the checker's own file nested in the primary checkout; the same checker run from the dedicated worktree (no nested copies) reports `0 violation(s)`. An environment false positive of the shared checkout, not a defect in this record; routed as hygiene (stale workflow worktrees under `.claude/worktrees/`). |
+| ruling round (2026-09-13) | O1 / O2 ruled by Grant via the Orchestrator against `5095d4a7` (PR #1044); banked in the block above and applied in place; PR description updated to match. Still no merge. |
 
 ---
 
@@ -78,8 +105,14 @@ The brief's noun ("one stress") must not be read as one sector content. The reco
 the electron's three orthogonal identity labels,
 [`electron-identification.md:53`](../manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/electron-identification.md)
 — *"These three are orthogonal: real-space body ⊥ phase-space winding ⊥ mass dilatation. Charge and spin live on the Cosserat $(2,3)$ micro-rotation (the T₂ core, property 4); mass lives on A1. **Never cross-wire**"*.
-So the honest noun is **one real-space defect** ($0_1$ unknot body, `:49` — *"the mass-bearing carrier body"*)
-carrying **two sector contents**. "Self-trapped" is itself scoped: `:13` — *""self-trapped" must be read in its **boundary-condition** sense"*.
+**Resolution as RULED (O2, 2026-09-13):** the packaging keeps canon's **two objects** — the A1
+dilatation-mass and the $(2,3)$ winding — as two objects with two read-outs, and does **not**
+define the electron as *one defect carrying both*. That co-ownership — *"one defect ($0_1$)
+carries both A1 and T2 contents"* — is a **derivation target**, and clause S stays
+mechanism-agnostic until it is derived. The $0_1$ unknot body (`:49` — *"the mass-bearing carrier
+body"*) stays what canon says it is: one of three orthogonal identity labels, not the defined
+owner of the other two. "Self-trapped" is itself scoped: `:13` — *""self-trapped" must be read in
+its **boundary-condition** sense"*.
 
 **C2 — "port family" collides with the register meaning of PORT, and the A1 slot has NO port.**
 [`port-register.md:21`](../manuscript/ave-kb/common/port-register.md) — *"A port is **RADIATIVE iff $\mathrm{Re}(Z) > 0$** there"*; `:26` — *"If either fails, the port is **REACTIVE** ($\mathrm{Re}(Z) = 0$; stores-and-returns) or **CLOSED**."*
@@ -90,7 +123,10 @@ Canon for the mass side: [`master-equation.md:139-143`](../manuscript/ave-kb/vol
 The only in-corpus object that uses "port" the way the brief does is the **proposed, gated**
 [`def-portmp`](../manuscript/ave-kb/common/vocabulary-register.md) (`:513` — `- **status:** proposed`), whose own
 ambiguity flag says (`:517`) — *"THIS map's "port" means a **sector/grade channel**, NOT the four K4 bond-ports nor a single-$\Gamma$ impedance boundary."*
-→ the packaging must either qualify "port" in the def-portmp sense every time, or use **read-out family**.
+→ **RULED (O1, 2026-09-13):** the packaging uses **qualified "port family" only** — the
+def-portmp sector/grade sense — with the **R38/R40 fence stated on every use**: the A1 bound
+response is **NOT a register PORT** ($\mathrm{Re}\,Z>0$). Unqualified "port family" is never
+written for the A1 slot. "Read-out family" is not adopted.
 
 **C3 — "Link–Γ" vs "dilatation→Z" names the two families by ONE Smith-chart object.**
 $\Gamma$ and $Z$ are the same coordinate ($\Gamma=(Z-Z_0)/(Z+Z_0)$; the sign convention is pinned at
@@ -156,45 +192,51 @@ The mass family IS the A1 common-mode **irrep** ([`k4-port-irrep-decomposition.m
 
 ---
 
-## §3 — Packaging draft: the owed split (WALK / DEFINITION-DEBT — restates canon, derives nothing)
+## §3 — Packaging draft: the owed split (WALK / DEFINITION-DEBT — restates canon, derives nothing; O1 / O2 as RULED 2026-09-13)
 
-> **One real-space defect. Two orthogonal sector contents (A1 ⊥ T2). Two far-field read-outs, each a surface integral over the same enclosing boundary, neither a shared phasor.**
+> **Two orthogonal sector contents — canon's "two objects, not one" (A1 ⊥ T2) — each with its own far-field read-out, both read at the same enclosing boundary $\partial\Omega$, never one phasor. Each read-out is a "port family" only in the qualified def-portmp sense (a sector/grade channel), and the A1 read-out is a bound response, NOT a register PORT ($\mathrm{Re}\,Z>0$) — the R38/R40 fence, mandatory (O1). That one $0_1$ defect carries both contents is a DERIVATION TARGET (O2), not part of this packaging.**
 
-**P0 — The object and what the far field can see.** The electron is one real-space defect — the
-$0_1$ unknot body — self-trapped in the boundary-condition sense
-([`electron-identification.md:13`](../manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/electron-identification.md) — *"the lattice self-creates a Γ=−1 **TIR mirror = a BOUNDARY**"*).
+**P0 — The boundary and what the far field can see.** The electron's real-space body is the
+$0_1$ unknot ([`electron-identification.md:49`](../manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/electron-identification.md) — *"the mass-bearing carrier body"*),
+self-trapped in the boundary-condition sense
+(`:13` — *"the lattice self-creates a Γ=−1 **TIR mirror = a BOUNDARY**"*).
 Its interior is not observable:
 [`boundary-observables-m-q-j.md:37`](../manuscript/ave-kb/common/boundary-observables-m-q-j.md)
 — *"**Only $\mathcal{M}, \mathcal{Q}, \mathcal{J}$ are externally measurable.** Interior eigenmode wavelengths, microrotation profiles, soliton topology, and bond-stress distributions are invisible to the substrate."* (`clm-ofys5v`, input-only).
-Whatever "the stress" is inside, the far field reads **boundary data** only — `:59` (electron-identification) — *"identity is topological boundary data, carried by the far-field projection."*
+Whatever is inside, the far field reads **boundary data** only — `:59` (electron-identification) — *"identity is topological boundary data, carried by the far-field projection."*
+So the packaging is stated **at $\partial\Omega$** and says nothing about which interior object owns which content — that ownership question is O2 (a derivation target), and it is not answered here.
 
 **P1 — Two sector contents, held at 90°.**
 [`master-equation.md:33`](../manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md)
 — *"the substrate holds mass (A1) and spin/charge (T2) at $90°$ so they share no $(V_{inc}, V_{ref})$ phasor"*; `:36` — *"**A1 ⊥ T2 is the ratified GRADE orthogonality**"* … *"which is **FOC-INDEPENDENT**"*.
 Group-theoretic root: [`k4-port-irrep-decomposition.md:10`](../manuscript/ave-kb/vol1/operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md) — `$V_{\text{4-port}} = A_1 \oplus T_2$` (`clm-j550uh` 0.85).
 
-| | **Family A — weight / inertia (A1 dilatation)** | **Family B — charge / EM (T2 winding)** |
+| | **Family A — weight / inertia (A1 dilatation)** — a "port family" in the qualified def-portmp sense only; a **bound response, NOT a register PORT** (R38/R40 fence) | **Family B — charge / EM (T2 winding)** — a "port family" in the qualified def-portmp sense; its EM read-out channel is the register's P1 port |
 |---|---|---|
 | **content** | rest-mass **store** = A1 longitudinal dilatation — [`master-equation.md:31`](../manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md) *(grade-ASSIGNMENT, PR#260 — `"mass = A1" is RATIFIED-CONSISTENCY — the adjudicated grade-ASSIGNMENT (PR#260), **NOT driver-validated**`)*; the **work-doing reactive MASS STORE**, [`resonant-lc-solitons.md:129`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md) | the **static Link integer** $\mathcal{Q}=\mathrm{Link}(\partial\Omega,\mathbf F)\in\mathbb Z$, [`boundary-observables-m-q-j.md:20`](../manuscript/ave-kb/common/boundary-observables-m-q-j.md) (`clm-ze4clw`); STATIC and reactive — [`def-3638f2`](../manuscript/ave-kb/common/vocabulary-register.md) `:256` *"the $(2,3)$ phase-space winding is **STATIC** (a deformation-invariant texture, NOT a dynamical/energetic time-orbit) and is the boundary linking integer"*; the **static reactive CHARGE BOUNDARY**, [`resonant-lc-solitons.md:128`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md) |
-| **source structure** | a **deposited net flux BY LAW** — [`eq_axiom_5.tex:68`](../manuscript/common_equations/eq_axiom_5.tex) `\oint_S \mathbf{u}\cdot\hat{\mathbf{n}} = 4\pi B(M)`; `:71` `Mass is an enclosed compression charge BY LAW` (mechanism-agnostic, genesis-deposited) | **no deposit** — `:100` *"any EM/winding-sector deposit"* is forbidden; the sourced-net-monopole route is CLOSED (`clm-nogo4l`); the far field is, on the strong lean, a **holonomy**, fork ROUTED (C4) |
+| **source structure** | a **deposited net flux BY LAW** — [`eq_axiom_5.tex:68`](../manuscript/common_equations/eq_axiom_5.tex) `\oint_S \mathbf{u}\cdot\hat{\mathbf{n}} = 4\pi B(M)`; `:71` `Mass is an enclosed compression charge BY LAW` (mechanism-agnostic, genesis-deposited — and it **stays** mechanism-agnostic, O2) | **no deposit** — `:100` *"any EM/winding-sector deposit"* is forbidden; the sourced-net-monopole route is CLOSED (`clm-nogo4l`); the far field is, on the strong lean, a **holonomy**, fork ROUTED (C4) |
 | **domain / impedance** | **mechanical** $Z_{\mathrm{bulk}}$ ([`node-up-small-large-signal.md:51`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/node-up-small-large-signal.md)); at the cage $Z_{bulk}\to0\Rightarrow\Gamma_{bulk}=-1$ — [`bulk-impedance-at-saturation-boundary.md:76`](../manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md) `| Bulk channel | $Z_{bulk} \to 0$ at TIR wall $\Rightarrow \Gamma_{bulk} = -1$ |` | **mechanical** $Z_{\mathrm{shear}}$ carries the Link ([`node-up-small-large-signal.md:52`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/node-up-small-large-signal.md)); the **EM** $Z_{\mathrm{EM}}\equiv Z_0$ is the read-out channel — [`resonant-lc-solitons.md:127`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md) `**$Z_{\mathrm{EM}}\equiv Z_0$ = the radiative CARRIER PORT**`; bridged only by the TKI transducer ([`def-tk1xfm`](../manuscript/ave-kb/common/vocabulary-register.md) `:438` *"identity-by-translation, NOT a derivation"*) |
 | **far-field FORM (the 1/r sibling)** | the **bias** $\varepsilon_{11}=7GM/c^2 r$ — [`eq_axiom_5.tex:94`](../manuscript/common_equations/eq_axiom_5.tex) *"the canon bias profile $\varepsilon_{11} = 7GM/c^2 r$"*; source law [`gordon-optical-metric.md:25`](../manuscript/ave-kb/vol3/gravity/ch03-macroscopic-relativity/gordon-optical-metric.md) `-\left(\frac{c^{4}}{7G}\right)\nabla^{2}\epsilon_{11}(r) = 4\pi Mc^{2}\delta^{3}(r)`; bound response $u_0=B\,\hat r/r^2$ ([`axiom-register.md:423`](../manuscript/ave-kb/common/axiom-register.md) `the exterior uniqueness of the bound response u₀ = B r̂/r²`); `:96` (eq_axiom_5) `the $1/r$ bias profile and the $1/r^2$ bound response are free geometry from the elliptic solve` | the **1/r Coulomb tail** — **asserted, not derived** ([`2026-07-03-exterior-field-profile-derivation`](../_orchestration/open-items/2026-07-03-exterior-field-profile-derivation.md)); only the integer and the sign of the pair leg are canon (`clm-wcoul2`, [`boundary-observables-m-q-j.md:27`](../manuscript/ave-kb/common/boundary-observables-m-q-j.md) *"like windings repel / unlike attract with Coulomb sign structure"*) |
-| **read-out type** | **index / clock**, not reflection: $n(r)=1+2GM/c^2r$ ([`refractive-index-of-gravity.md:14`](../manuscript/ave-kb/vol3/gravity/ch03-macroscopic-relativity/refractive-index-of-gravity.md), `clm-rd9cjm`); *"impedance gradient, not geometric"* ([`boundary-observables-m-q-j.md:110`](../manuscript/ave-kb/common/boundary-observables-m-q-j.md), `clm-3bwhad`); $\Gamma_{\mathrm{EM}}=0$ ([`master-equation.md:115`](../manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md) *"preserving $Z_0$"*); the A1-Op14 clock ([`op14-local-clock-modulation.md:11`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-local-clock-modulation.md) *"it **modulates the local clock rate**"*); a **differential** read of DC ([`2026-08-29_picture-lock-spillover.md:61`](2026-08-29_picture-lock-spillover.md), Grant-signed — *"Gravity-as-interaction is a **differential** of that DC, read by AC probes."*); **no port** (bound response, C2) | **reflection / interaction** on the EM channel — the matched radiative port $R_{rad}\equiv Z_0$ ([`port-register.md:69`](../manuscript/ave-kb/common/port-register.md)) and the Ax-2 interaction leg; the read-out of a **DC topology** through an AC channel ([`form-deriving-value-importing.md:296-297`](../manuscript/ave-kb/common/form-deriving-value-importing.md) — *"**every AVE-distinct observable is an AC reading of a DC gradient or topology**"*) |
+| **read-out type** | **index / clock**, not reflection: $n(r)=1+2GM/c^2r$ ([`refractive-index-of-gravity.md:14`](../manuscript/ave-kb/vol3/gravity/ch03-macroscopic-relativity/refractive-index-of-gravity.md), `clm-rd9cjm`); *"impedance gradient, not geometric"* ([`boundary-observables-m-q-j.md:110`](../manuscript/ave-kb/common/boundary-observables-m-q-j.md), `clm-3bwhad`); $\Gamma_{\mathrm{EM}}=0$ ([`master-equation.md:115`](../manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md) *"preserving $Z_0$"*); the A1-Op14 clock ([`op14-local-clock-modulation.md:11`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-local-clock-modulation.md) *"it **modulates the local clock rate**"*); a **differential** read of DC ([`2026-08-29_picture-lock-spillover.md:61`](2026-08-29_picture-lock-spillover.md), Grant-signed — *"Gravity-as-interaction is a **differential** of that DC, read by AC probes."*); **no port** (bound response — R38/R40 fence, C2) | **reflection / interaction** on the EM channel — the matched radiative port $R_{rad}\equiv Z_0$ ([`port-register.md:69`](../manuscript/ave-kb/common/port-register.md)) and the Ax-2 interaction leg; the read-out of a **DC topology** through an AC channel ([`form-deriving-value-importing.md:296-297`](../manuscript/ave-kb/common/form-deriving-value-importing.md) — *"**every AVE-distinct observable is an AC reading of a DC gradient or topology**"*) |
 | **path structure** | **ledger** (volume integral, unscreened) — [`envelope-anatomy.md:71`](../manuscript/ave-kb/common/envelope-anatomy.md) `**Gravity = LEDGER physics (a volume integral).**` (`clm-ppasym` 0.45) | **endpoint** (boundary integral, collar) — `:70` `**EM correction = ENDPOINT physics (a boundary integral).**` |
 | **FORM / VALUE** | FORM derived, VALUE imported: $G$ MIXED — [`gravitational-coupling-constant.md:10`](../manuscript/ave-kb/vol3/gravity/ch01-gravity-yield/gravitational-coupling-constant.md) *"$G = c^4/(7\xi T_{EM})$ is **form**-derived … but its **value** is a calibration input"*; $\mathcal{A}_g$ UNVALUED (eq_axiom_5 `:96`) | FORM derived, VALUE imported: [`form-deriving-value-importing.md:90`](../manuscript/ave-kb/common/form-deriving-value-importing.md) — the Link integer, holonomy, linking-DOF and neutrality *"are ALL FORM-derived"*; the flux-per-Link quantum rides $\xi_{topo}$ — **[DOORWAY-NO-PINNING]**; `:192` *"the integer never becomes a pinned flux **VALUE**"* |
 | **weight ≡ inertia** | derived via the /7 projection — [`ponderomotive-equivalence.md:30`](../manuscript/ave-kb/vol3/gravity/ch03-macroscopic-relativity/ponderomotive-equivalence.md) *"guaranteeing that inertial mass and gravitational mass are identical ($m_i \equiv m_g$)"* (wording stale, C5) | — |
 
-**P2 — What "sibling" does and does not mean.** Shared: one defect; one enclosing surface
-$\partial\Omega$; both read-outs are **surface integrals of enclosed content** (Link over $\partial\Omega$; $\oint_S \mathbf u\cdot\hat n$);
+**P2 — What "sibling" does and does not mean.** Shared: one enclosing surface $\partial\Omega$ —
+the electron's TIR boundary (property 3) — at which **both** are read; both read-outs are **surface
+integrals of enclosed content** (Link over $\partial\Omega$; $\oint_S \mathbf u\cdot\hat n$);
 both far fields are $1/r$ in FORM; both are FORM-derived / VALUE-imported
 ([`form-deriving-value-importing.md:46-49`](../manuscript/ave-kb/common/form-deriving-value-importing.md) — *"The geometry and topology of the chiral K4 Cosserat substrate FORCE the dimensionless FORMS … The dimensionful VALUES of the handful of calibration constants the substrate is *fed* are calibration INPUTS"*);
 both are DC medium content read differentially ([`form-deriving-value-importing.md:284`](../manuscript/ave-kb/common/form-deriving-value-importing.md) `gravity = the `S(A)` operating-point field`; `:286` `charge = topological boundary data`).
+**Not a shared premise:** *"one defect"* — that one $0_1$ defect carries both contents is the O2
+derivation target, not something the sibling relation presupposes; the relation is stated at
+the boundary, where both are observed together.
 **Not shared:** source structure (deposited net flux vs no deposit, C6); sector (A1 vs T2); domain of the store (mechanical bulk vs mechanical shear + EM read-out); read-out type (index/clock at $\Gamma_{\mathrm{EM}}=0$ vs reflection/interaction); path structure (ledger vs endpoint); the clock each rides (C7).
 
 **P3 — No second force.** Gravity is not an interaction added to the substrate:
 [`trampoline-framework.md:552`](../manuscript/ave-kb/common/trampoline-framework.md) — *"**No separate "gravitational interaction" needed.** Gravity is the macroscopic limit of the shared-spring propagator that already exists at the lattice level."*;
 `:550` — *"Gravity is the **gradient of substrate strain** — exactly what an EE probe would measure as a local impedance gradient (Vol 4 Ch 1)"*.
-The charge interaction is the Axiom-2 leg (`clm-wcoul2`, consistency-class). Two read-outs of one defect are not two forces.
+The charge interaction is the Axiom-2 leg (`clm-wcoul2`, consistency-class). Two read-outs at one boundary are not two forces.
 
 **P4 — Why this is the lattice-free north star.** Neither read-out carries $\ell_{node}$ in its FORM:
 $\mathrm{Link}(\partial\Omega,\mathbf F)$ is an integer; $\oint_S\mathbf u\cdot\hat n=4\pi B(M)$ is a flux over any enclosing exterior surface.
@@ -204,7 +246,7 @@ The interior is exempt from lattice constraints ([`boundary-observables-m-q-j.md
 
 **P5 — A1 ⊥ T2 preserved; the only join is constitutive grading.** The two families share no
 $(V_{inc},V_{ref})$ phasor (P1). The join the corpus is walking is **A1 Q-point grades T2 constitutives**
-([`2026-08-29_picture-lock-spillover.md:65`](2026-08-29_picture-lock-spillover.md) H1, held; closed WALK-grade on `[branch:#1034]`) — a photoelastic coupling, not a shared port. This record adds no join.
+([`2026-08-29_picture-lock-spillover.md:65`](2026-08-29_picture-lock-spillover.md) H1, held; closed WALK-grade on `[branch:#1034]`) — a photoelastic coupling, not a shared port. This record adds no join and, per O2, asserts no co-ownership.
 
 ---
 
@@ -226,14 +268,14 @@ $(V_{inc},V_{ref})$ phasor (P1). The join the corpus is walking is **A1 Q-point 
 | R1 | port↔DOF↔sector map (MASS→$Z_{bulk}$, CHARGE→$Z_{shear}$, ε/μ→$Z_{EM}$) | **RESTATEMENT, proposed/gated** | `vocabulary-register.md:506-518` (`def-portmp`) | auditor + Grant review; the $V_{yield}$-fork role attribution |
 | R2 | three-channel ROLES (carrier port / charge boundary / mass store) | **RESTATEMENT, consistency-class** (Z_bulk row R40-stamped) | `resonant-lc-solitons.md:127-129` | R40 re-derivation of the Z_bulk row |
 | R3 | port taxonomy (radiative iff Re Z>0; channels inherent, ports emergent) | **RESTATEMENT, walk-wording ratified by firing** | `port-register.md:19-37` | — |
-| R4 | §3 P0–P5 above (the packaging sentence) | **RESTATEMENT over K1–K11, WALK-GRADE** | this file | Grant wording call + Claims Gate |
-| **O1** | **the one-place definition** — one defect, two sector contents, two far-field read-outs — stated nowhere in `ave-kb` (grep receipt above) | **OWED-DEFINITION** | — | Grant picks the noun ("read-out family" vs qualified "port family", C2) and the sentence lands in a KB leaf under review |
-| **O2** | **why ONE defect carries BOTH** contents (the Link and the A1 deposit together) — clause S is mechanism-agnostic; the genesis-phase law is named-open (c2) | **OWED — definition or derivation, unadjudicated** | `eq_axiom_5.tex:71,:98` | a Grant call on whether this is a definitional join or a derivation target; **must not** be discharged by inventing a coupling |
+| R4 | §3 P0–P5 above (the packaging sentence, O1/O2-compliant) | **RESTATEMENT over K1–K11, WALK-GRADE** | this file | Claims Gate (noun RULED, O1; co-ownership excluded, O2) |
+| **O1** | **the one-place definition** — two sector contents (two objects), two far-field read-outs at one boundary — stated nowhere in `ave-kb` (grep receipt above). **NOUN RULED 2026-09-13:** qualified "port family" only; R38/R40 fence mandatory on every use (A1 bound response is NOT a register PORT, $\mathrm{Re}\,Z>0$); never unqualified for the A1 slot; "read-out family" not adopted | **RULED (noun) / OWED-DEFINITION (the sentence's KB landing)** | the ruling block at the top of this file; `port-register.md:21,:26`; `master-equation.md:139-143` | the sentence lands in a KB leaf under review **only after #1034 (H1)**; Claims Gate |
+| **O2** | **why ONE $0_1$ defect carries BOTH** contents (the Link and the A1 deposit together) — clause S is mechanism-agnostic; the genesis-phase law is named-open (c2) | **RULED 2026-09-13: DERIVATION TARGET** — not a packaging definition; co-ownership is asserted nowhere in §3; clause S stays mechanism-agnostic until derived | `eq_axiom_5.tex:71,:98`; `master-equation.md:20` | a derivation lane of its own (prereg first; pre-test-physics-check before dispatch); **must not** be discharged by inventing a coupling |
 | **O3** | the charge-side far-field profile ($1/r$ tail) and the net-monopole-vs-holonomy fork | **OWED-DERIVATION + ROUTED-TO-GRANT** | open-items `exterior-field-profile-derivation`, `terminal-charge-framing-fork` | the fork ruling; the engine-blocked derivation |
 | **O4** | the mass-side finite-speed dynamics — THE BIAS PROPAGATION THEOREM | **OWED (standing debt, c1)** | `eq_axiom_5.tex:98`; `master-equation.md:149-152` *"owed, not held"* | the theorem |
 | **O5** | sector-of-storage D1 (which sector's $c^2$ divides $E_{trapped}$) | **OPEN-IN-WALK** (Grant walking) | open-item `sector-of-storage` | Grant ruling |
 | **O6** | the 1:1 Kirchhoff map of DC strain; H2–H6 | **OPEN-IN-WALK** (H1 closed WALK-grade on `[branch:#1034]`) | open-item `acdc-gravity-circuit-map`; spillover `:65-70` | #1034 review; H2–H6 walks |
-| **O7** | vocabulary: "port family" (no def); "weight" (no def-node); $B(M)$ glyph across the A1 ⊥ T2 fence | **OWED-VOCAB / ROUTED** | `def-portmp` proposed; open-item `axiom5-b-glyph` | Grant naming calls |
+| **O7** | vocabulary: "port family" — noun RULED (O1) but still without a `def-` node (`def-portmp` is proposed); "weight" (no def-node); $B(M)$ glyph across the A1 ⊥ T2 fence | **OWED-VOCAB / ROUTED** (noun ruled; nothing minted here) | `def-portmp` proposed; open-item `axiom5-b-glyph` | a vocabulary PR under review (after #1034); Grant glyph call |
 | **O8** | the four cite-shifts + the unstamped `def-9a4f07:594` (C9) | **HYGIENE, routed** | C9 (a)–(d) | auditor / R40 batch owner |
 
 ---
@@ -241,15 +283,16 @@ $(V_{inc},V_{ref})$ phasor (P1). The join the corpus is walking is **A1 Q-point 
 ## §5 — Fences (what this record does not do)
 
 - Promotes nothing to FACT; mints no id; edits no KB / manuscript / engine file.
-- Does not pick "read-out family" over "port family" — it shows the collision (C2) and leaves the noun to Grant.
-- Does not close O2 with a mechanism. The four-lock no-go and clause S's mechanism-agnostic status stand as read.
+- Uses "port family" **only** in the qualified def-portmp sense, with the R38/R40 fence on every use — the A1 bound response is NOT a register PORT ($\mathrm{Re}\,Z>0$); never unqualified for the A1 slot; does not adopt "read-out family" (O1, RULED 2026-09-13).
+- Does not assert that one $0_1$ defect carries both A1 and T2 contents (O2, RULED 2026-09-13: derivation target). Does not close O2 with a mechanism. The four-lock no-go and clause S's mechanism-agnostic status stand as read.
 - Does not touch Op16 (`operators.md:56`), the G2 freeze decisions, or the static-existence epic.
 - Does not treat `[branch:#1034]` / `[branch:#1033]` content as canon; cited as context only.
+- Lands nothing in a KB or manuscript leaf before #1034 (H1) is reviewed (standing, 2026-09-13).
 
-## §6 — Suggested next actions (Orchestrator's call; none taken here)
+## §6 — Next actions (Orchestrator's call; none taken here)
 
-1. **Naming ruling (Grant):** "port family" (def-portmp sense, qualified every use) vs "read-out family". Cheap; unblocks O1.
-2. **O2 classification (Grant):** is "one defect carries both contents" a **definition** (boundary data co-deposited at genesis, c2) or a **derivation** target? A wrong class here wastes a lane (pre-test-physics-check trigger 8).
-3. **Open-item stub, if wanted** (not minted here to avoid a second home while MATH-1 lives on the tracker): `id: sibling-definition-debt`, `status: OPEN-IN-WALK`, `owner: grant`, `source: research/2026-09-13_sibling-definition-debt_RECORD.md`, `anchor: "One real-space defect. Two orthogonal sector contents"`.
+1. **Naming — RULED 2026-09-13 (O1):** qualified "port family" only; R38/R40 fence mandatory on every use. Discharged; this file complies.
+2. **O2 classification — RULED 2026-09-13:** *derivation target*, not a packaging definition. Any derivation is its own lane (prereg first; pre-test-physics-check before dispatch); not started here.
+3. **Open-item stub, if wanted** (not minted here to avoid a second home while MATH-1 lives on the tracker): `id: sibling-definition-debt`, `status: OPEN-IN-WALK`, `owner: grant`, `source: research/2026-09-13_sibling-definition-debt_RECORD.md`, `anchor: "Two orthogonal sector contents — canon's"`.
 4. **Hygiene routing:** C9 (a)–(d) to the auditor lane / R40 batch owner; K8 wording banner to a hygiene lane.
-5. **Sequencing:** land nothing from §3 into `translation-circuit.md` or `boundary-observables-m-q-j.md` before #1034 (H1) is reviewed — same join, two sides.
+5. **Sequencing:** land nothing from §3 into `translation-circuit.md` or `boundary-observables-m-q-j.md` before #1034 (H1) is reviewed — same join, two sides. #1044 stays unmerged unless/until Orchestrator + Grant say so.
