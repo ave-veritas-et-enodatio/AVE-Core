@@ -10,7 +10,7 @@
 - Rule 12: a site under a dated banner is *disclosed*, not debt. A TeX `%` comment is **not printed** — a walk-back that lives only in a comment discloses in git and nowhere the reader sees; those are listed as WB-LAG (comment-only).
 - Grep indexed; **reading discharged.** Each chapter slice was read in full by a dedicated reader (three on ch01, four on ch07, two on ch06), findings then went to independent verifiers (cite-verbatim; fence/Q1; disclosure/prior-art), and a completeness critic runs over the union. Read receipts are in §7. **This is a vol2-only slice of the F-row universe (16 of 175 documents); it discharges no F-row** — per the tracker's combined-pass protocol a row closes only on a full-universe read receipt. The per-row hit ledger in §3 is input to that pass, not a substitute for it.
 
-**Coverage at this stamp (2026-09-13 19:12 PDT):** 17/20 reader slices returned (ch01-A, ch01-B, ch01-C, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11); 3 still pending in the resumed workflow run `wf_45d693ef-5ac` (ch12-mp, ch12-fp, appx-front). Reader-reported findings: 131; corpse hits: 69 (7 live-wrong); findings with verifier verdicts: 13. Findings below marked **[first-hand]** were read and grep-verified by the lane directly, independent of any agent; the rest are **reader-reported** and carry the verifier verdict column where one exists (UNVERIFIED otherwise). Re-run `assemble_inventory.py` after the workflow completes to refresh §1–§3 and §7 from the journal.
+**Coverage at this stamp (2026-09-13 19:15 PDT):** 19/20 reader slices returned (ch01-A, ch01-B, ch01-C, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp); 1 still pending in the resumed workflow run `wf_45d693ef-5ac` (appx-front). Reader-reported findings: 136; corpse hits: 69 (7 live-wrong); findings with verifier verdicts: 37. Findings below marked **[first-hand]** were read and grep-verified by the lane directly, independent of any agent; the rest are **reader-reported** and carry the verifier verdict column where one exists (UNVERIFIED otherwise). Re-run `assemble_inventory.py` after the workflow completes to refresh §1–§3 and §7 from the journal.
 
 ---
 
@@ -20,7 +20,7 @@
 
 1. **TeX → KB line anchors (47):** 29 exact, 6 evolved-in-place, **10 moved** (4 printed, 6 comment-only), 1 dead-by-retraction, 1 research-note cite in print. The ten are re-pinned in draft PR #1046 (§6.1). The 2026-09-06 scan's two vol2 S5 flags were both real; the other eight were invisible to it.
 2. **KB → TeX line anchors: seven dead**, six in `neutron-identification.md` — a PATH-STABLE leaf — pointing at table rows, `\end{center}` and blank lines (§4.2). Left for a KB-side PR (excerpt ratchet applies).
-3. **Electron-identity corpse pass (vol2 slice, §3):** outside ch01, **zero live-wrong** hits for F-C1…F-C11 / K4 / K6 — every hit is a fence-excluded homonym (static Link `(2,3)` winding as charge/spin carrier; `Z = 1/α ≈ 137` as the atomic-number sound barrier; `α⁻¹` as a numeric constant) or a Q1 banner. Inside ch01 the readers surfaced **two live-wrong candidates** (verifier verdicts in §3 where returned): **F-C7 at print `01_topological_matter.tex:259`** — the figure caption *"a propagating Transverse EM Wave winds into a stationary Spin-1 helical loop … establishing the physical derivation of confined point-particles via continuum wave-crashing"* sells the free-precursor formation route as established, which `electron-identification.md:64` names *closed-negative* [first-hand: the caption is verbatim at :259 and carries no banner]; and **K6 at KB `torus-knot-uniqueness.md:106`** — the §7 lepton table's "Mass mechanism" column names the Faddeev-Skyrme energy on the `(2,3)` winding as what sets the electron mass, unbannered (reader-reported). Neither discharges or closes a row: the tracker's combined 175-document pass owns that; these are hit-ledger entries for it.
+3. **Electron-identity corpse pass (vol2 slice, §3):** outside ch01, **zero live-wrong** hits for F-C1…F-C11 / K4 / K6 — every hit is a fence-excluded homonym (static Link `(2,3)` winding as charge/spin carrier; `Z = 1/α ≈ 137` as the atomic-number sound barrier; `α⁻¹` as a numeric constant) or a Q1 banner. Inside ch01 the readers surfaced **two live-wrong candidates** (verifier verdicts in §3 where returned): **F-C7 at print `01_topological_matter.tex:259`** — the figure caption *"a propagating Transverse EM Wave winds into a stationary Spin-1 helical loop … establishing the physical derivation of confined point-particles via continuum wave-crashing"* sells the free-precursor formation route as established, which `electron-identification.md:64` names *closed-negative* [first-hand: the caption is verbatim at :259 and carries no banner]; and **K6 at KB `torus-knot-uniqueness.md:106`** — the §7 lepton table's "Mass mechanism" column names the Faddeev-Skyrme energy on the `(2,3)` winding as what sets the electron mass, unbannered (reader-reported). The ch01-B reader (research-origin electron leaves) adds four more candidates: **K4** at KB `pair-production-axiom-derivation.md:35` and `:137` ("the $Q = 1/\alpha$ signature of TIR-confined electron", unmarked) and `electron-unknot-cosserat-seeder.md:120` (a ground-state search offered as the route to the canonical 137.036 Q, unbannered); **K6** at print `01:239` ("Higher $q$ produces more tightly wound solitons with correspondingly higher mass"); **F-C7** at `l3-electron-soliton-synthesis.md:314` (the N=128+ bulk-hosting escalation listed as open next work). None of these discharges or closes a row: the tracker's combined 175-document pass owns that; these are hit-ledger entries for it, each awaiting the three-lens verdict (§3).
 4. **Top sync debts (first-hand, all un-propagated to print):** §2.1.
 
 ### §0.1 — Top five sync debts
@@ -478,9 +478,39 @@ KB-only leaves (no print twin):
 KB-only leaves (no print twin):
 - `axiom-survey.md` — Explicit GAP placeholder: documents that ch11 tex source contains no axiombox environments (chapter uses objectivebox/examplebox/resultbox only). Not a mismatch — it is an honest routing note that no…
 
-### ch12-mp — **NO READ (slice did not return)**
+### ch12-mp
 
-### ch12-fp — **NO READ (slice did not return)**
+| TeX range | heading | KB leaf | status | note |
+|---|---|---|---|---|
+| 1-22 | chapter preamble: objectivebox + Scope caveat (engineering-physics vs Clay-rigo… | index.md | verbatim-match | index.md restates the framework-conditional/not-Clay-rigorous framing faithfully; claim-quality.md (clm-c8q0z5/q5izb7/knveh6) treats this chapter-opening caveat as the print-side disclosure for every per-problem KB scop… |
+| 25-88 (sec:ns_millennium) | The Navier-Stokes Smoothness Problem | navier-stokes-prize.md | verbatim-match | Discrete Laplacian, velocity/enstrophy bounds, Picard-Lindelof steps match TeX line-for-line. KB carries its own 2026-05-17 scope-correction banner (two Clay deviations); covered by the chapter caveat per clm-c8q0z5's o… |
+| 91-152 (sec:ym_millennium, Steps 1-2) | Yang-Mills Mass Gap: Steps 1-2 (Lattice Hamiltonian, Mass Gap) | yang-mills-steps1-2.md | partial | MM-1: leaf omits the TeX:112 2026-07-09 scope-note correction (UV cutoff understated ~2.7x vs the true srs 3D band edge, clm-bnd5rq) even though the leaf otherwise reproduces the surrounding sentences verbatim. See mism… |
+| 154-213 (Steps 3-5) | Yang-Mills: Gauge Group Emergence, Confinement, Infinite-Volume Limit | yang-mills-steps3-5.md | verbatim-match | N=(q+1)/2 resultbox, gauge-group/mass-scale table, Γ→-1 confinement, and infinite-volume argument all byte-match TeX. Leaf's 'SU(N) is an ansatz, not derived' banner is treated as disclosed via the chapter caveat per cl… |
+| 215-325 (sec:rh_millennium) | The Riemann Hypothesis | riemann-hypothesis.md | verbatim-match | Spectral zeta, Euler product, regime-boundary table, functional equation, and critical-line argument all match. |
+| 327-391 (sec:hc_millennium) | The Hodge Conjecture | hodge-conjecture.md | verbatim-match | Standing-wave/phase-matching/irrational-decay/rational-coefficients argument matches. |
+| 393-467 (sec:bsd_millennium) | The Birch and Swinnerton-Dyer Conjecture | birch-swinnerton-dyer.md | partial | Leaf omits TeX's explicit K_MUTUAL=(cπ/2)αℏc/(1-α/3) closed form (line 423) — ordinary condensation, not a dated correction, so not reported as a mismatch. |
+| 470-530 (sec:pnp_millennium) | The P versus NP Problem | p-vs-np.md | verbatim-match | Lattice-nodes/parallel-evaluation/relaxation/'rendered moot' argument matches; TeX itself (478, 529-530) already carries the non-resolution disclaimer inline. |
+| 533-591 (sec:poincare_millennium) | The Poincare Conjecture (Solved) | poincare-conjecture.md | verbatim-match | Ricci-flow-as-impedance-relaxation / S^3-ground-state argument matches; both TeX and leaf explicitly disclaim any AVE claim to the Clay prize (Perelman's proof is canonical). Fence note: this section's Poincare/S^3 cont… |
+| 594-696 | Synthesis: What the Seven Problems Reveal (3 structural properties + Formalizat… | (none dedicated — rolled into index.md Key Results table) | tex-only | Synthesis/formalization-gap tables (NS/YM/Riemann only) are TeX-only summary content; no separate KB leaf expected or needed for a synthesis section. |
+| 698-711 | Chapter Summary + Exercises | (none) | tex-only | Standard pedagogical material, not leafed. |
+| n/a — no TeX reference at all in ch12 | n/a | knot-vs-orbital-table-ch12.md | kb-only | Self-disclosed routing/GAP stub; see kbOnlyLeaves. |
+
+KB-only leaves (no print twin):
+- `knot-vs-orbital-table-ch12.md` — kind: leaf, no-claim: placeholder/routing. Self-disclosed GAP: the leaf says tab:knot_vs_orbital referenced in the ch12 taxonomy skeleton is actually located in Ch.7 (07_quantum_mechanics_and_orbital…
+
+### ch12-fp
+
+| TeX range | heading | KB leaf | status | note |
+|---|---|---|---|---|
+| 1-45 (preamble + objectivebox) | Appendix 12A preamble / objectivebox | (none — routing text only) | tex-only | Frames the appendix as occupying 'the boundary' between AVE's constructive proofs and Clay-rigorous formal math; explicitly disclaims Clay submission (TeX:6-9). No KB leaf twin; this is original appendix-level scoping p… |
+| 43-207 | Osterwalder-Schrader Verification for Yang--Mills (OS1-OS5 + Reconstruction App… | yang-mills-steps1-2.md, yang-mills-steps3-5.md | tex-only | No verbatim/near-verbatim KB twin — this is new functional-analytic machinery (Schwinger functions, transfer-matrix positivity, OS axioms) layered on top of the two Ch.12 leaves' lattice-Hamiltonian/mass-gap/confinement… |
+| 209-290 | Sobolev H^1 Bound for Navier-Stokes | navier-stokes-prize.md | tex-only | The H^1-bound proof (steps 1-3, TeX:243-262) is a rigorous restatement of the leaf's discrete-Laplacian-bound argument at higher formal polish, but the leaf itself has no H^1-Sobolev-norm framing — this is new content. … |
+| 292-382 | Riemann Hypothesis: Spectral Boundary and Functional Equation | riemann-hypothesis.md | tex-only | New content: derives the completed-zeta functional equation from an ABCD two-port reciprocity argument (TeX:299-330) not present in the leaf (whose functional-equation step, :88-96, cites Axiom-2 reciprocity directly wi… |
+| 384-435 | Formalization Gap Summary (Table tab:clay_gap_summary) | Poincare rows within this slice | tex-only | Consolidated summary table with no direct KB leaf twin (a table format doesn't exist in any assigned leaf). Cross-checked the YM/NS/Riemann rows against clm-q5izb7/clm-c8q0z5/clm-knveh6's 'framework-conditional, not Cla… |
+| 437-453 | Verification (script pointer + correlation-length cross-ref) | (none) | tex-only | Points to src/scripts/vol_2_subatomic/simulate_millennium_proofs.py and to Appendix~derived_topological_numerology for the OS5 correlation length xi. This appendix (derived_topological_numerology) is outside this slice'… |
+
+KB-only leaves (no print twin):
+- `index.md` — Assigned for context (clm-e1pdfd) but has no counterpart in this slice's TeX file (12_appendix_formal_proofs.tex covers Appendix 12A: Formal Mathematical Proof Objects — OS verification / Sobolev / R…
 
 ### appx-front — **NO READ (slice did not return)**
 
@@ -492,38 +522,38 @@ Kinds: WB-LAG (KB walked back, print still asserts) · CONTRA · STALE-KB (print
 
 | # | slice | sev | kind | print site | KB site | verdict | disclosed | known in | proposed action |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | ch01-A | HIGH | WB-LAG | `01_topological_matter.tex:35` | `newtonian-inertia-as-lenz.md:14` | **UNVERIFIED** | no |  | Print-side propagation of the 2026-06-20 Grant-ratified mass-sector re-scope: the stored inductive energy is the T2/Cosserat FLYWHEEL (frequency regulation); the rest-mass STORE is the orthogonal A1 … |
-| 2 | ch01-A | MEDIUM | WB-LAG | `01_topological_matter.tex:8` | `newtonian-inertia-as-lenz.md:14` | **UNVERIFIED** | no |  | Same 2026-06-20 re-scope, chapter-objective echo site. Fix in lockstep with M1 (the objective promises mass-from-inductance as the chapter's learning outcome). |
-| 3 | ch01-A | HIGH | WB-LAG | `01_topological_matter.tex:207` | `index.md:13` | **UNVERIFIED** | no |  | Print asserts the superseded closed-loop neutrino topology in the ch01 regime table with no local marker. The 2026-05-06 corrigendum IS printed — but at 03:13, two chapters away, and it does not name… |
-| 4 | ch01-A | MEDIUM | KB-INTERNAL | `01_topological_matter.tex:207` | `regime-classification.md:15` | **UNVERIFIED** | no |  | Adjudicated per slice-instruction (a): regime-classification.md is a LEAF (kind: leaf, clm-ou2jym) and it carries the superseded closed-loop neutrino framing UNBANNERED, while the ch03 corrigendum (2… |
-| 5 | ch01-A | MEDIUM | STALE-KB | `01_topological_matter.tex:209` | `regime-classification.md:17` | **UNVERIFIED** | no |  | Leaf lags print: print carries the real-space/phase-space correction (INVARIANT-N1: proton body = $6^3_2$ Borromean; $(2,5)$ is the phase-space portrait) that the leaf's 'Cinquefoil' Topology cell st… |
-| 6 | ch01-A | MEDIUM | WB-LAG | `01_topological_matter.tex:242` | `chirality-and-antimatter.md:10` | **UNVERIFIED** | no | 2026-09-06 scan S4a candidate site 01:242 | The leaf's own opening sentence was RELABELLED by the Grant 2026-07-09 R1 adjudication (canonical charge-sign = Beltrami helicity → $e^-$ = LH); the printed twin is the un-relabelled prior wording. N… |
-| 7 | ch01-A | MEDIUM | CONTRA | `01_topological_matter.tex:248` | `chirality-and-antimatter.md:18` | **UNVERIFIED** | no |  | Same sentence, one word apart: print calls the electron a 'Hopfion' (non-trivial real-space Hopf charge) where the leaf says '$0_1$ unknot'. The leaf twin was corrected; print was not. mathematical-t… |
-| 8 | ch01-A | HIGH | WB-LAG | `01_topological_matter.tex:259` | `electron-identification.md:64` | **UNVERIFIED** | no |  | Print figure caption sells the free-precursor formation route as established ('establishing the physical derivation of confined point-particles'), which the KB grades closed-negative / leans-falsifie… |
-| 9 | ch01-A | LOW | DEAD-ANCHOR | `01_topological_matter.tex:79` | `electron-identification.md:92` | **UNVERIFIED** | no |  | KB-side dead anchor: translation-circuit.md:637 no longer carries the quoted content (line 637 at HEAD reads 'The substrate's **cold-lattice ideal state** is the limit:'). Verified true location at H… |
-| 10 | ch01-A | LOW | DEAD-ANCHOR | `01_topological_matter.tex:55` | `translation-circuit.md:839` | **UNVERIFIED** | no |  | The 2026-08-02 comment block's own cite-repair (':637 → :767') has itself gone stale; the line is :839 at HEAD. Non-printed (% comment), so zero PDF impact — but it is the third recorded drift of thi… |
-| 11 | ch01-A | MEDIUM | WB-LAG (leaf scope-note undated) | `01_topological_matter.tex:239` | `torus-knot-ladder.md:21` | **UNVERIFIED** | no | 2026-09-06 scan S4a listed 01:218 and 01:237 in t… | Print carries the ladder's other three fences (dimensionless $r_{opt}$, $S=0$ $N/\Delta$ scope flag, cold-vs-thermal convention) but not the leaf's imported-assignment note; combined with 'zero empir… |
-| 12 | ch01-A | LOW | UNIT-LABEL LAG (disclosed in print) | `01_topological_matter.tex:227` | `torus-knot-ladder.md:10` | **UNVERIFIED** | yes | 2026-09-06 scan S4a candidates 01:218 / 01:237 | Leaf stripped the $\ell_{node}$ units from every cell and calls them 'spurious'; print keeps them in all six cells and neutralises them with an inline clause (01:218) plus a dagger footnote (01:237) … |
-| 13 | ch01-A | LOW | WB-LAG | `01_topological_matter.tex:40` | `electron-unknot.md:13` | **UNVERIFIED** | no |  | The leaf pins a dated 2026-06-24 reading-scope on this exact clause; print has none. Graded LOW because print's own wording already attributes the trapping to the closed topological loop (the SURVIVI… |
-| 14 | ch01-A | MEDIUM | WB-LAG (undated leaf demotion) | `01_topological_matter.tex:244` | `chirality-and-antimatter.md:28` | **UNVERIFIED** | no |  | The leaf and clm-hb2xmj both grade the annihilation section asserted-mechanism / peer-not-chord at solidity 0.30 ('do not build on'); print states the resolution flatly and prints the 1.022 MeV resul… |
+| 1 | ch01-A | HIGH | WB-LAG | `01_topological_matter.tex:35` | `newtonian-inertia-as-lenz.md:14` | **CONFIRMED** | no |  | Print-side propagation of the 2026-06-20 Grant-ratified mass-sector re-scope: the stored inductive energy is the T2/Cosserat FLYWHEEL (frequency regulation); the rest-mass STORE is the orthogonal A1 … |
+| 2 | ch01-A | MEDIUM | WB-LAG | `01_topological_matter.tex:8` | `newtonian-inertia-as-lenz.md:14` | **CONFIRMED** | no |  | Same 2026-06-20 re-scope, chapter-objective echo site. Fix in lockstep with M1 (the objective promises mass-from-inductance as the chapter's learning outcome). |
+| 3 | ch01-A | HIGH | WB-LAG | `01_topological_matter.tex:207` | `index.md:13` | **DOWNGRADED** | no |  | Print asserts the superseded closed-loop neutrino topology in the ch01 regime table with no local marker. The 2026-05-06 corrigendum IS printed — but at 03:13, two chapters away, and it does not name… |
+| 4 | ch01-A | MEDIUM | KB-INTERNAL | `01_topological_matter.tex:207` | `regime-classification.md:15` | **DOWNGRADED** | no |  | Adjudicated per slice-instruction (a): regime-classification.md is a LEAF (kind: leaf, clm-ou2jym) and it carries the superseded closed-loop neutrino framing UNBANNERED, while the ch03 corrigendum (2… |
+| 5 | ch01-A | MEDIUM | STALE-KB | `01_topological_matter.tex:209` | `regime-classification.md:17` | **DOWNGRADED** | no |  | Leaf lags print: print carries the real-space/phase-space correction (INVARIANT-N1: proton body = $6^3_2$ Borromean; $(2,5)$ is the phase-space portrait) that the leaf's 'Cinquefoil' Topology cell st… |
+| 6 | ch01-A | MEDIUM | WB-LAG | `01_topological_matter.tex:242` | `chirality-and-antimatter.md:10` | **CONFIRMED** | no | 2026-09-06 scan S4a candidate site 01:242 | The leaf's own opening sentence was RELABELLED by the Grant 2026-07-09 R1 adjudication (canonical charge-sign = Beltrami helicity → $e^-$ = LH); the printed twin is the un-relabelled prior wording. N… |
+| 7 | ch01-A | MEDIUM | CONTRA | `01_topological_matter.tex:248` | `chirality-and-antimatter.md:18` | **CONFIRMED** | no |  | Same sentence, one word apart: print calls the electron a 'Hopfion' (non-trivial real-space Hopf charge) where the leaf says '$0_1$ unknot'. The leaf twin was corrected; print was not. mathematical-t… |
+| 8 | ch01-A | HIGH | WB-LAG | `01_topological_matter.tex:259` | `electron-identification.md:64` | **CONFIRMED** | no |  | Print figure caption sells the free-precursor formation route as established ('establishing the physical derivation of confined point-particles'), which the KB grades closed-negative / leans-falsifie… |
+| 9 | ch01-A | LOW | DEAD-ANCHOR | `01_topological_matter.tex:79` | `electron-identification.md:92` | **CONFIRMED** | no |  | KB-side dead anchor: translation-circuit.md:637 no longer carries the quoted content (line 637 at HEAD reads 'The substrate's **cold-lattice ideal state** is the limit:'). Verified true location at H… |
+| 10 | ch01-A | LOW | DEAD-ANCHOR | `01_topological_matter.tex:55` | `translation-circuit.md:839` | **CONFIRMED** | no |  | The 2026-08-02 comment block's own cite-repair (':637 → :767') has itself gone stale; the line is :839 at HEAD. Non-printed (% comment), so zero PDF impact — but it is the third recorded drift of thi… |
+| 11 | ch01-A | MEDIUM | WB-LAG (leaf scope-note undated) | `01_topological_matter.tex:239` | `torus-knot-ladder.md:21` | **CONFIRMED** | no | 2026-09-06 scan S4a listed 01:218 and 01:237 in t… | Print carries the ladder's other three fences (dimensionless $r_{opt}$, $S=0$ $N/\Delta$ scope flag, cold-vs-thermal convention) but not the leaf's imported-assignment note; combined with 'zero empir… |
+| 12 | ch01-A | LOW | UNIT-LABEL LAG (disclosed in print) | `01_topological_matter.tex:227` | `torus-knot-ladder.md:10` | **DOWNGRADED** | yes | 2026-09-06 scan S4a candidates 01:218 / 01:237 | Leaf stripped the $\ell_{node}$ units from every cell and calls them 'spurious'; print keeps them in all six cells and neutralises them with an inline clause (01:218) plus a dagger footnote (01:237) … |
+| 13 | ch01-A | LOW | WB-LAG | `01_topological_matter.tex:40` | `electron-unknot.md:13` | **CONFIRMED** | no |  | The leaf pins a dated 2026-06-24 reading-scope on this exact clause; print has none. Graded LOW because print's own wording already attributes the trapping to the closed topological loop (the SURVIVI… |
+| 14 | ch01-A | MEDIUM | WB-LAG (undated leaf demotion) | `01_topological_matter.tex:244` | `chirality-and-antimatter.md:28` | **DOWNGRADED** | no |  | The leaf and clm-hb2xmj both grade the annihilation section asserted-mechanism / peer-not-chord at solidity 0.30 ('do not build on'); print states the resolution flatly and prints the 1.022 MeV resul… |
 | 15 | ch01-A | LOW | KB-INTERNAL (acknowledged OPEN fork — flag, do not adjudica… | `01_topological_matter.tex:147` | `electron-unknot.md:59` | **UNVERIFIED** | yes | ch01 index.md:44 names it: 'the **tube-geometry f… | electron-unknot.md:13 (tube radius $l_{node}/(2\pi)$) vs :59 (tube diameter $\equiv 1\,l_{node}$) differ by $\approx10\times$; PRINT carries BOTH sides verbatim at 01:40 and 01:147 with no flag. The … |
-| 16 | ch01-A | LOW | WB-LAG (undated leaf scope note) | `01_topological_matter.tex:16` | `mathematical-topology-of-mass.md:20` | **UNVERIFIED** | no |  | Leaf tags the functional peer-with-standard / adopted ansatz (matching clm-oygz1i's non-claim: 'a **chosen ansatz** ... The leaf does not derive the Skyrme term independently from Axioms 1-4'); print… |
-| 17 | ch01-B | MEDIUM | WB-LAG | `01_topological_matter.tex:110` | `electron-unknot-cosserat-seeder.md:113` | **CONFIRMED** | no |  | Print (01:107-111) cites the v14 breathing-soliton engine receipt flatly as the current Engine implementation witness for M, Q, J. The KB leaf demoted exactly that receipt on 2026-08-11 (R40 batch-2a… |
-| 18 | ch01-B | MEDIUM | CONTRA | `01_topological_matter.tex:120` | `electron-bound-resonator-coverage.md:186` | **CONFIRMED** | no |  | Print says the examplebox algebra is 'proving' the reduced Compton wavelength IS the unknot circumference; the same identity is graded definitional/circular by the KB (leaf gate D.1 at :186, OPEN, cl… |
-| 19 | ch01-B | LOW | DEAD-ANCHOR | `01_topological_matter.tex:55` | `translation-circuit.md:839` | **UNVERIFIED** | no |  | The 2026-08-02 de-claim comment repaired the anchor :637 -> :767; at HEAD the quoted string lives at translation-circuit.md:839 (lines 765-769 carry the delta_strain thermal chain, unrelated). Repair… |
-| 20 | ch01-B | LOW | DEAD-ANCHOR | `01_topological_matter.tex:56` | `substrate-perspective-electron.md:11` | **DOWNGRADED** | no | TeX 01:55-56 % comment (2026-08-02 de-claim note)… | The 2026-06-21 Rule-12 g=2 banner at substrate-perspective-electron.md:11 cites translation-circuit.md:637; the quoted content is at :839 at HEAD. Repair 637 -> 839. Pure line-number repair; banner t… |
-| 21 | ch01-B | LOW | DEAD-ANCHOR | `01_topological_matter.tex:56` | `substrate-perspective-electron.md:227` | **CONFIRMED** | no | same 2026-08-02 TeX comment as M4 | Second :637 cite in the same leaf (§3 Magnetic moment generation, inline Rule-12 note). Repair 637 -> 839. Pure line-number repair. |
-| 22 | ch01-B | LOW | DEAD-ANCHOR | `01_topological_matter.tex:56` | `electron-bound-resonator-coverage.md:56` | **DOWNGRADED** | no | same 2026-08-02 TeX comment as M4 | Third :637 cite in the slice (the g=2 coverage row's Rule-12 re-scope). Repair 637 -> 839. Pure line-number repair. |
-| 23 | ch01-B | MEDIUM | KB-INTERNAL | `01_topological_matter.tex:167` | `l3-electron-soliton-synthesis.md:108` | **REFUTED** | no |  | Two vol2/ch01 leaves disagree, unbannered on the l3 side. l3:108 states 'The macro two-threshold dialectic collapses to a SINGLE threshold at engine subatomic scale' (v_yield = V_SNAP), and l3:106 st… |
-| 24 | ch01-B | LOW | CONTRA | `01_topological_matter.tex:230` | `l3-electron-soliton-synthesis.md:37` | **DOWNGRADED** | no |  | The l3 family table grades every q>=9 member 'unstable' with no named particle; print tabulates named assignments at q=9/11/13 (Delta(1600), Delta(1900), N(2190), 01:230-232, dated-aligned 2026-06-19… |
+| 16 | ch01-A | LOW | WB-LAG (undated leaf scope note) | `01_topological_matter.tex:16` | `mathematical-topology-of-mass.md:20` | **DOWNGRADED** | no |  | Leaf tags the functional peer-with-standard / adopted ansatz (matching clm-oygz1i's non-claim: 'a **chosen ansatz** ... The leaf does not derive the Skyrme term independently from Axioms 1-4'); print… |
+| 17 | ch01-B | MEDIUM | WB-LAG | `01_topological_matter.tex:110` | `electron-unknot-cosserat-seeder.md:113` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no |  | Print (01:107-111) cites the v14 breathing-soliton engine receipt flatly as the current Engine implementation witness for M, Q, J. The KB leaf demoted exactly that receipt on 2026-08-11 (R40 batch-2a… |
+| 18 | ch01-B | MEDIUM | CONTRA | `01_topological_matter.tex:120` | `electron-bound-resonator-coverage.md:186` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no |  | Print says the examplebox algebra is 'proving' the reduced Compton wavelength IS the unknot circumference; the same identity is graded definitional/circular by the KB (leaf gate D.1 at :186, OPEN, cl… |
+| 19 | ch01-B | LOW | DEAD-ANCHOR | `01_topological_matter.tex:55` | `translation-circuit.md:839` | **UNVERIFIED (id shared by 6 slices; verdicts not attributable)** | no |  | The 2026-08-02 de-claim comment repaired the anchor :637 -> :767; at HEAD the quoted string lives at translation-circuit.md:839 (lines 765-769 carry the delta_strain thermal chain, unrelated). Repair… |
+| 20 | ch01-B | LOW | DEAD-ANCHOR | `01_topological_matter.tex:56` | `substrate-perspective-electron.md:11` | **UNVERIFIED (id shared by 5 slices; verdicts not attributable)** | no | TeX 01:55-56 % comment (2026-08-02 de-claim note)… | The 2026-06-21 Rule-12 g=2 banner at substrate-perspective-electron.md:11 cites translation-circuit.md:637; the quoted content is at :839 at HEAD. Repair 637 -> 839. Pure line-number repair; banner t… |
+| 21 | ch01-B | LOW | DEAD-ANCHOR | `01_topological_matter.tex:56` | `substrate-perspective-electron.md:227` | **UNVERIFIED (id shared by 4 slices; verdicts not attributable)** | no | same 2026-08-02 TeX comment as M4 | Second :637 cite in the same leaf (§3 Magnetic moment generation, inline Rule-12 note). Repair 637 -> 839. Pure line-number repair. |
+| 22 | ch01-B | LOW | DEAD-ANCHOR | `01_topological_matter.tex:56` | `electron-bound-resonator-coverage.md:56` | **UNVERIFIED (id shared by 4 slices; verdicts not attributable)** | no | same 2026-08-02 TeX comment as M4 | Third :637 cite in the slice (the g=2 coverage row's Rule-12 re-scope). Repair 637 -> 839. Pure line-number repair. |
+| 23 | ch01-B | MEDIUM | KB-INTERNAL | `01_topological_matter.tex:167` | `l3-electron-soliton-synthesis.md:108` | **UNVERIFIED (id shared by 4 slices; verdicts not attributable)** | no |  | Two vol2/ch01 leaves disagree, unbannered on the l3 side. l3:108 states 'The macro two-threshold dialectic collapses to a SINGLE threshold at engine subatomic scale' (v_yield = V_SNAP), and l3:106 st… |
+| 24 | ch01-B | LOW | CONTRA | `01_topological_matter.tex:230` | `l3-electron-soliton-synthesis.md:37` | **UNVERIFIED (id shared by 3 slices; verdicts not attributable)** | no |  | The l3 family table grades every q>=9 member 'unstable' with no named particle; print tabulates named assignments at q=9/11/13 (Delta(1600), Delta(1900), N(2190), 01:230-232, dated-aligned 2026-06-19… |
 | 25 | ch01-B | LOW | CONTRA | `01_topological_matter.tex:242` | `pair-production-axiom-derivation.md:27` | **UNVERIFIED** | yes |  | Print calls e- a RIGHT-handed unknot; the leaf's canonical charge-sign is e- = LH Beltrami. This is DISCLOSED, not debt: pair-production-axiom-derivation.md:138 records the dated reconciliation — 'it… |
 | 26 | ch01-B | MEDIUM | KB-INTERNAL | `(no TeX twin — KB-internal, both leaves are kb-only):0` | `electron-unknot-cosserat-seeder.md:120` | **UNVERIFIED** | no |  | The seeder leaf offers, unbannered, a route by which the engine would reach the canonical alpha^-1 Q-factor ('require amplitude tuning to reach canonical Q-factor ... a self-consistent ground-state s… |
-| 27 | ch01-C | HIGH | WB-LAG | `01_topological_matter.tex:35` | `newtonian-inertia-as-lenz.md:14` | **UNVERIFIED** | no |  | Print-side propagation of the 2026-06-20 Grant-ratified mass-sector ruling into Vol 2 Ch 1 §'Newtonian Inertia as Macroscopic Lenz's Law': a dated printed note stating the stored inductive energy is … |
-| 28 | ch01-C | MEDIUM | WB-LAG | `01_topological_matter.tex:33` | `newtonian-inertia-as-lenz.md:14` | **UNVERIFIED** | no |  | Same print note as M1 covers this line — the banner quotes this very mapping by name. No separate edit needed if M1's note is placed at the section head rather than after :35. |
-| 29 | ch01-C | MEDIUM | WB-LAG | `01_topological_matter.tex:266` | `newtonian-inertia-as-lenz.md:14` | **UNVERIFIED** | no |  | Chapter-summary bullet re-asserts the superseded store-identification after the section it summarises; needs the same A1-store / T2-flywheel split once M1 is ruled. Bundle with M1. |
-| 30 | ch01-C | MEDIUM | WB-LAG | `01_topological_matter.tex:8` | `newtonian-inertia-as-lenz.md:14` | **UNVERIFIED** | no |  | Objective-box bullet states the superseded store-identification as a chapter learning objective. Re-word to the flywheel / A1-depression split once M1 is ruled. Bundle with M1. |
-| 31 | ch01-C | MEDIUM | WB-LAG | `01_topological_matter.tex:148` | `common-mode-twist-ledger.md:235` | **UNVERIFIED** | no |  | Print carries BOTH halves of a fork the KB has dated and routed: 01:40 prints the electron-unknot.md:13 geometry ('The unknot has circumference $\ell_{node}$ and tube radius $\ell_{node}/(2\pi)$') an… |
-| 32 | ch01-C | MEDIUM | WB-LAG | `01_topological_matter.tex:40` | `spin-gyroscopic-isomorphism.md:45` | **UNVERIFIED** | no |  | The leaf carves 'macroscopic' explicitly as a term of art (leaf :15 — classical / deterministic-extended, a ~ℓ_node-scale circulation loop, NOT human-scale) and states the core is subatomic, not macr… |
+| 27 | ch01-C | HIGH | WB-LAG | `01_topological_matter.tex:35` | `newtonian-inertia-as-lenz.md:14` | **CONFIRMED** | no |  | Print-side propagation of the 2026-06-20 Grant-ratified mass-sector ruling into Vol 2 Ch 1 §'Newtonian Inertia as Macroscopic Lenz's Law': a dated printed note stating the stored inductive energy is … |
+| 28 | ch01-C | MEDIUM | WB-LAG | `01_topological_matter.tex:33` | `newtonian-inertia-as-lenz.md:14` | **CONFIRMED** | no |  | Same print note as M1 covers this line — the banner quotes this very mapping by name. No separate edit needed if M1's note is placed at the section head rather than after :35. |
+| 29 | ch01-C | MEDIUM | WB-LAG | `01_topological_matter.tex:266` | `newtonian-inertia-as-lenz.md:14` | **CONFIRMED** | no |  | Chapter-summary bullet re-asserts the superseded store-identification after the section it summarises; needs the same A1-store / T2-flywheel split once M1 is ruled. Bundle with M1. |
+| 30 | ch01-C | MEDIUM | WB-LAG | `01_topological_matter.tex:8` | `newtonian-inertia-as-lenz.md:14` | **CONFIRMED** | no |  | Objective-box bullet states the superseded store-identification as a chapter learning objective. Re-word to the flywheel / A1-depression split once M1 is ruled. Bundle with M1. |
+| 31 | ch01-C | MEDIUM | WB-LAG | `01_topological_matter.tex:148` | `common-mode-twist-ledger.md:235` | **DOWNGRADED** | no |  | Print carries BOTH halves of a fork the KB has dated and routed: 01:40 prints the electron-unknot.md:13 geometry ('The unknot has circumference $\ell_{node}$ and tube radius $\ell_{node}/(2\pi)$') an… |
+| 32 | ch01-C | MEDIUM | WB-LAG | `01_topological_matter.tex:40` | `spin-gyroscopic-isomorphism.md:45` | **DOWNGRADED** | no |  | The leaf carves 'macroscopic' explicitly as a term of art (leaf :15 — classical / deterministic-extended, a ~ℓ_node-scale circulation loop, NOT human-scale) and states the core is subatomic, not macr… |
 | 33 | ch02 | MEDIUM | WB-LAG | `02_baryon_sector.tex:319` | `topological-fractionalization.md:60` | **UNVERIFIED** | no |  | Leaf carries a dated 2026-08-23 surface note (Grant rulings (a)+(b), docket 2026-08-23-theta-fork-ruling; :50-76) that (1) the theta here is the J-dressing, not a vacuum angle -- 'trapped vacuum' at … |
 | 34 | ch02 | MEDIUM | CONTRA | `02_baryon_sector.tex:131` | `torus-knot-ladder-baryons.md:29` | **UNVERIFIED** | no |  | The printed 'maximum error ~2.4%' is the pre-2026-07-02 column maximum (old c=15 row). After the ADJUDICATED PDG-2024 anchor driver (print :309, Grant 2026-07-02) the print's own table :296 shows +4.… |
 | 35 | ch02 | MEDIUM | CONTRA | `02_baryon_sector.tex:297` | `torus-knot-ladder-baryons.md:30` | **UNVERIFIED** | no |  | Print :309 states the 2026-07-02 canonical-driver update was applied to c=9,11,13 only; the c=15 row was left at the older PDG value (2420, +2.40%) while the leaf's driver-run row reads 2400 ± 100, +… |
@@ -540,14 +570,14 @@ Kinds: WB-LAG (KB walked back, print still asserts) · CONTRA · STALE-KB (print
 | 46 | ch02 | LOW | CONTRA | `02_baryon_sector.tex:466` | `claim-quality.md:789` | **UNVERIFIED** | yes | 02:465 2026-06-15 KB-reconciliation (vol_2 brief … | Residual strength word only: the printed bullet continues 'by algebraic substitution (given the value-fitted $G$ input)', so the 2026-06-15 correction is printed inline; the leaf twin (proton-neutron… |
 | 47 | ch02 | LOW | DEAD-ANCHOR | `02_baryon_sector.tex:126` | `thermal-softening.md:25` | **UNVERIFIED** | no | scan S4a 02:120/02:126 (leaf newer; 'added: REFUT… | Off-by-one KB anchors: at HEAD the thesaurus heading '### Hill — three distinct objects' is :224 and the VRH-average row ('Not a theorem and not a bound') is :228; the hazard note is :232. Print :120… |
 | 48 | ch02 | LOW | KB-INTERNAL | `02_baryon_sector.tex:238` | `self-consistent-mass-oscillator.md:30` | **UNVERIFIED** | no |  | Print :238 and its verbatim leaf twin :30 both say the packing limit p_c ~0.1834 is 'derived in Chapter 2' -- this IS Vol 2 Ch 2, which does not derive p_c; proton-identification.md:70 attributes it … |
-| 49 | ch03 | MEDIUM | WB-LAG | `03_neutrino_sector.tex:227` | `delta-cp-violation.md:22` | **CONFIRMED** | no |  | Reword TeX 03:227 item 1 to match the leaf's corrected physical description ('half-period of the propagating Cosserat coil', not '0_1 unknot phase winding'), consistent with the chapter's own 2026-05… |
-| 50 | ch03 | HIGH | WB-LAG | `03_neutrino_sector.tex:272` | `index.md:13` | **CONFIRMED** | no |  | Rewrite Chapter Summary bullet 1 to state the canonical screw-dislocation / open-helix framing (as the objectivebox at line 7 and the corrigendum at line 13 of the SAME chapter already do), dropping … |
-| 51 | ch03 | LOW | WB-LAG | `03_neutrino_sector.tex:274` | `index.md:13` | **UNVERIFIED** | no |  | Same block as M2 (Chapter Summary bullet 3); drop '$0_1$' label for the mass eigenstates when M2 is fixed. |
-| 52 | ch03 | HIGH | WB-LAG | `03_neutrino_sector.tex:159` | `chiral-screening.md:35` | **DOWNGRADED** | no |  | Add a print-visible caveat at TeX 03:149-159 (resultbox + note) reflecting the 2026-08-24 carve: leg 1 (transfer-capacity chain) is derived-modulo-premise, but leg 2 (connectivity=trefoil crossing nu… |
-| 53 | ch03 | MEDIUM | WB-LAG | `03_neutrino_sector.tex:250` | `delta-cp-violation.md:38` | **CONFIRMED** | no |  | Qualify TeX 03:250's 'derive from three inputs / no curve fitting' framing per the leaf's 2026-05-17 Foundation-Item-13 scope correction: c_1=5 (hence c_1*c_3=45, hence sin^2(theta13)) is chosen-not-… |
-| 54 | ch03 | MEDIUM | WB-LAG | `01_topological_matter.tex:207` | `index.md:13` | **DOWNGRADED** | no |  | Update the ch01 regime-classification table's Neutrino row Topology column from 'Twisted unknot' to the canonical 'Open helix (screw dislocation)' per the ch03 corrigendum, which explicitly anticipat… |
-| 55 | ch03 | HIGH | WB-LAG | `00_title.tex:14` | `index.md:13` | **REFUTED** | no |  | Update the Volume II front-matter abstract (most reader-visible text in the volume) from 'neutrinos as dispersive twisted 0_1 unknots, bound by the Faddeev-Skyrme energy functional' to reflect the ca… |
-| 56 | ch03 | LOW | STALE-KB | `03_neutrino_sector.tex:122` | `claim-quality.md:251` | **DOWNGRADED** | yes |  | Trivial label-only sync: update claim-quality.md:251's flavor-splitting bullet from Delta(1620) to Delta(1600) to match the already-disclosed, dated (2026-06-19) TeX correction. Not a leaf (claim-qua… |
+| 49 | ch03 | MEDIUM | WB-LAG | `03_neutrino_sector.tex:227` | `delta-cp-violation.md:22` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no |  | Reword TeX 03:227 item 1 to match the leaf's corrected physical description ('half-period of the propagating Cosserat coil', not '0_1 unknot phase winding'), consistent with the chapter's own 2026-05… |
+| 50 | ch03 | HIGH | WB-LAG | `03_neutrino_sector.tex:272` | `index.md:13` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no |  | Rewrite Chapter Summary bullet 1 to state the canonical screw-dislocation / open-helix framing (as the objectivebox at line 7 and the corrigendum at line 13 of the SAME chapter already do), dropping … |
+| 51 | ch03 | LOW | WB-LAG | `03_neutrino_sector.tex:274` | `index.md:13` | **UNVERIFIED (id shared by 6 slices; verdicts not attributable)** | no |  | Same block as M2 (Chapter Summary bullet 3); drop '$0_1$' label for the mass eigenstates when M2 is fixed. |
+| 52 | ch03 | HIGH | WB-LAG | `03_neutrino_sector.tex:159` | `chiral-screening.md:35` | **UNVERIFIED (id shared by 5 slices; verdicts not attributable)** | no |  | Add a print-visible caveat at TeX 03:149-159 (resultbox + note) reflecting the 2026-08-24 carve: leg 1 (transfer-capacity chain) is derived-modulo-premise, but leg 2 (connectivity=trefoil crossing nu… |
+| 53 | ch03 | MEDIUM | WB-LAG | `03_neutrino_sector.tex:250` | `delta-cp-violation.md:38` | **UNVERIFIED (id shared by 4 slices; verdicts not attributable)** | no |  | Qualify TeX 03:250's 'derive from three inputs / no curve fitting' framing per the leaf's 2026-05-17 Foundation-Item-13 scope correction: c_1=5 (hence c_1*c_3=45, hence sin^2(theta13)) is chosen-not-… |
+| 54 | ch03 | MEDIUM | WB-LAG | `01_topological_matter.tex:207` | `index.md:13` | **UNVERIFIED (id shared by 4 slices; verdicts not attributable)** | no |  | Update the ch01 regime-classification table's Neutrino row Topology column from 'Twisted unknot' to the canonical 'Open helix (screw dislocation)' per the ch03 corrigendum, which explicitly anticipat… |
+| 55 | ch03 | HIGH | WB-LAG | `00_title.tex:14` | `index.md:13` | **UNVERIFIED (id shared by 4 slices; verdicts not attributable)** | no |  | Update the Volume II front-matter abstract (most reader-visible text in the volume) from 'neutrinos as dispersive twisted 0_1 unknots, bound by the Faddeev-Skyrme energy functional' to reflect the ca… |
+| 56 | ch03 | LOW | STALE-KB | `03_neutrino_sector.tex:122` | `claim-quality.md:251` | **UNVERIFIED (id shared by 3 slices; verdicts not attributable)** | yes |  | Trivial label-only sync: update claim-quality.md:251's flavor-splitting bullet from Delta(1620) to Delta(1600) to match the already-disclosed, dated (2026-06-19) TeX correction. Not a leaf (claim-qua… |
 | 57 | ch04 | LOW | DEAD-ANCHOR (comment-only; not printed) | `04_quantum_spin.tex:81` | `claim-quality.md (clm-salw2h):408` | **CONFIRMED** | no | 2026-09-06 scan S4a 04:111 (file-level 'leaf newe… | Comment-only line-number repair in the % block at TeX:81-88: :407->:408, :408->:409, :409->:410, :410->:411, ':419' (TeX:88 'Claim solidity 0.70 at :419.') -> :420. Verified via git show: the clm-sal… |
 | 58 | ch04 | LOW | DEAD-ANCHOR (KB-side line cite drift) | `04_quantum_spin.tex:111` | `larmor-derivation.md:61` | **CONFIRMED** | no |  | Leaf-side line-number repair: ':407–410' -> ':408–411' and ':419' -> ':420' at larmor-derivation.md:61; the per-item cites '(:407)' at :63, '(:408)' at :64, ':410' at :65 and '(:409)' at :67 each shi… |
 | 59 | ch04 | LOW | DEAD-ANCHOR (KB-side line cite drift) | `04_quantum_spin.tex:111` | `visual-equivalence.md:22` | **CONFIRMED** | no |  | Leaf-side line-number repair at visual-equivalence.md:22: ':407–410' -> ':408–411', ':419' -> ':420', and the inline '(:407)', '(:408)', '(:410)', '(:409)' each +1. Same cause as M1/M2. |
@@ -567,14 +597,14 @@ Kinds: WB-LAG (KB walked back, print still asserts) · CONTRA · STALE-KB (print
 | 73 | ch05 | LOW | WB-LAG (partial; comment-only note body). The status STAMP … | `05_electroweak_gauge_theory.tex:51` | `gauge-boson-masses.md:176` | **UNVERIFIED** | yes | scan S4a 05:51 (leaf newer, added STRUCK/correcte… | Two residuals: (a) the printed pointer 'dated note at the end of this file' dangles in the PDF (comment-only); (b) the TeX comment row list (:227) carries only the :51 def-l0ngdu-family row, while th… |
 | 74 | ch05 | LOW | WB-LAG (KB flag, itself 🔴 DEMOTED 2026-08-11 R40-B1 at the … | `05_electroweak_gauge_theory.tex:33` | `gauge-boson-masses.md:48` | **UNVERIFIED** | no |  | Print never carried the 'mass flow' wording flag (def-uatk1s: u and A are counterpart sector variables, NOT one field). The refutation-threat half of the flag is demoted as void under the R40 carve (… |
 | 75 | ch05 | LOW | KNOWN-RESOLVED (re-check of scan S4a 05:35 and MR board vol… | `05_electroweak_gauge_theory.tex:35` | `gauge-boson-masses.md:34` | **UNVERIFIED** | yes | scan S4a 05:35; MR board vol2 #7 (05:35 [MEDIUM][… | Close both as resolved-and-disclosed: the board's PRINTED sentence 'Because the vacuum substrate is incompressible' survives only in the % comment at TeX:38; TeX:35 and leaf :34 are byte-twins carryi… |
-| 76 | ch06-A | MEDIUM | WB-LAG (claim-quality-sidecar demotion unpropagated to TeX … | `06_electroweak_and_higgs.tex:17` | `claim-quality.md:162` | **CONFIRMED** | no | vol2/claim-quality.md R40 batch-2a demotion note … | Add a Rule-12 dated caveat at TeX 06:17 (and mirror it into higgs-mechanism.md:13) noting the acoustic-relaxation MECHANISM for the 125 GeV resonance is DEMOTED 2026-08-11 (R40-B2a, NEEDS RE-DERIVATI… |
-| 77 | ch06-A | MEDIUM | WB-LAG | `06_electroweak_and_higgs.tex:363` | `chiral-screening.md:35` | **CONFIRMED** | no | MR-board revalidation F8 (06:363-365 Δc_crit prov… | Print at 06:363-365 needs the 2026-08-24 carve's caveat: 'connectivity = trefoil crossing number' is demoted to asserted-pending-derivation and 'connectivity = Cosserat sector count' fails the counte… |
-| 78 | ch06-A | MEDIUM | CONTRA / STALE-KB | `06_electroweak_and_higgs.tex:210` | `lepton-spectrum.md:81` | **UNVERIFIED** | no |  | TeX's own headline W/Z summary table (06:206-211) already reports the SELF-CONSISTENT loop-corrected values (80,224/90,965 MeV, -0.19%/-0.24%, via the K4 Bethe-tree S11 back-saturation derived at 06:… |
-| 79 | ch06-A | MEDIUM | CONTRA | `06_electroweak_and_higgs.tex:321` | `higgs-mass.md:29` | **DOWNGRADED** | no |  | TeX's Bethe-lattice cos(2π/c) eigenvalue derivation (06:283-335) gives ν1=9.58, ν2=19.33, ν3=23.75 meV (sum 52.7 meV) and explicitly states 'Normal hierarchy, m1<m2<m3'. higgs-mass.md's simpler 1/c t… |
-| 80 | ch06-A | LOW | STALE-KB (TeX diagram unpropagated correction) | `06_electroweak_and_higgs.tex:193` | `lepton-spectrum.md:73` | **CONFIRMED** | no |  | TeX's arrow diagram labels BOTH remaining arrows identically as α·p_c, which does not match TeX's own boxed τ formula two lines above (06:186, m_τ = m_e·p_c/α²). lepton-spectrum.md's 'Net-α-power red… |
-| 81 | ch06-A | LOW | DEAD-ANCHOR | `sm-ave-translation.md:10` | `06_electroweak_and_higgs.tex:860` | **DOWNGRADED** | no |  | Update sm-ave-translation.md's cited line number from 305 to 860 (the \input actually sits there at HEAD; line 305 is mid-neutrino Bethe-lattice text, unrelated). Pure line-number repair. |
-| 82 | ch06-A | LOW | KB-INTERNAL (inconsistent disclosure visibility) | `higgs-mechanism.md:54` | `lepton-spectrum.md:29` | **REFUTED** | no |  | The same dated, already-worded Rule-12 open-flag text for the contested √(3/7) label is a VISIBLE rendered blockquote in lepton-spectrum.md:29, but only a HIDDEN HTML comment (invisible on render) at… |
-| 83 | ch06-A | LOW | DEAD-ANCHOR | `06_electroweak_and_higgs.tex:422` | `verify-md-links.py:808` | **DOWNGRADED** | yes | verify-md-links.py WAIVED_KBLEAF adjudication (re… | Already tracked as a known, deliberately-waived dead cite pending a canonical tracked anchor for the four-lemma Goldstone derivation. No action needed beyond what the tooling already does (loud waive… |
+| 76 | ch06-A | MEDIUM | WB-LAG (claim-quality-sidecar demotion unpropagated to TeX … | `06_electroweak_and_higgs.tex:17` | `claim-quality.md:162` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no | vol2/claim-quality.md R40 batch-2a demotion note … | Add a Rule-12 dated caveat at TeX 06:17 (and mirror it into higgs-mechanism.md:13) noting the acoustic-relaxation MECHANISM for the 125 GeV resonance is DEMOTED 2026-08-11 (R40-B2a, NEEDS RE-DERIVATI… |
+| 77 | ch06-A | MEDIUM | WB-LAG | `06_electroweak_and_higgs.tex:363` | `chiral-screening.md:35` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no | MR-board revalidation F8 (06:363-365 Δc_crit prov… | Print at 06:363-365 needs the 2026-08-24 carve's caveat: 'connectivity = trefoil crossing number' is demoted to asserted-pending-derivation and 'connectivity = Cosserat sector count' fails the counte… |
+| 78 | ch06-A | MEDIUM | CONTRA / STALE-KB | `06_electroweak_and_higgs.tex:210` | `lepton-spectrum.md:81` | **UNVERIFIED (id shared by 6 slices; verdicts not attributable)** | no |  | TeX's own headline W/Z summary table (06:206-211) already reports the SELF-CONSISTENT loop-corrected values (80,224/90,965 MeV, -0.19%/-0.24%, via the K4 Bethe-tree S11 back-saturation derived at 06:… |
+| 79 | ch06-A | MEDIUM | CONTRA | `06_electroweak_and_higgs.tex:321` | `higgs-mass.md:29` | **UNVERIFIED (id shared by 5 slices; verdicts not attributable)** | no |  | TeX's Bethe-lattice cos(2π/c) eigenvalue derivation (06:283-335) gives ν1=9.58, ν2=19.33, ν3=23.75 meV (sum 52.7 meV) and explicitly states 'Normal hierarchy, m1<m2<m3'. higgs-mass.md's simpler 1/c t… |
+| 80 | ch06-A | LOW | STALE-KB (TeX diagram unpropagated correction) | `06_electroweak_and_higgs.tex:193` | `lepton-spectrum.md:73` | **UNVERIFIED (id shared by 4 slices; verdicts not attributable)** | no |  | TeX's arrow diagram labels BOTH remaining arrows identically as α·p_c, which does not match TeX's own boxed τ formula two lines above (06:186, m_τ = m_e·p_c/α²). lepton-spectrum.md's 'Net-α-power red… |
+| 81 | ch06-A | LOW | DEAD-ANCHOR | `sm-ave-translation.md:10` | `06_electroweak_and_higgs.tex:860` | **UNVERIFIED (id shared by 4 slices; verdicts not attributable)** | no |  | Update sm-ave-translation.md's cited line number from 305 to 860 (the \input actually sits there at HEAD; line 305 is mid-neutrino Bethe-lattice text, unrelated). Pure line-number repair. |
+| 82 | ch06-A | LOW | KB-INTERNAL (inconsistent disclosure visibility) | `higgs-mechanism.md:54` | `lepton-spectrum.md:29` | **UNVERIFIED (id shared by 4 slices; verdicts not attributable)** | no |  | The same dated, already-worded Rule-12 open-flag text for the contested √(3/7) label is a VISIBLE rendered blockquote in lepton-spectrum.md:29, but only a HIDDEN HTML comment (invisible on render) at… |
+| 83 | ch06-A | LOW | DEAD-ANCHOR | `06_electroweak_and_higgs.tex:422` | `verify-md-links.py:808` | **UNVERIFIED (id shared by 3 slices; verdicts not attributable)** | yes | verify-md-links.py WAIVED_KBLEAF adjudication (re… | Already tracked as a known, deliberately-waived dead cite pending a canonical tracked anchor for the four-lemma Goldstone derivation. No action needed beyond what the tooling already does (loud waive… |
 | 84 | ch06-B | MEDIUM | WB-LAG (DISCLOSED-ONLY-IN-COMMENT; routed-not-ruled) | `06_electroweak_and_higgs.tex:516` | `q-g19a-petermann-saliency-closure.md:179` | **UNVERIFIED** | no | q-g19a F5 block (:166-179, 2026-08-03) explicitly… | comment-only. Every C_2 value printed on 06:516-723 rides the 2/(πα) convention and would halve (-0.3416 -> -0.1708, +4% -> -48%) if Grant resolves the :47/:48 inconsistency the other way; print also… |
 | 85 | ch06-B | MEDIUM | WB-LAG (DISCLOSED-ONLY-IN-COMMENT) | `06_electroweak_and_higgs.tex:575` | `q-g19a-petermann-saliency-closure.md:193` | **UNVERIFIED** | no | TeX % comment 06:523-525 ('tau_retard = 1/omega_C… | comment-only. Print 06:575 asserts τ_retard = 1/ω_C 'set by the unknot geometric scale' and 06:626 reads the τ-peak as 'confirming ... the geometric pinning of the retardation'; the Grant ruling (202… |
 | 86 | ch06-B | LOW | WB-LAG (dated KB scope note absent from print) | `06_electroweak_and_higgs.tex:620` | `q-g19a-petermann-saliency-closure.md:164` | **UNVERIFIED** | no |  | KB :164 (2026-08-03, F3) scopes the 'converges at N_t ≳ 2e5' (06:610) and 'three derivative methods' (06:620) receipts to the Stage-1 4% level and declares them non-probative for the retardation bias… |
@@ -605,147 +635,152 @@ Kinds: WB-LAG (KB walked back, print still asserts) · CONTRA · STALE-KB (print
 | 111 | ch07-B | HIGH | CONTRA | `07_quantum_mechanics_and_orbitals.tex:1446` | `macro-cavity-saturation.md:10` | **UNVERIFIED** | no |  | Print itself is internally inconsistent and my whole assigned slice sits inside the inconsistency. TeX:558 (just before my slice) states the 'Topological N-Port Y-Matrix architecture' (i.e. exactly S… |
 | 112 | ch07-B | HIGH | KB-INTERNAL | `07_quantum_mechanics_and_orbitals.tex:1314` | `index.md:45` | **UNVERIFIED** | no |  | The ch07 index.md itself documents (line 45, in its 'Derivations and Detail' table) that macro-cavity-saturation.md records supersession of the N-port Y-matrix by mutual cavity loading -- yet the SAM… |
 | 113 | ch07-B | LOW | CONTRA | `07_quantum_mechanics_and_orbitals.tex:1965` | `radial-eigenvalue-solver.md:177` | **UNVERIFIED** | no |  | Cosmetic label drift only, no numeric/physics conflict found: the 'Validation' column of the nuclear/atomic/antenna/galactic cross-scale-isomorphism table names the antenna-scale validation 'Chiral A… |
-| 114 | ch07-C | MEDIUM | CONTRA — eq:kappa_hopf: print carries a sign-alternating pa… | `07_quantum_mechanics_and_orbitals.tex:3288` | `radial-eigenvalue-solver.md:731` | **CONFIRMED** | no |  | Route for ruling; not mechanical. Facts for the ruler: git log -L shows TeX 3288 and KB 731 both unchanged since initial release de9d2293 (2026-04-13) — the leaf was never verbatim at this spot. The … |
-| 115 | ch07-C | MEDIUM | CONTRA — 'Hopf link back-EMF' bullet: print (3318-3329) ass… | `07_quantum_mechanics_and_orbitals.tex:3323` | `radial-eigenvalue-solver.md:741` | **CONFIRMED** | no |  | Same ruling as M1 (companion prose to the parity factor). Print's Period-3 claim ('and natively resolves the Period-3 binding' at 3328) has no KB home anywhere in ave-kb (grep 'Inductive Drag' / 'Per… |
-| 116 | ch07-C | MEDIUM | KB-INTERNAL (also print-internal) — E2k (TeX 3200 '(all she… | `07_quantum_mechanics_and_orbitals.tex:3306` | `radial-eigenvalue-solver.md:739` | **UNVERIFIED** | no |  | The correction exists in print (3611) and KB (scale-separation.md:35) as an undated 'Note:' at the OTHER site only; the E2k site still presents same-n CDF screening as the architecture. Candidate for… |
-| 117 | ch07-C | MEDIUM | KB-INTERNAL (also print-internal) — the E2 Summary box (TeX… | `07_quantum_mechanics_and_orbitals.tex:2728` | `dual-formalism-architecture.md:21` | **DOWNGRADED** | no |  | Ruling needed on whether the Y->S half of the Dual-Formalism box is historical (then it needs a dated superseded banner at TeX 2711-2737 and dual-formalism-architecture.md:10) or still standing (then… |
-| 118 | ch07-C | MEDIUM | KB-INTERNAL (also print-internal) — Li IE printed as 5.32 e… | `07_quantum_mechanics_and_orbitals.tex:3136` | `radial-eigenvalue-solver.md:689` | **CONFIRMED** | no | vol2/claim-quality.md clm-oltvwy:348 (derived sid… | Sidecar already instructs 'Treat the ±2.8% headline as the validated solver bound' and lists 'Reconcile the Li per-element residual' as strengthen-by. Leaf-level: a dated cross-note at radial-eigenva… |
-| 119 | ch07-C | LOW | KB-INTERNAL (also print-internal) — Be printed as 8.21 eV /… | `07_quantum_mechanics_and_orbitals.tex:3138` | `radial-eigenvalue-solver.md:690` | **DOWNGRADED** | no | vol2/claim-quality.md clm-oltvwy:347,:364 and clm… | Narrative-stage snapshot: E2k (TeX 3152-3164) immediately calls the E2d-E2j architecture 'the fundamental problem', so the table is partially self-disclosed by narrative, but not by any dated marker.… |
-| 120 | ch07-C | LOW | KB-INTERNAL — three unreconciled He first-IE precisions acr… | `07_quantum_mechanics_and_orbitals.tex:3134` | `radial-eigenvalue-solver.md:688` | **REFUTED** | no |  | The 24.19 vs 24.37 pair are different methods (MCL vs Hopf-link circuit) and may coexist by design; the '0.008%' at chiral-factor.md:28 / TeX 3851 (ch07-D) matches neither and is the outlier to route… |
-| 121 | ch07-D | MEDIUM | STALE-KB | `07_quantum_mechanics_and_orbitals.tex:3529` | `scale-separation.md:49` | **CONFIRMED** | no | MR board vol2 finding 07:3510 (2026-08-02); TeX-s… | Update scale-separation.md:49 to drop the 'confirmed independently ... Axiom 2' wording and replace with the already-ruled 2026-08-02 correction verbatim available in TeX 07:3529-3541: K=2G is GR-imp… |
-| 122 | ch07-D | MEDIUM | WB-LAG | `07_quantum_mechanics_and_orbitals.tex:3496` | `claim-quality.md:393` | **CONFIRMED** | no | claim-quality.md clm-oltvwy (line ~349) and clm-w… | Add a print-visible qualifier to the 'Approach 24: Complete Phase Integral' resultbox (07:3486-3499) noting that corrections A/B/C (hierarchical cascade, SIR, Op10 -- introduced later in this same ch… |
-| 123 | ch07-D | LOW | STALE-KB | `07_quantum_mechanics_and_orbitals.tex:3654` | `subshell-junction-scattering.md:38` | **UNVERIFIED** | no |  | Append the same parenthetical print already carries -- '(form-derived, value GR-imported; not an axiom of this framework)' -- to the bare '($K=2G$)' label in subshell-junction-scattering.md:38, copyi… |
-| 124 | ch07-D | LOW | TEX-INTERNAL-CONTRA (disclosed only in a derived sidecar) | `07_quantum_mechanics_and_orbitals.tex:4027` | `claim-quality.md:349` | **DOWNGRADED** | yes | claim-quality.md clm-oltvwy rationale (Li residua… | No mechanical fix proposed here (adjudicating which Li figure is canonical is a physics/architecture call, flagged in claim-quality as already open); note only that the print-side inconsistency betwe… |
-| 125 | ch09 | MEDIUM | STALE-KB | `09_computational_proof.tex:92` | `anomaly-catalog.md:15` | **CONFIRMED** | no |  | Replace the anomaly-catalog.md muon g-2 bullet with the corrected framing already printed at ch09.tex:85-95 (observed anomaly +245(56)e-11 vs AVE forward-prediction +502e-11 via Q-G27, 4.6-sigma, wal… |
-| 126 | ch09 | MEDIUM | STALE-KB | `09_computational_proof.tex:56` | `computational-graph.md:30` | **CONFIRMED** | no |  | Update the Agreement-column cell of the Verification Summary table in computational-graph.md from 'sub-3 A' to the corrected 'qualitative (see Rule-12 scope note, clm-u4vmgk)' language now printed in… |
-| 127 | ch09 | HIGH | STALE-KB | `09_computational_proof.tex:249` | `methodological-contamination.md:71` | **UNVERIFIED** | no |  | Print carries the dated 2026-08-02 CRIB-1 AXIOM-ATTRIBUTION correction (ch09.tex:236-249, citing ave-kb/common/form-deriving-value-importing.md:87 [verified: K=2G row, GR-IMPORTED] and vol1/claim-qua… |
-| 128 | ch10 | MEDIUM | WB-LAG | `10_open_problems.tex:320` | `g-star-prediction.md:10` | **CONFIRMED** | no |  | Add a footnote or in-line parenthetical to TeX §Testable Prediction (10:316-322, and/or the g_* row of the quantitative-resolutions table at 10:423) carrying the 2026-08-18 Wave-2 D15b provenance rid… |
-| 129 | ch10 | HIGH | STALE-KB (also KB-INTERNAL vs the sibling baryon-asymmetry.… | `10_open_problems.tex:419` | `quantitative-resolutions.md:15` | **CONFIRMED** | no | 2026-06-20 Rule-12 walk-back / auditor FINDING 2 … | Update quantitative-resolutions.md:15 to match the already-corrected wording in baryon-asymmetry.md:70 and TeX:419 — '0.79% (OOM)' / 'Consistency-check' with a footnote citing the 2026-06-20 Rule-12 … |
+| 114 | ch07-C | MEDIUM | CONTRA — eq:kappa_hopf: print carries a sign-alternating pa… | `07_quantum_mechanics_and_orbitals.tex:3288` | `radial-eigenvalue-solver.md:731` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no |  | Route for ruling; not mechanical. Facts for the ruler: git log -L shows TeX 3288 and KB 731 both unchanged since initial release de9d2293 (2026-04-13) — the leaf was never verbatim at this spot. The … |
+| 115 | ch07-C | MEDIUM | CONTRA — 'Hopf link back-EMF' bullet: print (3318-3329) ass… | `07_quantum_mechanics_and_orbitals.tex:3323` | `radial-eigenvalue-solver.md:741` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no |  | Same ruling as M1 (companion prose to the parity factor). Print's Period-3 claim ('and natively resolves the Period-3 binding' at 3328) has no KB home anywhere in ave-kb (grep 'Inductive Drag' / 'Per… |
+| 116 | ch07-C | MEDIUM | KB-INTERNAL (also print-internal) — E2k (TeX 3200 '(all she… | `07_quantum_mechanics_and_orbitals.tex:3306` | `radial-eigenvalue-solver.md:739` | **UNVERIFIED (id shared by 6 slices; verdicts not attributable)** | no |  | The correction exists in print (3611) and KB (scale-separation.md:35) as an undated 'Note:' at the OTHER site only; the E2k site still presents same-n CDF screening as the architecture. Candidate for… |
+| 117 | ch07-C | MEDIUM | KB-INTERNAL (also print-internal) — the E2 Summary box (TeX… | `07_quantum_mechanics_and_orbitals.tex:2728` | `dual-formalism-architecture.md:21` | **UNVERIFIED (id shared by 5 slices; verdicts not attributable)** | no |  | Ruling needed on whether the Y->S half of the Dual-Formalism box is historical (then it needs a dated superseded banner at TeX 2711-2737 and dual-formalism-architecture.md:10) or still standing (then… |
+| 118 | ch07-C | MEDIUM | KB-INTERNAL (also print-internal) — Li IE printed as 5.32 e… | `07_quantum_mechanics_and_orbitals.tex:3136` | `radial-eigenvalue-solver.md:689` | **UNVERIFIED (id shared by 4 slices; verdicts not attributable)** | no | vol2/claim-quality.md clm-oltvwy:348 (derived sid… | Sidecar already instructs 'Treat the ±2.8% headline as the validated solver bound' and lists 'Reconcile the Li per-element residual' as strengthen-by. Leaf-level: a dated cross-note at radial-eigenva… |
+| 119 | ch07-C | LOW | KB-INTERNAL (also print-internal) — Be printed as 8.21 eV /… | `07_quantum_mechanics_and_orbitals.tex:3138` | `radial-eigenvalue-solver.md:690` | **UNVERIFIED (id shared by 4 slices; verdicts not attributable)** | no | vol2/claim-quality.md clm-oltvwy:347,:364 and clm… | Narrative-stage snapshot: E2k (TeX 3152-3164) immediately calls the E2d-E2j architecture 'the fundamental problem', so the table is partially self-disclosed by narrative, but not by any dated marker.… |
+| 120 | ch07-C | LOW | KB-INTERNAL — three unreconciled He first-IE precisions acr… | `07_quantum_mechanics_and_orbitals.tex:3134` | `radial-eigenvalue-solver.md:688` | **UNVERIFIED (id shared by 4 slices; verdicts not attributable)** | no |  | The 24.19 vs 24.37 pair are different methods (MCL vs Hopf-link circuit) and may coexist by design; the '0.008%' at chiral-factor.md:28 / TeX 3851 (ch07-D) matches neither and is the outlier to route… |
+| 121 | ch07-D | MEDIUM | STALE-KB | `07_quantum_mechanics_and_orbitals.tex:3529` | `scale-separation.md:49` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no | MR board vol2 finding 07:3510 (2026-08-02); TeX-s… | Update scale-separation.md:49 to drop the 'confirmed independently ... Axiom 2' wording and replace with the already-ruled 2026-08-02 correction verbatim available in TeX 07:3529-3541: K=2G is GR-imp… |
+| 122 | ch07-D | MEDIUM | WB-LAG | `07_quantum_mechanics_and_orbitals.tex:3496` | `claim-quality.md:393` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no | claim-quality.md clm-oltvwy (line ~349) and clm-w… | Add a print-visible qualifier to the 'Approach 24: Complete Phase Integral' resultbox (07:3486-3499) noting that corrections A/B/C (hierarchical cascade, SIR, Op10 -- introduced later in this same ch… |
+| 123 | ch07-D | LOW | STALE-KB | `07_quantum_mechanics_and_orbitals.tex:3654` | `subshell-junction-scattering.md:38` | **UNVERIFIED (id shared by 6 slices; verdicts not attributable)** | no |  | Append the same parenthetical print already carries -- '(form-derived, value GR-imported; not an axiom of this framework)' -- to the bare '($K=2G$)' label in subshell-junction-scattering.md:38, copyi… |
+| 124 | ch07-D | LOW | TEX-INTERNAL-CONTRA (disclosed only in a derived sidecar) | `07_quantum_mechanics_and_orbitals.tex:4027` | `claim-quality.md:349` | **UNVERIFIED (id shared by 5 slices; verdicts not attributable)** | yes | claim-quality.md clm-oltvwy rationale (Li residua… | No mechanical fix proposed here (adjudicating which Li figure is canonical is a physics/architecture call, flagged in claim-quality as already open); note only that the print-side inconsistency betwe… |
+| 125 | ch09 | MEDIUM | STALE-KB | `09_computational_proof.tex:92` | `anomaly-catalog.md:15` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no |  | Replace the anomaly-catalog.md muon g-2 bullet with the corrected framing already printed at ch09.tex:85-95 (observed anomaly +245(56)e-11 vs AVE forward-prediction +502e-11 via Q-G27, 4.6-sigma, wal… |
+| 126 | ch09 | MEDIUM | STALE-KB | `09_computational_proof.tex:56` | `computational-graph.md:30` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no |  | Update the Agreement-column cell of the Verification Summary table in computational-graph.md from 'sub-3 A' to the corrected 'qualitative (see Rule-12 scope note, clm-u4vmgk)' language now printed in… |
+| 127 | ch09 | HIGH | STALE-KB | `09_computational_proof.tex:249` | `methodological-contamination.md:71` | **UNVERIFIED (id shared by 6 slices; verdicts not attributable)** | no |  | Print carries the dated 2026-08-02 CRIB-1 AXIOM-ATTRIBUTION correction (ch09.tex:236-249, citing ave-kb/common/form-deriving-value-importing.md:87 [verified: K=2G row, GR-IMPORTED] and vol1/claim-qua… |
+| 128 | ch10 | MEDIUM | WB-LAG | `10_open_problems.tex:320` | `g-star-prediction.md:10` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no |  | Add a footnote or in-line parenthetical to TeX §Testable Prediction (10:316-322, and/or the g_* row of the quantitative-resolutions table at 10:423) carrying the 2026-08-18 Wave-2 D15b provenance rid… |
+| 129 | ch10 | HIGH | STALE-KB (also KB-INTERNAL vs the sibling baryon-asymmetry.… | `10_open_problems.tex:419` | `quantitative-resolutions.md:15` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no | 2026-06-20 Rule-12 walk-back / auditor FINDING 2 … | Update quantitative-resolutions.md:15 to match the already-corrected wording in baryon-asymmetry.md:70 and TeX:419 — '0.79% (OOM)' / 'Consistency-check' with a footnote citing the 2026-06-20 Rule-12 … |
 | 130 | ch11 | MEDIUM | CONTRA | `11_standard_model_overdrive.tex:66` | `claim-quality.md:604` | **UNVERIFIED** | no | research/2026-09-06_mr-board-revalidation_RESULT.… | Qualify or remove 'at comparable accuracy' in ch11 line 66. clm-dboxok (vol2/claim-quality.md ~:604) explicitly non-claims a head-to-head accuracy benchmark against Lattice QCD; the printed sentence … |
 | 131 | ch11 | MEDIUM | STALE-KB | `11_standard_model_overdrive.tex:123` | `program-arc-map.md:371` | **UNVERIFIED** | no | research/2026-09-06_mr-board-revalidation_RESULT.… | Do not silently reword — this needs adjudication, not a mechanical edit. Determine whether program-arc-map N13 ('protein impedance-folding' EE-reflection-channel mechanism, cross-repo AVE-Protein lan… |
+| 132 | ch12-mp | MEDIUM | STALE-KB | `12_the_millennium_prizes.tex:112` | `yang-mills-steps1-2.md:30` | **UNVERIFIED** | no |  | Copy the TeX 'Scope note (2026-07-09, #604/#607)' paragraph (12mp:112) verbatim into yang-mills-steps1-2.md immediately after the sentence ending '...eliminating UV divergence.' (leaf line 30), so th… |
+| 133 | ch12-fp | HIGH | CONTRA | `12_appendix_formal_proofs.tex:170` | `yang-mills-steps1-2.md:46` | **UNVERIFIED** | no |  | OS5's 'Correlation Length (Derived Magic Number)' argument (TeX :164-171) asserts the trefoil (crossing number q=3) is 'the lightest stable topological defect,' but yang-mills-steps1-2.md:46 (Step 2,… |
+| 134 | ch12-fp | MEDIUM | CONTRA | `12_appendix_formal_proofs.tex:197` | `yang-mills-steps1-2.md:10` | **UNVERIFIED** | yes |  | The 'Yang--Mills Continuum QFT (Formal Statement)' resultbox (TeX :188-201) states flatly, as an achieved conclusion of applying the OS Reconstruction Theorem, that 'there exists a unique Wightman qu… |
+| 135 | ch12-fp | MEDIUM | CONTRA | `12_appendix_formal_proofs.tex:280` | `navier-stokes-prize.md:10` | **UNVERIFIED** | yes |  | The 'Navier-Stokes Smoothness (Formal Statement)' resultbox (TeX:276-284) asserts a global smooth C^infty((0,infty); H^1(R^3)) solution as an achieved result. The trailing 'Remaining Clay gap' paragr… |
+| 136 | ch12-fp | MEDIUM | CONTRA | `12_appendix_formal_proofs.tex:357` | `riemann-hypothesis.md:10` | **UNVERIFIED** | yes |  | The 'Zero-Free Region, Physical Contrapositive' resultbox (TeX:355-363) states the Riemann Hypothesis's conclusion flatly as a 'Theorem,' with a full physical proof, of exactly the statement Clay is … |
 
 
 #### Fragments + verifier notes
 
-**1. CH01A-M1** (ch01-A, UNVERIFIED)
+**1. CH01A-M1** (ch01-A, CONFIRMED)
 - print `01_topological_matter.tex:35` — `Mass is the stored inductive energy required to maintain the topological integrity of the standing wave.`
 - KB `newtonian-inertia-as-lenz.md:14` — `> **🔴 STORED INDUCTIVE ENERGY = the FLYWHEEL (spin/frequency-regulation), the REST MASS *store* is A1 (2026-06-20, Rule 12 — body above PRESERVED unedited; Grant-ratified mass-sector ruling).**`
-- verifiers: 
+- verifiers: CONFIRMED: Both fragments verified byte-verbatim (tex 01_topological_matter.tex:35, kb newtonian-inertia-as-lenz.md:14). Read tex lines 1-60: no print…
 
-**2. CH01A-M2** (ch01-A, UNVERIFIED)
+**2. CH01A-M2** (ch01-A, CONFIRMED)
 - print `01_topological_matter.tex:8` — `\item Understand how mass emerges macroscopically from the continuous distributed inductance of closed optical loops (Lenz's Law).`
 - KB `newtonian-inertia-as-lenz.md:14` — `the re-scope only re-labels *which sector stores the rest mass* (A1, not the inductive flywheel)`
-- verifiers: 
+- verifiers: CONFIRMED: Both fragments verified byte-verbatim: TeX line 8 ("\item Understand how mass emerges macroscopically from the continuous distributed induc…
 
-**3. CH01A-M3** (ch01-A, UNVERIFIED)
+**3. CH01A-M3** (ch01-A, DOWNGRADED)
 - print `01_topological_matter.tex:207` — `Neutrino ($\nu$)           & Twisted unknot      & I--II boundary & Chiral phase below yield \\`
 - KB `index.md:13` — `The closed-loop framing has been **superseded** by the Cosserat torsional screw-dislocation model`
-- verifiers: 
+- verifiers: DOWNGRADED: Both fragments verify byte-verbatim: tex 01_topological_matter.tex:207 "Neutrino ($\nu$) & Twisted unknot & I--II boundary & Chiral phase b…
 
-**4. CH01A-M4** (ch01-A, UNVERIFIED)
+**4. CH01A-M4** (ch01-A, DOWNGRADED)
 - print `01_topological_matter.tex:207` — `Neutrino ($\nu$)           & Twisted unknot      & I--II boundary & Chiral phase below yield \\`
 - KB `regime-classification.md:15` — `\| Neutrino ($\nu$) \| Twisted unknot \| I--II boundary \| Chiral phase below yield \|`
-- verifiers: 
+- verifiers: DOWNGRADED: Both fragments verify byte-exact: tex 01_topological_matter.tex:207 and KB regime-classification.md:15 both read "Neutrino ($\nu$) ... Twis…
 
-**5. CH01A-M5** (ch01-A, UNVERIFIED)
+**5. CH01A-M5** (ch01-A, DOWNGRADED)
 - print `01_topological_matter.tex:209` — `Proton ($p$)               & $(2,5)$ phase portrait & II (Yield)    & $6^3_2$ Borromean linkage at saturation \\`
 - KB `regime-classification.md:17` — `\| Proton ($p$) \| $(2,5)$ Cinquefoil \| II (Yield) \| Borromean linkage at saturation \|`
-- verifiers: 
+- verifiers: DOWNGRADED: Fragments verified: tex line 209 exact match; KB regime-classification.md line 17 exact match ('\\| Proton ($p$) \\| $(2,5)$ Cinquefoil \\| II…
 
-**6. CH01A-M6** (ch01-A, UNVERIFIED)
+**6. CH01A-M6** (ch01-A, CONFIRMED)
 - print `01_topological_matter.tex:242` — `An electron ($e^-$) is a right-handed unknot; a positron ($e^+$) is physically identical, but wound as a left-handed unknot.`
 - KB `chirality-and-antimatter.md:10` — `the electron ($e^-$) carries **left-handed** Beltrami helicity (the LH content of the confined flux, per [`pair-production-axiom-derivation.md`](pair-production-axiom-derivation.md):27,79); the posit…`
-- verifiers: 
+- verifiers: CONFIRMED: Both fragments verified byte-verbatim: tex:242 exact match (full line quoted, part of the "Chirality and Antimatter Disintegration" section…
 
-**7. CH01A-M7** (ch01-A, UNVERIFIED)
+**7. CH01A-M7** (ch01-A, CONFIRMED)
 - print `01_topological_matter.tex:248` — `previously trapped within the closed LC resonance of the Hopfion, unwinds`
 - KB `chirality-and-antimatter.md:18` — `previously trapped within the closed LC resonance of the $0_1$ unknot, unwinds`
-- verifiers: 
+- verifiers: CONFIRMED: Both fragments verified byte-verbatim: tex 01_topological_matter.tex:248 says "...closed LC resonance of the Hopfion, unwinds"; kb chiralit…
 
-**8. CH01A-M8** (ch01-A, UNVERIFIED)
+**8. CH01A-M8** (ch01-A, CONFIRMED)
 - print `01_topological_matter.tex:259` — `A spatial solver demonstrating how a propagating Transverse EM Wave winds into a stationary Spin-1 helical loop when encountering extreme localised network impedance ($Z \to Z_{crit}$). The discrete …`
 - KB `electron-identification.md:64` — `The genesis / self-lock arc that would *dynamically create* the fluxoid from a free precursor is **closed-negative** (electron-genesis-from-free-precursor leans-falsified; the engine pumps H at $dt\t…`
-- verifiers: 
+- verifiers: CONFIRMED: Both fragments verified byte-verbatim: tex:259 (figure caption, \label{fig:photon_spin_structure}) and kb electron-identification.md:64. No…
 
-**9. CH01A-M9** (ch01-A, UNVERIFIED)
+**9. CH01A-M9** (ch01-A, CONFIRMED)
 - print `01_topological_matter.tex:79` — `\kbleaf{ave-kb/vol2/particle-physics/ch01-topological-matter/electron-identification.md} (the $g=2$`
 - KB `electron-identification.md:92` — `The honest stance is canonical at [`translation-circuit.md`](../../../common/translation-tables/translation-circuit.md):637 ("$g = 2$ is POSITED, not derived").`
-- verifiers: 
+- verifiers: CONFIRMED: Both fragments verified byte-verbatim. TeX line 79 (\kbleaf{...electron-identification.md} (the $g=2$) is confirmed at 01_topological_matte…
 
-**10. CH01A-M10** (ch01-A, UNVERIFIED)
+**10. CH01A-M10** (ch01-A, CONFIRMED)
 - print `01_topological_matter.tex:55` — `%      translation-circuit.md:767 ("**$g = 2$ is POSITED, not derived**"; the sweep's kb_truth`
 - KB `translation-circuit.md:839` — `- **$g = 2$ is POSITED, not derived** (`ave-evidence-framing-discipline`); the anomalous part $a_e = \alpha/2\pi$ is the slip (§10.2/§10.3), but the leading $g=2$ is an input.`
-- verifiers: 
+- verifiers: CONFIRMED: Both fragments verified byte-verbatim: tex line 55 (grep -nF exact match) sits inside the 2026-08-02 %-comment Rule-12 block spanning ~41-5…
 
-**11. CH01A-M11** (ch01-A, UNVERIFIED)
+**11. CH01A-M11** (ch01-A, CONFIRMED)
 - print `01_topological_matter.tex:239` — `All values use $\kappa_{FS} = 8\pi(1 - 1/(14\pi^2))$ from \texttt{ave.core.constants} with zero empirical fits.`
 - KB `torus-knot-ladder.md:21` — `but **which particle occupies each rung** — the "Particle (real-space body)" column — is an **imported identification** (electron ↔ $(2,3)$, proton ↔ $(2,5)$, …), not substrate-forced. The rung STRUC…`
-- verifiers: 
+- verifiers: CONFIRMED: Both fragments verified byte-verbatim: tex fragment at manuscript/vol_2_subatomic/chapters/01_topological_matter.tex:239 (matches exactly, …
 
-**12. CH01A-M12** (ch01-A, UNVERIFIED)
+**12. CH01A-M12** (ch01-A, DOWNGRADED)
 - print `01_topological_matter.tex:227` — `$(2,3)$ trefoil ($3_1$)    & 3  & $8.317\,\ell_{node}$ & SU(2) & Electron ($0_1$ unknot) \\`
 - KB `torus-knot-ladder.md:10` — `so $r_{opt}$ is a **pure number, NOT a length** (the $\ell_{node}$ units previously attached to it were spurious)`
-- verifiers: 
+- verifiers: DOWNGRADED: Both fragments verified byte-verbatim: tex:227 is the exact trefoil table row (grep -nF confirms line 227, not 218/237 as the alreadyKnownI…
 
-**13. CH01A-M13** (ch01-A, UNVERIFIED)
+**13. CH01A-M13** (ch01-A, CONFIRMED)
 - print `01_topological_matter.tex:40` — `feed into each other in a closed topological loop ($\nabla \times \mathbf{A} = k\mathbf{A}$), permanently trapping the energy.`
 - KB `electron-unknot.md:13` — `🔴 *(2026-06-24: "permanently trapping the energy" is **topology-pinned** (the closed Beltrami loop / Ax2 winding) + boundary, NOT a bulk self-focusing well — the bulk self-trap is a Cartesian artifac…`
-- verifiers: 
+- verifiers: CONFIRMED: Both fragments verified byte-verbatim: tex 01_topological_matter.tex:40 carries "...feed into each other in a closed topological loop ($\na…
 
-**14. CH01A-M14** (ch01-A, UNVERIFIED)
+**14. CH01A-M14** (ch01-A, DOWNGRADED)
 - print `01_topological_matter.tex:244` — `The AVE framework resolves this mathematical paradox via \textbf{Optical Phase Cancellation}.`
 - KB `chirality-and-antimatter.md:28` — `> **Tag (peer, not chord).** The observable $2\gamma$ at $2 m_e c^2 = 1.022$ MeV is the **standard-QED result** — AVE claims **no** distinct cross-section, branching ratio, or kinematic distribution …`
-- verifiers: 
+- verifiers: DOWNGRADED: Both fragments verified byte-verbatim: tex fragment at actual line 246 (claimed 244, off by 2) in manuscript/vol_2_subatomic/chapters/01_to…
 
 **15. CH01A-M15** (ch01-A, UNVERIFIED)
 - print `01_topological_matter.tex:147` — `The minimum discrete diameter of the flux tube is normalised to one fundamental lattice pitch ($d \equiv 1 l_{node}$).`
 - KB `electron-unknot.md:59` — `The minimum discrete diameter of the flux tube is normalised to one fundamental lattice pitch ($d \equiv 1 l_{node}$).`
 - verifiers: 
 
-**16. CH01A-M16** (ch01-A, UNVERIFIED)
+**16. CH01A-M16** (ch01-A, DOWNGRADED)
 - print `01_topological_matter.tex:16` — `stable particles are defined as finite-energy soliton solutions to the generalised \textbf{Faddeev-Skyrme Energy Functional}`
 - KB `mathematical-topology-of-mass.md:20` — `> **Peer + finiteness note.** The Faddeev-Skyrme energy functional is **standard soliton field theory** (Faddeev–Niemi / Skyrme), imported here as calculational scaffolding — **peer-with-standard**, …`
-- verifiers: 
+- verifiers: DOWNGRADED: Both fragments verified byte-verbatim: tex fragment at 01_topological_matter.tex:16 exactly as quoted; kb fragment at mathematical-topology…
 
-**17. M1** (ch01-B, CONFIRMED)
+**17. M1** (ch01-B, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
 - print `01_topological_matter.tex:110` — `breathing-soliton seed gives $\mathcal{M} > 0$, $\mathcal{Q} = 1$,`
 - KB `electron-unknot-cosserat-seeder.md:113` — `**Mode I PASS** — engine autonomously hosts breathing soliton`
-- verifiers: CONFIRMED: Both fragments verified byte-verbatim: TeX 03_neutrino_sector.tex:227 "\item $\pi$: The base torsional half-turn of the $0_1$ unknot phase … / CONFIRMED: Both fragments verified byte-verbatim: TeX 06:17 (grep -nF hit at line 17, full line matches) and claim-quality.md:162 (grep -nF hit at lin…
+- verifiers: 
 
-**18. M2** (ch01-B, CONFIRMED)
+**18. M2** (ch01-B, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
 - print `01_topological_matter.tex:120` — `proving it is the geometric circumference of the $0_1$ unknot.`
 - KB `electron-bound-resonator-coverage.md:186` — `\| D.1 \| **$\ell_{\mathrm{node}}$ CIRCULAR** — definitional, $m_e$ is the input ruler; one-ruler TARGET not achieved ($G$ makes count plausibly TWO) \| C \| OPEN — clm-5xon03 \|`
-- verifiers: DOWNGRADED: Both fragments verify byte-verbatim: tex 03_neutrino_sector.tex:272 "Neutrinos are structurally defined as $0_1$ twisted unknots. Because t… / CONFIRMED: Both fragments verified byte-verbatim at cited lines (tex:363, kb:35). Read tex 320-410 and full 48-line KB leaf. Leaf carries a 2026-08-24…
+- verifiers: 
 
-**19. M3** (ch01-B, UNVERIFIED)
+**19. M3** (ch01-B, UNVERIFIED (id shared by 6 slices; verdicts not attributable))
 - print `01_topological_matter.tex:55` — `translation-circuit.md:767 ("**$g = 2$ is POSITED, not derived**"; the sweep's kb_truth`
 - KB `translation-circuit.md:839` — `- **$g = 2$ is POSITED, not derived** (`ave-evidence-framing-discipline`); the anomalous part $a_e = \alpha/2\pi$ is the slip (§10.2/§`
 - verifiers: 
 
-**20. M4** (ch01-B, DOWNGRADED)
+**20. M4** (ch01-B, UNVERIFIED (id shared by 5 slices; verdicts not attributable))
 - print `01_topological_matter.tex:56` — `field said :637 -- re-verified at HEAD the line is :767, cite repaired here).`
 - KB `substrate-perspective-electron.md:11` — `(../../../common/translation-tables/translation-circuit.md):637`
-- verifiers: DOWNGRADED: TeX fragment verified byte-verbatim at 03_neutrino_sector.tex:159 exactly as quoted. KB fragment is NOT byte-verbatim: the file (chiral-scr…
+- verifiers: 
 
-**21. M5** (ch01-B, CONFIRMED)
+**21. M5** (ch01-B, UNVERIFIED (id shared by 4 slices; verdicts not attributable))
 - print `01_topological_matter.tex:56` — `field said :637 -- re-verified at HEAD the line is :767, cite repaired here).`
 - KB `substrate-perspective-electron.md:227` — `(../../../common/translation-tables/translation-circuit.md):637`
-- verifiers: CONFIRMED: Both fragments verified byte-verbatim: TeX 03_neutrino_sector.tex:250 "All four PMNS parameters derive from three inputs...No curve fitting…
+- verifiers: 
 
-**22. M6** (ch01-B, DOWNGRADED)
+**22. M6** (ch01-B, UNVERIFIED (id shared by 4 slices; verdicts not attributable))
 - print `01_topological_matter.tex:56` — `field said :637 -- re-verified at HEAD the line is :767, cite repaired here).`
 - KB `electron-bound-resonator-coverage.md:56` — `(../../../common/translation-tables/translation-circuit.md):637`
-- verifiers: DOWNGRADED: Both fragments verified byte-verbatim: tex 01_topological_matter.tex:207 ("Neutrino ($\nu$) & Twisted unknot & I--II boundary & Chiral phas…
+- verifiers: 
 
-**23. M7** (ch01-B, REFUTED)
+**23. M7** (ch01-B, UNVERIFIED (id shared by 4 slices; verdicts not attributable))
 - print `01_topological_matter.tex:167` — `inside which the $A_1$ mass core operates sub-saturated at $A = \sqrt{\alpha}$`
 - KB `l3-electron-soliton-synthesis.md:108` — `> **Subatomic-scale convention**: per Vol 4 Ch 1 verbatim,`
-- verifiers: REFUTED: (1) texFragment is NOT byte-verbatim: grep -nF "neutrons as dispersive twisted" manuscript/vol_2_subatomic/frontmatter/00_title.tex returns…
+- verifiers: 
 
-**24. M8** (ch01-B, DOWNGRADED)
+**24. M8** (ch01-B, UNVERIFIED (id shared by 3 slices; verdicts not attributable))
 - print `01_topological_matter.tex:230` — `$9_1$ knot         & 9  & $2.772\,\ell_{node}$ & SU(5) & $\Delta(1600)$ \\`
 - KB `l3-electron-soliton-synthesis.md:37` — `\| $\geq 9$ \| unstable \| 2 \| (odd) \|`
-- verifiers: DOWNGRADED: Both quoted fragments verified byte-verbatim at their cited lines (tex 03_neutrino_sector.tex:122; claim-quality.md:251). Print-side disclo…
+- verifiers: 
 
 **25. M9** (ch01-B, UNVERIFIED)
 - print `01_topological_matter.tex:242` — `An electron ($e^-$) is a right-handed unknot; a positron ($e^+$) is physically identical, but wound as a left-handed unknot.`
@@ -757,35 +792,35 @@ Kinds: WB-LAG (KB walked back, print still asserts) · CONTRA · STALE-KB (print
 - KB `electron-unknot-cosserat-seeder.md:120` — `a self-consistent ground-state search (imaginary-time descent or Newton-Raphson) would tune to exact canonical`
 - verifiers: 
 
-**27. ch01C-M1** (ch01-C, UNVERIFIED)
+**27. ch01C-M1** (ch01-C, CONFIRMED)
 - print `01_topological_matter.tex:35` — `Mass is the stored inductive energy required to maintain the topological integrity of the standing wave.`
 - KB `newtonian-inertia-as-lenz.md:14` — `> **🔴 STORED INDUCTIVE ENERGY = the FLYWHEEL (spin/frequency-regulation), the REST MASS *store* is A1 (2026-06-20, Rule 12 — body above PRESERVED unedited; Grant-ratified mass-sector ruling).**`
-- verifiers: 
+- verifiers: CONFIRMED: Both fragments verified byte-verbatim: TeX 01_topological_matter.tex:35 "Mass is the stored inductive energy required to maintain the topol…
 
-**28. ch01C-M2** (ch01-C, UNVERIFIED)
+**28. ch01C-M2** (ch01-C, CONFIRMED)
 - print `01_topological_matter.tex:33` — `Under the Topo-Kinematic isomorphism, inductance maps to mass ($[L] \equiv [M]$).`
 - KB `newtonian-inertia-as-lenz.md:14` — `the **stored inductive energy is the FLYWHEEL** spin / frequency-regulation energy of the T2 / Cosserat micro-rotation ($\omega$) sector`
-- verifiers: 
+- verifiers: CONFIRMED: Both fragments verified byte-verbatim: tex 01_topological_matter.tex:33 "Under the Topo-Kinematic isomorphism, inductance maps to mass ($[L…
 
-**29. ch01C-M3** (ch01-C, UNVERIFIED)
+**29. ch01C-M3** (ch01-C, CONFIRMED)
 - print `01_topological_matter.tex:266` — `\item Inertial mass ($m$) is derived classically from distributed continuous inductance ($L$), where acceleration generates a back-EMF (Lenz's Law).`
 - KB `newtonian-inertia-as-lenz.md:14` — `the re-scope only re-labels *which sector stores the rest mass* (A1, not the inductive flywheel). Body preserved per Rule-12.`
-- verifiers: 
+- verifiers: CONFIRMED: Both fragments verified byte-verbatim: tex 01_topological_matter.tex:266 (my initial grep -nF miscarried on shell-escaping of literal "$m$"…
 
-**30. ch01C-M4** (ch01-C, UNVERIFIED)
+**30. ch01C-M4** (ch01-C, CONFIRMED)
 - print `01_topological_matter.tex:8` — `\item Understand how mass emerges macroscopically from the continuous distributed inductance of closed optical loops (Lenz's Law).`
 - KB `newtonian-inertia-as-lenz.md:14` — `**not** the rest-mass *store* — which is the orthogonal **A1 longitudinal DILATATION** depression`
-- verifiers: 
+- verifiers: CONFIRMED: Both fragments verified byte-verbatim: tex line 8 (objectivebox bullet, lines 5-11, no caveat anywhere in the box or within 15 lines) and K…
 
-**31. ch01C-M5** (ch01-C, UNVERIFIED)
+**31. ch01C-M5** (ch01-C, DOWNGRADED)
 - print `01_topological_matter.tex:148` — `The minimum discrete diameter of the flux tube is normalised to one fundamental lattice pitch ($d \equiv 1 l_{node}$).`
 - KB `common-mode-twist-ledger.md:235` — `> **They differ by $\pi$ on the tube diameter and by $2\pi$ on the circumference. They cannot both be right.**`
-- verifiers: 
+- verifiers: DOWNGRADED: Both fragments verify byte-verbatim at the cited lines (tex:148, ledger.md:235). Read tex:100-160 — no printed caveat or comment banner nea…
 
-**32. ch01C-M6** (ch01-C, UNVERIFIED)
+**32. ch01C-M6** (ch01-C, DOWNGRADED)
 - print `01_topological_matter.tex:40` — `undergoes macroscopic \textbf{gyroscopic precession} in the presence of an external magnetic field`
 - KB `spin-gyroscopic-isomorphism.md:45` — `(the extended core is $\sim\ell_{node} \approx 3.86\times10^{-13}$ m — subatomic, **not** macroscopic)`
-- verifiers: 
+- verifiers: DOWNGRADED: Both fragments verified byte-verbatim: tex 01_topological_matter.tex:40 ("...undergoes macroscopic \textbf{gyroscopic precession} in the pr…
 
 **33. MM-01** (ch02, UNVERIFIED)
 - print `02_baryon_sector.tex:319` — `generates a discrete CP-violating $\theta$-vacuum phase`
@@ -867,45 +902,45 @@ Kinds: WB-LAG (KB walked back, print still asserts) · CONTRA · STALE-KB (print
 - KB `self-consistent-mass-oscillator.md:30` — `derived in Chapter 2`
 - verifiers: 
 
-**49. M1** (ch03, CONFIRMED)
+**49. M1** (ch03, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
 - print `03_neutrino_sector.tex:227` — `\item $\pi$: The base torsional half-turn of the $0_1$ unknot phase winding.`
 - KB `delta-cp-violation.md:22` — `the neutrino is an open helix in the torsional sector, *not* a closed unknot phase winding`
-- verifiers: CONFIRMED: Both fragments verified byte-verbatim: TeX 03_neutrino_sector.tex:227 "\item $\pi$: The base torsional half-turn of the $0_1$ unknot phase … / CONFIRMED: Both fragments verified byte-verbatim: TeX 06:17 (grep -nF hit at line 17, full line matches) and claim-quality.md:162 (grep -nF hit at lin…
+- verifiers: 
 
-**50. M2** (ch03, CONFIRMED)
+**50. M2** (ch03, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
 - print `03_neutrino_sector.tex:272` — `Neutrinos are structurally defined as $0_1$ twisted unknots. Because they have zero self-crossings, their topological Skyrme gradient vanishes`
 - KB `index.md:13` — `Corrigendum (2026-05-06 session): Earlier editions described the neutrino as a "$0_1$ twisted unknot" (closed loop)`
-- verifiers: DOWNGRADED: Both fragments verify byte-verbatim: tex 03_neutrino_sector.tex:272 "Neutrinos are structurally defined as $0_1$ twisted unknots. Because t… / CONFIRMED: Both fragments verified byte-verbatim at cited lines (tex:363, kb:35). Read tex 320-410 and full 48-line KB leaf. Leaf carries a 2026-08-24…
+- verifiers: 
 
-**51. M3** (ch03, UNVERIFIED)
+**51. M3** (ch03, UNVERIFIED (id shared by 6 slices; verdicts not attributable))
 - print `03_neutrino_sector.tex:274` — `Neutrino oscillation is the classical dispersive beat frequency of the three distinct $0_1$ mass eigenstates`
 - KB `index.md:13` — `Any remaining "twisted unknot" prose in cross-references should be read as the obsolete framing`
 - verifiers: 
 
-**52. M4** (ch03, DOWNGRADED)
+**52. M4** (ch03, UNVERIFIED (id shared by 5 slices; verdicts not attributable))
 - print `03_neutrino_sector.tex:159` — `the trefoil has $c = 3$ crossings \textit{because} the K4 lattice is 3-connected`
 - KB `chiral-screening.md:35` — `Connectivity = trefoil crossing number: ASSERTED -- and in tension with canon`
-- verifiers: DOWNGRADED: TeX fragment verified byte-verbatim at 03_neutrino_sector.tex:159 exactly as quoted. KB fragment is NOT byte-verbatim: the file (chiral-scr…
+- verifiers: 
 
-**53. M5** (ch03, CONFIRMED)
+**53. M5** (ch03, UNVERIFIED (id shared by 4 slices; verdicts not attributable))
 - print `03_neutrino_sector.tex:250` — `All four PMNS parameters derive from three inputs: the torus knot crossing numbers ($c_1 = 5$, $c_3 = 9$)... No curve fitting is used`
 - KB `delta-cp-violation.md:38` — `c_1=5 starting value of mode-space ladder is NOT derived from substrate primitives in any canonical leaf grep'd`
-- verifiers: CONFIRMED: Both fragments verified byte-verbatim: TeX 03_neutrino_sector.tex:250 "All four PMNS parameters derive from three inputs...No curve fitting…
+- verifiers: 
 
-**54. M6** (ch03, DOWNGRADED)
+**54. M6** (ch03, UNVERIFIED (id shared by 4 slices; verdicts not attributable))
 - print `01_topological_matter.tex:207` — `Neutrino ($\nu$)           & Twisted unknot      & I--II boundary & Chiral phase below yield \\`
 - KB `index.md:13` — `Any remaining "twisted unknot" prose in cross-references should be read as the obsolete framing`
-- verifiers: DOWNGRADED: Both fragments verified byte-verbatim: tex 01_topological_matter.tex:207 ("Neutrino ($\nu$) & Twisted unknot & I--II boundary & Chiral phas…
+- verifiers: 
 
-**55. M7** (ch03, REFUTED)
+**55. M7** (ch03, UNVERIFIED (id shared by 4 slices; verdicts not attributable))
 - print `00_title.tex:14` — `neutrons as dispersive twisted $0_1$ unknots, bound by the Faddeev-Skyrme energy functional`
 - KB `index.md:13` — `The closed-loop framing has been **superseded** by the Cosserat torsional screw-dislocation model`
-- verifiers: REFUTED: (1) texFragment is NOT byte-verbatim: grep -nF "neutrons as dispersive twisted" manuscript/vol_2_subatomic/frontmatter/00_title.tex returns…
+- verifiers: 
 
-**56. M8** (ch03, DOWNGRADED)
+**56. M8** (ch03, UNVERIFIED (id shared by 3 slices; verdicts not attributable))
 - print `03_neutrino_sector.tex:122` — `the $\nu_3$ baryon-partner label was updated $\Delta(1620) \to \Delta(1600)$`
 - KB `claim-quality.md:251` — `$\nu_3$ with $\Delta(1620)$ $(2,9)$`
-- verifiers: DOWNGRADED: Both quoted fragments verified byte-verbatim at their cited lines (tex 03_neutrino_sector.tex:122; claim-quality.md:251). Print-side disclo…
+- verifiers: 
 
 **57. ch04-M1** (ch04, CONFIRMED)
 - print `04_quantum_spin.tex:81` — `:407 "Does NOT claim a violation of standard QM predictions`
@@ -1002,45 +1037,45 @@ Kinds: WB-LAG (KB walked back, print still asserts) · CONTRA · STALE-KB (print
 - KB `gauge-boson-masses.md:34` — `and *not* the full time-dependent U(1) group`
 - verifiers: 
 
-**76. M1** (ch06-A, CONFIRMED)
+**76. M1** (ch06-A, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
 - print `06_electroweak_and_higgs.tex:17` — `corresponds to a transient acoustic mode---a topological node undergoing rapid structural relaxation upon high-energy impact`
 - KB `claim-quality.md:162` — `The empirical $125$ GeV LHC resonance is interpreted as a **transient acoustic relaxation mode** of the LC network, not a fundamental scalar field excitation. 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS…`
-- verifiers: CONFIRMED: Both fragments verified byte-verbatim: TeX 03_neutrino_sector.tex:227 "\item $\pi$: The base torsional half-turn of the $0_1$ unknot phase … / CONFIRMED: Both fragments verified byte-verbatim: TeX 06:17 (grep -nF hit at line 17, full line matches) and claim-quality.md:162 (grep -nF hit at lin…
+- verifiers: 
 
-**77. M2** (ch06-A, CONFIRMED)
+**77. M2** (ch06-A, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
 - print `06_electroweak_and_higgs.tex:363` — `A channel is \emph{compliant} if $\Delta c \le \Delta c_\text{crit} = 3$ --- the K4 lattice connectivity itself (three bonds per node, each transferring at most one torsional unit per interaction), w…`
 - KB `chiral-screening.md:35` — `**Connectivity = trefoil crossing number: ASSERTED — and in tension with canon.**`
-- verifiers: DOWNGRADED: Both fragments verify byte-verbatim: tex 03_neutrino_sector.tex:272 "Neutrinos are structurally defined as $0_1$ twisted unknots. Because t… / CONFIRMED: Both fragments verified byte-verbatim at cited lines (tex:363, kb:35). Read tex 320-410 and full 48-line KB leaf. Leaf carries a 2026-08-24…
+- verifiers: 
 
-**78. M3** (ch06-A, UNVERIFIED)
+**78. M3** (ch06-A, UNVERIFIED (id shared by 6 slices; verdicts not attributable))
 - print `06_electroweak_and_higgs.tex:210` — `$W$    & $M_W^{\text{tree}} / (1 - \|S_{11}^{\text{sc}}\|^2)$  & 80,224 MeV  & 80,379 MeV  & $-0.19\%$ \\`
 - KB `lepton-spectrum.md:81` — `\| $W$ \| $m_e/(\alpha^2 p_c \sqrt{3/7})$ \| 79,923 MeV \| 80,379 MeV \| $-0.57\%$ \|`
 - verifiers: 
 
-**79. M4** (ch06-A, DOWNGRADED)
+**79. M4** (ch06-A, UNVERIFIED (id shared by 5 slices; verdicts not attributable))
 - print `06_electroweak_and_higgs.tex:321` — `$\nu_1$ & $(2,5)$ & 5 &  $0.1324$ & $9.58$ \\`
 - KB `higgs-mass.md:29` — `\| $\nu_1$ \| Proton $(2,5)$ \| 5 \| $\sim 24$ \|`
-- verifiers: DOWNGRADED: TeX fragment verified byte-verbatim at 03_neutrino_sector.tex:159 exactly as quoted. KB fragment is NOT byte-verbatim: the file (chiral-scr…
+- verifiers: 
 
-**80. M5** (ch06-A, CONFIRMED)
+**80. M5** (ch06-A, UNVERIFIED (id shared by 4 slices; verdicts not attributable))
 - print `06_electroweak_and_higgs.tex:193` — `m_e \xrightarrow{\alpha\sqrt{3/7}} m_\mu \xrightarrow{\alpha \cdot p_c} m_\tau \xrightarrow{\alpha \cdot p_c} M_W`
 - KB `lepton-spectrum.md:73` — `m_e \xrightarrow{\text{torsion: }\alpha\sqrt{3/7}} m_\mu \xrightarrow{\text{bending: }p_c/\alpha^2} m_\tau \xrightarrow{\text{+2nd vertex: }\alpha} M_W`
-- verifiers: CONFIRMED: Both fragments verified byte-verbatim: TeX 03_neutrino_sector.tex:250 "All four PMNS parameters derive from three inputs...No curve fitting…
+- verifiers: 
 
-**81. M6** (ch06-A, DOWNGRADED)
+**81. M6** (ch06-A, UNVERIFIED (id shared by 4 slices; verdicts not attributable))
 - print `sm-ave-translation.md:10` — `Source: `\input{../common/translation_particle_physics.tex}` in `vol_2_subatomic/chapters/06_electroweak_and_higgs.tex`, line 305.`
 - KB `06_electroweak_and_higgs.tex:860` — `\input{../common/translation_particle_physics.tex}`
-- verifiers: DOWNGRADED: Both fragments verified byte-verbatim: tex 01_topological_matter.tex:207 ("Neutrino ($\nu$) & Twisted unknot & I--II boundary & Chiral phas…
+- verifiers: 
 
-**82. M7** (ch06-A, REFUTED)
+**82. M7** (ch06-A, UNVERIFIED (id shared by 4 slices; verdicts not attributable))
 - print `higgs-mechanism.md:54` — `<!-- 🔴 OPEN FLAG (Rule 12): the "torsion-shear / PAT" label on $\sqrt{3/7}$ is contested`
 - KB `lepton-spectrum.md:29` — `> **🔴 OPEN FLAG (Rule 12 — `√(3/7)` "PAT torsion-shear" label; Grant's physics adjudication pending.`
-- verifiers: REFUTED: (1) texFragment is NOT byte-verbatim: grep -nF "neutrons as dispersive twisted" manuscript/vol_2_subatomic/frontmatter/00_title.tex returns…
+- verifiers: 
 
-**83. M8** (ch06-A, DOWNGRADED)
+**83. M8** (ch06-A, UNVERIFIED (id shared by 3 slices; verdicts not attributable))
 - print `06_electroweak_and_higgs.tex:422` — `Four lemmas are proven from Axioms~1 and~4 (see\linebreak \kbleaf{p2.9b\_goldstone\_proof.md}):`
 - KB `verify-md-links.py:808` — `"manuscript/vol_2_subatomic/chapters/06_electroweak_and_higgs.tex",         r"p2.9b\_goldstone\_proof.md",`
-- verifiers: DOWNGRADED: Both quoted fragments verified byte-verbatim at their cited lines (tex 03_neutrino_sector.tex:122; claim-quality.md:251). Print-side disclo…
+- verifiers: 
 
 **84. ch06B-01** (ch06-B, UNVERIFIED)
 - print `06_electroweak_and_higgs.tex:516` — `C_2^{\text{AVE}} = \frac{2}{\pi\alpha}\langle (S_d - S_q)\,(-\dot{\Sigma}_{\text{near}})\rangle = -0.32846`
@@ -1192,85 +1227,85 @@ Kinds: WB-LAG (KB walked back, print still asserts) · CONTRA · STALE-KB (print
 - KB `radial-eigenvalue-solver.md:177` — `\| Antenna \| Coaxial feed \| Radiating aperture \| HOPF-01 \|`
 - verifiers: 
 
-**114. M1** (ch07-C, CONFIRMED)
+**114. M1** (ch07-C, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
 - print `07_quantum_mechanics_and_orbitals.tex:3288` — `N_{\rm Hopf} \times \frac{P_C}{2} \times (-1)^{n - l - 1}`
 - KB `radial-eigenvalue-solver.md:731` — `\kappa_{\rm Hopf}(r) = N_{\rm Hopf} \times \frac{P_C}{2} \times \sigma_{\rm partner}(r)`
-- verifiers: CONFIRMED: Both fragments verified byte-verbatim: TeX 03_neutrino_sector.tex:227 "\item $\pi$: The base torsional half-turn of the $0_1$ unknot phase … / CONFIRMED: Both fragments verified byte-verbatim: TeX 06:17 (grep -nF hit at line 17, full line matches) and claim-quality.md:162 (grep -nF hit at lin…
+- verifiers: 
 
-**115. M2** (ch07-C, CONFIRMED)
+**115. M2** (ch07-C, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
 - print `07_quantum_mechanics_and_orbitals.tex:3323` — `\textbf{Inductive Drag} ($+\kappa$), decreasing`
 - KB `radial-eigenvalue-solver.md:741` — `This is *not* a potential in $V_{\rm eff}$---it enters the *denominator* of $k^2(r)$.`
-- verifiers: DOWNGRADED: Both fragments verify byte-verbatim: tex 03_neutrino_sector.tex:272 "Neutrinos are structurally defined as $0_1$ twisted unknots. Because t… / CONFIRMED: Both fragments verified byte-verbatim at cited lines (tex:363, kb:35). Read tex 320-410 and full 48-line KB leaf. Leaf carries a 2026-08-24…
+- verifiers: 
 
-**116. M3** (ch07-C, UNVERIFIED)
+**116. M3** (ch07-C, UNVERIFIED (id shared by 6 slices; verdicts not attributable))
 - print `07_quantum_mechanics_and_orbitals.tex:3306` — `same-$n$ co-radial partners), with`
 - KB `radial-eigenvalue-solver.md:739` — `(including same-$n$ co-radial partners)`
 - verifiers: 
 
-**117. M4** (ch07-C, DOWNGRADED)
+**117. M4** (ch07-C, UNVERIFIED (id shared by 5 slices; verdicts not attributable))
 - print `07_quantum_mechanics_and_orbitals.tex:2728` — `Both are needed for multi-electron atoms:`
 - KB `dual-formalism-architecture.md:21` — `> Both are needed for multi-electron atoms:`
-- verifiers: DOWNGRADED: TeX fragment verified byte-verbatim at 03_neutrino_sector.tex:159 exactly as quoted. KB fragment is NOT byte-verbatim: the file (chiral-scr…
+- verifiers: 
 
-**118. M5** (ch07-C, CONFIRMED)
+**118. M5** (ch07-C, UNVERIFIED (id shared by 4 slices; verdicts not attributable))
 - print `07_quantum_mechanics_and_orbitals.tex:3136` — `Li & 3 & P3 + Op2 (ABCD taper) &`
 - KB `radial-eigenvalue-solver.md:689` — `\| Li \| 3 \| P3 + Op2 (ABCD taper) \| 5.32 \| $1.2\%$ \|`
-- verifiers: CONFIRMED: Both fragments verified byte-verbatim: TeX 03_neutrino_sector.tex:250 "All four PMNS parameters derive from three inputs...No curve fitting…
+- verifiers: 
 
-**119. M6** (ch07-C, DOWNGRADED)
+**119. M6** (ch07-C, UNVERIFIED (id shared by 4 slices; verdicts not attributable))
 - print `07_quantum_mechanics_and_orbitals.tex:3138` — `Be & 4 & P3 + P2 (ABCD + Hopf) &`
 - KB `radial-eigenvalue-solver.md:690` — `\| Be \| 4 \| P3 + P2 (ABCD + Hopf) \| 8.21 \| $11.9\%$ \|`
-- verifiers: DOWNGRADED: Both fragments verified byte-verbatim: tex 01_topological_matter.tex:207 ("Neutrino ($\nu$) & Twisted unknot & I--II boundary & Chiral phas…
+- verifiers: 
 
-**120. M7** (ch07-C, REFUTED)
+**120. M7** (ch07-C, UNVERIFIED (id shared by 4 slices; verdicts not attributable))
 - print `07_quantum_mechanics_and_orbitals.tex:3134` — `He & 2 & P2 (circuit, Hopf link) &`
 - KB `radial-eigenvalue-solver.md:688` — `\| He \| 2 \| P2 (circuit, Hopf link) \| 24.37 \| $0.9\%$ \|`
-- verifiers: REFUTED: (1) texFragment is NOT byte-verbatim: grep -nF "neutrons as dispersive twisted" manuscript/vol_2_subatomic/frontmatter/00_title.tex returns…
+- verifiers: 
 
-**121. M1** (ch07-D, CONFIRMED)
+**121. M1** (ch07-D, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
 - print `07_quantum_mechanics_and_orbitals.tex:3529` — `The agreement is a \emph{coincidence of two numbers}, not an independent confirmation:`
 - KB `scale-separation.md:49` — `confirmed independently by the elastic modulus ratio $G/K = 1/2$ (since $K = 2G$ from $\nu = 2/7$, Axiom 2), giving a reduced coupling:`
-- verifiers: CONFIRMED: Both fragments verified byte-verbatim: TeX 03_neutrino_sector.tex:227 "\item $\pi$: The base torsional half-turn of the $0_1$ unknot phase … / CONFIRMED: Both fragments verified byte-verbatim: TeX 06:17 (grep -nF hit at line 17, full line matches) and claim-quality.md:162 (grep -nF hit at lin…
+- verifiers: 
 
-**122. M2** (ch07-D, CONFIRMED)
+**122. M2** (ch07-D, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
 - print `07_quantum_mechanics_and_orbitals.tex:3496` — `(Eq.~\ref{eq:crossing_angle}).  No correction factors.  One phase integral.  One eigenvalue.`
 - KB `claim-quality.md:393` — `the leaf explicitly states "Be and B remain open: the corrections are applied *outside* the phase integral, violating the action principle" (radial-eigenvalue-solver.md §E2j). The complete-phase-inte…`
-- verifiers: DOWNGRADED: Both fragments verify byte-verbatim: tex 03_neutrino_sector.tex:272 "Neutrinos are structurally defined as $0_1$ twisted unknots. Because t… / CONFIRMED: Both fragments verified byte-verbatim at cited lines (tex:363, kb:35). Read tex 320-410 and full 48-line KB leaf. Leaf carries a 2026-08-24…
+- verifiers: 
 
-**123. M3** (ch07-D, UNVERIFIED)
+**123. M3** (ch07-D, UNVERIFIED (id shared by 6 slices; verdicts not attributable))
 - print `07_quantum_mechanics_and_orbitals.tex:3654` — `at the $K=2G$ operating point (form-derived, \emph{value} GR-imported; not an axiom of this framework --- see the note at the $p$-shell orthogonal-coupling derivation)`
 - KB `subshell-junction-scattering.md:38` — `its interactions are rigorously governed by the **Topological Subshell Impedance Cascade** ($K=2G$). Its mutual admittance to the $2s$ electrons explicitly drops by exactly half`
 - verifiers: 
 
-**124. M4** (ch07-D, DOWNGRADED)
+**124. M4** (ch07-D, UNVERIFIED (id shared by 5 slices; verdicts not attributable))
 - print `07_quantum_mechanics_and_orbitals.tex:4027` — `3  & Li &  5.525 &  5.392 & $+2.46\%$ & --- \\`
 - KB `claim-quality.md:349` — `Lithium ($Z = 3$) currently lists $+2.46\%$ in the validation table but the corrected ABCD-taper-plus-Op2 pipeline elsewhere in the same chapter reports $-1.2\%$.`
-- verifiers: DOWNGRADED: TeX fragment verified byte-verbatim at 03_neutrino_sector.tex:159 exactly as quoted. KB fragment is NOT byte-verbatim: the file (chiral-scr…
+- verifiers: 
 
-**125. M1** (ch09, CONFIRMED)
+**125. M1** (ch09, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
 - print `09_computational_proof.tex:92` — `catalog text reported the observational target $2.49 \times 10^{-9}$`
 - KB `anomaly-catalog.md:15` — `**Muon $g-2$:** $\Delta a_\mu = 2.49 \times 10^{-9}$. AVE predicts a vacuum self-energy correction from lattice topology.`
-- verifiers: CONFIRMED: Both fragments verified byte-verbatim: TeX 03_neutrino_sector.tex:227 "\item $\pi$: The base torsional half-turn of the $0_1$ unknot phase … / CONFIRMED: Both fragments verified byte-verbatim: TeX 06:17 (grep -nF hit at line 17, full line matches) and claim-quality.md:162 (grep -nF hit at lin…
+- verifiers: 
 
-**126. M2** (ch09, CONFIRMED)
+**126. M2** (ch09, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
 - print `09_computational_proof.tex:56` — `previously printed ``sub-3 \AA'' in the Agreement column. Per the truth-source`
 - KB `computational-graph.md:30` — `\| Protein folding (CLN025) \| RMSD = 2.59 A \| I \| sub-3 A \| 0 \|`
-- verifiers: DOWNGRADED: Both fragments verify byte-verbatim: tex 03_neutrino_sector.tex:272 "Neutrinos are structurally defined as $0_1$ twisted unknots. Because t… / CONFIRMED: Both fragments verified byte-verbatim at cited lines (tex:363, kb:35). Read tex 320-410 and full 48-line KB leaf. Leaf carries a 2026-08-24…
+- verifiers: 
 
-**127. M3** (ch09, UNVERIFIED)
+**127. M3** (ch09, UNVERIFIED (id shared by 6 slices; verdicts not attributable))
 - print `09_computational_proof.tex:249` — `couple exclusively as discrete geometric LC resonators subject to the $8\pi\alpha$ spatial packing fraction and to the $K = 2G$ operating point --- the latter form-derived but \emph{value} GR-importe…`
 - KB `methodological-contamination.md:71` — `Electrons within the same principal shell ($n$) couple exclusively as discrete geometric LC resonators subject to the $K = 2G$ topological limit and the $8\pi\alpha$ spatial packing fraction.`
 - verifiers: 
 
-**128. M1** (ch10, CONFIRMED)
+**128. M1** (ch10, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
 - print `10_open_problems.tex:320` — `The derivation $g_* = 7^3/4 = 85.75$ disagrees with the Standard`
 - KB `g-star-prediction.md:10` — `Provenance caveat 2026-08-18, Wave-2 D15b rider: the `/7` in this expression rides the canon G MIXED `/7` FORM — form-derived, value-imported per the FORM-deriving/VALUE-importing meta-finding (PRs #…`
-- verifiers: CONFIRMED: Both fragments verified byte-verbatim: TeX 03_neutrino_sector.tex:227 "\item $\pi$: The base torsional half-turn of the $0_1$ unknot phase … / CONFIRMED: Both fragments verified byte-verbatim: TeX 06:17 (grep -nF hit at line 17, full line matches) and claim-quality.md:162 (grep -nF hit at lin…
+- verifiers: 
 
-**129. M2** (ch10, CONFIRMED)
+**129. M2** (ch10, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
 - print `10_open_problems.tex:419` — `Baryon asymmetry & $\eta = \delta_{CP} \alpha_W^4 C_{sph}/g_*$ & 0.79\% (OOM) & \textbf{Consistency-check}`
 - KB `quantitative-resolutions.md:15` — `\| Baryon asymmetry \| $\eta = \delta_{CP} \alpha_W^4 C_{sph}/g_*$ \| 0.38% \| **Solved** \| <!-- claim-quality: clm-4vwsjc -->`
-- verifiers: DOWNGRADED: Both fragments verify byte-verbatim: tex 03_neutrino_sector.tex:272 "Neutrinos are structurally defined as $0_1$ twisted unknots. Because t… / CONFIRMED: Both fragments verified byte-verbatim at cited lines (tex:363, kb:35). Read tex 320-410 and full 48-line KB leaf. Leaf carries a 2026-08-24…
+- verifiers: 
 
 **130. ch11-M1** (ch11, UNVERIFIED)
 - print `11_standard_model_overdrive.tex:66` — `Seconds on a single core, versus months on a supercomputer for Lattice QCD at comparable accuracy.`
@@ -1282,6 +1317,31 @@ Kinds: WB-LAG (KB walked back, print still asserts) · CONTRA · STALE-KB (print
 - KB `program-arc-map.md:371` — `NEGATIVE (all EE-reflection channels dead) — **cross-repo (AVE-Protein lane); Core walk-back STAGED, B4 row may be STALE** `[PARTIAL-RECEIPT]``
 - verifiers: 
 
+**132. MM-1** (ch12-mp, UNVERIFIED)
+- print `12_the_millennium_prizes.tex:112` — `So $2\,\omega_C$ \emph{understates} the true UV band edge by $\approx 2.7\times$ (canonical: \kbleaf{ave-kb/vol1/.../srs-band-structure.md}, \texttt{clm-bnd5rq}).`
+- KB `yang-mills-steps1-2.md:30` — `This imposes a hard ultraviolet cutoff at $\omega_\mathrm{max} = 2c/\ell_\mathrm{node}$. No mode can oscillate faster, eliminating UV divergence.`
+- verifiers: 
+
+**133. ch12fp-01-os5-lightest-defect-contra** (ch12-fp, UNVERIFIED)
+- print `12_appendix_formal_proofs.tex:170` — `where $c_\mathrm{min} = 3$ (trefoil) is the lightest stable topological`
+- KB `yang-mills-steps1-2.md:46` — `The *simplest* topological defect on the lattice is the unknot ($0_1$) --- a single closed electromagnetic flux loop whose minimum circumference is $\ell_\mathrm{node}$. Its rest energy defines the m…`
+- verifiers: 
+
+**134. ch12fp-02-ym-os-reconstruction-overclaim** (ch12-fp, UNVERIFIED)
+- print `12_appendix_formal_proofs.tex:197` — `Has mass gap $\Delta = m_e c^2 > 0$ (inherited from the lattice).`
+- KB `yang-mills-steps1-2.md:10` — `Osterwalder–Schrader reconstruction requires Schwinger functions defined continuously on $\mathbb{R}^4$ which AVE does not provide.`
+- verifiers: 
+
+**135. ch12fp-03-ns-smoothness-overclaim** (ch12-fp, UNVERIFIED)
+- print `12_appendix_formal_proofs.tex:280` — `lattice Navier-Stokes system has a unique global smooth solution`
+- KB `navier-stokes-prize.md:10` — `The AVE "proof" relies on TWO deviations from the Clay formulation: (i) **fixed lattice spacing ℓ_node ≈ 386 fm** = UV cutoff (Clay problem explicitly requires NO UV cutoff; with cutoff, regularity i…`
+- verifiers: 
+
+**136. ch12fp-04-rh-zerofree-overclaim** (ch12-fp, UNVERIFIED)
+- print `12_appendix_formal_proofs.tex:357` — `All non-trivial zeros of $\zeta(s)$ satisfy $\mathrm{Re}(s) = 1/2$, i.e.,`
+- KB `riemann-hypothesis.md:10` — `The lattice spectral-ζ identification is suggestive structural analogy; it should NOT be cited as proving the Riemann Hypothesis.`
+- verifiers: 
+
 
 ---
 
@@ -1291,26 +1351,26 @@ Per-row counts over the slices read so far; 'slices reporting zero hits' is the 
 
 | row | live-wrong | Q1 | fence-excluded | Q2 | slices reporting zero hits |
 |---|---:|---:|---:|---:|---|
-| F-C1 | 0 | 0 | 1 | 0 | ch01-A, ch01-B, ch01-C, ch02, ch03, ch04, ch05, ch06-A, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11 |
-| F-C2 | 0 | 0 | 0 | 0 | ch01-A, ch01-B, ch01-C, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11 |
-| F-C3 | 0 | 0 | 1 | 0 | ch01-A, ch01-B, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11 |
-| F-C4 | 0 | 0 | 0 | 0 | ch01-A, ch01-B, ch01-C, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11 |
-| F-C5 | 0 | 0 | 1 | 0 | ch01-B, ch01-C, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11 |
-| F-C6 | 0 | 0 | 0 | 0 | ch01-A, ch01-B, ch01-C, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11 |
-| F-C7 | 2 | 6 | 7 | 0 | ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11 |
-| F-C8 | 0 | 2 | 3 | 0 | ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11 |
-| F-C9 | 0 | 0 | 6 | 0 | ch01-B, ch01-C, ch02, ch03, ch04, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11 |
-| F-C10 | 0 | 0 | 0 | 0 | ch01-A, ch01-B, ch01-C, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11 |
-| F-C11 | 0 | 2 | 0 | 0 | ch01-B, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11 |
-| K4 | 3 | 8 | 2 | 0 | ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11 |
-| K6 | 2 | 2 | 21 | 0 | ch03, ch05, ch06-A, ch07-B, ch07-D, ch08, ch09, ch10, ch11 |
+| F-C1 | 0 | 0 | 1 | 0 | ch01-A, ch01-B, ch01-C, ch02, ch03, ch04, ch05, ch06-A, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp |
+| F-C2 | 0 | 0 | 0 | 0 | ch01-A, ch01-B, ch01-C, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp |
+| F-C3 | 0 | 0 | 1 | 0 | ch01-A, ch01-B, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp |
+| F-C4 | 0 | 0 | 0 | 0 | ch01-A, ch01-B, ch01-C, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp |
+| F-C5 | 0 | 0 | 1 | 0 | ch01-B, ch01-C, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp |
+| F-C6 | 0 | 0 | 0 | 0 | ch01-A, ch01-B, ch01-C, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp |
+| F-C7 | 2 | 6 | 7 | 0 | ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp |
+| F-C8 | 0 | 2 | 3 | 0 | ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp |
+| F-C9 | 0 | 0 | 6 | 0 | ch01-B, ch01-C, ch02, ch03, ch04, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp |
+| F-C10 | 0 | 0 | 0 | 0 | ch01-A, ch01-B, ch01-C, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp |
+| F-C11 | 0 | 2 | 0 | 0 | ch01-B, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp |
+| K4 | 3 | 8 | 2 | 0 | ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp |
+| K6 | 2 | 2 | 21 | 0 | ch03, ch05, ch06-A, ch07-B, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp |
 
 #### Hits
 
 - **F-C1** · fence-excluded · kb `q-g19a-petermann-saliency-closure.md:18` — `CMB-velocity phase-lock` — Lexical homonym only: a DAMA annual-modulation 'phase-lock' (itself struck [CMB-PHASE-EXCLUDED] 2026-07-04 on the same line), not the electron-identity 'dynamical lock' corpse. Recorded so the row is not reported as an …
 - **F-C3** · fence-excluded · tex `01_topological_matter.tex:109` — `of $\mathcal{M}, \mathcal{Q}, \mathcal{J}$ for any field; the v14` — Only engine-version string in the chapter. It reports what a named seed's boundary invariants evaluate to ($\mathcal{M}>0$, $\mathcal{Q}=1$, $\mathcal{J}\approx0$) via boundary_invariants.py — a readout, not a ranked pl…
 - **F-C5** · fence-excluded · tex `01_topological_matter.tex:110` — `breathing-soliton seed gives $\mathcal{M} > 0$, $\mathcal{Q} = 1$,` — Adjudicated per slice-instruction (b). This is the row's own fence — a circuit/engine model reporting M, Q, J for a seed WITHOUT selling a genesis-cook: no energize-lock, no Level-2 remanence, no vN target/charter langu…
-- **F-C7** · live-wrong · verifier: UNVERIFIED · tex `01_topological_matter.tex:259` — `how a propagating Transverse EM Wave winds into a stationary Spin-1 helical loop when encountering extreme localised network impedance ($Z \to Z_{crit}$) ... e…` — [fragment is an elided quotation of one printed caption line — the two halves are byte-verbatim at :259, the ellipsis replaces 'The discrete sequential excitation of the substrate LC nodes guarantees charge containment,…
+- **F-C7** · live-wrong · verifier: CONFIRMED · tex `01_topological_matter.tex:259` — `how a propagating Transverse EM Wave winds into a stationary Spin-1 helical loop when encountering extreme localised network impedance ($Z \to Z_{crit}$) ... e…` — [fragment is an elided quotation of one printed caption line — the two halves are byte-verbatim at :259, the ellipsis replaces 'The discrete sequential excitation of the substrate LC nodes guarantees charge containment,… — CONFIRMED: Fragment is byte-verbatim at 01_topological_matter.tex:259 (both quoted halves match; grep -nF confirms). Read lines 220-290 of the tex: no… / CONFIRMED: Both quoted fragment halves are byte-verbatim at manuscript/vol_2_subatomic/chapters/01_topological_matter.tex:259 (grep -nF confirms …
 - **F-C7** · fence-excluded · tex `01_topological_matter.tex:167` — `The electron's \emph{existence} is held independently by the transverse-Cosserat ($T_2$) charge/spin $\Gamma = -1$\gammaundeclared{} self-trap wall at $V_{yiel…` — This is the row's explicit fence: the BOUNDARY $\Gamma=-1$ / $V_{yield}$ self-trap wall is the SURVIVING localizer, not the corpse. Print even states the A1 core sits sub-saturated at $A=\sqrt{\alpha}$ INSIDE it, matchi…
 - **F-C7** · Q1 · kb `electron-identification.md:13` — `The bulk-interior-mode route is the **FALSIFIED** one (Cartesian-grid artifact); localization is **topological/boundary**` — Dated 2026-06-24 Rule-12 banner naming the bulk self-trap dead with its result doc; body preserved.
 - **F-C7** · Q1 · kb `electron-identification.md:64` — `The genesis / self-lock arc that would *dynamically create* the fluxoid from a free precursor is **closed-negative** (electron-genesis-from-free-precursor lean…` — Names the free-precursor genesis route dead in the leaf body. This is the authority M8 cites.
@@ -1358,7 +1418,7 @@ Per-row counts over the slices read so far; 'slices reporting zero hits' is the 
 - **K6** · fence-excluded · tex `01_topological_matter.tex:239` — `Rolfsen names ($3_1$, $5_1$, \ldots) label $(2,q)$ \textbf{phase-space winding portraits}` — Same TeX line, separate clause: the static phase-space winding dictionary (electron body = 0_1 unknot; proton body = 6^3_2 Borromean) is exactly the surviving homonym the K6 fence holds out. Not the corpse.
 - **K6** · fence-excluded · kb `electron-unknot-cosserat-seeder.md:73` — `\| **Layer 3** \| $(2, 3)$ phase-space winding \| Clifford-torus winding in $(V_{\text{inc}}, V_{\text{ref}})$ phasor space` — Static tank / Clifford-torus (2,3) winding — the surviving homonym per the K6 and F-C9 fences, not the dynamical mass-pin.
 - **K6** · fence-excluded · kb `l3-electron-soliton-synthesis.md:47` — `> **Real-space ⊥ phase-space disambiguation (INVARIANT-N1 cross-ref, 2026-07-09).**` — Dated INVARIANT-N1 note keeping the (2,q) winding in phase space and the real-space body as the 0_1 unknot — the fence object itself.
-- **K6** · live-wrong · verifier: UNVERIFIED · kb `torus-knot-uniqueness.md:106` — `\| Electron \| $(2, 3)$ trefoil + 0 Cosserat torsion quanta \| base Faddeev-Skyrme on (2,3) \| $\sim 0.511$ MeV (measured) \|` — The §7 lepton table's 'Mass mechanism' column names the Faddeev-Skyrme energy ON THE (2,3) WINDING as what sets the electron's mass, unbannered, in a leaf carrying no Rule-12 banner anywhere. A reader at HEAD would take…
+- **K6** · live-wrong · verifier: DOWNGRADED · kb `torus-knot-uniqueness.md:106` — `\| Electron \| $(2, 3)$ trefoil + 0 Cosserat torsion quanta \| base Faddeev-Skyrme on (2,3) \| $\sim 0.511$ MeV (measured) \|` — The §7 lepton table's 'Mass mechanism' column names the Faddeev-Skyrme energy ON THE (2,3) WINDING as what sets the electron's mass, unbannered, in a leaf carrying no Rule-12 banner anywhere. A reader at HEAD would take… — REFUTED: Fragment is byte-verbatim at line 106 (grep -nF confirms; leaf read in full, 1-150). But the site sits inside the K6 fence ("static Link wi… / CONFIRMED: Fragment is byte-verbatim at torus-knot-uniqueness.md:106 (grep -nF confirms). Read the full 150-line leaf: the file's only banner (line…
 - **K6** · fence-excluded · tex `02_baryon_sector.tex:226` — `phase profile follows the $(2,3)$ pattern` — Static (2,q) winding dictionary (electron (2,3) -> proton (2,5) 'phase-space per-loop polarization winding'), explicitly 'even though its ground-state topology is the unknot'. Static Link winding stands; not offered as …
 - **K6** · fence-excluded · kb `self-consistent-mass-oscillator.md:16` — `follows the $(2,3)$ pattern` — Verbatim twin of TeX :226; same static-winding-dictionary usage (also proton-identification.md:21, relabelled 2026-06-08 as phase-space winding, NOT real-space).
 - **K6** · fence-excluded · tex `04_quantum_spin.tex:13` — `the $0_1$ unknot flux tube in real space carrying a rotating $(2,3)$ phase-space Clifford-torus winding pattern` — The (2,3) winding is named as the static phase-space Clifford-torus winding the unknot carries (charge/winding dictionary homonym) and is used as the SPIN flywheel ontology; no claim that the (2,3) winding is the dynami…
@@ -1411,6 +1471,9 @@ All ten moved anchors are re-pinned in the mechanical PR (§6). The scan's two v
 | `q-g19a-petermann-saliency-closure.md:226` | `06_electroweak_and_higgs.tex:154` | blank line | **dead** |
 
 Seven dead KB→TeX anchors, six of them in one leaf. These are KB-side edits: the new-cite excerpt ratchet applies, and `neutron-identification.md` is PATH-STABLE (inbound from `common/full-derivation-chain`, vol6 hydrogen, vol4 ch11), so any insertion must go at EOF or be line-count-neutral. Recommended as PR-2 (§6.2), not done here.
+
+---
+
 
 ---
 
@@ -1502,6 +1565,6 @@ Ten in-place line-number re-pins across four vol2 chapter files (§4.1). No pros
 - **ch09** — `09_computational_proof.tex` 1-266 (full) (of 266); `index.md` 1-34 (full) (of 34); `anomaly-catalog.md` 1-34 (full) (of 34); `computational-graph.md` 1-37 (full) (of 37); `methodological-contamination.md` 1-78 (full) (of 78); `precision-policy.md` 1-57 (full) (of 57); `index.md` 1-29 (full) (of 29); `graph-architecture.md` 1-132 (full) (of 132); `claim-quality.md` 331-400, 623-690, 944-1010, 1030-1080 (targeted entries for clm-oltvwy, clm-ak97cb/clm-nhlo1e/clm-oygz1i, clm-z73h6n/clm-ghs75o, clm-pf84ng/clm-o3q9ul, per task instruction to read these 4 entries through their terminators) (of 1200); `claim-quality.md` 180-220 (targeted: clm-u4vmgk entry, for :190 dead-anchor verification) (of 636); `form-deriving-value-importing.md` 80-95 (targeted: K=2G row for :87 anchor verification) (of 667); `claim-quality.md` 660-670 (targeted: :665 anchor verification) (of 670); `ch8-alpha-golden-torus.md` 8-14 (targeted: :11 anchor verification) (of 14); `q-g27-muon-cosserat-saliency.md` grep-targeted lines 8,14,22,23,59,71,73,75,88 (walk-back verification, not full read — out of assigned slice, used only for cite-verification) (of 88)
 - **ch10** — `10_open_problems.tex` 1-445 (full file) (of 445); `baryon-asymmetry.md` 1-74 (full file) (of 74); `g-star-derivation.md` 1-22 (full file) (of 22); `g-star-prediction.md` 1-32 (full file) (of 32); `hubble-tension.md` 1-61 (full file) (of 61); `index.md` 1-35 (full file) (of 35); `quantitative-resolutions.md` 1-22 (full file) (of 22); `scale-invariance-table.md` 1-29 (full file) (of 29); `strong-cp.md` 1-69 (full file) (of 69); `unification.md` 1-14 (full file) (of 14); `claim-quality.md` 480-700 (clm-gfs4j8:485-509, clm-4vwsjc:511-533, clm-mroghg:540-562, entries read through their '---' terminators); 860-945 (clm-xhdai6:871-909, read through its '---' terminator) (of 1774); `claim-quality.md` 495-530 (clm-uu6dl5:505-527, read through its '---' terminator) (of 1399)
 - **ch11** — `11_standard_model_overdrive.tex` 1-133 (full) (of 133); `index.md` 1-34 (full) (of 34); `axiom-survey.md` 1-14 (full) (of 14); `overdrive-comparison.md` 1-19 (full) (of 19); `overdrive-nuclear.md` 1-38 (full) (of 38); `overdrive-protein.md` 1-24 (full) (of 24); `universal-energy.md` 1-28 (full) (of 28); `claim-quality.md` 585-649 (clm-dboxok entry at 591-620, located via grep -n 'id: clm-'; adjacent entries read for context/terminator confirmation) (of 649); `program-arc-map.md` 360-380 (N13 row context, located via grep -n N13; not one of the slice's required full-read files) (of 649); `2026-09-06_mr-board-revalidation_RESULT.md` 87-88 (grep-located items 15/16 confirming known-debt status) (of 100); `ch8-alpha-golden-torus.md` 1-13 (due-diligence check on the %-comment's \kbleaf :11 anchor; outside slice scope, not a full read) (of 222)
-- **ch12-mp: NO RECEIPT**
-- **ch12-fp: NO RECEIPT**
+- **ch12-mp** — `12_the_millennium_prizes.tex` 1-711 (full file, single read) (of 711); `index.md` 1-41 (full file) (of 41); `birch-swinnerton-dyer.md` 1-72 (full file) (of 72); `hodge-conjecture.md` 1-64 (full file) (of 64); `knot-vs-orbital-table-ch12.md` 1-16 (full file) (of 16); `navier-stokes-prize.md` 1-70 (full file) (of 70); `p-vs-np.md` 1-55 (full file) (of 55); `poincare-conjecture.md` 1-63 (full file) (of 63); `riemann-hypothesis.md` 1-111 (full file) (of 111); `yang-mills-steps1-2.md` 1-62 (full file) (of 62); `yang-mills-steps3-5.md` 1-65 (full file) (of 65); `claim-quality.md` 420-499, 900-959 (targeted: clm-q5izb7, clm-c8q0z5, clm-knveh6 entries only, per slice instructions) (of 1774); `srs-band-structure.md` 1-298 (full file, cross-check for the 12mp:112 \kbleaf cite target) (of 298)
+- **ch12-fp** — `12_appendix_formal_proofs.tex` 1-453 (full file) (of 453); `yang-mills-steps1-2.md` 1-62 (full file) (of 62); `yang-mills-steps3-5.md` 1-65 (full file) (of 65); `navier-stokes-prize.md` 1-70 (full file) (of 70); `riemann-hypothesis.md` 1-111 (full file) (of 111); `index.md` 1-51 (full file) (of 51); `claim-quality.md` 429-498 (clm-q5izb7, clm-c8q0z5), 910-1049 (clm-knveh6, clm-e1pdfd) (of 1774)
 - **appx-front: NO RECEIPT**
