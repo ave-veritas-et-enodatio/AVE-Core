@@ -4,17 +4,19 @@
 
 **Review amend 2026-09-04 (PR #1034, Rule 12):** SECTOR no longer calls Object 2 and Object 3 orthogonal 2-ports (they are distributed vs lumped of one T2 line). Op16 struck from the hub-cell sentence (FLAG-CEFF-CITE; aligns S9 G-OP16). Close of H1 is unchanged: DC prestress is not on Kirchhoff \(L\)-edges.
 
+**Review amend 2026-09-13 (PR #1034 Lane A review packet, 12 items; Grant + Math GO; Rule 12):** (1) **PORT-noun fence (R38/R40; blocks-merge item).** Object 1 is a **2-terminal element** — the A1 bond-compliance capacitor — and is never an unqualified “2-port” or PORT in this note. The A1 slot is a **bound response**: *“no independent propagating branch, no port and zero longitudinal characteristic speed”* (`master-equation.md:138–141`, R40); term of record per the R38 docket `_orchestration/docket-entries/2026-08-09-ruling-r38-bound-response.md:14–16`: *“no autonomy, no independent flux, no port”*; and a register PORT is *“RADIATIVE iff \(\mathrm{Re}(Z)>0\)”* (`port-register.md:21`), which a DC store never meets. The H1 substance is unchanged: three named objects, Object 1 terminals \(\neq\) Object 2/3 terminals, A1 ⊥ T2. Superseded wording, retained here under Rule 12: SECTOR *“Object 1 is the A1 2-port.”*; the Object 1 section *“DC voltage on this 2-port is the prestress / headroom store”*; the “Do not identify Object 3 with Object 1” paragraph *“They do not share a 2-port”*; the H1 CLOSES paragraph *“DC prestress has a different 2-port (A1 \(C_{\mathrm{eff}}\))”*. (2) `def-cmdiff` has **four** KEEP-ALL registers, not two (`vocabulary-register.md:1543–1547`); the coupling-vs-readout pair this note used is the axis inside register (b) (`translation-circuit.md:156`), and register (d) — the A1 symmetric-irrep MODE grade — is now an active fence on Object 1 (gravity-as-differential paragraph below). (3) Pin repair: `photon-ee-mapping.md:31` → `:31–38` (the free-photon column spans the table). (4) The `#1020` / `#1033` receipts are date-stamped as of 2026-08-30; `#1020` merged 2026-09-06.
+
 **Class:** records / circuit-object identification. Consistency / organizing — not an emergence test (`consistency-vs-emergence`). Mints nothing. Does not edit `kirchhoff-network-method.md` (S1 is a parked wording PR). Does not rewrite PR #1020.
 
 **Branch:** `analysis/2026-08-29-tank-state-h1-join` off `origin/main` @ `a3f4fef7`. Isolated worktree. **Not** `#1020` (`research/2026-08-26-overbraced-crystal-walk`) and **not** `#1033` (`research/2026-08-28-qpoint-constitutive`).
 
-**Signed record cited from the #1020 ref, not applied here.** Pads landed 2026-08-29 as `9efcc8db`. `git branch --contains 9efcc8db` returns only `research/2026-08-26-overbraced-crystal-walk`. `gh pr view 1020` → `state: OPEN`, `mergedAt: null`. `gh pr view 1033` → `state: OPEN`, `[DO-NOT-MERGE]`. Tags: `[branch:#1020]`, `[branch:#1033]`.
+**Signed record cited from the #1020 ref, not applied here.** Pads landed 2026-08-29 as `9efcc8db`. `git branch --contains 9efcc8db` returns only `research/2026-08-26-overbraced-crystal-walk`. `gh pr view 1020` → `state: OPEN`, `mergedAt: null`. `gh pr view 1033` → `state: OPEN`, `[DO-NOT-MERGE]`. Tags: `[branch:#1020]`, `[branch:#1033]`. **Date-stamp (amend 2026-09-13):** the receipts in this paragraph are as of 2026-08-30 (H1 close `48eead40`). `#1020` merged 2026-09-06 (`mergedAt: 2026-09-06T14:25:05Z`); `9efcc8db` and `research/2026-08-29_picture-lock-spillover.md` are now on `origin/main`. `#1033` is still `OPEN` / `[DO-NOT-MERGE]` as of 2026-09-13. This note still **cites, does not apply,** the signed record.
 
 ---
 
 ## Sector / regime (declare first)
 
-**SECTOR:** three **named** circuit objects on one K4/srs graph. The load-bearing orthogonal split is A1 ⊥ T2 (`master-equation.md:20`). Object 1 is the A1 2-port. Objects 2 and 3 are two descriptions of the **same** photon-port T2 line (distributed TL vs its \(\omega\tau\ll 1\) lumped limit — KEEP-BOTH, not a third orthogonal 2-port; `z0-derivation.md:115–124`). EE is operational, not ontological (`def-1mpanl` ANALOGY; Cosserat co-equal via TKI). No spoke-to-spoke weld.
+**SECTOR:** three **named** circuit objects on one K4/srs graph. The load-bearing orthogonal split is A1 ⊥ T2 (`master-equation.md:20`). Object 1 is the A1 **2-terminal element** (the bond-compliance capacitor; superseded 2026-09-13: “the A1 2-port”). **R38/R40 fence:** the A1 slot is a bound response, not a register PORT — *“no independent propagating branch, no port and zero longitudinal characteristic speed”* (`master-equation.md:138–141`, R40); a register PORT is *“RADIATIVE iff \(\mathrm{Re}(Z)>0\)”* (`port-register.md:21`). Where this note says “terminals” of Object 1 it means the capacitor’s two terminals, never a PORT. Objects 2 and 3 are two descriptions of the **same** photon-port T2 line (distributed TL vs its \(\omega\tau\ll 1\) lumped limit — KEEP-BOTH, not a third orthogonal 2-port; `z0-derivation.md:115–124`). EE is operational, not ontological (`def-1mpanl` ANALOGY; Cosserat co-equal via TKI). No spoke-to-spoke weld.
 
 **REGIME:** sub-yield lossless-reactive interior (Axiom 3) plus the DC (`.OP`) limit of that same lossless network. Not Regime IV. Not a source-free electron finder.
 
@@ -24,7 +26,7 @@
 
 ## What H1 was holding `[branch:#1020]`
 
-From `git show origin/research/2026-08-26-overbraced-crystal-walk:research/2026-08-29_picture-lock-spillover.md` S2 (not on this tree):
+From `git show origin/research/2026-08-26-overbraced-crystal-walk:research/2026-08-29_picture-lock-spillover.md` S2 (not on this tree as of 2026-08-30; on `origin/main` since the `#1020` merge, 2026-09-06):
 
 A lossless series-\(L\) / shunt-\(C\) mesh is **equipotential at DC** (inductors short). A static \(\nabla V\) cannot live on those \(L\)-edges. DC prestress lives on A1 **bond-compliance** capacitors \(C_{\mathrm{eff}}=C_0/S\), which can hold DC voltage at zero current. Light is T2 on the TLs. “Same mesh as the Kirchhoff leaf” overclaims. Coupling is A1 grading T2 constitutives — EE-native: **varactor-biased GRIN** (SYM) / **varactor-biased impedance-gradient** (ASYM) on the photon-port TL — **not** one voltage on one capacitor. (Spillover workshop word “photoelastic” is a materials spoke; retired as load-bearing.)
 
@@ -36,7 +38,7 @@ A lossless series-\(L\) / shunt-\(C\) mesh is **equipotential at DC** (inductors
 
 ## Verdict
 
-**H1 CLOSES.** The Round-3 1:1 table’s unsigned cells — “same scalar Kirchhoff mesh” and “\(\varepsilon_{11}\) is \(V\) on the \(L\)-edges” — stay **unsigned**, and they stay unsigned **because the Kirchhoff leaf’s own update already forbids a static \(\nabla V\) on the \(L\)-struts.** DC prestress has a different 2-port (A1 \(C_{\mathrm{eff}}\)). Light has a different 2-port (distributed TL, \(V_{\mathrm{inc}},V_{\mathrm{ref}}\)). Coupling is constitutive grading of the TL / photon-port parameters by the A1 operating point, not a single voltage on a single capacitor.
+**H1 CLOSES.** The Round-3 1:1 table’s unsigned cells — “same scalar Kirchhoff mesh” and “\(\varepsilon_{11}\) is \(V\) on the \(L\)-edges” — stay **unsigned**, and they stay unsigned **because the Kirchhoff leaf’s own update already forbids a static \(\nabla V\) on the \(L\)-struts.** DC prestress has a different terminal pair (A1 \(C_{\mathrm{eff}}\), a 2-terminal element under the R38/R40 fence in SECTOR; superseded 2026-09-13: “a different 2-port”). Light has a different 2-port (distributed TL, \(V_{\mathrm{inc}},V_{\mathrm{ref}}\)). Coupling is constitutive grading of the TL / photon-port parameters by the A1 operating point, not a single voltage on a single capacitor.
 
 **KEEP-ALL** the three objects until a later join is forced. Identity-collapse probe (`ave-ee-first-mapping` trigger 7): they share English (“capacitance”, “voltage”, “\(L\)”) and they are **not** one bench element. A1 ⊥ T2 is the ratified grade split, not a new weld.
 
@@ -62,7 +64,7 @@ $$
 - Knee is \(V_{\mathrm{snap}}\approx 511\,\mathrm{kV}\) on this object, not \(V_{\mathrm{yield}}\) (`nonlinear-vacuum-capacitance.md:16–18`; `def-vyvsn1`). Electron A1-core at \(A=\sqrt{\alpha}\) is **sub-saturated** on this capacitor (H4 lists that store; this note does not close H4).
 - `def-q1escn`: Q-point **name** for the saturation-state \(A\) as DC bias. R43: never canonical “ground.” Clause Q is DC reference-fixing, not AC phase-normalization. **This note does not coin “Q-point gravity.”** H5 (\(\varepsilon_{11}\) as A1 Q-point) stays `[branch:#1033]` WALK-GRADE.
 
-DC voltage on this 2-port is the prestress / headroom store (H6: varactor reactive-arc headroom, not a TL bias requirement).
+DC voltage across this 2-terminal element (not a PORT — R38/R40 fence, SECTOR; superseded 2026-09-13: “on this 2-port”) is the prestress / headroom store (H6: varactor reactive-arc headroom, not a TL bias requirement).
 
 ### Object 2 — T2 / photon-port transmission line \((V_{\mathrm{inc}},V_{\mathrm{ref}})\)
 
@@ -70,7 +72,7 @@ DC voltage on this 2-port is the prestress / headroom store (H6: varactor reacti
 
 Canon:
 
-- `photon-ee-mapping.md:31` — free photon: sector \(T_2\) only, \(\Gamma=0\), matched \(Z_0\), no core.
+- `photon-ee-mapping.md:31–38` (pin widened 2026-09-13 from `:31`) — free photon: sector \(T_2\) only, \(\Gamma=0\), matched \(Z_0\), no core.
 - `photon-ee-mapping.md:69–71` — on each TL bond, \((V_{\mathrm{inc}},V_{\mathrm{ref}})\) **are** the photon’s I/Q:
 
 $$
@@ -103,7 +105,7 @@ At DC, \(\mathrm{d}I/\mathrm{d}t=0\) \(\Rightarrow\) \(V_A=V_B\). Every pair of 
 
 **Pairing collision (cite only; S1 owns the wording).** `kirchhoff-network-method.md:19` writes strut current as “inductive flux **or physical lattice strain**.” `def-1mpanl` (Grant 2026-07-21) pins the **impedance** analogy: stress \(\leftrightarrow\) voltage, velocity \(\leftrightarrow\) current (`translation-circuit.md:17–21`). Strain-on-\(I\) is the **mobility** pairing. Round 3 `[branch:#1020]` already named this collision. This note does not relabel the leaf.
 
-**Do not identify Object 3 with Object 1.** If the A1 compliance capacitor and the Kirchhoff \(L\) shared the same two terminals, the inductor would short the capacitor at DC and Object 1 could not hold prestress. They do not share a 2-port: A1 ⊥ T2 (`master-equation.md:20` — never wire the winding into the breather’s own \((V_{\mathrm{inc}},V_{\mathrm{ref}})\)). The scalar Kirchhoff mesh is a **one-sector lumped model**. “Same mesh as the Kirchhoff leaf” is the overclaim H1 was holding.
+**Do not identify Object 3 with Object 1.** If the A1 compliance capacitor and the Kirchhoff \(L\) shared the same two terminals, the inductor would short the capacitor at DC and Object 1 could not hold prestress. They do not share a terminal pair (superseded 2026-09-13: “a 2-port”; Object 1 is a 2-terminal element under the R38/R40 fence, SECTOR): A1 ⊥ T2 (`master-equation.md:20` — never wire the winding into the breather’s own \((V_{\mathrm{inc}},V_{\mathrm{ref}})\)). The scalar Kirchhoff mesh is a **one-sector lumped model**. “Same mesh as the Kirchhoff leaf” is the overclaim H1 was holding.
 
 **Do not identify Kirchhoff node \(C\) with A1 \(C_{\mathrm{eff}}\).** Node \(C\) in the Kirchhoff leapfrog (`kirchhoff-network-method.md:40–41`) is the shunt \(C\) of the lumped LC pair (Object 3’s partner). A1 \(C_{\mathrm{eff}}\) is Object 1. Same EE word; orthogonal reactances (`CLAUDE.md:73`).
 
@@ -129,7 +131,7 @@ Do **not** mint a photoelastic tensor. `grep photoelastic manuscript/ave-kb` fro
 
 `form-deriving-value-importing.md:292–297`: **all measurement is AC.** A uniform DC bias is gauge-relative and self-cancels. Every AVE-distinct observable is an AC reading of a DC **gradient or topology**.
 
-`translation-circuit.md:115–116`: uniform field \(\leftrightarrow\) common-mode bias; field gradient \(\leftrightarrow\) differential bias. Two **registers** of “common-mode” (readout-level unreadability vs coupling-level WEP-CMRR) stay KEEP-ALL (`def-cmdiff` on main). This note does not collapse them.
+`translation-circuit.md:115–116`: uniform field \(\leftrightarrow\) common-mode bias; field gradient \(\leftrightarrow\) differential bias. `def-cmdiff` (`vocabulary-register.md:1543–1547`) keeps **four** registers of “common-mode” KEEP-ALL: (a) instrument / measurement channel; (b) canon influence-class (the `:115–116` row-pair used here); (c) twist-ledger mass-ledger; (d) the **A1 symmetric-irrep MODE grade** — *“the +1 symmetric port-sum eigenspace = the A1 scalar/dilatation grade”* (`:1547`). The coupling-level (EP) vs readout-level (gauge rider) pair this note had called “two registers” is an axis **inside** (b) (`translation-circuit.md:156`: *“Coupling-level (EP) vs readout-level (gauge rider) is the axis”*), not the register count. **Active fence on Object 1:** Object 1’s \(A_0\) is a register-(d) MODE grade (the mass sector); *“never read a common-mode MODE as a common-mode INFLUENCE”* (`:1547`) — \(A_0\) is not a register-(b) gauge-relative offset that self-cancels. This note collapses none of the four. [Superseded 2026-09-13: *“Two **registers** of “common-mode” (readout-level unreadability vs coupling-level WEP-CMRR) stay KEEP-ALL (`def-cmdiff` on main).”*]
 
 **INVARIANT-S2 wording collision (not a Grant-blocker; not edited here).** `:75` still lists \(C_{\mathrm{eff}}=C_0/S(A_0)\) in the same small-signal-transverse sentence as \(\varepsilon_{\mathrm{eff}}\) and \(\mu_{\mathrm{eff}}\). `:73` already split that \(C_{\mathrm{eff}}\) onto A1. H1 reads `:73` as load-bearing and leaves the `:75` parenthetical as S1-adjacent wording debt. Do not “fix” `CLAUDE.md` on this lane.
 

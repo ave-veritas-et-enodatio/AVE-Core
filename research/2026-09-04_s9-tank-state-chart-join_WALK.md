@@ -1,10 +1,12 @@
 # S9 — tank-state chart join (WALK-GRADE)
 
-**Status:** WALK-GRADE characterization of the join that survives H1. **Not a hub mint.** No `clm-` / `def-` / `translation-circuit.md` row / Kirchhoff / `CLAUDE.md` / `def-69f472` body edit. No engine run. `[DO-NOT-MERGE]`.
+**Status:** WALK-GRADE characterization of the join that survives H1. **Not a hub mint.** No `clm-` / `def-` / `translation-circuit.md` row / Kirchhoff / `CLAUDE.md` / `def-69f472` body edit. No engine run. `[DO-NOT-MERGE]`. **Dispatch receipt (added 2026-09-13):** the orchestrator review of 2026-09-04 (PR #1034 review, 2026-09-04T23:50Z) held characterization until Finding 1 was a Rule-12 freeze amendment — *“Characterization stays Grant-dispatch, same branch, WALK-GRADE join note per freeze §7”*; Findings 1–3 were closed at `7ffca034` (PR comment 2026-09-05T02:27Z); this note landed as “Action 3” at `75ba11cc` (PR comment 2026-09-05T02:35Z) and was self-review-patched at `28990d1e` (PR comment 2026-09-06T04:04Z). The Grant dispatch itself was relayed through the orchestrator session and is not a PR comment.
 
 **Review amend 2026-09-05 (self-review of this note):** (1) the join’s first sentence is the photon-port / T2 *sector* of a bond, not “each bond is Object 2.” (2) CLOCK-OP14 is an \(S(A_0)\) shear matter-clock, not Object 2’s EM clock. (3) Smith is cited as the T4 *ratio construction*, not as the Golden-Torus T2 plane. Bin A modeling verdict unchanged.
 
-**Freeze (binding):** [`research/2026-08-30_s9-tank-state-chart-join_prereg-FROZEN.md`](2026-08-30_s9-tank-state-chart-join_prereg-FROZEN.md) @ `7ffca034` (Rule-12 G-PORTS amend). This note is the freeze’s “commits second” characterization. Verdict cites **only** that freeze’s bins and gates.
+**Review amend 2026-09-13 (PR #1034 Lane A review packet, 12 items; Grant + Math GO; Rule 12):** (1) **PORT-noun fence (R38/R40; blocks-merge item).** Object 1 is a **2-terminal element** (the A1 bond-compliance capacitor), never an unqualified “2-port” or PORT: the A1 slot is a bound response — *“no independent propagating branch, no port and zero longitudinal characteristic speed”* (`master-equation.md:138–141`, R40); R38 docket `_orchestration/docket-entries/2026-08-09-ruling-r38-bound-response.md:14–16`: *“no autonomy, no independent flux, no port”* — and a register PORT is *“RADIATIVE iff \(\mathrm{Re}(Z)>0\)”* (`port-register.md:21`). Substance unchanged: Object 1 terminals \(\neq\) Object 2/3 terminals; the G-PORTS verdict row stands. Superseded wording is quoted in place. (2) `def-cmdiff` has **four** registers, not two (`vocabulary-register.md:1543–1547`); register (d) is an active fence on Object 1 (gravity-as-differential paragraph). (3) Pin: H1 `:104` → `:106 @ 28990d1e`. (4) The “whatever index is later awarded” sentence is tagged **WALK-LEVEL** (slot-conditional, un-audited). (5) Dispatch receipt added to the status line.
+
+**Freeze (binding):** [`research/2026-08-30_s9-tank-state-chart-join_prereg-FROZEN.md`](2026-08-30_s9-tank-state-chart-join_prereg-FROZEN.md) @ `7ffca034` (Rule-12 G-PORTS amend). The Rule-12 amendment 2026-09-13 on the same freeze file (PORT-noun fence, superseded-wording quotes, footer restore, §3.1 “rung T2” clarifier) re-freezes nothing; the binding bins/gates are unchanged from `7ffca034`. This note is the freeze’s “commits second” characterization. Verdict cites **only** that freeze’s bins and gates.
 
 **H1 close (consumed, not re-litigated):** [`research/2026-08-29_h1-dc-circuit-objects_WALK.md`](2026-08-29_h1-dc-circuit-objects_WALK.md). Grant signed 2026-08-30.
 
@@ -30,9 +32,9 @@ This is **not** a constitutive-slot pick, not a chord, not a `def-` lock, and no
 
 ## The join (the open piece)
 
-**Space is the graph.** The **photon-port / T2 sector** of a bond is a lossless line. Light’s traveling-wave state on that sector is the pair \((V_{\mathrm{inc}},V_{\mathrm{ref}})\) — Object 2 (`photon-ee-mapping.md:69–71`). That pair **is** the light-sector tank-state chart this lane was asked to model. The same physical bond still carries Object 1 (A1 compliance) as a **different** 2-port (`CLAUDE.md:73`); do not read “bond = Object 2.” Smith throws away overall amplitude and common phase; it is a ratio chart of Object 2’s state, not the state (`translation-phase-space.md:102`, T4 ratio construction — not an identification of Object 2 with the Golden-Torus T2 plane, which stays H4).
+**Space is the graph.** The **photon-port / T2 sector** of a bond is a lossless line. Light’s traveling-wave state on that sector is the pair \((V_{\mathrm{inc}},V_{\mathrm{ref}})\) — Object 2 (`photon-ee-mapping.md:69–71`). That pair **is** the light-sector tank-state chart this lane was asked to model. The same physical bond still carries Object 1 (A1 compliance) as a **different** 2-terminal element (superseded 2026-09-13: “2-port”; R38/R40 fence in the next paragraph) (`CLAUDE.md:73`); do not read “bond = Object 2.” Smith throws away overall amplitude and common phase; it is a ratio chart of Object 2’s state, not the state (`translation-phase-space.md:102`, T4 ratio construction — not an identification of Object 2 with the Golden-Torus T2 plane, which stays H4).
 
-**DC prestress is a different 2-port.** Object 1 is the A1 bond-compliance capacitor \(C_{\mathrm{eff}}=C_0/S\) (`CLAUDE.md:73`). It holds DC voltage at zero current. Its Q-point \(A_0\) is an **external parameter** of Object 2’s small-signal constitutives, not a third phasor on the same chart (`master-equation.md:20` — never wire the winding into the breather’s own \((V_{\mathrm{inc}},V_{\mathrm{ref}})\)).
+**DC prestress is a different 2-terminal element.** (Superseded 2026-09-13: *“a different 2-port”*. **R38/R40 fence:** the A1 slot is a bound response, not a register PORT — *“no independent propagating branch, no port and zero longitudinal characteristic speed”* (`master-equation.md:138–141`, R40); a register PORT is *“RADIATIVE iff \(\mathrm{Re}(Z)>0\)”* (`port-register.md:21`).) Object 1 is the A1 bond-compliance capacitor \(C_{\mathrm{eff}}=C_0/S\) (`CLAUDE.md:73`). It holds DC voltage at zero current. Its Q-point \(A_0\) is an **external parameter** of Object 2’s small-signal constitutives, not a third phasor on the same chart (`master-equation.md:20` — never wire the winding into the breather’s own \((V_{\mathrm{inc}},V_{\mathrm{ref}})\)).
 
 **Object 3 is not a third orthogonal 2-port.** It is the \(\omega\tau\ll 1\) lumped Faraday \(L\) of the **same** photon-port line (`z0-derivation.md:115–130`). KEEP-BOTH descriptions. At DC that \(L\) is a short (`kirchhoff-network-method.md:30–32`: \(V_A=V_B\)). A static \(\nabla V\) cannot live on those edges. Gravity-as-interaction is not “voltage on the struts.”
 
@@ -73,13 +75,15 @@ $$
 
 ## Ports (G-PORTS)
 
-| Object | 2-port | DC | Role in the join |
+**R38/R40 fence:** “Ports” is the freeze’s gate name. Object 1 is a **2-terminal element**, not a register PORT (`port-register.md:21`: RADIATIVE iff \(\mathrm{Re}(Z)>0\)); the register-sense PORT in this table is the photon-port line of Objects 2/3 (`port-register.md:47`, channel 1, \(Z_{EM}=Z_0\)). Column header superseded 2026-09-13: “2-port”.
+
+| Object | Terminal pair | DC | Role in the join |
 |---|---|---|---|
 | **1** | A1 \(C_{\mathrm{eff}}=C_0/S\) | holds \(V\) at \(I=0\) | grader \(A_0\) |
 | **2** | distributed photon-port TL | lossless traveling-wave; needs no DC bias (H6) | state chart \((V_{\mathrm{inc}},V_{\mathrm{ref}})\) |
 | **3** | lumped \(L\) of Object 2 | short: \(V_A=V_B\) | KEEP-BOTH with Object 2; not a gravity edge |
 
-Object 1 terminals \(\neq\) Object 2/3 terminals. If they shared, the inductor would short the prestress capacitor at DC and Object 1 could not hold \(V_Q\) (H1 `:104`). Identifying Object 2 with Object 3 as lumped/distributed is **not** a fail.
+Object 1 terminals \(\neq\) Object 2/3 terminals. If they shared, the inductor would short the prestress capacitor at DC and Object 1 could not hold \(V_Q\) (H1 `:106 @ 28990d1e`, *“Do not identify Object 3 with Object 1”*; `:104 @ 48eead40`). Identifying Object 2 with Object 3 as lumped/distributed is **not** a fail.
 
 Kirchhoff node \(C\) is Object 3’s partner shunt, not A1 \(C_{\mathrm{eff}}\) (`kirchhoff-network-method.md:40–41` vs `CLAUDE.md:73`).
 
@@ -96,7 +100,7 @@ Kirchhoff node \(C\) is Object 3’s partner shunt, not A1 \(C_{\mathrm{eff}}\) 
 - **SLOT-S:** gravity \(=S(A)\) operating-point field (`form-deriving-value-importing.md:284`; `common/claim-quality.md:1374–1379`, `clm-acdc07`).
 - **SLOT-OP19:** \(n(r)=1+\nu_{\mathrm{vac}}\varepsilon_{11}\), \(\nu_{\mathrm{vac}}=2/7\) (`operators.md:59`); solar form \(n=1+2GM/c^2r\) (`refractive-index-of-gravity.md:15`).
 
-What the join **does** say, without picking a slot: whatever index is later awarded lives as Object 2’s small-signal readout of a **spatial** \(A_0\) grade, not as static \(\nabla V\) on Object 3. Awarding SLOT-S vs SLOT-OP19 is H2, out of scope. Reciting SYM \(\to\) GR \(n-1=2GM/c^2r\) would be Class C / PEER-with-GR (G-ECHO); this note does not recite it as a join result.
+**WALK-LEVEL (un-audited; conditional on the H2 slot pick):** what the join **does** say, without picking a slot: whatever index is later awarded lives as Object 2’s small-signal readout of a **spatial** \(A_0\) grade, not as static \(\nabla V\) on Object 3. Awarding SLOT-S vs SLOT-OP19 is H2, out of scope. Reciting SYM \(\to\) GR \(n-1=2GM/c^2r\) would be Class C / PEER-with-GR (G-ECHO); this note does not recite it as a join result.
 
 **Clocks — Op14 may be cited; Op16 may not (G-OP16).**
 
@@ -104,7 +108,7 @@ What the join **does** say, without picking a slot: whatever index is later awar
 - **CLOCK-1** (slope-1 redshift): PEER-with-GR / ENTAILED if used. **Not re-run.**
 - **CLOCK-OP16:** **not cited.** FLAG-CEFF-CITE vacated (`operators.md:212–235`). `CLAUDE.md:75` names Op16 in the same operating-point paragraph as W6; this join uses W6 / `:73` / `translation-circuit.md:117–118` and does **not** take the Op16 wave-speed clause as support.
 
-**Gravity-as-differential readout — ENTAILED, not a constitutive pick.** Uniform field \(\leftrightarrow\) common-mode bias; field gradient \(\leftrightarrow\) differential bias (`translation-circuit.md:115–116`). `def-cmdiff` KEEP-ALL of the two “common-mode” registers. No coinage “Q-point gravity.” \(\mathcal{A}_g\) unused (G-AGFREE). No canonical “ground” (G-R43).
+**Gravity-as-differential readout — ENTAILED, not a constitutive pick.** Uniform field \(\leftrightarrow\) common-mode bias; field gradient \(\leftrightarrow\) differential bias (`translation-circuit.md:115–116`). `def-cmdiff` KEEP-ALL of the **four** “common-mode” registers (`vocabulary-register.md:1543–1547`; superseded 2026-09-13: “the two”); the coupling-vs-readout pair used here is the axis inside register (b) (`translation-circuit.md:156`). **Fence on Object 1:** \(A_0\) is register (d), the A1 symmetric-irrep MODE grade (`:1547`) — *“never read a common-mode MODE as a common-mode INFLUENCE”*; it is not a register-(b) gauge-relative offset. No coinage “Q-point gravity.” \(\mathcal{A}_g\) unused (G-AGFREE). No canonical “ground” (G-R43).
 
 **Photoelastic (G-PHOTO).** Coupling named GRIN / impedance-gradient. No \(p_{ijkl}\). Linear-in-strain vs kernel-\(A^2\) stays on the anisotropy / H2 shelf (`research/2026-07-31_anisotropy-observable_scoping.md:30,:657,:893`).
 
