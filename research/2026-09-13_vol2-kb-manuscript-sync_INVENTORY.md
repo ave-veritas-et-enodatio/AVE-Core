@@ -10,7 +10,7 @@
 - Rule 12: a site under a dated banner is *disclosed*, not debt. A TeX `%` comment is **not printed** — a walk-back that lives only in a comment discloses in git and nowhere the reader sees; those are listed as WB-LAG (comment-only).
 - Grep indexed; **reading discharged.** Each chapter slice was read in full by a dedicated reader (three on ch01, four on ch07, two on ch06), findings then went to independent verifiers (cite-verbatim; fence/Q1; disclosure/prior-art), and a completeness critic runs over the union. Read receipts are in §7. **This is a vol2-only slice of the F-row universe (16 of 175 documents); it discharges no F-row** — per the tracker's combined-pass protocol a row closes only on a full-universe read receipt. The per-row hit ledger in §3 is input to that pass, not a substitute for it.
 
-**Coverage at this stamp (2026-09-13 19:15 PDT):** 19/20 reader slices returned (ch01-A, ch01-B, ch01-C, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp); 1 still pending in the resumed workflow run `wf_45d693ef-5ac` (appx-front). Reader-reported findings: 136; corpse hits: 69 (7 live-wrong); findings with verifier verdicts: 37. Findings below marked **[first-hand]** were read and grep-verified by the lane directly, independent of any agent; the rest are **reader-reported** and carry the verifier verdict column where one exists (UNVERIFIED otherwise). Re-run `assemble_inventory.py` after the workflow completes to refresh §1–§3 and §7 from the journal.
+**Coverage at this stamp (2026-09-13 19:20 PDT):** 20/20 reader slices returned (ch01-A, ch01-B, ch01-C, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp, appx-front); 0 still pending in the resumed workflow run `wf_45d693ef-5ac` (). Reader-reported findings: 141; corpse hits: 69 (7 live-wrong); findings with verifier verdicts: 55. Findings below marked **[first-hand]** were read and grep-verified by the lane directly, independent of any agent; the rest are **reader-reported** and carry the verifier verdict column where one exists (UNVERIFIED otherwise). Re-run `assemble_inventory.py` after the workflow completes to refresh §1–§3 and §7 from the journal.
 
 ---
 
@@ -512,7 +512,23 @@ KB-only leaves (no print twin):
 KB-only leaves (no print twin):
 - `index.md` — Assigned for context (clm-e1pdfd) but has no counterpart in this slice's TeX file (12_appendix_formal_proofs.tex covers Appendix 12A: Formal Mathematical Proof Objects — OS verification / Sobolev / R…
 
-### appx-front — **NO READ (slice did not return)**
+### appx-front
+
+| TeX range | heading | KB leaf | status | note |
+|---|---|---|---|---|
+| main.tex:1-68 | (document skeleton — \input chain, no direct physics content) | build file | tex-only | Pure LaTeX scaffolding (preamble, xr-hyper cross-vol refs, \input chain). No KB leaf corresponds to this file. |
+| chapters/_manifest.tex:1-16 | (chapter \input list for Vol 2 body, chs 1-12) | a — routing only | tex-only | Enumerates the 12 body chapters' \input paths; those chapters belong to other lanes' slices. |
+| frontmatter/00_title.tex:1-19 | Title / Abstract | ch03 rows | diverged | Faddeev-Skyrme functional (line 16) and leptons-as-0_1-unknots / baryons-as-Borromean (line 14) match KB cleanly. 'Neutrinos as dispersive twisted 0_1 unknots' (line 14) and 'proton/electron mass ratio (≈1836.14)' (line… |
+| backmatter/01_appendices_lean.tex:3-34 | \chapter{The Interdisciplinary Translation Matrix} + 8 \subsection\input pairs | index.md + its 8 child leaves | verbatim-match | 1:1 structural match — each \input{../common/translation_*.tex} line corresponds exactly to one app-a child leaf, and every child leaf self-declares 'kind: leaf / no-claim: routing forwarder', naming its own manuscript/… |
+| backmatter/01_appendices_lean.tex:36-55 | \chapter{Supplemental Compendium Reference} (prose pointer to Volume 0) | * (all leaves) | tex-only | PROSE POINTER only ('please refer to... Volume 0') — never \inputs the paradox/graph/DCVE/solver-toolchain TeX bodies. Real content for these 4 KB subtrees lives entirely in Vol 0's own chapters or backmatter/05_univers… |
+| backmatter/01_appendices_lean.tex:56 (\input appendix_vacuum_engineering.tex) | (forwarded chapter: Vacuum Engineering Design Specifications) | index.md | partial | appendix_vacuum_engineering.tex (\label app:vacuum_eng) has sections (Design Spec Protocol, LLCP/Casimir params, 3 Worked Examples, Open Derivation Register) app-c-derivations/index.md does not individually enumerate. S… |
+| backmatter/01_appendices_lean.tex:58 (\input appendix_c_derived_numerology.tex) | (forwarded chapter: Derived Topological Numerology — Z_0, V_snap, V_yield, φ_yi… | index.md | partial | Core overlapping content (ν_vac=2/7, honest-α Class-B scope, K=2G GR-imported footnote) verified verbatim-consistent. app-c-derivations/index.md's constant set (ρ_bulk, τ_yield, κ_FS, m_p, F_confinement, H_∞, R_H, t_H) … |
+
+KB-only leaves (no print twin):
+- `* (spin-half-paradox.md, holographic-paradox.md, peierls-nabarro-paradox.md)` — Not KB-only in the strict research-origin sense: each has a real TeX twin, but it lives in manuscript/vol_0_engineering_compendium/chapters/01_theoretical_stress_tests.tex (ch:resolving_paradoxes, se…
+- `graph-architecture.md` — Real TeX twin is manuscript/vol_0_engineering_compendium/chapters/03_computational_graph.tex (ch:computational_graph), not vol_2_subatomic. Same 'described in prose, not \input' situation as app-b. s…
+- `dcve-specification.md` — Real TeX twin is manuscript/vol_0_engineering_compendium/chapters/04_dcve.tex (ch:dcve). Same situation. scope=outside-vol2-tex.
+- `* (all 13 leaves)` — Real TeX twin is manuscript/backmatter/05_universal_solver_toolchain.tex (app:solver_toolchain), which is \input only by vol_0_engineering_compendium/chapters/_manifest.tex:13 — never by anything in …
 
 ---
 
@@ -536,13 +552,13 @@ Kinds: WB-LAG (KB walked back, print still asserts) · CONTRA · STALE-KB (print
 | 12 | ch01-A | LOW | UNIT-LABEL LAG (disclosed in print) | `01_topological_matter.tex:227` | `torus-knot-ladder.md:10` | **DOWNGRADED** | yes | 2026-09-06 scan S4a candidates 01:218 / 01:237 | Leaf stripped the $\ell_{node}$ units from every cell and calls them 'spurious'; print keeps them in all six cells and neutralises them with an inline clause (01:218) plus a dagger footnote (01:237) … |
 | 13 | ch01-A | LOW | WB-LAG | `01_topological_matter.tex:40` | `electron-unknot.md:13` | **CONFIRMED** | no |  | The leaf pins a dated 2026-06-24 reading-scope on this exact clause; print has none. Graded LOW because print's own wording already attributes the trapping to the closed topological loop (the SURVIVI… |
 | 14 | ch01-A | MEDIUM | WB-LAG (undated leaf demotion) | `01_topological_matter.tex:244` | `chirality-and-antimatter.md:28` | **DOWNGRADED** | no |  | The leaf and clm-hb2xmj both grade the annihilation section asserted-mechanism / peer-not-chord at solidity 0.30 ('do not build on'); print states the resolution flatly and prints the 1.022 MeV resul… |
-| 15 | ch01-A | LOW | KB-INTERNAL (acknowledged OPEN fork — flag, do not adjudica… | `01_topological_matter.tex:147` | `electron-unknot.md:59` | **UNVERIFIED** | yes | ch01 index.md:44 names it: 'the **tube-geometry f… | electron-unknot.md:13 (tube radius $l_{node}/(2\pi)$) vs :59 (tube diameter $\equiv 1\,l_{node}$) differ by $\approx10\times$; PRINT carries BOTH sides verbatim at 01:40 and 01:147 with no flag. The … |
+| 15 | ch01-A | LOW | KB-INTERNAL (acknowledged OPEN fork — flag, do not adjudica… | `01_topological_matter.tex:147` | `electron-unknot.md:59` | **DOWNGRADED** | yes | ch01 index.md:44 names it: 'the **tube-geometry f… | electron-unknot.md:13 (tube radius $l_{node}/(2\pi)$) vs :59 (tube diameter $\equiv 1\,l_{node}$) differ by $\approx10\times$; PRINT carries BOTH sides verbatim at 01:40 and 01:147 with no flag. The … |
 | 16 | ch01-A | LOW | WB-LAG (undated leaf scope note) | `01_topological_matter.tex:16` | `mathematical-topology-of-mass.md:20` | **DOWNGRADED** | no |  | Leaf tags the functional peer-with-standard / adopted ansatz (matching clm-oygz1i's non-claim: 'a **chosen ansatz** ... The leaf does not derive the Skyrme term independently from Axioms 1-4'); print… |
-| 17 | ch01-B | MEDIUM | WB-LAG | `01_topological_matter.tex:110` | `electron-unknot-cosserat-seeder.md:113` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no |  | Print (01:107-111) cites the v14 breathing-soliton engine receipt flatly as the current Engine implementation witness for M, Q, J. The KB leaf demoted exactly that receipt on 2026-08-11 (R40 batch-2a… |
-| 18 | ch01-B | MEDIUM | CONTRA | `01_topological_matter.tex:120` | `electron-bound-resonator-coverage.md:186` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no |  | Print says the examplebox algebra is 'proving' the reduced Compton wavelength IS the unknot circumference; the same identity is graded definitional/circular by the KB (leaf gate D.1 at :186, OPEN, cl… |
-| 19 | ch01-B | LOW | DEAD-ANCHOR | `01_topological_matter.tex:55` | `translation-circuit.md:839` | **UNVERIFIED (id shared by 6 slices; verdicts not attributable)** | no |  | The 2026-08-02 de-claim comment repaired the anchor :637 -> :767; at HEAD the quoted string lives at translation-circuit.md:839 (lines 765-769 carry the delta_strain thermal chain, unrelated). Repair… |
-| 20 | ch01-B | LOW | DEAD-ANCHOR | `01_topological_matter.tex:56` | `substrate-perspective-electron.md:11` | **UNVERIFIED (id shared by 5 slices; verdicts not attributable)** | no | TeX 01:55-56 % comment (2026-08-02 de-claim note)… | The 2026-06-21 Rule-12 g=2 banner at substrate-perspective-electron.md:11 cites translation-circuit.md:637; the quoted content is at :839 at HEAD. Repair 637 -> 839. Pure line-number repair; banner t… |
-| 21 | ch01-B | LOW | DEAD-ANCHOR | `01_topological_matter.tex:56` | `substrate-perspective-electron.md:227` | **UNVERIFIED (id shared by 4 slices; verdicts not attributable)** | no | same 2026-08-02 TeX comment as M4 | Second :637 cite in the same leaf (§3 Magnetic moment generation, inline Rule-12 note). Repair 637 -> 839. Pure line-number repair. |
+| 17 | ch01-B | MEDIUM | WB-LAG | `01_topological_matter.tex:110` | `electron-unknot-cosserat-seeder.md:113` | **UNVERIFIED (id shared by 8 slices; verdicts not attributable)** | no |  | Print (01:107-111) cites the v14 breathing-soliton engine receipt flatly as the current Engine implementation witness for M, Q, J. The KB leaf demoted exactly that receipt on 2026-08-11 (R40 batch-2a… |
+| 18 | ch01-B | MEDIUM | CONTRA | `01_topological_matter.tex:120` | `electron-bound-resonator-coverage.md:186` | **UNVERIFIED (id shared by 8 slices; verdicts not attributable)** | no |  | Print says the examplebox algebra is 'proving' the reduced Compton wavelength IS the unknot circumference; the same identity is graded definitional/circular by the KB (leaf gate D.1 at :186, OPEN, cl… |
+| 19 | ch01-B | LOW | DEAD-ANCHOR | `01_topological_matter.tex:55` | `translation-circuit.md:839` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no |  | The 2026-08-02 de-claim comment repaired the anchor :637 -> :767; at HEAD the quoted string lives at translation-circuit.md:839 (lines 765-769 carry the delta_strain thermal chain, unrelated). Repair… |
+| 20 | ch01-B | LOW | DEAD-ANCHOR | `01_topological_matter.tex:56` | `substrate-perspective-electron.md:11` | **UNVERIFIED (id shared by 6 slices; verdicts not attributable)** | no | TeX 01:55-56 % comment (2026-08-02 de-claim note)… | The 2026-06-21 Rule-12 g=2 banner at substrate-perspective-electron.md:11 cites translation-circuit.md:637; the quoted content is at :839 at HEAD. Repair 637 -> 839. Pure line-number repair; banner t… |
+| 21 | ch01-B | LOW | DEAD-ANCHOR | `01_topological_matter.tex:56` | `substrate-perspective-electron.md:227` | **UNVERIFIED (id shared by 5 slices; verdicts not attributable)** | no | same 2026-08-02 TeX comment as M4 | Second :637 cite in the same leaf (§3 Magnetic moment generation, inline Rule-12 note). Repair 637 -> 839. Pure line-number repair. |
 | 22 | ch01-B | LOW | DEAD-ANCHOR | `01_topological_matter.tex:56` | `electron-bound-resonator-coverage.md:56` | **UNVERIFIED (id shared by 4 slices; verdicts not attributable)** | no | same 2026-08-02 TeX comment as M4 | Third :637 cite in the slice (the g=2 coverage row's Rule-12 re-scope). Repair 637 -> 839. Pure line-number repair. |
 | 23 | ch01-B | MEDIUM | KB-INTERNAL | `01_topological_matter.tex:167` | `l3-electron-soliton-synthesis.md:108` | **UNVERIFIED (id shared by 4 slices; verdicts not attributable)** | no |  | Two vol2/ch01 leaves disagree, unbannered on the l3 side. l3:108 states 'The macro two-threshold dialectic collapses to a SINGLE threshold at engine subatomic scale' (v_yield = V_SNAP), and l3:106 st… |
 | 24 | ch01-B | LOW | CONTRA | `01_topological_matter.tex:230` | `l3-electron-soliton-synthesis.md:37` | **UNVERIFIED (id shared by 3 slices; verdicts not attributable)** | no |  | The l3 family table grades every q>=9 member 'unstable' with no named particle; print tabulates named assignments at q=9/11/13 (Delta(1600), Delta(1900), N(2190), 01:230-232, dated-aligned 2026-06-19… |
@@ -570,11 +586,11 @@ Kinds: WB-LAG (KB walked back, print still asserts) · CONTRA · STALE-KB (print
 | 46 | ch02 | LOW | CONTRA | `02_baryon_sector.tex:466` | `claim-quality.md:789` | **UNVERIFIED** | yes | 02:465 2026-06-15 KB-reconciliation (vol_2 brief … | Residual strength word only: the printed bullet continues 'by algebraic substitution (given the value-fitted $G$ input)', so the 2026-06-15 correction is printed inline; the leaf twin (proton-neutron… |
 | 47 | ch02 | LOW | DEAD-ANCHOR | `02_baryon_sector.tex:126` | `thermal-softening.md:25` | **UNVERIFIED** | no | scan S4a 02:120/02:126 (leaf newer; 'added: REFUT… | Off-by-one KB anchors: at HEAD the thesaurus heading '### Hill — three distinct objects' is :224 and the VRH-average row ('Not a theorem and not a bound') is :228; the hazard note is :232. Print :120… |
 | 48 | ch02 | LOW | KB-INTERNAL | `02_baryon_sector.tex:238` | `self-consistent-mass-oscillator.md:30` | **UNVERIFIED** | no |  | Print :238 and its verbatim leaf twin :30 both say the packing limit p_c ~0.1834 is 'derived in Chapter 2' -- this IS Vol 2 Ch 2, which does not derive p_c; proton-identification.md:70 attributes it … |
-| 49 | ch03 | MEDIUM | WB-LAG | `03_neutrino_sector.tex:227` | `delta-cp-violation.md:22` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no |  | Reword TeX 03:227 item 1 to match the leaf's corrected physical description ('half-period of the propagating Cosserat coil', not '0_1 unknot phase winding'), consistent with the chapter's own 2026-05… |
-| 50 | ch03 | HIGH | WB-LAG | `03_neutrino_sector.tex:272` | `index.md:13` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no |  | Rewrite Chapter Summary bullet 1 to state the canonical screw-dislocation / open-helix framing (as the objectivebox at line 7 and the corrigendum at line 13 of the SAME chapter already do), dropping … |
-| 51 | ch03 | LOW | WB-LAG | `03_neutrino_sector.tex:274` | `index.md:13` | **UNVERIFIED (id shared by 6 slices; verdicts not attributable)** | no |  | Same block as M2 (Chapter Summary bullet 3); drop '$0_1$' label for the mass eigenstates when M2 is fixed. |
-| 52 | ch03 | HIGH | WB-LAG | `03_neutrino_sector.tex:159` | `chiral-screening.md:35` | **UNVERIFIED (id shared by 5 slices; verdicts not attributable)** | no |  | Add a print-visible caveat at TeX 03:149-159 (resultbox + note) reflecting the 2026-08-24 carve: leg 1 (transfer-capacity chain) is derived-modulo-premise, but leg 2 (connectivity=trefoil crossing nu… |
-| 53 | ch03 | MEDIUM | WB-LAG | `03_neutrino_sector.tex:250` | `delta-cp-violation.md:38` | **UNVERIFIED (id shared by 4 slices; verdicts not attributable)** | no |  | Qualify TeX 03:250's 'derive from three inputs / no curve fitting' framing per the leaf's 2026-05-17 Foundation-Item-13 scope correction: c_1=5 (hence c_1*c_3=45, hence sin^2(theta13)) is chosen-not-… |
+| 49 | ch03 | MEDIUM | WB-LAG | `03_neutrino_sector.tex:227` | `delta-cp-violation.md:22` | **UNVERIFIED (id shared by 8 slices; verdicts not attributable)** | no |  | Reword TeX 03:227 item 1 to match the leaf's corrected physical description ('half-period of the propagating Cosserat coil', not '0_1 unknot phase winding'), consistent with the chapter's own 2026-05… |
+| 50 | ch03 | HIGH | WB-LAG | `03_neutrino_sector.tex:272` | `index.md:13` | **UNVERIFIED (id shared by 8 slices; verdicts not attributable)** | no |  | Rewrite Chapter Summary bullet 1 to state the canonical screw-dislocation / open-helix framing (as the objectivebox at line 7 and the corrigendum at line 13 of the SAME chapter already do), dropping … |
+| 51 | ch03 | LOW | WB-LAG | `03_neutrino_sector.tex:274` | `index.md:13` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no |  | Same block as M2 (Chapter Summary bullet 3); drop '$0_1$' label for the mass eigenstates when M2 is fixed. |
+| 52 | ch03 | HIGH | WB-LAG | `03_neutrino_sector.tex:159` | `chiral-screening.md:35` | **UNVERIFIED (id shared by 6 slices; verdicts not attributable)** | no |  | Add a print-visible caveat at TeX 03:149-159 (resultbox + note) reflecting the 2026-08-24 carve: leg 1 (transfer-capacity chain) is derived-modulo-premise, but leg 2 (connectivity=trefoil crossing nu… |
+| 53 | ch03 | MEDIUM | WB-LAG | `03_neutrino_sector.tex:250` | `delta-cp-violation.md:38` | **UNVERIFIED (id shared by 5 slices; verdicts not attributable)** | no |  | Qualify TeX 03:250's 'derive from three inputs / no curve fitting' framing per the leaf's 2026-05-17 Foundation-Item-13 scope correction: c_1=5 (hence c_1*c_3=45, hence sin^2(theta13)) is chosen-not-… |
 | 54 | ch03 | MEDIUM | WB-LAG | `01_topological_matter.tex:207` | `index.md:13` | **UNVERIFIED (id shared by 4 slices; verdicts not attributable)** | no |  | Update the ch01 regime-classification table's Neutrino row Topology column from 'Twisted unknot' to the canonical 'Open helix (screw dislocation)' per the ch03 corrigendum, which explicitly anticipat… |
 | 55 | ch03 | HIGH | WB-LAG | `00_title.tex:14` | `index.md:13` | **UNVERIFIED (id shared by 4 slices; verdicts not attributable)** | no |  | Update the Volume II front-matter abstract (most reader-visible text in the volume) from 'neutrinos as dispersive twisted 0_1 unknots, bound by the Faddeev-Skyrme energy functional' to reflect the ca… |
 | 56 | ch03 | LOW | STALE-KB | `03_neutrino_sector.tex:122` | `claim-quality.md:251` | **UNVERIFIED (id shared by 3 slices; verdicts not attributable)** | yes |  | Trivial label-only sync: update claim-quality.md:251's flavor-splitting bullet from Delta(1620) to Delta(1600) to match the already-disclosed, dated (2026-06-19) TeX correction. Not a leaf (claim-qua… |
@@ -584,24 +600,24 @@ Kinds: WB-LAG (KB walked back, print still asserts) · CONTRA · STALE-KB (print
 | 60 | ch04 | MEDIUM | CONTRA (topology: printed figure caption still names the el… | `04_quantum_spin.tex:62` | `larmor-derivation.md:10` | **CONFIRMED** | no |  | Route for ruling/fix: the 2026-08-02 softening (commit e947ce4a) touched :53/:68 only and left the fig:spin_precession caption on the pre-migration trefoil identity. Print is internally inconsistent … |
 | 61 | ch04 | LOW | STALE-TEX-COMMENT (comment-only; TeX % FLAG-DON'T-FIX block… | `04_quantum_spin.tex:94` | `larmor-derivation.md:57` | **DOWNGRADED** | yes | MR board 2026-08-02 'vol2 -- 13 findings' item 04… | Comment-only append at TeX:89-97 noting the OWED KB-leaf edit LANDED (larmor-derivation.md:55-67 and visual-equivalence.md:14-24 both carry the 2026-08-02 KB-lockstep banner and the ~~struck~~ prior … |
 | 62 | ch04 | LOW | KB-INTERNAL (derived index vs its own bannered leaves: inde… | `04_quantum_spin.tex:6` | `index.md:11` | **CONFIRMED** | no |  | Index is DERIVED (kind: index) and not the sync source of truth -- flag only. On the next index regeneration, mirror the leaf banner (e.g. 'defined structurally as ... on the disclosed spin-½ selecti… |
-| 63 | ch05 | MEDIUM | WB-LAG | `05_electroweak_gauge_theory.tex:175` | `gauge-boson-masses.md:34` | **UNVERIFIED** | no |  | Chapter Summary bullet restates the pre-R43 claim flatly ('explicitly derived'); the printed rescope at :35/:51 (time-independent family only; 'canon holds no valid derivation of any full U(1) family… |
-| 64 | ch05 | LOW | WB-LAG | `05_electroweak_gauge_theory.tex:8` | `gauge-boson-masses.md:83` | **UNVERIFIED** | no |  | Objective bullet promises a U(1) derivation the body (printed :35/:51) now rescopes to the time-independent residual family. Same ruling as CH05-M1. |
-| 65 | ch05 | LOW | WB-LAG | `05_electroweak_gauge_theory.tex:178` | `gauge-boson-masses.md:83` | **UNVERIFIED** | no |  | 'explicitly proven' overreaches both the printed R43 rescope (gbm:83) and the sidecar non-claims for clm-jkpfd4 (claim-quality.md:816 'not original to AVE'; :817 'not a uniqueness theorem' — sidecar,… |
-| 66 | ch05 | MEDIUM | KB-INTERNAL (forward-to-ch6.md:40 is byte-identical to TeX:… | `05_electroweak_gauge_theory.tex:159` | `gauge-boson-masses.md:83` | **UNVERIFIED** | no |  | The plaquette section presupposes unitary link variables U_ij=e^{iθ_ij} and derives the Maxwell action; whether 'U(1) Electromagnetism ... derived' (:159 / forward-to-ch6.md:40) and 'full U(1) family… |
-| 67 | ch05 | MEDIUM | STALE-KB | `05_electroweak_gauge_theory.tex:83` | `weinberg-angle.md:26` | **UNVERIFIED** | no | MR board vol2 #13 (02:92 LOW mirror-drift: '~20 f… | Print carries the ruled reword (post-#840-audit R3 / CRIB-1; Rule-12 banner at TeX:84 is a % comment, prior wording preserved there and in git). Leaf :26 still reads the superseded 'topological latti… |
-| 68 | ch05 | MEDIUM | STALE-KB (print carries Grant-ruled α² native re-anchor, co… | `05_electroweak_gauge_theory.tex:115` | `weak-coupling.md:30` | **UNVERIFIED** | no |  | Print (:103, :109, :115) frames α² as the intermodulation product of two Axiom-4 varactor couplings and explicitly denies the Feynman two-vertex reading; leaf :30 (and :22, :24 'Interaction Lagrangia… |
-| 69 | ch05 | LOW | STALE-KB | `05_electroweak_gauge_theory.tex:103` | `weak-coupling.md:22` | **UNVERIFIED** | no |  | Same family as CH05-M6 (opening sentence of the α² paragraph). Fix together. |
-| 70 | ch05 | LOW | DEAD-ANCHOR (KB leaf -> common register; texPath here is th… | `vocabulary-register.md:886` | `gauge-boson-masses.md:34` | **UNVERIFIED** | no |  | vocabulary-register.md:870 is now def-t2ph01's status line; def-l0ngdu id is at :883, the cited no-restoring-force clause at :886 (which also carries the 🔴 DEMOTED 2026-08-11 R40-B2a stamp). Repoint … |
-| 71 | ch05 | LOW | DEAD-ANCHOR (KB leaf -> common register; texPath is the cit… | `vocabulary-register.md:886` | `gauge-boson-masses.md:42` | **UNVERIFIED** | no |  | :867 is now def-t2ph01's adjudicated-meaning line; def-l0ngdu header/id at :882/:883, quoted clauses at :886. Repoint :867 -> :883 and :870 -> :886. (TeX:233 % comment 'known-positive vocabulary-regi… |
-| 72 | ch05 | LOW | DEAD-ANCHOR (KB leaf -> common register; texPath is the cit… | `vocabulary-register.md:901` | `gauge-boson-masses.md:48` | **UNVERIFIED** | no |  | :882 is now the def-l0ngdu section header; def-uatk1s id is at :898 and the 'COUNTERPART SECTOR VARIABLES ... NOT one field' clause at :901. Repoint :882 -> :898 (or :901). |
-| 73 | ch05 | LOW | WB-LAG (partial; comment-only note body). The status STAMP … | `05_electroweak_gauge_theory.tex:51` | `gauge-boson-masses.md:176` | **UNVERIFIED** | yes | scan S4a 05:51 (leaf newer, added STRUCK/correcte… | Two residuals: (a) the printed pointer 'dated note at the end of this file' dangles in the PDF (comment-only); (b) the TeX comment row list (:227) carries only the :51 def-l0ngdu-family row, while th… |
-| 74 | ch05 | LOW | WB-LAG (KB flag, itself 🔴 DEMOTED 2026-08-11 R40-B1 at the … | `05_electroweak_gauge_theory.tex:33` | `gauge-boson-masses.md:48` | **UNVERIFIED** | no |  | Print never carried the 'mass flow' wording flag (def-uatk1s: u and A are counterpart sector variables, NOT one field). The refutation-threat half of the flag is demoted as void under the R40 carve (… |
-| 75 | ch05 | LOW | KNOWN-RESOLVED (re-check of scan S4a 05:35 and MR board vol… | `05_electroweak_gauge_theory.tex:35` | `gauge-boson-masses.md:34` | **UNVERIFIED** | yes | scan S4a 05:35; MR board vol2 #7 (05:35 [MEDIUM][… | Close both as resolved-and-disclosed: the board's PRINTED sentence 'Because the vacuum substrate is incompressible' survives only in the % comment at TeX:38; TeX:35 and leaf :34 are byte-twins carryi… |
-| 76 | ch06-A | MEDIUM | WB-LAG (claim-quality-sidecar demotion unpropagated to TeX … | `06_electroweak_and_higgs.tex:17` | `claim-quality.md:162` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no | vol2/claim-quality.md R40 batch-2a demotion note … | Add a Rule-12 dated caveat at TeX 06:17 (and mirror it into higgs-mechanism.md:13) noting the acoustic-relaxation MECHANISM for the 125 GeV resonance is DEMOTED 2026-08-11 (R40-B2a, NEEDS RE-DERIVATI… |
-| 77 | ch06-A | MEDIUM | WB-LAG | `06_electroweak_and_higgs.tex:363` | `chiral-screening.md:35` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no | MR-board revalidation F8 (06:363-365 Δc_crit prov… | Print at 06:363-365 needs the 2026-08-24 carve's caveat: 'connectivity = trefoil crossing number' is demoted to asserted-pending-derivation and 'connectivity = Cosserat sector count' fails the counte… |
-| 78 | ch06-A | MEDIUM | CONTRA / STALE-KB | `06_electroweak_and_higgs.tex:210` | `lepton-spectrum.md:81` | **UNVERIFIED (id shared by 6 slices; verdicts not attributable)** | no |  | TeX's own headline W/Z summary table (06:206-211) already reports the SELF-CONSISTENT loop-corrected values (80,224/90,965 MeV, -0.19%/-0.24%, via the K4 Bethe-tree S11 back-saturation derived at 06:… |
-| 79 | ch06-A | MEDIUM | CONTRA | `06_electroweak_and_higgs.tex:321` | `higgs-mass.md:29` | **UNVERIFIED (id shared by 5 slices; verdicts not attributable)** | no |  | TeX's Bethe-lattice cos(2π/c) eigenvalue derivation (06:283-335) gives ν1=9.58, ν2=19.33, ν3=23.75 meV (sum 52.7 meV) and explicitly states 'Normal hierarchy, m1<m2<m3'. higgs-mass.md's simpler 1/c t… |
-| 80 | ch06-A | LOW | STALE-KB (TeX diagram unpropagated correction) | `06_electroweak_and_higgs.tex:193` | `lepton-spectrum.md:73` | **UNVERIFIED (id shared by 4 slices; verdicts not attributable)** | no |  | TeX's arrow diagram labels BOTH remaining arrows identically as α·p_c, which does not match TeX's own boxed τ formula two lines above (06:186, m_τ = m_e·p_c/α²). lepton-spectrum.md's 'Net-α-power red… |
+| 63 | ch05 | MEDIUM | WB-LAG | `05_electroweak_gauge_theory.tex:175` | `gauge-boson-masses.md:34` | **CONFIRMED** | no |  | Chapter Summary bullet restates the pre-R43 claim flatly ('explicitly derived'); the printed rescope at :35/:51 (time-independent family only; 'canon holds no valid derivation of any full U(1) family… |
+| 64 | ch05 | LOW | WB-LAG | `05_electroweak_gauge_theory.tex:8` | `gauge-boson-masses.md:83` | **CONFIRMED** | no |  | Objective bullet promises a U(1) derivation the body (printed :35/:51) now rescopes to the time-independent residual family. Same ruling as CH05-M1. |
+| 65 | ch05 | LOW | WB-LAG | `05_electroweak_gauge_theory.tex:178` | `gauge-boson-masses.md:83` | **CONFIRMED** | no |  | 'explicitly proven' overreaches both the printed R43 rescope (gbm:83) and the sidecar non-claims for clm-jkpfd4 (claim-quality.md:816 'not original to AVE'; :817 'not a uniqueness theorem' — sidecar,… |
+| 66 | ch05 | MEDIUM | KB-INTERNAL (forward-to-ch6.md:40 is byte-identical to TeX:… | `05_electroweak_gauge_theory.tex:159` | `gauge-boson-masses.md:83` | **DOWNGRADED** | no |  | The plaquette section presupposes unitary link variables U_ij=e^{iθ_ij} and derives the Maxwell action; whether 'U(1) Electromagnetism ... derived' (:159 / forward-to-ch6.md:40) and 'full U(1) family… |
+| 67 | ch05 | MEDIUM | STALE-KB | `05_electroweak_gauge_theory.tex:83` | `weinberg-angle.md:26` | **CONFIRMED** | no | MR board vol2 #13 (02:92 LOW mirror-drift: '~20 f… | Print carries the ruled reword (post-#840-audit R3 / CRIB-1; Rule-12 banner at TeX:84 is a % comment, prior wording preserved there and in git). Leaf :26 still reads the superseded 'topological latti… |
+| 68 | ch05 | MEDIUM | STALE-KB (print carries Grant-ruled α² native re-anchor, co… | `05_electroweak_gauge_theory.tex:115` | `weak-coupling.md:30` | **CONFIRMED** | no |  | Print (:103, :109, :115) frames α² as the intermodulation product of two Axiom-4 varactor couplings and explicitly denies the Feynman two-vertex reading; leaf :30 (and :22, :24 'Interaction Lagrangia… |
+| 69 | ch05 | LOW | STALE-KB | `05_electroweak_gauge_theory.tex:103` | `weak-coupling.md:22` | **DOWNGRADED** | no |  | Same family as CH05-M6 (opening sentence of the α² paragraph). Fix together. |
+| 70 | ch05 | LOW | DEAD-ANCHOR (KB leaf -> common register; texPath here is th… | `vocabulary-register.md:886` | `gauge-boson-masses.md:34` | **CONFIRMED** | no |  | vocabulary-register.md:870 is now def-t2ph01's status line; def-l0ngdu id is at :883, the cited no-restoring-force clause at :886 (which also carries the 🔴 DEMOTED 2026-08-11 R40-B2a stamp). Repoint … |
+| 71 | ch05 | LOW | DEAD-ANCHOR (KB leaf -> common register; texPath is the cit… | `vocabulary-register.md:886` | `gauge-boson-masses.md:42` | **CONFIRMED** | no |  | :867 is now def-t2ph01's adjudicated-meaning line; def-l0ngdu header/id at :882/:883, quoted clauses at :886. Repoint :867 -> :883 and :870 -> :886. (TeX:233 % comment 'known-positive vocabulary-regi… |
+| 72 | ch05 | LOW | DEAD-ANCHOR (KB leaf -> common register; texPath is the cit… | `vocabulary-register.md:901` | `gauge-boson-masses.md:48` | **CONFIRMED** | no |  | :882 is now the def-l0ngdu section header; def-uatk1s id is at :898 and the 'COUNTERPART SECTOR VARIABLES ... NOT one field' clause at :901. Repoint :882 -> :898 (or :901). |
+| 73 | ch05 | LOW | WB-LAG (partial; comment-only note body). The status STAMP … | `05_electroweak_gauge_theory.tex:51` | `gauge-boson-masses.md:176` | **DOWNGRADED** | yes | scan S4a 05:51 (leaf newer, added STRUCK/correcte… | Two residuals: (a) the printed pointer 'dated note at the end of this file' dangles in the PDF (comment-only); (b) the TeX comment row list (:227) carries only the :51 def-l0ngdu-family row, while th… |
+| 74 | ch05 | LOW | WB-LAG (KB flag, itself 🔴 DEMOTED 2026-08-11 R40-B1 at the … | `05_electroweak_gauge_theory.tex:33` | `gauge-boson-masses.md:48` | **CONFIRMED** | no |  | Print never carried the 'mass flow' wording flag (def-uatk1s: u and A are counterpart sector variables, NOT one field). The refutation-threat half of the flag is demoted as void under the R40 carve (… |
+| 75 | ch05 | LOW | KNOWN-RESOLVED (re-check of scan S4a 05:35 and MR board vol… | `05_electroweak_gauge_theory.tex:35` | `gauge-boson-masses.md:34` | **DOWNGRADED** | yes | scan S4a 05:35; MR board vol2 #7 (05:35 [MEDIUM][… | Close both as resolved-and-disclosed: the board's PRINTED sentence 'Because the vacuum substrate is incompressible' survives only in the % comment at TeX:38; TeX:35 and leaf :34 are byte-twins carryi… |
+| 76 | ch06-A | MEDIUM | WB-LAG (claim-quality-sidecar demotion unpropagated to TeX … | `06_electroweak_and_higgs.tex:17` | `claim-quality.md:162` | **UNVERIFIED (id shared by 8 slices; verdicts not attributable)** | no | vol2/claim-quality.md R40 batch-2a demotion note … | Add a Rule-12 dated caveat at TeX 06:17 (and mirror it into higgs-mechanism.md:13) noting the acoustic-relaxation MECHANISM for the 125 GeV resonance is DEMOTED 2026-08-11 (R40-B2a, NEEDS RE-DERIVATI… |
+| 77 | ch06-A | MEDIUM | WB-LAG | `06_electroweak_and_higgs.tex:363` | `chiral-screening.md:35` | **UNVERIFIED (id shared by 8 slices; verdicts not attributable)** | no | MR-board revalidation F8 (06:363-365 Δc_crit prov… | Print at 06:363-365 needs the 2026-08-24 carve's caveat: 'connectivity = trefoil crossing number' is demoted to asserted-pending-derivation and 'connectivity = Cosserat sector count' fails the counte… |
+| 78 | ch06-A | MEDIUM | CONTRA / STALE-KB | `06_electroweak_and_higgs.tex:210` | `lepton-spectrum.md:81` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no |  | TeX's own headline W/Z summary table (06:206-211) already reports the SELF-CONSISTENT loop-corrected values (80,224/90,965 MeV, -0.19%/-0.24%, via the K4 Bethe-tree S11 back-saturation derived at 06:… |
+| 79 | ch06-A | MEDIUM | CONTRA | `06_electroweak_and_higgs.tex:321` | `higgs-mass.md:29` | **UNVERIFIED (id shared by 6 slices; verdicts not attributable)** | no |  | TeX's Bethe-lattice cos(2π/c) eigenvalue derivation (06:283-335) gives ν1=9.58, ν2=19.33, ν3=23.75 meV (sum 52.7 meV) and explicitly states 'Normal hierarchy, m1<m2<m3'. higgs-mass.md's simpler 1/c t… |
+| 80 | ch06-A | LOW | STALE-KB (TeX diagram unpropagated correction) | `06_electroweak_and_higgs.tex:193` | `lepton-spectrum.md:73` | **UNVERIFIED (id shared by 5 slices; verdicts not attributable)** | no |  | TeX's arrow diagram labels BOTH remaining arrows identically as α·p_c, which does not match TeX's own boxed τ formula two lines above (06:186, m_τ = m_e·p_c/α²). lepton-spectrum.md's 'Net-α-power red… |
 | 81 | ch06-A | LOW | DEAD-ANCHOR | `sm-ave-translation.md:10` | `06_electroweak_and_higgs.tex:860` | **UNVERIFIED (id shared by 4 slices; verdicts not attributable)** | no |  | Update sm-ave-translation.md's cited line number from 305 to 860 (the \input actually sits there at HEAD; line 305 is mid-neutrino Bethe-lattice text, unrelated). Pure line-number repair. |
 | 82 | ch06-A | LOW | KB-INTERNAL (inconsistent disclosure visibility) | `higgs-mechanism.md:54` | `lepton-spectrum.md:29` | **UNVERIFIED (id shared by 4 slices; verdicts not attributable)** | no |  | The same dated, already-worded Rule-12 open-flag text for the contested √(3/7) label is a VISIBLE rendered blockquote in lepton-spectrum.md:29, but only a HIDDEN HTML comment (invisible on render) at… |
 | 83 | ch06-A | LOW | DEAD-ANCHOR | `06_electroweak_and_higgs.tex:422` | `verify-md-links.py:808` | **UNVERIFIED (id shared by 3 slices; verdicts not attributable)** | yes | verify-md-links.py WAIVED_KBLEAF adjudication (re… | Already tracked as a known, deliberately-waived dead cite pending a canonical tracked anchor for the four-lemma Goldstone derivation. No action needed beyond what the tooling already does (loud waive… |
@@ -632,25 +648,25 @@ Kinds: WB-LAG (KB walked back, print still asserts) · CONTRA · STALE-KB (print
 | 108 | ch07-A | LOW | STALE-KB | `07_quantum_mechanics_and_orbitals.tex:383` | `analog-ladder-filter.md:52` | **UNVERIFIED** | no | R40 worklist row 07_quantum_mechanics_and_orbital… | Print :383 is stamped DEMOTED R40-B2a (Z_LC=12.31 Ohm bulk-modulus attribution); the verbatim KB twin analog-ladder-filter.md:52 carries no stamp and no Rule-12 banner. Near-mechanical (copy the rule… |
 | 109 | ch07-A | LOW | DEAD-ANCHOR | `07_quantum_mechanics_and_orbitals.tex:41` | `de-broglie-standing-wave.md:267` | **UNVERIFIED** | yes |  | The printed stamp (status IS disclosed in print) points to a 'dated note at the end of this file', but the R40 batch-2a note in the TeX is entirely a % comment block (:4204-4290; 0 non-comment lines)… |
 | 110 | ch07-A | LOW | KB-INTERNAL | `07_quantum_mechanics_and_orbitals.tex:173` | `ode-verification.md:49` | **UNVERIFIED** | no |  | Two ch07 leaves disagree, unbannered: ode-verification.md:49 (mirrored verbatim in print :173) places r < a_0 in Regime II (Yield), while de-broglie-n.md:10 says the entire atom is in the linear regi… |
-| 111 | ch07-B | HIGH | CONTRA | `07_quantum_mechanics_and_orbitals.tex:1446` | `macro-cavity-saturation.md:10` | **UNVERIFIED** | no |  | Print itself is internally inconsistent and my whole assigned slice sits inside the inconsistency. TeX:558 (just before my slice) states the 'Topological N-Port Y-Matrix architecture' (i.e. exactly S… |
-| 112 | ch07-B | HIGH | KB-INTERNAL | `07_quantum_mechanics_and_orbitals.tex:1314` | `index.md:45` | **UNVERIFIED** | no |  | The ch07 index.md itself documents (line 45, in its 'Derivations and Detail' table) that macro-cavity-saturation.md records supersession of the N-port Y-matrix by mutual cavity loading -- yet the SAM… |
-| 113 | ch07-B | LOW | CONTRA | `07_quantum_mechanics_and_orbitals.tex:1965` | `radial-eigenvalue-solver.md:177` | **UNVERIFIED** | no |  | Cosmetic label drift only, no numeric/physics conflict found: the 'Validation' column of the nuclear/atomic/antenna/galactic cross-scale-isomorphism table names the antenna-scale validation 'Chiral A… |
-| 114 | ch07-C | MEDIUM | CONTRA — eq:kappa_hopf: print carries a sign-alternating pa… | `07_quantum_mechanics_and_orbitals.tex:3288` | `radial-eigenvalue-solver.md:731` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no |  | Route for ruling; not mechanical. Facts for the ruler: git log -L shows TeX 3288 and KB 731 both unchanged since initial release de9d2293 (2026-04-13) — the leaf was never verbatim at this spot. The … |
-| 115 | ch07-C | MEDIUM | CONTRA — 'Hopf link back-EMF' bullet: print (3318-3329) ass… | `07_quantum_mechanics_and_orbitals.tex:3323` | `radial-eigenvalue-solver.md:741` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no |  | Same ruling as M1 (companion prose to the parity factor). Print's Period-3 claim ('and natively resolves the Period-3 binding' at 3328) has no KB home anywhere in ave-kb (grep 'Inductive Drag' / 'Per… |
-| 116 | ch07-C | MEDIUM | KB-INTERNAL (also print-internal) — E2k (TeX 3200 '(all she… | `07_quantum_mechanics_and_orbitals.tex:3306` | `radial-eigenvalue-solver.md:739` | **UNVERIFIED (id shared by 6 slices; verdicts not attributable)** | no |  | The correction exists in print (3611) and KB (scale-separation.md:35) as an undated 'Note:' at the OTHER site only; the E2k site still presents same-n CDF screening as the architecture. Candidate for… |
-| 117 | ch07-C | MEDIUM | KB-INTERNAL (also print-internal) — the E2 Summary box (TeX… | `07_quantum_mechanics_and_orbitals.tex:2728` | `dual-formalism-architecture.md:21` | **UNVERIFIED (id shared by 5 slices; verdicts not attributable)** | no |  | Ruling needed on whether the Y->S half of the Dual-Formalism box is historical (then it needs a dated superseded banner at TeX 2711-2737 and dual-formalism-architecture.md:10) or still standing (then… |
-| 118 | ch07-C | MEDIUM | KB-INTERNAL (also print-internal) — Li IE printed as 5.32 e… | `07_quantum_mechanics_and_orbitals.tex:3136` | `radial-eigenvalue-solver.md:689` | **UNVERIFIED (id shared by 4 slices; verdicts not attributable)** | no | vol2/claim-quality.md clm-oltvwy:348 (derived sid… | Sidecar already instructs 'Treat the ±2.8% headline as the validated solver bound' and lists 'Reconcile the Li per-element residual' as strengthen-by. Leaf-level: a dated cross-note at radial-eigenva… |
+| 111 | ch07-B | HIGH | CONTRA | `07_quantum_mechanics_and_orbitals.tex:1446` | `macro-cavity-saturation.md:10` | **CONFIRMED** | no |  | Print itself is internally inconsistent and my whole assigned slice sits inside the inconsistency. TeX:558 (just before my slice) states the 'Topological N-Port Y-Matrix architecture' (i.e. exactly S… |
+| 112 | ch07-B | HIGH | KB-INTERNAL | `07_quantum_mechanics_and_orbitals.tex:1314` | `index.md:45` | **CONFIRMED** | no |  | The ch07 index.md itself documents (line 45, in its 'Derivations and Detail' table) that macro-cavity-saturation.md records supersession of the N-port Y-matrix by mutual cavity loading -- yet the SAM… |
+| 113 | ch07-B | LOW | CONTRA | `07_quantum_mechanics_and_orbitals.tex:1965` | `radial-eigenvalue-solver.md:177` | **CONFIRMED** | no |  | Cosmetic label drift only, no numeric/physics conflict found: the 'Validation' column of the nuclear/atomic/antenna/galactic cross-scale-isomorphism table names the antenna-scale validation 'Chiral A… |
+| 114 | ch07-C | MEDIUM | CONTRA — eq:kappa_hopf: print carries a sign-alternating pa… | `07_quantum_mechanics_and_orbitals.tex:3288` | `radial-eigenvalue-solver.md:731` | **UNVERIFIED (id shared by 8 slices; verdicts not attributable)** | no |  | Route for ruling; not mechanical. Facts for the ruler: git log -L shows TeX 3288 and KB 731 both unchanged since initial release de9d2293 (2026-04-13) — the leaf was never verbatim at this spot. The … |
+| 115 | ch07-C | MEDIUM | CONTRA — 'Hopf link back-EMF' bullet: print (3318-3329) ass… | `07_quantum_mechanics_and_orbitals.tex:3323` | `radial-eigenvalue-solver.md:741` | **UNVERIFIED (id shared by 8 slices; verdicts not attributable)** | no |  | Same ruling as M1 (companion prose to the parity factor). Print's Period-3 claim ('and natively resolves the Period-3 binding' at 3328) has no KB home anywhere in ave-kb (grep 'Inductive Drag' / 'Per… |
+| 116 | ch07-C | MEDIUM | KB-INTERNAL (also print-internal) — E2k (TeX 3200 '(all she… | `07_quantum_mechanics_and_orbitals.tex:3306` | `radial-eigenvalue-solver.md:739` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no |  | The correction exists in print (3611) and KB (scale-separation.md:35) as an undated 'Note:' at the OTHER site only; the E2k site still presents same-n CDF screening as the architecture. Candidate for… |
+| 117 | ch07-C | MEDIUM | KB-INTERNAL (also print-internal) — the E2 Summary box (TeX… | `07_quantum_mechanics_and_orbitals.tex:2728` | `dual-formalism-architecture.md:21` | **UNVERIFIED (id shared by 6 slices; verdicts not attributable)** | no |  | Ruling needed on whether the Y->S half of the Dual-Formalism box is historical (then it needs a dated superseded banner at TeX 2711-2737 and dual-formalism-architecture.md:10) or still standing (then… |
+| 118 | ch07-C | MEDIUM | KB-INTERNAL (also print-internal) — Li IE printed as 5.32 e… | `07_quantum_mechanics_and_orbitals.tex:3136` | `radial-eigenvalue-solver.md:689` | **UNVERIFIED (id shared by 5 slices; verdicts not attributable)** | no | vol2/claim-quality.md clm-oltvwy:348 (derived sid… | Sidecar already instructs 'Treat the ±2.8% headline as the validated solver bound' and lists 'Reconcile the Li per-element residual' as strengthen-by. Leaf-level: a dated cross-note at radial-eigenva… |
 | 119 | ch07-C | LOW | KB-INTERNAL (also print-internal) — Be printed as 8.21 eV /… | `07_quantum_mechanics_and_orbitals.tex:3138` | `radial-eigenvalue-solver.md:690` | **UNVERIFIED (id shared by 4 slices; verdicts not attributable)** | no | vol2/claim-quality.md clm-oltvwy:347,:364 and clm… | Narrative-stage snapshot: E2k (TeX 3152-3164) immediately calls the E2d-E2j architecture 'the fundamental problem', so the table is partially self-disclosed by narrative, but not by any dated marker.… |
 | 120 | ch07-C | LOW | KB-INTERNAL — three unreconciled He first-IE precisions acr… | `07_quantum_mechanics_and_orbitals.tex:3134` | `radial-eigenvalue-solver.md:688` | **UNVERIFIED (id shared by 4 slices; verdicts not attributable)** | no |  | The 24.19 vs 24.37 pair are different methods (MCL vs Hopf-link circuit) and may coexist by design; the '0.008%' at chiral-factor.md:28 / TeX 3851 (ch07-D) matches neither and is the outlier to route… |
-| 121 | ch07-D | MEDIUM | STALE-KB | `07_quantum_mechanics_and_orbitals.tex:3529` | `scale-separation.md:49` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no | MR board vol2 finding 07:3510 (2026-08-02); TeX-s… | Update scale-separation.md:49 to drop the 'confirmed independently ... Axiom 2' wording and replace with the already-ruled 2026-08-02 correction verbatim available in TeX 07:3529-3541: K=2G is GR-imp… |
-| 122 | ch07-D | MEDIUM | WB-LAG | `07_quantum_mechanics_and_orbitals.tex:3496` | `claim-quality.md:393` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no | claim-quality.md clm-oltvwy (line ~349) and clm-w… | Add a print-visible qualifier to the 'Approach 24: Complete Phase Integral' resultbox (07:3486-3499) noting that corrections A/B/C (hierarchical cascade, SIR, Op10 -- introduced later in this same ch… |
-| 123 | ch07-D | LOW | STALE-KB | `07_quantum_mechanics_and_orbitals.tex:3654` | `subshell-junction-scattering.md:38` | **UNVERIFIED (id shared by 6 slices; verdicts not attributable)** | no |  | Append the same parenthetical print already carries -- '(form-derived, value GR-imported; not an axiom of this framework)' -- to the bare '($K=2G$)' label in subshell-junction-scattering.md:38, copyi… |
-| 124 | ch07-D | LOW | TEX-INTERNAL-CONTRA (disclosed only in a derived sidecar) | `07_quantum_mechanics_and_orbitals.tex:4027` | `claim-quality.md:349` | **UNVERIFIED (id shared by 5 slices; verdicts not attributable)** | yes | claim-quality.md clm-oltvwy rationale (Li residua… | No mechanical fix proposed here (adjudicating which Li figure is canonical is a physics/architecture call, flagged in claim-quality as already open); note only that the print-side inconsistency betwe… |
-| 125 | ch09 | MEDIUM | STALE-KB | `09_computational_proof.tex:92` | `anomaly-catalog.md:15` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no |  | Replace the anomaly-catalog.md muon g-2 bullet with the corrected framing already printed at ch09.tex:85-95 (observed anomaly +245(56)e-11 vs AVE forward-prediction +502e-11 via Q-G27, 4.6-sigma, wal… |
-| 126 | ch09 | MEDIUM | STALE-KB | `09_computational_proof.tex:56` | `computational-graph.md:30` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no |  | Update the Agreement-column cell of the Verification Summary table in computational-graph.md from 'sub-3 A' to the corrected 'qualitative (see Rule-12 scope note, clm-u4vmgk)' language now printed in… |
-| 127 | ch09 | HIGH | STALE-KB | `09_computational_proof.tex:249` | `methodological-contamination.md:71` | **UNVERIFIED (id shared by 6 slices; verdicts not attributable)** | no |  | Print carries the dated 2026-08-02 CRIB-1 AXIOM-ATTRIBUTION correction (ch09.tex:236-249, citing ave-kb/common/form-deriving-value-importing.md:87 [verified: K=2G row, GR-IMPORTED] and vol1/claim-qua… |
-| 128 | ch10 | MEDIUM | WB-LAG | `10_open_problems.tex:320` | `g-star-prediction.md:10` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no |  | Add a footnote or in-line parenthetical to TeX §Testable Prediction (10:316-322, and/or the g_* row of the quantitative-resolutions table at 10:423) carrying the 2026-08-18 Wave-2 D15b provenance rid… |
-| 129 | ch10 | HIGH | STALE-KB (also KB-INTERNAL vs the sibling baryon-asymmetry.… | `10_open_problems.tex:419` | `quantitative-resolutions.md:15` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no | 2026-06-20 Rule-12 walk-back / auditor FINDING 2 … | Update quantitative-resolutions.md:15 to match the already-corrected wording in baryon-asymmetry.md:70 and TeX:419 — '0.79% (OOM)' / 'Consistency-check' with a footnote citing the 2026-06-20 Rule-12 … |
+| 121 | ch07-D | MEDIUM | STALE-KB | `07_quantum_mechanics_and_orbitals.tex:3529` | `scale-separation.md:49` | **UNVERIFIED (id shared by 8 slices; verdicts not attributable)** | no | MR board vol2 finding 07:3510 (2026-08-02); TeX-s… | Update scale-separation.md:49 to drop the 'confirmed independently ... Axiom 2' wording and replace with the already-ruled 2026-08-02 correction verbatim available in TeX 07:3529-3541: K=2G is GR-imp… |
+| 122 | ch07-D | MEDIUM | WB-LAG | `07_quantum_mechanics_and_orbitals.tex:3496` | `claim-quality.md:393` | **UNVERIFIED (id shared by 8 slices; verdicts not attributable)** | no | claim-quality.md clm-oltvwy (line ~349) and clm-w… | Add a print-visible qualifier to the 'Approach 24: Complete Phase Integral' resultbox (07:3486-3499) noting that corrections A/B/C (hierarchical cascade, SIR, Op10 -- introduced later in this same ch… |
+| 123 | ch07-D | LOW | STALE-KB | `07_quantum_mechanics_and_orbitals.tex:3654` | `subshell-junction-scattering.md:38` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no |  | Append the same parenthetical print already carries -- '(form-derived, value GR-imported; not an axiom of this framework)' -- to the bare '($K=2G$)' label in subshell-junction-scattering.md:38, copyi… |
+| 124 | ch07-D | LOW | TEX-INTERNAL-CONTRA (disclosed only in a derived sidecar) | `07_quantum_mechanics_and_orbitals.tex:4027` | `claim-quality.md:349` | **UNVERIFIED (id shared by 6 slices; verdicts not attributable)** | yes | claim-quality.md clm-oltvwy rationale (Li residua… | No mechanical fix proposed here (adjudicating which Li figure is canonical is a physics/architecture call, flagged in claim-quality as already open); note only that the print-side inconsistency betwe… |
+| 125 | ch09 | MEDIUM | STALE-KB | `09_computational_proof.tex:92` | `anomaly-catalog.md:15` | **UNVERIFIED (id shared by 8 slices; verdicts not attributable)** | no |  | Replace the anomaly-catalog.md muon g-2 bullet with the corrected framing already printed at ch09.tex:85-95 (observed anomaly +245(56)e-11 vs AVE forward-prediction +502e-11 via Q-G27, 4.6-sigma, wal… |
+| 126 | ch09 | MEDIUM | STALE-KB | `09_computational_proof.tex:56` | `computational-graph.md:30` | **UNVERIFIED (id shared by 8 slices; verdicts not attributable)** | no |  | Update the Agreement-column cell of the Verification Summary table in computational-graph.md from 'sub-3 A' to the corrected 'qualitative (see Rule-12 scope note, clm-u4vmgk)' language now printed in… |
+| 127 | ch09 | HIGH | STALE-KB | `09_computational_proof.tex:249` | `methodological-contamination.md:71` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no |  | Print carries the dated 2026-08-02 CRIB-1 AXIOM-ATTRIBUTION correction (ch09.tex:236-249, citing ave-kb/common/form-deriving-value-importing.md:87 [verified: K=2G row, GR-IMPORTED] and vol1/claim-qua… |
+| 128 | ch10 | MEDIUM | WB-LAG | `10_open_problems.tex:320` | `g-star-prediction.md:10` | **UNVERIFIED (id shared by 8 slices; verdicts not attributable)** | no |  | Add a footnote or in-line parenthetical to TeX §Testable Prediction (10:316-322, and/or the g_* row of the quantitative-resolutions table at 10:423) carrying the 2026-08-18 Wave-2 D15b provenance rid… |
+| 129 | ch10 | HIGH | STALE-KB (also KB-INTERNAL vs the sibling baryon-asymmetry.… | `10_open_problems.tex:419` | `quantitative-resolutions.md:15` | **UNVERIFIED (id shared by 8 slices; verdicts not attributable)** | no | 2026-06-20 Rule-12 walk-back / auditor FINDING 2 … | Update quantitative-resolutions.md:15 to match the already-corrected wording in baryon-asymmetry.md:70 and TeX:419 — '0.79% (OOM)' / 'Consistency-check' with a footnote citing the 2026-06-20 Rule-12 … |
 | 130 | ch11 | MEDIUM | CONTRA | `11_standard_model_overdrive.tex:66` | `claim-quality.md:604` | **UNVERIFIED** | no | research/2026-09-06_mr-board-revalidation_RESULT.… | Qualify or remove 'at comparable accuracy' in ch11 line 66. clm-dboxok (vol2/claim-quality.md ~:604) explicitly non-claims a head-to-head accuracy benchmark against Lattice QCD; the printed sentence … |
 | 131 | ch11 | MEDIUM | STALE-KB | `11_standard_model_overdrive.tex:123` | `program-arc-map.md:371` | **UNVERIFIED** | no | research/2026-09-06_mr-board-revalidation_RESULT.… | Do not silently reword — this needs adjudication, not a mechanical edit. Determine whether program-arc-map N13 ('protein impedance-folding' EE-reflection-channel mechanism, cross-repo AVE-Protein lan… |
 | 132 | ch12-mp | MEDIUM | STALE-KB | `12_the_millennium_prizes.tex:112` | `yang-mills-steps1-2.md:30` | **UNVERIFIED** | no |  | Copy the TeX 'Scope note (2026-07-09, #604/#607)' paragraph (12mp:112) verbatim into yang-mills-steps1-2.md immediately after the sentence ending '...eliminating UV divergence.' (leaf line 30), so th… |
@@ -658,6 +674,11 @@ Kinds: WB-LAG (KB walked back, print still asserts) · CONTRA · STALE-KB (print
 | 134 | ch12-fp | MEDIUM | CONTRA | `12_appendix_formal_proofs.tex:197` | `yang-mills-steps1-2.md:10` | **UNVERIFIED** | yes |  | The 'Yang--Mills Continuum QFT (Formal Statement)' resultbox (TeX :188-201) states flatly, as an achieved conclusion of applying the OS Reconstruction Theorem, that 'there exists a unique Wightman qu… |
 | 135 | ch12-fp | MEDIUM | CONTRA | `12_appendix_formal_proofs.tex:280` | `navier-stokes-prize.md:10` | **UNVERIFIED** | yes |  | The 'Navier-Stokes Smoothness (Formal Statement)' resultbox (TeX:276-284) asserts a global smooth C^infty((0,infty); H^1(R^3)) solution as an achieved result. The trailing 'Remaining Clay gap' paragr… |
 | 136 | ch12-fp | MEDIUM | CONTRA | `12_appendix_formal_proofs.tex:357` | `riemann-hypothesis.md:10` | **UNVERIFIED** | yes |  | The 'Zero-Free Region, Physical Contrapositive' resultbox (TeX:355-363) states the Riemann Hypothesis's conclusion flatly as a 'Theorem,' with a full physical proof, of exactly the statement Clay is … |
+| 137 | appx-front | MEDIUM | CONTRA | `00_title.tex:18` | `index.md:21` | **UNVERIFIED (id shared by 8 slices; verdicts not attributable)** | no |  | Reconcile the abstract's headline proton/electron mass ratio (1836.14) with the KB canonical eigenvalue (1836.12, echoed identically in particle-physics/index.md:21 'solution ≈ 1836.12 m_e'). Both KB… |
+| 138 | appx-front | HIGH | WB-LAG | `00_title.tex:14` | `index.md:42` | **UNVERIFIED (id shared by 8 slices; verdicts not attributable)** | no |  | The book's own abstract (first page of Volume II, its most-read sentence) still sells the 'neutrinos as twisted 0_1 unknots' picture as the model. The KB's own routing index for Ch.3 explicitly says … |
+| 139 | appx-front | MEDIUM | KB-INTERNAL | `a (KB-internal, no TeX site — index vs sibling leaf):0` | `index.md:19` | **UNVERIFIED (id shared by 7 slices; verdicts not attributable)** | no |  | App D's own Key Results table still states flatly that K=2G 'emerges' at high coupling. Its sibling leaf graph-architecture.md:16-29 carries a full [DE-CLAIM 2026-08-02] banner withdrawing exactly th… |
+| 140 | appx-front | MEDIUM | WB-LAG | `05_universal_solver_toolchain.tex:211` | `lattice-phase-transition.md:18` | **UNVERIFIED (id shared by 6 slices; verdicts not attributable)** | no |  | Slice-specific probe confirmed: the vol2 KB leaf's 'Longitudinal waves \| Propagate' row is inline-bannered AND has a full dated EOF demotion note (R40 sweep, 2026-08-11) explaining that under ratifi… |
+| 141 | appx-front | LOW | DEAD-ANCHOR | `a (KB-internal citation, no TeX site):0` | `claim-quality.md:1160` | **UNVERIFIED (id shared by 5 slices; verdicts not attributable)** | yes |  | clm-uatcql's own caveat list (and its strengthen-by at :1174) cites the flagged 'longitudinal wave' text at sm-translation-toolchain.md:22, but that line is actually the '<!-- claim-quality: clm-oltv… |
 
 
 #### Fragments + verifier notes
@@ -732,37 +753,37 @@ Kinds: WB-LAG (KB walked back, print still asserts) · CONTRA · STALE-KB (print
 - KB `chirality-and-antimatter.md:28` — `> **Tag (peer, not chord).** The observable $2\gamma$ at $2 m_e c^2 = 1.022$ MeV is the **standard-QED result** — AVE claims **no** distinct cross-section, branching ratio, or kinematic distribution …`
 - verifiers: DOWNGRADED: Both fragments verified byte-verbatim: tex fragment at actual line 246 (claimed 244, off by 2) in manuscript/vol_2_subatomic/chapters/01_to…
 
-**15. CH01A-M15** (ch01-A, UNVERIFIED)
+**15. CH01A-M15** (ch01-A, DOWNGRADED)
 - print `01_topological_matter.tex:147` — `The minimum discrete diameter of the flux tube is normalised to one fundamental lattice pitch ($d \equiv 1 l_{node}$).`
 - KB `electron-unknot.md:59` — `The minimum discrete diameter of the flux tube is normalised to one fundamental lattice pitch ($d \equiv 1 l_{node}$).`
-- verifiers: 
+- verifiers: DOWNGRADED: Fragments are byte-verbatim and the fork is real and correctly identified as an already-known, OPEN, routed-to-Grant issue (index.md:44) — …
 
 **16. CH01A-M16** (ch01-A, DOWNGRADED)
 - print `01_topological_matter.tex:16` — `stable particles are defined as finite-energy soliton solutions to the generalised \textbf{Faddeev-Skyrme Energy Functional}`
 - KB `mathematical-topology-of-mass.md:20` — `> **Peer + finiteness note.** The Faddeev-Skyrme energy functional is **standard soliton field theory** (Faddeev–Niemi / Skyrme), imported here as calculational scaffolding — **peer-with-standard**, …`
 - verifiers: DOWNGRADED: Both fragments verified byte-verbatim: tex fragment at 01_topological_matter.tex:16 exactly as quoted; kb fragment at mathematical-topology…
 
-**17. M1** (ch01-B, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
+**17. M1** (ch01-B, UNVERIFIED (id shared by 8 slices; verdicts not attributable))
 - print `01_topological_matter.tex:110` — `breathing-soliton seed gives $\mathcal{M} > 0$, $\mathcal{Q} = 1$,`
 - KB `electron-unknot-cosserat-seeder.md:113` — `**Mode I PASS** — engine autonomously hosts breathing soliton`
 - verifiers: 
 
-**18. M2** (ch01-B, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
+**18. M2** (ch01-B, UNVERIFIED (id shared by 8 slices; verdicts not attributable))
 - print `01_topological_matter.tex:120` — `proving it is the geometric circumference of the $0_1$ unknot.`
 - KB `electron-bound-resonator-coverage.md:186` — `\| D.1 \| **$\ell_{\mathrm{node}}$ CIRCULAR** — definitional, $m_e$ is the input ruler; one-ruler TARGET not achieved ($G$ makes count plausibly TWO) \| C \| OPEN — clm-5xon03 \|`
 - verifiers: 
 
-**19. M3** (ch01-B, UNVERIFIED (id shared by 6 slices; verdicts not attributable))
+**19. M3** (ch01-B, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
 - print `01_topological_matter.tex:55` — `translation-circuit.md:767 ("**$g = 2$ is POSITED, not derived**"; the sweep's kb_truth`
 - KB `translation-circuit.md:839` — `- **$g = 2$ is POSITED, not derived** (`ave-evidence-framing-discipline`); the anomalous part $a_e = \alpha/2\pi$ is the slip (§10.2/§`
 - verifiers: 
 
-**20. M4** (ch01-B, UNVERIFIED (id shared by 5 slices; verdicts not attributable))
+**20. M4** (ch01-B, UNVERIFIED (id shared by 6 slices; verdicts not attributable))
 - print `01_topological_matter.tex:56` — `field said :637 -- re-verified at HEAD the line is :767, cite repaired here).`
 - KB `substrate-perspective-electron.md:11` — `(../../../common/translation-tables/translation-circuit.md):637`
 - verifiers: 
 
-**21. M5** (ch01-B, UNVERIFIED (id shared by 4 slices; verdicts not attributable))
+**21. M5** (ch01-B, UNVERIFIED (id shared by 5 slices; verdicts not attributable))
 - print `01_topological_matter.tex:56` — `field said :637 -- re-verified at HEAD the line is :767, cite repaired here).`
 - KB `substrate-perspective-electron.md:227` — `(../../../common/translation-tables/translation-circuit.md):637`
 - verifiers: 
@@ -902,27 +923,27 @@ Kinds: WB-LAG (KB walked back, print still asserts) · CONTRA · STALE-KB (print
 - KB `self-consistent-mass-oscillator.md:30` — `derived in Chapter 2`
 - verifiers: 
 
-**49. M1** (ch03, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
+**49. M1** (ch03, UNVERIFIED (id shared by 8 slices; verdicts not attributable))
 - print `03_neutrino_sector.tex:227` — `\item $\pi$: The base torsional half-turn of the $0_1$ unknot phase winding.`
 - KB `delta-cp-violation.md:22` — `the neutrino is an open helix in the torsional sector, *not* a closed unknot phase winding`
 - verifiers: 
 
-**50. M2** (ch03, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
+**50. M2** (ch03, UNVERIFIED (id shared by 8 slices; verdicts not attributable))
 - print `03_neutrino_sector.tex:272` — `Neutrinos are structurally defined as $0_1$ twisted unknots. Because they have zero self-crossings, their topological Skyrme gradient vanishes`
 - KB `index.md:13` — `Corrigendum (2026-05-06 session): Earlier editions described the neutrino as a "$0_1$ twisted unknot" (closed loop)`
 - verifiers: 
 
-**51. M3** (ch03, UNVERIFIED (id shared by 6 slices; verdicts not attributable))
+**51. M3** (ch03, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
 - print `03_neutrino_sector.tex:274` — `Neutrino oscillation is the classical dispersive beat frequency of the three distinct $0_1$ mass eigenstates`
 - KB `index.md:13` — `Any remaining "twisted unknot" prose in cross-references should be read as the obsolete framing`
 - verifiers: 
 
-**52. M4** (ch03, UNVERIFIED (id shared by 5 slices; verdicts not attributable))
+**52. M4** (ch03, UNVERIFIED (id shared by 6 slices; verdicts not attributable))
 - print `03_neutrino_sector.tex:159` — `the trefoil has $c = 3$ crossings \textit{because} the K4 lattice is 3-connected`
 - KB `chiral-screening.md:35` — `Connectivity = trefoil crossing number: ASSERTED -- and in tension with canon`
 - verifiers: 
 
-**53. M5** (ch03, UNVERIFIED (id shared by 4 slices; verdicts not attributable))
+**53. M5** (ch03, UNVERIFIED (id shared by 5 slices; verdicts not attributable))
 - print `03_neutrino_sector.tex:250` — `All four PMNS parameters derive from three inputs: the torus knot crossing numbers ($c_1 = 5$, $c_3 = 9$)... No curve fitting is used`
 - KB `delta-cp-violation.md:38` — `c_1=5 starting value of mode-space ladder is NOT derived from substrate primitives in any canonical leaf grep'd`
 - verifiers: 
@@ -972,92 +993,92 @@ Kinds: WB-LAG (KB walked back, print still asserts) · CONTRA · STALE-KB (print
 - KB `index.md:11` — `Quantum Spin ($1/2\hbar$) is derived as the macroscopic angular momentum`
 - verifiers: CONFIRMED: All fragments verified byte-verbatim: tex :6 (objectivebox "Define Quantum Spin..."); index.md:11 ("...is derived as the macroscopic angula…
 
-**63. CH05-M1** (ch05, UNVERIFIED)
+**63. CH05-M1** (ch05, CONFIRMED)
 - print `05_electroweak_gauge_theory.tex:175` — `Gauge Invariance is explicitly derived as the macroscopic consequence of the classical Helmholtz Decomposition`
 - KB `gauge-boson-masses.md:34` — `and *not* the full time-dependent U(1) group`
-- verifiers: 
+- verifiers: CONFIRMED: grep -nF confirms both fragments byte-verbatim: tex :175 'Gauge Invariance is explicitly derived as the macroscopic consequence of the clas…
 
-**64. CH05-M2** (ch05, UNVERIFIED)
+**64. CH05-M2** (ch05, CONFIRMED)
 - print `05_electroweak_gauge_theory.tex:8` — `Derive the physical origin of Gauge Invariance (U(1)) as the classical network-dynamic freedom`
 - KB `gauge-boson-masses.md:83` — `canon holds **no valid derivation of any full U(1) family**`
-- verifiers: 
+- verifiers: CONFIRMED: Both fragments verified byte-verbatim (tex line 8: objective bullet "Derive the physical origin of Gauge Invariance (U(1))..."; kb gauge-bo…
 
-**65. CH05-M3** (ch05, UNVERIFIED)
+**65. CH05-M3** (ch05, CONFIRMED)
 - print `05_electroweak_gauge_theory.tex:178` — `$U(1)$ and $SU(3)$ Gauge symmetries are explicitly proven to map identically onto the discrete geometric Plaquette Action`
 - KB `gauge-boson-masses.md:83` — `canon holds **no valid derivation of any full U(1) family**`
-- verifiers: 
+- verifiers: CONFIRMED: Both fragments verbatim-verified: tex fragment at 05_electroweak_gauge_theory.tex:178 (Chapter Summary bullet claiming U(1) and SU(3) are "…
 
-**66. CH05-M4** (ch05, UNVERIFIED)
+**66. CH05-M4** (ch05, DOWNGRADED)
 - print `05_electroweak_gauge_theory.tex:159` — `here derived from the physical structure of the substrate hardware`
 - KB `gauge-boson-masses.md:83` — `canon holds **no valid derivation of any full U(1) family**`
-- verifiers: 
+- verifiers: DOWNGRADED: Both fragments verified byte-verbatim (tex:159 grep hit exact; gbm:83 grep hit exact, matching line 83's EOF dated-note paragraph). The KB-…
 
-**67. CH05-M5** (ch05, UNVERIFIED)
+**67. CH05-M5** (ch05, CONFIRMED)
 - print `05_electroweak_gauge_theory.tex:83` — `Substituting the trace-reversed operating point $\nu_{\text{Hill}} \equiv 2/7$`
 - KB `weinberg-angle.md:26` — `Substituting the trace-reversed topological lattice limit $\nu_{vac} \equiv 2/7$:`
-- verifiers: 
+- verifiers: CONFIRMED: Both fragments verified byte-verbatim: TeX:83 grep-confirmed exactly as quoted (the ruled CRIB-1 reword, "an averaging choice, not a lattic…
 
-**68. CH05-M6** (ch05, UNVERIFIED)
+**68. CH05-M6** (ch05, CONFIRMED)
 - print `05_electroweak_gauge_theory.tex:115` — `not a Feynman two-vertex loop.`
 - KB `weak-coupling.md:30` — `The self-energy is a **two-vertex process** (second-order perturbation theory):`
-- verifiers: 
+- verifiers: CONFIRMED: Both fragments verified byte-verbatim: TeX :115 (grep confirms exact line) and KB weak-coupling.md :30 (grep confirms exact line). git show…
 
-**69. CH05-M7** (ch05, UNVERIFIED)
+**69. CH05-M7** (ch05, DOWNGRADED)
 - print `05_electroweak_gauge_theory.tex:103` — `The factor $\alpha^2$ is the product of \textbf{two Axiom~4 susceptibility couplings}.`
 - KB `weak-coupling.md:22` — `The factor $\alpha^2$ is derived from the interaction Lagrangian.`
-- verifiers: 
+- verifiers: DOWNGRADED: Fragments verbatim-verified at tex:103 and weak-coupling.md:22 exactly as quoted. Not already known in the 2026-09-06 scan, MR-board, or re…
 
-**70. CH05-M8** (ch05, UNVERIFIED)
+**70. CH05-M8** (ch05, CONFIRMED)
 - print `vocabulary-register.md:886` — `The **EM longitudinal** $\nabla\cdot\mathbf{A}$ is **GAUGE**: the curl-only EM Lagrangian gives it no restoring force.`
 - KB `gauge-boson-masses.md:34` — `(../../../common/vocabulary-register.md)`:870`, `def-l0ngdu``
-- verifiers: 
+- verifiers: CONFIRMED: Both fragments verified byte-verbatim: tex-side fragment at vocabulary-register.md:886 (exact match, includes the 🔴 DEMOTED 2026-08-11 R40-…
 
-**71. CH05-M9** (ch05, UNVERIFIED)
+**71. CH05-M9** (ch05, CONFIRMED)
 - print `vocabulary-register.md:886` — `**One word each way — $\nabla\cdot\mathbf{u}$ propagates; $\nabla\cdot\mathbf{A}$ is gauge.**`
 - KB `gauge-boson-masses.md:42` — `(../../../common/vocabulary-register.md)`:867` (`def-l0ngdu`; the quoted clauses below are at `:870`)`
-- verifiers: 
+- verifiers: CONFIRMED: Both fragments verified byte-verbatim: texFragment at vocabulary-register.md:886 (inside the def-l0ngdu bullet, as claimed); kbFragment at …
 
-**72. CH05-M10** (ch05, UNVERIFIED)
+**72. CH05-M10** (ch05, CONFIRMED)
 - print `vocabulary-register.md:901` — `are **COUNTERPART SECTOR VARIABLES**`
 - KB `gauge-boson-masses.md:48` — `(../../../common/vocabulary-register.md)`:882`, `def-uatk1s`, SOLID 2026-07-21`
-- verifiers: 
+- verifiers: CONFIRMED: Both fragments verified byte-verbatim via grep -nF: tex/KB-target fragment 'are **COUNTERPART SECTOR VARIABLES**' at vocabulary-register.md…
 
-**73. CH05-M11** (ch05, UNVERIFIED)
+**73. CH05-M11** (ch05, DOWNGRADED)
 - print `05_electroweak_gauge_theory.tex:51` — `[DEMOTED 2026-08-11 --- R40-B2a: NEEDS RE-DERIVATION, not dead; dated note at the end of this file]`
 - KB `gauge-boson-masses.md:176` — `- **`:38`** — stamped at `:38`. *(family: K-static vs constitutive-fact; banked `uncertain`)*`
-- verifiers: 
+- verifiers: DOWNGRADED: Both fragments verify byte-verbatim: tex fragment at 05_electroweak_gauge_theory.tex:51 (confirmed via grep -nF, matches exactly, embedded …
 
-**74. CH05-M12** (ch05, UNVERIFIED)
+**74. CH05-M12** (ch05, CONFIRMED)
 - print `05_electroweak_gauge_theory.tex:33` — `to the mass flow introduces a uniform, irrotational velocity potential to the background network.`
 - KB `gauge-boson-masses.md:48` — `The paragraph above still describes $\nabla\Lambda$ as added *"to the mass flow"*, which reads $\mathbf{A}$ as the mechanical momentum field.`
-- verifiers: 
+- verifiers: CONFIRMED: Both fragments verified byte-verbatim: tex:33 exact match (full sentence: "...Adding the gradient of a scalar field ($\nabla \Lambda$) to t…
 
-**75. CH05-M13** (ch05, UNVERIFIED)
+**75. CH05-M13** (ch05, DOWNGRADED)
 - print `05_electroweak_gauge_theory.tex:35` — `\textbf{This closure holds for time-independent $\Lambda$ ONLY} (rescoped 2026-08-10 under R43; see the second-failure note below)`
 - KB `gauge-boson-masses.md:34` — `and *not* the full time-dependent U(1) group`
-- verifiers: 
+- verifiers: DOWNGRADED: Both quoted fragments verified byte-verbatim at the cited lines (grep -nF exact match, no paraphrase). TeX:35 itself carries the printed R4…
 
-**76. M1** (ch06-A, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
+**76. M1** (ch06-A, UNVERIFIED (id shared by 8 slices; verdicts not attributable))
 - print `06_electroweak_and_higgs.tex:17` — `corresponds to a transient acoustic mode---a topological node undergoing rapid structural relaxation upon high-energy impact`
 - KB `claim-quality.md:162` — `The empirical $125$ GeV LHC resonance is interpreted as a **transient acoustic relaxation mode** of the LC network, not a fundamental scalar field excitation. 🔴 **[DEMOTED 2026-08-11 — R40-B2a: NEEDS…`
 - verifiers: 
 
-**77. M2** (ch06-A, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
+**77. M2** (ch06-A, UNVERIFIED (id shared by 8 slices; verdicts not attributable))
 - print `06_electroweak_and_higgs.tex:363` — `A channel is \emph{compliant} if $\Delta c \le \Delta c_\text{crit} = 3$ --- the K4 lattice connectivity itself (three bonds per node, each transferring at most one torsional unit per interaction), w…`
 - KB `chiral-screening.md:35` — `**Connectivity = trefoil crossing number: ASSERTED — and in tension with canon.**`
 - verifiers: 
 
-**78. M3** (ch06-A, UNVERIFIED (id shared by 6 slices; verdicts not attributable))
+**78. M3** (ch06-A, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
 - print `06_electroweak_and_higgs.tex:210` — `$W$    & $M_W^{\text{tree}} / (1 - \|S_{11}^{\text{sc}}\|^2)$  & 80,224 MeV  & 80,379 MeV  & $-0.19\%$ \\`
 - KB `lepton-spectrum.md:81` — `\| $W$ \| $m_e/(\alpha^2 p_c \sqrt{3/7})$ \| 79,923 MeV \| 80,379 MeV \| $-0.57\%$ \|`
 - verifiers: 
 
-**79. M4** (ch06-A, UNVERIFIED (id shared by 5 slices; verdicts not attributable))
+**79. M4** (ch06-A, UNVERIFIED (id shared by 6 slices; verdicts not attributable))
 - print `06_electroweak_and_higgs.tex:321` — `$\nu_1$ & $(2,5)$ & 5 &  $0.1324$ & $9.58$ \\`
 - KB `higgs-mass.md:29` — `\| $\nu_1$ \| Proton $(2,5)$ \| 5 \| $\sim 24$ \|`
 - verifiers: 
 
-**80. M5** (ch06-A, UNVERIFIED (id shared by 4 slices; verdicts not attributable))
+**80. M5** (ch06-A, UNVERIFIED (id shared by 5 slices; verdicts not attributable))
 - print `06_electroweak_and_higgs.tex:193` — `m_e \xrightarrow{\alpha\sqrt{3/7}} m_\mu \xrightarrow{\alpha \cdot p_c} m_\tau \xrightarrow{\alpha \cdot p_c} M_W`
 - KB `lepton-spectrum.md:73` — `m_e \xrightarrow{\text{torsion: }\alpha\sqrt{3/7}} m_\mu \xrightarrow{\text{bending: }p_c/\alpha^2} m_\tau \xrightarrow{\text{+2nd vertex: }\alpha} M_W`
 - verifiers: 
@@ -1212,42 +1233,42 @@ Kinds: WB-LAG (KB walked back, print still asserts) · CONTRA · STALE-KB (print
 - KB `ode-verification.md:49` — `\| $r < a_0$ (inner core) \| II (Yield) \| $V_{local} \sim V_{yield}$; strong confinement \|`
 - verifiers: 
 
-**111. ch07-B-M1** (ch07-B, UNVERIFIED)
+**111. ch07-B-M1** (ch07-B, CONFIRMED)
 - print `07_quantum_mechanics_and_orbitals.tex:1446` — `\text{IE} = 78.79 - 54.42 = 24.37\,\text{eV}$. \checkmark`
 - KB `macro-cavity-saturation.md:10` — `However, these methods have been formally superseded by the **Mutual Cavity Loading** architecture (detailed in the helium section).`
-- verifiers: 
+- verifiers: CONFIRMED: Both quoted fragments are byte-verbatim at the cited lines (tex :1446 grep-confirmed; kb leaf :10 grep-confirmed, full 14-line leaf read, n…
 
-**112. ch07-B-M2** (ch07-B, UNVERIFIED)
+**112. ch07-B-M2** (ch07-B, CONFIRMED)
 - print `07_quantum_mechanics_and_orbitals.tex:1314` — `Stage D: Y-Matrix Assembly (Axiom~1, Kirchhoff).`
 - KB `index.md:45` — `Supersession of N-port Y-matrix by mutual cavity loading`
-- verifiers: 
+- verifiers: CONFIRMED: Both fragments verified byte-verbatim: TeX 07:1314 "\paragraph{Stage D: Y-Matrix Assembly (Axiom~1, Kirchhoff).}" and KB index.md:45 "\\| [M…
 
-**113. ch07-B-M3** (ch07-B, UNVERIFIED)
+**113. ch07-B-M3** (ch07-B, CONFIRMED)
 - print `07_quantum_mechanics_and_orbitals.tex:1965` — `& Radiating aperture & Chiral Antenna \\`
 - KB `radial-eigenvalue-solver.md:177` — `\| Antenna \| Coaxial feed \| Radiating aperture \| HOPF-01 \|`
-- verifiers: 
+- verifiers: CONFIRMED: Both fragments verified verbatim at the cited lines (TeX:1965, KB:177). The label drift ("Chiral Antenna" in print vs "HOPF-01" in KB) is c…
 
-**114. M1** (ch07-C, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
+**114. M1** (ch07-C, UNVERIFIED (id shared by 8 slices; verdicts not attributable))
 - print `07_quantum_mechanics_and_orbitals.tex:3288` — `N_{\rm Hopf} \times \frac{P_C}{2} \times (-1)^{n - l - 1}`
 - KB `radial-eigenvalue-solver.md:731` — `\kappa_{\rm Hopf}(r) = N_{\rm Hopf} \times \frac{P_C}{2} \times \sigma_{\rm partner}(r)`
 - verifiers: 
 
-**115. M2** (ch07-C, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
+**115. M2** (ch07-C, UNVERIFIED (id shared by 8 slices; verdicts not attributable))
 - print `07_quantum_mechanics_and_orbitals.tex:3323` — `\textbf{Inductive Drag} ($+\kappa$), decreasing`
 - KB `radial-eigenvalue-solver.md:741` — `This is *not* a potential in $V_{\rm eff}$---it enters the *denominator* of $k^2(r)$.`
 - verifiers: 
 
-**116. M3** (ch07-C, UNVERIFIED (id shared by 6 slices; verdicts not attributable))
+**116. M3** (ch07-C, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
 - print `07_quantum_mechanics_and_orbitals.tex:3306` — `same-$n$ co-radial partners), with`
 - KB `radial-eigenvalue-solver.md:739` — `(including same-$n$ co-radial partners)`
 - verifiers: 
 
-**117. M4** (ch07-C, UNVERIFIED (id shared by 5 slices; verdicts not attributable))
+**117. M4** (ch07-C, UNVERIFIED (id shared by 6 slices; verdicts not attributable))
 - print `07_quantum_mechanics_and_orbitals.tex:2728` — `Both are needed for multi-electron atoms:`
 - KB `dual-formalism-architecture.md:21` — `> Both are needed for multi-electron atoms:`
 - verifiers: 
 
-**118. M5** (ch07-C, UNVERIFIED (id shared by 4 slices; verdicts not attributable))
+**118. M5** (ch07-C, UNVERIFIED (id shared by 5 slices; verdicts not attributable))
 - print `07_quantum_mechanics_and_orbitals.tex:3136` — `Li & 3 & P3 + Op2 (ABCD taper) &`
 - KB `radial-eigenvalue-solver.md:689` — `\| Li \| 3 \| P3 + Op2 (ABCD taper) \| 5.32 \| $1.2\%$ \|`
 - verifiers: 
@@ -1262,47 +1283,47 @@ Kinds: WB-LAG (KB walked back, print still asserts) · CONTRA · STALE-KB (print
 - KB `radial-eigenvalue-solver.md:688` — `\| He \| 2 \| P2 (circuit, Hopf link) \| 24.37 \| $0.9\%$ \|`
 - verifiers: 
 
-**121. M1** (ch07-D, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
+**121. M1** (ch07-D, UNVERIFIED (id shared by 8 slices; verdicts not attributable))
 - print `07_quantum_mechanics_and_orbitals.tex:3529` — `The agreement is a \emph{coincidence of two numbers}, not an independent confirmation:`
 - KB `scale-separation.md:49` — `confirmed independently by the elastic modulus ratio $G/K = 1/2$ (since $K = 2G$ from $\nu = 2/7$, Axiom 2), giving a reduced coupling:`
 - verifiers: 
 
-**122. M2** (ch07-D, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
+**122. M2** (ch07-D, UNVERIFIED (id shared by 8 slices; verdicts not attributable))
 - print `07_quantum_mechanics_and_orbitals.tex:3496` — `(Eq.~\ref{eq:crossing_angle}).  No correction factors.  One phase integral.  One eigenvalue.`
 - KB `claim-quality.md:393` — `the leaf explicitly states "Be and B remain open: the corrections are applied *outside* the phase integral, violating the action principle" (radial-eigenvalue-solver.md §E2j). The complete-phase-inte…`
 - verifiers: 
 
-**123. M3** (ch07-D, UNVERIFIED (id shared by 6 slices; verdicts not attributable))
+**123. M3** (ch07-D, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
 - print `07_quantum_mechanics_and_orbitals.tex:3654` — `at the $K=2G$ operating point (form-derived, \emph{value} GR-imported; not an axiom of this framework --- see the note at the $p$-shell orthogonal-coupling derivation)`
 - KB `subshell-junction-scattering.md:38` — `its interactions are rigorously governed by the **Topological Subshell Impedance Cascade** ($K=2G$). Its mutual admittance to the $2s$ electrons explicitly drops by exactly half`
 - verifiers: 
 
-**124. M4** (ch07-D, UNVERIFIED (id shared by 5 slices; verdicts not attributable))
+**124. M4** (ch07-D, UNVERIFIED (id shared by 6 slices; verdicts not attributable))
 - print `07_quantum_mechanics_and_orbitals.tex:4027` — `3  & Li &  5.525 &  5.392 & $+2.46\%$ & --- \\`
 - KB `claim-quality.md:349` — `Lithium ($Z = 3$) currently lists $+2.46\%$ in the validation table but the corrected ABCD-taper-plus-Op2 pipeline elsewhere in the same chapter reports $-1.2\%$.`
 - verifiers: 
 
-**125. M1** (ch09, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
+**125. M1** (ch09, UNVERIFIED (id shared by 8 slices; verdicts not attributable))
 - print `09_computational_proof.tex:92` — `catalog text reported the observational target $2.49 \times 10^{-9}$`
 - KB `anomaly-catalog.md:15` — `**Muon $g-2$:** $\Delta a_\mu = 2.49 \times 10^{-9}$. AVE predicts a vacuum self-energy correction from lattice topology.`
 - verifiers: 
 
-**126. M2** (ch09, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
+**126. M2** (ch09, UNVERIFIED (id shared by 8 slices; verdicts not attributable))
 - print `09_computational_proof.tex:56` — `previously printed ``sub-3 \AA'' in the Agreement column. Per the truth-source`
 - KB `computational-graph.md:30` — `\| Protein folding (CLN025) \| RMSD = 2.59 A \| I \| sub-3 A \| 0 \|`
 - verifiers: 
 
-**127. M3** (ch09, UNVERIFIED (id shared by 6 slices; verdicts not attributable))
+**127. M3** (ch09, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
 - print `09_computational_proof.tex:249` — `couple exclusively as discrete geometric LC resonators subject to the $8\pi\alpha$ spatial packing fraction and to the $K = 2G$ operating point --- the latter form-derived but \emph{value} GR-importe…`
 - KB `methodological-contamination.md:71` — `Electrons within the same principal shell ($n$) couple exclusively as discrete geometric LC resonators subject to the $K = 2G$ topological limit and the $8\pi\alpha$ spatial packing fraction.`
 - verifiers: 
 
-**128. M1** (ch10, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
+**128. M1** (ch10, UNVERIFIED (id shared by 8 slices; verdicts not attributable))
 - print `10_open_problems.tex:320` — `The derivation $g_* = 7^3/4 = 85.75$ disagrees with the Standard`
 - KB `g-star-prediction.md:10` — `Provenance caveat 2026-08-18, Wave-2 D15b rider: the `/7` in this expression rides the canon G MIXED `/7` FORM — form-derived, value-imported per the FORM-deriving/VALUE-importing meta-finding (PRs #…`
 - verifiers: 
 
-**129. M2** (ch10, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
+**129. M2** (ch10, UNVERIFIED (id shared by 8 slices; verdicts not attributable))
 - print `10_open_problems.tex:419` — `Baryon asymmetry & $\eta = \delta_{CP} \alpha_W^4 C_{sph}/g_*$ & 0.79\% (OOM) & \textbf{Consistency-check}`
 - KB `quantitative-resolutions.md:15` — `\| Baryon asymmetry \| $\eta = \delta_{CP} \alpha_W^4 C_{sph}/g_*$ \| 0.38% \| **Solved** \| <!-- claim-quality: clm-4vwsjc -->`
 - verifiers: 
@@ -1342,6 +1363,31 @@ Kinds: WB-LAG (KB walked back, print still asserts) · CONTRA · STALE-KB (print
 - KB `riemann-hypothesis.md:10` — `The lattice spectral-ζ identification is suggestive structural analogy; it should NOT be cited as proving the Riemann Hypothesis.`
 - verifiers: 
 
+**137. M1** (appx-front, UNVERIFIED (id shared by 8 slices; verdicts not attributable))
+- print `00_title.tex:18` — `the proton/electron mass ratio ($\approx 1836.14$)`
+- KB `index.md:21` — `Proton mass eigenvalue \| $m_p/m_e \approx 1836.12$`
+- verifiers: 
+
+**138. M2** (appx-front, UNVERIFIED (id shared by 8 slices; verdicts not attributable))
+- print `00_title.tex:14` — `and neutrinos as dispersive twisted $0_1$ unknots, bound by the Faddeev-Skyrme energy functional`
+- KB `index.md:42` — `supersedes earlier "twisted unknot" framing`
+- verifiers: 
+
+**139. M3** (appx-front, UNVERIFIED (id shared by 7 slices; verdicts not attributable))
+- print `a (KB-internal, no TeX site — index vs sibling leaf):0` — ``
+- KB `index.md:19` — `\| Trace-reversed state \| $K = 2G$ emerges at coupling $k_{couple} > 4.5$ \|`
+- verifiers: 
+
+**140. M4** (appx-front, UNVERIFIED (id shared by 6 slices; verdicts not attributable))
+- print `05_universal_solver_toolchain.tex:211` — `Longitudinal waves & Propagate & May propagate \\`
+- KB `lattice-phase-transition.md:18` — `\| Longitudinal waves \| Propagate 🔴 **[DEMOTED 2026-08-11 — R40-B1; dated demotion note at the end of this file]** \| May propagate \|`
+- verifiers: 
+
+**141. M5** (appx-front, UNVERIFIED (id shared by 5 slices; verdicts not attributable))
+- print `a (KB-internal citation, no TeX site):0` — ``
+- KB `claim-quality.md:1160` — `Flagged corpus citation issue (sm-translation-toolchain.md:22 "longitudinal wave" vs canonical transverse).`
+- verifiers: 
+
 
 ---
 
@@ -1351,26 +1397,26 @@ Per-row counts over the slices read so far; 'slices reporting zero hits' is the 
 
 | row | live-wrong | Q1 | fence-excluded | Q2 | slices reporting zero hits |
 |---|---:|---:|---:|---:|---|
-| F-C1 | 0 | 0 | 1 | 0 | ch01-A, ch01-B, ch01-C, ch02, ch03, ch04, ch05, ch06-A, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp |
-| F-C2 | 0 | 0 | 0 | 0 | ch01-A, ch01-B, ch01-C, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp |
-| F-C3 | 0 | 0 | 1 | 0 | ch01-A, ch01-B, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp |
-| F-C4 | 0 | 0 | 0 | 0 | ch01-A, ch01-B, ch01-C, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp |
-| F-C5 | 0 | 0 | 1 | 0 | ch01-B, ch01-C, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp |
-| F-C6 | 0 | 0 | 0 | 0 | ch01-A, ch01-B, ch01-C, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp |
-| F-C7 | 2 | 6 | 7 | 0 | ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp |
-| F-C8 | 0 | 2 | 3 | 0 | ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp |
-| F-C9 | 0 | 0 | 6 | 0 | ch01-B, ch01-C, ch02, ch03, ch04, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp |
-| F-C10 | 0 | 0 | 0 | 0 | ch01-A, ch01-B, ch01-C, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp |
-| F-C11 | 0 | 2 | 0 | 0 | ch01-B, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp |
-| K4 | 3 | 8 | 2 | 0 | ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp |
-| K6 | 2 | 2 | 21 | 0 | ch03, ch05, ch06-A, ch07-B, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp |
+| F-C1 | 0 | 0 | 1 | 0 | ch01-A, ch01-B, ch01-C, ch02, ch03, ch04, ch05, ch06-A, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp, appx-front |
+| F-C2 | 0 | 0 | 0 | 0 | ch01-A, ch01-B, ch01-C, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp, appx-front |
+| F-C3 | 0 | 0 | 1 | 0 | ch01-A, ch01-B, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp, appx-front |
+| F-C4 | 0 | 0 | 0 | 0 | ch01-A, ch01-B, ch01-C, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp, appx-front |
+| F-C5 | 0 | 0 | 1 | 0 | ch01-B, ch01-C, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp, appx-front |
+| F-C6 | 0 | 0 | 0 | 0 | ch01-A, ch01-B, ch01-C, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp, appx-front |
+| F-C7 | 2 | 6 | 7 | 0 | ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp, appx-front |
+| F-C8 | 0 | 2 | 3 | 0 | ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp, appx-front |
+| F-C9 | 0 | 0 | 6 | 0 | ch01-B, ch01-C, ch02, ch03, ch04, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp, appx-front |
+| F-C10 | 0 | 0 | 0 | 0 | ch01-A, ch01-B, ch01-C, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp, appx-front |
+| F-C11 | 0 | 2 | 0 | 0 | ch01-B, ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-A, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp, appx-front |
+| K4 | 3 | 8 | 2 | 0 | ch02, ch03, ch04, ch05, ch06-A, ch06-B, ch07-B, ch07-C, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp, appx-front |
+| K6 | 2 | 2 | 21 | 0 | ch03, ch05, ch06-A, ch07-B, ch07-D, ch08, ch09, ch10, ch11, ch12-mp, ch12-fp, appx-front |
 
 #### Hits
 
 - **F-C1** · fence-excluded · kb `q-g19a-petermann-saliency-closure.md:18` — `CMB-velocity phase-lock` — Lexical homonym only: a DAMA annual-modulation 'phase-lock' (itself struck [CMB-PHASE-EXCLUDED] 2026-07-04 on the same line), not the electron-identity 'dynamical lock' corpse. Recorded so the row is not reported as an …
 - **F-C3** · fence-excluded · tex `01_topological_matter.tex:109` — `of $\mathcal{M}, \mathcal{Q}, \mathcal{J}$ for any field; the v14` — Only engine-version string in the chapter. It reports what a named seed's boundary invariants evaluate to ($\mathcal{M}>0$, $\mathcal{Q}=1$, $\mathcal{J}\approx0$) via boundary_invariants.py — a readout, not a ranked pl…
 - **F-C5** · fence-excluded · tex `01_topological_matter.tex:110` — `breathing-soliton seed gives $\mathcal{M} > 0$, $\mathcal{Q} = 1$,` — Adjudicated per slice-instruction (b). This is the row's own fence — a circuit/engine model reporting M, Q, J for a seed WITHOUT selling a genesis-cook: no energize-lock, no Level-2 remanence, no vN target/charter langu…
-- **F-C7** · live-wrong · verifier: CONFIRMED · tex `01_topological_matter.tex:259` — `how a propagating Transverse EM Wave winds into a stationary Spin-1 helical loop when encountering extreme localised network impedance ($Z \to Z_{crit}$) ... e…` — [fragment is an elided quotation of one printed caption line — the two halves are byte-verbatim at :259, the ellipsis replaces 'The discrete sequential excitation of the substrate LC nodes guarantees charge containment,… — CONFIRMED: Fragment is byte-verbatim at 01_topological_matter.tex:259 (both quoted halves match; grep -nF confirms). Read lines 220-290 of the tex: no… / CONFIRMED: Both quoted fragment halves are byte-verbatim at manuscript/vol_2_subatomic/chapters/01_topological_matter.tex:259 (grep -nF confirms …
+- **F-C7** · live-wrong · verifier: DOWNGRADED · tex `01_topological_matter.tex:259` — `how a propagating Transverse EM Wave winds into a stationary Spin-1 helical loop when encountering extreme localised network impedance ($Z \to Z_{crit}$) ... e…` — [fragment is an elided quotation of one printed caption line — the two halves are byte-verbatim at :259, the ellipsis replaces 'The discrete sequential excitation of the substrate LC nodes guarantees charge containment,… — CONFIRMED: Fragment is byte-verbatim at 01_topological_matter.tex:259 (both quoted halves match; grep -nF confirms). Read lines 220-290 of the tex: no… / CONFIRMED: Both quoted fragment halves are byte-verbatim at manuscript/vol_2_subatomic/chapters/01_topological_matter.tex:259 (grep -nF confirms …
 - **F-C7** · fence-excluded · tex `01_topological_matter.tex:167` — `The electron's \emph{existence} is held independently by the transverse-Cosserat ($T_2$) charge/spin $\Gamma = -1$\gammaundeclared{} self-trap wall at $V_{yiel…` — This is the row's explicit fence: the BOUNDARY $\Gamma=-1$ / $V_{yield}$ self-trap wall is the SURVIVING localizer, not the corpse. Print even states the A1 core sits sub-saturated at $A=\sqrt{\alpha}$ INSIDE it, matchi…
 - **F-C7** · Q1 · kb `electron-identification.md:13` — `The bulk-interior-mode route is the **FALSIFIED** one (Cartesian-grid artifact); localization is **topological/boundary**` — Dated 2026-06-24 Rule-12 banner naming the bulk self-trap dead with its result doc; body preserved.
 - **F-C7** · Q1 · kb `electron-identification.md:64` — `The genesis / self-lock arc that would *dynamically create* the fluxoid from a free precursor is **closed-negative** (electron-genesis-from-free-precursor lean…` — Names the free-precursor genesis route dead in the leaf body. This is the authority M8 cites.
@@ -1378,7 +1424,7 @@ Per-row counts over the slices read so far; 'slices reporting zero hits' is the 
 - **F-C7** · Q1 · kb `l3-electron-soliton-synthesis.md:273` — `**(α) Continuum-limit-only**: the $(2, 3)$ corpus electron exists as a continuum-limit object that the discrete K4-TLM engine at N=32 cannot host. N=128+ might…` — Branch-(alpha) body = the bulk/continuum self-hosting route. Preserved verbatim under Rule 12 with the dated 🔴 kill banner immediately below at :275. Named as dead at the site.
 - **F-C7** · Q1 · kb `l3-electron-soliton-synthesis.md:275` — `the bulk self-trap is a **Cartesian-grid artifact**` — Dated close (2026-06-24, Rule 12): the BULK self-trap is named an artifact and localization is redirected to 'topological/coupling (the (2,3) winding + H_couple) + the Γ=−1 boundary cavity' — i.e. the F-C7 fence object.…
 - **F-C7** · Q1 · kb `l3-electron-soliton-synthesis.md:277` — `🟡 **EVIDENTIARY-EXPOSURE POINTER (2026-07-03, verdict-exposure sweep — status-demotion, NOT retraction).**` — Dated status-demotion (2026-07-03) that RE-OPENS the branch-(alpha) refutation pending the srs-z3 re-run. It is a bannered, dated status note, not an offer of bulk self-trap as the current route — so Q1, but note it lea…
-- **F-C7** · live-wrong · verifier: UNVERIFIED · kb `l3-electron-soliton-synthesis.md:314` — `2. **N=128+ lattice escalation** — tests Branch (α) continuum-limit hypothesis.` — 'Open framework-level work (post-L3 closure)' list item 2 offers the N=128+ bulk-hosting escalation as a current next thing to do, with NO superseded marker and no pointer to the 🔴 banner 39 lines above at :275. A reade…
+- **F-C7** · live-wrong · verifier: REFUTED · kb `l3-electron-soliton-synthesis.md:314` — `2. **N=128+ lattice escalation** — tests Branch (α) continuum-limit hypothesis.` — 'Open framework-level work (post-L3 closure)' list item 2 offers the N=128+ bulk-hosting escalation as a current next thing to do, with NO superseded marker and no pointer to the 🔴 banner 39 lines above at :275. A reade… — REFUTED: Fragment verified byte-verbatim at :314 by grep -nF. Two independent grounds for refutation. (1) Wrong F-row: F-C7's corpse is 'seed photon… / DOWNGRADED: Fragment verified byte-verbatim at line 314 (grep -nF confirms). Read lines 230-319 (full §8-§9 + open-work list) in the KB leaf. The s…
 - **F-C7** · fence-excluded · tex `01_topological_matter.tex:167` — `the transverse-Cosserat ($T_2$) charge/spin $\Gamma = -1$` — This is the BOUNDARY Γ=-1 / V_yield self-trap wall — explicitly the surviving localizer per the F-C7/F-C8 fence. Print also names the A1 mass core as sub-saturated at A=sqrt(alpha) inside it, matching pair-production-ax…
 - **F-C7** · fence-excluded · tex `01_topological_matter.tex:191` — `the self-formed $\Gamma=-1$` — Figure caption: 19 wall nodes at yield (A>0.9, S->0.045) forming the self-formed Γ=-1 TIR cage wall on the srs net. This is the amplitude-rail boundary wall (Wall-A role 2 per substrate-perspective-electron.md:139-142),…
 - **F-C7** · fence-excluded · kb `pair-production-axiom-derivation.md:102` — `the **transverse Cosserat ($T_2$) sector self-traps.**` — The T2 self-trap at V_yield is the boundary Γ=-1 wall the fence holds out; the leaf explicitly distinguishes it from the longitudinal A1 channel. Not the corpse.
@@ -1489,6 +1535,9 @@ Seven dead KB→TeX anchors, six of them in one leaf. These are KB-side edits: t
 
 ---
 
+
+---
+
 ## §5 — Known debt re-checked at HEAD `5619dd56` (status only; nothing re-minted)
 
 | known item | source | status at HEAD |
@@ -1567,4 +1616,4 @@ Ten in-place line-number re-pins across four vol2 chapter files (§4.1). No pros
 - **ch11** — `11_standard_model_overdrive.tex` 1-133 (full) (of 133); `index.md` 1-34 (full) (of 34); `axiom-survey.md` 1-14 (full) (of 14); `overdrive-comparison.md` 1-19 (full) (of 19); `overdrive-nuclear.md` 1-38 (full) (of 38); `overdrive-protein.md` 1-24 (full) (of 24); `universal-energy.md` 1-28 (full) (of 28); `claim-quality.md` 585-649 (clm-dboxok entry at 591-620, located via grep -n 'id: clm-'; adjacent entries read for context/terminator confirmation) (of 649); `program-arc-map.md` 360-380 (N13 row context, located via grep -n N13; not one of the slice's required full-read files) (of 649); `2026-09-06_mr-board-revalidation_RESULT.md` 87-88 (grep-located items 15/16 confirming known-debt status) (of 100); `ch8-alpha-golden-torus.md` 1-13 (due-diligence check on the %-comment's \kbleaf :11 anchor; outside slice scope, not a full read) (of 222)
 - **ch12-mp** — `12_the_millennium_prizes.tex` 1-711 (full file, single read) (of 711); `index.md` 1-41 (full file) (of 41); `birch-swinnerton-dyer.md` 1-72 (full file) (of 72); `hodge-conjecture.md` 1-64 (full file) (of 64); `knot-vs-orbital-table-ch12.md` 1-16 (full file) (of 16); `navier-stokes-prize.md` 1-70 (full file) (of 70); `p-vs-np.md` 1-55 (full file) (of 55); `poincare-conjecture.md` 1-63 (full file) (of 63); `riemann-hypothesis.md` 1-111 (full file) (of 111); `yang-mills-steps1-2.md` 1-62 (full file) (of 62); `yang-mills-steps3-5.md` 1-65 (full file) (of 65); `claim-quality.md` 420-499, 900-959 (targeted: clm-q5izb7, clm-c8q0z5, clm-knveh6 entries only, per slice instructions) (of 1774); `srs-band-structure.md` 1-298 (full file, cross-check for the 12mp:112 \kbleaf cite target) (of 298)
 - **ch12-fp** — `12_appendix_formal_proofs.tex` 1-453 (full file) (of 453); `yang-mills-steps1-2.md` 1-62 (full file) (of 62); `yang-mills-steps3-5.md` 1-65 (full file) (of 65); `navier-stokes-prize.md` 1-70 (full file) (of 70); `riemann-hypothesis.md` 1-111 (full file) (of 111); `index.md` 1-51 (full file) (of 51); `claim-quality.md` 429-498 (clm-q5izb7, clm-c8q0z5), 910-1049 (clm-knveh6, clm-e1pdfd) (of 1774)
-- **appx-front: NO RECEIPT**
+- **appx-front** — `main.tex` 1-68 (of 68); `_manifest.tex` 1-16 (of 16); `00_title.tex` 1-19 (of 19); `01_appendices_lean.tex` 1-59 (of 59); `index.md` 1-41 (of 41); `index.md` 1-45 (of 45); `index.md` 1-38 (of 38); `index.md` 1-38 (of 38); `index.md` 1-33 (of 33); `index.md` 1-41 (of 41); `index.md` 1-41 (of 41); `translation-circuit.md` 1-16 (of 16); `translation-condensed-matter.md` 1-14 (of 14); `translation-cosmology.md` 1-14 (of 14); `translation-gravity.md` 1-14 (of 14); `translation-particle-physics.md` 1-14 (of 14); `translation-protein-solver.md` 1-14 (of 14); `translation-protein.md` 1-14 (of 14); `translation-qm.md` 1-16 (of 16); `holographic-paradox.md` 1-14 (of 14); `index.md` 1-29 (of 29); `peierls-nabarro-paradox.md` 1-14 (of 14); `spin-half-paradox.md` 1-18 (of 18); `index.md` 1-51 (of 51); `graph-architecture.md` 1-131 (of 131); `index.md` 1-28 (of 28); `dcve-specification.md` 1-129 (of 129); `index.md` 1-29 (of 29); `index.md` 1-44 (of 44); `cross-domain-physics-mappings.md` 1-48 (of 48); `cross-scale-isomorphism-table.md` 1-36 (of 36); `derived-numerology.md` 1-106 (of 106); `kerr-q-correction.md` 1-107 (of 107); `lattice-phase-transition.md` 1-72 (of 72); `knot-mode-isomorphism.md` 1-58 (of 58); `nuclear-eigenvalue.md` 1-50 (of 50); `protein-eigenvalue.md` 1-90 (of 90); `regime-eigenvalue-method.md` 1-100 (of 100); `semiconductor-junction-analogy.md` 1-33 (of 33); `sm-translation-toolchain.md` 1-35 (of 35); `torus-knot-ladder-toolchain.md` 1-32 (of 32); `universal-constants-exchange.md` 1-23 (of 23); `claim-quality.md` 652-700, 975-1160 (covers clm-nhlo1e, clm-ghs75o, clm-e1pdfd, clm-pf84ng, clm-o3q9ul, clm-d9ivj1, clm-d5jhku in full, each through its terminating ---) (of 1774); `appendix_c_derived_numerology.tex (not in assigned slice; verification read)` 1-50 plus heading grep for full file (of 121); `appendix_vacuum_engineering.tex (not in assigned slice; verification read)` 61,71 targeted plus heading grep for full file (of 195); `05_universal_solver_toolchain.tex (not in assigned slice; read for the M4 check the slice instructions specifically asked for)` 190-225 plus heading grep 1-703 (of 900); `03_computational_graph.tex (not in assigned slice; verification read)` 1-80 plus heading grep for full file (of 130)
