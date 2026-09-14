@@ -43,7 +43,7 @@ Macroscopic gravity derived from the substrate LC network. The trace-reversed va
 |---|---|
 | [Ch.1: Trace-Reversal, Gravity, and Macroscopic Yield](./ch01-gravity-yield/index.md) | EMT trace-reversal ($K = 2G$), $1/7$ projection, Machian coupling, Hubble constant, Planck mass, kinetic yield, leaky cavity decay |
 | [Ch.2: General Relativity and Gravitational Waves](./ch02-general-relativity/index.md) | EFE as LC energy density, symmetric gravity impedance, refractive index gradient, frame-dragging, K4-TLM lensing validation, translation tables |
-| [Ch.3: Macroscopic Relativity: The Optical Metric](./ch03-macroscopic-relativity/index.md) | Gordon metric, ponderomotive equivalence, refractive index derivation, achromatic matching, Einstein lensing, dielectric rupture, gravitomagnetism |
+| [Ch.3: Macroscopic Relativity: The Optical Metric](./ch03-macroscopic-relativity/index.md) | Gordon metric, ponderomotive equivalence, refractive index derivation, achromatic matching, bond TL $L,C$ constitutive grading (Q-point; which "linear"), Einstein lensing, dielectric rupture, gravitomagnetism |
 | [Ch.8: Gravitational Waves](./ch08-gravitational-waves/index.md) | Impedance modulation propagation, lossless linear regime, Fabry--Perot detection, SQL, saturation ratio |
 | [Ch.20: White Dwarf Gravitational Predictions](./ch20-white-dwarf-predictions/index.md) | Saturation-corrected gravitational redshift (Sirius B), standing shear-wave eigenfrequencies in the LIGO band |
 
