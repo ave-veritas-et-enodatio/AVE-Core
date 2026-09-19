@@ -155,6 +155,7 @@ class Repo:
     def raw(self, *a, stdin=None):
         r = subprocess.run(('git',) + a, capture_output=True, cwd=self.cwd,
                            env=self.env, input=stdin)
+        self.err = r.stderr.decode('utf-8', 'replace').strip()
         return r.returncode, r.stdout
 
     def sh(self, *a):
@@ -510,9 +511,14 @@ def liveness(repo, base, tip):
             dead.append('%s rev %r does not resolve to a tree -- every git call on it '
                         'returns nothing' % (name, rev))
     lines = []
-    if not run_gate(out=lines.append):
-        dead.append('the self-gate FAILED -- this build cannot fire, or fires on a cite it must not:')
-        dead += ['  ' + l.strip() for l in lines if '[FAIL]' in l]
+    try:
+        if not run_gate(out=lines.append):
+            dead.append('the self-gate FAILED -- this build cannot fire, or fires on a cite it must not:')
+            dead += ['  ' + l.strip() for l in lines if '[FAIL]' in l]
+    except (FixtureError, OSError) as exc:
+        # Still exit 2 -- liveness was not proven -- but name the real cause.
+        dead.append('the self-gate could not be BUILT (an environment fault, not a verdict '
+                    'about the checker): %s' % exc)
     return dead, len(lines)
 
 
@@ -586,6 +592,11 @@ def _files(keys, moved=()):
     return files
 
 
+class FixtureError(RuntimeError):
+    """The throwaway repo could not be BUILT. An environment fault (a read-only
+    TMPDIR, a git that will not init), never a verdict about the checker."""
+
+
 def _write_tree(repo, root, files):
     for name in os.listdir(root):
         if name != '.git':
@@ -597,7 +608,11 @@ def _write_tree(repo, root, files):
         with open(full, 'w', encoding='utf-8') as fh:
             fh.write('\n'.join(lines) + '\n')
     repo.sh('add', '-A', '-f', '.')
-    return repo.sh('write-tree').strip()
+    rc, out = repo.raw('write-tree')
+    tree = out.decode('ascii', 'replace').strip()
+    if rc != 0 or not re.fullmatch(r'[0-9a-f]{40,64}', tree):
+        raise FixtureError('`git write-tree` failed in %s: %s' % (root, repo.err or 'no output'))
+    return tree
 
 
 @contextlib.contextmanager
@@ -606,7 +621,8 @@ def fixture_repo(keys, moved):
     root = tempfile.mkdtemp(prefix='inbound-cite-selftest-')
     try:
         repo = Repo(cwd=root, scrub_env=True)
-        repo.sh('init', '-q')
+        if repo.raw('init', '-q')[0] != 0:
+            raise FixtureError('`git init` failed in %s: %s' % (root, repo.err or 'no output'))
         base = _write_tree(repo, root, _files(keys))
         yield repo, base, _write_tree(repo, root, _files(keys, moved))
     finally:

@@ -156,6 +156,33 @@ def test_main_exit_2_when_the_gate_is_dead():
         mod.MUTATE.discard("address-nothing")
 
 
+def test_main_exit_2_names_the_environment_when_the_fixture_cannot_be_built():
+    """The gate runs on every invocation, so a git that will not `init` must not be
+    reported as "this build cannot fire" -- still exit 2, but with the true cause."""
+    import contextlib
+    import io
+
+    mod = _load_module()
+    real = mod.Repo.raw
+
+    def no_init(self, *a, stdin=None):
+        if a and a[0] == "init":
+            self.err = "fatal: cannot mkdir: Read-only file system"
+            return 128, b""
+        return real(self, *a, stdin=stdin)
+
+    buf = io.StringIO()
+    mod.Repo.raw = no_init
+    try:
+        with contextlib.redirect_stdout(buf):
+            rc = mod.main("HEAD", "HEAD", repo=mod.Repo())
+    finally:
+        mod.Repo.raw = real
+    assert rc == 2
+    assert "could not be BUILT" in buf.getvalue() and "Read-only file system" in buf.getvalue()
+    assert "cannot fire" not in buf.getvalue()
+
+
 def test_report_names_the_rule_behind_every_verdict():
     """A disputed report has to be arguable: each one says which rule produced it."""
     import contextlib
