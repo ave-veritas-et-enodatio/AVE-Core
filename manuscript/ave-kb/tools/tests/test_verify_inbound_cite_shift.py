@@ -56,9 +56,7 @@ def _load_module():
 
 def _candidates(mod, text, same=_MAINS):
     comps, anchored, sibling = mod.cite_comps(text)
-    if sibling:
-        return [], "sibling repo"
-    return mod.path_candidates(comps, anchored, same)
+    return mod.path_candidates(comps, anchored, sibling, same)
 
 
 # ------------------------------------------------------------ the fixture gate
@@ -234,6 +232,25 @@ def test_repo_roots():
     # rooted at THIS repo means exactly that path, not any file ending in it
     same = ["CLAUDE.md", "manuscript/ave-kb/CLAUDE.md"]
     assert _candidates(mod, "AVE-Core/CLAUDE.md", same) == (["CLAUDE.md"], "repo-root path")
+
+
+def test_absolute_path_through_the_umbrella_dir_is_this_repo():
+    """`.../AVE-staging/AVE-Core/...`: the umbrella directory's own name matches the
+    sibling pattern, so THIS repo's name has to be looked for first. Live instance
+    when this was written: research/2026-09-13_vol2-kb-manuscript-sync_INVENTORY.md:1702."""
+    mod = _load_module()
+    text = "/Users/someone/AVE-staging/AVE-Core/manuscript/vol_1_foundations/main.tex"
+    assert _candidates(mod, text) == ([_VOL1], "repo-root path")
+    # ...while the same umbrella leading into a DIFFERENT repo is still out of this one
+    assert _candidates(mod, "/Users/someone/AVE-staging/AVE-HOPF/manuscript/main.tex") == ([], "sibling repo")
+
+
+def test_directory_in_this_repo_named_like_a_sibling():
+    """`manuscript/ave-kb/tools/tests/fixtures/AVE-Sib/` is tracked here."""
+    mod = _load_module()
+    same = ["manuscript/ave-kb/tools/tests/fixtures/AVE-Sib/manuscript/doc.tex", "manuscript/other/doc.tex"]
+    assert _candidates(mod, "fixtures/AVE-Sib/manuscript/doc.tex", same) == ([same[0]], "path")
+    assert _candidates(mod, "AVE-Sib/somewhere/else/doc.tex", same) == ([], "sibling repo")
 
 
 def test_bare_and_degenerate_spellings_are_bare():

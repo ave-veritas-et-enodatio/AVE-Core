@@ -29,8 +29,11 @@ the run only when C == {T}:
      markdown link target, resolved against the CITING file's directory, is the
      addressee. Exact -- it is what the link means.
   2. NAMED REPO ROOT. `AVE-Core/...` anchors the path at this repo's root (exact
-     match). Any other `AVE-<Name>/...` or `Applied-Vacuum-Engineering/...`
-     addresses a sibling repo: C is empty, whatever the basename.
+     match) -- looked for FIRST and wherever it sits, because an absolute path
+     reaches it through the workspace umbrella directory. Any other
+     `AVE-<Name>/...` or `Applied-Vacuum-Engineering/...` addresses a sibling
+     repo, and C is empty whatever the basename -- unless the path is a component
+     suffix of a file tracked HERE (a fixture directory is named `AVE-Sib`).
   3. EXPLICIT PATH (the captured text contains a `/`). Leading `./` and `../`
      segments are dropped, then C = the tracked files the path is a COMPONENT
      SUFFIX of. `vol_1_foundations/main.tex` and
@@ -192,17 +195,20 @@ class Repo:
 # ------------------------------------------------------------- addressing rule
 
 def cite_comps(g):
-    """Captured path text -> (components, anchored-at-this-repo-root, sibling-repo)."""
+    """Captured path text -> (components, anchored-at-this-repo-root, names-a-sibling-repo)."""
     comps = g.replace('\\_', '_').replace('\\', '/').split('/')
-    for k, c in enumerate(comps[:-1]):
-        if c == THIS_REPO:
-            return comps[k + 1:], True, False
-        if SIBLING_REPO.match(c):
-            return comps, False, True
+    dirs = comps[:-1]
+    # THIS repo first, wherever it sits: an absolute path reaches it THROUGH the
+    # workspace umbrella directory (`.../AVE-staging/AVE-Core/...`), and the
+    # umbrella's own name matches the sibling pattern.
+    if THIS_REPO in dirs:
+        k = len(dirs) - 1 - dirs[::-1].index(THIS_REPO)
+        return comps[k + 1:], True, False
+    sibling = any(SIBLING_REPO.match(c) for c in dirs)
     # leading '', '.', '..', '...' say nothing about WHICH directory
     while len(comps) > 1 and set(comps[0]) <= {'.'}:
         comps.pop(0)
-    return comps, False, False
+    return comps, False, sibling
 
 
 def _dir_match(c, t):
@@ -228,7 +234,7 @@ def _abbreviates(comps, path):
     return True
 
 
-def path_candidates(comps, anchored, same):
+def path_candidates(comps, anchored, sibling, same):
     """The files in `same` (one basename) that the cited path can name, and how."""
     if anchored:
         hit = [p for p in same if p == '/'.join(comps)]
@@ -239,6 +245,10 @@ def path_candidates(comps, anchored, same):
     hit = [p for p in same if p.split('/')[-len(comps):] == comps]
     if hit:
         return hit, 'path'
+    # Out of this repo ONLY once it has failed to be a path in it: a directory
+    # here may itself be named like a sibling (a test fixture is).
+    if sibling:
+        return [], 'sibling repo'
     hit = [p for p in same if _abbreviates(comps, p)]
     if hit:
         return hit, 'abbreviated path'
@@ -260,10 +270,10 @@ def _same_line_antecedent(before, leaf, cands):
     hit = None
     for m in re.finditer('(' + PATH_CHARS + re.escape(leaf) + ')', before):
         comps, anchored, sibling = cite_comps(m.group(1))
-        if sibling or len(comps) < 2 or comps[-1] != leaf:
-            continue
-        c, how = path_candidates(comps, anchored, cands)
-        if how != 'unmatched path' and len(c) == 1:
+        if comps[-1] != leaf or (len(comps) < 2 and not anchored):
+            continue                                       # a bare name pins nothing
+        c, how = path_candidates(comps, anchored, sibling, cands)
+        if how not in ('unmatched path', 'bare basename') and len(c) == 1:
             hit = c[0]                                     # nearest preceding wins
     return hit
 
@@ -276,8 +286,6 @@ def addressees(m, leaf, src, text, same, has_line):
     comps, anchored, sibling = cite_comps(m.group(1))
     if 'address-nothing' in MUTATE:
         return [], 'mutated'
-    if sibling:
-        return [], 'sibling repo'
     n = int(m.group(2))
 
     # 1. markdown link target -- resolved against the CITING file's directory
@@ -293,8 +301,8 @@ def addressees(m, leaf, src, text, same, has_line):
         if p:
             return [p], 'link target'
 
-    # 2-4. repo root / explicit path / abbreviation / bare basename
-    cands, how = path_candidates(comps, anchored, same)
+    # 2-4. repo root / explicit path / sibling repo / abbreviation / bare basename
+    cands, how = path_candidates(comps, anchored, sibling, same)
 
     # narrowing a: a file without line N is not the addressee
     if len(cands) > 1 and 'no-has-line' not in MUTATE:
@@ -548,6 +556,8 @@ PROBES = collections.OrderedDict([
     ('abbreviated-B',   (CITERS, 'abbreviated volume dir: `vol_1/main.tex:7`')),
     ('elided-A',        (CITERS, 'elided path: `papers/.../main.tex:8`')),
     ('repo-root-B',     (CITERS, 'rooted at this repo: `AVE-Core/manuscript/vol_1_foundations/main.tex:9`')),
+    ('absolute-B',      (CITERS, 'absolute, through the workspace umbrella dir: '
+                                 '`/Users/someone/AVE-staging/AVE-Core/manuscript/vol_1_foundations/main.tex:13`')),
     ('sibling-repo',    (CITERS, 'another repo entirely: `AVE-HOPF/manuscript/vol_1_foundations/main.tex:5`')),
     ('same-line-B',     (CITERS, 'see `manuscript/vol_1_foundations/main.tex` frontmatter, then `main.tex:10`')),
     ('bare-ambiguous',  (CITERS, 'a bare `main.tex:4` names nobody in particular')),
@@ -619,7 +629,7 @@ def fixture_scan(keys, moved):
 
 
 ALL = list(PROBES)
-B_PINNED = {'explicit-B', 'no-manuscript-B', 'abbreviated-B', 'repo-root-B',
+B_PINNED = {'explicit-B', 'no-manuscript-B', 'abbreviated-B', 'repo-root-B', 'absolute-B',
             'same-line-B', 'link-target-B', 'link-text-B'}
 A_PINNED = {'explicit-A', 'elided-A', 'bare-has-line-A'}
 AMBIG = {'bare-ambiguous', 'beside-B-bare'}
@@ -645,7 +655,7 @@ def run_gate(out=print):
         'not tested against B' if 'explicit-A' not in pinned else 'FLAGGED -- the path text was ignored')
     diff = sorted(rot(pinned) ^ B_PINNED)
     say(not diff, 'every spelling that pins B fires (suffix, no-manuscript, abbreviation, repo root, '
-        'same-line, both link forms)', f'{len(rot(pinned) & B_PINNED)}/{len(B_PINNED)}'
+        'absolute through the umbrella dir, same-line, both link forms)', f'{len(rot(pinned) & B_PINNED)}/{len(B_PINNED)}'
         + (f' -- MISMATCH on {diff}' if diff else ''))
     say(rot(amb) == AMBIG, 'a bare basename shared by 3 files is AMBIGUOUS-BASENAME, never SHIFTED -- '
         'even from beside B', f'{sorted(rot(amb))} advisory, {sorted(AMBIG & rot(pinned))} gating')
