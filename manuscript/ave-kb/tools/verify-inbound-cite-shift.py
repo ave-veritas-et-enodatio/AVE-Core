@@ -452,6 +452,7 @@ def report(res, verbose=False):
     for f in listed:
         arrow = f' -- base content is now at :{f.moved_to}' if f.moved_to else ''
         print(f'  {f.src}:{f.lno}  ->  {f.target}:{f.n}   [{f.kind}]{arrow}')
+        print(f'     pinned by: {f.how}')              # the rule to argue with, if this is wrong
         _show(f)
         print()
 
@@ -467,7 +468,8 @@ def report(res, verbose=False):
         arrow = f' -- base content is now at :{f.moved_to}' if f.moved_to else ''
         others = [c for c in f.cands if c != f.target]
         more = f' (+{len(others) - 3} more)' if len(others) > 3 else ''
-        print(f'  {f.src}:{f.lno}  ->  {leaf}:{f.n}   [AMBIGUOUS-BASENAME, {len(f.cands)} candidates]')
+        print(f'  {f.src}:{f.lno}  ->  {leaf}:{f.n}   [AMBIGUOUS-BASENAME, {len(f.cands)} candidates'
+              f' after: {f.how}]')
         print(f'     if it means {f.target}: {f.kind}{arrow}')
         print(f'     it could equally mean: {", ".join(others[:3])}{more}')
         if f.kind != 'HOLDS':

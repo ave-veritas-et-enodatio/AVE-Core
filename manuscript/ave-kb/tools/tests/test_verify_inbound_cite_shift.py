@@ -158,6 +158,24 @@ def test_main_exit_2_when_the_gate_is_dead():
         mod.MUTATE.discard("address-nothing")
 
 
+def test_report_names_the_rule_behind_every_verdict():
+    """A disputed report has to be arguable: each one says which rule produced it."""
+    import contextlib
+    import io
+
+    mod = _load_module()
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        rc = _main_rc(mod, ["explicit-B", "abbreviated-B", "bare-ambiguous"], [mod.B])
+    out = buf.getvalue()
+    assert rc == 1
+    assert "liveness OK" in out
+    assert out.count("[SHIFTED]") == 2
+    assert "pinned by: path" in out and "pinned by: abbreviated path" in out
+    assert "[AMBIGUOUS-BASENAME, 3 candidates after: bare basename]" in out
+    assert "it could equally mean: " + mod.THIRD in out
+
+
 def test_cli_selftest_exit_code():
     r = subprocess.run([sys.executable, str(_TOOL), "--selftest"], capture_output=True, text=True)
     assert r.returncode == 0, r.stdout + r.stderr
