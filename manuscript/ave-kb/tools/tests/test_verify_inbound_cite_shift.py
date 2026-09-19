@@ -16,7 +16,12 @@ Asserts:
   * the pure addressing functions read the path spellings this corpus actually
     uses (full, manuscript-relative, abbreviated, elided, repo-rooted, sibling
     repo, LaTeX-escaped, truncated by a non-ASCII ellipsis) the way the docstring
-    says they do.
+    says they do;
+  * main()'s exit codes: 1 on a pinned shift, 0 on the replayed false positive,
+    0 on a changed file that nobody cites (the honest zero the yield-inferred
+    liveness control used to call a broken finder), and 2 on each failure the
+    control now tests directly -- an unresolvable rev, an erroring `git grep`,
+    a dead self-gate.
 
 Run directly (`python tools/tests/test_verify_inbound_cite_shift.py`) or via pytest.
 """
@@ -94,6 +99,63 @@ def test_pre_fix_rule_reproduces_the_false_positive():
     assert pinned.get("explicit-A") == "SHIFTED" and rc == 1
     pinned, amb, rc, _ = mod.fixture_scan(["explicit-A"], moved=[mod.B])
     assert not pinned and not amb and rc == 0
+
+
+# ------------------------------------------------ liveness + main()'s exit codes
+#
+# Until 2026-09-19 liveness was INFERRED from yield ("changed files but zero cites
+# resolved => the finder is broken"), which exited 2 on 15 of the 30 most recent
+# merges into main -- every one a branch whose changed files were un-cited or
+# newly added. It is now a fixed positive control proven before the scan.
+
+def _main_rc(mod, keys, moved, base=None, repo_cls=None):
+    with mod.fixture_repo(keys, moved) as (repo, b, t):
+        if repo_cls is not None:
+            repo = repo_cls(cwd=repo.cwd, scrub_env=True)
+        return mod.main(base or b, t, repo=repo)
+
+
+def test_main_exit_1_on_a_pinned_shift():
+    mod = _load_module()
+    assert _main_rc(mod, mod.ALL, [mod.B]) == 1
+
+
+def test_main_exit_0_on_the_replayed_false_positive():
+    mod = _load_module()
+    assert _main_rc(mod, ["explicit-A", "bare-ambiguous"], [mod.B]) == 0
+
+
+def test_main_exit_0_when_nobody_cites_the_changed_file():
+    """The honest zero. The pre-fix control called this "the FINDER is broken"."""
+    mod = _load_module()
+    assert _main_rc(mod, [], [mod.UNIQUE]) == 0
+
+
+def test_main_exit_2_on_a_rev_that_does_not_resolve():
+    mod = _load_module()
+    assert _main_rc(mod, mod.ALL, [mod.B], base="no-such-rev") == 2
+
+
+def test_main_exit_2_when_git_grep_errors():
+    mod = _load_module()
+
+    class GrepFails(mod.Repo):
+        def raw(self, *a, stdin=None):
+            if a and a[0] == "grep":
+                return 128, b""
+            return super().raw(*a, stdin=stdin)
+
+    # without the return-code check this reads as a clean zero
+    assert _main_rc(mod, mod.ALL, [mod.B], repo_cls=GrepFails) == 2
+
+
+def test_main_exit_2_when_the_gate_is_dead():
+    mod = _load_module()
+    mod.MUTATE.add("address-nothing")
+    try:
+        assert _main_rc(mod, mod.ALL, [mod.B]) == 2
+    finally:
+        mod.MUTATE.discard("address-nothing")
 
 
 def test_cli_selftest_exit_code():

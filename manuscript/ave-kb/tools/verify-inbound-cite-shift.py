@@ -78,6 +78,35 @@ from beside a 12-line same-named sibling; `provenance.md:854` from beside a
 117-line one. Inside a markdown link the same-directory reading is exact, and
 rule 1 already has it.
 
+LIVENESS -- a zero has to be earned, and NOT inferred from the run's own yield
+------------------------------------------------------------------------------
+A checker that finds nothing reports a clean it did not earn. Before any zero is
+trusted, every run proves three things, none of them read off its own yield:
+
+  * both revs resolve to a tree  (on a bad rev every git call returns nothing);
+  * no `git grep` exited > 1     (1 = "no match" is an answer; an error is not);
+  * THE SELF-GATE holds          the --selftest fixtures, driven through this same
+                                 scan() and git binary: a planted shifted cite IS
+                                 reported, a cite to a same-named sibling is NOT.
+Any failure aborts with exit 2 instead of printing a zero.
+
+Until 2026-09-19 liveness WAS inferred from yield: "changed files but ZERO cites
+resolved => the FINDER is broken". That cannot tell "nothing to find" from "finder
+broken" -- the one distinction a liveness control exists to draw. Measured on the
+30 merges into main up to ed1c7b4a: exit 2 on 15 of them, and the finder was
+broken in none. Eleven changed only files that no corpus line cites; four had
+cites only into files the branch ADDED, which have no base content to move. The
+addressing rule makes honest zeros more common still (203 cites found, none
+addressed to the changed file), so the inference had to go. verify-fired-riders.py
+never had this problem because its control is a FIXED positive control; this one
+now has that shape too.
+
+EXIT CODES
+----------
+  0  no pinned cite moved (the advisory buckets may still be non-empty)
+  1  a cite PINNED to a changed file is SHIFTED or OUT-OF-RANGE
+  2  liveness failed -- no verdict was reached
+
 SELF-TESTS
 ----------
     verify-inbound-cite-shift.py --selftest           can-it-fire + negative controls
@@ -88,7 +117,7 @@ NOT fire when same-named file B moves -- and the mutation receipt proves that
 control is not vacuous, because under the pre-fix basename-only rule the very
 same fixture DOES fire.
 """
-import collections, os, posixpath, re, shutil, subprocess, sys, tempfile
+import collections, contextlib, os, posixpath, re, shutil, subprocess, sys, tempfile
 
 THIS_REPO = 'AVE-Core'
 SIBLING_REPO = re.compile(r'^(?:AVE-[A-Za-z0-9]+|Applied-Vacuum-Engineering)$')
@@ -291,7 +320,7 @@ def scan(repo, base, tip):
     for c in changed:
         by_leaf[c.rsplit('/', 1)[-1]].append(c)
     res = dict(base=base, tip=tip, changed=changed, found=0, tested=0, elsewhere=0,
-               pinned=[], ambiguous=[])
+               pinned=[], ambiguous=[], grep_errors=[])
     if not by_leaf:
         return res
 
@@ -323,8 +352,10 @@ def scan(repo, base, tip):
     # One engine does the finding, one does the precision. Never two.
     cand = collections.defaultdict(list)
     for leaf in by_leaf:
-        out = repo.sh('grep', '-nIF', leaf, tip, '--')
-        for line in out.split('\n'):
+        rc, out = repo.raw('grep', '-nIF', leaf, tip, '--')
+        if rc > 1:                                         # 1 is "no match"; >1 is a failure
+            res['grep_errors'].append(leaf)
+        for line in out.decode('utf-8', 'replace').split('\n'):
             if not line.strip(): continue
             parts = line.split(':', 3)
             if len(parts) < 4: continue
@@ -399,23 +430,6 @@ def report(res, verbose=False):
     if not changed:
         print('no changed files'); return 0
 
-    # LIVENESS CONTROL, same shape as verify-fired-riders.py's. A checker that
-    # resolves nothing reports a clean it did not earn. If this branch changed
-    # files and NOT ONE corpus cite into them could be resolved, the finder is
-    # broken (a bad pattern, a bad rev, an empty grep) -- abort rather than
-    # print a zero. Measured precedent: an earlier build of this very script
-    # passed an ERE to `git grep` and a near-identical pattern to Python's `re`.
-    # Inside a POSIX bracket expression a backslash is LITERAL, so the git-grep
-    # arm silently under-collected and the script reported 3 moved cites where
-    # there were 79. One engine finds, one engine decides -- never two.
-    # Keyed on cites FOUND, before the addressing rule: a branch whose changed
-    # file is named by 203 cites that all address a same-named sibling has a
-    # working finder and an honest zero.
-    if res['found'] == 0:
-        print('[inbound-cites] ABORT: %d changed file(s) but ZERO cites resolved. '
-              'The FINDER is broken -- a clean report here would be false.' % len(changed))
-        return 2
-
     shifted = [f for f in res['pinned'] if f.kind in ROT]
     edited  = [f for f in res['pinned'] if f.kind == 'EDITED-IN-PLACE']
     amb     = res['ambiguous']
@@ -426,7 +440,12 @@ def report(res, verbose=False):
           f'  AMBIGUOUS-BASENAME={len(amb)} (advisory; {len(amb_rot)} would read SHIFTED)')
 
     listed = shifted + (edited if verbose else [])
-    if not listed:
+    if res['found'] == 0:
+        # An honest zero: liveness was PROVEN before the scan (see liveness()), so
+        # "no cite names a changed file" is a finding, not a symptom.
+        print('  clean — no corpus line-cite names a file this branch changed and that '
+              'existed at the base; nothing could have moved')
+    elif not listed:
         print('  clean — every corpus cite pinned to a changed file still holds its content')
     else:
         print()
@@ -457,8 +476,53 @@ def report(res, verbose=False):
     return 1 if shifted else 0
 
 
-def main(base, tip, verbose=False):
-    return report(scan(Repo(), base, tip), verbose)
+def liveness(repo, base, tip):
+    """(reasons this run could NOT be trusted to report a zero, probes run). No
+    reasons means alive.
+
+    LIVENESS CONTROL, same shape as verify-fired-riders.py's: a FIXED positive
+    control, proven before the scan, never inferred from what the scan yields. A
+    checker that resolves nothing reports a clean it did not earn -- but "this
+    branch's files are cited by nobody" is a true and common state, so yield is
+    not evidence either way (see the docstring: 15 false aborts in 30 merges).
+    The named failure modes are each tested directly instead: a bad rev, an
+    erroring grep (scan() records those), and a bad pattern or a dead decider --
+    which is what the self-gate is for. Measured precedent for the last one: an
+    earlier build of this very script passed an ERE to `git grep` and a
+    near-identical pattern to Python's `re`. Inside a POSIX bracket expression a
+    backslash is LITERAL, so the git-grep arm silently under-collected and the
+    script reported 3 moved cites where there were 79. One engine finds, one
+    engine decides -- never two.
+    """
+    dead = []
+    for name, rev in (('base', base), ('tip', tip)):
+        if repo.raw('rev-parse', '--verify', '--quiet', rev + '^{tree}')[0] != 0:
+            dead.append('%s rev %r does not resolve to a tree -- every git call on it '
+                        'returns nothing' % (name, rev))
+    lines = []
+    if not run_gate(out=lines.append):
+        dead.append('the self-gate FAILED -- this build cannot fire, or fires on a cite it must not:')
+        dead += ['  ' + l.strip() for l in lines if '[FAIL]' in l]
+    return dead, len(lines)
+
+
+def main(base, tip, verbose=False, repo=None):
+    repo = repo or Repo()
+    dead, n_probes = liveness(repo, base, tip)
+    res = None
+    if not dead:
+        res = scan(repo, base, tip)
+        dead = ['`git grep` exited with an error while collecting citers of %r' % leaf
+                for leaf in res['grep_errors']]
+    if dead:
+        print('[inbound-cites] ABORT: liveness failed -- a clean report here would be false.')
+        for why in dead:
+            print('  ' + why)
+        return 2
+    print('[inbound-cites] liveness OK — both revs resolve, no grep error, self-gate %d/%d '
+          '(a planted shifted cite fires; a cite to a same-named sibling does not).'
+          % (n_probes, n_probes))
+    return report(res, verbose)
 
 
 # ------------------------------------------------------------------- fixtures
@@ -524,26 +588,32 @@ def _write_tree(repo, root, files):
     return repo.sh('write-tree').strip()
 
 
-def fixture_scan(keys, moved):
-    """Run the REAL scan() over a throwaway repo.
-
-    Returns ({probe: kind} pinned, {probe: kind} ambiguous, exit code, raw result)."""
+@contextlib.contextmanager
+def fixture_repo(keys, moved):
+    """A throwaway repo holding a base tree and a tip tree: yields (repo, base, tip)."""
     root = tempfile.mkdtemp(prefix='inbound-cite-selftest-')
     try:
         repo = Repo(cwd=root, scrub_env=True)
         repo.sh('init', '-q')
         base = _write_tree(repo, root, _files(keys))
-        tip = _write_tree(repo, root, _files(keys, moved))
-        res = scan(repo, base, tip)
-        where = {}
-        for citer in (CITERS, NOTES):
-            for i, k in enumerate([k for k in keys if PROBES[k][0] == citer], 1):
-                where[(citer, i)] = k
-        pinned = {where[(f.src, f.lno)]: f.kind for f in res['pinned']}
-        amb = {where[(f.src, f.lno)]: f.kind for f in res['ambiguous']}
-        return pinned, amb, (1 if any(k in ROT for k in pinned.values()) else 0), res
+        yield repo, base, _write_tree(repo, root, _files(keys, moved))
     finally:
         shutil.rmtree(root, ignore_errors=True)
+
+
+def fixture_scan(keys, moved):
+    """Run the REAL scan() over a throwaway repo.
+
+    Returns ({probe: kind} pinned, {probe: kind} ambiguous, exit code, raw result)."""
+    with fixture_repo(keys, moved) as (repo, base, tip):
+        res = scan(repo, base, tip)
+    where = {}
+    for citer in (CITERS, NOTES):
+        for i, k in enumerate([k for k in keys if PROBES[k][0] == citer], 1):
+            where[(citer, i)] = k
+    pinned = {where[(f.src, f.lno)]: f.kind for f in res['pinned']}
+    amb = {where[(f.src, f.lno)]: f.kind for f in res['ambiguous']}
+    return pinned, amb, (1 if any(k in ROT for k in pinned.values()) else 0), res
 
 
 ALL = list(PROBES)
@@ -595,6 +665,12 @@ def run_gate(out=print):
     say(rc == 0 and not pinned and rot(amb) == {'bare-ambiguous'} and res['found'] == 2,
         'replay of the measured false positive: 2 cites found, SHIFTED=0, run passes, 1 advisory',
         f"found={res['found']} SHIFTED={len(rot(pinned))} advisory={sorted(rot(amb))} exit {rc}")
+
+    # --- an honest zero: the only changed file is one nobody cites
+    pinned, amb, rc, res = fixture_scan([], moved=[UNIQUE])
+    say(res['found'] == 0 and not res['grep_errors'] and rc == 0,
+        'a changed file that NO line cites is an honest zero, not evidence of a broken finder',
+        f"found={res['found']} grep-errors={len(res['grep_errors'])} exit {rc}")
 
     # --- pre-existing behaviour: a unique basename still fires on the name alone
     pinned, amb, rc, _ = fixture_scan(ALL, moved=[UNIQUE])
