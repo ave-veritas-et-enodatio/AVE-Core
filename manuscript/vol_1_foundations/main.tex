@@ -25,6 +25,19 @@
 }{%
     \typeout{[xr-hyper] vol_3_macroscopic.aux not found — Vol 3 chapter refs will be unresolved. Run `make vol3` first.}%
 }
+% Vol 2 is pulled for ONE forward reference: chapters/05_universal_spatial_tension.tex cites
+% ch:electroweak_higgs ("derived in full in Volume II, Chapter N"), which without this import
+% printed as "??" in every build. Vol 1 compiles BEFORE Vol 2, so the ref resolves on pass 2 of
+% `make pdf` (or whenever a prior build left build/aux/vol_2_subatomic.aux behind); standalone
+% single-pass builds fall through exactly like the two imports above.
+% Measured 2026-09-19 at ed1c7b4a: no label this volume references is defined in both Vol 2 and
+% Vol 0 / Vol 3, so this import changes how no existing reference resolves (local labels always
+% win over imported ones; among imports the later \externaldocument wins).
+\IfFileExists{../../build/aux/vol_2_subatomic.aux}{%
+    \externaldocument{../../build/aux/vol_2_subatomic}%
+}{%
+    \typeout{[xr-hyper] vol_2_subatomic.aux not found — the Vol 2 forward ref (ch:electroweak_higgs) will be unresolved. Run `make pdf` (two-pass) to resolve it.}%
+}
 
 % =========================================
 % DOCUMENT STRUCTURE
