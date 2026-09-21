@@ -148,6 +148,51 @@ def test_baseline_grandfathers_then_re_triggers_on_edit() -> None:
 
 
 # --------------------------------------------------------------------------
+# Nested checkouts: a file that exists ONLY in another branch's tree must not
+# satisfy a cite made here (the index claimed this exclusion and did not do it)
+# --------------------------------------------------------------------------
+
+def test_nested_checkout_cannot_satisfy_a_cite() -> None:
+    import tempfile
+
+    vps = _load_module()
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp).resolve()
+        for rel in (
+            "src/here.py",                                  # ours
+            "lookalike/worktrees/src/named_like_a_park.py",  # ours: no `.git` beside it
+            ".claude/worktrees/wt/src/only_there.py",       # a `git worktree` (`.git` FILE)
+            "vendored/clone/src/only_there.py",             # a clone (`.git` DIRECTORY)
+        ):
+            (root / rel).parent.mkdir(parents=True, exist_ok=True)
+            (root / rel).write_text("x = 1\n", encoding="utf-8")
+        (root / ".claude/worktrees/wt/.git").write_text("gitdir: /nowhere\n", encoding="utf-8")
+        (root / "vendored/clone/.git").mkdir()
+
+        excluded: set[Path] = set()
+        index = vps.build_target_index(root, excluded)
+        gone = vps.ArtifactRef(raw="src/only_there.py", path="src/only_there.py", symbol=None)
+        assert "only_there.py" not in index
+        assert vps.resolve_ref(gone, root, index) == "file not found in-tree: 'src/only_there.py'"
+        assert {p.relative_to(root).as_posix() for p in excluded} == {
+            ".claude/worktrees/wt", "vendored/clone"}, "every dropped checkout must be REPORTED"
+
+        # Negative control: the rule keys on the `.git` entry, not on a name.
+        assert "here.py" in index and "named_like_a_park.py" in index
+
+        # Can-it-fire: with the rule blinded the SAME tree satisfies the dead cite
+        # twice over — the masking this test exists to prevent.
+        saved = vps._is_nested_checkout
+        vps._is_nested_checkout = lambda directory: False
+        try:
+            blind = vps.build_target_index(root)
+        finally:
+            vps._is_nested_checkout = saved
+        assert len(blind["only_there.py"]) == 2
+        assert vps.resolve_ref(gone, root, blind) is None
+
+
+# --------------------------------------------------------------------------
 # Trivial-runtime / stdlib-only sanity (the gate must satisfy its own runtime
 # discipline: pure grep + resolve, no builds).
 # --------------------------------------------------------------------------
@@ -170,5 +215,6 @@ if __name__ == "__main__":
     test_valid_stamps_do_not_fire()
     test_code_spans_ignored()
     test_baseline_grandfathers_then_re_triggers_on_edit()
+    test_nested_checkout_cannot_satisfy_a_cite()
     test_pure_stdlib_no_third_party_imports()
     print("ALL PASS")
