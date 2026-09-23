@@ -90,6 +90,24 @@ class AVESyntaxValidator(ast.NodeVisitor):
         self.generic_visit(node)
 
 
+# NESTED-CHECKOUT EXCLUSION. A directory below PROJECT_ROOT that holds its own `.git`
+# entry (a FILE for a `git worktree`, a DIRECTORY for a clone) is another branch's copy of
+# this codebase, verified from ITS root. Measured 2026-09-21 on main a5adf0f2: one
+# worktree nested under `.claude/worktrees/` made this scan report 2830 files for the 1415
+# that exist, and a violation on THAT branch would have failed THIS checkout. Git will not
+# track a path component named `.git`, so the rule cannot hide a file that belongs here.
+# Same rule as research/drivers/r40_quote_claim_strength_number_check.py (rationale there).
+_NESTED_CHECKOUT_OF = {PROJECT_ROOT: None}
+
+
+def nested_checkout_of(directory: Path):
+    """Root of the nested checkout that holds `directory`, or None if it is ours."""
+    if directory not in _NESTED_CHECKOUT_OF:
+        outer = nested_checkout_of(directory.parent)
+        _NESTED_CHECKOUT_OF[directory] = outer or (directory if (directory / ".git").exists() else None)
+    return _NESTED_CHECKOUT_OF[directory]
+
+
 def run_verification() -> None:
     print("==================================================")
     print("AVE DIRECTED ACYCLIC GRAPH (DAG) VERIFIER")
@@ -109,13 +127,23 @@ def run_verification() -> None:
 
     # Scan the ENTIRE project root — no directory left behind
     py_files_to_scan = []
+    nested_checkouts = set()
     for py_file in PROJECT_ROOT.rglob("*.py"):
         # Skip excluded directories
         if any(part in EXCLUDED_DIRS for part in py_file.parts):
             continue
+        nested = nested_checkout_of(py_file.parent)
+        if nested is not None:
+            nested_checkouts.add(nested)
+            continue
         py_files_to_scan.append(py_file)
     # Deduplicate
     py_files_to_scan = sorted(set(py_files_to_scan))
+    # Reported, never silent: an exclusion nobody can see is a blind spot.
+    print(f"Nested checkouts excluded (each is verified from its own root): {len(nested_checkouts)}")
+    for nested in sorted(nested_checkouts):
+        print(f"  - {nested.relative_to(PROJECT_ROOT)}")
+    print()
 
     for py_file in py_files_to_scan:
         total_files += 1

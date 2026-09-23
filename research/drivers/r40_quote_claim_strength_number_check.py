@@ -55,6 +55,7 @@ from __future__ import annotations
 import os
 import re
 import sys
+import tempfile
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -141,25 +142,87 @@ def violations_in(path: str, text: str):
 #: narrowed to the fixture constants rather than the file.
 SELF_EXCLUDE = re.compile(r"^research/drivers/.*_number_check\.py$")
 
+#: NESTED-CHECKOUT EXCLUSION, declared.  A directory BELOW the scan root that holds
+#: its own `.git` entry — a FILE for a `git worktree`, a DIRECTORY for a clone — is
+#: another checkout's tree: another branch's copy of this same corpus, verified from
+#: ITS root by ITS `make verify`.  Walking into it is wrong three ways, all measured
+#: 2026-09-21 on main a5adf0f2, where worktrees are parked under the gitignored
+#: `.claude/worktrees/`:
+#:   (1) the census inflates — the 109 in-repo notes read 219 with one nested
+#:       worktree and 329 with two, so "N note-bearing files" stopped meaning N;
+#:   (2) this checkout is charged with another branch's notes;
+#:   (3) the nested COPY OF THIS FILE is scanned — SELF_EXCLUDE above is anchored at
+#:       the repo root on purpose — so its own fixtures fire: exactly 2 false
+#:       violations per nested worktree (4 on 2026-09-21, 26 on 2026-09-13), which
+#:       held `make verify` RED in the main checkout while CI stayed green.
+#: The rule keys on what the directory IS, not on its name or where it sits, so a
+#: worktree parked anywhere in the tree is covered.  It cannot hide in-repo content:
+#: git will not track a path component named `.git`, so nothing that belongs to THIS
+#: checkout can satisfy it.  (There are no submodules here; adding one would take its
+#: notes out of this scan, and this rule must be revisited then.)  SELF_EXCLUDE
+#: deliberately STAYS anchored: un-anchoring it would have silenced (3) alone, left
+#: (1) and (2) standing, and hidden a stray checker copy INSIDE this checkout.
+_PRUNED_NAMES = {".git", ".venv", "__pycache__", "node_modules"}
 
-def corpus_files():
+
+def is_nested_checkout(path: str) -> bool:
+    """True if `path` is the root of ANOTHER git checkout (it holds a `.git` entry)."""
+    return os.path.lexists(os.path.join(path, ".git"))
+
+
+def corpus_files(repo=None, excluded=None):
+    """Scannable files under `repo` (default REPO).  The root of every pruned nested
+    checkout is appended to `excluded` so the caller REPORTS it — never a silent skip."""
+    repo = REPO if repo is None else repo
     out = []
-    for root, dirs, files in os.walk(REPO):
-        dirs[:] = [d for d in dirs if d not in {".git", ".venv", "__pycache__", "node_modules"}]
+    for root, dirs, files in os.walk(repo):
+        dirs[:] = [d for d in dirs if d not in _PRUNED_NAMES]
+        for d in [d for d in dirs if is_nested_checkout(os.path.join(root, d))]:
+            dirs.remove(d)
+            if excluded is not None:
+                excluded.append(os.path.relpath(os.path.join(root, d), repo))
         for fn in files:
             if os.path.splitext(fn)[1] in {".md", ".tex", ".py"}:
-                rel = os.path.relpath(os.path.join(root, fn), REPO)
+                rel = os.path.relpath(os.path.join(root, fn), repo)
                 if not SELF_EXCLUDE.match(rel):
                     out.append(rel)
     return sorted(out)
 
 
-def scan():
+def files_outside_nested_checkouts(repo=None):
+    """The SAME rule in an independent formulation, for the negative control: walk
+    everything, then drop a file iff some ancestor directory strictly below `repo`
+    holds `.git` — bottom-up per file, where corpus_files() prunes top-down per
+    directory.  Equal outputs mean the pruning removed nested checkouts and nothing
+    else (in particular: with no nested checkout present, it removed nothing)."""
+    repo = REPO if repo is None else repo
+    inside = {repo: False}
+
+    def nested(d):
+        if d not in inside:
+            inside[d] = is_nested_checkout(d) or nested(os.path.dirname(d))
+        return inside[d]
+
+    out = []
+    for root, dirs, files in os.walk(repo):
+        dirs[:] = [d for d in dirs if d not in _PRUNED_NAMES]
+        if nested(root):
+            continue
+        for fn in files:
+            if os.path.splitext(fn)[1] in {".md", ".tex", ".py"}:
+                rel = os.path.relpath(os.path.join(root, fn), repo)
+                if not SELF_EXCLUDE.match(rel):
+                    out.append(rel)
+    return sorted(out)
+
+
+def scan(repo=None, files=None):
+    repo = REPO if repo is None else repo
     n_notes = n_pre_md = n_pre_cm = 0
     viol = []
-    for rel in corpus_files():
+    for rel in (corpus_files(repo) if files is None else files):
         try:
-            text = open(os.path.join(REPO, rel), encoding="utf-8").read()
+            text = open(os.path.join(repo, rel), encoding="utf-8").read()
         except (OSError, UnicodeDecodeError):
             continue
         if not NOTE_MARK.search(flatten(text)):
@@ -223,6 +286,40 @@ def marker_blindness_probe():
     return (not seen_blind) and seen_aware
 
 
+#: The fixture tree for `nested_checkout_probe`.  Every note in it is the shipped
+#: drift (`_MD_DRIFT`), so "judged" and "flagged" are the same set and a note that
+#: goes unscanned cannot hide behind a note that passed.
+_IN_REPO = ("top.md", "lookalike/worktrees/copy.md")            # MUST be judged
+_NESTED = (".claude/worktrees/wt/copy.md", "vendored/clone/copy.md")   # MUST NOT be
+
+
+def nested_checkout_probe():
+    """(judged with the rule, nested checkouts it named, judged WITHOUT the rule).
+
+    `.claude/worktrees/wt/` holds a `.git` FILE, as `git worktree add` writes it;
+    `vendored/clone/` holds a `.git` DIRECTORY, as `git clone` writes it.
+    `lookalike/worktrees/` is the control: it is NAMED like a worktree park and sits
+    beside a `.github/` directory and a `.gitignore` file, but holds no `.git`, so it
+    belongs to this checkout and must still be judged."""
+    global is_nested_checkout
+    with tempfile.TemporaryDirectory() as tmp:
+        for rel in _IN_REPO + _NESTED:
+            os.makedirs(os.path.dirname(os.path.join(tmp, rel)) or tmp, exist_ok=True)
+            open(os.path.join(tmp, rel), "w", encoding="utf-8").write(_MD_DRIFT)
+        open(os.path.join(tmp, ".claude/worktrees/wt/.git"), "w").write("gitdir: /nowhere\n")
+        os.makedirs(os.path.join(tmp, "vendored/clone/.git"))
+        os.makedirs(os.path.join(tmp, "lookalike/.github"))
+        open(os.path.join(tmp, "lookalike/.gitignore"), "w").write("*.tmp\n")
+        named = []
+        with_rule = sorted({p for p, _ in scan(tmp, corpus_files(tmp, named))[3]})
+        saved, is_nested_checkout = is_nested_checkout, (lambda path: False)
+        try:
+            without_rule = sorted({p for p, _ in scan(tmp)[3]})
+        finally:
+            is_nested_checkout = saved
+    return with_rule, sorted(named), without_rule
+
+
 def run_gate(verbose=True):
     ok = True
 
@@ -245,8 +342,28 @@ def run_gate(verbose=True):
     say(marker_blindness_probe(),
         "marker-blindness regression (a flattening scan blind to `%`/`#` MISSES it)",
         "blind scan misses, marker-aware scan catches — the 109->62 under-count is pinned")
+    with_rule, named, without_rule = nested_checkout_probe()
+    say(not set(_NESTED) & set(with_rule) and set(_NESTED) <= set(without_rule)
+        and named == sorted(os.path.dirname(p) for p in _NESTED),
+        "can-it-fire — a drifted note inside a NESTED CHECKOUT is not this checkout's note",
+        f"{len(set(_NESTED) & set(with_rule))} of {len(_NESTED)} nested notes judged "
+        f"(`.git` FILE = worktree, `.git` DIR = clone), {len(named)} checkout(s) named; "
+        f"a walk WITHOUT the rule judges {len(set(_NESTED) & set(without_rule))}"
+        + ("" if set(_NESTED) <= set(without_rule) else " — THE FIXTURE IS DEAD"))
+    say(set(_IN_REPO) <= set(with_rule),
+        "negative control — a directory merely NAMED like a worktree park is still judged",
+        f"{len(set(_IN_REPO) & set(with_rule))} of {len(_IN_REPO)} in-repo notes judged "
+        "(`lookalike/worktrees/` beside `.github/` and `.gitignore`, no `.git`)")
 
-    n_notes, n_md, n_cm, viol = scan()
+    excluded = []
+    files = corpus_files(excluded=excluded)
+    say(files == files_outside_nested_checkouts(),
+        "negative control — the exclusion removes nested checkouts and NOTHING else",
+        f"{len(excluded)} nested checkout(s) excluded from this scan"
+        + ("" if not excluded else " (" + ", ".join(sorted(excluded)) + ")")
+        + f"; the {len(files)} files kept == an unpruned walk minus files under a "
+        "`.git`-holding ancestor, so the in-repo census below is unchanged by the rule")
+    n_notes, n_md, n_cm, viol = scan(files=files)
     say(n_notes > 0, "notes found in the corpus (an empty scan is not a clean scan)",
         f"{n_notes} note-bearing file(s)")
     say(n_md + n_cm == n_notes,
@@ -291,6 +408,16 @@ def mutation_receipt():
     ALLOW_STRONG = False
     results.append(("M4 under ALLOW_STRONG the over-claim is legal but the DISAGREEMENT still fires",
                     bool(still) and all("DISAGREE" in w for _, w in still)))
+    # M5 — blind the nested-checkout rule: the fixture's nested notes must be judged
+    # again.  This rebinds `is_nested_checkout`, the name `corpus_files()` looks up at
+    # call time (see M1 for why reaching the real code path is the whole point).
+    global is_nested_checkout
+    saved_n = is_nested_checkout
+    is_nested_checkout = lambda path: False      # noqa: E731
+    blinded, named, _ = nested_checkout_probe()
+    is_nested_checkout = saved_n
+    results.append(("M5 blind the nested-checkout rule (nested notes must be judged AGAIN, none named)",
+                    set(_NESTED) <= set(blinded) and not named))
     allgood = True
     for label, tripped in results:
         print(f"  [{'OK' if tripped else 'BROKEN'}] {label} -> "
