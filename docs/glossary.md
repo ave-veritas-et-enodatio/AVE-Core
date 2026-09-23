@@ -99,6 +99,18 @@ Session 2026-06-07 reframe vocabulary. **All entries are CONSISTENCY-CLASS** (re
 | **Self-commutation** | The electron is a self-commutating 3-phase (FOC) machine: the Compton-clock spinor rotation IS the de Broglie propagation drive (rotor supplies its own commutation). The "½ phase-pair commutation" = the SPINOR DOUBLE-COVER (SU(2)→SO(3)), NOT a half-pole-pair machine; pole-pairs = the $(2,3)$ winding. **g=2 POSITED, not derived** | Class B (Cosserat spin) + structural; translation-circuit.md §10.4; spin-half-paradox.md:12-14 |
 | **Achiral-diamond reframe** (z=4) ⚠ FLAGGED | Reframe: substrate is z=4 *achiral* diamond, chirality = Cosserat microrotation NOT net chirality. z=4 tetrahedral IS canonical (water leaf, §1.6); the **achiral-vs-chiral framing is a FLAGGED TENSION** with Axiom 1's $I4_132$ *chiral* space group (cf. the $Fd\bar3m$ diamond-cubic wording in the Lorentz leaf) — **unadjudicated, for Grant** | FLAG (not landed); see session-reframes doc §2 |
 
+### 1.8. Do not conflate: "linear" bond TL $L$, $C$ vs strain (`def-ln3str`)
+
+**Rendered view of [`def-ln3str`](../manuscript/ave-kb/common/vocabulary-register.md)** (status: *ambiguous* — three canon senses, no single locked "linear"). Full assembly: [`bond-lc-constitutive-grading.md`](../manuscript/ave-kb/vol3/gravity/ch03-macroscopic-relativity/bond-lc-constitutive-grading.md). Object is the **bond** (`def-b0nd01`); 2026-08-28 "hop $L,C$" was TLM slang, retired as a live label.
+
+| Sense | What "linear" means | Regime | Bond TL $L,C$ vs strain? |
+|---|---|---|---|
+| **K — kernel (Ax4)** | Taylor of $S(r)=\sqrt{1-r^2}$ is even; Regime I drops $O(r^2)$ | $r<\sqrt{2\alpha}$; solar $\varepsilon_{11}$ is here | **Constant** from the kernel. Not $L,C\propto\varepsilon_{11}$. |
+| **P — Op19 / photoelastic** | $n=1+\nu_{\mathrm{vac}}\varepsilon_{11}$; under SYM, $\mu,\varepsilon$ co-scale with $n$. Bond TL $L,C$ co-scale with $n$ **on the T2/EM channel** ($L=\mu_0$, $C=\varepsilon_0$ is the Class A identity in the **Line-property constant** row of §1.7 above, `docs/glossary.md:96`); for the **whole three-channel bond** no single $(L,C)$ exists to identify. | Same weak-field band as K | **Linear in $\varepsilon_{11}$**, different expansion. Coefficient GR-imported. |
+| **Z — SYM co-scale** | $Z=\sqrt{L/C}$ pinned — **same channel condition as P**: on the T2/EM channel only ($Z_{shear}$, $Z_{bulk}$ are not in $Z_0$ units) | All gravity-class loading, T2/EM channel | $L\propto C$ (each other), not linear in strain. |
+
+Gravitational $\varepsilon_{11}$ is the DC **Q-point** of the A1 tank ([`def-q1escn`](../manuscript/ave-kb/common/vocabulary-register.md)), not a slide of the graph vertex.
+
 ---
 
 ## 2. Three substrate boundary invariants — canonical names (Grant-locked 2026-05-14 evening)
