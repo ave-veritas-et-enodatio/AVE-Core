@@ -13,7 +13,7 @@ The complete quantitative derivations of the Weak Mixing Angle ($\sin^2\theta_W 
 
 ### U(1) Electromagnetism from the Lattice Plaquette
 
-The physical continuous connection between adjacent nodes $i$ and $j$ is mathematically described by a unitary link variable $U_{ij} = e^{i\theta_{ij}}$, where $\theta_{ij}$ is the phase accumulated along the edge. The simplest gauge-invariant geometric quantity is the triangular plaquette---the product of link variables around a closed 3-node loop:
+The physical continuous connection between adjacent nodes $i$ and $j$ is mathematically described by a unitary link variable $U_{ij} = e^{i\theta_{ij}}$, where $\theta_{ij}$ is the phase accumulated along the edge. The simplest gauge-invariant geometric quantity is the lattice plaquette---the product of link variables around an elementary closed ring of the substrate (girth-10 on srs; 6-ring on the diamond instrument):
 
 > **[Resultbox]** *Lattice Gauge Plaquette*
 >
