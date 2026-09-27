@@ -1,4 +1,4 @@
-"""Shared Axiom-1 diamond LC cell + TL bond mesh geometry for vacuum STL exporters."""
+"""Shared diamond K4 engine instrument cell + TL bond mesh geometry for vacuum STL exporters (D1: Axiom-1 substrate is srs z=3, not diamond)."""
 
 from __future__ import annotations
 

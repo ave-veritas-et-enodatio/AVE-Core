@@ -14,7 +14,7 @@ This module is the FUNDAMENTAL-GROUND-UP build (no cubic stencil reused):
   * the trivalent scatter matrix DERIVED from Op5's shunt-junction reduction
     S_ij = 2/n - delta_ij  (canon instantiates only n=4: S_ij = 1/2 - delta_ij);
   * the universal CONNECT map (reverse-port index per directed edge), which
-    generalises the canonical bipartite connect to a non-bipartite valence-3 net.
+    generalises the canonical bipartite connect to the (also bipartite) valence-3 srs net.
 
 Geometric properties of the srs net (trivalent, 120 deg balanced bonds,
 girth-10, I4_1 32 / I4_3 32 enantiomorph pair) are EXTERNAL MATHEMATICS

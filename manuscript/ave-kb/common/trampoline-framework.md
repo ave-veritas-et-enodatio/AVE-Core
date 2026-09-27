@@ -70,9 +70,9 @@ Build the substrate one physical concept at a time. Each step adds exactly one n
 
 **Math added.** Graph $G(V, E)$ replaces continuum. Each bond carries a Hookean response $F_{\text{bond}} = k\, \Delta L$. $K$ and $G$ are no longer free constants — they're **derived** from (a) bond stiffness $k$, (b) graph connectivity $z$, (c) geometry.
 
-For the canonical K4 lattice ($z = 4$, tetrahedral, 109.47°): primary K4 bonds alone give the Cauchy result $K/G = 5/3$ from straightforward Maxwell-Cremona reciprocal-diagram analysis (Q-G47 Sessions 1-2).
+For the engine-K4 diamond lattice ($z = 4$, tetrahedral, 109.47°): primary bonds alone give the Cauchy result $K/G = 5/3$ from straightforward Maxwell-Cremona reciprocal-diagram analysis (Q-G47 Sessions 1-2).
 
-**Why specifically K4 tetrahedral?** K4 is the unique 3D bipartite lattice satisfying: (a) equal A/B sublattice sizes (matter/antimatter balance), (b) minimum coordination for 3D rigidity ($z = 4$ Maxwell-counting), (c) supports the magic-angle $K = 2G$ operating point under Cosserat coupling (Q-G47 Session 5+ framework), (d) tetrahedral 109.47° bond angle. Vol 1 Ch 1 Axiom 1 canonical.
+**Why specifically this tetrahedral engine-K4 diamond lattice?** The engine-K4 diamond lattice satisfies: (a) equal A/B sublattice sizes (matter/antimatter balance), (b) minimum coordination for 3D rigidity ($z = 4$ Maxwell-counting), (c) supports the magic-angle $K = 2G$ operating point under Cosserat coupling (Q-G47 Session 5+ framework), (d) tetrahedral 109.47° bond angle. (The Axiom-1 substrate per D1 2026-07-03 is the srs $z=3$ net; this paragraph describes the engine-K4 diamond $z=4$ mechanical argument.)
 
 **Each bond is shared between exactly two cells.** This is critical (and load-bearing for §3 gravity projection): a bond is owned by both endpoint-nodes simultaneously. There is no node with "its own private springs."
 

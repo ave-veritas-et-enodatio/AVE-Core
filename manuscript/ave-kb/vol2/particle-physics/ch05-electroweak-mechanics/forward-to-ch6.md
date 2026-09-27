@@ -13,12 +13,12 @@ The complete quantitative derivations of the Weak Mixing Angle ($\sin^2\theta_W 
 
 ### U(1) Electromagnetism from the Lattice Plaquette
 
-The physical continuous connection between adjacent nodes $i$ and $j$ is mathematically described by a unitary link variable $U_{ij} = e^{i\theta_{ij}}$, where $\theta_{ij}$ is the phase accumulated along the edge. The simplest gauge-invariant geometric quantity is the triangular plaquette---the product of link variables around a closed 3-node loop:
+The physical continuous connection between adjacent nodes $i$ and $j$ is mathematically described by a unitary link variable $U_{ij} = e^{i\theta_{ij}}$, where $\theta_{ij}$ is the phase accumulated along the edge. The simplest gauge-invariant geometric quantity is the lattice plaquette---the product of link variables around an elementary closed ring of the substrate (girth-10 on srs; 6-ring on the diamond instrument):
 
 > **[Resultbox]** *Lattice Gauge Plaquette*
 >
 > $$
-> U_P = U_{ij}U_{jk}U_{ki} = e^{i(\theta_{ij} + \theta_{jk} + \theta_{ki})}
+> U_P = \prod_{\langle ij\rangle \in P} U_{ij} = e^{i\theta_P}, \qquad \theta_P \equiv \sum_{\langle ij\rangle \in P} \theta_{ij} \quad (|P|=10 \text{ on srs},\ |P|=6 \text{ on diamond})
 > $$
 
 The total phase around the plaquette is the discrete lattice curl of the gauge connection. For small phase gradients ($\theta_{ij} \approx A_\mu l_{node}$), the Taylor expansion of $U_P$ yields:
@@ -26,7 +26,7 @@ The total phase around the plaquette is the discrete lattice curl of the gauge c
 > **[Resultbox]** *Discrete Lattice Curl*
 >
 > $$
-> \theta_{ij} + \theta_{jk} + \theta_{ki} = \oint \mathbf{A} \cdot d\mathbf{l} = \iint (\nabla \times \mathbf{A}) \cdot d\mathbf{S} = \iint \mathbf{B} \cdot d\mathbf{S} \equiv \Phi_P
+> \theta_P = \sum_{\langle ij\rangle \in P} \theta_{ij} = \oint \mathbf{A} \cdot d\mathbf{l} = \iint (\nabla \times \mathbf{A}) \cdot d\mathbf{S} = \iint \mathbf{B} \cdot d\mathbf{S} \equiv \Phi_P
 > $$
 
 The lattice action is constructed by summing over all plaquettes the deviation from unit phase:

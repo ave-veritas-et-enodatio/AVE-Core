@@ -176,7 +176,7 @@ def w_boson_self_consistent_correction(
 
     This converges geometrically (ratio ≈ |S11|² ≈ 0.0037 << 1) in ~7
     iterations.  The fixed point is parameter-free and derived entirely
-    from Axiom 1 (K4 topology, z=4) and Axiom 4 (saturation kernel).
+    from Axiom 1 (K4 topology, z=4) and Axiom 4 (saturation kernel).  FLAG (KB K-a 2026-09-27, Grant review): z=4 here and at :138 vs Axiom-1 canon srs z=3 (D1, PR #486); flagged, not resolved.
 
     Args:
         max_iter: Maximum iterations (default 50, converges in ~7).
