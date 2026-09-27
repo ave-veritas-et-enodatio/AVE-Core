@@ -152,7 +152,8 @@ def build_unit_cell_bonds() -> list[tuple[int, int, np.ndarray]]:
 #
 #   AXIOM TRACE:
 #     k → from Axiom 5 (coupled resonator normal mode)
-#     N_coord = 4 → from silicon sp³ tetrahedral geometry (K₄ diamond used as instrument net; D1: Axiom-1 substrate is srs z=3)
+#     N_coord = 4 → from Axiom 1 (tetrahedral sp³ on K₄ lattice)
+#     FLAG (KB K-a, 2026-09-27): N_coord=4 attribution to Axiom 1 needs Grant review (Axiom-1 canon is srs z=3 since D1, PR #486); not rewritten.
 #     ω₀ = IE → from Axiom 3 (Coulomb cavity eigenvalue)
 #     1/√(1±k) → from coupled LC tank theory (no QM)
 #

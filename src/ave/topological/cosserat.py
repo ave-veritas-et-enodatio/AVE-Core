@@ -176,7 +176,10 @@ def w_boson_self_consistent_correction(
 
     This converges geometrically (ratio ≈ |S11|² ≈ 0.0037 << 1) in ~7
     iterations.  The fixed point is parameter-free and derived entirely
-    from Axiom 1 (srs z=3 substrate; diamond K4 instrument net z=4; D1) and Axiom 4 (saturation kernel).
+    from Axiom 1 (K4 topology, z=4) and Axiom 4 (saturation kernel).
+    FLAG (KB K-a, 2026-09-27; Grant review): this provenance names K4 z=4 as Axiom 1, and the
+    computation at :138 uses coordination_z=4 (diamond Bethe tree); the Axiom-1 canon is srs z=3
+    since D1 (PR #486). Mismatch flagged, not resolved; no code change.
 
     Args:
         max_iter: Maximum iterations (default 50, converges in ~7).
