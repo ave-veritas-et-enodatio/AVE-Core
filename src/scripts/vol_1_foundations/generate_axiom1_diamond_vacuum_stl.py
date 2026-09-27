@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """
-Axiom-1 production vacuum lattice — the lattice AVE actually theorizes.
+Diamond K4 engine instrument net — z=4 visualization cell (D1 adjudication, 2026-07-03).
 
-Per eq_axiom_1.tex (D1 adjudication, 2026-06-12):
-  * Production net: z=4 DIAMOND (build_diamond_net) — NOT bare srs (chirality instrument).
+Per D1: Axiom-1 substrate = srs z=3 (girth-10, chiral); the z=4 diamond is the engine
+instrument / control net, NOT the Axiom-1 physical lattice.
+  * Engine instrument net: z=4 DIAMOND (build_diamond_net).
   * Bipartite FCC: Type A / Type B sublattices (k4_tlm.py K4Lattice3D).
   * Each node: Cosserat micropolar LC oscillator (6+1 modes); EE map:
       A-sublattice cells → capacitive store (E / ε) — cubic tank body
