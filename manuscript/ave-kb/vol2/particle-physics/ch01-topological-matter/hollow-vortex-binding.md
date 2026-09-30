@@ -19,7 +19,7 @@ corpus meta-finding that AVE forces FORMS and imports VALUES
 > **SCOPE FENCE (read first).** Two SEPARATE statements, do not conflate:
 > - **EXISTENCE / CONFINEMENT (SOLID, already canon on main).** The electron's A1 mass is held by
 >   the T2/charge **$\Gamma=-1$ self-trap wall at $V_{\text{yield}}$** — an *independent*, sim-surviving
->   binder ([`../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md`](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md):127,:134,:136;
+>   binder ([`../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md`](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md):131,:138,:140-141;
 >   `def-vyvsn1` = T2, Grant-ruled 2026-06-30). This leaf **cross-links** that; it does NOT re-derive it.
 >   The electron's EXISTENCE does not depend on the hollow-vortex picture below.
 > - **BINDING-STRUCTURE (this leaf, Class-C consistency).** The hollow-vortex open/close balance is a
@@ -185,11 +185,11 @@ This is the open forward handle, noted as NOT realized.
 ## Cross-references
 
 - **Existence / confinement (the independent binder — SOLID, cross-linked not re-derived):**
-  [`../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md`](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md):127,:134,:136
-  (the $\Gamma=-1$ T2/charge wall at $V_{\text{yield}}$; A1 mass sub-saturated at $A=\sqrt\alpha$ inside it)
+  [`../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md`](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md):131,:138,:140-141
+  (the $\Gamma=-1$ T2/charge wall at $V_{\text{yield}}$; A1 mass sub-saturated at $A=\sqrt\alpha$ inside it) — verbatim at `:141`, *"The A1 mass is held by this transverse-$T_2$/charge self-trap boundary"*
 - **The T2 wall grade ruling:** [`def-vyvsn1`](../../../common/vocabulary-register.md) (= T2, Grant 2026-06-30);
   [`pair-production-axiom-derivation.md`](pair-production-axiom-derivation.md):102 (T2 self-trap horn);
-  [`../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md`](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md):16 (A1 varactor re-keyed to $V_{\text{snap}}$)
+  [`../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md`](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md):18 (A1 varactor re-keyed to $V_{\text{snap}}$; verbatim *"bond compliance below diverges at the higher"* — re-pinned 2026-09-07 from `:16`)
 - **Canonical electron identification (the object this leaf structurally describes):**
   [electron-identification.md](electron-identification.md) (4-property def; $0_1$ unknot + $(2,3)$ + $\Gamma=-1$ + T2 core)
 - **Coverage matrix (where this row lives in the honest A/B/C buckets):**
