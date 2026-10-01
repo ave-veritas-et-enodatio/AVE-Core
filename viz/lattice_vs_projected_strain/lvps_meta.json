@@ -1,0 +1,93 @@
+{
+  "config": {
+    "L": 24,
+    "sig_seed": 1.5,
+    "sig_proj": 1.5,
+    "slab_half": 0.75,
+    "grid": 360,
+    "sweep_step": 30,
+    "sweep_lo": 0.4,
+    "sweep_hi": 3.5,
+    "sweep_n": 60,
+    "readout_r": [
+      10.0,
+      20.0
+    ],
+    "chart_r": 12.0,
+    "L_check": 32
+  },
+  "N": 110592,
+  "box_l_node": 67.88225099390857,
+  "ext": 33.941125496954285,
+  "n_steps": 47,
+  "slab_nodes": 2304,
+  "radial_nodes": 57925,
+  "bond_length_mean": 1.0000000000000002,
+  "energy_drift_max": 4.99049232530173e-15,
+  "comp1_max": 0.0,
+  "visual_tol": 0.001,
+  "wrap_dev_at_n_steps": 0.0003526828356242843,
+  "wrap_dev_first_over_visual_tol": 0.0011793644879996837,
+  "exact_tol": 1e-12,
+  "exact_horizon_steps": 36,
+  "wrap_guard_window": "every displayed node: drawn slab, radial-panel sphere r < ext, smoothing input |x| < 4 max(sig_proj, sweep_hi)",
+  "c_net_analytic": 0.577350269189626,
+  "readout_nodes": [
+    58271,
+    59040
+  ],
+  "readout_r": [
+    9.55902714715258,
+    20.158745000619458
+  ],
+  "readout_dr": 10.599717853466878,
+  "readout_peak_steps": [
+    15,
+    33
+  ],
+  "readout_xcorr_lag": 19,
+  "uniform_mode_energy_frac": 0.0004806399519568611,
+  "sweep_receipts": {
+    "step": 30,
+    "reference": "mean voltage of all tanks with |r - r_lobe| < 0.5 l_node (3D shell); r_lobe = radius of the leading-lobe peak through the narrowest window",
+    "r_lobe_l_node": 18.597876984632485,
+    "tank_shell_mean": 0.03535045343478621,
+    "rows": [
+      {
+        "sigma_l_node": 0.4,
+        "lobe_peak_over_tank_shell_mean": 1.029878228338767,
+        "direction_spread_rel": 0.16086518098898592,
+        "lobe_r_l_node": 18.597876984632485
+      },
+      {
+        "sigma_l_node": 1.0,
+        "lobe_peak_over_tank_shell_mean": 0.8311866641913735,
+        "direction_spread_rel": 0.09847816542919623,
+        "lobe_r_l_node": 18.752859292837755
+      },
+      {
+        "sigma_l_node": 1.5,
+        "lobe_peak_over_tank_shell_mean": 0.6226300080697464,
+        "direction_spread_rel": 0.06447093403082993,
+        "lobe_r_l_node": 19.062823909248298
+      },
+      {
+        "sigma_l_node": 2.0,
+        "lobe_peak_over_tank_shell_mean": 0.4548892884825473,
+        "direction_spread_rel": 0.04175015231938245,
+        "lobe_r_l_node": 19.527770833864107
+      },
+      {
+        "sigma_l_node": 3.5,
+        "lobe_peak_over_tank_shell_mean": 0.18986121936420686,
+        "direction_spread_rel": 0.012418628515970425,
+        "lobe_r_l_node": 20.767629299506275
+      }
+    ]
+  },
+  "chart_node_yz": [
+    8.838834764831844,
+    8.838834764831844
+  ],
+  "chart_node_x": 0.3535533905932695
+}
