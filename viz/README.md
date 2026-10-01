@@ -72,7 +72,7 @@ polarization-flip meter reads the SVE prediction against the QED co-prediction.
 Directory: `viz/lattice_vs_projected_strain/`
 Driver: `src/scripts/viz/lattice_vs_projected_strain.py`
 
-A 70-second MP4 that draws picture-lock P1 — `research/2026-08-29_overbraced-crystal-picture-lock.md:27`,
+A 70-second MP4 (not tracked; regenerated via the reproduce command below, about 3 minutes) that draws picture-lock P1 — `research/2026-08-29_overbraced-crystal-picture-lock.md:27`,
 *"Observed / “projected” strain is the AC readout (and the real-space envelope"* S(A(r))) — with the
 engine's own state (in this cold run S(A) = 1, so the envelope is flat). A voltage bump is released in a periodic box of 110,592 tanks on the chiral **srs** net (degree 3, I4₁32) and run by the
 **Op5 scatter–connect** step with optical activity OFF (the κ=0 channel acceptance test T1.1 runs).
@@ -191,5 +191,5 @@ PYTHONPATH=. python3 scripts/viz/lattice_vs_projected_strain.py --stills   # -> 
 ```
 
 Open the `*.html` files directly in a browser (no server, no build step). Visual 3
-needs `ffmpeg` on PATH; its 59 MB engine-array cache goes to the gitignored
+needs `ffmpeg` on PATH; its 59 MB engine-array cache and the MP4 video go to the gitignored
 `build/viz/lattice_vs_projected_strain/` (about 3 minutes end to end).

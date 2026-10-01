@@ -50,7 +50,7 @@ Run:
 Needs ffmpeg on PATH for the video.
 
 Writes:
-    viz/lattice_vs_projected_strain/lattice_vs_projected_strain.mp4
+    build/viz/lattice_vs_projected_strain/lattice_vs_projected_strain.mp4 (gitignored, regenerate ~3 min)
     viz/lattice_vs_projected_strain/lvps_meta.json      (receipts; deterministic)
     viz/lattice_vs_projected_strain/lvps_*.png          (with --stills)
     build/viz/lattice_vs_projected_strain/lvps_run.npz  (engine arrays; gitignored cache)
@@ -96,6 +96,7 @@ OUT_DIR = _REPO_ROOT / "viz" / "lattice_vs_projected_strain"
 CACHE_DIR = _REPO_ROOT / "build" / "viz" / "lattice_vs_projected_strain"  # gitignored (build/)
 META_NAME = "lvps_meta.json"
 VIDEO_NAME = "lattice_vs_projected_strain.mp4"
+VIDEO_OUT_DIR = CACHE_DIR  # Video written to gitignored build/ (repo owner decision, not tracked)
 
 
 # =============================================================================
@@ -1164,7 +1165,8 @@ def write_stills(d, meta) -> None:
 def encode_video(d, meta, crf: int) -> None:
     if shutil.which("ffmpeg") is None:
         raise SystemExit("ffmpeg not found on PATH; install it or run with --no-video")
-    out = OUT_DIR / VIDEO_NAME
+    VIDEO_OUT_DIR.mkdir(parents=True, exist_ok=True)
+    out = VIDEO_OUT_DIR / VIDEO_NAME
     cmd = [
         "ffmpeg",
         "-y",
