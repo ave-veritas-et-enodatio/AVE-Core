@@ -73,7 +73,7 @@ polarization-flip meter reads the SVE prediction against the QED co-prediction.
 Directory: `viz/lattice_vs_projected_strain/`
 Driver: `src/scripts/viz/lattice_vs_projected_strain.py`
 
-A 70-second MP4 that draws picture-lock P1 — `research/2026-08-29_overbraced-crystal-picture-lock.md:27`,
+A 70-second MP4 (not tracked; regenerated via the reproduce command below, about 3 minutes) that draws picture-lock P1 — `research/2026-08-29_overbraced-crystal-picture-lock.md:27`,
 *"Observed / “projected” strain is the AC readout (and the real-space envelope"* S(A(r))) — with the
 engine's own state (in this cold run S(A) = 1, so the envelope is flat). A voltage bump is released in a periodic box of 110,592 tanks on the chiral **srs** net (degree 3, I4₁32) and run by the
 **Op5 scatter–connect** step with optical activity OFF (the κ=0 channel acceptance test T1.1 runs).
@@ -319,6 +319,7 @@ wavenumber read off the field 0.999988 k₀; normal-incidence wall reflection -0
 nominal wall). The video's placement vs the reference (128 points/λ): worst extremum 1.07 % (single frequency), 1.30 % (dose);
 central visibility 0.8933 vs 0.8973. Over the 16 placements per λ, see the Visual 4 scores table.
 
+
 ## Cross-checks (pre-push audit)
 
 * HTML client-side kernel `Sof(a)=clip((1−a²)^p, S_min, 1)` reproduces the
@@ -342,6 +343,8 @@ central visibility 0.8933 vs 0.8973. Over the 16 placements per λ, see the Visu
   The screen readout, applied to the reference sampled at each λ's own screen tanks, is biased by ≤ 0.17 % (λ = 16)
   and ≤ 0.05 % (λ = 32); halving the reference resolution moves its extrema by ≤ 0.28 % (single frequency),
   ≤ 0.34 % (dose). Two adversarial audits (numerics; framing and cites) ran on the first version; their findings are folded in.
+
+
 
 ## Reproduce
 
