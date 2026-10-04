@@ -177,10 +177,26 @@ class TestU0GoldenFixture:
     """U0b: default path (reflection_form='grad') matches the golden fixture
     generated from base 50fdb644 on a fixed deterministic seed, bitwise.
 
-    Fixture generation (run once against 50fdb644, committed as
+    Fixture generation (run once against clean 50fdb644 checkout, committed as
     src/tests/fixtures/u0_golden_16x16x16_seed42.npz):
-        CosseratField3D(16, 16, 16, use_saturation=True), rng=42/7,
-        jax_enable_x64=True, dt=0.05, 10 steps.
+        Base sha : 50fdb6443968860bc3ffca86c6f503c02da10c30
+        Command  : PYTHONPATH=/tmp/ave-50fdb644/src \\
+                     ~/AVE-staging/AVE-Core/.venv/bin/python \\
+                     /tmp/ave-50fdb644/src/scripts/gen_u0_golden.py
+        Python   : 3.11.15
+        JAX      : 0.10.1
+        Setup    : CosseratField3D(16, 16, 16, use_saturation=True),
+                   rng_seed=42 (omega, u), rng_seed=7 (u_dot, omega_dot),
+                   jax_enable_x64=True, dt=0.05, 10 steps.
+
+    Bitwise equality note: bitwise exact agreement is guaranteed ONLY when
+    running under the repo .venv (~/AVE-staging/AVE-Core/.venv/bin/python).
+    Homebrew Python or other interpreter versions may produce ULP-level
+    floating-point differences in JAX JIT output; those are expected and
+    are NOT a test failure.  Run as:
+        ~/AVE-staging/AVE-Core/.venv/bin/python -m pytest \\
+            src/tests/test_cosserat_bond_reflection.py::TestU0GoldenFixture
+
     If this test fails the default code path has drifted from 50fdb644.
     """
 
