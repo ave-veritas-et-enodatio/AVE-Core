@@ -530,7 +530,11 @@ def _reflection_density_bond(
     kappa_sq = jnp.sum(kappa * kappa, axis=(-1, -2))
     A2 = eps_sq / (epsilon_yield * epsilon_yield) + kappa_sq / (omega_yield * omega_yield)
     x = 1.0 - A2  # unclipped; negative past yield
-    x_s = 0.5 * (x + jnp.sqrt(x * x + delta * delta))  # smooth floor, always > 0
+    # E1/R2 piecewise floor: both branches are the same algebra; each branch is
+    # cancellation-free on its own half-line.  r - x > 0 always (delta > 0) so
+    # neither branch produces inf/NaN, keeping jax.grad clean.
+    r = jnp.sqrt(x * x + delta * delta)
+    x_s = jnp.where(x >= 0, 0.5 * (x + r), delta * delta / (2.0 * (r - x)))
     q = x_s ** 0.25
     W = jnp.zeros_like(q)
     for p in TETRA_OFFSETS:
@@ -1550,6 +1554,8 @@ class CosseratField3D:
                 self.k_op10,
                 self.k_refl,
                 self.k_hopf,
+                self.reflection_form,
+                self.reflection_delta,
             )
         else:
             rho = _energy_density_bare(
@@ -1565,6 +1571,8 @@ class CosseratField3D:
                 self.k_hopf,
                 self.omega_yield,
                 self.epsilon_yield,
+                self.reflection_form,
+                self.reflection_delta,
             )
         return np.asarray(rho)
 
