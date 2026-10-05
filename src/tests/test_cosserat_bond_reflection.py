@@ -12,7 +12,7 @@ U2: bond-form gradient correctness and per-site bound (E1/R2 spec):
     - Energy is finite past yield (A2 > 1).
 
 Floor formula (E1/R2): the piecewise x_s formula matches the single-branch
-    formula to 1e-12 relative for |x| <= 1, and value+gradient are finite
+    formula to 1e-9 relative for |x| <= 1, and value+gradient are finite
     with no NaN for x in [-1e3, 1e3].
 
 energy_density sum: sum(energy_density()) == total_energy() in both "grad"
@@ -23,7 +23,7 @@ Spec: ~/AVE-staging/ave-program-tracker/physics-walks/muon-g2/
       ENVD-erratum-E1-rulings_2026-10-04.md (sha 7e3d5d83bd0f): R1 tolerances,
       R2 floor formula, R3 apply_pml confirm.
 
-U1, U3, U4 are defined in test_envd_u1u3u4.py (same PR).
+U1, U3, U4 are defined in src/scripts/envd_u1u3u4.py (same PR).
 """
 
 import os
@@ -175,7 +175,8 @@ class TestU0LegacyByteIdentity:
 
 class TestU0GoldenFixture:
     """U0b: default path (reflection_form='grad') matches the golden fixture
-    generated from base 50fdb644 on a fixed deterministic seed, bitwise.
+    generated from base 50fdb644 on a fixed deterministic seed, within a
+    tight platform-independent tolerance.
 
     Fixture generation (run once against clean 50fdb644 checkout, committed as
     src/tests/fixtures/u0_golden_16x16x16_seed42.npz):
@@ -188,14 +189,15 @@ class TestU0GoldenFixture:
         Setup    : CosseratField3D(16, 16, 16, use_saturation=True),
                    rng_seed=42 (omega, u), rng_seed=7 (u_dot, omega_dot),
                    jax_enable_x64=True, dt=0.05, 10 steps.
+        Provenance: reproduced with gen_u0_golden.py (src/scripts/gen_u0_golden.py).
 
-    Bitwise equality note: bitwise exact agreement is guaranteed ONLY when
-    running under the repo .venv (~/AVE-staging/AVE-Core/.venv/bin/python).
-    Homebrew Python or other interpreter versions may produce ULP-level
-    floating-point differences in JAX JIT output; those are expected and
-    are NOT a test failure.  Run as:
-        ~/AVE-staging/AVE-Core/.venv/bin/python -m pytest \\
-            src/tests/test_cosserat_bond_reflection.py::TestU0GoldenFixture
+    Tolerance note: macOS-arm64 and Linux-x86_64 produce ULP-level differences
+    in JAX XLA codegen even with identical Python/JAX versions.  CI runs on
+    Linux, so bitwise equality fails there.  The test uses
+        assert_allclose(actual, ref, rtol=0, atol=1e-13 * max(|ref|))
+    giving ~140x headroom above the worst observed gap (7e-16 of array scale).
+    A strict bitwise mode is available by setting AVE_U0_STRICT=1 (for
+    in-.venv Mac verification only).
 
     If this test fails the default code path has drifted from 50fdb644.
     """
@@ -211,48 +213,81 @@ class TestU0GoldenFixture:
         return solver
 
     def test_u0_golden_energy_and_gradient(self):
-        """E0 and gradient norms match fixture bitwise (float64)."""
+        """E0 and gradients match fixture to 1e-13 relative (float64)."""
         assert os.path.exists(_FIXTURE_PATH), f"fixture missing: {_FIXTURE_PATH}"
         ref = np.load(_FIXTURE_PATH)
         solver = self._make_solver_with_velocities()
+        _strict = os.environ.get("AVE_U0_STRICT") == "1"
 
         E0 = solver.total_energy()
-        assert float(E0) == float(ref["E0"]), (
-            f"E0 mismatch: got {E0:.15g}, fixture {float(ref['E0']):.15g}"
-        )
+        if _strict:
+            assert float(E0) == float(ref["E0"]), (
+                f"E0 mismatch: got {E0:.15g}, fixture {float(ref['E0']):.15g}"
+            )
+        else:
+            np.testing.assert_allclose(
+                E0, ref["E0"], rtol=1e-13, atol=0,
+                err_msg=f"E0 mismatch: got {E0:.15g}, fixture {float(ref['E0']):.15g}",
+            )
 
         gu, gw = solver.energy_gradient()
-        np.testing.assert_array_equal(gu, ref["gu"], err_msg="gu array mismatch vs fixture")
-        np.testing.assert_array_equal(gw, ref["gw"], err_msg="gw array mismatch vs fixture")
+        if _strict:
+            np.testing.assert_array_equal(gu, ref["gu"], err_msg="gu array mismatch vs fixture")
+            np.testing.assert_array_equal(gw, ref["gw"], err_msg="gw array mismatch vs fixture")
+        else:
+            np.testing.assert_allclose(
+                gu, ref["gu"], rtol=0, atol=1e-13 * np.max(np.abs(ref["gu"])),
+                err_msg="gu array mismatch vs fixture",
+            )
+            np.testing.assert_allclose(
+                gw, ref["gw"], rtol=0, atol=1e-13 * np.max(np.abs(ref["gw"])),
+                err_msg="gw array mismatch vs fixture",
+            )
 
     def test_u0_golden_10step_state(self):
-        """All four state arrays after 10 steps match fixture bitwise."""
+        """All four state arrays after 10 steps match fixture to 1e-13 relative."""
         assert os.path.exists(_FIXTURE_PATH), f"fixture missing: {_FIXTURE_PATH}"
         ref = np.load(_FIXTURE_PATH)
         solver = self._make_solver_with_velocities()
+        _strict = os.environ.get("AVE_U0_STRICT") == "1"
 
         for _ in range(10):
             solver.step(0.05)
 
         mapping = {"u10": "u", "omega10": "omega", "u_dot10": "u_dot", "omega_dot10": "omega_dot"}
         for arr_name, attr in mapping.items():
-            np.testing.assert_array_equal(
-                getattr(solver, attr),
-                ref[arr_name],
-                err_msg=f"{attr} mismatch vs fixture after 10 steps",
-            )
+            actual = getattr(solver, attr)
+            if _strict:
+                np.testing.assert_array_equal(
+                    actual, ref[arr_name],
+                    err_msg=f"{attr} mismatch vs fixture after 10 steps",
+                )
+            else:
+                ref_max = np.max(np.abs(ref[arr_name]))
+                atol = 1e-13 * ref_max if ref_max > 0 else 1e-20
+                np.testing.assert_allclose(
+                    actual, ref[arr_name], rtol=0, atol=atol,
+                    err_msg=f"{attr} mismatch vs fixture after 10 steps",
+                )
 
     def test_u0_golden_10step_energy(self):
-        """E10 matches fixture to float64 exact equality."""
+        """E10 matches fixture to 1e-13 relative (float64)."""
         assert os.path.exists(_FIXTURE_PATH), f"fixture missing: {_FIXTURE_PATH}"
         ref = np.load(_FIXTURE_PATH)
         solver = self._make_solver_with_velocities()
+        _strict = os.environ.get("AVE_U0_STRICT") == "1"
         for _ in range(10):
             solver.step(0.05)
         E10 = solver.total_energy()
-        assert float(E10) == float(ref["E10"]), (
-            f"E10 mismatch: got {E10:.15g}, fixture {float(ref['E10']):.15g}"
-        )
+        if _strict:
+            assert float(E10) == float(ref["E10"]), (
+                f"E10 mismatch: got {E10:.15g}, fixture {float(ref['E10']):.15g}"
+            )
+        else:
+            np.testing.assert_allclose(
+                E10, ref["E10"], rtol=1e-13, atol=0,
+                err_msg=f"E10 mismatch: got {E10:.15g}, fixture {float(ref['E10']):.15g}",
+            )
 
 
 # ---------------------------------------------------------------------------
@@ -303,7 +338,7 @@ class TestEnergyDensitySumMatchesTotal:
 
 class TestFloorFormulaE1R2:
     """The E1/R2 piecewise floor x_s = where(x>=0, 0.5*(x+r), d^2/(2*(r-x)))
-    matches the single-branch form to 1e-12 relative for |x|<=1, and
+    matches the single-branch form to 1e-9 relative for |x|<=1, and
     value+gradient are finite with no NaN for x in [-1e3, 1e3]."""
 
     @staticmethod
@@ -376,11 +411,15 @@ class TestFloorFormulaE1R2:
 
 
 def _make_bond_solver_with_high_a2(nx=16, ny=16, nz=16, rng_seed=99, delta=1e-3):
-    """16^3 bond-form solver with max A2 ≈ 2 (spec E1 §U2).
+    """16^3 bond-form solver with sites across the full A2 range (spec E1 §U2).
 
     Background omega ~ Uniform[-0.03, 0.03] (A2 << 1).
-    Kicked sites (30% of alive): omega components ~ ±[0.52, 0.60], pushing
-    max A2 above 2 at the most active sites while keeping the bulk below yield.
+    Medium-kick sites (10% of alive): omega components ~ ±[0.30, 0.40] →
+        A2 ≈ 6*omega^2 ∈ [0.54, 0.96] (steep floor region x_s < 0.5).
+    High-kick sites (30% of alive): omega components ~ ±[0.52, 0.60] →
+        A2 > 1 (past yield).
+    A2 ≈ 6*a^2 because eps_ij = grad_u_ij − eps_ijk*omega_k and the cross
+    term contributes 6*omega^2 to eps_sq at a site with negligible u-gradient.
     """
     solver = CosseratField3D(nx, ny, nz, reflection_form="bond", reflection_delta=delta)
     rng = np.random.default_rng(rng_seed)
@@ -389,12 +428,27 @@ def _make_bond_solver_with_high_a2(nx=16, ny=16, nz=16, rng_seed=99, delta=1e-3)
     solver.omega = omega_vals * solver.mask_alive[..., None]
     solver.u = u_vals * solver.mask_alive[..., None]
     alive_ijk = np.argwhere(solver.mask_alive)
-    n_kick = max(1, int(0.30 * len(alive_ijk)))
-    kick_idx = rng.choice(len(alive_ijk), size=n_kick, replace=False)
+    n_alive = len(alive_ijk)
+    all_idx = np.arange(n_alive)
+
+    # High kick (past yield)
+    n_kick = max(1, int(0.30 * n_alive))
+    kick_idx = rng.choice(all_idx, size=n_kick, replace=False)
+    kick_set = set(kick_idx.tolist())
     for ki in kick_idx:
         i, j, k = alive_ijk[ki]
         signs = rng.choice([-1, 1], size=3).astype(float)
         solver.omega[i, j, k] = rng.uniform(0.52, 0.60, 3) * signs
+
+    # Medium kick (A2 in [0.5, 0.99] — exercises steep floor)
+    remaining = [i for i in all_idx if i not in kick_set]
+    n_medium = max(1, int(0.10 * n_alive))
+    medium_idx = rng.choice(remaining, size=min(n_medium, len(remaining)), replace=False)
+    for ki in medium_idx:
+        i, j, k = alive_ijk[ki]
+        signs = rng.choice([-1, 1], size=3).astype(float)
+        solver.omega[i, j, k] = rng.uniform(0.30, 0.40, 3) * signs
+
     return solver
 
 
@@ -487,6 +541,13 @@ class TestU2BondFormGradientAndBound:
         n_sites = len(qualifying[0])
         assert n_sites >= 20, f"fewer than 20 qualifying sites (x_s>10*delta): {n_sites}"
 
+        # S5: verify the medium-kick group populated the steep floor (x_s < 0.5)
+        steep = solver.mask_alive & (x_s > 10 * delta) & (x_s < 0.5)
+        assert steep.sum() > 0, (
+            f"no qualifying sites in steep floor region x_s in (0.01, 0.5); "
+            f"x_s range of qualifying sites: [{x_s[qualifying].min():.3f}, {x_s[qualifying].max():.3f}]"
+        )
+
         rng = np.random.default_rng(17)
         idx_choice = rng.choice(n_sites, size=20, replace=False)
         sites = [(qualifying[0][i], qualifying[1][i], qualifying[2][i]) for i in idx_choice]
@@ -575,36 +636,43 @@ class TestStepApplyPml:
         np.testing.assert_allclose(solver.u_dot[dead], 0.0, atol=1e-15)
         np.testing.assert_allclose(solver.omega_dot[dead], 0.0, atol=1e-15)
 
-    def test_apply_pml_false_differs_from_true_in_pml_region(self):
-        """With PML present and velocities in the PML region, apply_pml=False
-        gives strictly larger magnitudes than apply_pml=True (not just allclose)."""
+    def test_apply_pml_false_equiv_to_uniform_mask(self):
+        """step(apply_pml=False) is bitwise equal to step() with cos_pml_mask ≡ 1,
+        across all 4 state arrays.  Catches both flag-ignored (M3) and half-kick
+        (M4) implementation bugs.  PML region non-empty is asserted in setup."""
         nx, ny, nz = 12, 12, 12
         pml_t = 2
 
-        solverA = CosseratField3D(nx, ny, nz, pml_thickness=pml_t)
         rng = np.random.default_rng(5)
+        # Shared initial state (mask applied inside loop)
+        solverA = CosseratField3D(nx, ny, nz, pml_thickness=pml_t)
         omega_seed = rng.uniform(-0.01, 0.01, (nx, ny, nz, 3)) * solverA.mask_alive[..., None]
         vdot_seed = rng.uniform(-1e-3, 1e-3, (nx, ny, nz, 3)) * solverA.mask_alive[..., None]
         wdot_seed = rng.uniform(-1e-3, 1e-3, (nx, ny, nz, 3)) * solverA.mask_alive[..., None]
+
+        # Solver A: step(apply_pml=False)
         solverA.omega = omega_seed.copy()
         solverA.u_dot = vdot_seed.copy()
         solverA.omega_dot = wdot_seed.copy()
-        solverA.step(0.01, apply_pml=True)
+        solverA.step(0.01, apply_pml=False)
 
+        # Solver B: step() (apply_pml=True) with cos_pml_mask set to all ones
         solverB = CosseratField3D(nx, ny, nz, pml_thickness=pml_t)
+        # PML region must be non-empty before we overwrite the mask
+        pml_alive = (solverB.cos_pml_mask[..., 0] < 1.0) & solverB.mask_alive
+        assert pml_alive.sum() > 0, (
+            "PML region is empty — test setup is broken (increase pml_thickness)"
+        )
         solverB.omega = omega_seed.copy()
         solverB.u_dot = vdot_seed.copy()
         solverB.omega_dot = wdot_seed.copy()
-        solverB.step(0.01, apply_pml=False)
+        solverB.cos_pml_mask = np.ones_like(solverB.cos_pml_mask)  # uniform mask
+        solverB.step(0.01)  # apply_pml=True but mask is all-ones → same as apply_pml=False
 
-        pml_mask = solverA.cos_pml_mask[..., 0] < 1.0
-        pml_alive = pml_mask & solverA.mask_alive
-        if pml_alive.sum() > 0:
-            vA_pml = np.abs(solverA.u_dot[pml_alive])
-            vB_pml = np.abs(solverB.u_dot[pml_alive])
-            assert np.any(vA_pml < vB_pml), (
-                "PML application had no effect: |v_True| not < |v_False| at any PML site"
-            )
+        np.testing.assert_array_equal(solverA.u, solverB.u, err_msg="u differs")
+        np.testing.assert_array_equal(solverA.omega, solverB.omega, err_msg="omega differs")
+        np.testing.assert_array_equal(solverA.u_dot, solverB.u_dot, err_msg="u_dot differs")
+        np.testing.assert_array_equal(solverA.omega_dot, solverB.omega_dot, err_msg="omega_dot differs")
 
     def test_apply_pml_defaults_to_true(self):
         """step() without apply_pml kwarg behaves the same as apply_pml=True
