@@ -530,11 +530,15 @@ def _reflection_density_bond(
     kappa_sq = jnp.sum(kappa * kappa, axis=(-1, -2))
     A2 = eps_sq / (epsilon_yield * epsilon_yield) + kappa_sq / (omega_yield * omega_yield)
     x = 1.0 - A2  # unclipped; negative past yield
-    # E1/R2 piecewise floor: both branches are the same algebra; each branch is
-    # cancellation-free on its own half-line.  r - x > 0 always (delta > 0) so
-    # neither branch produces inf/NaN, keeping jax.grad clean.
+    # E1/R2 piecewise floor: both branches are algebraically identical; each is
+    # cancellation-free on its own half-line.  Under jax.grad both branches are
+    # evaluated; at x >> 1e5 the denominator r-x rounds to 0 in float64.
+    # x_neg clamps the conjugate branch's argument to -1 when x >= 0 so the
+    # denominator r_neg - x_neg >= 2 everywhere (safe-where pattern).
     r = jnp.sqrt(x * x + delta * delta)
-    x_s = jnp.where(x >= 0, 0.5 * (x + r), delta * delta / (2.0 * (r - x)))
+    x_neg = jnp.where(x < 0, x, -1.0)  # keeps conjugate-branch denominator finite
+    r_neg = jnp.sqrt(x_neg * x_neg + delta * delta)
+    x_s = jnp.where(x >= 0, 0.5 * (x + r), delta * delta / (2.0 * (r_neg - x_neg)))
     q = x_s ** 0.25
     W = jnp.zeros_like(q)
     for p in TETRA_OFFSETS:
