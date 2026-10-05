@@ -502,6 +502,52 @@ def _reflection_density(
     return reflection
 
 
+def _reflection_density_bond(
+    u: jnp.ndarray,
+    omega: jnp.ndarray,
+    dx: float,
+    omega_yield: float,
+    epsilon_yield: float,
+    delta: float,
+) -> jnp.ndarray:
+    """Bond-reflection energy density (ENV-D method sheet §1, 2026-10-03).
+
+    Computes per-site reflection energy from bond-by-bond impedance mismatches
+    on the K4 tetrahedral neighbourhood. Impedance proxy q = x_s^(1/4), with
+    x_s the smooth floor of x = 1 − A².
+
+    Sign flag (§2): G_p = (q − q_p)/(q + q_p), q_p = neighbour in the +p
+    direction (same jnp.roll convention as _tetrahedral_gradient :148-158).
+    The energy uses G_p², so the sign flag has no numerical effect here.
+
+    Bound: |G_p| < 1 always (q > 0 from the smooth floor), so W ≤ 1/dx² per
+    site. Reduces to the legacy formula W = (1/16)|grad S|²/S² + O(dx² × curve)
+    for smooth fields away from yield (§1 small-step check).
+    """
+    eps = _compute_strain(u, omega, dx)
+    kappa = _compute_curvature(omega, dx)
+    eps_sq = jnp.sum(eps * eps, axis=(-1, -2))
+    kappa_sq = jnp.sum(kappa * kappa, axis=(-1, -2))
+    A2 = eps_sq / (epsilon_yield * epsilon_yield) + kappa_sq / (omega_yield * omega_yield)
+    x = 1.0 - A2  # unclipped; negative past yield
+    # E1/R2 piecewise floor: both branches are algebraically identical; each is
+    # cancellation-free on its own half-line.  Under jax.grad both branches are
+    # evaluated; at x >> 1e5 the denominator r-x rounds to 0 in float64.
+    # x_neg clamps the conjugate branch's argument to -1 when x >= 0 so the
+    # denominator r_neg - x_neg >= 2 everywhere (safe-where pattern).
+    r = jnp.sqrt(x * x + delta * delta)
+    x_neg = jnp.where(x < 0, x, -1.0)  # keeps conjugate-branch denominator finite
+    r_neg = jnp.sqrt(x_neg * x_neg + delta * delta)
+    x_s = jnp.where(x >= 0, 0.5 * (x + r), delta * delta / (2.0 * (r_neg - x_neg)))
+    q = x_s ** 0.25
+    W = jnp.zeros_like(q)
+    for p in TETRA_OFFSETS:
+        q_p = jnp.roll(q, shift=(-p[0], -p[1], -p[2]), axis=(0, 1, 2))
+        G_p = (q - q_p) / (q + q_p)
+        W = W + G_p * G_p
+    return W / (4.0 * dx * dx)
+
+
 # ─────────────────────────────────────────────────────────────────────
 # Phase 4 — Asymmetric μ/ε saturation (Vol 1 Ch 7:252, doc 54_ §6)
 # ─────────────────────────────────────────────────────────────────────
@@ -705,6 +751,8 @@ def _energy_density_bare(
     k_hopf: float,
     omega_yield: float,
     epsilon_yield: float,
+    reflection_form: str = "grad",
+    reflection_delta: float = 1e-3,
 ) -> jnp.ndarray:
     """Cosserat energy density without the saturation kernel (but reflection
     term still uses yield scales via the A -> S -> Z -> Gamma chain).
@@ -722,7 +770,11 @@ def _energy_density_bare(
     W_micropolar = jnp.sum(eps_antisym**2, axis=(-1, -2))
     W_kappa = jnp.sum(kappa**2, axis=(-1, -2))
     W_op10 = _op10_density(omega, dx)
-    W_refl = _reflection_density(u, omega, dx, omega_yield, epsilon_yield)
+    W_refl = (
+        _reflection_density_bond(u, omega, dx, omega_yield, epsilon_yield, reflection_delta)
+        if reflection_form == "bond"
+        else _reflection_density(u, omega, dx, omega_yield, epsilon_yield)
+    )
     W_hopf = _hopf_density(omega, dx)
     W = W_cauchy * G + W_micropolar * G_c + W_kappa * gamma + W_op10 * k_op10 + W_refl * k_refl + W_hopf * k_hopf
     return W * mask_alive.astype(W.dtype)
@@ -741,6 +793,8 @@ def _energy_density_saturated(
     k_op10: float,
     k_refl: float,
     k_hopf: float,
+    reflection_form: str = "grad",
+    reflection_delta: float = 1e-3,
 ) -> jnp.ndarray:
     """Cosserat energy density with scalar-invariant Axiom-4 saturation
     applied to |eps| and |kappa| separately. Op10 and reflection terms
@@ -761,7 +815,11 @@ def _energy_density_saturated(
     S_eps_sq = jnp.clip(1.0 - eps_sq / epsilon_yield**2, 0.0, 1.0)
     S_kappa_sq = jnp.clip(1.0 - kappa_sq / omega_yield**2, 0.0, 1.0)
     W_op10 = _op10_density(omega, dx)
-    W_refl = _reflection_density(u, omega, dx, omega_yield, epsilon_yield)
+    W_refl = (
+        _reflection_density_bond(u, omega, dx, omega_yield, epsilon_yield, reflection_delta)
+        if reflection_form == "bond"
+        else _reflection_density(u, omega, dx, omega_yield, epsilon_yield)
+    )
     W_hopf = _hopf_density(omega, dx)
     W = (
         (W_cauchy * G + W_micropolar * G_c) * S_eps_sq
@@ -773,21 +831,47 @@ def _energy_density_saturated(
     return W * mask_alive.astype(W.dtype)
 
 
-def _total_energy_bare(u, omega, mask_alive, dx, G, G_c, gamma, k_op10, k_refl, k_hopf, omega_yield, epsilon_yield):
+def _total_energy_bare(
+    u, omega, mask_alive, dx, G, G_c, gamma, k_op10, k_refl, k_hopf, omega_yield, epsilon_yield,
+    reflection_delta=1e-3, reflection_form="grad",
+):
     return jnp.sum(
         _energy_density_bare(
-            u, omega, mask_alive, dx, G, G_c, gamma, k_op10, k_refl, k_hopf, omega_yield, epsilon_yield
+            u, omega, mask_alive, dx, G, G_c, gamma, k_op10, k_refl, k_hopf, omega_yield, epsilon_yield,
+            reflection_form=reflection_form, reflection_delta=reflection_delta,
         )
     )
 
 
 def _total_energy_saturated(
-    u, omega, mask_alive, dx, G, G_c, gamma, omega_yield, epsilon_yield, k_op10, k_refl, k_hopf
+    u, omega, mask_alive, dx, G, G_c, gamma, omega_yield, epsilon_yield, k_op10, k_refl, k_hopf,
+    reflection_delta=1e-3, reflection_form="grad",
 ):
     return jnp.sum(
         _energy_density_saturated(
-            u, omega, mask_alive, dx, G, G_c, gamma, omega_yield, epsilon_yield, k_op10, k_refl, k_hopf
+            u, omega, mask_alive, dx, G, G_c, gamma, omega_yield, epsilon_yield, k_op10, k_refl, k_hopf,
+            reflection_form=reflection_form, reflection_delta=reflection_delta,
         )
+    )
+
+
+def _total_energy_bare_bond(
+    u, omega, mask_alive, dx, G, G_c, gamma, k_op10, k_refl, k_hopf, omega_yield, epsilon_yield,
+    reflection_delta,
+):
+    return _total_energy_bare(
+        u, omega, mask_alive, dx, G, G_c, gamma, k_op10, k_refl, k_hopf, omega_yield, epsilon_yield,
+        reflection_delta=reflection_delta, reflection_form="bond",
+    )
+
+
+def _total_energy_saturated_bond(
+    u, omega, mask_alive, dx, G, G_c, gamma, omega_yield, epsilon_yield, k_op10, k_refl, k_hopf,
+    reflection_delta,
+):
+    return _total_energy_saturated(
+        u, omega, mask_alive, dx, G, G_c, gamma, omega_yield, epsilon_yield, k_op10, k_refl, k_hopf,
+        reflection_delta=reflection_delta, reflection_form="bond",
     )
 
 
@@ -799,6 +883,14 @@ _total_energy_bare_jit = jax.jit(_total_energy_bare)
 _total_energy_saturated_jit = jax.jit(_total_energy_saturated)
 _val_and_grad_s11 = jax.jit(jax.value_and_grad(_total_s11, argnums=(0, 1)))
 _total_s11_jit = jax.jit(_total_s11)
+
+# Bond-form JIT variants. reflection_form="bond" is a Python constant in the
+# wrapper body, so JAX traces each with the bond branch only — two compiled
+# versions coexist in JAX's trace cache.
+_val_and_grad_bare_bond = jax.jit(jax.value_and_grad(_total_energy_bare_bond, argnums=(0, 1)))
+_val_and_grad_saturated_bond = jax.jit(jax.value_and_grad(_total_energy_saturated_bond, argnums=(0, 1)))
+_total_energy_bare_bond_jit = jax.jit(_total_energy_bare_bond)
+_total_energy_saturated_bond_jit = jax.jit(_total_energy_saturated_bond)
 
 
 # ----------------------------------------------------------------------
@@ -888,6 +980,8 @@ class CosseratField3D:
         impedance_skin_smoothing: int = 2,
         impedance_implicit: bool = False,
         impedance_cfl_safety: float = 0.4,
+        reflection_form: str = "grad",
+        reflection_delta: float = 1e-3,
     ):
         self.nx = nx
         self.ny = ny
@@ -948,6 +1042,10 @@ class CosseratField3D:
         self.use_saturation = use_saturation
         self.omega_yield = float(np.pi)
         self.epsilon_yield = 1.0
+        if reflection_form not in ("grad", "bond"):
+            raise ValueError(f"reflection_form must be 'grad' or 'bond', got {reflection_form!r}")
+        self.reflection_form = reflection_form
+        self.reflection_delta = float(reflection_delta)
 
         # Mass parameters for time-domain Lagrangian (Phase I).
         # L = ½·rho·|u_dot|² + ½·I_omega·|omega_dot|² − W(u, omega)
@@ -1460,6 +1558,8 @@ class CosseratField3D:
                 self.k_op10,
                 self.k_refl,
                 self.k_hopf,
+                self.reflection_form,
+                self.reflection_delta,
             )
         else:
             rho = _energy_density_bare(
@@ -1475,6 +1575,8 @@ class CosseratField3D:
                 self.k_hopf,
                 self.omega_yield,
                 self.epsilon_yield,
+                self.reflection_form,
+                self.reflection_delta,
             )
         return np.asarray(rho)
 
@@ -1482,6 +1584,24 @@ class CosseratField3D:
         u_j = jnp.asarray(self.u)
         w_j = jnp.asarray(self.omega)
         if self.use_saturation:
+            if self.reflection_form == "bond":
+                return float(
+                    _total_energy_saturated_bond_jit(
+                        u_j,
+                        w_j,
+                        self._mask_alive_jax,
+                        self.dx,
+                        self.G,
+                        self.G_c,
+                        self.gamma,
+                        self.omega_yield,
+                        self.epsilon_yield,
+                        self.k_op10,
+                        self.k_refl,
+                        self.k_hopf,
+                        self.reflection_delta,
+                    )
+                )
             return float(
                 _total_energy_saturated_jit(
                     u_j,
@@ -1496,6 +1616,24 @@ class CosseratField3D:
                     self.k_op10,
                     self.k_refl,
                     self.k_hopf,
+                )
+            )
+        if self.reflection_form == "bond":
+            return float(
+                _total_energy_bare_bond_jit(
+                    u_j,
+                    w_j,
+                    self._mask_alive_jax,
+                    self.dx,
+                    self.G,
+                    self.G_c,
+                    self.gamma,
+                    self.k_op10,
+                    self.k_refl,
+                    self.k_hopf,
+                    self.omega_yield,
+                    self.epsilon_yield,
+                    self.reflection_delta,
                 )
             )
         return float(
@@ -1639,35 +1777,69 @@ class CosseratField3D:
         u_j = jnp.asarray(self.u)
         w_j = jnp.asarray(self.omega)
         if self.use_saturation:
-            _, (dE_du, dE_dw) = _val_and_grad_saturated(
-                u_j,
-                w_j,
-                self._mask_alive_jax,
-                self.dx,
-                self.G,
-                self.G_c,
-                self.gamma,
-                self.omega_yield,
-                self.epsilon_yield,
-                self.k_op10,
-                self.k_refl,
-                self.k_hopf,
-            )
+            if self.reflection_form == "bond":
+                _, (dE_du, dE_dw) = _val_and_grad_saturated_bond(
+                    u_j,
+                    w_j,
+                    self._mask_alive_jax,
+                    self.dx,
+                    self.G,
+                    self.G_c,
+                    self.gamma,
+                    self.omega_yield,
+                    self.epsilon_yield,
+                    self.k_op10,
+                    self.k_refl,
+                    self.k_hopf,
+                    self.reflection_delta,
+                )
+            else:
+                _, (dE_du, dE_dw) = _val_and_grad_saturated(
+                    u_j,
+                    w_j,
+                    self._mask_alive_jax,
+                    self.dx,
+                    self.G,
+                    self.G_c,
+                    self.gamma,
+                    self.omega_yield,
+                    self.epsilon_yield,
+                    self.k_op10,
+                    self.k_refl,
+                    self.k_hopf,
+                )
         else:
-            _, (dE_du, dE_dw) = _val_and_grad_bare(
-                u_j,
-                w_j,
-                self._mask_alive_jax,
-                self.dx,
-                self.G,
-                self.G_c,
-                self.gamma,
-                self.k_op10,
-                self.k_refl,
-                self.k_hopf,
-                self.omega_yield,
-                self.epsilon_yield,
-            )
+            if self.reflection_form == "bond":
+                _, (dE_du, dE_dw) = _val_and_grad_bare_bond(
+                    u_j,
+                    w_j,
+                    self._mask_alive_jax,
+                    self.dx,
+                    self.G,
+                    self.G_c,
+                    self.gamma,
+                    self.k_op10,
+                    self.k_refl,
+                    self.k_hopf,
+                    self.omega_yield,
+                    self.epsilon_yield,
+                    self.reflection_delta,
+                )
+            else:
+                _, (dE_du, dE_dw) = _val_and_grad_bare(
+                    u_j,
+                    w_j,
+                    self._mask_alive_jax,
+                    self.dx,
+                    self.G,
+                    self.G_c,
+                    self.gamma,
+                    self.k_op10,
+                    self.k_refl,
+                    self.k_hopf,
+                    self.omega_yield,
+                    self.epsilon_yield,
+                )
         mask = self._mask_alive_jax[..., None].astype(dE_du.dtype)
         return np.asarray(dE_du * mask), np.asarray(dE_dw * mask)
 
@@ -1816,16 +1988,23 @@ class CosseratField3D:
         """H = T + V where T = kinetic_energy, V = total_energy."""
         return self.kinetic_energy() + self.total_energy()
 
-    def _zero_velocities_outside_alive(self) -> None:
+    def _zero_velocities_outside_alive(self, apply_pml: bool = True) -> None:
         """Enforce mask_alive + PML absorption on kinetic fields (u̇, ω̇).
 
         Interior (pml_mask=1) unchanged; PML region attenuated; inactive
         sites zeroed. PML is only present when pml_thickness>0; for
         pml_thickness=0 this is a pure mask_alive zero-out (legacy behavior).
         Per doc 58_ Cosserat PML derivation.
+
+        apply_pml=False: apply only the alive mask, no PML attenuation.
+        Used by step(apply_pml=False) for substeps where the PML should bite
+        only once per outer step (ENV-D §1).
         """
         mask = self.mask_alive[..., None].astype(self.u_dot.dtype)
-        combined = mask * self.cos_pml_mask.astype(self.u_dot.dtype)
+        if apply_pml:
+            combined = mask * self.cos_pml_mask.astype(self.u_dot.dtype)
+        else:
+            combined = mask
         self.u_dot = self.u_dot * combined
         self.omega_dot = self.omega_dot * combined
 
@@ -2038,7 +2217,7 @@ class CosseratField3D:
         dE_du, dE_dw = self.energy_gradient()
         return -dE_du / self.rho, -dE_dw / self.I_omega
 
-    def step(self, dt: float | None = None) -> None:
+    def step(self, dt: float | None = None, apply_pml: bool = True) -> None:
         """Advance (u, omega) one timestep via velocity-Verlet.
 
         Equations:
@@ -2055,6 +2234,13 @@ class CosseratField3D:
         at each sub-step.
 
         dt defaults to cfl_dt if not provided.
+
+        apply_pml: when False, both _zero_velocities_outside_alive calls in
+        the default (non-impedance) VV path apply only the alive mask, not the
+        cos_pml_mask. A substep runner calls step(dt_sub, apply_pml=False)
+        n_sub−1 times and step(dt_sub, apply_pml=True) once, so the PML bites
+        once per outer cfl_dt step (ENV-D §1). The impedance path ignores this
+        flag (it always applies PML — those substeps are internal to the solver).
         """
         if dt is None:
             dt = self.cfl_dt
@@ -2113,7 +2299,7 @@ class CosseratField3D:
         # Half-kick: u_dot(t+dt/2)
         self.u_dot = self.u_dot + 0.5 * dt * a_u
         self.omega_dot = self.omega_dot + 0.5 * dt * a_w
-        self._zero_velocities_outside_alive()
+        self._zero_velocities_outside_alive(apply_pml)
 
         # Drift: u(t+dt)
         self.u = self.u + dt * self.u_dot
@@ -2127,7 +2313,7 @@ class CosseratField3D:
         # Half-kick: u_dot(t+dt)
         self.u_dot = self.u_dot + 0.5 * dt * a_u_new
         self.omega_dot = self.omega_dot + 0.5 * dt * a_w_new
-        self._zero_velocities_outside_alive()
+        self._zero_velocities_outside_alive(apply_pml)
 
         # Topological Damped Integrator (TDI) — multiplicative velocity decay
         # to drain kinetic energy and settle to Hamiltonian-stationary states.
