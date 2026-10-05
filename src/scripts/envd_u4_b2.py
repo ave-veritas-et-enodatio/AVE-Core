@@ -33,7 +33,7 @@ Arguments:
     argv[2] (optional): N_OUTER steps override (integer).  Default: 2000.
 """
 
-import sys, os
+import sys, os, platform
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
 import numpy as np
@@ -115,7 +115,8 @@ def run_u4(n_sub_fixed, cfl_dt, kick_site, label):
     H_arr[0] = H0
     A2_arr[0] = a2_init
     eps_sq_arr[0] = eps_sq_init
-    omega_max_arr[0] = float(np.max(np.abs(solver.omega)))
+    # per-site Euclidean length: sqrt(wx^2+wy^2+wz^2) then max over sites
+    omega_max_arr[0] = float(np.max(np.sqrt(np.sum(np.asarray(solver.omega)**2, axis=-1))))
 
     nan_found = False
     crossing_x0 = []      # step indices where x=1-A2 crosses 0 (i.e., A2 crosses 1)
@@ -147,7 +148,8 @@ def run_u4(n_sub_fixed, cfl_dt, kick_site, label):
         H_arr[step + 1] = H
         A2_arr[step + 1] = a2
         eps_sq_arr[step + 1] = eps_sq
-        omega_max_arr[step + 1] = float(np.max(np.abs(solver.omega)))
+        # per-site Euclidean length
+        omega_max_arr[step + 1] = float(np.max(np.sqrt(np.sum(np.asarray(solver.omega)**2, axis=-1))))
 
         # Crossing detection
         if prev_x * x < 0:   # sign change
@@ -273,6 +275,14 @@ if __name__ == "__main__":
     # Build a reference solver to get cfl_dt
     ref = build_solver()
     cfl_dt = ref.cfl_dt
+
+    # Run-start platform banner (Math Addendum 4 / R26.168 knot-run provenance)
+    _omega_dtype = np.asarray(ref.omega).dtype
+    _u_dtype = np.asarray(ref.u).dtype
+    print(f"[platform] {platform.platform()}")
+    print(f"[jax] backend={jax.default_backend()}  version={jax.__version__}"
+          f"  omega_dtype={_omega_dtype}  u_dtype={_u_dtype}")
+
     print(f"cfl_dt = {cfl_dt:.8e}")
     print(f"N_OUTER = {N_OUTER}  n_sub_list = {N_SUB_LIST}")
 
