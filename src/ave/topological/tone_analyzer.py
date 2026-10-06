@@ -25,9 +25,9 @@ Sign convention (Math tone-reader backing page, 2026-10-06, sha1 b0cdef5db22f):
   Im(ω_k) > 0  →  Γ_k < 0  →  GROWTH (unstable). Flag explicitly.
   Im(ω_k) < 0  →  Γ_k > 0  →  damping.
   Q = Ω_k / (2 Γ_k);  only meaningful when Γ_k > 0.
-  Growth tolerance (see _classify_pole docstring): is_growth is raised only when
-  Γ_k < −tol, where tol = max(3·σ_Γ, 50·eps·|Ω|). This screens VV integrator
-  noise (|Γ| ~ 1e-15 on Linux at Ω≈2) while retaining the flag for |Γ| ≥ 1e-4.
+  Growth tolerance (see _classify_pole docstring; Gate k-cal 2026-10-06):
+  tol = max(5·σ_Γ_CR(σ_resid,|c|,dt,N), 3·Gamma_err, 50·eps·|Ω|).
+  Scope: identified-tone flag only (not cold-seed window, not R26.196b).
 
 Band references (engine natural units; G = G_c = γ = ρ = 1, ℓ_node = 1):
   OMEGA_AC_TOP  = √(10/3) ≈ 1.826  — acoustic top; lower edge of 9% window (F1)
@@ -98,24 +98,41 @@ class Pole:
 
 
 def _classify_pole(Omega: float, Gamma: float, amp: float, phase: float,
-                   Omega_err: float = 0.0, Gamma_err: float = 0.0) -> Pole:
+                   Omega_err: float = 0.0, Gamma_err: float = 0.0,
+                   sigma_resid: float = 0.0, dt_hint: float = 0.0,
+                   N_hint: int = 0) -> Pole:
     """Classify (Omega, Gamma, amp, phase) into a Pole dataclass.
 
-    Growth tolerance: is_growth is raised only when Gamma < −tol, where
-        tol = max(3 × Gamma_err,  50 × eps_mach × |Omega|)
-    • 3 × Gamma_err — 3-sigma criterion on the fit's own model-order spread.
-    • 50 × machine_eps × |Omega| — noise floor of the log(z) frequency step:
-      double-precision log(z) has error ≈ eps × |z| ≈ eps, so the extracted
-      Gamma error floor ≈ eps × |Omega| / dt; factor 50 gives ~3 orders of
-      margin below 1e-4 true growth while screening VV integrator noise at
-      |Gamma| ~ 1e-15 (Omega ≈ 2, Linux CI).
-    Numerical margins at Omega=2, Gamma_err=0: tol ≈ 2.2e-14.
-      Linux VV noise Gamma=−2.33e-15: NOT flagged (|Gamma|/tol ≈ 0.1).
-      Real small growth Gamma=−1e-4: flagged, margin ×4500.
+    Growth tolerance (Gate k-cal 2026-10-06, CR_resid form, k=5):
+        σ_Γ_CR = √6 · σ_resid / (|c| · dt · √(N(N²−1)))
+        tol = max(5·σ_Γ_CR, 3·Gamma_err, 50·eps_mach·|Ω|)
+    Scope: identified-tone growth/decay only — NOT the cold-seed
+    window-presence test and NOT the shell-flux zero kill (R26.196b).
+
+    • 5·σ_Γ_CR — Cramér–Rao scatter of the matrix-pencil Γ estimate scaled
+      by k=5 (Math-confirmed; empirical scatter is ~1.45–1.51× CR; k=5 on
+      the CR_resid form achieves 0% FP over 250 null trials at noise ∈
+      {1e-10,1e-8,1e-6}; k=3 on CR_resid fails the ≤1% gate at ~2% FP).
+    • 3·Gamma_err — model-order spread; kept for edge cases.
+    • 50·eps_mach·|Ω| — log(z) rounding floor (machine-noise screen).
+
+    When sigma_resid=0, dt_hint=0, or N_hint<4: σ_Γ_CR=0 and the formula
+    reduces to the two-term form (backward-compatible for direct calls).
+
+    Numerical margins (Ω=2, 15 periods, dt=0.165, noise=1e-10):
+      σ_Γ_CR ≈ 5.7e-13 → 5·σ_Γ_CR ≈ 2.8e-12 (CR term dominates eps floor).
+      Linux VV noise Γ=−2.33e-15: NOT flagged (|Γ|/tol ≈ 8e-4).
+      Real small growth Γ=−1e-4: flagged, margin ×35.
     """
     Q = (Omega / (2.0 * Gamma)) if Gamma > 0.0 else float("inf")
     eps_mach = np.finfo(float).eps
-    growth_tol = max(3.0 * Gamma_err, 50.0 * eps_mach * abs(Omega))
+    sigma_Gamma_CR = 0.0
+    if sigma_resid > 0.0 and dt_hint > 0.0 and N_hint >= 4 and abs(amp) > 0.0:
+        _N = float(N_hint)
+        sigma_Gamma_CR = (np.sqrt(6.0) * sigma_resid
+                          / (abs(amp) * dt_hint * np.sqrt(_N * (_N * _N - 1.0))))
+    growth_tol = max(5.0 * sigma_Gamma_CR, 3.0 * Gamma_err,
+                     50.0 * eps_mach * abs(Omega))
     is_growth = Gamma < -growth_tol
     return Pole(
         Omega=Omega,
@@ -202,8 +219,14 @@ def _recover_amplitudes(signal: np.ndarray, z_k: np.ndarray) -> np.ndarray:
     return c_k
 
 
-def _zk_to_poles(z_k: np.ndarray, c_k: np.ndarray, dt: float) -> list[Pole]:
-    """Convert (z_k, c_k) pairs to Pole objects."""
+def _zk_to_poles(z_k: np.ndarray, c_k: np.ndarray, dt: float,
+                 sigma_resid: float = 0.0, N: int = 0) -> list[Pole]:
+    """Convert (z_k, c_k) pairs to Pole objects.
+
+    sigma_resid: per-component RMS residual from multi-pole reconstruction
+                 (√(mean(|y−ŷ|²)/2)); used for CR growth-tol term.
+    N: original signal length (for CR bound denominator).
+    """
     poles = []
     for z, c in zip(z_k, c_k):
         log_z = np.log(z + 1e-300)
@@ -213,7 +236,9 @@ def _zk_to_poles(z_k: np.ndarray, c_k: np.ndarray, dt: float) -> list[Pole]:
         Gamma = float(-omega_k.imag)   # Γ = −Im(ω)
         amp = float(abs(c))
         phase = float(np.angle(c))
-        poles.append(_classify_pole(Omega, Gamma, amp, phase))
+        poles.append(_classify_pole(Omega, Gamma, amp, phase,
+                                    sigma_resid=sigma_resid,
+                                    dt_hint=dt, N_hint=N))
     return poles
 
 
@@ -257,6 +282,8 @@ def analyze(
 
     # Collect poles across model orders for uncertainty estimation
     all_runs: list[list[tuple[float, float, float, float]]] = []  # (Omega, Gamma, amp, phase)
+    ref_z_k: Optional[np.ndarray] = None
+    ref_c_k: Optional[np.ndarray] = None
 
     for trial in range(n_model_orders):
         n_p = max(1, n_max - trial)
@@ -268,6 +295,10 @@ def analyze(
             c_k = _recover_amplitudes(y, z_k)
         except (np.linalg.LinAlgError, ValueError):
             continue
+
+        if ref_z_k is None:   # capture first successful run for sigma_resid
+            ref_z_k = z_k.copy()
+            ref_c_k = c_k.copy()
 
         run_poles = []
         for z, c in zip(z_k, c_k):
@@ -283,6 +314,19 @@ def analyze(
 
     if not all_runs:
         return []
+
+    # Compute per-component RMS residual from the reference run.
+    # σ_resid feeds the Cramér–Rao growth-tol term in _classify_pole.
+    sigma_resid = 0.0
+    if ref_z_k is not None and ref_c_k is not None and len(ref_z_k) > 0:
+        ns_arr = np.arange(N, dtype=float)
+        y_hat = np.zeros(N, dtype=complex)
+        with np.errstate(over="ignore", invalid="ignore"):
+            for _z, _c in zip(ref_z_k, ref_c_k):
+                y_hat += _c * _z ** ns_arr
+        residuals = y - y_hat
+        if np.all(np.isfinite(np.abs(residuals))):
+            sigma_resid = float(np.sqrt(np.mean(np.abs(residuals) ** 2) / 2.0))
 
     # Use the first run as the reference; estimate uncertainty from spread
     ref_poles = all_runs[0]
@@ -314,6 +358,7 @@ def analyze(
         result.append(_classify_pole(
             Omega_ref, Gamma_ref, amp_ref, phase_ref,
             Omega_err=Omega_err, Gamma_err=Gamma_err,
+            sigma_resid=sigma_resid, dt_hint=dt, N_hint=N,
         ))
 
     result.sort(key=lambda p: -p.amplitude)

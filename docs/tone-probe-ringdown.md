@@ -205,7 +205,7 @@ is supported via the runner; set them to 0 before stepping.
 which is the *opposite* of the birefringence Letter's faster-light direction. A
 rising tone (d(Ω)/d(A²) > 0) matches the Letter's direction. This is a
 shared-medium consistency check only (from a room evaluation, tracker R26.196,
-which is being banked). It is not evidence on the Letter's registered test.
+which is banked). It is not evidence on the Letter's registered test.
 
 ---
 
@@ -218,8 +218,12 @@ a=0.05 (linear regime, a/ε_y = 0.05 ≪ 1). 15 periods × 2π/ω_m, dt≈0.095.
 **Expected:** ω_m = 2 exactly (DERIVED from the engine's micropolar energy
 W_micropolar = 2G_c·n_alive·|ω|², giving ω_ddot = −4G_c·ω → f=2).
 
-**Result:** Ω = 2.003 ± 0.003. The error (~0.15%) is expected for a 15-period
-record at this noise floor. The analyzer pipeline is confirmed functional.
+**Result:** Ω ≈ 2.003. The offset from ω_m=2 is the **Verlet integrator
+dispersion shift**: at dt≈0.095 (cfl_dt for the 12×12×12 grid), the VV
+discrete-time oscillator rings at `(2/dt)·asin(dt) ≈ 2.003` rather than 2.0
+exactly (Gate corpus-conflict #2, resolved 2026-10-06). This is *not* a
+record-length or noise-floor error. The analyzer pipeline is confirmed
+functional.
 
 No WRAP (max |ω| = 0.005 ≪ π). No growing modes (Hamiltonian engine,
 energy-conserving VV).
@@ -228,6 +232,44 @@ energy-conserving VV).
 closed-form result. A larger error would indicate a pipeline fault, not a
 physics finding. For a full knot run, longer records and the box-size
 condition (KBOX) are required before any Q value is meaningful.
+
+---
+
+## Growth-tolerance rule (Gate k-cal 2026-10-06)
+
+**Scope:** identified-tone growth/decay flag only — NOT the cold-seed
+window-presence test and NOT the shell-flux zero kill (tracker R26.196b).
+
+The locked formula (`_classify_pole`, Gate k-cal 2026-10-06):
+
+```
+σ_Γ_CR = √6 · σ_resid / (|c| · dt · √(N(N²−1)))
+growth_tol = max(5·σ_Γ_CR, 3·Gamma_err, 50·eps_mach·|Ω|)
+is_growth  = Gamma < −growth_tol
+```
+
+`σ_resid` is the per-component RMS residual `√(mean(|y−ŷ|²)/2)` from the
+multi-pole reconstruction; it is computed inside `analyze()` and passed to
+`_classify_pole` automatically. `|c|` is the fitted pole amplitude.
+
+**Why k=5:** empirical matrix-pencil scatter is ~1.45–1.51× the analytic CR
+(k=5 on the σ_resid form covers this gap at 0% FP over 250 null trials).
+k=3 on the CR_resid form gives ~2% FP (Gate FAIL). False "leaks" are the
+costly error in ENV-D cold-seed decisions.
+
+**Null FP table** (Γ=0, Ω=1.9, dt=0.165, 15 periods, N=301, 200 trials,
+complex Gaussian noise, seed=1; `TestGrowthNullFloor` in the test suite):
+
+| noise    | FP main | FP any | σ_emp Γ   | σ_CR Γ (ref) | emp/CR |
+|----------|---------|--------|-----------|--------------|--------|
+| 1e-10    | 0%      | 0.5%   | 7.82e-13  | 5.69e-13     | 1.38   |
+| 1e-8     | 0%      | 0.5%   | 7.82e-11  | 5.69e-11     | 1.38   |
+| 1e-6     | 0%      | 0.5%   | 7.82e-9   | 5.69e-9      | 1.38   |
+
+Prior formula `max(3·Gamma_err, 50·eps·|Ω|)` gave ~49% FP main / ~72% FP
+any at noise ≥1e-10 (Gate FAIL, 2026-10-06 audit). True positives at
+Γ=−1e-4 and −1e-3 with noise 1e-8 remain 100% (sensitivity intact; k=5
+margin ×35 and ×350 above growth_tol respectively).
 
 ---
 

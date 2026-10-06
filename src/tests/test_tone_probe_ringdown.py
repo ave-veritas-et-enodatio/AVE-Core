@@ -255,9 +255,12 @@ class TestBandClassification:
 class TestGrowthTolerance:
     """Pin the growth-tolerance rule in _classify_pole from both sides.
 
-    Rule: is_growth iff Gamma < −tol, where
-        tol = max(3 × Gamma_err,  50 × machine_eps × |Omega|)
-    At Omega=2, Gamma_err=0: tol ≈ 2.2e-14.
+    Full rule (Gate k-cal 2026-10-06):
+        σ_Γ_CR = √6 · σ_resid / (|c| · dt · √(N(N²−1)))
+        tol = max(5·σ_Γ_CR, 3·Gamma_err, 50·eps_mach·|Ω|)
+    Direct _classify_pole calls without sigma_resid/dt_hint/N_hint use
+    σ_Γ_CR=0, falling back to: tol = max(0, 0, 50·eps·|Ω|) ≈ 2.2e-14
+    at Ω=2. The Linux VV CI noise (Γ=−2.33e-15) is still below this floor.
     """
 
     def test_noise_level_gamma_not_growth(self):
@@ -351,6 +354,109 @@ class TestGrowthTolerance:
         assert not best.is_growth, (
             f"Synthetic Gamma=+1e-4 (damping) must not be flagged as growth "
             f"(Gamma found={best.Gamma:.2e}, is_growth={best.is_growth})"
+        )
+
+
+# ---------------------------------------------------------------------------
+# 3d. Gamma=0 null test — false-positive growth rate (Gate R2/R3)
+# ---------------------------------------------------------------------------
+
+class TestGrowthNullFloor:
+    """Γ=0 null: false-positive is_growth ≤1% over 200 trials at noise ≥1e-10.
+
+    Gate R2/R3 fix (Gate k-cal 2026-10-06). The locked formula is:
+        σ_Γ_CR = √6 · σ_resid / (|c| · dt · √(N(N²−1)))
+        growth_tol = max(5·σ_Γ_CR, 3·Gamma_err, 50·eps·|Ω|)
+
+    Prior formula max(3·Gamma_err, 50·eps·|Ω|) gave ~49% FP at noise 1e-10
+    (Gate FAIL). This test class FAILS on the prior tip and PASSES here.
+
+    Scope: identified-tone growth/decay only — not cold-seed window-presence,
+    not shell-flux zero kill (tracker R26.196b).
+
+    Parameters match Gate null_test.py: Ω=1.9, dt=0.165, 15 periods,
+    N=301, complex Gaussian noise, n_poles_max=2, n_model_orders=3, seed=1.
+    """
+
+    @pytest.fixture(scope="class")
+    def null_fp_table(self):
+        """Run Γ=0 null trials at three noise levels; return FP table."""
+        Omega = 1.9
+        dt = 0.165
+        n_periods = 15
+        n_trials = 200
+        N = int(round(n_periods * 2.0 * np.pi / Omega / dt))
+        t = np.arange(N) * dt
+        noise_levels = [1e-10, 1e-8, 1e-6]
+        rows = []
+
+        for noise in noise_levels:
+            rng = np.random.default_rng(1)   # same seed as Gate null_test.py
+            fp_main = 0
+            fp_any = 0
+            gammas: list[float] = []
+            sigma_CR_vals: list[float] = []
+
+            for _ in range(n_trials):
+                sig = np.cos(Omega * t).astype(complex)
+                sig += noise * (rng.standard_normal(N) + 1j * rng.standard_normal(N))
+                poles = analyze(sig, dt, n_poles_max=2, n_model_orders=3)
+                pos = [p for p in poles if p.Omega > 0.5]
+                if pos:
+                    best = min(pos, key=lambda p: abs(p.Omega - Omega))
+                    gammas.append(best.Gamma)
+                    fp_main += int(best.is_growth)
+                fp_any += int(any(p.is_growth for p in poles))
+
+            sigma_emp = float(np.std(gammas)) if gammas else float("nan")
+            # Analytic CR reference (|c|≈0.5 for unit cosine, N=301, dt=0.165)
+            sigma_CR_ref = (np.sqrt(6.0) * noise
+                            / (0.5 * dt * np.sqrt(N * (N ** 2 - 1.0))))
+            rows.append({
+                "noise": noise,
+                "N": N,
+                "n_trials": n_trials,
+                "fp_main": fp_main,
+                "fp_any": fp_any,
+                "fp_main_rate": fp_main / n_trials,
+                "fp_any_rate": fp_any / n_trials,
+                "sigma_emp": sigma_emp,
+                "sigma_CR": sigma_CR_ref,
+            })
+
+        print("\n=== Gamma=0 null test — Gate R2/R3 (k-cal 2026-10-06) ===")
+        print(f"N={rows[0]['N']}, n_trials={n_trials}, Omega=1.9, dt=0.165, 15 periods")
+        print(f"{'noise':>8}  {'FP main':>8}  {'FP any':>8}  "
+              f"{'σ_emp_Γ':>11}  {'σ_CR_Γ':>11}")
+        for r in rows:
+            print(f"{r['noise']:>8.0e}  {r['fp_main_rate']:>8.3f}  "
+                  f"{r['fp_any_rate']:>8.3f}  "
+                  f"{r['sigma_emp']:>11.3e}  {r['sigma_CR']:>11.3e}")
+        return rows
+
+    def test_fp_rate_noise_1e10(self, null_fp_table):
+        """Γ=0 null: FP ≤1% at noise 1e-10 (PR default; Gate R2 kill line)."""
+        r = next(row for row in null_fp_table if row["noise"] == 1e-10)
+        assert r["fp_main_rate"] <= 0.01, (
+            f"Gate R2: Gamma=0 null at noise 1e-10: "
+            f"FP={r['fp_main']}/{r['n_trials']} ({r['fp_main_rate']:.1%}). "
+            f"Prior formula gave ~49% FP. Requires k=5 CR formula."
+        )
+
+    def test_fp_rate_noise_1e8(self, null_fp_table):
+        """Γ=0 null: FP ≤1% at noise 1e-8."""
+        r = next(row for row in null_fp_table if row["noise"] == 1e-8)
+        assert r["fp_main_rate"] <= 0.01, (
+            f"Gate R2: Gamma=0 null at noise 1e-8: "
+            f"FP={r['fp_main']}/{r['n_trials']} ({r['fp_main_rate']:.1%})"
+        )
+
+    def test_fp_rate_noise_1e6(self, null_fp_table):
+        """Γ=0 null: FP ≤1% at noise 1e-6."""
+        r = next(row for row in null_fp_table if row["noise"] == 1e-6)
+        assert r["fp_main_rate"] <= 0.01, (
+            f"Gate R2: Gamma=0 null at noise 1e-6: "
+            f"FP={r['fp_main']}/{r['n_trials']} ({r['fp_main_rate']:.1%})"
         )
 
 
