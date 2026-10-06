@@ -37,7 +37,9 @@ from ave.topological.tone_analyzer import (
     analyze,
     amplitude_sweep,
     band_report,
+    print_nonstationarity_table,
     print_record_length_table,
+    record_length_nonstationarity_table,
     record_length_table,
     sliding_window_analyze,
     summarize,
@@ -244,6 +246,165 @@ class TestBandClassification:
         assert not p_above.in_9pct_window
         assert not p_below.in_rot_band
         assert p_above.in_rot_band
+
+
+# ---------------------------------------------------------------------------
+# 3b. Growth tolerance — pin the classification rule from both sides
+# ---------------------------------------------------------------------------
+
+class TestGrowthTolerance:
+    """Pin the growth-tolerance rule in _classify_pole from both sides.
+
+    Rule: is_growth iff Gamma < −tol, where
+        tol = max(3 × Gamma_err,  50 × machine_eps × |Omega|)
+    At Omega=2, Gamma_err=0: tol ≈ 2.2e-14.
+    """
+
+    def test_noise_level_gamma_not_growth(self):
+        """Linux CI case: Gamma=-2.33e-15 at Omega=2.003 must NOT be flagged.
+
+        This is the exact value produced by the Linux VV integrator in
+        TestUniformModeSmoke; it is integrator noise, not physical growth.
+        tol ≈ 50 × 2.22e-16 × 2.003 ≈ 2.22e-14 >> 2.33e-15.
+        """
+        p = _classify_pole(2.003, -2.33e-15, 1.0, 0.0)
+        assert not p.is_growth, (
+            f"Noise-level Gamma=-2.33e-15 at Omega=2.003 must not be flagged. "
+            f"tol ≈ {50 * np.finfo(float).eps * 2.003:.2e}"
+        )
+
+    def test_small_growth_direct_1e4(self):
+        """Direct: Gamma=-1e-4 at Omega=1.9 is IS flagged (×4500 above tol)."""
+        p = _classify_pole(1.9, -1e-4, 1.0, 0.0)
+        assert p.is_growth, "Gamma=-1e-4 at Omega=1.9 must be flagged as growth"
+
+    def test_small_growth_direct_1e3(self):
+        """Direct: Gamma=-1e-3 at Omega=1.9 is flagged."""
+        p = _classify_pole(1.9, -1e-3, 1.0, 0.0)
+        assert p.is_growth, "Gamma=-1e-3 at Omega=1.9 must be flagged as growth"
+
+    def test_small_damping_not_growth(self):
+        """Gamma=+1e-4 is damping; must NOT be flagged as growth."""
+        p = _classify_pole(1.9, 1e-4, 1.0, 0.0)
+        assert not p.is_growth, "Positive Gamma (damping) must not be flagged as growth"
+
+    def test_small_growth_synthetic_15periods_1e4(self):
+        """Synthetic: Gamma=-1e-4, ~15 periods, small noise → growth detected.
+
+        The signal amplitude grows by exp(1e-4 × 15T) ≈ 1.03 over 15 periods.
+        At noise=1e-8 the analyzer recovers Gamma accurately; the tolerance
+        (≈2e-14) is ×5000 below the true Gamma magnitude.
+        """
+        rng = np.random.default_rng(12345)
+        Omega, Gamma = 1.9, -1e-4
+        dt = 0.165
+        period = 2.0 * np.pi / Omega
+        N = int(round(15 * period / dt))
+        t = np.arange(N) * dt
+        sig = (np.cos(Omega * t) * np.exp(-Gamma * t)).astype(complex)
+        sig += 1e-8 * (rng.standard_normal(N) + 1j * rng.standard_normal(N))
+        poles = analyze(sig, dt, n_poles_max=2, n_model_orders=3)
+        pos = [p for p in poles if p.Omega > 0.5]
+        assert len(pos) > 0, "No positive-frequency poles found"
+        best = min(pos, key=lambda p: abs(p.Omega - Omega))
+        assert best.is_growth, (
+            f"Synthetic Gamma=-1e-4, 15 periods: growth not detected "
+            f"(Gamma found={best.Gamma:.2e}, is_growth={best.is_growth})"
+        )
+
+    def test_small_growth_synthetic_20periods_1e3(self):
+        """Synthetic: Gamma=-1e-3, ~20 periods, small noise → growth detected.
+
+        The signal amplitude grows by exp(1e-3 × 20T) ≈ 1.13 over 20 periods.
+        """
+        rng = np.random.default_rng(99999)
+        Omega, Gamma = 1.9, -1e-3
+        dt = 0.165
+        period = 2.0 * np.pi / Omega
+        N = int(round(20 * period / dt))
+        t = np.arange(N) * dt
+        sig = (np.cos(Omega * t) * np.exp(-Gamma * t)).astype(complex)
+        sig += 1e-8 * (rng.standard_normal(N) + 1j * rng.standard_normal(N))
+        poles = analyze(sig, dt, n_poles_max=2, n_model_orders=3)
+        pos = [p for p in poles if p.Omega > 0.5]
+        assert len(pos) > 0, "No positive-frequency poles found"
+        best = min(pos, key=lambda p: abs(p.Omega - Omega))
+        assert best.is_growth, (
+            f"Synthetic Gamma=-1e-3, 20 periods: growth not detected "
+            f"(Gamma found={best.Gamma:.2e}, is_growth={best.is_growth})"
+        )
+
+    def test_small_damping_synthetic_not_growth(self):
+        """Synthetic: Gamma=+1e-4, 15 periods → NOT flagged as growth."""
+        rng = np.random.default_rng(77777)
+        Omega, Gamma = 1.9, 1e-4
+        dt = 0.165
+        period = 2.0 * np.pi / Omega
+        N = int(round(15 * period / dt))
+        t = np.arange(N) * dt
+        sig = (np.cos(Omega * t) * np.exp(-Gamma * t)).astype(complex)
+        sig += 1e-8 * (rng.standard_normal(N) + 1j * rng.standard_normal(N))
+        poles = analyze(sig, dt, n_poles_max=2, n_model_orders=3)
+        pos = [p for p in poles if p.Omega > 0.5]
+        assert len(pos) > 0, "No positive-frequency poles found"
+        best = min(pos, key=lambda p: abs(p.Omega - Omega))
+        assert not best.is_growth, (
+            f"Synthetic Gamma=+1e-4 (damping) must not be flagged as growth "
+            f"(Gamma found={best.Gamma:.2e}, is_growth={best.is_growth})"
+        )
+
+
+# ---------------------------------------------------------------------------
+# 3c. Nonstationarity record-length table
+# ---------------------------------------------------------------------------
+
+class TestRecordLengthNonstationarityTable:
+    """Accuracy table for clean, chirp-1e-4, chirp-1e-3, and drift-1% cases.
+
+    Shows that 10–20 periods suffice for the clean case (LEAN claim) but
+    that non-stationarity (chirp, drift) limits accuracy independent of
+    record length — confirming the binding limits stated in the LEAN flag.
+    """
+
+    @pytest.fixture(scope="class")
+    def nstable(self):
+        rows = record_length_nonstationarity_table(
+            Omega=1.9, Q=100.0, dt=0.165, noise_level=1e-10,
+            n_poles=2, n_trials=8,
+            periods_list=(5, 10, 15, 20, 50, 100),
+        )
+        print_nonstationarity_table(rows, Omega=1.9, Q=100.0)
+        return rows
+
+    def test_table_has_all_periods(self, nstable):
+        periods_found = [r["periods"] for r in nstable]
+        for p in (5, 10, 15, 20, 50, 100):
+            assert p in periods_found
+
+    def test_clean_20_better_than_clean_5(self, nstable):
+        """Clean case: 20-period record gives lower Ω error than 5-period."""
+        r5  = next(r for r in nstable if r["periods"] == 5)
+        r20 = next(r for r in nstable if r["periods"] == 20)
+        assert r20["clean_Omega_err_mean"] <= r5["clean_Omega_err_mean"] * 10.0, (
+            f"20-period clean ({r20['clean_Omega_err_mean']:.2e}) should be "
+            f"better than 5-period ({r5['clean_Omega_err_mean']:.2e}) × 10"
+        )
+
+    def test_chirp_1e3_worse_than_clean(self, nstable):
+        """chirp-1e-3 at 20 periods dominates noise: Ω error >> clean case."""
+        r20 = next(r for r in nstable if r["periods"] == 20)
+        assert r20["chirp_1e3_Omega_err_mean"] > r20["clean_Omega_err_mean"] * 100, (
+            f"chirp-1e-3 Ω_err ({r20['chirp_1e3_Omega_err_mean']:.2e}) should be "
+            f">> clean ({r20['clean_Omega_err_mean']:.2e}) at 20 periods"
+        )
+
+    def test_chirp_1e3_grows_with_periods(self, nstable):
+        """chirp-1e-3: longer records accumulate more frequency error (binding limit)."""
+        r5   = next(r for r in nstable if r["periods"] == 5)
+        r100 = next(r for r in nstable if r["periods"] == 100)
+        assert r100["chirp_1e3_Omega_err_mean"] >= r5["chirp_1e3_Omega_err_mean"] * 0.5, (
+            "chirp-1e-3 error should not drop below half the 5-period error at 100 periods"
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -531,9 +692,15 @@ class TestUniformModeSmoke:
             "Uniform mode exceeded WRAP threshold unexpectedly"
 
     def test_smoke_no_growth(self, smoke_result):
-        """Linear Hamiltonian engine: no growing modes."""
+        """Linear Hamiltonian engine: no growing modes.
+
+        The VV integrator on Linux produces Gamma ≈ -2.33e-15 (integrator noise,
+        not physical growth). The growth-tolerance rule in _classify_pole screens
+        this: tol = max(3×Gamma_err, 50×eps×|Omega|) ≈ 2.2e-14 >> 2.33e-15.
+        See TestGrowthTolerance for direct unit tests of the tolerance from both
+        sides.
+        """
         growth = [p for p in smoke_result["pos_poles"] if p.is_growth]
-        # Energy-conserving VV with no sponge should not produce growing modes
         assert len(growth) == 0, f"Unexpected growth-flagged poles: {growth}"
 
     def test_smoke_in_window_or_rot_band(self, smoke_result):

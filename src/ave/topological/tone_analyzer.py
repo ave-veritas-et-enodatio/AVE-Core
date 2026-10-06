@@ -25,6 +25,9 @@ Sign convention (Math tone-reader backing page, 2026-10-06, sha1 b0cdef5db22f):
   Im(ω_k) > 0  →  Γ_k < 0  →  GROWTH (unstable). Flag explicitly.
   Im(ω_k) < 0  →  Γ_k > 0  →  damping.
   Q = Ω_k / (2 Γ_k);  only meaningful when Γ_k > 0.
+  Growth tolerance (see _classify_pole docstring): is_growth is raised only when
+  Γ_k < −tol, where tol = max(3·σ_Γ, 50·eps·|Ω|). This screens VV integrator
+  noise (|Γ| ~ 1e-15 on Linux at Ω≈2) while retaining the flag for |Γ| ≥ 1e-4.
 
 Band references (engine natural units; G = G_c = γ = ρ = 1, ℓ_node = 1):
   OMEGA_AC_TOP  = √(10/3) ≈ 1.826  — acoustic top; lower edge of 9% window (F1)
@@ -96,8 +99,24 @@ class Pole:
 
 def _classify_pole(Omega: float, Gamma: float, amp: float, phase: float,
                    Omega_err: float = 0.0, Gamma_err: float = 0.0) -> Pole:
+    """Classify (Omega, Gamma, amp, phase) into a Pole dataclass.
+
+    Growth tolerance: is_growth is raised only when Gamma < −tol, where
+        tol = max(3 × Gamma_err,  50 × eps_mach × |Omega|)
+    • 3 × Gamma_err — 3-sigma criterion on the fit's own model-order spread.
+    • 50 × machine_eps × |Omega| — noise floor of the log(z) frequency step:
+      double-precision log(z) has error ≈ eps × |z| ≈ eps, so the extracted
+      Gamma error floor ≈ eps × |Omega| / dt; factor 50 gives ~3 orders of
+      margin below 1e-4 true growth while screening VV integrator noise at
+      |Gamma| ~ 1e-15 (Omega ≈ 2, Linux CI).
+    Numerical margins at Omega=2, Gamma_err=0: tol ≈ 2.2e-14.
+      Linux VV noise Gamma=−2.33e-15: NOT flagged (|Gamma|/tol ≈ 0.1).
+      Real small growth Gamma=−1e-4: flagged, margin ×4500.
+    """
     Q = (Omega / (2.0 * Gamma)) if Gamma > 0.0 else float("inf")
-    is_growth = Gamma < 0.0
+    eps_mach = np.finfo(float).eps
+    growth_tol = max(3.0 * Gamma_err, 50.0 * eps_mach * abs(Omega))
+    is_growth = Gamma < -growth_tol
     return Pole(
         Omega=Omega,
         Gamma=Gamma,
@@ -454,6 +473,8 @@ def record_length_table(
     n_trials: int = 20,
     periods_list: tuple[int, ...] = (5, 10, 15, 20, 50, 100),
     rng_seed: int = 42,
+    chirp_rate_per_period: float = 0.0,
+    drift_frac: float = 0.0,
 ) -> list[dict]:
     """Generate accuracy-vs-record-length table for the analyzer.
 
@@ -462,18 +483,30 @@ def record_length_table(
      the count is a judgment. The binding limits are non-stationarity
      and the band-edge continuum tail, not noise.)
 
-    Synthetic signal: y(t) = cos(Ω t) · exp(−Γ t) + noise_level · ξ(t)
+    Synthetic signal (clean): y(t) = cos(Ω t) · exp(−Γ t) + noise_level · ξ(t)
     where ξ ~ N(0,1) complex-valued i.i.d.
 
+    Chirp (chirp_rate_per_period ≠ 0): the instantaneous frequency drifts as
+    Ω(t) = Ω₀ · (1 + alpha · t / T_period), so the phase is
+    φ(t) = Ω₀ t + ½ · alpha · Ω₀ / T_period · t². The HI fit sees the
+    time-averaged frequency; errors grow with record length because the
+    accumulated frequency shift grows with n_periods².
+
+    Drift (drift_frac ≠ 0): a slow sinusoidal baseline at Ω/10 with amplitude
+    drift_frac × 1 (the main signal amplitude is 1). Models slow DC wander or
+    a low-frequency background tone.
+
     Args:
-        Omega:       true angular frequency.
-        Q:           true quality factor.
-        dt:          sampling interval.
-        noise_level: RMS noise amplitude (default 1e-10, like integrator error).
-        n_poles:     poles to extract (real signal → 2: one conjugate pair).
-        n_trials:    Monte Carlo trials per period count.
-        periods_list: record lengths in periods to test.
-        rng_seed:    NumPy RNG seed.
+        Omega:                 true angular frequency.
+        Q:                     true quality factor.
+        dt:                    sampling interval.
+        noise_level:           RMS noise amplitude (default 1e-10, like integrator error).
+        n_poles:               poles to extract (real signal → 2: one conjugate pair).
+        n_trials:              Monte Carlo trials per period count.
+        periods_list:          record lengths in periods to test.
+        rng_seed:              NumPy RNG seed.
+        chirp_rate_per_period: fractional Ω drift per period (0 = no chirp).
+        drift_frac:            amplitude of slow sinusoidal baseline (0 = no drift).
 
     Returns:
         List of dicts with keys: periods, N_samples, Omega_err_mean,
@@ -493,7 +526,13 @@ def record_length_table(
         Q_errs = []
         for _ in range(n_trials):
             noise = noise_level * (rng.standard_normal(N) + 1j * rng.standard_normal(N))
-            sig = np.cos(Omega * t) * np.exp(-Gamma_true * t) + noise
+            if chirp_rate_per_period != 0.0:
+                phi = Omega * t + 0.5 * chirp_rate_per_period * Omega / period * t ** 2
+                sig = np.cos(phi) * np.exp(-Gamma_true * t) + noise
+            else:
+                sig = np.cos(Omega * t) * np.exp(-Gamma_true * t) + noise
+            if drift_frac != 0.0:
+                sig = sig + drift_frac * np.sin(Omega * t / 10.0)
             try:
                 poles = analyze(sig, dt, n_poles_max=n_poles, n_model_orders=3)
             except Exception:
@@ -542,6 +581,83 @@ def print_record_length_table(rows: list[dict], Omega: float = 1.9, Q: float = 1
         print(f"{r['periods']:>8}  {r['N_samples']:>10}  "
               f"{r['Omega_err_mean']:>12.3e}  {r['Omega_err_std']:>12.3e}  "
               f"{r['Q_err_mean']:>12.3e}  {r['Q_err_std']:>12.3e}")
+
+
+def record_length_nonstationarity_table(
+    Omega: float = 1.9,
+    Q: float = 100.0,
+    dt: float = 0.165,
+    noise_level: float = 1e-10,
+    n_poles: int = 2,
+    n_trials: int = 10,
+    periods_list: tuple[int, ...] = (5, 10, 15, 20, 50, 100),
+    rng_seed: int = 42,
+) -> list[dict]:
+    """Generate the record-length accuracy table for four signal cases.
+
+    Cases (same Ω, Q, noise):
+      clean:      y(t) = cos(Ω t) exp(−Γ t) + noise
+      chirp-1e-4: instantaneous Ω drifts at 1e-4 × Ω per period
+      chirp-1e-3: instantaneous Ω drifts at 1e-3 × Ω per period
+      drift-1%:   clean + slow sinusoidal baseline at Ω/10, amplitude 0.01
+
+    Returns list of dicts (one per period count in periods_list) with keys:
+      periods, N_samples,
+      clean_Omega_err_mean, clean_Q_err_mean,
+      chirp_1e4_Omega_err_mean, chirp_1e4_Q_err_mean,
+      chirp_1e3_Omega_err_mean, chirp_1e3_Q_err_mean,
+      drift_Omega_err_mean, drift_Q_err_mean.
+    """
+    common = dict(
+        Omega=Omega, Q=Q, dt=dt, noise_level=noise_level,
+        n_poles=n_poles, n_trials=n_trials,
+        periods_list=periods_list,
+    )
+    rows_clean = record_length_table(**common, rng_seed=rng_seed,
+                                     chirp_rate_per_period=0.0, drift_frac=0.0)
+    rows_c1e4  = record_length_table(**common, rng_seed=rng_seed + 1,
+                                     chirp_rate_per_period=1e-4, drift_frac=0.0)
+    rows_c1e3  = record_length_table(**common, rng_seed=rng_seed + 2,
+                                     chirp_rate_per_period=1e-3, drift_frac=0.0)
+    rows_drift = record_length_table(**common, rng_seed=rng_seed + 3,
+                                     chirp_rate_per_period=0.0, drift_frac=0.01)
+    result = []
+    for rc, r1, r2, rd in zip(rows_clean, rows_c1e4, rows_c1e3, rows_drift):
+        result.append({
+            "periods":                   rc["periods"],
+            "N_samples":                 rc["N_samples"],
+            "clean_Omega_err_mean":      rc["Omega_err_mean"],
+            "clean_Q_err_mean":          rc["Q_err_mean"],
+            "chirp_1e4_Omega_err_mean":  r1["Omega_err_mean"],
+            "chirp_1e4_Q_err_mean":      r1["Q_err_mean"],
+            "chirp_1e3_Omega_err_mean":  r2["Omega_err_mean"],
+            "chirp_1e3_Q_err_mean":      r2["Q_err_mean"],
+            "drift_Omega_err_mean":      rd["Omega_err_mean"],
+            "drift_Q_err_mean":          rd["Q_err_mean"],
+        })
+    return result
+
+
+def print_nonstationarity_table(
+    rows: list[dict], Omega: float = 1.9, Q: float = 100.0
+) -> None:
+    """Print the 4-case nonstationarity table."""
+    print(f"\nRecord-length accuracy (4 cases): Ω={Omega:.3f}, Q={Q:.1f}, noise=1e-10, dt=0.165")
+    print("chirp: fractional Ω drift per period  |  drift: sin(Ω/10 · t), amplitude=0.01")
+    print("LEAN: 10–20 periods suffice for clean; chirp/drift show the non-stationarity limit.")
+    hdr = (f"{'periods':>8}  {'N_samp':>7}  "
+           f"{'Ω clean':>11}  {'Q clean':>11}  "
+           f"{'Ω c-1e-4':>11}  {'Q c-1e-4':>11}  "
+           f"{'Ω c-1e-3':>11}  {'Q c-1e-3':>11}  "
+           f"{'Ω drift':>11}  {'Q drift':>11}")
+    print(hdr)
+    print("-" * len(hdr))
+    for r in rows:
+        print(f"{r['periods']:>8}  {r['N_samples']:>7}  "
+              f"{r['clean_Omega_err_mean']:>11.3e}  {r['clean_Q_err_mean']:>11.3e}  "
+              f"{r['chirp_1e4_Omega_err_mean']:>11.3e}  {r['chirp_1e4_Q_err_mean']:>11.3e}  "
+              f"{r['chirp_1e3_Omega_err_mean']:>11.3e}  {r['chirp_1e3_Q_err_mean']:>11.3e}  "
+              f"{r['drift_Omega_err_mean']:>11.3e}  {r['drift_Q_err_mean']:>11.3e}")
 
 
 def summarize(poles: list[Pole], dt: float, record_length: Optional[float] = None,

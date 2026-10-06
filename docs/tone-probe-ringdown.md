@@ -72,9 +72,12 @@ See `sliding_window_analyze()` in `tone_analyzer.py`.
 
 ### Record-length accuracy table
 
-Measured by `TestRecordLengthTable` (`src/tests/test_tone_probe_ringdown.py`).
+Measured by `TestRecordLengthTable` and `TestRecordLengthNonstationarityTable`
+(`src/tests/test_tone_probe_ringdown.py`).
 Synthetic signal: Ω=1.9, Q=100, noise=1e-10 (simulating integrator error),
-dt=0.165, 10 Monte Carlo trials each.
+dt=0.165. The clean case uses 10 Monte Carlo trials; nonstationarity cases use 8.
+
+**Clean signal only** (Ω_err_mean ± std, Q_err_mean ± std):
 
 | periods | N_samples | Ω_err_mean  | Ω_err_std   | Q_err_mean  | Q_err_std   |
 |--------:|----------:|------------:|------------:|------------:|------------:|
@@ -85,11 +88,33 @@ dt=0.165, 10 Monte Carlo trials each.
 |      50 |      1002 |  3.21e-13   |  1.97e-13   |  2.87e-09   |  1.68e-09   |
 |     100 |      2004 |  1.67e-13   |  1.24e-13   |  2.58e-09   |  1.25e-09   |
 
-At noise=1e-10 (double-precision integrator floor), **even 5 periods give
-Ω error ~3e-12**. The LEAN claim of 10–20 periods is more than adequate at
-this noise level. The real limiting factor for the actual engine is
-non-stationarity and the band-edge continuum tail, not noise — the table
-does not model those effects.
+**Four-case comparison** (mean Ω error and mean Q error; chirp = fractional Ω
+drift per period; drift = slow sinusoid at Ω/10, amplitude 1% of main signal):
+
+| periods | N | Ω clean | Q clean | Ω c-1e-4 | Q c-1e-4 | Ω c-1e-3 | Q c-1e-3 | Ω drift-1% | Q drift-1% |
+|--------:|---:|--------:|--------:|----------:|----------:|----------:|----------:|-----------:|-----------:|
+|       5 | 100 | 3.4e-12 | 3.8e-08 | 4.6e-04 | 7.0e-02 | 4.6e-03 | 7.2e-01 | 1.7e-04 | 3.4e-01 |
+|      10 | 200 | 1.2e-12 | 1.2e-08 | 8.9e-04 | 6.5e-02 | 8.9e-03 | 5.9e-01 | 2.1e-05 | 7.9e-01 |
+|      15 | 301 | 7.8e-13 | 8.0e-09 | 1.3e-03 | 2.0e-01 | 1.3e-02 | 1.6e+00 | 2.2e-06 | 1.4e-02 |
+|      20 | 401 | 7.3e-13 | 6.6e-09 | 1.7e-03 | 2.1e-01 | 1.7e-02 | 1.6e+00 | 4.4e-06 | 1.1e-01 |
+|      50 | 1002 | 3.1e-13 | 2.4e-09 | 3.4e-03 | 3.1e-01 | 3.3e-02 | 1.4e+00 | 1.3e-06 | 1.7e-02 |
+|     100 | 2004 | 2.1e-13 | 2.6e-09 | 4.9e-03 | 3.7e-01 | 3.9e-02 | 1.1e+00 | 1.3e-06 | 8.8e-03 |
+
+**What the new columns show (LEAN flag):**
+For the clean case, **even 5 periods give Ω error ~3e-12** — 10–20 periods is
+more than adequate. For chirp-1e-4, the Ω error is already ~4.6e-4 at 5 periods
+(dominated by the frequency drift) and grows with record length (5→100 periods:
+4.6e-4 → 4.9e-3), because longer records accumulate more chirp. For chirp-1e-3
+the errors are 10× larger still. The drift-1% case shows erratic Q errors due to
+the slow baseline interfering with the HI fit at record lengths comparable to the
+drift period (10 × T_period ≈ 33 time units); Ω errors are well below 1e-3 at
+≥15 periods once the record is long enough to resolve the drift from the main pole.
+
+**LEAN conclusion:** 10–20 periods suffice for clean signals. The binding limit
+is non-stationarity (Kerr chirp), not noise. For chirp ≥ 1e-3 per period,
+Ω errors of ~1% persist at all record lengths, independent of N; using sliding
+windows (3–5 periods each) is the correct response in that regime, not longer
+total records.
 
 ---
 
@@ -154,7 +179,7 @@ From F1 dispersion (sha1 db7a54e50815):
 | ω_T,top = 1 | 1.0 | transverse top |
 | ω_m = 2 | 2.0 | rotational sector bottom |
 | ω_rot,top = √6 | ≈ 2.4495 | rotational sector top |
-| 9% window | [√(10/3), 2] | clean stop band (bound-mode target) |
+| 9% window | [√(10/3), 2] = [1.826, 2.0] | clean stop band (bound-mode target) |
 | T1-widened | [1, 2] | includes transverse sector |
 | Rotational band | [2, √6] | rotational pass band |
 | Kill line KW | 2·Ω ∈ [2, √6] | doubled-tone check |
@@ -174,6 +199,13 @@ With k_op10 = k_refl = k_hopf = 0 and use_saturation=True (exposed as public
 attributes `cosserat_field_3d.py`:1037, :1041): the sign tests the pure
 soften-on-strain branch (a) selector and confirms DC-page Q2(i). This variant
 is supported via the runner; set them to 0 before stepping.
+
+**Shared-medium consistency check (R26.196, banked):** A falling measured tone
+(d(Ω)/d(A²) < 0) means the engine's loaded medium slows waves at higher strain,
+which is the *opposite* of the birefringence Letter's faster-light direction. A
+rising tone (d(Ω)/d(A²) > 0) matches the Letter's direction. This is a
+shared-medium consistency check only (from a room evaluation, tracker R26.196,
+which is being banked). It is not evidence on the Letter's registered test.
 
 ---
 

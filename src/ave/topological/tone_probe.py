@@ -285,7 +285,6 @@ class ToneProbe:
             omega_dot_snap[k] = omega_dot[si, sj, sk]
 
         # WRAP-UNRESOLVED: max |omega| = sqrt(wx²+wy²+wz²) per site, then max
-        mask = self._solver.mask_alive[..., None]
         omega_mag_sq = np.sum(omega ** 2, axis=-1) * self._solver.mask_alive
         omega_max = float(np.sqrt(np.max(omega_mag_sq)))
 
