@@ -5,10 +5,10 @@ PROOF-LADDER-shell-flux-zero-2026-10-06.md (FREEZE, Math ACK 2026-10-06)
 and HARNESS-PLAN-shell-flux-F1-2026-10-06.md.
 
 Gap fixes G1–G12 per RULING-shell-flux-F1-run-02fc9794-2026-10-06.md §5.
+Fix pass per FIX-BRIEF-PR1064-2026-10-07.md.
 
 USAGE (Gate harness re-check):
-    from ave.topological.cosserat_field_3d import CosseratField3D
-    import src.scripts.verify.shell_flux_f1_harness as h
+    import shell_flux_f1_harness as h
 
     # Empty-grid sanity (fast)
     result = h.run_empty_grid_sanity()
@@ -38,11 +38,6 @@ import numpy as np
 
 # ── FROZEN constants (Math ACK 2026-10-06) ───────────────────────────────────
 F_STOP: float = 1e-8          # force-stop threshold (natural units G=Gc=γ=1)
-# G1 control uses a LOOSER threshold: the K4 periodic lattice acoustic mode
-# converges gradient-descent to ~8e-7 (well below 0.1% of f0=1e-3) in ~500
-# steps but can't reach 1e-8 within MAX_ITER.  1e-6 is 0.1% of f0_norm, which
-# is sufficient for Q_norm to converge to within 1% of f0_norm.
-F_STOP_CONTROL: float = 1e-6  # G1 injected-force control force-stop threshold
 K_TOL: int = 3                # coherent worst-case multiplier (not tone k=5)
 C_TOL: float = 6e3            # float accumulation coefficient
 EPS_MACHINE: float = 2.0**-52  # double precision machine epsilon
@@ -61,28 +56,19 @@ UNTIE_CONSEC_REQUIRED: int = 3
 VACUUM_E_FLOOR_FRAC: float = 0.5
 VACUUM_OMEGA_FLOOR_FRAC: float = 0.5
 
-# G11: switch to grad-norm acceptance for u-only problems once F < this
-GRAD_NORM_SWITCH_F: float = 1e-6
-
 # Default radii for 64³ box (deep inside, R26.102 + r³-fit requirement)
 DEFAULT_RADII: Tuple[float, ...] = (12.0, 18.0, 24.0)
 
-# Cold seed amplitude (R26.196a: |ε|/ε_y ≪ 0.41, prefer <0.17–0.29)
-# amplitude_scale * sqrt(3)/2 * pi / pi = amplitude_scale * sqrt(3)/2
-# With COLD_AMPLITUDE_SCALE=0.20: peak omega / omega_yield ≈ 0.173 (proxy)
-COLD_AMPLITUDE_SCALE: float = 0.20
-
-# Threshold for |Q| > kill_ratio * tol(r_min) → KILL (operationalizes "≫")
-DEFAULT_KILL_RATIO: float = 10.0
+# Cold seed amplitude for shell-flux geometry (R=6, r=2, initialize_2_3_torus_knot_sector):
+# measured (64³ and 32³, R=6, r=2, initialize_2_3_torus_knot_sector): |eps|/eps_y = 3.6198·A
+# → A=0.05 gives 0.181 (peak x=0.0328), inside 0.17–0.29, 2.27× margin to the 0.41 fence.
+# The 3.740 map is the R=8,r=3 cold-seed geometry, not this one.
+COLD_AMPLITUDE_SCALE: float = 0.05
 
 
 class Verdict(str, Enum):
     """F1 measurement verdict."""
 
-    PASS_F1 = "PASS_F1"
-    """Legacy — superseded by RECEIPT_ONLY for self-bound knot (G10)."""
-    KILL_F1 = "KILL_F1"
-    """Legacy — unreachable for self-bound knot (translation identity, §3 of ruling)."""
     INCONCLUSIVE = "INCONCLUSIVE"
     """No force-stop; energy slope >1%/100 at stop; nonzero A + tiny Q; or drained."""
     OUT_OF_SCOPE = "OUT_OF_SCOPE"
@@ -92,7 +78,14 @@ class Verdict(str, Enum):
     Not an independent physical test. TODO: compare against σ·n surface quadrature
     (pending Math B2 — later PR)."""
     MONOPOLE_DETECTED = "MONOPOLE_DETECTED"
-    """G1: injected-force positive control — constant Φ(r) = Q (monopole geometry)."""
+    """G1: injected-force positive control — Φ(r) matches closed form −f0(1−n_c/N_c)."""
+    NO_MONOPOLE = "NO_MONOPOLE"
+    """G1: injected-force control with f0=0 — Φ < tol at all radii (vacuum baseline)."""
+    CONTROL_FAIL = "CONTROL_FAIL"
+    """G1: injected-force control result does not satisfy all monopole conditions."""
+    IDENTITY_VIOLATION = "IDENTITY_VIOLATION"
+    """G10: Φ ≥ tol at a force-stopped state — impossible by the F1 identity;
+    indicates a code/engine bug. Investigate."""
 
 
 @dataclass
@@ -112,7 +105,7 @@ class RunResult:
     """Full result for one grid configuration."""
 
     grid_desc: str
-    seed_eps_ratio: float    # proxy: amplitude_scale * sqrt(3)/2 (kept for compat)
+    seed_eps_ratio: float    # measured max |eps|/eps_y at seed time
     stop_reason: str         # "force_stop" | "max_iter" | "lr_underflow" | "untied"
     n_consec: int            # consecutive F_max < F_STOP checks at stop
     f_max: float             # measured F_max = max_alive ‖∂E/∂u‖_∞
@@ -146,8 +139,12 @@ class RunResult:
     stop_max_a2: float = float("nan")
     # G7: frozen MAX_ITER used for this run
     max_iter_used: int = MAX_ITER
-    # G12: max |∂E/∂ω| at stop
+    # G12: max |∂E/∂ω| at stop state
     max_dE_domega: float = float("nan")
+    # G8: τ and iteration tracking
+    tau_at_stop: float = float("nan")
+    iter_at_stop: int = -1
+    tau_history: list = field(default_factory=list)
 
 
 # ── Frozen tolerance ──────────────────────────────────────────────────────────
@@ -163,20 +160,50 @@ def frozen_tol(n_ball: int, f_max: float) -> float:
     return K_TOL * (n_ball * f_max + C_TOL * EPS_MACHINE * np.sqrt(n_ball))
 
 
-# ── Ball-sum Φ estimator (primary) ───────────────────────────────────────────
+# ── 4-class alive partition (12 zero modes) ───────────────────────────────────
 
-def ball_sum_phi(
+def alive_classes(engine) -> np.ndarray:
+    """Classify alive sites into 4 independently-translatable classes.
+
+    Returns int array shape (nx, ny, nz). Dead sites → -1.
+    The cf tetrahedral stencil has 4 such classes (A/B sublattice × FCC parity),
+    giving 12 translational zero modes (c7 confirmed: per-class Σ∂E/∂u ≈ 1e-15,
+    class-shift dE ≈ 0). Each class has exactly N_alive/4 sites.
+
+      A sites (i,j,k all even): class ((i+j+k)//2) % 2  → 0 or 1
+      B sites (i,j,k all odd):  class 2 + ((i+j+k−3)//2) % 2  → 2 or 3
+    """
+    i, j, k = engine._i, engine._j, engine._k
+    al = engine.mask_alive
+    classes = np.full(al.shape, -1, dtype=int)
+    A = (i % 2 == 0) & al   # mask_A ⊂ alive
+    B = (i % 2 == 1) & al   # mask_B ⊂ alive
+    classes[A] = ((i + j + k)[A] // 2) % 2
+    classes[B] = 2 + ((i + j + k - 3)[B] // 2) % 2
+    return classes
+
+
+def project_class_means(arr: np.ndarray, classes: np.ndarray) -> np.ndarray:
+    """Subtract per-class mean from arr (shape …×3) on alive sites. Dead sites → 0.
+
+    Operates in-place on a copy — returns the projected array.
+    """
+    out = arr.copy()
+    for c in range(4):
+        mask = classes == c
+        if mask.any():
+            out[mask] -= out[mask].mean(axis=0)
+    return out
+
+
+# ── Ball-mask helper ──────────────────────────────────────────────────────────
+
+def _ball_mask(
     engine,
     radius: float,
     center: Optional[Tuple[float, float, float]] = None,
-) -> Tuple[np.ndarray, int]:
-    """Primary Φ(r) estimator: Σ_{i ∈ B(r) ∩ alive} (−∂E/∂u_i) as a 3-vector.
-
-    IDW / surface quadrature = diagnostic only; not used here.
-
-    Returns (phi_vec, n_ball).
-    """
-    dE_du, _ = engine.energy_gradient()
+) -> np.ndarray:
+    """Return bool array (nx, ny, nz): alive sites within radius of center."""
     nx, ny, nz = engine.nx, engine.ny, engine.nz
     if center is None:
         cx, cy, cz = (nx - 1) / 2.0, (ny - 1) / 2.0, (nz - 1) / 2.0
@@ -186,10 +213,153 @@ def ball_sum_phi(
     y = engine._j - cy
     z = engine._k - cz
     r2 = x**2 + y**2 + z**2
-    in_ball = engine.mask_alive & (r2 <= radius**2)
-    phi_vec = np.sum(-dE_du[in_ball], axis=0)  # (3,)
+    return engine.mask_alive & (r2 <= radius**2)
+
+
+# ── Ball-sum Φ estimator (primary) ───────────────────────────────────────────
+
+def ball_sum_phi(
+    engine,
+    radius: float,
+    center: Optional[Tuple[float, float, float]] = None,
+) -> Tuple[np.ndarray, int]:
+    """Primary Φ(r) estimator: Σ_{i ∈ B(r) ∩ alive} (−∂E/∂u_i) as a 3-vector.
+
+    Returns (phi_vec, n_ball).
+    """
+    dE_du, _ = engine.energy_gradient()
+    in_ball = _ball_mask(engine, radius, center)
+    phi_vec = np.sum(-np.asarray(dE_du)[in_ball], axis=0)  # (3,)
     n_ball = int(in_ball.sum())
     return phi_vec, n_ball
+
+
+# ── λ_max estimator for the u-block Hessian ──────────────────────────────────
+
+def estimate_lambda_max_u(
+    engine,
+    n_iter: int = 30,
+    fd_eps: float = 1e-6,
+    seed: int = 0,
+) -> float:
+    """Power-iteration estimate of the largest eigenvalue of the u-block Hessian.
+
+    Uses FD Hessian-vector product (dg/du)*v ≈ (grad(u+ε·v) − grad(u)) / ε
+    with ω frozen.  Restores engine.u exactly on return.
+    Measured: 3.318 at ω=0, 3.300 at the A=0.05 seed on 32³ (c4, c8).
+    """
+    rng = np.random.default_rng(seed)
+    alive = engine.mask_alive
+    u_orig = engine.u.copy()
+
+    v = rng.standard_normal(engine.u.shape).astype(np.float64)
+    v[~alive] = 0.0
+    norm_v = np.linalg.norm(v)
+    if norm_v < 1e-30:
+        engine.u = u_orig
+        return 1.0
+    v /= norm_v
+
+    g0 = np.asarray(engine.energy_gradient()[0]).copy()
+    lam = 1.0
+    for _ in range(n_iter):
+        engine.u = u_orig + fd_eps * v
+        g1 = np.asarray(engine.energy_gradient()[0])
+        engine.u = u_orig
+        Hv = (g1 - g0) / fd_eps
+        Hv[~alive] = 0.0
+        # Rayleigh quotient
+        vv = np.dot(v.ravel(), v.ravel())
+        if vv < 1e-60:
+            break
+        lam = float(np.dot(Hv.ravel(), v.ravel()) / vv)
+        norm_Hv = np.linalg.norm(Hv)
+        if norm_Hv < 1e-30:
+            break
+        v = Hv / norm_Hv
+
+    engine.u = u_orig
+    return abs(lam)
+
+
+# ── u-only solver (B0) ────────────────────────────────────────────────────────
+
+def relax_u_only(
+    engine,
+    external_force=None,   # None or ((ci, cj, ck), f0_vec)
+    f_stop: float = F_STOP,
+    max_iter: int = MAX_ITER,
+    consec_required: int = 3,
+) -> dict:
+    """Fixed-lr u-only gradient descent with per-class projection.
+
+    lr = 1/λ_max (GD stable for lr < 2/λ_max; measured λ_max ≈ 3.3).
+    external_force: inject −f0 at site (ci,cj,ck) before projection.
+    Safeguard: lr halved when F > 2×F_min for 3 consecutive iterations.
+    Returns: stop_reason, n_consec, f_max, f_max_history, lr, lambda_max,
+             lr_halvings, n_iter, tau.
+    """
+    classes = alive_classes(engine)
+    alive = engine.mask_alive
+    lam = estimate_lambda_max_u(engine)
+    lr = 1.0 / lam
+
+    f_max_history: list = []
+    f_max = float("inf")
+    n_consec = 0
+    stop_reason = "max_iter"
+    F_min = float("inf")
+    consec_diverge = 0
+    lr_halvings = 0
+    tau = 0.0
+    n_iter = 0
+
+    for step in range(max_iter):
+        n_iter = step + 1
+        dE_du = np.asarray(engine.energy_gradient()[0])
+        g = dE_du.copy()
+        if external_force is not None:
+            (ci, cj, ck), f0_vec = external_force
+            g[ci, cj, ck] -= np.asarray(f0_vec, dtype=float)
+        gp = project_class_means(g, classes)
+        f_max = float(np.max(np.abs(gp[alive]))) if alive.any() else 0.0
+        f_max_history.append(f_max)
+
+        if f_max < f_stop:
+            n_consec += 1
+            if n_consec >= consec_required:
+                stop_reason = "force_stop"
+                break
+        else:
+            n_consec = 0
+
+        # Safeguard: halve lr if F > 2×F_min for 3 consecutive steps
+        if f_max > 2.0 * F_min and F_min < float("inf"):
+            consec_diverge += 1
+            if consec_diverge >= 3:
+                lr *= 0.5
+                lr_halvings += 1
+                consec_diverge = 0
+        else:
+            consec_diverge = 0
+        F_min = min(F_min, f_max)
+
+        engine.u = engine.u - lr * gp
+        engine.u = project_class_means(np.asarray(engine.u), classes)
+        engine._zero_outside_alive()
+        tau += lr
+
+    return {
+        "stop_reason": stop_reason,
+        "n_consec": n_consec,
+        "f_max": f_max,
+        "f_max_history": f_max_history,
+        "lr": lr,
+        "lambda_max": lam,
+        "lr_halvings": lr_halvings,
+        "n_iter": n_iter,
+        "tau": tau,
+    }
 
 
 # ── Q/A fit ──────────────────────────────────────────────────────────────────
@@ -299,14 +469,16 @@ def compute_verdict(
     A_norm: float,
     radii: Sequence[float],
     has_pins: bool = False,
-    kill_ratio: float = DEFAULT_KILL_RATIO,
-    receipt_only: bool = True,
 ) -> Tuple[Verdict, list]:
-    """Apply FROZEN kill/pass/inconclusive table.
+    """Apply FROZEN kill/pass/inconclusive table (G10: retired PASS_F1/KILL_F1).
 
-    receipt_only=True (default): PASS path returns RECEIPT_ONLY (G10 — code-identity
-    receipt; Φ=0 holds by translation identity, not an independent physical test).
-    receipt_only=False: returns legacy PASS_F1 (used by non-self-bound-knot paths).
+    Order:
+      1. pins → OUT_OF_SCOPE
+      2. no force-stop → INCONCLUSIVE
+      3. slope None or >1% → INCONCLUSIVE
+      4. G9 trap (vacuum box or drained state) → INCONCLUSIVE
+      5. all Φ(r) < tol(r) → RECEIPT_ONLY
+      6. otherwise → IDENTITY_VIOLATION (Φ≥tol is impossible at u-equilibrium)
 
     Returns (verdict, notes).
     """
@@ -346,11 +518,14 @@ def compute_verdict(
     # G9: vacuum-PASS trap
     E_seed = stop_info.get("E_seed")
     peak_omega_seed = stop_info.get("peak_omega_seed")
-    if E_seed is not None and peak_omega_seed is not None:
+    if E_seed is not None:
+        if E_seed <= 1e-12:
+            notes.append("INCONCLUSIVE: no knot seeded (vacuum box)")
+            return Verdict.INCONCLUSIVE, notes
         energy_stop = stop_info.get("energy", 0.0)
         peak_omega_stop = stop_info.get("peak_omega", 0.0)
-        e_drained = (E_seed > 0) and (energy_stop < VACUUM_E_FLOOR_FRAC * E_seed)
-        o_drained = (peak_omega_seed > 0) and (
+        e_drained = energy_stop < VACUUM_E_FLOOR_FRAC * E_seed
+        o_drained = (peak_omega_seed is not None and peak_omega_seed > 0) and (
             peak_omega_stop < VACUUM_OMEGA_FLOOR_FRAC * peak_omega_seed
         )
         if e_drained or o_drained:
@@ -358,76 +533,94 @@ def compute_verdict(
                 f"INCONCLUSIVE: drained to vacuum "
                 f"(E_stop={energy_stop:.3e} vs {VACUUM_E_FLOOR_FRAC}*E_seed={VACUUM_E_FLOOR_FRAC*E_seed:.3e}; "
                 f"peak_omega_stop={peak_omega_stop:.3e} vs "
-                f"{VACUUM_OMEGA_FLOOR_FRAC}*peak_seed={VACUUM_OMEGA_FLOOR_FRAC*peak_omega_seed:.3e})"
+                f"{VACUUM_OMEGA_FLOOR_FRAC}*peak_seed={VACUUM_OMEGA_FLOOR_FRAC*(peak_omega_seed or 0.0):.3e})"
             )
             return Verdict.INCONCLUSIVE, notes
-
-    tol_r_min = frozen_tol(ball_results[0].n_ball, f_max)
-    tol_r_max = frozen_tol(ball_results[-1].n_ball, f_max)
-    r_max = float(max(radii))
 
     all_phi_pass = all(br.passes for br in ball_results)
 
     if all_phi_pass:
-        Q_pass = Q_norm < tol_r_min
-        A_pass = A_norm * r_max**3 < tol_r_max
-        if receipt_only:
-            # G10: re-scope as code-identity receipt
-            notes.append(
-                "RECEIPT_ONLY: code-identity Φ = Σ(-dE/du) = 0 holds at all radii "
-                "(translation identity; not an independent physical test). "
-                "TODO: compare against σ·n surface quadrature — pending Math B2 (later PR)."
-            )
-            if not Q_pass:
-                notes.append(
-                    f"  Q note: |Q|={Q_norm:.3e} >= tol(r_min)={tol_r_min:.3e}"
-                )
-            if not A_pass:
-                notes.append(
-                    f"  A note: |A|r_max³={A_norm*r_max**3:.3e} >= tol(r_max)={tol_r_max:.3e}"
-                )
-            return Verdict.RECEIPT_ONLY, notes
-        else:
-            # Legacy PASS_F1 path (injected-force control, non-self-bound-knot)
-            if Q_pass and A_pass:
-                notes.append(
-                    f"clean PASS: |Φ|<tol(r) all radii, "
-                    f"|Q|={Q_norm:.3e}<tol(r_min)={tol_r_min:.3e}, "
-                    f"|A|r_max³={A_norm*r_max**3:.3e}<tol(r_max)={tol_r_max:.3e}"
-                )
-            else:
-                notes.append("primary PASS: |Φ|<tol(r) at all radii")
-                if not Q_pass:
-                    notes.append(
-                        f"clean PASS fails: |Q|={Q_norm:.3e} >= tol(r_min)={tol_r_min:.3e}"
-                    )
-                if not A_pass:
-                    notes.append(
-                        f"clean PASS fails: |A|r_max³={A_norm*r_max**3:.3e} "
-                        f">= tol(r_max)={tol_r_max:.3e}"
-                    )
-            return Verdict.PASS_F1, notes
+        notes.append(
+            "RECEIPT_ONLY: code-identity Φ = Σ(-dE/du) = 0 holds at all radii "
+            "(translation identity; not an independent physical test). "
+            "TODO: compare against σ·n surface quadrature — pending Math B2 (later PR)."
+        )
+        return Verdict.RECEIPT_ONLY, notes
 
-    # Not all phi pass: discriminate KILL vs INCONCLUSIVE
-    if Q_norm > kill_ratio * tol_r_min:
-        notes.append(
-            f"KILL: |Q|={Q_norm:.3e} > {kill_ratio}× tol(r_min)={tol_r_min:.3e}, "
-            f"no pins/drive"
-        )
-        return Verdict.KILL_F1, notes
+    notes.append(
+        "IDENTITY_VIOLATION: Φ ≥ tol at a force-stopped state is impossible by "
+        "the F1 identity: code/engine bug, investigate"
+    )
+    return Verdict.IDENTITY_VIOLATION, notes
 
-    A_r3 = A_norm * r_max**3
-    if A_r3 > tol_r_max and Q_norm < tol_r_min:
+
+# ── Control verdict (pure function, G1) ──────────────────────────────────────
+
+def control_verdict(
+    stop_reason: str,
+    phis: Sequence[np.ndarray],
+    phi_exps: Sequence[np.ndarray],
+    tols: Sequence[float],
+    f0: np.ndarray,
+) -> Tuple[Verdict, list]:
+    """Pure verdict function for the injected-force control (G1).
+
+    stop_reason != "force_stop" → INCONCLUSIVE.
+    ‖f0‖ == 0:  all ‖phi‖ < tol → NO_MONOPOLE; else CONTROL_FAIL.
+    ‖f0‖ > 0:  MONOPOLE_DETECTED iff:
+      (a) resid(r) < tol(r) for every r;
+      (b) ‖phi_exp(r_min)‖ > 10·tol(r_min)  (monopole is visible);
+      (c) dot(phi(r_min), f0) < 0  (sign is −f0).
+    Otherwise CONTROL_FAIL with note naming the failed condition.
+    """
+    notes: list = []
+    f0 = np.asarray(f0, dtype=float)
+    f0_norm = float(np.linalg.norm(f0))
+
+    if stop_reason != "force_stop":
+        notes.append(f"INCONCLUSIVE: no force-stop (stop_reason={stop_reason!r})")
+        return Verdict.INCONCLUSIVE, notes
+
+    if f0_norm == 0.0:
+        if all(float(np.linalg.norm(p)) < t for p, t in zip(phis, tols)):
+            notes.append("NO_MONOPOLE: f0=0 and all |phi| < tol (vacuum baseline)")
+            return Verdict.NO_MONOPOLE, notes
+        notes.append("CONTROL_FAIL: f0=0 but some |phi| >= tol")
+        return Verdict.CONTROL_FAIL, notes
+
+    # f0 ≠ 0: check monopole conditions
+    resids = [float(np.linalg.norm(np.asarray(p) - np.asarray(e)))
+              for p, e in zip(phis, phi_exps)]
+    tols_list = list(tols)
+    phi_exp_0 = np.asarray(phi_exps[0])
+    phi_0 = np.asarray(phis[0])
+    tol_0 = float(tols_list[0])
+
+    cond_a = all(r < t for r, t in zip(resids, tols_list))
+    cond_b = float(np.linalg.norm(phi_exp_0)) > 10.0 * tol_0
+    cond_c = float(np.dot(phi_0, f0)) < 0.0
+
+    if cond_a and cond_b and cond_c:
         notes.append(
-            f"INCONCLUSIVE: nonzero A contribution |A|r_max³={A_r3:.3e} > "
-            f"tol(r_max)={tol_r_max:.3e}, tiny Q={Q_norm:.3e} < tol(r_min)={tol_r_min:.3e}"
+            f"MONOPOLE_DETECTED: resid<tol all r, "
+            f"|phi_exp(r_min)|={np.linalg.norm(phi_exp_0):.3e} > 10*tol={10*tol_0:.3e}, "
+            f"dot(phi,f0)={np.dot(phi_0,f0):.3e} < 0"
         )
-    else:
+        return Verdict.MONOPOLE_DETECTED, notes
+
+    if not cond_a:
+        bad = [(r, t) for r, t in zip(resids, tols_list) if r >= t]
+        notes.append(f"CONTROL_FAIL: (a) resid >= tol at {len(bad)} radius(es): {bad[:3]}")
+    if not cond_b:
         notes.append(
-            f"INCONCLUSIVE: |Φ| not all < tol; |Q|={Q_norm:.3e}, "
-            f"tol(r_min)={tol_r_min:.3e}"
+            f"CONTROL_FAIL: (b) monopole not visible: "
+            f"|phi_exp(r_min)|={np.linalg.norm(phi_exp_0):.3e} <= 10*tol={10*tol_0:.3e}"
         )
-    return Verdict.INCONCLUSIVE, notes
+    if not cond_c:
+        notes.append(
+            f"CONTROL_FAIL: (c) wrong sign: dot(phi(r_min),f0)={np.dot(phi_0,f0):.3e} >= 0"
+        )
+    return Verdict.CONTROL_FAIL, notes
 
 
 # ── Force-stop relaxation loop ────────────────────────────────────────────────
@@ -439,7 +632,7 @@ def force_stop_relax(
     consec_required: int = CONSEC_REQUIRED,
     lr_init: float = 0.01,
     verbose: bool = False,
-    u_only: bool = False,       # G11: relax u only (omega frozen at zero)
+    u_only: bool = False,       # G11: delegate to relax_u_only
 ) -> dict:
     """Force-stop relaxation gate for the F1 harness.
 
@@ -447,21 +640,69 @@ def force_stop_relax(
     relax_to_ground_state on the main physics path.
 
     G2: E_history accumulates only on ACCEPTED steps.
-    G4: returns f_max_history, f_rms_history, crossing_history, lr_history, accepted.
+    G4: returns energy = total_energy() at the final state.
     G7: max_iter defaults to frozen MAX_ITER.
-    G8: untie exit requires >=UNTIE_CONSEC_REQUIRED consecutive checks below c_init.
-    G11: u_only mode switches to grad-norm acceptance once F < GRAD_NORM_SWITCH_F.
+    G8: untie exit requires >=UNTIE_CONSEC_REQUIRED consecutive checks below c_init;
+        logs τ and iter at every crossing check; returns tau_history, tau_at_stop,
+        iter_at_stop.
+    G11: u_only=True delegates entirely to relax_u_only (stable lr=1/λ_max, no
+         energy line search).
     G12: returns max_dE_domega at stop state.
-
-    Returns dict with all tracking fields.
     """
+    # G11: delegate u-only path
+    if u_only:
+        ru = relax_u_only(engine, f_stop=f_stop, max_iter=max_iter,
+                          consec_required=consec_required)
+        # Compute derived quantities from final engine state
+        alive = engine.mask_alive
+        dE_du_stop, dE_dw_stop = engine.energy_gradient()
+        dE_du_np = np.asarray(dE_du_stop)
+        dE_dw_np = np.asarray(dE_dw_stop)
+        du_alive = dE_du_np[alive]
+        dw_alive = dE_dw_np[alive]
+        f_rms = float(np.sqrt(np.sum(du_alive**2) / len(du_alive))) if len(du_alive) else 0.0
+        omega_mag = np.sqrt(np.sum(np.asarray(engine.omega)**2, axis=-1))
+        peak_omega = float(np.max(omega_mag[alive])) if alive.any() else 0.0
+        try:
+            crossings = int(engine.extract_crossing_count())
+        except Exception:
+            crossings = -1
+        max_dE_domega = float(np.max(np.abs(dw_alive))) if len(dw_alive) else 0.0
+        energy = float(engine.total_energy())
+        return {
+            "stop_reason": ru["stop_reason"],
+            "n_consec": ru["n_consec"],
+            "f_max": ru["f_max"],
+            "f_rms": f_rms,
+            "energy": energy,
+            "energy_history": [],
+            "f_max_history": ru["f_max_history"],
+            "f_rms_history": [],
+            "crossing_history": [],
+            "lr_history": [],
+            "accepted": [],
+            "crossings": crossings,
+            "peak_omega": peak_omega,
+            "tau": ru["tau"],
+            "tau_at_stop": ru["tau"],
+            "iter_at_stop": ru["n_iter"],
+            "tau_history": [],
+            "max_dE_domega": max_dE_domega,
+            "lr": ru["lr"],
+            "lambda_max": ru["lambda_max"],
+            "lr_halvings": ru["lr_halvings"],
+        }
+
+    # Full (u, ω) path
     lr = float(lr_init)
     E_history: list = []        # G2: accepted steps only
     f_max_history: list = []    # G4
     f_rms_history: list = []    # G4
-    crossing_history: list = [] # G4
+    crossing_history: list = [] # G4/G8
     lr_history: list = []       # G4
     accepted_flags: list = []   # G4
+    tau_history: list = []      # G8
+    check_iter_history: list = []  # G8
 
     n_consec = 0
     f_max_last = float("inf")
@@ -470,14 +711,15 @@ def force_stop_relax(
     c_init = -1
     c_untie_consec = 0          # G8: consecutive below-c_init checks
     tau = 0.0                   # G8: accumulated gradient-flow time Σlr
-    use_grad_norm_accept = False # G11
+    tau_at_stop = float("nan")
+    iter_at_stop = -1
 
     for step in range(max_iter):
         dE_du, dE_dw = engine.energy_gradient()
         E = float(engine.total_energy())
 
         alive = engine.mask_alive
-        du_alive = dE_du[alive]
+        du_alive = np.asarray(dE_du)[alive]
         n_alive = int(alive.sum())
 
         if n_alive > 0:
@@ -497,85 +739,63 @@ def force_stop_relax(
             n_consec += 1
             if n_consec >= consec_required:
                 stop_reason = "force_stop"
+                # G8: record tau/iter at stop before break
+                tau_at_stop = tau
+                iter_at_stop = step
                 break
         else:
             n_consec = 0
 
-        # G8: untie check with >=UNTIE_CONSEC_REQUIRED consecutive + logging
+        # G8: untie check — log at EVERY check, not just when c < c_init
         try:
             c = int(engine.extract_crossing_count())
         except Exception:
             c = -1
         crossing_history.append(c)
+        tau_history.append(tau)
+        check_iter_history.append(step)
         if step == 0:
             c_init = c
         elif c >= 0 and c_init >= 0:
             if c < c_init:
                 c_untie_consec += 1
-                # G8: always log untie readouts (crossing changes are significant)
-                print(
-                    f"  [untie] step={step} tau={tau:.4f} "
-                    f"crossings={c} (init={c_init}) consec={c_untie_consec}"
-                )
-                if c_untie_consec >= UNTIE_CONSEC_REQUIRED:
-                    stop_reason = "untied"
-                    break
             else:
                 c_untie_consec = 0
-
-        # G11: activate grad-norm acceptance for u-only problems
-        if u_only and f_max_last < GRAD_NORM_SWITCH_F:
-            use_grad_norm_accept = True
+            if verbose:
+                print(
+                    f"  [untie-check] iter={step} tau={tau:.4f} "
+                    f"crossings={c} init={c_init} consec={c_untie_consec}"
+                )
+            if c_untie_consec >= UNTIE_CONSEC_REQUIRED:
+                stop_reason = "untied"
+                tau_at_stop = tau
+                iter_at_stop = step
+                break
 
         # Gradient descent step
         noise_floor = 1e-12 * max(abs(E), 1.0)
+        u_save = engine.u.copy()
+        w_save = engine.omega.copy()
+        engine.u = np.asarray(engine.u) - lr * np.asarray(dE_du)
+        engine.omega = np.asarray(engine.omega) - lr * np.asarray(dE_dw)
+        engine._zero_outside_alive()
+        E_new = float(engine.total_energy())
 
-        if u_only:
-            u_save = engine.u.copy()
-            engine.u -= lr * dE_du
-            engine._zero_outside_alive()
-
-            if use_grad_norm_accept:
-                # G11: once in grad-norm mode, always accept (linear regime)
-                accepted_flags.append(True)
-                E_history.append(E)   # G2: accepted
-                tau += lr
-                lr = min(lr * 1.1, 1.0)
-            else:
-                E_new = float(engine.total_energy())
-                if E_new > E + noise_floor:
-                    engine.u = u_save
-                    lr *= 0.5
-                    accepted_flags.append(False)
-                    if lr < 1e-14:
-                        stop_reason = "lr_underflow"
-                        break
-                else:
-                    accepted_flags.append(True)
-                    E_history.append(E)   # G2: accepted
-                    tau += lr
-                    lr = min(lr * 1.1, 1.0)
+        if E_new > E + noise_floor:
+            engine.u = u_save
+            engine.omega = w_save
+            lr *= 0.5
+            accepted_flags.append(False)
+            if lr < 1e-14:
+                stop_reason = "lr_underflow"
+                tau_at_stop = tau
+                iter_at_stop = step
+                break
         else:
-            u_save = engine.u.copy()
-            w_save = engine.omega.copy()
-            engine.u -= lr * dE_du
-            engine.omega -= lr * dE_dw
-            engine._zero_outside_alive()
-            E_new = float(engine.total_energy())
-
-            if E_new > E + noise_floor:
-                engine.u = u_save
-                engine.omega = w_save
-                lr *= 0.5
-                accepted_flags.append(False)
-                if lr < 1e-14:
-                    stop_reason = "lr_underflow"
-                    break
-            else:
-                accepted_flags.append(True)
-                E_history.append(E)   # G2: accepted only
-                tau += lr
-                lr = min(lr * 1.1, 1.0)
+            accepted_flags.append(True)
+            E_history.append(E)   # G2: accepted only
+            tau += lr
+            lr = min(lr * 1.1, 1.0)
 
         if verbose and step % 500 == 0:
             print(
@@ -583,8 +803,11 @@ def force_stop_relax(
                 f"consec={n_consec}  lr={lr:.2e}  tau={tau:.4f}"
             )
 
+    # G4: energy = total_energy() at the final state (not E_history[-1])
+    energy_final = float(engine.total_energy())
+
     # State at stop: compute derived quantities
-    omega_mag = np.sqrt(np.sum(engine.omega**2, axis=-1))
+    omega_mag = np.sqrt(np.sum(np.asarray(engine.omega)**2, axis=-1))
     peak_omega = (
         float(np.max(omega_mag[engine.mask_alive]))
         if engine.mask_alive.any()
@@ -598,15 +821,22 @@ def force_stop_relax(
 
     # G12: max |dE/dω| at stop state
     dE_du_stop, dE_dw_stop = engine.energy_gradient()
-    dw_alive = dE_dw_stop[engine.mask_alive]
+    dw_alive = np.asarray(dE_dw_stop)[engine.mask_alive]
     max_dE_domega = float(np.max(np.abs(dw_alive))) if len(dw_alive) > 0 else 0.0
+
+    # If we stopped by force_stop or max_iter without going through the untie break
+    if tau_at_stop != tau_at_stop:  # nan
+        tau_at_stop = tau
+        iter_at_stop = max_iter - 1 if stop_reason == "max_iter" else (
+            len(f_max_history) - 1
+        )
 
     return {
         "stop_reason": stop_reason,
         "n_consec": n_consec,
         "f_max": f_max_last,
         "f_rms": f_rms_last,
-        "energy": E_history[-1] if E_history else float("nan"),
+        "energy": energy_final,
         "energy_history": E_history,
         "f_max_history": f_max_history,
         "f_rms_history": f_rms_history,
@@ -616,6 +846,9 @@ def force_stop_relax(
         "crossings": crossings,
         "peak_omega": peak_omega,
         "tau": tau,
+        "tau_at_stop": tau_at_stop,
+        "iter_at_stop": iter_at_stop,
+        "tau_history": tau_history,
         "max_dE_domega": max_dE_domega,
     }
 
@@ -626,7 +859,7 @@ def measure_shell_flux(
     engine,
     radii: Sequence[float] = DEFAULT_RADII,
     grid_desc: str = "64³ periodic",
-    amplitude_scale: float = COLD_AMPLITUDE_SCALE,
+    amplitude_scale: float = COLD_AMPLITUDE_SCALE,  # kept for API compat; unused
     max_iter: int = MAX_ITER,   # G7
     verbose: bool = False,
     has_pins: bool = False,
@@ -639,7 +872,8 @@ def measure_shell_flux(
     G3: builds platform_line after engine construction.
     G6: measures and checks seed strain fence; refuses if peak |eps|/eps_y >= 0.41.
     G9: captures E_seed and peak_omega_seed for vacuum-PASS trap.
-    G10: compute_verdict called with receipt_only=True.
+    G10: compute_verdict always returns RECEIPT_ONLY or IDENTITY_VIOLATION for
+         force-stopped states (PASS_F1/KILL_F1 retired).
 
     Returns RunResult with verdict and full log.
     """
@@ -657,7 +891,7 @@ def measure_shell_flux(
 
     # G9: capture seed values for vacuum-PASS trap
     E_seed = float(engine.total_energy())
-    omega_mag_seed = np.sqrt(np.sum(engine.omega**2, axis=-1))
+    omega_mag_seed = np.sqrt(np.sum(np.asarray(engine.omega)**2, axis=-1))
     peak_omega_seed = (
         float(np.max(omega_mag_seed[engine.mask_alive]))
         if engine.mask_alive.any()
@@ -698,17 +932,14 @@ def measure_shell_flux(
     verdict, notes = compute_verdict(
         stop_info, ball_results, Q_norm, A_norm, radii,
         has_pins=has_pins,
-        receipt_only=True,   # G10: self-bound knot → receipt only
     )
-
-    seed_eps_ratio_proxy = amplitude_scale * (np.sqrt(3.0) / 2.0)
 
     # G6: measure stop strain
     stop_eps_ratio, stop_peak_x, stop_max_a2 = _measure_strain_metrics(engine)
 
     return RunResult(
         grid_desc=grid_desc,
-        seed_eps_ratio=seed_eps_ratio_proxy,
+        seed_eps_ratio=seed_eps_ratio,  # measured (from _measure_strain_metrics)
         stop_reason=stop_info["stop_reason"],
         n_consec=stop_info["n_consec"],
         f_max=f_max,
@@ -739,6 +970,9 @@ def measure_shell_flux(
         stop_max_a2=stop_max_a2,
         max_iter_used=max_iter,
         max_dE_domega=stop_info["max_dE_domega"],
+        tau_at_stop=stop_info.get("tau_at_stop", float("nan")),
+        iter_at_stop=stop_info.get("iter_at_stop", -1),
+        tau_history=stop_info.get("tau_history", []),
     )
 
 
@@ -753,7 +987,7 @@ def make_engine_64_periodic(use_saturation: bool = True):
 def make_engine_32_periodic(use_saturation: bool = True):
     """32³ periodic box — fast convergence for unit tests (κ ≈ 104 vs 414 for 64³).
 
-    Use in G1 injected-force control tests: ~600 steps to converge vs ~2400 on 64³.
+    Use in G1 injected-force control tests: ~327 steps to converge vs ~1300 on 64³.
     NOT for production measurements (too small for DEFAULT_RADII = {12, 18, 24}).
     """
     from ave.topological.cosserat_field_3d import CosseratField3D
@@ -782,8 +1016,8 @@ def seed_cold_knot(
 ) -> None:
     """Seed a cold (2,3)-torus-knot on engine per R26.196a fence.
 
-    amplitude_scale=0.20 → peak |ω|/ω_yield ≈ 0.173 (proxy; measured fence
-    is peak |eps|/eps_y < 0.41, checked in measure_shell_flux).
+    amplitude_scale=0.05 → peak |eps|/eps_y ≈ 0.181 (measured, 32³ and 64³,
+    R=6, r=2, initialize_2_3_torus_knot_sector); inside 0.17–0.29 band.
     Hot ENV-D seeds are out of scope (may have no force-stationary point).
     """
     engine.initialize_2_3_torus_knot_sector(
@@ -793,25 +1027,32 @@ def seed_cold_knot(
 
 # ── Empty-grid sanity + identity sanity (G5) ─────────────────────────────────
 
-def run_empty_grid_sanity(radius: float = 6.0) -> dict:
+def run_empty_grid_sanity(radii: Sequence[float] = DEFAULT_RADII) -> dict:
     """G5: Empty-grid sanity using the same factory as the knot runs.
 
     Uses 64³ periodic, use_saturation=True (matching make_engine_64_periodic
-    defaults) — not the prior 16³ / sat=False shortcut.
+    defaults) at the FROZEN DEFAULT_RADII = {12, 18, 24}.
 
-    Returns dict with keys: phi_vec, phi_norm, n_ball, float_tol, passes_sanity.
+    Returns dict with keys: per_radius (list of {r, n_ball, phi_norm, float_tol,
+    passes}), passes_sanity (bool).
     """
     engine = make_engine_64_periodic(use_saturation=True)
-    phi_vec, n_ball = ball_sum_phi(engine, radius)
-    phi_norm = float(np.linalg.norm(phi_vec))
-    float_tol = K_TOL * C_TOL * EPS_MACHINE * np.sqrt(n_ball)
-    passes_sanity = phi_norm < float_tol
+    per_radius = []
+    for r in radii:
+        phi_vec, n_ball = ball_sum_phi(engine, float(r))
+        phi_norm = float(np.linalg.norm(phi_vec))
+        float_tol = K_TOL * C_TOL * EPS_MACHINE * np.sqrt(n_ball)
+        passes = phi_norm < float_tol
+        per_radius.append({
+            "r": float(r),
+            "n_ball": n_ball,
+            "phi_norm": phi_norm,
+            "float_tol": float_tol,
+            "passes": passes,
+        })
     return {
-        "phi_vec": phi_vec,
-        "phi_norm": phi_norm,
-        "n_ball": n_ball,
-        "float_tol": float_tol,
-        "passes_sanity": passes_sanity,
+        "per_radius": per_radius,
+        "passes_sanity": all(d["passes"] for d in per_radius),
     }
 
 
@@ -821,6 +1062,7 @@ def run_identity_sanity(seed: int = 0) -> dict:
     Translation invariance on a periodic grid: Σ_alive(∂E/∂u_i) = 0 to ≤1e-12.
     Zero field → zero is trivial; this tests a non-trivial random state.
     Ruling §3 measured 1e-15 at the seed and 2e-17 at the untie state (r4).
+    Per-class sums ≤1e-15 (4 classes, 12 zero modes — confirmed c7).
     """
     rng = np.random.default_rng(seed)
     engine = make_engine_64_periodic(use_saturation=True)
@@ -830,7 +1072,7 @@ def run_identity_sanity(seed: int = 0) -> dict:
     engine.omega = w_rand * engine.mask_alive[..., None]
 
     dE_du, _ = engine.energy_gradient()
-    global_sum = np.sum(dE_du[engine.mask_alive], axis=0)  # (3,)
+    global_sum = np.sum(np.asarray(dE_du)[engine.mask_alive], axis=0)  # (3,)
     global_norm = float(np.linalg.norm(global_sum))
     passes = global_norm <= 1e-12
     return {
@@ -844,33 +1086,21 @@ def run_identity_sanity(seed: int = 0) -> dict:
 
 def run_injected_force_control(
     engine,
-    f0: Tuple[float, float, float] = (0.0, 0.0, 1e-3),
+    f0: Tuple[float, float, float] = (0.0, 0.0, 1e-2),
     radii: Sequence[float] = DEFAULT_RADII,
     max_iter: int = MAX_ITER,
     verbose: bool = False,
 ) -> dict:
-    """G1: Injected-force positive control — a control that can actually fail.
+    """G1: Injected-force positive control — uses per-class projection for exact convergence.
 
-    Adds -f0 to dE_du at one alive site at the box center, relaxes u only
-    (omega=0) to centered-gradient F_max < F_STOP_CONTROL (= 1e-6, not the main
-    F_STOP = 1e-8), then ball-sums the INTERNAL -dE/du.
+    The K4 cf stencil has 4 translation-zero-mode classes (12 zero modes total).
+    With per-class projection and lr = 1/λ_max, the control reaches F < 1e-8 in
+    ~327 steps on 32³ (9 s) and Φ(r) = −f0·(1 − n_c(r)/N_c) exactly (c7).
 
-    The K4 periodic lattice has an acoustic long-wavelength mode that stalls
-    gradient descent near ~8e-7 for 32³ (never reaching 1e-8), but 8e-7 < 1e-6
-    is sufficient: Q_norm converges to within 1% of f0_norm after ~500 steps.
-
-    At u-equilibrium of (dE_du - f0·δ_center): dE_du[center] = f0, others ≈ 0.
-    Φ(r) = Σ_{i in B(r)}(-dE_du_i) = -f0 for every r enclosing the center site.
-    Q = -f0 (constant with r → monopole); A ≈ 0.
-
-    Verdict: MONOPOLE_DETECTED if |Q_norm - f0_norm| < tol and A is small,
-    confirming the harness can read a non-zero Φ answer.
-
-    Note: sign convention gives Φ = -f0 (not +f0). The monopole check is on
-    Q_norm ≈ f0_norm with A·r_max³ << Q_norm.
+    f0=(0,0,0): clean field → NO_MONOPOLE.
+    f0≠0: expects MONOPOLE_DETECTED when sign, magnitude, and closed-form match.
     """
     f0_vec = np.asarray(f0, dtype=float)
-    f0_norm = float(np.linalg.norm(f0_vec))
 
     # Find alive site closest to box center
     cx = (engine.nx - 1) / 2.0
@@ -889,88 +1119,52 @@ def run_injected_force_control(
     cj = int(j_flat[center_flat_idx])
     ck = int(k_flat[center_flat_idx])
 
-    # Reset state: u=0, omega=0 (u-only problem)
+    # Reset state: u=0, omega=0
     engine.u = np.zeros_like(engine.u)
     engine.omega = np.zeros_like(engine.omega)
 
-    lr = 0.01
-    E_history: list = []
-    f_max_last = float("inf")
-    n_consec = 0
-    stop_reason = "max_iter"
-    tau = 0.0
+    classes = alive_classes(engine)
+    alive = engine.mask_alive
+    c_inj = int(classes[ci, cj, ck])
+    N_c = int((classes == c_inj).sum())
 
-    for step in range(max_iter):
-        dE_du, _ = engine.energy_gradient()
-        E = float(engine.total_energy())
+    # Relax u-only with injected force at center
+    ru = relax_u_only(
+        engine,
+        external_force=((ci, cj, ck), f0_vec),
+        f_stop=F_STOP,
+        max_iter=max_iter,
+        consec_required=CONSEC_REQUIRED,
+    )
+    f_max_final = ru["f_max"]
+    stop_reason = ru["stop_reason"]
+    n_consec = ru["n_consec"]
 
-        # Inject: subtract f0 at center site
-        dE_du_mod = dE_du.copy()
-        dE_du_mod[ci, cj, ck] -= f0_vec
-
-        alive = engine.mask_alive
-        n_alive = int(alive.sum())
-
-        # Convergence in the mean-zero subspace (translation mode fixed by subtraction).
-        # On a periodic grid Σ(dE_du_mod) = -f0 always, so the reachable optimum has
-        # dE_du_mod[i] = -f0/N_alive for all i (uniform residual). Subtracting that mean
-        # gives a centered residual that converges to 0.
-        if n_alive > 0:
-            dE_du_mod_mean = np.mean(dE_du_mod[alive], axis=0)
-            dE_du_mod_centered = dE_du_mod.copy()
-            dE_du_mod_centered[alive] -= dE_du_mod_mean
-            f_max_last = float(np.max(np.abs(dE_du_mod_centered[alive])))
-        else:
-            dE_du_mod_centered = dE_du_mod
-            f_max_last = 0.0
-
-        if f_max_last < F_STOP_CONTROL:  # looser threshold for the G1 control
-            n_consec += 1
-            if n_consec >= CONSEC_REQUIRED:
-                stop_reason = "force_stop"
-                break
-        else:
-            n_consec = 0
-
-        # Backtrack on E_mod = E(u) - f0·u[center], not E(u).
-        # Descending dE_du_mod_centered decreases E_mod; E(u) can freely increase.
-        E_mod_before = E - float(np.dot(f0_vec, engine.u[ci, cj, ck]))
-
-        u_save = engine.u.copy()
-        engine.u -= lr * dE_du_mod_centered  # descend the centered gradient
-        engine._zero_outside_alive()
-        # Remove mean drift to stay in mean-zero subspace (fixes translation zero mode)
-        if n_alive > 0:
-            engine.u[alive] -= np.mean(engine.u[alive], axis=0)
-
-        E_new_raw = float(engine.total_energy())
-        E_mod_after = E_new_raw - float(np.dot(f0_vec, engine.u[ci, cj, ck]))
-        noise_floor = 1e-12 * max(abs(E_mod_before), 1.0)
-        if E_mod_after > E_mod_before + noise_floor:
-            engine.u = u_save
-            lr *= 0.5
-            if lr < 1e-14:
-                stop_reason = "lr_underflow"
-                break
-        else:
-            tau += lr
-            # Cap at 0.05: avoids the neutrally-stable resonance (|1 - lr·λ|=1)
-            # that occurs at lr=0.15 for the sphere-masked Cosserat Hessian
-            # (λ_max ≈ 13.3).  At lr=0.05, slowest convergence rate ≈ 0.9969/step;
-            # force-stop reachable in ~3700 steps on 32³ (≈70 seconds total).
-            lr = min(lr * 1.1, 0.05)
-            E_history.append(E_mod_before)
-
-        if verbose and step % 500 == 0:
-            print(f"  control step {step:6d}  F_max_centered={f_max_last:.3e}  lr={lr:.2e}")
+    if verbose:
+        print(
+            f"  control: stop_reason={stop_reason!r}, "
+            f"F_max={f_max_final:.3e}, steps={ru['n_iter']}, "
+            f"lr_halvings={ru['lr_halvings']}"
+        )
 
     # Ball-sum INTERNAL -dE/du (unmodified by injection)
     phi_vecs: list = []
     ball_results: list = []
+    phi_exps: list = []
+    tols: list = []
+    n_cs: list = []
+
     for r in radii:
         phi_vec, n_ball = ball_sum_phi(engine, float(r))
         phi_norm_r = float(np.linalg.norm(phi_vec))
-        tol = frozen_tol(n_ball, f_max_last)
+        tol = frozen_tol(n_ball, f_max_final)
+
+        # Closed-form expected: phi_exp(r) = -f0 * (1 - n_c(r)/N_c)
+        ball_in = _ball_mask(engine, float(r))
+        n_c_r = int((ball_in & (classes == c_inj)).sum())
+        phi_exp_r = -f0_vec * (1.0 - n_c_r / N_c)
+
+        resid = float(np.linalg.norm(phi_vec - phi_exp_r))
         ball_results.append(BallSumResult(
             radius=float(r),
             n_ball=n_ball,
@@ -980,58 +1174,48 @@ def run_injected_force_control(
             passes=(phi_norm_r < tol),
         ))
         phi_vecs.append(phi_vec)
+        phi_exps.append(phi_exp_r)
+        tols.append(tol)
+        n_cs.append(n_c_r)
 
     Q_vec, A_vec = fit_qa(radii, phi_vecs)
     Q_norm = float(np.linalg.norm(Q_vec))
     A_norm = float(np.linalg.norm(A_vec))
     r_max = float(max(radii))
 
+    verdict, verdict_notes = control_verdict(
+        stop_reason, phi_vecs, phi_exps, tols, f0_vec
+    )
+
     notes = [
-        f"injected f0={tuple(f0)}, f0_norm={f0_norm:.3e}",
-        f"stop_reason={stop_reason}, n_consec={n_consec}, F_max={f_max_last:.3e}",
-        f"center_site=({ci},{cj},{ck})",
-        f"Q_norm={Q_norm:.3e} (expected ~f0_norm={f0_norm:.3e}), "
-        f"A*r_max³={A_norm*r_max**3:.3e}",
-    ]
-
-    # Monopole verdict: Q_norm ≈ f0_norm AND A term small
-    tol_r_min = frozen_tol(ball_results[0].n_ball, f_max_last)
-    q_match = abs(Q_norm - f0_norm) < max(tol_r_min * 100, f0_norm * 0.01)
-    a_small = (A_norm * r_max**3) < Q_norm * 0.1
-
-    if stop_reason == "force_stop" and n_consec >= CONSEC_REQUIRED and q_match and a_small:
-        verdict = Verdict.MONOPOLE_DETECTED
-        notes.append(
-            f"monopole detected: |Q|={Q_norm:.3e} ≈ f0_norm={f0_norm:.3e}, "
-            f"A·r³ small ({A_norm*r_max**3:.3e})"
-        )
-    else:
-        verdict = Verdict.INCONCLUSIVE
-        if stop_reason != "force_stop":
-            notes.append(f"INCONCLUSIVE: no force-stop ({stop_reason!r})")
-        if not q_match:
-            notes.append(
-                f"INCONCLUSIVE: Q_norm={Q_norm:.3e} not near f0_norm={f0_norm:.3e}"
-            )
-        if not a_small:
-            notes.append(
-                f"INCONCLUSIVE: A·r³={A_norm*r_max**3:.3e} >= 0.1*Q_norm={Q_norm:.3e}"
-            )
+        f"injected f0={tuple(f0)}, f0_norm={float(np.linalg.norm(f0_vec)):.3e}",
+        f"stop_reason={stop_reason}, n_consec={n_consec}, F_max={f_max_final:.3e}",
+        f"center_site=({ci},{cj},{ck}), c_inj={c_inj}, N_c={N_c}",
+        f"Q_norm={Q_norm:.3e}, A*r_max³={A_norm*r_max**3:.3e}",
+    ] + verdict_notes
 
     return {
         "stop_reason": stop_reason,
         "n_consec": n_consec,
-        "f_max": f_max_last,
+        "f_max": f_max_final,
         "f0": f0,
-        "f0_norm": f0_norm,
+        "f0_vec": f0_vec,
         "Q_vec": Q_vec,
         "A_vec": A_vec,
         "Q_norm": Q_norm,
         "A_norm": A_norm,
         "ball_results": ball_results,
+        "phi_exps": phi_exps,
+        "tols": tols,
+        "n_cs": n_cs,
+        "N_c": N_c,
+        "c_inj": c_inj,
         "verdict": verdict,
         "notes": notes,
         "center_site": (ci, cj, ck),
-        "energy_history": E_history,
-        "tau": tau,
+        "f_max_history": ru["f_max_history"],
+        "lambda_max": ru["lambda_max"],
+        "lr_halvings": ru["lr_halvings"],
+        "n_iter": ru["n_iter"],
+        "tau": ru["tau"],
     }
