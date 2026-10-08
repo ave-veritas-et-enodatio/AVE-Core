@@ -610,13 +610,22 @@ test: test-tools
 	# itself instead of silently eating the whole job budget. NOT on test-engine
 	# (those are legitimately-slow sims; the gate's slowest keeper is now ~50s).
 	$(PYTEST) $(SOURCE_DIR)/tests -m "not engine_sim" -n auto --timeout=180 --timeout-method=thread \
-		--ignore=$(SOURCE_DIR)/tests/test_mass_sector_a1_port.py
+		--ignore=$(SOURCE_DIR)/tests/test_mass_sector_a1_port.py \
+		--ignore=$(SOURCE_DIR)/tests/test_tone_probe_ringdown.py
 	# Serial tail (2026-07-17): the A1-port suite transiently spikes ~340 MB; when
 	# xdist packing lands it late in the schedule it stacks on per-worker memory
 	# accumulation and the 2-core CI runner OOM-kills the worker ("node down",
 	# schedule-dependent so branch CI can red while main greens). A fresh serial
 	# process gives the spike a zero baseline; costs ~15 s.
 	$(PYTEST) $(SOURCE_DIR)/tests/test_mass_sector_a1_port.py --timeout=180 --timeout-method=thread
+	# Serial tail (2026-10-07): the tone-probe ringdown suite peaks at ~379 MB
+	# (TestRecordLengthTable / TestRecordLengthNonstationarityTable build large
+	# Hankel matrices for the 100-period record; SVD workspace spikes ~379 MB per
+	# worker). Under xdist the 2-core CI runner OOM-kills the worker when the
+	# class-scoped fixtures fire concurrently ("node down: Not properly terminated";
+	# broke main since #1062 / 918e1ad9). A fresh serial process gives each spike a
+	# zero baseline. Same pattern as the 2026-07-17 A1-port serial tail.
+	$(PYTEST) $(SOURCE_DIR)/tests/test_tone_probe_ringdown.py --timeout=180 --timeout-method=thread
 
 test-engine:
 	@echo "[Test] Running engine-simulation tests (opt-in; slow tier-1/2)..."
