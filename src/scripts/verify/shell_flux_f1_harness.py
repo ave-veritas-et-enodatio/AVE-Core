@@ -474,11 +474,12 @@ def compute_verdict(
 
     Order:
       1. pins → OUT_OF_SCOPE
-      2. no force-stop → INCONCLUSIVE
-      3. slope None or >1% → INCONCLUSIVE
-      4. G9 trap (vacuum box or drained state) → INCONCLUSIVE
-      5. all Φ(r) < tol(r) → RECEIPT_ONLY
-      6. otherwise → IDENTITY_VIOLATION (Φ≥tol is impossible at u-equilibrium)
+      2. E_seed ≤ 1e-12 → INCONCLUSIVE "no knot seeded (vacuum box)"
+      3. no force-stop → INCONCLUSIVE
+      4. slope None or >1% → INCONCLUSIVE
+      5. G9 drained state → INCONCLUSIVE
+      6. all Φ(r) < tol(r) → RECEIPT_ONLY
+      7. otherwise → IDENTITY_VIOLATION (Φ≥tol is impossible at u-equilibrium)
 
     Returns (verdict, notes).
     """
@@ -487,6 +488,14 @@ def compute_verdict(
     if has_pins:
         return Verdict.OUT_OF_SCOPE, ["pins/drive present — out of scope"]
 
+    # G9: vacuum-box check must precede force-stop / slope gates: on real runs with
+    # amplitude_scale=0 the accepted-step history is too short and the slope gate fires
+    # first, emitting the wrong label; placing this check here ensures "vacuum box" wins.
+    E_seed = stop_info.get("E_seed")
+    if E_seed is not None and E_seed <= 1e-12:
+        notes.append("INCONCLUSIVE: no knot seeded (vacuum box)")
+        return Verdict.INCONCLUSIVE, notes
+
     stop_reason = stop_info["stop_reason"]
     n_consec = stop_info["n_consec"]
     f_max = stop_info["f_max"]
@@ -494,10 +503,18 @@ def compute_verdict(
     energy_slope = _energy_slope_pct(E_hist)  # G2: Optional[float]
 
     if stop_reason != "force_stop" or n_consec < CONSEC_REQUIRED:
-        notes.append(
-            f"INCONCLUSIVE: no force-stop (stop_reason={stop_reason!r}, "
-            f"n_consec={n_consec} < {CONSEC_REQUIRED})"
-        )
+        if stop_reason == "untied":
+            iter_s = stop_info.get("iter_at_stop", -1)
+            tau_s = stop_info.get("tau_at_stop", float("nan"))
+            notes.append(
+                f"INCONCLUSIVE: untied at iter={iter_s}, tau={tau_s:.4f} "
+                f"(n_consec={n_consec})"
+            )
+        else:
+            notes.append(
+                f"INCONCLUSIVE: no force-stop (stop_reason={stop_reason!r}, "
+                f"n_consec={n_consec} < {CONSEC_REQUIRED})"
+            )
         return Verdict.INCONCLUSIVE, notes
 
     # G2: None slope → INCONCLUSIVE
@@ -515,13 +532,9 @@ def compute_verdict(
         )
         return Verdict.INCONCLUSIVE, notes
 
-    # G9: vacuum-PASS trap
-    E_seed = stop_info.get("E_seed")
+    # G9: drained-to-vacuum trap (E_seed > 1e-12 guaranteed here)
     peak_omega_seed = stop_info.get("peak_omega_seed")
     if E_seed is not None:
-        if E_seed <= 1e-12:
-            notes.append("INCONCLUSIVE: no knot seeded (vacuum box)")
-            return Verdict.INCONCLUSIVE, notes
         energy_stop = stop_info.get("energy", 0.0)
         peak_omega_stop = stop_info.get("peak_omega", 0.0)
         e_drained = energy_stop < VACUUM_E_FLOOR_FRAC * E_seed
@@ -542,7 +555,7 @@ def compute_verdict(
     if all_phi_pass:
         notes.append(
             "RECEIPT_ONLY: code-identity Φ = Σ(-dE/du) = 0 holds at all radii "
-            "(translation identity; not an independent physical test). "
+            "(per-class translation identity, 4 classes; not an independent physical test). "
             "TODO: compare against σ·n surface quadrature — pending Math B2 (later PR)."
         )
         return Verdict.RECEIPT_ONLY, notes
@@ -687,6 +700,7 @@ def force_stop_relax(
             "tau_at_stop": ru["tau"],
             "iter_at_stop": ru["n_iter"],
             "tau_history": [],
+            "check_iter_history": [],
             "max_dE_domega": max_dE_domega,
             "lr": ru["lr"],
             "lambda_max": ru["lambda_max"],
@@ -849,6 +863,7 @@ def force_stop_relax(
         "tau_at_stop": tau_at_stop,
         "iter_at_stop": iter_at_stop,
         "tau_history": tau_history,
+        "check_iter_history": check_iter_history,
         "max_dE_domega": max_dE_domega,
     }
 
@@ -859,7 +874,6 @@ def measure_shell_flux(
     engine,
     radii: Sequence[float] = DEFAULT_RADII,
     grid_desc: str = "64³ periodic",
-    amplitude_scale: float = COLD_AMPLITUDE_SCALE,  # kept for API compat; unused
     max_iter: int = MAX_ITER,   # G7
     verbose: bool = False,
     has_pins: bool = False,
@@ -1153,6 +1167,7 @@ def run_injected_force_control(
     phi_exps: list = []
     tols: list = []
     n_cs: list = []
+    resids: list = []
 
     for r in radii:
         phi_vec, n_ball = ball_sum_phi(engine, float(r))
@@ -1165,6 +1180,7 @@ def run_injected_force_control(
         phi_exp_r = -f0_vec * (1.0 - n_c_r / N_c)
 
         resid = float(np.linalg.norm(phi_vec - phi_exp_r))
+        resids.append(resid)
         ball_results.append(BallSumResult(
             radius=float(r),
             n_ball=n_ball,
@@ -1218,4 +1234,5 @@ def run_injected_force_control(
         "lr_halvings": ru["lr_halvings"],
         "n_iter": ru["n_iter"],
         "tau": ru["tau"],
+        "resids": resids,
     }

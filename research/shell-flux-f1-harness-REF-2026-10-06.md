@@ -3,8 +3,8 @@
 **Date:** 2026-10-06 (fix pass 2026-10-07)
 **Branch:** `fix/shell-flux-harness-gaps`
 **Status:** G1–G12 gap fixes applied (fix pass FIX-BRIEF-PR1064-2026-10-07.md); NO Mac run (ruling INCONCLUSIVE + F1 FREEZE SUPERSEDED)
-**Original FREEZE authority:** `~/AVE-staging/runs/shell-flux-ladder.md` (Math ACK 2026-10-06)
-**Ruling:** `~/AVE-staging/runs/RULING-shell-flux-F1-run-02fc9794-2026-10-06.md`
+**Original FREEZE authority:** `runs/shell-flux-ladder.md` (Math ACK 2026-10-06)
+**Ruling:** `runs/RULING-shell-flux-F1-run-02fc9794-2026-10-06.md`
 
 ---
 
@@ -35,12 +35,12 @@ all 12 zero modes and allows the control to reach F_STOP = 1e-8.
 |-----|-----|-----------|
 | G1 | Replaced private GD loop with `run_injected_force_control(engine, f0)` using `relax_u_only` with per-class projection. lr = 1/λ_max (λ_max(u) ≈ 3.318 at ω=0, measured c4). Reaches F_STOP = 1e-8 in ~327 steps on 32³ (9 s, c7). Expected value: exact closed form Φ(r) = −f0·(1−n_c(r)/N_c) (per-class equilibrium, c7). Verdict: MONOPOLE_DETECTED / NO_MONOPOLE / CONTROL_FAIL via pure `control_verdict()`. The "acoustic stall near 8e-7" was wrong: the floor was 3·f0/N_alive from 3 unprojected class-translation zero modes (c6); per-class projection reaches 1e-8. f0 = 1e-2 (not 1e-3). | `shell_flux_f1_harness.py: run_injected_force_control(), relax_u_only(), control_verdict(), alive_classes(), project_class_means(), _ball_mask()` |
 | G2 | `_energy_slope_pct()` returns `Optional[float]` — `None` when history < window+1 or \|E_start\| < 1e-12; `compute_verdict` None → INCONCLUSIVE; `force_stop_relax` appends to energy_history on accepted steps only | `shell_flux_f1_harness.py: _energy_slope_pct(), compute_verdict(), force_stop_relax()` |
-| G3 | `import jax; jax.config.update("jax_enable_x64", True)` at module top; `_build_platform_line(engine)` stored in `RunResult.platform_line` | `shell_flux_f1_harness.py:34-35, _build_platform_line()` |
+| G3 | `import jax; jax.config.update("jax_enable_x64", True)` at module top; `_build_platform_line(engine)` stored in `RunResult.platform_line` | `shell_flux_f1_harness.py` module top (`jax.config.update("jax_enable_x64", True)`), `_build_platform_line()` |
 | G4 | `RunResult` gains `energy_history`, `f_max_history`, `f_rms_history`, `crossing_history`, `lr_history`, `accepted` (booleans); `energy` = `total_energy()` at the final state (not E_history[-1]) | `shell_flux_f1_harness.py: RunResult dataclass, force_stop_relax()` |
 | G5 | `run_empty_grid_sanity(radii=DEFAULT_RADII)` checks all three frozen radii {12,18,24} at 64³ periodic sat=True; returns per_radius list + passes_sanity; `run_identity_sanity()` tests random (u,ω) → global Σ(∂E/∂u) = 0 to ≤1e-12 | `shell_flux_f1_harness.py: run_empty_grid_sanity(), run_identity_sanity()` |
 | G6 | `_measure_strain_metrics(engine)` computes measured max \|eps\|/eps_y, peak x, max A²; `measure_shell_flux` refuses if peak ≥ 0.41; `COLD_AMPLITUDE_SCALE=0.05` (measured 0.181 on 32³/64³, R=6/r=2, c5); `RunResult.seed_eps_ratio` = measured value; logs seed + stop metrics | `shell_flux_f1_harness.py: _measure_strain_metrics(), measure_shell_flux(), COLD_AMPLITUDE_SCALE` |
 | G7 | `MAX_ITER = 20000` frozen constant; used as default in `force_stop_relax()` and `measure_shell_flux()`; stored in `RunResult.max_iter_used` | `shell_flux_f1_harness.py: MAX_ITER constant` |
-| G8 | Untie exit requires `UNTIE_CONSEC_REQUIRED = 3` consecutive checks below c_init; logs iteration and τ at **every** crossing check (regardless of whether c < c_init) when verbose; appends `tau_history` and `check_iter_history` at every check; returns `tau_at_stop`, `iter_at_stop`, `tau_history`; RunResult gains these fields | `shell_flux_f1_harness.py: force_stop_relax() untie block` |
+| G8 | Untie exit requires `UNTIE_CONSEC_REQUIRED = 3` consecutive checks below c_init; appends `tau_history`, `crossing_history`, and `check_iter_history` at every crossing check; **τ is printed at every check only when `verbose=True`**; returns `tau_at_stop`, `iter_at_stop`, `tau_history`, `check_iter_history`; RunResult gains these fields | `shell_flux_f1_harness.py: force_stop_relax() untie block` |
 | G9 | Vacuum-PASS trap: force-stop passes require E ≥ 0.5·E_seed AND peak\|ω\| ≥ 0.5·peak_seed; otherwise INCONCLUSIVE('drained to vacuum'); explicit vacuum-box check: if E_seed ≤ 1e-12 → INCONCLUSIVE('no knot seeded (vacuum box)') | `shell_flux_f1_harness.py: compute_verdict() G9 block` |
 | G10 | Retired PASS_F1/KILL_F1 for self-bound knot. `compute_verdict` returns RECEIPT_ONLY (all Φ<tol) or IDENTITY_VIOLATION (Φ≥tol — code/engine bug). Control returns MONOPOLE_DETECTED / NO_MONOPOLE / CONTROL_FAIL. Verdicts available: RECEIPT_ONLY / IDENTITY_VIOLATION / INCONCLUSIVE / OUT_OF_SCOPE / MONOPOLE_DETECTED / NO_MONOPOLE / CONTROL_FAIL | `shell_flux_f1_harness.py: Verdict enum, compute_verdict(), control_verdict()` |
 | G11 | `force_stop_relax(u_only=True)` delegates entirely to `relax_u_only(engine, f_stop, max_iter)`. lr = 1/λ_max (λ_max(u) ≈ 3.318 at ω=0, 3.300 at A=0.05 seed, c4/c8). No energy line search, no lr growth. Safeguard: lr halved if F > 2×F_min for 3 consecutive iterations. Prior code's `lr → 1.0` switch diverged (F ≈ 0.95, c4); fixed lr converges monotonically in 465 steps on A=0.05 32³ seed (c8). | `shell_flux_f1_harness.py: relax_u_only(), force_stop_relax() u_only delegation` |
@@ -58,11 +58,11 @@ all 12 zero modes and allows the control to reach F_STOP = 1e-8.
 | Force-stop | F_max < 1e-8 on ≥3 consecutive checks | `force_stop_relax()` |
 | Energy-slope gate | >1%/100 ACCEPTED steps; None → INCONCLUSIVE | `compute_verdict(), _energy_slope_pct()` |
 | MAX_ITER | 20000 (frozen, all grids) | `MAX_ITER`, `force_stop_relax()` |
-| Early-exit | untying: ≥3 consecutive checks below c_init; τ logged at every check | `force_stop_relax()` |
+| Early-exit | untying: ≥3 consecutive checks below c_init; τ appended to `tau_history` at every check; τ **printed** only when `verbose=True` | `force_stop_relax()` |
 | Q/A fit | Φ_c(r) = Q_c + A_c·r³ per component; report always | `fit_qa()` |
 | Verdict | RECEIPT_ONLY / IDENTITY_VIOLATION / INCONCLUSIVE / OUT_OF_SCOPE | `compute_verdict()` |
 | Control verdict | MONOPOLE_DETECTED / NO_MONOPOLE / CONTROL_FAIL | `control_verdict()` |
-| Φ receipt | \|Φ\|<tol all radii → RECEIPT_ONLY (code-identity, not physical test) | `compute_verdict()` |
+| Φ receipt | \|Φ\|<tol all radii → RECEIPT_ONLY (per-class translation identity, 4 classes; not an independent physical test) | `compute_verdict()` |
 | Φ violation | \|Φ\|≥tol at force-stop → IDENTITY_VIOLATION (code/engine bug) | `compute_verdict()` |
 | Vacuum trap | E_stop < 0.5·E_seed or peak_ω < 0.5·peak_seed → INCONCLUSIVE | `compute_verdict()` G9 |
 | Vacuum box | E_seed ≤ 1e-12 → INCONCLUSIVE 'no knot seeded' | `compute_verdict()` G9 |
@@ -113,9 +113,31 @@ print(run.verdict, run.platform_line, run.notes)
 
 ```bash
 # Unit tests only (no long sim)
-PYTHONPATH=src /Users/grantlindblom/AVE-staging/AVE-Core/.venv/bin/python \
-    -m pytest src/tests/test_shell_flux_f1_harness.py -v
+PYTHONPATH=src python -m pytest src/tests/test_shell_flux_f1_harness.py -v
 ```
+
+---
+
+## Stability note (Rule-10 addendum)
+
+`relax_u_only` uses lr = 1/λ_max (λ_max ≈ 3.318 at ω=0 on 32³/64³). GD is stable for
+lr < 2/λ_max = 2/3.318 ≈ **0.603**. The code uses lr ≈ 0.302, a factor of ~2 below the
+stability limit, giving fast monotone convergence with no lr halvings (measured c4/c8).
+
+---
+
+## Rule-10 corpus-conflict table
+
+Conflicts between claims in this doc / companion docs and what the code / repro runs actually show.
+Grades: DERIVED (confirmed by repro), HARMLESS (wording only, no wrong verdict).
+
+| # | WHAT (claimed) | WHERE | Correct statement | Grade |
+|---|---|---|---|---|
+| 1 | "logs τ … at every crossing check" | REF G8 row (prior version), H force_stop_relax docstring | τ **recorded** in `tau_history` at every check; **printed** only when `verbose=True` | DERIVED |
+| 2 | "appends … `check_iter_history`" (implies returned) | REF G8 row (prior version) | Built at every check; now also returned from `force_stop_relax` (F2 fix) | DERIVED |
+| 3 | Vacuum box check unreachable from `measure_shell_flux` | H:479 docstring order (prior) | Fixed (M2): vacuum-box check now precedes slope gate; real A=0 run emits "vacuum box" note | DERIVED |
+| 4 | RECEIPT_ONLY note: "translation identity" (singular) | H (prior version) | Per-class translation identity (4 classes); fixed to "per-class translation identity, 4 classes" | HARMLESS |
+| 5 | `amplitude_scale` param in `measure_shell_flux` | H (prior version) | Unused; dropped (F5 fix) | DERIVED |
 
 ---
 

@@ -557,6 +557,16 @@ class TestVacuumPassTrap:
         assert v == Verdict.INCONCLUSIVE
         assert any("vacuum" in n.lower() for n in notes)
 
+    def test_vacuum_box_real_run_note(self):
+        """M2/G9: real amplitude_scale=0.0 run → E_seed≤1e-12 → INCONCLUSIVE 'vacuum' note
+        fires before slope gate (not 'slope unmeasurable')."""
+        from shell_flux_f1_harness import measure_shell_flux
+        engine = make_engine_32_periodic(use_saturation=True)
+        seed_cold_knot(engine, R=6, r=2, amplitude_scale=0.0)
+        result = measure_shell_flux(engine, radii=(4.0, 8.0, 12.0), max_iter=50)
+        assert result.verdict == Verdict.INCONCLUSIVE
+        assert "vacuum" in result.notes[0].lower()
+
 
 # ── G1/B1: injected-force positive control ───────────────────────────────────
 
@@ -785,6 +795,9 @@ class TestUntieTauTracking:
         assert result["stop_reason"] == "untied", (
             f"Expected untied, got {result['stop_reason']!r}"
         )
+        assert result["crossing_history"] == [3, 2, 3, 2, 2, 2]   # stop at check index 5
+        assert result["iter_at_stop"] == 5
+        assert len(result["tau_history"]) == 6
         tau_hist = result["tau_history"]
         cross_hist = result["crossing_history"]
         assert len(tau_hist) == len(cross_hist), (
