@@ -293,6 +293,29 @@ def build_pf_seed(cfg_dict: dict, n: int = None, rc: int = None) -> np.ndarray:
             "expected '_hedgehog_at' or 'rational'")
 
 
+def preflight_setup(cfg: dict, n: int = None, rc: int = None) -> dict:
+    """Build seed, alive mask, centre, and seed_sha1 for a pre-flight config.
+
+    Returns dict with keys: q0, alive, centre, seed_sha1.  Used by both
+    run_preflight and any test that needs the single seed-building path
+    without running the solver.
+
+    Centre = ((n-1)/2.0,)*3 in charge_counters.grid convention (F8 fix).
+    """
+    from ave.topological.charge_counters import bcc_alive_mask
+
+    n_use = n if n is not None else cfg['nx']
+    rc_use = rc if rc is not None else cfg['seed']['rc']
+
+    q0 = build_pf_seed(cfg, n=n_use, rc=rc_use)
+    alive = bcc_alive_mask((n_use, n_use, n_use))
+    q0[~alive] = np.array([1.0, 0.0, 0.0, 0.0])
+    seed_sha1 = hashlib.sha1(q0.tobytes()).hexdigest()
+    ctr = (n_use - 1) / 2.0
+    centre = (ctr, ctr, ctr)
+    return {'q0': q0, 'alive': alive, 'centre': centre, 'seed_sha1': seed_sha1}
+
+
 def run_preflight(cfg: dict, spec: dict, n: int = None, rc: int = None,
                   max_steps: int = None, make_solver=None) -> dict:
     """Shared pre-flight runner for P-ii, P-ii-C, R2-PF, R2-PF-C.
@@ -311,7 +334,6 @@ def run_preflight(cfg: dict, spec: dict, n: int = None, rc: int = None,
     Returns trace dict with keys: rows, seed_sha1, H0, r_eq0, t_first,
     r_first, r_eq_at_first, n_antipodal_T, T.
     """
-    from ave.topological.charge_counters import bcc_alive_mask
     from ave.topological.k4_quaternion import count_charge_k4
 
     n_use = n if n is not None else cfg['nx']
@@ -325,15 +347,12 @@ def run_preflight(cfg: dict, spec: dict, n: int = None, rc: int = None,
     k_refl_cfg = cfg['k_refl']
     rot_cfg = cfg['rotation_storage']
 
-    # Seed via build_pf_seed — the ONLY seed-building path (runner-seed anchor)
-    q0 = build_pf_seed(cfg, n=n_use, rc=rc_use)
-    alive = bcc_alive_mask((n_use, n_use, n_use))
-    q0[~alive] = np.array([1.0, 0.0, 0.0, 0.0])
-    seed_sha1 = hashlib.sha1(q0.tobytes()).hexdigest()
-
-    # Centre in charge_counters.grid convention: (n-1)/2.0 per axis
-    ctr = (n_use - 1) / 2.0
-    centre = (ctr, ctr, ctr)
+    # Seed via preflight_setup — the ONLY seed-building path (single builder anchor)
+    setup = preflight_setup(cfg, n=n_use, rc=rc_use)
+    q0 = setup['q0']
+    alive = setup['alive']
+    centre = setup['centre']
+    seed_sha1 = setup['seed_sha1']
 
     # Build solver
     if make_solver is None:
@@ -408,9 +427,10 @@ def run_preflight(cfg: dict, spec: dict, n: int = None, rc: int = None,
         'r_eq0': r_eq0,
         't_first': t_first,
         'r_first': r_first,
-        'r_eq_at_first': r_eq_at_first if r_eq_at_first is not None else 0.0,
+        'r_eq_at_first': r_eq_at_first,
         'n_antipodal_T': n_antipodal_T,
         'T': T_end,
+        'centre': centre,
     }
 
 
@@ -555,9 +575,11 @@ def aggregate_r2_periods(period_results, expected_periods=N_FULL_PERIODS,
     F4 (v5): consumes count_charge_k4 RESULT DICTS directly. Non-adapter dicts
     (those without 'resolved' key) raise TypeError — no legacy path.
 
-    R2-C (v7): if any period has collapse=True, the run verdict is "COLLAPSE"
-    (never PASS, never a count FAIL). Exception: if r14_trip_period is not None
-    and occurs before the first COLLAPSE period, the verdict is "FAIL(#14)".
+    R2-C (v7): if any period has collapse=True, verdict precedence is:
+    FAIL(#14) > FAIL (pre-collapse wrong) > COLLAPSE. Exception: if
+    r14_trip_period is not None and occurs before the first COLLAPSE period,
+    the verdict is "FAIL(#14)"; a pre-collapse resolved period with value ≠ +6
+    yields "FAIL", which outranks COLLAPSE.
 
     Verdict logic (non-COLLAPSE runs, applied to all expected_periods):
       - A RESOLVED value ≠ +6 → FAIL.
@@ -840,8 +862,8 @@ def preflight_verdict(trace: dict, spec: dict) -> dict:
     """
     reasons = []
 
-    # 0. Required key presence
-    for key in ('rows', 'H0', 't_first'):
+    # 0. Required trace key presence
+    for key in ('rows', 'H0', 'r_eq0', 't_first', 'T'):
         if key not in trace:
             reasons.append(f"missing required trace key '{key}'")
             return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
@@ -851,8 +873,17 @@ def preflight_verdict(trace: dict, spec: dict) -> dict:
         reasons.append("empty rows — no checkpoint recorded (INVALID)")
         return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
 
+    # 0b. Required per-row keys
+    _ROW_KEYS = ('t', 'step', 'N', 'resolved', 'dH', 'n_antipodal', 'r_eq')
+    for i, row in enumerate(rows):
+        for rk in _ROW_KEYS:
+            if rk not in row:
+                reasons.append(
+                    f"row {i} (t={row.get('t', '?')}): missing required row key '{rk}'")
+                return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
+
     # 1a. r_eq0 pin check
-    r_eq0 = trace.get('r_eq0', 0.0)
+    r_eq0 = trace['r_eq0']
     r_eq0_pin = spec.get('r_eq0_pin')
     r_eq0_tol = spec.get('r_eq0_tol', 0.005)
     if r_eq0_pin is not None and abs(r_eq0 - r_eq0_pin) > r_eq0_tol:
@@ -860,18 +891,16 @@ def preflight_verdict(trace: dict, spec: dict) -> dict:
             f"r_eq0={r_eq0:.4f} outside pin {r_eq0_pin}±{r_eq0_tol}")
         return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
 
-    # 1b. Spacing check: pre-bond rows at t ≤ 0.1 only
+    # 1b. Spacing check: origin + all rows at t ≤ 0.1 (pre- and post-bond)
     t_first = trace['t_first']
-    early_times = [r['t'] for r in rows
-                   if r['t'] <= 0.1 + 1e-9
-                   and (t_first is None or r['t'] < t_first - 1e-9)]
+    early_times = [0.0] + sorted(r['t'] for r in rows if r['t'] <= 0.1 + 1e-9)
     if len(early_times) >= 2:
-        early_arr = np.array(sorted(early_times))
+        early_arr = np.array(early_times)
         max_early_sp = float(np.max(np.diff(early_arr)))
         if max_early_sp > 0.005 + 1e-9:
             reasons.append(
                 f"checkpoint spacing {max_early_sp:.4f} > 0.005 at t ≤ 0.1 "
-                f"(derived from row times)")
+                f"(origin + row times; pre- and post-bond)")
             return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
 
     # 1c. Per-row pre-bond checks (N, resolved, dH)
@@ -880,17 +909,17 @@ def preflight_verdict(trace: dict, spec: dict) -> dict:
                      if t_first is None or r['t'] < t_first - 1e-9]
     for row in pre_bond_rows:
         rt = row['t']
-        if not row.get('resolved', False):
+        if not row['resolved']:
             reasons.append(
                 f"checkpoint t={rt:.5f}: UNRESOLVED — "
                 f"required resolved with N={N_exp} before any bond")
             return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
-        if N_exp is not None and row.get('N') != N_exp:
+        if N_exp is not None and row['N'] != N_exp:
             reasons.append(
-                f"checkpoint t={rt:.5f}: N={row.get('N')} ≠ N_expected={N_exp} "
+                f"checkpoint t={rt:.5f}: N={row['N']} ≠ N_expected={N_exp} "
                 f"before any bond")
             return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
-        row_dH = row.get('dH', 0.0)
+        row_dH = row['dH']
         if row_dH > 1e-3:
             reasons.append(
                 f"checkpoint t={rt:.5f}: |dH|={row_dH:.2e} > 1e-3 before any bond")
@@ -899,23 +928,32 @@ def preflight_verdict(trace: dict, spec: dict) -> dict:
     # 2 / 3. Gate verdict
     if t_first is None:
         # STABLE additionally requires rows to reach T
-        T_end = trace.get('T')
-        if T_end is not None:
-            last_t = rows[-1]['t']
-            if last_t < T_end - 1e-9:
-                reasons.append(
-                    f"STABLE requires rows to reach T={T_end:.4f}; "
-                    f"last row at t={last_t:.4f}")
-                return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
+        T_end = trace['T']
+        last_t = rows[-1]['t']
+        if last_t < T_end - 1e-9:
+            reasons.append(
+                f"STABLE requires rows to reach T={T_end:.4f}; "
+                f"last row at t={last_t:.4f}")
+            return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
         return {'gate': 'STABLE', 'a8': 'N/A', 'reasons': reasons}
+
+    # Bonded trace: require r_first, r_eq_at_first, n_antipodal_T non-None
+    for key in ('r_first', 'r_eq_at_first', 'n_antipodal_T'):
+        if key not in trace:
+            reasons.append(f"bonded trace missing required key '{key}'")
+            return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
+        if trace[key] is None:
+            reasons.append(
+                f"bonded trace: '{key}' is None but t_first is not None")
+            return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
 
     # Post-bond dH flag (log only; does not change gate or a8)
     for row in rows:
-        if row['t'] > t_first + 1e-9 and row.get('dH', 0.0) > 1e-2:
+        if row['t'] > t_first + 1e-9 and row['dH'] > 1e-2:
             reasons.append("dH>1e-2 flag")
             break
 
-    r_eq_at_first = trace.get('r_eq_at_first', 0.0)
+    r_eq_at_first = trace['r_eq_at_first']
     gate = classify_first_bond(r_eq_at_first, r_eq0)
 
     is_control = spec.get('is_control', False)
@@ -935,8 +973,8 @@ def preflight_verdict(trace: dict, spec: dict) -> dict:
 
     # Non-control: check A8 windows
     r_eq_ratio = r_eq_at_first / r_eq0 if r_eq0 > 0 else 0.0
-    r_first = trace.get('r_first')
-    n_antipodal_T = trace.get('n_antipodal_T', 0)
+    r_first = trace['r_first']
+    n_antipodal_T = trace['n_antipodal_T']
     failed = []
     for w in spec.get('windows', []):
         wn = w['name']

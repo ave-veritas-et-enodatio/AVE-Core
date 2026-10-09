@@ -1100,9 +1100,8 @@ def test_r1_2d_option_ii_dynamic():
     import sys as _sys, os as _os2
     _sys.path.insert(0, _os2.path.join(_os2.path.dirname(__file__),
                                        '..', 'scripts', 'vol_4_engineering'))
-    from ave.topological.charge_counters import bcc_alive_mask
     from ave.topological.k4_quaternion import collapse_check
-    from csk4_r2_config import build_pf_seed, make_pii_config
+    from csk4_r2_config import make_pii_config, preflight_setup
     from scripts.vol_4_engineering.csk4_r2_config import r_eq_from_q
 
     n, rc = 128, 12
@@ -1113,13 +1112,12 @@ def test_r1_2d_option_ii_dynamic():
     ckpt_gap = max(1, n_steps // 50)  # ~50 checkpoints
 
     pii_cfg = make_pii_config(control=False)
+    setup = preflight_setup(pii_cfg, n=n, rc=rc)
+    alive = setup['alive']
     cf = make_r1_solver(n)
     cf.gamma = gamma
     cf.k_op10 = k_op10
-    alive = bcc_alive_mask((n, n, n))
-    q0 = build_pf_seed(pii_cfg, n=n, rc=rc)
-    q0[~alive] = np.array([1.0, 0.0, 0.0, 0.0])
-    cf.q = q0
+    cf.q = setup['q0']
 
     H0 = cf.total_energy_k4() + cf.kinetic_energy_k4()
     re_min_all = 1.0
@@ -1234,7 +1232,7 @@ def test_r1_d_krefl1_log_only():
     dt_ladder = _dt_full if _full else _dt_full[:2]  # coarsest 2 by default
 
     T_HH = 1.8        # hedgehog primary: pre-collapse bound (collapse at t≈3.6)
-    N_RUNG_CAP = 2000  # per-rung step cap; full T=1.8 at fine dt needs Grant's GO
+    N_RUNG_CAP = 250   # per-rung step cap (2 engines × 2 rungs × 250 ≤ ~1000 steps)
     EVAL_EVERY = 50    # evaluate energy every k steps to reduce overhead
     T_CTRL = 0.05     # C∞-floor control window
     N_CTRL_CAP = 800
@@ -1274,7 +1272,16 @@ def test_r1_d_krefl1_log_only():
             n_jump = 0
             max_jump = 0.0
             max_rel = 0.0
+            _rung_t0 = _time.monotonic()
+            _truncated_inner = False
             for si in range(n_steps):
+                if (si + 1) % EVAL_EVERY == 0:
+                    if _time.monotonic() - _t_start >= WALL_BUDGET_S:
+                        print(f"[R1-D] in-loop budget reached at step {si+1} "
+                              f"mode={mode} dt={dt:.2e}")
+                        _truncated = True
+                        _truncated_inner = True
+                        break
                 cf.step(dt)
                 if (si + 1) % EVAL_EVERY == 0 or si == n_steps - 1:
                     if mode == "omega":
@@ -1287,7 +1294,10 @@ def test_r1_d_krefl1_log_only():
                     max_jump = max(max_jump, jump)
                     max_rel = max(max_rel, abs(H - H0) / max(abs(H0), 1e-30))
                     H_prev = H
+            if _truncated_inner:
+                break
 
+            rung_elapsed = _time.monotonic() - _rung_t0
             # Saturation count and min Re (end-of-rung snapshot)
             if mode == "omega":
                 oy = cf.omega_yield
@@ -1301,6 +1311,7 @@ def test_r1_d_krefl1_log_only():
                 extra = f" min_Re={min_re:.4f} sat_count={sat_count}"
 
             print(f"[R1-D hedgehog k_refl=1] {mode:10s} dt={dt:.2e} steps={n_steps} "
+                  f"elapsed={rung_elapsed:.1f}s "
                   f"max|dH/H0|={max_rel:.3e} jumps>1e-3={n_jump} "
                   f"max_step_jump={max_jump:.3e}{extra}")
 
@@ -1326,7 +1337,15 @@ def test_r1_d_krefl1_log_only():
         n_jump_c = 0
         max_jump_c = 0.0
         max_rel_c = 0.0
+        _rung_t0_c = _time.monotonic()
+        _truncated_ctrl = False
         for si_c in range(n_steps_c):
+            if (si_c + 1) % EVAL_EVERY == 0:
+                if _time.monotonic() - _t_start >= WALL_BUDGET_S:
+                    print(f"[R1-D] in-loop budget reached at ctrl step {si_c+1} "
+                          f"dt={dt:.2e}")
+                    _truncated_ctrl = True
+                    break
             cf_c.step(dt)
             if (si_c + 1) % EVAL_EVERY == 0 or si_c == n_steps_c - 1:
                 H_c = cf_c.total_energy() + cf_c.kinetic_energy()
@@ -1336,13 +1355,17 @@ def test_r1_d_krefl1_log_only():
                 max_jump_c = max(max_jump_c, jump_c)
                 max_rel_c = max(max_rel_c, abs(H_c - H0_c) / max(abs(H0_c), 1e-30))
                 H_prev_c = H_c
+        rung_elapsed_c = _time.monotonic() - _rung_t0_c
         oy_c = cf_c.omega_yield
         sat_c = int(np.sum(
             np.sum(cf_c.omega[al_c] ** 2, axis=-1) >= (1.0 - 1e-10) * oy_c ** 2
         ))
         print(f"[R1-D control   k_refl=1] omega      dt={dt:.2e} steps={n_steps_c} "
+              f"elapsed={rung_elapsed_c:.1f}s "
               f"max|dH/H0|={max_rel_c:.3e} jumps>1e-3={n_jump_c} "
               f"max_step_jump={max_jump_c:.3e} sat_count={sat_c}")
+        if _truncated_ctrl:
+            break
     print(f"[R1-D] total elapsed {_time.monotonic() - _t_start:.1f}s")
     # NO assertion: K-R18/K-R21 diagnostic record only.
 
@@ -2999,7 +3022,11 @@ def test_classify_first_bond():
 
 
 def _make_pre_rows(N_pre, dH, r_eq0, t_first):
-    """Two pre-bond checkpoint rows at t=0.005, 0.010 (before any t_first > 0.010)."""
+    """Two pre-bond checkpoint rows at t=0.005, 0.010 (before any t_first > 0.010).
+
+    Used by tests that pass custom rows= to _pii_trace. For default rows
+    (rows=None), _pii_trace generates dense rows at 0.005 intervals.
+    """
     resolved = N_pre is not None
     return [
         {'t': 0.005, 'step': 31, 'N': N_pre, 'resolved': resolved,
@@ -3014,32 +3041,36 @@ def _pii_trace(t_first=0.03, r_first=6.0, r_eq_ratio=0.98,
                rows=None, T=0.25, H0=1.0):
     """Synthetic PII trace (r_eq0 = R_EQ0_PII = 11.983) — rows-based format.
 
-    Updated for v7 preflight_verdict: uses 'rows' list, 'H0', 'T', 't_first'
-    (key always present) instead of flat pre_bond_dH_max / ckpt_spacings_early.
+    Default rows (rows=None): dense rows at 0.005 intervals 0.005..0.100,
+    marking each as pre-bond (t < t_first) or post-bond (t >= t_first).
+    For STABLE (t_first=None), a final row at T is appended.
+    This satisfies the Gap-B spacing check: [0]+rows_at_t≤0.1 have max gap ≤ 0.005.
     """
     cfg = _cfg()
     r_eq0 = cfg.R_EQ0_PII
+    _dt = 1.65e-4
 
     if rows is not None:
         r = rows
-    elif t_first is None:
-        # STABLE: rows must reach T for STABLE verdict
-        pre = _make_pre_rows(N_pre, dH, r_eq0, t_first=None)
-        r = pre + [
-            {'t': T, 'step': int(round(T / 1.65e-4)), 'N': N_pre,
-             'resolved': N_pre is not None, 'dH': dH,
-             'n_antipodal': 0, 'r_eq': r_eq0},
-        ]
     else:
-        # BREAKUP / INFALL: two pre-bond rows + one post-bond row near t_first
-        pre = _make_pre_rows(N_pre, dH, r_eq0, t_first)
-        post_t = round(t_first + max(0.001, 1.65e-4), 6)
-        post_step = int(round(post_t / 1.65e-4))
-        r = pre + [
-            {'t': post_t, 'step': post_step, 'N': None, 'resolved': False,
-             'dH': dH, 'n_antipodal': n_antipodal_T,
-             'r_eq': r_eq_ratio * r_eq0},
-        ]
+        resolved_pre = N_pre is not None
+        r = []
+        for k in range(1, 21):  # t = 0.005, 0.010, ..., 0.100
+            t = round(k * 0.005, 6)
+            step = int(round(t / _dt))
+            if t_first is None or t < t_first - 1e-9:
+                r.append({'t': t, 'step': step, 'N': N_pre,
+                          'resolved': resolved_pre, 'dH': dH,
+                          'n_antipodal': 0, 'r_eq': r_eq0})
+            else:
+                r_eq_here = r_eq_ratio * r_eq0 if abs(t - t_first) < 0.005 + 1e-9 else r_eq0
+                r.append({'t': t, 'step': step, 'N': None,
+                          'resolved': False, 'dH': dH,
+                          'n_antipodal': n_antipodal_T, 'r_eq': r_eq_here})
+        if t_first is None:
+            r.append({'t': T, 'step': int(round(T / _dt)), 'N': N_pre,
+                      'resolved': resolved_pre, 'dH': dH,
+                      'n_antipodal': 0, 'r_eq': r_eq0})
 
     return {
         'rows': r,
@@ -3486,6 +3517,166 @@ def test_preflight_runner_seed_sha1():
 
 
 # ---------------------------------------------------------------------------
+# Gap-D + Gap-C — stub-solver test: checkpoint hits, dH vs H0, t_first,
+#                 r_first, centre, N/resolved, seed_sha1 via preflight_setup
+# ---------------------------------------------------------------------------
+
+
+def test_run_preflight_stub_solver():
+    """Gap-D (also Gap-C): run_preflight via injected stub verifies all trace fields.
+
+    Stub: q setter ignores hedgehog q0 and initialises to identity field.
+    step() advances a counter; at step 5 flips site (6,6,6) → −q, creating
+    4 antipodal bonds.  Energy returns scripted (total, kinetic) by step index.
+
+    Checkpoints [2.5dt, 4dt, 7.2dt] are NOT multiples of dt=0.01.
+    First-step hits: s=3 (3dt=0.030≥0.025), s=4 (0.040≥0.040), s=8 (0.080≥0.072).
+
+    Assertions:
+      (1) 3 rows at steps 3, 4, 8 with stored checkpoint times (not s*dt)
+      (2) each row's dH == |H(step)−H0|/H0 from script (kills dH-vs-H_prev mutant)
+      (3) t_first == 5*dt (kills record-only-at-checkpoint mutant)
+      (4) r_first == sqrt(3) to 1e-9 (kills centre=n//2 mutant);
+          trace['centre'] == ((n-1)/2,)*3  (Gap-C)
+      (5) N/resolved match count_charge_k4 on actual stub q states
+      (6) seed_sha1 == preflight_setup sha1 (single builder path)
+    """
+    import sys, os as _os, math as _math
+    sys.path.insert(0, _os.path.join(_os.path.dirname(__file__),
+                                     '..', 'scripts', 'vol_4_engineering'))
+    import csk4_r2_config as cfg_mod
+    from ave.topological.charge_counters import bcc_alive_mask
+    from ave.topological.k4_quaternion import count_charge_k4
+
+    n, rc = 16, 3
+    _dt = 0.01
+    _n_steps = 10
+    _flip_step = 5   # bond appears at step 5 → t_first = 5*dt = 0.05
+    _flip_site = (6, 6, 6)  # all-even → BCC alive
+
+    _ckpts = [2.5 * _dt, 4.0 * _dt, 7.2 * _dt]
+    _cfg_stub = {
+        'nx': n, 'ny': n, 'nz': n,
+        'dt': _dt, 'n_steps': _n_steps, 't_end': _n_steps * _dt,
+        'gamma': 1.0, 'G': 1.0, 'G_c': 1.0,
+        'k_op10': 1.0, 'k_refl': 0.0, 'rotation_storage': 'quaternion',
+        'seed': {'constructor': '_hedgehog_at', 'rc': rc, 'L': 12},
+        'checkpoints': _ckpts,
+    }
+    # Scripted energy table: index = step_count at point of call
+    # H0 = total[0]+kinetic[0] = 5.0
+    # step 3: H=5.001  → dH=2e-4 (pre-bond, <1e-3)
+    # step 4: H=5.0012 → dH=2.4e-4 (pre-bond)
+    # step 8: H=5.075  → dH=1.5e-2 (post-bond, >1e-2 → dH flag)
+    _H0 = 5.0
+    _energy_by_step = {0: (4.0, 1.0), 3: (4.001, 1.0), 4: (4.0012, 1.0),
+                       8: (4.075, 1.0)}
+    _dH_expected = {3: abs(5.001 - _H0) / _H0,
+                    4: abs(5.0012 - _H0) / _H0,
+                    8: abs(5.075 - _H0) / _H0}
+
+    class _StubSolver:
+        def __init__(self, nn):
+            self._step_count = 0
+            self._q = None
+            self.gamma = None
+            self.k_op10 = None
+
+        @property
+        def q(self):
+            return self._q
+
+        @q.setter
+        def q(self, val):
+            # Ignore hedgehog q0 — use identity field for predictable bonds
+            self._q = np.zeros(val.shape, dtype=np.float64)
+            self._q[..., 0] = 1.0
+
+        def step(self, dt):
+            self._step_count += 1
+            if self._step_count == _flip_step:
+                i, j, k = _flip_site
+                self._q[i, j, k] = -self._q[i, j, k]
+
+        def total_energy_k4(self):
+            return _energy_by_step.get(self._step_count, (4.0, 1.0))[0]
+
+        def kinetic_energy_k4(self):
+            return _energy_by_step.get(self._step_count, (4.0, 1.0))[1]
+
+    _stub_spec = {'N_expected': None, 'r_eq0_pin': None,
+                  'is_control': False, 'windows': []}
+
+    trace = cfg_mod.run_preflight(
+        _cfg_stub, _stub_spec, n=n, rc=rc, max_steps=_n_steps,
+        make_solver=lambda nn: _StubSolver(nn),
+    )
+
+    # (1) Row count and checkpoint hit steps
+    assert len(trace['rows']) == 3, (
+        f"expected 3 rows (steps 3,4,8); got {len(trace['rows'])}")
+    exp_steps = [3, 4, 8]
+    for i, es in enumerate(exp_steps):
+        assert trace['rows'][i]['step'] == es, (
+            f"row {i} step={trace['rows'][i]['step']} != {es}")
+    # Row times are stored checkpoint times, not s*dt
+    assert trace['rows'][0]['t'] == pytest.approx(_ckpts[0]), "row 0 t"
+    assert trace['rows'][1]['t'] == pytest.approx(_ckpts[1]), "row 1 t"
+    assert trace['rows'][2]['t'] == pytest.approx(_ckpts[2]), "row 2 t"
+
+    # (2) dH vs H0 (not H_prev)
+    for i, s in enumerate([3, 4, 8]):
+        exp_dH = _dH_expected[s]
+        act_dH = trace['rows'][i]['dH']
+        assert abs(act_dH - exp_dH) < 1e-12, (
+            f"row {i} step {s}: dH={act_dH:.6e} != {exp_dH:.6e}")
+
+    # (3) t_first = flip_step * dt (not first checkpoint after flip)
+    assert trace['t_first'] == pytest.approx(_flip_step * _dt, abs=1e-12), (
+        f"t_first={trace['t_first']} != {_flip_step * _dt}")
+
+    # (4) r_first and centre
+    expected_centre = tuple((n - 1) / 2.0 for _ in range(3))
+    assert trace['centre'] == pytest.approx(expected_centre, abs=1e-12), (
+        f"centre={trace['centre']} != {expected_centre}")
+    # Nearest bond midpoint from (6,6,6) with offset (1,1,1): (6.5,6.5,6.5)
+    # distance from centre (7.5,7.5,7.5) = sqrt((−1)²×3) = sqrt(3)
+    expected_r_first = _math.sqrt(3)
+    assert abs(trace['r_first'] - expected_r_first) < 1e-9, (
+        f"r_first={trace['r_first']:.12f} != sqrt(3)={expected_r_first:.12f}")
+
+    # (5) N/resolved from count_charge_k4 on actual stub q states
+    alive_si = bcc_alive_mask((n, n, n))
+    q_id = np.zeros((n, n, n, 4)); q_id[..., 0] = 1.0
+    q_flip = q_id.copy(); q_flip[_flip_site] = -q_flip[_flip_site]
+    r_pre = count_charge_k4(q_id, alive_si)
+    r_post = count_charge_k4(q_flip, alive_si)
+
+    exp_N_pre = r_pre.get('value') if r_pre.get('resolved') else None
+    exp_N_post = r_post.get('value') if r_post.get('resolved') else None
+    for i, (exp_N, exp_res) in enumerate([(exp_N_pre, bool(r_pre.get('resolved'))),
+                                           (exp_N_pre, bool(r_pre.get('resolved'))),
+                                           (exp_N_post, bool(r_post.get('resolved')))]):
+        assert trace['rows'][i]['resolved'] == exp_res, (
+            f"row {i} resolved={trace['rows'][i]['resolved']} != {exp_res}")
+        assert trace['rows'][i]['N'] == exp_N, (
+            f"row {i} N={trace['rows'][i]['N']} != {exp_N}")
+
+    # n_antipodal_T = 8: 4 bonds FROM (6,6,6) to its alive tetra-neighbours,
+    # plus 4 bonds from the 4 alive sites that each have (6,6,6) as their
+    # tetra-neighbour under their respective offsets.
+    assert trace['n_antipodal_T'] == 8, (
+        f"n_antipodal_T={trace['n_antipodal_T']}, expected 8 from flip at (6,6,6)")
+    assert trace['rows'][2]['n_antipodal'] == 8, (
+        f"post-bond row n_antipodal={trace['rows'][2]['n_antipodal']}, expected 8")
+
+    # (6) seed_sha1 matches preflight_setup (single builder path)
+    exp_sha1 = cfg_mod.preflight_setup(_cfg_stub, n=n, rc=rc)['seed_sha1']
+    assert trace['seed_sha1'] == exp_sha1, (
+        f"seed_sha1 mismatch: {trace['seed_sha1']!r} != {exp_sha1!r}")
+
+
+# ---------------------------------------------------------------------------
 # §11 item 2 — per-checkpoint trace rows: N flip, UNRESOLVED, missing keys, dH row
 # ---------------------------------------------------------------------------
 
@@ -3543,20 +3734,92 @@ def test_preflight_verdict_unresolved_invalid():
 
 
 def test_preflight_verdict_missing_keys_invalid():
-    """§11 item 2(iii): missing 'rows', 'H0', or 't_first' key → INVALID.
+    """§11 item 2(iii) + Gap-A: missing required trace/row keys → INVALID.
 
-    Each missing required key independently produces INVALID.
+    Tests every required trace key ('rows','H0','r_eq0','t_first','T'), a row
+    missing 'dH', and a bonded trace with r_first=None.
+    Each missing/None independently produces INVALID.
     """
     cfg = _cfg()
     good = _pii_trace()
 
-    for key in ('rows', 'H0', 't_first'):
+    # All required trace-level keys must be present
+    for key in ('rows', 'H0', 'r_eq0', 't_first', 'T'):
         bad = {k: v for k, v in good.items() if k != key}
         out = cfg.preflight_verdict(bad, cfg.PII_SPEC)
         assert out['gate'] == 'INVALID', (
             f"missing key '{key}' must yield INVALID; got {out}")
         assert any(key in r for r in out['reasons']), (
             f"INVALID reason must mention '{key}'; got {out['reasons']}")
+
+    # Row missing 'dH' → INVALID
+    r_eq0 = cfg.R_EQ0_PII
+    row_no_dh = {'t': 0.005, 'step': 31, 'N': 1, 'resolved': True,
+                 'n_antipodal': 0, 'r_eq': r_eq0}  # 'dH' absent
+    trace_bad_row = _pii_trace(rows=[row_no_dh,
+                                     {'t': 0.010, 'step': 62, 'N': 1,
+                                      'resolved': True, 'dH': 1e-5,
+                                      'n_antipodal': 0, 'r_eq': r_eq0}])
+    out_row = cfg.preflight_verdict(trace_bad_row, cfg.PII_SPEC)
+    assert out_row['gate'] == 'INVALID', (
+        f"row missing 'dH' must yield INVALID; got {out_row}")
+    assert any('dH' in r for r in out_row['reasons']), (
+        f"reason must mention 'dH'; got {out_row['reasons']}")
+
+    # Bonded trace with r_first=None → INVALID
+    trace_rfirst_none = dict(_pii_trace(t_first=0.03), r_first=None)
+    out_rf = cfg.preflight_verdict(trace_rfirst_none, cfg.PII_SPEC)
+    assert out_rf['gate'] == 'INVALID', (
+        f"bonded trace with r_first=None must yield INVALID; got {out_rf}")
+    assert any('r_first' in r for r in out_rf['reasons']), (
+        f"reason must mention 'r_first'; got {out_rf['reasons']}")
+
+
+def test_preflight_verdict_spacing_from_origin_invalid():
+    """Gap-B(i): first row at 0.02 → gap from origin 0.02 > 0.005 → INVALID."""
+    cfg = _cfg()
+    r_eq0 = cfg.R_EQ0_PII
+    # Single pre-bond row at t=0.02; origin is implicitly 0 → gap=0.02
+    rows_sparse = [
+        {'t': 0.020, 'step': 121, 'N': 1, 'resolved': True,
+         'dH': 1e-5, 'n_antipodal': 0, 'r_eq': r_eq0},
+        {'t': 0.025, 'step': 152, 'N': 1, 'resolved': True,
+         'dH': 1e-5, 'n_antipodal': 0, 'r_eq': r_eq0},
+    ]
+    trace = _pii_trace(t_first=None, rows=rows_sparse + [
+        {'t': 0.25, 'step': 1516, 'N': 1, 'resolved': True,
+         'dH': 1e-5, 'n_antipodal': 0, 'r_eq': r_eq0}
+    ])
+    out = cfg.preflight_verdict(trace, cfg.PII_SPEC)
+    assert out['gate'] == 'INVALID', (
+        f"first row at 0.02 (gap 0.02 from origin) must yield INVALID; got {out}")
+    assert any('spacing' in r or '0.02' in r or '0.020' in r
+               for r in out['reasons']), (
+        f"reason must mention spacing; got {out['reasons']}")
+
+
+def test_preflight_verdict_spacing_post_bond_invalid():
+    """Gap-B(ii): coarse gap after bond but at t ≤ 0.1 → INVALID.
+
+    Rows at 0.005..0.025 (pre-bond), then post-bond row at 0.060 — gap 0.035.
+    """
+    cfg = _cfg()
+    r_eq0 = cfg.R_EQ0_PII
+    pre = [
+        {'t': round(k * 0.005, 6), 'step': k * 31, 'N': 1, 'resolved': True,
+         'dH': 1e-5, 'n_antipodal': 0, 'r_eq': r_eq0}
+        for k in range(1, 6)  # 0.005..0.025
+    ]
+    post = [
+        {'t': 0.060, 'step': 364, 'N': None, 'resolved': False,
+         'dH': 1e-5, 'n_antipodal': 3, 'r_eq': r_eq0 * 0.98},
+    ]
+    trace = _pii_trace(t_first=0.030, rows=pre + post)
+    out = cfg.preflight_verdict(trace, cfg.PII_SPEC)
+    assert out['gate'] == 'INVALID', (
+        f"post-bond gap 0.025→0.060=0.035 > 0.005 must yield INVALID; got {out}")
+    assert any('spacing' in r for r in out['reasons']), (
+        f"reason must mention spacing; got {out['reasons']}")
 
 
 def test_preflight_verdict_dh_row_invalid():
