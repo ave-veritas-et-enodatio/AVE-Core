@@ -716,6 +716,7 @@ def test_r1_2e_collapse_detector():
     cf.q = hedgehog(n, rc).copy()
     cf.q[~cf.mask_alive] = np.array([1.0, 0.0, 0.0, 0.0])
     alive = bcc_alive_mask((n, n, n))
+    r_eq0 = r_eq_from_q(cf.q, alive)  # t=0 reference (corrected for BCC density)
 
     dt = cf.cfl_dt / 2.0
     n_steps = int(np.ceil(2.0 * np.pi / dt))
@@ -743,15 +744,17 @@ def test_r1_2e_collapse_detector():
             if collapse_flagged:
                 post_ckpt_states.append((t_step, cf.q.copy()))
 
-    print(f"[R1-2e] t_first={t_first:.4f} r_eq_at_first={r_eq_at_first:.3f} "
+    # (a) early guard: M1 (disable detector) must trip here before any t_first formatting
+    assert t_first is not None, (
+        "R1-2e (a): collapse flag never fired over T=2π; expected t_first ≈ 3.605")
+
+    print(f"[R1-2e] r_eq0={r_eq0:.3f} t_first={t_first:.4f} r_eq_at_first={r_eq_at_first:.3f} "
           f"n_checkpoints={len(rows)} post_collapse_ckpts={len(post_ckpt_states)}")
     print("[R1-2e] checkpoints (t, outcome, value):")
     for row in rows:
         print("  ", row)
 
-    # (a) collapse flag fires in [3.4, 3.8]
-    assert t_first is not None, (
-        "R1-2e (a): collapse flag never fired over T=2π; expected t_first ≈ 3.605")
+    # (a) collapse flag fires in [3.4, 3.8] — not-None asserted above
     assert 3.4 <= t_first <= 3.8, (
         f"R1-2e (a): t_first={t_first:.3f} outside [3.4, 3.8] (Gate: 3.605)")
 
@@ -1140,68 +1143,123 @@ def test_r1_2d_option_ii_dynamic():
 
 @pytest.mark.engine_sim
 def test_r1_d_krefl1_log_only():
-    """R1-D (v5, LOG-ONLY): hedgehog at k_refl=1 on BOTH engines, dt ladder.
+    """R1-D (v6, LOG-ONLY): hedgehog(48,6) at k_refl=1 on BOTH engines, dt ladder.
 
-    K-R21 record (dated 2026-10-09). The four former k_refl=1 ASSERTING tests
-    (hedgehog_n1_dynamic_unit, dt_stability, q_reaches_minus1, reflection_
-    nonconservative) are merged here as a NON-ASSERTING diagnostic: at k_refl=1
+    K-R18/K-R21 record (dated 2026-10-09). Primary case: hedgehog(48,6), k_refl=1
+    (constructor default), T≤1.8 (pre-collapse), ω-engine and K4-engine. At k_refl=1
     the reflection regulator W_refl ∝ 1/(S²+ε) is near-singular at the hedgehog
-    core, so energy is not conserved at any CI-affordable dt (K-R18). Pinning a
-    particular dH/H0 magnitude was brittle; this logs the raw behavior instead
-    and asserts NOTHING in either direction about k_refl=1 conservation.
+    core, so energy is not conserved at any CI-affordable dt (K-R18). This logs the
+    raw behavior; asserts NOTHING in either direction about k_refl=1 conservation.
 
-    Logs per-step H, count+size of single-step jumps > 1e-3·H0, max|dH/H0|, and
-    the count of alive sites saturated (A²≥1−1e-10) for ω and K4 engines, over a
-    3-point dt subset [2e-4, 5e-5, 1.25e-5] of the full ladder (2e-4 → 3.125e-6).
-    Marked engine_sim (opt-in): 3 dt × 2 engines × up-to-800 steps on a 24³ grid
-    is too slow for the default CI lane; the full 7-point ladder needs a Grant GO.
+    The full 7-rung ladder at T=1.8 per rung needs Grant's GO; by default each rung
+    is capped at 2000 steps (T≈0.4 at dt=2e-4). C∞-floor control: smooth sine field
+    (n=24, k_refl=1, ω-engine), logged alongside at the same dt ladder, T=0.05/rung.
+
+    dt ladder: 2e-4, 1e-4, 5e-5, 2.5e-5, 1.25e-5, 6.25e-6, 3.125e-6.
+    Optional fine rung: 7.8e-7 behind R1D_FINE=1.
+
+    Marked engine_sim (opt-in): deselected by -m "not engine_sim".
     """
-    n = 24
-    x = np.arange(n)
-    X, Y, _Z = np.meshgrid(x, x, x, indexing="ij")
-    ax = np.array([1.0, 2.0, 3.0]) / np.sqrt(14.0)
-    amp = 1.5  # near-saturation (the K-R18 regime)
-    dt_ladder = [2e-4, 5e-5, 1.25e-5]
+    from ave.topological.charge_counters import hedgehog, bcc_alive_mask
 
-    def get_H(cf, mode):
-        if mode == "omega":
-            return cf.total_energy() + cf.kinetic_energy()
-        return cf.total_energy_k4() + cf.kinetic_energy_k4()
+    dt_ladder = [2e-4, 1e-4, 5e-5, 2.5e-5, 1.25e-5, 6.25e-6, 3.125e-6]
+    if os.environ.get("R1D_FINE", "0") == "1":
+        dt_ladder.append(7.8e-7)
 
+    T_HH = 1.8        # hedgehog primary: pre-collapse bound (collapse at t≈3.6)
+    N_RUNG_CAP = 2000  # per-rung step cap; full T=1.8 at fine dt needs Grant's GO
+    T_CTRL = 0.05     # C∞-floor control window
+    N_CTRL_CAP = 800
+
+    n_hh, rc_hh = 48, 6
+    q_hh = hedgehog(n_hh, rc_hh).copy()
+    alive_hh = bcc_alive_mask((n_hh, n_hh, n_hh))
+
+    # ── PRIMARY: hedgehog(48,6) at k_refl=1, ω and K4 ──────────────────────
     for mode in ("omega", "quaternion"):
         for dt in dt_ladder:
-            th = amp * np.sin(2 * np.pi * X / n) * np.cos(2 * np.pi * Y / n)
-            cf = CosseratField3D(n, n, n, rotation_storage=mode,
+            n_steps = min(int(round(T_HH / dt)), N_RUNG_CAP)
+            cf = CosseratField3D(n_hh, n_hh, n_hh, rotation_storage=mode,
                                  pml_thickness=0, damping_gamma=0.0)  # k_refl=1 default
             al = cf.mask_alive
             if mode == "omega":
-                cf.omega = (-th[..., None] * ax) * al[..., None]
+                # short-arc ω representation of hedgehog (|ω|→0 at core, |ω|→π at rc)
+                cf.omega = omega_eng_from_q(q_hh).copy()
+                cf.omega[~al] = np.zeros(3)
+                H0 = cf.total_energy() + cf.kinetic_energy()
             else:
-                q = np.zeros((n, n, n, 4))
-                q[..., 0] = np.cos(th / 2.0)
-                q[..., 1:] = np.sin(th / 2.0)[..., None] * ax
-                q[~al] = np.array([1.0, 0.0, 0.0, 0.0])
-                cf.q = q
-            H0 = get_H(cf, mode)
-            n_steps = min(int(round(0.05 / dt)), 800)
+                cf.q = q_hh.copy()
+                cf.q[~al] = np.array([1.0, 0.0, 0.0, 0.0])
+                H0 = cf.total_energy_k4() + cf.kinetic_energy_k4()
+
             H_prev = H0
             n_jump = 0
             max_jump = 0.0
             max_rel = 0.0
             for _ in range(n_steps):
                 cf.step(dt)
-                H = get_H(cf, mode)
+                if mode == "omega":
+                    H = cf.total_energy() + cf.kinetic_energy()
+                else:
+                    H = cf.total_energy_k4() + cf.kinetic_energy_k4()
                 jump = abs(H - H_prev) / max(abs(H0), 1e-30)
                 if jump > 1e-3:
                     n_jump += 1
                 max_jump = max(max_jump, jump)
                 max_rel = max(max_rel, abs(H - H0) / max(abs(H0), 1e-30))
                 H_prev = H
-            # Saturation count A² ≥ 1−1e-10 (ω only; K4 field is on the sphere).
-            print(f"[R1-D k_refl=1] {mode:10s} dt={dt:.2e} steps={n_steps} "
+
+            # Saturation count and min Re (end-of-rung snapshot)
+            if mode == "omega":
+                oy = cf.omega_yield
+                sat_count = int(np.sum(
+                    np.sum(cf.omega[al] ** 2, axis=-1) >= (1.0 - 1e-10) * oy ** 2
+                ))
+                extra = f" sat_count={sat_count}"
+            else:
+                sat_count = int(np.sum(cf.q[al, 0] ** 2 < 1e-10))
+                min_re = _bond_re_min(cf.q, al)
+                extra = f" min_Re={min_re:.4f} sat_count={sat_count}"
+
+            print(f"[R1-D hedgehog k_refl=1] {mode:10s} dt={dt:.2e} steps={n_steps} "
                   f"max|dH/H0|={max_rel:.3e} jumps>1e-3={n_jump} "
-                  f"max_step_jump={max_jump:.3e}")
-    # NO assertion: this is a K-R18/K-R21 diagnostic record only.
+                  f"max_step_jump={max_jump:.3e}{extra}")
+
+    # ── C∞-floor CONTROL: smooth sine field (n=24, k_refl=1, ω-engine) ──────
+    n_ctrl = 24
+    x_ctrl = np.arange(n_ctrl)
+    X_ctrl, Y_ctrl, _Z_ctrl = np.meshgrid(x_ctrl, x_ctrl, x_ctrl, indexing="ij")
+    ax_ctrl = np.array([1.0, 2.0, 3.0]) / np.sqrt(14.0)
+    amp_ctrl = 1.5  # near-saturation
+    for dt in dt_ladder:
+        n_steps_c = min(int(round(T_CTRL / dt)), N_CTRL_CAP)
+        th = amp_ctrl * np.sin(2 * np.pi * X_ctrl / n_ctrl) * np.cos(2 * np.pi * Y_ctrl / n_ctrl)
+        cf_c = CosseratField3D(n_ctrl, n_ctrl, n_ctrl, rotation_storage="omega",
+                               pml_thickness=0, damping_gamma=0.0)  # k_refl=1 default
+        al_c = cf_c.mask_alive
+        cf_c.omega = (-th[..., None] * ax_ctrl) * al_c[..., None]
+        H0_c = cf_c.total_energy() + cf_c.kinetic_energy()
+        H_prev_c = H0_c
+        n_jump_c = 0
+        max_jump_c = 0.0
+        max_rel_c = 0.0
+        for _ in range(n_steps_c):
+            cf_c.step(dt)
+            H_c = cf_c.total_energy() + cf_c.kinetic_energy()
+            jump_c = abs(H_c - H_prev_c) / max(abs(H0_c), 1e-30)
+            if jump_c > 1e-3:
+                n_jump_c += 1
+            max_jump_c = max(max_jump_c, jump_c)
+            max_rel_c = max(max_rel_c, abs(H_c - H0_c) / max(abs(H0_c), 1e-30))
+            H_prev_c = H_c
+        oy_c = cf_c.omega_yield
+        sat_c = int(np.sum(
+            np.sum(cf_c.omega[al_c] ** 2, axis=-1) >= (1.0 - 1e-10) * oy_c ** 2
+        ))
+        print(f"[R1-D control   k_refl=1] omega      dt={dt:.2e} steps={n_steps_c} "
+              f"max|dH/H0|={max_rel_c:.3e} jumps>1e-3={n_jump_c} "
+              f"max_step_jump={max_jump_c:.3e} sat_count={sat_c}")
+    # NO assertion: K-R18/K-R21 diagnostic record only.
 
 
 @pytest.mark.skipif(not LARGE, reason="Deferred: needs RUN_K4_LARGE=1 (Grant GO)")
@@ -2637,6 +2695,32 @@ def test_r2_period_collapse_size_ratio():
     assert not period_collapse(q, alive, r_eq0_ok), (
         f"size ratio r_eq/r_eq0={r_eq_now/r_eq0_ok:.3f} > 0.54 "
         f"should not trigger period_collapse")
+
+
+def test_r_eq_from_q_hedgehog_calibration():
+    """Item 1 (v6): r_eq_from_q(hedgehog(48,6)) matches the initial core radius rc=6.
+
+    With BCC density correction (n_cells/n_alive ≈ 4), the equivalent radius of
+    the q0<0 core region should reproduce the geometric core radius rc=6 to ±10%.
+    Gate value: r_eq0 ≈ 6.0 for hedgehog(48,6).  Prints r_eq0 for comparison.
+    """
+    import sys, os as _os
+    sys.path.insert(0, _os.path.join(_os.path.dirname(__file__),
+                                     '..', 'scripts', 'vol_4_engineering'))
+    from csk4_r2_config import r_eq_from_q
+    from ave.topological.charge_counters import hedgehog, bcc_alive_mask
+
+    n, rc = 48, 6
+    q = hedgehog(n, rc).copy()
+    alive = bcc_alive_mask((n, n, n))
+    q[~alive] = np.array([1.0, 0.0, 0.0, 0.0])
+
+    r_eq0 = r_eq_from_q(q, alive)
+    print(f"[r_eq calibration] r_eq_from_q(hedgehog(48,6)) = {r_eq0:.3f}  "
+          f"(Gate: ≈6.0, rc={rc})")
+    assert 0.9 * rc <= r_eq0 <= 1.1 * rc, (
+        f"r_eq_from_q(hedgehog(48,6)) = {r_eq0:.3f} outside ±10% of rc={rc}: "
+        f"expected [{0.9*rc:.1f}, {1.1*rc:.1f}]; BCC density correction not applied?")
 
 
 def test_r2_agg_later_periods_excluded():

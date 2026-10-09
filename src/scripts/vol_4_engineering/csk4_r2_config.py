@@ -183,14 +183,22 @@ def make_r2_pf_config() -> dict:
     }
 
 
-def r_eq_from_q(q: np.ndarray, mask_alive: np.ndarray) -> float:
+def r_eq_from_q(q: np.ndarray, mask_alive: np.ndarray, dx: float = 1.0) -> float:
     """Equivalent radius of the q0<0 core region (shared with period_collapse).
 
-    Returns (3·n_q0neg / (4π))^(1/3) where n_q0neg = number of alive sites
-    with q[...,0] < 0.  Same definition as R1-2e's r_eq_at_first computation.
+    Accounts for BCC alive density: the true core volume is
+    n_q0neg × (n_cells/n_alive) × dx³, where n_cells = mask_alive.size and
+    n_alive = mask_alive.sum().  For a BCC lattice n_cells/n_alive ≈ 4, so r_eq
+    is 4^(1/3) ≈ 1.587× larger than the naive count (Gate: r_eq0 ≈ 6.0 for
+    hedgehog(48,6), r_eq(t_first) ≈ 2.1).
     """
     n_q0neg = int(np.sum(q[mask_alive, 0] < 0))
-    return float((3.0 * n_q0neg / (4.0 * np.pi)) ** (1.0 / 3.0))
+    n_cells = int(mask_alive.size)
+    n_alive = int(np.sum(mask_alive))
+    if n_alive == 0:
+        return 0.0
+    volume = n_q0neg * (n_cells / n_alive) * (dx ** 3)
+    return float((3.0 * volume / (4.0 * np.pi)) ** (1.0 / 3.0))
 
 
 def period_collapse(q: np.ndarray, mask_alive: np.ndarray,
