@@ -2430,14 +2430,12 @@ class CosseratField3D:
         """Topological Hopf invariant Q_H from the Cosserat ω field.
 
         Uses the existing `_hopf_density` (A·B/2 Chern-Simons density).
-        Integrating it over space gives 8π² = (1/8π²)∫A·B; LOG-ONLY: returns 2·Q_H on a
-        dense full-sweep, ≈Q_H/8 on alive storage; divide by 2 if used; never a verdict.
+        Integrating gives 8π²·Q_H; returns (1/8π²)∫A·B = 2·Q_H dense / ≈deg/8 alive. LOG-ONLY.
 
-        Returns a REAL number (not integer-discretized); robust to small
-        field perturbations. For (2,3)-torus-knot axial (dense full-sweep), returns →12;
-        for alive storage ≈deg/8; for
-        vacuum, Q_H = 0; for pair-creation, total Q_H should remain near 0
-        (e+ and e− contribute opposite signs to the regional sum).
+        Returns a REAL number (not integer-discretized). Today's (2,3) seed
+        (initialize_electron_2_3_sector) is degree 0 → reads ≈0; axial full-sweep deg 6
+        → reads →12 dense / ≈deg/8 alive (KTL §5 #1–2; Rule-10 row 7). Divide by 2 if used;
+        never a verdict. Vacuum Q_H = 0; pair-creation total Q_H should remain near 0.
         """
         w_j = jnp.asarray(self.omega)
         rho = _hopf_density(w_j, self.dx)

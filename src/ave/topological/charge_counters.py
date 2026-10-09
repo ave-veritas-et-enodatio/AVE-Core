@@ -109,9 +109,11 @@ def hedgehog(n, rc, mirror=False):
     return np.stack([np.cos(f), X / rr * s, (-Y if mirror else Y) / rr * s, Z / rr * s], -1)
 
 
-def rational(n, rc, p=2, qq=3, embed=embed_ktl, mirror=False, zsign=-1):
+def rational(n, rc, p=2, qq=3, embed=embed_ktl, mirror=False, zsign=-1,
+             return_fields=False):
     """Rational map of degree p·qq. (p=2, qq=3) → degree +6 axial seed.
-    Uses KTL embedding by default; zsign=-1 per §0 orientation."""
+    Uses KTL embedding by default; zsign=-1 per §0 orientation.
+    return_fields=True: returns (q, A0, A1) for projection_check gate."""
     X, Y, Z, r = grid(n)
     f = profile(r, rc, n / 2.0)
     Z0, Z1 = Zmap(X, Y, Z, r, f, zsign)
@@ -120,12 +122,17 @@ def rational(n, rc, p=2, qq=3, embed=embed_ktl, mirror=False, zsign=-1):
     A1 = Z1 ** p
     A0 = Z0 ** qq
     N = np.sqrt(np.abs(A0) ** 2 + np.abs(A1) ** 2)
-    return embed(A0 / N, A1 / N)
+    A0n, A1n = A0 / N, A1 / N
+    q = embed(A0n, A1n)
+    if return_fields:
+        return q, A0n, A1n
+    return q
 
 
-def cold_control(n, rc):
+def cold_control(n, rc, return_fields=False):
     """C0-cold degree-0 control (spec A2.4): same (2,3) structure, f(0)=0.
-    f = 0.04·4s²/(1+s²)², s=r/rc. C-det ≈ 0; degree = 0 exactly."""
+    f = 0.04·4s²/(1+s²)², s=r/rc. C-det ≈ 0; degree = 0 exactly.
+    return_fields=True: returns (q, A0, A1) for projection_check gate."""
     X, Y, Z, r = grid(n)
     s_r = r / rc
     f = 0.04 * 4 * s_r ** 2 / (1 + s_r ** 2) ** 2
@@ -134,7 +141,11 @@ def cold_control(n, rc):
     A1 = Z1 ** 2
     N = np.sqrt(np.abs(A0) ** 2 + np.abs(A1) ** 2)
     N = np.where(N > 1e-10, N, 1.0)
-    return embed_ktl(A0 / N, A1 / N)
+    A0n, A1n = A0 / N, A1 / N
+    q = embed_ktl(A0n, A1n)
+    if return_fields:
+        return q, A0n, A1n
+    return q
 
 
 def _qmul(a, b):
@@ -675,30 +686,21 @@ def c_link(n, nstars, h=1.0, tets=None, s=1):
 
 # ── Cross-multiplied projection check ────────────────────────────────────────
 
-def projection_check(q):
+def projection_check(q, A0_seed, A1_seed):
     """Cross-multiplied projection check (KTL addendum 2026-10-08 22:00).
 
-    Evaluates max|(n_x + i n_y)·A0 − (1 + n_z)·A1| where
-    A0 = q0 − i q3, A1 = q2 − i q1 (KTL extraction).
+    Checks whether the embedded field q has the KTL property σ(H(q)) = A1/A0:
+      max|(n_x + i n_y)·A0_seed − (1 + n_z)·A1_seed| ≤ 1e-12
+    where n = hopf_engine(q) and (A0_seed, A1_seed) are from the SEED
+    construction — NOT recomputed from q.
 
-    For any unit-norm quaternion field this is an algebraic identity (= 0),
-    so the return is always ≤ ~1e-15 (machine epsilon), including for
-    embed_spec fields.  The check is useful only as a unit-norm sanity gate
-    (numerical blow-up surfaces as > 1e-10).
-
-    The real embedding gate is c_det4 / c_exact sign:
-      embed_ktl axial → c_det4 ≈ +5.91 (degree +6)
-      embed_spec axial → c_det4 ≈ −5.91 (mirror map, degree −6)
-
-    Z0 sign flip is also blind here; C-exact reads −6 for zsign=+1.
-    (KTL §5 ladder addendum claimed embed_spec gives ≈2.00 here; that claim
-    is incorrect — the formula is algebraically degenerate for unit-norm fields.)
+    Gate evidence (xmult_box.py sha1 fa5b0c943c79):
+      KTL embed:       1.26e-15/1.24e-15/1.40e-15/1.46e-15 at 48/64/96/128³ (PASSES)
+      Spec-literal embed q=(Re A0,Im A0,Re A1,Im A1): ≈2.00 at every grid (TRIPS)
+      Z0 sign flip (zsign=+1): ≈1e-15 (blind to flip); caught by C-exact = −6 in #3.
     """
     n = hopf_engine(q)
-    q0, q1, q2, q3 = q[..., 0], q[..., 1], q[..., 2], q[..., 3]
-    A0 = q0.astype(complex) - 1j * q3
-    A1 = q2.astype(complex) - 1j * q1
     sigma_n = n[..., 0] + 1j * n[..., 1]
     one_plus_nz = 1.0 + n[..., 2]
-    res = sigma_n * A0 - one_plus_nz * A1
+    res = sigma_n * A0_seed - one_plus_nz * A1_seed
     return float(np.abs(res).max())
