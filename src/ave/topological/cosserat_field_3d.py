@@ -55,17 +55,6 @@ import numpy as np  # noqa: E402
 
 from ave.core.constants import ALPHA, V_SNAP  # noqa: E402
 
-# K4 quaternion-storage helpers live in the self-contained k4_quaternion module
-# (B1 module-split pass). Re-imported here so existing callers + the class
-# methods + tests that reference these symbols via cosserat_field_3d keep working.
-from ave.topological.k4_quaternion import (  # noqa: E402,F401
-    _quat_mul_jax, _q_to_n_jax, _compute_strain_q_jax, _bond_wryness_jax,
-    _op10_density_q, _hopf_density_q, _energy_density_k4_saturated,
-    _total_energy_k4, _val_and_grad_k4, _total_energy_k4_jit,
-    _left_torque_from_grad, _left_torque_from_grad_jit,
-    _quat_mul_np, _quat_exp_np,
-)
-
 # ─────────────────────────────────────────────────────────────────────────
 # Phase 4 asymmetric-saturation chirality coupling
 # ─────────────────────────────────────────────────────────────────────────
@@ -991,10 +980,8 @@ class CosseratField3D:
         impedance_skin_smoothing: int = 2,
         impedance_implicit: bool = False,
         impedance_cfl_safety: float = 0.4,
-        reflection_form: str = "grad",
-        reflection_delta: float = 1e-3,
-        k_refl: float = 1.0,
-        rotation_storage: str = "omega",
+        reflection_form: str = "grad", k_refl: float = 1.0,
+        reflection_delta: float = 1e-3, rotation_storage: str = "omega",
     ):
         self.nx = nx
         self.ny = ny
@@ -1048,18 +1035,7 @@ class CosseratField3D:
         self.G_c = 1.0
         self.gamma = 1.0
         self.k_op10 = 1.0
-        self.k_refl = float(k_refl)
-        assert self.k_refl == float(k_refl), f"k_refl round-trip: {k_refl!r} → {self.k_refl!r}"
-        if rotation_storage not in ("omega", "quaternion"):
-            raise ValueError(
-                f"rotation_storage must be 'omega' or 'quaternion', got {rotation_storage!r}"
-            )
-        self.rotation_storage = rotation_storage
-        if rotation_storage == "quaternion":
-            self.q = np.zeros((nx, ny, nz, 4), dtype=np.float64)
-            self.q[..., 0] = 1.0                               # identity quaternion
-            self.q[~self.mask_alive] = np.array([1.0, 0.0, 0.0, 0.0])  # dead sites
-            self.Omega = np.zeros((nx, ny, nz, 3), dtype=np.float64)   # angular velocity
+        _k4_init(self, k_refl, rotation_storage)  # k_refl + rotation_storage state (B1c: net-zero vs base `self.k_refl = 1.0`)
         # k_hopf = pi/3 from the Hopf-invariant matching at Q_H = 6 (electron
         # (2,3) winding), per research/_archive/L3_electron_soliton/13_ §3.2.
         self.k_hopf = float(np.pi / 3.0)
@@ -1550,102 +1526,6 @@ class CosseratField3D:
         mask = self.mask_alive[..., None].astype(self.u.dtype)
         self.u = self.u * mask
         self.omega = self.omega * mask
-
-    # ------------------------------------------------------------------
-    # K4 quaternion-storage helpers (class methods)
-    # ------------------------------------------------------------------
-
-    def _zero_outside_alive_k4(self) -> None:
-        """Enforce alive mask on u and q (dead sites → identity)."""
-        mask = self.mask_alive[..., None].astype(self.u.dtype)
-        self.u = self.u * mask
-        self.q[~self.mask_alive] = np.array([1.0, 0.0, 0.0, 0.0])
-
-    def _zero_velocities_outside_alive_k4(self, apply_pml: bool = True) -> None:
-        """Enforce alive mask + PML on u_dot and Omega."""
-        mask = self.mask_alive[..., None].astype(self.u_dot.dtype)
-        if apply_pml:
-            combined = mask * self.cos_pml_mask.astype(self.u_dot.dtype)
-        else:
-            combined = mask
-        self.u_dot = self.u_dot * combined
-        self.Omega = self.Omega * combined
-
-    def kinetic_energy_k4(self) -> float:
-        """½ρ|u̇|² + ½I_ω|Ω|² summed over alive sites (K4 mode)."""
-        mask = self.mask_alive[..., None].astype(self.u_dot.dtype)
-        K_u = 0.5 * self.rho * np.sum((self.u_dot * mask) ** 2)
-        K_Omega = 0.5 * self.I_omega * np.sum((self.Omega * mask) ** 2)
-        return float(K_u + K_Omega)
-
-    def total_energy_k4(self) -> float:
-        """Total potential energy for K4 mode."""
-        return float(_total_energy_k4_jit(
-            jnp.asarray(self.u),
-            jnp.asarray(self.q),
-            self._mask_alive_jax,
-            self.dx, self.G, self.G_c, self.gamma,
-            self.omega_yield, self.epsilon_yield,
-            self.k_op10, self.k_refl, self.k_hopf,
-        ))
-
-    def step_k4(self, dt: float | None = None, apply_pml: bool = True) -> None:
-        """Lie-group velocity-Verlet for K4 quaternion-storage mode.
-
-        u:    standard VV (translation).
-        q:    drift via q ← exp(½Ω dt)⊗q  (left multiply; |q|=1 to round-off).
-        Ω:    kick by −(1/I_ω)·τ where τ=½Im(g⊗q̄), g=dW/dq.
-        """
-        if dt is None:
-            dt = self.cfl_dt
-
-        u_j = jnp.asarray(self.u)
-        q_j = jnp.asarray(self.q)
-        _, (dW_du, dW_dq) = _val_and_grad_k4(
-            u_j, q_j, self._mask_alive_jax, self.dx,
-            self.G, self.G_c, self.gamma,
-            self.omega_yield, self.epsilon_yield,
-            self.k_op10, self.k_refl, self.k_hopf,
-        )
-        tau = _left_torque_from_grad_jit(dW_dq, q_j)
-        a_u = -np.asarray(dW_du) / self.rho
-        a_Omega = -np.asarray(tau) / self.I_omega
-
-        # Half-kick
-        self.u_dot = self.u_dot + 0.5 * dt * a_u
-        self.Omega = self.Omega + 0.5 * dt * a_Omega
-        self._zero_velocities_outside_alive_k4(apply_pml)
-
-        # Drift: u (Euclidean) and q (Lie-group)
-        self.u = self.u + dt * self.u_dot
-        q_exp = _quat_exp_np(self.Omega * (dt / 2.0))   # exp(½ Ω dt), shape (*,4)
-        self.q = _quat_mul_np(q_exp, self.q)            # left multiply
-        self._zero_outside_alive_k4()
-
-        # Force at new state
-        u_j2 = jnp.asarray(self.u)
-        q_j2 = jnp.asarray(self.q)
-        _, (dW_du2, dW_dq2) = _val_and_grad_k4(
-            u_j2, q_j2, self._mask_alive_jax, self.dx,
-            self.G, self.G_c, self.gamma,
-            self.omega_yield, self.epsilon_yield,
-            self.k_op10, self.k_refl, self.k_hopf,
-        )
-        tau2 = _left_torque_from_grad_jit(dW_dq2, q_j2)
-        a_u2 = -np.asarray(dW_du2) / self.rho
-        a_Omega2 = -np.asarray(tau2) / self.I_omega
-
-        # Second half-kick
-        self.u_dot = self.u_dot + 0.5 * dt * a_u2
-        self.Omega = self.Omega + 0.5 * dt * a_Omega2
-        self._zero_velocities_outside_alive_k4(apply_pml)
-
-        if self.damping_gamma > 0.0:
-            decay = max(0.0, 1.0 - self.damping_gamma * dt)
-            self.u_dot *= decay
-            self.Omega *= decay
-
-        self.time += dt
 
     # ------------------------------------------------------------------
     # Kinematic tensors
@@ -2362,10 +2242,6 @@ class CosseratField3D:
         once per outer cfl_dt step (ENV-D §1). The impedance path ignores this
         flag (it always applies PML — those substeps are internal to the solver).
         """
-        if self.rotation_storage == "quaternion":
-            self.step_k4(dt, apply_pml)
-            return
-
         if dt is None:
             dt = self.cfl_dt
 
@@ -2868,3 +2744,63 @@ class CosseratField3D:
 # execution records in _orchestration/; this batch's record
 # _orchestration/2026-08-12_r40-sweep-batch2a.md.
 # --------------------------------------------------------------------------
+
+
+# ──────────────────────────────────────────────────────────────────────────
+# K4 quaternion-storage wiring (B1c line-neutral tail).
+#
+# The K4 helpers live in the self-contained ``k4_quaternion`` module (B1
+# module-split). They are re-imported HERE — at the END of the file, after the
+# last pre-B1 line — rather than mid-file, so the inbound cite-shift checker
+# (which pins ~110 corpus cites to cf: line numbers) sees every pre-B1 line at
+# its original address. Import resolution for the class methods / step dispatch
+# happens at CALL time, so an end-of-module import is safe.
+#
+# The class-method block (step_k4, total_energy_k4, kinetic_energy_k4, the two
+# alive-mask enforcers) was formerly inline in the class body; it is now hosted
+# in ``k4_quaternion.K4Mixin`` and ATTACHED here. The constructor's k_refl +
+# rotation_storage setup is a single-line ``_k4_init(self, …)`` delegation in
+# __init__; the quaternion step() dispatch is wired by wrapping ``step`` below.
+# All three keep the in-class B1 footprint net-zero against the pre-B1 base.
+# ──────────────────────────────────────────────────────────────────────────
+
+from ave.topological.k4_quaternion import (  # noqa: E402,F401
+    _quat_mul_jax, _q_to_n_jax, _compute_strain_q_jax, _bond_wryness_jax,
+    _op10_density_q, _hopf_density_q, _energy_density_k4_saturated,
+    _total_energy_k4, _val_and_grad_k4, _total_energy_k4_jit,
+    _left_torque_from_grad, _left_torque_from_grad_jit,
+    _quat_mul_np, _quat_exp_np,
+    _k4_init, K4Mixin,
+)
+
+# Attach the K4 class methods (formerly inline; byte-identical behavior).
+for _k4_method in (
+    "_zero_outside_alive_k4", "_zero_velocities_outside_alive_k4",
+    "kinetic_energy_k4", "total_energy_k4", "step_k4",
+):
+    setattr(CosseratField3D, _k4_method, getattr(K4Mixin, _k4_method))
+del _k4_method
+
+# Wire the step() dispatch: the quaternion mode routes to step_k4; the omega
+# mode runs the original (unchanged) velocity-Verlet. The original method is
+# preserved as _step_omega so the dispatch is a thin, byte-faithful wrapper.
+CosseratField3D._step_omega = CosseratField3D.step
+
+
+def _step_dispatch(self, dt: float | None = None, apply_pml: bool = True) -> None:
+    """Route step() to the K4 Lie-group stepper when rotation_storage is
+    'quaternion'; otherwise run the unchanged omega velocity-Verlet.
+
+    Byte-identical to the default path for rotation_storage='omega' — the omega
+    branch calls the original method verbatim (preserved as _step_omega)."""
+    if self.rotation_storage == "quaternion":
+        self.step_k4(dt, apply_pml)
+        return
+    self._step_omega(dt, apply_pml)
+
+
+_step_dispatch.__doc__ = (CosseratField3D.step.__doc__ or "") + (
+    "\n\n        B1c dispatch wrapper: see _step_dispatch / _step_omega at the "
+    "end of cosserat_field_3d.py."
+)
+CosseratField3D.step = _step_dispatch

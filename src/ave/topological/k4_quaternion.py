@@ -41,7 +41,7 @@ grade: DERIVED = algebraic/convention consequence, SIM = holds in the simulation
   | Row 4 (deflt)| cf:~1038      | k_refl default 1       | R2 run uses 0; read-back assert required                   | DERIVED |
   | Row 6 (c_R)  | cf:~1969-1971 | c_R=√(γ/I)             | irrelevant at trade (b) dt                                 | DERIVED |
   | Row 10 (eps) | cf:493-494    | "autograd safety"      | E_refl ∝ 1/eps_reg exactly (bulk reflection term; Gate)    | SIM     |
-  | B6 gap       | k4_quaternion | Ω_gap²=4G_c/I_ω → 2    | ω_gap=2.0021 (K4≡omega 1e-7); G_c=0 → ω=0.27 (trip)        | SIM     |
+  | B6 gap       | k4_quaternion | Ω_gap²=4G_c/I_ω → 2    | LS fit f_om=2.0030092, f_k4=2.0030096 (K4≡ω 1.9e-7); =Verlet-exact Omega_num=2.0030122 to 3.0e-6 (|Omega_num−2|=3.0e-3 O(dt²): dt/4→1.9e-4); G_c=0→ω<0.5 (trip) | SIM     |
   | B3 dynamic   | charge_counters| N=1 hedgehog preserved| undamped K4 dynamics do NOT hold the charge at defaults; |q|=1 exact (honest-closure record) | SIM     |
   | B6 drift     | k4_quaternion | energy conserved       | symplectic VV: |ΔH/H0| O(dt²) (1.3e-2 @ cfl, 2e-5 @ cfl/16) | SIM     |
 
@@ -328,3 +328,137 @@ def _quat_exp_np(v: np.ndarray) -> np.ndarray:
     cos_v = np.cos(v_norm)
     sinc_v = np.sinc(v_norm / np.pi)                     # = sin(|v|)/|v|
     return np.concatenate([cos_v, v * sinc_v], axis=-1)  # (*,4)
+
+
+# ======================================================================
+# K4 constructor helper + mixin (B1c line-neutral host for the class-method
+# block formerly inline in cosserat_field_3d.py). Hosting these here keeps the
+# cosserat_field_3d.py pre-B1 line numbers stable for the inbound cite-shift
+# checker: the only in-class B1 footprint left in cf.py is a single-line
+# __init__ delegation (_k4_init), a single-line step() dispatch, and the
+# `(K4Mixin)` base in the class statement — all net-zero against the base.
+# ======================================================================
+
+
+def _k4_init(self, k_refl, rotation_storage) -> None:
+    """Initialize k_refl + rotation_storage state on a CosseratField3D.
+
+    Called from __init__ as a single net-zero line (replaces the pre-B1
+    ``self.k_refl = 1.0``). Sets k_refl (with the round-trip read-back assert),
+    validates rotation_storage, and — for the quaternion mode — allocates the
+    identity quaternion field q and angular-velocity field Omega."""
+    self.k_refl = float(k_refl)
+    assert self.k_refl == float(k_refl), f"k_refl round-trip: {k_refl!r} → {self.k_refl!r}"
+    if rotation_storage not in ("omega", "quaternion"):
+        raise ValueError(
+            f"rotation_storage must be 'omega' or 'quaternion', got {rotation_storage!r}"
+        )
+    self.rotation_storage = rotation_storage
+    if rotation_storage == "quaternion":
+        self.q = np.zeros((self.nx, self.ny, self.nz, 4), dtype=np.float64)
+        self.q[..., 0] = 1.0                               # identity quaternion
+        self.q[~self.mask_alive] = np.array([1.0, 0.0, 0.0, 0.0])  # dead sites
+        self.Omega = np.zeros((self.nx, self.ny, self.nz, 3), dtype=np.float64)  # angular velocity
+
+
+class K4Mixin:
+    """K4 quaternion-storage class methods (Lie-group Cosserat mode, opt-in).
+
+    Mixed into CosseratField3D. These were inline class methods in
+    cosserat_field_3d.py before the B1c line-neutral restructuring; moving them
+    to a mixin keeps the host file's pre-B1 line numbers stable (the cite-shift
+    checker pins corpus cites by line number). The runtime behavior is
+    byte-identical to the inline methods — attribute access (self.u, self.q, …)
+    resolves against the concrete CosseratField3D instance exactly as before."""
+
+    def _zero_outside_alive_k4(self) -> None:
+        """Enforce alive mask on u and q (dead sites → identity)."""
+        mask = self.mask_alive[..., None].astype(self.u.dtype)
+        self.u = self.u * mask
+        self.q[~self.mask_alive] = np.array([1.0, 0.0, 0.0, 0.0])
+
+    def _zero_velocities_outside_alive_k4(self, apply_pml: bool = True) -> None:
+        """Enforce alive mask + PML on u_dot and Omega."""
+        mask = self.mask_alive[..., None].astype(self.u_dot.dtype)
+        if apply_pml:
+            combined = mask * self.cos_pml_mask.astype(self.u_dot.dtype)
+        else:
+            combined = mask
+        self.u_dot = self.u_dot * combined
+        self.Omega = self.Omega * combined
+
+    def kinetic_energy_k4(self) -> float:
+        """½ρ|u̇|² + ½I_ω|Ω|² summed over alive sites (K4 mode)."""
+        mask = self.mask_alive[..., None].astype(self.u_dot.dtype)
+        K_u = 0.5 * self.rho * np.sum((self.u_dot * mask) ** 2)
+        K_Omega = 0.5 * self.I_omega * np.sum((self.Omega * mask) ** 2)
+        return float(K_u + K_Omega)
+
+    def total_energy_k4(self) -> float:
+        """Total potential energy for K4 mode."""
+        return float(_total_energy_k4_jit(
+            jnp.asarray(self.u),
+            jnp.asarray(self.q),
+            self._mask_alive_jax,
+            self.dx, self.G, self.G_c, self.gamma,
+            self.omega_yield, self.epsilon_yield,
+            self.k_op10, self.k_refl, self.k_hopf,
+        ))
+
+    def step_k4(self, dt: float | None = None, apply_pml: bool = True) -> None:
+        """Lie-group velocity-Verlet for K4 quaternion-storage mode.
+
+        u:    standard VV (translation).
+        q:    drift via q ← exp(½Ω dt)⊗q  (left multiply; |q|=1 to round-off).
+        Ω:    kick by −(1/I_ω)·τ where τ=½Im(g⊗q̄), g=dW/dq.
+        """
+        if dt is None:
+            dt = self.cfl_dt
+
+        u_j = jnp.asarray(self.u)
+        q_j = jnp.asarray(self.q)
+        _, (dW_du, dW_dq) = _val_and_grad_k4(
+            u_j, q_j, self._mask_alive_jax, self.dx,
+            self.G, self.G_c, self.gamma,
+            self.omega_yield, self.epsilon_yield,
+            self.k_op10, self.k_refl, self.k_hopf,
+        )
+        tau = _left_torque_from_grad_jit(dW_dq, q_j)
+        a_u = -np.asarray(dW_du) / self.rho
+        a_Omega = -np.asarray(tau) / self.I_omega
+
+        # Half-kick
+        self.u_dot = self.u_dot + 0.5 * dt * a_u
+        self.Omega = self.Omega + 0.5 * dt * a_Omega
+        self._zero_velocities_outside_alive_k4(apply_pml)
+
+        # Drift: u (Euclidean) and q (Lie-group)
+        self.u = self.u + dt * self.u_dot
+        q_exp = _quat_exp_np(self.Omega * (dt / 2.0))   # exp(½ Ω dt), shape (*,4)
+        self.q = _quat_mul_np(q_exp, self.q)            # left multiply
+        self._zero_outside_alive_k4()
+
+        # Force at new state
+        u_j2 = jnp.asarray(self.u)
+        q_j2 = jnp.asarray(self.q)
+        _, (dW_du2, dW_dq2) = _val_and_grad_k4(
+            u_j2, q_j2, self._mask_alive_jax, self.dx,
+            self.G, self.G_c, self.gamma,
+            self.omega_yield, self.epsilon_yield,
+            self.k_op10, self.k_refl, self.k_hopf,
+        )
+        tau2 = _left_torque_from_grad_jit(dW_dq2, q_j2)
+        a_u2 = -np.asarray(dW_du2) / self.rho
+        a_Omega2 = -np.asarray(tau2) / self.I_omega
+
+        # Second half-kick
+        self.u_dot = self.u_dot + 0.5 * dt * a_u2
+        self.Omega = self.Omega + 0.5 * dt * a_Omega2
+        self._zero_velocities_outside_alive_k4(apply_pml)
+
+        if self.damping_gamma > 0.0:
+            decay = max(0.0, 1.0 - self.damping_gamma * dt)
+            self.u_dot *= decay
+            self.Omega *= decay
+
+        self.time += dt
