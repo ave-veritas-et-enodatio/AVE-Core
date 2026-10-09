@@ -316,12 +316,55 @@ def preflight_setup(cfg: dict, n: int = None, rc: int = None) -> dict:
     return {'q0': q0, 'alive': alive, 'centre': centre, 'seed_sha1': seed_sha1}
 
 
+def preflight_initial_solver(cfg: dict, n: int = None, rc: int = None,
+                              make_solver=None):
+    """Build solver and apply initial state for a pre-flight config.
+
+    Returns (cf, setup) where cf has cf.q set from preflight_setup's q0
+    (dead-site reset already applied) and setup contains {'q0', 'alive',
+    'centre', 'seed_sha1'}.
+
+    This is the ONLY path from which opt-in pre-flight tests may obtain
+    their initial solver + seed state.  No caller may read, copy, or assign
+    the seed array directly — use cf.q or re-call preflight_initial_solver.
+    """
+    n_use = n if n is not None else cfg['nx']
+    rc_use = rc if rc is not None else cfg['seed']['rc']
+    gamma_cfg = cfg['gamma']
+    k_op10_cfg = cfg['k_op10']
+    k_refl_cfg = cfg['k_refl']
+    rot_cfg = cfg['rotation_storage']
+
+    setup = preflight_setup(cfg, n=n_use, rc=rc_use)
+
+    if make_solver is None:
+        from ave.topological.cosserat_field_3d import CosseratField3D
+        def make_solver(nn):
+            cf_inner = CosseratField3D(
+                nn, nn, nn,
+                k_refl=k_refl_cfg,
+                rotation_storage=rot_cfg,
+            )
+            cf_inner.gamma = gamma_cfg
+            cf_inner.G = G
+            cf_inner.G_c = G_C
+            cf_inner.k_op10 = k_op10_cfg
+            return cf_inner
+
+    cf = make_solver(n_use)
+    # Apply cfg physics params regardless of solver origin
+    cf.gamma = gamma_cfg
+    cf.k_op10 = k_op10_cfg
+    cf.q = setup['q0'].copy()
+    return cf, setup
+
+
 def run_preflight(cfg: dict, spec: dict, n: int = None, rc: int = None,
                   max_steps: int = None, make_solver=None) -> dict:
     """Shared pre-flight runner for P-ii, P-ii-C, R2-PF, R2-PF-C.
 
-    Builds q0 exclusively via build_pf_seed(cfg, n, rc) — never a literal L.
-    Records seed_sha1 = sha1(q0.tobytes()) after dead-site reset.
+    Delegates solver + seed construction to preflight_initial_solver — the
+    single initial-state path (single builder anchor).
 
     Checkpoint recording uses checkpoint_steps(ckpts, dt): each checkpoint
     t_k is recorded at the FIRST step s with s*dt >= t_k (F5 fix).
@@ -342,38 +385,12 @@ def run_preflight(cfg: dict, spec: dict, n: int = None, rc: int = None,
     T_end = float(cfg['t_end'])
     n_steps_full = int(cfg['n_steps'])
     n_steps = min(n_steps_full, max_steps) if max_steps is not None else n_steps_full
-    gamma_cfg = cfg['gamma']
-    k_op10_cfg = cfg['k_op10']
-    k_refl_cfg = cfg['k_refl']
-    rot_cfg = cfg['rotation_storage']
 
-    # Seed via preflight_setup — the ONLY seed-building path (single builder anchor)
-    setup = preflight_setup(cfg, n=n_use, rc=rc_use)
-    q0 = setup['q0']
+    # Build solver and seed via preflight_initial_solver — single initial-state path
+    cf, setup = preflight_initial_solver(cfg, n=n_use, rc=rc_use, make_solver=make_solver)
     alive = setup['alive']
     centre = setup['centre']
     seed_sha1 = setup['seed_sha1']
-
-    # Build solver
-    if make_solver is None:
-        from ave.topological.cosserat_field_3d import CosseratField3D
-        def make_solver(nn):
-            cf_inner = CosseratField3D(
-                nn, nn, nn,
-                k_refl=k_refl_cfg,
-                rotation_storage=rot_cfg,
-            )
-            cf_inner.gamma = gamma_cfg
-            cf_inner.G = G
-            cf_inner.G_c = G_C
-            cf_inner.k_op10 = k_op10_cfg
-            return cf_inner
-
-    cf = make_solver(n_use)
-    # Apply cfg physics params regardless of solver origin
-    cf.gamma = gamma_cfg
-    cf.k_op10 = k_op10_cfg
-    cf.q = q0.copy()
 
     H0 = cf.total_energy_k4() + cf.kinetic_energy_k4()
     r_eq0 = r_eq_from_q(cf.q, alive)

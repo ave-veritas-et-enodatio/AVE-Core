@@ -1101,23 +1101,18 @@ def test_r1_2d_option_ii_dynamic():
     _sys.path.insert(0, _os2.path.join(_os2.path.dirname(__file__),
                                        '..', 'scripts', 'vol_4_engineering'))
     from ave.topological.k4_quaternion import collapse_check
-    from csk4_r2_config import make_pii_config, preflight_setup
+    from csk4_r2_config import make_pii_config, preflight_initial_solver
     from scripts.vol_4_engineering.csk4_r2_config import r_eq_from_q
 
     n, rc = 128, 12
-    gamma, k_op10 = 4320.0, 8.88e5
     dt = 1.65e-4
     T_min = max(2.0 * np.pi, 2 * 1.62)  # 2 breathing periods at rc=12 ≈ 1.62 tu
     n_steps = max(38150, int(np.ceil(T_min / dt)))
     ckpt_gap = max(1, n_steps // 50)  # ~50 checkpoints
 
     pii_cfg = make_pii_config(control=False)
-    setup = preflight_setup(pii_cfg, n=n, rc=rc)
+    cf, setup = preflight_initial_solver(pii_cfg, n=n, rc=rc, make_solver=make_r1_solver)
     alive = setup['alive']
-    cf = make_r1_solver(n)
-    cf.gamma = gamma
-    cf.k_op10 = k_op10
-    cf.q = setup['q0']
 
     H0 = cf.total_energy_k4() + cf.kinetic_energy_k4()
     re_min_all = 1.0
@@ -4060,3 +4055,158 @@ def test_agg_pre_collapse_fail():
     out3 = aggregate_r2_periods(results_no_wrong, expected_periods=9)
     assert out3['verdict'] == 'COLLAPSE', (
         f"no pre-collapse wrong: COLLAPSE expected; got {out3['verdict']}")
+
+
+# ---------------------------------------------------------------------------
+# §11 fix 7c — AST + runtime guard: opt-in pre-flight seed path
+# ---------------------------------------------------------------------------
+
+
+def test_preflight_optin_seed_path_guard():
+    """AST + runtime guard: opt-in pre-flight tests must use only
+    run_preflight or preflight_initial_solver for initial state.
+
+    Gate probe killed: v7_optin_ii_dynamic_seed_L64 (survivor at 61ae6cf4).
+
+    AST checks each opt-in test function for:
+      (a) a call to run_preflight or preflight_initial_solver;
+      (b) no call to _hedgehog_at, hedgehog, rational, build_pf_seed,
+          or preflight_setup;
+      (c) no subscript assignment to a 'q0' key; no attribute assignment
+          to <anything>.q (direct seed injection).
+
+    Runtime check: preflight_initial_solver(pii_cfg, n=24, rc=12) yields
+    cf.q whose sha1 (dead sites reset) equals preflight_setup seed_sha1,
+    and differs from the L=n//2=12 seed sha1.
+    Mutants killed:
+      - opt-in test adding seed override (cf.q=... or setup['q0']=...);
+      - opt-in test calling _hedgehog_at or any seed constructor directly;
+      - preflight_initial_solver setting cf.q from an L=n/2 seed.
+    """
+    import ast
+    import inspect
+    import textwrap
+    import hashlib
+    import sys, os as _os
+
+    sys.path.insert(0, _os.path.join(_os.path.dirname(__file__),
+                                     '..', 'scripts', 'vol_4_engineering'))
+    import csk4_r2_config as _cfg_mod
+    from ave.topological.charge_counters import bcc_alive_mask, _hedgehog_at
+
+    _ALLOWED_CALLS = frozenset({'run_preflight', 'preflight_initial_solver'})
+    _FORBIDDEN_CALLS = frozenset({'_hedgehog_at', 'hedgehog', 'rational',
+                                   'build_pf_seed', 'preflight_setup'})
+
+    def _fn_name(node):
+        if isinstance(node, ast.Name):
+            return node.id
+        if isinstance(node, ast.Attribute):
+            return node.attr
+        return None
+
+    def _check_target(target, lineno, forbidden_assigns):
+        # <anything>.q = ... (direct solver seed injection)
+        if isinstance(target, ast.Attribute) and target.attr == 'q':
+            forbidden_assigns.append(
+                (f'.q attribute assignment at line {lineno}', lineno))
+        # <anything>['q0'] = ... (seed dict override)
+        if isinstance(target, ast.Subscript):
+            sl = target.slice
+            key_val = None
+            if isinstance(sl, ast.Constant):
+                key_val = sl.value
+            elif hasattr(ast, 'Index') and isinstance(sl, ast.Index):
+                inner = sl.value
+                if isinstance(inner, ast.Constant):
+                    key_val = inner.value
+                elif hasattr(inner, 's'):  # ast.Str (Python ≤ 3.7)
+                    key_val = inner.s
+            if key_val == 'q0':
+                forbidden_assigns.append(
+                    (f"subscript['q0'] assignment at line {lineno}", lineno))
+
+    def _audit_fn(fn):
+        src = textwrap.dedent(inspect.getsource(fn))
+        tree = ast.parse(src)
+        calls_allowed = False
+        forbidden_calls = []
+        forbidden_assigns = []
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Call):
+                name = _fn_name(node.func)
+                if name in _ALLOWED_CALLS:
+                    calls_allowed = True
+                if name in _FORBIDDEN_CALLS:
+                    forbidden_calls.append((name, getattr(node, 'lineno', '?')))
+            elif isinstance(node, ast.Assign):
+                for target in node.targets:
+                    _check_target(target, node.lineno, forbidden_assigns)
+            elif isinstance(node, ast.AugAssign):
+                _check_target(node.target, node.lineno, forbidden_assigns)
+            elif isinstance(node, ast.AnnAssign) and node.target is not None:
+                _check_target(node.target, node.lineno, forbidden_assigns)
+        return calls_allowed, forbidden_calls, forbidden_assigns
+
+    opt_in_fns = [
+        test_r1_2d_option_ii_dynamic,
+        test_r1_2d_option_ii_pii_preflight,
+        test_r1_2d_option_ii_pii_control,
+    ]
+
+    for fn in opt_in_fns:
+        fn_name = fn.__name__
+        calls_ok, bad_calls, bad_assigns = _audit_fn(fn)
+        assert calls_ok, (
+            f"{fn_name}: check (a) — does not call run_preflight or "
+            f"preflight_initial_solver; opt-in tests must obtain initial "
+            f"state only through those functions")
+        assert not bad_calls, (
+            f"{fn_name}: check (b) — forbidden seed-constructor calls: "
+            f"{bad_calls}; opt-in tests must not build seeds directly")
+        assert not bad_assigns, (
+            f"{fn_name}: check (c) — forbidden seed assignments: "
+            f"{bad_assigns}; opt-in tests must not assign .q or ['q0'] directly")
+
+    # Runtime check: preflight_initial_solver uses correct L (not L=n//2).
+    # n=24, rc=12: L_standin = SEED_L_PII*12/12 = 48; n//2 = 12 — distinguishable.
+    pii_cfg = _cfg_mod.make_pii_config(control=False)
+    n_si, rc_si = 24, 12
+
+    class _StubMinimal:
+        def __init__(self, nn):
+            self._q = None
+            self.gamma = None
+            self.k_op10 = None
+
+        @property
+        def q(self):
+            return self._q
+
+        @q.setter
+        def q(self, val):
+            self._q = val.copy()
+
+    cf_si, setup_si = _cfg_mod.preflight_initial_solver(
+        pii_cfg, n=n_si, rc=rc_si,
+        make_solver=lambda nn: _StubMinimal(nn))
+
+    # sha1 of cf.q after dead-site reset
+    alive_si = bcc_alive_mask((n_si, n_si, n_si))
+    q_actual = cf_si.q.copy()
+    q_actual[~alive_si] = np.array([1.0, 0.0, 0.0, 0.0])
+    actual_sha1 = hashlib.sha1(q_actual.tobytes()).hexdigest()
+
+    # Must equal preflight_setup seed_sha1 (single builder anchor)
+    assert actual_sha1 == setup_si['seed_sha1'], (
+        f"preflight_initial_solver: cf.q sha1={actual_sha1!r} != "
+        f"setup['seed_sha1']={setup_si['seed_sha1']!r}; "
+        "initial state diverged from preflight_setup")
+
+    # Must differ from L=n//2 wrong seed (kills L=n/2 mutant in preflight_initial_solver)
+    q_wrong = _hedgehog_at(n_si, rc_si, (0, 0, 0), L=n_si // 2)
+    q_wrong[~alive_si] = np.array([1.0, 0.0, 0.0, 0.0])
+    wrong_sha1 = hashlib.sha1(q_wrong.tobytes()).hexdigest()
+    assert actual_sha1 != wrong_sha1, (
+        f"preflight_initial_solver: cf.q sha1 == L={n_si // 2} (=n//2) wrong seed; "
+        f"n={n_si}, rc={rc_si}; L=n//2 mutant in preflight_initial_solver not killed")
