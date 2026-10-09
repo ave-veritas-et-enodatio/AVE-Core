@@ -611,7 +611,8 @@ test: test-tools
 	# (those are legitimately-slow sims; the gate's slowest keeper is now ~50s).
 	$(PYTEST) $(SOURCE_DIR)/tests -m "not engine_sim" -n auto --timeout=180 --timeout-method=thread \
 		--ignore=$(SOURCE_DIR)/tests/test_mass_sector_a1_port.py \
-		--ignore=$(SOURCE_DIR)/tests/test_tone_probe_ringdown.py
+		--ignore=$(SOURCE_DIR)/tests/test_tone_probe_ringdown.py \
+		--ignore=$(SOURCE_DIR)/tests/test_charge_counters.py
 	# Serial tail (2026-07-17): the A1-port suite transiently spikes ~340 MB; when
 	# xdist packing lands it late in the schedule it stacks on per-worker memory
 	# accumulation and the 2-core CI runner OOM-kills the worker ("node down",
@@ -626,6 +627,12 @@ test: test-tools
 	# broke main since #1062 / 918e1ad9). A fresh serial process gives each spike a
 	# zero baseline. Same pattern as the 2026-07-17 A1-port serial tail.
 	$(PYTEST) $(SOURCE_DIR)/tests/test_tone_probe_ringdown.py --timeout=180 --timeout-method=thread
+	# Serial tail (2026-10-08): the charge-counters suite peaks at ~804 MB serial
+	# (module-scope BCC/dense 96³ fixtures for C-exact, C-link, and alive4 all live
+	# in memory simultaneously; 64³ C-link fixtures add another ~200 MB each).
+	# Under xdist workers share a 2-core budget; fixture stacking OOM-kills the
+	# worker. Same pattern as the 2026-07-17 A1-port and 2026-10-07 tone-probe tails.
+	$(PYTEST) $(SOURCE_DIR)/tests/test_charge_counters.py --timeout=180 --timeout-method=thread
 
 test-engine:
 	@echo "[Test] Running engine-simulation tests (opt-in; slow tier-1/2)..."

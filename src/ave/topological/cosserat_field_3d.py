@@ -326,7 +326,7 @@ def _hopf_density(omega: jnp.ndarray, dx: float) -> jnp.ndarray:
         A_hat(k) = i (k x B_hat(k)) / |k|^2   (zero-mode fixed to 0)
 
     The Chern-Simons 3-form density is (1/2) A . B. Its integral over space
-    equals (up to normalization) the Hopf invariant times 4*pi^2 — a
+    equals (up to normalization) the Hopf invariant times 8*pi^2 — a
     topological quantity that survives field-superposition cancellation.
 
     This captures the "self-inductance of each flux contribution" physics
@@ -377,7 +377,7 @@ def _hopf_density(omega: jnp.ndarray, dx: float) -> jnp.ndarray:
     A = jnp.stack([A_x, A_y, A_z], axis=-1)  # (nx, ny, nz, 3)
 
     # Hopf / Chern-Simons density: (1/2) A . B.
-    # Integrated over space, equals (up to 4*pi^2) the Hopf invariant Q_H.
+    # Integrated over space, equals (up to 8*pi^2) the Hopf invariant Q_H.
     return 0.5 * jnp.sum(A * B, axis=-1)
 
 
@@ -2430,12 +2430,12 @@ class CosseratField3D:
         """Topological Hopf invariant Q_H from the Cosserat ω field.
 
         Uses the existing `_hopf_density` (A·B/2 Chern-Simons density).
-        Integrating it over space gives 4π²·Q_H per §13 of the L3 research.
+        Integrating gives 8π²·Q_H; returns (1/8π²)∫A·B = 2·Q_H dense / ≈deg/8 alive. LOG-ONLY.
 
-        Returns a REAL number (not integer-discretized); robust to small
-        field perturbations. For (2,3)-torus-knot electron, Q_H → 6; for
-        vacuum, Q_H = 0; for pair-creation, total Q_H should remain near 0
-        (e+ and e− contribute opposite signs to the regional sum).
+        Returns a REAL number (not integer-discretized). Today's (2,3) seed
+        (initialize_electron_2_3_sector) is degree 0 → reads ≈0; axial full-sweep deg 6
+        → reads →12 dense / ≈deg/8 alive (KTL §5 #1–2; Rule-10 row 7). Divide by 2 if used;
+        never a verdict. Vacuum Q_H = 0; pair-creation total Q_H should remain near 0.
         """
         w_j = jnp.asarray(self.omega)
         rho = _hopf_density(w_j, self.dx)
