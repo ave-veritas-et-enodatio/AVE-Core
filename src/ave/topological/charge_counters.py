@@ -29,6 +29,13 @@ with 22:00 addendum):
 Integer verdict: C-exact and C-link decide the integer charge.
 C-det (4th order) is a DRIFT ALARM / continuous monitor only; not the integer verdict.
 
+Dense-only counters (TETS, c_det4): must NOT be applied to alive-only (BCC) storage.
+  Use c_det_alive / c_det_alive4 for s=2 grids.  c_exact and c_link work for both
+  via the s and tets parameters.
+
+Ladder #7 aggregation (≥90% of R2 periods resolved → RESOLUTION-INCONCLUSIVE):
+  DEFERRED. This aggregation lives in the R2 harness (PR-B or the run script), not here.
+
 extract_hopf_charge (cf:2429-2444): LOG-ONLY.
   Returns (1/8π²)∫A·B, which equals 2·Q_H on a dense grid and ≈ deg/8 on alive
   storage (cf:2443 sums mask·dx³, not 4dx³; sparse FFT further attenuates).
@@ -109,9 +116,11 @@ def hedgehog(n, rc, mirror=False):
     return np.stack([np.cos(f), X / rr * s, (-Y if mirror else Y) / rr * s, Z / rr * s], -1)
 
 
-def rational(n, rc, p=2, qq=3, embed=embed_ktl, mirror=False, zsign=-1):
+def rational(n, rc, p=2, qq=3, embed=embed_ktl, mirror=False, zsign=-1,
+             return_fields=False):
     """Rational map of degree p·qq. (p=2, qq=3) → degree +6 axial seed.
-    Uses KTL embedding by default; zsign=-1 per §0 orientation."""
+    Uses KTL embedding by default; zsign=-1 per §0 orientation.
+    return_fields=True: returns (q, A0, A1) for projection_check gate."""
     X, Y, Z, r = grid(n)
     f = profile(r, rc, n / 2.0)
     Z0, Z1 = Zmap(X, Y, Z, r, f, zsign)
@@ -120,12 +129,17 @@ def rational(n, rc, p=2, qq=3, embed=embed_ktl, mirror=False, zsign=-1):
     A1 = Z1 ** p
     A0 = Z0 ** qq
     N = np.sqrt(np.abs(A0) ** 2 + np.abs(A1) ** 2)
-    return embed(A0 / N, A1 / N)
+    A0n, A1n = A0 / N, A1 / N
+    q = embed(A0n, A1n)
+    if return_fields:
+        return q, A0n, A1n
+    return q
 
 
-def cold_control(n, rc):
+def cold_control(n, rc, return_fields=False):
     """C0-cold degree-0 control (spec A2.4): same (2,3) structure, f(0)=0.
-    f = 0.04·4s²/(1+s²)², s=r/rc. C-det ≈ 0; degree = 0 exactly."""
+    f = 0.04·4s²/(1+s²)², s=r/rc. C-det ≈ 0; degree = 0 exactly.
+    return_fields=True: returns (q, A0, A1) for projection_check gate."""
     X, Y, Z, r = grid(n)
     s_r = r / rc
     f = 0.04 * 4 * s_r ** 2 / (1 + s_r ** 2) ** 2
@@ -134,7 +148,11 @@ def cold_control(n, rc):
     A1 = Z1 ** 2
     N = np.sqrt(np.abs(A0) ** 2 + np.abs(A1) ** 2)
     N = np.where(N > 1e-10, N, 1.0)
-    return embed_ktl(A0 / N, A1 / N)
+    A0n, A1n = A0 / N, A1 / N
+    q = embed_ktl(A0n, A1n)
+    if return_fields:
+        return q, A0n, A1n
+    return q
 
 
 def _qmul(a, b):
@@ -437,13 +455,29 @@ def _c_exact_qstar(q, qstar, tets=None, s=1, tau_fail=0.0, tau_warn=0.5, lam_eps
     return dict(N=N, n_hits=hits, n_bad=bad, n_warn=warn, degenerate=degen)
 
 
-def _boundary_q0_ok(q):
-    """True if q[..., 0] > 0.5 on all 6 boundary faces (ensures q* with q0≤0 not on boundary)."""
-    return bool(
-        q[0, :, :, 0].min() > 0.5 and q[-1, :, :, 0].min() > 0.5 and
-        q[:, 0, :, 0].min() > 0.5 and q[:, -1, :, 0].min() > 0.5 and
-        q[:, :, 0, 0].min() > 0.5 and q[:, :, -1, 0].min() > 0.5
-    )
+def _boundary_q0_ok(q, alive=None):
+    """True if q[..., 0] > 0.5 on all 6 boundary faces.
+    For BCC storage (alive mask given), checks alive sites on each face only."""
+    q0 = q[..., 0]
+    faces = [
+        (q0[0], alive[0] if alive is not None else None),
+        (q0[-1], alive[-1] if alive is not None else None),
+        (q0[:, 0], alive[:, 0] if alive is not None else None),
+        (q0[:, -1], alive[:, -1] if alive is not None else None),
+        (q0[:, :, 0], alive[:, :, 0] if alive is not None else None),
+        (q0[:, :, -1], alive[:, :, -1] if alive is not None else None),
+    ]
+    for fq0, fa in faces:
+        if fa is not None:
+            vals = fq0[fa]
+            if len(vals) == 0:
+                continue
+            if vals.min() <= 0.5:
+                return False
+        else:
+            if fq0.min() <= 0.5:
+                return False
+    return True
 
 
 def c_exact(q, qstars, tets=None, s=1):
@@ -452,6 +486,7 @@ def c_exact(q, qstars, tets=None, s=1):
     Args:
         q: quaternion field (..., 4), unit quaternions.
         qstars: (K, 4) array with qstar_0 ≤ 0 (from random_regular_values).
+            K must be ≥ 3 (canonical K = 5).
         tets: tet table; None → TETS (dense Freudenthal); BCC_TETS with s=2 for alive.
         s: cell stride (1 = dense, 2 = BCC side-2 cubes).
 
@@ -460,9 +495,30 @@ def c_exact(q, qstars, tets=None, s=1):
         per_qstar (list[int]), n_bad (int), n_degen (int),
         n_warn (int), n_hits (list[int]), reason (str or None).
 
-    UNRESOLVED if: n_bad > 0, n_degen > 0, qstars disagree, or boundary q0 ≤ 0.5.
+    UNRESOLVED if: K < 3, non-finite or non-unit field (alive sites for s=2),
+    n_bad > 0, n_degen > 0, qstars disagree, or boundary q0 ≤ 0.5.
     """
     qstars = np.asarray(qstars)
+    K = len(qstars)
+    if K < 3:
+        return dict(resolved=False, value=None, per_qstar=[], n_bad=0, n_degen=0,
+                    n_warn=0, n_hits=[], reason=f'TOO_FEW_QSTARS: K={K} < 3')
+
+    # Non-finite / non-unit check (alive sites only for BCC storage)
+    if s == 2:
+        alive = bcc_alive_mask(q.shape[:3])
+        q_sites = q[alive]
+    else:
+        alive = None
+        q_sites = q.reshape(-1, 4)
+    if not np.isfinite(q_sites).all():
+        return dict(resolved=False, value=None, per_qstar=[], n_bad=0, n_degen=0,
+                    n_warn=0, n_hits=[], reason='NONFINITE')
+    max_dev = float(np.abs(np.linalg.norm(q_sites, axis=-1) - 1.0).max())
+    if max_dev > 1e-6:
+        return dict(resolved=False, value=None, per_qstar=[], n_bad=0, n_degen=0,
+                    n_warn=0, n_hits=[], reason=f'NONUNIT: max_dev={max_dev:.2e}')
+
     results = [_c_exact_qstar(q, qs, tets=tets, s=s) for qs in qstars]
     n_bad = results[0]['n_bad']
     n_warn = results[0]['n_warn']
@@ -477,7 +533,7 @@ def c_exact(q, qstars, tets=None, s=1):
         reason = f'DEGENERATE: n_degen={n_degen}'
     elif not all(v == per_qstar[0] for v in per_qstar):
         reason = f'QSTAR_DISAGREEMENT: {per_qstar}'
-    elif not _boundary_q0_ok(q):
+    elif not _boundary_q0_ok(q, alive):
         reason = 'BOUNDARY: boundary q0 not all > 0.5'
 
     if reason:
@@ -630,11 +686,24 @@ def c_link(n, nstars, h=1.0, tets=None, s=1):
         pair_lk ([lk1, lk2]), n_open (int), n_broken (int),
         n_comps ([(nA1,nB1),(nA2,nB2)]), reason (str or None).
 
-    UNRESOLVED if: degenerate (n1≈n2), open/broken loops, |Lk−round|≥1e-6, or pair disagree.
-    Degenerate n1≈n2: returns UNRESOLVED, never 0.
+    UNRESOLVED if: non-finite field (alive sites for s=2), degenerate (n1≈n2 or n3≈n4),
+    non-finite lk, open/broken loops, |Lk−round|≥1e-6, or pair disagree.
+    Degenerate n1≈n2 or n3≈n4: returns UNRESOLVED, never 0.
+    C0-cold "no loops → 0" (gauss_link([],[])) is valid ONLY for finite, unit fields;
+    the NONFINITE guard ensures blown-up fields return UNRESOLVED before reaching gauss_link.
     """
     nstars = np.asarray(nstars)
     n1, n2, n3, n4 = nstars[0], nstars[1], nstars[2], nstars[3]
+
+    # Non-finite check on n field (alive sites only for BCC storage)
+    if s == 2:
+        n_sites = n[bcc_alive_mask(n.shape[:3])]
+    else:
+        n_sites = n.reshape(-1, 3)
+    if not np.isfinite(n_sites).all():
+        return dict(resolved=False, value=None, raw_lk=float('nan'),
+                    pair_lk=[float('nan'), float('nan')], n_open=0, n_broken=0,
+                    n_comps=None, reason='NONFINITE')
 
     # Degenerate: n1 ≈ n2 → self-linking, undefined
     dot12 = float(np.dot(n1 / np.linalg.norm(n1), n2 / np.linalg.norm(n2)))
@@ -642,6 +711,13 @@ def c_link(n, nstars, h=1.0, tets=None, s=1):
         return dict(resolved=False, value=None, raw_lk=float('nan'),
                     pair_lk=[float('nan'), None], n_open=0, n_broken=0,
                     n_comps=None, reason='DEGENERATE: n1 ≈ n2')
+
+    # Degenerate: n3 ≈ n4 → self-linking, undefined
+    dot34 = float(np.dot(n3 / np.linalg.norm(n3), n4 / np.linalg.norm(n4)))
+    if dot34 > 1 - 1e-10:
+        return dict(resolved=False, value=None, raw_lk=float('nan'),
+                    pair_lk=[float('nan'), float('nan')], n_open=0, n_broken=0,
+                    n_comps=None, reason='DEGENERATE: n3 ≈ n4')
 
     lk1, op1, br1, a1, b1 = _c_link_pair(n, n1, n2, h, tets, s)
     lk2, op2, br2, a2, b2 = _c_link_pair(n, n3, n4, h, tets, s)
@@ -653,11 +729,19 @@ def c_link(n, nstars, h=1.0, tets=None, s=1):
     n_comps = [(a1, b1), (a2, b2)]
 
     reason = None
-    r1, r2 = round(lk1), round(lk2)
-    tol = 1e-6
     if n_open > 0 or n_broken > 0:
         reason = f'OPEN_OR_BROKEN: open={n_open}, broken={n_broken}'
-    elif abs(lk1 - r1) >= tol:
+    elif not np.isfinite(lk1) or not np.isfinite(lk2):
+        reason = f'NONFINITE_LK: raw_lk={raw_lk!r}, pair_lk={pair_lk!r}'
+
+    if reason:
+        return dict(resolved=False, value=None, raw_lk=raw_lk,
+                    pair_lk=pair_lk, n_open=n_open, n_broken=n_broken,
+                    n_comps=n_comps, reason=reason)
+
+    r1, r2 = round(lk1), round(lk2)
+    tol = 1e-6
+    if abs(lk1 - r1) >= tol:
         reason = f'NON_INTEGER pair1: |{lk1} - {r1}| = {abs(lk1 - r1):.2e}'
     elif abs(lk2 - r2) >= tol:
         reason = f'NON_INTEGER pair2: |{lk2} - {r2}| = {abs(lk2 - r2):.2e}'
@@ -675,30 +759,21 @@ def c_link(n, nstars, h=1.0, tets=None, s=1):
 
 # ── Cross-multiplied projection check ────────────────────────────────────────
 
-def projection_check(q):
+def projection_check(q, A0_seed, A1_seed):
     """Cross-multiplied projection check (KTL addendum 2026-10-08 22:00).
 
-    Evaluates max|(n_x + i n_y)·A0 − (1 + n_z)·A1| where
-    A0 = q0 − i q3, A1 = q2 − i q1 (KTL extraction).
+    Checks whether the embedded field q has the KTL property σ(H(q)) = A1/A0:
+      max|(n_x + i n_y)·A0_seed − (1 + n_z)·A1_seed| ≤ 1e-12
+    where n = hopf_engine(q) and (A0_seed, A1_seed) are from the SEED
+    construction — NOT recomputed from q.
 
-    For any unit-norm quaternion field this is an algebraic identity (= 0),
-    so the return is always ≤ ~1e-15 (machine epsilon), including for
-    embed_spec fields.  The check is useful only as a unit-norm sanity gate
-    (numerical blow-up surfaces as > 1e-10).
-
-    The real embedding gate is c_det4 / c_exact sign:
-      embed_ktl axial → c_det4 ≈ +5.91 (degree +6)
-      embed_spec axial → c_det4 ≈ −5.91 (mirror map, degree −6)
-
-    Z0 sign flip is also blind here; C-exact reads −6 for zsign=+1.
-    (KTL §5 ladder addendum claimed embed_spec gives ≈2.00 here; that claim
-    is incorrect — the formula is algebraically degenerate for unit-norm fields.)
+    Gate evidence (xmult_box.py sha1 fa5b0c943c79):
+      KTL embed:       1.26e-15/1.24e-15/1.40e-15/1.46e-15 at 48/64/96/128³ (PASSES)
+      Spec-literal embed q=(Re A0,Im A0,Re A1,Im A1): ≈2.00 at every grid (TRIPS)
+      Z0 sign flip (zsign=+1): ≈1e-15 (blind to flip); caught by C-exact = −6 in #3.
     """
     n = hopf_engine(q)
-    q0, q1, q2, q3 = q[..., 0], q[..., 1], q[..., 2], q[..., 3]
-    A0 = q0.astype(complex) - 1j * q3
-    A1 = q2.astype(complex) - 1j * q1
     sigma_n = n[..., 0] + 1j * n[..., 1]
     one_plus_nz = 1.0 + n[..., 2]
-    res = sigma_n * A0 - one_plus_nz * A1
+    res = sigma_n * A0_seed - one_plus_nz * A1_seed
     return float(np.abs(res).max())
