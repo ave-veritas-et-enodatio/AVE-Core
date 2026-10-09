@@ -1,0 +1,162 @@
+"""R2 primary run configuration — charged-seed K4 trade (b).
+
+Grant decision T-A4b (2026-10-08 22:01 PT):
+  k_refl = 0, r_c = 24, k_op10 = 1.415e6, γ = 4320, dt = 2.24e-4, 288³ periodic.
+
+Source documents (SHA-1 from ~/AVE-staging/runs/csk4/inputs/SHA1SUMS):
+  Brief           2026-10-08-charged-seed-K4-BRIEF.md          0de2f577279f
+  Spec            2026-10-08-charged-seed-K4-change-SPEC_CANDIDATE.md  0bb84db49105
+  Setup sheet     2026-10-08-charged-seed-SETUP-SHEET_CANDIDATE.md     920c213bd3b4
+  Gate ladder v3  LADDER-charged-seed-K4-2026-10-08.md                 f086d59a4cd0
+
+NOT RUN without Grant's GO.  Runs needing GO:
+  R2 primary:  288³, dt=2.24e-4, 144 643 steps  (3.44e12 point-steps)
+  #16 partner: 192³, same dt/steps               (1.02e12 point-steps)
+  dt/2 rung:   192³, dt/2, 289 286 steps         (2.04e12 point-steps)
+  C0-cold:     192³, same dt/steps               (1.02e12 point-steps)
+
+Pinned-value provenance (ladder §2):
+  dt = 2.24e-4   The guard 2.2446e-4 from max|∂n|²=0.20736 on the alive
+                 stencil at r_c=24; 0.25/Ω_max≤2.745e-4; pin 2.24e-4
+                 (2.25e-4 is 0.2% above guard — see ladder §2 "dt HOLDS").
+  steps = 144 643  32.4 time-units / 2.24e-4 dt (20 breathing periods,
+                  period ∝ R, measured at r_c≈12 → 1.62 tu → scaled).
+  k_op10 = 1.415e6  Gate engine-stencil 3-pt at r_c=24: k*=1.41487e6,
+                  s=0.99991, d²E/dλ²=+4.76e7 (true minimum).  Math smooth
+                  fit 1.415e6 (fit24_b).  Trade (b): k_refl=0 → no reflection
+                  term; k_op10 set by γ/op10 balance alone.
+  γ = 4320  = 30·G_c·r_c² (ensures mass term ≤10% of γ-term push at R=r_c).
+  k_refl = 0  Trade (b); reflection off for a clean pin (Rule-10 row 3,
+             ladder §7: cf:497–500 / cf:1038).
+
+Rule-10 flag (ladder §7, spec §6):
+  Row 1  cf:1290–1292  ω "has SO(3) period 2π by construction" — retracted
+                       for quaternion storage; K-R5.
+  Row 3  cf:1038       k_refl hard-coded 1.0; now a constructor kwarg.
+  Row 4  cf:493–494    eps_reg "not a fit parameter"; its value sets k_refl=1
+                       reflection energy when not turned off.
+"""
+
+import math
+import os
+
+import numpy as np
+
+# ---------------------------------------------------------------------------
+# Pinned parameters — do NOT edit without updating the ladder document.
+# ---------------------------------------------------------------------------
+
+GAMMA = 4320.0
+G = 1.0
+G_C = 1.0
+RHO = 1.0
+I_OMEGA = 1.0
+K_OP10 = 1.415e6
+K_REFL = 0.0            # trade (b): reflection off
+K_HOPF = math.pi / 3.0  # engine default cf:1311
+ROTATION_STORAGE = "quaternion"
+
+DT = 2.24e-4            # pinned (guard 2.2446e-4; 0.25/Ω_max ≤ 2.745e-4)
+N_STEPS = 144_643       # 32.4 tu / DT  (20 breathing periods)
+
+# Seed parameters
+SEED_P = 2              # torus-knot exponent p
+SEED_QQ = 3             # torus-knot exponent q (named qq to avoid shadowing)
+SEED_RC = 24            # core radius in cells
+
+# Primary box
+NX_PRIMARY = NY_PRIMARY = NZ_PRIMARY = 288   # periodic, PML=0
+PML_WIDTH = 0
+DAMPING = 0.0
+
+# #16 partner box
+NX_PARTNER = NY_PARTNER = NZ_PARTNER = 192
+
+
+def assert_r2_config(cf) -> None:
+    """Read-back assert: verify all pinned R2 values on a constructed solver.
+
+    Call with any CosseratField3D returned by make_r2_solver() — the grid can
+    be tiny (do NOT allocate 288³ in tests).  Raises AssertionError on mismatch.
+    """
+    assert cf.gamma == GAMMA,       f"gamma mismatch: {cf.gamma!r} != {GAMMA!r}"
+    assert cf.G == G,               f"G mismatch: {cf.G!r} != {G!r}"
+    assert cf.G_c == G_C,           f"G_c mismatch: {cf.G_c!r} != {G_C!r}"
+    assert cf.k_op10 == K_OP10,     f"k_op10 mismatch: {cf.k_op10!r} != {K_OP10!r}"
+    assert cf.k_refl == K_REFL,     f"k_refl mismatch: {cf.k_refl!r} != {K_REFL!r}"
+    assert abs(cf.k_hopf - K_HOPF) < 1e-14, (
+        f"k_hopf mismatch: {cf.k_hopf!r} != {K_HOPF!r}")
+    assert cf.rotation_storage == ROTATION_STORAGE, (
+        f"rotation_storage mismatch: {cf.rotation_storage!r} != {ROTATION_STORAGE!r}")
+
+
+def make_r2_solver(nx=None, ny=None, nz=None):
+    """Construct a CosseratField3D with R2 pinned parameters.
+
+    Note: gamma, G, G_c, k_op10 are post-construction attributes (the
+    constructor only accepts k_refl and rotation_storage for physics knobs).
+    Pass nx/ny/nz to override the default 288³ (e.g. a tiny test grid).
+    """
+    from ave.topological.cosserat_field_3d import CosseratField3D
+    nx = nx or NX_PRIMARY
+    ny = ny or NY_PRIMARY
+    nz = nz or NZ_PRIMARY
+    cf = CosseratField3D(
+        nx, ny, nz,
+        k_refl=K_REFL,
+        rotation_storage=ROTATION_STORAGE,
+    )
+    cf.gamma = GAMMA
+    cf.G = G
+    cf.G_c = G_C
+    cf.k_op10 = K_OP10
+    assert_r2_config(cf)
+    return cf
+
+
+def make_r2_seed(nx=NX_PRIMARY, ny=NY_PRIMARY, nz=NZ_PRIMARY, rc=SEED_RC):
+    """Return the axial (2,3) KTL seed quaternion array for the given grid."""
+    from ave.topological.charge_counters import rational
+    return rational(nx, rc, p=SEED_P, qq=SEED_QQ)
+
+
+def run_r2():  # pragma: no cover
+    """R2 primary run — NOT called without Grant's GO.
+
+    Usage (after GO):
+        PYTHONPATH=src python src/scripts/vol_4_engineering/csk4_r2_config.py \
+            ~/AVE-runs/csk4-r2-<date>
+    """
+    import sys
+    import time
+
+    outdir = sys.argv[1] if len(sys.argv) > 1 else None
+    if outdir is None:
+        raise SystemExit("Usage: csk4_r2_config.py <outdir>  (needs Grant GO first)")
+    if not os.environ.get("AVE_R2_GO"):
+        raise RuntimeError(
+            "Set AVE_R2_GO=1 to confirm Grant GO before running the 288³ R2 simulation."
+        )
+    os.makedirs(outdir, exist_ok=True)
+
+    print(f"R2 primary: 288³ periodic, dt={DT}, {N_STEPS} steps, k_refl={K_REFL}")
+    print(f"  γ={GAMMA}, k_op10={K_OP10}, rotation_storage={ROTATION_STORAGE!r}")
+    print(f"  Seed: axial ({SEED_P},{SEED_QQ}) r_c={SEED_RC}")
+    print(f"  Output: {outdir}")
+
+    cf = make_r2_solver()
+    seed = make_r2_seed()
+    cf.q = seed.copy()
+    cf.q[~cf.mask_alive] = np.array([1.0, 0.0, 0.0, 0.0])
+
+    t0 = time.time()
+    for step in range(N_STEPS):
+        cf.step(DT)
+        if step % 10000 == 0:
+            print(f"  step {step}/{N_STEPS}  t={step*DT:.4f}  "
+                  f"elapsed={time.time()-t0:.1f}s")
+    print(f"Done. Total elapsed: {time.time()-t0:.1f}s")
+
+
+if __name__ == "__main__":
+    run_r2()

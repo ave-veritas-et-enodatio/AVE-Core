@@ -893,6 +893,263 @@ _total_energy_bare_bond_jit = jax.jit(_total_energy_bare_bond)
 _total_energy_saturated_bond_jit = jax.jit(_total_energy_saturated_bond)
 
 
+# ======================================================================
+# K4 quaternion-storage helpers (Lie-group Cosserat mode, opt-in)
+# ======================================================================
+# Convention: q=(q0,q1,q2,q3), vacuum rest=(1,0,0,0).
+# Drift: q ← exp(½Ω dt)⊗q  (left multiply; Lie-group velocity-Verlet).
+# Left-trivialized torque: τ=½Im(g⊗q̄), g=dW/dq∈ℝ⁴.  Numerically verified:
+#   τ₁=½(−g₀q₁+g₁q₀−g₂q₃+g₃q₂),  τ₂=½(−g₀q₂+g₁q₃+g₂q₀−g₃q₁),
+#   τ₃=½(−g₀q₃−g₁q₂+g₂q₁+g₃q₀).
+# n-field: n=R(q)ẑ (cf:219-221 equivalent, skipping cf:204-215).
+# Bond wryness: κ_ij=(1/4dx)·Σ_l p_{l,j}·(2 Im log q̄⊗q′)_i;
+#   small-angle limit = ∂_j ω_i (cf:189-191).
+# Finite-rotation strain: ε=Rᵀ(q)(I+∇u)−I; small-angle = cf:175-186,
+#   difference O(θ³), energy difference O(θ⁴) for the quadratic terms.
+# ======================================================================
+
+
+def _quat_mul_jax(a: jnp.ndarray, b: jnp.ndarray) -> jnp.ndarray:
+    """Hamilton product a⊗b, last axis=(q0,q1,q2,q3)."""
+    a0, a1, a2, a3 = a[..., 0], a[..., 1], a[..., 2], a[..., 3]
+    b0, b1, b2, b3 = b[..., 0], b[..., 1], b[..., 2], b[..., 3]
+    return jnp.stack([
+        a0 * b0 - a1 * b1 - a2 * b2 - a3 * b3,
+        a0 * b1 + a1 * b0 + a2 * b3 - a3 * b2,
+        a0 * b2 - a1 * b3 + a2 * b0 + a3 * b1,
+        a0 * b3 + a1 * b2 - a2 * b1 + a3 * b0,
+    ], axis=-1)
+
+
+def _q_to_n_jax(q: jnp.ndarray) -> jnp.ndarray:
+    """n=R(q)ẑ — unit director from quaternion, shape (*,3). Cf:219-221."""
+    q0, q1, q2, q3 = q[..., 0], q[..., 1], q[..., 2], q[..., 3]
+    return jnp.stack([
+        2.0 * (q1 * q3 + q0 * q2),
+        2.0 * (q2 * q3 - q0 * q1),
+        1.0 - 2.0 * (q1 ** 2 + q2 ** 2),
+    ], axis=-1)
+
+
+def _compute_strain_q_jax(
+    u: jnp.ndarray, q: jnp.ndarray, dx: float,
+) -> jnp.ndarray:
+    """Finite-rotation Cosserat strain ε=(I+∇u)·R(q)−I, shape (*,3,3).
+    Small-angle limit = cf:175-186; difference O(θ³).
+
+    Uses ε = F·R (not Rᵀ·F): the convention of the omega engine at cf:175-186
+    is ε_{ij}=∂_j u_i−ε_{ijk}ω_k = (∇u−[ω×])_{ij}, which is the small-angle
+    limit of (I+∇u)·R(q)−I (since R(q)≈I−[ω×] for q≈(1,ω/2)).
+    """
+    q0, q1, q2, q3 = q[..., 0], q[..., 1], q[..., 2], q[..., 3]
+    # R(q) entries (standard quaternion rotation matrix, NOT transposed)
+    R00 = 1.0 - 2.0 * (q2 ** 2 + q3 ** 2)
+    R01 = 2.0 * (q1 * q2 - q0 * q3)
+    R02 = 2.0 * (q1 * q3 + q0 * q2)
+    R10 = 2.0 * (q1 * q2 + q0 * q3)
+    R11 = 1.0 - 2.0 * (q1 ** 2 + q3 ** 2)
+    R12 = 2.0 * (q2 * q3 - q0 * q1)
+    R20 = 2.0 * (q1 * q3 - q0 * q2)
+    R21 = 2.0 * (q2 * q3 + q0 * q1)
+    R22 = 1.0 - 2.0 * (q1 ** 2 + q2 ** 2)
+    # F = I + ∇u; gu[...,i,j] = ∂_j u_i
+    gu = _tetrahedral_gradient(u) / dx
+    F00 = 1.0 + gu[..., 0, 0];  F01 = gu[..., 0, 1];  F02 = gu[..., 0, 2]
+    F10 = gu[..., 1, 0];         F11 = 1.0 + gu[..., 1, 1];  F12 = gu[..., 1, 2]
+    F20 = gu[..., 2, 0];         F21 = gu[..., 2, 1];  F22 = 1.0 + gu[..., 2, 2]
+    # ε = F·R − I; ε_{ij} = Σ_k F_{ik}·R_{kj}
+    e00 = F00 * R00 + F01 * R10 + F02 * R20 - 1.0
+    e01 = F00 * R01 + F01 * R11 + F02 * R21
+    e02 = F00 * R02 + F01 * R12 + F02 * R22
+    e10 = F10 * R00 + F11 * R10 + F12 * R20
+    e11 = F10 * R01 + F11 * R11 + F12 * R21 - 1.0
+    e12 = F10 * R02 + F11 * R12 + F12 * R22
+    e20 = F20 * R00 + F21 * R10 + F22 * R20
+    e21 = F20 * R01 + F21 * R11 + F22 * R21
+    e22 = F20 * R02 + F21 * R12 + F22 * R22 - 1.0
+    return jnp.stack([
+        jnp.stack([e00, e01, e02], axis=-1),
+        jnp.stack([e10, e11, e12], axis=-1),
+        jnp.stack([e20, e21, e22], axis=-1),
+    ], axis=-2)
+
+
+def _bond_wryness_jax(q: jnp.ndarray, dx: float) -> jnp.ndarray:
+    """Bond wryness κ_ij=(1/4dx)·Σ_l p_{l,j}·(2 Im log q̄⊗q′)_i, shape (*,3,3).
+    Small-angle limit = _compute_curvature(ω,dx) (cf:189-191).
+    Double-where autodiff-safe log-map pattern matching cf:194-222."""
+    q_conj = q * jnp.array([1.0, -1.0, -1.0, -1.0], dtype=q.dtype)
+    kappa = jnp.zeros(q.shape[:-1] + (3, 3), dtype=q.dtype)
+    for (di, dj, dk) in TETRA_OFFSETS:
+        qs = jnp.roll(
+            jnp.roll(jnp.roll(q, -di, axis=0), -dj, axis=1), -dk, axis=2,
+        )
+        prod = _quat_mul_jax(q_conj, qs)
+        # Short-arc: ensure scalar part ≥ 0
+        s = jnp.where(prod[..., 0:1] >= 0.0, 1.0, -1.0)
+        prod = prod * s
+        vec = prod[..., 1:]    # (*,3); = sin(θ)·n̂
+        q0h = prod[..., 0:1]   # (*,1); = cos(θ)
+        # Log-map: 2θ·n̂.  θ/sin(θ) scale, double-where safe at identity.
+        # 1/sinc(θ/π) = θ/sin(θ); jnp.sinc(x)=sin(πx)/(πx) so sinc(θ/π)=sin(θ)/θ.
+        v2 = jnp.sum(vec ** 2, axis=-1, keepdims=True)
+        vn_safe = jnp.sqrt(jnp.where(v2 > 1e-30, v2, jnp.ones_like(v2)))
+        theta = jnp.arctan2(vn_safe, q0h)
+        sinc_v = jnp.sinc(theta / jnp.pi)   # = sin(θ)/θ, smooth at 0
+        scale_raw = 1.0 / sinc_v             # = θ/sin(θ)
+        scale = jnp.where(v2 > 1e-30, scale_raw, jnp.ones_like(scale_raw))
+        dw = 2.0 * scale * vec               # = 2θ·n̂, shape (*,3)
+        pv = jnp.array([float(di), float(dj), float(dk)], dtype=q.dtype)
+        kappa = kappa + jnp.einsum("...i,j->...ij", dw, pv) * (1.0 / (4.0 * dx))
+    return kappa
+
+
+def _op10_density_q(q: jnp.ndarray, dx: float) -> jnp.ndarray:
+    """Op10 density with n from q directly (cf:299-316, skips cf:204-215)."""
+    n_hat = _q_to_n_jax(q)
+    grad_n = _tetrahedral_gradient(n_hat) / dx
+    G = jnp.einsum("...ai,...aj->...ij", grad_n, grad_n)
+    tr_G = jnp.sum(jnp.diagonal(G, axis1=-2, axis2=-1), axis=-1)
+    sq_G = jnp.sum(G * G, axis=(-2, -1))
+    return 0.5 * (tr_G * tr_G - sq_G)
+
+
+def _hopf_density_q(q: jnp.ndarray, dx: float) -> jnp.ndarray:
+    """Hopf density with n from q directly (cf:319-381, skips cf:204-215)."""
+    n_hat = _q_to_n_jax(q)
+    grad_n = _tetrahedral_gradient(n_hat) / dx
+    di_n = jnp.moveaxis(grad_n, -1, 0)
+    F01 = jnp.sum(n_hat * jnp.cross(di_n[0], di_n[1], axis=-1), axis=-1)
+    F02 = jnp.sum(n_hat * jnp.cross(di_n[0], di_n[2], axis=-1), axis=-1)
+    F12 = jnp.sum(n_hat * jnp.cross(di_n[1], di_n[2], axis=-1), axis=-1)
+    B = jnp.stack([F12, -F02, F01], axis=-1)
+    nx, ny, nz = B.shape[:3]
+    kx = jnp.fft.fftfreq(nx, d=dx) * (2.0 * jnp.pi)
+    ky = jnp.fft.fftfreq(ny, d=dx) * (2.0 * jnp.pi)
+    kz = jnp.fft.fftfreq(nz, d=dx) * (2.0 * jnp.pi)
+    KX, KY, KZ = jnp.meshgrid(kx, ky, kz, indexing="ij")
+    K2 = KX * KX + KY * KY + KZ * KZ
+    K2_safe = jnp.where(K2 > 0, K2, 1.0)
+    zero_mask = (K2 > 0).astype(B.dtype)
+    B_hat = jnp.fft.fftn(B, axes=(0, 1, 2))
+    kBx = KY * B_hat[..., 2] - KZ * B_hat[..., 1]
+    kBy = KZ * B_hat[..., 0] - KX * B_hat[..., 2]
+    kBz = KX * B_hat[..., 1] - KY * B_hat[..., 0]
+    Ax = jnp.fft.ifftn(1j * kBx / K2_safe * zero_mask, axes=(0, 1, 2)).real
+    Ay = jnp.fft.ifftn(1j * kBy / K2_safe * zero_mask, axes=(0, 1, 2)).real
+    Az = jnp.fft.ifftn(1j * kBz / K2_safe * zero_mask, axes=(0, 1, 2)).real
+    A = jnp.stack([Ax, Ay, Az], axis=-1)
+    return 0.5 * jnp.sum(A * B, axis=-1)
+
+
+def _energy_density_k4_saturated(
+    u: jnp.ndarray,
+    q: jnp.ndarray,
+    mask_alive: jnp.ndarray,
+    dx: float,
+    G: float,
+    G_c: float,
+    gamma: float,
+    omega_yield: float,
+    epsilon_yield: float,
+    k_op10: float,
+    k_refl: float,
+    k_hopf: float,
+) -> jnp.ndarray:
+    """Per-site energy density for K4 mode (mirrors _energy_density_saturated).
+    Uses finite-rotation strain and bond wryness; n extracted from q directly."""
+    eps = _compute_strain_q_jax(u, q, dx)
+    kappa = _bond_wryness_jax(q, dx)
+    eps_T = jnp.swapaxes(eps, -1, -2)
+    eps_sym = 0.5 * (eps + eps_T)
+    eps_antisym = 0.5 * (eps - eps_T)
+    trace_eps = eps[..., 0, 0] + eps[..., 1, 1] + eps[..., 2, 2]
+    W_cauchy = (2.0 / 3.0) * trace_eps ** 2 + jnp.sum(eps_sym ** 2, axis=(-1, -2))
+    W_micropolar = jnp.sum(eps_antisym ** 2, axis=(-1, -2))
+    W_kappa = jnp.sum(kappa ** 2, axis=(-1, -2))
+    eps_sq = jnp.sum(eps ** 2, axis=(-1, -2))
+    kappa_sq = W_kappa
+    S_eps_sq = jnp.clip(1.0 - eps_sq / epsilon_yield ** 2, 0.0, 1.0)
+    S_kappa_sq = jnp.clip(1.0 - kappa_sq / omega_yield ** 2, 0.0, 1.0)
+    # Reflection density (inline to share eps/kappa; cf:441-502 analog with K4 strains)
+    A_sq = jnp.clip(
+        eps_sq / epsilon_yield ** 2 + kappa_sq / omega_yield ** 2, 0.0, 1.0 - 1e-10,
+    )
+    S_refl = jnp.sqrt(1.0 - A_sq)
+    grad_S = _tetrahedral_gradient(S_refl[..., None])[..., 0, :] / dx
+    W_refl = (1.0 / 16.0) * jnp.sum(grad_S ** 2, axis=-1) / (S_refl ** 2 + 1e-6)
+    W_op10 = _op10_density_q(q, dx)
+    W_hopf = _hopf_density_q(q, dx)
+    W = (
+        (W_cauchy * G + W_micropolar * G_c) * S_eps_sq
+        + W_kappa * gamma * S_kappa_sq
+        + W_op10 * k_op10
+        + W_refl * k_refl
+        + W_hopf * k_hopf
+    )
+    return W * mask_alive.astype(W.dtype)
+
+
+def _total_energy_k4(
+    u, q, mask_alive, dx, G, G_c, gamma, omega_yield, epsilon_yield, k_op10, k_refl, k_hopf,
+):
+    """Scalar total energy for K4 mode (for value_and_grad)."""
+    return jnp.sum(_energy_density_k4_saturated(
+        u, q, mask_alive, dx, G, G_c, gamma, omega_yield, epsilon_yield, k_op10, k_refl, k_hopf,
+    ))
+
+
+_val_and_grad_k4 = jax.jit(jax.value_and_grad(_total_energy_k4, argnums=(0, 1)))
+_total_energy_k4_jit = jax.jit(_total_energy_k4)
+
+
+def _left_torque_from_grad(g: jnp.ndarray, q: jnp.ndarray) -> jnp.ndarray:
+    """Left-trivialized torque τ=½Im(g⊗q̄), g=dW/dq∈ℝ⁴→τ∈ℝ³.
+    Numerically verified per-component formula (NOT q̄⊗g):
+      τ₁=½(−g₀q₁+g₁q₀−g₂q₃+g₃q₂)
+      τ₂=½(−g₀q₂+g₁q₃+g₂q₀−g₃q₁)
+      τ₃=½(−g₀q₃−g₁q₂+g₂q₁+g₃q₀)"""
+    g0, g1, g2, g3 = g[..., 0], g[..., 1], g[..., 2], g[..., 3]
+    q0, q1, q2, q3 = q[..., 0], q[..., 1], q[..., 2], q[..., 3]
+    return jnp.stack([
+        0.5 * (-g0 * q1 + g1 * q0 - g2 * q3 + g3 * q2),
+        0.5 * (-g0 * q2 + g1 * q3 + g2 * q0 - g3 * q1),
+        0.5 * (-g0 * q3 - g1 * q2 + g2 * q1 + g3 * q0),
+    ], axis=-1)
+
+
+_left_torque_from_grad_jit = jax.jit(_left_torque_from_grad)
+
+
+# Numpy helpers for Lie-group drift step (outside JAX trace)
+
+
+def _quat_mul_np(a: np.ndarray, b: np.ndarray) -> np.ndarray:
+    """Hamilton product a⊗b (numpy), shape (*,4)."""
+    a0, a1, a2, a3 = a[..., 0], a[..., 1], a[..., 2], a[..., 3]
+    b0, b1, b2, b3 = b[..., 0], b[..., 1], b[..., 2], b[..., 3]
+    return np.stack([
+        a0 * b0 - a1 * b1 - a2 * b2 - a3 * b3,
+        a0 * b1 + a1 * b0 + a2 * b3 - a3 * b2,
+        a0 * b2 - a1 * b3 + a2 * b0 + a3 * b1,
+        a0 * b3 + a1 * b2 - a2 * b1 + a3 * b0,
+    ], axis=-1)
+
+
+def _quat_exp_np(v: np.ndarray) -> np.ndarray:
+    """Quaternion exp((0,v)): (cos|v|, v·sinc(|v|/π)), shape (*,3)->(*,4).
+    np.sinc(x)=sin(πx)/(πx) so sinc(|v|/π)=sin(|v|)/|v|; safe at zero."""
+    v_norm = np.linalg.norm(v, axis=-1, keepdims=True)   # (*,1)
+    cos_v = np.cos(v_norm)
+    sinc_v = np.sinc(v_norm / np.pi)                     # = sin(|v|)/|v|
+    return np.concatenate([cos_v, v * sinc_v], axis=-1)  # (*,4)
+
+
+# ======================================================================
+# End K4 helpers
+# ======================================================================
+
+
 # ----------------------------------------------------------------------
 # Public numpy-style shim for backward compatibility with existing tests
 # ----------------------------------------------------------------------
@@ -982,6 +1239,8 @@ class CosseratField3D:
         impedance_cfl_safety: float = 0.4,
         reflection_form: str = "grad",
         reflection_delta: float = 1e-3,
+        k_refl: float = 1.0,
+        rotation_storage: str = "omega",
     ):
         self.nx = nx
         self.ny = ny
@@ -1035,7 +1294,18 @@ class CosseratField3D:
         self.G_c = 1.0
         self.gamma = 1.0
         self.k_op10 = 1.0
-        self.k_refl = 1.0
+        self.k_refl = float(k_refl)
+        assert self.k_refl == float(k_refl), f"k_refl round-trip: {k_refl!r} → {self.k_refl!r}"
+        if rotation_storage not in ("omega", "quaternion"):
+            raise ValueError(
+                f"rotation_storage must be 'omega' or 'quaternion', got {rotation_storage!r}"
+            )
+        self.rotation_storage = rotation_storage
+        if rotation_storage == "quaternion":
+            self.q = np.zeros((nx, ny, nz, 4), dtype=np.float64)
+            self.q[..., 0] = 1.0                               # identity quaternion
+            self.q[~self.mask_alive] = np.array([1.0, 0.0, 0.0, 0.0])  # dead sites
+            self.Omega = np.zeros((nx, ny, nz, 3), dtype=np.float64)   # angular velocity
         # k_hopf = pi/3 from the Hopf-invariant matching at Q_H = 6 (electron
         # (2,3) winding), per research/_archive/L3_electron_soliton/13_ §3.2.
         self.k_hopf = float(np.pi / 3.0)
@@ -1526,6 +1796,102 @@ class CosseratField3D:
         mask = self.mask_alive[..., None].astype(self.u.dtype)
         self.u = self.u * mask
         self.omega = self.omega * mask
+
+    # ------------------------------------------------------------------
+    # K4 quaternion-storage helpers (class methods)
+    # ------------------------------------------------------------------
+
+    def _zero_outside_alive_k4(self) -> None:
+        """Enforce alive mask on u and q (dead sites → identity)."""
+        mask = self.mask_alive[..., None].astype(self.u.dtype)
+        self.u = self.u * mask
+        self.q[~self.mask_alive] = np.array([1.0, 0.0, 0.0, 0.0])
+
+    def _zero_velocities_outside_alive_k4(self, apply_pml: bool = True) -> None:
+        """Enforce alive mask + PML on u_dot and Omega."""
+        mask = self.mask_alive[..., None].astype(self.u_dot.dtype)
+        if apply_pml:
+            combined = mask * self.cos_pml_mask.astype(self.u_dot.dtype)
+        else:
+            combined = mask
+        self.u_dot = self.u_dot * combined
+        self.Omega = self.Omega * combined
+
+    def kinetic_energy_k4(self) -> float:
+        """½ρ|u̇|² + ½I_ω|Ω|² summed over alive sites (K4 mode)."""
+        mask = self.mask_alive[..., None].astype(self.u_dot.dtype)
+        K_u = 0.5 * self.rho * np.sum((self.u_dot * mask) ** 2)
+        K_Omega = 0.5 * self.I_omega * np.sum((self.Omega * mask) ** 2)
+        return float(K_u + K_Omega)
+
+    def total_energy_k4(self) -> float:
+        """Total potential energy for K4 mode."""
+        return float(_total_energy_k4_jit(
+            jnp.asarray(self.u),
+            jnp.asarray(self.q),
+            self._mask_alive_jax,
+            self.dx, self.G, self.G_c, self.gamma,
+            self.omega_yield, self.epsilon_yield,
+            self.k_op10, self.k_refl, self.k_hopf,
+        ))
+
+    def step_k4(self, dt: float | None = None, apply_pml: bool = True) -> None:
+        """Lie-group velocity-Verlet for K4 quaternion-storage mode.
+
+        u:    standard VV (translation).
+        q:    drift via q ← exp(½Ω dt)⊗q  (left multiply; |q|=1 to round-off).
+        Ω:    kick by −(1/I_ω)·τ where τ=½Im(g⊗q̄), g=dW/dq.
+        """
+        if dt is None:
+            dt = self.cfl_dt
+
+        u_j = jnp.asarray(self.u)
+        q_j = jnp.asarray(self.q)
+        _, (dW_du, dW_dq) = _val_and_grad_k4(
+            u_j, q_j, self._mask_alive_jax, self.dx,
+            self.G, self.G_c, self.gamma,
+            self.omega_yield, self.epsilon_yield,
+            self.k_op10, self.k_refl, self.k_hopf,
+        )
+        tau = _left_torque_from_grad_jit(dW_dq, q_j)
+        a_u = -np.asarray(dW_du) / self.rho
+        a_Omega = -np.asarray(tau) / self.I_omega
+
+        # Half-kick
+        self.u_dot = self.u_dot + 0.5 * dt * a_u
+        self.Omega = self.Omega + 0.5 * dt * a_Omega
+        self._zero_velocities_outside_alive_k4(apply_pml)
+
+        # Drift: u (Euclidean) and q (Lie-group)
+        self.u = self.u + dt * self.u_dot
+        q_exp = _quat_exp_np(self.Omega * (dt / 2.0))   # exp(½ Ω dt), shape (*,4)
+        self.q = _quat_mul_np(q_exp, self.q)            # left multiply
+        self._zero_outside_alive_k4()
+
+        # Force at new state
+        u_j2 = jnp.asarray(self.u)
+        q_j2 = jnp.asarray(self.q)
+        _, (dW_du2, dW_dq2) = _val_and_grad_k4(
+            u_j2, q_j2, self._mask_alive_jax, self.dx,
+            self.G, self.G_c, self.gamma,
+            self.omega_yield, self.epsilon_yield,
+            self.k_op10, self.k_refl, self.k_hopf,
+        )
+        tau2 = _left_torque_from_grad_jit(dW_dq2, q_j2)
+        a_u2 = -np.asarray(dW_du2) / self.rho
+        a_Omega2 = -np.asarray(tau2) / self.I_omega
+
+        # Second half-kick
+        self.u_dot = self.u_dot + 0.5 * dt * a_u2
+        self.Omega = self.Omega + 0.5 * dt * a_Omega2
+        self._zero_velocities_outside_alive_k4(apply_pml)
+
+        if self.damping_gamma > 0.0:
+            decay = max(0.0, 1.0 - self.damping_gamma * dt)
+            self.u_dot *= decay
+            self.Omega *= decay
+
+        self.time += dt
 
     # ------------------------------------------------------------------
     # Kinematic tensors
@@ -2242,6 +2608,10 @@ class CosseratField3D:
         once per outer cfl_dt step (ENV-D §1). The impedance path ignores this
         flag (it always applies PML — those substeps are internal to the solver).
         """
+        if self.rotation_storage == "quaternion":
+            self.step_k4(dt, apply_pml)
+            return
+
         if dt is None:
             dt = self.cfl_dt
 
