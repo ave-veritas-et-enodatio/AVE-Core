@@ -56,19 +56,17 @@ def _bond_re_min(q: np.ndarray, mask_alive: np.ndarray) -> float:
 
 
 # ---------------------------------------------------------------------------
-# B7 convention note (surfaced, not silently fixed — flag-don't-fix)
+# O1 ruling: declared ω-engine map (spec A5.3, strain_ruling.py e92ca222be08)
 # ---------------------------------------------------------------------------
-# After the B7 objectivity fix (strain ε = Rᵀ(q)·F − I), the quaternion that
-# reproduces the OMEGA ENGINE's small-angle micropolar strain (ε = ∇u − [ω×])
-# is q = (cos|ω|/2, −sin·ω̂) — i.e. the omega-engine microrotation is R(q)ᵀ,
-# the CONJUGATE of R(q). Empirically (verified at test-authoring time):
+# The strain ε = Rᵀ(q)·F − I is the O1 (objective) form (spec A5.3, K-R20).
+# The engine's stored ω is the INVERSE of the rotation q encodes (K-R19):
+#   ω_eng ≡ −2 Im log q,  i.e. q(ω_eng) = (cos|ω|/2, −ω̂ sin|ω|/2).
+# At small angle: q ≈ (1, −ω_eng/2).  This map is the declared convention for
+# every linear/spectral comparison between K4 and the ω engine:
 #   Rᵀ·F built from q=(1,+ω/2):  |F_K4−F_ω| ~ O(θ)   (slope ≈ 1.0) — NO match
 #   Rᵀ·F built from q=(1,−ω/2):  |F_K4−F_ω| ~ O(θ²)  (slope ≈ 2.0) — matches
-# So every K4-vs-omega COMPARISON below builds the matched q with −ω/2.
-# This is a convention collision between the omega engine's ω handedness and the
-# R(q) quaternion convention, surfaced for Grant adjudication; the objective
-# Rᵀ·F form (spec-correct) is retained in the engine unchanged.
-_OMEGA_TO_Q_SIGN = -1.0  # omega-matched quaternion uses q_vec = sign·ω/2
+# strain_ruling result at h=1e-6: max rel err ~2.8e-6 under the ω map.
+_OMEGA_TO_Q_SIGN = -1.0  # omega-matched quaternion: q_vec = sign·ω/2 (O1 map)
 
 
 def _q_from_omega(omega: np.ndarray) -> np.ndarray:
@@ -669,6 +667,219 @@ def test_strain_small_angle_limit():
     assert r_lo < 1e-3, f"small-amp sym diff too large: {r_lo:.2e}"
     assert 50.0 < r_hi / r_lo < 200.0, (
         f"sym strain difference not O(θ): ratio {r_hi / r_lo:.1f} (expect ≈100)")
+
+
+# ---------------------------------------------------------------------------
+# R1-9: objectivity of ε = Rᵀ(q)·F − I (spec A5.3, O1 ruling)
+# ---------------------------------------------------------------------------
+
+
+def _Rq_batch(q):
+    """Batch rotation matrices from quaternions, shape (N,3,3)."""
+    q0, q1, q2, q3 = q[:, 0], q[:, 1], q[:, 2], q[:, 3]
+    return np.stack([
+        np.stack([1-2*(q2**2+q3**2), 2*(q1*q2-q0*q3), 2*(q1*q3+q0*q2)], axis=-1),
+        np.stack([2*(q1*q2+q0*q3), 1-2*(q1**2+q3**2), 2*(q2*q3-q0*q1)], axis=-1),
+        np.stack([2*(q1*q3-q0*q2), 2*(q2*q3+q0*q1), 1-2*(q1**2+q2**2)], axis=-1),
+    ], axis=-2)
+
+
+def _qmul_batch(a, b):
+    """Batch quaternion product a⊗b, shape (N,4)."""
+    a0, a1, a2, a3 = a[:, 0], a[:, 1], a[:, 2], a[:, 3]
+    b0, b1, b2, b3 = b[:, 0], b[:, 1], b[:, 2], b[:, 3]
+    return np.stack([
+        a0*b0-a1*b1-a2*b2-a3*b3,
+        a0*b1+a1*b0+a2*b3-a3*b2,
+        a0*b2-a1*b3+a2*b0+a3*b1,
+        a0*b3+a1*b2-a2*b1+a3*b0,
+    ], axis=-1)
+
+
+def _n_batch(q):
+    """n = R(q)ẑ, shape (N,3)."""
+    q0, q1, q2, q3 = q[:, 0], q[:, 1], q[:, 2], q[:, 3]
+    return np.stack([
+        2*(q1*q3+q0*q2), 2*(q2*q3-q0*q1), 1-2*(q1**2+q2**2),
+    ], axis=-1)
+
+
+def _eps_RtF_batch(F, q):
+    """ε = Rᵀ(q)·F − I, shape (N,3,3). O1 form."""
+    R = _Rq_batch(q)
+    return np.einsum('...ki,...kj->...ij', R, F) - np.eye(3)[None]
+
+
+def _iso_energy_batch(E):
+    """Isotropic K4 pointwise energy (G=G_c=1), shape (N,)."""
+    sym = 0.5 * (E + np.swapaxes(E, -1, -2))
+    anti = 0.5 * (E - np.swapaxes(E, -1, -2))
+    tr = np.trace(E, axis1=-2, axis2=-1)
+    W_cauchy = (2.0/3.0) * tr**2 + np.sum(sym**2, axis=(-1, -2))
+    W_micro = np.sum(anti**2, axis=(-1, -2))
+    return W_cauchy + W_micro
+
+
+def test_r1_9_objectivity():
+    """R1-9 (spec A5.3, O1 ruling): ε = Rᵀ(q)·F − I is frame-objective.
+
+    Director law: F → QF, q → q_Q·q (n = R(q)ẑ → Qn exactly).
+    1000 random F (|∇u| ≤ 0.5), unit q, rigid Q.  rng 20261009.
+
+    O1 assertions (all ≤ 1e-12):
+      ‖ε(QF, q_Q q) − ε(F, q)‖/‖ε‖  (tensor objectivity)
+      |W(QF,q_Qq) − W(F,q)|/W        (energy objectivity)
+      ‖n(q_Q q) − Q n(q)‖            (director co-rotation)
+
+    Trip: F·R form (and R·F) must FAIL under the same Q (expect O(1): ~3.5/~17).
+    Lattice check: skipped — the K4 diamond-tetra stencil offsets
+      (1,1,1),(1,-1,-1),(-1,1,-1),(-1,-1,1) all have even parity (product of
+      signs = +1). Under a 90° rotation about z, (1,1,1)→(−1,1,1) which has
+      odd parity and is NOT in the offset set. The stencil is not 4-fold symmetric
+      about z; the stencil anisotropy would contaminate a lattice-level energy
+      comparison and cannot isolate the R-vs-Rᵀ difference.
+    """
+    rng = np.random.default_rng(20261009)
+    N = 1000
+
+    gu = rng.uniform(-0.5, 0.5, (N, 3, 3))
+    F = np.eye(3)[None] + gu
+
+    q_raw = rng.standard_normal((N, 4))
+    q = q_raw / np.linalg.norm(q_raw, axis=-1, keepdims=True)
+
+    qQ_raw = rng.standard_normal((N, 4))
+    q_Q = qQ_raw / np.linalg.norm(qQ_raw, axis=-1, keepdims=True)
+
+    R_Q = _Rq_batch(q_Q)
+    QF = np.einsum('...ij,...jk->...ik', R_Q, F)
+    q_Qq = _qmul_batch(q_Q, q)
+
+    # O1 form
+    eps = _eps_RtF_batch(F, q)
+    eps_rot = _eps_RtF_batch(QF, q_Qq)
+    eps_norms = np.linalg.norm(eps.reshape(N, 9), axis=-1)
+    tensor_rel = (
+        np.linalg.norm((eps_rot - eps).reshape(N, 9), axis=-1)
+        / np.maximum(eps_norms, 1e-30)
+    )
+    max_tensor_rel = float(np.max(tensor_rel))
+
+    W = _iso_energy_batch(eps)
+    W_rot = _iso_energy_batch(eps_rot)
+    energy_rel = np.abs(W_rot - W) / np.maximum(np.abs(W), 1e-30)
+    max_energy_rel = float(np.max(energy_rel))
+
+    n = _n_batch(q)
+    n_rot = _n_batch(q_Qq)
+    Qn = np.einsum('...ij,...j->...i', R_Q, n)
+    n_err = np.linalg.norm(n_rot - Qn, axis=-1)
+    max_n_err = float(np.max(n_err))
+
+    assert max_tensor_rel <= 1e-12, (
+        f"R1-9 O1 tensor objectivity: max_rel={max_tensor_rel:.2e} (limit 1e-12)")
+    assert max_energy_rel <= 1e-12, (
+        f"R1-9 O1 energy objectivity: max_rel={max_energy_rel:.2e} (limit 1e-12)")
+    assert max_n_err <= 1e-12, (
+        f"R1-9 O1 director co-rotation: max_err={max_n_err:.2e} (limit 1e-12)")
+
+    # Trip: F·R (FR) must fail
+    def _eps_FR_batch(F, q):
+        R = _Rq_batch(q)
+        return np.einsum('...ij,...jk->...ik', F, R) - np.eye(3)[None]
+
+    # Trip: R·F (RF) must also fail
+    def _eps_RF_batch(F, q):
+        R = _Rq_batch(q)
+        return np.einsum('...ij,...jk->...ik', R, F) - np.eye(3)[None]
+
+    eps_fr = _eps_FR_batch(F, q)
+    eps_fr_rot = _eps_FR_batch(QF, q_Qq)
+    eps_fr_norms = np.linalg.norm(eps_fr.reshape(N, 9), axis=-1)
+    fr_tensor_rel = (
+        np.linalg.norm((eps_fr_rot - eps_fr).reshape(N, 9), axis=-1)
+        / np.maximum(eps_fr_norms, 1e-30)
+    )
+    W_fr = _iso_energy_batch(eps_fr)
+    W_fr_rot = _iso_energy_batch(eps_fr_rot)
+    fr_energy_rel = np.abs(W_fr_rot - W_fr) / np.maximum(np.abs(W_fr), 1e-30)
+    max_fr_tensor = float(np.max(fr_tensor_rel))
+    max_fr_energy = float(np.max(fr_energy_rel))
+
+    eps_rf = _eps_RF_batch(F, q)
+    eps_rf_rot = _eps_RF_batch(QF, q_Qq)
+    eps_rf_norms = np.linalg.norm(eps_rf.reshape(N, 9), axis=-1)
+    rf_tensor_rel = (
+        np.linalg.norm((eps_rf_rot - eps_rf).reshape(N, 9), axis=-1)
+        / np.maximum(eps_rf_norms, 1e-30)
+    )
+    W_rf = _iso_energy_batch(eps_rf)
+    W_rf_rot = _iso_energy_batch(eps_rf_rot)
+    rf_energy_rel = np.abs(W_rf_rot - W_rf) / np.maximum(np.abs(W_rf), 1e-30)
+    max_rf_tensor = float(np.max(rf_tensor_rel))
+    max_rf_energy = float(np.max(rf_energy_rel))
+
+    assert max_fr_tensor > 0.1, (
+        f"R1-9 FR trip: tensor should fail; got {max_fr_tensor:.3f} (expect ~3.5)")
+    assert max_fr_energy > 1.0, (
+        f"R1-9 FR trip: energy should fail; got {max_fr_energy:.3f} (expect ~17)")
+    assert max_rf_tensor > 0.1, (
+        f"R1-9 RF trip: tensor should fail; got {max_rf_tensor:.3f} (expect ~3.5)")
+    assert max_rf_energy > 1.0, (
+        f"R1-9 RF trip: energy should fail; got {max_rf_energy:.3f} (expect ~17)")
+
+    # Reported residuals (O1 pass / FR trip / RF trip):
+    # O1:  tensor {max_tensor_rel:.2e}  energy {max_energy_rel:.2e}  n_err {max_n_err:.2e}
+    # FR:  tensor {max_fr_tensor:.3f}   energy {max_fr_energy:.3f}
+    # RF:  tensor {max_rf_tensor:.3f}   energy {max_rf_energy:.3f}
+
+
+def test_k4_strain_small_angle_omega_map():
+    """O1 ruling: ε = Rᵀ(q)·F − I matches cf:175-186 to O(h) under the ω map.
+
+    At h = 1e-6 the max relative strain error is ≤ 3e-6 (strain_ruling.py result
+    ~2.8e-6).  The ω map is q(ω_eng) ≈ (1, −ω_eng/2) (_OMEGA_TO_Q_SIGN = -1).
+    This is the spec A5.3 claim: 'rel err ~1e-6 at h = 1e-6'.
+    """
+    rng = np.random.default_rng(20261009)
+    N = 2000
+    h = 1e-6
+
+    gu = rng.standard_normal((N, 3, 3)) * h
+    omega = rng.standard_normal((N, 3)) * h
+
+    q = np.zeros((N, 4))
+    q[:, 0] = 1.0
+    q[:, 1:] = _OMEGA_TO_Q_SIGN * omega / 2.0
+    q /= np.linalg.norm(q, axis=-1, keepdims=True)
+
+    # Engine linear form (cf:175-186): ε_ij = ∂_j u_i − ε_ijk ω_k
+    # (ε_ijk ω_k = −[ω×]_ij in the standard cross-product convention; this is
+    # the same as ∇u + [ω×] in matrix form with the sign confirmed by
+    # strain_ruling engine_lin_rigid: eps_engine(Gu, −θ)=0 for rigid rotation)
+    LC = np.zeros((3, 3, 3))
+    LC[0, 1, 2] = LC[1, 2, 0] = LC[2, 0, 1] = 1.0
+    LC[0, 2, 1] = LC[2, 1, 0] = LC[1, 0, 2] = -1.0
+    eps_engine = gu - np.einsum("ijk,nk->nij", LC, omega)  # (N,3,3)
+
+    q0, q1, q2, q3 = q[:, 0], q[:, 1], q[:, 2], q[:, 3]
+    R = np.stack([
+        np.stack([1-2*(q2**2+q3**2), 2*(q1*q2-q0*q3), 2*(q1*q3+q0*q2)], axis=-1),
+        np.stack([2*(q1*q2+q0*q3), 1-2*(q1**2+q3**2), 2*(q2*q3-q0*q1)], axis=-1),
+        np.stack([2*(q1*q3-q0*q2), 2*(q2*q3+q0*q1), 1-2*(q1**2+q2**2)], axis=-1),
+    ], axis=-2)
+    F = np.eye(3)[None] + gu
+    eps_k4 = np.einsum('...ki,...kj->...ij', R, F) - np.eye(3)[None]
+
+    norms = np.linalg.norm(eps_engine.reshape(N, 9), axis=-1)
+    rel = (
+        np.linalg.norm((eps_k4 - eps_engine).reshape(N, 9), axis=-1)
+        / np.maximum(norms, 1e-30)
+    )
+    max_rel = float(np.max(rel))
+    assert max_rel <= 3e-6, (
+        f"small-angle strain vs cf:175-186 under ω map: max_rel={max_rel:.2e} "
+        f"(limit 3e-6; strain_ruling h=1e-6 gives ~2.8e-6)")
 
 
 # ---------------------------------------------------------------------------

@@ -14,23 +14,29 @@ Left-trivialized torque: τ=½Im(g⊗q̄), g=dW/dq∈ℝ⁴.  Numerically verifi
 n-field: n=R(q)ẑ (cf:219-221 equivalent, skipping cf:204-215).
 Bond wryness: κ_ij=(1/4dx)·Σ_l p_{l,j}·(2 Im log q̄⊗q′)_i;
   small-angle limit = ∂_j ω_i (cf:189-191).
-Finite-rotation strain: ε=Rᵀ(q)(I+∇u)−I (B7 objectivity fix); small-angle =
-  cf:175-186, difference O(θ²), and frame-objective (Rᵀ·F transforms as a
-  spatial tensor under a rigid rotation Q⊗q, F·R does not).
+Finite-rotation strain: ε=Rᵀ(q)(I+∇u)−I (O1 ruling, spec A5.3); frame-objective
+  under director law F→QF, q→q_Q·q (ΔW/W≤2e-15; R1-9 residuals measured).
+  Declared ω-engine map (spec A5.3): ω_eng ≡ −2 Im log q.  The engine's stored ω
+  is the INVERSE of the rotation q encodes: a rigid rotation with director +θ has
+  ω_eng = −θ (strain_ruling engine_lin_rigid result: ε_eng(Gu,−θ)=0).  At small
+  angle: q(ω_eng) = (1, −ω_eng/2).  Under this map Rᵀ·F−I matches cf:175-186 to
+  O(h) (max rel err ~2.8e-6 at h=1e-6; strain_ruling.py e92ca222be08).
+  cf:175-186 vs cf:194-221 are jointly non-objective (K-R19).
 
 This module is intentionally free of any import from ``cosserat_field_3d`` to
 avoid a circular import; it copies the two shared primitives (``TETRA_OFFSETS``
 and ``_tetrahedral_gradient``) it needs.
 
-B10 Rule-10 table (spec §1 K-R4/R5 + ladder §7 rows 1,3,4,6,10; grade column:
-DERIVED = algebraic/convention consequence, SIM = holds in the simulation only):
+B10 Rule-10 table (spec §1 K-R4/R5 + ladder §7 rows 1,3,4,6,10; A5.4 K-R18/19/20;
+grade: DERIVED = algebraic/convention consequence, SIM = holds in the simulation):
   | #            | cf:line       | Corpus says            | Code/sim says                                              | Grade   |
   |--------------|---------------|------------------------|------------------------------------------------------------|---------|
   | K-R4         | cf:~1047-1049 | ω "has SO(3) period 2π"| K4 stores q∈S³ (SU(2) double cover); no ω 2π representation seam | DERIVED |
   | K-R5         | cf:~1047-1049 | same                   | K4 energy not periodic in ω; only the n̂ terms are         | DERIVED |
-  | B7 strain    | k4_quaternion | ε = Rᵀ(I+∇u)−I         | switched F·R→Rᵀ·F; OBJECTIVE (ΔE/E=3e-16 vs 2.9 for F·R)   | DERIVED |
-  | B7 convention| k4_quaternion | —                      | omega-engine ω matches R(q)ᵀ: omega-matched q uses −ω/2; force slope 2.01 (qbar) vs 0.99 (q) — SURFACED, Grant adjudication | DERIVED |
-  | Row 1 (refl) | cf:497-500    | "not a fit parameter"  | k_refl=0 in trade (b); now a kwarg; E linear in k_refl (dev 1e-14) | DERIVED |
+  | B7 strain    | k4_quaternion | ε = Rᵀ(I+∇u)−I         | O1 ruling adopted; OBJECTIVE (R1-9: ΔW/W≤2e-15; FR trip: ΔW/W≈17) | DERIVED |
+  | K-R20        | spec line 17  | small-angle = cf:186   | sign opposite at linear order; kept as O1 (objective) with ω map | DERIVED |
+  | K-R18        | cf:497-500    | "not a fit parameter"  | E_refl ∝ 1/eps_reg exactly; regulator; k_refl=0 for this test (A5.1) | SIM |
+  | K-R19        | cf:175-186 vs cf:194-221 | ε=∂u−ε·ω and n=R(ω)ẑ jointly objective | jointly non-objective: rigid rotation with co-rotating director gives strain 2.0×; ω acts as inverse of director rotation | DERIVED+SIM |
   | Row 3 (TIR)  | cf:1176-1177  | TIR confinement        | absent with k_refl=0; PASS ≠ evidence for TIR              | DERIVED |
   | Row 4 (deflt)| cf:~1038      | k_refl default 1       | R2 run uses 0; read-back assert required                   | DERIVED |
   | Row 6 (c_R)  | cf:~1969-1971 | c_R=√(γ/I)             | irrelevant at trade (b) dt                                 | DERIVED |
