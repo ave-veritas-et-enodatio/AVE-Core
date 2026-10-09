@@ -293,6 +293,127 @@ def build_pf_seed(cfg_dict: dict, n: int = None, rc: int = None) -> np.ndarray:
             "expected '_hedgehog_at' or 'rational'")
 
 
+def run_preflight(cfg: dict, spec: dict, n: int = None, rc: int = None,
+                  max_steps: int = None, make_solver=None) -> dict:
+    """Shared pre-flight runner for P-ii, P-ii-C, R2-PF, R2-PF-C.
+
+    Builds q0 exclusively via build_pf_seed(cfg, n, rc) — never a literal L.
+    Records seed_sha1 = sha1(q0.tobytes()) after dead-site reset.
+
+    Checkpoint recording uses checkpoint_steps(ckpts, dt): each checkpoint
+    t_k is recorded at the FIRST step s with s*dt >= t_k (F5 fix).
+
+    Pre-bond dH measured vs H(0) (F6 fix).
+    Post-bond dH measured vs H(0), not H_post (F7 fix).
+    Centre = ((n_use-1)/2.0,)*3 — hedgehog zero in charge_counters.grid
+    convention (F8 fix; avoids 0.87-unit offset from n//2).
+
+    Returns trace dict with keys: rows, seed_sha1, H0, r_eq0, t_first,
+    r_first, r_eq_at_first, n_antipodal_T, T.
+    """
+    from ave.topological.charge_counters import bcc_alive_mask
+    from ave.topological.k4_quaternion import count_charge_k4
+
+    n_use = n if n is not None else cfg['nx']
+    rc_use = rc if rc is not None else cfg['seed']['rc']
+    dt = float(cfg['dt'])
+    T_end = float(cfg['t_end'])
+    n_steps_full = int(cfg['n_steps'])
+    n_steps = min(n_steps_full, max_steps) if max_steps is not None else n_steps_full
+    gamma_cfg = cfg['gamma']
+    k_op10_cfg = cfg['k_op10']
+    k_refl_cfg = cfg['k_refl']
+    rot_cfg = cfg['rotation_storage']
+
+    # Seed via build_pf_seed — the ONLY seed-building path (runner-seed anchor)
+    q0 = build_pf_seed(cfg, n=n_use, rc=rc_use)
+    alive = bcc_alive_mask((n_use, n_use, n_use))
+    q0[~alive] = np.array([1.0, 0.0, 0.0, 0.0])
+    seed_sha1 = hashlib.sha1(q0.tobytes()).hexdigest()
+
+    # Centre in charge_counters.grid convention: (n-1)/2.0 per axis
+    ctr = (n_use - 1) / 2.0
+    centre = (ctr, ctr, ctr)
+
+    # Build solver
+    if make_solver is None:
+        from ave.topological.cosserat_field_3d import CosseratField3D
+        def make_solver(nn):
+            cf_inner = CosseratField3D(
+                nn, nn, nn,
+                k_refl=k_refl_cfg,
+                rotation_storage=rot_cfg,
+            )
+            cf_inner.gamma = gamma_cfg
+            cf_inner.G = G
+            cf_inner.G_c = G_C
+            cf_inner.k_op10 = k_op10_cfg
+            return cf_inner
+
+    cf = make_solver(n_use)
+    # Apply cfg physics params regardless of solver origin
+    cf.gamma = gamma_cfg
+    cf.k_op10 = k_op10_cfg
+    cf.q = q0.copy()
+
+    H0 = cf.total_energy_k4() + cf.kinetic_energy_k4()
+    r_eq0 = r_eq_from_q(cf.q, alive)
+
+    ckpts = cfg['checkpoints']
+    hit_map = checkpoint_steps(ckpts, dt)  # {step: ckpt_idx}
+
+    rows = []
+    t_first = None
+    r_first = None
+    r_eq_at_first = None
+    n_antipodal_T = 0
+
+    for s in range(n_steps):
+        cf.step(dt)
+        step_1 = s + 1
+        t = step_1 * dt
+
+        bonds = antipodal_bonds(cf.q, alive, centre)
+        n_antipodal_T = len(bonds)
+
+        if t_first is None and bonds:
+            t_first = t
+            r_first = min(b[3] for b in bonds)
+            r_eq_at_first = r_eq_from_q(cf.q, alive)
+
+        if step_1 in hit_map:
+            ckpt_t = float(ckpts[hit_map[step_1]])
+            H_now = cf.total_energy_k4() + cf.kinetic_energy_k4()
+            dH = abs(H_now - H0) / max(abs(H0), 1e-30)
+
+            r_res = count_charge_k4(cf.q, alive)
+            resolved = bool(r_res.get('resolved', False))
+            N = r_res.get('value') if resolved else None
+            r_eq_now = r_eq_from_q(cf.q, alive)
+
+            rows.append({
+                't': ckpt_t,
+                'step': step_1,
+                'N': N,
+                'resolved': resolved,
+                'dH': dH,
+                'n_antipodal': n_antipodal_T,
+                'r_eq': r_eq_now,
+            })
+
+    return {
+        'rows': rows,
+        'seed_sha1': seed_sha1,
+        'H0': H0,
+        'r_eq0': r_eq0,
+        't_first': t_first,
+        'r_first': r_first,
+        'r_eq_at_first': r_eq_at_first if r_eq_at_first is not None else 0.0,
+        'n_antipodal_T': n_antipodal_T,
+        'T': T_end,
+    }
+
+
 def r_eq_from_q(q: np.ndarray, mask_alive: np.ndarray) -> float:
     """Equivalent radius of the q0<0 core (BCC density ¼, dx=1).
 
@@ -502,13 +623,19 @@ def aggregate_r2_periods(period_results, expected_periods=N_FULL_PERIODS,
                 n_wrong += 1
                 notes.append(f"Period {i}: RESOLVED but wrong: value={value}")
 
-    # R2-C verdict: any COLLAPSE → "COLLAPSE" (or "FAIL(#14)" if r14 earlier)
+    # R2-C verdict: any COLLAPSE → "COLLAPSE" (or "FAIL(#14)" or "FAIL" if higher
+    # precedence applies). Precedence: FAIL(#14) > FAIL (pre-collapse wrong) > COLLAPSE.
     if first_collapse_idx is not None:
         if r14_trip_period is not None and r14_trip_period < first_collapse_idx:
             verdict = "FAIL(#14)"
             notes.append(
                 f"#14 band trip at period {r14_trip_period} before first COLLAPSE "
                 f"at period {first_collapse_idx} → FAIL(#14)")
+        elif n_wrong > 0:
+            verdict = "FAIL"
+            notes.append(
+                f"{n_wrong} pre-collapse resolved period(s) ≠ +6 → FAIL "
+                f"(pre-collapse wrong value outranks COLLAPSE)")
         else:
             verdict = "COLLAPSE"
             notes.append(
@@ -518,7 +645,7 @@ def aggregate_r2_periods(period_results, expected_periods=N_FULL_PERIODS,
             'n_resolved': n_resolved,
             'n_unresolved': n_unresolved,
             'n_collapse': n_collapse,
-            'n_wrong': 0,
+            'n_wrong': n_wrong,
             'n_periods': n_periods,
             'notes': notes,
         }
@@ -552,6 +679,24 @@ def aggregate_r2_periods(period_results, expected_periods=N_FULL_PERIODS,
 # v7 pre-flight helpers (pf_checkpoint_times, antipodal_bonds,
 #   classify_first_bond, preflight_verdict) and frozen specs
 # ---------------------------------------------------------------------------
+
+
+def checkpoint_steps(times, dt: float) -> dict:
+    """Map checkpoint times to 1-indexed step numbers: first step s with s*dt >= t_k.
+
+    Returns dict {step: ckpt_idx}.  Uses ceil(t_k/dt) with a small epsilon guard
+    against floating-point overshoot so exact multiples don't bump to the next step.
+    """
+    result = {}
+    for idx, t_k in enumerate(times):
+        ratio = float(t_k) / float(dt)
+        # Guard: if ratio is within 1e-9 of an integer, treat it as that integer.
+        rounded = round(ratio)
+        step = int(rounded) if abs(ratio - rounded) < 1e-9 else int(np.ceil(ratio))
+        step = max(1, step)
+        if step not in result:
+            result[step] = idx
+    return result
 
 
 def pf_checkpoint_times(T: float) -> np.ndarray:
@@ -662,37 +807,51 @@ R2PF_C_SPEC = {
 
 
 def preflight_verdict(trace: dict, spec: dict) -> dict:
-    """Gate and A8 verdict for a pre-flight run.
+    """Gate and A8 verdict for a pre-flight run (rows-based trace, v7).
+
+    Trace required keys:
+      rows         list of per-checkpoint row dicts, each with:
+                     t (float), step (int), N (int|None), resolved (bool),
+                     dH (float, |ΔH|/H0 at this checkpoint), n_antipodal (int),
+                     r_eq (float)
+      H0           float   energy at t=0
+      r_eq0        float   r_eq at t=0
+      t_first      float|None  time of first antipodal bond (key MUST be present)
+      r_first      float|None  distance to bond midpoint at t_first
+      r_eq_at_first  float|None  r_eq at t_first
+      n_antipodal_T  int  n_antipodal at end of run
+      T            float  end time of run
 
     Gate verdicts (precedence top-down):
-    1. INVALID: checkpoint spacing > 0.005 at t ≤ 0.1; |dH| > 1e-3 before any
-       bond; resolved N ≠ N_expected before any bond; r_eq(0) outside pin tol.
+    1. INVALID: missing required key ('rows', 'H0', 't_first'); empty rows;
+       r_eq(0) outside pin tolerance; spacing > 0.005 anywhere at t ≤ 0.1
+       (derived from row times); any pre-bond row is UNRESOLVED, has N ≠
+       N_expected, or has |dH| > 1e-3; STABLE but rows do not reach T.
     2. BREAKUP / INFALL: bond seen; class from classify_first_bond.
-    3. STABLE: no bond through T.
+    3. STABLE: no bond through T, all rows valid.
 
     A8 verdict:
     - Non-control: CONFIRMED iff BREAKUP + all windows pass;
       MISS if BREAKUP or INFALL but some window fails; N/A if STABLE or INVALID.
-    - Control: MISS if BREAKUP-class bond (control should have none);
-      N/A if INFALL or STABLE or INVALID.
+    - Control: MISS if BREAKUP-class bond; N/A if INFALL, STABLE, or INVALID.
 
-    Trace keys (all optional — see notes below):
-      r_eq0               float    r_eq at t=0
-      t_first             float    time of first antipodal bond (None → no bond)
-      r_first             float    distance to bond midpoint at t_first
-      r_eq_at_first       float    r_eq at t_first
-      n_antipodal_T       int      n_antipodal at end of run
-      pre_bond_dH_max     float    max |dH/H0| before t_first
-      pre_bond_N          int      resolved adapter value before t_first (None → skip)
-      ckpt_spacings_early list[float]  spacing of each checkpoint at t ≤ 0.1
-                                       REQUIRED: missing or empty → INVALID
-      post_bond_dH_max    float    max |dH/H0| after t_first (log only;
-                                   > 1e-2 appends "dH>1e-2 flag" to reasons
-                                   but does not change gate or a8)
+    Post-bond rows (t > t_first): |dH| > 1e-2 appends 'dH>1e-2 flag' to
+    reasons (log only; does not change gate or a8).
     """
     reasons = []
 
-    # 1. INVALID checks (precedence order)
+    # 0. Required key presence
+    for key in ('rows', 'H0', 't_first'):
+        if key not in trace:
+            reasons.append(f"missing required trace key '{key}'")
+            return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
+
+    rows = trace['rows']
+    if not rows:
+        reasons.append("empty rows — no checkpoint recorded (INVALID)")
+        return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
+
+    # 1a. r_eq0 pin check
     r_eq0 = trace.get('r_eq0', 0.0)
     r_eq0_pin = spec.get('r_eq0_pin')
     r_eq0_tol = spec.get('r_eq0_tol', 0.005)
@@ -701,37 +860,60 @@ def preflight_verdict(trace: dict, spec: dict) -> dict:
             f"r_eq0={r_eq0:.4f} outside pin {r_eq0_pin}±{r_eq0_tol}")
         return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
 
-    early_spacings = trace.get('ckpt_spacings_early')
-    if not early_spacings:
-        reasons.append("no checkpoint spacing record for t ≤ 0.1")
-        return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
-    max_early = max(early_spacings)
-    if max_early > 0.005:
-        reasons.append(
-            f"checkpoint spacing {max_early:.4f} > 0.005 at t ≤ 0.1")
-        return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
+    # 1b. Spacing check: pre-bond rows at t ≤ 0.1 only
+    t_first = trace['t_first']
+    early_times = [r['t'] for r in rows
+                   if r['t'] <= 0.1 + 1e-9
+                   and (t_first is None or r['t'] < t_first - 1e-9)]
+    if len(early_times) >= 2:
+        early_arr = np.array(sorted(early_times))
+        max_early_sp = float(np.max(np.diff(early_arr)))
+        if max_early_sp > 0.005 + 1e-9:
+            reasons.append(
+                f"checkpoint spacing {max_early_sp:.4f} > 0.005 at t ≤ 0.1 "
+                f"(derived from row times)")
+            return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
 
-    pre_dH = trace.get('pre_bond_dH_max', 0.0)
-    if pre_dH > 1e-3:
-        reasons.append(f"|dH| = {pre_dH:.2e} > 1e-3 before any antipodal bond")
-        return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
-
+    # 1c. Per-row pre-bond checks (N, resolved, dH)
     N_exp = spec.get('N_expected')
-    pre_N = trace.get('pre_bond_N')
-    if pre_N is not None and N_exp is not None and pre_N != N_exp:
-        reasons.append(
-            f"adapter N={pre_N} ≠ N_expected={N_exp} before any antipodal bond")
-        return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
+    pre_bond_rows = [r for r in rows
+                     if t_first is None or r['t'] < t_first - 1e-9]
+    for row in pre_bond_rows:
+        rt = row['t']
+        if not row.get('resolved', False):
+            reasons.append(
+                f"checkpoint t={rt:.5f}: UNRESOLVED — "
+                f"required resolved with N={N_exp} before any bond")
+            return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
+        if N_exp is not None and row.get('N') != N_exp:
+            reasons.append(
+                f"checkpoint t={rt:.5f}: N={row.get('N')} ≠ N_expected={N_exp} "
+                f"before any bond")
+            return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
+        row_dH = row.get('dH', 0.0)
+        if row_dH > 1e-3:
+            reasons.append(
+                f"checkpoint t={rt:.5f}: |dH|={row_dH:.2e} > 1e-3 before any bond")
+            return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
 
     # 2 / 3. Gate verdict
-    t_first = trace.get('t_first')
     if t_first is None:
+        # STABLE additionally requires rows to reach T
+        T_end = trace.get('T')
+        if T_end is not None:
+            last_t = rows[-1]['t']
+            if last_t < T_end - 1e-9:
+                reasons.append(
+                    f"STABLE requires rows to reach T={T_end:.4f}; "
+                    f"last row at t={last_t:.4f}")
+                return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
         return {'gate': 'STABLE', 'a8': 'N/A', 'reasons': reasons}
 
     # Post-bond dH flag (log only; does not change gate or a8)
-    post_dH = trace.get('post_bond_dH_max')
-    if post_dH is not None and post_dH > 1e-2:
-        reasons.append("dH>1e-2 flag")
+    for row in rows:
+        if row['t'] > t_first + 1e-9 and row.get('dH', 0.0) > 1e-2:
+            reasons.append("dH>1e-2 flag")
+            break
 
     r_eq_at_first = trace.get('r_eq_at_first', 0.0)
     gate = classify_first_bond(r_eq_at_first, r_eq0)

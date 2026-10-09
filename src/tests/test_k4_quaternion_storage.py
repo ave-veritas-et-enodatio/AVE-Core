@@ -1057,89 +1057,24 @@ def test_r1_2d_option_ii_pii_preflight():
     import sys, os as _os
     sys.path.insert(0, _os.path.join(_os.path.dirname(__file__),
                                      '..', 'scripts', 'vol_4_engineering'))
-    from csk4_r2_config import (make_pii_config, pf_checkpoint_times,
-                                 r_eq_from_q, antipodal_bonds, preflight_verdict,
+    from csk4_r2_config import (make_pii_config, run_preflight, preflight_verdict,
                                  PII_SPEC)
-    from ave.topological.charge_counters import _hedgehog_at, bcc_alive_mask
 
     cfg_dict = make_pii_config(control=False)
-    n = cfg_dict['nx']
-    rc = cfg_dict['seed']['rc']
-    dt = cfg_dict['dt']
-    T = cfg_dict['t_end']
-    k_op10 = cfg_dict['k_op10']
-    gamma = cfg_dict['gamma']
-    ckpts = pf_checkpoint_times(T)
 
-    cf = make_r1_solver(n)
-    cf.gamma = gamma
-    cf.k_op10 = k_op10
-    q0 = _hedgehog_at(n, rc, (0, 0, 0), L=cfg_dict['seed']['L']).copy()
-    alive = bcc_alive_mask((n, n, n))
-    q0[~alive] = np.array([1.0, 0.0, 0.0, 0.0])
-    cf.q = q0
-
-    r_eq0 = r_eq_from_q(cf.q, alive)
-    n_steps = cfg_dict['n_steps']
-    ckpt_set = set(float(round(c, 10)) for c in ckpts)
-    centre = (n // 2, n // 2, n // 2)
-
-    t_first = None
-    r_first = None
-    r_eq_at_first = None
-    n_antipodal_T = 0
-    pre_bond_dH_max = 0.0
-    post_bond_dH_max = 0.0  # G2: filled below after t_first
-    H0 = None
-    H_post = None            # energy snapshot at t_first
-    ckpt_rows = []
-    ckpt_spacings_early = list(float(np.diff(ckpts[ckpts <= 0.1 + 1e-9]))) if len(ckpts[ckpts <= 0.1 + 1e-9]) > 1 else []
-    pre_bond_N = None
-
-    for s in range(n_steps):
-        cf.step(dt)
-        t = (s + 1) * dt
-        bonds = antipodal_bonds(cf.q, alive, centre)
-        if t_first is None and bonds:
-            t_first = t
-            r_first = min(b[3] for b in bonds)
-            r_eq_at_first = r_eq_from_q(cf.q, alive)
-            H_post = cf.total_energy_k4() + cf.kinetic_energy_k4()
-        elif t_first is not None and H_post is not None:
-            H_now = cf.total_energy_k4() + cf.kinetic_energy_k4()
-            dH = abs(H_now - H_post) / max(abs(H_post), 1e-30)
-            post_bond_dH_max = max(post_bond_dH_max, dH)
-        else:
-            if H0 is None:
-                H0 = 1.0  # placeholder; real dH requires energy computation
-            # pre_bond_dH_max not tracked (energy placeholder)
-        n_antipodal_T = len(bonds)
-        t_r = round(t, 10)
-        if t_r in ckpt_set:
-            r = count_charge_k4(cf.q, alive)
-            ckpt_rows.append({'t': t, 'n_antipodal': len(bonds),
-                               'r_eq': r_eq_from_q(cf.q, alive),
-                               'resolved': r.get('resolved'),
-                               'value': r.get('value')})
-            if t_first is None:
-                pre_bond_N = r.get('value') if r.get('resolved') else None
-
-    trace = {
-        'r_eq0': r_eq0,
-        't_first': t_first,
-        'r_first': r_first,
-        'r_eq_at_first': r_eq_at_first if r_eq_at_first is not None else 0.0,
-        'n_antipodal_T': n_antipodal_T,
-        'pre_bond_dH_max': pre_bond_dH_max,
-        'pre_bond_N': pre_bond_N,
-        'ckpt_spacings_early': ckpt_spacings_early,
-        'post_bond_dH_max': post_bond_dH_max,  # G2: log-only; "dH>1e-2 flag" if exceeded
-    }
+    trace = run_preflight(cfg_dict, PII_SPEC, make_solver=make_r1_solver)
     result = preflight_verdict(trace, PII_SPEC)
+
+    r_eq0 = trace.get('r_eq0', 0.0)
+    t_first = trace.get('t_first')
+    r_first = trace.get('r_first')
+    n_antipodal_T = trace.get('n_antipodal_T', 0)
+    r_eq_at_first = trace.get('r_eq_at_first')
     r_eq_ratio = r_eq_at_first / r_eq0 if (r_eq_at_first and r_eq0 > 0) else None
     print(f"[P-ii v7] gate={result['gate']} a8={result['a8']} "
           f"t_first={t_first} r_first={r_first} "
           f"r_eq_ratio={r_eq_ratio} n_antipodal_T={n_antipodal_T}")
+    print(f"[P-ii v7] seed_sha1={trace.get('seed_sha1')}")
     print(f"[P-ii v7] reasons={result['reasons']}")
 
     assert result['gate'] != 'INVALID', (
@@ -1162,8 +1097,12 @@ def test_r1_2d_option_ii_dynamic():
 
     NOT run in CI — needs RUN_K4_LARGE=1 + Grant GO.
     """
-    from ave.topological.charge_counters import _hedgehog_at, bcc_alive_mask
+    import sys as _sys, os as _os2
+    _sys.path.insert(0, _os2.path.join(_os2.path.dirname(__file__),
+                                       '..', 'scripts', 'vol_4_engineering'))
+    from ave.topological.charge_counters import bcc_alive_mask
     from ave.topological.k4_quaternion import collapse_check
+    from csk4_r2_config import build_pf_seed, make_pii_config
     from scripts.vol_4_engineering.csk4_r2_config import r_eq_from_q
 
     n, rc = 128, 12
@@ -1173,13 +1112,14 @@ def test_r1_2d_option_ii_dynamic():
     n_steps = max(38150, int(np.ceil(T_min / dt)))
     ckpt_gap = max(1, n_steps // 50)  # ~50 checkpoints
 
+    pii_cfg = make_pii_config(control=False)
     cf = make_r1_solver(n)
     cf.gamma = gamma
     cf.k_op10 = k_op10
-    q0 = _hedgehog_at(n, rc, (0, 0, 0), L=48).copy()
-    q0[~cf.mask_alive] = np.array([1.0, 0.0, 0.0, 0.0])
-    cf.q = q0
     alive = bcc_alive_mask((n, n, n))
+    q0 = build_pf_seed(pii_cfg, n=n, rc=rc)
+    q0[~alive] = np.array([1.0, 0.0, 0.0, 0.0])
+    cf.q = q0
 
     H0 = cf.total_energy_k4() + cf.kinetic_energy_k4()
     re_min_all = 1.0
@@ -1238,78 +1178,23 @@ def test_r1_2d_option_ii_pii_control():
     import sys, os as _os
     sys.path.insert(0, _os.path.join(_os.path.dirname(__file__),
                                      '..', 'scripts', 'vol_4_engineering'))
-    from csk4_r2_config import (make_pii_config, pf_checkpoint_times,
-                                 r_eq_from_q, antipodal_bonds, preflight_verdict,
+    from csk4_r2_config import (make_pii_config, run_preflight, preflight_verdict,
                                  PII_C_SPEC)
-    from ave.topological.charge_counters import _hedgehog_at, bcc_alive_mask
 
     cfg_dict = make_pii_config(control=True)
-    n = cfg_dict['nx']
-    rc = cfg_dict['seed']['rc']
-    dt = cfg_dict['dt']
     T = cfg_dict['t_end']
-    k_op10 = cfg_dict['k_op10']
-    gamma = cfg_dict['gamma']
-    ckpts = pf_checkpoint_times(T)
 
-    cf = make_r1_solver(n)
-    cf.gamma = gamma
-    cf.k_op10 = k_op10
-    q0 = _hedgehog_at(n, rc, (0, 0, 0), L=cfg_dict['seed']['L']).copy()
-    alive = bcc_alive_mask((n, n, n))
-    q0[~alive] = np.array([1.0, 0.0, 0.0, 0.0])
-    cf.q = q0
-
-    r_eq0 = r_eq_from_q(cf.q, alive)
-    n_steps = cfg_dict['n_steps']
-    ckpt_set = set(float(round(c, 10)) for c in ckpts)
-    centre = (n // 2, n // 2, n // 2)
-
-    t_first = None
-    r_first = None
-    r_eq_at_first = None
-    n_antipodal_T = 0
-    pre_bond_dH_max = 0.0
-    post_bond_dH_max = 0.0  # G2: filled below after t_first
-    H_post = None            # energy snapshot at t_first
-    ckpt_spacings_early = list(float(np.diff(ckpts[ckpts <= 0.1 + 1e-9]))) if len(ckpts[ckpts <= 0.1 + 1e-9]) > 1 else []
-    pre_bond_N = None
-
-    for s in range(n_steps):
-        cf.step(dt)
-        t = (s + 1) * dt
-        bonds = antipodal_bonds(cf.q, alive, centre)
-        if t_first is None and bonds:
-            t_first = t
-            r_first = min(b[3] for b in bonds)
-            r_eq_at_first = r_eq_from_q(cf.q, alive)
-            H_post = cf.total_energy_k4() + cf.kinetic_energy_k4()
-        elif t_first is not None and H_post is not None:
-            H_now = cf.total_energy_k4() + cf.kinetic_energy_k4()
-            dH = abs(H_now - H_post) / max(abs(H_post), 1e-30)
-            post_bond_dH_max = max(post_bond_dH_max, dH)
-        n_antipodal_T = len(bonds)
-        t_r = round(t, 10)
-        if t_r in ckpt_set:
-            r = count_charge_k4(cf.q, alive)
-            if t_first is None:
-                pre_bond_N = r.get('value') if r.get('resolved') else None
-
-    trace = {
-        'r_eq0': r_eq0,
-        't_first': t_first,
-        'r_first': r_first,
-        'r_eq_at_first': r_eq_at_first if r_eq_at_first is not None else 0.0,
-        'n_antipodal_T': n_antipodal_T,
-        'pre_bond_dH_max': pre_bond_dH_max,
-        'pre_bond_N': pre_bond_N,
-        'ckpt_spacings_early': ckpt_spacings_early,
-        'post_bond_dH_max': post_bond_dH_max,  # G2: log-only; "dH>1e-2 flag" if exceeded
-    }
+    trace = run_preflight(cfg_dict, PII_C_SPEC, make_solver=make_r1_solver)
     result = preflight_verdict(trace, PII_C_SPEC)
+
+    r_eq0 = trace.get('r_eq0', 0.0)
+    t_first = trace.get('t_first')
+    r_first = trace.get('r_first')
+    r_eq_at_first = trace.get('r_eq_at_first')
     r_eq_ratio = r_eq_at_first / r_eq0 if (r_eq_at_first and r_eq0 > 0) else None
     print(f"[P-ii-C v7] gate={result['gate']} a8={result['a8']} "
           f"t_first={t_first} r_first={r_first} r_eq_ratio={r_eq_ratio}")
+    print(f"[P-ii-C v7] seed_sha1={trace.get('seed_sha1')}")
     print(f"[P-ii-C v7] reasons={result['reasons']}")
 
     assert result['gate'] != 'INVALID', (
@@ -1338,24 +1223,39 @@ def test_r1_d_krefl1_log_only():
 
     Marked engine_sim (opt-in): deselected by -m "not engine_sim".
     """
+    import time as _time
     from ave.topological.charge_counters import hedgehog, bcc_alive_mask
 
-    dt_ladder = [2e-4, 1e-4, 5e-5, 2.5e-5, 1.25e-5, 6.25e-6, 3.125e-6]
+    # Full dt ladder; default = coarsest 2 rungs only; R1D_FULL=1 unlocks all.
+    _dt_full = [2e-4, 1e-4, 5e-5, 2.5e-5, 1.25e-5, 6.25e-6, 3.125e-6]
     if os.environ.get("R1D_FINE", "0") == "1":
-        dt_ladder.append(7.8e-7)
+        _dt_full.append(7.8e-7)
+    _full = os.environ.get("R1D_FULL", "0") == "1"
+    dt_ladder = _dt_full if _full else _dt_full[:2]  # coarsest 2 by default
 
     T_HH = 1.8        # hedgehog primary: pre-collapse bound (collapse at t≈3.6)
     N_RUNG_CAP = 2000  # per-rung step cap; full T=1.8 at fine dt needs Grant's GO
+    EVAL_EVERY = 50    # evaluate energy every k steps to reduce overhead
     T_CTRL = 0.05     # C∞-floor control window
     N_CTRL_CAP = 800
+    WALL_BUDGET_S = 600.0  # hard wall-clock budget; stops ladder cleanly
+    _t_start = _time.monotonic()
 
     n_hh, rc_hh = 48, 6
     q_hh = hedgehog(n_hh, rc_hh).copy()
     alive_hh = bcc_alive_mask((n_hh, n_hh, n_hh))
+    _truncated = False
 
     # ── PRIMARY: hedgehog(48,6) at k_refl=1, ω and K4 ──────────────────────
     for mode in ("omega", "quaternion"):
+        if _truncated:
+            break
         for dt in dt_ladder:
+            if _time.monotonic() - _t_start >= WALL_BUDGET_S:
+                print(f"[R1-D] wall-clock budget {WALL_BUDGET_S:.0f}s reached — "
+                      f"truncating ladder at dt={dt:.2e} mode={mode}")
+                _truncated = True
+                break
             n_steps = min(int(round(T_HH / dt)), N_RUNG_CAP)
             cf = CosseratField3D(n_hh, n_hh, n_hh, rotation_storage=mode,
                                  pml_thickness=0, damping_gamma=0.0)  # k_refl=1 default
@@ -1374,18 +1274,19 @@ def test_r1_d_krefl1_log_only():
             n_jump = 0
             max_jump = 0.0
             max_rel = 0.0
-            for _ in range(n_steps):
+            for si in range(n_steps):
                 cf.step(dt)
-                if mode == "omega":
-                    H = cf.total_energy() + cf.kinetic_energy()
-                else:
-                    H = cf.total_energy_k4() + cf.kinetic_energy_k4()
-                jump = abs(H - H_prev) / max(abs(H0), 1e-30)
-                if jump > 1e-3:
-                    n_jump += 1
-                max_jump = max(max_jump, jump)
-                max_rel = max(max_rel, abs(H - H0) / max(abs(H0), 1e-30))
-                H_prev = H
+                if (si + 1) % EVAL_EVERY == 0 or si == n_steps - 1:
+                    if mode == "omega":
+                        H = cf.total_energy() + cf.kinetic_energy()
+                    else:
+                        H = cf.total_energy_k4() + cf.kinetic_energy_k4()
+                    jump = abs(H - H_prev) / max(abs(H0), 1e-30)
+                    if jump > 1e-3:
+                        n_jump += 1
+                    max_jump = max(max_jump, jump)
+                    max_rel = max(max_rel, abs(H - H0) / max(abs(H0), 1e-30))
+                    H_prev = H
 
             # Saturation count and min Re (end-of-rung snapshot)
             if mode == "omega":
@@ -1410,6 +1311,10 @@ def test_r1_d_krefl1_log_only():
     ax_ctrl = np.array([1.0, 2.0, 3.0]) / np.sqrt(14.0)
     amp_ctrl = 1.5  # near-saturation
     for dt in dt_ladder:
+        if _time.monotonic() - _t_start >= WALL_BUDGET_S:
+            print(f"[R1-D] wall-clock budget {WALL_BUDGET_S:.0f}s reached — "
+                  f"truncating control ladder at dt={dt:.2e}")
+            break
         n_steps_c = min(int(round(T_CTRL / dt)), N_CTRL_CAP)
         th = amp_ctrl * np.sin(2 * np.pi * X_ctrl / n_ctrl) * np.cos(2 * np.pi * Y_ctrl / n_ctrl)
         cf_c = CosseratField3D(n_ctrl, n_ctrl, n_ctrl, rotation_storage="omega",
@@ -1421,15 +1326,16 @@ def test_r1_d_krefl1_log_only():
         n_jump_c = 0
         max_jump_c = 0.0
         max_rel_c = 0.0
-        for _ in range(n_steps_c):
+        for si_c in range(n_steps_c):
             cf_c.step(dt)
-            H_c = cf_c.total_energy() + cf_c.kinetic_energy()
-            jump_c = abs(H_c - H_prev_c) / max(abs(H0_c), 1e-30)
-            if jump_c > 1e-3:
-                n_jump_c += 1
-            max_jump_c = max(max_jump_c, jump_c)
-            max_rel_c = max(max_rel_c, abs(H_c - H0_c) / max(abs(H0_c), 1e-30))
-            H_prev_c = H_c
+            if (si_c + 1) % EVAL_EVERY == 0 or si_c == n_steps_c - 1:
+                H_c = cf_c.total_energy() + cf_c.kinetic_energy()
+                jump_c = abs(H_c - H_prev_c) / max(abs(H0_c), 1e-30)
+                if jump_c > 1e-3:
+                    n_jump_c += 1
+                max_jump_c = max(max_jump_c, jump_c)
+                max_rel_c = max(max_rel_c, abs(H_c - H0_c) / max(abs(H0_c), 1e-30))
+                H_prev_c = H_c
         oy_c = cf_c.omega_yield
         sat_c = int(np.sum(
             np.sum(cf_c.omega[al_c] ** 2, axis=-1) >= (1.0 - 1e-10) * oy_c ** 2
@@ -1437,6 +1343,7 @@ def test_r1_d_krefl1_log_only():
         print(f"[R1-D control   k_refl=1] omega      dt={dt:.2e} steps={n_steps_c} "
               f"max|dH/H0|={max_rel_c:.3e} jumps>1e-3={n_jump_c} "
               f"max_step_jump={max_jump_c:.3e} sat_count={sat_c}")
+    print(f"[R1-D] total elapsed {_time.monotonic() - _t_start:.1f}s")
     # NO assertion: K-R18/K-R21 diagnostic record only.
 
 
@@ -3091,22 +2998,58 @@ def test_classify_first_bond():
     assert clf(0.0,  1.0) == 'INFALL',  "r_eq_t=0 → INFALL"
 
 
+def _make_pre_rows(N_pre, dH, r_eq0, t_first):
+    """Two pre-bond checkpoint rows at t=0.005, 0.010 (before any t_first > 0.010)."""
+    resolved = N_pre is not None
+    return [
+        {'t': 0.005, 'step': 31, 'N': N_pre, 'resolved': resolved,
+         'dH': dH, 'n_antipodal': 0, 'r_eq': r_eq0},
+        {'t': 0.010, 'step': 62, 'N': N_pre, 'resolved': resolved,
+         'dH': dH, 'n_antipodal': 0, 'r_eq': r_eq0},
+    ]
+
+
 def _pii_trace(t_first=0.03, r_first=6.0, r_eq_ratio=0.98,
                n_antipodal_T=9, dH=1e-5, N_pre=1,
-               ckpt_spacings_early=None):
-    """Synthetic PII trace (r_eq0 = R_EQ0_PII = 11.983)."""
+               rows=None, T=0.25, H0=1.0):
+    """Synthetic PII trace (r_eq0 = R_EQ0_PII = 11.983) — rows-based format.
+
+    Updated for v7 preflight_verdict: uses 'rows' list, 'H0', 'T', 't_first'
+    (key always present) instead of flat pre_bond_dH_max / ckpt_spacings_early.
+    """
     cfg = _cfg()
     r_eq0 = cfg.R_EQ0_PII
+
+    if rows is not None:
+        r = rows
+    elif t_first is None:
+        # STABLE: rows must reach T for STABLE verdict
+        pre = _make_pre_rows(N_pre, dH, r_eq0, t_first=None)
+        r = pre + [
+            {'t': T, 'step': int(round(T / 1.65e-4)), 'N': N_pre,
+             'resolved': N_pre is not None, 'dH': dH,
+             'n_antipodal': 0, 'r_eq': r_eq0},
+        ]
+    else:
+        # BREAKUP / INFALL: two pre-bond rows + one post-bond row near t_first
+        pre = _make_pre_rows(N_pre, dH, r_eq0, t_first)
+        post_t = round(t_first + max(0.001, 1.65e-4), 6)
+        post_step = int(round(post_t / 1.65e-4))
+        r = pre + [
+            {'t': post_t, 'step': post_step, 'N': None, 'resolved': False,
+             'dH': dH, 'n_antipodal': n_antipodal_T,
+             'r_eq': r_eq_ratio * r_eq0},
+        ]
+
     return {
+        'rows': r,
+        'H0': H0,
         'r_eq0': r_eq0,
         't_first': t_first,
         'r_first': r_first,
-        'r_eq_at_first': r_eq_ratio * r_eq0,
+        'r_eq_at_first': (r_eq_ratio * r_eq0) if t_first is not None else None,
         'n_antipodal_T': n_antipodal_T,
-        'pre_bond_dH_max': dH,
-        'pre_bond_N': N_pre,
-        'ckpt_spacings_early': ckpt_spacings_early if ckpt_spacings_early is not None
-                               else [0.005, 0.005],
+        'T': T,
     }
 
 
@@ -3160,11 +3103,23 @@ def test_preflight_verdict_pii_stable():
 
 
 def test_preflight_verdict_invalid_spacing():
-    """Item 5 row 6: checkpoint spacing 0.05 → INVALID."""
+    """Item 5 row 6: checkpoint spacing > 0.005 at t ≤ 0.1 → INVALID (rows-based)."""
     cfg = _cfg()
-    trace = _pii_trace(ckpt_spacings_early=[0.05])
+    r_eq0 = cfg.R_EQ0_PII
+    # Two early rows at t=0.05 and t=0.10 → spacing=0.05 > 0.005.
+    # t_first=None so both rows are pre-bond (spacing check applies).
+    sparse_rows = [
+        {'t': 0.05, 'step': 303, 'N': 1, 'resolved': True,
+         'dH': 1e-5, 'n_antipodal': 0, 'r_eq': r_eq0},
+        {'t': 0.10, 'step': 606, 'N': 1, 'resolved': True,
+         'dH': 1e-5, 'n_antipodal': 0, 'r_eq': r_eq0},
+        {'t': 0.25, 'step': 1516, 'N': 1, 'resolved': True,
+         'dH': 1e-5, 'n_antipodal': 0, 'r_eq': r_eq0},
+    ]
+    trace = _pii_trace(t_first=None, rows=sparse_rows)
     out = cfg.preflight_verdict(trace, cfg.PII_SPEC)
-    assert out['gate'] == 'INVALID', f"expected INVALID (spacing 0.05 > 0.005); got {out}"
+    assert out['gate'] == 'INVALID', (
+        f"expected INVALID (spacing 0.05 > 0.005); got {out}")
 
 
 def test_preflight_verdict_invalid_dh():
@@ -3179,15 +3134,28 @@ def test_preflight_verdict_r2pf_confirmed():
     """Item 5 row 8: R2PF bond at 0.02, r 14, ratio 0.97, n(T) 12, N +6 → BREAKUP/CONFIRMED."""
     cfg = _cfg()
     r_eq0 = cfg.R_EQ0_R2
+    # rows-based format: N_expected=6 for R2PF_SPEC
+    rows_r2pf = [
+        {'t': 0.004, 'step': 18, 'N': 6, 'resolved': True,
+         'dH': 1e-5, 'n_antipodal': 0, 'r_eq': r_eq0},
+        {'t': 0.008, 'step': 36, 'N': 6, 'resolved': True,
+         'dH': 1e-5, 'n_antipodal': 0, 'r_eq': r_eq0},
+        {'t': 0.012, 'step': 54, 'N': 6, 'resolved': True,
+         'dH': 1e-5, 'n_antipodal': 0, 'r_eq': r_eq0},
+        {'t': 0.016, 'step': 71, 'N': 6, 'resolved': True,
+         'dH': 1e-5, 'n_antipodal': 0, 'r_eq': r_eq0},
+        {'t': 0.020, 'step': 89, 'N': None, 'resolved': False,
+         'dH': 1e-5, 'n_antipodal': 12, 'r_eq': 0.97 * r_eq0},
+    ]
     trace = {
+        'rows': rows_r2pf,
+        'H0': 1.0,
         'r_eq0': r_eq0,
         't_first': 0.02,
         'r_first': 14.0,
         'r_eq_at_first': 0.97 * r_eq0,
         'n_antipodal_T': 12,
-        'pre_bond_dH_max': 1e-5,
-        'pre_bond_N': 6,
-        'ckpt_spacings_early': [0.004, 0.004],
+        'T': 0.25,
     }
     out = cfg.preflight_verdict(trace, cfg.R2PF_SPEC)
     assert out['gate'] == 'BREAKUP', f"expected BREAKUP; got {out}"
@@ -3404,28 +3372,34 @@ def test_antipodal_bonds_synthetic():
 
 
 def test_preflight_verdict_post_bond_dh_flag():
-    """G2 (6c): post_bond_dH_max > 1e-2 appends 'dH>1e-2 flag' to reasons.
+    """G2 (6c, rows-updated): post-bond row dH > 1e-2 appends 'dH>1e-2 flag'.
 
-    Does NOT change gate or a8.  Two rows:
-      - CONFIRMED row + post_bond_dH_max=5e-2 -> still BREAKUP/CONFIRMED, flag in reasons
-      - CONFIRMED row + post_bond_dH_max=5e-3 -> BREAKUP/CONFIRMED, flag NOT in reasons
+    Does NOT change gate or a8.
+    - CONFIRMED base + extra post-bond row dH=5e-2 → still BREAKUP/CONFIRMED, flag in reasons
+    - CONFIRMED base + extra post-bond row dH=5e-3 → BREAKUP/CONFIRMED, flag NOT in reasons
     """
     cfg = _cfg()
 
-    trace_hi = dict(_pii_trace(), post_bond_dH_max=5e-2)
+    base = _pii_trace()  # t_first=0.03, rows include row at ~0.031
+    # Add a post-bond row at t=0.05 with high dH
+    post_hi = {'t': 0.05, 'step': 303, 'N': None, 'resolved': False,
+               'dH': 5e-2, 'n_antipodal': 9, 'r_eq': 11.0}
+    trace_hi = dict(base, rows=base['rows'] + [post_hi])
     out_hi = cfg.preflight_verdict(trace_hi, cfg.PII_SPEC)
     assert out_hi['gate'] == 'BREAKUP', f"expected BREAKUP; got {out_hi}"
     assert out_hi['a8'] == 'CONFIRMED', f"expected CONFIRMED; got {out_hi}"
     assert any('dH>1e-2 flag' in r for r in out_hi['reasons']), (
-        f"post_bond_dH_max=5e-2 > 1e-2 must append 'dH>1e-2 flag'; "
+        f"post-bond dH=5e-2 > 1e-2 must append 'dH>1e-2 flag'; "
         f"reasons={out_hi['reasons']}")
 
-    trace_lo = dict(_pii_trace(), post_bond_dH_max=5e-3)
+    post_lo = {'t': 0.05, 'step': 303, 'N': None, 'resolved': False,
+               'dH': 5e-3, 'n_antipodal': 9, 'r_eq': 11.0}
+    trace_lo = dict(base, rows=base['rows'] + [post_lo])
     out_lo = cfg.preflight_verdict(trace_lo, cfg.PII_SPEC)
     assert out_lo['gate'] == 'BREAKUP', f"expected BREAKUP; got {out_lo}"
     assert out_lo['a8'] == 'CONFIRMED', f"expected CONFIRMED; got {out_lo}"
     assert not any('dH>1e-2 flag' in r for r in out_lo['reasons']), (
-        f"post_bond_dH_max=5e-3 <= 1e-2 must NOT append flag; "
+        f"post-bond dH=5e-3 <= 1e-2 must NOT append flag; "
         f"reasons={out_lo['reasons']}")
 
 
@@ -3435,32 +3409,391 @@ def test_preflight_verdict_post_bond_dh_flag():
 
 
 def test_preflight_verdict_invalid_no_spacing():
-    """G3 (6c): missing or empty ckpt_spacings_early -> INVALID.
+    """G3 (6c, rows-updated): missing 'rows' key or empty rows → INVALID.
 
-    A trace that cannot show its t<=0.1 checkpoint spacing cannot be judged.
-    Gate must be INVALID with a reason mentioning 'checkpoint'.
+    A trace without rows cannot be judged. Gate must be INVALID.
+    Also tests that empty rows (list present but []) → INVALID.
     """
     cfg = _cfg()
     r_eq0 = cfg.R_EQ0_PII
 
-    base = {
+    # Missing 'rows' key → INVALID (missing required key)
+    base_no_rows = {
+        'H0': 1.0,
         'r_eq0': r_eq0,
         't_first': 0.03,
         'r_first': 6.0,
         'r_eq_at_first': 0.98 * r_eq0,
         'n_antipodal_T': 9,
-        'pre_bond_dH_max': 1e-5,
-        'pre_bond_N': 1,
+        'T': 0.25,
     }
-
-    # Missing key -> INVALID
-    out_missing = cfg.preflight_verdict(base, cfg.PII_SPEC)
+    out_missing = cfg.preflight_verdict(base_no_rows, cfg.PII_SPEC)
     assert out_missing['gate'] == 'INVALID', (
-        f"missing ckpt_spacings_early must yield INVALID; got {out_missing}")
-    assert any('checkpoint' in r for r in out_missing['reasons']), (
-        f"INVALID reason must mention 'checkpoint'; got {out_missing['reasons']}")
+        f"missing 'rows' key must yield INVALID; got {out_missing}")
+    assert any("rows" in r for r in out_missing['reasons']), (
+        f"INVALID reason must mention 'rows'; got {out_missing['reasons']}")
 
-    # Empty list -> INVALID
-    out_empty = cfg.preflight_verdict(dict(base, ckpt_spacings_early=[]), cfg.PII_SPEC)
+    # Empty rows → INVALID
+    out_empty = cfg.preflight_verdict(dict(base_no_rows, rows=[]), cfg.PII_SPEC)
     assert out_empty['gate'] == 'INVALID', (
-        f"empty ckpt_spacings_early must yield INVALID; got {out_empty}")
+        f"empty rows must yield INVALID; got {out_empty}")
+
+
+# ---------------------------------------------------------------------------
+# §11 item 1 — one seed builder: runner seed sha1 gating test
+# ---------------------------------------------------------------------------
+
+
+def test_preflight_runner_seed_sha1():
+    """§11 item 1: run_preflight builds seed via build_pf_seed; sha1 pinned.
+
+    Calls run_preflight at n=32, rc=3 stand-in (5 steps — no full physics).
+    Asserts trace['seed_sha1'] equals sha1 of build_pf_seed(pii_cfg, 32, 3)
+    with dead-site reset, and differs from the L=n/2 wrong-cutoff seed.
+
+    Kills: runner-seed L=64 (n/2) bypass in run_preflight.
+    Also kills: option-(ii) seed builder if it diverges from build_pf_seed.
+    """
+    import sys, os as _os, hashlib as _hashlib
+    sys.path.insert(0, _os.path.join(_os.path.dirname(__file__),
+                                     '..', 'scripts', 'vol_4_engineering'))
+    import csk4_r2_config as cfg_mod
+    from ave.topological.charge_counters import _hedgehog_at, bcc_alive_mask
+
+    pii_cfg = cfg_mod.make_pii_config(control=False)
+    n_si, rc_si = 32, 3  # stand-in: L_pinned=12 (4×rc_si), n/2=16 → distinguishable
+
+    trace = cfg_mod.run_preflight(pii_cfg, cfg_mod.PII_SPEC, n=n_si, rc=rc_si, max_steps=5)
+    assert 'seed_sha1' in trace, "run_preflight must return 'seed_sha1'"
+
+    # Expected sha1: build_pf_seed with dead-site reset
+    alive_si = bcc_alive_mask((n_si, n_si, n_si))
+    q_exp = cfg_mod.build_pf_seed(pii_cfg, n=n_si, rc=rc_si)
+    q_exp[~alive_si] = np.array([1.0, 0.0, 0.0, 0.0])
+    expected_sha1 = _hashlib.sha1(q_exp.tobytes()).hexdigest()
+
+    # Wrong sha1: L = n/2 = 16 (the L=64 mutant scaled to this stand-in)
+    q_wrong = _hedgehog_at(n_si, rc_si, (0, 0, 0), L=n_si // 2)
+    q_wrong[~alive_si] = np.array([1.0, 0.0, 0.0, 0.0])
+    wrong_sha1 = _hashlib.sha1(q_wrong.tobytes()).hexdigest()
+
+    assert trace['seed_sha1'] == expected_sha1, (
+        f"run_preflight seed_sha1={trace['seed_sha1']!r} != "
+        f"build_pf_seed sha1={expected_sha1!r}; runner may not use build_pf_seed")
+    assert trace['seed_sha1'] != wrong_sha1, (
+        f"run_preflight seed_sha1 == wrong L={n_si//2} sha1; "
+        f"L=n/2 mutant not distinguishable at n={n_si}, rc={rc_si}")
+
+
+# ---------------------------------------------------------------------------
+# §11 item 2 — per-checkpoint trace rows: N flip, UNRESOLVED, missing keys, dH row
+# ---------------------------------------------------------------------------
+
+
+def test_preflight_verdict_n_flip_invalid():
+    """§11 item 2(i): N flipped at one interior pre-bond checkpoint → INVALID.
+
+    One row with N=2 (wrong; N_expected=1) before t_first — never STABLE.
+    Kills: v7_preflight_N_check_off mutant.
+    """
+    cfg = _cfg()
+    r_eq0 = cfg.R_EQ0_PII
+    rows_n_flip = [
+        {'t': 0.005, 'step': 31, 'N': 1, 'resolved': True,
+         'dH': 1e-5, 'n_antipodal': 0, 'r_eq': r_eq0},
+        {'t': 0.010, 'step': 62, 'N': 2, 'resolved': True,   # N flipped to 2
+         'dH': 1e-5, 'n_antipodal': 0, 'r_eq': r_eq0},
+    ]
+    trace = _pii_trace(t_first=0.03, rows=rows_n_flip)
+    out = cfg.preflight_verdict(trace, cfg.PII_SPEC)
+    assert out['gate'] == 'INVALID', (
+        f"N flip at pre-bond checkpoint must yield INVALID; got {out}")
+    assert any('N=' in r or 'N_expected' in r for r in out['reasons']), (
+        f"INVALID reason must mention N; got {out['reasons']}")
+
+    # t_first=None (STABLE would be attempted): still INVALID due to N flip
+    trace_stable = _pii_trace(t_first=None, rows=rows_n_flip + [
+        {'t': 0.25, 'step': 1516, 'N': 2, 'resolved': True,
+         'dH': 1e-5, 'n_antipodal': 0, 'r_eq': r_eq0}
+    ])
+    out2 = cfg.preflight_verdict(trace_stable, cfg.PII_SPEC)
+    assert out2['gate'] == 'INVALID', (
+        f"N flip before STABLE must still yield INVALID; got {out2}")
+
+
+def test_preflight_verdict_unresolved_invalid():
+    """§11 item 2(ii): UNRESOLVED at one pre-bond checkpoint → INVALID.
+
+    Kills: v7_preflight_N_check_off mutant (UNRESOLVED path).
+    """
+    cfg = _cfg()
+    r_eq0 = cfg.R_EQ0_PII
+    rows_unres = [
+        {'t': 0.005, 'step': 31, 'N': 1, 'resolved': True,
+         'dH': 1e-5, 'n_antipodal': 0, 'r_eq': r_eq0},
+        {'t': 0.010, 'step': 62, 'N': None, 'resolved': False,  # UNRESOLVED
+         'dH': 1e-5, 'n_antipodal': 0, 'r_eq': r_eq0},
+    ]
+    trace = _pii_trace(t_first=0.03, rows=rows_unres)
+    out = cfg.preflight_verdict(trace, cfg.PII_SPEC)
+    assert out['gate'] == 'INVALID', (
+        f"UNRESOLVED pre-bond checkpoint must yield INVALID; got {out}")
+    assert any('UNRESOLVED' in r for r in out['reasons']), (
+        f"INVALID reason must mention UNRESOLVED; got {out['reasons']}")
+
+
+def test_preflight_verdict_missing_keys_invalid():
+    """§11 item 2(iii): missing 'rows', 'H0', or 't_first' key → INVALID.
+
+    Each missing required key independently produces INVALID.
+    """
+    cfg = _cfg()
+    good = _pii_trace()
+
+    for key in ('rows', 'H0', 't_first'):
+        bad = {k: v for k, v in good.items() if k != key}
+        out = cfg.preflight_verdict(bad, cfg.PII_SPEC)
+        assert out['gate'] == 'INVALID', (
+            f"missing key '{key}' must yield INVALID; got {out}")
+        assert any(key in r for r in out['reasons']), (
+            f"INVALID reason must mention '{key}'; got {out['reasons']}")
+
+
+def test_preflight_verdict_dh_row_invalid():
+    """§11 item 2(iv): |dH| 2e-3 at one pre-bond row → INVALID.
+
+    Kills: v7_preflight_dH_check_off mutant at the per-row level.
+    """
+    cfg = _cfg()
+    r_eq0 = cfg.R_EQ0_PII
+    rows_dh = [
+        {'t': 0.005, 'step': 31, 'N': 1, 'resolved': True,
+         'dH': 1e-5, 'n_antipodal': 0, 'r_eq': r_eq0},
+        {'t': 0.010, 'step': 62, 'N': 1, 'resolved': True,
+         'dH': 2e-3, 'n_antipodal': 0, 'r_eq': r_eq0},   # dH too large
+    ]
+    trace = _pii_trace(t_first=0.03, rows=rows_dh)
+    out = cfg.preflight_verdict(trace, cfg.PII_SPEC)
+    assert out['gate'] == 'INVALID', (
+        f"|dH|=2e-3 > 1e-3 pre-bond must yield INVALID; got {out}")
+    assert any('dH' in r or '2e-3' in r or '2.00e-03' in r for r in out['reasons']), (
+        f"INVALID reason must mention dH; got {out['reasons']}")
+
+
+def test_preflight_verdict_stable_reaches_t():
+    """§11 item 2: STABLE requires rows to reach T.
+
+    If rows don't reach T (e.g., run stopped early), gate must be INVALID.
+    """
+    cfg = _cfg()
+    r_eq0 = cfg.R_EQ0_PII
+    # Dense early rows (spacing 0.005) up to t=0.10 only; T=0.25 not reached.
+    # Spacing check passes (all 0.005); only "STABLE doesn't reach T" fires.
+    short_rows = [
+        {'t': round(0.005 * (i + 1), 6), 'step': 31 * (i + 1), 'N': 1,
+         'resolved': True, 'dH': 1e-5, 'n_antipodal': 0, 'r_eq': r_eq0}
+        for i in range(20)  # t=0.005..0.100, spacing=0.005, last=0.100
+    ]
+    trace = _pii_trace(t_first=None, rows=short_rows)  # T=0.25 by default
+    out = cfg.preflight_verdict(trace, cfg.PII_SPEC)
+    assert out['gate'] == 'INVALID', (
+        f"STABLE with rows not reaching T must yield INVALID; got {out}")
+    assert any('T=' in r or 'reach' in r or 'STABLE' in r for r in out['reasons']), (
+        f"INVALID reason must mention T or STABLE; got {out['reasons']}")
+
+
+# ---------------------------------------------------------------------------
+# §11 item 3 — checkpoint steps pure function test (F5)
+# ---------------------------------------------------------------------------
+
+
+def test_checkpoint_steps():
+    """§11 item 3 (F5): checkpoint_steps pure function — first-step-at-or-after rule.
+
+    For P-ii dt=1.65e-4 and R2-PF dt=2.24e-4 grids:
+      - Every checkpoint t_k is recorded at step s with s*dt >= t_k.
+      - No checkpoint is missed (all indices covered).
+      - Each step s is the FIRST step with s*dt >= t_k (not the step before).
+      - Spacing between checkpoint times <= 0.005 for t <= 0.1.
+
+    Kills: checkpoint hit logic reverted to exact-equality (round(t,10) in ckpt_set).
+    """
+    import sys, os as _os
+    sys.path.insert(0, _os.path.join(_os.path.dirname(__file__),
+                                     '..', 'scripts', 'vol_4_engineering'))
+    from csk4_r2_config import checkpoint_steps, pf_checkpoint_times
+
+    for dt in (1.65e-4, 2.24e-4):
+        ckpts = pf_checkpoint_times(0.25)
+        mapping = checkpoint_steps(ckpts, dt)
+
+        # Every checkpoint index must be covered
+        assert set(mapping.values()) == set(range(len(ckpts))), (
+            f"dt={dt:.2e}: not all checkpoint indices covered; "
+            f"got indices {sorted(mapping.values())}")
+
+        # Each mapped step satisfies s*dt >= t_k (hit condition)
+        # and (s-1)*dt < t_k (first hit)
+        for step, idx in mapping.items():
+            t_k = float(ckpts[idx])
+            assert step * dt >= t_k - 1e-12, (
+                f"dt={dt:.2e}: step={step}, s*dt={step*dt:.6f} < t_k={t_k:.6f}")
+            if step > 1:
+                assert (step - 1) * dt < t_k + 1e-12, (
+                    f"dt={dt:.2e}: step={step} is not first; "
+                    f"(s-1)*dt={((step-1)*dt):.6f} >= t_k={t_k:.6f}")
+
+
+# ---------------------------------------------------------------------------
+# §11 item 3 — r_first centre offset (F8)
+# ---------------------------------------------------------------------------
+
+
+def test_r_first_centre_offset():
+    """§11 item 3 (F8): hedgehog geometric centre is (n-1)/2.0, not n//2.
+
+    `_hedgehog_at(n, rc, (0,0,0))` places the hedgehog core at grid coordinate
+    (0,0,0), which is INDEX (n-1)/2.0 per axis (grid(n) uses X[i]=i-(n-1)/2).
+    The old runner used n//2 as the reference, offset by 0.5 per axis → 0.87 lu.
+
+    This test confirms:
+    1. The grid geometric centre for even n is (n-1)/2.0 (not n//2).
+    2. argmin(q0) is closer to (n-1)/2.0 than to n//2.
+    3. (n-1)/2.0 is within sqrt(3)*0.5+0.1 lattice units of argmin(q0).
+
+    Kills: centre reverted to n//2 in run_preflight.
+    """
+    import sys, os as _os
+    sys.path.insert(0, _os.path.join(_os.path.dirname(__file__),
+                                     '..', 'scripts', 'vol_4_engineering'))
+    from ave.topological.charge_counters import _hedgehog_at
+
+    n_si = 32
+    q = _hedgehog_at(n_si, 4, (0, 0, 0))
+
+    # Core = argmin(q0): the site most inverted (f≈π)
+    core_idx = np.array(np.unravel_index(np.argmin(q[..., 0]), q.shape[:3]),
+                        dtype=float)
+
+    geometric_centre = (n_si - 1) / 2.0  # = 15.5
+    wrong_centre = float(n_si // 2)        # = 16.0 (old code)
+
+    dist_correct = np.linalg.norm(core_idx - geometric_centre)
+    dist_wrong = np.linalg.norm(core_idx - wrong_centre)
+
+    # geometric_centre must be strictly closer to the core than wrong_centre
+    assert dist_correct < dist_wrong, (
+        f"(n-1)/2.0={geometric_centre} dist={dist_correct:.4f} from core, "
+        f"n//2={wrong_centre} dist={dist_wrong:.4f}; "
+        f"expected (n-1)/2.0 to be closer")
+
+    # The 3D offset from wrong_centre to correct: sqrt(3)*0.5 ≈ 0.866
+    expected_offset = np.sqrt(3) * 0.5
+    actual_offset = float(np.linalg.norm(np.array([geometric_centre] * 3)
+                                         - np.array([wrong_centre] * 3)))
+    assert abs(actual_offset - expected_offset) < 1e-9, (
+        f"n//2 → (n-1)/2.0 offset = {actual_offset:.6f}, expected {expected_offset:.6f}")
+
+    # (n-1)/2.0 centre is within 1 lattice unit of the core (per-axis)
+    assert dist_correct < np.sqrt(3) * 0.5 + 0.1, (
+        f"dist from (n-1)/2.0 to core = {dist_correct:.4f} > 0.97 lu; "
+        "wrong centre formula in run_preflight")
+
+
+# ---------------------------------------------------------------------------
+# §11 item 4 — 4 untested verdict branches (F9)
+# ---------------------------------------------------------------------------
+
+
+def test_preflight_verdict_r_eq0_pin_invalid():
+    """§11 item 4 (F9): r_eq0 outside pin tolerance → INVALID.
+
+    Kills: v7_preflight_r_eq0_check_off mutant.
+    """
+    cfg = _cfg()
+    # Use wrong r_eq0 (too far from R_EQ0_PII=11.983; tol=0.005)
+    wrong_r_eq0 = cfg.R_EQ0_PII + 1.0  # 12.983, well outside ±0.005
+    trace = _pii_trace()
+    trace = dict(trace, r_eq0=wrong_r_eq0)
+    out = cfg.preflight_verdict(trace, cfg.PII_SPEC)
+    assert out['gate'] == 'INVALID', (
+        f"r_eq0={wrong_r_eq0} outside pin {cfg.R_EQ0_PII}±0.005 must yield INVALID; "
+        f"got {out}")
+    assert any('r_eq0' in r for r in out['reasons']), (
+        f"INVALID reason must mention r_eq0; got {out['reasons']}")
+
+
+def test_preflight_verdict_r_first_miss():
+    """§11 item 4 (F9): r_first outside window [4, 11] → MISS.
+
+    Kills: v7_r_first_window_off mutant.
+    """
+    cfg = _cfg()
+    # r_first=2.0 is outside [4, 11] for PII_SPEC
+    trace = _pii_trace(t_first=0.03, r_first=2.0, r_eq_ratio=0.98, n_antipodal_T=9)
+    out = cfg.preflight_verdict(trace, cfg.PII_SPEC)
+    assert out['gate'] == 'BREAKUP', f"expected BREAKUP; got {out}"
+    assert out['a8'] == 'MISS', (
+        f"r_first=2.0 ∉ [4, 11] must yield MISS; got {out}")
+    assert any('r_first' in r for r in out['reasons']), (
+        f"MISS reason must mention r_first; got {out['reasons']}")
+
+
+def test_preflight_verdict_n_antipodal_miss():
+    """§11 item 4 (F9): n_antipodal_T below minimum (< 5) → MISS.
+
+    Kills: v7_n_antipodal_window_off mutant.
+    """
+    cfg = _cfg()
+    # n_antipodal_T=3 is below min=5 for PII_SPEC
+    trace = _pii_trace(t_first=0.03, r_first=6.0, r_eq_ratio=0.98, n_antipodal_T=3)
+    out = cfg.preflight_verdict(trace, cfg.PII_SPEC)
+    assert out['gate'] == 'BREAKUP', f"expected BREAKUP; got {out}"
+    assert out['a8'] == 'MISS', (
+        f"n_antipodal_T=3 < 5 must yield MISS; got {out}")
+    assert any('n_antipodal' in r for r in out['reasons']), (
+        f"MISS reason must mention n_antipodal; got {out['reasons']}")
+
+
+# ---------------------------------------------------------------------------
+# §11 item 5 — aggregator pre-collapse FAIL (Gate correction of delta §3.1.6)
+# ---------------------------------------------------------------------------
+
+
+def test_agg_pre_collapse_fail():
+    """§11 item 5: pre-collapse resolved ≠ +6 → FAIL, even with later COLLAPSE.
+
+    [+6]×3 + [+5] + COLLAPSE + [+6]×4 (expected 9) → "FAIL".
+    Precedence: FAIL(#14) > FAIL (pre-collapse wrong) > COLLAPSE.
+    Existing COLLAPSE tests (no pre-collapse wrong) are unaffected.
+    """
+    import sys, os
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__),
+                                    '..', 'scripts', 'vol_4_engineering'))
+    from csk4_r2_config import aggregate_r2_periods
+
+    good = dict(resolved=True, value=6, reason=None,
+                c_link_result=dict(resolved=True, value=6), c_exact_result=None)
+    wrong = dict(resolved=True, value=5, reason=None,
+                 c_link_result=dict(resolved=True, value=5), c_exact_result=None)
+    collapse_r = dict(resolved=False, value=None, reason="COLLAPSE",
+                      c_link_result=None, c_exact_result=None, collapse=True)
+
+    # [+6]×3 + [+5] + COLLAPSE + [+6]×4 → FAIL (pre-collapse +5 outranks COLLAPSE)
+    results = [good] * 3 + [wrong] + [collapse_r] + [good] * 4
+    out = aggregate_r2_periods(results, expected_periods=9)
+    assert out['verdict'] == 'FAIL', (
+        f"pre-collapse wrong value must yield FAIL (not {out['verdict']}); "
+        f"notes={out['notes']}")
+    assert out['n_wrong'] == 1, f"expected n_wrong=1; got {out['n_wrong']}"
+
+    # With r14_trip_period=1 < first_collapse_idx=4 → FAIL(#14) wins over FAIL
+    out2 = aggregate_r2_periods(results, expected_periods=9, r14_trip_period=1)
+    assert out2['verdict'] == 'FAIL(#14)', (
+        f"r14 trip before collapse must yield FAIL(#14); got {out2['verdict']}")
+
+    # [+6]×7 + COLLAPSE×2 (no pre-collapse wrong) → COLLAPSE (unchanged)
+    results_no_wrong = [good] * 7 + [collapse_r] * 2
+    out3 = aggregate_r2_periods(results_no_wrong, expected_periods=9)
+    assert out3['verdict'] == 'COLLAPSE', (
+        f"no pre-collapse wrong: COLLAPSE expected; got {out3['verdict']}")
