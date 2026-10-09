@@ -633,3 +633,25 @@ def count_charge_k4(q: np.ndarray, mask_alive: np.ndarray) -> dict:
     return dict(resolved=True, value=c_exact_res['value'], reason=None,
                 c_exact_result=c_exact_res, c_link_result=c_link_res,
                 c_det_alive4=c_det_val)
+
+
+# ---------------------------------------------------------------------------
+# Collapse detector — shared with R2 harness (R1-2e / R2-C)
+# ---------------------------------------------------------------------------
+
+
+def collapse_check(q: np.ndarray, mask_alive: np.ndarray) -> dict:
+    """Min Re(q̄(x)⊗q(x+p)) over alive bonds and whether it is ≤ 0.
+
+    Re(q̄·q′) = q·q′ (dot product) because q̄ = (q0,−q1,−q2,−q3) and |q|=1.
+
+    M1 mutant anchor: change `min_re <= 0.0` → `False` to disable the
+    detector; R1-2e assertion (a) fires when the flag never rises.
+    """
+    min_re = 1.0
+    for (di, dj, dk) in TETRA_OFFSETS:
+        q_nb = np.roll(np.roll(np.roll(q, -di, axis=0), -dj, axis=1), -dk, axis=2)
+        re = np.sum(q * q_nb, axis=-1)[mask_alive]
+        if re.size > 0:
+            min_re = min(min_re, float(re.min()))
+    return {"min_re": float(min_re), "collapse": min_re <= 0.0}  # M1: → False

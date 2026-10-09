@@ -111,6 +111,10 @@ DAMPING = 0.0
 # #16 partner box
 NX_PARTNER = NY_PARTNER = NZ_PARTNER = 192
 
+# R2-PF pre-flight box (192³, T=0.25 tu; config only — run needs GO)
+NX_PF = NY_PF = NZ_PF = 192
+T_PF = 0.25  # time units
+
 
 def assert_r2_config(cf) -> None:
     """Read-back assert: verify all pinned R2 values on a constructed solver.
@@ -162,6 +166,47 @@ def make_r2_solver(nx=None, ny=None, nz=None, _skip_pin_check=False):
     cf.k_op10 = K_OP10
     assert_r2_config(cf)
     return cf
+
+
+def make_r2_pf_config() -> dict:
+    """R2-PF 192³ pre-flight config (config only; run needs GO).
+
+    Returns parameter dict for the T=0.25 pre-flight run that must show
+    no Re≤0 and adapter +1 at every 0.025 checkpoint before the full R2 commit.
+    """
+    n_steps_pf = math.ceil(T_PF / DT)
+    return {
+        "nx": NX_PF, "ny": NY_PF, "nz": NZ_PF,
+        "dt": DT, "n_steps": n_steps_pf, "t_end": T_PF,
+        "gamma": GAMMA, "G": G, "G_c": G_C, "k_op10": K_OP10,
+        "k_refl": K_REFL, "rotation_storage": ROTATION_STORAGE,
+    }
+
+
+def classify_checkpoint(q: np.ndarray, mask_alive: np.ndarray,
+                        collapse_flagged: bool) -> dict:
+    """Classify a K4 checkpoint as RESOLVED(N), UNRESOLVED, or COLLAPSE.
+
+    Consults C-exact first; C-link is NEVER a fallback (M2 guard).
+    COLLAPSE wins whenever collapse_flagged is True.
+
+    M2 mutant anchor: inside the `if not c_exact_resolved:` block, replace
+    `return {"outcome": "UNRESOLVED", "value": None}` with a c_link lookup.
+    R1-2e assertion (b) kills it — post-collapse COLLAPSE checkpoints must
+    never become RESOLVED via a C-link fallback.
+    """
+    if collapse_flagged:
+        return {"outcome": "COLLAPSE", "value": None}
+    from ave.topological.k4_quaternion import count_charge_k4
+    r = count_charge_k4(q, mask_alive)
+    c_exact = r.get("c_exact_result")
+    c_exact_resolved = c_exact is not None and bool(c_exact.get("resolved"))
+    if not c_exact_resolved:
+        # M2 anchor: do NOT fall back to c_link here
+        return {"outcome": "UNRESOLVED", "value": None}
+    if r["resolved"]:
+        return {"outcome": f"RESOLVED({r['value']})", "value": r["value"]}
+    return {"outcome": "UNRESOLVED", "value": None}
 
 
 def get_charge_verdict(q, mask_alive):
@@ -237,16 +282,13 @@ def run_r2():  # pragma: no cover
 def aggregate_r2_periods(period_results):
     """Aggregate per-period count_charge_k4 results for the R2 breathing check.
 
-    F4 (v5): this consumes count_charge_k4 RESULT DICTS directly — the adapter is
-    the single source of truth for whether a period resolved. A period is counted
-    RESOLVED iff the adapter returned resolved=True (which already requires c_exact
-    AND c_link to agree). Any resolved=False — for ANY reason (NONUNIT, NONFINITE,
-    boundary margin, c_exact/c_link DISAGREEMENT) — is UNRESOLVED, never a FAIL.
-    This closes the agg_clink_ignored_legacy mutant: the legacy {'c_exact','c_link'}
-    path is removed; only canonical count_charge_k4 dicts (with 'resolved' key) are
-    accepted. No production code generates legacy dicts (grep-confirmed csk4bfix3).
+    F4 (v5): consumes count_charge_k4 RESULT DICTS directly. Non-adapter dicts
+    (those without 'resolved' key) raise TypeError — no legacy path.
 
-    Ladder §5 R2 #7 verdict logic:
+    R2-C (v6): COLLAPSE periods (marked with collapse=True) are a separate
+    outcome: excluded from #7 (the 90% resolution count) and never a FAIL.
+
+    Ladder §5 R2 #7 verdict logic (applied to non-COLLAPSE periods only):
       - A RESOLVED value ≠ +6 is the only COUNT FAIL.
       - PASS needs ≥ 90% resolved AND all resolved values = +6.
       - < 90% resolved (too many UNRESOLVED) → INCONCLUSIVE.
@@ -256,18 +298,29 @@ def aggregate_r2_periods(period_results):
         period_results: list of count_charge_k4 result dicts with keys
             'resolved' (bool), 'value' (int or None), 'reason' (str or None),
             'c_link_result' (dict or None, for the N3 c_link log).
+            Optional 'collapse' (bool) marks a COLLAPSE period (R2-C).
 
     Returns:
         dict with 'verdict' (PASS/FAIL/INCONCLUSIVE), 'n_resolved',
-        'n_unresolved', 'n_wrong', 'n_periods', 'notes' (list[str]).
+        'n_unresolved', 'n_collapse', 'n_wrong', 'n_periods', 'notes' (list[str]).
     """
     n_periods = len(period_results)
     n_resolved = 0
     n_wrong = 0
     n_unresolved = 0
+    n_collapse = 0
     notes = []
 
     for i, pr in enumerate(period_results):
+        if not isinstance(pr, dict) or 'resolved' not in pr:
+            raise TypeError(
+                f"Period {i}: expected count_charge_k4 result dict with 'resolved' "
+                f"key, got {type(pr).__name__!r}. Legacy dicts are not accepted.")
+        # R2-C: COLLAPSE periods are excluded from #7 (never FAIL).
+        if pr.get('collapse'):
+            n_collapse += 1
+            notes.append(f"Period {i}: COLLAPSE (Re≤0 or size ratio <0.54); excluded from #7")
+            continue
         resolved = bool(pr.get('resolved'))
         value = pr.get('value')
         reason = pr.get('reason') or ''
@@ -285,24 +338,27 @@ def aggregate_r2_periods(period_results):
                 notes.append(
                     f"Period {i}: RESOLVED but wrong: value={value}")
 
+    # Verdict applies to non-COLLAPSE periods only.
+    n_active = n_periods - n_collapse
     # A resolved wrong value is the only COUNT FAIL — it dominates the verdict.
     if n_wrong > 0:
         verdict = "FAIL"
         notes.append(
-            f"{n_wrong}/{n_periods} resolved periods ≠ +6 → COUNT FAIL")
-    elif n_periods > 0 and n_resolved >= 0.9 * n_periods:
+            f"{n_wrong}/{n_active} resolved periods ≠ +6 → COUNT FAIL")
+    elif n_active > 0 and n_resolved >= 0.9 * n_active:
         verdict = "PASS"
-        notes.append(f"{n_resolved}/{n_periods} resolved, all +6 → PASS")
+        notes.append(f"{n_resolved}/{n_active} resolved, all +6 → PASS")
     else:
         verdict = "INCONCLUSIVE"
         notes.append(
-            f"only {n_resolved}/{n_periods} resolved (< 90%) "
+            f"only {n_resolved}/{n_active} resolved (< 90%) "
             f"({n_unresolved} UNRESOLVED) → RESOLUTION-INCONCLUSIVE")
 
     return {
         'verdict': verdict,
         'n_resolved': n_resolved,
         'n_unresolved': n_unresolved,
+        'n_collapse': n_collapse,
         'n_wrong': n_wrong,
         'n_periods': n_periods,
         'notes': notes,

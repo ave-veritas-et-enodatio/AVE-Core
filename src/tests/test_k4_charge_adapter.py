@@ -213,6 +213,9 @@ def test_adapter_nan_on_alive_nonfinite():
         f"expected reason to start with 'NONFINITE', got: {result.get('reason')!r}")
     assert result['value'] is None, (
         f"expected value=None for NONFINITE, got: {result['value']!r}")
+    assert result.get('c_exact_result') is None, (
+        f"expected c_exact_result=None for NONFINITE (adapter short-circuits before "
+        f"c_exact), got: {result.get('c_exact_result')!r}")
 
 
 def test_adapter_clink_exact_resolves_clink_unresolved(monkeypatch):
@@ -244,10 +247,8 @@ def test_adapter_clink_exact_resolves_clink_unresolved(monkeypatch):
     assert not result['resolved'], (
         "expected UNRESOLVED when c_link UNRESOLVED")
     reason = result.get('reason') or ''
-    assert 'c_link' in reason, (
-        f"reason should mention c_link: {reason!r}")
-    assert 'disagree' not in reason.lower(), (
-        f"reason should not say 'disagrees' (N1 guard should fire first): {reason!r}")
+    assert reason.startswith('UNRESOLVED: c_link'), (
+        f"reason should start with 'UNRESOLVED: c_link' (N1 guard), got: {reason!r}")
 
 
 # ── boundary margin ───────────────────────────────────────────────────────────
