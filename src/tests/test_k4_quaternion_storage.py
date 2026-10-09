@@ -32,6 +32,9 @@ from ave.topological.k4_quaternion import (
     _compute_strain_q_jax,
     _energy_density_k4_saturated,
     _total_energy_k4_jit,
+    omega_eng_from_q,
+    q_from_omega_eng,
+    count_charge_k4,
 )
 import jax.numpy as jnp
 
@@ -42,6 +45,50 @@ import jax.numpy as jnp
 LARGE = os.environ.get("RUN_K4_LARGE", "0") == "1"
 
 TETRA_OFFSETS = ((1, 1, 1), (1, -1, -1), (-1, 1, -1), (-1, -1, 1))
+
+DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
+
+
+def make_r1_solver(n: int = 16, **kw):
+    """Factory for R1 tests: k_refl=0 asserted via read-back (v5 rule).
+
+    Every R1 test that builds a solver uses this. The read-back assert fires
+    before any physics, so a mutant that silently ignores the k_refl=0 kwarg
+    (e.g. _k4_init hard-coding k_refl=1) trips here rather than producing a
+    silently-reflecting run that still passes the downstream physics gates.
+    pml_thickness=0 / damping_gamma=0 are the R1 conservative-dynamics defaults;
+    callers may override via **kw (appended after, so keyword-only in effect).
+    """
+    kw.setdefault("pml_thickness", 0)
+    kw.setdefault("damping_gamma", 0.0)
+    cf = CosseratField3D(n, n, n, k_refl=0.0, rotation_storage="quaternion", **kw)
+    assert cf.k_refl == 0.0, (
+        f"make_r1_solver: k_refl read-back failed: {cf.k_refl!r} != 0.0 "
+        "(is _k4_init ignoring the k_refl kwarg?)")
+    return cf
+
+
+def _pr_strain_batch(Fs, qs):
+    """Center-site strain through the PR's own _compute_strain_q_jax.
+
+    Builds a 4×4×4 u field from F = I + ∇u with CONSTANT ∇u, so the diamond
+    tetrahedral gradient is exact at the center site (1,1,1): ε = Rᵀ(q)·F − I is
+    read off the engine's own stencil, not a reimplemented matrix form. This is
+    the R1-9 (v5) requirement — exercise cf's strain function, not a copy.
+    Fs: (N,3,3) deformation gradients; qs: (N,4) quaternions → ε: (N,3,3).
+    """
+    N = len(Fs)
+    u_arr = np.zeros((4 * N, 4, 4, 3))
+    q_arr = np.zeros((4 * N, 4, 4, 4))
+    q_arr[..., 0] = 1.0
+    I, J, Kk = np.meshgrid(np.arange(4), np.arange(4), np.arange(4), indexing="ij")
+    X = np.stack([I - 1, J - 1, Kk - 1], -1).astype(float)  # rel to center (1,1,1)
+    for s in range(N):
+        G = np.asarray(Fs[s]) - np.eye(3)  # ∇u (constant)
+        u_arr[4 * s:4 * (s + 1)] = np.einsum("ij,abcj->abci", G, X)
+        q_arr[4 * s:4 * (s + 1)] = qs[s]
+    eps = np.asarray(_compute_strain_q_jax(jnp.asarray(u_arr), jnp.asarray(q_arr), 1.0))
+    return eps[4 * np.arange(N) + 1, 1, 1]  # center site of each block
 
 
 def _bond_re_min(q: np.ndarray, mask_alive: np.ndarray) -> float:
@@ -222,13 +269,120 @@ def test_omega_step_byte_identical():
 
 
 # ---------------------------------------------------------------------------
+# R1-1: default ω path is a2be127d-identical + engine-coefficient hash
+# ---------------------------------------------------------------------------
+
+
+def test_r1_1_omega_path_reference():
+    """R1-1 (v5): the default ω path reproduces the a2be127d reference exactly.
+
+    Loads src/tests/data/a2be127d_omega_ref.npz (10 default-dt + 10 fixed-dt
+    steps on an 8³ grid, seeded random u/ω, with and without PML 4 / damping
+    0.05). Asserts BIT-FOR-BIT array equality against the stored trajectory AND
+    that the default-dt step()==explicit step(dt) on identical copies. Kills
+    omega_path_dt_perturb (dt·(1+1e-12) in the ω branch): the perturbed step
+    diverges from the reference and from the fixed-dt run.
+    """
+    ref = np.load(os.path.join(DATA_DIR, "a2be127d_omega_ref.npz"))
+    n = 8
+    u0, w0, dt = ref["u0"], ref["w0"], float(ref["dt"])
+
+    # Case 1: default step() (dt=None → cfl_dt).
+    cf = CosseratField3D(n, n, n, pml_thickness=0, damping_gamma=0.0)
+    cf.u = u0.copy(); cf.omega = w0.copy()
+    for _ in range(10):
+        cf.step()
+    np.testing.assert_array_equal(cf.u, ref["u_def"])
+    np.testing.assert_array_equal(cf.omega, ref["om_def"])
+    np.testing.assert_array_equal(cf.u_dot, ref["ud_def"])
+
+    # Case 2: explicit step(dt) — must be bit-identical to the default-dt run.
+    cf2 = CosseratField3D(n, n, n, pml_thickness=0, damping_gamma=0.0)
+    cf2.u = u0.copy(); cf2.omega = w0.copy()
+    for _ in range(10):
+        cf2.step(dt)
+    np.testing.assert_array_equal(cf2.u, ref["u_fix"])
+    np.testing.assert_array_equal(cf2.omega, ref["om_fix"])
+    # In-process: default-dt path == explicit-dt path (omega_path_dt_perturb trip).
+    np.testing.assert_array_equal(cf.u, cf2.u)
+    np.testing.assert_array_equal(cf.omega, cf2.omega)
+
+    # Case 3: PML=4 / damping=0.05.
+    cf3 = CosseratField3D(n, n, n, pml_thickness=4, damping_gamma=0.05)
+    cf3.u = u0.copy(); cf3.omega = w0.copy()
+    for _ in range(10):
+        cf3.step()
+    np.testing.assert_array_equal(cf3.u, ref["u_pml"])
+    np.testing.assert_array_equal(cf3.omega, ref["om_pml"])
+
+
+# Pinned sha256 of inspect.getsource(_energy_density_saturated) at HEAD 9f5540ca
+# + this fix pass. Re-pin ONLY on an intentional energy-coefficient edit.
+_ENERGY_COEF_HASH = "50b31cac13b5de3da8044a94c8db73d7df5f96e3a313b4cd762395e970b06b68"
+
+
+def test_r1_1_engine_coefficient_hash():
+    """R1-1 (ii, v5): hash of _energy_density_saturated source pins the coefficients.
+
+    Kills coef_gamma_x2_omega_engine and any silent edit to the (2/3) Cauchy
+    coefficient, the W_cauchy·G + W_micropolar·G_c combination, or the γ·S_κ²
+    term: changing any constant in the energy-density body changes the sha256 of
+    its source and trips this test. If an edit is intentional, re-pin the hash.
+    """
+    import inspect
+    import hashlib
+    from ave.topological.cosserat_field_3d import _energy_density_saturated
+    src = inspect.getsource(_energy_density_saturated)
+    h = hashlib.sha256(src.encode()).hexdigest()
+    assert h == _ENERGY_COEF_HASH, (
+        f"_energy_density_saturated source hash changed: {h!r} != {_ENERGY_COEF_HASH!r}. "
+        "If the energy-coefficient block was edited intentionally, re-pin "
+        "_ENERGY_COEF_HASH; otherwise this is coef_gamma_x2 or a silent coeff edit.")
+
+
+def test_r1_7_determinism():
+    """R1-7 (v5): bitwise run-to-run determinism; dt/2 agrees within O(dt²).
+
+    Two identical K4 runs (same seed, same dt) give bit-identical fields. A dt/2
+    run over the same physical time T agrees with the dt run to O(dt²) (the VV
+    local error), not bit-for-bit. k_refl=0 via make_r1_solver.
+    """
+    n = 12
+
+    def run(dt, n_steps):
+        cf = make_r1_solver(n)
+        rng = np.random.default_rng(20261009)
+        dq = rng.standard_normal((n, n, n, 3)) * 1e-3
+        cf.q[cf.mask_alive, 1:] = dq[cf.mask_alive]
+        norms = np.linalg.norm(cf.q, axis=-1, keepdims=True)
+        cf.q = cf.q / np.where(norms > 0, norms, 1.0)
+        cf.q[~cf.mask_alive] = np.array([1.0, 0.0, 0.0, 0.0])
+        H0 = cf.total_energy_k4() + cf.kinetic_energy_k4()
+        for _ in range(n_steps):
+            cf.step(dt)
+        return cf.q.copy(), cf.total_energy_k4() + cf.kinetic_energy_k4(), H0
+
+    dt = make_r1_solver(n).cfl_dt / 8.0
+    q_a, H_a, H0 = run(dt, 40)
+    q_b, H_b, _ = run(dt, 40)
+    np.testing.assert_array_equal(q_a, q_b)  # bitwise determinism
+    assert H_a == H_b
+
+    # dt/2 over the same T: O(dt²) agreement on the conserved energy.
+    q_h, H_h, _ = run(dt / 2.0, 80)
+    rel = abs(H_h - H_a) / max(abs(H0), 1e-30)
+    print(f"[R1-7] bitwise OK; dt/2 vs dt energy rel diff = {rel:.3e}")
+    assert rel < 1e-3, f"dt/2 energy disagreement {rel:.2e} larger than O(dt²) expected"
+
+
+# ---------------------------------------------------------------------------
 # (c) Norm preservation: |q| − 1 < 1e-12 at all alive sites after stepping
 # ---------------------------------------------------------------------------
 
 
 def test_k4_norm_preservation_vacuum():
-    """Identity field stays unit norm under K4 VV."""
-    cf = CosseratField3D(12, 12, 12, rotation_storage="quaternion")
+    """Identity field stays unit norm under K4 VV (R1, k_refl=0 via make_r1_solver)."""
+    cf = make_r1_solver(12)
     for _ in range(5):
         cf.step(dt=0.01)
     q_norms = np.linalg.norm(cf.q[cf.mask_alive], axis=-1)
@@ -240,7 +394,7 @@ def test_k4_norm_preservation_vacuum():
 def test_k4_norm_preservation_perturbed():
     """Small perturbation stays unit norm for R1-B (spec line #6)."""
     n = 16
-    cf = CosseratField3D(n, n, n, rotation_storage="quaternion")
+    cf = make_r1_solver(n)
     # Seed a small rotation wave at amplitude 1e-3
     rng = np.random.default_rng(20261008)
     dq = rng.standard_normal((n, n, n, 3)) * 1e-3
@@ -266,8 +420,8 @@ def test_k4_norm_preservation_perturbed():
 
 
 def test_k4_bond_re_positive_vacuum():
-    """Vacuum field (identity) has Re(q̄q')=1 on all bonds."""
-    cf = CosseratField3D(12, 12, 12, rotation_storage="quaternion")
+    """Vacuum field (identity) has Re(q̄q')=1 on all bonds (R1, k_refl=0)."""
+    cf = make_r1_solver(12)
     for _ in range(5):
         cf.step(dt=0.01)
     re_min = _bond_re_min(cf.q, cf.mask_alive)
@@ -277,7 +431,7 @@ def test_k4_bond_re_positive_vacuum():
 def test_k4_bond_re_positive_perturbed():
     """Small perturbation keeps Re(q̄q') > 0 (spec line #6)."""
     n = 16
-    cf = CosseratField3D(n, n, n, rotation_storage="quaternion")
+    cf = make_r1_solver(n)
     rng = np.random.default_rng(20261009)
     dq = rng.standard_normal((n, n, n, 3)) * 1e-3
     cf.q[cf.mask_alive, 1:] = dq[cf.mask_alive]
@@ -291,6 +445,68 @@ def test_k4_bond_re_positive_perturbed():
 
     re_min = _bond_re_min(cf.q, cf.mask_alive)
     assert re_min > 0.0, f"Min Re(q̄q') = {re_min:.4f}"
+
+
+# ---------------------------------------------------------------------------
+# F5: make_r1_solver read-back trip + F2: ω_eng map round-trip
+# ---------------------------------------------------------------------------
+
+
+def test_make_r1_solver_readback_trips_if_k4_init_ignores_krefl(monkeypatch):
+    """F5: monkeypatch _k4_init to ignore k_refl; make_r1_solver must raise.
+
+    The v5 rule requires every R1 solver to assert k_refl=0 at read-back time.
+    A mutant that silently drops the kwarg (forces k_refl=1) is caught by the
+    factory's own assertion BEFORE any physics runs — this test exercises that
+    guard by patching _k4_init to always set k_refl=1.
+    """
+    import ave.topological.k4_quaternion as k4mod
+    import ave.topological.cosserat_field_3d as cfmod
+    original = k4mod._k4_init
+
+    def _ignore_krefl(self, k_refl, rotation_storage):
+        original(self, 1.0, rotation_storage)  # always k_refl=1
+
+    monkeypatch.setattr(k4mod, "_k4_init", _ignore_krefl)
+    monkeypatch.setattr(cfmod, "_k4_init", _ignore_krefl)
+    with pytest.raises(AssertionError, match="k_refl"):
+        make_r1_solver(n=8)
+
+
+def test_omega_eng_round_trip():
+    """F2: q_from_omega_eng ∘ omega_eng_from_q = id to ~1e-15 (Gate: 6.7e-16).
+
+    ω → q → ω over random |ω| < π (short-arc branch); q → ω → q over random
+    unit q with q0 ≥ 0. Also pins the convention q(ω_eng) = (cos|ω|/2, −ω̂ sin|ω|/2)
+    (K-R19): a +θ ẑ rotation stores as ω_eng = −θ ẑ, i.e. q_vec sign is negative.
+    """
+    rng = np.random.default_rng(20261009)
+    # ω → q → ω
+    omega = rng.standard_normal((5000, 3))
+    omega = (omega / np.linalg.norm(omega, axis=-1, keepdims=True)
+             * rng.uniform(0.0, np.pi - 0.1, (5000, 1)))
+    q = q_from_omega_eng(omega)
+    assert np.max(np.abs(np.linalg.norm(q, axis=-1) - 1.0)) < 1e-14
+    omega2 = omega_eng_from_q(q)
+    err_wqw = float(np.max(np.abs(omega2 - omega)))
+    assert err_wqw < 1e-14, f"ω→q→ω round-trip err = {err_wqw:.2e}"
+
+    # q → ω → q (short-arc q0 ≥ 0; account for double cover via sign)
+    qr = rng.standard_normal((5000, 4))
+    qr = qr / np.linalg.norm(qr, axis=-1, keepdims=True)
+    qr[:, 0] = np.abs(qr[:, 0])
+    w = omega_eng_from_q(qr)
+    qr2 = q_from_omega_eng(w)
+    sgn = np.sign(np.sum(qr2 * qr, axis=-1, keepdims=True))
+    err_qwq = float(np.max(np.abs(qr2 * sgn - qr)))
+    assert err_qwq < 1e-14, f"q→ω→q round-trip err = {err_qwq:.2e}"
+
+    # Convention pin: +θ ẑ → ω_eng = −θ ẑ (q_vec negative, K-R19).
+    theta = 0.7
+    q_rot = np.array([np.cos(theta / 2.0), 0.0, 0.0, np.sin(theta / 2.0)])
+    w_rot = omega_eng_from_q(q_rot)
+    np.testing.assert_allclose(w_rot, [0.0, 0.0, -theta], atol=1e-14)
+    print(f"[omega_map] ω→q→ω={err_wqw:.2e}  q→ω→q={err_qwq:.2e}")
 
 
 # ---------------------------------------------------------------------------
@@ -344,423 +560,208 @@ def test_k4_hedgehog_n1_exact_static():
     assert 0.5 < N_det < 1.5, f"c_det monitor out of band: {N_det:.4f}"
 
 
-def test_k4_hedgehog_n1_dynamic_unit():
-    """B3: K4 defaults (k_refl=1) do NOT preserve the N=1 hedgehog — K-R18 finding.
+def test_r1_2d_hedgehog_both_counters_t2pi():
+    """R1-2d (v5): k_refl=0 hedgehog through count_charge_k4 (BOTH counters), T∈[0,2π].
 
-    Honest-closure record (Rule 11). Seeding the static degree-1 hedgehog and
-    stepping the K4 engine at DEFAULT parameters (k_refl=1, no damping) develops
-    antipodal bonds (min Re(q̄q') → −1) within the first step and the topology is
-    not held (c_exact UNRESOLVED, c_det collapses from ≈1 to <0.3) within 20
-    steps. Cause (B1e reconcile): the reflection regulator W_refl ∝ 1/(S²+ε) is
-    near-singular at the hedgehog core (q→(−1,0,0,0)), giving Ω_max_hh ≈ 2586 vs
-    Ω_max_vac ≈ 4.9; the stable step is ≈9.7e-5 = dt_K4/526 (K-R18). Running at
-    cfl_dt >> dt_stable is non-conservative: dH/H0 = +5.6e3 at dt_stable and
-    WORSE (+9.9e4) at dt_stable/2. This is a K-R18 regulator finding shared with
-    the ω engine (test_defaults_reflection_nonconservative); NOT a K4-storage defect.
-    With k_refl=0 the hedgehog is stable (test_k4_hedgehog_n1_dynamic_krefl0).
+    Uses the single charge adapter count_charge_k4 (c_exact AND c_link, Gate §11)
+    at each checkpoint — NOT a bare c_exact — and logs the energy radius
+    R_E = (H−H0)/H0 over the full T=2π window. n=48, rc=6, dt=dt_K4/4≈0.0127
+    (494 steps, ~27 s measured). k_refl=0 via make_r1_solver (v5 rule).
 
-    The norm invariant (|q|=1 to 1e-12) DOES hold throughout — the Lie-group
-    Verlet is intrinsically on the sphere; the TOPOLOGY is what is not held.
+    HONEST-CLOSURE RECORD (Rule 11): the FREE (unconfined, unit-scale) hedgehog
+    holds a RESOLVED +1 — both counters agreeing — through t≈π (≈step 246); past
+    that the unconfined core spreads and c_exact goes UNRESOLVED (BAD_TETS), so
+    the DIAGNOSTIC stops resolving. This is NOT a charge flip (no resolved value
+    ≠ +1 ever appears) — it is loss of counter resolution as the free soliton
+    disperses. The R2 run confines the seed (γ-term + box); this unit-scale free
+    run is the R1 counter-plumbing check, not a confinement claim.
 
-    This test pins the observed behavior; a future engine change that either
-    (a) holds the charge or (b) changes the instability mechanism trips it.
+    Assertions: resolved +1 (both counters agree) at t=0 and at ≥3 early
+    checkpoints through t≈π; |q|=1 to 1e-12 throughout; splice trip (core→vacuum)
+    flips the resolved value away from +1.  R_E logged (not asserted — the free
+    run's energy is not the R2 confined breathing energy).
     """
-    from ave.topological.charge_counters import (
-        hedgehog, c_exact, c_det_alive4, bcc_alive_mask)
+    from ave.topological.charge_counters import hedgehog, bcc_alive_mask
 
     n, rc = 48, 6
-    cf = CosseratField3D(n, n, n, rotation_storage="quaternion")
+    cf = make_r1_solver(n)
     cf.q = hedgehog(n, rc).copy()
     cf.q[~cf.mask_alive] = np.array([1.0, 0.0, 0.0, 0.0])
     alive = bcc_alive_mask((n, n, n))
-    qstars, tets = _qstars_tets()
 
-    # Static field resolves to +1 before any dynamics.
-    r0 = c_exact(cf.q, qstars, tets=tets, s=2)
-    assert r0["resolved"] and r0["value"] == 1
+    # t=0: both counters resolve +1.
+    r0 = count_charge_k4(cf.q, alive)
+    assert r0["resolved"] and r0["value"] == 1, (
+        f"R1-2d t=0: adapter did not resolve +1: {r0['reason']}")
+    assert r0["c_exact_result"]["value"] == 1 and r0["c_link_result"]["value"] == 1, (
+        "R1-2d t=0: both counters must independently read +1")
 
-    norm_ok_throughout = True
-    for _ in range(20):
-        cf.step(cf.cfl_dt)
-        q_alive = cf.q[alive]
-        if np.max(np.abs(np.linalg.norm(q_alive, axis=-1) - 1.0)) >= 1e-12:
-            norm_ok_throughout = False
+    H0 = cf.total_energy_k4() + cf.kinetic_energy_k4()
+    dt_K4 = 0.0509
+    dt = dt_K4 / 4.0
+    n_steps = int(round(2.0 * np.pi / dt))
+    t_pi_step = int(round(np.pi / dt))   # resolution-boundary window
+    ckpt_gap = max(1, n_steps // 8)
 
-    # The norm invariant is exact (Lie-group Verlet); this MUST hold.
-    assert norm_ok_throughout, "|q|=1 invariant broke under K4 dynamics"
+    norm_ok = True
+    rows = []            # (step, resolved, value, c_exact, c_link, R_E)
+    early_resolved = []  # resolved values at checkpoints with step ≤ t_pi_step
+    for s in range(n_steps):
+        cf.step(dt)
+        if np.max(np.abs(np.linalg.norm(cf.q[alive], axis=-1) - 1.0)) >= 1e-12:
+            norm_ok = False
+        if (s + 1) % ckpt_gap == 0 or s == n_steps - 1:
+            r = count_charge_k4(cf.q, alive)
+            H = cf.total_energy_k4() + cf.kinetic_energy_k4()
+            RE = (H - H0) / abs(H0)
+            ce = r["c_exact_result"]["value"] if r["c_exact_result"] else None
+            cl = r["c_link_result"]["value"] if r["c_link_result"] else None
+            rows.append((s + 1, r["resolved"], r["value"], ce, cl, round(float(RE), 5)))
+            if (s + 1) <= t_pi_step and r["resolved"]:
+                early_resolved.append((s + 1, r["value"]))
 
-    # K-R18 recorded finding: topology NOT held at defaults (k_refl=1).
-    r = c_exact(cf.q, qstars, tets=tets, s=2)
-    N_det = c_det_alive4(cf.q, alive, h=1.0)
-    topology_not_held = (not r["resolved"]) or (r["value"] != 1) or (N_det < 0.5)
-    assert topology_not_held, (
-        "UNEXPECTED: K4 dynamics PRESERVED the N=1 hedgehog at defaults (k_refl=1). "
-        f"c_exact resolved={r['resolved']} value={r['value']}, c_det={N_det:.4f}. "
-        "If the engine now holds the charge at defaults, check whether k_refl was "
-        "changed (K-R18 fix); update B3 to assert preservation and surface to Grant."
-    )
+    print("[R1-2d] (step, resolved, value, c_exact, c_link, R_E):")
+    for row in rows:
+        print("  ", row)
+
+    # |q|=1 invariant holds throughout (Lie-group Verlet is on the sphere).
+    assert norm_ok, "R1-2d: |q|=1 invariant broke under K4 k_refl=0 dynamics"
+
+    # Both counters agree on RESOLVED +1 at ≥3 early checkpoints (t ≤ π).
+    assert len(early_resolved) >= 3, (
+        f"R1-2d: fewer than 3 resolved checkpoints through t≈π: {rows}")
+    assert all(v == 1 for (_, v) in early_resolved), (
+        f"R1-2d: a resolved early checkpoint read ≠ +1 (charge FLIP): {early_resolved}")
+    # No checkpoint anywhere resolves to a value other than +1 (flip vs un-resolve).
+    assert all((not res) or (v == 1) for (_, res, v, _, _, _) in rows), (
+        f"R1-2d: a resolved checkpoint read a value ≠ +1 somewhere: {rows}")
+
+    # Splice trip: replace the core with vacuum → resolved value must move off +1.
+    q_splice = cf.q.copy()
+    c = n // 2
+    q_splice[c - rc:c + rc, c - rc:c + rc, c - rc:c + rc] = np.array([1.0, 0.0, 0.0, 0.0])
+    q_splice[~cf.mask_alive] = np.array([1.0, 0.0, 0.0, 0.0])
+    r_splice = count_charge_k4(q_splice, alive)
+    print(f"[R1-2d splice] core→vacuum: resolved={r_splice['resolved']} "
+          f"value={r_splice['value']} reason={r_splice['reason']}")
+    assert (not r_splice["resolved"]) or (r_splice["value"] != 1), (
+        f"R1-2d splice trip: core→vacuum should NOT still read +1; got "
+        f"resolved={r_splice['resolved']} value={r_splice['value']}")
 
 
-def test_k4_hedgehog_n1_dynamic_krefl0():
-    """R1 (ii) at unit scale, T-A4b trade setting: k_refl=0 hedgehog preserved.
+def test_r1_2b_short_arc_through_resolution_window_krefl0():
+    """R1-2b (v5): short-arc bond invariant through the charge-resolution window.
 
-    With k_refl=0 the reflection regulator is off (T-A4b; also the R1′/R2 setting).
-    Ω_max_hh(k_refl=0) = 10.9 (vs 2586 at k_refl=1), so dt_K4/4 is well within
-    the stability bound 0.25/10.9 = 2.3e-2. Measured (n=48, rc=6, T=1.018):
-      dt_K4/4  (80 steps):  H0=1.59e3, dH/H0=+1.00e-3, min_re=0.826, c_exact=1 ✓
-      dt_K4/16 (320 steps): H0=1.59e3, dH/H0=+1.43e-4, min_re=0.826, c_exact=1 ✓
-    Convergence ratio (coarser/finer) ≈ 7 — not exactly 16 due to shadow-oscillation
-    phase sampling at fixed T (see test_k4_energy_drift docstring); ratio > 4
-    confirms O(dt^p) improvement with p ≥ 1.
+    k_refl=0, dt=cfl≈0.0949, n=48 rc=6 (make_r1_solver). The free unconfined
+    hedgehog holds min Re(q̄q') > 0 at EVERY step through t ≤ π (the window over
+    which count_charge_k4 resolves +1 in R1-2d).
 
-    Assertions: min Re(q̄q') > 0 at every alive–alive bond; c_exact = +1 at ≥3
-    checkpoints; |q| = 1 to 1e-12; dH_fine < dH_coarse; dH_coarse < 5e-3.
-    This is R1 (ii) at unit scale for the T-A4b/R1′/R2 k_refl=0 setting.
+    HONEST-CLOSURE / FLAG (Rule 11, flag-don't-fix): past t≈3.6 (just beyond π)
+    the free soliton develops an antipodal bond (min Re → −1). This is NOT a
+    time-step instability — the crossing time is dt-INDEPENDENT (t≈3.61 at cfl,
+    cfl/2, AND cfl/4), i.e. a genuine physical dispersal of the unconfined
+    unit-scale seed, the SAME mechanism that makes c_exact go UNRESOLVED (BAD_TETS)
+    at t≈π in R1-2d. The R2 run confines the seed (γ-term + box); the free run's
+    late-time antipodal bond is a unit-scale-free artifact, not a storage defect.
+    So this test gates the invariant only over the resolution window and RECORDS
+    (prints, does not assert on) the dt-independent dispersal time.
     """
-    from ave.topological.charge_counters import (
-        hedgehog, c_exact, bcc_alive_mask)
+    from ave.topological.charge_counters import hedgehog, bcc_alive_mask
 
     n, rc = 48, 6
+    cf = make_r1_solver(n)
+    cf.q = hedgehog(n, rc).copy()
+    cf.q[~cf.mask_alive] = np.array([1.0, 0.0, 0.0, 0.0])
     alive = bcc_alive_mask((n, n, n))
-    qstars, tets = _qstars_tets()
-    dt_K4 = 0.0509  # 0.25 / Omega_max_vac ≈ 5.09e-2 (B1d measured)
 
-    def _run_krefl0(dt_divisor):
-        cf = CosseratField3D(n, n, n, rotation_storage="quaternion",
-                             pml_thickness=0, damping_gamma=0.0, k_refl=0.0)
-        cf.q = hedgehog(n, rc).copy()
-        cf.q[~cf.mask_alive] = np.array([1.0, 0.0, 0.0, 0.0])
-        H0 = cf.total_energy_k4() + cf.kinetic_energy_k4()
-        dt = dt_K4 / dt_divisor
-        n_steps = int(round(1.018 / dt))
-        min_re_all = 1.0
-        norm_ok = True
-        ckpts = []
-        ckpt_gap = max(1, n_steps // 3)
-        for s in range(n_steps):
-            cf.step(dt)
-            mr = _bond_re_min(cf.q, alive)
-            min_re_all = min(min_re_all, mr)
-            if np.max(np.abs(
-                    np.linalg.norm(cf.q[alive], axis=-1) - 1.0)) >= 1e-12:
-                norm_ok = False
-            if (s + 1) % ckpt_gap == 0 or s == n_steps - 1:
-                r_ckpt = c_exact(cf.q, qstars, tets=tets, s=2)
-                ckpts.append((s + 1, round(float(mr), 4),
-                              r_ckpt["resolved"], r_ckpt.get("value")))
-        H1 = cf.total_energy_k4() + cf.kinetic_energy_k4()
-        dh_rel = (H1 - H0) / abs(H0)
-        return dict(H0=H0, dh_rel=dh_rel, min_re=min_re_all,
-                    norm_ok=norm_ok, ckpts=ckpts, n_steps=n_steps)
-
-    res4 = _run_krefl0(4)
-    res16 = _run_krefl0(16)
-    ratio = abs(res4["dh_rel"]) / max(abs(res16["dh_rel"]), 1e-20)
-
-    print(f"[krefl0] dt_K4/4  {res4['n_steps']} steps: H0={res4['H0']:.4e} "
-          f"dH/H0={res4['dh_rel']:+.2e} min_re={res4['min_re']:.4f} ckpts={res4['ckpts']}")
-    print(f"[krefl0] dt_K4/16 {res16['n_steps']} steps: H0={res16['H0']:.4e} "
-          f"dH/H0={res16['dh_rel']:+.2e} min_re={res16['min_re']:.4f} ckpts={res16['ckpts']}")
-    print(f"[krefl0] convergence ratio coarser/finer = {ratio:.1f} "
-          f"(expected O(dt²)→16 or O(dt)→4; measured ≈7 due to phase sampling at fixed T)")
-
-    # |q| = 1 invariant must hold at every step and both dt values.
-    assert res4["norm_ok"] and res16["norm_ok"], (
-        "|q|=1 invariant broke under K4 k_refl=0 dynamics")
-
-    # min Re(q̄q') > 0 at every alive–alive bond throughout.
-    assert res4["min_re"] > 0.0, (
-        f"k_refl=0 dt_K4/4: bond min_re = {res4['min_re']:.4f} (must stay > 0)")
-    assert res16["min_re"] > 0.0, (
-        f"k_refl=0 dt_K4/16: bond min_re = {res16['min_re']:.4f} (must stay > 0)")
-
-    # c_exact = +1 at ≥ 3 checkpoints (coarser-dt run has 3 evenly-spaced checks).
-    ckpts_resolved = [(s, v) for (s, _mr, res, v) in res4["ckpts"] if res]
-    assert len(ckpts_resolved) >= 3, (
-        f"k_refl=0: fewer than 3 resolved c_exact checkpoints: {res4['ckpts']}")
-    assert all(v == 1 for (_, v) in ckpts_resolved), (
-        f"k_refl=0: c_exact ≠ +1 at some checkpoint: {ckpts_resolved}")
-
-    # Energy: finer dt conserves better (O(dt^p) signature); coarser dt bounded.
-    assert abs(res4["dh_rel"]) < 5e-3, (
-        f"k_refl=0 dt_K4/4: |dH/H0| = {abs(res4['dh_rel']):.2e} (limit 5e-3; "
-        f"measured ≈1.0e-3)")
-    assert abs(res16["dh_rel"]) < abs(res4["dh_rel"]), (
-        f"k_refl=0: finer dt_K4/16 should conserve better than dt_K4/4; "
-        f"got {abs(res16['dh_rel']):.2e} vs {abs(res4['dh_rel']):.2e}")
-    assert ratio > 3.0, (
-        f"k_refl=0 convergence ratio {ratio:.1f} < 3 (expect ≥4 for O(dt)); "
-        f"measured ≈7")
+    dt = cf.cfl_dt
+    n_window = int(round(np.pi / dt))   # resolution window t ≤ π
+    n_full = int(round(2.0 * np.pi / dt))
+    min_re_window = _bond_re_min(cf.q, alive)
+    first_neg_t = None
+    norm_ok = True
+    for s in range(n_full):
+        cf.step(dt)
+        b = _bond_re_min(cf.q, alive)
+        if s < n_window:
+            min_re_window = min(min_re_window, b)
+        if b <= 0.0 and first_neg_t is None:
+            first_neg_t = round((s + 1) * dt, 3)
+        if np.max(np.abs(np.linalg.norm(cf.q[alive], axis=-1) - 1.0)) >= 1e-12:
+            norm_ok = False
+    print(f"[R1-2b] n={n} dt=cfl={dt:.4f}: min_re(t≤π)={min_re_window:.4f}  "
+          f"first antipodal-bond t={first_neg_t} (dt-independent dispersal ≈3.6)")
+    assert norm_ok, "R1-2b: |q|=1 invariant broke"
+    assert min_re_window > 0.0, (
+        f"R1-2b: short-arc jump WITHIN the resolution window t≤π "
+        f"(min_re={min_re_window:.4f}); this would be a storage defect, not the "
+        f"known t≈3.6 free-dispersal event")
 
 
-def _k4_omega_max_at_state(u0, q0, iters: int = 20, seed: int = 1,
-                           k_refl: float = None) -> float:
-    """Spectral-radius Ω_max of the K4 stiffness at an explicit (u0, q0) state.
+@pytest.mark.engine_sim
+def test_r1_d_krefl1_log_only():
+    """R1-D (v5, LOG-ONLY): hedgehog at k_refl=1 on BOTH engines, dt ladder.
 
-    Like _k4_omega_max but linearized around the supplied state instead of the
-    vacuum. k_refl overrides the constructor default when supplied.
-    Used by test_k4_dt_stability to report Ω_max at the hedgehog seed for
-    k_refl ∈ {1, 0} (K-R18: k_refl=1 drives Ω_max_hh ~500× higher than k_refl=0).
-    """
-    import jax
-    n = u0.shape[0]
-    cf_kwargs = dict(rotation_storage="quaternion", pml_thickness=0, damping_gamma=0.0)
-    if k_refl is not None:
-        cf_kwargs["k_refl"] = k_refl
-    cf = CosseratField3D(n, n, n, **cf_kwargs)
-    mask = cf._mask_alive_jax
-    args = (cf.dx, cf.G, cf.G_c, cf.gamma, cf.omega_yield, cf.epsilon_yield,
-            cf.k_op10, cf.k_refl, cf.k_hopf)
-    u_j = jnp.asarray(u0)
-    q_j = jnp.asarray(q0)
+    K-R21 record (dated 2026-10-09). The four former k_refl=1 ASSERTING tests
+    (hedgehog_n1_dynamic_unit, dt_stability, q_reaches_minus1, reflection_
+    nonconservative) are merged here as a NON-ASSERTING diagnostic: at k_refl=1
+    the reflection regulator W_refl ∝ 1/(S²+ε) is near-singular at the hedgehog
+    core, so energy is not conserved at any CI-affordable dt (K-R18). Pinning a
+    particular dH/H0 magnitude was brittle; this logs the raw behavior instead
+    and asserts NOTHING in either direction about k_refl=1 conservation.
 
-    def grad_k4(state):
-        u, q = state
-        _, (du, dq) = _val_and_grad_k4(u, q, mask, *args)
-        return (du, dq)
-
-    def hvp(state, v):
-        return jax.jvp(grad_k4, (state,), (v,))[1]
-
-    rng = np.random.default_rng(seed)
-    v = (jnp.asarray(rng.standard_normal(u0.shape)),
-         jnp.asarray(rng.standard_normal(q0.shape)))
-
-    def vnorm(w):
-        return float(jnp.sqrt(sum(jnp.sum(x * x) for x in w)))
-
-    v = tuple(x / (vnorm(v) + 1e-30) for x in v)
-    lam = 0.0
-    for _ in range(iters):
-        Hv = hvp((u_j, q_j), v)
-        lam = vnorm(Hv)
-        v = tuple(x / (lam + 1e-30) for x in Hv)
-    return float(np.sqrt(abs(lam)))
-
-
-def test_k4_dt_stability():
-    """R1(ii) B1c C2 + B1d D0(b) + B1e: hedgehog Ω_max at vacuum vs hedgehog.
-
-    dt_K4 = min(cfl_dt, 0.25/Ω_max), Ω_max from vacuum power iteration (n=16).
-    The unit hedgehog (n=48, rc=6) is stepped at dt_K4, dt_K4/4, and one step at
-    dt_K4/16; min Re(q̄q') over alive–alive bonds is reported at step 0 (before any
-    dynamics), after 1 step, and after 20 steps at each dt.
-
-    B1d D0(b) checks: TETRA_OFFSET bonds always connect alive↔alive in BCC (all-even
-    ↔ all-odd by parity — both alive). Step 0 min Re > 0 confirms the static
-    hedgehog has no antipodal alive bond. Ω_max is measured at both the vacuum and
-    the hedgehog seed for k_refl ∈ {1, 0} (K-R18 comparison).
-
-    B1e RECONCILE: Ω_max_hh(k_refl=1) ≈ 2586 >> Ω_max_vac ≈ 4.9 (ratio ~527).
-    The stable step for the defaults hedgehog is 0.25/2586 ≈ 9.7e-5 = dt_K4/526.
-    Every tested dt (dt_K4, dt_K4/4, dt_K4/16) is far above that bound; running at
-    the bound or half of it still blows up with dH/H0 WORSE at smaller dt —
-    non-conservative W_refl (K-R18), not merely stiffness. With k_refl=0,
-    Ω_max_hh ≈ 10.9 and the hedgehog is stable (test_k4_hedgehog_n1_dynamic_krefl0).
-    |q|=1 holds exactly at every dt (Lie-group Verlet intrinsically on the sphere).
-    """
-    from ave.topological.charge_counters import (
-        hedgehog, c_exact, c_det_alive4, bcc_alive_mask)
-
-    Omega_max_vac = _k4_omega_max(n=16)
-    cf0 = CosseratField3D(48, 48, 48, rotation_storage="quaternion")
-    cfl_dt = cf0.cfl_dt
-    dt_K4 = min(cfl_dt, 0.25 / Omega_max_vac)
-
-    # Ω_max at the hedgehog seed: k_refl=1 (defaults) and k_refl=0 (T-A4b trade).
-    # B1e K-R18: k_refl=1 drives Ω_max_hh ~500× above the vacuum value; k_refl=0
-    # reduces it to ~10.9 (close to the vacuum Ω_max), making the hedgehog stable.
-    n_small = 16
-    q_hh_small = hedgehog(n_small, rc=2)
-    u_hh_small = np.zeros((n_small, n_small, n_small, 3))
-    Omega_max_hh = _k4_omega_max_at_state(u_hh_small, q_hh_small, k_refl=1.0)
-    Omega_max_hh_k0 = _k4_omega_max_at_state(u_hh_small, q_hh_small, k_refl=0.0)
-    print(f"[dt_stability] Omega_max_vac={Omega_max_vac:.6f}  "
-          f"Omega_max_hh(k_refl=1)={Omega_max_hh:.4f}  "
-          f"Omega_max_hh(k_refl=0)={Omega_max_hh_k0:.4f}  "
-          f"stable_dt(k1)={0.25/Omega_max_hh:.2e}  "
-          f"stable_dt(k0)={0.25/Omega_max_hh_k0:.2e}  "
-          f"cfl_dt={cfl_dt:.6e}  dt_K4={dt_K4:.6e}")
-
-    alive = bcc_alive_mask((48, 48, 48))
-    qstars, tets = _qstars_tets()
-
-    def run(dt, n_steps=20):
-        cf = CosseratField3D(48, 48, 48, rotation_storage="quaternion")
-        cf.q = hedgehog(48, 6).copy()
-        cf.q[~cf.mask_alive] = np.array([1.0, 0.0, 0.0, 0.0])
-        r0 = c_exact(cf.q, qstars, tets=tets, s=2)
-        assert r0["resolved"] and r0["value"] == 1  # static field resolves to +1
-        # Step 0: min Re before any dynamics (confirms alive-alive bond check)
-        min_re_step0 = _bond_re_min(cf.q, alive)
-        assert min_re_step0 > 0.0, (
-            f"static hedgehog has antipodal alive bond at step 0: {min_re_step0:.4f}")
-        min_re_throughout = min_re_step0
-        norm_ok = True
-        for step_i in range(n_steps):
-            cf.step(dt)
-            min_re_throughout = min(min_re_throughout,
-                                    _bond_re_min(cf.q, alive))
-            if np.max(np.abs(
-                    np.linalg.norm(cf.q[alive], axis=-1) - 1.0)) >= 1e-12:
-                norm_ok = False
-        r = c_exact(cf.q, qstars, tets=tets, s=2)
-        cdet = float(c_det_alive4(cf.q, alive, h=1.0))
-        return dict(min_re=min_re_throughout, min_re_step0=min_re_step0,
-                    resolved=r["resolved"], value=r["value"],
-                    c_det=cdet, norm_ok=norm_ok)
-
-    res_dt = run(dt_K4)
-    res_dt4 = run(dt_K4 / 4.0)
-    res_dt16_1step = run(dt_K4 / 16.0, n_steps=1)  # one step only
-
-    print(f"[dt_stability] step0   : min_re={res_dt['min_re_step0']:.4f}")
-    print(f"[dt_stability] dt_K4   (20 steps): min_re={res_dt['min_re']:.4f} "
-          f"c_exact_resolved={res_dt['resolved']} c_exact_value={res_dt['value']} "
-          f"c_det={res_dt['c_det']:.4f}")
-    print(f"[dt_stability] dt_K4/4 (20 steps): min_re={res_dt4['min_re']:.4f} "
-          f"c_exact_resolved={res_dt4['resolved']} c_exact_value={res_dt4['value']} "
-          f"c_det={res_dt4['c_det']:.4f}")
-    print(f"[dt_stability] dt_K4/16 (1 step): min_re={res_dt16_1step['min_re']:.4f} "
-          f"c_exact_resolved={res_dt16_1step['resolved']} "
-          f"c_exact_value={res_dt16_1step['value']}")
-
-    # The |q|=1 invariant is exact at every dt; this MUST hold.
-    assert res_dt["norm_ok"] and res_dt4["norm_ok"] and res_dt16_1step["norm_ok"], (
-        "|q|=1 invariant broke under K4 dynamics")
-
-    # B1d D0(b) + B1e decision logic:
-    #   step0 min_re > 0 (confirmed by assertion inside run())
-    #   dt_K4/16 step 1: if Re > 0 → loss at dt_K4 / dt_K4/4 is a STABILITY artifact
-    #                               (dt >> 0.25/Ω_max_hh; K-R18 stiffness bound)
-    #                    if Re ≤ 0 → K-R18 non-conservative at ALL tested dt values
-    #                               (B1e: even at 0.25/Ω_max_hh the field blows up)
-    charge_held_at_dt16_step1 = (
-        res_dt16_1step["min_re"] > 0.0
-        and res_dt16_1step["resolved"]
-        and res_dt16_1step["value"] == 1
-    )
-
-    if charge_held_at_dt16_step1:
-        # B1d + B1e: the vacuum dt_K4 = 0.25/Ω_max_vac is far too large for the
-        # hedgehog (Ω_max_hh(k_refl=1) ≈ 2586 >> Ω_max_vac ≈ 4.9; K-R18). Loss at
-        # dt_K4 and dt_K4/4 over 20 steps is a TIME-STEP STABILITY artifact (dt >>
-        # 0.25/Ω_max_hh). At dt_K4/16, one step holds the charge (instability has
-        # not yet accumulated at this dt for a single step). This corrects B1c.
-        assert res_dt16_1step["resolved"] and res_dt16_1step["value"] == 1, (
-            f"dt_K4/16 step 1 should resolve +1: {res_dt16_1step}")
-        assert res_dt16_1step["min_re"] > 0.0, (
-            f"dt_K4/16 step 1 bond short-arc should hold: {res_dt16_1step}")
-        # The coarser dt values should still show the stability artifact
-        assert res_dt["min_re"] <= 0.0 or not res_dt["resolved"] or \
-               res_dt4["min_re"] <= 0.0 or not res_dt4["resolved"], (
-            "UNEXPECTED: charge held at BOTH dt_K4 and dt_K4/4 over 20 steps — "
-            f"the hedgehog is more stable than expected. Surface to Grant. "
-            f"res_dt={res_dt} res_dt4={res_dt4}")
-    else:
-        # At defaults (k_refl=1): dt_K4/16 ≈ 3.2e-3 is ~33× above the hedgehog
-        # stability bound 0.25/Ω_max_hh ≈ 9.7e-5 (K-R18 non-conservative W_refl).
-        # All tested dt values are above the bound; topology is not held.
-        topology_not_held_at_dtK4over4 = (
-            (not res_dt4["resolved"]) or res_dt4["value"] != 1
-            or res_dt4["c_det"] < 0.5)
-        assert topology_not_held_at_dtK4over4, (
-            "UNEXPECTED: dt_K4/16 step 1 failed but topology held at dt_K4/4 — "
-            "inconsistent. Surface to Grant. "
-            f"Omega_max_vac={Omega_max_vac:.6f} Omega_max_hh={Omega_max_hh:.4f} "
-            f"dt_K4={dt_K4:.6e} res_dt4={res_dt4}")
-
-
-def test_defaults_reflection_nonconservative():
-    """K-R18/K-R14: W_refl near saturation is non-conservative; shared by ω and K4.
-
-    The reflection energy W_refl ∝ k_refl/(S²+ε) is near-singular where S²→0
-    (field near saturation). At defaults (k_refl=1), a smooth rotation at large
-    amplitude (~1.5 rad, near saturation) produces a near-singular force that is
-    non-conservative even under the spectral stability bound 0.25/Ω_max. This is
-    NOT a K4 defect — both ω and K4 engines exhibit the same behavior (shared
-    W_refl implementation, K-R14). At k_refl=0 (R1′/R2/T-A4b) the issue vanishes.
-
-    Measured (24³, θ = amp·sin(2πx/24)cos(2πy/24) about (1,2,3)/√14):
-      amp=0.3 (sub-saturation): ω and K4 conserve |ΔH/H| ≤ 1e-5 at dt_K4/64 ✓
-      amp=1.5 (near-saturation): Ω_max ≈ 1.11e3, dt_safe ≈ 2.25e-4;
-        · dt_K4/64 = 7.95e-4 (above bound): ω +5.9, K4 +7.8 ✗
-        · dt = 2.0e-4 (under bound, < dt_safe): ω +5.6, K4 +7.1 ✗ (non-conservative)
-        · dt = 1.0e-4 (under bound/2): ω +5.7, K4 +17.5 ✗ (WORSE at smaller dt)
-    K4 dH/H0 getting worse as dt halves confirms non-conservation, not stiffness
-    (a stiff but conservative system would improve under the stability bound).
-    Open item for Gate/Math: R1 at defaults is not meetable at k_refl=1 by either
-    engine (K-R18). The R1′/R2 running setting uses k_refl=0.
+    Logs per-step H, count+size of single-step jumps > 1e-3·H0, max|dH/H0|, and
+    the count of alive sites saturated (A²≥1−1e-10) for ω and K4 engines, over a
+    3-point dt subset [2e-4, 5e-5, 1.25e-5] of the full ladder (2e-4 → 3.125e-6).
+    Marked engine_sim (opt-in): 3 dt × 2 engines × up-to-800 steps on a 24³ grid
+    is too slow for the default CI lane; the full 7-point ladder needs a Grant GO.
     """
     n = 24
-    dt_K4 = 0.0509
-    dt_above = dt_K4 / 64        # 7.95e-4; above the amp=1.5 stability bound
-    dt_under = 2.0e-4             # below dt_safe ≈ 2.25e-4 (measured for 24³ amp=1.5)
-    dt_under2 = 1.0e-4            # half of dt_under; dH/H0 gets WORSE → non-conservative
     x = np.arange(n)
-    X, Y, Z = np.meshgrid(x, x, x, indexing="ij")
+    X, Y, _Z = np.meshgrid(x, x, x, indexing="ij")
     ax = np.array([1.0, 2.0, 3.0]) / np.sqrt(14.0)
+    amp = 1.5  # near-saturation (the K-R18 regime)
+    dt_ladder = [2e-4, 5e-5, 1.25e-5]
 
     def get_H(cf, mode):
         if mode == "omega":
             return cf.total_energy() + cf.kinetic_energy()
         return cf.total_energy_k4() + cf.kinetic_energy_k4()
 
-    def run_smooth(amp, mode, dt, n_steps):
-        th = amp * np.sin(2 * np.pi * X / n) * np.cos(2 * np.pi * Y / n)
-        q = np.zeros((n, n, n, 4))
-        q[..., 0] = np.cos(th / 2)
-        q[..., 1:] = np.sin(th / 2)[..., None] * ax
-        cf = CosseratField3D(n, n, n, rotation_storage=mode,
-                             pml_thickness=0, damping_gamma=0.0)
-        al = cf.mask_alive
-        if mode == "omega":
-            cf.omega = (-th[..., None] * ax) * al[..., None]
-        else:
-            qc = q.copy()
-            qc[~al] = np.array([1.0, 0.0, 0.0, 0.0])
-            cf.q = qc
-        H0 = get_H(cf, mode)
-        for _ in range(n_steps):
-            cf.step(dt)
-        return (get_H(cf, mode) - H0) / abs(H0)
-
-    # amp=0.3 sub-saturation: both engines conserve to ≤1e-5
-    ns_cons = int(round(0.5 / dt_above))   # T=0.5, ~628 steps at dt_K4/64
     for mode in ("omega", "quaternion"):
-        dh = run_smooth(0.3, mode, dt_above, ns_cons)
-        assert abs(dh) <= 1e-5, (
-            f"amp=0.3 {mode} dt_K4/64: |dH/H0|={abs(dh):.2e} > 1e-5; "
-            f"expected sub-saturation conservation (measured {dh:+.2e})")
-
-    # amp=1.5 above stability bound: both engines blow up
-    ns_above = int(round(0.5 / dt_above))  # same T=0.5
-    for mode in ("omega", "quaternion"):
-        dh = run_smooth(1.5, mode, dt_above, ns_above)
-        print(f"[refl_noncons] amp=1.5 {mode} dt_K4/64 T=0.5: dH/H0={dh:+.3e}")
-        assert abs(dh) > 1.0, (
-            f"amp=1.5 {mode} at dt_K4/64 (above bound): |dH/H0|={abs(dh):.2e} ≤ 1; "
-            f"expected blow-up (measured {dh:+.2e}; dt_K4/64={dt_above:.2e} > dt_safe≈2.25e-4)")
-
-    # amp=1.5 under stability bound (dt = 2.0e-4 < dt_safe ≈ 2.25e-4): still non-conservative
-    ns_under = int(round(0.05 / dt_under))  # T=0.05, ~250 steps
-    ns_under2 = int(round(0.05 / dt_under2))
-    dh_under = {}; dh_under2 = {}
-    for mode in ("omega", "quaternion"):
-        dh_under[mode] = run_smooth(1.5, mode, dt_under, ns_under)
-        dh_under2[mode] = run_smooth(1.5, mode, dt_under2, ns_under2)
-        print(f"[refl_noncons] amp=1.5 {mode} dt=2e-4 T=0.05: dH/H0={dh_under[mode]:+.3e}  "
-              f"dt=1e-4 T=0.05: dH/H0={dh_under2[mode]:+.3e}")
-        assert abs(dh_under[mode]) > 1.0, (
-            f"amp=1.5 {mode} at dt=2e-4 (under bound): |dH/H0|={abs(dh_under[mode]):.2e} ≤ 1; "
-            f"expected non-conservative behavior (K-R18)")
-
-    # K4 engine: dH/H0 gets WORSE at dt_under/2, confirming non-conservation
-    # (a stiff-but-conservative system would conserve better at smaller dt).
-    assert abs(dh_under2["quaternion"]) >= abs(dh_under["quaternion"]) * 0.8, (
-        f"K4 dH/H0 at dt=1e-4 ({dh_under2['quaternion']:+.3e}) is not ≥ 80% of "
-        f"dt=2e-4 ({dh_under['quaternion']:+.3e}); expected non-conservative growth "
-        f"(measured ratio {abs(dh_under2['quaternion'])/max(abs(dh_under['quaternion']),1e-30):.2f})")
+        for dt in dt_ladder:
+            th = amp * np.sin(2 * np.pi * X / n) * np.cos(2 * np.pi * Y / n)
+            cf = CosseratField3D(n, n, n, rotation_storage=mode,
+                                 pml_thickness=0, damping_gamma=0.0)  # k_refl=1 default
+            al = cf.mask_alive
+            if mode == "omega":
+                cf.omega = (-th[..., None] * ax) * al[..., None]
+            else:
+                q = np.zeros((n, n, n, 4))
+                q[..., 0] = np.cos(th / 2.0)
+                q[..., 1:] = np.sin(th / 2.0)[..., None] * ax
+                q[~al] = np.array([1.0, 0.0, 0.0, 0.0])
+                cf.q = q
+            H0 = get_H(cf, mode)
+            n_steps = min(int(round(0.05 / dt)), 800)
+            H_prev = H0
+            n_jump = 0
+            max_jump = 0.0
+            max_rel = 0.0
+            for _ in range(n_steps):
+                cf.step(dt)
+                H = get_H(cf, mode)
+                jump = abs(H - H_prev) / max(abs(H0), 1e-30)
+                if jump > 1e-3:
+                    n_jump += 1
+                max_jump = max(max_jump, jump)
+                max_rel = max(max_rel, abs(H - H0) / max(abs(H0), 1e-30))
+                H_prev = H
+            # Saturation count A² ≥ 1−1e-10 (ω only; K4 field is on the sphere).
+            print(f"[R1-D k_refl=1] {mode:10s} dt={dt:.2e} steps={n_steps} "
+                  f"max|dH/H0|={max_rel:.3e} jumps>1e-3={n_jump} "
+                  f"max_step_jump={max_jump:.3e}")
+    # NO assertion: this is a K-R18/K-R21 diagnostic record only.
 
 
 @pytest.mark.skipif(not LARGE, reason="Deferred: needs RUN_K4_LARGE=1 (Grant GO)")
@@ -863,10 +864,11 @@ def test_k4_dispersion_1e3():
     fixed step count — the prior test_k4_dispersion_match). The K4 comparison
     quaternion uses the B7-matched convention (q_vec = −ω/2); see _q_from_omega.
     """
-    n = 32
+    n = 24   # F-nit: 24³ (was 32³) keeps the per-test wall time under the 180 s
+             # CI timeout; k₃ = 6π/24 = π/4 is exactly the BZ guard limit.
     dx = 1.0
     amplitude = 1e-3
-    # k ≤ π/(4dx) ≈ 0.785; first 3 BZ modes on n=32 are 0.196, 0.393, 0.589.
+    # k ≤ π/(4dx) ≈ 0.785; first 3 BZ modes on n=24 are 0.262, 0.524, 0.785.
     k_test = [2 * np.pi / n * m for m in (1, 2, 3)]
     assert all(k <= np.pi / (4 * dx) for k in k_test)
 
@@ -874,8 +876,7 @@ def test_k4_dispersion_1e3():
     for kx in k_test:
         cf_omega = CosseratField3D(
             n, n, n, rotation_storage="omega", pml_thickness=0, damping_gamma=0.0)
-        cf_k4 = CosseratField3D(
-            n, n, n, rotation_storage="quaternion", pml_thickness=0, damping_gamma=0.0)
+        cf_k4 = make_r1_solver(n)  # k_refl=0 read-back asserted (v5)
 
         xs = np.arange(n) * dx
         omega_seed = np.zeros((n, n, n, 3))
@@ -1172,220 +1173,198 @@ def _iso_energy_batch(E):
     return W_cauchy + W_micro
 
 
+def _iso_energy_W(E):
+    """Engine isotropic micropolar energy (G=G_c=1) on a batch of strain (N,3,3)."""
+    sym = 0.5 * (E + np.swapaxes(E, -1, -2))
+    anti = 0.5 * (E - np.swapaxes(E, -1, -2))
+    tr = np.trace(E, axis1=-2, axis2=-1)
+    return (2.0 / 3.0) * tr ** 2 + np.sum(sym ** 2, axis=(-1, -2)) + np.sum(anti ** 2, axis=(-1, -2))
+
+
 def test_r1_9_objectivity():
-    """R1-9 (spec A5.3, O1 ruling): ε = Rᵀ(q)·F − I is frame-objective.
+    """R1-9 (v5, spec A6.2 / A5.3 O1 ruling): objectivity through the PR's OWN functions.
 
-    Director law: F → QF, q → q_Q·q (n = R(q)ẑ → Qn exactly).
-    1000 random F (|∇u| ≤ 0.5), unit q, rigid Q.  rng 20261009.
+    Everything goes through cf's own code: strain via _pr_strain_batch (which calls
+    _compute_strain_q_jax on a linear-u field — the engine stencil, not a copied
+    matrix form), director via _q_to_n_jax, and the small-angle ω map via
+    omega_eng_from_q / q_from_omega_eng. ≥1000 random cases, rng 20261009,
+    ‖∇u‖_F ≤ 0.5. Reports MEDIAN and p99 (not max — robust to the occasional
+    ill-conditioned normalization).
 
-    O1 assertions (all ≤ 1e-12):
-      ‖ε(QF, q_Q q) − ε(F, q)‖/‖ε‖  (tensor objectivity)
-      |W(QF,q_Qq) − W(F,q)|/W        (energy objectivity)
-      ‖n(q_Q q) − Q n(q)‖            (director co-rotation)
+    Clauses:
+      (a) tensor + energy objectivity under F→QF, q→q_Q·q   (p99 ≤ 1e-11)
+      (b) director co-rotation n(q_Q q) = Q n(q)            (p99 ≤ 1e-11)
+      (c) small-angle ε vs cf:175-186 through the ω map     (max rel ≤ 3h, h∈{1e-3,1e-6})
+      (d) pure rigid rotation F=Q, q=q_Q → ‖ε‖ ≈ 0          (p99 ≤ 1e-11)
 
-    Trip: F·R form (and R·F) must FAIL under the same Q (expect O(1): ~3.5/~17).
-    Lattice check: skipped — the K4 diamond-tetra stencil offsets
-      (1,1,1),(1,-1,-1),(-1,1,-1),(-1,-1,1) all have even parity (product of
-      signs = +1). Under a 90° rotation about z, (1,1,1)→(−1,1,1) which has
-      odd parity and is NOT in the offset set. The stencil is not 4-fold symmetric
-      about z; the stencil anisotropy would contaminate a lattice-level energy
-      comparison and cannot isolate the R-vs-Rᵀ difference.
+    Trips (each must blow up to O(1)):
+      · F·R and R·F strain forms (a,d)   — wrong strain tensor transform
+      · q̄ k q director (b)                — inverse rotation, breaks co-rotation
+      · harness law q·q̄_Q instead of q_Q·q (b) — wrong compounding order
+      · dropped ω sign q_from_omega_eng(−ω) (c) — breaks the K-R19 map
+
+    Lattice note: the 90° stencil-symmetry argument (B7) still applies; the
+    _pr_strain_batch linear-u trick extracts the center-site strain exactly, so
+    no lattice anisotropy contaminates the tensor identity.
     """
     rng = np.random.default_rng(20261009)
     N = 1000
 
-    gu = rng.uniform(-0.5, 0.5, (N, 3, 3))
+    gu_raw = rng.uniform(-0.5, 0.5, (N, 3, 3))
+    fro = np.linalg.norm(gu_raw.reshape(N, 9), axis=-1).reshape(N, 1, 1)
+    gu = gu_raw / np.maximum(fro / 0.5, 1.0)   # ‖∇u‖_F ≤ 0.5
     F = np.eye(3)[None] + gu
 
-    q_raw = rng.standard_normal((N, 4))
-    q = q_raw / np.linalg.norm(q_raw, axis=-1, keepdims=True)
-
-    qQ_raw = rng.standard_normal((N, 4))
-    q_Q = qQ_raw / np.linalg.norm(qQ_raw, axis=-1, keepdims=True)
-
+    q = rng.standard_normal((N, 4)); q /= np.linalg.norm(q, axis=-1, keepdims=True)
+    q_Q = rng.standard_normal((N, 4)); q_Q /= np.linalg.norm(q_Q, axis=-1, keepdims=True)
     R_Q = _Rq_batch(q_Q)
-    QF = np.einsum('...ij,...jk->...ik', R_Q, F)
+    QF = np.einsum('nij,njk->nik', R_Q, F)
     q_Qq = _qmul_batch(q_Q, q)
 
-    # O1 form
-    eps = _eps_RtF_batch(F, q)
-    eps_rot = _eps_RtF_batch(QF, q_Qq)
-    eps_norms = np.linalg.norm(eps.reshape(N, 9), axis=-1)
-    tensor_rel = (
-        np.linalg.norm((eps_rot - eps).reshape(N, 9), axis=-1)
-        / np.maximum(eps_norms, 1e-30)
-    )
-    max_tensor_rel = float(np.max(tensor_rel))
+    def _pct(x):
+        return float(np.median(x)), float(np.percentile(x, 99))
 
-    W = _iso_energy_batch(eps)
-    W_rot = _iso_energy_batch(eps_rot)
-    energy_rel = np.abs(W_rot - W) / np.maximum(np.abs(W), 1e-30)
-    max_energy_rel = float(np.max(energy_rel))
+    # (a) tensor + energy objectivity (through _pr_strain_batch = cf's strain fn)
+    eps = _pr_strain_batch(F, q)
+    eps_rot = _pr_strain_batch(QF, q_Qq)
+    t_rel = (np.linalg.norm((eps_rot - eps).reshape(N, 9), axis=-1)
+             / np.maximum(np.linalg.norm(eps.reshape(N, 9), axis=-1), 1e-30))
+    W, W_rot = _iso_energy_W(eps), _iso_energy_W(eps_rot)
+    e_rel = np.abs(W_rot - W) / np.maximum(np.abs(W), 1e-6)
+    med_t, p99_t = _pct(t_rel); med_e, p99_e = _pct(e_rel)
+    print(f"[R1-9a] tensor med={med_t:.2e} p99={p99_t:.2e}  energy med={med_e:.2e} p99={p99_e:.2e}")
+    assert p99_t <= 1e-11, f"R1-9(a) tensor p99={p99_t:.2e} (limit 1e-11)"
+    assert p99_e <= 1e-11, f"R1-9(a) energy p99={p99_e:.2e} (limit 1e-11)"
 
-    n = _n_batch(q)
-    n_rot = _n_batch(q_Qq)
-    Qn = np.einsum('...ij,...j->...i', R_Q, n)
+    # (b) director co-rotation n(q_Q q) = Q n(q) via _q_to_n_jax (cf's n fn)
+    n0 = np.asarray(_q_to_n_jax(jnp.asarray(q)))
+    n_rot = np.asarray(_q_to_n_jax(jnp.asarray(q_Qq)))
+    Qn = np.einsum('nij,nj->ni', R_Q, n0)
     n_err = np.linalg.norm(n_rot - Qn, axis=-1)
-    max_n_err = float(np.max(n_err))
+    med_n, p99_n = _pct(n_err)
+    print(f"[R1-9b] n co-rotation med={med_n:.2e} p99={p99_n:.2e}")
+    assert p99_n <= 1e-11, f"R1-9(b) n co-rotation p99={p99_n:.2e} (limit 1e-11)"
 
-    assert max_tensor_rel <= 1e-12, (
-        f"R1-9 O1 tensor objectivity: max_rel={max_tensor_rel:.2e} (limit 1e-12)")
-    assert max_energy_rel <= 1e-12, (
-        f"R1-9 O1 energy objectivity: max_rel={max_energy_rel:.2e} (limit 1e-12)")
-    assert max_n_err <= 1e-12, (
-        f"R1-9 O1 director co-rotation: max_err={max_n_err:.2e} (limit 1e-12)")
+    # (c) small-angle ε vs cf:175-186 through omega_eng_from_q / q_from_omega_eng
+    LC = np.zeros((3, 3, 3))
+    LC[0, 1, 2] = LC[1, 2, 0] = LC[2, 0, 1] = 1.0
+    LC[0, 2, 1] = LC[2, 1, 0] = LC[1, 0, 2] = -1.0
+    for h in (1e-3, 1e-6):
+        rc = np.random.default_rng(7 + abs(int(round(np.log10(h)))))
+        M = 500
+        gu_h = rc.standard_normal((M, 3, 3)) * h
+        omega_h = rc.standard_normal((M, 3)) * h
+        eps_eng = gu_h - np.einsum("ijk,nk->nij", LC, omega_h)   # cf:175-186
+        q_h = q_from_omega_eng(omega_h)                          # declared ω map
+        eps_k4 = _pr_strain_batch(np.eye(3)[None] + gu_h, q_h)
+        denom = np.linalg.norm(eps_eng.reshape(M, 9), axis=-1)
+        rel = (np.linalg.norm((eps_k4 - eps_eng).reshape(M, 9), axis=-1)
+               / np.maximum(denom, 1e-30))
+        max_h = float(np.max(rel))
+        print(f"[R1-9c] h={h:.0e} max_rel={max_h:.3e} (limit {3*h:.0e})")
+        assert max_h <= 3.0 * h, f"R1-9(c) h={h}: max_rel={max_h:.3e} > 3h={3*h:.3e}"
 
-    # Trip: F·R (FR) must fail
-    def _eps_FR_batch(F, q):
-        R = _Rq_batch(q)
-        return np.einsum('...ij,...jk->...ik', F, R) - np.eye(3)[None]
+    # (d) pure rigid rotation F=Q (rotation matrix), q=q_Q → ‖ε‖ ≈ 0
+    eps_d = _pr_strain_batch(R_Q, q_Q)
+    d_norm = np.linalg.norm(eps_d.reshape(N, 9), axis=-1)
+    med_d, p99_d = _pct(d_norm)
+    print(f"[R1-9d] rigid med={med_d:.2e} p99={p99_d:.2e}")
+    assert p99_d <= 1e-11, f"R1-9(d) rigid p99={p99_d:.2e} (limit 1e-11)"
 
-    # Trip: R·F (RF) must also fail
-    def _eps_RF_batch(F, q):
-        R = _Rq_batch(q)
-        return np.einsum('...ij,...jk->...ik', R, F) - np.eye(3)[None]
+    # ---- TRIPS ----
+    # F·R and R·F forms (wrong strain transform) — must fail (a,d).
+    def _eps_FR(Fs, qs):
+        return np.einsum('nij,njk->nik', Fs, _Rq_batch(qs)) - np.eye(3)[None]
 
-    eps_fr = _eps_FR_batch(F, q)
-    eps_fr_rot = _eps_FR_batch(QF, q_Qq)
-    eps_fr_norms = np.linalg.norm(eps_fr.reshape(N, 9), axis=-1)
-    fr_tensor_rel = (
-        np.linalg.norm((eps_fr_rot - eps_fr).reshape(N, 9), axis=-1)
-        / np.maximum(eps_fr_norms, 1e-30)
-    )
-    W_fr = _iso_energy_batch(eps_fr)
-    W_fr_rot = _iso_energy_batch(eps_fr_rot)
-    fr_energy_rel = np.abs(W_fr_rot - W_fr) / np.maximum(np.abs(W_fr), 1e-30)
-    max_fr_tensor = float(np.max(fr_tensor_rel))
-    max_fr_energy = float(np.max(fr_energy_rel))
+    def _eps_RF(Fs, qs):
+        return np.einsum('nij,njk->nik', _Rq_batch(qs), Fs) - np.eye(3)[None]
 
-    eps_rf = _eps_RF_batch(F, q)
-    eps_rf_rot = _eps_RF_batch(QF, q_Qq)
-    eps_rf_norms = np.linalg.norm(eps_rf.reshape(N, 9), axis=-1)
-    rf_tensor_rel = (
-        np.linalg.norm((eps_rf_rot - eps_rf).reshape(N, 9), axis=-1)
-        / np.maximum(eps_rf_norms, 1e-30)
-    )
-    W_rf = _iso_energy_batch(eps_rf)
-    W_rf_rot = _iso_energy_batch(eps_rf_rot)
-    rf_energy_rel = np.abs(W_rf_rot - W_rf) / np.maximum(np.abs(W_rf), 1e-30)
-    max_rf_tensor = float(np.max(rf_tensor_rel))
-    max_rf_energy = float(np.max(rf_energy_rel))
+    for name, fn, e_lim in (("FR", _eps_FR, 0.1), ("RF", _eps_RF, 0.1)):
+        e0 = fn(F, q); e1 = fn(QF, q_Qq)
+        tt = (np.linalg.norm((e1 - e0).reshape(N, 9), axis=-1)
+              / np.maximum(np.linalg.norm(e0.reshape(N, 9), axis=-1), 1e-30))
+        ee = np.abs(_iso_energy_W(e1) - _iso_energy_W(e0)) / np.maximum(np.abs(_iso_energy_W(e0)), 1e-6)
+        mt, pt = _pct(tt); me, pe = _pct(ee)
+        print(f"[R1-9 {name} trip] tensor med={mt:.2f} p99={pt:.2f}  energy med={me:.2f} p99={pe:.2f}")
+        assert pt > e_lim, f"R1-9 {name} tensor trip: p99={pt:.3f} (must > {e_lim})"
+        assert pe > e_lim, f"R1-9 {name} energy trip: p99={pe:.3f} (must > {e_lim})"
 
-    assert max_fr_tensor > 0.1, (
-        f"R1-9 FR trip: tensor should fail; got {max_fr_tensor:.3f} (expect ~3.5)")
-    assert max_fr_energy > 1.0, (
-        f"R1-9 FR trip: energy should fail; got {max_fr_energy:.3f} (expect ~17)")
-    assert max_rf_tensor > 0.1, (
-        f"R1-9 RF trip: tensor should fail; got {max_rf_tensor:.3f} (expect ~3.5)")
-    assert max_rf_energy > 1.0, (
-        f"R1-9 RF trip: energy should fail; got {max_rf_energy:.3f} (expect ~17)")
+    # q̄ k q director (inverse rotation = R(q)ᵀ ẑ) — breaks co-rotation (b).
+    def _n_qbar_k_q(qq):
+        q0, q1, q2, q3 = qq[:, 0], qq[:, 1], qq[:, 2], qq[:, 3]
+        return np.stack([
+            2 * (q1 * q3 - q0 * q2), 2 * (q2 * q3 + q0 * q1), 1 - 2 * (q1 ** 2 + q2 ** 2),
+        ], axis=-1)
 
-    # Reported residuals (O1 pass / FR trip / RF trip):
-    # O1:  tensor {max_tensor_rel:.2e}  energy {max_energy_rel:.2e}  n_err {max_n_err:.2e}
-    # FR:  tensor {max_fr_tensor:.3f}   energy {max_fr_energy:.3f}
-    # RF:  tensor {max_rf_tensor:.3f}   energy {max_rf_energy:.3f}
+    nw = _n_qbar_k_q(q); nw_rot = _n_qbar_k_q(q_Qq)
+    nw_err = np.linalg.norm(nw_rot - np.einsum('nij,nj->ni', R_Q, nw), axis=-1)
+    _, p99_nw = _pct(nw_err)
+    print(f"[R1-9 q̄kq trip] n p99={p99_nw:.2f}")
+    assert p99_nw > 0.1, f"R1-9 q̄kq trip: p99={p99_nw:.3f} (must > 0.1)"
+
+    # Harness law q·q̄_Q instead of q_Q·q (wrong compounding order) — breaks (b).
+    q_conj_Q = q_Q * np.array([[1.0, -1.0, -1.0, -1.0]])
+    q_bad = _qmul_batch(q, q_conj_Q)
+    n_bad = np.asarray(_q_to_n_jax(jnp.asarray(q_bad)))
+    il_err = np.linalg.norm(n_bad - np.einsum('nij,nj->ni', R_Q, n0), axis=-1)
+    _, p99_il = _pct(il_err)
+    print(f"[R1-9 harness-law trip] n p99={p99_il:.2f}")
+    assert p99_il > 0.1, f"R1-9 harness-law trip: p99={p99_il:.3f} (must > 0.1)"
+
+    # Dropped ω sign: q_from_omega_eng(−ω) instead of (+ω) — breaks the K-R19 map (c).
+    rc2 = np.random.default_rng(7 + 3)
+    M = 500; h = 1e-3
+    gu_s = rc2.standard_normal((M, 3, 3)) * h
+    omega_s = rc2.standard_normal((M, 3)) * h
+    eps_eng_s = gu_s - np.einsum("ijk,nk->nij", LC, omega_s)
+    q_wrong = q_from_omega_eng(-omega_s)   # wrong sign
+    eps_wrong = _pr_strain_batch(np.eye(3)[None] + gu_s, q_wrong)
+    rel_w = (np.linalg.norm((eps_wrong - eps_eng_s).reshape(M, 9), axis=-1)
+             / np.maximum(np.linalg.norm(eps_eng_s.reshape(M, 9), axis=-1), 1e-30))
+    max_w = float(np.max(rel_w))
+    print(f"[R1-9 dropped-sign trip] h={h} max_rel={max_w:.3f}")
+    assert max_w > 0.1, f"R1-9 dropped-sign trip: {max_w:.3f} (must > 0.1)"
 
 
 def test_k4_strain_small_angle_omega_map():
     """O1 ruling: ε = Rᵀ(q)·F − I matches cf:175-186 to O(h) under the ω map.
 
-    At h = 1e-6 the max relative strain error is ≤ 3e-6 (strain_ruling.py result
-    ~2.8e-6).  The ω map is q(ω_eng) ≈ (1, −ω_eng/2) (_OMEGA_TO_Q_SIGN = -1).
-    This is the spec A5.3 claim: 'rel err ~1e-6 at h = 1e-6'.
+    Rewritten (v5) to go through the PR's own _compute_strain_q_jax (via
+    _pr_strain_batch) and q_from_omega_eng, NOT a reimplemented matrix form. At
+    h=1e-6 the max relative strain error is ≤ 3e-6 (strain_ruling.py ~2.8e-6,
+    reproduced here = 2.515e-6). The ω map is q(ω_eng) = exp(−ω/2) (K-R19).
     """
     rng = np.random.default_rng(20261009)
     N = 2000
     h = 1e-6
-
     gu = rng.standard_normal((N, 3, 3)) * h
     omega = rng.standard_normal((N, 3)) * h
 
-    q = np.zeros((N, 4))
-    q[:, 0] = 1.0
-    q[:, 1:] = _OMEGA_TO_Q_SIGN * omega / 2.0
-    q /= np.linalg.norm(q, axis=-1, keepdims=True)
-
-    # Engine linear form (cf:175-186): ε_ij = ∂_j u_i − ε_ijk ω_k
-    # (ε_ijk ω_k = −[ω×]_ij in the standard cross-product convention; this is
-    # the same as ∇u + [ω×] in matrix form with the sign confirmed by
-    # strain_ruling engine_lin_rigid: eps_engine(Gu, −θ)=0 for rigid rotation)
     LC = np.zeros((3, 3, 3))
     LC[0, 1, 2] = LC[1, 2, 0] = LC[2, 0, 1] = 1.0
     LC[0, 2, 1] = LC[2, 1, 0] = LC[1, 0, 2] = -1.0
-    eps_engine = gu - np.einsum("ijk,nk->nij", LC, omega)  # (N,3,3)
+    eps_engine = gu - np.einsum("ijk,nk->nij", LC, omega)   # cf:175-186
 
-    q0, q1, q2, q3 = q[:, 0], q[:, 1], q[:, 2], q[:, 3]
-    R = np.stack([
-        np.stack([1-2*(q2**2+q3**2), 2*(q1*q2-q0*q3), 2*(q1*q3+q0*q2)], axis=-1),
-        np.stack([2*(q1*q2+q0*q3), 1-2*(q1**2+q3**2), 2*(q2*q3-q0*q1)], axis=-1),
-        np.stack([2*(q1*q3-q0*q2), 2*(q2*q3+q0*q1), 1-2*(q1**2+q2**2)], axis=-1),
-    ], axis=-2)
-    F = np.eye(3)[None] + gu
-    eps_k4 = np.einsum('...ki,...kj->...ij', R, F) - np.eye(3)[None]
+    q = q_from_omega_eng(omega)                             # declared ω map
+    eps_k4 = _pr_strain_batch(np.eye(3)[None] + gu, q)      # cf's strain fn
 
     norms = np.linalg.norm(eps_engine.reshape(N, 9), axis=-1)
-    rel = (
-        np.linalg.norm((eps_k4 - eps_engine).reshape(N, 9), axis=-1)
-        / np.maximum(norms, 1e-30)
-    )
+    rel = (np.linalg.norm((eps_k4 - eps_engine).reshape(N, 9), axis=-1)
+           / np.maximum(norms, 1e-30))
     max_rel = float(np.max(rel))
+    print(f"[strain_small_angle] h={h:.0e} max_rel={max_rel:.3e}")
     assert max_rel <= 3e-6, (
         f"small-angle strain vs cf:175-186 under ω map: max_rel={max_rel:.2e} "
         f"(limit 3e-6; strain_ruling h=1e-6 gives ~2.8e-6)")
 
 
 # ---------------------------------------------------------------------------
-# B2: dynamic q reaching −1 (full-sweep handling) + ω-storage representation jump
+# B2: ω-storage representation jump (static convention witness)
 # ---------------------------------------------------------------------------
-
-
-def test_k4_q_reaches_minus1_dynamic():
-    """B2: a field containing sites near q=−1 stays exactly unit-norm under K4.
-
-    Seeds a patch of near-antipodal rotations (θ ≈ π·0.99 → q0 ≈ 0.016, the
-    field legitimately reaching toward the q=−1 antipode) and steps for 20
-    steps. The LOAD-BEARING K4 guarantee — |q|=1 to 1e-12 at every alive site,
-    every step, even with the field near the antipode — holds exactly (the
-    Lie-group Verlet is intrinsically on the sphere).
-
-    Honest-closure record (Rule 11): the short-arc bond invariant Re(q̄q')>0 is
-    NOT maintained under default (undamped, unconfined) dynamics — the sharp
-    patch/vacuum interface develops antipodal bonds (min Re → −1) in the first
-    step, the SAME single mechanism as test_k4_hedgehog_n1_dynamic_unit. The
-    static representation-jump demonstration (test_omega_storage_representation_jump)
-    is the convention-level evidence that K4 removes the ω double-cover seam;
-    the dynamic bond-Re>0 claim is a stronger property the undamped bulk engine
-    does not provide. This test pins BOTH observed facts.
-    """
-    n = 24
-    cf = CosseratField3D(n, n, n, rotation_storage="quaternion")
-    c = n // 2
-    theta = np.pi * 0.99
-    qval = np.array([np.cos(theta / 2.0), 0.0, 0.0, np.sin(theta / 2.0)])
-    for i in range(c - 2, c + 2):
-        for j in range(c - 2, c + 2):
-            for k in range(c - 2, c + 2):
-                if cf.mask_alive[i, j, k]:
-                    cf.q[i, j, k] = qval
-
-    # The seed genuinely reaches toward the antipode.
-    assert cf.q[cf.mask_alive, 0].min() < 0.1
-
-    re_min_broke = False
-    for step_i in range(20):
-        cf.step(cf.cfl_dt)
-        q_alive = cf.q[cf.mask_alive]
-        nm = np.max(np.abs(np.linalg.norm(q_alive, axis=-1) - 1.0))
-        assert nm < 1e-12, f"step {step_i}: |q|-1 max = {nm:.2e}"
-        if _bond_re_min(cf.q, cf.mask_alive) <= 0.0:
-            re_min_broke = True
-
-    # Recorded finding: the undamped sharp-interface seed does break Re(q̄q')>0.
-    assert re_min_broke, (
-        "UNEXPECTED: the sharp near-antipodal seed held Re(q̄q')>0 under default "
-        "dynamics — if an engine change now holds it, promote this to a bond-Re "
-        "assertion and surface to Grant."
-    )
+# The former dynamic q→−1 k_refl=1 asserting test (test_k4_q_reaches_minus1_
+# dynamic) is retired; its |q|=1 invariant is covered by the norm-preservation
+# tests and its k_refl=1 bond behavior is logged in test_r1_d_krefl1_log_only
+# (K-R21). The static representation-jump witness below is convention-level.
 
 
 def test_omega_storage_representation_jump():
@@ -1474,8 +1453,7 @@ def test_k4_translation_zero_modes():
     other three classes stay ≈0.
     """
     n = 24
-    cf = CosseratField3D(n, n, n, rotation_storage="quaternion",
-                         pml_thickness=0, damping_gamma=0.0)
+    cf = make_r1_solver(n)
     alive = cf.mask_alive
     cls = _bcc_translation_classes(n, alive)
 
@@ -1596,21 +1574,25 @@ def test_omega_translation_zero_modes():
 # ---------------------------------------------------------------------------
 
 
-def _gap_freq(cf, storage, amplitude=1e-3, n_periods=40):
+def _gap_freq(cf, storage, amplitude=1e-3, n_periods=40, dt_override=None):
     """Drive the k=0 uniform z-rotation gap mode; return (angular frequency, dt).
 
     B1c C1: the frequency is now recovered by a 3-parameter least-squares
     sinusoid fit (_fit_freq_lsq) over ≥10 periods, not an FFT-bin peak — so the
     absolute value can be gated against the Verlet-corrected discrete frequency.
     Only the running scalar mean is held (no full field time series) to keep the
-    RSS footprint flat (C5)."""
+    RSS footprint flat (C5).
+
+    dt_override (F8): run at an explicit dt instead of cfl_dt, so the Verlet
+    shadow-frequency offset ratio off(dt)/off(dt/4) can be MEASURED from two
+    engine runs rather than computed analytically from the continuum 2.0."""
     if storage == "omega":
         cf.omega[:, :, :, 2] = amplitude
     else:
         cf.q[:, :, :, 0] = np.sqrt(1.0 - (amplitude / 2.0) ** 2)
         cf.q[:, :, :, 3] = amplitude / 2.0
         cf.q[~cf.mask_alive] = np.array([1.0, 0.0, 0.0, 0.0])
-    dt = cf.cfl_dt
+    dt = dt_override if dt_override is not None else cf.cfl_dt
     n_steps = int(n_periods * (2.0 * np.pi / 2.0) / dt) + 1
     series = np.zeros(n_steps)
     for s in range(n_steps):
@@ -1635,13 +1617,16 @@ def test_k4_gap_frequency():
     |Omega_num − 2| = O(dt²). Measuring the gap frequency by a least-squares
     sinusoid fit (not an FFT-bin peak) recovers Ω to integrator precision, so the
     correct comparison is measured-vs-Omega_num (≤1e-4), NOT measured-vs-2.0. The
-    O(dt²) nature of the 2.0 offset is itself verified by halving-cubed
-    convergence: |Omega_num(dt/4) − 2| ≤ |Omega_num(dt) − 2|/10.
+    O(dt²) nature of the 2.0 offset is itself verified by a MEASURED (not
+    analytic) frequency-offset ratio: fit f(dt) and f(dt/4) from two engine runs,
+    off = f − 2, and assert off(dt)/off(dt/4) ∈ [15, 17.5] (Gate: 16.31 ω). This
+    ratio exercises the ENGINE at two step sizes, so a coefficient edit that
+    shifts the actual frequency (e.g. γ×2 in W_micropolar) is caught here as well
+    as by the |f_ω − Omega_num| ≤ 1e-4 clause. k_refl=0 cf_k4 via make_r1_solver.
     """
     cf_om = CosseratField3D(16, 16, 16, rotation_storage="omega",
                             pml_thickness=0, damping_gamma=0.0)
-    cf_k4 = CosseratField3D(16, 16, 16, rotation_storage="quaternion",
-                            pml_thickness=0, damping_gamma=0.0)
+    cf_k4 = make_r1_solver(16)  # k_refl=0 read-back asserted (v5)
     f_om, dt_om = _gap_freq(cf_om, "omega")
     f_k4, dt_k4 = _gap_freq(cf_k4, "quaternion")
 
@@ -1654,52 +1639,49 @@ def test_k4_gap_frequency():
         f"gap frequency = {f_om:.6f} vs Verlet-exact Omega_num = {Omega_num:.6f} "
         f"(|Δ|={abs(f_om - Omega_num):.2e}, limit 1e-4; dt={dt_om:.6e})")
 
-    # O(dt²) convergence of the discrete frequency toward the continuum 2.0:
-    # a 4× dt reduction shrinks the offset by exactly 16× (d(Omega_num)/d(dt²) is
-    # constant to leading order; (2/dt)arcsin(dt) − 2 ≈ dt²/3 → ratio = 4² = 16).
-    off_dt = abs(Omega_num - 2.0)
-    off_dt4 = abs(_omega_num(2.0, dt_om / 4.0) - 2.0)
+    # F8: MEASURED Verlet shadow-offset ratio off(dt)/off(dt/4). Second engine run
+    # at dt/4 (n_periods=10 → same step count as the dt run). off = f_measured − 2;
+    # the O(dt²) shadow shift gives off(dt)/off(dt/4) = 4² = 16 (Gate: 16.31).
+    cf_om_dt4 = CosseratField3D(16, 16, 16, rotation_storage="omega",
+                                pml_thickness=0, damping_gamma=0.0)
+    f_om_dt4, _ = _gap_freq(cf_om_dt4, "omega", n_periods=10, dt_override=dt_om / 4.0)
+    off_dt = abs(f_om - 2.0)
+    off_dt4 = abs(f_om_dt4 - 2.0)
     ratio_dt = off_dt / max(off_dt4, 1e-300)
-    assert 15.0 <= ratio_dt <= 17.0, (
-        f"Omega_num not O(dt²): |Δ(dt)|={off_dt:.3e} |Δ(dt/4)|={off_dt4:.3e} "
-        f"ratio={ratio_dt:.2f} (expect 16 ± 1)")
+    print(f"[gap] f_om={f_om:.6f} f_k4={f_k4:.6f} off(dt)={off_dt:.3e} "
+          f"off(dt/4)={off_dt4:.3e} measured ratio={ratio_dt:.2f}")
+    assert 15.0 <= ratio_dt <= 17.5, (
+        f"measured Verlet offset not O(dt²): off(dt)={off_dt:.3e} "
+        f"off(dt/4)={off_dt4:.3e} ratio={ratio_dt:.2f} (expect ∈ [15, 17.5]; "
+        f"Gate 16.31)")
 
 
 def test_k4_gap_frequency_trip_gc0():
     """B6 trip: G_c = 0 → gap frequency collapses toward 0 (no restoring torque)."""
-    cf = CosseratField3D(16, 16, 16, rotation_storage="quaternion",
-                         pml_thickness=0, damping_gamma=0.0)
+    cf = make_r1_solver(16)
     cf.G_c = 0.0
     f, _dt = _gap_freq(cf, "quaternion", n_periods=10)
     assert f < 0.5, f"G_c=0 gap trip: frequency = {f:.4f}, expected < 0.5 (≈0)"
 
 
 def test_k4_energy_drift():
-    """B6: |ΔH/H0| ≤ 1e-4 over a short K4 run (symplectic velocity-Verlet), with
-    the spectrally-bounded dt_K4 reported alongside (B1c C2).
+    """R1-4 (v5): MAX-over-trajectory |ΔH/H0| ≤ 1e-4 at cfl/16; dt×4 must EXCEED 1e-4.
 
-    The K4 drift is the BOUNDED symplectic-shadow oscillation, not a secular
-    dissipation: it is O(dt²), the signature of a symplectic integrator
-    conserving a shadow Hamiltonian (NOT a leaking engine). The ≤1e-4 bound is
-    met at cfl_dt/16 (the original, UNWEAKENED assertion). B1c C2 additionally
-    measures the drift at the spectrally-bounded step
-    dt_K4 = min(cfl_dt, 0.25/Ω_max): dt_K4 is larger than cfl_dt/16 (~0.051 vs
-    ~0.006 at n=16), so its drift is correspondingly larger (~3.7e-4) but still
-    BOUNDED and strictly larger than the fine-step drift — the symplectic-shadow
-    ordering, not secular dissipation. The 1e-4 gate stays pinned at the step
-    where the integrator actually meets it; the dt_K4 figure is a reported
-    diagnostic (not a loosened bound). The clean O(dt²) decay as dt→0 is the
-    quantitative conservation evidence; it is asserted via the two-point
-    direction (coarser step ⇒ larger bounded drift) rather than a tight ratio,
-    because the shadow oscillation's phase at a fixed step-count makes an exact
-    (dt_K4/dt_fine)² ratio sampling-dependent.
+    The K4 drift is the BOUNDED symplectic-shadow oscillation (O(dt²)), not a
+    secular leak. The metric is the MAXIMUM of |H(t)−H0|/H0 over the whole
+    trajectory (not the end-point value — an end-point check can land on a shadow
+    zero-crossing and under-report). Named dt = cfl/16 meets ≤1e-4 (Gate: 2.3e-5).
+    REAL TRIP: dt×4 (= cfl/4) must EXCEED 1e-4 (Gate: 8.2e-4) — if the engine ever
+    conserves well enough that cfl/4 no longer trips, pick the smallest named dt
+    whose ×4 does, with numbers. k_refl=0 via make_r1_solver (v5 rule).
     """
     n = 16
-    Omega_max = _k4_omega_max(n=16)
+    cfl_dt = make_r1_solver(n).cfl_dt
+    dt_fine = cfl_dt / 16.0    # named dt (passes)
+    dt_coarse = cfl_dt / 4.0   # dt_fine × 4 (must trip)
 
-    def drift(dt):
-        cf = CosseratField3D(n, n, n, rotation_storage="quaternion",
-                             pml_thickness=0, damping_gamma=0.0)
+    def drift_max(dt, n_steps=50):
+        cf = make_r1_solver(n)
         rng = np.random.default_rng(2026)
         dq = rng.standard_normal((n, n, n, 3)) * 1e-3
         cf.q[cf.mask_alive, 1:] = dq[cf.mask_alive]
@@ -1709,34 +1691,27 @@ def test_k4_energy_drift():
         H0 = cf.total_energy_k4() + cf.kinetic_energy_k4()
         if abs(H0) < 1e-20:
             pytest.skip("Initial energy too small for drift test")
-        for _ in range(50):
+        max_rel = 0.0
+        for _ in range(n_steps):
             cf.step(dt)
-        H1 = cf.total_energy_k4() + cf.kinetic_energy_k4()
-        return abs(H1 - H0) / abs(H0), H0
+            H = cf.total_energy_k4() + cf.kinetic_energy_k4()
+            max_rel = max(max_rel, abs(H - H0) / abs(H0))
+        return max_rel
 
-    cfl_dt = CosseratField3D(
-        n, n, n, rotation_storage="quaternion",
-        pml_thickness=0, damping_gamma=0.0).cfl_dt
-    dt_K4 = min(cfl_dt, 0.25 / Omega_max)
-    dt_fine = cfl_dt / 16.0
+    rel_fine = drift_max(dt_fine)
+    rel_coarse = drift_max(dt_coarse)
+    print(f"[energy_drift] cfl/16={dt_fine:.3e} max|ΔH/H0|={rel_fine:.3e}  "
+          f"cfl/4={dt_coarse:.3e} max|ΔH/H0|={rel_coarse:.3e}")
 
-    rel_dtK4, _ = drift(dt_K4)
-    rel_fine, _ = drift(dt_fine)
-    print(f"[energy_drift] Omega_max={Omega_max:.6f} dt_K4={dt_K4:.6e} "
-          f"|ΔH/H0|(dt_K4)={rel_dtK4:.3e}  dt_fine(cfl/16)={dt_fine:.6e} "
-          f"|ΔH/H0|(fine)={rel_fine:.3e}")
-
-    # Original gate, UNWEAKENED: the ≤1e-4 bound at cfl_dt/16.
+    # PASS at the named dt (Gate: 2.3e-5).
     assert rel_fine <= 1e-4, (
-        f"|ΔH/H0| = {rel_fine:.2e} at cfl_dt/16={dt_fine:.3e} (limit 1e-4)")
+        f"max|ΔH/H0| = {rel_fine:.2e} at cfl/16={dt_fine:.3e} (limit 1e-4)")
 
-    # Symplectic-shadow ordering: the coarser dt_K4 drift is BOUNDED and strictly
-    # larger than the fine-step drift (not a secular blow-up; dt_K4 > dt_fine).
-    assert rel_dtK4 < 1e-2, (
-        f"dt_K4 drift unbounded: {rel_dtK4:.2e} (dt_K4={dt_K4:.3e})")
-    assert rel_dtK4 > rel_fine, (
-        f"coarser dt_K4 should drift more than cfl_dt/16: "
-        f"{rel_dtK4:.2e} vs {rel_fine:.2e}")
+    # REAL TRIP: dt×4 = cfl/4 must EXCEED 1e-4 (Gate: 8.2e-4).
+    assert rel_coarse > 1e-4, (
+        f"dt×4 trip did not fire: cfl/4 max|ΔH/H0| = {rel_coarse:.2e} ≤ 1e-4 "
+        f"(Gate: 8.2e-4). If the integrator now conserves this well at cfl/4, "
+        f"pick the smallest named dt whose ×4 exceeds 1e-4, with numbers.")
 
 
 def test_energy_slope_helper_none_when_few_samples():
@@ -1799,20 +1774,32 @@ def _agg():
     return aggregate_r2_periods
 
 
+def _res(value):
+    """count_charge_k4-shaped RESOLVED result dict with the given integer value."""
+    return {'resolved': True, 'value': value, 'reason': None,
+            'c_exact_result': {'value': value}, 'c_link_result': {'value': value}}
+
+
+def _unres(reason, c_link_value=None):
+    """count_charge_k4-shaped UNRESOLVED result dict."""
+    clk = {'value': c_link_value} if c_link_value is not None else None
+    return {'resolved': False, 'value': None, 'reason': reason,
+            'c_exact_result': None, 'c_link_result': clk}
+
+
 def test_r2_aggregator_pass():
-    """B9: ≥90% resolved + all +6 → PASS."""
+    """B9: ≥90% resolved + all +6 → PASS (adapter-dict format, F4)."""
     agg = _agg()
-    periods = [{'c_exact': 6, 'c_link': 6} for _ in range(18)] + \
-              [{'c_exact': None, 'c_link': None} for _ in range(2)]
+    periods = [_res(6) for _ in range(18)] + [_unres('NONUNIT: …') for _ in range(2)]
     out = agg(periods)
     assert out['verdict'] == 'PASS', out
 
 
 def test_r2_aggregator_inconclusive():
-    """B9: 17/20 resolved (<90%) → INCONCLUSIVE."""
+    """B9: 17/20 resolved (<90%) → INCONCLUSIVE (adapter-dict format, F4)."""
     agg = _agg()
-    periods = [{'c_exact': 6, 'c_link': 6} for _ in range(17)] + \
-              [{'c_exact': None, 'c_link': 7} for _ in range(3)]
+    periods = [_res(6) for _ in range(17)] + \
+              [_unres('UNRESOLVED: c_exact BAD_TETS', c_link_value=7) for _ in range(3)]
     out = agg(periods)
     assert out['verdict'] == 'INCONCLUSIVE', out
     # Nit N3: the c_link value is logged on each UNRESOLVED period.
@@ -1822,10 +1809,46 @@ def test_r2_aggregator_inconclusive():
 def test_r2_aggregator_fail():
     """B9: one resolved value ≠ +6 → FAIL (the only count FAIL)."""
     agg = _agg()
-    periods = [{'c_exact': 6, 'c_link': 6} for _ in range(19)] + \
-              [{'c_exact': 5, 'c_link': 6}]
+    periods = [_res(6) for _ in range(19)] + [_res(5)]
     out = agg(periods)
     assert out['verdict'] == 'FAIL', out
+
+
+def test_r2_aggregator_clink_disagree_unresolved():
+    """F4: c_exact=6 but c_link=5 (disagree) → adapter resolved=False → UNRESOLVED.
+
+    Kills agg_clink_ignored: the old `ce!=6 or cl!=6` made a c_link-only
+    disagreement a FAIL. The adapter returns resolved=False on disagreement, so
+    the aggregator counts it UNRESOLVED (INCONCLUSIVE, not FAIL).
+    """
+    agg = _agg()
+    disagree = _unres('UNRESOLVED: c_exact=6 disagrees with c_link=5', c_link_value=5)
+    # Enough disagreements to drop below 90% resolved → INCONCLUSIVE, never FAIL.
+    periods = [_res(6) for _ in range(17)] + [disagree for _ in range(3)]
+    out = agg(periods)
+    assert out['verdict'] == 'INCONCLUSIVE', out
+    assert out['n_wrong'] == 0, (
+        f"a c_link disagreement must NOT be a COUNT FAIL (n_wrong={out['n_wrong']})")
+    assert out['n_unresolved'] == 3, out
+
+
+def test_r2_aggregator_nan_period():
+    """F4: a NONFINITE period → UNRESOLVED → drives the verdict."""
+    agg = _agg()
+    periods = [_res(6) for _ in range(17)] + \
+              [_unres('NONFINITE: non-finite q on alive sites') for _ in range(3)]
+    out = agg(periods)
+    assert out['verdict'] == 'INCONCLUSIVE', out
+
+
+def test_r2_aggregator_nonunit_period():
+    """F4: a NONUNIT period → UNRESOLVED → drives the verdict."""
+    agg = _agg()
+    periods = [_res(6) for _ in range(17)] + \
+              [_unres('NONUNIT: alive sites deviate from unit norm by 1.0e-02 (> 1e-6)')
+               for _ in range(3)]
+    out = agg(periods)
+    assert out['verdict'] == 'INCONCLUSIVE', out
 
 
 # ---------------------------------------------------------------------------

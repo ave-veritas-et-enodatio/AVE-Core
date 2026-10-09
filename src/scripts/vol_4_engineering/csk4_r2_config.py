@@ -5,9 +5,9 @@ Grant decision T-A4b (2026-10-08 22:01 PT):
 
 Source documents (SHA-1 from ~/AVE-staging/runs/csk4/inputs/SHA1SUMS):
   Brief           2026-10-08-charged-seed-K4-BRIEF.md          0de2f577279f
-  Spec            2026-10-08-charged-seed-K4-change-SPEC_CANDIDATE.md  0bb84db49105
-  Setup sheet     2026-10-08-charged-seed-SETUP-SHEET_CANDIDATE.md     920c213bd3b4
-  Gate ladder v3  LADDER-charged-seed-K4-2026-10-08.md                 f086d59a4cd0
+  Spec (A6)       2026-10-08-charged-seed-K4-change-SPEC_CANDIDATE.md  a4ae89f69f2e
+  Setup sheet     2026-10-08-charged-seed-SETUP-SHEET_CANDIDATE.md     cd5bb927d128
+  Gate ladder v5  LADDER-charged-seed-K4-2026-10-08.md                 1ae8604b19c6
 
 NOT RUN without Grant's GO.  Runs needing GO:
   R2 primary:  288³, dt=2.24e-4, 144 643 steps  (3.44e12 point-steps)
@@ -25,7 +25,8 @@ Pinned-value provenance (ladder §2):
                   s=0.99991, d²E/dλ²=+4.76e7 (true minimum).  Math smooth
                   fit 1.415e6 (fit24_b).  Trade (b): k_refl=0 → no reflection
                   term; k_op10 set by γ/op10 balance alone.
-  γ = 4320  = 30·G_c·r_c² (ensures mass term ≤10% of γ-term push at R=r_c).
+  γ = 4320  = 30·G_c·r_c²|_{r_c=24} = 30·1·576 (ensures mass term ≤10% of
+             γ-term push at R=r_c; r_c=24 per T-A4b trade).
   k_refl = 0  Trade (b); reflection off for a clean pin (Rule-10 row 3,
              ladder §7: cf:497–500 / cf:1038).
 
@@ -137,6 +138,12 @@ def make_r2_solver(nx=None, ny=None, nz=None, _skip_pin_check=False):
     Note: gamma, G, G_c, k_op10 are post-construction attributes (the
     constructor only accepts k_refl and rotation_storage for physics knobs).
     Pass nx/ny/nz to override the default 288³ (e.g. a tiny test grid).
+
+    Keyword-only nit (v5): k_refl / rotation_storage are passed BY NAME here and
+    everywhere in the test suite. cf.py's constructor signature is NOT changed to
+    make them keyword-only (that would be a net line edit to cosserat_field_3d.py,
+    breaking the inbound cite-shift pin); by-name passing is the enforced
+    convention instead.
     """
     if not _skip_pin_check:
         _check_charge_counters_pin()
@@ -198,6 +205,17 @@ def run_r2():  # pragma: no cover
     print(f"  Output: {outdir}")
 
     cf = make_r2_solver()
+
+    # R2-1 read-backs (ladder §5): the running dt, strain form, and #16 partner
+    # box must match the pinned trade before the 3.4e12 point-step run proceeds.
+    assert DT == 2.24e-4, f"R2-1 dt read-back: {DT!r} != 2.24e-4"
+    assert cf.rotation_storage == "quaternion", (
+        f"R2-1 strain-form read-back: rotation_storage={cf.rotation_storage!r} "
+        "(K4 finite-rotation strain ε=Rᵀ(q)F−I required)")
+    assert NX_PARTNER != NX_PRIMARY, (
+        f"R2-1 partner read-back: #16 partner box {NX_PARTNER}³ must differ from "
+        f"primary {NX_PRIMARY}³")
+
     seed = make_r2_seed()
     cf.q = seed.copy()
     cf.q[~cf.mask_alive] = np.array([1.0, 0.0, 0.0, 0.0])
@@ -217,18 +235,27 @@ def run_r2():  # pragma: no cover
 
 
 def aggregate_r2_periods(period_results):
-    """Aggregate per-period C-exact/C-link results for the R2 breathing check.
+    """Aggregate per-period count_charge_k4 results for the R2 breathing check.
+
+    F4 (v5): this consumes count_charge_k4 RESULT DICTS directly — the adapter is
+    the single source of truth for whether a period resolved. A period is counted
+    RESOLVED iff the adapter returned resolved=True (which already requires c_exact
+    AND c_link to agree). Any resolved=False — for ANY reason (NONUNIT, NONFINITE,
+    boundary margin, c_exact/c_link DISAGREEMENT) — is UNRESOLVED, never a FAIL.
+    This closes the agg_clink_ignored mutant: a c_link-only disagreement is handled
+    by the adapter (→ resolved=False → UNRESOLVED), not by a `ce!=6 or cl!=6` FAIL.
 
     Ladder §5 R2 #7 verdict logic:
-      - A resolved value ≠ +6 is the only COUNT FAIL.
-      - PASS needs ≥ 90% of periods resolved AND all resolved values = +6.
-      - Otherwise (< 90% resolved, i.e. too many UNRESOLVED) → INCONCLUSIVE.
+      - A RESOLVED value ≠ +6 is the only COUNT FAIL.
+      - PASS needs ≥ 90% resolved AND all resolved values = +6.
+      - < 90% resolved (too many UNRESOLVED) → INCONCLUSIVE.
       - Nit N3: on an UNRESOLVED period, log the C-link value alone.
 
     Args:
-        period_results: list of dicts with keys
-            'c_exact': int or None   (None = UNRESOLVED)
-            'c_link':  int or None   (None = UNRESOLVED; raw value kept for N3)
+        period_results: list of count_charge_k4 result dicts with keys
+            'resolved' (bool), 'value' (int or None), 'reason' (str or None),
+            'c_link_result' (dict or None, for the N3 c_link log).
+            Legacy {'c_exact','c_link'} dicts are also accepted for back-compat.
 
     Returns:
         dict with 'verdict' (PASS/FAIL/INCONCLUSIVE), 'n_resolved',
@@ -241,19 +268,33 @@ def aggregate_r2_periods(period_results):
     notes = []
 
     for i, pr in enumerate(period_results):
-        ce = pr.get('c_exact')
-        cl = pr.get('c_link')
-        if ce is None or cl is None:
+        if 'resolved' in pr:
+            # count_charge_k4 result dict (canonical path).
+            resolved = bool(pr.get('resolved'))
+            value = pr.get('value')
+            reason = pr.get('reason') or ''
+            clk = pr.get('c_link_result')
+            c_link_val = clk.get('value') if isinstance(clk, dict) else None
+        else:
+            # Legacy {'c_exact','c_link'} dict: resolved iff both present AND agree
+            # (so a c_link-only disagreement is UNRESOLVED, not FAIL).
+            ce = pr.get('c_exact')
+            cl = pr.get('c_link')
+            c_link_val = cl if cl is not None else pr.get('c_link_raw')
+            resolved = (ce is not None and cl is not None and ce == cl)
+            value = ce if resolved else None
+            reason = '' if resolved else 'UNRESOLVED (legacy: c_exact/c_link absent or disagree)'
+
+        if not resolved:
             n_unresolved += 1
             # Nit N3: log the C-link value alone on UNRESOLVED.
-            c_link_val = cl if cl is not None else pr.get('c_link_raw')
-            notes.append(f"Period {i}: UNRESOLVED; c_link={c_link_val!r}")
+            notes.append(f"Period {i}: UNRESOLVED ({reason}); c_link={c_link_val!r}")
         else:
             n_resolved += 1
-            if ce != 6 or cl != 6:
+            if value != 6:
                 n_wrong += 1
                 notes.append(
-                    f"Period {i}: RESOLVED but wrong: c_exact={ce}, c_link={cl}")
+                    f"Period {i}: RESOLVED but wrong: value={value}")
 
     # A resolved wrong value is the only COUNT FAIL — it dominates the verdict.
     if n_wrong > 0:

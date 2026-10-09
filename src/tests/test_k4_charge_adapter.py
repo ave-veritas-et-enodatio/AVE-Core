@@ -56,31 +56,54 @@ def test_adapter_hedgehog_mirror_minus1():
 # ── renormalization (N3) ──────────────────────────────────────────────────────
 
 
-def test_adapter_renormalize_times10_resolves():
-    """D2 N3: ×10 non-unit q is renormalized and resolves correctly.
+def test_adapter_renormalize_times10_becomes_nonunit():
+    """D2 F3 (v5, INVERTED): ×10 non-unit q → NONUNIT, NOT a renorm'd verdict.
 
-    A raw ×10 q passed directly to c_exact returns NONUNIT. The adapter
-    renormalizes, so the same field resolves. Both outcomes are verified.
+    The adapter must NOT renormalize a grossly non-unit field into an integer
+    verdict — a |q|≠1 of this magnitude signals a broken upstream invariant.
+    A pre-renorm deviation > 1e-6 returns resolved=False with reason NONUNIT.
     """
     n, rc = 32, 4
     q, alive = _make_hedgehog_q(n, rc)
     q_times10 = q.copy()
     q_times10[alive] *= 10.0  # alive sites ×10; dead sites untouched (identity)
 
-    # Adapter should renormalize and resolve
     result = count_charge_k4(q_times10, alive)
-    assert result['resolved'], (
-        f"×10 hedgehog UNRESOLVED after renorm: {result['reason']}")
-    assert result['value'] == 1, (
-        f"×10 hedgehog value={result['value']}, expected 1 after renorm")
+    assert not result['resolved'], (
+        f"×10 hedgehog should be NONUNIT (resolved=False), got resolved="
+        f"{result['resolved']} value={result['value']}")
+    assert 'NONUNIT' in (result.get('reason') or ''), (
+        f"expected NONUNIT in reason, got: {result.get('reason')!r}")
 
-    # Raw ×10 q passed straight to c_exact returns NONUNIT (N3 verification)
+    # Raw ×10 q passed straight to c_exact also returns NONUNIT (N3 cross-check).
     qstars = random_regular_values(5, 20261008)
     raw_result = c_exact(q_times10, qstars, tets=BCC_TETS, s=2)
-    assert not raw_result['resolved'], (
-        "raw ×10 q should be NONUNIT-UNRESOLVED")
+    assert not raw_result['resolved'], "raw ×10 q should be NONUNIT-UNRESOLVED"
     assert 'NONUNIT' in (raw_result['reason'] or ''), (
         f"expected NONUNIT reason, got: {raw_result['reason']!r}")
+
+
+def test_adapter_small_deviation_nonunit():
+    """D2 F3: alive sites at 1+1e-5 deviation → NONUNIT (above the 1e-6 band)."""
+    n, rc = 32, 4
+    q, alive = _make_hedgehog_q(n, rc)
+    q[alive, 0] += 1e-5   # breaks |q|=1 by ~1e-5, above the 1e-6 renorm band
+    result = count_charge_k4(q, alive)
+    assert not result['resolved'], (
+        f"1+1e-5 deviation should be NONUNIT, got resolved={result['resolved']}")
+    assert 'NONUNIT' in (result.get('reason') or ''), (
+        f"expected NONUNIT in reason, got: {result.get('reason')!r}")
+
+
+def test_adapter_tiny_deviation_resolves():
+    """D2 F3: alive sites at 1+1e-8 deviation → RESOLVED (within the 1e-6 band)."""
+    n, rc = 32, 4
+    q, alive = _make_hedgehog_q(n, rc)
+    q[alive, 0] += 1e-8   # round-off-scale; pre-renorm dev ≈ 1e-8 << 1e-6
+    result = count_charge_k4(q, alive)
+    assert result['resolved'], (
+        f"1+1e-8 (round-off) should resolve after renorm: {result.get('reason')}")
+    assert result['value'] == 1, f"value={result['value']}, expected 1"
 
 
 # ── C-link-only / disagreement rules (N1) ────────────────────────────────────
@@ -167,14 +190,21 @@ def test_adapter_nan_on_dead_raises():
         count_charge_k4(q, alive)
 
 
-def test_adapter_nan_on_alive_raises():
-    """D2: NaN on an alive site raises ValueError."""
+def test_adapter_nan_on_alive_nonfinite():
+    """D2 F3 (v5): NaN on an alive site → NONFINITE (resolved=False), NOT a raise.
+
+    Dead-site non-finite still RAISES (test_adapter_nan_on_dead_raises, R0-P4:
+    dead sites must be finite); an alive-site non-finite is a soft UNRESOLVED
+    verdict so the R2 aggregator can log it and continue, not crash the run.
+    """
     n, rc = 32, 4
     q, alive = _make_hedgehog_q(n, rc)
     alive_idx = tuple(np.argwhere(alive)[0])
     q[alive_idx] = np.array([float('nan'), 0.0, 0.0, 0.0])
-    with pytest.raises(ValueError, match='non-finite.*alive'):
-        count_charge_k4(q, alive)
+    result = count_charge_k4(q, alive)
+    assert not result['resolved'], "NaN on alive site should give resolved=False"
+    assert 'NONFINITE' in (result.get('reason') or ''), (
+        f"expected NONFINITE in reason, got: {result.get('reason')!r}")
 
 
 # ── boundary margin ───────────────────────────────────────────────────────────
@@ -216,6 +246,33 @@ def test_adapter_canonical_seeds_match_pin():
         err_msg="QSTARS[0] does not match Gate pin")
     np.testing.assert_allclose(nstars[0], expected_n0, atol=1e-10,
         err_msg="NSTARS[0] does not match Gate pin")
+
+
+def test_adapter_seed_constants_pinned():
+    """D2 F3: the adapter's canonical seeds are pinned (q*=20261008, n*=20261009).
+
+    Kills adapter_nstar_seed_20261008 (swapping the n* seed to 20261008): the two
+    seeds produce different arrays, and the n* array is value-pinned to the
+    20261009 draw. A seed swap trips either the constant pin or the value pin.
+    """
+    from ave.topological.k4_quaternion import (
+        _CANONICAL_QSTARS_SEED, _CANONICAL_NSTARS_SEED)
+    assert _CANONICAL_QSTARS_SEED == 20261008, (
+        f"q* seed changed: {_CANONICAL_QSTARS_SEED}")
+    assert _CANONICAL_NSTARS_SEED == 20261009, (
+        f"n* seed changed: {_CANONICAL_NSTARS_SEED}")
+
+    # The two seeds give genuinely different n* arrays (seed-swap would change n).
+    n_20261009 = random_n_vectors(4, 20261009)
+    n_20261008 = random_n_vectors(4, 20261008)
+    assert not np.allclose(n_20261009, n_20261008), (
+        "n* seeds 20261009 and 20261008 give the same array — seed swap undetectable")
+
+    # Value-pin the actual n* array drawn by the canonical seed.
+    nstars = random_n_vectors(4, _CANONICAL_NSTARS_SEED)
+    expected_n0 = np.array([0.6937011536, -0.6809262742, -0.2347724824])
+    np.testing.assert_allclose(nstars[0], expected_n0, atol=1e-10,
+        err_msg="n* array for seed 20261009 does not match the pinned draw")
 
 
 # ── c_det_alive4 is alarm only, not verdict ───────────────────────────────────

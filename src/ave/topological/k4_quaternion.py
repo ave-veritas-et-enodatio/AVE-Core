@@ -33,7 +33,7 @@ grade: DERIVED = algebraic/convention consequence, SIM = holds in the simulation
   |--------------|---------------|------------------------|------------------------------------------------------------|---------|
   | K-R4         | cf:~1047-1049 | ω "has SO(3) period 2π"| K4 stores q∈S³ (SU(2) double cover); no ω 2π representation seam | DERIVED |
   | K-R5         | cf:~1047-1049 | same                   | K4 energy not periodic in ω; only the n̂ terms are         | DERIVED |
-  | B7 strain    | k4_quaternion | ε = Rᵀ(I+∇u)−I         | O1 ruling adopted; OBJECTIVE (R1-9: ΔW/W≤2e-15; FR trip: ΔW/W≈17) | DERIVED |
+  | B7 strain    | k4_quaternion | ε = Rᵀ(I+∇u)−I         | O1 ruling adopted; OBJECTIVE (R1-9: ΔW/W p99≤1e-12; FR trip: ΔW/W median 0.39, p99 6.65 on ‖∇u‖_F≤0.5; A6.2) | DERIVED |
   | K-R20        | spec line 17  | small-angle = cf:186   | sign opposite at linear order; kept as O1 (objective) with ω map | DERIVED |
   | K-R18        | cf:497-500    | "not a fit parameter"  | E_refl ∝ 1/eps_reg exactly; regulator; k_refl=0 for this test (A5.1) | SIM |
   | K-R19        | cf:175-186 vs cf:194-221 | ε=∂u−ε·ω and n=R(ω)ẑ jointly objective | jointly non-objective: rigid rotation with co-rotating director gives strain 2.0×; ω acts as inverse of director rotation | DERIVED+SIM |
@@ -123,8 +123,8 @@ def _compute_strain_q_jax(
     transforms as (Q·R)ᵀ·(Q·F) = Rᵀ·Qᵀ·Q·F = Rᵀ·F — invariant, so the
     stored energy is frame-objective. The old F·R form is NOT objective
     (Q·F·Q·R ≠ Q·(F·R)). Both forms share the same small-angle limit
-    (R(q)≈I−[ω×] for q≈(1,ω/2)) to O(θ); the antisymmetric-part difference
-    is the O(θ²) term in R.
+    (R(q)≈I−[ω×] for q≈(1,−ω/2) under the ω_eng map, K-R19/R20) to O(θ); the
+    antisymmetric-part difference is the O(θ²) term in R.
     """
     q0, q1, q2, q3 = q[..., 0], q[..., 1], q[..., 2], q[..., 3]
     # R(q) entries (standard quaternion rotation matrix)
@@ -330,6 +330,41 @@ def _quat_exp_np(v: np.ndarray) -> np.ndarray:
     return np.concatenate([cos_v, v * sinc_v], axis=-1)  # (*,4)
 
 
+def omega_eng_from_q(q: np.ndarray) -> np.ndarray:
+    """ω_eng = −2 Im log q  (engine angular velocity from quaternion, short arc).
+
+    Convention (spec A5.3, K-R19): a rigid rotation by angle θ about n̂ is stored
+    as q = (cos(θ/2), sin(θ/2) n̂), giving ω_eng = −θ n̂ (NOT +θ n̂) — the engine's
+    stored ω is the INVERSE of the rotation q encodes. Inverse of q_from_omega_eng.
+    Valid for |ω_eng| < π (short-arc branch, scalar part ≥ 0). Shape (…,4)→(…,3).
+    """
+    q = np.asarray(q, dtype=np.float64)
+    sign = np.where(q[..., 0:1] >= 0.0, 1.0, -1.0)   # short-arc: scalar part ≥ 0
+    q = q * sign
+    q0 = q[..., 0:1]                                  # (…,1)
+    qv = q[..., 1:]                                   # (…,3)
+    s = np.linalg.norm(qv, axis=-1, keepdims=True)    # (…,1) = sin(θ/2)
+    theta_half = np.arctan2(s, q0)                    # = θ/2
+    # ω_eng = −2·(θ/2)·qv/|qv| = −θ·n̂, safe at s→0 (guard the divisor).
+    s_safe = np.where(s > 1e-30, s, 1.0)
+    scale = np.where(s > 1e-30, -2.0 * theta_half / s_safe, 0.0)
+    return scale * qv
+
+
+def q_from_omega_eng(omega: np.ndarray) -> np.ndarray:
+    """Unit quaternion from engine angular velocity: q = exp(−ω/2).
+
+    Inverse of omega_eng_from_q. Shape (…,3)→(…,4). At ω=0 returns (1,0,0,0).
+    numpy sinc(x)=sin(πx)/(πx), so sinc(t/(2π)) = sin(t/2)/(t/2) with t=|ω|;
+    q_vec = −sin(t/2)·ω/t = −sinc(t/(2π))·ω/2.
+    """
+    omega = np.asarray(omega, dtype=np.float64)
+    t = np.linalg.norm(omega, axis=-1, keepdims=True)  # (…,1)
+    cos_half = np.cos(t / 2.0)
+    q_vec = -np.sinc(t / (2.0 * np.pi)) * (omega / 2.0)
+    return np.concatenate([cos_half, q_vec], axis=-1)
+
+
 # ======================================================================
 # K4 constructor helper + mixin (B1c line-neutral host for the class-method
 # block formerly inline in cosserat_field_3d.py). Hosting these here keeps the
@@ -519,17 +554,30 @@ def count_charge_k4(q: np.ndarray, mask_alive: np.ndarray) -> dict:
         raise ValueError("count_charge_k4: non-finite q on dead sites")
     q_work[dead] = np.array([1.0, 0.0, 0.0, 0.0])
 
-    # 3. Alive sites: raise on non-finite, renormalize, then assert unit norm
+    # 3. Alive sites: NONFINITE then NONUNIT verdicts (pre-renorm, not a raise).
+    #    Non-finite on an alive site → NONFINITE (resolved=False). A pre-renorm
+    #    unit-norm deviation > 1e-6 → NONUNIT (resolved=False): the adapter must
+    #    NOT renormalize a drifted field into a verdict — a drifted |q| signals a
+    #    broken invariant upstream. Only deviations ≤ 1e-6 (round-off) are renorm'd.
     if not np.isfinite(q[mask_alive]).all():
-        raise ValueError("count_charge_k4: non-finite q on alive sites")
+        return dict(
+            resolved=False, value=None,
+            reason="NONFINITE: non-finite q on alive sites",
+            c_exact_result=None, c_link_result=None,
+            c_det_alive4=float('nan'),
+        )
+    max_dev_pre = float(np.abs(np.linalg.norm(q[mask_alive], axis=-1) - 1.0).max())
+    if max_dev_pre > 1e-6:
+        return dict(
+            resolved=False, value=None,
+            reason=(f"NONUNIT: alive sites deviate from unit norm by "
+                    f"{max_dev_pre:.2e} (> 1e-6)"),
+            c_exact_result=None, c_link_result=None,
+            c_det_alive4=float('nan'),
+        )
+    # Pre-renorm deviation ≤ 1e-6 (round-off): renormalize to the unit sphere.
     norms = np.linalg.norm(q_work[mask_alive], axis=-1, keepdims=True)
     q_work[mask_alive] = q_work[mask_alive] / np.where(norms > 0, norms, 1.0)
-    max_dev = float(np.abs(np.linalg.norm(q_work[mask_alive], axis=-1) - 1.0).max())
-    if max_dev > 1e-6:
-        # Extremely large input; renormalization didn't converge to unit sphere
-        raise ValueError(
-            f"count_charge_k4: alive sites deviate from unit norm by {max_dev:.2e} "
-            f"even after renormalization (max_dev > 1e-6)")
 
     # 4. Boundary margin: q0 > 0.5 on alive boundary sites
     def _boundary_q0_alive_ok(q_, alive_):
