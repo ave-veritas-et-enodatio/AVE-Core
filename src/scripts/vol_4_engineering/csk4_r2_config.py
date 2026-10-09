@@ -205,7 +205,12 @@ def make_r2_pf_config(control: bool = False) -> dict:
     control=True: uses Λ-8 k_op10 (K_OP10_PF_C=3.93e4) instead of the primary k_op10.
     Returns parameter dict with grid, seed, γ, k_op10, k_refl, dt, T, n_steps,
     and checkpoint times from pf_checkpoint_times(T_PF).
+
+    Seed is the axial (2,3) rational map (same as R2 primary, degree +6).
+    rational(192,24) uses cutoff n/2 = 96 = SEED_L_PF (assert NX_PF/2 == SEED_L_PF).
     """
+    assert NX_PF // 2 == SEED_L_PF, (
+        f"R2-PF rational cutoff: NX_PF/2={NX_PF//2} != SEED_L_PF={SEED_L_PF}")
     k = K_OP10_PF_C if control else K_OP10
     n_steps_pf = math.ceil(T_PF / DT)
     return {
@@ -213,7 +218,11 @@ def make_r2_pf_config(control: bool = False) -> dict:
         "dt": DT, "n_steps": n_steps_pf, "t_end": T_PF,
         "gamma": GAMMA, "G": G, "G_c": G_C, "k_op10": k,
         "k_refl": K_REFL, "rotation_storage": ROTATION_STORAGE,
-        "seed": {"constructor": "_hedgehog_at", "rc": SEED_RC, "L": SEED_L_PF},
+        "seed": {
+            "constructor": "rational",
+            "rc": SEED_RC, "p": SEED_P, "qq": SEED_QQ,
+            "L": SEED_L_PF,   # rational cutoff is n/2; L stored for read-back
+        },
         "checkpoints": pf_checkpoint_times(T_PF),
     }
 
@@ -240,6 +249,48 @@ def make_pii_config(control: bool = False) -> dict:
         "seed": {"constructor": "_hedgehog_at", "rc": 12, "L": SEED_L_PII},
         "checkpoints": pf_checkpoint_times(_T_PII),
     }
+
+
+def build_pf_seed(cfg_dict: dict, n: int = None, rc: int = None) -> np.ndarray:
+    """Build the initial quaternion array for a pre-flight config.
+
+    When n and rc are given, constructs a stand-in seed at (n, rc) using the
+    same L/rc ratio as the pinned config:
+      L_standin = cfg['seed']['L'] * rc / cfg['seed']['rc']
+
+    Dispatch on cfg['seed']['constructor']:
+      "_hedgehog_at": calls _hedgehog_at(n, rc, (0,0,0), L=L_standin)
+      "rational":     asserts n/2 == L_standin (rational has no L argument —
+                      its cutoff is always n/2); then calls
+                      rational(n, rc, p=..., qq=...).  Raises ValueError if
+                      n/2 != L_standin, since the scale rule would violate the
+                      hard cutoff invariant.
+
+    When n and rc are None, uses the full config grid size and seed rc.
+    """
+    seed = cfg_dict['seed']
+    constructor = seed['constructor']
+    rc_cfg = seed['rc']
+    n_use = n if n is not None else cfg_dict['nx']
+    rc_use = rc if rc is not None else rc_cfg
+    L_scaled = seed['L'] * rc_use / rc_cfg
+
+    from ave.topological.charge_counters import _hedgehog_at, rational as _rational
+
+    if constructor == '_hedgehog_at':
+        return _hedgehog_at(n_use, rc_use, (0, 0, 0), L=L_scaled)
+    elif constructor == 'rational':
+        if n_use / 2.0 != L_scaled:
+            raise ValueError(
+                f"build_pf_seed: rational constructor requires n/2 == scaled L, "
+                f"but n/2={n_use/2.0} != L_scaled={L_scaled} "
+                f"(cfg L={seed['L']}, rc_cfg={rc_cfg}, rc_use={rc_use}). "
+                "rational() cutoff is always n/2; adjust n or rc so n/2 == L.")
+        return _rational(n_use, rc_use, p=seed['p'], qq=seed['qq'])
+    else:
+        raise ValueError(
+            f"build_pf_seed: unknown seed constructor {constructor!r}; "
+            "expected '_hedgehog_at' or 'rational'")
 
 
 def r_eq_from_q(q: np.ndarray, mask_alive: np.ndarray) -> float:
@@ -625,15 +676,19 @@ def preflight_verdict(trace: dict, spec: dict) -> dict:
     - Control: MISS if BREAKUP-class bond (control should have none);
       N/A if INFALL or STABLE or INVALID.
 
-    Trace keys (all optional — missing → treated as safe):
-      r_eq0             float    r_eq at t=0
-      t_first           float    time of first antipodal bond (None → no bond)
-      r_first           float    distance to bond midpoint at t_first
-      r_eq_at_first     float    r_eq at t_first
-      n_antipodal_T     int      n_antipodal at end of run
-      pre_bond_dH_max   float    max |dH/H0| before t_first
-      pre_bond_N        int      resolved adapter value before t_first (None → skip check)
+    Trace keys (all optional — see notes below):
+      r_eq0               float    r_eq at t=0
+      t_first             float    time of first antipodal bond (None → no bond)
+      r_first             float    distance to bond midpoint at t_first
+      r_eq_at_first       float    r_eq at t_first
+      n_antipodal_T       int      n_antipodal at end of run
+      pre_bond_dH_max     float    max |dH/H0| before t_first
+      pre_bond_N          int      resolved adapter value before t_first (None → skip)
       ckpt_spacings_early list[float]  spacing of each checkpoint at t ≤ 0.1
+                                       REQUIRED: missing or empty → INVALID
+      post_bond_dH_max    float    max |dH/H0| after t_first (log only;
+                                   > 1e-2 appends "dH>1e-2 flag" to reasons
+                                   but does not change gate or a8)
     """
     reasons = []
 
@@ -646,13 +701,15 @@ def preflight_verdict(trace: dict, spec: dict) -> dict:
             f"r_eq0={r_eq0:.4f} outside pin {r_eq0_pin}±{r_eq0_tol}")
         return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
 
-    early_spacings = trace.get('ckpt_spacings_early', [])
-    if early_spacings:
-        max_early = max(early_spacings)
-        if max_early > 0.005:
-            reasons.append(
-                f"checkpoint spacing {max_early:.4f} > 0.005 at t ≤ 0.1")
-            return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
+    early_spacings = trace.get('ckpt_spacings_early')
+    if not early_spacings:
+        reasons.append("no checkpoint spacing record for t ≤ 0.1")
+        return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
+    max_early = max(early_spacings)
+    if max_early > 0.005:
+        reasons.append(
+            f"checkpoint spacing {max_early:.4f} > 0.005 at t ≤ 0.1")
+        return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
 
     pre_dH = trace.get('pre_bond_dH_max', 0.0)
     if pre_dH > 1e-3:
@@ -670,6 +727,11 @@ def preflight_verdict(trace: dict, spec: dict) -> dict:
     t_first = trace.get('t_first')
     if t_first is None:
         return {'gate': 'STABLE', 'a8': 'N/A', 'reasons': reasons}
+
+    # Post-bond dH flag (log only; does not change gate or a8)
+    post_dH = trace.get('post_bond_dH_max')
+    if post_dH is not None and post_dH > 1e-2:
+        reasons.append("dH>1e-2 flag")
 
     r_eq_at_first = trace.get('r_eq_at_first', 0.0)
     gate = classify_first_bond(r_eq_at_first, r_eq0)

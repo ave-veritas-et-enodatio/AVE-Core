@@ -1089,7 +1089,9 @@ def test_r1_2d_option_ii_pii_preflight():
     r_eq_at_first = None
     n_antipodal_T = 0
     pre_bond_dH_max = 0.0
+    post_bond_dH_max = 0.0  # G2: filled below after t_first
     H0 = None
+    H_post = None            # energy snapshot at t_first
     ckpt_rows = []
     ckpt_spacings_early = list(float(np.diff(ckpts[ckpts <= 0.1 + 1e-9]))) if len(ckpts[ckpts <= 0.1 + 1e-9]) > 1 else []
     pre_bond_N = None
@@ -1102,10 +1104,15 @@ def test_r1_2d_option_ii_pii_preflight():
             t_first = t
             r_first = min(b[3] for b in bonds)
             r_eq_at_first = r_eq_from_q(cf.q, alive)
-        if t_first is None:
+            H_post = cf.total_energy_k4() + cf.kinetic_energy_k4()
+        elif t_first is not None and H_post is not None:
+            H_now = cf.total_energy_k4() + cf.kinetic_energy_k4()
+            dH = abs(H_now - H_post) / max(abs(H_post), 1e-30)
+            post_bond_dH_max = max(post_bond_dH_max, dH)
+        else:
             if H0 is None:
                 H0 = 1.0  # placeholder; real dH requires energy computation
-            # pre_bond_dH_max updated per step only if we had H
+            # pre_bond_dH_max not tracked (energy placeholder)
         n_antipodal_T = len(bonds)
         t_r = round(t, 10)
         if t_r in ckpt_set:
@@ -1126,6 +1133,7 @@ def test_r1_2d_option_ii_pii_preflight():
         'pre_bond_dH_max': pre_bond_dH_max,
         'pre_bond_N': pre_bond_N,
         'ckpt_spacings_early': ckpt_spacings_early,
+        'post_bond_dH_max': post_bond_dH_max,  # G2: log-only; "dH>1e-2 flag" if exceeded
     }
     result = preflight_verdict(trace, PII_SPEC)
     r_eq_ratio = r_eq_at_first / r_eq0 if (r_eq_at_first and r_eq0 > 0) else None
@@ -1262,6 +1270,8 @@ def test_r1_2d_option_ii_pii_control():
     r_eq_at_first = None
     n_antipodal_T = 0
     pre_bond_dH_max = 0.0
+    post_bond_dH_max = 0.0  # G2: filled below after t_first
+    H_post = None            # energy snapshot at t_first
     ckpt_spacings_early = list(float(np.diff(ckpts[ckpts <= 0.1 + 1e-9]))) if len(ckpts[ckpts <= 0.1 + 1e-9]) > 1 else []
     pre_bond_N = None
 
@@ -1273,6 +1283,11 @@ def test_r1_2d_option_ii_pii_control():
             t_first = t
             r_first = min(b[3] for b in bonds)
             r_eq_at_first = r_eq_from_q(cf.q, alive)
+            H_post = cf.total_energy_k4() + cf.kinetic_energy_k4()
+        elif t_first is not None and H_post is not None:
+            H_now = cf.total_energy_k4() + cf.kinetic_energy_k4()
+            dH = abs(H_now - H_post) / max(abs(H_post), 1e-30)
+            post_bond_dH_max = max(post_bond_dH_max, dH)
         n_antipodal_T = len(bonds)
         t_r = round(t, 10)
         if t_r in ckpt_set:
@@ -1289,6 +1304,7 @@ def test_r1_2d_option_ii_pii_control():
         'pre_bond_dH_max': pre_bond_dH_max,
         'pre_bond_N': pre_bond_N,
         'ckpt_spacings_early': ckpt_spacings_early,
+        'post_bond_dH_max': post_bond_dH_max,  # G2: log-only; "dH>1e-2 flag" if exceeded
     }
     result = preflight_verdict(trace, PII_C_SPEC)
     r_eq_ratio = r_eq_at_first / r_eq0 if (r_eq_at_first and r_eq0 > 0) else None
@@ -2732,6 +2748,8 @@ def test_r2_pf_config_constants():
     assert cfg["k_refl"] == 0.0
     assert cfg["k_op10"] == K_OP10
     assert "seed" in cfg, "make_r2_pf_config must return a 'seed' dict"
+    assert cfg["seed"]["constructor"] == "rational", (
+        f"R2-PF seed constructor={cfg['seed']['constructor']!r} != 'rational' (G5)")
     assert cfg["seed"]["L"] == SEED_L_PF, (
         f"seed L={cfg['seed']['L']} != SEED_L_PF={SEED_L_PF}")
     assert "checkpoints" in cfg, "make_r2_pf_config must return 'checkpoints'"
@@ -3180,18 +3198,24 @@ def test_pf_config_readback():
     assert pii['t_end'] == 0.25
     assert pii['n_steps'] == _math.ceil(0.25 / 1.65e-4), (
         f"n_steps={pii['n_steps']} != ceil(0.25/1.65e-4)={_math.ceil(0.25/1.65e-4)}")
+    assert pii['seed']['constructor'] == "_hedgehog_at", (
+        f"P-ii seed constructor={pii['seed']['constructor']!r} != '_hedgehog_at'")
     assert pii['seed']['L'] == cfg.SEED_L_PII, (
         f"P-ii seed L={pii['seed']['L']} != SEED_L_PII={cfg.SEED_L_PII}")
 
     # P-ii-C control
     piic = cfg.make_pii_config(control=True)
     assert piic['k_op10'] == 5.59e4, f"P-ii-C k_op10 {piic['k_op10']}"
+    assert piic['seed']['constructor'] == "_hedgehog_at", (
+        f"P-ii-C seed constructor={piic['seed']['constructor']!r} != '_hedgehog_at'")
 
     # R2-PF primary
     r2pf = cfg.make_r2_pf_config(control=False)
     assert r2pf['k_op10'] == 1.415e6, f"R2-PF k_op10 {r2pf['k_op10']}"
     assert r2pf['gamma'] == 4320
     assert r2pf['k_refl'] == 0.0
+    assert r2pf['seed']['constructor'] == "rational", (
+        f"R2-PF seed constructor={r2pf['seed']['constructor']!r} != 'rational' (G5)")
     assert r2pf['seed']['L'] == cfg.SEED_L_PF, (
         f"R2-PF seed L={r2pf['seed']['L']} != SEED_L_PF={cfg.SEED_L_PF}")
     assert r2pf['t_end'] == 0.25
@@ -3204,41 +3228,229 @@ def test_pf_config_readback():
 
 
 def test_seed_cutoff_readback():
-    """Item 4 (v7): seed cutoff constants and bitwise differentiation.
+    """G4/G5 (v7): seed read-back via build_pf_seed; kills the wrong-seed-cutoff mutant.
 
-    Uses 32³ stand-in at the same L/rc=4 ratio as PII to avoid 128³ cost.
-    Kills mutant: hedgehog(128,12) (L=64) instead of _hedgehog_at(...,L=48).
-    r_eq(0) is cutoff-blind (Gate verified: L=48 and L=64 both give 1802 sites),
-    so this test is bitwise-only.
+    32³ stand-ins avoid 128³/192³ construction cost:
+      P-ii:   n=32, rc=3  (rc12→3, L/rc=4 → L_standin=12)
+      R2-PF:  n=32, rc=4  (rc24→4, L/rc=4 → L_standin=16 = 32/2)
+
+    r_eq(0) is cutoff-blind (Gate verified: L=48 and L=64 both give 1802 sites at
+    128³/rc=12), so this test is purely bitwise.  The wrong-cutoff mutant is
+    _hedgehog_at(128,12) with L=64 (n/2 default) instead of L=48.
+    """
+    import sys, os as _os
+    sys.path.insert(0, _os.path.join(_os.path.dirname(__file__),
+                                     '..', 'scripts', 'vol_4_engineering'))
+    import math as _math
+    from csk4_r2_config import (
+        build_pf_seed, make_pii_config, make_r2_pf_config,
+        SEED_L_PII, SEED_L_PF, SEED_L_PRIMARY, SEED_RC, NX_PRIMARY,
+        SEED_P, SEED_QQ,
+    )
+    from ave.topological.charge_counters import _hedgehog_at, rational
+
+    # Literal constant read-backs
+    assert SEED_L_PII == 48,       "SEED_L_PII must be 48"
+    assert SEED_L_PF == 96,        "SEED_L_PF must be 96"
+    assert SEED_L_PRIMARY == 144,  "SEED_L_PRIMARY must be 144"
+
+    # R2 primary: rational(n,rc) uses cutoff n/2; assert 288/2 == 144 == 6×24
+    assert NX_PRIMARY // 2 == SEED_L_PRIMARY, (
+        f"R2 primary: NX_PRIMARY/2={NX_PRIMARY//2} != SEED_L_PRIMARY={SEED_L_PRIMARY}; "
+        "rational() cutoff is n/2")
+    assert SEED_L_PRIMARY == 6 * SEED_RC, (
+        f"SEED_L_PRIMARY={SEED_L_PRIMARY} != 6×SEED_RC={6*SEED_RC}")
+
+    # P-ii stand-in: n=32, rc=3 → L_standin = 48*(3/12) = 12 = L/rc×rc = 4×3
+    pii_cfg = make_pii_config(control=False)
+    q_pii = build_pf_seed(pii_cfg, n=32, rc=3)
+    q_pii_direct = _hedgehog_at(32, 3, (0, 0, 0), L=12)   # L/rc=4, pinned ratio
+    q_pii_wrong  = _hedgehog_at(32, 3, (0, 0, 0), L=16)   # n/2 default — L=64 mutant at 128³
+    assert np.array_equal(q_pii, q_pii_direct), (
+        "build_pf_seed(pii_cfg, n=32, rc=3) != _hedgehog_at(32,3,(0,0,0),L=12); "
+        "cutoff ratio L/rc=4 not preserved")
+    assert not np.array_equal(q_pii, q_pii_wrong), (
+        "build_pf_seed(pii_cfg, n=32, rc=3) == _hedgehog_at(32,3,...,L=16); "
+        "wrong-cutoff mutant (L=64 at 128³) not distinguishable")
+
+    # P-ii-C: same seed dict as P-ii primary
+    piic_cfg = make_pii_config(control=True)
+    q_piic = build_pf_seed(piic_cfg, n=32, rc=3)
+    assert np.array_equal(q_piic, q_pii_direct), (
+        "build_pf_seed(pii_c_cfg, n=32, rc=3) != _hedgehog_at(32,3,(0,0,0),L=12); "
+        "control config should have the same seed")
+
+    # R2-PF stand-in: n=32, rc=4 → L_standin = 96*(4/24) = 16 = 32/2
+    # rational(32, 4) uses cutoff 32/2=16 — must match build_pf_seed exactly
+    r2pf_cfg = make_r2_pf_config(control=False)
+    q_r2pf = build_pf_seed(r2pf_cfg, n=32, rc=4)
+    q_r2pf_direct = rational(32, 4, p=SEED_P, qq=SEED_QQ)
+    assert np.array_equal(q_r2pf, q_r2pf_direct), (
+        "build_pf_seed(r2pf_cfg, n=32, rc=4) != rational(32,4,...); "
+        "R2-PF seed constructor mismatch or wrong scale")
+
+    # R2-PF control has the same seed dict as primary
+    r2pfc_cfg = make_r2_pf_config(control=True)
+    assert r2pfc_cfg['seed'] == r2pf_cfg['seed'], (
+        f"R2-PF control seed {r2pfc_cfg['seed']} != primary seed {r2pf_cfg['seed']}")
+
+
+# ---------------------------------------------------------------------------
+# G1 (6c): antipodal_bonds gating test — kills "detector off" mutant in the
+# gating lane (antipodal_bonds() was previously only called by opt-in tests)
+# ---------------------------------------------------------------------------
+
+
+def test_antipodal_bonds_synthetic():
+    """G1 (6c): antipodal_bonds gating test on a small synthetic grid.
+
+    Kills the "detector off" mutant: if antipodal_bonds() (or collapse_check)
+    is broken so it never reports a bond, part (b) of this test fails on a
+    non-empty list and part (c) fails on the collapse/bond inconsistency.
+
+    Grid: hedgehog(16, 3) with a BCC alive mask.  Centre = (8, 8, 8).
+
+    (a) vacuum (all alive q = (1,0,0,0)) -> [] (no bonds in the vacuum state)
+    (b) flip ONE alive site q -> -q -> non-empty list; every entry re <= 0;
+        each listed bond involves the flipped site or its bond partner; r equals
+        the distance from centre to bond midpoint (checked numerically for first).
+    (c) bool(len(antipodal_bonds(...)) > 0) == collapse_check(q, alive)["collapse"]
+        (the two share the bond definition so they must agree on bond presence).
+    """
+    import sys, os as _os
+    sys.path.insert(0, _os.path.join(_os.path.dirname(__file__),
+                                     '..', 'scripts', 'vol_4_engineering'))
+    from csk4_r2_config import antipodal_bonds
+    from ave.topological.charge_counters import hedgehog, bcc_alive_mask
+    from ave.topological.k4_quaternion import collapse_check
+
+    n, rc = 16, 3
+    alive = bcc_alive_mask((n, n, n))
+    centre = (n // 2, n // 2, n // 2)
+    c_arr = np.array(centre, dtype=float)
+
+    # (a) vacuum: all alive sites q = (1,0,0,0) -> no antipodal bonds
+    q_vac = np.zeros((n, n, n, 4))
+    q_vac[..., 0] = 1.0
+    bonds_vac = antipodal_bonds(q_vac, alive, centre)
+    assert bonds_vac == [], (
+        f"vacuum (all q=(1,0,0,0)) should have no antipodal bonds; got {len(bonds_vac)}")
+
+    # (b) flip ONE alive site: q -> -q creates a bond
+    q = hedgehog(n, rc).copy()
+    q[~alive] = np.array([1.0, 0.0, 0.0, 0.0])
+
+    alive_sites = np.argwhere(alive)
+    dists = np.linalg.norm(alive_sites - c_arr, axis=1)
+    flip_site = tuple(alive_sites[int(np.argmin(dists))].tolist())
+
+    q_flip = q.copy()
+    q_flip[flip_site] = -q_flip[flip_site]
+
+    bonds_flip = antipodal_bonds(q_flip, alive, centre)
+    assert len(bonds_flip) > 0, (
+        "flipping an alive site q->-q should create >=1 antipodal bond; got none"
+        " -- detector may be off")
+
+    for (site, p, re, r) in bonds_flip:
+        assert re <= 0.0, (
+            f"bond at site={site} offset={p} has re={re:.6f} > 0; "
+            "antipodal bond must have re <= 0")
+
+    fi, fj, fk = flip_site
+    for (site, p, re, r) in bonds_flip:
+        si, sj, sk = site
+        di, dj, dk = p
+        neighbour = ((si + di) % n, (sj + dj) % n, (sk + dk) % n)
+        assert site == flip_site or neighbour == flip_site, (
+            f"bond at site={site} p={p} does not involve flipped site {flip_site}")
+
+    # Check r numerically for the first bond
+    site0, p0, re0, r0 = bonds_flip[0]
+    i0, j0, k0 = site0
+    di0, dj0, dk0 = p0
+    mid = np.array([i0 + di0 / 2.0, j0 + dj0 / 2.0, k0 + dk0 / 2.0])
+    r_expected = float(np.linalg.norm(mid - c_arr))
+    assert abs(r0 - r_expected) < 1e-10, (
+        f"bond r={r0:.10f} != expected distance to midpoint {r_expected:.10f}")
+
+    # (c) antipodal_bonds and collapse_check must agree on bond presence
+    cc_flip = collapse_check(q_flip, alive)
+    assert bool(len(bonds_flip) > 0) == cc_flip["collapse"], (
+        f"antipodal_bonds found {len(bonds_flip)} bond(s) but collapse_check returned "
+        f"collapse={cc_flip['collapse']}; they share the bond definition")
+
+    # Sanity: confirm unflipped hedgehog agrees too
+    bonds_hh = antipodal_bonds(q, alive, centre)
+    cc_hh = collapse_check(q, alive)
+    assert bool(len(bonds_hh) > 0) == cc_hh["collapse"], (
+        f"antipodal_bonds/collapse_check disagree on unflipped hedgehog: "
+        f"{len(bonds_hh)} bonds vs collapse={cc_hh['collapse']}")
+
+
+# ---------------------------------------------------------------------------
+# G2 (6c): preflight_verdict post_bond_dH_max flag
+# ---------------------------------------------------------------------------
+
+
+def test_preflight_verdict_post_bond_dh_flag():
+    """G2 (6c): post_bond_dH_max > 1e-2 appends 'dH>1e-2 flag' to reasons.
+
+    Does NOT change gate or a8.  Two rows:
+      - CONFIRMED row + post_bond_dH_max=5e-2 -> still BREAKUP/CONFIRMED, flag in reasons
+      - CONFIRMED row + post_bond_dH_max=5e-3 -> BREAKUP/CONFIRMED, flag NOT in reasons
     """
     cfg = _cfg()
-    from ave.topological.charge_counters import _hedgehog_at, bcc_alive_mask
 
-    # Verify constant values
-    assert cfg.SEED_L_PII == 48,       "SEED_L_PII"
-    assert cfg.SEED_L_PF == 96,        "SEED_L_PF"
-    assert cfg.SEED_L_PRIMARY == 144,  "SEED_L_PRIMARY"
+    trace_hi = dict(_pii_trace(), post_bond_dH_max=5e-2)
+    out_hi = cfg.preflight_verdict(trace_hi, cfg.PII_SPEC)
+    assert out_hi['gate'] == 'BREAKUP', f"expected BREAKUP; got {out_hi}"
+    assert out_hi['a8'] == 'CONFIRMED', f"expected CONFIRMED; got {out_hi}"
+    assert any('dH>1e-2 flag' in r for r in out_hi['reasons']), (
+        f"post_bond_dH_max=5e-2 > 1e-2 must append 'dH>1e-2 flag'; "
+        f"reasons={out_hi['reasons']}")
 
-    # 32³ stand-in: rc=6, L/rc=4 (same ratio as PII) vs L/rc=2 (same error as hedgehog)
-    n, rc = 32, 6
-    origin = (0, 0, 0)
-    L_correct = 24   # 4×rc → same ratio as SEED_L_PII / rc_pii
-    L_wrong = n // 2  # =16, same as hedgehog(n,rc) default
+    trace_lo = dict(_pii_trace(), post_bond_dH_max=5e-3)
+    out_lo = cfg.preflight_verdict(trace_lo, cfg.PII_SPEC)
+    assert out_lo['gate'] == 'BREAKUP', f"expected BREAKUP; got {out_lo}"
+    assert out_lo['a8'] == 'CONFIRMED', f"expected CONFIRMED; got {out_lo}"
+    assert not any('dH>1e-2 flag' in r for r in out_lo['reasons']), (
+        f"post_bond_dH_max=5e-3 <= 1e-2 must NOT append flag; "
+        f"reasons={out_lo['reasons']}")
 
-    q_correct = _hedgehog_at(n, rc, origin, L=L_correct)
-    q_wrong = _hedgehog_at(n, rc, origin, L=L_wrong)
 
-    assert not np.array_equal(q_correct, q_wrong), (
-        f"_hedgehog_at(32,6,...,L=24) == _hedgehog_at(32,6,...,L=16); "
-        f"seed cutoff L is not affecting the hedgehog profile")
+# ---------------------------------------------------------------------------
+# G3 (6c): preflight_verdict missing/empty ckpt_spacings_early -> INVALID
+# ---------------------------------------------------------------------------
 
-    # Confirm r_eq(0) is cutoff-blind for this stand-in
-    alive = bcc_alive_mask((n, n, n))
-    q_c2 = q_correct.copy()
-    q_w2 = q_wrong.copy()
-    q_c2[~alive] = np.array([1.0, 0.0, 0.0, 0.0])
-    q_w2[~alive] = np.array([1.0, 0.0, 0.0, 0.0])
-    r_eq_c = cfg.r_eq_from_q(q_c2, alive)
-    r_eq_w = cfg.r_eq_from_q(q_w2, alive)
-    print(f"[seed cutoff blind] r_eq(L=24)={r_eq_c:.4f}, r_eq(L=16)={r_eq_w:.4f}")
-    # The test does NOT assert equality here — Gate says cutoff-blind at 128³/rc=12.
+
+def test_preflight_verdict_invalid_no_spacing():
+    """G3 (6c): missing or empty ckpt_spacings_early -> INVALID.
+
+    A trace that cannot show its t<=0.1 checkpoint spacing cannot be judged.
+    Gate must be INVALID with a reason mentioning 'checkpoint'.
+    """
+    cfg = _cfg()
+    r_eq0 = cfg.R_EQ0_PII
+
+    base = {
+        'r_eq0': r_eq0,
+        't_first': 0.03,
+        'r_first': 6.0,
+        'r_eq_at_first': 0.98 * r_eq0,
+        'n_antipodal_T': 9,
+        'pre_bond_dH_max': 1e-5,
+        'pre_bond_N': 1,
+    }
+
+    # Missing key -> INVALID
+    out_missing = cfg.preflight_verdict(base, cfg.PII_SPEC)
+    assert out_missing['gate'] == 'INVALID', (
+        f"missing ckpt_spacings_early must yield INVALID; got {out_missing}")
+    assert any('checkpoint' in r for r in out_missing['reasons']), (
+        f"INVALID reason must mention 'checkpoint'; got {out_missing['reasons']}")
+
+    # Empty list -> INVALID
+    out_empty = cfg.preflight_verdict(dict(base, ckpt_spacings_early=[]), cfg.PII_SPEC)
+    assert out_empty['gate'] == 'INVALID', (
+        f"empty ckpt_spacings_early must yield INVALID; got {out_empty}")
