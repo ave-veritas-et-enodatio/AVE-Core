@@ -242,8 +242,9 @@ def aggregate_r2_periods(period_results):
     RESOLVED iff the adapter returned resolved=True (which already requires c_exact
     AND c_link to agree). Any resolved=False — for ANY reason (NONUNIT, NONFINITE,
     boundary margin, c_exact/c_link DISAGREEMENT) — is UNRESOLVED, never a FAIL.
-    This closes the agg_clink_ignored mutant: a c_link-only disagreement is handled
-    by the adapter (→ resolved=False → UNRESOLVED), not by a `ce!=6 or cl!=6` FAIL.
+    This closes the agg_clink_ignored_legacy mutant: the legacy {'c_exact','c_link'}
+    path is removed; only canonical count_charge_k4 dicts (with 'resolved' key) are
+    accepted. No production code generates legacy dicts (grep-confirmed csk4bfix3).
 
     Ladder §5 R2 #7 verdict logic:
       - A RESOLVED value ≠ +6 is the only COUNT FAIL.
@@ -255,7 +256,6 @@ def aggregate_r2_periods(period_results):
         period_results: list of count_charge_k4 result dicts with keys
             'resolved' (bool), 'value' (int or None), 'reason' (str or None),
             'c_link_result' (dict or None, for the N3 c_link log).
-            Legacy {'c_exact','c_link'} dicts are also accepted for back-compat.
 
     Returns:
         dict with 'verdict' (PASS/FAIL/INCONCLUSIVE), 'n_resolved',
@@ -268,22 +268,11 @@ def aggregate_r2_periods(period_results):
     notes = []
 
     for i, pr in enumerate(period_results):
-        if 'resolved' in pr:
-            # count_charge_k4 result dict (canonical path).
-            resolved = bool(pr.get('resolved'))
-            value = pr.get('value')
-            reason = pr.get('reason') or ''
-            clk = pr.get('c_link_result')
-            c_link_val = clk.get('value') if isinstance(clk, dict) else None
-        else:
-            # Legacy {'c_exact','c_link'} dict: resolved iff both present AND agree
-            # (so a c_link-only disagreement is UNRESOLVED, not FAIL).
-            ce = pr.get('c_exact')
-            cl = pr.get('c_link')
-            c_link_val = cl if cl is not None else pr.get('c_link_raw')
-            resolved = (ce is not None and cl is not None and ce == cl)
-            value = ce if resolved else None
-            reason = '' if resolved else 'UNRESOLVED (legacy: c_exact/c_link absent or disagree)'
+        resolved = bool(pr.get('resolved'))
+        value = pr.get('value')
+        reason = pr.get('reason') or ''
+        clk = pr.get('c_link_result')
+        c_link_val = clk.get('value') if isinstance(clk, dict) else None
 
         if not resolved:
             n_unresolved += 1

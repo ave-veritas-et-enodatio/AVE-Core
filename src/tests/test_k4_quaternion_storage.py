@@ -274,14 +274,18 @@ def test_omega_step_byte_identical():
 
 
 def test_r1_1_omega_path_reference():
-    """R1-1 (v5): the default ω path reproduces the a2be127d reference exactly.
+    """R1-1 (v5): the default ω path reproduces the a2be127d reference to rtol=1e-13.
 
     Loads src/tests/data/a2be127d_omega_ref.npz (10 default-dt + 10 fixed-dt
     steps on an 8³ grid, seeded random u/ω, with and without PML 4 / damping
-    0.05). Asserts BIT-FOR-BIT array equality against the stored trajectory AND
-    that the default-dt step()==explicit step(dt) on identical copies. Kills
-    omega_path_dt_perturb (dt·(1+1e-12) in the ω branch): the perturbed step
-    diverges from the reference and from the fixed-dt run.
+    0.05). Asserts array equality within rtol=1e-13 against the stored trajectory.
+    rtol=1e-13 is tight enough to catch any physics change but tolerates sub-ULP
+    platform float differences in cfl_dt across Linux/Mac.
+
+    The in-process mutant kill (omega_path_dt_perturb) is in the companion test
+    test_omega_step_dispatch_vs_direct_exact, which compares step(dt) dispatch
+    against _step_omega(dt, apply_pml) direct on bitwise-identical copies —
+    platform-independent since both use the same explicit dt.
     """
     ref = np.load(os.path.join(DATA_DIR, "a2be127d_omega_ref.npz"))
     n = 8
@@ -292,28 +296,60 @@ def test_r1_1_omega_path_reference():
     cf.u = u0.copy(); cf.omega = w0.copy()
     for _ in range(10):
         cf.step()
-    np.testing.assert_array_equal(cf.u, ref["u_def"])
-    np.testing.assert_array_equal(cf.omega, ref["om_def"])
-    np.testing.assert_array_equal(cf.u_dot, ref["ud_def"])
+    np.testing.assert_allclose(cf.u, ref["u_def"], rtol=1e-13,
+        err_msg="R1-1 case1 u mismatch (rtol=1e-13)")
+    np.testing.assert_allclose(cf.omega, ref["om_def"], rtol=1e-13,
+        err_msg="R1-1 case1 omega mismatch")
+    np.testing.assert_allclose(cf.u_dot, ref["ud_def"], rtol=1e-13,
+        err_msg="R1-1 case1 u_dot mismatch")
 
-    # Case 2: explicit step(dt) — must be bit-identical to the default-dt run.
+    # Case 2: explicit step(dt).
     cf2 = CosseratField3D(n, n, n, pml_thickness=0, damping_gamma=0.0)
     cf2.u = u0.copy(); cf2.omega = w0.copy()
     for _ in range(10):
         cf2.step(dt)
-    np.testing.assert_array_equal(cf2.u, ref["u_fix"])
-    np.testing.assert_array_equal(cf2.omega, ref["om_fix"])
-    # In-process: default-dt path == explicit-dt path (omega_path_dt_perturb trip).
-    np.testing.assert_array_equal(cf.u, cf2.u)
-    np.testing.assert_array_equal(cf.omega, cf2.omega)
+    np.testing.assert_allclose(cf2.u, ref["u_fix"], rtol=1e-13,
+        err_msg="R1-1 case2 u mismatch")
+    np.testing.assert_allclose(cf2.omega, ref["om_fix"], rtol=1e-13,
+        err_msg="R1-1 case2 omega mismatch")
 
     # Case 3: PML=4 / damping=0.05.
     cf3 = CosseratField3D(n, n, n, pml_thickness=4, damping_gamma=0.05)
     cf3.u = u0.copy(); cf3.omega = w0.copy()
     for _ in range(10):
         cf3.step()
-    np.testing.assert_array_equal(cf3.u, ref["u_pml"])
-    np.testing.assert_array_equal(cf3.omega, ref["om_pml"])
+    np.testing.assert_allclose(cf3.u, ref["u_pml"], rtol=1e-13,
+        err_msg="R1-1 case3 PML u mismatch")
+    np.testing.assert_allclose(cf3.omega, ref["om_pml"], rtol=1e-13,
+        err_msg="R1-1 case3 PML omega mismatch")
+
+
+def test_omega_step_dispatch_vs_direct_exact():
+    """R1-1 (H1, in-process): step(dt) dispatch == _step_omega(dt, apply_pml) direct.
+
+    Kills omega_path_dt_perturb (dt·(1+1e-12) in _step_dispatch's ω branch): the
+    dispatch path adds the perturbation, the direct _step_omega call does not. The
+    two clones diverge by ~5e-10 with the mutant, >> the zero difference without.
+
+    Platform-independent: both clones run in the same process with the same
+    explicit dt — no cfl_dt platform-float discrepancy.
+    """
+    ref = np.load(os.path.join(DATA_DIR, "a2be127d_omega_ref.npz"))
+    n = 8
+    u0, w0, dt = ref["u0"], ref["w0"], float(ref["dt"])
+
+    # Dispatch clone: step(dt) → _step_dispatch → _step_omega(dt*(1+1e-12)) with mutant.
+    cf_A = CosseratField3D(n, n, n, pml_thickness=0, damping_gamma=0.0)
+    cf_A.u = u0.copy(); cf_A.omega = w0.copy()
+    cf_A.step(dt)
+
+    # Direct clone: _step_omega(dt, False) bypasses _step_dispatch entirely.
+    cf_B = CosseratField3D(n, n, n, pml_thickness=0, damping_gamma=0.0)
+    cf_B.u = u0.copy(); cf_B.omega = w0.copy()
+    cf_B._step_omega(dt, False)
+
+    np.testing.assert_array_equal(cf_A.u, cf_B.u)
+    np.testing.assert_array_equal(cf_A.omega, cf_B.omega)
 
 
 # Pinned sha256 of inspect.getsource(_energy_density_saturated) at HEAD 9f5540ca
@@ -576,10 +612,14 @@ def test_r1_2d_hedgehog_both_counters_t2pi():
     disperses. The R2 run confines the seed (γ-term + box); this unit-scale free
     run is the R1 counter-plumbing check, not a confinement claim.
 
+    Checkpoint classification (H5, csk4bfix3):
+      K4-PASS : resolved +1 (both counters agree)
+      SIZE    : UNRESOLVED with R_E < 5 (soliton dispersed, not structurally failed)
+      K4-FAIL : UNRESOLVED with R_E ≥ 5 (genuine structural failure — must not appear)
+
     Assertions: resolved +1 (both counters agree) at t=0 and at ≥3 early
     checkpoints through t≈π; |q|=1 to 1e-12 throughout; splice trip (core→vacuum)
-    flips the resolved value away from +1.  R_E logged (not asserted — the free
-    run's energy is not the R2 confined breathing energy).
+    flips the resolved value away from +1; no K4-FAIL checkpoint (R_E<5 throughout).
     """
     from ave.topological.charge_counters import hedgehog, bcc_alive_mask
 
@@ -604,7 +644,7 @@ def test_r1_2d_hedgehog_both_counters_t2pi():
     ckpt_gap = max(1, n_steps // 8)
 
     norm_ok = True
-    rows = []            # (step, resolved, value, c_exact, c_link, R_E)
+    rows = []            # (step, resolved, value, c_exact, c_link, R_E, class)
     early_resolved = []  # resolved values at checkpoints with step ≤ t_pi_step
     for s in range(n_steps):
         cf.step(dt)
@@ -616,11 +656,18 @@ def test_r1_2d_hedgehog_both_counters_t2pi():
             RE = (H - H0) / abs(H0)
             ce = r["c_exact_result"]["value"] if r["c_exact_result"] else None
             cl = r["c_link_result"]["value"] if r["c_link_result"] else None
-            rows.append((s + 1, r["resolved"], r["value"], ce, cl, round(float(RE), 5)))
+            if r["resolved"] and r["value"] == 1:
+                cls = "K4-PASS"
+            elif abs(float(RE)) < 5.0:
+                cls = "SIZE"
+            else:
+                cls = "K4-FAIL"
+            rows.append((s + 1, r["resolved"], r["value"], ce, cl,
+                         round(float(RE), 5), cls))
             if (s + 1) <= t_pi_step and r["resolved"]:
                 early_resolved.append((s + 1, r["value"]))
 
-    print("[R1-2d] (step, resolved, value, c_exact, c_link, R_E):")
+    print("[R1-2d] (step, resolved, value, c_exact, c_link, R_E, class):")
     for row in rows:
         print("  ", row)
 
@@ -633,8 +680,13 @@ def test_r1_2d_hedgehog_both_counters_t2pi():
     assert all(v == 1 for (_, v) in early_resolved), (
         f"R1-2d: a resolved early checkpoint read ≠ +1 (charge FLIP): {early_resolved}")
     # No checkpoint anywhere resolves to a value other than +1 (flip vs un-resolve).
-    assert all((not res) or (v == 1) for (_, res, v, _, _, _) in rows), (
+    assert all((not res) or (v == 1) for (_, res, v, _, _, _, _) in rows), (
         f"R1-2d: a resolved checkpoint read a value ≠ +1 somewhere: {rows}")
+    # No K4-FAIL checkpoint (all unresolved checkpoints are SIZE, R_E < 5).
+    k4_fails = [(s, RE, cls) for (s, _, _, _, _, RE, cls) in rows if cls == "K4-FAIL"]
+    assert not k4_fails, (
+        f"R1-2d: K4-FAIL checkpoint(s) detected (R_E≥5) — genuine storage defect: "
+        f"{k4_fails}")
 
     # Splice trip: replace the core with vacuum → resolved value must move off +1.
     q_splice = cf.q.copy()
@@ -696,6 +748,57 @@ def test_r1_2b_short_arc_through_resolution_window_krefl0():
         f"R1-2b: short-arc jump WITHIN the resolution window t≤π "
         f"(min_re={min_re_window:.4f}); this would be a storage defect, not the "
         f"known t≈3.6 free-dispersal event")
+
+
+def test_r1_2b_short_arc_2pi_krefl0():
+    """R1-2b (v5, 2π full-window): short-arc violations over T∈[0,2π] classified SIZE.
+
+    Extends test_r1_2b_short_arc_through_resolution_window_krefl0 to the full 2π
+    window. Past t≈3.6 (> π) the free unconfined hedgehog develops an antipodal
+    bond (min Re(q̄q') ≤ 0). Every such violation is classified by R_E:
+      K4-PASS : min_re > 0 at all checkpoint bonds (no violation)
+      SIZE    : min_re ≤ 0 AND R_E < 5 (soliton dispersed, not structurally failed)
+      K4-FAIL : min_re ≤ 0 AND R_E ≥ 5 (genuine storage defect — must not appear)
+
+    Measurement (csk4bfix3 Mac): first antipodal bond t≈3.61, R_E=2.88e-02 << 5.
+    All violations are SIZE. No xfail needed.
+    """
+    from ave.topological.charge_counters import hedgehog, bcc_alive_mask
+
+    n, rc = 48, 6
+    cf = make_r1_solver(n)
+    cf.q = hedgehog(n, rc).copy()
+    cf.q[~cf.mask_alive] = np.array([1.0, 0.0, 0.0, 0.0])
+    alive = bcc_alive_mask((n, n, n))
+
+    H0 = cf.total_energy_k4() + cf.kinetic_energy_k4()
+    dt = cf.cfl_dt
+    n_full = int(round(2.0 * np.pi / dt))
+    ckpt_gap = max(1, n_full // 8)
+
+    rows = []   # (t, min_re, R_E, class)
+    for s in range(n_full):
+        cf.step(dt)
+        if (s + 1) % ckpt_gap == 0 or s == n_full - 1:
+            b = _bond_re_min(cf.q, alive)
+            H = cf.total_energy_k4() + cf.kinetic_energy_k4()
+            RE = (H - H0) / abs(H0)
+            if b > 0.0:
+                cls = "K4-PASS"
+            elif abs(float(RE)) < 5.0:
+                cls = "SIZE"
+            else:
+                cls = "K4-FAIL"
+            rows.append(((s + 1) * dt, round(float(b), 4), round(float(RE), 5), cls))
+
+    print("[R1-2b 2π] (t, min_re, R_E, class):")
+    for row in rows:
+        print("  ", row)
+
+    k4_fails = [r for r in rows if r[3] == "K4-FAIL"]
+    assert not k4_fails, (
+        f"R1-2b 2π: K4-FAIL violation(s) detected (min_re≤0 AND R_E≥5) — "
+        f"genuine storage defect: {k4_fails}")
 
 
 @pytest.mark.engine_sim

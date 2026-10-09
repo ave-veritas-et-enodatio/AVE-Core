@@ -196,6 +196,12 @@ def test_adapter_nan_on_alive_nonfinite():
     Dead-site non-finite still RAISES (test_adapter_nan_on_dead_raises, R0-P4:
     dead sites must be finite); an alive-site non-finite is a soft UNRESOLVED
     verdict so the R2 aggregator can log it and continue, not crash the run.
+
+    Kills adapter_no_alive_nan (if False: guard removed): the adapter guard returns
+    reason='NONFINITE: non-finite q on alive sites' (starts with NONFINITE). With
+    the guard removed, c_exact's own NONFINITE check returns reason='NONFINITE' and
+    the adapter wraps it as 'UNRESOLVED: c_exact NONFINITE' — which does NOT start
+    with 'NONFINITE', so startswith() detects the bypass.
     """
     n, rc = 32, 4
     q, alive = _make_hedgehog_q(n, rc)
@@ -203,8 +209,45 @@ def test_adapter_nan_on_alive_nonfinite():
     q[alive_idx] = np.array([float('nan'), 0.0, 0.0, 0.0])
     result = count_charge_k4(q, alive)
     assert not result['resolved'], "NaN on alive site should give resolved=False"
-    assert 'NONFINITE' in (result.get('reason') or ''), (
-        f"expected NONFINITE in reason, got: {result.get('reason')!r}")
+    assert result.get('reason', '').startswith('NONFINITE'), (
+        f"expected reason to start with 'NONFINITE', got: {result.get('reason')!r}")
+    assert result['value'] is None, (
+        f"expected value=None for NONFINITE, got: {result['value']!r}")
+
+
+def test_adapter_clink_exact_resolves_clink_unresolved(monkeypatch):
+    """D2: c_exact RESOLVED + c_link UNRESOLVED → UNRESOLVED mentioning c_link (N1).
+
+    Kills adapter_clink_unresolved_ignored (if False: c_link UNRESOLVED guard
+    removed): without the guard, the disagreement branch fires (c_exact=+1 vs
+    c_link=None), returning reason='UNRESOLVED: c_exact=1 disagrees with c_link=None'.
+    Assertion 'disagrees' not in reason fails → kill confirmed.
+    """
+    n, rc = 32, 4
+    q, alive = _make_hedgehog_q(n, rc)
+
+    import ave.topological.charge_counters as cc_mod
+
+    original_c_link = cc_mod.c_link
+
+    def fake_c_link_unresolved(n_, nstars, h=1.0, tets=None, s=1):
+        return dict(resolved=False, value=None, raw_lk=0.0,
+                    pair_lk=[0.0, 0.0], n_open=0, n_broken=0,
+                    n_comps=None, reason='MONKEYPATCHED_UNRESOLVED')
+
+    monkeypatch.setattr(cc_mod, 'c_link', fake_c_link_unresolved)
+    try:
+        result = count_charge_k4(q, alive)
+    finally:
+        monkeypatch.setattr(cc_mod, 'c_link', original_c_link)
+
+    assert not result['resolved'], (
+        "expected UNRESOLVED when c_link UNRESOLVED")
+    reason = result.get('reason') or ''
+    assert 'c_link' in reason, (
+        f"reason should mention c_link: {reason!r}")
+    assert 'disagree' not in reason.lower(), (
+        f"reason should not say 'disagrees' (N1 guard should fire first): {reason!r}")
 
 
 # ── boundary margin ───────────────────────────────────────────────────────────
