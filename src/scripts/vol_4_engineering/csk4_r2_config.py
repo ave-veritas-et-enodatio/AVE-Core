@@ -37,10 +37,48 @@ Rule-10 flag (ladder §7, spec §6):
                        reflection energy when not turned off.
 """
 
+import hashlib
+import json
 import math
 import os
 
 import numpy as np
+
+# ---------------------------------------------------------------------------
+# D1: charge_counters_pin.json path (Gate C1)
+# ---------------------------------------------------------------------------
+
+_PIN_FILE = os.path.normpath(os.path.join(
+    os.path.dirname(__file__), '..', '..', 'ave', 'topological',
+    'charge_counters_pin.json',
+))
+
+
+def _check_charge_counters_pin() -> None:
+    """Load charge_counters_pin.json and verify blob sha1 of charge_counters.py.
+
+    Raises RuntimeError if the file has been modified since the Gate
+    CONDITIONAL PASS at d2c7da09 (blob b0384af0ca7e…). Called from
+    make_r2_solver() so the R2 run cannot proceed with a mutated file.
+    """
+    with open(_PIN_FILE) as fpin:
+        pin = json.load(fpin)
+    cc_path = os.path.normpath(os.path.join(
+        os.path.dirname(__file__), '..', '..', 'ave', 'topological',
+        'charge_counters.py',
+    ))
+    with open(cc_path, 'rb') as f:
+        data = f.read()
+    header = b"blob %d\0" % len(data)
+    actual = hashlib.sha1(header + data).hexdigest()
+    expected = pin['blob_sha1']
+    if actual != expected:
+        raise RuntimeError(
+            f"charge_counters.py has been modified since the Gate pin "
+            f"(expected blob_sha1={expected}, got {actual}). "
+            "Update charge_counters_pin.json and re-run the Gate audit "
+            "before running the R2 simulation.")
+
 
 # ---------------------------------------------------------------------------
 # Pinned parameters — do NOT edit without updating the ladder document.
@@ -90,13 +128,18 @@ def assert_r2_config(cf) -> None:
         f"rotation_storage mismatch: {cf.rotation_storage!r} != {ROTATION_STORAGE!r}")
 
 
-def make_r2_solver(nx=None, ny=None, nz=None):
+def make_r2_solver(nx=None, ny=None, nz=None, _skip_pin_check=False):
     """Construct a CosseratField3D with R2 pinned parameters.
+
+    Verifies charge_counters_pin.json before construction (Gate C1 D1).
+    Pass _skip_pin_check=True ONLY in pin-mismatch test to exercise refusal.
 
     Note: gamma, G, G_c, k_op10 are post-construction attributes (the
     constructor only accepts k_refl and rotation_storage for physics knobs).
     Pass nx/ny/nz to override the default 288³ (e.g. a tiny test grid).
     """
+    if not _skip_pin_check:
+        _check_charge_counters_pin()
     from ave.topological.cosserat_field_3d import CosseratField3D
     nx = nx or NX_PRIMARY
     ny = ny or NY_PRIMARY
@@ -112,6 +155,16 @@ def make_r2_solver(nx=None, ny=None, nz=None):
     cf.k_op10 = K_OP10
     assert_r2_config(cf)
     return cf
+
+
+def get_charge_verdict(q, mask_alive):
+    """R2 charge verdict using the count_charge_k4 adapter (Gate §11, D2).
+
+    Single call site for all integer-charge verdicts in the R2 harness.
+    Returns the count_charge_k4 result dict (resolved, value, reason, ...).
+    """
+    from ave.topological.k4_quaternion import count_charge_k4
+    return count_charge_k4(q, mask_alive)
 
 
 def make_r2_seed(nx=NX_PRIMARY, ny=NY_PRIMARY, nz=NZ_PRIMARY, rc=SEED_RC):

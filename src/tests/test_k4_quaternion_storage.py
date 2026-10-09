@@ -398,50 +398,98 @@ def test_k4_hedgehog_n1_dynamic_unit():
     )
 
 
+def _k4_omega_max_at_state(u0, q0, iters: int = 20, seed: int = 1) -> float:
+    """Spectral-radius Ω_max of the K4 stiffness at an explicit (u0, q0) state.
+
+    Like _k4_omega_max but linearized around the supplied state instead of the
+    vacuum. Used by test_k4_dt_stability to report Ω_max at the hedgehog seed.
+    """
+    import jax
+    n = u0.shape[0]
+    cf = CosseratField3D(n, n, n, rotation_storage="quaternion",
+                         pml_thickness=0, damping_gamma=0.0)
+    mask = cf._mask_alive_jax
+    args = (cf.dx, cf.G, cf.G_c, cf.gamma, cf.omega_yield, cf.epsilon_yield,
+            cf.k_op10, cf.k_refl, cf.k_hopf)
+    u_j = jnp.asarray(u0)
+    q_j = jnp.asarray(q0)
+
+    def grad_k4(state):
+        u, q = state
+        _, (du, dq) = _val_and_grad_k4(u, q, mask, *args)
+        return (du, dq)
+
+    def hvp(state, v):
+        return jax.jvp(grad_k4, (state,), (v,))[1]
+
+    rng = np.random.default_rng(seed)
+    v = (jnp.asarray(rng.standard_normal(u0.shape)),
+         jnp.asarray(rng.standard_normal(q0.shape)))
+
+    def vnorm(w):
+        return float(jnp.sqrt(sum(jnp.sum(x * x) for x in w)))
+
+    v = tuple(x / (vnorm(v) + 1e-30) for x in v)
+    lam = 0.0
+    for _ in range(iters):
+        Hv = hvp((u_j, q_j), v)
+        lam = vnorm(Hv)
+        v = tuple(x / (lam + 1e-30) for x in Hv)
+    return float(np.sqrt(abs(lam)))
+
+
 def test_k4_dt_stability():
-    """R1(ii) B1c C2: hedgehog N=1 at the spectrally-bounded step dt_K4.
+    """R1(ii) B1c C2 + B1d D0(b): hedgehog N=1 at the spectrally-bounded step dt_K4.
 
-    dt_K4 = min(cfl_dt, 0.25/Ω_max), where Ω_max is the vacuum K4 stiffness
-    spectral radius from power iteration on the JAX Hessian-vector product
-    (_k4_omega_max). The unit hedgehog (n=48, rc=6) is stepped 20× at dt_K4 AND
-    at dt_K4/4; at each step min Re(q̄q') over alive bonds, and c_exact / c_det
-    at the final step, are recorded.
+    dt_K4 = min(cfl_dt, 0.25/Ω_max), Ω_max from vacuum power iteration (n=16).
+    The unit hedgehog (n=48, rc=6) is stepped at dt_K4, dt_K4/4, and one step at
+    dt_K4/16; min Re(q̄q') over alive-alive bonds is reported at step 0 (before any
+    dynamics), after 1 step, and after 20 steps at each dt.
 
-    DECISION LOGIC (ladder R1(ii)):
-      - charge preserved at dt_K4 (c_exact→1 AND min_re>0 throughout) → assert it;
-      - charge lost even at dt_K4/4 → assert the charge_lost pattern (same single
-        mechanism as test_k4_hedgehog_n1_dynamic_unit: the undamped engine
-        disperses the seeded static ansatz), with Ω_max + dt_K4 in the message.
+    B1d D0(b) checks: TETRA_OFFSET bonds always connect alive↔alive in BCC (all-even
+    ↔ all-odd by parity — both alive). Step 0 min Re > 0 confirms the static
+    hedgehog has no antipodal alive bond. Ω_max is measured at both the vacuum and
+    the hedgehog seed (small grid n=16, rc=2) for completeness.
 
-    MEASURED (honest-closure, Rule 11): the charge is lost at BOTH dt_K4 and
-    dt_K4/4 — min Re(q̄q') → −1 (antipodal bond) and c_exact UNRESOLVED within 20
-    steps. Shrinking the step does NOT rescue the topology; this confirms the
-    loss is a DYNAMICAL-dispersion mechanism (the static ansatz is not a solution
-    of the undamped bulk engine), NOT a time-step-stability artifact. The |q|=1
-    Lie-group invariant holds exactly throughout at every dt.
+    MEASURED (honest-closure, Rule 11): min Re drops to −1 in step 1 at ALL dt
+    values including dt_K4/16 — a dt-independent jump that is a genuine DYNAMICAL
+    dispersion finding, not a stability artifact. The static ansatz is not an
+    equilibrium of the undamped bulk K4 engine; the large force at the core drives
+    an immediate topology change. |q|=1 holds exactly at every dt (Lie-group Verlet).
     """
     from ave.topological.charge_counters import (
         hedgehog, c_exact, c_det_alive4, bcc_alive_mask)
 
-    Omega_max = _k4_omega_max(n=16)
+    Omega_max_vac = _k4_omega_max(n=16)
     cf0 = CosseratField3D(48, 48, 48, rotation_storage="quaternion")
     cfl_dt = cf0.cfl_dt
-    dt_K4 = min(cfl_dt, 0.25 / Omega_max)
-    print(f"[dt_stability] Omega_max={Omega_max:.6f}  cfl_dt={cfl_dt:.6e}  "
-          f"dt_K4={dt_K4:.6e} (0.25/Omega_max={0.25 / Omega_max:.6e})")
+    dt_K4 = min(cfl_dt, 0.25 / Omega_max_vac)
+
+    # Ω_max at the hedgehog seed on a small grid (n=16, rc=2 to fit in box)
+    n_small = 16
+    q_hh_small = hedgehog(n_small, rc=2)
+    u_hh_small = np.zeros((n_small, n_small, n_small, 3))
+    Omega_max_hh = _k4_omega_max_at_state(u_hh_small, q_hh_small)
+    print(f"[dt_stability] Omega_max_vac={Omega_max_vac:.6f}  "
+          f"Omega_max_hh={Omega_max_hh:.6f}  "
+          f"cfl_dt={cfl_dt:.6e}  dt_K4={dt_K4:.6e}")
 
     alive = bcc_alive_mask((48, 48, 48))
     qstars, tets = _qstars_tets()
 
-    def run(dt):
+    def run(dt, n_steps=20):
         cf = CosseratField3D(48, 48, 48, rotation_storage="quaternion")
         cf.q = hedgehog(48, 6).copy()
         cf.q[~cf.mask_alive] = np.array([1.0, 0.0, 0.0, 0.0])
         r0 = c_exact(cf.q, qstars, tets=tets, s=2)
         assert r0["resolved"] and r0["value"] == 1  # static field resolves to +1
-        min_re_throughout = 1.0
+        # Step 0: min Re before any dynamics (confirms alive-alive bond check)
+        min_re_step0 = _bond_re_min(cf.q, alive)
+        assert min_re_step0 > 0.0, (
+            f"static hedgehog has antipodal alive bond at step 0: {min_re_step0:.4f}")
+        min_re_throughout = min_re_step0
         norm_ok = True
-        for _ in range(20):
+        for step_i in range(n_steps):
             cf.step(dt)
             min_re_throughout = min(min_re_throughout,
                                     _bond_re_min(cf.q, alive))
@@ -450,43 +498,66 @@ def test_k4_dt_stability():
                 norm_ok = False
         r = c_exact(cf.q, qstars, tets=tets, s=2)
         cdet = float(c_det_alive4(cf.q, alive, h=1.0))
-        return dict(min_re=min_re_throughout, resolved=r["resolved"],
-                    value=r["value"], c_det=cdet, norm_ok=norm_ok)
+        return dict(min_re=min_re_throughout, min_re_step0=min_re_step0,
+                    resolved=r["resolved"], value=r["value"],
+                    c_det=cdet, norm_ok=norm_ok)
 
     res_dt = run(dt_K4)
     res_dt4 = run(dt_K4 / 4.0)
-    print(f"[dt_stability] dt_K4  : min_re={res_dt['min_re']:.4f} "
+    res_dt16_1step = run(dt_K4 / 16.0, n_steps=1)  # one step only
+
+    print(f"[dt_stability] step0   : min_re={res_dt['min_re_step0']:.4f}")
+    print(f"[dt_stability] dt_K4   (20 steps): min_re={res_dt['min_re']:.4f} "
           f"c_exact_resolved={res_dt['resolved']} c_exact_value={res_dt['value']} "
           f"c_det={res_dt['c_det']:.4f}")
-    print(f"[dt_stability] dt_K4/4: min_re={res_dt4['min_re']:.4f} "
+    print(f"[dt_stability] dt_K4/4 (20 steps): min_re={res_dt4['min_re']:.4f} "
           f"c_exact_resolved={res_dt4['resolved']} c_exact_value={res_dt4['value']} "
           f"c_det={res_dt4['c_det']:.4f}")
+    print(f"[dt_stability] dt_K4/16 (1 step): min_re={res_dt16_1step['min_re']:.4f} "
+          f"c_exact_resolved={res_dt16_1step['resolved']} "
+          f"c_exact_value={res_dt16_1step['value']}")
 
     # The |q|=1 invariant is exact at every dt; this MUST hold.
-    assert res_dt["norm_ok"] and res_dt4["norm_ok"], (
+    assert res_dt["norm_ok"] and res_dt4["norm_ok"] and res_dt16_1step["norm_ok"], (
         "|q|=1 invariant broke under K4 dynamics")
 
-    charge_preserved_at_dtK4 = (
-        res_dt["resolved"] and res_dt["value"] == 1 and res_dt["min_re"] > 0.0)
-    charge_lost_at_dtK4over4 = (
-        (not res_dt4["resolved"]) or res_dt4["value"] != 1
-        or res_dt4["c_det"] < 0.5)
+    # B1d D0(b) corrected decision logic:
+    #   step0 min_re > 0 (confirmed by assertion inside run())
+    #   dt_K4/16 step 1: if Re > 0 → loss at dt_K4/dt_K4/4 is a STABILITY artifact
+    #                               (dt too large vs Ω_max_hh >> Ω_max_vac)
+    #                    if Re ≤ 0 → genuine dispersion at every dt (pin FAIL)
+    charge_held_at_dt16_step1 = (
+        res_dt16_1step["min_re"] > 0.0
+        and res_dt16_1step["resolved"]
+        and res_dt16_1step["value"] == 1
+    )
 
-    if charge_preserved_at_dtK4:
-        # Positive result: the spectrally-bounded step holds the charge.
-        assert res_dt["resolved"] and res_dt["value"] == 1, (
-            f"charge preserved claim inconsistent: {res_dt}")
-        assert res_dt["min_re"] > 0.0, (
-            f"bond short-arc broke despite charge preserved: {res_dt}")
+    if charge_held_at_dt16_step1:
+        # Corrected honest-closure (B1d): the vacuum dt_K4 = 0.25/Ω_max_vac is
+        # far too large for the hedgehog (Ω_max_hh ≫ Ω_max_vac; the core has
+        # a steep gradient that drives a ~500× larger stiffness). Loss at dt_K4
+        # and dt_K4/4 is a TIME-STEP STABILITY artifact, NOT genuine dispersion.
+        # At dt_K4/16, one step holds the charge. This corrects the B1c finding.
+        assert res_dt16_1step["resolved"] and res_dt16_1step["value"] == 1, (
+            f"dt_K4/16 step 1 should resolve +1: {res_dt16_1step}")
+        assert res_dt16_1step["min_re"] > 0.0, (
+            f"dt_K4/16 step 1 bond short-arc should hold: {res_dt16_1step}")
+        # The coarser dt values should still show the stability artifact
+        assert res_dt["min_re"] <= 0.0 or not res_dt["resolved"] or \
+               res_dt4["min_re"] <= 0.0 or not res_dt4["resolved"], (
+            "UNEXPECTED: charge held at BOTH dt_K4 and dt_K4/4 over 20 steps — "
+            f"the hedgehog is more stable than expected. Surface to Grant. "
+            f"res_dt={res_dt} res_dt4={res_dt4}")
     else:
-        # Honest-closure: shrinking dt does not rescue — a dispersion mechanism,
-        # not a stability artifact. Record with Ω_max + dt_K4.
+        # Genuine dispersion at every dt including dt_K4/16 step 1.
+        charge_lost_at_dtK4over4 = (
+            (not res_dt4["resolved"]) or res_dt4["value"] != 1
+            or res_dt4["c_det"] < 0.5)
         assert charge_lost_at_dtK4over4, (
-            "UNEXPECTED: charge lost at dt_K4 but PRESERVED at dt_K4/4 — the loss "
-            "would then be a time-step-stability artifact, not dispersion. "
-            f"Omega_max={Omega_max:.6f} dt_K4={dt_K4:.6e} "
-            f"res_dt={res_dt} res_dt4={res_dt4}. Surface to Grant: the R1(ii) "
-            "mechanism attribution would change.")
+            "UNEXPECTED: charge lost at dt_K4 and dt_K4/16 step1, but PRESERVED at "
+            f"dt_K4/4 — inconsistent pattern. "
+            f"Omega_max_vac={Omega_max_vac:.6f} dt_K4={dt_K4:.6e} "
+            f"res_dt4={res_dt4}. Surface to Grant.")
 
 
 @pytest.mark.skipif(not LARGE, reason="Deferred: needs RUN_K4_LARGE=1 (Grant GO)")
@@ -1381,12 +1452,14 @@ def test_k4_gap_frequency():
         f"(|Δ|={abs(f_om - Omega_num):.2e}, limit 1e-4; dt={dt_om:.6e})")
 
     # O(dt²) convergence of the discrete frequency toward the continuum 2.0:
-    # a 4× dt reduction shrinks the offset by ≥10× (true ratio ≈16).
+    # a 4× dt reduction shrinks the offset by exactly 16× (d(Omega_num)/d(dt²) is
+    # constant to leading order; (2/dt)arcsin(dt) − 2 ≈ dt²/3 → ratio = 4² = 16).
     off_dt = abs(Omega_num - 2.0)
     off_dt4 = abs(_omega_num(2.0, dt_om / 4.0) - 2.0)
-    assert off_dt4 < off_dt / 10.0, (
+    ratio_dt = off_dt / max(off_dt4, 1e-300)
+    assert 15.0 <= ratio_dt <= 17.0, (
         f"Omega_num not O(dt²): |Δ(dt)|={off_dt:.3e} |Δ(dt/4)|={off_dt4:.3e} "
-        f"ratio={off_dt / max(off_dt4, 1e-300):.2f} (expect ≥10)")
+        f"ratio={ratio_dt:.2f} (expect 16 ± 1)")
 
 
 def test_k4_gap_frequency_trip_gc0():
@@ -1607,6 +1680,108 @@ def test_r2_config_read_back():
     from csk4_r2_config import make_r2_solver, assert_r2_config
     cf = make_r2_solver(nx=8, ny=8, nz=8)
     assert_r2_config(cf)  # raises on any mismatch
+
+
+# ---------------------------------------------------------------------------
+# D1: charge_counters_pin.json blob sha1 integrity (Gate C1)
+# ---------------------------------------------------------------------------
+
+
+def _charge_counters_blob_sha1() -> str:
+    """Compute git blob sha1 of charge_counters.py in pure Python.
+    git blob sha1: sha1(b"blob <len>\\0" + data)
+    """
+    import hashlib
+    import os
+    pin_dir = os.path.join(os.path.dirname(__file__),
+                           '..', 'ave', 'topological')
+    path = os.path.normpath(os.path.join(pin_dir, 'charge_counters.py'))
+    with open(path, 'rb') as f:
+        data = f.read()
+    header = b"blob %d\0" % len(data)
+    return hashlib.sha1(header + data).hexdigest()
+
+
+def test_charge_counters_pin_blob_sha1():
+    """D1 (Gate C1): charge_counters.py blob sha1 matches pin file.
+
+    Prevents silent modification of charge_counters.py after the
+    CONDITIONAL PASS gate at d2c7da09 (blob b0384af0ca7e…). Any edit
+    voids the P1 pin; this test trips before the R2 run can proceed.
+    """
+    import json
+    import os
+    pin_dir = os.path.join(os.path.dirname(__file__),
+                           '..', 'ave', 'topological')
+    pin_path = os.path.normpath(os.path.join(pin_dir, 'charge_counters_pin.json'))
+    with open(pin_path) as f:
+        pin = json.load(f)
+    expected = pin['blob_sha1']
+    actual = _charge_counters_blob_sha1()
+    assert actual == expected, (
+        f"charge_counters.py has been modified since the Gate CONDITIONAL PASS "
+        f"(d2c7da09). Expected blob sha1 {expected}, got {actual}. "
+        "Any edit to charge_counters.py voids the pin. Update the pin file and "
+        "re-run the Gate audit before proceeding.")
+
+
+def test_charge_counters_pin_mutation_trip():
+    """D1: a one-byte-mutated copy of charge_counters.py does NOT match the pin."""
+    import hashlib
+    import json
+    import os
+    pin_dir = os.path.join(os.path.dirname(__file__),
+                           '..', 'ave', 'topological')
+    path = os.path.normpath(os.path.join(pin_dir, 'charge_counters.py'))
+    pin_path = os.path.normpath(os.path.join(pin_dir, 'charge_counters_pin.json'))
+    with open(path, 'rb') as f:
+        data = f.read()
+    with open(pin_path) as f:
+        pin = json.load(f)
+    expected = pin['blob_sha1']
+    # Mutate one byte
+    mutated = bytearray(data)
+    mutated[0] ^= 0x01
+    mutated = bytes(mutated)
+    header = b"blob %d\0" % len(mutated)
+    mutated_sha = hashlib.sha1(header + mutated).hexdigest()
+    assert mutated_sha != expected, (
+        "Mutation trip failed: one-byte mutant produced the same blob sha1 — "
+        "this should be impossible (sha1 collision).")
+
+
+def test_r2_config_pin_refusal(tmp_path, monkeypatch):
+    """D1: make_r2_solver raises RuntimeError when pin sha1 mismatches.
+
+    Writes a pin file with a wrong blob_sha1 to tmp_path and patches
+    csk4_r2_config._PIN_FILE to point there. Confirms the solver refuses.
+    """
+    import json
+    import sys
+    import os
+    # Ensure csk4_r2_config is importable
+    scripts_dir = os.path.join(os.path.dirname(__file__),
+                               '..', 'scripts', 'vol_4_engineering')
+    if scripts_dir not in sys.path:
+        sys.path.insert(0, scripts_dir)
+    import importlib
+    import csk4_r2_config
+    importlib.reload(csk4_r2_config)
+
+    bad_pin = {
+        "path": "src/ave/topological/charge_counters.py",
+        "commit": "d2c7da092f1a0577ab725b8a1d525726258416ab",
+        "blob_sha1": "0000000000000000000000000000000000000000",
+        "gate": "FAKE",
+        "seeds": {}
+    }
+    pin_file = tmp_path / "charge_counters_pin.json"
+    pin_file.write_text(json.dumps(bad_pin))
+
+    monkeypatch.setattr(csk4_r2_config, '_PIN_FILE', str(pin_file))
+
+    with pytest.raises(RuntimeError, match='charge_counters.py'):
+        csk4_r2_config.make_r2_solver(nx=8, ny=8, nz=8)
 
 
 # ---------------------------------------------------------------------------

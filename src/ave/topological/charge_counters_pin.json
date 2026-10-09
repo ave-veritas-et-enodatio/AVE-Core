@@ -1,0 +1,10 @@
+{
+  "path": "src/ave/topological/charge_counters.py",
+  "commit": "d2c7da092f1a0577ab725b8a1d525726258416ab",
+  "blob_sha1": "b0384af0ca7e87483e814386da10cd523486133a",
+  "gate": "AUDIT-PR1066-reaudit-d2c7da09-2026-10-09.md CONDITIONAL PASS",
+  "seeds": {
+    "qstars": "random_regular_values(5, 20261008)",
+    "nstars": "random_n_vectors(4, 20261009)"
+  }
+}

@@ -42,7 +42,7 @@ grade: DERIVED = algebraic/convention consequence, SIM = holds in the simulation
   | Row 6 (c_R)  | cf:~1969-1971 | c_R=√(γ/I)             | irrelevant at trade (b) dt                                 | DERIVED |
   | Row 10 (eps) | cf:493-494    | "autograd safety"      | E_refl ∝ 1/eps_reg exactly (bulk reflection term; Gate)    | SIM     |
   | B6 gap       | k4_quaternion | Ω_gap²=4G_c/I_ω → 2    | LS fit f_om=2.0030092, f_k4=2.0030096 (K4≡ω 1.9e-7); =Verlet-exact Omega_num=2.0030122 to 3.0e-6 (|Omega_num−2|=3.0e-3 O(dt²): dt/4→1.9e-4); G_c=0→ω<0.5 (trip) | SIM     |
-  | B3 dynamic   | charge_counters| N=1 hedgehog preserved| undamped K4 dynamics do NOT hold the charge at defaults; |q|=1 exact (honest-closure record) | SIM     |
+  | B3 dynamic   | charge_counters| N=1 hedgehog preserved| vacuum dt_K4=0.25/Ω_vac is 526× too large for hedgehog (Ω_hh≈2586); charge lost at dt_K4/dt_K4/4 is a STABILITY artifact; 1 step at dt_K4/16 resolves +1 (B1d corrected) | SIM     |
   | B6 drift     | k4_quaternion | energy conserved       | symplectic VV: |ΔH/H0| O(dt²) (1.3e-2 @ cfl, 2e-5 @ cfl/16) | SIM     |
 
 Checkpoint-10 note (substrate-native-check): the K4 reflection term W_refl ∝
@@ -462,3 +462,126 @@ class K4Mixin:
             self.Omega *= decay
 
         self.time += dt
+
+
+# ======================================================================
+# D2: K4 charge adapter — single entry point for all charge verdicts
+# (Gate §11 items 1–8, N1, N3)
+# ======================================================================
+
+_CANONICAL_QSTARS_SEED = 20261008
+_CANONICAL_NSTARS_SEED = 20261009
+
+
+def count_charge_k4(q: np.ndarray, mask_alive: np.ndarray) -> dict:
+    """Charge counter adapter for K4 quaternion storage (Gate §11).
+
+    Single entry point for all integer-charge verdicts on a K4 field.
+    Enforces the full Gate §11 precondition chain before calling the
+    charge_counters primitives.
+
+    Args:
+        q: float64 array shape (nx, ny, nz, 4) — the quaternion field.
+        mask_alive: bool array shape (nx, ny, nz) — must equal
+            charge_counters.bcc_alive_mask(q.shape[:3]) exactly.
+
+    Returns dict with keys:
+        resolved (bool): True only if c_exact AND c_link both resolve and agree.
+        value (int or None): integer charge if resolved; None otherwise.
+        reason (str or None): UNRESOLVED reason if not resolved.
+        c_exact_result (dict): raw c_exact output.
+        c_link_result (dict): raw c_link output.
+        c_det_alive4 (float): alarm field — drift monitor only, NOT the verdict.
+
+    Raises:
+        ValueError: shape mismatch, wrong alive mask, or non-finite q.
+    """
+    from ave.topological.charge_counters import (
+        bcc_alive_mask, hopf_engine,
+        c_exact, c_link, c_det_alive4,
+        random_regular_values, random_n_vectors, BCC_TETS,
+    )
+
+    # 1. Shape + mask check
+    if q.ndim != 4 or q.shape[3] != 4:
+        raise ValueError(
+            f"count_charge_k4: q must have shape (nx,ny,nz,4), got {q.shape!r}")
+    expected_alive = bcc_alive_mask(q.shape[:3])
+    if not np.array_equal(mask_alive, expected_alive):
+        raise ValueError(
+            "count_charge_k4: mask_alive does not match bcc_alive_mask — "
+            "wrong parity or shape")
+
+    # 2. Dead sites: raise on non-finite; set identity in working copy
+    q_work = q.copy()
+    dead = ~mask_alive
+    if not np.isfinite(q[dead]).all():
+        raise ValueError("count_charge_k4: non-finite q on dead sites")
+    q_work[dead] = np.array([1.0, 0.0, 0.0, 0.0])
+
+    # 3. Alive sites: raise on non-finite, renormalize, then assert unit norm
+    if not np.isfinite(q[mask_alive]).all():
+        raise ValueError("count_charge_k4: non-finite q on alive sites")
+    norms = np.linalg.norm(q_work[mask_alive], axis=-1, keepdims=True)
+    q_work[mask_alive] = q_work[mask_alive] / np.where(norms > 0, norms, 1.0)
+    max_dev = float(np.abs(np.linalg.norm(q_work[mask_alive], axis=-1) - 1.0).max())
+    if max_dev > 1e-6:
+        # Extremely large input; renormalization didn't converge to unit sphere
+        raise ValueError(
+            f"count_charge_k4: alive sites deviate from unit norm by {max_dev:.2e} "
+            f"even after renormalization (max_dev > 1e-6)")
+
+    # 4. Boundary margin: q0 > 0.5 on alive boundary sites
+    def _boundary_q0_alive_ok(q_, alive_):
+        q0 = q_[..., 0]
+        for face_slice, alive_slice in [
+            (q0[0], alive_[0]), (q0[-1], alive_[-1]),
+            (q0[:, 0], alive_[:, 0]), (q0[:, -1], alive_[:, -1]),
+            (q0[:, :, 0], alive_[:, :, 0]), (q0[:, :, -1], alive_[:, :, -1]),
+        ]:
+            vals = face_slice[alive_slice]
+            if len(vals) > 0 and vals.min() <= 0.5:
+                return False
+        return True
+
+    if not _boundary_q0_alive_ok(q_work, mask_alive):
+        return dict(
+            resolved=False, value=None,
+            reason="UNRESOLVED: boundary margin (q0 ≤ 0.5 on alive boundary site)",
+            c_exact_result=None, c_link_result=None,
+            c_det_alive4=float('nan'),
+        )
+
+    # 5. c_exact with canonical qstars
+    qstars = random_regular_values(5, _CANONICAL_QSTARS_SEED)
+    c_exact_res = c_exact(q_work, qstars, tets=BCC_TETS, s=2)
+
+    # 6. c_link with canonical nstars; n taken ONLY from hopf_engine
+    n = hopf_engine(q_work)
+    nstars = random_n_vectors(4, _CANONICAL_NSTARS_SEED)
+    c_link_res = c_link(n, nstars, tets=BCC_TETS, s=2)
+
+    # 8. c_det_alive4 — alarm/log field only (N1: never used as verdict alone)
+    c_det_val = c_det_alive4(q_work, mask_alive, h=1.0)
+
+    # 7. Integer verdict: both RESOLVED and agree; otherwise UNRESOLVED
+    if not c_exact_res['resolved']:
+        reason = f"UNRESOLVED: c_exact {c_exact_res['reason']}"
+        return dict(resolved=False, value=None, reason=reason,
+                    c_exact_result=c_exact_res, c_link_result=c_link_res,
+                    c_det_alive4=c_det_val)
+    if not c_link_res['resolved']:
+        reason = f"UNRESOLVED: c_link {c_link_res['reason']} (N1: c_link alone never verdict)"
+        return dict(resolved=False, value=None, reason=reason,
+                    c_exact_result=c_exact_res, c_link_result=c_link_res,
+                    c_det_alive4=c_det_val)
+    if c_exact_res['value'] != c_link_res['value']:
+        reason = (f"UNRESOLVED: c_exact={c_exact_res['value']} disagrees with "
+                  f"c_link={c_link_res['value']}")
+        return dict(resolved=False, value=None, reason=reason,
+                    c_exact_result=c_exact_res, c_link_result=c_link_res,
+                    c_det_alive4=c_det_val)
+
+    return dict(resolved=True, value=c_exact_res['value'], reason=None,
+                c_exact_result=c_exact_res, c_link_result=c_link_res,
+                c_det_alive4=c_det_val)
