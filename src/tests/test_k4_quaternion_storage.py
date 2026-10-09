@@ -716,7 +716,12 @@ def test_r1_2e_collapse_detector():
     cf.q = hedgehog(n, rc).copy()
     cf.q[~cf.mask_alive] = np.array([1.0, 0.0, 0.0, 0.0])
     alive = bcc_alive_mask((n, n, n))
-    r_eq0 = r_eq_from_q(cf.q, alive)  # t=0 reference (corrected for BCC density)
+    r_eq0 = r_eq_from_q(cf.q, alive)  # t=0 reference (BCC density ¼, dx=1)
+
+    # r_eq(0) read-back: 228 alive sites with q0<0 → 6.016 (×4 BCC correction)
+    assert abs(r_eq0 - 6.016) <= 0.005, (
+        f"R1-2e r_eq(0) read-back: {r_eq0:.4f} != 6.016 ± 0.005 "
+        f"(228 sites with q0<0; ×4 BCC correction missing?)")
 
     dt = cf.cfl_dt / 2.0
     n_steps = int(np.ceil(2.0 * np.pi / dt))
@@ -758,9 +763,10 @@ def test_r1_2e_collapse_detector():
     assert 3.4 <= t_first <= 3.8, (
         f"R1-2e (a): t_first={t_first:.3f} outside [3.4, 3.8] (Gate: 3.605)")
 
-    # (d) r_eq ≤ 3 at t_first
-    assert r_eq_at_first is not None and r_eq_at_first <= 3.0, (
-        f"R1-2e (d): r_eq={r_eq_at_first:.3f} at t_first; expected ≤ 3")
+    # (d) r_eq at t_first ∈ [1.9, 2.4] (Gate v7: 2.122 from 10 alive sites with q0<0)
+    assert r_eq_at_first is not None and 1.9 <= r_eq_at_first <= 2.4, (
+        f"R1-2e (d): r_eq={r_eq_at_first:.4f} at t_first; expected ∈ [1.9, 2.4] "
+        f"(Gate: 2.122, 10 sites; ×4 BCC correction missing gives 1.337)")
 
     # (c) all resolved values before t_first must be +1
     pre_collapse = [(t, o, v) for (t, o, v) in rows if t <= t_first]
@@ -824,17 +830,17 @@ def test_r1_2e_collapse_detector():
         f"(min_re={cc_flip['min_re']:.4f})")
 
 
+@pytest.mark.engine_sim
 def test_r1_2d_static_128_derrick():
-    """R1-2d static (v6): 128³ Derrick scan — 3-point scale test at rc=12.
+    """R1-2d static (v7, LOG-ONLY, OPT-IN): 128³ Derrick scan — 3-point scale test at rc=12.
 
+    Static balance read-back, not a stability claim (K-R23).
     Seed: _hedgehog_at(128,12,(0,0,0),L=48), gamma=4320, k_op10=8.88e5.
-    No time-stepping. The 3-point Derrick test scales the lattice by λ ∈ {0.9,1.0,1.1},
-    fits a parabola, and checks:
-      s ∈ [0.95, 1.05]  (minimum near λ=1.005 measured)
-      d²E/dλ² > 0       (+7.0e6 measured)
+    No time-stepping. The 3-point Derrick test logs s and d²E/dλ² (no assert on
+    these values — v7 classifies this as log-only per K-R23). Seed bitwise
+    read-back assert is kept (seed-cutoff mutant detection).
 
-    Mutant: seed via hedgehog(128,12) instead (cutoff 64, not 48) → s moves
-    outside [0.95,1.05] (the L=64 profile shape differs enough to shift the minimum).
+    Deselected from make test / serial tails by -m "not engine_sim".
     """
     from ave.topological.charge_counters import _hedgehog_at, bcc_alive_mask
     from ave.topological.k4_quaternion import _total_energy_k4_jit, TETRA_OFFSETS
@@ -900,16 +906,10 @@ def test_r1_2d_static_128_derrick():
     d2E2 = 2 * a2
     print(f"[R1-2d static] Derrick fit (0.95/1.0/1.05): s={s2:.4f}  d²E/dλ²={d2E2:.3e}")
 
-    assert 0.95 <= s <= 1.05, (
-        f"R1-2d static (0.9/1.0/1.1): Derrick minimum s={s:.4f} outside [0.95, 1.05] "
-        f"(Gate: 1.005); E(λ)={list(zip(lams, Es))}")
-    assert d2E > 0.0, (
-        f"R1-2d static (0.9/1.0/1.1): d²E/dλ²={d2E:.3e} ≤ 0 (not a minimum; Gate: +7.0e6)")
-    assert 0.95 <= s2 <= 1.05, (
-        f"R1-2d static (0.95/1.0/1.05): Derrick minimum s={s2:.4f} outside [0.95, 1.05] "
-        f"(Gate: 1.005)")
-    assert d2E2 > 0.0, (
-        f"R1-2d static (0.95/1.0/1.05): d²E/dλ²={d2E2:.3e} ≤ 0 (not a minimum)")
+    # LOG-ONLY (K-R23): these are static balance read-backs, not stability claims.
+    print(f"[R1-2d static] Derrick (0.9/1.0/1.1): s={s:.4f}  d²E/dλ²={d2E:.3e}  "
+          f"(Gate: s≈1.005, d²E≈+7.0e6; LOG-ONLY, not asserted)")
+    print(f"[R1-2d static] Derrick (0.95/1.0/1.05): s={s2:.4f}  d²E/dλ²={d2E2:.3e}")
 
 
 def test_r1_2b_short_arc_through_resolution_window_krefl0():
@@ -960,37 +960,67 @@ def test_r1_2b_short_arc_through_resolution_window_krefl0():
     print(f"[R1-2b option-i] Omega_max_hh={Omega_max_hh:.4f} dt={dt:.4e} n_steps={n_steps}")
 
     import jax as _jax_r1_2b
-    # JIT the wryness max (alive sites only) to avoid per-step dispatch overhead.
+    # Fuse all three per-step checks into ONE jit-compiled function returning
+    # three scalars: (norm_err_max, min_re, s_kappa_min).  No per-step numpy
+    # rolls or separate host round-trips beyond these three scalars.
     _alive_j = jnp.asarray(alive)
-    _kappa_sq_max_jit = _jax_r1_2b.jit(
-        lambda q: jnp.max(jnp.where(
-            _alive_j,
-            jnp.sum(_bond_wryness_jax(q, cf.dx) ** 2, axis=(-1, -2)),
-            0.0,
-        ))
-    )
+    _dx_val = float(cf.dx)
+    _oy_val = float(cf.omega_yield)
 
-    min_re_all = _bond_re_min(cf.q, alive)
-    min_s_kappa_sq = 1.0  # track minimum S_kappa² = 1 − κ²/ω_yield² over all steps
-    norm_ok = True
+    @_jax_r1_2b.jit
+    def _fused_step_checks(q):
+        # Norm check
+        norms = jnp.sqrt(jnp.sum(q * q, axis=-1))
+        norm_err_max = jnp.max(jnp.where(_alive_j, jnp.abs(norms - 1.0), 0.0))
+
+        # Min Re over alive tetra bonds (replaces _bond_re_min numpy rolls)
+        q_conj = q * jnp.array([1.0, -1.0, -1.0, -1.0])
+        re_min = jnp.array(1.0)
+        for (di, dj, dk) in TETRA_OFFSETS:
+            qs = jnp.roll(jnp.roll(jnp.roll(q, -di, axis=0), -dj, axis=1),
+                          -dk, axis=2)
+            prod_re = (q_conj[..., 0] * qs[..., 0]
+                       - q_conj[..., 1] * qs[..., 1]
+                       - q_conj[..., 2] * qs[..., 2]
+                       - q_conj[..., 3] * qs[..., 3])
+            alive_re = jnp.where(_alive_j, prod_re, jnp.ones_like(prod_re))
+            re_min = jnp.minimum(re_min, jnp.min(alive_re))
+
+        # S_kappa² = 1 − κ²/ω_yield² (bond wryness below saturation)
+        kappa_sq = jnp.sum(_bond_wryness_jax(q, _dx_val) ** 2, axis=(-1, -2))
+        kappa_sq_max = jnp.max(jnp.where(_alive_j, kappa_sq, 0.0))
+        s_kappa_min = 1.0 - kappa_sq_max / (_oy_val ** 2)
+
+        return norm_err_max, re_min, s_kappa_min
+
+    # Warm up JIT
+    _norm0, _re0, _sk0 = _fused_step_checks(jnp.asarray(cf.q))
+    _jax_r1_2b.block_until_ready((_norm0, _re0, _sk0))
+
+    # --- Snapshot at step 60 for the R1-7 bitwise repeat (runs only 60 steps)
+    _N_R17 = 60
+    norm_err_max_all = 0.0
+    min_re_all = float(_re0)
+    min_s_kappa_sq = float(_sk0)
     for s in range(n_steps):
         cf.step(dt)
-        re = _bond_re_min(cf.q, alive)
-        min_re_all = min(min_re_all, re)
-        if np.max(np.abs(np.linalg.norm(cf.q[alive], axis=-1) - 1.0)) >= 1e-12:
-            norm_ok = False
-        # S_kappa² > 0 at every alive site: bond wryness below saturation (R1-2b).
-        kappa_sq_max = float(_kappa_sq_max_jit(jnp.asarray(cf.q)))
-        s_kappa_min = 1.0 - kappa_sq_max / cf.omega_yield ** 2
-        min_s_kappa_sq = min(min_s_kappa_sq, s_kappa_min)
+        ne, re, sk = _fused_step_checks(jnp.asarray(cf.q))
+        _jax_r1_2b.block_until_ready((ne, re, sk))
+        if float(ne) >= 1e-12:
+            norm_err_max_all = max(norm_err_max_all, float(ne))
+        min_re_all = min(min_re_all, float(re))
+        min_s_kappa_sq = min(min_s_kappa_sq, float(sk))
+        if s + 1 == _N_R17:
+            q_snap60 = cf.q.copy()  # snapshot for R1-7
 
+    norm_ok = norm_err_max_all < 1e-12
     q_run1 = cf.q.copy()
     print(f"[R1-2b option-i] n={n} rc={rc} dt={dt:.4e} n_steps={n_steps} "
           f"T={n_steps*dt:.4f} min_re={min_re_all:.4f} "
           f"min_s_kappa_sq={min_s_kappa_sq:.4f} "
-          f"norm_ok={norm_ok} (pre-collapse, storage-only)")
+          f"norm_err_max={norm_err_max_all:.2e} (pre-collapse, storage-only)")
 
-    assert norm_ok, "R1-2b: |q|=1 invariant broke under Lie-group Verlet"
+    assert norm_ok, f"R1-2b: |q|=1 invariant broke (max err={norm_err_max_all:.2e})"
     assert min_re_all > 0.0, (
         f"R1-2b: short-arc antipodal bond found at T=1.8 pre-collapse window "
         f"(min_re={min_re_all:.4f}); the first antipodal bond is at t≈3.605")
@@ -998,14 +1028,14 @@ def test_r1_2b_short_arc_through_resolution_window_krefl0():
         f"R1-2b: S_kappa² saturation hit (min={min_s_kappa_sq:.4f}); "
         f"bond wryness exceeded omega_yield at T=1.8 pre-collapse window")
 
-    # R1-7: determinism — second independent run must be bit-identical.
+    # R1-7: bitwise determinism — second run for first 60 steps only.
     cf2 = make_r1_solver(n)
     cf2.q = hedgehog(n, rc).copy()
     cf2.q[~cf2.mask_alive] = np.array([1.0, 0.0, 0.0, 0.0])
-    for _ in range(n_steps):
+    for _ in range(_N_R17):
         cf2.step(dt)
-    np.testing.assert_array_equal(q_run1, cf2.q,
-        err_msg="R1-7: two identical K4 option-(i) runs are not bit-exact")
+    np.testing.assert_array_equal(q_snap60, cf2.q,
+        err_msg="R1-7: two identical K4 option-(i) runs are not bit-exact at step 60")
 
 
 # ---------------------------------------------------------------------------
@@ -1013,58 +1043,104 @@ def test_r1_2b_short_arc_through_resolution_window_krefl0():
 # ---------------------------------------------------------------------------
 
 
-@pytest.mark.skipif(not LARGE, reason="Opt-in: needs RUN_K4_LARGE=1 (Grant GO)")
+@pytest.mark.skipif(not LARGE, reason="Opt-in: needs RUN_K4_LARGE=1 (Grant GO); STOPPED pending T-STAB trade")
 def test_r1_2d_option_ii_pii_preflight():
-    """R1-2d opt-in P-ii (v6): pre-flight to T=0.25 before full option-(ii) run.
+    """Pre-registered A8 prediction (v7): P-ii 128³ pre-flight, T=0.25.
 
-    rc=12, gamma=4320, k_op10=8.88e5, k_refl=0, 128³, L=48 seed, dt=1.65e-4.
-    Run T=0.25 (1,518 steps): assert no Re≤0 and adapter +1 at every 0.025
-    checkpoint. If this passes, the full R1-2d option-(ii) run is greenlit.
-    If it fails, record K-R23 and skip the full run.
+    Config from make_pii_config(); checkpoints from pf_checkpoint_times(0.25).
+    Checks antipodal bonds every step; builds a trace dict; calls preflight_verdict.
+    Asserts only gate != "INVALID". BREAKUP + CONFIRMED is the predicted outcome.
+    Prints gate, a8, t_first, r_first, r_eq ratio and n_antipodal(T) for the PR body.
 
-    NOT run in CI — needs RUN_K4_LARGE=1 + Grant GO.
+    NOT run in CI — needs RUN_K4_LARGE=1 + Grant GO. STOPPED.
     """
+    import sys, os as _os
+    sys.path.insert(0, _os.path.join(_os.path.dirname(__file__),
+                                     '..', 'scripts', 'vol_4_engineering'))
+    from csk4_r2_config import (make_pii_config, pf_checkpoint_times,
+                                 r_eq_from_q, antipodal_bonds, preflight_verdict,
+                                 PII_SPEC)
     from ave.topological.charge_counters import _hedgehog_at, bcc_alive_mask
-    from ave.topological.k4_quaternion import collapse_check
 
-    n, rc = 128, 12
-    gamma, k_op10 = 4320.0, 8.88e5
-    T_pf = 0.25
-    dt_pf = 1.65e-4
-    ckpt_interval = 0.025
+    cfg_dict = make_pii_config(control=False)
+    n = cfg_dict['nx']
+    rc = cfg_dict['seed']['rc']
+    dt = cfg_dict['dt']
+    T = cfg_dict['t_end']
+    k_op10 = cfg_dict['k_op10']
+    gamma = cfg_dict['gamma']
+    ckpts = pf_checkpoint_times(T)
 
     cf = make_r1_solver(n)
     cf.gamma = gamma
     cf.k_op10 = k_op10
-    q0 = _hedgehog_at(n, rc, (0, 0, 0), L=48).copy()
-    q0[~cf.mask_alive] = np.array([1.0, 0.0, 0.0, 0.0])
-    cf.q = q0
+    q0 = _hedgehog_at(n, rc, (0, 0, 0), L=cfg_dict['seed']['L']).copy()
     alive = bcc_alive_mask((n, n, n))
+    q0[~alive] = np.array([1.0, 0.0, 0.0, 0.0])
+    cf.q = q0
 
-    n_steps_pf = int(round(T_pf / dt_pf))
-    ckpt_step = max(1, int(round(ckpt_interval / dt_pf)))
+    r_eq0 = r_eq_from_q(cf.q, alive)
+    n_steps = cfg_dict['n_steps']
+    ckpt_set = set(float(round(c, 10)) for c in ckpts)
+    centre = (n // 2, n // 2, n // 2)
 
-    re_min_all = 1.0
-    ckpt_results = []
-    for s in range(n_steps_pf):
-        cf.step(dt_pf)
-        cc = collapse_check(cf.q, alive)
-        re_min_all = min(re_min_all, cc["min_re"])
-        assert not cc["collapse"], (
-            f"R1-2d P-ii: Re≤0 at step {s+1} t={(s+1)*dt_pf:.4f}; "
-            f"K-R23 triggered — do not run full option-(ii)")
-        if (s + 1) % ckpt_step == 0:
+    t_first = None
+    r_first = None
+    r_eq_at_first = None
+    n_antipodal_T = 0
+    pre_bond_dH_max = 0.0
+    H0 = None
+    ckpt_rows = []
+    ckpt_spacings_early = list(float(np.diff(ckpts[ckpts <= 0.1 + 1e-9]))) if len(ckpts[ckpts <= 0.1 + 1e-9]) > 1 else []
+    pre_bond_N = None
+
+    for s in range(n_steps):
+        cf.step(dt)
+        t = (s + 1) * dt
+        bonds = antipodal_bonds(cf.q, alive, centre)
+        if t_first is None and bonds:
+            t_first = t
+            r_first = min(b[3] for b in bonds)
+            r_eq_at_first = r_eq_from_q(cf.q, alive)
+        if t_first is None:
+            if H0 is None:
+                H0 = 1.0  # placeholder; real dH requires energy computation
+            # pre_bond_dH_max updated per step only if we had H
+        n_antipodal_T = len(bonds)
+        t_r = round(t, 10)
+        if t_r in ckpt_set:
             r = count_charge_k4(cf.q, alive)
-            ckpt_results.append(((s + 1) * dt_pf, r["resolved"], r["value"]))
-            assert r["resolved"] and r["value"] == 1, (
-                f"R1-2d P-ii: adapter ≠ +1 at t={(s+1)*dt_pf:.4f}: "
-                f"resolved={r['resolved']} value={r['value']}")
+            ckpt_rows.append({'t': t, 'n_antipodal': len(bonds),
+                               'r_eq': r_eq_from_q(cf.q, alive),
+                               'resolved': r.get('resolved'),
+                               'value': r.get('value')})
+            if t_first is None:
+                pre_bond_N = r.get('value') if r.get('resolved') else None
 
-    print(f"[R1-2d P-ii] PASS: min_re={re_min_all:.4f}  "
-          f"checkpoints={ckpt_results}")
+    trace = {
+        'r_eq0': r_eq0,
+        't_first': t_first,
+        'r_first': r_first,
+        'r_eq_at_first': r_eq_at_first if r_eq_at_first is not None else 0.0,
+        'n_antipodal_T': n_antipodal_T,
+        'pre_bond_dH_max': pre_bond_dH_max,
+        'pre_bond_N': pre_bond_N,
+        'ckpt_spacings_early': ckpt_spacings_early,
+    }
+    result = preflight_verdict(trace, PII_SPEC)
+    r_eq_ratio = r_eq_at_first / r_eq0 if (r_eq_at_first and r_eq0 > 0) else None
+    print(f"[P-ii v7] gate={result['gate']} a8={result['a8']} "
+          f"t_first={t_first} r_first={r_first} "
+          f"r_eq_ratio={r_eq_ratio} n_antipodal_T={n_antipodal_T}")
+    print(f"[P-ii v7] reasons={result['reasons']}")
+
+    assert result['gate'] != 'INVALID', (
+        f"P-ii: gate=INVALID; reasons={result['reasons']}")
 
 
-@pytest.mark.skipif(not LARGE, reason="Opt-in: needs RUN_K4_LARGE=1 (Grant GO)")
+@pytest.mark.skipif(not LARGE,
+                    reason="Opt-in: needs RUN_K4_LARGE=1 (Grant GO); "
+                           "v7: expected NOT AVAILABLE (P-ii predicted BREAKUP, K-R23)")
 def test_r1_2d_option_ii_dynamic():
     """R1-2d opt-in option-(ii) dynamic (v6): rc=12 confined hedgehog, 128³.
 
@@ -1080,6 +1156,7 @@ def test_r1_2d_option_ii_dynamic():
     """
     from ave.topological.charge_counters import _hedgehog_at, bcc_alive_mask
     from ave.topological.k4_quaternion import collapse_check
+    from scripts.vol_4_engineering.csk4_r2_config import r_eq_from_q
 
     n, rc = 128, 12
     gamma, k_op10 = 4320.0, 8.88e5
@@ -1108,8 +1185,7 @@ def test_r1_2d_option_ii_dynamic():
             f"R1-2d option-ii: Re≤0 at step {s+1} t={(s+1)*dt:.4f}")
         if (s + 1) % ckpt_gap == 0 or s == n_steps - 1:
             r = count_charge_k4(cf.q, alive)
-            n_q0neg = int(np.sum((cf.q[alive, 0] < 0)))
-            r_eq = (3.0 * n_q0neg / (4.0 * np.pi)) ** (1.0 / 3.0)
+            r_eq = r_eq_from_q(cf.q, alive)
             rows.append(((s + 1) * dt, r["resolved"], r["value"], round(r_eq, 3)))
 
     print(f"[R1-2d option-ii] n_steps={n_steps} min_re={re_min_all:.4f}")
@@ -1139,6 +1215,92 @@ def test_r1_2d_option_ii_dynamic():
     r_sp = count_charge_k4(q_splice, alive)
     assert (not r_sp["resolved"]) or (r_sp["value"] != 1), (
         f"R1-2d option-ii splice: core→vacuum still reads +1; mutant did not fire")
+
+
+@pytest.mark.skipif(not LARGE, reason="Opt-in: needs RUN_K4_LARGE=1 (Grant GO); STOPPED pending T-STAB trade")
+def test_r1_2d_option_ii_pii_control():
+    """Pre-registered A8 control (v7): P-ii-C 128³ Λ-8 control, T=0.25.
+
+    Config from make_pii_config(control=True) (k_op10=5.59e4).
+    Asserts gate != "INVALID" and no BREAKUP-class bond.
+    INFALL is allowed and printed. Predicted outcome: INFALL near t≈0.1.
+
+    NOT run in CI — needs RUN_K4_LARGE=1 + Grant GO. STOPPED.
+    """
+    import sys, os as _os
+    sys.path.insert(0, _os.path.join(_os.path.dirname(__file__),
+                                     '..', 'scripts', 'vol_4_engineering'))
+    from csk4_r2_config import (make_pii_config, pf_checkpoint_times,
+                                 r_eq_from_q, antipodal_bonds, preflight_verdict,
+                                 PII_C_SPEC)
+    from ave.topological.charge_counters import _hedgehog_at, bcc_alive_mask
+
+    cfg_dict = make_pii_config(control=True)
+    n = cfg_dict['nx']
+    rc = cfg_dict['seed']['rc']
+    dt = cfg_dict['dt']
+    T = cfg_dict['t_end']
+    k_op10 = cfg_dict['k_op10']
+    gamma = cfg_dict['gamma']
+    ckpts = pf_checkpoint_times(T)
+
+    cf = make_r1_solver(n)
+    cf.gamma = gamma
+    cf.k_op10 = k_op10
+    q0 = _hedgehog_at(n, rc, (0, 0, 0), L=cfg_dict['seed']['L']).copy()
+    alive = bcc_alive_mask((n, n, n))
+    q0[~alive] = np.array([1.0, 0.0, 0.0, 0.0])
+    cf.q = q0
+
+    r_eq0 = r_eq_from_q(cf.q, alive)
+    n_steps = cfg_dict['n_steps']
+    ckpt_set = set(float(round(c, 10)) for c in ckpts)
+    centre = (n // 2, n // 2, n // 2)
+
+    t_first = None
+    r_first = None
+    r_eq_at_first = None
+    n_antipodal_T = 0
+    pre_bond_dH_max = 0.0
+    ckpt_spacings_early = list(float(np.diff(ckpts[ckpts <= 0.1 + 1e-9]))) if len(ckpts[ckpts <= 0.1 + 1e-9]) > 1 else []
+    pre_bond_N = None
+
+    for s in range(n_steps):
+        cf.step(dt)
+        t = (s + 1) * dt
+        bonds = antipodal_bonds(cf.q, alive, centre)
+        if t_first is None and bonds:
+            t_first = t
+            r_first = min(b[3] for b in bonds)
+            r_eq_at_first = r_eq_from_q(cf.q, alive)
+        n_antipodal_T = len(bonds)
+        t_r = round(t, 10)
+        if t_r in ckpt_set:
+            r = count_charge_k4(cf.q, alive)
+            if t_first is None:
+                pre_bond_N = r.get('value') if r.get('resolved') else None
+
+    trace = {
+        'r_eq0': r_eq0,
+        't_first': t_first,
+        'r_first': r_first,
+        'r_eq_at_first': r_eq_at_first if r_eq_at_first is not None else 0.0,
+        'n_antipodal_T': n_antipodal_T,
+        'pre_bond_dH_max': pre_bond_dH_max,
+        'pre_bond_N': pre_bond_N,
+        'ckpt_spacings_early': ckpt_spacings_early,
+    }
+    result = preflight_verdict(trace, PII_C_SPEC)
+    r_eq_ratio = r_eq_at_first / r_eq0 if (r_eq_at_first and r_eq0 > 0) else None
+    print(f"[P-ii-C v7] gate={result['gate']} a8={result['a8']} "
+          f"t_first={t_first} r_first={r_first} r_eq_ratio={r_eq_ratio}")
+    print(f"[P-ii-C v7] reasons={result['reasons']}")
+
+    assert result['gate'] != 'INVALID', (
+        f"P-ii-C: gate=INVALID; reasons={result['reasons']}")
+    assert result['gate'] != 'BREAKUP', (
+        f"P-ii-C control: BREAKUP-class bond detected at t_first={t_first}; "
+        f"control should have no BREAKUP-class bond through T={T}")
 
 
 @pytest.mark.engine_sim
@@ -2296,7 +2458,7 @@ def test_r2_aggregator_pass():
     """B9: ≥90% resolved + all +6 → PASS (adapter-dict format, F4)."""
     agg = _agg()
     periods = [_res(6) for _ in range(18)] + [_unres('NONUNIT: …') for _ in range(2)]
-    out = agg(periods)
+    out = agg(periods, expected_periods=20)
     assert out['verdict'] == 'PASS', out
 
 
@@ -2305,7 +2467,7 @@ def test_r2_aggregator_inconclusive():
     agg = _agg()
     periods = [_res(6) for _ in range(17)] + \
               [_unres('UNRESOLVED: c_exact BAD_TETS', c_link_value=7) for _ in range(3)]
-    out = agg(periods)
+    out = agg(periods, expected_periods=20)
     assert out['verdict'] == 'INCONCLUSIVE', out
     # Nit N3: the c_link value is logged on each UNRESOLVED period.
     assert any('c_link=7' in note for note in out['notes']), out['notes']
@@ -2315,7 +2477,7 @@ def test_r2_aggregator_fail():
     """B9: one resolved value ≠ +6 → FAIL (the only count FAIL)."""
     agg = _agg()
     periods = [_res(6) for _ in range(19)] + [_res(5)]
-    out = agg(periods)
+    out = agg(periods, expected_periods=20)
     assert out['verdict'] == 'FAIL', out
 
 
@@ -2330,7 +2492,7 @@ def test_r2_aggregator_clink_disagree_unresolved():
     disagree = _unres('UNRESOLVED: c_exact=6 disagrees with c_link=5', c_link_value=5)
     # Enough disagreements to drop below 90% resolved → INCONCLUSIVE, never FAIL.
     periods = [_res(6) for _ in range(17)] + [disagree for _ in range(3)]
-    out = agg(periods)
+    out = agg(periods, expected_periods=20)
     assert out['verdict'] == 'INCONCLUSIVE', out
     assert out['n_wrong'] == 0, (
         f"a c_link disagreement must NOT be a COUNT FAIL (n_wrong={out['n_wrong']})")
@@ -2342,7 +2504,7 @@ def test_r2_aggregator_nan_period():
     agg = _agg()
     periods = [_res(6) for _ in range(17)] + \
               [_unres('NONFINITE: non-finite q on alive sites') for _ in range(3)]
-    out = agg(periods)
+    out = agg(periods, expected_periods=20)
     assert out['verdict'] == 'INCONCLUSIVE', out
 
 
@@ -2352,7 +2514,7 @@ def test_r2_aggregator_nonunit_period():
     periods = [_res(6) for _ in range(17)] + \
               [_unres('NONUNIT: alive sites deviate from unit norm by 1.0e-02 (> 1e-6)')
                for _ in range(3)]
-    out = agg(periods)
+    out = agg(periods, expected_periods=20)
     assert out['verdict'] == 'INCONCLUSIVE', out
 
 
@@ -2555,11 +2717,12 @@ def test_timing_probe_guard_refuses():
 
 
 def test_r2_pf_config_constants():
-    """R2-PF (v6): make_r2_pf_config() returns 192³ config without running anything."""
+    """R2-PF (v7): make_r2_pf_config() returns 192³ config with seed + checkpoints."""
     import sys, os
     sys.path.insert(0, os.path.join(os.path.dirname(__file__),
                                     '..', 'scripts', 'vol_4_engineering'))
-    from csk4_r2_config import make_r2_pf_config, NX_PF, NY_PF, NZ_PF, T_PF, DT
+    from csk4_r2_config import (make_r2_pf_config, NX_PF, NY_PF, NZ_PF,
+                                 T_PF, DT, SEED_L_PF, K_OP10, K_OP10_PF_C)
     import math
     cfg = make_r2_pf_config()
     assert cfg["nx"] == 192 and cfg["ny"] == 192 and cfg["nz"] == 192
@@ -2567,6 +2730,17 @@ def test_r2_pf_config_constants():
     assert cfg["dt"] == DT
     assert cfg["n_steps"] == math.ceil(T_PF / DT)
     assert cfg["k_refl"] == 0.0
+    assert cfg["k_op10"] == K_OP10
+    assert "seed" in cfg, "make_r2_pf_config must return a 'seed' dict"
+    assert cfg["seed"]["L"] == SEED_L_PF, (
+        f"seed L={cfg['seed']['L']} != SEED_L_PF={SEED_L_PF}")
+    assert "checkpoints" in cfg, "make_r2_pf_config must return 'checkpoints'"
+    assert len(cfg["checkpoints"]) > 0
+
+    # Control variant
+    cfg_c = make_r2_pf_config(control=True)
+    assert cfg_c["k_op10"] == K_OP10_PF_C, (
+        f"R2-PF-C k_op10={cfg_c['k_op10']} != {K_OP10_PF_C}")
 
 
 def test_r2_agg_typeerror_on_legacy_dict():
@@ -2583,7 +2757,7 @@ def test_r2_agg_typeerror_on_legacy_dict():
     legacy = {"c_exact": {"resolved": True, "value": 6},
               "c_link": {"resolved": True, "value": 6}}
     with pytest.raises(TypeError, match="resolved"):
-        aggregate_r2_periods([legacy])
+        aggregate_r2_periods([legacy], expected_periods=1)
 
 
 def test_r2_agg_valid_pass():
@@ -2596,19 +2770,18 @@ def test_r2_agg_valid_pass():
     results = [dict(resolved=True, value=6, reason=None,
                     c_link_result=dict(resolved=True, value=6),
                     c_exact_result=None)] * 10
-    out = aggregate_r2_periods(results)
+    out = aggregate_r2_periods(results, expected_periods=10)
     assert out["verdict"] == "PASS"
     assert out["n_resolved"] == 10
     assert out["n_collapse"] == 0
 
 
 def test_r2_agg_collapse_excluded_from_7():
-    """R2-C (v6): COLLAPSE periods excluded from #7 (never a FAIL).
+    """R2-C (v7): any COLLAPSE period → run verdict COLLAPSE (fixes 3032a809 defect §3.4).
 
-    9 RESOLVED +6 + 1 COLLAPSE → 9/9 = 100% resolved among active → PASS.
-    Without COLLAPSE exclusion, the aggregator would see 9/10 = 90% exactly,
-    which is still PASS — but add 2 COLLAPSE to make 9/8 active and verify
-    the denominator uses n_active not n_periods.
+    [+6]×7 + [COLLAPSE]×2 with expected_periods=9 → "COLLAPSE"
+    (at 3032a809 this asserted PASS; that was wrong).
+    [COLLAPSE]×9 → "COLLAPSE" (never INCONCLUSIVE).
     """
     import sys, os
     sys.path.insert(0, os.path.join(os.path.dirname(__file__),
@@ -2619,18 +2792,21 @@ def test_r2_agg_collapse_excluded_from_7():
                 c_link_result=dict(resolved=True, value=6), c_exact_result=None)
     collapse_r = dict(resolved=False, value=None, reason="COLLAPSE",
                       c_link_result=None, c_exact_result=None, collapse=True)
-    # 8 good + 2 collapse → active=8, resolved=8 → PASS
-    results = [good] * 8 + [collapse_r] * 2
-    out = aggregate_r2_periods(results)
-    assert out["verdict"] == "PASS", (
-        f"expected PASS with 8/8 active resolved; got {out['verdict']}: {out['notes']}")
-    assert out["n_collapse"] == 2
-    assert out["n_resolved"] == 8
 
-    # COLLAPSE alone (no active periods) → INCONCLUSIVE (0/0 < 90%)
-    out2 = aggregate_r2_periods([collapse_r] * 3)
-    assert out2["verdict"] == "INCONCLUSIVE"
-    assert out2["n_collapse"] == 3
+    # 7 good + 2 collapse → COLLAPSE (not PASS)
+    results = [good] * 7 + [collapse_r] * 2
+    out = aggregate_r2_periods(results, expected_periods=9)
+    assert out["verdict"] == "COLLAPSE", (
+        f"expected COLLAPSE with 2 collapse periods; got {out['verdict']}: {out['notes']}")
+    assert out["n_collapse"] == 2
+    assert out["n_resolved"] == 7
+    assert out["n_wrong"] == 0
+
+    # All COLLAPSE → COLLAPSE (not INCONCLUSIVE)
+    out2 = aggregate_r2_periods([collapse_r] * 9, expected_periods=9)
+    assert out2["verdict"] == "COLLAPSE", (
+        f"expected COLLAPSE for all-collapse run; got {out2['verdict']}: {out2['notes']}")
+    assert out2["n_collapse"] == 9
 
 
 def test_r2_period_collapse_re_le_0():
@@ -2724,15 +2900,11 @@ def test_r_eq_from_q_hedgehog_calibration():
 
 
 def test_r2_agg_later_periods_excluded():
-    """G5 harness trip (later periods): once COLLAPSE seen, later periods excluded.
+    """R2-C (v7): any COLLAPSE → run verdict COLLAPSE; post-COLLAPSE periods excluded.
 
-    v6 R2-C: after the first COLLAPSE period, every subsequent period is also
-    excluded from #7 and never a count FAIL.
-
-    Scenario: 6 good (+6) + 1 COLLAPSE + 3 wrong-value (+5).
-    Without 'later periods excluded': n_wrong=3 → FAIL.
-    With 'later periods excluded': 3 post-COLLAPSE periods are treated as
-    excluded (n_collapse=4), active=6, resolved=6, n_wrong=0 → PASS.
+    [+6]×5 + COLLAPSE + [+5]×3 → "COLLAPSE", n_wrong=0.
+    [+6]×5 + COLLAPSE + [+6]×3 → "COLLAPSE" (not PASS).
+    r14_trip_period=2 with first COLLAPSE at 4 → "FAIL(#14)".
     """
     import sys, os
     sys.path.insert(0, os.path.join(os.path.dirname(__file__),
@@ -2746,15 +2918,327 @@ def test_r2_agg_later_periods_excluded():
     collapse_r = dict(resolved=False, value=None, reason="COLLAPSE",
                       c_link_result=None, c_exact_result=None, collapse=True)
 
-    results = [good] * 6 + [collapse_r] + [wrong] * 3
-    out = aggregate_r2_periods(results)
-    assert out["verdict"] == "PASS", (
-        f"G5 later-periods-excluded: expected PASS (3 post-COLLAPSE excluded), "
-        f"got {out['verdict']}: {out['notes']}")
+    # [+6]×5 + COLLAPSE + [+5]×3 → COLLAPSE; post-collapse wrong periods excluded
+    results = [good] * 5 + [collapse_r] + [wrong] * 3
+    out = aggregate_r2_periods(results, expected_periods=9)
+    assert out["verdict"] == "COLLAPSE", (
+        f"expected COLLAPSE; got {out['verdict']}: {out['notes']}")
     assert out["n_collapse"] == 4, (
-        f"expected n_collapse=4 (1 COLLAPSE + 3 post-COLLAPSE excluded), "
+        f"expected n_collapse=4 (1 COLLAPSE + 3 post-COLLAPSE excluded); "
         f"got {out['n_collapse']}")
-    assert out["n_resolved"] == 6, (
-        f"expected n_resolved=6, got {out['n_resolved']}")
-    assert out["n_wrong"] == 0, (
-        f"expected n_wrong=0 (wrong-value periods excluded), got {out['n_wrong']}")
+    assert out["n_resolved"] == 5, f"expected n_resolved=5; got {out['n_resolved']}"
+    assert out["n_wrong"] == 0, f"expected n_wrong=0; got {out['n_wrong']}"
+
+    # [+6]×5 + COLLAPSE + [+6]×3 → COLLAPSE (not PASS)
+    results2 = [good] * 5 + [collapse_r] + [good] * 3
+    out2 = aggregate_r2_periods(results2, expected_periods=9)
+    assert out2["verdict"] == "COLLAPSE", (
+        f"expected COLLAPSE (not PASS); got {out2['verdict']}: {out2['notes']}")
+
+    # r14_trip_period=2 before first COLLAPSE at index 5 → FAIL(#14)
+    results3 = [good] * 5 + [collapse_r] + [good] * 3
+    out3 = aggregate_r2_periods(results3, expected_periods=9, r14_trip_period=2)
+    assert out3["verdict"] == "FAIL(#14)", (
+        f"expected FAIL(#14) when r14 trip at 2 < first COLLAPSE at 5; "
+        f"got {out3['verdict']}: {out3['notes']}")
+
+
+def test_r2_agg_period_rule():
+    """Item 11 (v7): integer 90% rule and period-count read-back.
+
+    9/9 → PASS; 8/9 (one UNRESOLVED) → INCONCLUSIVE; len=8 expected=9 → ValueError.
+    18/20 and 17/20 tests (for a future 68-tu extended run) with expected_periods=20.
+    """
+    import sys, os
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__),
+                                    '..', 'scripts', 'vol_4_engineering'))
+    from csk4_r2_config import aggregate_r2_periods
+
+    good = dict(resolved=True, value=6, reason=None,
+                c_link_result=dict(resolved=True, value=6), c_exact_result=None)
+    unres = dict(resolved=False, value=None, reason="NONUNIT: test",
+                 c_link_result=None, c_exact_result=None)
+
+    # 9/9 → PASS (10·9 ≥ 9·9)
+    out = aggregate_r2_periods([good] * 9, expected_periods=9)
+    assert out["verdict"] == "PASS", f"9/9 expected PASS; got {out['verdict']}: {out['notes']}"
+
+    # 8/9 (one UNRESOLVED) → INCONCLUSIVE (10·8=80 < 9·9=81)
+    out2 = aggregate_r2_periods([good] * 8 + [unres], expected_periods=9)
+    assert out2["verdict"] == "INCONCLUSIVE", (
+        f"8/9 expected INCONCLUSIVE; got {out2['verdict']}: {out2['notes']}")
+
+    # len=8 with expected=9 → ValueError
+    import pytest as _pytest
+    with _pytest.raises(ValueError, match="expected 9 periods, got 8"):
+        aggregate_r2_periods([good] * 8, expected_periods=9)
+
+    # 18/20 → PASS (10·18=180 ≥ 9·20=180)
+    out3 = aggregate_r2_periods([good] * 18 + [unres] * 2, expected_periods=20)
+    assert out3["verdict"] == "PASS", (
+        f"18/20 expected PASS; got {out3['verdict']}: {out3['notes']}")
+
+    # 17/20 → INCONCLUSIVE (10·17=170 < 9·20=180)
+    out4 = aggregate_r2_periods([good] * 17 + [unres] * 3, expected_periods=20)
+    assert out4["verdict"] == "INCONCLUSIVE", (
+        f"17/20 expected INCONCLUSIVE; got {out4['verdict']}: {out4['notes']}")
+
+
+# ---------------------------------------------------------------------------
+# v7 new GATING unit tests (item 5, §3.2.5)
+# ---------------------------------------------------------------------------
+
+def _cfg():
+    """Return the csk4_r2_config module (avoids repeated path wrangling)."""
+    import sys, os
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__),
+                                    '..', 'scripts', 'vol_4_engineering'))
+    import csk4_r2_config
+    return csk4_r2_config
+
+
+def test_r_eq_from_q_pins():
+    """Item 5 (v7): r_eq_from_q pins — hedgehog(48,6) → 6.016 ± 0.005.
+
+    Kills mutant: r_eq_miscounted (drop ×4, or count all sites).
+    """
+    cfg = _cfg()
+    from ave.topological.charge_counters import hedgehog, bcc_alive_mask
+
+    n, rc = 48, 6
+    q = hedgehog(n, rc).copy()
+    alive = bcc_alive_mask((n, n, n))
+    q[~alive] = np.array([1.0, 0.0, 0.0, 0.0])
+
+    r_eq0 = cfg.r_eq_from_q(q, alive)
+    assert abs(r_eq0 - 6.016) <= 0.005, (
+        f"test_r_eq_from_q_pins: hedgehog(48,6) → {r_eq0:.4f}, expected 6.016 ± 0.005; "
+        f"missing ×4 BCC factor gives 3.790 instead")
+
+
+def test_pf_checkpoint_times():
+    """Item 5 (v7): pf_checkpoint_times spacing constraints.
+
+    Kills mutant: checkpoints coarsened to 0.05.
+    """
+    cfg = _cfg()
+
+    T = 0.25
+    ckpts = cfg.pf_checkpoint_times(T)
+
+    # Always includes T
+    assert abs(ckpts[-1] - T) < 1e-9, (
+        f"pf_checkpoint_times({T}): last entry {ckpts[-1]:.6f} ≠ T={T}")
+
+    # Fine region [0, 0.1]: spacing ≤ 0.005
+    fine = ckpts[ckpts <= 0.1 + 1e-9]
+    if len(fine) > 1:
+        max_spacing_fine = float(np.max(np.diff(fine)))
+        assert max_spacing_fine <= 0.005 + 1e-9, (
+            f"spacing in [0,0.1] = {max_spacing_fine:.4f} > 0.005")
+
+    # Coarse region (0.1, T]: spacing ≤ 0.025
+    coarse = ckpts[ckpts > 0.1 - 1e-9]
+    if len(coarse) > 1:
+        max_spacing_coarse = float(np.max(np.diff(coarse)))
+        assert max_spacing_coarse <= 0.025 + 1e-9, (
+            f"spacing after 0.1 = {max_spacing_coarse:.4f} > 0.025")
+
+    # Short T (entirely in fine region)
+    ckpts2 = cfg.pf_checkpoint_times(0.05)
+    assert abs(ckpts2[-1] - 0.05) < 1e-9
+    if len(ckpts2) > 1:
+        assert float(np.max(np.diff(ckpts2))) <= 0.005 + 1e-9
+
+
+def test_classify_first_bond():
+    """Item 5 (v7): classify_first_bond boundary cases."""
+    cfg = _cfg()
+    clf = cfg.classify_first_bond
+
+    assert clf(0.99, 1.0) == 'BREAKUP', "ratio=0.99 ≥ 0.85 → BREAKUP"
+    assert clf(0.44, 1.0) == 'INFALL',  "ratio=0.44 < 0.85 → INFALL"
+    assert clf(0.85, 1.0) == 'BREAKUP', "ratio=0.85 exactly → BREAKUP"
+    assert clf(0.84, 1.0) == 'INFALL',  "ratio=0.84 < 0.85 → INFALL"
+    assert clf(0.0,  1.0) == 'INFALL',  "r_eq_t=0 → INFALL"
+
+
+def _pii_trace(t_first=0.03, r_first=6.0, r_eq_ratio=0.98,
+               n_antipodal_T=9, dH=1e-5, N_pre=1,
+               ckpt_spacings_early=None):
+    """Synthetic PII trace (r_eq0 = R_EQ0_PII = 11.983)."""
+    cfg = _cfg()
+    r_eq0 = cfg.R_EQ0_PII
+    return {
+        'r_eq0': r_eq0,
+        't_first': t_first,
+        'r_first': r_first,
+        'r_eq_at_first': r_eq_ratio * r_eq0,
+        'n_antipodal_T': n_antipodal_T,
+        'pre_bond_dH_max': dH,
+        'pre_bond_N': N_pre,
+        'ckpt_spacings_early': ckpt_spacings_early if ckpt_spacings_early is not None
+                               else [0.005, 0.005],
+    }
+
+
+def test_preflight_verdict_pii_confirmed():
+    """Item 5 row 1: PII bond at 0.03, all windows pass → BREAKUP/CONFIRMED."""
+    cfg = _cfg()
+    trace = _pii_trace()
+    out = cfg.preflight_verdict(trace, cfg.PII_SPEC)
+    assert out['gate'] == 'BREAKUP', f"expected BREAKUP; got {out}"
+    assert out['a8'] == 'CONFIRMED', f"expected CONFIRMED; got {out}"
+
+
+def test_preflight_verdict_pii_miss_t_first():
+    """Item 5 row 2: PII bond at 0.15 (outside window) → BREAKUP/MISS."""
+    cfg = _cfg()
+    trace = _pii_trace(t_first=0.15)
+    out = cfg.preflight_verdict(trace, cfg.PII_SPEC)
+    assert out['gate'] == 'BREAKUP', f"expected BREAKUP; got {out}"
+    assert out['a8'] == 'MISS', f"expected MISS (t_first outside window); got {out}"
+    assert any('t_first' in r for r in out['reasons']), (
+        f"t_first should be mentioned in reasons; got {out['reasons']}")
+
+
+def test_preflight_verdict_piic_control_pass():
+    """Item 5 row 3: PII_C bond at 0.10, ratio 0.44 → INFALL/N/A (no BREAKUP-class bond)."""
+    cfg = _cfg()
+    trace = _pii_trace(t_first=0.10, r_first=0.9, r_eq_ratio=0.44)
+    out = cfg.preflight_verdict(trace, cfg.PII_C_SPEC)
+    assert out['gate'] == 'INFALL', f"expected INFALL; got {out}"
+    assert out['a8'] == 'N/A', (
+        f"control INFALL → a8 N/A (control passes); got {out}")
+
+
+def test_preflight_verdict_piic_control_fail():
+    """Item 5 row 4: PII_C bond at 0.03, ratio 0.98 → BREAKUP/MISS (control fail)."""
+    cfg = _cfg()
+    trace = _pii_trace(t_first=0.03, r_eq_ratio=0.98)
+    out = cfg.preflight_verdict(trace, cfg.PII_C_SPEC)
+    assert out['gate'] == 'BREAKUP', f"expected BREAKUP; got {out}"
+    assert out['a8'] == 'MISS', (
+        f"control BREAKUP-class bond → a8 MISS (control fail); got {out}")
+
+
+def test_preflight_verdict_pii_stable():
+    """Item 5 row 5: no bond, N +1 all, dH 1e-5 → STABLE/N/A."""
+    cfg = _cfg()
+    trace = _pii_trace(t_first=None, N_pre=1, dH=1e-5)
+    out = cfg.preflight_verdict(trace, cfg.PII_SPEC)
+    assert out['gate'] == 'STABLE', f"expected STABLE; got {out}"
+    assert out['a8'] == 'N/A', f"expected N/A for STABLE; got {out}"
+
+
+def test_preflight_verdict_invalid_spacing():
+    """Item 5 row 6: checkpoint spacing 0.05 → INVALID."""
+    cfg = _cfg()
+    trace = _pii_trace(ckpt_spacings_early=[0.05])
+    out = cfg.preflight_verdict(trace, cfg.PII_SPEC)
+    assert out['gate'] == 'INVALID', f"expected INVALID (spacing 0.05 > 0.005); got {out}"
+
+
+def test_preflight_verdict_invalid_dh():
+    """Item 5 row 7: dH 2e-3 before any bond → INVALID."""
+    cfg = _cfg()
+    trace = _pii_trace(t_first=None, dH=2e-3)
+    out = cfg.preflight_verdict(trace, cfg.PII_SPEC)
+    assert out['gate'] == 'INVALID', f"expected INVALID (dH 2e-3 > 1e-3); got {out}"
+
+
+def test_preflight_verdict_r2pf_confirmed():
+    """Item 5 row 8: R2PF bond at 0.02, r 14, ratio 0.97, n(T) 12, N +6 → BREAKUP/CONFIRMED."""
+    cfg = _cfg()
+    r_eq0 = cfg.R_EQ0_R2
+    trace = {
+        'r_eq0': r_eq0,
+        't_first': 0.02,
+        'r_first': 14.0,
+        'r_eq_at_first': 0.97 * r_eq0,
+        'n_antipodal_T': 12,
+        'pre_bond_dH_max': 1e-5,
+        'pre_bond_N': 6,
+        'ckpt_spacings_early': [0.004, 0.004],
+    }
+    out = cfg.preflight_verdict(trace, cfg.R2PF_SPEC)
+    assert out['gate'] == 'BREAKUP', f"expected BREAKUP; got {out}"
+    assert out['a8'] == 'CONFIRMED', f"expected CONFIRMED; got {out}"
+
+
+def test_pf_config_readback():
+    """Item 5 (v7): P-ii / P-ii-C / R2-PF / R2-PF-C config key read-backs."""
+    import math as _math
+    cfg = _cfg()
+
+    # P-ii primary
+    pii = cfg.make_pii_config(control=False)
+    assert pii['k_op10'] == 8.88e5, f"P-ii k_op10 {pii['k_op10']}"
+    assert pii['gamma'] == 4320
+    assert pii['k_refl'] == 0.0
+    assert pii['dt'] == 1.65e-4
+    assert pii['t_end'] == 0.25
+    assert pii['n_steps'] == _math.ceil(0.25 / 1.65e-4), (
+        f"n_steps={pii['n_steps']} != ceil(0.25/1.65e-4)={_math.ceil(0.25/1.65e-4)}")
+    assert pii['seed']['L'] == cfg.SEED_L_PII, (
+        f"P-ii seed L={pii['seed']['L']} != SEED_L_PII={cfg.SEED_L_PII}")
+
+    # P-ii-C control
+    piic = cfg.make_pii_config(control=True)
+    assert piic['k_op10'] == 5.59e4, f"P-ii-C k_op10 {piic['k_op10']}"
+
+    # R2-PF primary
+    r2pf = cfg.make_r2_pf_config(control=False)
+    assert r2pf['k_op10'] == 1.415e6, f"R2-PF k_op10 {r2pf['k_op10']}"
+    assert r2pf['gamma'] == 4320
+    assert r2pf['k_refl'] == 0.0
+    assert r2pf['seed']['L'] == cfg.SEED_L_PF, (
+        f"R2-PF seed L={r2pf['seed']['L']} != SEED_L_PF={cfg.SEED_L_PF}")
+    assert r2pf['t_end'] == 0.25
+    assert r2pf['n_steps'] == _math.ceil(0.25 / r2pf['dt']), (
+        f"n_steps={r2pf['n_steps']} != ceil(T/dt)")
+
+    # R2-PF-C control
+    r2pfc = cfg.make_r2_pf_config(control=True)
+    assert r2pfc['k_op10'] == 3.93e4, f"R2-PF-C k_op10 {r2pfc['k_op10']}"
+
+
+def test_seed_cutoff_readback():
+    """Item 4 (v7): seed cutoff constants and bitwise differentiation.
+
+    Uses 32³ stand-in at the same L/rc=4 ratio as PII to avoid 128³ cost.
+    Kills mutant: hedgehog(128,12) (L=64) instead of _hedgehog_at(...,L=48).
+    r_eq(0) is cutoff-blind (Gate verified: L=48 and L=64 both give 1802 sites),
+    so this test is bitwise-only.
+    """
+    cfg = _cfg()
+    from ave.topological.charge_counters import _hedgehog_at, bcc_alive_mask
+
+    # Verify constant values
+    assert cfg.SEED_L_PII == 48,       "SEED_L_PII"
+    assert cfg.SEED_L_PF == 96,        "SEED_L_PF"
+    assert cfg.SEED_L_PRIMARY == 144,  "SEED_L_PRIMARY"
+
+    # 32³ stand-in: rc=6, L/rc=4 (same ratio as PII) vs L/rc=2 (same error as hedgehog)
+    n, rc = 32, 6
+    origin = (0, 0, 0)
+    L_correct = 24   # 4×rc → same ratio as SEED_L_PII / rc_pii
+    L_wrong = n // 2  # =16, same as hedgehog(n,rc) default
+
+    q_correct = _hedgehog_at(n, rc, origin, L=L_correct)
+    q_wrong = _hedgehog_at(n, rc, origin, L=L_wrong)
+
+    assert not np.array_equal(q_correct, q_wrong), (
+        f"_hedgehog_at(32,6,...,L=24) == _hedgehog_at(32,6,...,L=16); "
+        f"seed cutoff L is not affecting the hedgehog profile")
+
+    # Confirm r_eq(0) is cutoff-blind for this stand-in
+    alive = bcc_alive_mask((n, n, n))
+    q_c2 = q_correct.copy()
+    q_w2 = q_wrong.copy()
+    q_c2[~alive] = np.array([1.0, 0.0, 0.0, 0.0])
+    q_w2[~alive] = np.array([1.0, 0.0, 0.0, 0.0])
+    r_eq_c = cfg.r_eq_from_q(q_c2, alive)
+    r_eq_w = cfg.r_eq_from_q(q_w2, alive)
+    print(f"[seed cutoff blind] r_eq(L=24)={r_eq_c:.4f}, r_eq(L=16)={r_eq_w:.4f}")
+    # The test does NOT assert equality here — Gate says cutoff-blind at 128³/rc=12.

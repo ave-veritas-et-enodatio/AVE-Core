@@ -19,7 +19,7 @@ Pinned-value provenance (ladder §2):
   dt = 2.24e-4   The guard 2.2446e-4 from max|∂n|²=0.20736 on the alive
                  stencil at r_c=24; 0.25/Ω_max≤2.745e-4; pin 2.24e-4
                  (2.25e-4 is 0.2% above guard — see ladder §2 "dt HOLDS").
-  steps = 144 643  32.4 time-units / 2.24e-4 dt (20 breathing periods,
+  steps = 144 643  32.4 time-units / 2.24e-4 dt (9.5 breathing periods (T_b 3.40),
                   period ∝ R, measured at r_c≈12 → 1.62 tu → scaled).
   k_op10 = 1.415e6  Gate engine-stencil 3-pt at r_c=24: k*=1.41487e6,
                   s=0.99991, d²E/dλ²=+4.76e7 (true minimum).  Math smooth
@@ -96,7 +96,7 @@ K_HOPF = math.pi / 3.0  # engine default cf:1311
 ROTATION_STORAGE = "quaternion"
 
 DT = 2.24e-4            # pinned (guard 2.2446e-4; 0.25/Ω_max ≤ 2.745e-4)
-N_STEPS = 144_643       # 32.4 tu / DT  (20 breathing periods)
+N_STEPS = 144_643       # 32.4 tu / DT  (9.5 breathing periods (T_b 3.40))
 
 # Seed parameters
 SEED_P = 2              # torus-knot exponent p
@@ -114,6 +114,37 @@ NX_PARTNER = NY_PARTNER = NZ_PARTNER = 192
 # R2-PF pre-flight box (192³, T=0.25 tu; config only — run needs GO)
 NX_PF = NY_PF = NZ_PF = 192
 T_PF = 0.25  # time units
+
+# ---------------------------------------------------------------------------
+# v7 constants (ladder bdb5c32b8e87)
+# ---------------------------------------------------------------------------
+
+# Breathing period and run length
+T_B = 3.40           # breathing period (tu) at r_c=12
+N_FULL_PERIODS = 9   # 32.4 tu / T_b=3.40 → 9.5 periods → 9 full
+
+# r_eq(0) pins (±0.005 for hedgehogs, ±0.05 for R2); formula: (3·4·n_neg/4π)^{1/3}
+R_EQ0_HH48 = 6.016   # hedgehog(48,6): 228 sites with q0<0
+R_EQ0_PII = 11.983   # _hedgehog_at(128,12,(0,0,0),L=48): 1802 sites
+R_EQ0_R2 = 38.92     # rational(288,24) L=144 (A8 §8.1)
+
+# R2 band and size-collapse threshold
+R14_BAND = (27.2, 54.5)    # #14 band: 0.7–1.4 × R_EQ0_R2
+R2C_SIZE_RATIO = 0.54      # period_collapse size arm threshold (unchanged)
+
+# First-bond classification: BREAKUP if r_eq(t_first)/r_eq0 ≥ 0.85, else INFALL
+FIRST_BOND_BREAKUP_RATIO = 0.85
+
+# Seed cutoffs (tanh profile parameter L = n_c × r_c)
+SEED_L_PRIMARY = 144  # R2: rational(288,24), 6 r_c = 144
+SEED_L_PII = 48       # P-ii: _hedgehog_at(128,12,...,L=48), 4 r_c
+SEED_L_PF = 96        # R2-PF: _hedgehog_at(192,24,...,L=96), 4 r_c (OPEN §6.3)
+
+# Control k_op10 values. Formula: k = 8·γ/max|Δn|², with γ=4320.
+# max|Δn|²=0.6183 (rc=12), max|Δn|²=0.88 (R2, rc=24).
+K_OP10_PII = 8.88e5    # P-ii: 8·4320/0.6183 ≈ 8.88e5 (rc=12)
+K_OP10_PII_C = 5.59e4  # P-ii-C: Λ=8 control k at rc=12
+K_OP10_PF_C = 3.93e4   # R2-PF-C: Λ=8 control k at rc=24
 
 
 def assert_r2_config(cf) -> None:
@@ -168,37 +199,62 @@ def make_r2_solver(nx=None, ny=None, nz=None, _skip_pin_check=False):
     return cf
 
 
-def make_r2_pf_config() -> dict:
+def make_r2_pf_config(control: bool = False) -> dict:
     """R2-PF 192³ pre-flight config (config only; run needs GO).
 
-    Returns parameter dict for the T=0.25 pre-flight run that must show
-    no Re≤0 and adapter +1 at every 0.025 checkpoint before the full R2 commit.
+    control=True: uses Λ-8 k_op10 (K_OP10_PF_C=3.93e4) instead of the primary k_op10.
+    Returns parameter dict with grid, seed, γ, k_op10, k_refl, dt, T, n_steps,
+    and checkpoint times from pf_checkpoint_times(T_PF).
     """
+    k = K_OP10_PF_C if control else K_OP10
     n_steps_pf = math.ceil(T_PF / DT)
     return {
         "nx": NX_PF, "ny": NY_PF, "nz": NZ_PF,
         "dt": DT, "n_steps": n_steps_pf, "t_end": T_PF,
-        "gamma": GAMMA, "G": G, "G_c": G_C, "k_op10": K_OP10,
+        "gamma": GAMMA, "G": G, "G_c": G_C, "k_op10": k,
         "k_refl": K_REFL, "rotation_storage": ROTATION_STORAGE,
+        "seed": {"constructor": "_hedgehog_at", "rc": SEED_RC, "L": SEED_L_PF},
+        "checkpoints": pf_checkpoint_times(T_PF),
     }
 
 
-def r_eq_from_q(q: np.ndarray, mask_alive: np.ndarray, dx: float = 1.0) -> float:
-    """Equivalent radius of the q0<0 core region (shared with period_collapse).
+def make_pii_config(control: bool = False) -> dict:
+    """P-ii 128³ pre-flight config (config only; run needs Grant GO, STOPPED).
 
-    Accounts for BCC alive density: the true core volume is
-    n_q0neg × (n_cells/n_alive) × dx³, where n_cells = mask_alive.size and
-    n_alive = mask_alive.sum().  For a BCC lattice n_cells/n_alive ≈ 4, so r_eq
-    is 4^(1/3) ≈ 1.587× larger than the naive count (Gate: r_eq0 ≈ 6.0 for
-    hedgehog(48,6), r_eq(t_first) ≈ 2.1).
+    control=True: uses Λ-8 k_op10 (K_OP10_PII_C=5.59e4) instead of K_OP10_PII.
+    Returns parameter dict with grid, seed, γ, k_op10, k_refl, dt, T, n_steps,
+    and checkpoint times from pf_checkpoint_times(0.25).
+
+    P-ii spec: 128³, rc=12, _hedgehog_at(128,12,(0,0,0),L=48), γ=4320,
+               k_op10=8.88e5, k_refl=0, dt=1.65e-4, T=0.25 (1,516 steps).
     """
-    n_q0neg = int(np.sum(q[mask_alive, 0] < 0))
-    n_cells = int(mask_alive.size)
-    n_alive = int(np.sum(mask_alive))
-    if n_alive == 0:
-        return 0.0
-    volume = n_q0neg * (n_cells / n_alive) * (dx ** 3)
-    return float((3.0 * volume / (4.0 * np.pi)) ** (1.0 / 3.0))
+    _DT_PII = 1.65e-4
+    _T_PII = 0.25
+    k = K_OP10_PII_C if control else K_OP10_PII
+    n_steps = math.ceil(_T_PII / _DT_PII)
+    return {
+        "nx": 128, "ny": 128, "nz": 128,
+        "dt": _DT_PII, "n_steps": n_steps, "t_end": _T_PII,
+        "gamma": GAMMA, "G": G, "G_c": G_C, "k_op10": k,
+        "k_refl": K_REFL, "rotation_storage": ROTATION_STORAGE,
+        "seed": {"constructor": "_hedgehog_at", "rc": 12, "L": SEED_L_PII},
+        "checkpoints": pf_checkpoint_times(_T_PII),
+    }
+
+
+def r_eq_from_q(q: np.ndarray, mask_alive: np.ndarray) -> float:
+    """Equivalent radius of the q0<0 core (BCC density ¼, dx=1).
+
+    V = 4 · #{alive sites with q[...,0] < 0}  (BCC alive density ¼ → V = 4·n_neg·dx³, dx=1)
+    r_eq = (3V/4π)^{1/3}
+
+    Pins (±0.005 hedgehogs, ±0.05 R2):
+      hedgehog(48,6)                          n_neg=228  r_eq(0)=6.016
+      _hedgehog_at(128,12,(0,0,0),L=48)       n_neg=1802 r_eq(0)=11.983
+      rational(288,24) L=144 (R2, A8 §8.1)   —          r_eq(0)=38.92
+    """
+    n_neg = int(np.sum(q[mask_alive, 0] < 0))
+    return float((3.0 * 4.0 * n_neg / (4.0 * np.pi)) ** (1.0 / 3.0))
 
 
 def period_collapse(q: np.ndarray, mask_alive: np.ndarray,
@@ -320,51 +376,63 @@ def run_r2():  # pragma: no cover
 # ---------------------------------------------------------------------------
 
 
-def aggregate_r2_periods(period_results):
+def aggregate_r2_periods(period_results, expected_periods=N_FULL_PERIODS,
+                         r14_trip_period=None):
     """Aggregate per-period count_charge_k4 results for the R2 breathing check.
 
     F4 (v5): consumes count_charge_k4 RESULT DICTS directly. Non-adapter dicts
     (those without 'resolved' key) raise TypeError — no legacy path.
 
-    R2-C (v6): COLLAPSE periods (marked with collapse=True) are a separate
-    outcome: excluded from #7 (the 90% resolution count) and never a FAIL.
+    R2-C (v7): if any period has collapse=True, the run verdict is "COLLAPSE"
+    (never PASS, never a count FAIL). Exception: if r14_trip_period is not None
+    and occurs before the first COLLAPSE period, the verdict is "FAIL(#14)".
 
-    Ladder §5 R2 #7 verdict logic (applied to non-COLLAPSE periods only):
-      - A RESOLVED value ≠ +6 is the only COUNT FAIL.
-      - PASS needs ≥ 90% resolved AND all resolved values = +6.
-      - < 90% resolved (too many UNRESOLVED) → INCONCLUSIVE.
-      - Nit N3: on an UNRESOLVED period, log the C-link value alone.
+    Verdict logic (non-COLLAPSE runs, applied to all expected_periods):
+      - A RESOLVED value ≠ +6 → FAIL.
+      - PASS iff 10·n_resolved ≥ 9·expected_periods (integer arithmetic).
+        9/9 → PASS; 8/9 → INCONCLUSIVE.
+      - Otherwise INCONCLUSIVE.
+      - Nit N3: on UNRESOLVED, log the C-link value.
 
     Args:
         period_results: list of count_charge_k4 result dicts with keys
             'resolved' (bool), 'value' (int or None), 'reason' (str or None),
-            'c_link_result' (dict or None, for the N3 c_link log).
-            Optional 'collapse' (bool) marks a COLLAPSE period (R2-C).
+            'c_link_result' (dict or None). Optional 'collapse' (bool) → R2-C.
+        expected_periods: expected list length (raises ValueError on mismatch).
+            Defaults to N_FULL_PERIODS=9; pass 20 for a 68 tu extended run.
+        r14_trip_period: index of the #14-band trip (if any); if not None and
+            earlier than the first COLLAPSE period, verdict → "FAIL(#14)".
 
     Returns:
-        dict with 'verdict' (PASS/FAIL/INCONCLUSIVE), 'n_resolved',
-        'n_unresolved', 'n_collapse', 'n_wrong', 'n_periods', 'notes' (list[str]).
+        dict with 'verdict', 'n_resolved', 'n_unresolved', 'n_collapse',
+        'n_wrong', 'n_periods', 'notes'.
     """
     n_periods = len(period_results)
+    if n_periods != expected_periods:
+        raise ValueError(
+            f"aggregate_r2_periods: expected {expected_periods} periods, "
+            f"got {n_periods} (period-count read-back)")
+
     n_resolved = 0
     n_wrong = 0
     n_unresolved = 0
     n_collapse = 0
     notes = []
-    seen_collapse = False
+    first_collapse_idx = None
 
     for i, pr in enumerate(period_results):
         if not isinstance(pr, dict) or 'resolved' not in pr:
             raise TypeError(
                 f"Period {i}: expected count_charge_k4 result dict with 'resolved' "
                 f"key, got {type(pr).__name__!r}. Legacy dicts are not accepted.")
-        # R2-C: COLLAPSE periods are excluded from #7 (never FAIL).
         if pr.get('collapse'):
-            seen_collapse = True
+            if first_collapse_idx is None:
+                first_collapse_idx = i
             n_collapse += 1
             notes.append(f"Period {i}: COLLAPSE (Re≤0 or size ratio <0.54); excluded from #7")
             continue
-        if seen_collapse:             # v6: later periods excluded from #7 and never a count FAIL
+        if first_collapse_idx is not None:
+            # Post-COLLAPSE periods excluded from #7, never a count FAIL.
             n_collapse += 1
             notes.append(f"Period {i}: post-COLLAPSE excluded from #7")
             continue
@@ -376,29 +444,46 @@ def aggregate_r2_periods(period_results):
 
         if not resolved:
             n_unresolved += 1
-            # Nit N3: log the C-link value alone on UNRESOLVED.
             notes.append(f"Period {i}: UNRESOLVED ({reason}); c_link={c_link_val!r}")
         else:
             n_resolved += 1
             if value != 6:
                 n_wrong += 1
-                notes.append(
-                    f"Period {i}: RESOLVED but wrong: value={value}")
+                notes.append(f"Period {i}: RESOLVED but wrong: value={value}")
 
-    # Verdict applies to non-COLLAPSE periods only.
-    n_active = n_periods - n_collapse
-    # A resolved wrong value is the only COUNT FAIL — it dominates the verdict.
+    # R2-C verdict: any COLLAPSE → "COLLAPSE" (or "FAIL(#14)" if r14 earlier)
+    if first_collapse_idx is not None:
+        if r14_trip_period is not None and r14_trip_period < first_collapse_idx:
+            verdict = "FAIL(#14)"
+            notes.append(
+                f"#14 band trip at period {r14_trip_period} before first COLLAPSE "
+                f"at period {first_collapse_idx} → FAIL(#14)")
+        else:
+            verdict = "COLLAPSE"
+            notes.append(
+                f"COLLAPSE at period {first_collapse_idx} → run verdict COLLAPSE")
+        return {
+            'verdict': verdict,
+            'n_resolved': n_resolved,
+            'n_unresolved': n_unresolved,
+            'n_collapse': n_collapse,
+            'n_wrong': 0,
+            'n_periods': n_periods,
+            'notes': notes,
+        }
+
+    # Non-COLLAPSE verdict (integer 90% rule).
     if n_wrong > 0:
         verdict = "FAIL"
-        notes.append(
-            f"{n_wrong}/{n_active} resolved periods ≠ +6 → COUNT FAIL")
-    elif n_active > 0 and n_resolved >= 0.9 * n_active:
+        n_active = n_periods - n_collapse
+        notes.append(f"{n_wrong}/{n_active} resolved periods ≠ +6 → COUNT FAIL")
+    elif 10 * n_resolved >= 9 * expected_periods:
         verdict = "PASS"
-        notes.append(f"{n_resolved}/{n_active} resolved, all +6 → PASS")
+        notes.append(f"{n_resolved}/{expected_periods} resolved, all +6 → PASS")
     else:
         verdict = "INCONCLUSIVE"
         notes.append(
-            f"only {n_resolved}/{n_active} resolved (< 90%) "
+            f"only {n_resolved}/{expected_periods} resolved (< 90%) "
             f"({n_unresolved} UNRESOLVED) → RESOLUTION-INCONCLUSIVE")
 
     return {
@@ -410,6 +495,236 @@ def aggregate_r2_periods(period_results):
         'n_periods': n_periods,
         'notes': notes,
     }
+
+
+# ---------------------------------------------------------------------------
+# v7 pre-flight helpers (pf_checkpoint_times, antipodal_bonds,
+#   classify_first_bond, preflight_verdict) and frozen specs
+# ---------------------------------------------------------------------------
+
+
+def pf_checkpoint_times(T: float) -> np.ndarray:
+    """Checkpoint times for a pre-flight run to T.
+
+    Spacing ≤ 0.005 for t ≤ 0.1; ≤ 0.025 after 0.1; always includes T.
+    """
+    fine = np.arange(0.005, min(T, 0.1) + 1e-10, 0.005)
+    if T > 0.1:
+        coarse = np.arange(0.125, T + 1e-10, 0.025)
+    else:
+        coarse = np.array([], dtype=float)
+    times = np.concatenate([fine, coarse])
+    if len(times) == 0 or abs(times[-1] - T) > 1e-10:
+        times = np.append(times, T)
+    return np.sort(np.unique(np.round(times, 10)))
+
+
+_TETRA_OFFSETS = ((1, 1, 1), (1, -1, -1), (-1, 1, -1), (-1, -1, 1))
+
+
+def antipodal_bonds(q: np.ndarray, mask_alive: np.ndarray,
+                    centre) -> list:
+    """Find alive tetra bonds with Re(q̄(x)q(x+p)) ≤ 0.
+
+    Shares the bond loop with collapse_check. Returns list of
+    (site, p, re, r) where r = distance from seed centre to bond midpoint.
+    """
+    bonds = []
+    q_conj = q * np.array([1.0, -1.0, -1.0, -1.0])
+    c = np.array(centre, dtype=float)
+    for (di, dj, dk) in _TETRA_OFFSETS:
+        qs = np.roll(np.roll(np.roll(q, -di, axis=0), -dj, axis=1), -dk, axis=2)
+        prod_re = (q_conj[..., 0] * qs[..., 0]
+                   - q_conj[..., 1] * qs[..., 1]
+                   - q_conj[..., 2] * qs[..., 2]
+                   - q_conj[..., 3] * qs[..., 3])
+        hit = mask_alive & (prod_re <= 0)
+        for site in np.argwhere(hit):
+            i, j, k = site
+            mid = np.array([i + di / 2.0, j + dj / 2.0, k + dk / 2.0])
+            r = float(np.linalg.norm(mid - c))
+            bonds.append((tuple(site.tolist()), (di, dj, dk), float(prod_re[i, j, k]), r))
+    return bonds
+
+
+def classify_first_bond(r_eq_t: float, r_eq0: float) -> str:
+    """Classify the first antipodal bond as 'BREAKUP' or 'INFALL'.
+
+    BREAKUP if r_eq(t_first)/r_eq(0) ≥ FIRST_BOND_BREAKUP_RATIO (0.85).
+    """
+    if r_eq0 <= 0.0:
+        return 'INFALL'
+    return 'BREAKUP' if (r_eq_t / r_eq0) >= FIRST_BOND_BREAKUP_RATIO else 'INFALL'
+
+
+# ---------------------------------------------------------------------------
+# Frozen preflight specs (v7, ladder bdb5c32b8e87)
+# ---------------------------------------------------------------------------
+# trace keys: r_eq0, t_first, r_first, r_eq_at_first, n_antipodal_T,
+#             pre_bond_dH_max, pre_bond_N, ckpt_spacings_early (list[float])
+
+PII_SPEC = {
+    'name': 'PII',
+    'N_expected': 1,
+    'r_eq0_pin': R_EQ0_PII,
+    'r_eq0_tol': 0.005,
+    'is_control': False,
+    'windows': [
+        {'name': 't_first',      'lo': 0.025, 'hi': 0.09},
+        {'name': 'r_first',      'lo': 4.0,   'hi': 11.0},
+        {'name': 'r_eq_ratio',   'lo': 0.80,  'hi': 1.02},
+        {'name': 'n_antipodal_T', 'min': 5},
+    ],
+}
+
+PII_C_SPEC = {
+    'name': 'PII_C',
+    'N_expected': 1,
+    'r_eq0_pin': R_EQ0_PII,
+    'r_eq0_tol': 0.005,
+    'is_control': True,
+    'windows': [],
+}
+
+R2PF_SPEC = {
+    'name': 'R2PF',
+    'N_expected': 6,
+    'r_eq0_pin': R_EQ0_R2,
+    'r_eq0_tol': 0.05,
+    'is_control': False,
+    'windows': [
+        {'name': 't_first',      'lo': 0.012, 'hi': 0.06},
+        {'name': 'r_first',      'lo': 8.0,   'hi': 24.0},
+        {'name': 'r_eq_ratio',   'lo': 0.85,  'hi': 1.02},
+        {'name': 'n_antipodal_T', 'min': 5},
+    ],
+}
+
+R2PF_C_SPEC = {
+    'name': 'R2PF_C',
+    'N_expected': 6,
+    'r_eq0_pin': R_EQ0_R2,
+    'r_eq0_tol': 0.05,
+    'is_control': True,
+    'windows': [],
+}
+
+
+def preflight_verdict(trace: dict, spec: dict) -> dict:
+    """Gate and A8 verdict for a pre-flight run.
+
+    Gate verdicts (precedence top-down):
+    1. INVALID: checkpoint spacing > 0.005 at t ≤ 0.1; |dH| > 1e-3 before any
+       bond; resolved N ≠ N_expected before any bond; r_eq(0) outside pin tol.
+    2. BREAKUP / INFALL: bond seen; class from classify_first_bond.
+    3. STABLE: no bond through T.
+
+    A8 verdict:
+    - Non-control: CONFIRMED iff BREAKUP + all windows pass;
+      MISS if BREAKUP or INFALL but some window fails; N/A if STABLE or INVALID.
+    - Control: MISS if BREAKUP-class bond (control should have none);
+      N/A if INFALL or STABLE or INVALID.
+
+    Trace keys (all optional — missing → treated as safe):
+      r_eq0             float    r_eq at t=0
+      t_first           float    time of first antipodal bond (None → no bond)
+      r_first           float    distance to bond midpoint at t_first
+      r_eq_at_first     float    r_eq at t_first
+      n_antipodal_T     int      n_antipodal at end of run
+      pre_bond_dH_max   float    max |dH/H0| before t_first
+      pre_bond_N        int      resolved adapter value before t_first (None → skip check)
+      ckpt_spacings_early list[float]  spacing of each checkpoint at t ≤ 0.1
+    """
+    reasons = []
+
+    # 1. INVALID checks (precedence order)
+    r_eq0 = trace.get('r_eq0', 0.0)
+    r_eq0_pin = spec.get('r_eq0_pin')
+    r_eq0_tol = spec.get('r_eq0_tol', 0.005)
+    if r_eq0_pin is not None and abs(r_eq0 - r_eq0_pin) > r_eq0_tol:
+        reasons.append(
+            f"r_eq0={r_eq0:.4f} outside pin {r_eq0_pin}±{r_eq0_tol}")
+        return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
+
+    early_spacings = trace.get('ckpt_spacings_early', [])
+    if early_spacings:
+        max_early = max(early_spacings)
+        if max_early > 0.005:
+            reasons.append(
+                f"checkpoint spacing {max_early:.4f} > 0.005 at t ≤ 0.1")
+            return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
+
+    pre_dH = trace.get('pre_bond_dH_max', 0.0)
+    if pre_dH > 1e-3:
+        reasons.append(f"|dH| = {pre_dH:.2e} > 1e-3 before any antipodal bond")
+        return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
+
+    N_exp = spec.get('N_expected')
+    pre_N = trace.get('pre_bond_N')
+    if pre_N is not None and N_exp is not None and pre_N != N_exp:
+        reasons.append(
+            f"adapter N={pre_N} ≠ N_expected={N_exp} before any antipodal bond")
+        return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
+
+    # 2 / 3. Gate verdict
+    t_first = trace.get('t_first')
+    if t_first is None:
+        return {'gate': 'STABLE', 'a8': 'N/A', 'reasons': reasons}
+
+    r_eq_at_first = trace.get('r_eq_at_first', 0.0)
+    gate = classify_first_bond(r_eq_at_first, r_eq0)
+
+    is_control = spec.get('is_control', False)
+    if is_control:
+        if gate == 'BREAKUP':
+            r_ratio = r_eq_at_first / r_eq0 if r_eq0 > 0 else 0.0
+            reasons.append(
+                f"control: BREAKUP-class bond at t_first={t_first:.4f} "
+                f"(ratio={r_ratio:.3f} ≥ {FIRST_BOND_BREAKUP_RATIO})")
+            return {'gate': gate, 'a8': 'MISS', 'reasons': reasons}
+        else:
+            r_ratio = r_eq_at_first / r_eq0 if r_eq0 > 0 else 0.0
+            reasons.append(
+                f"control: INFALL at t_first={t_first:.4f} "
+                f"(ratio={r_ratio:.3f} < {FIRST_BOND_BREAKUP_RATIO}) — logged")
+            return {'gate': gate, 'a8': 'N/A', 'reasons': reasons}
+
+    # Non-control: check A8 windows
+    r_eq_ratio = r_eq_at_first / r_eq0 if r_eq0 > 0 else 0.0
+    r_first = trace.get('r_first')
+    n_antipodal_T = trace.get('n_antipodal_T', 0)
+    failed = []
+    for w in spec.get('windows', []):
+        wn = w['name']
+        if wn == 't_first':
+            if not (w['lo'] <= t_first <= w['hi']):
+                failed.append(
+                    f"t_first={t_first:.4f} ∉ [{w['lo']}, {w['hi']}]")
+        elif wn == 'r_first':
+            if r_first is not None and not (w['lo'] <= r_first <= w['hi']):
+                failed.append(
+                    f"r_first={r_first:.3f} ∉ [{w['lo']}, {w['hi']}]")
+        elif wn == 'r_eq_ratio':
+            if not (w['lo'] <= r_eq_ratio <= w['hi']):
+                failed.append(
+                    f"r_eq_ratio={r_eq_ratio:.4f} ∉ [{w['lo']}, {w['hi']}]")
+        elif wn == 'n_antipodal_T':
+            if n_antipodal_T < w.get('min', 0):
+                failed.append(
+                    f"n_antipodal_T={n_antipodal_T} < {w['min']}")
+    reasons.extend(failed)
+
+    if gate == 'BREAKUP' and not failed:
+        a8 = 'CONFIRMED'
+    elif gate == 'INFALL':
+        reasons.append(
+            f"gate=INFALL (ratio={r_eq_ratio:.3f} < {FIRST_BOND_BREAKUP_RATIO}): "
+            f"CONFIRMED requires BREAKUP")
+        a8 = 'MISS'
+    else:
+        a8 = 'MISS'
+
+    return {'gate': gate, 'a8': a8, 'reasons': reasons}
 
 
 if __name__ == "__main__":
