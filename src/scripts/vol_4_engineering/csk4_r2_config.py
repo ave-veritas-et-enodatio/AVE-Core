@@ -183,6 +183,39 @@ def make_r2_pf_config() -> dict:
     }
 
 
+def r_eq_from_q(q: np.ndarray, mask_alive: np.ndarray) -> float:
+    """Equivalent radius of the q0<0 core region (shared with period_collapse).
+
+    Returns (3·n_q0neg / (4π))^(1/3) where n_q0neg = number of alive sites
+    with q[...,0] < 0.  Same definition as R1-2e's r_eq_at_first computation.
+    """
+    n_q0neg = int(np.sum(q[mask_alive, 0] < 0))
+    return float((3.0 * n_q0neg / (4.0 * np.pi)) ** (1.0 / 3.0))
+
+
+def period_collapse(q: np.ndarray, mask_alive: np.ndarray,
+                    r_eq0: float) -> bool:
+    """R2-C collapse criterion: Re≤0 on any alive bond OR r_eq/r_eq0 < 0.54.
+
+    Used by the R2 harness (shared with R1-2e via r_eq_from_q).  Returns True
+    if the current field state counts as a collapse event.
+
+    Args:
+        q: quaternion field (n,n,n,4)
+        mask_alive: bool mask of alive BCC sites
+        r_eq0: initial equivalent radius from r_eq_from_q at t=0
+
+    Mutant anchor: replacing `< 0.54` with `< 0` disables the size-ratio arm.
+    """
+    from ave.topological.k4_quaternion import collapse_check
+    if collapse_check(q, mask_alive)["collapse"]:
+        return True
+    if r_eq0 > 0.0:
+        if r_eq_from_q(q, mask_alive) / r_eq0 < 0.54:
+            return True
+    return False
+
+
 def classify_checkpoint(q: np.ndarray, mask_alive: np.ndarray,
                         collapse_flagged: bool) -> dict:
     """Classify a K4 checkpoint as RESOLVED(N), UNRESOLVED, or COLLAPSE.
@@ -310,6 +343,7 @@ def aggregate_r2_periods(period_results):
     n_unresolved = 0
     n_collapse = 0
     notes = []
+    seen_collapse = False
 
     for i, pr in enumerate(period_results):
         if not isinstance(pr, dict) or 'resolved' not in pr:
@@ -318,8 +352,13 @@ def aggregate_r2_periods(period_results):
                 f"key, got {type(pr).__name__!r}. Legacy dicts are not accepted.")
         # R2-C: COLLAPSE periods are excluded from #7 (never FAIL).
         if pr.get('collapse'):
+            seen_collapse = True
             n_collapse += 1
             notes.append(f"Period {i}: COLLAPSE (Re≤0 or size ratio <0.54); excluded from #7")
+            continue
+        if seen_collapse:             # v6: later periods excluded from #7 and never a count FAIL
+            n_collapse += 1
+            notes.append(f"Period {i}: post-COLLAPSE excluded from #7")
             continue
         resolved = bool(pr.get('resolved'))
         value = pr.get('value')

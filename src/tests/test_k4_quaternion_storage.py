@@ -35,6 +35,7 @@ from ave.topological.k4_quaternion import (
     omega_eng_from_q,
     q_from_omega_eng,
     count_charge_k4,
+    _bond_wryness_jax,
 )
 import jax.numpy as jnp
 
@@ -144,6 +145,57 @@ def _k4_omega_max(n: int = 16, iters: int = 20, seed: int = 0) -> float:
         lam = vnorm(Hv)
         v = tuple(x / (lam + 1e-30) for x in Hv)
     return float(np.sqrt(abs(lam)))  # mass = rho_vac = I_omega = 1
+
+
+def _k4_omega_max_hh(n: int = 16, rc: int = 2, iters: int = 20) -> float:
+    """Spectral-radius Ω_max of the K4 stiffness about a HEDGEHOG state.
+
+    Proxy: n=16, rc=2 is the proportional scale-down of hedgehog(48,6)
+    (ratio 1:3).  Unlike _k4_omega_max, this starts the power iteration at
+    the hedgehog field, not the vacuum.  For DEFAULT parameters (k_op10=1,
+    γ=1) core saturation clips S_eps_sq→0, so Ω_max_hh ≈ Ω_vac (exterior
+    sites dominate) and dt = cfl/16 gives ~304 steps.  Using the hedgehog
+    state is correct: a future high-γ/k_op10 configuration would give a
+    larger Ω_max_hh than the vacuum and require a smaller dt.
+    """
+    from ave.topological.charge_counters import hedgehog as _hh
+    import jax
+
+    cf = CosseratField3D(n, n, n, k_refl=0.0, rotation_storage="quaternion",
+                         pml_thickness=0, damping_gamma=0.0)
+    assert cf.k_refl == 0.0, (
+        f"_k4_omega_max_hh: k_refl read-back failed: {cf.k_refl!r} != 0.0 "
+        "(reflection stiffness must be off to measure the R1 hedgehog Ω_max)")
+    mask = cf._mask_alive_jax
+    args = (cf.dx, cf.G, cf.G_c, cf.gamma, cf.omega_yield, cf.epsilon_yield,
+            cf.k_op10, cf.k_refl, cf.k_hopf)
+    u0 = jnp.zeros((n, n, n, 3))
+    q0_np = _hh(n, rc).copy()
+    q0_np[~cf.mask_alive] = np.array([1.0, 0.0, 0.0, 0.0])
+    q0 = jnp.asarray(q0_np)
+
+    def grad_k4(state):
+        u, q = state
+        _, (du, dq) = _val_and_grad_k4(u, q, mask, *args)
+        return (du, dq)
+
+    # JIT the HVP to compile once and amortize the tracing cost across 20 iterations.
+    hvp_jit = jax.jit(lambda state, v: jax.jvp(grad_k4, (state,), (v,))[1])
+
+    rng = np.random.default_rng(0)
+    v = (jnp.asarray(rng.standard_normal((n, n, n, 3))),
+         jnp.asarray(rng.standard_normal((n, n, n, 4))))
+
+    def vnorm(w):
+        return float(jnp.sqrt(sum(jnp.sum(x * x) for x in w)))
+
+    v = tuple(x / (vnorm(v) + 1e-30) for x in v)
+    lam = 0.0
+    for _ in range(iters):
+        Hv = hvp_jit((u0, q0), v)
+        lam = vnorm(Hv)
+        v = tuple(x / (lam + 1e-30) for x in Hv)
+    return float(np.sqrt(abs(lam)))
 
 
 # ---------------------------------------------------------------------------
@@ -341,6 +393,23 @@ def test_r1_1_omega_path_reference():
         err_msg=f"R1-1 case3 PML u mismatch ({mode})")
     np.testing.assert_allclose(cf3.omega, ref["om_pml"], rtol=0, atol=atol,
         err_msg=f"R1-1 case3 PML omega mismatch ({mode})")
+
+    # In-process: step() [default dt] vs step(cfl_dt) [explicit] must be bit-exact.
+    cf_def = CosseratField3D(n, n, n, pml_thickness=0, damping_gamma=0.0)
+    cf_exp = CosseratField3D(n, n, n, pml_thickness=0, damping_gamma=0.0)
+    cf_def.u = u0.copy(); cf_def.omega = w0.copy()
+    cf_exp.u = u0.copy(); cf_exp.omega = w0.copy()
+    cf_def.step()
+    cf_exp.step(cf_exp.cfl_dt)
+    np.testing.assert_array_equal(cf_def.u, cf_exp.u,
+        err_msg="R1-1: step() != step(cfl_dt) — default and explicit dt not bit-exact")
+    np.testing.assert_array_equal(cf_def.omega, cf_exp.omega,
+        err_msg="R1-1: step() omega != step(cfl_dt) omega")
+
+    # k_refl read-back: k_refl=0 kwarg must survive the K4 constructor (v6 rule).
+    cf_k4 = make_r1_solver(n)
+    assert cf_k4.k_refl == 0.0, (
+        f"R1-1 k_refl read-back: {cf_k4.k_refl!r} != 0.0")
 
 
 def test_omega_step_dispatch_vs_direct_exact():
@@ -625,17 +694,22 @@ def test_r1_2e_collapse_detector():
     Pass:
       (a) collapse flag fires with t_first ∈ [3.4, 3.8] (Gate: 3.605)
       (b) from t_first on, every checkpoint is COLLAPSE or UNRESOLVED — never
-          RESOLVED(+1), never C-link-only value, never unflagged N change
+          RESOLVED(+1), never C-link-only value, never unflagged N change.
+          "Never C-link-only": classify with collapse_flagged=False must also
+          return UNRESOLVED on every post-collapse checkpoint.
       (c) every resolved value before t_first is +1
       (d) r_eq (equivalent radius of q0<0 region) ≤ 3 at t_first
     Flip probe: t=0 hedgehog with one alive site q→−q must be flagged immediately.
 
-    Mutants: M1 disable detector (collapses check returns False; fails a);
-             M2 fall back to C-link when C-exact UNRESOLVED (fails b).
+    Mutants: M1 disable detector (collapse_check returns False; fails a);
+             M2 fall back to C-link when C-exact UNRESOLVED (fails b — both the
+             never-C-link-only check on every post-collapse checkpoint, and the
+             explicit M2 probe assertion below).
     """
     from ave.topological.charge_counters import hedgehog, bcc_alive_mask
     from ave.topological.k4_quaternion import collapse_check
-    from scripts.vol_4_engineering.csk4_r2_config import classify_checkpoint
+    from scripts.vol_4_engineering.csk4_r2_config import (
+        classify_checkpoint, r_eq_from_q)
 
     n, rc = 48, 6
     cf = make_r1_solver(n)
@@ -645,14 +719,14 @@ def test_r1_2e_collapse_detector():
 
     dt = cf.cfl_dt / 2.0
     n_steps = int(np.ceil(2.0 * np.pi / dt))
-    ckpt_gap = max(1, n_steps // 8)
+    # Checkpoint density: every ≤ 0.25 time units (≈5 steps at dt=cfl/2≈0.0474)
+    ckpt_gap = max(1, int(0.25 / dt))
 
     collapse_flagged = False
     t_first = None
     r_eq_at_first = None
-    rows = []  # (t, outcome, value)
-    q_m2_probe = None  # state where c_link resolves post-collapse (M2 probe)
-    T_M2_TARGET = 5.218  # Gate trace: c_link=0 at t≈5.218 (step≈110)
+    rows = []           # (t, outcome, value) — all checkpoints
+    post_ckpt_states = []  # (t, q_copy) for every post-collapse checkpoint
 
     for s in range(n_steps):
         cf.step(dt)
@@ -660,20 +734,17 @@ def test_r1_2e_collapse_detector():
         if cc["collapse"] and not collapse_flagged:
             collapse_flagged = True
             t_first = (s + 1) * dt
-            # r_eq: equivalent radius of q0<0 region = (3*n_q0neg/(4π))^(1/3)
-            n_q0neg = int(np.sum((cf.q[alive, 0] < 0)))
-            r_eq_at_first = (3.0 * n_q0neg / (4.0 * np.pi)) ** (1.0 / 3.0)
+            r_eq_at_first = r_eq_from_q(cf.q, alive)
 
-        # Capture state for M2 probe (nearest step to t≈5.218)
         t_step = (s + 1) * dt
-        if q_m2_probe is None and collapse_flagged and abs(t_step - T_M2_TARGET) <= dt:
-            q_m2_probe = cf.q.copy()
-
         if (s + 1) % ckpt_gap == 0 or s == n_steps - 1:
             ck = classify_checkpoint(cf.q, alive, collapse_flagged)
             rows.append((t_step, ck["outcome"], ck["value"]))
+            if collapse_flagged:
+                post_ckpt_states.append((t_step, cf.q.copy()))
 
-    print(f"[R1-2e] t_first={t_first} r_eq_at_first={r_eq_at_first}")
+    print(f"[R1-2e] t_first={t_first:.4f} r_eq_at_first={r_eq_at_first:.3f} "
+          f"n_checkpoints={len(rows)} post_collapse_ckpts={len(post_ckpt_states)}")
     print("[R1-2e] checkpoints (t, outcome, value):")
     for row in rows:
         print("  ", row)
@@ -697,11 +768,47 @@ def test_r1_2e_collapse_detector():
                 f"outcome={outcome!r} value={val!r}")
 
     # (b) from t_first on: every checkpoint is COLLAPSE or UNRESOLVED
-    post_collapse = [(t, o, v) for (t, o, v) in rows if t > t_first]
-    for t, outcome, val in post_collapse:
+    post_rows = [(t, o, v) for (t, o, v) in rows if t > t_first]
+    for t, outcome, val in post_rows:
         assert outcome in ("COLLAPSE", "UNRESOLVED"), (
             f"R1-2e (b): post-collapse checkpoint at t={t:.3f} has outcome "
             f"{outcome!r} (must be COLLAPSE or UNRESOLVED)")
+
+    # (b) "never C-link-only value": classify with collapse_flagged=False must
+    # return UNRESOLVED on EVERY post-collapse checkpoint.  The M2 mutant
+    # (fallback to c_link when c_exact UNRESOLVED) would return RESOLVED(0)
+    # here and trip this assertion.  Also find the M2 probe state.
+    m2_t = None
+    m2_q = None
+    m2_c_link_val = None
+    for t_saved, q_saved in post_ckpt_states:
+        ck_no = classify_checkpoint(q_saved, alive, False)
+        assert ck_no["outcome"] == "UNRESOLVED", (
+            f"R1-2e (b) never-C-link-only: at t={t_saved:.3f} "
+            f"classify_checkpoint(collapse_flagged=False) returned "
+            f"{ck_no['outcome']!r} (value={ck_no['value']!r}); "
+            f"M2 mutant uses c_link as fallback")
+        # Probe c_link to locate the M2 kill state (first where c_link resolves)
+        if m2_q is None:
+            r_probe = count_charge_k4(q_saved, alive)
+            cl = r_probe.get("c_link_result") or {}
+            if cl.get("resolved"):
+                m2_t = t_saved
+                m2_q = q_saved
+                m2_c_link_val = cl.get("value")
+
+    print(f"[R1-2e M2 probe] t={m2_t} c_link_val={m2_c_link_val}")
+    # M2 probe: there MUST be at least one post-collapse state where c_link
+    # resolves — ensures the M2 mutant kill is unconditional, not contingent.
+    assert m2_q is not None, (
+        "R1-2e M2 probe: no post-collapse checkpoint found where c_link resolves; "
+        "expected c_link=0 to resolve post-collapse (Gate trace: t≈5.218); "
+        "increase checkpoint density or extend T if c_link resolution window changed")
+    ck_m2 = classify_checkpoint(m2_q, alive, False)
+    assert ck_m2["outcome"] == "UNRESOLVED", (
+        f"R1-2e M2 probe: classify_checkpoint returned {ck_m2['outcome']!r} "
+        f"with collapse_flagged=False (c_link={m2_c_link_val}); "
+        f"must return UNRESOLVED — M2 mutant uses c_link as fallback")
 
     # Flip probe: t=0 q→−q at one alive site must fire immediately.
     q_flip = hedgehog(n, rc).copy()
@@ -712,24 +819,6 @@ def test_r1_2e_collapse_detector():
     assert cc_flip["collapse"], (
         f"R1-2e flip probe: q→−q at alive site {core_site} did not fire collapse "
         f"(min_re={cc_flip['min_re']:.4f})")
-
-    # M2 probe: at t≈5.218, c_link resolves to 0 while c_exact is UNRESOLVED.
-    # classify_checkpoint with collapse_flagged=False must return UNRESOLVED,
-    # NOT fall back to c_link and return RESOLVED(0).
-    # The M2 mutant (c_link fallback) would return RESOLVED(0) here, and this
-    # assertion would fire: kills M2.
-    if q_m2_probe is not None:
-        r_m2 = count_charge_k4(q_m2_probe, alive)
-        cl_m2 = r_m2.get("c_link_result") or {}
-        print(f"[R1-2e M2 probe] c_link resolved={cl_m2.get('resolved')} "
-              f"value={cl_m2.get('value')}")
-        if cl_m2.get("resolved"):
-            ck_m2 = classify_checkpoint(q_m2_probe, alive, False)
-            assert ck_m2["outcome"] == "UNRESOLVED", (
-                f"R1-2e M2 probe: classify_checkpoint returned {ck_m2['outcome']!r} "
-                f"with collapse_flagged=False on post-collapse state "
-                f"(c_link={cl_m2.get('value')}); "
-                f"must return UNRESOLVED (M2 mutant uses c_link as fallback)")
 
 
 def test_r1_2d_static_128_derrick():
@@ -762,6 +851,21 @@ def test_r1_2d_static_128_derrick():
     q_base[~cf_base.mask_alive] = np.array([1.0, 0.0, 0.0, 0.0])
     alive = bcc_alive_mask((n, n, n))
 
+    # seed_fn: the ONE callable that defines the scan seed, factored from the
+    # baseline.  energy_at_lambda MUST use this, not _hedgehog_at independently,
+    # so that a seed-cutoff mutant (hedgehog(128,12) → L=64) is caught by both
+    # the read-back assertion and the energy scan.
+    def seed_fn(rc_val, L_val):
+        q = _hedgehog_at(n, rc_val, (0, 0, 0), L=L_val).copy()
+        q[~cf_base.mask_alive] = np.array([1.0, 0.0, 0.0, 0.0])
+        return q
+
+    # Read-back: seed_fn at λ=1 must equal q_base bitwise.
+    # The seed-cutoff mutant (hedgehog(128,12), L=64) gives a different profile
+    # and fails here.
+    assert np.array_equal(seed_fn(rc, L_seed)[alive], q_base[alive]), (
+        "R1-2d static: seed_fn(rc,L_seed) ≠ q_base on alive sites (seed-cutoff mismatch)")
+
     args = (cf_base.dx, cf_base.G, cf_base.G_c, cf_base.gamma,
             cf_base.omega_yield, cf_base.epsilon_yield,
             cf_base.k_op10, cf_base.k_refl, cf_base.k_hopf)
@@ -769,61 +873,102 @@ def test_r1_2d_static_128_derrick():
     u_zero = jnp.zeros((n, n, n, 3))
 
     def energy_at_lambda(lam):
-        # Proper Derrick scaling: q_λ(x) = q(x/λ) ↔ rc → rc*λ AND L → L*λ.
-        # _hedgehog_at accepts float rc and L (no integer conversion needed).
-        from ave.topological.charge_counters import _hedgehog_at as hh_at
-        q_s = hh_at(n, rc * lam, (0, 0, 0), L=L_seed * lam).copy()
-        q_s[~cf_base.mask_alive] = np.array([1.0, 0.0, 0.0, 0.0])
+        # Proper Derrick scaling via seed_fn: rc → rc·λ, L → L·λ.
+        q_s = seed_fn(rc * lam, L_seed * lam)
         return float(_total_energy_k4_jit(u_zero, jnp.asarray(q_s), mask_jax, *args))
 
+    # Primary λ set (0.9, 1.0, 1.1) — Gate: s=1.005, d²E=+7.0e6
     lams = [0.9, 1.0, 1.1]
     Es = [energy_at_lambda(lam) for lam in lams]
-    print(f"[R1-2d static] Derrick: λ={lams}  E={[f'{e:.4e}' for e in Es]}")
-
-    # Parabola fit: E(λ) ≈ a·λ² + b·λ + c
+    print(f"[R1-2d static] Derrick (0.9/1.0/1.1): λ={lams}  E={[f'{e:.4e}' for e in Es]}")
     A = np.vstack([[l**2, l, 1] for l in lams])
     a, b, _c = np.linalg.solve(A, Es)
-    s = -b / (2 * a)        # minimum location
-    d2E = 2 * a             # second derivative
-    print(f"[R1-2d static] Derrick fit: s={s:.4f}  d²E/dλ²={d2E:.3e}")
+    s = -b / (2 * a)
+    d2E = 2 * a
+    print(f"[R1-2d static] Derrick fit (0.9/1.0/1.1): s={s:.4f}  d²E/dλ²={d2E:.3e}")
+
+    # Secondary λ set (0.95, 1.0, 1.05) — finer bracket, same pass criteria
+    lams2 = [0.95, 1.0, 1.05]
+    Es2 = [energy_at_lambda(lam) for lam in lams2]
+    print(f"[R1-2d static] Derrick (0.95/1.0/1.05): λ={lams2}  E={[f'{e:.4e}' for e in Es2]}")
+    A2 = np.vstack([[l**2, l, 1] for l in lams2])
+    a2, b2, _c2 = np.linalg.solve(A2, Es2)
+    s2 = -b2 / (2 * a2)
+    d2E2 = 2 * a2
+    print(f"[R1-2d static] Derrick fit (0.95/1.0/1.05): s={s2:.4f}  d²E/dλ²={d2E2:.3e}")
 
     assert 0.95 <= s <= 1.05, (
-        f"R1-2d static: Derrick minimum s={s:.4f} outside [0.95, 1.05] "
+        f"R1-2d static (0.9/1.0/1.1): Derrick minimum s={s:.4f} outside [0.95, 1.05] "
         f"(Gate: 1.005); E(λ)={list(zip(lams, Es))}")
     assert d2E > 0.0, (
-        f"R1-2d static: d²E/dλ²={d2E:.3e} ≤ 0 (not a minimum; Gate: +7.0e6)")
+        f"R1-2d static (0.9/1.0/1.1): d²E/dλ²={d2E:.3e} ≤ 0 (not a minimum; Gate: +7.0e6)")
+    assert 0.95 <= s2 <= 1.05, (
+        f"R1-2d static (0.95/1.0/1.05): Derrick minimum s={s2:.4f} outside [0.95, 1.05] "
+        f"(Gate: 1.005)")
+    assert d2E2 > 0.0, (
+        f"R1-2d static (0.95/1.0/1.05): d²E/dλ²={d2E2:.3e} ≤ 0 (not a minimum)")
 
 
 def test_r1_2b_short_arc_through_resolution_window_krefl0():
     """R1-2a/2b/7 (v6): option (i) — pre-collapse, storage-only at T=1.8.
 
     hedgehog(48,6), k_refl=0, dt=min(cfl/16, 0.25/Ω_max_hh), T=1.8 (pre-collapse;
-    first antipodal bond at t≈3.605). ~304 steps.
+    first antipodal bond causes core collapse at t≈3.605). ~304 steps.
 
-    Pass: ||q|-1| < 1e-12 every step; every alive bond Re(q̄q') > 0 every step
-    (R1-2a short-arc invariant); two identical runs produce bit-identical q (R1-7
-    determinism). Label: "pre-collapse, storage-only".
+    Pass: ||q|-1| < 1e-12 every step; every alive bond Re(q̄q') > 0 at every step
+    (R1-2a short-arc invariant); S_kappa² > 0 at every alive site at every step
+    (bond wryness below saturation at T=1.8); two identical runs produce bit-identical
+    q (R1-7 determinism). Label: "pre-collapse, storage-only".
 
     Mutants: additive_q_update (changes the Lie-group Verlet to additive; trips
-    the |q|=1 invariant after a few steps); omega_storage_replay (replays ω-engine
-    quaternion history through count_charge_k4; trips R1-7 since the ω path
-    accumulates phase differently after JIT recompile).
+    the |q|=1 invariant after a few steps); omega_storage_replay (hemisphere
+    projection: after the K4 left-multiply, sites with q0<0 are flipped q→−q;
+    destroys the continuous short-arc invariant by creating artificial sign
+    discontinuities across bonds; trips `assert min_re_all > 0.0`).
     """
     from ave.topological.charge_counters import hedgehog, bcc_alive_mask
 
-    T_PRE = 1.8  # pre-collapse (first antipodal bond at t≈3.605)
+    T_PRE = 1.8  # pre-collapse (core collapse at t≈3.605)
     n, rc = 48, 6
     cf = make_r1_solver(n)
     cf.q = hedgehog(n, rc).copy()
     cf.q[~cf.mask_alive] = np.array([1.0, 0.0, 0.0, 0.0])
     alive = bcc_alive_mask((n, n, n))
 
-    Omega_max_hh = _k4_omega_max(n=16)  # conservative estimate on coarse grid
-    dt = min(cf.cfl_dt / 16.0, 0.25 / Omega_max_hh)
+    # Ω_max measured on HEDGEHOG state (not vacuum): n=16, rc=2 proxy (1:3
+    # scale-down of hedgehog(48,6)).  At DEFAULT params (k_op10=1, γ=1)
+    # Ω_max_hh ≈ Ω_vac; a high-γ/k_op10 configuration would give larger Ω
+    # and reduce dt below cfl/16 here.
+    Omega_max_hh = _k4_omega_max_hh(n=16, rc=2)
+    cfl_16 = cf.cfl_dt / 16.0
+    dt = min(cfl_16, 0.25 / Omega_max_hh)
     n_steps = int(np.ceil(T_PRE / dt))
     assert n_steps * dt >= T_PRE
+    if dt != cfl_16:
+        print(f"[R1-2b WARNING] Omega_max_hh={Omega_max_hh:.4f} forced dt={dt:.4e} "
+              f"below cfl/16={cfl_16:.4e}; n_steps={n_steps}; "
+              "k_refl=0 should give Omega_max_hh≈Omega_vac and dt=cfl/16")
+        pytest.fail(
+            f"Omega_max_hh={Omega_max_hh:.4f} at k_refl=0 forces dt below "
+            f"cfl/16={cfl_16:.4e}; test would exceed 60s — STOP and investigate")
+    assert 290 <= n_steps <= 320, (
+        f"R1-2b: n_steps={n_steps} outside [290, 320] "
+        f"(Omega_max_hh={Omega_max_hh:.4f} dt={dt:.4e} cfl/16={cfl_16:.4e})")
+    print(f"[R1-2b option-i] Omega_max_hh={Omega_max_hh:.4f} dt={dt:.4e} n_steps={n_steps}")
+
+    import jax as _jax_r1_2b
+    # JIT the wryness max (alive sites only) to avoid per-step dispatch overhead.
+    _alive_j = jnp.asarray(alive)
+    _kappa_sq_max_jit = _jax_r1_2b.jit(
+        lambda q: jnp.max(jnp.where(
+            _alive_j,
+            jnp.sum(_bond_wryness_jax(q, cf.dx) ** 2, axis=(-1, -2)),
+            0.0,
+        ))
+    )
 
     min_re_all = _bond_re_min(cf.q, alive)
+    min_s_kappa_sq = 1.0  # track minimum S_kappa² = 1 − κ²/ω_yield² over all steps
     norm_ok = True
     for s in range(n_steps):
         cf.step(dt)
@@ -831,16 +976,24 @@ def test_r1_2b_short_arc_through_resolution_window_krefl0():
         min_re_all = min(min_re_all, re)
         if np.max(np.abs(np.linalg.norm(cf.q[alive], axis=-1) - 1.0)) >= 1e-12:
             norm_ok = False
+        # S_kappa² > 0 at every alive site: bond wryness below saturation (R1-2b).
+        kappa_sq_max = float(_kappa_sq_max_jit(jnp.asarray(cf.q)))
+        s_kappa_min = 1.0 - kappa_sq_max / cf.omega_yield ** 2
+        min_s_kappa_sq = min(min_s_kappa_sq, s_kappa_min)
 
     q_run1 = cf.q.copy()
     print(f"[R1-2b option-i] n={n} rc={rc} dt={dt:.4e} n_steps={n_steps} "
-          f"T={n_steps*dt:.4f} min_re={min_re_all:.4f}  "
+          f"T={n_steps*dt:.4f} min_re={min_re_all:.4f} "
+          f"min_s_kappa_sq={min_s_kappa_sq:.4f} "
           f"norm_ok={norm_ok} (pre-collapse, storage-only)")
 
     assert norm_ok, "R1-2b: |q|=1 invariant broke under Lie-group Verlet"
     assert min_re_all > 0.0, (
-        f"R1-2b: short-arc antipodal bond at T=1.8 pre-collapse window "
+        f"R1-2b: short-arc antipodal bond found at T=1.8 pre-collapse window "
         f"(min_re={min_re_all:.4f}); the first antipodal bond is at t≈3.605")
+    assert min_s_kappa_sq > 0.0, (
+        f"R1-2b: S_kappa² saturation hit (min={min_s_kappa_sq:.4f}); "
+        f"bond wryness exceeded omega_yield at T=1.8 pre-collapse window")
 
     # R1-7: determinism — second independent run must be bit-identical.
     cf2 = make_r1_solver(n)
@@ -2420,3 +2573,104 @@ def test_r2_agg_collapse_excluded_from_7():
     out2 = aggregate_r2_periods([collapse_r] * 3)
     assert out2["verdict"] == "INCONCLUSIVE"
     assert out2["n_collapse"] == 3
+
+
+def test_r2_period_collapse_re_le_0():
+    """G5 harness trip (Re≤0): period_collapse returns True when any alive bond Re≤0.
+
+    A hedgehog at t=0 has no antipodal bonds (Re>0 everywhere).  Flipping one
+    alive site q→−q creates an antipodal bond; period_collapse must detect it.
+    r_eq0 set to the CURRENT r_eq so the size ratio is exactly 1.0 > 0.54 and
+    cannot trigger — only the Re≤0 arm fires after the flip.
+    """
+    import sys, os
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__),
+                                    '..', 'scripts', 'vol_4_engineering'))
+    from csk4_r2_config import period_collapse, r_eq_from_q
+    from ave.topological.charge_counters import hedgehog, bcc_alive_mask
+
+    n, rc = 16, 2
+    alive = bcc_alive_mask((n, n, n))
+    q = hedgehog(n, rc).copy()
+    q[~alive] = np.array([1.0, 0.0, 0.0, 0.0])
+    r_eq0 = r_eq_from_q(q, alive)  # ratio = 1.0 → size-ratio arm inactive
+
+    assert not period_collapse(q, alive, r_eq0), (
+        "static hedgehog with r_eq0=r_eq (ratio=1.0) should not trigger period_collapse")
+    site = tuple(np.argwhere(alive)[len(np.argwhere(alive)) // 2])  # middle alive site
+    q_flip = q.copy()
+    q_flip[site] = -q_flip[site]
+    assert period_collapse(q_flip, alive, r_eq0), (
+        "Re≤0 bond (alive site q→−q) must trigger period_collapse via Re≤0 arm")
+
+
+def test_r2_period_collapse_size_ratio():
+    """G5 harness trip (size ratio): period_collapse fires when r_eq/r_eq0 < 0.54.
+
+    Uses a vacuum field (q0>0 everywhere, no Re≤0 bonds) so that only the
+    size-ratio arm can trigger.  r_eq of the vacuum is 0 (no q0<0 sites);
+    instead we set r_eq0 to a value and use a state with known r_eq.
+
+    Concrete test: use the static hedgehog as the "compressed" state.  Set
+    r_eq0 = r_eq_now / 0.50 (ratio = 0.50 < 0.54) → COLLAPSE.
+    Set r_eq0 = r_eq_now / 0.55 (ratio = 0.55 > 0.54, no Re≤0 bonds) → no COLLAPSE.
+    """
+    import sys, os
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__),
+                                    '..', 'scripts', 'vol_4_engineering'))
+    from csk4_r2_config import period_collapse, r_eq_from_q
+    from ave.topological.charge_counters import hedgehog, bcc_alive_mask
+
+    n, rc = 16, 2
+    alive = bcc_alive_mask((n, n, n))
+    q = hedgehog(n, rc).copy()
+    q[~alive] = np.array([1.0, 0.0, 0.0, 0.0])
+    r_eq_now = r_eq_from_q(q, alive)
+    assert r_eq_now > 0.0, "hedgehog(16,2) should have a non-empty q0<0 core"
+
+    r_eq0_trigger = r_eq_now / 0.50   # ratio = 0.50 < 0.54 → COLLAPSE
+    assert period_collapse(q, alive, r_eq0_trigger), (
+        f"size ratio r_eq/r_eq0={r_eq_now/r_eq0_trigger:.3f} < 0.54 "
+        f"should trigger period_collapse")
+
+    r_eq0_ok = r_eq_now / 0.55        # ratio = 0.55 > 0.54, no Re≤0 bonds → no COLLAPSE
+    assert not period_collapse(q, alive, r_eq0_ok), (
+        f"size ratio r_eq/r_eq0={r_eq_now/r_eq0_ok:.3f} > 0.54 "
+        f"should not trigger period_collapse")
+
+
+def test_r2_agg_later_periods_excluded():
+    """G5 harness trip (later periods): once COLLAPSE seen, later periods excluded.
+
+    v6 R2-C: after the first COLLAPSE period, every subsequent period is also
+    excluded from #7 and never a count FAIL.
+
+    Scenario: 6 good (+6) + 1 COLLAPSE + 3 wrong-value (+5).
+    Without 'later periods excluded': n_wrong=3 → FAIL.
+    With 'later periods excluded': 3 post-COLLAPSE periods are treated as
+    excluded (n_collapse=4), active=6, resolved=6, n_wrong=0 → PASS.
+    """
+    import sys, os
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__),
+                                    '..', 'scripts', 'vol_4_engineering'))
+    from csk4_r2_config import aggregate_r2_periods
+
+    good = dict(resolved=True, value=6, reason=None,
+                c_link_result=dict(resolved=True, value=6), c_exact_result=None)
+    wrong = dict(resolved=True, value=5, reason=None,
+                 c_link_result=dict(resolved=True, value=5), c_exact_result=None)
+    collapse_r = dict(resolved=False, value=None, reason="COLLAPSE",
+                      c_link_result=None, c_exact_result=None, collapse=True)
+
+    results = [good] * 6 + [collapse_r] + [wrong] * 3
+    out = aggregate_r2_periods(results)
+    assert out["verdict"] == "PASS", (
+        f"G5 later-periods-excluded: expected PASS (3 post-COLLAPSE excluded), "
+        f"got {out['verdict']}: {out['notes']}")
+    assert out["n_collapse"] == 4, (
+        f"expected n_collapse=4 (1 COLLAPSE + 3 post-COLLAPSE excluded), "
+        f"got {out['n_collapse']}")
+    assert out["n_resolved"] == 6, (
+        f"expected n_resolved=6, got {out['n_resolved']}")
+    assert out["n_wrong"] == 0, (
+        f"expected n_wrong=0 (wrong-value periods excluded), got {out['n_wrong']}")
