@@ -345,22 +345,25 @@ def test_k4_hedgehog_n1_exact_static():
 
 
 def test_k4_hedgehog_n1_dynamic_unit():
-    """B3: K4 dynamics do NOT preserve the N=1 hedgehog at defaults (empirical).
+    """B3: K4 defaults (k_refl=1) do NOT preserve the N=1 hedgehog — K-R18 finding.
 
     Honest-closure record (Rule 11). Seeding the static degree-1 hedgehog and
-    stepping the K4 engine at DEFAULT parameters (no damping, no confinement)
-    develops antipodal bonds (min Re(q̄q') → −1) within the first step and the
-    charge dissipates (c_exact UNRESOLVED, c_det collapses from ≈1 to <0.3)
-    within 20 steps. Verified n=48 rc=6 AND n=64 rc=16; single mechanism — the
-    seeded static ansatz is not a dynamical solution and the undamped engine
-    disperses it. This is a STRUCTURAL-CAPABILITY finding: dynamic N=1
-    preservation requires damping/confinement infrastructure absent at defaults,
-    NOT a claim that the K4 storage is wrong. The norm invariant (|q|=1 to
-    1e-12) DOES hold throughout — the Lie-group Verlet is exact on the sphere;
-    it is the TOPOLOGY that is not held by the bulk dynamics.
+    stepping the K4 engine at DEFAULT parameters (k_refl=1, no damping) develops
+    antipodal bonds (min Re(q̄q') → −1) within the first step and the topology is
+    not held (c_exact UNRESOLVED, c_det collapses from ≈1 to <0.3) within 20
+    steps. Cause (B1e reconcile): the reflection regulator W_refl ∝ 1/(S²+ε) is
+    near-singular at the hedgehog core (q→(−1,0,0,0)), giving Ω_max_hh ≈ 2586 vs
+    Ω_max_vac ≈ 4.9; the stable step is ≈9.7e-5 = dt_K4/526 (K-R18). Running at
+    cfl_dt >> dt_stable is non-conservative: dH/H0 = +5.6e3 at dt_stable and
+    WORSE (+9.9e4) at dt_stable/2. This is a K-R18 regulator finding shared with
+    the ω engine (test_defaults_reflection_nonconservative); NOT a K4-storage defect.
+    With k_refl=0 the hedgehog is stable (test_k4_hedgehog_n1_dynamic_krefl0).
 
-    The test pins the observed behavior so a future engine change that either
-    (a) preserves the charge or (b) changes the dissipation mechanism trips it.
+    The norm invariant (|q|=1 to 1e-12) DOES hold throughout — the Lie-group
+    Verlet is intrinsically on the sphere; the TOPOLOGY is what is not held.
+
+    This test pins the observed behavior; a future engine change that either
+    (a) holds the charge or (b) changes the instability mechanism trips it.
     """
     from ave.topological.charge_counters import (
         hedgehog, c_exact, c_det_alive4, bcc_alive_mask)
@@ -386,28 +389,125 @@ def test_k4_hedgehog_n1_dynamic_unit():
     # The norm invariant is exact (Lie-group Verlet); this MUST hold.
     assert norm_ok_throughout, "|q|=1 invariant broke under K4 dynamics"
 
-    # The recorded finding: the topology is NOT held at defaults.
+    # K-R18 recorded finding: topology NOT held at defaults (k_refl=1).
     r = c_exact(cf.q, qstars, tets=tets, s=2)
     N_det = c_det_alive4(cf.q, alive, h=1.0)
-    charge_lost = (not r["resolved"]) or (r["value"] != 1) or (N_det < 0.5)
-    assert charge_lost, (
-        "UNEXPECTED: K4 dynamics PRESERVED the N=1 hedgehog at defaults "
-        f"(c_exact resolved={r['resolved']} value={r['value']}, c_det={N_det:.4f}). "
-        "If an engine change now holds the charge, this is a positive result — "
-        "update B3 to assert preservation and surface to Grant."
+    topology_not_held = (not r["resolved"]) or (r["value"] != 1) or (N_det < 0.5)
+    assert topology_not_held, (
+        "UNEXPECTED: K4 dynamics PRESERVED the N=1 hedgehog at defaults (k_refl=1). "
+        f"c_exact resolved={r['resolved']} value={r['value']}, c_det={N_det:.4f}. "
+        "If the engine now holds the charge at defaults, check whether k_refl was "
+        "changed (K-R18 fix); update B3 to assert preservation and surface to Grant."
     )
 
 
-def _k4_omega_max_at_state(u0, q0, iters: int = 20, seed: int = 1) -> float:
+def test_k4_hedgehog_n1_dynamic_krefl0():
+    """R1 (ii) at unit scale, T-A4b trade setting: k_refl=0 hedgehog preserved.
+
+    With k_refl=0 the reflection regulator is off (T-A4b; also the R1′/R2 setting).
+    Ω_max_hh(k_refl=0) = 10.9 (vs 2586 at k_refl=1), so dt_K4/4 is well within
+    the stability bound 0.25/10.9 = 2.3e-2. Measured (n=48, rc=6, T=1.018):
+      dt_K4/4  (80 steps):  H0=1.59e3, dH/H0=+1.00e-3, min_re=0.826, c_exact=1 ✓
+      dt_K4/16 (320 steps): H0=1.59e3, dH/H0=+1.43e-4, min_re=0.826, c_exact=1 ✓
+    Convergence ratio (coarser/finer) ≈ 7 — not exactly 16 due to shadow-oscillation
+    phase sampling at fixed T (see test_k4_energy_drift docstring); ratio > 4
+    confirms O(dt^p) improvement with p ≥ 1.
+
+    Assertions: min Re(q̄q') > 0 at every alive–alive bond; c_exact = +1 at ≥3
+    checkpoints; |q| = 1 to 1e-12; dH_fine < dH_coarse; dH_coarse < 5e-3.
+    This is R1 (ii) at unit scale for the T-A4b/R1′/R2 k_refl=0 setting.
+    """
+    from ave.topological.charge_counters import (
+        hedgehog, c_exact, bcc_alive_mask)
+
+    n, rc = 48, 6
+    alive = bcc_alive_mask((n, n, n))
+    qstars, tets = _qstars_tets()
+    dt_K4 = 0.0509  # 0.25 / Omega_max_vac ≈ 5.09e-2 (B1d measured)
+
+    def _run_krefl0(dt_divisor):
+        cf = CosseratField3D(n, n, n, rotation_storage="quaternion",
+                             pml_thickness=0, damping_gamma=0.0, k_refl=0.0)
+        cf.q = hedgehog(n, rc).copy()
+        cf.q[~cf.mask_alive] = np.array([1.0, 0.0, 0.0, 0.0])
+        H0 = cf.total_energy_k4() + cf.kinetic_energy_k4()
+        dt = dt_K4 / dt_divisor
+        n_steps = int(round(1.018 / dt))
+        min_re_all = 1.0
+        norm_ok = True
+        ckpts = []
+        ckpt_gap = max(1, n_steps // 3)
+        for s in range(n_steps):
+            cf.step(dt)
+            mr = _bond_re_min(cf.q, alive)
+            min_re_all = min(min_re_all, mr)
+            if np.max(np.abs(
+                    np.linalg.norm(cf.q[alive], axis=-1) - 1.0)) >= 1e-12:
+                norm_ok = False
+            if (s + 1) % ckpt_gap == 0 or s == n_steps - 1:
+                r_ckpt = c_exact(cf.q, qstars, tets=tets, s=2)
+                ckpts.append((s + 1, round(float(mr), 4),
+                              r_ckpt["resolved"], r_ckpt.get("value")))
+        H1 = cf.total_energy_k4() + cf.kinetic_energy_k4()
+        dh_rel = (H1 - H0) / abs(H0)
+        return dict(H0=H0, dh_rel=dh_rel, min_re=min_re_all,
+                    norm_ok=norm_ok, ckpts=ckpts, n_steps=n_steps)
+
+    res4 = _run_krefl0(4)
+    res16 = _run_krefl0(16)
+    ratio = abs(res4["dh_rel"]) / max(abs(res16["dh_rel"]), 1e-20)
+
+    print(f"[krefl0] dt_K4/4  {res4['n_steps']} steps: H0={res4['H0']:.4e} "
+          f"dH/H0={res4['dh_rel']:+.2e} min_re={res4['min_re']:.4f} ckpts={res4['ckpts']}")
+    print(f"[krefl0] dt_K4/16 {res16['n_steps']} steps: H0={res16['H0']:.4e} "
+          f"dH/H0={res16['dh_rel']:+.2e} min_re={res16['min_re']:.4f} ckpts={res16['ckpts']}")
+    print(f"[krefl0] convergence ratio coarser/finer = {ratio:.1f} "
+          f"(expected O(dt²)→16 or O(dt)→4; measured ≈7 due to phase sampling at fixed T)")
+
+    # |q| = 1 invariant must hold at every step and both dt values.
+    assert res4["norm_ok"] and res16["norm_ok"], (
+        "|q|=1 invariant broke under K4 k_refl=0 dynamics")
+
+    # min Re(q̄q') > 0 at every alive–alive bond throughout.
+    assert res4["min_re"] > 0.0, (
+        f"k_refl=0 dt_K4/4: bond min_re = {res4['min_re']:.4f} (must stay > 0)")
+    assert res16["min_re"] > 0.0, (
+        f"k_refl=0 dt_K4/16: bond min_re = {res16['min_re']:.4f} (must stay > 0)")
+
+    # c_exact = +1 at ≥ 3 checkpoints (coarser-dt run has 3 evenly-spaced checks).
+    ckpts_resolved = [(s, v) for (s, _mr, res, v) in res4["ckpts"] if res]
+    assert len(ckpts_resolved) >= 3, (
+        f"k_refl=0: fewer than 3 resolved c_exact checkpoints: {res4['ckpts']}")
+    assert all(v == 1 for (_, v) in ckpts_resolved), (
+        f"k_refl=0: c_exact ≠ +1 at some checkpoint: {ckpts_resolved}")
+
+    # Energy: finer dt conserves better (O(dt^p) signature); coarser dt bounded.
+    assert abs(res4["dh_rel"]) < 5e-3, (
+        f"k_refl=0 dt_K4/4: |dH/H0| = {abs(res4['dh_rel']):.2e} (limit 5e-3; "
+        f"measured ≈1.0e-3)")
+    assert abs(res16["dh_rel"]) < abs(res4["dh_rel"]), (
+        f"k_refl=0: finer dt_K4/16 should conserve better than dt_K4/4; "
+        f"got {abs(res16['dh_rel']):.2e} vs {abs(res4['dh_rel']):.2e}")
+    assert ratio > 3.0, (
+        f"k_refl=0 convergence ratio {ratio:.1f} < 3 (expect ≥4 for O(dt)); "
+        f"measured ≈7")
+
+
+def _k4_omega_max_at_state(u0, q0, iters: int = 20, seed: int = 1,
+                           k_refl: float = None) -> float:
     """Spectral-radius Ω_max of the K4 stiffness at an explicit (u0, q0) state.
 
     Like _k4_omega_max but linearized around the supplied state instead of the
-    vacuum. Used by test_k4_dt_stability to report Ω_max at the hedgehog seed.
+    vacuum. k_refl overrides the constructor default when supplied.
+    Used by test_k4_dt_stability to report Ω_max at the hedgehog seed for
+    k_refl ∈ {1, 0} (K-R18: k_refl=1 drives Ω_max_hh ~500× higher than k_refl=0).
     """
     import jax
     n = u0.shape[0]
-    cf = CosseratField3D(n, n, n, rotation_storage="quaternion",
-                         pml_thickness=0, damping_gamma=0.0)
+    cf_kwargs = dict(rotation_storage="quaternion", pml_thickness=0, damping_gamma=0.0)
+    if k_refl is not None:
+        cf_kwargs["k_refl"] = k_refl
+    cf = CosseratField3D(n, n, n, **cf_kwargs)
     mask = cf._mask_alive_jax
     args = (cf.dx, cf.G, cf.G_c, cf.gamma, cf.omega_yield, cf.epsilon_yield,
             cf.k_op10, cf.k_refl, cf.k_hopf)
@@ -439,23 +539,25 @@ def _k4_omega_max_at_state(u0, q0, iters: int = 20, seed: int = 1) -> float:
 
 
 def test_k4_dt_stability():
-    """R1(ii) B1c C2 + B1d D0(b): hedgehog N=1 at the spectrally-bounded step dt_K4.
+    """R1(ii) B1c C2 + B1d D0(b) + B1e: hedgehog Ω_max at vacuum vs hedgehog.
 
     dt_K4 = min(cfl_dt, 0.25/Ω_max), Ω_max from vacuum power iteration (n=16).
     The unit hedgehog (n=48, rc=6) is stepped at dt_K4, dt_K4/4, and one step at
-    dt_K4/16; min Re(q̄q') over alive-alive bonds is reported at step 0 (before any
+    dt_K4/16; min Re(q̄q') over alive–alive bonds is reported at step 0 (before any
     dynamics), after 1 step, and after 20 steps at each dt.
 
     B1d D0(b) checks: TETRA_OFFSET bonds always connect alive↔alive in BCC (all-even
     ↔ all-odd by parity — both alive). Step 0 min Re > 0 confirms the static
     hedgehog has no antipodal alive bond. Ω_max is measured at both the vacuum and
-    the hedgehog seed (small grid n=16, rc=2) for completeness.
+    the hedgehog seed for k_refl ∈ {1, 0} (K-R18 comparison).
 
-    MEASURED (honest-closure, Rule 11): min Re drops to −1 in step 1 at ALL dt
-    values including dt_K4/16 — a dt-independent jump that is a genuine DYNAMICAL
-    dispersion finding, not a stability artifact. The static ansatz is not an
-    equilibrium of the undamped bulk K4 engine; the large force at the core drives
-    an immediate topology change. |q|=1 holds exactly at every dt (Lie-group Verlet).
+    B1e RECONCILE: Ω_max_hh(k_refl=1) ≈ 2586 >> Ω_max_vac ≈ 4.9 (ratio ~527).
+    The stable step for the defaults hedgehog is 0.25/2586 ≈ 9.7e-5 = dt_K4/526.
+    Every tested dt (dt_K4, dt_K4/4, dt_K4/16) is far above that bound; running at
+    the bound or half of it still blows up with dH/H0 WORSE at smaller dt —
+    non-conservative W_refl (K-R18), not merely stiffness. With k_refl=0,
+    Ω_max_hh ≈ 10.9 and the hedgehog is stable (test_k4_hedgehog_n1_dynamic_krefl0).
+    |q|=1 holds exactly at every dt (Lie-group Verlet intrinsically on the sphere).
     """
     from ave.topological.charge_counters import (
         hedgehog, c_exact, c_det_alive4, bcc_alive_mask)
@@ -465,13 +567,19 @@ def test_k4_dt_stability():
     cfl_dt = cf0.cfl_dt
     dt_K4 = min(cfl_dt, 0.25 / Omega_max_vac)
 
-    # Ω_max at the hedgehog seed on a small grid (n=16, rc=2 to fit in box)
+    # Ω_max at the hedgehog seed: k_refl=1 (defaults) and k_refl=0 (T-A4b trade).
+    # B1e K-R18: k_refl=1 drives Ω_max_hh ~500× above the vacuum value; k_refl=0
+    # reduces it to ~10.9 (close to the vacuum Ω_max), making the hedgehog stable.
     n_small = 16
     q_hh_small = hedgehog(n_small, rc=2)
     u_hh_small = np.zeros((n_small, n_small, n_small, 3))
-    Omega_max_hh = _k4_omega_max_at_state(u_hh_small, q_hh_small)
+    Omega_max_hh = _k4_omega_max_at_state(u_hh_small, q_hh_small, k_refl=1.0)
+    Omega_max_hh_k0 = _k4_omega_max_at_state(u_hh_small, q_hh_small, k_refl=0.0)
     print(f"[dt_stability] Omega_max_vac={Omega_max_vac:.6f}  "
-          f"Omega_max_hh={Omega_max_hh:.6f}  "
+          f"Omega_max_hh(k_refl=1)={Omega_max_hh:.4f}  "
+          f"Omega_max_hh(k_refl=0)={Omega_max_hh_k0:.4f}  "
+          f"stable_dt(k1)={0.25/Omega_max_hh:.2e}  "
+          f"stable_dt(k0)={0.25/Omega_max_hh_k0:.2e}  "
           f"cfl_dt={cfl_dt:.6e}  dt_K4={dt_K4:.6e}")
 
     alive = bcc_alive_mask((48, 48, 48))
@@ -521,11 +629,12 @@ def test_k4_dt_stability():
     assert res_dt["norm_ok"] and res_dt4["norm_ok"] and res_dt16_1step["norm_ok"], (
         "|q|=1 invariant broke under K4 dynamics")
 
-    # B1d D0(b) corrected decision logic:
+    # B1d D0(b) + B1e decision logic:
     #   step0 min_re > 0 (confirmed by assertion inside run())
-    #   dt_K4/16 step 1: if Re > 0 → loss at dt_K4/dt_K4/4 is a STABILITY artifact
-    #                               (dt too large vs Ω_max_hh >> Ω_max_vac)
-    #                    if Re ≤ 0 → genuine dispersion at every dt (pin FAIL)
+    #   dt_K4/16 step 1: if Re > 0 → loss at dt_K4 / dt_K4/4 is a STABILITY artifact
+    #                               (dt >> 0.25/Ω_max_hh; K-R18 stiffness bound)
+    #                    if Re ≤ 0 → K-R18 non-conservative at ALL tested dt values
+    #                               (B1e: even at 0.25/Ω_max_hh the field blows up)
     charge_held_at_dt16_step1 = (
         res_dt16_1step["min_re"] > 0.0
         and res_dt16_1step["resolved"]
@@ -533,11 +642,11 @@ def test_k4_dt_stability():
     )
 
     if charge_held_at_dt16_step1:
-        # Corrected honest-closure (B1d): the vacuum dt_K4 = 0.25/Ω_max_vac is
-        # far too large for the hedgehog (Ω_max_hh ≫ Ω_max_vac; the core has
-        # a steep gradient that drives a ~500× larger stiffness). Loss at dt_K4
-        # and dt_K4/4 is a TIME-STEP STABILITY artifact, NOT genuine dispersion.
-        # At dt_K4/16, one step holds the charge. This corrects the B1c finding.
+        # B1d + B1e: the vacuum dt_K4 = 0.25/Ω_max_vac is far too large for the
+        # hedgehog (Ω_max_hh(k_refl=1) ≈ 2586 >> Ω_max_vac ≈ 4.9; K-R18). Loss at
+        # dt_K4 and dt_K4/4 over 20 steps is a TIME-STEP STABILITY artifact (dt >>
+        # 0.25/Ω_max_hh). At dt_K4/16, one step holds the charge (instability has
+        # not yet accumulated at this dt for a single step). This corrects B1c.
         assert res_dt16_1step["resolved"] and res_dt16_1step["value"] == 1, (
             f"dt_K4/16 step 1 should resolve +1: {res_dt16_1step}")
         assert res_dt16_1step["min_re"] > 0.0, (
@@ -549,15 +658,109 @@ def test_k4_dt_stability():
             f"the hedgehog is more stable than expected. Surface to Grant. "
             f"res_dt={res_dt} res_dt4={res_dt4}")
     else:
-        # Genuine dispersion at every dt including dt_K4/16 step 1.
-        charge_lost_at_dtK4over4 = (
+        # At defaults (k_refl=1): dt_K4/16 ≈ 3.2e-3 is ~33× above the hedgehog
+        # stability bound 0.25/Ω_max_hh ≈ 9.7e-5 (K-R18 non-conservative W_refl).
+        # All tested dt values are above the bound; topology is not held.
+        topology_not_held_at_dtK4over4 = (
             (not res_dt4["resolved"]) or res_dt4["value"] != 1
             or res_dt4["c_det"] < 0.5)
-        assert charge_lost_at_dtK4over4, (
-            "UNEXPECTED: charge lost at dt_K4 and dt_K4/16 step1, but PRESERVED at "
-            f"dt_K4/4 — inconsistent pattern. "
-            f"Omega_max_vac={Omega_max_vac:.6f} dt_K4={dt_K4:.6e} "
-            f"res_dt4={res_dt4}. Surface to Grant.")
+        assert topology_not_held_at_dtK4over4, (
+            "UNEXPECTED: dt_K4/16 step 1 failed but topology held at dt_K4/4 — "
+            "inconsistent. Surface to Grant. "
+            f"Omega_max_vac={Omega_max_vac:.6f} Omega_max_hh={Omega_max_hh:.4f} "
+            f"dt_K4={dt_K4:.6e} res_dt4={res_dt4}")
+
+
+def test_defaults_reflection_nonconservative():
+    """K-R18/K-R14: W_refl near saturation is non-conservative; shared by ω and K4.
+
+    The reflection energy W_refl ∝ k_refl/(S²+ε) is near-singular where S²→0
+    (field near saturation). At defaults (k_refl=1), a smooth rotation at large
+    amplitude (~1.5 rad, near saturation) produces a near-singular force that is
+    non-conservative even under the spectral stability bound 0.25/Ω_max. This is
+    NOT a K4 defect — both ω and K4 engines exhibit the same behavior (shared
+    W_refl implementation, K-R14). At k_refl=0 (R1′/R2/T-A4b) the issue vanishes.
+
+    Measured (24³, θ = amp·sin(2πx/24)cos(2πy/24) about (1,2,3)/√14):
+      amp=0.3 (sub-saturation): ω and K4 conserve |ΔH/H| ≤ 1e-5 at dt_K4/64 ✓
+      amp=1.5 (near-saturation): Ω_max ≈ 1.11e3, dt_safe ≈ 2.25e-4;
+        · dt_K4/64 = 7.95e-4 (above bound): ω +5.9, K4 +7.8 ✗
+        · dt = 2.0e-4 (under bound, < dt_safe): ω +5.6, K4 +7.1 ✗ (non-conservative)
+        · dt = 1.0e-4 (under bound/2): ω +5.7, K4 +17.5 ✗ (WORSE at smaller dt)
+    K4 dH/H0 getting worse as dt halves confirms non-conservation, not stiffness
+    (a stiff but conservative system would improve under the stability bound).
+    Open item for Gate/Math: R1 at defaults is not meetable at k_refl=1 by either
+    engine (K-R18). The R1′/R2 running setting uses k_refl=0.
+    """
+    n = 24
+    dt_K4 = 0.0509
+    dt_above = dt_K4 / 64        # 7.95e-4; above the amp=1.5 stability bound
+    dt_under = 2.0e-4             # below dt_safe ≈ 2.25e-4 (measured for 24³ amp=1.5)
+    dt_under2 = 1.0e-4            # half of dt_under; dH/H0 gets WORSE → non-conservative
+    x = np.arange(n)
+    X, Y, Z = np.meshgrid(x, x, x, indexing="ij")
+    ax = np.array([1.0, 2.0, 3.0]) / np.sqrt(14.0)
+
+    def get_H(cf, mode):
+        if mode == "omega":
+            return cf.total_energy() + cf.kinetic_energy()
+        return cf.total_energy_k4() + cf.kinetic_energy_k4()
+
+    def run_smooth(amp, mode, dt, n_steps):
+        th = amp * np.sin(2 * np.pi * X / n) * np.cos(2 * np.pi * Y / n)
+        q = np.zeros((n, n, n, 4))
+        q[..., 0] = np.cos(th / 2)
+        q[..., 1:] = np.sin(th / 2)[..., None] * ax
+        cf = CosseratField3D(n, n, n, rotation_storage=mode,
+                             pml_thickness=0, damping_gamma=0.0)
+        al = cf.mask_alive
+        if mode == "omega":
+            cf.omega = (-th[..., None] * ax) * al[..., None]
+        else:
+            qc = q.copy()
+            qc[~al] = np.array([1.0, 0.0, 0.0, 0.0])
+            cf.q = qc
+        H0 = get_H(cf, mode)
+        for _ in range(n_steps):
+            cf.step(dt)
+        return (get_H(cf, mode) - H0) / abs(H0)
+
+    # amp=0.3 sub-saturation: both engines conserve to ≤1e-5
+    ns_cons = int(round(0.5 / dt_above))   # T=0.5, ~628 steps at dt_K4/64
+    for mode in ("omega", "quaternion"):
+        dh = run_smooth(0.3, mode, dt_above, ns_cons)
+        assert abs(dh) <= 1e-5, (
+            f"amp=0.3 {mode} dt_K4/64: |dH/H0|={abs(dh):.2e} > 1e-5; "
+            f"expected sub-saturation conservation (measured {dh:+.2e})")
+
+    # amp=1.5 above stability bound: both engines blow up
+    ns_above = int(round(0.5 / dt_above))  # same T=0.5
+    for mode in ("omega", "quaternion"):
+        dh = run_smooth(1.5, mode, dt_above, ns_above)
+        print(f"[refl_noncons] amp=1.5 {mode} dt_K4/64 T=0.5: dH/H0={dh:+.3e}")
+        assert abs(dh) > 1.0, (
+            f"amp=1.5 {mode} at dt_K4/64 (above bound): |dH/H0|={abs(dh):.2e} ≤ 1; "
+            f"expected blow-up (measured {dh:+.2e}; dt_K4/64={dt_above:.2e} > dt_safe≈2.25e-4)")
+
+    # amp=1.5 under stability bound (dt = 2.0e-4 < dt_safe ≈ 2.25e-4): still non-conservative
+    ns_under = int(round(0.05 / dt_under))  # T=0.05, ~250 steps
+    ns_under2 = int(round(0.05 / dt_under2))
+    dh_under = {}; dh_under2 = {}
+    for mode in ("omega", "quaternion"):
+        dh_under[mode] = run_smooth(1.5, mode, dt_under, ns_under)
+        dh_under2[mode] = run_smooth(1.5, mode, dt_under2, ns_under2)
+        print(f"[refl_noncons] amp=1.5 {mode} dt=2e-4 T=0.05: dH/H0={dh_under[mode]:+.3e}  "
+              f"dt=1e-4 T=0.05: dH/H0={dh_under2[mode]:+.3e}")
+        assert abs(dh_under[mode]) > 1.0, (
+            f"amp=1.5 {mode} at dt=2e-4 (under bound): |dH/H0|={abs(dh_under[mode]):.2e} ≤ 1; "
+            f"expected non-conservative behavior (K-R18)")
+
+    # K4 engine: dH/H0 gets WORSE at dt_under/2, confirming non-conservation
+    # (a stiff-but-conservative system would conserve better at smaller dt).
+    assert abs(dh_under2["quaternion"]) >= abs(dh_under["quaternion"]) * 0.8, (
+        f"K4 dH/H0 at dt=1e-4 ({dh_under2['quaternion']:+.3e}) is not ≥ 80% of "
+        f"dt=2e-4 ({dh_under['quaternion']:+.3e}); expected non-conservative growth "
+        f"(measured ratio {abs(dh_under2['quaternion'])/max(abs(dh_under['quaternion']),1e-30):.2f})")
 
 
 @pytest.mark.skipif(not LARGE, reason="Deferred: needs RUN_K4_LARGE=1 (Grant GO)")
