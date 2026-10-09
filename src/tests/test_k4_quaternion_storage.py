@@ -3033,6 +3033,16 @@ def test_r_eq_from_q_pins():
         f"test_r_eq_from_q_pins: hedgehog(48,6) → {r_eq0:.4f}, expected 6.016 ± 0.005; "
         f"missing ×4 BCC factor gives 3.790 instead")
 
+    # Alive-mask read-back: on the RAW hedgehog the dead sublattice also carries
+    # q0 < 0 (912 sites in total vs 228 alive), so a count over all sites gives
+    # r_eq ≈ 9.55 instead of 6.016.  r_eq_from_q must count alive sites only.
+    q_raw = hedgehog(n, rc).copy()
+    assert int(np.sum(q_raw[~alive, 0] < 0)) > 0, "raw hedgehog: dead sites expected to carry q0<0"
+    r_eq_raw = cfg.r_eq_from_q(q_raw, alive)
+    assert abs(r_eq_raw - 6.016) <= 0.005, (
+        f"test_r_eq_from_q_pins: raw hedgehog(48,6) → {r_eq_raw:.4f}, expected 6.016 ± 0.005 "
+        f"(alive sites only); counting all sites gives ≈9.55")
+
 
 def test_pf_checkpoint_times():
     """Item 5 (v7): pf_checkpoint_times spacing constraints.
