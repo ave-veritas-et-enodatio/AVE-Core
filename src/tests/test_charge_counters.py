@@ -19,6 +19,7 @@ Seed conventions (setup sheet, MUST NOT change):
 import numpy as np
 import pytest
 
+import ave.topological.charge_counters as _CC
 from ave.topological.charge_counters import (
     BCC_TETS,
     TETS,
@@ -32,6 +33,7 @@ from ave.topological.charge_counters import (
     dipole,
     embed_ktl,
     embed_spec,
+    grid,
     hedgehog,
     hedgehog_sq,
     hopf_engine,
@@ -211,6 +213,69 @@ def res_link_axial_96_bcc(q_axial_96):
     return c_link(n, NSTARS, tets=BCC_TETS, s=2)
 
 
+@pytest.fixture(scope="module")
+def q_axial_mirror_96():
+    return rational(96, rc=12, mirror=True)
+
+
+@pytest.fixture(scope="module")
+def q_cold_96():
+    return cold_control(96, rc=12)
+
+
+@pytest.fixture(scope="module")
+def q_axial_96_deadzero(q_axial_96, alive_96):
+    """Axial BCC 96³ with dead sites zeroed (engine-style storage)."""
+    return q_axial_96 * alive_96[..., None]
+
+
+@pytest.fixture(scope="module")
+def res_link_axial_64(q_axial_64):
+    """C-link axial +6 at 64³ dense."""
+    return c_link(hopf_engine(q_axial_64), NSTARS)
+
+
+@pytest.fixture(scope="module")
+def res_exact_hedgehog_96_bcc(q_hedgehog_96):
+    return c_exact(q_hedgehog_96, QSTARS, tets=BCC_TETS, s=2)
+
+
+@pytest.fixture(scope="module")
+def res_link_hedgehog_96_bcc(q_hedgehog_96):
+    return c_link(hopf_engine(q_hedgehog_96), NSTARS, tets=BCC_TETS, s=2)
+
+
+@pytest.fixture(scope="module")
+def res_exact_axial_mirror_96_bcc(q_axial_mirror_96):
+    return c_exact(q_axial_mirror_96, QSTARS, tets=BCC_TETS, s=2)
+
+
+@pytest.fixture(scope="module")
+def res_link_axial_mirror_96_bcc(q_axial_mirror_96):
+    return c_link(hopf_engine(q_axial_mirror_96), NSTARS, tets=BCC_TETS, s=2)
+
+
+@pytest.fixture(scope="module")
+def res_exact_cold_96_bcc(q_cold_96):
+    return c_exact(q_cold_96, QSTARS, tets=BCC_TETS, s=2)
+
+
+@pytest.fixture(scope="module")
+def res_link_cold_96_bcc(q_cold_96):
+    return c_link(hopf_engine(q_cold_96), NSTARS, tets=BCC_TETS, s=2)
+
+
+@pytest.fixture(scope="module")
+def res_link_hedgehog_mirror_96_bcc(q_hedgehog_mirror_96):
+    return c_link(hopf_engine(q_hedgehog_mirror_96), NSTARS, tets=BCC_TETS, s=2)
+
+
+@pytest.fixture(scope="module")
+def res_exact_bcc96_deadzero(q_axial_96_deadzero):
+    """C-exact on axial BCC 96³ with dead sites zeroed (engine-style). Must resolve to +6."""
+    return c_exact(q_axial_96_deadzero, QSTARS, tets=BCC_TETS, s=2)
+
+
 # ── Dense 64³ (rc=8) integer-verdict tests ────────────────────────────────────
 
 
@@ -366,6 +431,10 @@ class TestDense64CLink:
     def test_dipole_link_zero(self, res_link_dipole_64):
         """Dipole 0: C-link = 0. run_checks.json Lk≈0. Spec A3.3 #3."""
         self._check_link(res_link_dipole_64, 0, "dipole")
+
+    def test_axial_link_plus_six(self, res_link_axial_64):
+        """Axial +6: C-link = +6. run_checks.json Lk≈6.000."""
+        self._check_link(res_link_axial_64, 6, "axial")
 
     def test_hedgehog_sq_link_two(self, res_link_hedgehog_sq_64):
         """Hedgehog² +2: C-link = +2. run_checks.json Lk≈2.000."""
@@ -534,6 +603,47 @@ class TestBCC96CExact:
             f"bcc_bad = {res_exact_axial_96_bcc['n_bad']} (expected 0 at 96³ rc=12)"
         )
 
+    def test_hedgehog_bcc_resolved(self, res_exact_hedgehog_96_bcc):
+        """BCC 96³ hedgehog +1 resolves. Coverage item from Gate §9."""
+        assert res_exact_hedgehog_96_bcc['resolved'], (
+            f"hedgehog BCC 96³ UNRESOLVED: {res_exact_hedgehog_96_bcc['reason']}"
+        )
+
+    def test_hedgehog_bcc_value(self, res_exact_hedgehog_96_bcc):
+        """BCC 96³ hedgehog C-exact = +1."""
+        assert res_exact_hedgehog_96_bcc['value'] == 1
+
+    def test_axial_mirror_bcc_resolved(self, res_exact_axial_mirror_96_bcc):
+        """BCC 96³ axial mirror −6 resolves. Coverage item from Gate §9."""
+        assert res_exact_axial_mirror_96_bcc['resolved'], (
+            f"axial-mirror BCC 96³ UNRESOLVED: {res_exact_axial_mirror_96_bcc['reason']}"
+        )
+
+    def test_axial_mirror_bcc_value(self, res_exact_axial_mirror_96_bcc):
+        """BCC 96³ axial mirror C-exact = −6."""
+        assert res_exact_axial_mirror_96_bcc['value'] == -6
+
+    def test_cold_bcc_resolved(self, res_exact_cold_96_bcc):
+        """BCC 96³ C0-cold 0 resolves. Coverage item from Gate §9."""
+        assert res_exact_cold_96_bcc['resolved'], (
+            f"C0-cold BCC 96³ UNRESOLVED: {res_exact_cold_96_bcc['reason']}"
+        )
+
+    def test_cold_bcc_value(self, res_exact_cold_96_bcc):
+        """BCC 96³ C0-cold C-exact = 0."""
+        assert res_exact_cold_96_bcc['value'] == 0
+
+    def test_deadzero_bcc_resolved(self, res_exact_bcc96_deadzero):
+        """Axial BCC 96³ with dead sites zeroed (engine-style) resolves to +6.
+        PR-B depends on alive-only boundary check; Gate nan_probe bcc96_deadzero_exact."""
+        assert res_exact_bcc96_deadzero['resolved'], (
+            f"bcc96 dead-zeroed UNRESOLVED: {res_exact_bcc96_deadzero['reason']}"
+        )
+
+    def test_deadzero_bcc_value(self, res_exact_bcc96_deadzero):
+        """Axial BCC 96³ dead-zeroed C-exact = +6."""
+        assert res_exact_bcc96_deadzero['value'] == 6
+
 
 class TestBCC96CLink:
     """C-link on BCC 96³ using NSTARS (seed=20261009). Linking number ≈ 6.
@@ -556,6 +666,47 @@ class TestBCC96CLink:
     def test_axial_bcc_link_no_open_broken(self, res_link_axial_96_bcc):
         assert res_link_axial_96_bcc['n_open'] == 0
         assert res_link_axial_96_bcc['n_broken'] == 0
+
+    def test_hedgehog_bcc_link_resolved(self, res_link_hedgehog_96_bcc):
+        """BCC 96³ hedgehog +1 C-link resolves. Coverage item from Gate §9."""
+        assert res_link_hedgehog_96_bcc['resolved'], (
+            f"hedgehog BCC 96³ C-link UNRESOLVED: {res_link_hedgehog_96_bcc['reason']}"
+        )
+
+    def test_hedgehog_bcc_link_value(self, res_link_hedgehog_96_bcc):
+        """BCC 96³ hedgehog C-link = +1."""
+        assert res_link_hedgehog_96_bcc['value'] == 1
+
+    def test_axial_mirror_bcc_link_resolved(self, res_link_axial_mirror_96_bcc):
+        """BCC 96³ axial mirror −6 C-link resolves. Coverage item from Gate §9."""
+        assert res_link_axial_mirror_96_bcc['resolved'], (
+            f"axial-mirror BCC 96³ C-link UNRESOLVED: {res_link_axial_mirror_96_bcc['reason']}"
+        )
+
+    def test_axial_mirror_bcc_link_value(self, res_link_axial_mirror_96_bcc):
+        """BCC 96³ axial mirror C-link = −6."""
+        assert res_link_axial_mirror_96_bcc['value'] == -6
+
+    def test_cold_bcc_link_resolved(self, res_link_cold_96_bcc):
+        """BCC 96³ C0-cold 0 C-link resolves. Coverage item from Gate §9."""
+        assert res_link_cold_96_bcc['resolved'], (
+            f"C0-cold BCC 96³ C-link UNRESOLVED: {res_link_cold_96_bcc['reason']}"
+        )
+
+    def test_cold_bcc_link_value(self, res_link_cold_96_bcc):
+        """BCC 96³ C0-cold C-link = 0."""
+        assert res_link_cold_96_bcc['value'] == 0
+
+    def test_hedgehog_mirror_bcc_link_resolved(self, res_link_hedgehog_mirror_96_bcc):
+        """BCC 96³ hedgehog-mirror −1 C-link resolves. Coverage item from Gate §9."""
+        assert res_link_hedgehog_mirror_96_bcc['resolved'], (
+            f"hedgehog-mirror BCC 96³ C-link UNRESOLVED: "
+            f"{res_link_hedgehog_mirror_96_bcc['reason']}"
+        )
+
+    def test_hedgehog_mirror_bcc_link_value(self, res_link_hedgehog_mirror_96_bcc):
+        """BCC 96³ hedgehog-mirror C-link = −1."""
+        assert res_link_hedgehog_mirror_96_bcc['value'] == -1
 
 
 # ── Under-resolution guard (ladder §5 R0; spec A3.3 #3) ──────────────────────
@@ -664,15 +815,20 @@ class TestProjectionCheck:
 class TestGateMutants:
     """Ladder §5 R0 mutant-trip tests. Gate evidence xmult_box.py fa5b0c943c79."""
 
-    # ── m1: π² normalization (factor-2 error) ────────────────────────────────
+    # ── m1: π² normalization (factor-2 error) — mutant-value demonstration ──────
+    # These tests demonstrate the MUTANT VALUE (what a wrong formula would produce),
+    # not a code-path deletion. The actual code-path protection is the known-answer
+    # tests above (test_axial_cdet4_*), which the mutation harness shows DO catch the
+    # mutant. Labels updated per Gate §10 item 8.
 
     def test_m1_correct_norm_passes(self, q_axial_64):
-        """Ladder v3 §5 R0 #1: correct 2π² normalization gives ≈5.91."""
+        """Mutant-value demonstration: correct 2π² normalization gives ≈5.91."""
         val = c_det4(q_axial_64)
         assert abs(val - 6.0) < 0.5, "baseline c_det4 failed"
 
     def test_m1_wrong_norm_trips(self, q_axial_64):
-        """π² instead of 2π² → result doubles (≈11.8, not 6). Ladder v3 §5 R0 #1."""
+        """Mutant-value demonstration: π² instead of 2π² → result doubles (≈11.8).
+        Ladder v3 §5 R0 #1. The known-answer tests catch the actual code mutant."""
         def d(a):
             q = q_axial_64
             return (
@@ -683,15 +839,16 @@ class TestGateMutants:
         bad_val = float(np.linalg.det(M).sum() / np.pi ** 2)  # π² not 2π²
         assert bad_val > 9.0, f"m1 mutant did not trip: got {bad_val:.3f} (expected >9)"
 
-    # ── m2: wrong dV on alive (dx³ instead of 4dx³) ──────────────────────────
+    # ── m2: wrong dV on alive (dx³ instead of 4dx³) — mutant-value demonstration
 
     def test_m2_correct_dv_passes(self, q_axial_96, alive_96):
-        """Ladder v3 §5 R0 #1: correct 4dx³ per alive site gives ≈5.88."""
+        """Mutant-value demonstration: correct 4dx³ per alive site gives ≈5.88."""
         val = c_det_alive4(q_axial_96, alive_96)
         assert abs(val - 6.0) < 0.5, f"baseline c_det_alive4 failed: {val:.4f}"
 
     def test_m2_wrong_dv_trips(self, q_axial_96, alive_96):
-        """dV = h³ instead of 4h³ → result is ~¼ of correct (≈1.47). Ladder §5 R0 #1."""
+        """Mutant-value demonstration: dV = h³ instead of 4h³ → ~¼ of correct (≈1.47).
+        Ladder §5 R0 #1. The known-answer tests catch the actual code mutant."""
         q = q_axial_96
         dq = [np.zeros_like(q) for _ in range(3)]
 
@@ -707,15 +864,16 @@ class TestGateMutants:
         bad_val = float((np.linalg.det(M) * alive_96).sum() / (2 * np.pi ** 2))  # no 4×
         assert bad_val < 2.5, f"m2 mutant did not trip: got {bad_val:.3f} (expected <2.5)"
 
-    # ── m3: wrong column order (q first, sign flip) ───────────────────────────
+    # ── m3: wrong column order (q first, sign flip) — mutant-value demonstration
 
     def test_m3_correct_order_positive(self, q_hedgehog_64):
-        """Ladder v3 §5 R0 #1: det[∂xq,∂yq,∂zq,q] > 0 for hedgehog +1."""
+        """Mutant-value demonstration: det[∂xq,∂yq,∂zq,q] > 0 for hedgehog +1."""
         val = c_det4(q_hedgehog_64)
         assert val > 0, f"baseline c_det4 hedgehog not positive: {val:.4f}"
 
     def test_m3_q_first_trips(self, q_hedgehog_64):
-        """det[q, ∂xq, ∂yq, ∂zq] changes sign; hedgehog → negative. Ladder §5 R0 #1."""
+        """Mutant-value demonstration: det[q,∂xq,∂yq,∂zq] changes sign → negative.
+        Ladder §5 R0 #1. The known-answer tests catch the actual code mutant."""
         q = q_hedgehog_64
 
         def d(a):
@@ -739,8 +897,10 @@ class TestGateMutants:
         We verify the mechanism by checking 2 hits per qstar; the signed sum = 0.
         Ladder v3 §5 R0 #3.
         """
-        r = res_exact_dipole_64 = c_exact(q_dipole_64, QSTARS[:1])
-        assert r['n_hits'][0] == 2, f"expected 2 preimage hits, got {r['n_hits']}"
+        r = c_exact(q_dipole_64, QSTARS[:3])
+        assert all(h == 2 for h in r['n_hits']), (
+            f"expected 2 hits per qstar, got {r['n_hits']}"
+        )
         assert r['value'] == 0, "signed degree must be 0 (two opposite-sign preimages)"
 
     # ── m5: degenerate nstars (n1 ≈ n2) → c_link UNRESOLVED ─────────────────
@@ -849,3 +1009,207 @@ class TestSeedStability:
 
     def test_nstars_count(self):
         assert len(NSTARS) == 4
+
+    def test_qstars_first_row_pinned(self):
+        """QSTARS[0] pinned to rng-20261008 exact values (Gate §10 item 6).
+        Values computed from random_regular_values(5, seed=20261008, max_q0=0.0)."""
+        expected = np.array([
+            -3.896247510887675e-03,
+            -5.089801526970469e-01,
+            8.592503618283305e-01,
+            -5.111593796173653e-02,
+        ])
+        assert np.allclose(QSTARS[0], expected, atol=1e-12), (
+            f"QSTARS[0] changed from rng-20261008 seed: {QSTARS[0]}"
+        )
+
+    def test_nstars_first_row_pinned(self):
+        """NSTARS[0] pinned to rng-20261009 exact values (Gate §10 item 6).
+        Values computed from random_n_vectors(4, seed=20261009, max_nz=-0.2)."""
+        expected = np.array([
+            6.937011536471508e-01,
+            -6.809262742185627e-01,
+            -2.347724824323303e-01,
+        ])
+        assert np.allclose(NSTARS[0], expected, atol=1e-12), (
+            f"NSTARS[0] changed from rng-20261009 seed: {NSTARS[0]}"
+        )
+
+
+# ── Input validation: NONFINITE / NONUNIT / K<3 / n3≈n4 / alive-boundary ──────
+
+
+class TestInputValidation:
+    """Non-finite / non-unit / K<3 / pair-2 degenerate / alive-boundary guards.
+
+    Implements Gate §10 items 1, 2, 4, 5 (fix-pass-2).
+    Each test requires the corresponding guard to be present; deleting the guard
+    causes the field to silently resolve (or crash), failing the assertion.
+    """
+
+    def test_nan_core_r12_exact_unresolved(self):
+        """NaN in core r<12 → c_exact UNRESOLVED NONFINITE. Gate nan_probe2.json."""
+        q = rational(48, rc=6).copy()
+        _, _, _, r = grid(48)
+        q[r < 12] = np.nan
+        res = c_exact(q, QSTARS)
+        assert not res['resolved'], f"expected UNRESOLVED, got {res}"
+        assert res['reason'] is not None and 'NONFINITE' in res['reason']
+
+    def test_nan_core_r12_link_unresolved(self):
+        """NaN in core r<12 → c_link UNRESOLVED NONFINITE. Gate nan_probe2.json."""
+        q = rational(48, rc=6).copy()
+        _, _, _, r = grid(48)
+        q[r < 12] = np.nan
+        n = hopf_engine(q)
+        res = c_link(n, NSTARS)
+        assert not res['resolved'], f"expected UNRESOLVED, got {res}"
+        assert res['reason'] is not None and 'NONFINITE' in res['reason']
+
+    def test_single_nan_exact_unresolved(self):
+        """Single NaN site → c_exact UNRESOLVED NONFINITE. Gate nan_probe.json."""
+        q = rational(48, rc=6).copy()
+        q[20, 20, 20] = np.nan
+        res = c_exact(q, QSTARS)
+        assert not res['resolved'], f"single NaN site: expected UNRESOLVED, got {res}"
+        assert res['reason'] is not None and 'NONFINITE' in res['reason']
+
+    def test_nonunit_x10_exact_unresolved(self):
+        """×10 core → c_exact UNRESOLVED NONUNIT. Gate nan_probe2.json."""
+        q = rational(48, rc=6).copy()
+        _, _, _, r = grid(48)
+        q[r < 6] *= 10
+        res = c_exact(q, QSTARS)
+        assert not res['resolved'], f"×10 field: expected UNRESOLVED, got {res}"
+        assert res['reason'] is not None and 'NONUNIT' in res['reason']
+
+    def test_pair2_n3_eq_n4_unresolved(self):
+        """n3 = n4 → c_link UNRESOLVED DEGENERATE (no ValueError). Gate nan_probe.json."""
+        q = rational(48, rc=6)
+        n = hopf_engine(q)
+        bad_nstars = NSTARS.copy()
+        bad_nstars[3] = bad_nstars[2]  # n3 = n4
+        res = c_link(n, bad_nstars)
+        assert not res['resolved'], f"n3=n4: expected UNRESOLVED, got {res}"
+        assert res['reason'] is not None and 'DEGENERATE' in res['reason']
+
+    def test_too_few_qstars_unresolved(self):
+        """K = 2 < 3 → c_exact UNRESOLVED TOO_FEW_QSTARS. Gate §10 item 5."""
+        q = rational(32, rc=4)
+        res = c_exact(q, QSTARS[:2])
+        assert not res['resolved'], f"K=2: expected UNRESOLVED, got {res}"
+        assert res['reason'] is not None and 'TOO_FEW_QSTARS' in res['reason']
+
+    def test_deadzero_bcc_exact_resolves(self, res_exact_bcc96_deadzero):
+        """Axial BCC 96³ dead-zeroed resolves to +6 with alive-only boundary check.
+        Gate §10 item 4: alive-only boundary; nan_probe.json bcc96_deadzero_exact."""
+        assert res_exact_bcc96_deadzero['resolved'], (
+            f"bcc96 dead-zeroed UNRESOLVED: {res_exact_bcc96_deadzero['reason']}"
+        )
+        assert res_exact_bcc96_deadzero['value'] == 6
+
+
+# ── L1 positive controls for five UNRESOLVED branches ────────────────────────
+
+
+class TestUnresolvedBranchControls:
+    """L1 positive controls: each test FAILS when its UNRESOLVED branch is deleted.
+
+    Implements Gate §10 item 3 (fix-pass-2). Constructed fields or monkeypatching
+    of internal helpers per §10.3 suggestion. The corresponding mutants in the
+    gate-rerun mutate.py are: no_qstar_disagreement, no_degen_tet,
+    no_boundary_check, link_no_pair_disagree, link_open_ignored.
+    """
+
+    def test_qstar_disagreement_unresolved(self, monkeypatch):
+        """q*-disagreement branch → UNRESOLVED. Monkeypatch injects N=1,2,3 per call."""
+        call = [0]
+        _orig = _CC._c_exact_qstar
+
+        def _mock(q, qs, **kw):
+            call[0] += 1
+            r = _orig(q, qs, **kw)
+            r['N'] = call[0]
+            return r
+
+        monkeypatch.setattr(_CC, '_c_exact_qstar', _mock)
+        q = hedgehog(32, rc=4)
+        res = c_exact(q, QSTARS[:3])
+        assert not res['resolved'], f"q*-disagreement: expected UNRESOLVED, got {res}"
+        assert res['reason'] is not None and 'QSTAR_DISAGREEMENT' in res['reason']
+
+    def test_degenerate_tet_unresolved(self):
+        """Degenerate-tet branch → UNRESOLVED. Constructive: qstar = exact tet-vertex value.
+        q[0,0,0] of rational(16) is at corner (large r, near vacuum), unit-quaternion with
+        q0>0 is fine for c_exact.  That value is v0 of every slab-0 Freudenthal tet, so
+        _c_exact_qstar returns degenerate≥12.  The no_degen_tet mutant zeroes this, causing
+        QSTAR_DISAGREEMENT (q[0,0,0] has zero preimages vs 1 for the regular q*'s)."""
+        q = rational(16, rc=4)
+        qstar = q[0, 0, 0].copy()
+        qstars = np.vstack([qstar, QSTARS[:2]])
+        res = c_exact(q, qstars)
+        assert not res['resolved'], f"degen-tet: expected UNRESOLVED, got {res}"
+        assert res['reason'] is not None and 'DEGENERATE' in res['reason'], res['reason']
+
+    def test_boundary_check_unresolved(self):
+        """Crafted dense field with unit q, q0 < 0.5 on face-centre boundary site →
+        UNRESOLVED BOUNDARY. Uses hedgehog(64,rc=8) which has n_bad=0 so BOUNDARY
+        is reached; single modified site doesn't affect preimage count."""
+        q = hedgehog(64, rc=8).copy()
+        # Valid unit quaternion with q0 = 0.3 placed at face-centre boundary
+        q[0, 32, 32] = np.array([0.3, 0.0, 0.0, np.sqrt(1.0 - 0.09)])
+        res = c_exact(q, QSTARS)
+        assert not res['resolved'], f"boundary q0<0.5: expected UNRESOLVED, got {res}"
+        assert res['reason'] is not None and 'BOUNDARY' in res['reason']
+
+    def test_link_pair_disagreement_unresolved(self, monkeypatch):
+        """Pair-disagreement branch → UNRESOLVED. Monkeypatch injects lk1=1, lk2=2."""
+        call = [0]
+        _orig = _CC._c_link_pair
+
+        def _mock(n, ns1, ns2, h=1.0, tets=None, s=1):
+            call[0] += 1
+            lk, op, br, a, b = _orig(n, ns1, ns2, h=h, tets=tets, s=s)
+            return (float(call[0]), op, br, a, b)
+
+        monkeypatch.setattr(_CC, '_c_link_pair', _mock)
+        q = hedgehog(32, rc=4)
+        n = hopf_engine(q)
+        res = c_link(n, NSTARS)
+        assert not res['resolved'], f"pair-disagree: expected UNRESOLVED, got {res}"
+        assert res['reason'] is not None and 'PAIR_DISAGREEMENT' in res['reason']
+
+    def test_link_open_broken_unresolved(self, monkeypatch):
+        """Open/broken-loops branch → UNRESOLVED. Monkeypatch injects open_tets=1."""
+        _orig = _CC._c_link_pair
+
+        def _mock(n, ns1, ns2, h=1.0, tets=None, s=1):
+            lk, op, br, a, b = _orig(n, ns1, ns2, h=h, tets=tets, s=s)
+            return (lk, 1, br, a, b)  # inject open_tets = 1
+
+        monkeypatch.setattr(_CC, '_c_link_pair', _mock)
+        q = hedgehog(32, rc=4)
+        n = hopf_engine(q)
+        res = c_link(n, NSTARS)
+        assert not res['resolved'], f"open-loops: expected UNRESOLVED, got {res}"
+        assert res['reason'] is not None and 'OPEN_OR_BROKEN' in res['reason']
+
+    def test_nonfinite_lk_unresolved(self, monkeypatch):
+        """NONFINITE_LK branch → UNRESOLVED. Monkeypatch injects NaN for lk1.
+        Without the guard, round(NaN) raises ValueError — test errors on that mutant."""
+        call = [0]
+        _orig = _CC._c_link_pair
+
+        def _mock(n, ns1, ns2, h=1.0, tets=None, s=1):
+            call[0] += 1
+            lk, op, br, a, b = _orig(n, ns1, ns2, h=h, tets=tets, s=s)
+            if call[0] == 1:
+                lk = float('nan')  # pair 1 lk is NaN
+            return (lk, op, br, a, b)
+
+        monkeypatch.setattr(_CC, '_c_link_pair', _mock)
+        q = hedgehog(32, rc=4)
+        n = hopf_engine(q)
+        res = c_link(n, NSTARS)
+        assert not res['resolved'], f"NONFINITE_LK: expected UNRESOLVED, got {res}"
+        assert res['reason'] is not None and 'NONFINITE_LK' in res['reason']
