@@ -158,5 +158,73 @@ def run_r2():  # pragma: no cover
     print(f"Done. Total elapsed: {time.time()-t0:.1f}s")
 
 
+# ---------------------------------------------------------------------------
+# B9: R2 breathing-period aggregator (ladder §5 R2 #7)
+# ---------------------------------------------------------------------------
+
+
+def aggregate_r2_periods(period_results):
+    """Aggregate per-period C-exact/C-link results for the R2 breathing check.
+
+    Ladder §5 R2 #7 verdict logic:
+      - A resolved value ≠ +6 is the only COUNT FAIL.
+      - PASS needs ≥ 90% of periods resolved AND all resolved values = +6.
+      - Otherwise (< 90% resolved, i.e. too many UNRESOLVED) → INCONCLUSIVE.
+      - Nit N3: on an UNRESOLVED period, log the C-link value alone.
+
+    Args:
+        period_results: list of dicts with keys
+            'c_exact': int or None   (None = UNRESOLVED)
+            'c_link':  int or None   (None = UNRESOLVED; raw value kept for N3)
+
+    Returns:
+        dict with 'verdict' (PASS/FAIL/INCONCLUSIVE), 'n_resolved',
+        'n_unresolved', 'n_wrong', 'n_periods', 'notes' (list[str]).
+    """
+    n_periods = len(period_results)
+    n_resolved = 0
+    n_wrong = 0
+    n_unresolved = 0
+    notes = []
+
+    for i, pr in enumerate(period_results):
+        ce = pr.get('c_exact')
+        cl = pr.get('c_link')
+        if ce is None or cl is None:
+            n_unresolved += 1
+            # Nit N3: log the C-link value alone on UNRESOLVED.
+            c_link_val = cl if cl is not None else pr.get('c_link_raw')
+            notes.append(f"Period {i}: UNRESOLVED; c_link={c_link_val!r}")
+        else:
+            n_resolved += 1
+            if ce != 6 or cl != 6:
+                n_wrong += 1
+                notes.append(
+                    f"Period {i}: RESOLVED but wrong: c_exact={ce}, c_link={cl}")
+
+    # A resolved wrong value is the only COUNT FAIL — it dominates the verdict.
+    if n_wrong > 0:
+        verdict = "FAIL"
+        notes.append(
+            f"{n_wrong}/{n_periods} resolved periods ≠ +6 → COUNT FAIL")
+    elif n_periods > 0 and n_resolved >= 0.9 * n_periods:
+        verdict = "PASS"
+        notes.append(f"{n_resolved}/{n_periods} resolved, all +6 → PASS")
+    else:
+        verdict = "INCONCLUSIVE"
+        notes.append(
+            f"only {n_resolved}/{n_periods} resolved (< 90%) "
+            f"({n_unresolved} UNRESOLVED) → RESOLUTION-INCONCLUSIVE")
+
+    return {
+        'verdict': verdict,
+        'n_resolved': n_resolved,
+        'n_unresolved': n_unresolved,
+        'n_wrong': n_wrong,
+        'n_periods': n_periods,
+        'notes': notes,
+    }
+
+
 if __name__ == "__main__":
     run_r2()

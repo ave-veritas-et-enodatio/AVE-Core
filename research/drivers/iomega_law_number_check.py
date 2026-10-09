@@ -150,9 +150,9 @@ QUOTE_REGISTRY = [
     # A8 (Tier-2): the ratified z=3 production carrier the count-ratio lemma names.
     ("manuscript/ave-kb/common/vocabulary-register.md", 526,
      "is the **chiral srs z=3 net**", "the chiral srs z=3 net"),
-    ("src/ave/topological/cosserat_field_3d.py", 815, "S_eps_sq = jnp.clip", None),
-    ("src/ave/topological/cosserat_field_3d.py", 1322, "phase-I placeholder", None),
-    ("src/ave/topological/cosserat_field_3d.py", 1335, "self.I_omega = float(I_omega)", None),
+    ("src/ave/topological/cosserat_field_3d.py", 826, "S_eps_sq = jnp.clip", None),
+    ("src/ave/topological/cosserat_field_3d.py", 1076, "phase-I placeholder", None),
+    ("src/ave/topological/cosserat_field_3d.py", 1089, "self.I_omega = float(I_omega)", None),
     ("src/scripts/vol_1_foundations/r8_diag_a_cosserat_wave_speed.py", 257,
      "add S factor to T_kinetic via ρ → ρ·S, I_ω → I_ω·S.", None),
 ]
