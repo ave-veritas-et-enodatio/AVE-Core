@@ -3198,6 +3198,8 @@ def test_pf_config_readback():
     assert pii['k_op10'] == 8.88e5, f"P-ii k_op10 {pii['k_op10']}"
     assert pii['gamma'] == 4320
     assert pii['k_refl'] == 0.0
+    assert abs(pii['k_hopf'] - _math.pi / 3.0) < 1e-14, (
+        f"P-ii k_hopf={pii['k_hopf']!r} != pi/3 (v7.1 §5)")
     assert pii['dt'] == 1.65e-4
     assert pii['t_end'] == 0.25
     assert pii['n_steps'] == _math.ceil(0.25 / 1.65e-4), (
@@ -3210,6 +3212,8 @@ def test_pf_config_readback():
     # P-ii-C control
     piic = cfg.make_pii_config(control=True)
     assert piic['k_op10'] == 5.59e4, f"P-ii-C k_op10 {piic['k_op10']}"
+    assert abs(piic['k_hopf'] - _math.pi / 3.0) < 1e-14, (
+        f"P-ii-C k_hopf={piic['k_hopf']!r} != pi/3 (v7.1 §5)")
     assert piic['seed']['constructor'] == "_hedgehog_at", (
         f"P-ii-C seed constructor={piic['seed']['constructor']!r} != '_hedgehog_at'")
 
@@ -3218,6 +3222,8 @@ def test_pf_config_readback():
     assert r2pf['k_op10'] == 1.415e6, f"R2-PF k_op10 {r2pf['k_op10']}"
     assert r2pf['gamma'] == 4320
     assert r2pf['k_refl'] == 0.0
+    assert abs(r2pf['k_hopf'] - _math.pi / 3.0) < 1e-14, (
+        f"R2-PF k_hopf={r2pf['k_hopf']!r} != pi/3 (v7.1 §5)")
     assert r2pf['seed']['constructor'] == "rational", (
         f"R2-PF seed constructor={r2pf['seed']['constructor']!r} != 'rational' (G5)")
     assert r2pf['seed']['L'] == cfg.SEED_L_PF, (
@@ -3229,6 +3235,133 @@ def test_pf_config_readback():
     # R2-PF-C control
     r2pfc = cfg.make_r2_pf_config(control=True)
     assert r2pfc['k_op10'] == 3.93e4, f"R2-PF-C k_op10 {r2pfc['k_op10']}"
+    assert abs(r2pfc['k_hopf'] - _math.pi / 3.0) < 1e-14, (
+        f"R2-PF-C k_hopf={r2pfc['k_hopf']!r} != pi/3 (v7.1 §5)")
+
+
+def test_r2pf_face_tail_pins():
+    """fix8 item 4 (v7.1 §5 R2-PF / §7d.1): 4r_c face-tail pins, LOG-ONLY.
+
+    The R2-PF #14 face check uses the 4r_c (L=96) predicted face tail 0.229 and
+    image shift δλ 0.176 — NOT the 6r_c (L=144, R2-primary) values 0.0484 /
+    0.0136. These are exposed as config log fields and as module constants.
+    Read-back pins the values and confirms the 6r_c/R2-primary numbers are the
+    contrast fields only (not the R2-PF face check).
+    """
+    cfg = _cfg()
+    # Module constants
+    assert cfg.R2PF_FACE_TAIL_L96 == 0.229, (
+        f"R2PF_FACE_TAIL_L96={cfg.R2PF_FACE_TAIL_L96} != 0.229 (4r_c, L=96)")
+    assert cfg.R2PF_DLAMBDA_L96 == 0.176, (
+        f"R2PF_DLAMBDA_L96={cfg.R2PF_DLAMBDA_L96} != 0.176 (4r_c, L=96)")
+    assert cfg.R2_FACE_TAIL_L144 == 0.0484, (
+        f"R2_FACE_TAIL_L144={cfg.R2_FACE_TAIL_L144} != 0.0484 (6r_c, L=144)")
+    assert cfg.R2_DLAMBDA_L144 == 0.0136, (
+        f"R2_DLAMBDA_L144={cfg.R2_DLAMBDA_L144} != 0.0136 (6r_c, L=144)")
+    # Config log fields on R2-PF (primary + control)
+    for control in (False, True):
+        r2pf = cfg.make_r2_pf_config(control=control)
+        fc = r2pf['face_check']
+        assert fc['L'] == cfg.SEED_L_PF == 96, f"face_check L={fc['L']} != 96"
+        assert fc['face_tail'] == 0.229, f"face_check face_tail={fc['face_tail']}"
+        assert fc['dlambda'] == 0.176, f"face_check dlambda={fc['dlambda']}"
+        assert fc['r2_primary_face_tail_L144'] == 0.0484, (
+            f"face_check r2_primary_face_tail_L144={fc['r2_primary_face_tail_L144']}")
+        assert fc['r2_primary_dlambda_L144'] == 0.0136, (
+            f"face_check r2_primary_dlambda_L144={fc['r2_primary_dlambda_L144']}")
+    # The 6r_c size arm (R2C_SIZE_RATIO) is tagged R2-primary and is NOT a field
+    # of the R2-PF config dict (R2-PF classifies by FIRST_BOND_BREAKUP_RATIO=0.85).
+    assert cfg.R2C_SIZE_RATIO == 0.54, "R2C_SIZE_RATIO must stay 0.54 (6r_c, R2 primary)"
+    assert 'R2C_SIZE_RATIO' not in cfg.make_r2_pf_config(control=False), (
+        "R2-PF config must NOT carry R2C_SIZE_RATIO (6r_c number, R2-primary only)")
+
+
+def test_mirror_energy_offset():
+    """fix8 item 3 (v7.1 "Mirror controls"): Hopf is mirror-odd → E_total differs
+    by 2·k_hopf·E_hopf(seed); every other term is bit-identical (≤1e-12 rel).
+
+    hedgehog(24, 3) vs hedgehog(24, 3, mirror=True), STATIC energies only (no
+    stepping). Uses the engine's own Hopf density (_hopf_density_q) — the Hopf
+    energy is NOT re-implemented. Checks (v7.1):
+      - E_hopf is odd: E_hopf(mirror) == −E_hopf(seed) to ≤ 1e-12 relative;
+      - the non-Hopf energy is equal to ≤ 1e-12 relative (bit-identity fails
+        only because the global q2 → −q2 flip changes JAX reduction ordering);
+      - the total-energy difference equals 2·k_hopf·E_hopf(seed);
+      - the predicate accepts this pair;
+      - the predicate rejects a pair with the offset dropped (H_mir := H_seed)
+        or doubled;
+      - the helper's allowance is nonzero for E_hopf ≠ 0.
+    Count-sign symmetry N → −N stays exact (not loosened by the offset).
+    """
+    import jax.numpy as _jnp
+    import numpy as _np
+    from ave.topological.cosserat_field_3d import CosseratField3D
+    from ave.topological.k4_quaternion import _hopf_density_q
+    from ave.topological.charge_counters import hedgehog, bcc_alive_mask
+    cfg = _cfg()
+
+    n, rc = 24, 3
+    alive = bcc_alive_mask((n, n, n))
+    cf = CosseratField3D(n, n, n, k_refl=0.0, rotation_storage="quaternion")
+    dx = cf.dx
+    k_hopf = cf.k_hopf
+    assert abs(k_hopf - _np.pi / 3.0) < 1e-14, f"engine k_hopf {k_hopf} != pi/3"
+
+    def _e_hopf(q):
+        # engine's own Hopf density, summed over alive sites (no k_hopf prefactor)
+        W = _np.asarray(_hopf_density_q(_jnp.asarray(q), dx))
+        return float(_np.sum(W * alive))
+
+    q_seed = hedgehog(n, rc)
+    q_seed[~alive] = _np.array([1.0, 0.0, 0.0, 0.0])
+    q_mir = hedgehog(n, rc, mirror=True)
+    q_mir[~alive] = _np.array([1.0, 0.0, 0.0, 0.0])
+
+    E_hopf_seed = _e_hopf(q_seed)
+    E_hopf_mir = _e_hopf(q_mir)
+    assert abs(E_hopf_seed) > 1e-6, f"hedgehog E_hopf must be nonzero; got {E_hopf_seed}"
+
+    # (1) E_hopf odd
+    assert abs(E_hopf_mir + E_hopf_seed) <= 1e-12 * abs(E_hopf_seed), (
+        f"E_hopf not odd: seed={E_hopf_seed} mir={E_hopf_mir} "
+        f"(sum rel {abs(E_hopf_mir + E_hopf_seed) / abs(E_hopf_seed):.2e})")
+
+    cf.q = q_seed.copy()
+    H_seed = cf.total_energy_k4()
+    cf.q = q_mir.copy()
+    H_mir = cf.total_energy_k4()
+
+    # (2) non-Hopf energy equal to ≤ 1e-12 relative (bit-identity fails only via
+    #     JAX reduction ordering under the global q2→−q2 flip — documented).
+    E_nonhopf_seed = H_seed - k_hopf * E_hopf_seed
+    E_nonhopf_mir = H_mir - k_hopf * E_hopf_mir
+    assert abs(E_nonhopf_seed - E_nonhopf_mir) <= 1e-12 * abs(E_nonhopf_seed), (
+        f"non-Hopf energy not mirror-invariant: seed={E_nonhopf_seed} "
+        f"mir={E_nonhopf_mir} (rel {abs(E_nonhopf_seed - E_nonhopf_mir) / abs(E_nonhopf_seed):.2e})")
+
+    # (3) total-energy difference == 2·k_hopf·E_hopf(seed)
+    offset = 2.0 * k_hopf * E_hopf_seed
+    assert abs((H_seed - H_mir) - offset) <= 1e-12 * max(abs(H_seed), abs(H_mir)), (
+        f"ΔH={H_seed - H_mir} != 2·k_hopf·E_hopf={offset} "
+        f"(residual {abs((H_seed - H_mir) - offset):.2e})")
+
+    # (4) predicate accepts the real pair
+    assert cfg.mirror_energy_consistent(H_seed, H_mir, E_hopf_seed, k_hopf), (
+        "predicate must accept the true seed/mirror pair")
+
+    # (5) predicate rejects offset dropped (H_mir := H_seed) or doubled
+    assert not cfg.mirror_energy_consistent(H_seed, H_seed, E_hopf_seed, k_hopf), (
+        "predicate must reject a pair with the mirror offset dropped (H_mir=H_seed)")
+    H_mir_doubled = H_seed - 2.0 * offset   # ΔH = 2·offset (offset doubled)
+    assert not cfg.mirror_energy_consistent(
+        H_seed, H_mir_doubled, E_hopf_seed, k_hopf), (
+        "predicate must reject a pair with the mirror offset doubled")
+
+    # (6) allowance nonzero for E_hopf ≠ 0
+    allow = cfg.mirror_energy_allowance(E_hopf_seed, k_hopf)
+    assert allow > 0.0, f"allowance must be nonzero for E_hopf≠0; got {allow}"
+    assert allow >= abs(offset), (
+        f"allowance {allow} must be ≥ |offset| {abs(offset)}")
 
 
 def test_seed_cutoff_readback():
@@ -3554,7 +3687,8 @@ def test_run_preflight_stub_solver():
         'nx': n, 'ny': n, 'nz': n,
         'dt': _dt, 'n_steps': _n_steps, 't_end': _n_steps * _dt,
         'gamma': 1.0, 'G': 1.0, 'G_c': 1.0,
-        'k_op10': 1.0, 'k_refl': 0.0, 'rotation_storage': 'quaternion',
+        'k_op10': 1.0, 'k_refl': 0.0, 'k_hopf': _math.pi / 3.0,
+        'rotation_storage': 'quaternion',
         'seed': {'constructor': '_hedgehog_at', 'rc': rc, 'L': 12},
         'checkpoints': _ckpts,
     }
@@ -4014,6 +4148,32 @@ def test_preflight_verdict_n_antipodal_miss():
         f"MISS reason must mention n_antipodal; got {out['reasons']}")
 
 
+def test_preflight_verdict_r_eq_ratio_miss():
+    """fix8 item 5: r_eq_ratio above the window hi → BREAKUP/MISS/'r_eq_ratio' reason.
+
+    Gap found by the manager at fd49e77f: replacing the r_eq_ratio window check
+    `if not (w['lo'] <= r_eq_ratio <= w['hi']):` with `if False:` SURVIVED the
+    whole gating lane (no test exercised r_eq_ratio out of range while every
+    other window was in range). This is that test.
+
+    r_eq_ratio=1.10 is ABOVE PII_SPEC's hi=1.02 (window [0.85, 1.02]) but still
+    ≥ FIRST_BOND_BREAKUP_RATIO=0.85, so the gate is BREAKUP (not INFALL). Every
+    other window (t_first, r_first, n_antipodal_T) is in range, so the only
+    reason the a8 verdict is MISS is the r_eq_ratio window. Under the `if False:`
+    mutant, nothing is appended to `failed`, so a8 would be CONFIRMED → this test
+    fails → mutant killed. Window values are NOT changed.
+    """
+    cfg = _cfg()
+    trace = _pii_trace(t_first=0.03, r_first=6.0, r_eq_ratio=1.10, n_antipodal_T=9)
+    out = cfg.preflight_verdict(trace, cfg.PII_SPEC)
+    assert out['gate'] == 'BREAKUP', (
+        f"r_eq_ratio=1.10 ≥ 0.85 must classify as BREAKUP; got {out}")
+    assert out['a8'] == 'MISS', (
+        f"r_eq_ratio=1.10 ∉ [0.85, 1.02] must yield MISS (not CONFIRMED); got {out}")
+    assert any('r_eq_ratio' in r for r in out['reasons']), (
+        f"MISS reason must mention r_eq_ratio; got {out['reasons']}")
+
+
 # ---------------------------------------------------------------------------
 # §11 item 5 — aggregator pre-collapse FAIL (Gate correction of delta §3.1.6)
 # ---------------------------------------------------------------------------
@@ -4075,8 +4235,11 @@ def test_preflight_initial_solver_cfg_physics_readback():
       S1 (delete cf.gamma = gamma_cfg): cf.gamma stays 1.0 != 4320 → fails
       S2 (delete cf.k_op10 = k_op10_cfg): cf.k_op10 stays 1.0 != 8.88e5/5.59e4 → fails
       S3 (S1+S2 together): both fail
+      v7.1 (delete cf.k_hopf = k_hopf_cfg): cf.k_hopf stays at the stub default
+        0.0 != pi/3 → fails (stub k_hopf default differs from the engine π/3).
     Also verifies the default-path (make_solver=None) sets G and G_c correctly.
     """
+    import math as _math
     import sys, os as _os
     sys.path.insert(0, _os.path.join(_os.path.dirname(__file__),
                                      '..', 'scripts', 'vol_4_engineering'))
@@ -4087,6 +4250,7 @@ def test_preflight_initial_solver_cfg_physics_readback():
             self.gamma = 1.0        # intentionally wrong
             self.k_op10 = 1.0       # intentionally wrong
             self.k_refl = 1.0       # intentionally wrong
+            self.k_hopf = 0.0       # intentionally wrong (engine default is π/3)
             self._q = None
 
         @property
@@ -4119,6 +4283,12 @@ def test_preflight_initial_solver_cfg_physics_readback():
         assert cf.k_refl == cfg['k_refl'], (
             f"{name}: cf.k_refl={cf.k_refl!r} != cfg['k_refl']={cfg['k_refl']!r} "
             "(k_refl not applied from cfg to supplied make_solver)")
+        assert cf.k_hopf == cfg['k_hopf'], (
+            f"{name}: cf.k_hopf={cf.k_hopf!r} != cfg['k_hopf']={cfg['k_hopf']!r} "
+            "(v7.1: k_hopf not applied from cfg; stub default 0.0 leaked through — "
+            "the `cf.k_hopf = k_hopf_cfg` line in preflight_initial_solver is required)")
+        assert abs(cf.k_hopf - _math.pi / 3.0) < 1e-14, (
+            f"{name}: cf.k_hopf={cf.k_hopf!r} != pi/3")
 
     # Default path (make_solver=None): inline lambda sets G and G_c from module constants.
     pii_cfg = _cfg_mod.make_pii_config(control=False)

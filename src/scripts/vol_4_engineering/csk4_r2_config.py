@@ -92,7 +92,7 @@ RHO = 1.0
 I_OMEGA = 1.0
 K_OP10 = 1.415e6
 K_REFL = 0.0            # trade (b): reflection off
-K_HOPF = math.pi / 3.0  # engine default cf:1311
+K_HOPF = math.pi / 3.0  # engine default cf:1041 (self.k_hopf = float(np.pi/3.0))
 ROTATION_STORAGE = "quaternion"
 
 DT = 2.24e-4            # pinned (guard 2.2446e-4; 0.25/Ω_max ≤ 2.745e-4)
@@ -130,7 +130,12 @@ R_EQ0_R2 = 38.92     # rational(288,24) L=144 (A8 §8.1)
 
 # R2 band and size-collapse threshold
 R14_BAND = (27.2, 54.5)    # #14 band: 0.7–1.4 × R_EQ0_R2
-R2C_SIZE_RATIO = 0.54      # period_collapse size arm threshold (unchanged)
+# R2C_SIZE_RATIO is 6r_c-based (R2 primary, L=144): the A7.2 restoring barrier
+# at R=13.0 → ratio 0.54 (ladder §3c.3, §7d.1). It is the R2-C size-collapse arm
+# for the 288³ R2-primary run ONLY. v7.1: this number — and the 5.3 % barrier
+# height and 61 % #14-edge margin — must NOT be applied to R2-PF (L=96 = 4r_c);
+# R2-PF classifies its first bond with FIRST_BOND_BREAKUP_RATIO=0.85 instead.
+R2C_SIZE_RATIO = 0.54      # 6r_c-based (R2 primary, L=144); period_collapse size arm
 
 # First-bond classification: BREAKUP if r_eq(t_first)/r_eq0 ≥ 0.85, else INFALL
 FIRST_BOND_BREAKUP_RATIO = 0.85
@@ -138,7 +143,18 @@ FIRST_BOND_BREAKUP_RATIO = 0.85
 # Seed cutoffs (tanh profile parameter L = n_c × r_c)
 SEED_L_PRIMARY = 144  # R2: rational(288,24), 6 r_c = 144
 SEED_L_PII = 48       # P-ii: _hedgehog_at(128,12,...,L=48), 4 r_c
-SEED_L_PF = 96        # R2-PF: _hedgehog_at(192,24,...,L=96), 4 r_c (OPEN §6.3)
+SEED_L_PF = 96        # R2-PF: rational(192,24,p=2,qq=3), cutoff L=96=4r_c=n/2, Math OK (v7.1)
+
+# R2-PF #14 face-check pins (v7.1 §5 R2-PF, §7d.1) — LOG ONLY, 4r_c cutoff.
+# At L=96 (4r_c) the predicted face tail (|q−1| units, fitted-D tail
+# 3π r_c²(1+L/ℓ)e^{−L/ℓ}/L², ℓ=√2160; q0≈0.974 at the face) and the image
+# shift δλ are larger than the R2-primary L=144 values. They exceed the
+# R2-primary δλ ≤ 0.05 box rule; accepted for a T=0.25 pre-flight and logged.
+R2PF_FACE_TAIL_L96 = 0.229   # R2-PF 4r_c face tail at L=96
+R2PF_DLAMBDA_L96 = 0.176     # R2-PF 4r_c image shift δλ at L=96
+# R2-primary (L=144, 6r_c) values, for contrast only — NOT applied to R2-PF.
+R2_FACE_TAIL_L144 = 0.0484   # R2 primary 6r_c face tail at L=144
+R2_DLAMBDA_L144 = 0.0136     # R2 primary 6r_c image shift δλ at L=144
 
 # Control k_op10 values. Formula: k = 8·γ/max|Δn|², with γ=4320.
 # max|Δn|²=0.6183 (rc=12), max|Δn|²=0.88 (R2, rc=24).
@@ -213,15 +229,28 @@ def make_r2_pf_config(control: bool = False) -> dict:
         f"R2-PF rational cutoff: NX_PF/2={NX_PF//2} != SEED_L_PF={SEED_L_PF}")
     k = K_OP10_PF_C if control else K_OP10
     n_steps_pf = math.ceil(T_PF / DT)
+    # v7.1: the 6r_c barrier/height/margin numbers (R2C_SIZE_RATIO=0.54, 5.3 %,
+    # 61 %) are R2-primary only and are NOT applied to R2-PF. The R2-PF first
+    # bond is classified by FIRST_BOND_BREAKUP_RATIO (0.85) in preflight_verdict,
+    # not by the 0.54 size arm. The face_check block below is LOG ONLY (4r_c).
     return {
         "nx": NX_PF, "ny": NY_PF, "nz": NZ_PF,
         "dt": DT, "n_steps": n_steps_pf, "t_end": T_PF,
         "gamma": GAMMA, "G": G, "G_c": G_C, "k_op10": k,
-        "k_refl": K_REFL, "rotation_storage": ROTATION_STORAGE,
+        "k_refl": K_REFL, "k_hopf": K_HOPF, "rotation_storage": ROTATION_STORAGE,
         "seed": {
             "constructor": "rational",
             "rc": SEED_RC, "p": SEED_P, "qq": SEED_QQ,
             "L": SEED_L_PF,   # rational cutoff is n/2; L stored for read-back
+        },
+        "face_check": {    # v7.1 §5 R2-PF / §7d.1 — LOG ONLY, 4r_c (L=96)
+            "L": SEED_L_PF,
+            "face_tail": R2PF_FACE_TAIL_L96,   # 0.229 at L=96
+            "dlambda": R2PF_DLAMBDA_L96,       # 0.176 at L=96
+            "r2_primary_face_tail_L144": R2_FACE_TAIL_L144,  # 0.0484 (contrast)
+            "r2_primary_dlambda_L144": R2_DLAMBDA_L144,      # 0.0136 (contrast)
+            "note": ("4r_c (L=96) face tail; the 6r_c barrier/height/margin "
+                     "(0.54 / 5.3 % / 61 %) are R2-primary only, not applied here"),
         },
         "checkpoints": pf_checkpoint_times(T_PF),
     }
@@ -245,7 +274,7 @@ def make_pii_config(control: bool = False) -> dict:
         "nx": 128, "ny": 128, "nz": 128,
         "dt": _DT_PII, "n_steps": n_steps, "t_end": _T_PII,
         "gamma": GAMMA, "G": G, "G_c": G_C, "k_op10": k,
-        "k_refl": K_REFL, "rotation_storage": ROTATION_STORAGE,
+        "k_refl": K_REFL, "k_hopf": K_HOPF, "rotation_storage": ROTATION_STORAGE,
         "seed": {"constructor": "_hedgehog_at", "rc": 12, "L": SEED_L_PII},
         "checkpoints": pf_checkpoint_times(_T_PII),
     }
@@ -333,6 +362,7 @@ def preflight_initial_solver(cfg: dict, n: int = None, rc: int = None,
     gamma_cfg = cfg['gamma']
     k_op10_cfg = cfg['k_op10']
     k_refl_cfg = cfg['k_refl']
+    k_hopf_cfg = cfg['k_hopf']   # v7.1: explicit key, not the engine default
     rot_cfg = cfg['rotation_storage']
 
     setup = preflight_setup(cfg, n=n_use, rc=rc_use)
@@ -352,10 +382,13 @@ def preflight_initial_solver(cfg: dict, n: int = None, rc: int = None,
             return cf_inner
 
     cf = make_solver(n_use)
-    # Apply cfg physics params regardless of solver origin
+    # Apply cfg physics params regardless of solver origin. k_hopf is set
+    # explicitly from cfg (v7.1 §5): do NOT rely on the engine's π/3 default —
+    # a supplied make_solver may default it differently (or to 0).
     cf.gamma = gamma_cfg
     cf.k_op10 = k_op10_cfg
     cf.k_refl = k_refl_cfg
+    cf.k_hopf = k_hopf_cfg
     cf.q = setup['q0'].copy()
     return cf, setup
 
@@ -791,6 +824,55 @@ def classify_first_bond(r_eq_t: float, r_eq0: float) -> str:
     if r_eq0 <= 0.0:
         return 'INFALL'
     return 'BREAKUP' if (r_eq_t / r_eq0) >= FIRST_BOND_BREAKUP_RATIO else 'INFALL'
+
+
+# ---------------------------------------------------------------------------
+# Mirror-control energy offset (v7.1 "Mirror controls", HOPF-TERM-CHECK §5)
+# ---------------------------------------------------------------------------
+# The Hopf term is mirror-ODD: E_hopf(mirror) = −E_hopf(seed) (verified exactly
+# by the Gate: +3.3437/−3.3437 on the 72³ hedgehog, +24.340/−24.340 on
+# rational(192,24)). Every other energy term (strain, κ, op10, reflection) is
+# bit-identical between a seed and its mirror. Therefore the total energies
+# differ by exactly 2·k_hopf·E_hopf(seed) — a seed vs mirror comparison must
+# NOT require exact ± symmetry of H. Count-sign symmetry N → −N stays EXACT
+# (the integer charge flips sign with no energy-offset slack).
+
+# Documented slack for the (nominally identical) non-Hopf terms: on a mirror
+# (global q2 → −q2) the per-site non-Hopf densities are invariant, but JAX
+# reduction ordering is not bit-identical, so H_seed − H_mirror carries a
+# residual ~1e-15·|H| on top of the 2·k_hopf·E_hopf offset. 1e-9 is ~6 orders
+# above that residual and ~6 orders below the physical offset (≤1e-3·|H|).
+MIRROR_ENERGY_REL_SLACK = 1e-9
+
+
+def mirror_energy_allowance(E_hopf, k_hopf=K_HOPF, rel_slack=MIRROR_ENERGY_REL_SLACK):
+    """Allowed |ΔH| between a seed and its mirror given the seed's Hopf energy.
+
+    Returns 2·|k_hopf·E_hopf| (the mirror-odd offset magnitude) plus a small
+    documented slack. Nonzero whenever E_hopf ≠ 0.
+
+    E_hopf is the Hopf energy WITHOUT the k_hopf prefactor — i.e.
+    Σ_alive _hopf_density_q(q); the total-energy contribution is k_hopf·E_hopf.
+    """
+    base = 2.0 * abs(k_hopf) * abs(E_hopf)
+    return base + rel_slack * max(base, 1.0)
+
+
+def mirror_energy_consistent(H_seed, H_mirror, E_hopf_seed, k_hopf=K_HOPF,
+                             rel_slack=MIRROR_ENERGY_REL_SLACK):
+    """True iff (H_seed − H_mirror) matches the mirror-odd Hopf offset.
+
+    Checks |(H_seed − H_mirror) − 2·k_hopf·E_hopf_seed| ≤ slack, where slack is
+    rel_slack scaled by the energy magnitude. Exact ± symmetry is NOT required
+    (the offset 2·k_hopf·E_hopf_seed is expected and allowed). Count-sign
+    symmetry N → −N is a separate, exact relation and is not loosened here.
+
+    E_hopf_seed is Σ_alive _hopf_density_q(q_seed) (no k_hopf prefactor).
+    """
+    expected = 2.0 * k_hopf * E_hopf_seed
+    residual = abs((H_seed - H_mirror) - expected)
+    scale = max(abs(H_seed), abs(H_mirror), abs(expected), 1.0)
+    return residual <= rel_slack * scale
 
 
 # ---------------------------------------------------------------------------
