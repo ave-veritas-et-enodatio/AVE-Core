@@ -3576,6 +3576,7 @@ def test_run_preflight_stub_solver():
             self._q = None
             self.gamma = None
             self.k_op10 = None
+            self.k_refl = None
 
         @property
         def q(self):
@@ -4058,6 +4059,77 @@ def test_agg_pre_collapse_fail():
 
 
 # ---------------------------------------------------------------------------
+# §11 fix 7d — cfg-physics read-back: gamma, k_op10, k_refl applied from cfg
+# ---------------------------------------------------------------------------
+
+
+def test_preflight_initial_solver_cfg_physics_readback():
+    """S1–S3 kill: preflight_initial_solver must apply gamma, k_op10, k_refl from
+    cfg regardless of the supplied make_solver's defaults.
+
+    Uses a _PhysStub with gamma=k_op10=1.0 and k_refl=1.0 — all intentionally
+    different from P-ii/P-ii-C/R2-PF cfg values — and asserts that after calling
+    preflight_initial_solver the solver has the cfg values, not the stub defaults.
+
+    Kills:
+      S1 (delete cf.gamma = gamma_cfg): cf.gamma stays 1.0 != 4320 → fails
+      S2 (delete cf.k_op10 = k_op10_cfg): cf.k_op10 stays 1.0 != 8.88e5/5.59e4 → fails
+      S3 (S1+S2 together): both fail
+    Also verifies the default-path (make_solver=None) sets G and G_c correctly.
+    """
+    import sys, os as _os
+    sys.path.insert(0, _os.path.join(_os.path.dirname(__file__),
+                                     '..', 'scripts', 'vol_4_engineering'))
+    import csk4_r2_config as _cfg_mod
+
+    class _PhysStub:
+        def __init__(self, nn):
+            self.gamma = 1.0        # intentionally wrong
+            self.k_op10 = 1.0       # intentionally wrong
+            self.k_refl = 1.0       # intentionally wrong
+            self._q = None
+
+        @property
+        def q(self):
+            return self._q
+
+        @q.setter
+        def q(self, val):
+            self._q = val.copy()
+
+    # For R2-PF (rational seed): n/2 must equal L_scaled = SEED_L_PF * rc_use / SEED_RC
+    # = 96 * 3 / 24 = 12; n = 24 → 24/2 = 12 ✓
+    cases = [
+        ('P-ii',   _cfg_mod.make_pii_config(control=False), 24, 12),
+        ('P-ii-C', _cfg_mod.make_pii_config(control=True),  24, 12),
+        ('R2-PF',  _cfg_mod.make_r2_pf_config(control=False), 24, 3),
+    ]
+
+    for name, cfg, n_si, rc_si in cases:
+        cf, _ = _cfg_mod.preflight_initial_solver(
+            cfg, n=n_si, rc=rc_si,
+            make_solver=lambda nn: _PhysStub(nn))
+
+        assert cf.gamma == cfg['gamma'], (
+            f"{name}: cf.gamma={cf.gamma!r} != cfg['gamma']={cfg['gamma']!r} "
+            "(S1: gamma not applied from cfg to supplied make_solver)")
+        assert cf.k_op10 == cfg['k_op10'], (
+            f"{name}: cf.k_op10={cf.k_op10!r} != cfg['k_op10']={cfg['k_op10']!r} "
+            "(S2: k_op10 not applied from cfg to supplied make_solver)")
+        assert cf.k_refl == cfg['k_refl'], (
+            f"{name}: cf.k_refl={cf.k_refl!r} != cfg['k_refl']={cfg['k_refl']!r} "
+            "(k_refl not applied from cfg to supplied make_solver)")
+
+    # Default path (make_solver=None): inline lambda sets G and G_c from module constants.
+    pii_cfg = _cfg_mod.make_pii_config(control=False)
+    cf_def, _ = _cfg_mod.preflight_initial_solver(pii_cfg, n=8, rc=12)
+    assert cf_def.G == _cfg_mod.G, (
+        f"default path: cf.G={cf_def.G!r} != G={_cfg_mod.G!r}")
+    assert cf_def.G_c == _cfg_mod.G_C, (
+        f"default path: cf.G_c={cf_def.G_c!r} != G_C={_cfg_mod.G_C!r}")
+
+
+# ---------------------------------------------------------------------------
 # §11 fix 7c — AST + runtime guard: opt-in pre-flight seed path
 # ---------------------------------------------------------------------------
 
@@ -4110,7 +4182,6 @@ def test_preflight_optin_seed_path_guard():
         if isinstance(target, ast.Attribute) and target.attr == 'q':
             forbidden_assigns.append(
                 (f'.q attribute assignment at line {lineno}', lineno))
-        # <anything>['q0'] = ... (seed dict override)
         if isinstance(target, ast.Subscript):
             sl = target.slice
             key_val = None
@@ -4122,23 +4193,68 @@ def test_preflight_optin_seed_path_guard():
                     key_val = inner.value
                 elif hasattr(inner, 's'):  # ast.Str (Python ≤ 3.7)
                     key_val = inner.s
+            # <anything>['q0'] = ... (seed dict override)
             if key_val == 'q0':
                 forbidden_assigns.append(
                     (f"subscript['q0'] assignment at line {lineno}", lineno))
+            # <anything>.q[...] = ... (subscript-of-.q injection; S5 kill)
+            if isinstance(target.value, ast.Attribute) and target.value.attr == 'q':
+                forbidden_assigns.append(
+                    (f'.q subscript assignment at line {lineno}', lineno))
 
     def _audit_fn(fn):
         src = textwrap.dedent(inspect.getsource(fn))
         tree = ast.parse(src)
+
+        # Pass 1: collect import aliases and detect forbidden imports.
+        # Forbids importing a forbidden name even under an alias (S5 kill).
+        alias_map = {}   # local_name -> canonical_name
+        forbidden_imports = []
+        for node in ast.walk(tree):
+            if isinstance(node, (ast.ImportFrom, ast.Import)):
+                for alias in node.names:
+                    canonical = alias.name
+                    local = alias.asname if alias.asname else alias.name
+                    alias_map[local] = canonical
+                    if canonical in _FORBIDDEN_CALLS:
+                        asname_note = (f' as {alias.asname!r}'
+                                       if alias.asname else '')
+                        forbidden_imports.append((
+                            f"import {canonical!r}{asname_note} at line "
+                            f"{getattr(node, 'lineno', '?')}",
+                            getattr(node, 'lineno', '?')))
+
         calls_allowed = False
         forbidden_calls = []
         forbidden_assigns = []
         for node in ast.walk(tree):
             if isinstance(node, ast.Call):
                 name = _fn_name(node.func)
-                if name in _ALLOWED_CALLS:
+                # Resolve alias to canonical name (S5 kill: _hh → _hedgehog_at)
+                resolved = alias_map.get(name, name) if name else name
+                if name in _ALLOWED_CALLS or resolved in _ALLOWED_CALLS:
                     calls_allowed = True
-                if name in _FORBIDDEN_CALLS:
-                    forbidden_calls.append((name, getattr(node, 'lineno', '?')))
+                if (name in _FORBIDDEN_CALLS or
+                        (resolved is not None and resolved in _FORBIDDEN_CALLS)):
+                    forbidden_calls.append(
+                        (resolved or name, getattr(node, 'lineno', '?')))
+                # np.copyto(cf.q, ...) / np.put(cf.q, ...) — first arg is .q
+                if name in ('copyto', 'put') and node.args:
+                    first = node.args[0]
+                    if isinstance(first, ast.Attribute) and first.attr == 'q':
+                        forbidden_assigns.append((
+                            f'{name}(.q,...) at line '
+                            f'{getattr(node, "lineno", "?")}',
+                            getattr(node, 'lineno', '?')))
+                # cf.q.fill(...) / cf.q.__setitem__(...)
+                if isinstance(node.func, ast.Attribute):
+                    if (node.func.attr in ('fill', '__setitem__') and
+                            isinstance(node.func.value, ast.Attribute) and
+                            node.func.value.attr == 'q'):
+                        forbidden_assigns.append((
+                            f'.q.{node.func.attr}() at line '
+                            f'{getattr(node, "lineno", "?")}',
+                            getattr(node, 'lineno', '?')))
             elif isinstance(node, ast.Assign):
                 for target in node.targets:
                     _check_target(target, node.lineno, forbidden_assigns)
@@ -4146,7 +4262,7 @@ def test_preflight_optin_seed_path_guard():
                 _check_target(node.target, node.lineno, forbidden_assigns)
             elif isinstance(node, ast.AnnAssign) and node.target is not None:
                 _check_target(node.target, node.lineno, forbidden_assigns)
-        return calls_allowed, forbidden_calls, forbidden_assigns
+        return calls_allowed, forbidden_calls, forbidden_assigns, forbidden_imports
 
     opt_in_fns = [
         test_r1_2d_option_ii_dynamic,
@@ -4156,11 +4272,15 @@ def test_preflight_optin_seed_path_guard():
 
     for fn in opt_in_fns:
         fn_name = fn.__name__
-        calls_ok, bad_calls, bad_assigns = _audit_fn(fn)
+        calls_ok, bad_calls, bad_assigns, bad_imports = _audit_fn(fn)
         assert calls_ok, (
             f"{fn_name}: check (a) — does not call run_preflight or "
             f"preflight_initial_solver; opt-in tests must obtain initial "
             f"state only through those functions")
+        assert not bad_imports, (
+            f"{fn_name}: check (b) — forbidden seed-constructor imports "
+            f"(even with alias): {bad_imports}; opt-in tests must not import "
+            f"forbidden symbols")
         assert not bad_calls, (
             f"{fn_name}: check (b) — forbidden seed-constructor calls: "
             f"{bad_calls}; opt-in tests must not build seeds directly")
@@ -4178,6 +4298,7 @@ def test_preflight_optin_seed_path_guard():
             self._q = None
             self.gamma = None
             self.k_op10 = None
+            self.k_refl = None
 
         @property
         def q(self):
@@ -4210,3 +4331,20 @@ def test_preflight_optin_seed_path_guard():
     assert actual_sha1 != wrong_sha1, (
         f"preflight_initial_solver: cf.q sha1 == L={n_si // 2} (=n//2) wrong seed; "
         f"n={n_si}, rc={rc_si}; L=n//2 mutant in preflight_initial_solver not killed")
+
+    # S4 kill — strict no-reset SHA1: sha1(cf.q.tobytes()) without any reset must equal
+    # setup['seed_sha1'].  The 7c check above re-applied the dead-site reset itself,
+    # which masks the S4 mutant (cf.q = build_pf_seed(...) skips the reset — after the
+    # test's own reset both paths match).  Taking the hash directly catches it:
+    # the S4 mutant leaves dead sites with non-identity values, so sha1 differs.
+    actual_sha1_strict = hashlib.sha1(cf_si.q.tobytes()).hexdigest()
+    assert actual_sha1_strict == setup_si['seed_sha1'], (
+        f"preflight_initial_solver S4 kill: sha1(cf.q) no-reset = "
+        f"{actual_sha1_strict!r} != setup['seed_sha1'] = "
+        f"{setup_si['seed_sha1']!r}; dead-site reset must be applied inside "
+        "preflight_initial_solver (not left to the caller)")
+    # Belt-and-suspenders: dead sites must already be identity quaternion
+    _identity = np.array([1.0, 0.0, 0.0, 0.0])
+    assert np.all(cf_si.q[~alive_si] == _identity), (
+        "preflight_initial_solver S4 kill: dead sites in cf.q are not identity "
+        "[1,0,0,0]; dead-site reset must be applied before assigning cf.q")

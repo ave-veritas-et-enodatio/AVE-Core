@@ -355,6 +355,7 @@ def preflight_initial_solver(cfg: dict, n: int = None, rc: int = None,
     # Apply cfg physics params regardless of solver origin
     cf.gamma = gamma_cfg
     cf.k_op10 = k_op10_cfg
+    cf.k_refl = k_refl_cfg
     cf.q = setup['q0'].copy()
     return cf, setup
 
