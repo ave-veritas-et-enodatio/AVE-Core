@@ -139,6 +139,11 @@ _ENGINE_SIM_TESTS = {
     # STAY gating. Coverage via make test-engine.
     "test_genesis_node_birth_discriminator.py::test_d2_persistence_harness_smoke",
     "test_genesis_node_birth_discriminator.py::test_d2_persistence_plant_pair_seed_fires",
+    # K4 PR-B R1-D (v5): LOG-ONLY k_refl=1 hedgehog on both engines over a dt
+    # ladder (3 dt × 2 engines × up-to-800 steps on a 24³ grid). Non-asserting
+    # K-R18/K-R21 diagnostic; too slow for the gating lane. The rest of
+    # test_k4_quaternion_storage.py (R1 acceptance gates) STAYS gating.
+    "test_k4_quaternion_storage.py::test_r1_d_krefl1_log_only",
 }
 # EXCEPTIONS — kept in the GATING lane despite living in a whole-file engine_sim
 # module: the genesis INHERITANCE/DORMANCY-CONTRACT keepers, which

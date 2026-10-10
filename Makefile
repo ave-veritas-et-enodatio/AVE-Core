@@ -612,7 +612,9 @@ test: test-tools
 	$(PYTEST) $(SOURCE_DIR)/tests -m "not engine_sim" -n auto --timeout=180 --timeout-method=thread \
 		--ignore=$(SOURCE_DIR)/tests/test_mass_sector_a1_port.py \
 		--ignore=$(SOURCE_DIR)/tests/test_tone_probe_ringdown.py \
-		--ignore=$(SOURCE_DIR)/tests/test_charge_counters.py
+		--ignore=$(SOURCE_DIR)/tests/test_charge_counters.py \
+		--ignore=$(SOURCE_DIR)/tests/test_k4_quaternion_storage.py \
+		--ignore=$(SOURCE_DIR)/tests/test_k4_charge_adapter.py
 	# Serial tail (2026-07-17): the A1-port suite transiently spikes ~340 MB; when
 	# xdist packing lands it late in the schedule it stacks on per-worker memory
 	# accumulation and the 2-core CI runner OOM-kills the worker ("node down",
@@ -633,6 +635,14 @@ test: test-tools
 	# Under xdist workers share a 2-core budget; fixture stacking OOM-kills the
 	# worker. Same pattern as the 2026-07-17 A1-port and 2026-10-07 tone-probe tails.
 	$(PYTEST) $(SOURCE_DIR)/tests/test_charge_counters.py --timeout=180 --timeout-method=thread
+	# Serial tail (2026-10-08): test_k4_quaternion_storage peaks at ~1140 MB RSS
+	# (measured local; OOM-kills gw1 on 2-core CI runner under xdist — same
+	# pattern as charge_counters). Fresh serial process avoids worker-shared budget.
+	$(PYTEST) $(SOURCE_DIR)/tests/test_k4_quaternion_storage.py -m "not engine_sim" --timeout=180 --timeout-method=thread -v --durations=10
+	# Serial tail (2026-10-09): test_k4_charge_adapter (D2 adapter tests) shares
+	# the K4 field-allocation pattern (32-48³ BCC + c_exact/c_link); runs after
+	# the K4 storage tail to avoid stacking with it under xdist.
+	$(PYTEST) $(SOURCE_DIR)/tests/test_k4_charge_adapter.py -m "not engine_sim" --timeout=180 --timeout-method=thread -v --durations=10
 
 test-engine:
 	@echo "[Test] Running engine-simulation tests (opt-in; slow tier-1/2)..."

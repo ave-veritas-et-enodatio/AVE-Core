@@ -980,8 +980,8 @@ class CosseratField3D:
         impedance_skin_smoothing: int = 2,
         impedance_implicit: bool = False,
         impedance_cfl_safety: float = 0.4,
-        reflection_form: str = "grad",
-        reflection_delta: float = 1e-3,
+        reflection_form: str = "grad", k_refl: float = 1.0,
+        reflection_delta: float = 1e-3, rotation_storage: str = "omega",
     ):
         self.nx = nx
         self.ny = ny
@@ -1035,7 +1035,7 @@ class CosseratField3D:
         self.G_c = 1.0
         self.gamma = 1.0
         self.k_op10 = 1.0
-        self.k_refl = 1.0
+        _k4_init(self, k_refl, rotation_storage)  # k_refl + rotation_storage state (B1c: net-zero vs base `self.k_refl = 1.0`)
         # k_hopf = pi/3 from the Hopf-invariant matching at Q_H = 6 (electron
         # (2,3) winding), per research/_archive/L3_electron_soliton/13_ §3.2.
         self.k_hopf = float(np.pi / 3.0)
@@ -2744,3 +2744,63 @@ class CosseratField3D:
 # execution records in _orchestration/; this batch's record
 # _orchestration/2026-08-12_r40-sweep-batch2a.md.
 # --------------------------------------------------------------------------
+
+
+# ──────────────────────────────────────────────────────────────────────────
+# K4 quaternion-storage wiring (B1c line-neutral tail).
+#
+# The K4 helpers live in the self-contained ``k4_quaternion`` module (B1
+# module-split). They are re-imported HERE — at the END of the file, after the
+# last pre-B1 line — rather than mid-file, so the inbound cite-shift checker
+# (which pins ~110 corpus cites to cf: line numbers) sees every pre-B1 line at
+# its original address. Import resolution for the class methods / step dispatch
+# happens at CALL time, so an end-of-module import is safe.
+#
+# The class-method block (step_k4, total_energy_k4, kinetic_energy_k4, the two
+# alive-mask enforcers) was formerly inline in the class body; it is now hosted
+# in ``k4_quaternion.K4Mixin`` and ATTACHED here. The constructor's k_refl +
+# rotation_storage setup is a single-line ``_k4_init(self, …)`` delegation in
+# __init__; the quaternion step() dispatch is wired by wrapping ``step`` below.
+# All three keep the in-class B1 footprint net-zero against the pre-B1 base.
+# ──────────────────────────────────────────────────────────────────────────
+
+from ave.topological.k4_quaternion import (  # noqa: E402,F401
+    _quat_mul_jax, _q_to_n_jax, _compute_strain_q_jax, _bond_wryness_jax,
+    _op10_density_q, _hopf_density_q, _energy_density_k4_saturated,
+    _total_energy_k4, _val_and_grad_k4, _total_energy_k4_jit,
+    _left_torque_from_grad, _left_torque_from_grad_jit,
+    _quat_mul_np, _quat_exp_np,
+    _k4_init, K4Mixin,
+)
+
+# Attach the K4 class methods (formerly inline; byte-identical behavior).
+for _k4_method in (
+    "_zero_outside_alive_k4", "_zero_velocities_outside_alive_k4",
+    "kinetic_energy_k4", "total_energy_k4", "step_k4",
+):
+    setattr(CosseratField3D, _k4_method, getattr(K4Mixin, _k4_method))
+del _k4_method
+
+# Wire the step() dispatch: the quaternion mode routes to step_k4; the omega
+# mode runs the original (unchanged) velocity-Verlet. The original method is
+# preserved as _step_omega so the dispatch is a thin, byte-faithful wrapper.
+CosseratField3D._step_omega = CosseratField3D.step
+
+
+def _step_dispatch(self, dt: float | None = None, apply_pml: bool = True) -> None:
+    """Route step() to the K4 Lie-group stepper when rotation_storage is
+    'quaternion'; otherwise run the unchanged omega velocity-Verlet.
+
+    Byte-identical to the default path for rotation_storage='omega' — the omega
+    branch calls the original method verbatim (preserved as _step_omega)."""
+    if self.rotation_storage == "quaternion":
+        self.step_k4(dt, apply_pml)
+        return
+    self._step_omega(dt, apply_pml)
+
+
+_step_dispatch.__doc__ = (CosseratField3D.step.__doc__ or "") + (
+    "\n\n        B1c dispatch wrapper: see _step_dispatch / _step_omega at the "
+    "end of cosserat_field_3d.py."
+)
+CosseratField3D.step = _step_dispatch
