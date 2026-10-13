@@ -21,7 +21,7 @@ The AVE KB is a navigable Markdown distillation of an 8-volume LaTeX physics man
 
 ## What the KB Contains
 
-The manuscript derives all physical observables — particle masses, coupling constants, bond energies, cosmological parameters — from four topological axioms plus three canonical hardware scales ($\ell_{node}$, $\alpha$, $G$), all three of which are themselves derived (see Vol 1 Ch 8 for the Golden Torus derivation of $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$). The KB distills the manuscript into leaf documents (verbatim LaTeX→Markdown translation) organized under a hierarchy of index documents.
+The manuscript derives all physical observables — particle masses, coupling constants, bond energies, cosmological parameters — from four topological axioms plus three canonical hardware scales ($\ell_{node}$, $\alpha$, $G$). $\ell_{node}$ and $G$ are themselves derived; $\alpha$ is **not** — AVE does not derive $\alpha$: it is a calibration input (CODATA), and $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ (Vol 1 Ch 8, Golden Torus) is a Class-B named identification, not a derivation (value = STANDING echo; see `eq_calibration_constants.tex`). The KB distills the manuscript into leaf documents (verbatim LaTeX→Markdown translation) organized under a hierarchy of index documents.
 
 ## Hierarchy
 
