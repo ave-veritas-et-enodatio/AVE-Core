@@ -378,7 +378,6 @@ def preflight_initial_solver(cfg: dict, n: int = None, rc: int = None,
                 rotation_storage=rot_cfg,
             )
             cf_inner.gamma = gamma_cfg
-            cf_inner.G = G_cfg
             cf_inner.G_c = Gc_cfg
             cf_inner.k_op10 = k_op10_cfg
             return cf_inner

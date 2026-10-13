@@ -4951,3 +4951,226 @@ def test_preflight_optin_seed_path_guard():
     assert np.all(cf_si.q[~alive_si] == _identity), (
         "preflight_initial_solver S4 kill: dead sites in cf.q are not identity "
         "[1,0,0,0]; dead-site reset must be applied before assigning cf.q")
+
+
+# ---------------------------------------------------------------------------
+# fix9b: Kill 7 post-fix9 mutation survivors
+# ---------------------------------------------------------------------------
+
+
+def test_preflight_verdict_bond_step_dh_flag():
+    """fix9b S1+S2: row at step==first_bond_step with dH>1e-2 must append flag.
+
+    The post-bond dH flag loop uses `row['step'] >= first_bond_step` — the
+    bond-step row itself (step==first_bond_step) is POST-bond (C2/F1) and must
+    be flagged when its dH > 1e-2.
+
+    Kills:
+      c9_postbond_flag_gt (>= → >): step==first_bond_step excluded by strict >
+      c9_postbond_flag_by_time (step>= → t>t_first+1e-9): row t == t_first is
+        excluded by the time-based condition
+
+    The bond-step row has step==first_bond_step and t==t_first (so both mutants
+    suppress the flag; the real code catches it).
+    Use round t values on the 0.005 grid to avoid the spacing-check INVALID.
+    """
+    cfg = _cfg()
+    r_eq0 = cfg.R_EQ0_PII
+
+    # first_bond_step=200 (arbitrary integer larger than all pre-row steps).
+    # t_first=0.030 exactly — on the 0.005 grid, so spacing from pre-row 0.025 is 0.005.
+    first_bond_step = 200
+    t_first = 0.030
+
+    # Dense pre-bond rows at t=0.005..0.025 with steps < first_bond_step.
+    pre_rows = [
+        {'t': round(k * 0.005, 6), 'step': k * 31,
+         'N': 1, 'resolved': True, 'dH': 1e-5, 'n_antipodal': 0, 'r_eq': r_eq0}
+        for k in range(1, 6)   # 0.005 .. 0.025; steps 31..155, all < 200
+    ]
+    # Bond-step row: step==first_bond_step, t==t_first, dH=5e-2 > 1e-2.
+    # Real code: step >= first_bond_step → True → flag fires.
+    # c9_postbond_flag_gt: step > first_bond_step → False (step==fbs) → no flag.
+    # c9_postbond_flag_by_time: t > t_first+1e-9 → False (t==t_first) → no flag.
+    bond_row = {
+        't': t_first, 'step': first_bond_step,
+        'N': None, 'resolved': False,
+        'dH': 5e-2, 'n_antipodal': 9, 'r_eq': r_eq0 * 0.98,
+    }
+    trace = {
+        'rows': pre_rows + [bond_row],
+        'H0': 1.0, 'r_eq0': r_eq0,
+        't_first': t_first,
+        'first_bond_step': first_bond_step,
+        'r_first': 6.0,
+        'r_eq_at_first': 0.98 * r_eq0,
+        'n_antipodal_T': 9,
+        'T': 0.25,
+    }
+    out = cfg.preflight_verdict(trace, cfg.PII_SPEC)
+    assert out['gate'] == 'BREAKUP', f"expected BREAKUP; got {out}"
+    assert any('dH>1e-2 flag' in r for r in out['reasons']), (
+        f"bond-step row (step==first_bond_step, t==t_first, dH=5e-2) must append "
+        f"'dH>1e-2 flag'; reasons={out['reasons']}. "
+        "Kills c9_postbond_flag_gt (>= → >) and c9_postbond_flag_by_time.")
+
+
+def test_preflight_verdict_first_bond_step_missing_pins_early_reason():
+    """fix9b S3: early first_bond_step guard must emit its specific reason string.
+
+    Kills c9_first_bond_step_required_off (condition → False).
+    With the mutant the guard is bypassed; a later check still returns INVALID
+    but emits a DIFFERENT reason string.  Pinning the exact early-check reason
+    distinguishes the two code paths.
+
+    Early reason (real code): "bonded trace missing required key 'first_bond_step'
+                               (t_first is not None)"
+    Later reason (mutant, missing key): "bonded trace missing required key
+                               'first_bond_step'" (no suffix)
+    Later reason (mutant, is-None):     "bonded trace: 'first_bond_step' is None but
+                               t_first is not None"  (different format)
+    """
+    cfg = _cfg()
+    r_eq0 = cfg.R_EQ0_PII
+    first_bond_step = 200
+    t_first = 0.030
+
+    _EARLY_REASON_SUBSTR = "missing required key 'first_bond_step' (t_first is not None)"
+
+    pre_rows = [
+        {'t': round(k * 0.005, 6), 'step': k * 31,
+         'N': 1, 'resolved': True, 'dH': 1e-5, 'n_antipodal': 0, 'r_eq': r_eq0}
+        for k in range(1, 6)   # 0.005..0.025, steps 31..155 < 200
+    ]
+
+    # Case (a): bonded trace missing 'first_bond_step' key entirely
+    trace_missing = {
+        'rows': pre_rows,
+        'H0': 1.0, 'r_eq0': r_eq0,
+        't_first': t_first,
+        # 'first_bond_step' deliberately absent
+        'r_first': 6.0,
+        'r_eq_at_first': 0.98 * r_eq0,
+        'n_antipodal_T': 9,
+        'T': 0.25,
+    }
+    out_a = cfg.preflight_verdict(trace_missing, cfg.PII_SPEC)
+    assert out_a['gate'] == 'INVALID', (
+        f"bonded trace missing first_bond_step must be INVALID; got {out_a}")
+    assert any(_EARLY_REASON_SUBSTR in r for r in out_a['reasons']), (
+        f"early check reason must contain {_EARLY_REASON_SUBSTR!r}; "
+        f"got {out_a['reasons']}. "
+        "c9_first_bond_step_required_off mutant emits a different reason.")
+
+    # Case (b): bonded trace with first_bond_step=None
+    trace_none = dict(trace_missing, first_bond_step=None)
+    out_b = cfg.preflight_verdict(trace_none, cfg.PII_SPEC)
+    assert out_b['gate'] == 'INVALID', (
+        f"bonded trace with first_bond_step=None must be INVALID; got {out_b}")
+    assert any(_EARLY_REASON_SUBSTR in r for r in out_b['reasons']), (
+        f"early check reason must contain {_EARLY_REASON_SUBSTR!r}; "
+        f"got {out_b['reasons']}. "
+        "c9_first_bond_step_required_off mutant emits a different reason.")
+
+
+def test_assert_initial_state_raises_on_mismatch():
+    """fix9b S5: assert_initial_state must raise AssertionError on mismatched sha1.
+
+    Kills c9_assert_initial_state_noop (assert actual == ... → assert True, ...).
+    With the mutant the assert is a no-op and no error is raised.
+    """
+    import sys, os as _os, hashlib as _hs
+    sys.path.insert(0, _os.path.join(_os.path.dirname(__file__),
+                                     '..', 'scripts', 'vol_4_engineering'))
+    import csk4_r2_config as _cfg_mod
+    from ave.topological.charge_counters import bcc_alive_mask
+
+    pii_cfg = _cfg_mod.make_pii_config(control=False)
+    n_si, rc_si = 16, 3
+
+    class _MinStub:
+        def __init__(self, nn):
+            self._q = None
+            self.gamma = None; self.k_op10 = None
+            self.k_refl = None; self.k_hopf = None
+            self.G = None; self.G_c = None
+        @property
+        def q(self):
+            return self._q
+        @q.setter
+        def q(self, val):
+            self._q = val.copy()
+
+    cf, setup = _cfg_mod.preflight_initial_solver(
+        pii_cfg, n=n_si, rc=rc_si,
+        make_solver=lambda nn: _MinStub(nn))
+
+    # setup['seed_sha1'] is the sha1 of the correct seed — verify it matches first.
+    correct_sha1 = _hs.sha1(cf.q.tobytes()).hexdigest()
+    assert correct_sha1 == setup['seed_sha1'], "precondition: cf.q matches seed_sha1"
+
+    # Mutate cf.q: flip sign of one element on an alive site.
+    alive = bcc_alive_mask((n_si, n_si, n_si))
+    site = tuple(np.argwhere(alive)[0])
+    cf.q[site][0] = -cf.q[site][0]
+
+    # assert_initial_state must raise AssertionError (sha1 now differs).
+    with pytest.raises(AssertionError, match="sha1"):
+        _cfg_mod.assert_initial_state(cf, setup)
+
+
+def test_preflight_verdict_empty_rows_complete_trace_invalid():
+    """fix9b S6: rows=[] with a complete bonded trace → INVALID with empty-rows reason.
+
+    Kills v71_empty_rows_ok (if not rows: → if False:).
+    With the mutant, the empty-rows guard is bypassed; the code classifies the
+    bond geometry (BREAKUP) and returns a non-INVALID gate instead.
+    """
+    cfg = _cfg()
+    r_eq0 = cfg.R_EQ0_PII
+    first_bond_step = 200
+    t_first = 0.030
+
+    # Complete trace: all required keys present and valid — except rows=[].
+    trace = {
+        'rows': [],
+        'H0': 1.0, 'r_eq0': r_eq0,
+        't_first': t_first,
+        'first_bond_step': first_bond_step,
+        'r_first': 6.0,
+        'r_eq_at_first': 0.98 * r_eq0,   # ratio 0.98 ≥ 0.85 → BREAKUP (if guard bypassed)
+        'n_antipodal_T': 9,
+        'T': 0.25,
+    }
+    out = cfg.preflight_verdict(trace, cfg.PII_SPEC)
+    assert out['gate'] == 'INVALID', (
+        f"rows=[] must yield INVALID; got gate={out['gate']!r} reasons={out['reasons']}. "
+        "With v71_empty_rows_ok mutant (if False:) the empty-rows guard is bypassed "
+        "and gate becomes 'BREAKUP'.")
+    assert any('empty' in r.lower() for r in out['reasons']), (
+        f"INVALID reason must mention empty rows; got {out['reasons']}")
+
+
+def test_r2pf_config_top_level_key_set_pin():
+    """fix9b S7: exact top-level key-set pin for make_r2_pf_config().
+
+    Kills v8_r2pf_applies_size_ratio_key (inserts "R2C_SIZE_RATIO": R2C_SIZE_RATIO
+    before "checkpoints" in the returned dict).  With the mutant, the key set
+    gains 'R2C_SIZE_RATIO' and the assertion fails.
+    """
+    cfg = _cfg()
+
+    _EXPECTED_KEYS = frozenset({
+        'nx', 'ny', 'nz', 'dt', 'n_steps', 't_end',
+        'gamma', 'G', 'G_c', 'k_op10', 'k_refl', 'k_hopf', 'rotation_storage',
+        'seed', 'face_check', 'checkpoints',
+    })
+
+    for control in (False, True):
+        r2pf = cfg.make_r2_pf_config(control=control)
+        actual_keys = frozenset(r2pf.keys())
+        assert actual_keys == _EXPECTED_KEYS, (
+            f"make_r2_pf_config(control={control}) key set mismatch. "
+            f"Extra: {actual_keys - _EXPECTED_KEYS}  "
+            f"Missing: {_EXPECTED_KEYS - actual_keys}. "
+            "Kills v8_r2pf_applies_size_ratio_key (R2C_SIZE_RATIO injected into dict).")
