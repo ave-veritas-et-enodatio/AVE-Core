@@ -363,6 +363,8 @@ def preflight_initial_solver(cfg: dict, n: int = None, rc: int = None,
     k_op10_cfg = cfg['k_op10']
     k_refl_cfg = cfg['k_refl']
     k_hopf_cfg = cfg['k_hopf']   # v7.1: explicit key, not the engine default
+    G_cfg = cfg['G']
+    Gc_cfg = cfg['G_c']
     rot_cfg = cfg['rotation_storage']
 
     setup = preflight_setup(cfg, n=n_use, rc=rc_use)
@@ -376,21 +378,60 @@ def preflight_initial_solver(cfg: dict, n: int = None, rc: int = None,
                 rotation_storage=rot_cfg,
             )
             cf_inner.gamma = gamma_cfg
-            cf_inner.G = G
-            cf_inner.G_c = G_C
+            cf_inner.G = G_cfg
+            cf_inner.G_c = Gc_cfg
             cf_inner.k_op10 = k_op10_cfg
             return cf_inner
 
     cf = make_solver(n_use)
-    # Apply cfg physics params regardless of solver origin. k_hopf is set
-    # explicitly from cfg (v7.1 §5): do NOT rely on the engine's π/3 default —
-    # a supplied make_solver may default it differently (or to 0).
+    # Apply cfg physics params regardless of solver origin. k_hopf, G and G_c are
+    # set explicitly from cfg (v7.1 §5 / N1): do NOT rely on the engine defaults —
+    # a supplied make_solver may default them differently (or to 0/1).
     cf.gamma = gamma_cfg
     cf.k_op10 = k_op10_cfg
     cf.k_refl = k_refl_cfg
     cf.k_hopf = k_hopf_cfg
+    cf.G = G_cfg
+    cf.G_c = Gc_cfg
     cf.q = setup['q0'].copy()
+
+    # N1 runtime read-back: every applied physics knob must match cfg on every
+    # path (default or caller-supplied make_solver), mirroring assert_r2_config.
+    # Exact equality for gamma/k_op10/k_refl/G/G_c; k_hopf relative tol 1e-14.
+    assert cf.gamma == gamma_cfg, (
+        f"preflight_initial_solver: cf.gamma={cf.gamma!r} != cfg {gamma_cfg!r}")
+    assert cf.k_op10 == k_op10_cfg, (
+        f"preflight_initial_solver: cf.k_op10={cf.k_op10!r} != cfg {k_op10_cfg!r}")
+    assert cf.k_refl == k_refl_cfg, (
+        f"preflight_initial_solver: cf.k_refl={cf.k_refl!r} != cfg {k_refl_cfg!r}")
+    assert abs(cf.k_hopf - k_hopf_cfg) <= 1e-14 * max(abs(k_hopf_cfg), 1.0), (
+        f"preflight_initial_solver: cf.k_hopf={cf.k_hopf!r} != cfg {k_hopf_cfg!r}")
+    assert cf.G == G_cfg, (
+        f"preflight_initial_solver: cf.G={cf.G!r} != cfg {G_cfg!r}")
+    assert cf.G_c == Gc_cfg, (
+        f"preflight_initial_solver: cf.G_c={cf.G_c!r} != cfg {Gc_cfg!r}")
     return cf, setup
+
+
+def assert_initial_state(cf, setup) -> str:
+    """Runtime guard (N3): cf.q at step 0 must be the single-path seed.
+
+    Asserts sha1(cf.q.tobytes()) == setup['seed_sha1'] — the seed built by the
+    single initial-state path (preflight_setup → preflight_initial_solver).
+    Call this in every opt-in runner / option (ii) IMMEDIATELY before the
+    stepping loop, after the last statement that touches cf.  Unlike the AST
+    guard, this catches ANY route that mutated cf.q after the single path —
+    including setattr/getattr string obfuscation the AST cannot see.
+
+    Returns the verified sha1 (so callers may log it).
+    """
+    actual = hashlib.sha1(cf.q.tobytes()).hexdigest()
+    assert actual == setup['seed_sha1'], (
+        f"assert_initial_state: cf.q sha1={actual!r} != "
+        f"setup['seed_sha1']={setup['seed_sha1']!r}; the initial state was "
+        "mutated after the single seed path (preflight_initial_solver). "
+        "Opt-in runners must step the seed built by that path, unmodified.")
+    return actual
 
 
 def run_preflight(cfg: dict, spec: dict, n: int = None, rc: int = None,
@@ -409,7 +450,14 @@ def run_preflight(cfg: dict, spec: dict, n: int = None, rc: int = None,
     convention (F8 fix; avoids 0.87-unit offset from n//2).
 
     Returns trace dict with keys: rows, seed_sha1, H0, r_eq0, t_first,
-    r_first, r_eq_at_first, n_antipodal_T, T.
+    first_bond_step, r_first, r_eq_at_first, n_antipodal_T, T.
+
+    first_bond_step is the ACTUAL step index (1-based) at which the first
+    antipodal bond was seen (None if no bond). preflight_verdict classifies
+    pre-bond vs post-bond rows by row['step'] < first_bond_step — NOT by the
+    nominal checkpoint time row['t'] vs t_first (C2 / audit F1): a checkpoint
+    recorded on the same step as the first bond holds POST-bond state even
+    though its nominal t_k can be < t_first.
     """
     from ave.topological.k4_quaternion import count_charge_k4
 
@@ -434,6 +482,7 @@ def run_preflight(cfg: dict, spec: dict, n: int = None, rc: int = None,
 
     rows = []
     t_first = None
+    first_bond_step = None    # C2 (F1): ACTUAL step of first bond (row['step'] basis)
     r_first = None
     r_eq_at_first = None
     n_antipodal_T = 0
@@ -448,6 +497,7 @@ def run_preflight(cfg: dict, spec: dict, n: int = None, rc: int = None,
 
         if t_first is None and bonds:
             t_first = t
+            first_bond_step = step_1
             r_first = min(b[3] for b in bonds)
             r_eq_at_first = r_eq_from_q(cf.q, alive)
 
@@ -477,6 +527,7 @@ def run_preflight(cfg: dict, spec: dict, n: int = None, rc: int = None,
         'H0': H0,
         'r_eq0': r_eq0,
         't_first': t_first,
+        'first_bond_step': first_bond_step,
         'r_first': r_first,
         'r_eq_at_first': r_eq_at_first,
         'n_antipodal_T': n_antipodal_T,
@@ -502,23 +553,28 @@ def r_eq_from_q(q: np.ndarray, mask_alive: np.ndarray) -> float:
 
 def period_collapse(q: np.ndarray, mask_alive: np.ndarray,
                     r_eq0: float) -> bool:
-    """R2-C collapse criterion: Re≤0 on any alive bond OR r_eq/r_eq0 < 0.54.
+    """R2-C collapse criterion: Re≤0 on any alive bond OR r_eq/r_eq0 < R2C_SIZE_RATIO.
 
     Used by the R2 harness (shared with R1-2e via r_eq_from_q).  Returns True
     if the current field state counts as a collapse event.
+
+    The size-ratio arm uses the module constant R2C_SIZE_RATIO (= 0.54, the 6r_c
+    R2-primary number) — ONE source of truth (N2). The literal 0.54 is pinned by
+    test_r2pf_face_tail_pins (R2C_SIZE_RATIO == 0.54) and the behaviour is pinned
+    by test_r2_period_collapse_size_ratio (0.50 trips, 0.55 does not).
 
     Args:
         q: quaternion field (n,n,n,4)
         mask_alive: bool mask of alive BCC sites
         r_eq0: initial equivalent radius from r_eq_from_q at t=0
 
-    Mutant anchor: replacing `< 0.54` with `< 0` disables the size-ratio arm.
+    Mutant anchor: replacing `< R2C_SIZE_RATIO` with `< 0.0` disables the size-ratio arm.
     """
     from ave.topological.k4_quaternion import collapse_check
     if collapse_check(q, mask_alive)["collapse"]:
         return True
     if r_eq0 > 0.0:
-        if r_eq_from_q(q, mask_alive) / r_eq0 < 0.54:
+        if r_eq_from_q(q, mask_alive) / r_eq0 < R2C_SIZE_RATIO:
             return True
     return False
 
@@ -939,16 +995,23 @@ def preflight_verdict(trace: dict, spec: dict) -> dict:
       H0           float   energy at t=0
       r_eq0        float   r_eq at t=0
       t_first      float|None  time of first antipodal bond (key MUST be present)
+      first_bond_step  int|None  ACTUAL step index of the first bond; MUST be
+                     present and non-None whenever t_first is not None (C2 / F1).
+                     Pre-bond vs post-bond rows are classified by
+                     row['step'] < first_bond_step, NOT by row['t'] vs t_first —
+                     a checkpoint recorded on the first-bond step holds post-bond
+                     state even though its nominal t_k can be < t_first.
       r_first      float|None  distance to bond midpoint at t_first
       r_eq_at_first  float|None  r_eq at t_first
       n_antipodal_T  int  n_antipodal at end of run
       T            float  end time of run
 
     Gate verdicts (precedence top-down):
-    1. INVALID: missing required key ('rows', 'H0', 't_first'); empty rows;
-       r_eq(0) outside pin tolerance; spacing > 0.005 anywhere at t ≤ 0.1
-       (derived from row times); any pre-bond row is UNRESOLVED, has N ≠
-       N_expected, or has |dH| > 1e-3; STABLE but rows do not reach T.
+    1. INVALID: missing required key ('rows', 'H0', 't_first'; 'first_bond_step'
+       when bonded); empty rows; r_eq(0) outside pin tolerance; spacing > 0.005
+       anywhere at t ≤ 0.1 (derived from row times); any pre-bond row (by step)
+       is UNRESOLVED, has N ≠ N_expected, or has |dH| > 1e-3; STABLE but rows do
+       not reach T.
     2. BREAKUP / INFALL: bond seen; class from classify_first_bond.
     3. STABLE: no bond through T, all rows valid.
 
@@ -991,8 +1054,19 @@ def preflight_verdict(trace: dict, spec: dict) -> dict:
             f"r_eq0={r_eq0:.4f} outside pin {r_eq0_pin}±{r_eq0_tol}")
         return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
 
-    # 1b. Spacing check: origin + all rows at t ≤ 0.1 (pre- and post-bond)
+    # 1a'. first_bond_step: required (and non-None) whenever a bond occurred.
+    # Pre-bond vs post-bond rows are classified by step (C2 / audit F1), so the
+    # actual first-bond step must be present in the trace.
     t_first = trace['t_first']
+    first_bond_step = trace.get('first_bond_step')
+    if t_first is not None and (
+            'first_bond_step' not in trace or first_bond_step is None):
+        reasons.append(
+            "bonded trace missing required key 'first_bond_step' "
+            "(t_first is not None)")
+        return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
+
+    # 1b. Spacing check: origin + all rows at t ≤ 0.1 (pre- and post-bond)
     early_times = [0.0] + sorted(r['t'] for r in rows if r['t'] <= 0.1 + 1e-9)
     if len(early_times) >= 2:
         early_arr = np.array(early_times)
@@ -1003,10 +1077,13 @@ def preflight_verdict(trace: dict, spec: dict) -> dict:
                 f"(origin + row times; pre- and post-bond)")
             return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
 
-    # 1c. Per-row pre-bond checks (N, resolved, dH)
+    # 1c. Per-row pre-bond checks (N, resolved, dH).  Pre-bond is classified by
+    # STEP, not nominal time (C2 / audit F1): a checkpoint recorded on the first-
+    # bond step (row['step'] == first_bond_step) holds post-bond state even when
+    # its nominal t_k < t_first, so it must NOT be treated as pre-bond.
     N_exp = spec.get('N_expected')
     pre_bond_rows = [r for r in rows
-                     if t_first is None or r['t'] < t_first - 1e-9]
+                     if first_bond_step is None or r['step'] < first_bond_step]
     for row in pre_bond_rows:
         rt = row['t']
         if not row['resolved']:
@@ -1037,8 +1114,8 @@ def preflight_verdict(trace: dict, spec: dict) -> dict:
             return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
         return {'gate': 'STABLE', 'a8': 'N/A', 'reasons': reasons}
 
-    # Bonded trace: require r_first, r_eq_at_first, n_antipodal_T non-None
-    for key in ('r_first', 'r_eq_at_first', 'n_antipodal_T'):
+    # Bonded trace: require first_bond_step, r_first, r_eq_at_first, n_antipodal_T non-None
+    for key in ('first_bond_step', 'r_first', 'r_eq_at_first', 'n_antipodal_T'):
         if key not in trace:
             reasons.append(f"bonded trace missing required key '{key}'")
             return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
@@ -1047,9 +1124,11 @@ def preflight_verdict(trace: dict, spec: dict) -> dict:
                 f"bonded trace: '{key}' is None but t_first is not None")
             return {'gate': 'INVALID', 'a8': 'N/A', 'reasons': reasons}
 
-    # Post-bond dH flag (log only; does not change gate or a8)
+    # Post-bond dH flag (log only; does not change gate or a8).  Post-bond is by
+    # STEP (C2 / audit F1): row['step'] >= first_bond_step (the first-bond-step
+    # row holds post-bond state).
     for row in rows:
-        if row['t'] > t_first + 1e-9 and row['dH'] > 1e-2:
+        if row['step'] >= first_bond_step and row['dH'] > 1e-2:
             reasons.append("dH>1e-2 flag")
             break
 

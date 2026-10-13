@@ -912,6 +912,17 @@ def test_r1_2d_static_128_derrick():
     print(f"[R1-2d static] Derrick (0.95/1.0/1.05): s={s2:.4f}  d²E/dλ²={d2E2:.3e}")
 
 
+# R1-2b RUNTIME (audit §5 W1): this test is dominated (~90 %) by the certified
+# engine step (CosseratField3D.step_k4 velocity-Verlet, ~53 ms/step on the Mac)
+# over the pinned 304-step arc + the 60-step R1-7 determinism repeat (364 engine
+# steps total). The per-step checks are already ONE jit-fused call (~1.6 ms, a
+# single 3-scalar host round-trip, compiled once — no per-step recompiles). The
+# engine step is immutable (Rule-14) and the step count / R1-7 independent run
+# must not be weakened, so no rigor-preserving ≥1.5× reduction exists (profiled
+# fix9). The 300 s per-test override is a documented safety margin against slow/
+# loaded CI runners (CI was 107.88 s, a loaded box 151 s vs the 180 s cap, W1);
+# it is NOT a substitute for optimisation — the work is genuinely engine-bound.
+@pytest.mark.timeout(300)
 def test_r1_2b_short_arc_through_resolution_window_krefl0():
     """R1-2a/2b/7 (v6): option (i) — pre-collapse, storage-only at T=1.8.
 
@@ -1101,7 +1112,8 @@ def test_r1_2d_option_ii_dynamic():
     _sys.path.insert(0, _os2.path.join(_os2.path.dirname(__file__),
                                        '..', 'scripts', 'vol_4_engineering'))
     from ave.topological.k4_quaternion import collapse_check
-    from csk4_r2_config import make_pii_config, preflight_initial_solver
+    from csk4_r2_config import (make_pii_config, preflight_initial_solver,
+                                 assert_initial_state)
     from scripts.vol_4_engineering.csk4_r2_config import r_eq_from_q
 
     n, rc = 128, 12
@@ -1117,6 +1129,11 @@ def test_r1_2d_option_ii_dynamic():
     H0 = cf.total_energy_k4() + cf.kinetic_energy_k4()
     re_min_all = 1.0
     rows = []  # (t, resolved, value, r_eq)
+
+    # N3 runtime guard: cf.q at step 0 must be the single-path seed, checked
+    # AFTER the last statement touching cf and immediately before stepping.
+    # Catches any route (incl. setattr/getattr obfuscation) that mutated cf.q.
+    assert_initial_state(cf, setup)
 
     for s in range(n_steps):
         cf.step(dt)
@@ -3067,11 +3084,16 @@ def _pii_trace(t_first=0.03, r_first=6.0, r_eq_ratio=0.98,
                       'resolved': resolved_pre, 'dH': dH,
                       'n_antipodal': 0, 'r_eq': r_eq0})
 
+    # C2 (F1): first_bond_step is the ACTUAL step of the first bond. For the
+    # default dense rows the bond row is at t≈t_first → step round(t_first/_dt).
+    first_bond_step = int(round(t_first / _dt)) if t_first is not None else None
+
     return {
         'rows': r,
         'H0': H0,
         'r_eq0': r_eq0,
         't_first': t_first,
+        'first_bond_step': first_bond_step,
         'r_first': r_first,
         'r_eq_at_first': (r_eq_ratio * r_eq0) if t_first is not None else None,
         'n_antipodal_T': n_antipodal_T,
@@ -3178,6 +3200,7 @@ def test_preflight_verdict_r2pf_confirmed():
         'H0': 1.0,
         'r_eq0': r_eq0,
         't_first': 0.02,
+        'first_bond_step': 89,   # bond row (t=0.020) step (C2)
         'r_first': 14.0,
         'r_eq_at_first': 0.97 * r_eq0,
         'n_antipodal_T': 12,
@@ -3269,11 +3292,222 @@ def test_r2pf_face_tail_pins():
             f"face_check r2_primary_face_tail_L144={fc['r2_primary_face_tail_L144']}")
         assert fc['r2_primary_dlambda_L144'] == 0.0136, (
             f"face_check r2_primary_dlambda_L144={fc['r2_primary_dlambda_L144']}")
-    # The 6r_c size arm (R2C_SIZE_RATIO) is tagged R2-primary and is NOT a field
-    # of the R2-PF config dict (R2-PF classifies by FIRST_BOND_BREAKUP_RATIO=0.85).
+    # The 6r_c size arm (R2C_SIZE_RATIO) is tagged R2-primary; pin its value
+    # (N2: one source of truth, also used by period_collapse). The real 6r_c-
+    # leakage guard over the R2-PF code/specs is test_r2pf_no_6rc_leakage_guard
+    # (C1a); the 4-spec exact pins are test_preflight_spec_pins (C1b).
     assert cfg.R2C_SIZE_RATIO == 0.54, "R2C_SIZE_RATIO must stay 0.54 (6r_c, R2 primary)"
-    assert 'R2C_SIZE_RATIO' not in cfg.make_r2_pf_config(control=False), (
-        "R2-PF config must NOT carry R2C_SIZE_RATIO (6r_c number, R2-primary only)")
+
+
+def test_r2pf_no_6rc_leakage_guard():
+    """C1a (v7.1 §3): AST guard — the R2-PF code path and specs must NOT pull in
+    any 6r_c R2-primary number.
+
+    Forbids, as actual CODE (comments and docstrings are dropped by ast.parse):
+      - Name/Attribute references to R2C_SIZE_RATIO, period_collapse,
+        collapse_check, R2_FACE_TAIL_L144, R2_DLAMBDA_L144 — the last two allowed
+        ONLY as values under 'r2_primary_*' contrast keys of the face_check log
+        block;
+      - numeric literals 0.54, 0.053, 5.3, 0.61, 61 (the 6r_c ratio / 5.3 %
+        barrier height / 61 % #14-edge margin).
+
+    Audited: make_r2_pf_config, run_preflight, preflight_initial_solver,
+    preflight_setup, preflight_verdict, classify_first_bond (source), and the
+    R2PF_SPEC / R2PF_C_SPEC dicts (values). If preflight_verdict branches on spec
+    name, this still catches a 6r_c Name or 0.54 literal pulled into the branch.
+
+    Kills: v71_item4_R2PF_classify_uses_054 (R2C_SIZE_RATIO Name in
+    preflight_verdict) and v71_item4_R2PF_window_uses_054 (0.54 in a spec window).
+    """
+    import ast
+    import inspect
+    import textwrap
+    cfg = _cfg()
+
+    _FORBIDDEN_NAMES = {'R2C_SIZE_RATIO', 'period_collapse', 'collapse_check',
+                        'R2_FACE_TAIL_L144', 'R2_DLAMBDA_L144'}
+    _EXEMPT_IF_R2PRIMARY = {'R2_FACE_TAIL_L144', 'R2_DLAMBDA_L144'}
+    _FORBIDDEN_NUMS = (0.54, 0.053, 5.3, 0.61, 61)
+
+    def _num_forbidden(v):
+        if isinstance(v, bool):
+            return False
+        if isinstance(v, (int, float)):
+            return any(abs(float(v) - f) <= 1e-12 for f in _FORBIDDEN_NUMS)
+        return False
+
+    def _audit_source(src, label):
+        tree = ast.parse(textwrap.dedent(src))
+        # AST node ids that are values under an 'r2_primary*' dict key → exempt
+        # for the two L144 contrast constants only.
+        exempt_ids = set()
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Dict):
+                for k, v in zip(node.keys, node.values):
+                    ks = (k.value if isinstance(k, ast.Constant)
+                          and isinstance(k.value, str) else None)
+                    if ks is not None and ks.startswith('r2_primary'):
+                        for sub in ast.walk(v):
+                            exempt_ids.add(id(sub))
+        hits = []
+        for node in ast.walk(tree):
+            nm = None
+            if isinstance(node, ast.Name):
+                nm = node.id
+            elif isinstance(node, ast.Attribute):
+                nm = node.attr
+            if nm in _FORBIDDEN_NAMES:
+                if nm in _EXEMPT_IF_R2PRIMARY and id(node) in exempt_ids:
+                    continue
+                hits.append((label, nm, getattr(node, 'lineno', '?')))
+            elif isinstance(node, ast.Constant) and _num_forbidden(node.value):
+                hits.append((label, f"numeric {node.value!r}",
+                             getattr(node, 'lineno', '?')))
+        return hits
+
+    def _scan_values(obj, label, hits):
+        if isinstance(obj, dict):
+            for v in obj.values():
+                _scan_values(v, label, hits)
+        elif isinstance(obj, (list, tuple)):
+            for v in obj:
+                _scan_values(v, label, hits)
+        elif _num_forbidden(obj):
+            hits.append((label, f"numeric {obj!r}"))
+
+    all_hits = []
+    for fn in (cfg.make_r2_pf_config, cfg.run_preflight,
+               cfg.preflight_initial_solver, cfg.preflight_setup,
+               cfg.preflight_verdict, cfg.classify_first_bond):
+        all_hits += _audit_source(inspect.getsource(fn), fn.__name__)
+
+    for spec_name in ('R2PF_SPEC', 'R2PF_C_SPEC'):
+        _scan_values(getattr(cfg, spec_name), spec_name, all_hits)
+
+    assert not all_hits, (
+        f"6r_c R2-primary leakage into the R2-PF path/specs: {all_hits}. "
+        "The R2-PF first bond is classified by FIRST_BOND_BREAKUP_RATIO (0.85), "
+        "never by R2C_SIZE_RATIO / 0.54 / period_collapse / collapse_check / the "
+        "L144 constants (allowed only as r2_primary_* contrast log fields).")
+
+
+def test_preflight_spec_pins():
+    """C1b (v7.1 §3): exact pins of all four pre-flight spec dicts.
+
+    Every field — name, N_expected, r_eq0_pin, r_eq0_tol, is_control, and the
+    full windows list (names, order, lo/hi/min) — is compared by EQUALITY to the
+    literals here. Pins the CURRENT values (unchanged); any drift fails, including
+    the v71_item4_R2PF_window_uses_054 probe (r_eq_ratio lo → R2C_SIZE_RATIO=0.54).
+    """
+    cfg = _cfg()
+    expected = {
+        'PII_SPEC': {
+            'name': 'PII', 'N_expected': 1,
+            'r_eq0_pin': 11.983, 'r_eq0_tol': 0.005, 'is_control': False,
+            'windows': [
+                {'name': 't_first',       'lo': 0.025, 'hi': 0.09},
+                {'name': 'r_first',       'lo': 4.0,   'hi': 11.0},
+                {'name': 'r_eq_ratio',    'lo': 0.80,  'hi': 1.02},
+                {'name': 'n_antipodal_T', 'min': 5},
+            ],
+        },
+        'PII_C_SPEC': {
+            'name': 'PII_C', 'N_expected': 1,
+            'r_eq0_pin': 11.983, 'r_eq0_tol': 0.005, 'is_control': True,
+            'windows': [],
+        },
+        'R2PF_SPEC': {
+            'name': 'R2PF', 'N_expected': 6,
+            'r_eq0_pin': 38.92, 'r_eq0_tol': 0.05, 'is_control': False,
+            'windows': [
+                {'name': 't_first',       'lo': 0.012, 'hi': 0.06},
+                {'name': 'r_first',       'lo': 8.0,   'hi': 24.0},
+                {'name': 'r_eq_ratio',    'lo': 0.85,  'hi': 1.02},
+                {'name': 'n_antipodal_T', 'min': 5},
+            ],
+        },
+        'R2PF_C_SPEC': {
+            'name': 'R2PF_C', 'N_expected': 6,
+            'r_eq0_pin': 38.92, 'r_eq0_tol': 0.05, 'is_control': True,
+            'windows': [],
+        },
+    }
+    for spec_name, exp in expected.items():
+        s = getattr(cfg, spec_name)
+        assert s['name'] == exp['name'], (
+            f"{spec_name} name={s['name']!r} != {exp['name']!r}")
+        assert s['N_expected'] == exp['N_expected'], (
+            f"{spec_name} N_expected={s['N_expected']!r} != {exp['N_expected']!r}")
+        assert s['r_eq0_pin'] == exp['r_eq0_pin'], (
+            f"{spec_name} r_eq0_pin={s['r_eq0_pin']!r} != {exp['r_eq0_pin']!r}")
+        assert s['r_eq0_tol'] == exp['r_eq0_tol'], (
+            f"{spec_name} r_eq0_tol={s['r_eq0_tol']!r} != {exp['r_eq0_tol']!r}")
+        assert s['is_control'] == exp['is_control'], (
+            f"{spec_name} is_control={s['is_control']!r} != {exp['is_control']!r}")
+        # Full windows list by equality (positional order + each lo/hi/min).
+        assert s['windows'] == exp['windows'], (
+            f"{spec_name} windows={s['windows']!r} != {exp['windows']!r} "
+            "(names, order, and lo/hi/min bounds are all pinned)")
+
+
+def test_preflight_verdict_r2pf_ratio_infall():
+    """C1c (v7.1 §3): a BREAKUP-shaped R2PF trace with r_eq(t_first)/r_eq0 ≈ 0.70
+    must gate INFALL (0.70 < FIRST_BOND_BREAKUP_RATIO=0.85), not BREAKUP.
+
+    Non-control R2PF_SPEC → gate INFALL, a8 MISS (CONFIRMED needs BREAKUP).
+    Control R2PF_C_SPEC  → gate INFALL, a8 N/A (control with no BREAKUP-class bond
+                           passes — the documented control behaviour).
+
+    Everything else is in range (N=6 every pre-bond row, t_first/r_first/n_antipodal
+    all inside the R2PF windows), so the ONLY lever is the ratio. The
+    v71_item4_R2PF_classify_uses_054 probe (classify by R2C_SIZE_RATIO=0.54 for
+    R2PF) would read 0.70 ≥ 0.54 → BREAKUP, flipping the gate → this test fails →
+    probe killed.
+    """
+    cfg = _cfg()
+    r_eq0 = cfg.R_EQ0_R2            # 38.92
+    _dt_pf = 2.24e-4
+    ratio = 0.70
+    # Pre-bond rows resolved N=6 at ≤0.005 spacing from origin; bond at t=0.020.
+    rows = [
+        {'t': 0.004, 'step': 18, 'N': 6, 'resolved': True,
+         'dH': 1e-5, 'n_antipodal': 0, 'r_eq': r_eq0},
+        {'t': 0.008, 'step': 36, 'N': 6, 'resolved': True,
+         'dH': 1e-5, 'n_antipodal': 0, 'r_eq': r_eq0},
+        {'t': 0.012, 'step': 54, 'N': 6, 'resolved': True,
+         'dH': 1e-5, 'n_antipodal': 0, 'r_eq': r_eq0},
+        {'t': 0.016, 'step': 71, 'N': 6, 'resolved': True,
+         'dH': 1e-5, 'n_antipodal': 0, 'r_eq': r_eq0},
+        {'t': 0.020, 'step': 89, 'N': None, 'resolved': False,
+         'dH': 1e-5, 'n_antipodal': 12, 'r_eq': ratio * r_eq0},
+    ]
+    first_bond_step = int(round(0.020 / _dt_pf))  # = 89
+    base_trace = {
+        'rows': rows,
+        'H0': 1.0,
+        'r_eq0': r_eq0,
+        't_first': 0.02,
+        'first_bond_step': first_bond_step,
+        'r_first': 14.0,            # in [8, 24]
+        'r_eq_at_first': ratio * r_eq0,
+        'n_antipodal_T': 12,        # ≥ 5
+        'T': 0.25,
+    }
+    assert first_bond_step == 89, f"first_bond_step={first_bond_step} != 89"
+
+    # Non-control R2PF: INFALL / MISS
+    out = cfg.preflight_verdict(dict(base_trace), cfg.R2PF_SPEC)
+    assert out['gate'] == 'INFALL', (
+        f"r_eq_ratio=0.70 < 0.85 must gate INFALL (not BREAKUP); got {out}")
+    assert out['a8'] == 'MISS', (
+        f"R2PF INFALL → a8 MISS (CONFIRMED requires BREAKUP); got {out}")
+
+    # Control R2PF_C: INFALL / N/A (no BREAKUP-class bond → control passes)
+    out_c = cfg.preflight_verdict(dict(base_trace), cfg.R2PF_C_SPEC)
+    assert out_c['gate'] == 'INFALL', (
+        f"control r_eq_ratio=0.70 < 0.85 must gate INFALL; got {out_c}")
+    assert out_c['a8'] == 'N/A', (
+        f"control INFALL → a8 N/A (no BREAKUP-class bond); got {out_c}")
 
 
 def test_mirror_energy_offset():
@@ -3764,6 +3998,14 @@ def test_run_preflight_stub_solver():
     # (3) t_first = flip_step * dt (not first checkpoint after flip)
     assert trace['t_first'] == pytest.approx(_flip_step * _dt, abs=1e-12), (
         f"t_first={trace['t_first']} != {_flip_step * _dt}")
+    # C2 (F1): first_bond_step is the ACTUAL step of the first bond and is
+    # consistent with t_first (t_first == first_bond_step * dt).
+    assert trace['first_bond_step'] == _flip_step, (
+        f"first_bond_step={trace['first_bond_step']} != flip step {_flip_step}")
+    assert trace['t_first'] == pytest.approx(
+        trace['first_bond_step'] * _dt, abs=1e-12), (
+        f"t_first={trace['t_first']} inconsistent with "
+        f"first_bond_step={trace['first_bond_step']} * dt={_dt}")
 
     # (4) r_first and centre
     expected_centre = tuple((n - 1) / 2.0 for _ in range(3))
@@ -4156,7 +4398,7 @@ def test_preflight_verdict_r_eq_ratio_miss():
     whole gating lane (no test exercised r_eq_ratio out of range while every
     other window was in range). This is that test.
 
-    r_eq_ratio=1.10 is ABOVE PII_SPEC's hi=1.02 (window [0.85, 1.02]) but still
+    r_eq_ratio=1.10 is ABOVE PII_SPEC's hi=1.02 (window [0.80, 1.02]) but still
     ≥ FIRST_BOND_BREAKUP_RATIO=0.85, so the gate is BREAKUP (not INFALL). Every
     other window (t_first, r_first, n_antipodal_T) is in range, so the only
     reason the a8 verdict is MISS is the r_eq_ratio window. Under the `if False:`
@@ -4169,9 +4411,108 @@ def test_preflight_verdict_r_eq_ratio_miss():
     assert out['gate'] == 'BREAKUP', (
         f"r_eq_ratio=1.10 ≥ 0.85 must classify as BREAKUP; got {out}")
     assert out['a8'] == 'MISS', (
-        f"r_eq_ratio=1.10 ∉ [0.85, 1.02] must yield MISS (not CONFIRMED); got {out}")
+        f"r_eq_ratio=1.10 ∉ [0.80, 1.02] must yield MISS (not CONFIRMED); got {out}")
     assert any('r_eq_ratio' in r for r in out['reasons']), (
         f"MISS reason must mention r_eq_ratio; got {out['reasons']}")
+
+
+# ---------------------------------------------------------------------------
+# C2 (audit F1) — pre-bond vs post-bond rows classified by STEP, not nominal time
+# ---------------------------------------------------------------------------
+
+
+def test_preflight_verdict_bond_on_checkpoint_step():
+    """C2 (audit F1): a checkpoint recorded ON the first-bond step holds POST-bond
+    state even though its nominal t_k can be < t_first → must NOT be judged pre-bond.
+
+    Repro from the Gate: first_bond_step=182 with t_first=182·dt=0.030030; a
+    checkpoint row at nominal t_k=0.030 (< t_first) is recorded at step 182
+    (== first_bond_step) and holds post-bond state (UNRESOLVED, N=None). With the
+    OLD nominal-time classification (row['t'] < t_first) this row was treated as a
+    pre-bond UNRESOLVED checkpoint → INVALID. With step classification it is
+    post-bond → gate BREAKUP, a8 CONFIRMED (all windows pass).
+
+    Kills: the step comparison reverted to a time comparison (row INVALID); and
+    `<` changed to `<=` in the pre-bond filter (the on-bond row would be pre-bond
+    again → UNRESOLVED → INVALID).
+    """
+    cfg = _cfg()
+    r_eq0 = cfg.R_EQ0_PII
+    _dt = 1.65e-4
+    first_bond_step = 182
+    t_first = first_bond_step * _dt           # 0.030030 > nominal 0.030
+    assert t_first > 0.030, f"t_first={t_first} must exceed nominal 0.030"
+    ratio = 0.98
+    # Dense pre-bond rows (resolved N=1) up to 0.025, then the ON-bond-step row at
+    # nominal t=0.030 (step 182 == first_bond_step), post-bond state.
+    rows = [
+        {'t': round(0.005 * k, 6), 'step': int(round(0.005 * k / _dt)),
+         'N': 1, 'resolved': True, 'dH': 1e-5, 'n_antipodal': 0, 'r_eq': r_eq0}
+        for k in range(1, 6)  # 0.005..0.025
+    ]
+    rows.append({'t': 0.030, 'step': first_bond_step, 'N': None,
+                 'resolved': False, 'dH': 1e-5, 'n_antipodal': 9,
+                 'r_eq': ratio * r_eq0})
+    # Sanity: the on-bond row's nominal t is strictly below t_first.
+    assert rows[-1]['t'] < t_first - 1e-9, "on-bond row nominal t must be < t_first"
+    trace = {
+        'rows': rows,
+        'H0': 1.0,
+        'r_eq0': r_eq0,
+        't_first': t_first,
+        'first_bond_step': first_bond_step,
+        'r_first': 6.0,
+        'r_eq_at_first': ratio * r_eq0,
+        'n_antipodal_T': 9,
+        'T': 0.25,
+    }
+    out = cfg.preflight_verdict(trace, cfg.PII_SPEC)
+    assert out['gate'] == 'BREAKUP', (
+        f"on-bond-step checkpoint (step==first_bond_step) must be post-bond → "
+        f"BREAKUP, not pre-bond INVALID; got {out}")
+    assert out['a8'] == 'CONFIRMED', (
+        f"all windows pass → CONFIRMED; got {out}")
+
+
+def test_preflight_verdict_prebond_step_unresolved_invalid():
+    """C2 (audit F1): a row with step < first_bond_step that is UNRESOLVED must
+    still give INVALID (genuine pre-bond rows are still checked by step).
+
+    Also: t_first set but first_bond_step None → INVALID (the 'first_bond_step not
+    recorded / None while a bond exists' mutant, at the verdict layer).
+    """
+    cfg = _cfg()
+    r_eq0 = cfg.R_EQ0_PII
+    _dt = 1.65e-4
+    first_bond_step = 182
+    t_first = first_bond_step * _dt
+    rows = [
+        {'t': 0.005, 'step': 31, 'N': 1, 'resolved': True,
+         'dH': 1e-5, 'n_antipodal': 0, 'r_eq': r_eq0},
+        {'t': 0.010, 'step': 62, 'N': None, 'resolved': False,  # pre-bond UNRESOLVED
+         'dH': 1e-5, 'n_antipodal': 0, 'r_eq': r_eq0},
+    ]
+    assert rows[1]['step'] < first_bond_step, "row must be genuinely pre-bond by step"
+    trace = {
+        'rows': rows, 'H0': 1.0, 'r_eq0': r_eq0,
+        't_first': t_first, 'first_bond_step': first_bond_step,
+        'r_first': 6.0, 'r_eq_at_first': 0.98 * r_eq0,
+        'n_antipodal_T': 9, 'T': 0.25,
+    }
+    out = cfg.preflight_verdict(trace, cfg.PII_SPEC)
+    assert out['gate'] == 'INVALID', (
+        f"pre-bond (step<first_bond_step) UNRESOLVED must yield INVALID; got {out}")
+    assert any('UNRESOLVED' in r for r in out['reasons']), (
+        f"INVALID reason must mention UNRESOLVED; got {out['reasons']}")
+
+    # first_bond_step None while t_first is set → INVALID (missing bonded key).
+    trace_none = dict(trace, first_bond_step=None,
+                      rows=[dict(rows[0])])  # single resolved pre-bond row
+    out_none = cfg.preflight_verdict(trace_none, cfg.PII_SPEC)
+    assert out_none['gate'] == 'INVALID', (
+        f"t_first set but first_bond_step None must yield INVALID; got {out_none}")
+    assert any('first_bond_step' in r for r in out_none['reasons']), (
+        f"INVALID reason must mention first_bond_step; got {out_none['reasons']}")
 
 
 # ---------------------------------------------------------------------------
@@ -4251,6 +4592,8 @@ def test_preflight_initial_solver_cfg_physics_readback():
             self.k_op10 = 1.0       # intentionally wrong
             self.k_refl = 1.0       # intentionally wrong
             self.k_hopf = 0.0       # intentionally wrong (engine default is π/3)
+            self.G = 999.0          # intentionally wrong (N1: cfg G is 1.0)
+            self.G_c = 999.0        # intentionally wrong (N1: cfg G_c is 1.0)
             self._q = None
 
         @property
@@ -4289,8 +4632,18 @@ def test_preflight_initial_solver_cfg_physics_readback():
             "the `cf.k_hopf = k_hopf_cfg` line in preflight_initial_solver is required)")
         assert abs(cf.k_hopf - _math.pi / 3.0) < 1e-14, (
             f"{name}: cf.k_hopf={cf.k_hopf!r} != pi/3")
+        # N1: G and G_c applied from cfg even for a caller-supplied make_solver
+        # (stub defaults 999.0 are intentionally wrong). The runtime read-back
+        # assert inside preflight_initial_solver would itself fire if any of the
+        # `cf.G = G_cfg` / `cf.G_c = Gc_cfg` assignments were removed.
+        assert cf.G == cfg['G'], (
+            f"{name}: cf.G={cf.G!r} != cfg['G']={cfg['G']!r} "
+            "(N1: G not applied from cfg to supplied make_solver)")
+        assert cf.G_c == cfg['G_c'], (
+            f"{name}: cf.G_c={cf.G_c!r} != cfg['G_c']={cfg['G_c']!r} "
+            "(N1: G_c not applied from cfg to supplied make_solver)")
 
-    # Default path (make_solver=None): inline lambda sets G and G_c from module constants.
+    # Default path (make_solver=None): inline lambda sets G and G_c from cfg.
     pii_cfg = _cfg_mod.make_pii_config(control=False)
     cf_def, _ = _cfg_mod.preflight_initial_solver(pii_cfg, n=8, rc=12)
     assert cf_def.G == _cfg_mod.G, (
@@ -4315,7 +4668,13 @@ def test_preflight_optin_seed_path_guard():
       (b) no call to _hedgehog_at, hedgehog, rational, build_pf_seed,
           or preflight_setup;
       (c) no subscript assignment to a 'q0' key; no attribute assignment
-          to <anything>.q (direct seed injection).
+          to <anything>.q (direct seed injection);
+      (d) no setattr(..., 'q', ...) / getattr(..., '<seed-ctor>') string
+          obfuscation, and no string-BUILT attribute name (BinOp/f-string/
+          ''.join) feeding setattr/getattr (N3 — kills the setattr/getattr
+          probe the plain .q-assignment guard cannot see);
+      (e) any opt-in test that STEPS cf (a cf.step(...) call) must call
+          assert_initial_state(cf, setup) before the first step (N3).
 
     Runtime check: preflight_initial_solver(pii_cfg, n=24, rc=12) yields
     cf.q whose sha1 (dead sites reset) equals preflight_setup seed_sha1,
@@ -4323,6 +4682,8 @@ def test_preflight_optin_seed_path_guard():
     Mutants killed:
       - opt-in test adding seed override (cf.q=... or setup['q0']=...);
       - opt-in test calling _hedgehog_at or any seed constructor directly;
+      - opt-in test using setattr/getattr string obfuscation to inject a seed
+        (v71_optin_ii_test_setattr_probe);
       - preflight_initial_solver setting cf.q from an L=n/2 seed.
     """
     import ast
@@ -4339,6 +4700,27 @@ def test_preflight_optin_seed_path_guard():
     _ALLOWED_CALLS = frozenset({'run_preflight', 'preflight_initial_solver'})
     _FORBIDDEN_CALLS = frozenset({'_hedgehog_at', 'hedgehog', 'rational',
                                    'build_pf_seed', 'preflight_setup'})
+    # Seed-constructor name fragments (for getattr('_hedgehog_'+'at') obfuscation)
+    _SEED_FRAGMENTS = ('hedgehog', 'rational', 'build_pf_seed', 'preflight_setup')
+
+    def _const_str(node):
+        """Return the string value if node is a plain string Constant, else None."""
+        if isinstance(node, ast.Constant) and isinstance(node.value, str):
+            return node.value
+        if hasattr(ast, 'Str') and isinstance(node, ast.Str):  # Python ≤ 3.7
+            return node.s
+        return None
+
+    def _is_string_built(node):
+        """True if node builds a string by concatenation / f-string / ''.join —
+        i.e. an obfuscated attribute name rather than a plain literal."""
+        if isinstance(node, ast.BinOp) and isinstance(node.op, ast.Add):
+            return True
+        if isinstance(node, ast.JoinedStr):  # f-string
+            return True
+        if isinstance(node, ast.Call) and _fn_name(node.func) == 'join':
+            return True
+        return False
 
     def _fn_name(node):
         if isinstance(node, ast.Name):
@@ -4397,6 +4779,8 @@ def test_preflight_optin_seed_path_guard():
         calls_allowed = False
         forbidden_calls = []
         forbidden_assigns = []
+        step_calls = []          # linenos of cf.step(...) calls (stepping loop)
+        assert_init_calls = []   # linenos of assert_initial_state(...) calls
         for node in ast.walk(tree):
             if isinstance(node, ast.Call):
                 name = _fn_name(node.func)
@@ -4408,6 +4792,40 @@ def test_preflight_optin_seed_path_guard():
                         (resolved is not None and resolved in _FORBIDDEN_CALLS)):
                     forbidden_calls.append(
                         (resolved or name, getattr(node, 'lineno', '?')))
+                # (e) stepping loop / assert_initial_state tracking
+                if isinstance(node.func, ast.Attribute) and node.func.attr == 'step':
+                    step_calls.append(getattr(node, 'lineno', 0))
+                if name == 'assert_initial_state' or resolved == 'assert_initial_state':
+                    assert_init_calls.append(getattr(node, 'lineno', 0))
+                # (d) setattr(<obj>, 'q'|'<seed-ctor>', ...) obfuscation
+                if name == 'setattr' and len(node.args) >= 2:
+                    attr_arg = node.args[1]
+                    attr_str = _const_str(attr_arg)
+                    if attr_str == 'q' or (
+                            attr_str is not None and
+                            any(f in attr_str for f in _SEED_FRAGMENTS)):
+                        forbidden_assigns.append((
+                            f"setattr(..., {attr_str!r}, ...) at line "
+                            f"{getattr(node, 'lineno', '?')}",
+                            getattr(node, 'lineno', '?')))
+                    elif _is_string_built(attr_arg):
+                        forbidden_assigns.append((
+                            f"setattr(..., <string-built name>, ...) at line "
+                            f"{getattr(node, 'lineno', '?')}",
+                            getattr(node, 'lineno', '?')))
+                # (d) getattr(<obj>, '<seed-ctor>'|<string-built>) obfuscation
+                if name == 'getattr' and len(node.args) >= 2:
+                    attr_arg = node.args[1]
+                    attr_str = _const_str(attr_arg)
+                    if attr_str is not None and any(
+                            f in attr_str for f in _SEED_FRAGMENTS):
+                        forbidden_calls.append((
+                            f"getattr(..., {attr_str!r})",
+                            getattr(node, 'lineno', '?')))
+                    elif _is_string_built(attr_arg):
+                        forbidden_calls.append((
+                            f"getattr(..., <string-built name>)",
+                            getattr(node, 'lineno', '?')))
                 # np.copyto(cf.q, ...) / np.put(cf.q, ...) — first arg is .q
                 if name in ('copyto', 'put') and node.args:
                     first = node.args[0]
@@ -4432,7 +4850,8 @@ def test_preflight_optin_seed_path_guard():
                 _check_target(node.target, node.lineno, forbidden_assigns)
             elif isinstance(node, ast.AnnAssign) and node.target is not None:
                 _check_target(node.target, node.lineno, forbidden_assigns)
-        return calls_allowed, forbidden_calls, forbidden_assigns, forbidden_imports
+        return (calls_allowed, forbidden_calls, forbidden_assigns,
+                forbidden_imports, step_calls, assert_init_calls)
 
     opt_in_fns = [
         test_r1_2d_option_ii_dynamic,
@@ -4442,7 +4861,8 @@ def test_preflight_optin_seed_path_guard():
 
     for fn in opt_in_fns:
         fn_name = fn.__name__
-        calls_ok, bad_calls, bad_assigns, bad_imports = _audit_fn(fn)
+        (calls_ok, bad_calls, bad_assigns, bad_imports,
+         step_calls, assert_init_calls) = _audit_fn(fn)
         assert calls_ok, (
             f"{fn_name}: check (a) — does not call run_preflight or "
             f"preflight_initial_solver; opt-in tests must obtain initial "
@@ -4452,11 +4872,24 @@ def test_preflight_optin_seed_path_guard():
             f"(even with alias): {bad_imports}; opt-in tests must not import "
             f"forbidden symbols")
         assert not bad_calls, (
-            f"{fn_name}: check (b) — forbidden seed-constructor calls: "
-            f"{bad_calls}; opt-in tests must not build seeds directly")
+            f"{fn_name}: check (b/d) — forbidden seed-constructor / getattr-"
+            f"obfuscation calls: {bad_calls}; opt-in tests must not build "
+            f"seeds directly or via string-built getattr")
         assert not bad_assigns, (
-            f"{fn_name}: check (c) — forbidden seed assignments: "
-            f"{bad_assigns}; opt-in tests must not assign .q or ['q0'] directly")
+            f"{fn_name}: check (c/d) — forbidden seed assignments: "
+            f"{bad_assigns}; opt-in tests must not assign .q or ['q0'] directly "
+            f"nor via setattr obfuscation")
+        # (e) any opt-in test that steps cf must call assert_initial_state before
+        # the first step (N3 runtime guard against post-seed mutation).
+        if step_calls:
+            assert assert_init_calls, (
+                f"{fn_name}: check (e) — steps cf (cf.step at line "
+                f"{min(step_calls)}) but never calls assert_initial_state(cf, "
+                f"setup); the runtime seed guard is required before stepping")
+            assert min(assert_init_calls) < min(step_calls), (
+                f"{fn_name}: check (e) — assert_initial_state (line "
+                f"{min(assert_init_calls)}) must be called BEFORE the first "
+                f"cf.step (line {min(step_calls)})")
 
     # Runtime check: preflight_initial_solver uses correct L (not L=n//2).
     # n=24, rc=12: L_standin = SEED_L_PII*12/12 = 48; n//2 = 12 — distinguishable.
