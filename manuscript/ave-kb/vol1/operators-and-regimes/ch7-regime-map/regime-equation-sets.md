@@ -24,6 +24,8 @@ Both $\varepsilon$ and $\mu$ scale by $S = \sqrt{1-r^2}$. The EM impedance ratio
 | $C_{eff}$ | $C_0$ | $C_0 / \sqrt{1-r^2}$ | $\to \infty$ | $\infty$ |
 | $Q$ | $\sim 1$ | $1/\sqrt{1-r^2}$ | $\gg 1$ | $\infty$ |
 
+> **Column I is the kernel freeze (2026-08-28; [`def-ln3str`](../../../common/vocabulary-register.md)).** $\varepsilon_{\mathrm{eff}}=\varepsilon_0$, $C_{\mathrm{eff}}=C_0$ in Regime I are Ax4 dropped at $O(r^2)$. They are **not** the Op19 statement that $\mu$ and $\varepsilon$ co-scale with $n=1+\nu_{\mathrm{vac}}\varepsilon_{11}$ (achromatic matching). Bond TL $L,C$ co-scale with $n$ **on the gapless T2/EM channel**, where $L=\mu_0$ and $C=\varepsilon_0$ is a Class A identity ([`translation-circuit.md`](../../../common/translation-tables/translation-circuit.md):811-812); for the **whole three-channel bond** no single $(L,C)$ exists to identify ([`bond-lc-constitutive-grading.md`](../../../vol3/gravity/ch03-macroscopic-relativity/bond-lc-constitutive-grading.md) §2.1, Sense P). $Z_{\mathrm{sym}}=Z_0$ in every column is Sense Z (SYM co-scale), not a small-strain cutoff.
+
 ### Asymmetric (electric-only) saturation (strong EM fields, dielectric rupture)
 
 Only $\varepsilon$ scales by $S$; $\mu$ is unchanged. The EM impedance diverges and the medium becomes opaque (evanescent). $c_{shear}$ freezes identically to the symmetric case.
