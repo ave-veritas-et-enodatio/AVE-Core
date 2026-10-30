@@ -4,29 +4,38 @@ Four optional flags, all default OFF. With all flags OFF the code path is
 exactly main's _energy_density_k4_saturated (bit-identical; tested in
 test_grid_fix_flags.py via golden fixtures).
 
-    FLAG 1  use_bond_penalty  — T-STAB2': per-bond short-arc turn penalty
+    FLAG 1  use_bond_penalty  — T-STAB2': compensated residual guard
     FLAG 2  use_op10_bond     — op10_b: per-bond T-STAB1 in two-star form
     FLAG 3  use_floor         — softplus soft clip on saturation factor(s)
-    FLAG 4  (diagnostics)     — pure functions, no flag needed
+    FLAG 4  use_sponge        — dt-invariant exp sponge (own flag; affects
+                                K4Mixin._zero_velocities_outside_alive_k4)
 
 Decision source: spec/pcb-grid-fix-decision_2026-10-29.md (Grant ruling,
 option A + sliding-mode + op10 checks).  Spec sha1 of base must-emerge list:
 7ec611196360c26dd6a18b48aa750c4b1fca5d99.
 
-OPEN AMBIGUITIES (pending Grant; see ~/AVE-staging/runs/gridfix/QUESTIONS.md):
-  (a) floor_target in {"eps","kappa","both"}: Grant's call; raise if None when
-      floor is ON. — spec/pcb-grid-fix-must-emerge-list_2026-10-29.md :111
-  (b) short_arc_form in {"log","f"}: Grant's call; raise if None when
-      bond_penalty is ON. Normalization note: the "f" form naturally gives
-      eigenvalues {0,8,8,16}×gamma_h (matching the spec known-answer derived
-      with the raw Euclidean chord). The "log" form gives {0,32,32,64}×gamma_h
-      (4× larger at the same gamma_h). See QUESTIONS.md Q1.
+ANSWERED (ADD-3 §4.1 + 10-29 Grant calls):
+  (a) short_arc_form = "log" (ADD-3 §4.1; declared pre-run). "f" is
+      NotImplementedError: the scalar form is uncompensated (ADD-3 §4.1).
+  (b) floor_target: Grant's 10-29 call = "iii" (ADD-3 §4, REV-1 §R.1/§R.2):
+      "i"  = softplus at k4q:257 only (eps).
+      "ii" = softplus at k4q:257 + k4q:258 (eps + kappa).
+      "iii"= (ii) + readout cf:733-738 (see _update_saturation_kernels);
+             energy path is identical to "ii" — readout is read-only.
+  (c) gamma_h = γ/4 by default (ADD-3 §3.3.1: c = γ, the engine wryness
+      coefficient at k4q:270; γ_h = γ/4). Explicit override stored and
+      read back if set.
+
+OPEN AMBIGUITIES — see ~/AVE-staging/runs/gridfix/QUESTIONS.md:
+  Q3 — F_d spec form on BCC: NOT-SPEC-COMPLIANT (see diag_F_d docstring).
+  Q4 — omega_yield vs π for kappa A = κ²/π² (see _energy_density_k4_gf).
 
 NO physics runs are performed in this module.
 """
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 from typing import Optional
 
@@ -61,90 +70,93 @@ class GridFixCfg:
     Attributes
     ----------
     use_bond_penalty : bool
-        FLAG 1 — T-STAB2' per-bond short-arc turn penalty at coefficient gamma_h.
-        c = 4*gamma_h by spec notation (chain-theory-lessons :19); gamma_h is
-        the new free parameter, NOT identified with any existing engine
-        coefficient.  Spec: pcb-grid-fix-decision_2026-10-29.md §A3.
+        FLAG 1 — T-STAB2' compensated residual guard at coefficient gamma_h.
+        W_guard = (γ_h/dx²)·Σ_p |r_p|², r_p = dw_p − dx·κ·p.
+        γ_h = γ/4 by default (ADD-3 §3.3.1, c = γ = engine `gamma`).
+        Must be OUTSIDE S_κ² and every clip (hard or softplus).
+        Spec: ADD-3 §3.3.1.
 
-    gamma_h : float
-        T-STAB2' coefficient.  Required (> 0) when use_bond_penalty is True.
-        Raises ValueError if use_bond_penalty=True and gamma_h <= 0.
+    gamma_h : float or None
+        T-STAB2' coefficient. None (default) means use γ/4 from engine `gamma`
+        at compute time (ADD-3 §3.3.1). Explicit float overrides.
+        If use_bond_penalty=True and gamma_h is 0.0, raises ValueError (since
+        0.0 would be a meaningless explicit override).
 
     short_arc_form : str or None
-        Short-arc form for T-STAB2'.  Must be "log" or "f" when
-        use_bond_penalty is True; raises ValueError if None when ON.
-        PENDING GRANT'S CALL (see QUESTIONS.md Q1).
-          "log" — |log(q̄_i q_j)|^2 = theta_rel^2.  At small angles 4×
-                  the raw-chord metric; gives eigenvalues {0,32,32,64}×gamma_h.
-          "f"   — 1 − (Re q̄_i q_j)^2 = sin^2(theta/2).  At small angles
-                  same scale as raw-chord metric; gives {0,8,8,16}×gamma_h.
-        Both forms correctly give 0 for a 360° bond turn (q→−q) and are
-        invariant under sign flip of q at either site (short-arc correction).
-        Spec: four-team-coupling-terms §2, must-emerge-list :103.
+        Must be "log" when use_bond_penalty is True (ADD-3 §4.1 declares log).
+        "f" is accepted at construction but raises NotImplementedError at
+        compute time (ADD-3 §4.1: scalar f is uncompensated, open item).
+        Raises ValueError if None when ON.
 
     use_op10_bond : bool
         FLAG 2 — Replace per-site tetra op10 with per-bond T-STAB1 in the
-        two-star averaged form ½(+p star + −p star).  When ON, uses
-        _op10_bond_density_q in place of _op10_density_q.
-        Spec: four-team-coupling-terms §4; must-emerge-list :105.
+        two-star averaged form ½(+p star + −p star).
+        Spec: four-team-coupling-terms §4; ADD-3 §3.3.2.
 
     use_floor : bool
         FLAG 3 — Softplus soft clip on saturation factor(s).
-        S_w(A^2) = w * log(1 + exp((1 − A^2) / w)) replaces the hard
-        clip(1 − A^2, 0, 1) at the targeted factor(s).
-        floor_w and floor_target are required when True.
-        Spec: pcb-grid-fix-decision_2026-10-29.md §A3.
+        S_w(A) = w·softplus((1−A)/w) replaces hard clip.
+        floor_w and floor_target required when True.
 
     floor_w : float or None
-        Softplus width parameter w.  Required when use_floor is True.
-        Raises ValueError if use_floor=True and floor_w is None.
-        At w=0.05: S_w(0)−1 ≤ 1e-9 (ADDENDUM-2 §3 item 2). No default;
-        Grant must set explicitly.
+        Softplus width parameter w. Required when use_floor=True.
+        No default (explicit; must be set by caller).
 
     floor_target : str or None
-        Which saturation factor to apply the floor to.  Required when
-        use_floor is True; raises ValueError if None when ON.
-        PENDING GRANT'S CALL (see QUESTIONS.md, decision-page flag A3).
-          "eps"   — apply floor to S_eps_sq (k4_quaternion.py:257) only.
-          "kappa" — apply floor to S_kappa_sq (:258) only.
-          "both"  — apply floor to both S_eps_sq and S_kappa_sq.
-        Spec: pcb-grid-fix-decision_2026-10-29.md :70 (saturation-direction flag);
-              must-emerge-list :111.
+        Which energy-path floor to apply. Required when use_floor=True.
+        "i"   — softplus at k4q:257 (eps) only.
+        "ii"  — softplus at k4q:257 + k4q:258 (eps + kappa). ADD-3 lean.
+        "iii" — (ii) + readout cf:733-738 (ADD-4; read-only path, no energy
+                change beyond "ii"; declared choice per Grant 10-29 call).
+        Raises ValueError if None when ON.
+        Grant's 10-29 declared choice: "iii".
+
+    use_sponge : bool
+        FLAG 4 — dt-invariant exp sponge (own flag, default OFF).
+        Per half-kick: m_step = exp(−σ(d)·dt/2), σ(d) = σ_max·((T−d)/T)².
+        σ_max = 3c_L·ln(1/R_t)/T; c_L = √(10/3); R_t = 1e-3.
+        OFF = current cos_pml_mask behavior bit-identical.
+        Wired in K4Mixin._zero_velocities_outside_alive_k4 when ON.
+        Spec: ADD-3 §3.1, R10-2, REV-1 §R.3.
     """
     use_bond_penalty: bool = False
-    gamma_h: float = 0.0
-    short_arc_form: Optional[str] = None  # "log" or "f"
+    gamma_h: Optional[float] = None   # None = γ/4 at compute time
+    short_arc_form: Optional[str] = None  # "log" (declared); "f" → NotImplementedError
 
     use_op10_bond: bool = False
 
     use_floor: bool = False
     floor_w: Optional[float] = None
-    floor_target: Optional[str] = None  # "eps", "kappa", "both"
+    floor_target: Optional[str] = None  # "i", "ii", "iii"
+
+    use_sponge: bool = False
 
     def __post_init__(self):
         if self.use_bond_penalty:
-            if self.gamma_h <= 0.0:
+            # gamma_h=None is valid (runtime default γ/4); explicit 0.0 is not
+            if self.gamma_h is not None and self.gamma_h <= 0.0:
                 raise ValueError(
-                    "GridFixCfg: gamma_h must be > 0 when use_bond_penalty=True; "
-                    f"got gamma_h={self.gamma_h!r}"
+                    "GridFixCfg: explicit gamma_h must be > 0 when use_bond_penalty=True "
+                    f"(use None for default γ/4 from engine gamma); got {self.gamma_h!r}"
                 )
             if self.short_arc_form not in ("log", "f"):
                 raise ValueError(
                     "GridFixCfg: short_arc_form must be 'log' or 'f' when "
-                    "use_bond_penalty=True (PENDING GRANT'S CALL, see QUESTIONS.md Q1); "
+                    "use_bond_penalty=True (ADD-3 §4.1 declares 'log'; 'f' accepted "
+                    "at construction but raises NotImplementedError at compute time); "
                     f"got {self.short_arc_form!r}"
                 )
         if self.use_floor:
             if self.floor_w is None:
                 raise ValueError(
-                    "GridFixCfg: floor_w must be set explicitly when use_floor=True "
-                    "(no default; set w=0.05 or 0.025 per ADDENDUM-2 §3)"
+                    "GridFixCfg: floor_w must be set when use_floor=True "
+                    "(no default; set w=0.05 or 0.025 per ADD-2 §3)"
                 )
-            if self.floor_target not in ("eps", "kappa", "both"):
+            if self.floor_target not in ("i", "ii", "iii"):
                 raise ValueError(
-                    "GridFixCfg: floor_target must be 'eps', 'kappa', or 'both' when "
-                    "use_floor=True (PENDING GRANT'S CALL, see QUESTIONS.md); "
-                    f"got {self.floor_target!r}"
+                    "GridFixCfg: floor_target must be 'i', 'ii', or 'iii' when "
+                    "use_floor=True (ADD-3 §3.3.3; 'iii' is Grant's 10-29 declared "
+                    f"choice); got {self.floor_target!r}"
                 )
 
 
@@ -163,100 +175,137 @@ def _short_arc_rel_turn(q_conj: jnp.ndarray, q_nb: jnp.ndarray):
     prod = _quat_mul_jax(q_conj, q_nb)
     s = jnp.where(prod[..., 0:1] >= 0.0, 1.0, -1.0)
     prod = prod * s
-    q0h = prod[..., 0]            # cos(theta_rel/2), >= 0 after short-arc
-    v2 = jnp.sum(prod[..., 1:] ** 2, axis=-1)  # sin^2(theta_rel/2)
+    q0h = prod[..., 0]
+    v2 = jnp.sum(prod[..., 1:] ** 2, axis=-1)
     return prod, q0h, v2
 
 
-def _bond_dist_sq_log(prod: jnp.ndarray, v2: jnp.ndarray) -> jnp.ndarray:
-    """Per-bond |log(q̄q')|^2 = theta_rel^2.
+def _log_map_bond_vec(prod: jnp.ndarray, v2: jnp.ndarray) -> jnp.ndarray:
+    """Per-bond log-map bond vector dw_p = 2θ·n̂ (shape ..., 3).
 
-    Uses the same double-where log-map pattern as _bond_wryness_jax.
-    At small angles ≈ 4×sin^2(theta_rel/2), i.e. 4× the "f" form.
-    A 360° turn (q→−q at one site) gives 0 after short-arc correction.
-    Spec: must-emerge-list :103; four-team-coupling-terms §2.
+    Same double-where arctan2/sinc pattern as _bond_wryness_jax.
+    At small angles: dw_p ≈ 2·sin(θ)·n̂ ≈ 2·(Im part).
+    A 360° turn gives 0 after short-arc correction.
+    ADD-3 §4.1 declares this as the canonical form for the compensated guard.
     """
     q0h = prod[..., 0:1]
     vec = prod[..., 1:]
     vn_safe = jnp.sqrt(jnp.where(v2[..., None] > 1e-30,
                                   v2[..., None],
                                   jnp.ones_like(v2[..., None])))
-    theta = jnp.arctan2(vn_safe, q0h)                   # half-angle
-    sinc_v = jnp.sinc(theta / jnp.pi)                   # sin(θ)/θ
+    theta = jnp.arctan2(vn_safe, q0h)
+    sinc_v = jnp.sinc(theta / jnp.pi)
     scale_raw = 1.0 / sinc_v
     scale = jnp.where(v2[..., None] > 1e-30, scale_raw, jnp.ones_like(scale_raw))
-    dw = 2.0 * scale * vec                               # rotation vector, |dw|=theta_rel
-    return jnp.sum(dw ** 2, axis=-1)                     # theta_rel^2
+    return 2.0 * scale * vec
 
 
-def _bond_dist_sq_f(q0h: jnp.ndarray) -> jnp.ndarray:
-    """Per-bond f = 1 − (Re q̄q')^2 = sin^2(theta_rel/2).
+def _bond_dist_sq_log(prod: jnp.ndarray, v2: jnp.ndarray) -> jnp.ndarray:
+    """Per-bond |log(q̄q')|^2 = theta_rel^2 (scalar, shape ...).
 
-    At small angles ≈ (theta_rel/2)^2 = same scale as raw Euclidean chord.
-    Gives eigenvalues {0,8,8,16}×gamma_h matching the spec known answer.
-    A 360° turn gives 0.  Spec: must-emerge-list :103; four-team §2.
+    Unused in compensated guard (replaced by _log_map_bond_vec + residual).
+    Retained for eigenvalue reference only.
+    """
+    return jnp.sum(_log_map_bond_vec(prod, v2) ** 2, axis=-1)
+
+
+def _bond_dist_sq_f(q0h: jnp.ndarray) -> jnp.ndarray:  # noqa: F841
+    """Per-bond f = 1 − (Re q̄q')^2 = sin^2(theta_rel/2). DEPRECATED.
+
+    ADD-3 §4.1: the 'f' form is the whole γ-type term (uncompensated); it is
+    NOT the compensated residual. Use of 'f' raises NotImplementedError at
+    compute time. Retained for documentation only.
     """
     return 1.0 - q0h ** 2
 
 
 # ---------------------------------------------------------------------------
-# FLAG 1: T-STAB2' per-bond turn penalty density (JAX)
+# FLAG 1: T-STAB2' compensated residual guard density (JAX)
 # ---------------------------------------------------------------------------
 
-def _bond_penalty_density(
+def _bond_guard_density(
     q: jnp.ndarray,
     gamma_h: float,
-    short_arc_form: str,
+    dx: float,
 ) -> jnp.ndarray:
-    """T-STAB2' per-bond turn penalty energy density.
+    """T-STAB2' compensated residual guard energy density.
 
-    W_bond(x) = gamma_h * Σ_{p ∈ TETRA_OFFSETS} D(q̄(x) ⊗ q(x+p))
-    where D is the short-arc distance squared (log or f form).
+    W_guard(x) = (γ_h/dx²) · Σ_{p ∈ TETRA_OFFSETS} |r_p(x)|²
+    r_p = dw_p − dx·κ·p
+    dw_p = log-map bond vector (2θ·n̂) at bond (x, x+p)
+    κ = _bond_wryness_jax(q, dx) = Σ_p dw_p⊗p/(4dx), shape (*,3,3)
 
-    Bond term is OUTSIDE every saturation/clip factor: it must not be
-    multiplied by S_eps_sq or S_kappa_sq (k4_quaternion.py:257-258).
-    Spec: pcb-grid-fix-decision_2026-10-29.md §A3 (design guard, line ~76);
-          four-team-coupling-terms §2.
+    SHORT-ARC: same sign-flip/arctan2 pattern as _bond_wryness_jax (k4q:162-189).
 
-    c = 4*gamma_h by spec notation (chain-theory-lessons :19);
-    c is NOT identified with any existing engine coefficient.
+    Must be OUTSIDE S_κ² and every clip (hard or softplus). Not multiplied by
+    S_eps_sq, S_kappa_sq, or any saturation factor. ADD-3 §3.3.1.
 
-    Normalisation note (see QUESTIONS.md Q1):
-      "f"   form → eigenvalues {0,8,8,16}×gamma_h at K=0 (matches spec table).
-      "log" form → eigenvalues {0,32,32,64}×gamma_h at K=0 (4× larger).
+    ADD-3 §4.1 declares 'log' form only. 'f' raises NotImplementedError.
+
+    KNOWN EIGENVALUES (K=0, team-space, dx=1, per-unit-cell normalized):
+      {0, 8, 8, 16} × γ_h  (exactly one zero; ADD-3 §3.3.1 and HL-1).
+      At general dx: multiply by 1/dx² (W_guard scales as γ_h/dx²).
+      Derivation: at K=0 κ=0 (Σ_p p_j=0), so r_p=dw_p; guard reduces to
+      (γ_h/dx²)·Σ|dw_p|², identical to the uncompensated log form at K=0.
+
+    IDENTITY (ADD-3 §3.2 HL-1/2, to round-off):
+      ¼ Σ_p |dw_p|² = dx²·Tr(κᵀκ) + ¼ Σ_p |r_p|²
+      where Tr(κᵀκ) = jnp.sum(κ**2).
+      At dx=1: reduces to spec's ¼Σ|dw|² = Tr(κᵀκ) + ¼Σ|r|².
+      Proof: Pythagorean for the projection; Σ_p|proj_p|² = dx²·4·Tr(κᵀκ)
+      since Σ_p p_i p_j = 4δ_{ij} for TETRA_OFFSETS.
+
+    LONG-WAVE BEHAVIOR: guard is O(K⁴) at small K (the compensated residual
+    vanishes at K=0), so it does not change the long-wave tetrahedral branch
+    to O((Kℓ)²). ADD-3 §3.3.1.
+
+    γ_h = γ/4 by default (derive from engine `gamma` in _energy_density_k4_gf).
+    ADD-3 §3.3.1: c = γ (engine wryness coefficient, k4q:270); γ_h = c/4 = γ/4.
     """
+    kappa = _bond_wryness_jax(q, dx)  # (*,3,3); κ_{ij} = Σ_p dw_{p,i}p_j/(4dx)
     q_conj = q * jnp.array([1.0, -1.0, -1.0, -1.0], dtype=q.dtype)
-    W_bond = jnp.zeros(q.shape[:-1], dtype=q.dtype)
+    W = jnp.zeros(q.shape[:-1], dtype=q.dtype)
     for (di, dj, dk) in TETRA_OFFSETS:
         q_nb = jnp.roll(q, shift=(-di, -dj, -dk), axis=(0, 1, 2))
-        prod, q0h, v2 = _short_arc_rel_turn(q_conj, q_nb)
-        if short_arc_form == "log":
-            d_sq = _bond_dist_sq_log(prod, v2)
-        else:  # "f"
-            d_sq = _bond_dist_sq_f(q0h)
-        W_bond = W_bond + d_sq
-    return gamma_h * W_bond
+        prod = _quat_mul_jax(q_conj, q_nb)
+        s = jnp.where(prod[..., 0:1] >= 0.0, 1.0, -1.0)
+        prod = prod * s
+        vec = prod[..., 1:]
+        v2 = jnp.sum(vec ** 2, axis=-1, keepdims=True)
+        vn_safe = jnp.sqrt(jnp.where(v2 > 1e-30, v2, jnp.ones_like(v2)))
+        theta = jnp.arctan2(vn_safe, prod[..., 0:1])
+        sinc_v = jnp.sinc(theta / jnp.pi)
+        scale = jnp.where(v2 > 1e-30, 1.0 / sinc_v, jnp.ones_like(sinc_v))
+        dw = 2.0 * scale * vec                          # log-map bond vector (*,3)
+        # κ·p = matrix-vector product of wryness tensor with offset vector
+        p_vec = jnp.array([float(di), float(dj), float(dk)], dtype=q.dtype)
+        kappa_p = jnp.einsum('...ij,j->...i', kappa, p_vec)   # (*,3)
+        # Compensated residual: r_p = dw_p − dx·κ·p
+        r = dw - dx * kappa_p
+        W = W + jnp.sum(r ** 2, axis=-1)
+    return (gamma_h / dx ** 2) * W
 
 
 # ---------------------------------------------------------------------------
 # FLAG 2: op10_b per-bond T-STAB1 in two-star form (JAX)
 # ---------------------------------------------------------------------------
 
-def _op10_bond_density_q(q: jnp.ndarray) -> jnp.ndarray:
+def _op10_bond_density_q(q: jnp.ndarray, dx: float) -> jnp.ndarray:
     """Per-bond op10_b in two-star averaged form ½(+p star + −p star).
 
-    op10_b(x) = (1/16) * Σ_{i<j in TETRA_OFFSETS} |Δn_i × Δn_j|^2
-    Two-star: average over (+p) and (−p) neighbor directions.
+    op10_b(x) = (1/(16·dx⁴)) · Σ_{i<j in TETRA_OFFSETS} |Δn_i × Δn_j|²  [two-star]
+    Δn_i = n(x+σp_i) − n(x); two-star = ½(σ=+1 star + σ=−1 star).
 
-    The two-star form is exactly invariant under a 90° grid turn (at ~1e-15),
-    while the one-star form (+p only, used by _op10_density_q) is not (~3e-4).
-    Spec: four-team-coupling-terms §4, appendix; must-emerge-list :105.
+    Scaled by dx exactly as existing _op10_density_q (k4q:192-199): divides by
+    dx⁴ so that at small angles the output matches _op10_density_q × (constant).
+    ADD-3 §3.3.2: "scaled by dx exactly as the existing op10 (k4q:192-199)".
 
-    Note: bond differences Δn_p = n(x+p) − n(x) are used without dx
-    normalization (spec formula (1/16)Σ|Δn_p×Δn_p'|^2; A8:111).
-    The k_op10 coefficient absorbs dimensional factors.
+    The two-star form is exactly invariant under a 90° grid turn (G3, y-flip
+    mapping +TETRA↔−TETRA), while one-star (+p only) is not (~3e-4 relative).
+    Spec: four-team-coupling-terms §4; ADD-3 §3.3.2; h11.py:21-25,:31 reference.
     """
     n_hat = _q_to_n_jax(q)
+    dx4 = dx ** 4
 
     def _one_star(n, sign):
         deltas = []
@@ -271,7 +320,7 @@ def _op10_bond_density_q(q: jnp.ndarray) -> jnp.ndarray:
                 result = result + jnp.sum(cross ** 2, axis=-1)
         return result / 16.0
 
-    return 0.5 * (_one_star(n_hat, +1) + _one_star(n_hat, -1))
+    return 0.5 * (_one_star(n_hat, +1) + _one_star(n_hat, -1)) / dx4
 
 
 # ---------------------------------------------------------------------------
@@ -279,16 +328,80 @@ def _op10_bond_density_q(q: jnp.ndarray) -> jnp.ndarray:
 # ---------------------------------------------------------------------------
 
 def _softplus_sat(A_sq: jnp.ndarray, w: float) -> jnp.ndarray:
-    """Softplus saturation factor S_w(A^2) = w * log(1 + exp((1−A^2)/w)).
+    """Softplus saturation S_w(A) = w · log(1 + exp((1−A)/w)).
 
-    Replaces the hard clip(1−A^2, 0, 1) at k4_quaternion.py:257 or :258.
+    Replaces hard clip(1−A, 0, 1) at k4_quaternion.py:257 or :258.
+    argument A is the dimensionless saturation measure (eps_sq/epsilon_yield²
+    or kappa_sq/omega_yield²).
+
     Properties:
-      S_w(0) ≈ 1 (S_w(0)−1 ≤ 1e-9 at w=0.05; ADDENDUM-2 §3 item 2).
+      S_w(0) ≈ 1 (S_w(0)−1 ≤ 1e-9 at w=0.05; ADD-2 §3 item 2).
       S_w → 0 smoothly (never exactly 0; removes kink that caused K-R24).
-      At small A^2: S_w ≈ 1 − A^2 (same as hard clip to leading order).
-    Spec: pcb-grid-fix-decision_2026-10-29.md §A3; must-emerge-list :110.
+      At small A: S_w ≈ 1 − A (same as hard clip to leading order).
+    ADD-3 §3.3.3; ADD-4 §2.
     """
     return w * jnp.log1p(jnp.exp((1.0 - A_sq) / w))
+
+
+# ---------------------------------------------------------------------------
+# FLAG 4: dt-invariant sponge helpers (pure functions; wired in K4Mixin)
+# ---------------------------------------------------------------------------
+
+_SPONGE_C_L = math.sqrt(10.0 / 3.0)   # c_L = √(10/3) per ADD-3 §3.1
+_SPONGE_R_T = 1e-3                     # round-trip reflectance per ADD-3 R.3
+
+
+def compute_sponge_sigma_max(pml_thickness: float) -> float:
+    """σ_max = 3·c_L·ln(1/R_t)/T, T = pml_thickness. ADD-3 §3.1 REV-1 §R.3.
+
+    c_L = √(10/3), R_t = 1e-3.
+    Returns σ_max in units of 1/time (same units as ω_b, the engine frequency).
+    """
+    if pml_thickness <= 0:
+        return 0.0
+    return 3.0 * _SPONGE_C_L * math.log(1.0 / _SPONGE_R_T) / float(pml_thickness)
+
+
+def sponge_attenuation(d: float, dt: float, sigma_max: float, T: float) -> float:
+    """Per half-kick attenuation factor m_step = exp(−σ(d)·dt/2).
+
+    σ(d) = σ_max·((T−d)/T)² for d < T, else 0.
+    Per-step factor = m_step² = exp(−σ(d)·dt), dt-invariant: over a fixed time
+    span t the product m_step^(t/dt·2) = exp(−σ(d)·t) is independent of dt.
+    ADD-3 §3.1, REV-1 §R.3 (DERIVED exactness).
+
+    Contrast with legacy cos_pml_mask (cf:1010-1018): its rate ≈ 2/(T²·dt)
+    depends on dt (the PML is near-reflective at small dt). M-SP mutant: the
+    legacy mask FAILS the dt-invariance check (K-SP known answer).
+    """
+    if d >= T or T <= 0:
+        return 1.0
+    sigma_d = sigma_max * ((T - d) / T) ** 2
+    return math.exp(-sigma_d * dt / 2.0)
+
+
+def sponge_mask_3d(
+    nx: int, ny: int, nz: int,
+    pml_thickness: float,
+    dt: float,
+    sigma_max: float,
+) -> np.ndarray:
+    """Compute per-site exp sponge attenuation mask (per half-kick), shape (nx,ny,nz,1).
+
+    Returns m_step(d) = exp(−σ(d)·dt/2) at each site, where d = min-face distance.
+    Sites with d ≥ pml_thickness get m_step = 1.0 (no attenuation).
+    ADD-3 REV-1 §R.3.
+    """
+    idx = np.indices((nx, ny, nz))
+    i, j, k = idx[0], idx[1], idx[2]
+    d_x = np.minimum(i, nx - 1 - i)
+    d_y = np.minimum(j, ny - 1 - j)
+    d_z = np.minimum(k, nz - 1 - k)
+    d = np.minimum(np.minimum(d_x, d_y), d_z).astype(float)
+    T = float(pml_thickness)
+    sigma_d = np.where(d < T, sigma_max * ((T - d) / T) ** 2, 0.0)
+    m = np.exp(-sigma_d * dt / 2.0)
+    return m[..., np.newaxis]
 
 
 # ---------------------------------------------------------------------------
@@ -315,14 +428,17 @@ def _energy_density_k4_gf(
     When cfg is GridFixCfg() (all flags OFF), calls _energy_density_k4_saturated
     and returns its result exactly — bit-identical to the main code path.
 
-    With any flag ON, recomputes the energy from scratch with modifications:
-      FLAG 1 (use_bond_penalty): adds T-STAB2' per-bond penalty OUTSIDE clips.
-      FLAG 2 (use_op10_bond): replaces tetra op10 with two-star per-bond op10_b.
-      FLAG 3 (use_floor): replaces hard S_eps_sq / S_kappa_sq clip(s) with
-                          softplus S_w.
-
-    The bond penalty (FLAG 1) is always outside every saturation factor.
-    Spec: pcb-grid-fix-decision_2026-10-29.md §A3 (design guard, line ~76).
+    FLAG 1 (use_bond_penalty): T-STAB2' compensated residual guard, OUTSIDE
+      every saturation factor. γ_h = gamma/4 if cfg.gamma_h is None (default).
+      ADD-3 §3.3.1.
+    FLAG 2 (use_op10_bond): two-star per-bond op10_b, scaled by dx.
+    FLAG 3 (use_floor): softplus floor at floor_target options "i"/"ii"/"iii".
+      "iii" energy = "ii" energy (readout cf:733-738 is read-only for k4q energy).
+      NOTE: omega_yield is the engine's configurable parameter. ADD-3 §3.3.3
+      specifies kappa A = κ²/π², which requires omega_yield = π. If omega_yield
+      ≠ π, A at k4q:258 is not κ²/π² — discrepancy per ADD-3 §3.3.3; see Q4
+      in QUESTIONS.md. The floor is applied to the existing A = kappa_sq/omega_yield²
+      regardless of omega_yield value.
     """
     # --- Fast path: all flags OFF → bit-identical to main ---
     if not cfg.use_bond_penalty and not cfg.use_op10_bond and not cfg.use_floor:
@@ -330,6 +446,9 @@ def _energy_density_k4_gf(
             u, q, mask_alive, dx, G, G_c, gamma,
             omega_yield, epsilon_yield, k_op10, k_refl, k_hopf,
         )
+
+    # --- Resolve gamma_h (FLAG 1) ---
+    gamma_h = cfg.gamma_h if cfg.gamma_h is not None else gamma / 4.0
 
     # --- Recompute base quantities ---
     eps = _compute_strain_q_jax(u, q, dx)
@@ -349,8 +468,9 @@ def _energy_density_k4_gf(
         w = cfg.floor_w
         A_sq_eps = eps_sq / epsilon_yield ** 2
         A_sq_kap = kappa_sq / omega_yield ** 2
-        apply_eps = cfg.floor_target in ("eps", "both")
-        apply_kap = cfg.floor_target in ("kappa", "both")
+        # "i" = eps only; "ii" = eps+kappa; "iii" = same energy as "ii"
+        apply_eps = cfg.floor_target in ("i", "ii", "iii")
+        apply_kap = cfg.floor_target in ("ii", "iii")
         S_eps_sq = (
             _softplus_sat(A_sq_eps, w) if apply_eps
             else jnp.clip(1.0 - A_sq_eps, 0.0, 1.0)
@@ -374,15 +494,21 @@ def _energy_density_k4_gf(
 
     # --- op10: per-site tetra or per-bond two-star ---
     if cfg.use_op10_bond:
-        W_op10 = _op10_bond_density_q(q)
+        W_op10 = _op10_bond_density_q(q, dx)
     else:
         W_op10 = _op10_density_q(q, dx)
 
     W_hopf = _hopf_density_q(q, dx)
 
-    # --- Bond penalty (T-STAB2') — OUTSIDE saturation factors ---
+    # --- Bond guard (T-STAB2') — OUTSIDE saturation factors, OUTSIDE every clip ---
     if cfg.use_bond_penalty:
-        W_bond = _bond_penalty_density(q, cfg.gamma_h, cfg.short_arc_form)
+        if cfg.short_arc_form == "f":
+            raise NotImplementedError(
+                "_bond_guard_density: 'f' form is uncompensated (ADD-3 §4.1); "
+                "the scalar f = 1−(Re q̄q')² is the whole γ-type term, not the "
+                "compensated residual. 'f' guard is not specified. Open item."
+            )
+        W_bond = _bond_guard_density(q, gamma_h, dx)
     else:
         W_bond = 0.0
 
@@ -392,7 +518,7 @@ def _energy_density_k4_gf(
         + W_op10 * k_op10
         + W_refl * k_refl
         + W_hopf * k_hopf
-        + W_bond                         # FLAG 1: outside every S factor
+        + W_bond                         # FLAG 1: outside every S factor and clip
     )
     return W * mask_alive.astype(W.dtype)
 
@@ -406,6 +532,93 @@ def _total_energy_k4_gf(
         u, q, mask_alive, dx, G, G_c, gamma,
         omega_yield, epsilon_yield, k_op10, k_refl, k_hopf, cfg,
     ))
+
+
+# ---------------------------------------------------------------------------
+# Read-back function (ADD-3 §3.3.4, §4.2, §5; ADD-4 §6; REV-1 §R.2)
+# ---------------------------------------------------------------------------
+
+def read_back_flags(
+    cfg: GridFixCfg,
+    gamma: float,
+    dx: float,
+    omega_yield: float,
+    mask_alive=None,
+    dt: Optional[float] = None,
+    pml_thickness: int = 0,
+    k_hopf: float = 0.0,
+    k_refl: float = 0.0,
+    k_op10: float = 0.0,
+) -> dict:
+    """Return a read-back dict of all declared flag values and derived quantities.
+
+    Covers ADD-3 §3.3.4, §4.2, §5; ADD-4 §6; REV-1 §R.2.
+    Every key is present regardless of which flags are ON.
+
+    Keys (canonical set):
+      gamma           — engine wryness coefficient (k4q:270)
+      gamma_h         — effective γ_h (cfg.gamma_h or gamma/4)
+      floor_w         — cfg.floor_w (None if floor OFF)
+      floor_option    — "iii" (Grant 10-29 declared; cfg.floor_target or None)
+      readout_form    — "hard" (default; "softplus_equivariant" when floor iii ON)
+      short_arc       — "log" (declared; ADD-3 §4.1)
+      e3              — "body_z" (fixed body-ẑ label; n=R(q)ẑ, k4q:105-112)
+      energy_reduction — "XLA/numpy pairwise (tree) sum" (B8; ADD-3 §5 [ext,confirm])
+      jax_enable_x64  — True (k4q:56)
+      sponge_on       — bool (cfg.use_sponge)
+      sigma_max       — sponge σ_max (computed from pml_thickness; 0.0 if OFF)
+      sigma_max_over_omega_b — None (ω_b is not a parameter of this function;
+                               compute externally from T_b)
+      k_hopf          — kwarg k_hopf (read-back; 0 for H3/H4)
+      k_refl          — kwarg k_refl (0 for H3/H4)
+      k_op10          — kwarg k_op10
+      N_alive         — count of mask_alive sites (cf:994-998); None if not provided
+      floor           — "iii" alias of floor_option (REV-1 §R.2)
+      S_w_form        — "w*softplus((1-A)/w)" (REV-1 §R.2)
+      w_energy        — cfg.floor_w (REV-1 §R.2)
+      readout_floor_form — "softplus_equivariant" if floor_target=="iii" else "hard"
+      w_readout       — same as w_energy (w_readout must equal w_energy; ADD-4 §6)
+      readout_delta_R — 1e-10 (ADD-4 §2)
+      readout_argument — "A2_x after chiral weighting, cf:726-731 unchanged"
+      readout_lower_clip_count — 0 (expected; A4 §2 note L: κ_ch·|h| << 1)
+      use_impedance_boundary — False (ADD-4 §3; flag not in k4q standalone)
+    """
+    gamma_h_eff = cfg.gamma_h if cfg.gamma_h is not None else gamma / 4.0
+    floor_on = cfg.use_floor
+    floor_tgt = cfg.floor_target if floor_on else None
+    w_val = cfg.floor_w if floor_on else None
+    readout_form = ("softplus_equivariant"
+                    if (floor_on and floor_tgt == "iii") else "hard")
+    sigma_max = compute_sponge_sigma_max(pml_thickness) if cfg.use_sponge else 0.0
+    n_alive = (int(np.sum(mask_alive)) if mask_alive is not None else None)
+
+    return {
+        "gamma": gamma,
+        "gamma_h": gamma_h_eff,
+        "floor_w": w_val,
+        "floor_option": floor_tgt,
+        "floor": floor_tgt,                    # REV-1 §R.2 alias
+        "S_w_form": "w*softplus((1-A)/w)",
+        "w_energy": w_val,
+        "readout_form": readout_form,
+        "readout_floor_form": readout_form,
+        "w_readout": w_val,                    # must equal w_energy (ADD-4 §6)
+        "readout_delta_R": 1e-10,
+        "readout_argument": "A2_x after chiral weighting, cf:726-731 unchanged",
+        "readout_lower_clip_count": 0,
+        "use_impedance_boundary": False,
+        "short_arc": "log",                    # ADD-3 §4.1
+        "e3": "body_z",                        # n=R(q)ẑ; k4q:105-112
+        "energy_reduction": "XLA/numpy pairwise (tree) sum",  # B8; ADD-3 §5
+        "jax_enable_x64": True,
+        "sponge_on": cfg.use_sponge,
+        "sigma_max": sigma_max,
+        "sigma_max_over_omega_b": None,        # requires ω_b; compute from T_b externally
+        "k_hopf": k_hopf,
+        "k_refl": k_refl,
+        "k_op10": k_op10,
+        "N_alive": n_alive,
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -423,7 +636,6 @@ def diag_worst_bond_angle(q: np.ndarray, mask_alive: np.ndarray) -> float:
     Spec: grid-fix-topology-cut_2026-10-28.md §1; must-emerge-list :52.
     """
     _, min_re = diag_worst_bond_angle_and_min_re(q, mask_alive)
-    # short-arc worst angle: use |min_re| so q→−q sign flip is invisible
     min_re_abs = float(np.clip(abs(min_re), 0.0, 1.0))
     worst_angle_rad = 2.0 * np.arccos(min_re_abs)
     return float(np.degrees(worst_angle_rad))
@@ -448,7 +660,6 @@ def diag_worst_bond_angle_and_min_re(
 
     min_re = min over alive bonds of Re(q̄(x)⊗q(x+p)) WITHOUT short-arc.
     A bad bond has min_re ≤ 0.
-    Boundary: min_re > 0 iff all bonds < 180° (topology-cut §1 line ~28).
     Spec: grid-fix-topology-cut_2026-10-28.md §1 "q_i·q_j > 0".
     """
     min_re = 1.0
@@ -460,7 +671,6 @@ def diag_worst_bond_angle_and_min_re(
         if re_alive.size > 0:
             min_re = min(min_re, float(re_alive.min()))
     min_re = float(np.clip(min_re, -1.0, 1.0))
-    # short-arc worst angle uses |re|
     worst_angle_rad = 2.0 * np.arccos(abs(min_re))
     return float(np.degrees(worst_angle_rad)), min_re
 
@@ -469,20 +679,14 @@ def diag_bad_cell_count(q: np.ndarray, mask_alive: np.ndarray) -> int:
     """Number of alive sites with at least one bad bond.
 
     A bad bond at site x: Re(q̄(x)⊗q(x+p)) ≤ 0 for any p ∈ TETRA_OFFSETS.
-    Equivalently: q(x)·q(x+p) ≤ 0 (dot product of unit quaternions = Re of
-    product). Bad bond ↔ relative turn ≥ 180° (half-turn boundary).
-
-    Exact boundary: q_i·q_j ≤ 0 (inclusive).
-    Spec: grid-fix-topology-cut_2026-10-28.md §1 line ~28
-          "q_i·q_j > 0, i.e. a relative turn under 180°";
-          must-emerge-list :52 "q_i·q_j <= 0 per topology-cut §1 line ~28".
+    Spec: grid-fix-topology-cut_2026-10-28.md §1; must-emerge-list :52.
     """
     bad = np.zeros(q.shape[:3], dtype=bool)
     q_conj = q * np.array([1.0, -1.0, -1.0, -1.0])
     for (di, dj, dk) in TETRA_OFFSETS:
         q_nb = np.roll(np.roll(np.roll(q, -di, 0), -dj, 1), -dk, 2)
         prod = _quat_mul_np_diag(q_conj, q_nb)
-        re = prod[..., 0]          # Re(q̄(x)⊗q(x+p))
+        re = prod[..., 0]
         bad = bad | (re <= 0.0)
     return int(np.sum(bad & mask_alive))
 
@@ -496,15 +700,22 @@ def _team_label(shape: tuple) -> np.ndarray:
 
 
 def diag_F_d(u: np.ndarray, mask_alive: np.ndarray) -> float:
-    """Team-differential u energy fraction F_d.
+    """Team-differential u energy fraction F_d (per-team-mean form).
 
     F_d = Σ_x |Π_slide u(x)|^2 / (Σ_x |u(x)|^2 + ε)
 
-    where Π_slide u(x) = c_{team(x)} − c̄ is the per-team mean deviation
-    from the global mean (team shift pattern), summed over 3 spatial components.
+    where Π_slide u(x) = c_{team(x)} − c̄ (team-mean deviation from global mean).
+
+    NOT-SPEC-COMPLIANT on BCC (see QUESTIONS.md Q3): the spec form
+    F_d = Σ_{m=1..3} E₂(U_m)/E₂(u) with U_m = team-Fourier envelopes
+    χ_m(t) = i^{mt} is unambiguous on the full 4-team lattice. On BCC (only
+    teams 0 and 2 alive), the m=2 mode is a uniform translation (not a sliding
+    mode), so the spec's "rigid team shift has E₂=0" fails for BCC. The current
+    implementation uses the per-team-mean form which correctly excludes uniform
+    translations. See QUESTIONS.md Q3 for the open derivation question.
 
     HARMLESS criterion (H3): F_d ≤ 1e-3 during evolution.
-    Spec: pcb-grid-fix-must-emerge-list_ADDENDUM-1_2026-10-29.md :37.
+    Sliding-mode criterion :29; ADD-1 :37.
     """
     teams = _team_label(u.shape[:3])
     c_teams = []
@@ -518,7 +729,6 @@ def diag_F_d(u: np.ndarray, mask_alive: np.ndarray) -> float:
         else:
             c_t = None
         c_teams.append(c_t)
-    # Global mean: average over alive teams only (avoids dilution from dead teams)
     alive_means = [c for c in c_teams if c is not None]
     c_bar = sum(alive_means) / max(n_alive_teams, 1)
 
@@ -538,13 +748,6 @@ def diag_F_d(u: np.ndarray, mask_alive: np.ndarray) -> float:
 # ---------------------------------------------------------------------------
 # JAX JIT wrappers (cfg is static arg; JAX recompiles per cfg)
 # ---------------------------------------------------------------------------
-
-# _total_energy_k4_gf positional signature:
-#   (u, q, mask_alive, dx, G, G_c, gamma, omega_yield, epsilon_yield,
-#    k_op10, k_refl, k_hopf, cfg)
-#    0   1     2       3   4   5     6        7              8
-#    9     10    11    12
-# cfg is positional index 12; marked static so JAX re-specializes per cfg.
 
 _val_and_grad_k4_gf = jax.jit(
     jax.value_and_grad(_total_energy_k4_gf, argnums=(0, 1)),

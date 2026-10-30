@@ -46,6 +46,8 @@ A-034 cross-refs: `manuscript/backmatter/07_universal_saturation_kernel.tex`
 |T|=12 universality + ξ_K1, ξ_K2 namespace).
 """
 
+import math
+
 import jax
 
 jax.config.update("jax_enable_x64", True)
@@ -695,6 +697,33 @@ def _reflection_density_asymmetric(
     return gamma_sq
 
 
+def _readout_floor(
+    A2: jnp.ndarray,
+    w: float,
+    delta_R: float = 1e-10,
+) -> jnp.ndarray:
+    """Softplus impedance readout floor for one channel.
+
+    S = sqrt( max( S_w(A2_c), δ_R ) )
+    where A2_c = max(A2, 0) and S_w(A) = w·log1p(exp((1−A)/w)).
+
+    δ_R = 1e-10 (same constant for both channels); keeps S ≥ 1e-5 analogous
+    to the hard-clip regime where S ≥ sqrt(1e-10) ≈ 1e-5.
+
+    KNOWN ANSWER: at A2 = 1, S² = S_w(1) = w·ln2. At A2 = 0, S ≈ 1.
+
+    Called from _update_saturation_kernels when readout_floor_form="softplus_equivariant"
+    with identical (w, delta_R) for both channels (NT-1 equivariance).
+    ADD-4 §2. Spec sha1: 26324f84de66.
+
+    READ-ONLY: this result is NOT fed back to energy or step dynamics.
+    use_impedance_boundary = False (default, cf:978) keeps it read-only.
+    """
+    A2_c = jnp.maximum(A2, 0.0)                        # lower clip unchanged (ADD-4 note L)
+    S_sq = w * jnp.log1p(jnp.exp((1.0 - A2_c) / w))   # S_w(A2_c)
+    return jnp.sqrt(jnp.maximum(S_sq, delta_R))
+
+
 def _update_saturation_kernels(
     u: jnp.ndarray,
     omega: jnp.ndarray,
@@ -704,6 +733,9 @@ def _update_saturation_kernels(
     omega_yield: float,
     epsilon_yield: float,
     kappa_chiral: float = KAPPA_CHIRAL_ELECTRON,
+    readout_floor_form: str = "hard",
+    readout_w: float = 0.05,
+    readout_delta_R: float = 1e-10,
 ) -> tuple[jnp.ndarray, jnp.ndarray]:
     """Return (S_μ, S_ε) per-site saturation kernels for asymmetric form.
 
@@ -714,6 +746,21 @@ def _update_saturation_kernels(
     (single source of truth for (S_μ, S_ε) across observer / coupling / test).
 
     Returns S_μ, S_ε each shape (nx, ny, nz), clipped to (δ, 1].
+
+    Parameters
+    ----------
+    readout_floor_form : str
+        "hard" (default, bit-identical to all existing callers): hard clip at
+        [0, 1-1e-10] then S = sqrt(1-A).
+        "softplus_equivariant": softplus floor per ADD-4 §2. S = _readout_floor(A2, w, δ_R).
+        The same (readout_w, readout_delta_R) are used for BOTH channels (NT-1).
+        READ-ONLY: does not feed energy or step (ADD-4 §3; use_impedance_boundary=False).
+    readout_w : float
+        Width parameter w for softplus floor (ADD-4 §2). Must equal the energy w
+        (ADD-4 §6; w_readout == w_energy). Only used when readout_floor_form="softplus_equivariant".
+    readout_delta_R : float
+        Lower floor on S² = 1e-10 (ADD-4 §2, δ_R). Same constant both channels.
+        Only used when readout_floor_form="softplus_equivariant".
     """
     eps = _compute_strain(u, omega, dx)
     eps_T = jnp.swapaxes(eps, -1, -2)
@@ -730,11 +777,16 @@ def _update_saturation_kernels(
     A2_mu = (1.0 + kappa_chiral * h_local) * A2_mu_base
     A2_eps = (1.0 - kappa_chiral * h_local) * A2_eps_base
 
-    A2_mu_c = jnp.clip(A2_mu, 0.0, 1.0 - 1e-10)
-    A2_eps_c = jnp.clip(A2_eps, 0.0, 1.0 - 1e-10)
-
-    S_mu = jnp.sqrt(1.0 - A2_mu_c)
-    S_eps = jnp.sqrt(1.0 - A2_eps_c)
+    if readout_floor_form == "softplus_equivariant":
+        # ADD-4 §2: equivariant softplus floor; same (w, δ_R) for BOTH channels (NT-1)
+        S_mu = _readout_floor(A2_mu, readout_w, readout_delta_R)
+        S_eps = _readout_floor(A2_eps, readout_w, readout_delta_R)
+    else:
+        # Default "hard": bit-identical to all existing callers
+        A2_mu_c = jnp.clip(A2_mu, 0.0, 1.0 - 1e-10)
+        A2_eps_c = jnp.clip(A2_eps, 0.0, 1.0 - 1e-10)
+        S_mu = jnp.sqrt(1.0 - A2_mu_c)
+        S_eps = jnp.sqrt(1.0 - A2_eps_c)
     return S_mu, S_eps
 
 
@@ -1016,6 +1068,29 @@ class CosseratField3D:
             pml_region = d < self.pml_thickness
             attenuation = 1.0 - ((self.pml_thickness - d[pml_region]) / self.pml_thickness) ** 2
             self.cos_pml_mask[pml_region, 0] = np.maximum(0.0, attenuation)
+
+        # dt-invariant sponge (FLAG 4; ADD-3 §3.1, REV-1 §R.3)
+        # use_sponge=False (default) → cos_pml_mask behavior, bit-identical.
+        # use_sponge=True  → per half-kick factor exp(-σ(d)·dt/2), dt-invariant.
+        # σ_max = 3·c_L·ln(1/R_t)/T; c_L = √(10/3); R_t = 1e-3.
+        self.use_sponge: bool = False
+        if self.pml_thickness > 0:
+            _T = float(self.pml_thickness)
+            _c_L = math.sqrt(10.0 / 3.0)
+            _R_t = 1e-3
+            self.sponge_sigma_max: float = 3.0 * _c_L * math.log(1.0 / _R_t) / _T
+            _d_sponge = np.minimum(np.minimum(
+                np.minimum(i, nx - 1 - i),
+                np.minimum(j, ny - 1 - j)),
+                np.minimum(k, nz - 1 - k)).astype(np.float64)
+            self._sponge_sigma_d: np.ndarray = np.where(
+                _d_sponge < _T,
+                self.sponge_sigma_max * ((_T - _d_sponge) / _T) ** 2,
+                0.0,
+            )
+        else:
+            self.sponge_sigma_max = 0.0
+            self._sponge_sigma_d = np.zeros((nx, ny, nz), dtype=np.float64)
 
         # State is numpy for easy mutation; converted to jnp at each energy /
         # gradient call. The conversion overhead is small relative to the

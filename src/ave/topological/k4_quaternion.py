@@ -412,11 +412,23 @@ class K4Mixin:
         self.u = self.u * mask
         self.q[~self.mask_alive] = np.array([1.0, 0.0, 0.0, 0.0])
 
-    def _zero_velocities_outside_alive_k4(self, apply_pml: bool = True) -> None:
-        """Enforce alive mask + PML on u_dot and Omega."""
+    def _zero_velocities_outside_alive_k4(self, apply_pml: bool = True, dt=None) -> None:
+        """Enforce alive mask + PML/sponge on u_dot and Omega.
+
+        When use_sponge=True (FLAG 4) and dt is provided, applies the dt-invariant
+        exp sponge per half-kick: mask = exp(-σ(d)·dt/2). Over a fixed elapsed time
+        the product exp(-σ·Σ dt_i/2 · 2) = exp(-σ·t_total) independent of step size.
+        ADD-3 §3.1, REV-1 §R.3. When use_sponge=False (default): cos_pml_mask,
+        bit-identical to existing behavior.
+        """
         mask = self.mask_alive[..., None].astype(self.u_dot.dtype)
         if apply_pml:
-            combined = mask * self.cos_pml_mask.astype(self.u_dot.dtype)
+            if getattr(self, 'use_sponge', False) and dt is not None:
+                # dt-invariant sponge: exp(-σ(d)·dt/2); precomputed sigma_d on self
+                sponge_mask = np.exp(-self._sponge_sigma_d * float(dt) / 2.0)
+                combined = mask * sponge_mask[..., np.newaxis].astype(self.u_dot.dtype)
+            else:
+                combined = mask * self.cos_pml_mask.astype(self.u_dot.dtype)
         else:
             combined = mask
         self.u_dot = self.u_dot * combined
@@ -465,7 +477,7 @@ class K4Mixin:
         # Half-kick
         self.u_dot = self.u_dot + 0.5 * dt * a_u
         self.Omega = self.Omega + 0.5 * dt * a_Omega
-        self._zero_velocities_outside_alive_k4(apply_pml)
+        self._zero_velocities_outside_alive_k4(apply_pml, dt=dt)
 
         # Drift: u (Euclidean) and q (Lie-group)
         self.u = self.u + dt * self.u_dot
@@ -489,7 +501,7 @@ class K4Mixin:
         # Second half-kick
         self.u_dot = self.u_dot + 0.5 * dt * a_u2
         self.Omega = self.Omega + 0.5 * dt * a_Omega2
-        self._zero_velocities_outside_alive_k4(apply_pml)
+        self._zero_velocities_outside_alive_k4(apply_pml, dt=dt)
 
         if self.damping_gamma > 0.0:
             decay = max(0.0, 1.0 - self.damping_gamma * dt)
