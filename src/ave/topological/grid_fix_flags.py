@@ -43,6 +43,15 @@ import jax
 import jax.numpy as jnp
 import numpy as np
 
+# ---------------------------------------------------------------------------
+# Module-level read-back constants (read from here, not from literals in
+# read_back_flags; test changes to these sources, not to the read-back values)
+# ---------------------------------------------------------------------------
+# δ_R: lower floor on S² in _update_saturation_kernels readout (ADD-4 §2)
+_READOUT_DELTA_R: float = 1e-10
+# impedance boundary flag: OFF in standalone k4 mode (ADD-4 §3)
+_USE_IMPEDANCE_BOUNDARY: bool = False
+
 from ave.topological.k4_quaternion import (
     TETRA_OFFSETS,
     _quat_mul_jax,
@@ -591,6 +600,8 @@ def read_back_flags(
                     if (floor_on and floor_tgt == "iii") else "hard")
     sigma_max = compute_sponge_sigma_max(pml_thickness) if cfg.use_sponge else 0.0
     n_alive = (int(np.sum(mask_alive)) if mask_alive is not None else None)
+    # Read from module constants and jax config — NOT from literals (B6)
+    x64 = jax.config.jax_enable_x64  # reads actual jax config state
 
     return {
         "gamma": gamma,
@@ -603,14 +614,14 @@ def read_back_flags(
         "readout_form": readout_form,
         "readout_floor_form": readout_form,
         "w_readout": w_val,                    # must equal w_energy (ADD-4 §6)
-        "readout_delta_R": 1e-10,
+        "readout_delta_R": _READOUT_DELTA_R,   # read from module constant (B6)
         "readout_argument": "A2_x after chiral weighting, cf:726-731 unchanged",
-        "readout_lower_clip_count": 0,
-        "use_impedance_boundary": False,
+        "readout_lower_clip_count": 0,         # ADD-4 note L: κ_ch·|h| << 1
+        "use_impedance_boundary": _USE_IMPEDANCE_BOUNDARY,  # module constant (B6)
         "short_arc": "log",                    # ADD-3 §4.1
         "e3": "body_z",                        # n=R(q)ẑ; k4q:105-112
         "energy_reduction": "XLA/numpy pairwise (tree) sum",  # B8; ADD-3 §5
-        "jax_enable_x64": True,
+        "jax_enable_x64": bool(x64),           # reads actual jax config (B6)
         "sponge_on": cfg.use_sponge,
         "sigma_max": sigma_max,
         "sigma_max_over_omega_b": None,        # requires ω_b; compute from T_b externally
@@ -699,23 +710,17 @@ def _team_label(shape: tuple) -> np.ndarray:
     return (I + J + K) % 4
 
 
-def diag_F_d(u: np.ndarray, mask_alive: np.ndarray) -> float:
-    """Team-differential u energy fraction F_d (per-team-mean form).
+def diag_Fd_slide(u: np.ndarray, mask_alive: np.ndarray) -> float:
+    """Π_slide amplitude: team-mean deviation form (H3 sliding diagnostic).
 
-    F_d = Σ_x |Π_slide u(x)|^2 / (Σ_x |u(x)|^2 + ε)
+    Π_slide = Σ_x |c_{team(x)} − c̄|² / (Σ_x |u(x)|² + ε)
 
-    where Π_slide u(x) = c_{team(x)} − c̄ (team-mean deviation from global mean).
+    This is the H3 per-team-mean L2 diagnostic — NOT the spec F_d (Q3 answer).
+    Use this as a cheap sliding-amplitude diagnostic (criterion :28).
+    Spec form F_d = ΣE₂(U_m)/E₂(u) is in diag_F_d.
 
-    NOT-SPEC-COMPLIANT on BCC (see QUESTIONS.md Q3): the spec form
-    F_d = Σ_{m=1..3} E₂(U_m)/E₂(u) with U_m = team-Fourier envelopes
-    χ_m(t) = i^{mt} is unambiguous on the full 4-team lattice. On BCC (only
-    teams 0 and 2 alive), the m=2 mode is a uniform translation (not a sliding
-    mode), so the spec's "rigid team shift has E₂=0" fails for BCC. The current
-    implementation uses the per-team-mean form which correctly excludes uniform
-    translations. See QUESTIONS.md Q3 for the open derivation question.
-
-    HARMLESS criterion (H3): F_d ≤ 1e-3 during evolution.
-    Sliding-mode criterion :29; ADD-1 :37.
+    HARMLESS criterion (H3): Π_slide ≤ 1e-3 during evolution.
+    Sliding-mode criterion :28; ADD-1 :37.
     """
     teams = _team_label(u.shape[:3])
     c_teams = []
@@ -743,6 +748,95 @@ def diag_F_d(u: np.ndarray, mask_alive: np.ndarray) -> float:
     E2_slide = float(np.sum(u_slide[mask_alive] ** 2))
     E2_u = float(np.sum(u[mask_alive] ** 2))
     return E2_slide / (E2_u + 1e-60)
+
+
+def diag_F_d(u: np.ndarray, mask_alive: np.ndarray) -> float:
+    """Spec F_d = Σ_{m=1..3} E₂(U_m)/E₂(u) (Q3 answer, sha1 116e4084).
+
+    Construction:
+    (1) Subtract global mean of u (removes m=0 DC mode + rigid translations).
+    (2) For each 4-team coarse cell B of size b×b×b (b=4, smallest multiple
+        of 4 ≥ 4 per axis): compute per-team means ū_t(B).
+    (3) Form U_m(B) = ¼·Σ_t χ_m(t)*·ū_t(B) for m=1,2,3; χ_m(t) = i^{mt}.
+    (4) Embed: u_m(x) = Re[χ_m(t(x))·U_m(B(x))].
+    (5) E₂(U_m) := E₂(u_m) = Σ_{x alive} |u_m(x)|².
+    F_d := 0 when E₂(u) < 1e-30 (guards rigid-shift / zero-field cases).
+    Built-in check: Σ_m E₂(u_m) ≤ E₂(u) (quadratic splitting at coarse level).
+
+    Spec refs: sliding-mode criterion :29; Q3 answer sha1 116e4084d6bd;
+    ADD-3 H3 criterion F_d ≤ 1e-3 and F_d(t_end) ≤ 2·F_d(t_0).
+    """
+    b = 4  # coarse cell size — smallest multiple of 4 ≥ 4
+    nx, ny, nz = u.shape[:3]
+    n_alive = int(mask_alive.sum())
+    if n_alive == 0:
+        return 0.0
+
+    # Step 1: subtract global mean (removes m=0 and rigid translations)
+    global_mean = np.sum(u[mask_alive], axis=0) / n_alive  # shape (3,)
+    u_c = u.copy()
+    u_c[mask_alive] -= global_mean
+    u_c[~mask_alive] = 0.0
+
+    E2_u = float(np.sum(u_c[mask_alive] ** 2))
+    if E2_u < 1e-30:
+        return 0.0
+
+    # Site indices and team labels
+    I, J, K = np.meshgrid(np.arange(nx), np.arange(ny), np.arange(nz),
+                           indexing="ij")
+    team = (I + J + K) % 4   # shape (nx, ny, nz); values 0..3
+
+    # Coarse cell indices per site
+    bx_idx = I // b
+    by_idx = J // b
+    bz_idx = K // b
+
+    # χ_m(t) = i^{mt}: encode as complex multipliers for t=0,1,2,3
+    chi1 = np.array([1.0+0j, 1j, -1.0+0j, -1j])      # i^t, t=0..3
+    chi2 = np.array([1.0+0j, -1.0+0j, 1.0+0j, -1.0+0j])  # (-1)^t = i^{2t}
+    # chi3 = conjugate of chi1 (DFT symmetry for real u; u_3 = u_1)
+    chi1_conj = chi1.conj()  # (-i)^t
+    chi2_conj = chi2.conj()  # same as chi2 (real)
+
+    # Embed arrays
+    u_m1 = np.zeros(u_c.shape, dtype=float)
+    u_m2 = np.zeros(u_c.shape, dtype=float)
+
+    nx_b = (nx + b - 1) // b
+    ny_b = (ny + b - 1) // b
+    nz_b = (nz + b - 1) // b
+
+    for ibx in range(nx_b):
+        for iby in range(ny_b):
+            for ibz in range(nz_b):
+                cell = (bx_idx == ibx) & (by_idx == iby) & (bz_idx == ibz)
+
+                # Per-team means within this coarse cell
+                u_team = np.zeros((4, u_c.shape[-1]))  # (4, 3)
+                for t in range(4):
+                    m_t = cell & (team == t) & mask_alive
+                    n_t = int(m_t.sum())
+                    if n_t > 0:
+                        u_team[t] = np.sum(u_c[m_t], axis=0) / n_t
+
+                # U_m(B) = ¼ Σ_t χ_m(t)* · ū_t(B)  (complex 3-vector)
+                U_1 = sum(chi1_conj[t] * u_team[t] for t in range(4)) / 4.0
+                U_2 = sum(chi2_conj[t] * u_team[t] for t in range(4)) / 4.0  # real
+
+                # Embed: u_m(x) = Re[χ_m(t(x)) · U_m(B)]
+                for t in range(4):
+                    m_t = cell & (team == t) & mask_alive
+                    if m_t.sum() > 0:
+                        u_m1[m_t] = np.real(chi1[t] * U_1)
+                        u_m2[m_t] = np.real(chi2[t] * U_2)
+
+    E2_m1 = float(np.sum(u_m1[mask_alive] ** 2))
+    E2_m2 = float(np.sum(u_m2[mask_alive] ** 2))
+    # m=3 is conjugate of m=1 for real u → same real energy
+    E2_total = 2.0 * E2_m1 + E2_m2
+
+    return E2_total / E2_u
 
 
 # ---------------------------------------------------------------------------

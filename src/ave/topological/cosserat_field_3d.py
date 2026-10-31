@@ -53,6 +53,10 @@ import jax
 jax.config.update("jax_enable_x64", True)
 
 import jax.numpy as jnp  # noqa: E402
+
+# δ_R constant for the readout floor — same as _READOUT_DELTA_R in grid_fix_flags.py
+# (ADD-4 §2; keeps S ≥ sqrt(1e-10) ≈ 1e-5 at the lower clip)
+_CF_READOUT_DELTA_R: float = 1e-10
 import numpy as np  # noqa: E402
 
 from ave.core.constants import ALPHA, V_SNAP  # noqa: E402
@@ -734,8 +738,8 @@ def _update_saturation_kernels(
     epsilon_yield: float,
     kappa_chiral: float = KAPPA_CHIRAL_ELECTRON,
     readout_floor_form: str = "hard",
-    readout_w: float = 0.05,
-    readout_delta_R: float = 1e-10,
+    readout_w: float | None = None,
+    readout_delta_R: float = _CF_READOUT_DELTA_R,
 ) -> tuple[jnp.ndarray, jnp.ndarray]:
     """Return (S_μ, S_ε) per-site saturation kernels for asymmetric form.
 
@@ -762,6 +766,12 @@ def _update_saturation_kernels(
         Lower floor on S² = 1e-10 (ADD-4 §2, δ_R). Same constant both channels.
         Only used when readout_floor_form="softplus_equivariant".
     """
+    if readout_floor_form == "softplus_equivariant" and readout_w is None:
+        raise ValueError(
+            "_update_saturation_kernels: readout_w must be explicitly set when "
+            "readout_floor_form='softplus_equivariant' (no silent default; "
+            "ADD-4 §6: w_readout must equal w_energy). Pass readout_w=cfg.floor_w."
+        )
     eps = _compute_strain(u, omega, dx)
     eps_T = jnp.swapaxes(eps, -1, -2)
     eps_sym = 0.5 * (eps + eps_T)
@@ -1034,6 +1044,7 @@ class CosseratField3D:
         impedance_cfl_safety: float = 0.4,
         reflection_form: str = "grad", k_refl: float = 1.0,
         reflection_delta: float = 1e-3, rotation_storage: str = "omega",
+        grid_fix_cfg=None,
     ):
         self.nx = nx
         self.ny = ny
@@ -1069,11 +1080,16 @@ class CosseratField3D:
             attenuation = 1.0 - ((self.pml_thickness - d[pml_region]) / self.pml_thickness) ** 2
             self.cos_pml_mask[pml_region, 0] = np.maximum(0.0, attenuation)
 
+        # grid_fix_cfg: optional GridFixCfg enabling engine flags (B2–B4).
+        self.grid_fix_cfg = grid_fix_cfg
+
         # dt-invariant sponge (FLAG 4; ADD-3 §3.1, REV-1 §R.3)
         # use_sponge=False (default) → cos_pml_mask behavior, bit-identical.
         # use_sponge=True  → per half-kick factor exp(-σ(d)·dt/2), dt-invariant.
         # σ_max = 3·c_L·ln(1/R_t)/T; c_L = √(10/3); R_t = 1e-3.
-        self.use_sponge: bool = False
+        self.use_sponge: bool = (
+            grid_fix_cfg.use_sponge if grid_fix_cfg is not None else False
+        )
         if self.pml_thickness > 0:
             _T = float(self.pml_thickness)
             _c_L = math.sqrt(10.0 / 3.0)
@@ -2851,7 +2867,7 @@ from ave.topological.k4_quaternion import (  # noqa: E402,F401
 # Attach the K4 class methods (formerly inline; byte-identical behavior).
 for _k4_method in (
     "_zero_outside_alive_k4", "_zero_velocities_outside_alive_k4",
-    "kinetic_energy_k4", "total_energy_k4", "step_k4",
+    "kinetic_energy_k4", "total_energy_k4", "_val_and_grad_step", "step_k4",
 ):
     setattr(CosseratField3D, _k4_method, getattr(K4Mixin, _k4_method))
 del _k4_method
