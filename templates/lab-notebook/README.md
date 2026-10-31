@@ -5,7 +5,7 @@ identity: a dotted **coordinate-node** writing grid and a logo that is the
 real **diamond-cubic substrate lattice**, not a generic graph.
 
 The mark is built from the engine's canonical bond vectors
-(`src/ave/topological/cosserat_field_3d.py:129`, `TETRA_OFFSETS`):
+(`src/ave/topological/cosserat_field_3d.py:131`, `TETRA_OFFSETS`):
 
 ```
 (+1,+1,+1) (+1,-1,-1) (-1,+1,-1) (-1,-1,+1)
