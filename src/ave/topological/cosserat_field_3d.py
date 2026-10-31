@@ -2128,6 +2128,15 @@ class CosseratField3D:
         u_j = jnp.asarray(self.u)
         w_j = jnp.asarray(self.omega)
         V_sq = jnp.zeros((self.nx, self.ny, self.nz), dtype=u_j.dtype)
+        # B3: when grid_fix_cfg has use_floor and floor_target=="iii", pass the
+        # softplus readout floor to _update_saturation_kernels (ADD-4 §2).
+        # Flags off → "hard" (bit-identical to all existing callers).
+        cfg = self.grid_fix_cfg
+        _floor_form = "hard"
+        _floor_w = None
+        if (cfg is not None and cfg.use_floor and cfg.floor_target == "iii"):
+            _floor_form = "softplus_equivariant"
+            _floor_w = cfg.floor_w
         S_mu, S_eps = _update_saturation_kernels(
             u_j,
             w_j,
@@ -2137,6 +2146,9 @@ class CosseratField3D:
             self.omega_yield,
             self.epsilon_yield,
             KAPPA_CHIRAL_ELECTRON,
+            readout_floor_form=_floor_form,
+            readout_w=_floor_w,
+            readout_delta_R=_CF_READOUT_DELTA_R,
         )
         Z_eff = jnp.sqrt(S_mu / jnp.maximum(S_eps, 1e-12))  # Z₀ = 1
         gamma = (Z_eff - 1.0) / (Z_eff + 1.0)

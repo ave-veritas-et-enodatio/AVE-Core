@@ -47,8 +47,10 @@ import numpy as np
 # Module-level read-back constants (read from here, not from literals in
 # read_back_flags; test changes to these sources, not to the read-back values)
 # ---------------------------------------------------------------------------
-# δ_R: lower floor on S² in _update_saturation_kernels readout (ADD-4 §2)
-_READOUT_DELTA_R: float = 1e-10
+# δ_R: import from cf so the readback is the SAME constant the readout uses.
+# gf._READOUT_DELTA_R is an alias for cf._CF_READOUT_DELTA_R (B6: one constant).
+from ave.topological.cosserat_field_3d import _CF_READOUT_DELTA_R  # noqa: E402
+_READOUT_DELTA_R: float = _CF_READOUT_DELTA_R  # alias; test imports _READOUT_DELTA_R
 # impedance boundary flag: OFF in standalone k4 mode (ADD-4 §3)
 _USE_IMPEDANCE_BOUNDARY: bool = False
 
@@ -570,7 +572,7 @@ def read_back_flags(
       floor_w         — cfg.floor_w (None if floor OFF)
       floor_option    — "iii" (Grant 10-29 declared; cfg.floor_target or None)
       readout_form    — "hard" (default; "softplus_equivariant" when floor iii ON)
-      short_arc       — "log" (declared; ADD-3 §4.1)
+      short_arc       — cfg.short_arc_form when set; "log" (declared ADD-3 §4.1) when None
       e3              — "body_z" (fixed body-ẑ label; n=R(q)ẑ, k4q:105-112)
       energy_reduction — "XLA/numpy pairwise (tree) sum" (B8; ADD-3 §5 [ext,confirm])
       jax_enable_x64  — True (k4q:56)
@@ -589,7 +591,8 @@ def read_back_flags(
       w_readout       — same as w_energy (w_readout must equal w_energy; ADD-4 §6)
       readout_delta_R — 1e-10 (ADD-4 §2)
       readout_argument — "A2_x after chiral weighting, cf:726-731 unchanged"
-      readout_lower_clip_count — 0 (expected; A4 §2 note L: κ_ch·|h| << 1)
+      readout_lower_clip_count — None (not computed here; read_back_flags has no field
+                               args; compute from actual field in diagnostics if needed)
       use_impedance_boundary — False (ADD-4 §3; flag not in k4q standalone)
     """
     gamma_h_eff = cfg.gamma_h if cfg.gamma_h is not None else gamma / 4.0
@@ -616,9 +619,10 @@ def read_back_flags(
         "w_readout": w_val,                    # must equal w_energy (ADD-4 §6)
         "readout_delta_R": _READOUT_DELTA_R,   # read from module constant (B6)
         "readout_argument": "A2_x after chiral weighting, cf:726-731 unchanged",
-        "readout_lower_clip_count": 0,         # ADD-4 note L: κ_ch·|h| << 1
+        "readout_lower_clip_count": None,      # not computed here (no field args); ADD-4 note L
         "use_impedance_boundary": _USE_IMPEDANCE_BOUNDARY,  # module constant (B6)
-        "short_arc": "log",                    # ADD-3 §4.1
+        "short_arc": (cfg.short_arc_form          # reads from cfg when set (B6)
+                      if cfg.short_arc_form is not None else "log"),  # declared ADD-3 §4.1
         "e3": "body_z",                        # n=R(q)ẑ; k4q:105-112
         "energy_reduction": "XLA/numpy pairwise (tree) sum",  # B8; ADD-3 §5
         "jax_enable_x64": bool(x64),           # reads actual jax config (B6)
@@ -750,27 +754,45 @@ def diag_Fd_slide(u: np.ndarray, mask_alive: np.ndarray) -> float:
     return E2_slide / (E2_u + 1e-60)
 
 
-def diag_F_d(u: np.ndarray, mask_alive: np.ndarray) -> float:
-    """Spec F_d = Σ_{m=1..3} E₂(U_m)/E₂(u) (Q3 answer, sha1 116e4084).
+def diag_F_d_L2_provisional(
+    u: np.ndarray, mask_alive: np.ndarray
+) -> dict:
+    """Provisional F_d using L2 as a stand-in for the spec quadratic energy E2.
 
-    Construction:
-    (1) Subtract global mean of u (removes m=0 DC mode + rigid translations).
-    (2) For each 4-team coarse cell B of size b×b×b (b=4, smallest multiple
-        of 4 ≥ 4 per axis): compute per-team means ū_t(B).
-    (3) Form U_m(B) = ¼·Σ_t χ_m(t)*·ū_t(B) for m=1,2,3; χ_m(t) = i^{mt}.
-    (4) Embed: u_m(x) = Re[χ_m(t(x))·U_m(B(x))].
-    (5) E₂(U_m) := E₂(u_m) = Σ_{x alive} |u_m(x)|².
-    F_d := 0 when E₂(u) < 1e-30 (guards rigid-shift / zero-field cases).
-    Built-in check: Σ_m E₂(u_m) ≤ E₂(u) (quadratic splitting at coarse level).
+    NOT-SPEC-COMPLIANT: The spec (sliding-mode criterion :29) requires E2 to be
+    the quadratic mechanical energy for which a GLOBAL sliding mode has E2=0.
+    L2 (sum|u|^2) gives E2>0 for any non-zero field, so a pure global sliding mode
+    returns F_d=1 (not <=1e-12 as the spec requires). See Q6 in QUESTIONS.md.
+
+    Q6 (open 2026-10-30): Which specific quadratic energy terms define E2(u)?
+    The spec says "same quadratic energy as E2(u)" (criterion :29) and requires
+    a team-constant field to have zero energy (grad_tet=0). Until E2 is pinned
+    by a file:line citation, this function cannot implement the spec form.
+
+    Construction (L2 proxy):
+    (1) Subtract global mean of u (removes m=0 DC + rigid translations).
+    (2) For each 4-team coarse cell B of size b x b x b (b=4): per-team means.
+    (3) Form U_m(B) = (1/4) sum_t chi_m(t)* . u_bar_t(B) for m=1,2,3.
+    (4) Embed: u_m(x) = Re[chi_m(t(x)) . U_m(B(x))].
+    (5) E2_L2(u_m) = sum_{x alive} |u_m(x)|^2.
+    F_d := 0 when E2_L2(u) < 1e-30.
+    Factor-4 for m=1,3 pair: u_1+u_3 = 2.Re[chi_1.U_1], so E2(u_1+u_3)=4.E2_m1.
+    Built-in check (F3): sum_m E2(u_m) <= E2(u); raises RuntimeError if violated.
+
+    Returns dict:
+      F_d   : float -- L2 provisional fraction
+      b     : int   -- coarse cell size (4)
+      E2_u  : float -- L2 energy of mean-subtracted u over alive sites
+      check : float -- sum_m E2(u_m) / E2(u), should be <= 1
 
     Spec refs: sliding-mode criterion :29; Q3 answer sha1 116e4084d6bd;
-    ADD-3 H3 criterion F_d ≤ 1e-3 and F_d(t_end) ≤ 2·F_d(t_0).
+    ADD-3 H3 criterion F_d <= 1e-3 and F_d(t_end) <= 2.F_d(t_0).
     """
-    b = 4  # coarse cell size — smallest multiple of 4 ≥ 4
+    b = 4  # coarse cell size — smallest multiple of 4 >= 4
     nx, ny, nz = u.shape[:3]
     n_alive = int(mask_alive.sum())
     if n_alive == 0:
-        return 0.0
+        return {"F_d": 0.0, "b": b, "E2_u": 0.0, "check": 0.0}
 
     # Step 1: subtract global mean (removes m=0 and rigid translations)
     global_mean = np.sum(u[mask_alive], axis=0) / n_alive  # shape (3,)
@@ -780,7 +802,7 @@ def diag_F_d(u: np.ndarray, mask_alive: np.ndarray) -> float:
 
     E2_u = float(np.sum(u_c[mask_alive] ** 2))
     if E2_u < 1e-30:
-        return 0.0
+        return {"F_d": 0.0, "b": b, "E2_u": E2_u, "check": 0.0}
 
     # Site indices and team labels
     I, J, K = np.meshgrid(np.arange(nx), np.arange(ny), np.arange(nz),
@@ -792,10 +814,9 @@ def diag_F_d(u: np.ndarray, mask_alive: np.ndarray) -> float:
     by_idx = J // b
     bz_idx = K // b
 
-    # χ_m(t) = i^{mt}: encode as complex multipliers for t=0,1,2,3
+    # chi_m(t) = i^{mt}: encode as complex multipliers for t=0,1,2,3
     chi1 = np.array([1.0+0j, 1j, -1.0+0j, -1j])      # i^t, t=0..3
     chi2 = np.array([1.0+0j, -1.0+0j, 1.0+0j, -1.0+0j])  # (-1)^t = i^{2t}
-    # chi3 = conjugate of chi1 (DFT symmetry for real u; u_3 = u_1)
     chi1_conj = chi1.conj()  # (-i)^t
     chi2_conj = chi2.conj()  # same as chi2 (real)
 
@@ -820,11 +841,11 @@ def diag_F_d(u: np.ndarray, mask_alive: np.ndarray) -> float:
                     if n_t > 0:
                         u_team[t] = np.sum(u_c[m_t], axis=0) / n_t
 
-                # U_m(B) = ¼ Σ_t χ_m(t)* · ū_t(B)  (complex 3-vector)
+                # U_m(B) = (1/4) sum_t chi_m(t)* . u_bar_t(B)
                 U_1 = sum(chi1_conj[t] * u_team[t] for t in range(4)) / 4.0
                 U_2 = sum(chi2_conj[t] * u_team[t] for t in range(4)) / 4.0  # real
 
-                # Embed: u_m(x) = Re[χ_m(t(x)) · U_m(B)]
+                # Embed: u_m(x) = Re[chi_m(t(x)) . U_m(B)]
                 for t in range(4):
                     m_t = cell & (team == t) & mask_alive
                     if m_t.sum() > 0:
@@ -833,10 +854,30 @@ def diag_F_d(u: np.ndarray, mask_alive: np.ndarray) -> float:
 
     E2_m1 = float(np.sum(u_m1[mask_alive] ** 2))
     E2_m2 = float(np.sum(u_m2[mask_alive] ** 2))
-    # m=3 is conjugate of m=1 for real u → same real energy
-    E2_total = 2.0 * E2_m1 + E2_m2
+    # m=3 conjugate of m=1 (real u): u_1+u_3=2.Re[chi_1.U_1], E2(u_1+u_3)=4.E2_m1
+    E2_total = 4.0 * E2_m1 + E2_m2
 
-    return E2_total / E2_u
+    # F3 built-in check: sum_m E2(u_m) <= E2(u) (quadratic splitting at coarse level)
+    check = E2_total / E2_u
+    if check > 1.0 + 1e-8:
+        raise RuntimeError(
+            f"diag_F_d_L2_provisional: built-in check FAILED: "
+            f"sum_m E2(u_m)/E2(u) = {check:.6f} > 1 "
+            f"(E2_total={E2_total:.6e}, E2_u={E2_u:.6e}). "
+            "Decomposition is not orthogonal at L2 level for this field."
+        )
+
+    return {"F_d": E2_total / E2_u, "b": b, "E2_u": E2_u, "check": check}
+
+
+def diag_F_d(u: np.ndarray, mask_alive: np.ndarray) -> float:
+    """Convenience wrapper: return the F_d scalar from diag_F_d_L2_provisional.
+
+    See diag_F_d_L2_provisional for full documentation and Q6 status.
+    Returns F_d float only; use diag_F_d_L2_provisional directly for b / check.
+    NOT-SPEC-COMPLIANT — global sliding mode gives F_d=1, not <=1e-12.
+    """
+    return diag_F_d_L2_provisional(u, mask_alive)["F_d"]
 
 
 # ---------------------------------------------------------------------------

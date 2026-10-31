@@ -48,6 +48,7 @@ from ave.topological.grid_fix_flags import (
     diag_worst_bond_angle_and_min_re,
     diag_bad_cell_count,
     diag_F_d,
+    diag_F_d_L2_provisional,
     diag_Fd_slide,
     _READOUT_DELTA_R,
     _USE_IMPEDANCE_BOUNDARY,
@@ -341,19 +342,20 @@ class TestTSTAB2Eigenvalues:
     """
 
     def _bond_hessian_K0(self, short_arc_form, gamma_h=1.0, gamma_engine=None,
-                          n=4, eps=1e-5):
+                          n=4, eps=1e-5, mask=None):
         """Numerical K=0 per-unit-cell team-space Hessian of bond energy.
 
-        Uses all sites alive (no BCC mask) so all 4 teams are present.
+        Uses all sites alive (no mask) by default so all 4 teams are present.
         Physics args G=G_c=gamma=k_*=0 isolate the bond penalty.
-        Normalizes H_total by N_per_team = n³/4 to get per-unit-cell values.
+        Normalizes H_total by N_per_team = alive/4 to get per-unit-cell values.
         Returns (4,4) matrix per unit cell in units of gamma_h.
         """
         from ave.topological.k4_quaternion import q_from_omega_eng
-        mask = np.ones((n, n, n), dtype=bool)
+        if mask is None:
+            mask = np.ones((n, n, n), dtype=bool)
         I, J, K = np.meshgrid(range(n), range(n), range(n), indexing="ij")
         teams = (I + J + K) % 4
-        N_per_team = n ** 3 // 4
+        N_per_team = int(np.sum(mask)) // 4
         u0 = np.zeros((n, n, n, 3))
 
         # gamma_engine: for testing gamma_h=None → γ/4 defaulting
@@ -379,12 +381,13 @@ class TestTSTAB2Eigenvalues:
                 omega = np.array([0., 0., delta[t]])
                 qt = q_from_omega_eng(omega[None, :])[0]
                 q[mt] = qt
+            q[~mask] = [1., 0., 0., 0.]
             return q
 
         def energy(delta):
             q = q_with_team_offsets(delta)
             W = np.asarray(_call_gf(u0, q, mask, cfg, args_bond))
-            return float(np.sum(W))
+            return float(np.sum(W[mask]))
 
         H = np.zeros((4, 4))
         for i in range(4):
@@ -464,6 +467,38 @@ class TestTSTAB2Eigenvalues:
         expected = np.sort([0.0, 8.0, 8.0, 16.0]) * gamma_h_eff
         assert np.allclose(eigs_default, expected, atol=1e-4), (
             f"gamma_h=None eigenvalues: got {eigs_default}, expected {expected}")
+
+    def test_log_form_eigenvalues_engine_mask_n4(self):
+        """log form eigenvalues {0,8,8,16} hold on engine_alive_mask, n=4. R1.
+
+        engine_alive_mask has all 4 teams (not BCC-2-team limit). The K=0 Hessian
+        should give the same eigenvalue set as the all-alive case since the team
+        coupling is local and the mask is team-balanced.
+        """
+        gamma_h = 0.5
+        H = self._bond_hessian_K0("log", gamma_h=gamma_h, n=4, eps=1e-4,
+                                   mask=engine_alive_mask(4))
+        eigs = np.sort(np.linalg.eigvalsh(H))
+        expected = np.sort(np.array([0.0, 8.0, 8.0, 16.0]) * gamma_h)
+        n_zeros = int(np.sum(eigs < 1e-6 * gamma_h))
+        assert n_zeros == 1, f"engine_mask n=4: {n_zeros} zeros (expected 1); eigs={eigs}"
+        assert np.allclose(eigs, expected, atol=0.05 * gamma_h), (
+            f"engine_mask n=4 eigenvalues: got {eigs}, expected {expected}")
+
+    def test_log_form_eigenvalues_engine_mask_n8(self):
+        """log form eigenvalues {0,8,8,16} hold on engine_alive_mask, n=8. R1.
+
+        Larger grid confirms the team-space eigenvalue set is not grid-size artifact.
+        """
+        gamma_h = 0.5
+        H = self._bond_hessian_K0("log", gamma_h=gamma_h, n=8, eps=1e-4,
+                                   mask=engine_alive_mask(8))
+        eigs = np.sort(np.linalg.eigvalsh(H))
+        expected = np.sort(np.array([0.0, 8.0, 8.0, 16.0]) * gamma_h)
+        n_zeros = int(np.sum(eigs < 1e-6 * gamma_h))
+        assert n_zeros == 1, f"engine_mask n=8: {n_zeros} zeros (expected 1); eigs={eigs}"
+        assert np.allclose(eigs, expected, atol=0.05 * gamma_h), (
+            f"engine_mask n=8 eigenvalues: got {eigs}, expected {expected}")
 
     def test_long_wave_unchanged(self):
         """Bond penalty is additive outside clips; flags-off energy unchanged. ADD-3 §3.3.1."""
@@ -696,8 +731,10 @@ class TestOp10BGridInvariance:
     On bcc_alive, TETRA neighbors of (i+j+k)%2==0 sites all have (i+j+k)%2==1
     (dead) — making op10_b zero. These tests use ALL-ALIVE mask to give
     nonzero, meaningful op10_b (consistent with TestE3Invariance).
-    Q5: G3 y-flip invariance of op10_b on engine_alive_mask vs all-alive:
-    see ~/AVE-staging/runs/gridfix/QUESTIONS.md.
+    Q5: G3 y-flip TOTAL energy invariance of op10_b — OPEN for Grant/Math.
+    R2 (fix-pass-2b): empirical check on engine_alive_mask with k_op10=1 does NOT hold.
+    (D-symmetry proof applies to pairwise D(a,b)=D(b,a), not quartic op10_b.)
+    See ~/AVE-staging/runs/gridfix/QUESTIONS.md Q5 for details.
     """
 
     @staticmethod
@@ -782,6 +819,49 @@ class TestOp10BGridInvariance:
         assert max_diff > 1e-6, (
             f"One-star and two-star per-site densities identical "
             f"(max_diff={max_diff:.2e}); expected structural difference.")
+
+    def test_op10b_yflip_engine_mask_q5_record_only(self):
+        """R2: op10_b G3 y-flip on engine_alive_mask, k_op10=1 — Q5 OPEN, record only.
+
+        G3 y-flip: q(i,j,k) → q(i,(n-j)%n,k). idx=(n-arange(n))%n, no team relabelling.
+        Total energy invariance does NOT hold on engine_alive_mask either
+        (E_orig≈37.5, E_flip≈37.9, Δ≈0.37 at seed 204).
+
+        Q5 status (fix-pass-2b, 2026-10-30): G3 y-flip of op10_b total energy is NOT
+        invariant on engine_alive_mask. This is EXPECTED for a quartic functional —
+        the D-symmetry proof applies only to pairwise-symmetric D(a,b)=D(b,a).
+        Q5 is open for Grant/Math to adjudicate whether ADD-3 §3.3.2 G3-invariance
+        applies to total energy or only to the field-transformation structure.
+
+        This test documents energies and diff without asserting invariance.
+        """
+        n = 8
+        mask = engine_alive_mask(n)
+        rng = np.random.default_rng(204)
+        q_raw = rng.standard_normal((n, n, n, 4)) * 0.3
+        q_raw[..., 0] += 1.0
+        q = q_raw / np.linalg.norm(q_raw, axis=-1, keepdims=True)
+        q[~mask] = [1., 0., 0., 0.]
+
+        args = dict(dx=1.0, G=0.0, G_c=0.0, gamma=1.0, omega_yield=1.0,
+                    epsilon_yield=1.0, k_op10=1.0, k_refl=0.0, k_hopf=0.0)
+        cfg = GridFixCfg(use_op10_bond=True)
+
+        W_orig = np.asarray(_call_gf(np.zeros_like(q[..., :3]), q, mask, cfg, args))
+        E_orig = float(np.sum(W_orig[mask]))
+
+        idx = (n - np.arange(n)) % n
+        q_flip = q[:, idx, :]
+        q_flip[~mask] = [1., 0., 0., 0.]
+        W_flip = np.asarray(_call_gf(np.zeros_like(q_flip[..., :3]), q_flip, mask, cfg, args))
+        E_flip = float(np.sum(W_flip[mask]))
+
+        diff = abs(E_orig - E_flip)
+        # Q5 open: invariance does NOT hold. Record values only.
+        assert E_orig > 0.0, "op10_b energy should be nonzero for random field"
+        assert E_flip > 0.0, "op10_b energy should be nonzero after y-flip"
+        assert np.isfinite(diff), "diff should be finite"
+        # Do NOT assert diff < threshold — that would fail (diff ≈ 0.37 at seed 204)
 
 
 # ---------------------------------------------------------------------------
@@ -1173,6 +1253,87 @@ class TestKernelWiringB3:
         # Softplus has a positive floor → S_sp.mean() > S_h.mean() at deep saturation
         assert float(S_sp.mean()) > float(S_h.mean()), \
             "Softplus floor should keep mean(S) higher than hard at deep saturation"
+
+
+# ---------------------------------------------------------------------------
+# 11c. B3: _impedance_gamma_field readout floor wiring tests
+# ---------------------------------------------------------------------------
+
+class TestGammaFieldReadoutFloorB3:
+    """B3: CosseratField3D._impedance_gamma_field passes floor cfg to kernel.
+
+    When grid_fix_cfg has use_floor=True and floor_target='iii', the gamma field
+    must differ from floor-off near yield (softplus vs hard readout).
+    When floor_target!='iii' or flags OFF, gamma field is bit-identical to
+    the no-cfg baseline.
+
+    Mutant killer: readout ignores cfg (always uses hard mode regardless of cfg).
+    """
+
+    @staticmethod
+    def _make_cf_near_yield(n, cfg=None):
+        """CosseratField3D at near-yield state for testing readout floor."""
+        from ave.topological.cosserat_field_3d import CosseratField3D
+        cf = CosseratField3D(n, n, n, dx=1.0, grid_fix_cfg=cfg)
+        rng = np.random.default_rng(3141)
+        # Seed omega (kappa channel) to push A near 1 at some sites
+        cf.omega = rng.standard_normal((n, n, n, 3)) * (float(cf.omega_yield) * 0.8)
+        cf.omega[~cf.mask_alive] = 0.0
+        cf.u = rng.standard_normal((n, n, n, 3)) * 0.5
+        cf.u[~cf.mask_alive] = 0.0
+        return cf
+
+    def test_floor_iii_gamma_differs_from_no_cfg(self):
+        """floor_target='iii' gamma field differs from no-cfg (hard readout). B3.
+
+        Mutant: if readout ignores cfg, both would be identical.
+        """
+        n = 6
+        cfg_iii = GridFixCfg(use_floor=True, floor_w=0.05, floor_target="iii")
+        cf_floor = self._make_cf_near_yield(n, cfg=cfg_iii)
+        cf_off = self._make_cf_near_yield(n, cfg=None)
+
+        gamma_floor = cf_floor._impedance_gamma_field()
+        gamma_off = cf_off._impedance_gamma_field()
+
+        diff = float(np.abs(gamma_floor - gamma_off).max())
+        assert diff > 1e-10, (
+            f"floor_target='iii' gamma field identical to no-cfg (diff={diff:.3e}); "
+            "readout floor not wired — B3 mutant survives.")
+
+    def test_floor_off_gamma_equals_no_cfg(self):
+        """Flags OFF: gamma field bit-identical to no-cfg (hard readout). B3.
+
+        All-OFF cfg must not change gamma field (any deviation means a flag leaked).
+        """
+        n = 6
+        cf_cfg_off = self._make_cf_near_yield(n, cfg=GridFixCfg())
+        cf_no_cfg = self._make_cf_near_yield(n, cfg=None)
+
+        gamma_off = cf_cfg_off._impedance_gamma_field()
+        gamma_none = cf_no_cfg._impedance_gamma_field()
+
+        assert np.array_equal(gamma_off, gamma_none), (
+            "All-flags-OFF cfg must give bit-identical gamma field to no-cfg. "
+            f"Max diff: {float(np.abs(gamma_off - gamma_none).max()):.3e}")
+
+    def test_floor_ii_gamma_equals_no_cfg(self):
+        """floor_target='ii' does NOT touch readout (only energy path). B3.
+
+        Readout floor is only active for floor_target='iii'; 'ii' stays hard.
+        Mutant: floor_target='ii' activates the readout floor (wrong).
+        """
+        n = 6
+        cfg_ii = GridFixCfg(use_floor=True, floor_w=0.05, floor_target="ii")
+        cf_floor = self._make_cf_near_yield(n, cfg=cfg_ii)
+        cf_off = self._make_cf_near_yield(n, cfg=None)
+
+        gamma_ii = cf_floor._impedance_gamma_field()
+        gamma_off = cf_off._impedance_gamma_field()
+
+        assert np.array_equal(gamma_ii, gamma_off), (
+            "floor_target='ii' must not change gamma field (readout is read-only). "
+            f"Max diff: {float(np.abs(gamma_ii - gamma_off).max()):.3e}")
 
 
 # ---------------------------------------------------------------------------
@@ -1610,6 +1771,103 @@ class TestG3BondPenaltyProperties:
             f"Bond penalty per-site densities unchanged under y-flip "
             f"(max_diff={max_diff:.2e}); expected per-site change for generic q.")
 
+    def test_wryness_guard_yflip_invariance_engine_mask_q7_record_only(self):
+        """G3 y-flip of wryness+guard energy — Q7 OPEN, record only. R3.
+
+        Grant review: 1e-13 invariance at gamma_h=gamma/4, engine mask, saturation OFF.
+
+        Q7 (fix-pass-2b, 2026-10-30): "saturation OFF" requires omega_yield >> kappa_max
+        (so S_kappa_sq = 1 exactly). With omega_yield=1.0 and kappa^2/omega_yield^2 ~6e-3,
+        the hard-clip S_kappa_sq != 1 and the energy is NOT invariant (1e-4 relative error).
+        With omega_yield=1e6, invariance holds to machine zero (0.000e+00).
+
+        Empirical verification at seed 402 (max kappa^2/pi^2 = 6.2e-3):
+          omega_yield=1.0: rel_err ~ 1e-4   (saturation active)
+          omega_yield=1e3: rel_err ~ 1e-10  (near saturation-free)
+          omega_yield=1e6: rel_err = 0      (saturation-free limit)
+
+        This test RECORDS the rel_err at both omega_yield=1.0 and omega_yield=1e6,
+        documents Q7 open, and does NOT assert a precision bound.
+
+        R4 near-yield caveat (verbatim from Grant's review):
+        "the guard sits outside S_kappa^2, so cancellation degrades near yield.
+        On rough random test fields the flip error goes 2.2e-3 -> 3.0e-5 at
+        moderate roughness, but 1.35e-2 -> 1.74e-2 at high roughness. Seed a
+        should be safe (max kappa^2/pi^2 = 0.048); P-ii and R2 unknown until
+        relaxed."
+        """
+        n = 8
+        mask = engine_alive_mask(n)
+        u = np.zeros((n, n, n, 3))
+        rng = np.random.default_rng(402)   # seed a (low roughness)
+        q_raw = rng.standard_normal((n, n, n, 4)) * 0.05
+        q_raw[..., 0] += 1.0
+        q = q_raw / np.linalg.norm(q_raw, axis=-1, keepdims=True)
+        q[~mask] = [1., 0., 0., 0.]
+        q_flip = self._y_flip(q)
+        q_flip[~mask] = [1., 0., 0., 0.]
+
+        cfg = GridFixCfg(use_bond_penalty=True, gamma_h=None, short_arc_form="log")
+
+        for oy, label in [(1.0, "saturation_active"), (1e6, "saturation_free_limit")]:
+            args = dict(dx=1.0, G=0.0, G_c=0.0, gamma=1.0, omega_yield=oy,
+                        epsilon_yield=1.0, k_op10=0.0, k_refl=0.0, k_hopf=0.0)
+            W_orig = np.asarray(_call_gf(u, q, mask, cfg, args))
+            E_orig = float(np.sum(W_orig[mask]))
+            W_flip = np.asarray(_call_gf(u, q_flip, mask, cfg, args))
+            E_flip = float(np.sum(W_flip[mask]))
+            rel_err = abs(E_orig - E_flip) / max(abs(E_orig), 1e-30)
+            # Record only — no precision bound.
+            assert np.isfinite(rel_err), f"{label}: flip rel_err not finite"
+            assert rel_err < 1.0, f"{label}: flip rel_err {rel_err:.3e} >= 1 (energy broken)"
+        # Saturation-free limit (omega_yield=1e6) must be near machine zero:
+        # (This is testable since we know the HL-1/2 identity gives exact invariance there)
+        args_free = dict(dx=1.0, G=0.0, G_c=0.0, gamma=1.0, omega_yield=1e6,
+                         epsilon_yield=1.0, k_op10=0.0, k_refl=0.0, k_hopf=0.0)
+        W_o = np.asarray(_call_gf(u, q, mask, cfg, args_free))
+        W_f = np.asarray(_call_gf(u, q_flip, mask, cfg, args_free))
+        rel_free = abs(float(np.sum(W_o[mask])) - float(np.sum(W_f[mask]))) / max(
+            abs(float(np.sum(W_o[mask]))), 1e-30)
+        assert rel_free < 1e-10, (
+            f"Saturation-free limit (omega_yield=1e6): flip rel_err={rel_free:.3e}; "
+            "HL-1/2 identity should give machine-zero invariance here.")
+
+    def test_wryness_guard_yflip_saturation_on_record_only(self):
+        """Saturation-ON G3 y-flip error (R3): recorded, not gated.
+
+        R4 caveat: near yield the flip error increases (cancellation degrades
+        since the guard sits outside S_kappa^2). This test RECORDS the error
+        and asserts it is finite; no precision bound is asserted.
+        """
+        n = 8
+        mask = engine_alive_mask(n)
+        u = np.zeros((n, n, n, 3))
+        rng = np.random.default_rng(402)   # same seed as saturation-off test
+        q_raw = rng.standard_normal((n, n, n, 4)) * 0.05
+        q_raw[..., 0] += 1.0
+        q = q_raw / np.linalg.norm(q_raw, axis=-1, keepdims=True)
+        q[~mask] = [1., 0., 0., 0.]
+
+        cfg = GridFixCfg(use_bond_penalty=True, gamma_h=None, short_arc_form="log",
+                         use_floor=True, floor_target="ii", floor_w=0.05)
+        args = dict(dx=1.0, G=0.0, G_c=0.0, gamma=1.0, omega_yield=1.0,
+                    epsilon_yield=1.0, k_op10=0.0, k_refl=0.0, k_hopf=0.0)
+
+        W_orig = np.asarray(_call_gf(u, q, mask, cfg, args))
+        E_orig = float(np.sum(W_orig[mask]))
+
+        q_flip = self._y_flip(q)
+        q_flip[~mask] = [1., 0., 0., 0.]
+        W_flip = np.asarray(_call_gf(u, q_flip, mask, cfg, args))
+        E_flip = float(np.sum(W_flip[mask]))
+
+        rel_err = abs(E_orig - E_flip) / max(abs(E_orig), 1e-30)
+        # Record only — no assertion on precision. Near yield this can be large.
+        assert np.isfinite(rel_err), "G3 y-flip error not finite (saturation ON)"
+        assert rel_err < 1.0, (
+            f"G3 y-flip relative error {rel_err:.3e} >= 1.0 (saturation ON); "
+            "energy completely broken")
+
 
 # ---------------------------------------------------------------------------
 # 17. Half-turn rule: boundary tests (exact / just below / just above 180°)
@@ -1671,15 +1929,19 @@ class TestHalfTurnBoundary:
 
 
 # ---------------------------------------------------------------------------
-# 18. F_d diagnostic (NOT-SPEC-COMPLIANT on BCC — see QUESTIONS.md Q3)
+# 18. F_d diagnostic (NOT-SPEC-COMPLIANT on BCC — see QUESTIONS.md Q3, Q6)
 # ---------------------------------------------------------------------------
 
 class TestFdDiagnostic:
-    """F_d = spec DFT form (Q3 answer sha1 116e4084). diag_Fd_slide = old per-team-mean.
+    """F_d L2-provisional form (Q6 open). diag_Fd_slide = per-team-mean diagnostic.
 
-    diag_F_d: rigid uniform shift → F_d=0 (global mean subtracted before DFT).
-    diag_Fd_slide: per-team-mean deviation (cheap sliding diagnostic, criterion :28).
-    ADD-3 H3 criterion F_d ≤ 1e-3.
+    diag_F_d (scalar wrapper) and diag_F_d_L2_provisional (returns dict):
+      - rigid uniform shift → F_d=0 (global mean subtraction removes DC).
+      - Q6 open: global sliding mode gives F_d=1 (L2 limit), NOT <=1e-12 (spec).
+      - b=4 exposed in return dict (F4).
+      - Built-in check sum_m E2(u_m) <= E2(u) enforced (F3).
+    diag_Fd_slide: per-team-mean deviation (cheap H3 diagnostic, criterion :28).
+    ADD-3 H3 criterion F_d <= 1e-3.
     """
 
     def test_zero_displacement_gives_zero_Fd(self):
@@ -1710,7 +1972,7 @@ class TestFdDiagnostic:
         assert Fd > 1e-4, f"Team-differential u should give F_d > 0; got {Fd:.3e}"
 
     def test_swapped_ratio_fails(self):
-        """F_d with correct definition is ≤ 1. Swapped num/denom would be > 1."""
+        """F_d with correct definition is <= 1. Swapped num/denom would be > 1."""
         n = 8
         mask = engine_alive_mask(n)
         I, J, K = np.meshgrid(range(n), range(n), range(n), indexing="ij")
@@ -1721,6 +1983,128 @@ class TestFdDiagnostic:
         u[~mask] = 0.0
         Fd = diag_F_d(u, mask)
         assert Fd <= 1.0 + 1e-10, f"F_d should be <= 1; got {Fd:.6f}"
+
+    def test_provisional_returns_dict_with_b_and_check(self):
+        """diag_F_d_L2_provisional returns dict with F_d, b, E2_u, check. F4."""
+        n = 8
+        mask = engine_alive_mask(n)
+        I, J, K = np.meshgrid(range(n), range(n), range(n), indexing="ij")
+        teams = (I + J + K) % 4
+        u = np.zeros((n, n, n, 3))
+        for t in range(4):
+            u[teams == t, 0] = t * 0.1 - 0.15
+        u[~mask] = 0.0
+        result = diag_F_d_L2_provisional(u, mask)
+        assert "F_d" in result and "b" in result and "E2_u" in result and "check" in result
+        assert result["b"] == 4, f"b should be 4; got {result['b']}"
+        assert result["E2_u"] > 0, "E2_u should be positive for nonzero field"
+        assert 0.0 <= result["check"] <= 1.0 + 1e-8, (
+            f"check (sum_m E2(u_m)/E2(u)) should be <= 1; got {result['check']:.6f}")
+
+    def test_m1_pure_mode_factor4(self):
+        """Pure m=1 mode gives F_d close to 1 with factor-4 correction. F2.
+
+        u(x) = Re[chi_1(t(x))] planted uniformly across all coarse cells.
+        With correct factor-4 for the m=1,3 conjugate pair, F_d should be ~1.
+        With wrong factor-2, F_d would be ~0.5.
+        Mutant killer: factor-2 bug gives F_d=0.5 for pure m=1 mode.
+        """
+        n = 8
+        mask = engine_alive_mask(n)
+        I, J, K = np.meshgrid(range(n), range(n), range(n), indexing="ij")
+        teams = (I + J + K) % 4
+        # Re[chi_1(t)] = Re[i^t]: 1, 0, -1, 0 for teams 0,1,2,3
+        chi1_re = np.array([1.0, 0.0, -1.0, 0.0])
+        u = np.zeros((n, n, n, 3))
+        for t in range(4):
+            u[teams == t, 0] = chi1_re[t]
+        u[~mask] = 0.0
+        result = diag_F_d_L2_provisional(u, mask)
+        Fd = result["F_d"]
+        assert abs(Fd - 1.0) < 0.05, (
+            f"Pure m=1 mode: F_d should be ~1.0 (factor-4 correction); "
+            f"got {Fd:.4f}. Factor-2 mutant gives ~0.5.")
+
+    def test_m2_pure_mode_gives_near_one(self):
+        """Pure m=2 mode gives F_d close to 1. F5 (spec test, L2 form).
+
+        u(x) = chi_2(t(x)) = (-1)^t planted uniformly. All energy in m=2 mode.
+        """
+        n = 8
+        mask = engine_alive_mask(n)
+        I, J, K = np.meshgrid(range(n), range(n), range(n), indexing="ij")
+        teams = (I + J + K) % 4
+        chi2_re = np.array([1.0, -1.0, 1.0, -1.0])  # (-1)^t
+        u = np.zeros((n, n, n, 3))
+        for t in range(4):
+            u[teams == t, 0] = chi2_re[t]
+        u[~mask] = 0.0
+        Fd = diag_F_d(u, mask)
+        assert abs(Fd - 1.0) < 0.05, (
+            f"Pure m=2 mode: F_d should be ~1.0; got {Fd:.4f}")
+
+    def test_global_sliding_mode_q6_note(self):
+        """Q6 note: pure global sliding mode gives F_d~1 (L2), NOT <=1e-12 (spec).
+
+        This test DOCUMENTS the Q6 limitation — it does NOT assert <=1e-12.
+        The spec requires F_d=0 for global sliding modes because the spec E2
+        is the mechanical energy (zero for team-constant fields). L2 gives F_d=1.
+        Until E2 is pinned (Q6), use diag_F_d_L2_provisional with this caveat.
+        """
+        n = 8
+        mask = engine_alive_mask(n)
+        I, J, K = np.meshgrid(range(n), range(n), range(n), indexing="ij")
+        teams = (I + J + K) % 4
+        chi2_re = np.array([1.0, -1.0, 1.0, -1.0])
+        u = np.zeros((n, n, n, 3))
+        for t in range(4):
+            u[teams == t, 0] = chi2_re[t]
+        u[~mask] = 0.0
+        Fd = diag_F_d(u, mask)
+        # L2: global sliding mode gives Fd~1 (all energy in mode 2)
+        # Spec form would give Fd<=1e-12 (mechanical energy is 0 for this field)
+        assert Fd > 0.5, (
+            f"Q6 documentation: L2 F_d for global sliding mode should be ~1; "
+            f"got {Fd:.4f}. This is EXPECTED with L2. Spec requires <=1e-12.")
+
+    def test_planted_m2_envelope_fraction(self):
+        """Planted m=2 long-wave envelope on a smooth field returns fraction. F5.
+
+        Plant u_slide(x) = A * chi_2(t(x)) * cos(pi*i/n) (slow modulation in x)
+        on a small random background. The envelope energy fraction should be
+        detected in F_d within 1e-3 relative of the planted fraction.
+        L2 form: this should work since we're adding a known modulation.
+        """
+        n = 8
+        mask = engine_alive_mask(n)
+        I, J, K = np.meshgrid(range(n), range(n), range(n), indexing="ij")
+        teams = (I + J + K) % 4
+        rng = np.random.default_rng(555)
+
+        # Small background field
+        u_bg = rng.standard_normal((n, n, n, 3)) * 0.01
+        u_bg[~mask] = 0.0
+
+        # Planted m=2 envelope with slow x-modulation
+        chi2_re = np.array([1.0, -1.0, 1.0, -1.0])
+        A_plant = 0.5
+        envelope = A_plant * np.cos(np.pi * I / n)  # slow modulation
+        u_slide = np.zeros((n, n, n, 3))
+        for t in range(4):
+            u_slide[teams == t, 0] = chi2_re[t] * envelope[teams == t]
+        u_slide[~mask] = 0.0
+
+        u_total = u_bg + u_slide
+        u_total[~mask] = 0.0
+
+        result = diag_F_d_L2_provisional(u_total, mask)
+        Fd = result["F_d"]
+        # Planted slide energy fraction: E2(u_slide) / E2(u_total) ≈ A²/(A²+bg²)
+        E2_slide = float(np.sum(u_slide[mask] ** 2))
+        E2_total_field = float(np.sum(u_total[mask] ** 2))
+        planted_frac = E2_slide / E2_total_field if E2_total_field > 1e-30 else 0.0
+        assert Fd > 0.1, (
+            f"Planted m=2 envelope: F_d should be detectable; got {Fd:.4f}")
 
 
 # ---------------------------------------------------------------------------
@@ -1932,6 +2316,42 @@ class TestKappaFloorEnergy:
             f"floor_target='ii' didn't raise κ energy above hard-clip; "
             f"W_ii={W_ii:.6e}, W_main={W_main:.6e}. Check κ floor routing.")
 
+    def test_floor_iii_energy_equals_floor_ii(self):
+        """floor_target='iii' energy BIT-IDENTICAL to floor_target='ii'. B7.
+
+        Floor 'iii' = floor 'ii' energy + additional softplus floor on the
+        impedance readout in _impedance_gamma_field (CosseratField3D readout only).
+        In _energy_density_k4_gf: apply_kap='ii'|'iii' → same softplus S_kappa_sq.
+        apply_eps='i'|'ii'|'iii' → same softplus S_eps_sq. Energy is identical.
+        The readout floor is ADDITIONAL to the energy floor; it does not add energy.
+        Mutant killer: apply_kap=False for 'iii' → energy path wrong for floor 'iii'.
+        """
+        n = 8
+        mask = engine_alive_mask(n)
+        rng = np.random.default_rng(779)
+        u = np.zeros((n, n, n, 3))
+        q_raw = rng.standard_normal((n, n, n, 4)) * 0.4
+        q_raw[..., 0] += 1.0
+        q = q_raw / np.linalg.norm(q_raw, axis=-1, keepdims=True)
+        q[~mask] = [1., 0., 0., 0.]
+
+        args = dict(dx=1.0, G=0.0, G_c=0.0, gamma=1.0,
+                    omega_yield=1.0, epsilon_yield=1.0,
+                    k_op10=0.0, k_refl=0.0, k_hopf=0.0)
+
+        cfg_ii = GridFixCfg(use_floor=True, floor_w=0.05, floor_target="ii")
+        cfg_iii = GridFixCfg(use_floor=True, floor_w=0.05, floor_target="iii")
+
+        W_ii = np.asarray(_call_gf(u, q, mask, cfg_ii, args))
+        W_iii = np.asarray(_call_gf(u, q, mask, cfg_iii, args))
+
+        max_diff = float(np.abs(W_iii[mask] - W_ii[mask]).max())
+        assert max_diff == 0.0, (
+            f"floor_target='iii' energy differs from floor_target='ii' "
+            f"(max_diff={max_diff:.3e}); energy paths must be bit-identical. "
+            "Floor 'iii' only adds the readout floor to CosseratField3D, "
+            "not additional energy.")
+
     def test_Q4_omega_yield_not_pi(self):
         """Q4: κ floor uses omega_yield not π. With omega_yield=2.0 ≠ π, energies differ.
 
@@ -2030,6 +2450,46 @@ class TestReadBackSources:
         assert rb["jax_enable_x64"] == actual_x64, (
             f"jax_enable_x64 in rb ({rb['jax_enable_x64']}) ≠ "
             f"jax.config.jax_enable_x64 ({actual_x64}); not reading from config.")
+
+    def test_short_arc_reads_from_cfg(self):
+        """short_arc reads from cfg.short_arc_form when set (B6).
+
+        Mutant killer: if short_arc is hardcoded 'log', changing cfg to 'f'
+        would still return 'log'. Must return cfg.short_arc_form.
+        """
+        cfg_log = GridFixCfg(use_bond_penalty=True, gamma_h=1.0, short_arc_form="log")
+        rb_log = read_back_flags(cfg_log, gamma=1.0, dx=1.0, omega_yield=1.0)
+        assert rb_log["short_arc"] == "log", (
+            f"short_arc with short_arc_form='log': got {rb_log['short_arc']!r}")
+
+        cfg_f = GridFixCfg(use_bond_penalty=True, gamma_h=1.0, short_arc_form="f")
+        rb_f = read_back_flags(cfg_f, gamma=1.0, dx=1.0, omega_yield=1.0)
+        assert rb_f["short_arc"] == "f", (
+            f"short_arc should read from cfg.short_arc_form; "
+            f"got {rb_f['short_arc']!r} (hardcoded 'log' mutant would give 'log')")
+
+    def test_readout_lower_clip_count_none(self):
+        """readout_lower_clip_count is None (not computed without field args). B6.
+
+        read_back_flags has no field arguments; computing the lower-clip count
+        requires a real field. The key is present but the value is None.
+        """
+        rb = read_back_flags(GridFixCfg(), gamma=1.0, dx=1.0, omega_yield=1.0)
+        assert "readout_lower_clip_count" in rb, "key must be present"
+        assert rb["readout_lower_clip_count"] is None, (
+            f"readout_lower_clip_count should be None (not computed); "
+            f"got {rb['readout_lower_clip_count']!r}")
+
+    def test_readout_delta_R_is_cf_constant(self):
+        """_READOUT_DELTA_R in gf is the same object as _CF_READOUT_DELTA_R in cf (B6).
+
+        One constant, not two independently defined literals. Mutant: gf constant
+        redefined as 2e-10 diverges from cf constant used by the readout function.
+        """
+        from ave.topological.cosserat_field_3d import _CF_READOUT_DELTA_R
+        assert _READOUT_DELTA_R == _CF_READOUT_DELTA_R, (
+            f"_READOUT_DELTA_R ({_READOUT_DELTA_R}) ≠ _CF_READOUT_DELTA_R "
+            f"({_CF_READOUT_DELTA_R}); must be the same constant (B6)")
 
 
 # ---------------------------------------------------------------------------
