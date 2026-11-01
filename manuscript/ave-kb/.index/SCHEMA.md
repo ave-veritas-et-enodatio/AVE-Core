@@ -5,7 +5,7 @@
 > **`def-` definition node-type — Stage 1 SPECIFIED + Stage 2 MATERIALIZED (LIVE as of 2026-06-08).** A sixth node-type, `def-` (vocabulary / adjudicated-term), is **specified** below (see "Definition record"), **seeded** in the canonical vocabulary register [`common/vocabulary-register.md`](../common/vocabulary-register.md), and — as of Stage 2 — **materialized + drift-gated** into the pipeline, extending the single identification spine per INVARIANT-S11/S12 ("extend, don't reinvent"). Its record shape, `\bdef-[a-z0-9]{6}\b` id format, and sort position are frozen here. The **emit + drift-gate wiring** is now active: `build_claims_records` emits one `node_type: "definition"` record per register entry into `claims.jsonl`; `verify-kb-metadata` enforces `clm_cross_links` referential integrity (each resolves to a `claim` / `experiment` / `support` node — orphan = hard failure), the `\bdef-[a-z0-9]{6}\b` id format, and the freshness count; `ANY_NODE_ID_RE` and `verify-md-links`'s id-validity check span the `def-` prefix, with the illustrative `def-xxxxxx` field-legend token in the `_ID_PLACEHOLDERS` exemption set. `claims.jsonl` now holds **SEVEN** materialized node types (`claim` / `definition` / `experiment` / `interlock-mechanism` / `support` / `invariant` / `axiom`). A perturbed or malformed `def-` entry fails `make verify-kb-metadata` — the loud-on-drift gate that keeps the spine single (INVARIANT-S12).
 
 > **`interlock-mechanism` node-type + `interlocks` relation — SPECIFIED + MATERIALIZED (LIVE 2026-06-14, INVARIANT-S13).** A seventh node-type, `interlock-mechanism` (`\bilk-[a-z0-9]{6}\b`), and a fourth edge class, `interlocks` (a SYMMETRIC mutual-constraint relation distinct from 1-directional `depends`), are **specified** below (see "Interlock-mechanism record" + `depends-on.jsonl`), **seeded** in the canonical interlock register [`common/interlock-register.md`](../common/interlock-register.md), and **materialized + drift-gated** into the pipeline — extending the single identification spine per INVARIANT-S11/S13 ("extend, don't reinvent"). It makes the calibration-parameter INTERLOCK (mutual constraint) first-class and machine-enforced: each mechanism carries a `real_or_fitted` chord/echo tag, the LIVE independent-parameter count is a verifier-checked DERIVED number that moves when a tag flips, and a falsification-net check propagates a `refuted` interlocked channel to the operating-point root. `refresh-kb-metadata` emits one `node_type: "interlock-mechanism"` record per register entry plus one `interlocks` edge per interlocked constant; `verify-kb-metadata` enforces the `\bilk-[a-z0-9]{6}\b` id format, the `interlocks`-edge referential integrity, the derived count, and the falsification-net wiring.
-**Scope:** specifies the canonical JSONL files that live under this directory, the record shapes within each, the build invariants, and the query semantics the runtime module (`src/ave/kb/index.py`) is expected to provide over them.
+**Scope:** specifies the canonical JSONL files that live under this directory, the record shapes within each, the build invariants, and the query semantics the runtime module (`manuscript/ave-kb/tools/kb_cmd/index.py`) is expected to provide over them.
 
 This directory is **derived** from canonical sources:
 - Leaf frontmatter (`claims:`, `experiments:`, `subtree-claims:`, `subtree-experiments:`, `kind:`, `path-stable`, `no-claim`) in every KB `.md` file outside `session/`.
@@ -37,7 +37,7 @@ All files are JSONL — one JSON object per line, no trailing whitespace, single
 
 ## Build invariants
 
-These hold across every regeneration. They are checked by `personant verify`-style operations (`make verify-kb-metadata` extended):
+These hold across every regeneration. They are checked by `make verify-kb-metadata`:
 
 1. **Determinism.** Running `make refresh-kb-metadata` against the same canonical state yields byte-identical files. No timestamps, no random IDs, no environment-dependent paths embedded in records.
 2. **Sort stability.** Each file's records are sorted by the file's sort key. A new claim or edge appears as one inserted line in `git diff`, never reorders surrounding lines.
@@ -349,15 +349,15 @@ This file persists what `refresh-kb-metadata` already computes transiently for t
 
 ---
 
-## Query semantics (`src/ave/kb/index.py`)
+## Query semantics (`manuscript/ave-kb/tools/kb_cmd/index.py`)
 
 The runtime module loads these JSONL files once per process and exposes the canonical question shapes as Python functions. Stdlib only (no pip deps).
 
 ```python
-from ave.kb import index
+from kb_cmd import load
 
-idx = index.load()                    # default: $REPO/manuscript/ave-kb/.index/
-idx = index.load(path="...")          # explicit path override
+idx = load()                          # default: $REPO/manuscript/ave-kb/.index/
+idx = load(path="...")                # explicit path override
 
 # Forward dependency edges (work for any node id, including framework ids)
 idx.depends_on("clm-0ktpcn")              # → list[str] of target node ids
@@ -395,18 +395,18 @@ Record types (`Claim`, `FrameworkNode`, `CitationEdge`, `StrengthenByItem`, etc.
 
 ## CLI surface
 
-A thin CLI wrapper exposes the most common queries for shell use. Backed by the same `ave.kb.index` module:
+A thin CLI wrapper exposes the most common queries for shell use, run from the repo root with `PYTHONPATH=manuscript/ave-kb/tools`. Backed by the same `kb_cmd.index` module:
 
 ```sh
-ave-kb deps <claim_id>              # ids X depends on
-ave-kb deps -i <claim_id>           # inverse: ids that depend on X
-ave-kb gated-on <claim_id>          # claims whose strengthen-by mentions X
-ave-kb cited-by <claim_id>          # leaves citing X
-ave-kb solidity-below <threshold>   # claims with solidity < N
-ave-kb weak-points                  # shaky AND load-bearing claims (rework targets)
-ave-kb subtree <path>               # ids in subtree
-ave-kb show <claim_id>              # full record for one node (claim, invariant, axiom)
-ave-kb stats                        # counts summary
+python -m kb_cmd deps <claim_id>              # ids X depends on
+python -m kb_cmd deps -i <claim_id>           # inverse: ids that depend on X
+python -m kb_cmd gated-on <claim_id>          # claims whose strengthen-by mentions X
+python -m kb_cmd cited-by <claim_id>          # leaves citing X
+python -m kb_cmd solidity-below <threshold>   # claims with solidity < N
+python -m kb_cmd weak-points                  # shaky AND load-bearing claims (rework targets)
+python -m kb_cmd subtree <path>               # ids in subtree
+python -m kb_cmd show <claim_id>              # full record for one node (claim, invariant, axiom)
+python -m kb_cmd stats                        # counts summary
 ```
 
 JSON output via `--json` flag for piping to `jq`.
@@ -429,7 +429,7 @@ files                                                    WRITTEN (new)
 
 `refresh-kb-metadata.py` is idempotent: same canonical state → same outputs, byte-identical.
 
-`check-claim-quality.py` (extended):
+`verify-kb-metadata.py` (extended):
 - Runs all existing checks (Tier 1 coverage — a leaf declares its content via at least one of `{claims, no-claim, exp-id}`; Tier 2, ID uniqueness, orphans, frontmatter presence, subtree consistency, bidirectional coverage, claim/no-claim exclusivity — `claims` and `no-claim` stay mutually exclusive with each other, but `exp-id` is orthogonal to both).
 - runs the index build in-memory; diffs against `.index/*.jsonl` on disk; any difference is a `refresh-fixable` failure with `make refresh-kb-metadata` as the remediation hint.
 - validates each JSONL file is well-formed JSON line-by-line; reports parse failures as hard failures.
@@ -460,7 +460,7 @@ These were considered and deferred to keep v0 small and reviewable:
 - **Embeddings / full-text search.** Out of scope for the derived index — a separate concern; layer on top if ever needed.
 - **Synonym resolution.** Whether two surface forms refer to the same claim is currently encoded by id only; no aliasing.
 - **History queries.** `git log .index/claims.jsonl` already provides this for free; no separate module needed.
-- ~~**Solidity recomputation.**~~ *Done (Push 3).* `solidity` is now a derived field: `compute_solidity` computes `solidity = round-half-up-2dp(min(confidence, *dep_solidity))` (weakest link) over the depends-on DAG, `refresh-kb-metadata` writes it back to claim-quality.md and the JSONL, and `check-claim-quality` carries a standing freshness check (plus a depends-on graph acyclicity check).
+- ~~**Solidity recomputation.**~~ *Done (Push 3).* `solidity` is now a derived field: `compute_solidity` computes `solidity = round-half-up-2dp(min(confidence, *dep_solidity))` (weakest link) over the depends-on DAG, `refresh-kb-metadata` writes it back to claim-quality.md and the JSONL, and `verify-kb-metadata` carries a standing freshness check (plus a depends-on graph acyclicity check).
 - **Cross-claim consistency** (e.g., mutual-exclusion checks like `clm-trf3bd`/`clm-unk0bd`). Encoded informally in prose now; could become a structured `excludes` edge in v0.1.
 
 ---
@@ -476,3 +476,9 @@ The verifier reports counts at every run. The numbers that define success for v0
 - `make verify-kb-metadata` exits 0 after `make refresh-kb-metadata` on the current canonical state.
 
 If those five numbers match, v0 is mechanically complete.
+
+---
+
+## Solidity ratchet (PR gate)
+
+`make verify-solidity-ratchet` compares a branch against its merge-base. For every claim-to-claim `depends` edge the base has and the tip does not, it restores the edge and re-solves the tip from the committed index. A claim that left the index is tested as if it had stayed and lost those edges, so a re-mint or a split owes the same as a cut. If restoring lowers any claim's build band, the deletion is holding the band up and the branch needs a receipt: a new line `dep-removed: <source> -> <target>: <why>`, one edge per line, starting a line of a Markdown file under `research/` or `_orchestration/docket-entries/`. `git grep dep-removed:` lists every recorded cut. If the input still bears load, restore the edge instead, because a prose cap in the rationale is no alternative. Raised `confidence`, raised support `quality` or on-point fraction, run experiments, and added or re-minted supports also lift bands; a rise that survives restoring the removed edges is printed as `not gated`. CI runs this as the non-required `solidity ratchet` check, outside `make verify`.

@@ -374,3 +374,35 @@ jobs:
 
       - name: make test-engine
         run: make test-engine
+
+  # SOLIDITY RATCHET. Solidity is `min` over declared dependencies, so deleting the
+  # weakest `depends-on` bullet lifts a claim and everything downstream, and no other
+  # gate reads solidity: refresh regenerates the index, the verifier finds it fresh,
+  # `make verify` stays green, and the cite-shift gate fires only if a cited line
+  # moves. Measured at cbc668e7: of 408 claim-to-claim edges, removing any one of 53
+  # moves the citing claim up a band.
+  #
+  # BACK-TEST, cbc668e7 and every first-parent ancestor that changed the index: 113
+  # commits, 0 such edges ever removed, 0 fires. So this job guards a hole no merge
+  # has yet used, and it cannot have false-fired on any of them.
+  #
+  # NON-REQUIRED, and deliberately NOT a prerequisite of `verify:` (R3). Stdlib-only,
+  # so no uv and no dependency install. Appended at EOF so no inbound cite shifts.
+  solidity-ratchet:
+    name: solidity ratchet (non-required)
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout (full history — needs the merge-base)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: make verify-solidity-ratchet
+        run: make verify-solidity-ratchet CITE_BASE=origin/${{ github.base_ref }}
