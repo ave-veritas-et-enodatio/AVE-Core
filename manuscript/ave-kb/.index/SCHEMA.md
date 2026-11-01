@@ -476,3 +476,9 @@ The verifier reports counts at every run. The numbers that define success for v0
 - `make verify-kb-metadata` exits 0 after `make refresh-kb-metadata` on the current canonical state.
 
 If those five numbers match, v0 is mechanically complete.
+
+---
+
+## Solidity ratchet (PR gate)
+
+`make verify-solidity-ratchet` compares a branch against its merge-base. For every claim-to-claim `depends` edge the base has and the tip does not, it restores the edge and re-solves the tip from the committed index. If that lowers any claim's build band, the deletion is holding the band up and the branch needs a receipt: a line it adds under `research/` or `_orchestration/docket-entries/` naming both ids. Raised `confidence`, raised support `quality` or on-point fraction, and run experiments also lift bands; those are printed as `not gated`. CI runs this as the non-required `solidity ratchet` check, outside `make verify`.
