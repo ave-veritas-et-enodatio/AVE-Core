@@ -59,7 +59,7 @@ def _add_global_flags(p: argparse.ArgumentParser) -> None:
 
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        prog="ave-kb",
+        prog="python -m kb_cmd",
         description="Query the AVE Knowledge Base derived index.",
     )
     _add_global_flags(parser)
