@@ -47,6 +47,12 @@ git ls-files '*README.md' | rg -v '^data/|^research/_archive/'
 
 Re-run both listings at discharge time. If the count moved, update this section in the same PR as the first F-row that uses the new count.
 
+**Combined pass 2026-11-01 — pass header.** Base `cbc668e7219ec8a8b13407da7a7a33ed622ad95b` (fetched once; no rebase; every path:line in the Hits below is at that SHA). Listing re-run at that SHA: **166 LaTeX + 11 READMEs = 177 documents**. Row set: **F-C1 … F-C11** (eleven rows, none added). Read receipt: `_orchestration/2026-11-01_electron-identity-read-receipt.tsv`. Corpus conflicts and `Seeds outside the row set`: `_orchestration/2026-11-01_electron-identity-combined-pass-conflicts.md`.
+
+The README listing moved from 9 to 11 since tree `7b2a5919`. The two additions are `research/drivers/data/p2_scoping/README.md` and `src/tests/data/README.md`, both data-kit files the `^data/` filter misses only because of their path depth, so the "9 program-facing files" line above does not describe them. Both were read, because the listing is binding (protocol item 2); whether they stay in the universe is Grant's question, raised in the pass PR.
+
+Class values in the receipt and Hits: live-wrong, Q1, Q2 and fence-excluded are protocol classes. `none`, `unsure` (printed here as *unsure — not picked*) and `reader-call` are DISPATCH-GLOSS. Every hit was re-classified at source by an independent checker, and every site a reader or checker called live-wrong or unsure went to three independent judges (corpse match, fence, currency). A site is recorded live-wrong only if the checker and at least two judges agree; a contested site stays *unsure — not picked*. No hit is left at `reader-call`.
+
 ---
 
 ## Discharge protocol — COMBINED PASS (ruled 2026-08-18, Wave-2 D7-A)
@@ -101,7 +107,7 @@ Seeded from `_orchestration/2026-08-14_electron-identity-kill-list-ledger.md` §
 | **Fence** | Banner the **lock clause only**. Poincaré Thread B on the same KB page is held out — do not treat LaTeX Poincaré-stress history as this corpse. |
 | **Status** | PENDING-READ |
 
-Hits: *(empty until discharged)*
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 1 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 0 · unsure — not picked 0.
 
 ### F-C2 — K1 lock as live-threat candidate
 
@@ -112,7 +118,7 @@ Hits: *(empty until discharged)*
 | **Fence** | Same clause-not-page rule. LaTeX that names Poincaré cohesive stress as the *named hole* is not this corpse. |
 | **Status** | PENDING-READ |
 
-Hits: *(empty until discharged)*
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 1 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 0 · unsure — not picked 0.
 
 ### F-C3 — K5+K1 LOOP GAP doctrine as current routing aid
 
@@ -123,7 +129,7 @@ Hits: *(empty until discharged)*
 | **Fence** | Ranks as *historical traveler* may remain. This follow-up hunts ranks / v11+ / remanence offered as **current manufacture path**. |
 | **Status** | PENDING-READ |
 
-Hits: *(empty until discharged)*
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 1 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 0 · unsure — not picked 0.
 
 ### F-C4 — K1+K5 remanence as open route to mass
 
@@ -134,7 +140,7 @@ Hits: *(empty until discharged)*
 | **Fence** | Anhysteretic-kernel *fact* (Level-1 has no loop area) is not the corpse. The corpse is remanence as the **live path that holds the electron**. |
 | **Status** | PENDING-READ |
 
-Hits: *(empty until discharged)*
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 1 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 0 · unsure — not picked 0.
 
 ### F-C5 — K1+K3+K5 manufacture = energize-lock + remanence
 
@@ -145,7 +151,7 @@ Hits: *(empty until discharged)*
 | **Fence** | Vol 9 datasheet circuit models that describe *walls / M,Q,J* without selling genesis-cook are not this corpse. |
 | **Status** | PENDING-READ |
 
-Hits: *(empty until discharged)*
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 1 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 0 · unsure — not picked 0.
 
 ### F-C6 — K1 remanence as OPEN R10 capability gap
 
@@ -156,7 +162,7 @@ Hits: *(empty until discharged)*
 | **Fence** | Do not banner "kernel is anhysteretic" as killed physics. Banner remanence-as-current-hold. |
 | **Status** | PENDING-READ |
 
-Hits: *(empty until discharged)*
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 1 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 0 · unsure — not picked 0.
 
 ### F-C7 — K2+K3 precursor → self-trap build order
 
@@ -167,7 +173,7 @@ Hits: *(empty until discharged)*
 | **Fence** | Boundary \(\Gamma=-1\) self-trap (surviving localizer) is **not** this corpse. Hunt **bulk** self-trap / free-precursor seed offered as current. |
 | **Status** | PENDING-READ |
 
-Hits: *(empty until discharged)*
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 1 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 0 · unsure — not picked 0.
 
 ### F-C8 — K1+K2 capability-matrix YAML
 
@@ -178,7 +184,7 @@ Hits: *(empty until discharged)*
 | **Fence** | Same homonym as F-C7. LaTeX that copies this YAML prose as current capability is in scope. |
 | **Status** | PENDING-READ |
 
-Hits: *(empty until discharged)*
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 1 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 0 · unsure — not picked 0.
 
 ### F-C9 — K3 (2,3) self-assembly as remaining gate
 
@@ -189,7 +195,7 @@ Hits: *(empty until discharged)*
 | **Fence** | Cosmic node-injection is held out. Static Link / tank (2,3) **stands**. Hunt self-assembly as a **live manufacture path**, not the winding as charge. |
 | **Status** | PENDING-READ |
 
-Hits: *(empty until discharged)*
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 1 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 0 · unsure — not picked 0.
 
 ### F-C10 — K5 common index still advertises the doctrine
 
@@ -200,7 +206,7 @@ Hits: *(empty until discharged)*
 | **Fence** | A LaTeX TOC entry that merely *names* the LOOP GAP leaf is not live-wrong unless it offers ranks as current work. |
 | **Status** | PENDING-READ |
 
-Hits: *(empty until discharged)*
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 1 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 0 · unsure — not picked 0.
 
 ### F-C11 — K3 formation-route still "remains open" on the axiom leaf
 
@@ -211,7 +217,7 @@ Hits: *(empty until discharged)*
 | **Fence** | Cosmic node-injection is held out. Charge = winding dictionary and the engine-derived interaction leg are **not** this row. |
 | **Status** | PENDING-READ |
 
-Hits: *(empty until discharged)*
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 1 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 0 · unsure — not picked 0.
 
 ---
 
