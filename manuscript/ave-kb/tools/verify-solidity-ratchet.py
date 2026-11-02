@@ -34,12 +34,15 @@ _orchestration/docket-entries/ and outside any _archive/ directory, reading
     dep-removed: <source> -> <target>: <why>
 
 One edge per line, with nothing before `dep-removed:` but indentation or a `- ` or `* `
-marker. The rule reads lines and not Markdown, so a line in a code fence or a comment
-counts. No base text line holding the token, in any case, may also hold both ids and the
-reason, whitespace aside. So an old line moved, quoted, re-indented or left in a one-line
-dump does not count, nor does a fragment of its reason, and a changed word makes a new
-reason. Not seen: a dump that escapes the reason, a line wrapped in two, a binary file.
-Ids match as substrings, which is exact while every id has one length, as all do today.
+marker. A bare CR ends a line, and other separators such as a form feed are text. The
+rule reads lines and not Markdown, so a line in a code fence or a comment counts. No base
+text line holding the token, in any case, may also hold both ids and the reason,
+whitespace aside. So an old line moved, quoted, re-indented or left in a one-line dump
+does not count, nor does a fragment of its reason, and a changed word makes a new reason.
+Not seen: a dump that escapes or re-encodes the reason, a line wrapped in two, a binary
+file. A byte that is not UTF-8 reads as U+FFFD, so two paths or reasons that differ only
+there read as one. Ids match as substrings, which is exact while every claim and support
+id has one length, as all do today.
 The path test keeps the line out of any document the base has. A rename is a new path, so
 it passes and shows in the diff. The gate checks only that a reason is present and new:
 it forces the deletion into the open and leaves judging it to review. The claim's own
@@ -53,11 +56,12 @@ Raised confidence, raised support quality or on-point fraction, run experiments,
 support added or re-minted under a new id all lift bands too. Those are authored
 judgments, visible where they are written. For that report the removed edges go back in
 index order, leaving out any that would close a cycle with those already back and any
-whose source support left the tip. A rise that survives is printed as `not gated`, so a
-claim that rose both ways shows both. With any edge left out it prints as `not tested`,
-and the edges left out are named, since what they hold or lift does not show. A claim the
-removed edges hold lower than any listed line shows, as when receipted edges carry it,
-prints too. Every claim new at the tip is printed, since a re-mint that also raises
+whose source support left the tip. A rise that survives is printed as `not gated`, at the
+lower of its tip and restored readings, so a claim that rose both ways shows both. With
+any edge left out it prints as `not tested`, and the edges left out are named, since what
+they hold or lift does not show in that report. A claim the removed edges hold lower than
+any listed line shows, as when receipted edges carry it, prints too, read from the same
+restore. Every claim new at the tip is printed, since a re-mint that also raises
 confidence clears the fire. Each branch is judged against its own merge-base, so a rise
 split across two branches is not joined up.
 
@@ -106,7 +110,7 @@ RECEIPT_ROOTS = ('research/', '_orchestration/docket-entries/')
 TOKEN = 'dep-removed:'
 
 _ID = r'[a-z]{3}-[a-z0-9]+'
-MENTION = re.compile(r'%s\s*(%s)\s*->\s*(%s)\s*:([^\r]*)' % (TOKEN, _ID, _ID))
+MENTION = re.compile(r'%s[^\S\r]*(%s)[^\S\r]*->[^\S\r]*(%s)[^\S\r]*:([^\r]*)' % (TOKEN, _ID, _ID))
 RECEIPT = re.compile(r'\s*(?:[-*]\s+)?' + MENTION.pattern)
 
 #: Rules switched OFF by --mutation-receipt. Empty in every real run.
@@ -126,8 +130,9 @@ class Repo:
         self.cwd, self.env = cwd, {k: v for k, v in os.environ.items() if not k.startswith(scrub)}
 
     def git(self, *args, ok=(0,), strict=False):
-        """Stdout with its bytes kept, so a bare CR stays in its line. `strict` also fails on
-        stderr past any `warning:`: grep reports an unreadable blob only there."""
+        """Stdout as UTF-8, a bare CR kept in its line and a byte that is not UTF-8 read as
+        U+FFFD. `strict` also fails on stderr past any `warning:`: grep reports an unreadable
+        blob only there."""
         p = subprocess.run(('git',) + args, cwd=self.cwd, env=self.env, capture_output=True)
         stderr = p.stderr.decode('utf-8', 'replace')
         if p.returncode not in ok or (strict and any(
@@ -507,12 +512,13 @@ def report(res, base, tip):
         if e.get('context'):
             print('     dropped: %s' % e['context'])
     for c in res['others']:
+        rose = min(res['after'][c], res['tip'][c])
         print('\n  %s: %s  %s -> %s  (%s -> %s)' % (
-            verb, c, lib.derive_build_band(res['base'][c]), lib.derive_build_band(res['after'][c]),
-            show(res['base'][c]), show(res['after'][c])))
+            verb, c, lib.derive_build_band(res['base'][c]), lib.derive_build_band(rose),
+            show(res['base'][c]), show(rose)))
     if res['stuck']:
-        print('\n  left out of the restore: %s. What they hold or lift does not show here.'
-              % edges(res['stuck']))
+        print('\n  left out of the restore behind the band-rise and held-up lines: %s. What they'
+              ' hold or lift does not show in those lines.' % edges(res['stuck']))
     for c in res['carried']:
         print('\n  held up by the removed edges: %s at %s; with them back it reads %s' % (
             name(c), reading(res['tip'][c]), reading(res['after'][c])))
@@ -532,8 +538,9 @@ Each UNEXPLAINED edge is one of these:
     written in the rationale changes nothing.
   - Its source or target left the index: the edge cannot come back under that id, even if
     a new id keeps the dependency. Add the line below.
-  - Restoring it closes a cycle, alone or with the edges printed: break a tip edge on that
-    loop, after which the edges are tested, or add the line below.
+  - Restoring it closes a cycle, alone or with the edges printed: break an edge this branch
+    added on that loop and rerun, or add the line below. An edge the base also has goes
+    back in the restore once cut, so cutting it keeps the loop unless it gets a line too.
   - The dependency is really gone: add the line below.
 
 The line starts a line of a new Markdown file under %s, committed on this branch, with a
@@ -717,6 +724,7 @@ PARALLEL = graph_spec({X: .10, W: .30}, [(SUP1, W), (SUP2, W)], {SUP1: .90, SUP2
 LOST_TO_ROUNDING = graph_spec({X: .10}, sups={SUP1: .72}, gives=[(SUP1, X)], fraction=.9)
 PHANTOM_BASE = graph_spec({X: .10, Z: .99}, [(X, Z)], {SUP1: .60}, [(SUP1, X)], fraction=.9)
 PHANTOM_TIP = graph_spec({X: .10, Z: .99}, sups={SUP1: .72}, gives=[(SUP1, X)], fraction=.9)
+PHANTOM_LOW = graph_spec({X: .10, Z: .99}, [(X, Z)], {SUP1: .40}, [(SUP1, X)], fraction=.9)
 AXIOM = 'axm-one000'
 ON_AXIOM = graph_spec({X: .90}, axioms=[(X, AXIOM)])
 RETYPED = graph_spec({X: .90, W: .30}, [(X, W)])
@@ -741,6 +749,7 @@ CASES = {
     'pending-target':     fired(spec(deps=without(CUT), claims={**CLAIMS_OF, WEAK: None}), CUT,
                                 base=spec(claims={**CLAIMS_OF, WEAK: None})),
     'staged-first-half':  case({**STAGED, 'deps': [(X, Z)]}, base=STAGED),
+    'rise-rounded-past':  case(PHANTOM_TIP, base=PHANTOM_LOW, others={X}),
 
     'receipt':            case(CUTTING, note(LINE), flagged=[CUT]),
     'receipt-list-item':  case(CUTTING, note('  - ' + LINE), flagged=[CUT]),
@@ -767,6 +776,9 @@ CASES = {
     'receipt-placeholder': fired(CUTTING, CUT, files=note(says(*CUT, '<why>'))),
     'receipt-placeholder-upper': fired(CUTTING, CUT, files=note(says(*CUT, '<WHY>'))),
     'receipt-reason-past-cr': fired(CUTTING, CUT, files=((NOTE, '%s %s -> %s:\rthe next line\n' % (TOKEN, *CUT)),)),
+    'receipt-colon-past-cr': fired(CUTTING, CUT, files=((NOTE, '%s %s -> %s\r: the next line\n' % (TOKEN, *CUT)),)),
+    'receipt-edge-past-cr': fired(CUTTING, CUT, files=((NOTE, '%s\r%s -> %s: the next line\n' % (TOKEN, *CUT)),)),
+    'receipt-form-feed':  case(CUTTING, note('%s %s -> %s:\x0cthe same line' % (TOKEN, *CUT)), flagged=[CUT]),
     'receipt-invisible-reason': fired(CUTTING, CUT, files=note(says(*CUT, '​'))),
     'receipt-mid-line':   fired(CUTTING, CUT, files=note('as noted, ' + LINE)),
     'receipt-one-word':   fired(CUTTING, CUT, files=note('noted: ' + LINE)),

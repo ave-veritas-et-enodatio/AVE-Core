@@ -77,6 +77,9 @@ def _flagged(res, field="holds"):
     return {ratchet.pair(f["edge"]): f[field] for f in res["findings"]}
 
 
+LEFT_OUT = "left out of the restore behind the band-rise and held-up lines"
+
+
 def test_self_gate_holds():
     assert ratchet.run_gate(out=lambda line: None) == []
 
@@ -396,7 +399,7 @@ def test_remint_of_a_support_counts_the_edge_and_prints_the_lift_as_untested(fix
     assert ratchet.report(res, "b" * 8, "t" * 8) == 0
     out = capsys.readouterr().out
     assert "not tested: %s  do-not-build -> ok-to-build  (0.3 -> 0.9)" % ratchet.X in out
-    assert "left out of the restore: %s -> %s." % (ratchet.SUP1, ratchet.W) in out
+    assert "%s: %s -> %s." % (LEFT_OUT, ratchet.SUP1, ratchet.W) in out
 
 
 def test_a_support_back_only_for_a_retired_claim_still_counts_as_left_out(fixture_repo, capsys):
@@ -411,6 +414,38 @@ def test_a_support_back_only_for_a_retired_claim_still_counts_as_left_out(fixtur
     assert "not tested: %s" % ratchet.X in capsys.readouterr().out
 
 
+def test_a_retired_claim_no_edge_touches_is_still_listed_as_gone(fixture_repo, capsys):
+    res = _case(fixture_repo, "retired-bystander")
+    assert res["retired"] == [ratchet.X]
+    ratchet.report(res, "b" * 8, "t" * 8)
+    assert "gone from the tip: %s" % ratchet.X in capsys.readouterr().out
+
+
+def test_a_retired_claim_whose_lift_rose_is_not_printed_as_a_rise(fixture_repo):
+    base = ratchet.graph_spec({ratchet.X: .10, ratchet.W: .99}, [(ratchet.X, ratchet.W)],
+                              {ratchet.SUP1: .40}, [(ratchet.SUP1, ratchet.X)])
+    tip = ratchet.graph_spec({ratchet.W: .99}, sups={ratchet.SUP1: .90})
+    res = _scan(fixture_repo, tip, base_spec=base)[-1]
+    # X reads 0.40 at the base and 0.90 with the tip's lift; it is gone, so it is no rise.
+    assert res["retired"] == [ratchet.X] and res["tip"][ratchet.X] == 0.90
+    assert res["findings"] == [] and res["others"] == []
+
+
+def test_one_pair_jointly_holding_two_claims_names_both(fixture_repo):
+    base = ratchet.graph_spec({ratchet.X: .10, ratchet.Y: .10, ratchet.W: .30},
+                              [(ratchet.SUP1, ratchet.W), (ratchet.SUP2, ratchet.W)],
+                              {ratchet.SUP1: .90, ratchet.SUP2: .90},
+                              [(s, c) for s in (ratchet.SUP1, ratchet.SUP2) for c in (ratchet.X, ratchet.Y)])
+    res = _scan(fixture_repo, ratchet.no_deps(base), base_spec=base)[-1]
+    assert _flagged(res, "jointly") == {e: {ratchet.X: 0.30, ratchet.Y: 0.30} for e in base["deps"]}
+
+
+def test_a_pending_reading_prints_as_pending(fixture_repo, capsys):
+    res = _case(fixture_repo, "pending-target")
+    ratchet.report(res, "b" * 8, "t" * 8)
+    assert "restored it reads %s (*pending*)" % lib.derive_build_band(None) in capsys.readouterr().out
+
+
 def test_a_cycle_leaves_out_only_the_edges_that_would_close_it(fixture_repo):
     assert len(_case(fixture_repo, "joint-cycle")["stuck"]) == 1
     assert len(_case(fixture_repo, "joint-cycle-half-receipted")["stuck"]) == 1
@@ -423,7 +458,35 @@ def test_an_edge_left_out_is_named_even_with_no_rise(fixture_repo, capsys, name)
     ratchet.report(res, "b" * 8, "t" * 8)
     out = capsys.readouterr().out
     assert "other-band-rises=0 (not gated)" in out
-    assert "left out of the restore: %s -> %s." % res["stuck"][0] in out
+    assert "%s: %s -> %s." % (LEFT_OUT, *res["stuck"][0]) in out
+
+
+def test_an_edge_left_out_of_the_rise_restore_still_prints_what_it_holds_alone(fixture_repo, capsys):
+    loop = ratchet.graph_spec({ratchet.X: .90, ratchet.Y: .30, ratchet.Z: .90, ratchet.M: .30},
+                              [(ratchet.X, ratchet.Y), (ratchet.Z, ratchet.M)])
+    tip = ratchet.graph_spec(loop["claims"], [(ratchet.Y, ratchet.Z), (ratchet.M, ratchet.X)])
+    res = _scan(fixture_repo, tip, base_spec=loop)[-1]
+    assert res["stuck"] == [(ratchet.Z, ratchet.M)]
+    assert ratchet.report(res, "b" * 8, "t" * 8) == 1
+    out = capsys.readouterr().out
+    assert "holds %s at ok-to-build (0.9); restored it reads do-not-build (0.3)" % ratchet.Z in out
+    assert ("%s: %s -> %s. What they hold or lift does not show in those lines."
+            % (LEFT_OUT, ratchet.Z, ratchet.M)) in out
+
+
+def test_breaking_an_added_edge_frees_a_loop_and_breaking_a_base_edge_does_not(fixture_repo):
+    base = ratchet.graph_spec({c: .90 for c in (ratchet.X, ratchet.Y, ratchet.Z, ratchet.M)},
+                              [(ratchet.X, ratchet.Y), (ratchet.Z, ratchet.M), (ratchet.Y, ratchet.Z)])
+    joint = _scan(fixture_repo, ratchet.graph_spec(base["claims"], [(ratchet.Y, ratchet.Z), (ratchet.M, ratchet.X)]),
+                  base_spec=base)[-1]
+    assert {f["cycle"] for f in joint["findings"]} == {"jointly"}
+    # M -> X is new at the tip: without it both edges go back and bind nothing.
+    added = _scan(fixture_repo, ratchet.graph_spec(base["claims"], [(ratchet.Y, ratchet.Z)]), base_spec=base)[-1]
+    assert added["findings"] == [] and added["stuck"] == []
+    # Y -> Z is a base edge: cut, it goes back too, and the loop closes again with a third owed.
+    old = _scan(fixture_repo, ratchet.graph_spec(base["claims"], [(ratchet.M, ratchet.X)]), base_spec=base)[-1]
+    assert len(old["gone"]) == 3 and all(not f["receipt"] and f["cycle"] for f in old["findings"])
+    assert len(old["findings"]) == 3
 
 
 def test_a_claim_named_at_a_shallow_reading_still_shows_the_band_receipts_carry(fixture_repo, capsys):
@@ -442,6 +505,14 @@ def test_a_rise_the_tip_never_made_is_not_printed(fixture_repo):
     res = _case(fixture_repo, "rounding-no-phantom-rise")
     # The tip reads 0.648, the band of the base's 0.54. Only the restore rounds it to 0.65.
     assert res["tip"][ratchet.X] == 0.648 and res["after"][ratchet.X] == 0.65 and res["others"] == []
+
+
+def test_a_rise_prints_at_the_lower_of_its_tip_and_restored_readings(fixture_repo, capsys):
+    res = _case(fixture_repo, "rise-rounded-past")
+    # 0.40 x 0.9 at the base, 0.72 x 0.9 at the tip, rounded to 0.65 only with the dep back.
+    assert (res["base"][ratchet.X], res["tip"][ratchet.X], res["after"][ratchet.X]) == (0.36, 0.648, 0.65)
+    assert ratchet.report(res, "b" * 8, "t" * 8) == 0
+    assert "not gated: %s  do-not-build -> input-only  (0.36 -> 0.648)" % ratchet.X in capsys.readouterr().out
 
 
 def test_only_an_edge_into_a_claim_counts_as_removed(fixture_repo):
@@ -541,6 +612,33 @@ def test_a_latin1_byte_beside_a_receipt_does_not_crash(fixture_repo):
     assert ratchet.receipts(repo, base, repo.git("write-tree").strip(), ())[0] == {ratchet.CUT: ratchet.NOTE}
 
 
+@pytest.mark.parametrize("record", ['{"id": "clm-xxxxxx"}', '{"node_type": "claim", "id": ["clm-xxxxxx"]}'])
+def test_a_malformed_index_record_is_a_gate_error(fixture_repo, record):
+    repo, root = fixture_repo
+    for path, text in ((ratchet.CLAIMS, record + "\n"), (ratchet.EDGES, "")):
+        Path(root, path).parent.mkdir(parents=True, exist_ok=True)
+        Path(root, path).write_text(text, encoding="utf-8")
+    repo.git("add", "-A", "-f")
+    with pytest.raises(ratchet.GateError, match="malformed index record"):
+        ratchet.load(repo, repo.git("write-tree").strip())
+
+
+def test_an_edge_to_a_missing_node_aborts_as_an_orphan_before_the_reconcile(fixture_repo):
+    repo, root = fixture_repo
+    # NEAR records 0.70 and, with NEAR2 gone, would not reproduce: the orphan is the truer cause.
+    sha = ratchet.tree(repo, root, ratchet.spec(), drop=(ratchet.NEAR2,))
+    with pytest.raises(ratchet.GateError, match="edges name a node the index does not hold"):
+        ratchet.load(repo, sha)
+
+
+def test_a_crash_prints_its_traceback_and_exits_2(capsys):
+    def boom():
+        raise RuntimeError("boom")
+    assert ratchet.guarded(boom)() == 2
+    captured = capsys.readouterr()
+    assert "Traceback" in captured.err and "ABORT: RuntimeError: boom" in captured.out
+
+
 def test_a_whitespace_line_in_the_index_aborts(fixture_repo):
     repo, root = fixture_repo
     Path(root, ratchet.CLAIMS).parent.mkdir(parents=True)
@@ -563,6 +661,8 @@ def test_a_failed_grep_is_not_an_empty_one(fixture_repo):
     ("receipt-reversed", "it does not read `dep-removed: clm-cite00 -> clm-weak00: <why>`"),
     ("receipt-two-on-a-line", "it does not read `dep-removed: clm-xxxxxx -> clm-zzzzzz: <why>`, one edge to a line"),
     ("receipt-reason-past-cr", "it gives no reason"),
+    ("receipt-colon-past-cr", "it does not read `dep-removed: clm-cite00 -> clm-weak00: <why>`"),
+    ("receipt-edge-past-cr", "it does not read `dep-removed: clm-cite00 -> clm-weak00: <why>`"),
     ("receipt-wrong-root", "it is not under research/"),
     ("receipt-json", "it is not in a .md file"),
     ("receipt-archived", "it is in an _archive/ directory"),
@@ -578,6 +678,17 @@ def test_a_refused_line_says_why(fixture_repo, capsys, name, cause):
     out = capsys.readouterr().out
     path = ratchet.CASES[name]["files"][0][0]
     assert "the line in %s does not count: %s" % (path, cause) in out
+
+
+def test_every_refused_line_for_an_edge_prints(fixture_repo, capsys):
+    repo, root = fixture_repo
+    base = ratchet.tree(repo, root, ratchet.spec())
+    tip = ratchet.tree(repo, root, ratchet.CUTTING, ratchet.note(ratchet.LINE, "research/_archive/a.md")
+                       + ratchet.note(ratchet.LINE, "notes/b.md"))
+    assert ratchet.report(ratchet.scan(repo, base, tip), base, tip) == 1
+    out = capsys.readouterr().out
+    assert "the line in notes/b.md does not count: it is not under research/" in out
+    assert "the line in research/_archive/a.md does not count: it is in an _archive/ directory" in out
 
 
 def test_a_slack_edge_owes_nothing_so_its_refused_line_prints_nothing(fixture_repo, capsys):
@@ -632,7 +743,7 @@ def test_report_says_what_is_joint_what_left_and_what_is_not_gated(fixture_repo,
     ratchet.report(res, "b" * 8, "t" * 8)
     out = capsys.readouterr().out
     assert "restoring it with %s -> %s closes a cycle, so they cannot go back together" % (ratchet.Z, ratchet.M) in out
-    assert "break a tip edge on that\n    loop" in out
+    assert "break an edge this branch\n    added on that loop and rerun" in out
     assert "dropped: the bullet" in out
 
     res = _case(fixture_repo, "remint-no-citers")
@@ -641,7 +752,11 @@ def test_report_says_what_is_joint_what_left_and_what_is_not_gated(fixture_repo,
     assert "retired-claims=1" in out and "removed-edges=1" in out
     assert "holds %s (gone from the tip, read as if it stayed) at ok-to-build (0.95)" % ratchet.X in out
     assert "the edge cannot come back under that id" in out
-    assert "gone from the tip: %s" % ratchet.X in out
+    assert "gone from the tip: %s  input-only (0.63)" % ratchet.X in out
+
+    res = _case(fixture_repo, "retired-dead-leaf")
+    ratchet.report(res, "b" * 8, "t" * 8)
+    assert "retired-claims=1  new-claims=0" in capsys.readouterr().out
 
     res = _case(fixture_repo, "rise-by-two-routes")
     ratchet.report(res, "b" * 8, "t" * 8)
@@ -652,7 +767,7 @@ def test_report_says_what_is_joint_what_left_and_what_is_not_gated(fixture_repo,
     out = capsys.readouterr().out
     assert "not tested: %s  do-not-build -> ok-to-build  (0.3 -> 0.85)" % ratchet.CITE in out
     assert "other-band-rises=2 (not tested)" in out and "not gated" not in out
-    assert "left out of the restore: %s -> %s. What they hold or lift" % ratchet.CUT in out
+    assert "%s: %s -> %s. What they hold or lift" % (LEFT_OUT, *ratchet.CUT) in out
     assert "restoring it closes a cycle, so its effect cannot be computed" in out
 
 
