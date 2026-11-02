@@ -9,10 +9,12 @@ hand-applied, same-line, one commit per class.
     python3 _orchestration/tools/r55_sweep.py --base <BASE> --tip HEAD --write
     python3 _orchestration/tools/r55_sweep.py --base <BASE> --tip HEAD --check
 
---check re-runs the measurement on the tip and fails unless every tip hit is a
-line the TSV records as a residual, or an edited line whose remaining hit is an
-identifier. A second, independent method (a Python regex walk of the tracked
-files) must return the same hit set as git grep, or the run fails.
+--check fails unless the TSV on disk equals the recomputed rows, byte for byte,
+and every tip hit is a line the TSV records as a residual, or an edited line
+whose remaining hit is an identifier. A second, independent method (a Python
+regex walk of the tracked files) must return the same hit set as git grep, or
+the run fails. --write and --check are refused together: writing first would
+leave the TSV comparison nothing to catch.
 """
 from __future__ import annotations
 
@@ -290,16 +292,21 @@ def rows_for(base, tip):
     return rows
 
 
+def tsv_text(rows):
+    out = ["path\tline\tclass\tstate\tpreserve_flag\treason\tverbatim_at_base\n"]
+    for r in rows:
+        text = r["text"]
+        if r["class"] == "GENERATED":
+            m = HIT_RE.search(text)
+            text = "..." + text[max(0, m.start() - 100) : m.end() + 100] + "..."
+        text = text.replace("\t", " ")
+        out.append(f"{r['path']}\t{r['line']}\t{r['class']}\t{r['state']}\t{r['preserve']}\t{r['reason']}\t{text}\n")
+    return "".join(out)
+
+
 def write_tsv(rows):
     with open(TSV, "w", encoding="utf-8") as out:
-        out.write("path\tline\tclass\tstate\tpreserve_flag\treason\tverbatim_at_base\n")
-        for r in rows:
-            text = r["text"]
-            if r["class"] == "GENERATED":
-                m = HIT_RE.search(text)
-                text = "..." + text[max(0, m.start() - 100) : m.end() + 100] + "..."
-            text = text.replace("\t", " ")
-            out.write(f"{r['path']}\t{r['line']}\t{r['class']}\t{r['state']}\t{r['preserve']}\t{r['reason']}\t{text}\n")
+        out.write(tsv_text(rows))
 
 
 def report(rows, base, tip):
@@ -322,6 +329,12 @@ def report(rows, base, tip):
 
 def check(rows, tip):
     problems = []
+    with open(TSV, encoding="utf-8", newline="") as f:
+        on_disk = f.read()
+    expected = tsv_text(rows)
+    if on_disk != expected:
+        stale = set(on_disk.split("\n")) ^ set(expected.split("\n"))
+        problems.append(f"TSV differs from the recomputed rows: {len(stale)} lines, e.g. {min(stale, default='row order')[:120]}")
     if any(r["class"] == "UNCLASSIFIED" for r in rows):
         problems.append("UNCLASSIFIED rows remain")
     for r in rows:
@@ -351,8 +364,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--base", required=True)
     parser.add_argument("--tip", default="HEAD")
-    parser.add_argument("--write", action="store_true", help="write the TSV")
-    parser.add_argument("--check", action="store_true", help="re-run on the tip and fail on any problem")
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--write", action="store_true", help="write the TSV")
+    mode.add_argument("--check", action="store_true", help="re-run on the tip and fail on any problem")
     parser.add_argument("--flag-probe", help="path:line to report detector flags for")
     args = parser.parse_args()
     if args.flag_probe:
