@@ -619,11 +619,11 @@ class TestCalibrationRole:
         # CENSUS UPDATED 2026-09-07, DOWNSTREAM OF A RULING — this is NOT a
         # fixture loosened to make a branch pass. Grant ruled on 2026-09-07 that
         # the clm-395gps category flip (category-(iv) derived prediction ->
-        # consistency check) is IN SCOPE. That flip removed the negation at
-        # vol3/claim-quality.md:199 which this census recorded as one of its two
-        # true cases, so clm-395gps legitimately stops being suppressed and the
-        # census is a set of one. Nothing about the guards changed; the corpus
-        # did. Both directions were re-verified when this line was edited: the
+        # consistency check) is IN SCOPE. The negation at vol3/claim-quality.md:199
+        # that this census recorded is still there, as quoted prior wording, but
+        # the flip put an affirmative match ahead of it and this loop stops at the
+        # first unsuppressed match, so the census is a set of one. The guards did
+        # not change. Both directions were re-verified when this line was edited: the
         # census passes at the ruled state, and still FAILS when a second
         # suppression is introduced.
         #
@@ -631,7 +631,7 @@ class TestCalibrationRole:
         # in test_negated_marker_does_not_fire above still holds as a unit test
         # of the negation guard, but its comment's "Live text from
         # vol3/claim-quality.md clm-395gps" provenance is now VACATED — that
-        # sentence no longer exists in the corpus. Same for the example cite on
+        # sentence survives only as a quote at :199. Same for the example cite on
         # the CONSISTENCY_DENIED marker at
         # src/scripts/predictions_manifest_validator.py:1153.
         import re as _re
