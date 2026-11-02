@@ -844,8 +844,8 @@ parenthetical label *"The variational form (Maxwell Lagrangian, $S_{AVE} = \int
 `_orchestration/docket-entries/2026-08-10-ruling-r43-ratification.md`):** the
 variational form is the **temporal-gauge (Weyl-gauge, $A_0$-free)** Maxwell
 Lagrangian. Standard Maxwell dynamics are recovered on the Gauss-constrained
-initial-data surface; the constraint is supplied by the newly-ratified Axiom 5,
-Substrate DC Bias (`manuscript/common_equations/eq_axiom_5.tex`; clause open), not by an
+initial-data surface; the constraint is supplied by the newly-ratified
+Substrate DC Bias source law (`manuscript/common_equations/eq_axiom_5.tex`; clause open), not by an
 equation of motion of the written action. Bare "Maxwell Lagrangian" is therefore
 TRUE of the constrained dynamics and FALSE of the action.
 

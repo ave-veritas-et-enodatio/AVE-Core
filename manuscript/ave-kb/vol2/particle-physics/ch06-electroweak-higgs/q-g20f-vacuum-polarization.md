@@ -129,11 +129,11 @@ R43 Axiom-3 repair corrected:
 2. **"Maxwell Lagrangian"** is the **temporal-gauge (Weyl, $A_0$-free)** form.
    Full time-dependent U(1) is **not** a symmetry of the written action; it is
    recovered on the Gauss-constrained initial-data surface, where the constraint
-   is supplied by **Axiom 5 (Substrate DC Bias)**. *Which* clause of Axiom 5
+   is supplied by **the Substrate DC Bias source law**. *Which* clause of the source law
    supplies it is **left open**, riding the DEFERRED FORK-1 variable-class fork —
    an earlier cut of this batch named clause **S**, which is an unratified
    narrowing and is withdrawn (clause S is an **A1 dilatation-mass** deposit law,
-   and Axiom 5 explicitly forbids *"any EM/winding-sector deposit"*).
+   and the source law explicitly forbids *"any EM/winding-sector deposit"*).
 
 **The RT argument itself SURVIVES, and is not retracted.** The Renormalization
 Theorem's premise is the low-energy gauge content **on the constraint surface**,
