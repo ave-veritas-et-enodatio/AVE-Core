@@ -541,9 +541,9 @@ Each UNEXPLAINED edge is one of these:
   - Its source or target left the index: the edge cannot come back under that id, even if
     a new id keeps the dependency. Add the line below.
   - Restoring it closes a cycle, alone or with the edges printed: if this branch added an
-    edge on that loop, break it and rerun, or add the line below. A `depends` edge into a
-    claim that the base also has goes back in the restore once cut, so cutting it keeps
-    the loop unless it gets a line too.
+    edge on that loop, break it and rerun, or add the line below. A base `depends` edge
+    into a claim goes back in the restore once cut, so cutting one keeps the loop unless
+    it gets a line too.
   - The dependency is really gone: add the line below.
 
 The line starts a line of a new Markdown file under %s, committed on this branch, with a
