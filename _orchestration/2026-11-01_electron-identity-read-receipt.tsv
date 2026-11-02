@@ -43,3 +43,15 @@ manuscript/vol_0_engineering_compendium/chapters/03_computational_graph.tex	cbc6
 manuscript/vol_0_engineering_compendium/chapters/04_dcve.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	116	Y	none	none	none	none	none	none	none	none	unsure	none	none
 manuscript/vol_0_engineering_compendium/chapters/_manifest.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	16	Y	none	none	none	none	none	none	none	none	none	none	none
 manuscript/vol_0_engineering_compendium/main.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	48	Y	none	none	none	none	none	none	none	none	none	none	none
+manuscript/vol_1_foundations/chapters/00_intro.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	64	Y	none	none	none	none	none	none	none	none	none	none	unsure
+manuscript/vol_1_foundations/chapters/01_fundamental_axioms.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	341	Y	none	none	none	none	none	none	none	none	none	none	fence-excluded
+manuscript/vol_1_foundations/chapters/02_macroscopic_moduli.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	280	Y	none	none	none	none	none	none	none	none	none	none	none
+manuscript/vol_1_foundations/chapters/03_quantum_and_signal_dynamics.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	525	Y	unsure	none	none	none	none	none	fence-excluded	fence-excluded	unsure	none	unsure
+manuscript/vol_1_foundations/chapters/04_continuum_electrodynamics.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	592	Y	none	none	none	none	none	none	unsure+fence-excluded	unsure+fence-excluded	unsure	none	unsure
+manuscript/vol_1_foundations/chapters/05_universal_spatial_tension.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	131	Y	unsure	unsure	none	none	none	none	none	none	none	none	none
+manuscript/vol_1_foundations/chapters/06_universal_operators.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	424	Y	none	none	none	fence-excluded	none	unsure+fence-excluded	none	none	none	none	none
+manuscript/vol_1_foundations/chapters/07_regime_map.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	367	Y	none	none	none	none	none	none	fence-excluded	fence-excluded	unsure	none	unsure
+manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	230	Y	none	none	none	none	none	none	none	none	fence-excluded	none	none
+manuscript/vol_1_foundations/chapters/_manifest.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	9	Y	none	none	none	none	none	none	none	none	none	none	none
+manuscript/vol_1_foundations/frontmatter/00_title.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	20	Y	none	none	none	none	none	none	none	none	none	none	none
+manuscript/vol_1_foundations/main.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	76	Y	none	none	none	none	none	none	none	none	none	none	none
