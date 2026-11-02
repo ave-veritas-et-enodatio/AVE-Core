@@ -538,6 +538,37 @@ def test_numberless_pairing_survives_a_longer_hunk():
     assert mod.rewritten_lines(_Stub(base, tip, [(1, 1, 1, 2)]), "B", "T", "src.md") == {2: 1}
 
 
+def test_a_line_moved_whole_pairs_with_itself_before_any_lookalike():
+    mod = _load_module()
+    base, tip = ["see `a.md:1`", "x", "see `a.md:2`"], ["see `a.md:2`", "x", "see `a.md:1`"]
+    pairs = mod.rewritten_lines(_Stub(base, tip, [(1, 1, 1, 1), (3, 1, 3, 1)]), "B", "T", "s.md")
+    assert pairs == {1: 3, 3: 1}
+
+
+def test_a_lone_pair_needs_no_rival_on_the_tip_side_either():
+    """A new row beside a re-pinned one: which replaced the base row is a guess."""
+    mod = _load_module()
+    base, tip = ["see `a.md:5`"], ["see `a.md:7`", "see `a.md:9`"]
+    assert mod.rewritten_lines(_Stub(base, tip, [(1, 1, 1, 2)]), "B", "T", "s.md") == {}
+
+
+def test_rows_alike_but_for_their_digits_keep_their_order_in_a_hunk():
+    """Two near-identical rows, both re-pinned. Numberless pairing refuses them, so the
+    hunk has to give the k-th new row the k-th old one. On #1039 the four re-pins into
+    `mathematical-closure.md` are this shape."""
+    mod = _load_module()
+    base = {"t.md": ["t%d" % i for i in range(1, 9)], "c.md": ["see `t.md:2`", "gap", "see `t.md:4`"]}
+    tip = {"t.md": ["new"] + base["t.md"], "c.md": ["see `t.md:3`", "gap", "see `t.md:5`"]}
+    with mod.two_trees(base, tip) as (repo, b, t):
+        res = mod.scan(repo, b, t)
+    assert [(f.lno, f.held, f.n, f.kind) for f in res["pinned"]] == [
+        (1, 2, 3, "RE-PINNED"), (3, 4, 5, "RE-PINNED")]
+    base["c.md"], tip["c.md"] = ["see `t.md:2`", "see `t.md:4`"], ["see `t.md:3`", "see `t.md:5`"]
+    with mod.two_trees(base, tip) as (repo, b, t):
+        res = mod.scan(repo, b, t)
+    assert [(f.held, f.n, f.kind) for f in res["pinned"]] == [(2, 3, "RE-PINNED"), (4, 5, "RE-PINNED")]
+
+
 def test_leaf_cites_skips_a_name_that_merely_ends_in_the_leaf():
     mod = _load_module()
     cites = mod.leaf_cites("`universal-operators.md:3` then `common/operators.md:4`", "operators.md")

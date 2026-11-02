@@ -124,13 +124,22 @@ missed: the cited line moved and `new` is not where it went, on a line the plain
 test passes because that line kept still, or `new` is past the end of the file.
 
 The number is recovered by pairing the tip line with the base line it replaced:
-first the same line but for its numbers, anywhere in the file (a re-pin can move
-the line too); then what is left of a hunk, line for line, when both sides are the
-same length (the prose changed with the number). The k-th cite of the leaf on the
-tip line takes the k-th on the base line, and the two lines must carry the same
-count, so swapped cites do not read as two repairs. Anything else -- a new line, a
-line that gained a cite, a reflowed line, a citer the branch renamed -- has no
-number to recover and keeps the plain test, which can only report it.
+first a line the branch moved whole, which holds what it held, so rows reversed
+with their numbers intact are nobody's re-pin; then the same line but for its
+numbers, anywhere in the file (a re-pin can move the line too), but only with no
+rival on either side, because two rows alike but for their digits could pair either
+way, and the wrong way passes a wrong re-pin and fails a right one; then what is
+left of a hunk, line for line, when both sides are the same length (the prose
+changed with the number). The k-th cite of the leaf on the tip line takes the k-th
+on the base line, and the two lines must carry the same count, so swapped cites do
+not read as two repairs. Anything else -- a new line, a line that gained a cite, a
+reflowed line, a citer the branch renamed -- has no number to recover and keeps the
+plain test, which can only report it.
+
+A line rewritten in place therefore counts as the re-pin of the line it replaced,
+however unrelated the new prose, as long as both cite the leaf. That is a choice.
+The tool cannot read intent, a similarity threshold would be a number with nothing
+measured behind it, and the mistake lands on the side of a report a person can read.
 
 has-line asks a re-pinned cite for both of its numbers: a candidate has to hold the
 number at the base and the new one at the tip. The old number alone would let a
@@ -446,30 +455,45 @@ def _numberless(line):
     return re.sub(r'\d+', '#', line).strip()
 
 
+def _pair_on(key, b, t, hunks, pairs, lone=False):
+    """Pair the hunk lines not yet paired, anywhere in the file, that agree on `key`.
+    `lone` takes a pair only when neither side has a rival."""
+    gone, came = collections.defaultdict(list), collections.defaultdict(list)
+    taken = set(pairs.values())
+    for a, c, s, d in hunks:
+        for i in range(a, a + c):
+            if i not in taken:
+                gone[key(b[i - 1])].append(i)
+        for j in range(s, s + d):
+            if j not in pairs:
+                came[key(t[j - 1])].append(j)
+    for k, news in came.items():
+        if not lone or len(gone[k]) == len(news) == 1:
+            pairs.update(zip(news, gone[k]))
+
+
 def rewritten_lines(repo, base, tip, src):
     """{tip line: base line it replaced}, for the lines of `src` the branch rewrote."""
     b, t = repo.blob(base, src), repo.blob(tip, src)
     if b is None or t is None:
         return {}
-    pairs, hunks, gone = {}, repo.hunks(base, tip, src), collections.defaultdict(list)
+    pairs, hunks = {}, repo.hunks(base, tip, src)
+    # A line moved whole holds what it held. Identical lines hold the same numbers,
+    # so it cannot matter which of them pairs with which.
+    if 'no-exact-pairing' not in MUTATE:
+        _pair_on(str.strip, b, t, hunks, pairs)
     # The same line but for its numbers, anywhere in the file: a re-pin can also
     # move the line, and git then shows it as two hunks.
     if 'no-numberless-pairing' not in MUTATE:
-        for a, c, _, _ in hunks:
-            for i in range(a, a + c):
-                gone[_numberless(b[i - 1])].append(i)
-        for _, _, s, d in hunks:
-            for j in range(s, s + d):
-                if gone.get(_numberless(t[j - 1])):
-                    pairs[j] = gone[_numberless(t[j - 1])].pop(0)
+        _pair_on(_numberless, b, t, hunks, pairs, lone='no-lone-guard' not in MUTATE)
     # Otherwise what is left of a hunk, line for line, when both sides are the same
     # length: the prose changed along with the number.
     if 'no-hunk-pairing' not in MUTATE:
         taken = set(pairs.values())
         for a, c, s, d in hunks:
-            olds = [i for i in range(a, a + c) if i not in taken]
+            olds = [i for i in range(a, a + c) if i not in taken or 'no-taken' in MUTATE]
             news = [j for j in range(s, s + d) if j not in pairs]
-            if len(olds) == len(news):
+            if len(olds) == len(news) or 'no-same-length' in MUTATE:
                 pairs.update(zip(news, olds))
     return pairs
 
@@ -978,9 +1002,16 @@ def _cite(key, *numbers, leaf=PATHED):
     return key + ': ' + ' and '.join('`%s:%d`' % (leaf, n) for n in numbers)
 
 
+def _rows(key, *rows, leaf=PATHED):
+    """Table rows alike but for their digits: a row id and the number it cites."""
+    return tuple('%s: row %d `%s:%d`' % (key, i, leaf, n) for i, n in rows)
+
+
 def _edge(key, *numbers):
     return _cite(key, *numbers, leaf=EDGED)
 
+
+BETWEEN = ('swap: anchor', 'swap: anchor too')          # two lines, so git keeps these and not a row
 
 #: key -> (citing line at base, citing line at tip, what it must read as
 #: [(number held at base, number at tip, kind, address reported)], what that proves).
@@ -1028,6 +1059,25 @@ REPINS = collections.OrderedDict([
     ('bare-narrowed', (_cite('bare-narrowed', 5, leaf='target.md'), _cite('bare-narrowed', 12, leaf='target.md'),
                        [(5, 12, 'SHIFTED', 8)],
                        'a wrong bare re-pin only one file can hold at tip stays pinned to it, and gates')),
+    ('deleted-sibling', ((_cite('deleted-sibling', 9), _cite('deleted-sibling', 11)), _cite('deleted-sibling', 12),
+                         [(12, 12, 'SHIFTED', 22)],
+                         'two rows alike, one gone and one re-pinned: nothing says which, so no number is read')),
+    ('row-id', (_rows('row-id', (1, 9), (2, 11)), _rows('row-id', (2, 12)), [(12, 12, 'SHIFTED', 22)],
+                'and a row that never held :9 does not pass on the strength of a sibling that did')),
+    ('reversal', (_rows('reversal', (1, 9), (2, 11), (3, 14)), _rows('reversal', (3, 14), (2, 11), (1, 9)),
+                  [(9, 9, 'SHIFTED', 12), (11, 11, 'SHIFTED', 14), (14, 14, 'SHIFTED', 24)],
+                  'rows reversed with their numbers intact are nobody\'s re-pin')),
+    ('swap', (_rows('swap', (1, 1), leaf=EDGED) + BETWEEN + _rows('swap', (2, 3), leaf=EDGED),
+              _rows('swap', (2, 3), leaf=EDGED) + BETWEEN + _rows('swap', (1, 1), leaf=EDGED),
+              [(1, 1, 'SHIFTED', 3), (3, 3, 'SHIFTED', 1)],
+              'a target swap under two rows swapped whole does not read as two repairs')),
+    ('rewrite', ('rewrite: an old sentence, `%s:9`' % PATHED, 'rewrite: nothing to do with it, `%s:2`' % PATHED,
+                 [(9, 2, 'SHIFTED', 12)],
+                 'a line rewritten in place is the re-pin of the line it replaced, whatever its prose')),
+    ('longer', ('longer: was worded `%s:9`' % PATHED, ('longer: now worded `%s:12`' % PATHED, 'longer: and a new line'),
+                [(12, 12, 'SHIFTED', 22)], 'a hunk that grew pairs nothing: which line replaced which is a guess')),
+    ('taken', ('taken: see `%s:9`' % PATHED, ('taken: a new line, `%s:1`' % PATHED, 'taken: see `%s:12`' % PATHED),
+               [(9, 12, 'RE-PINNED', 12)], 'a base line already paired is not paired twice')),
     ('added-cite', (_cite('added-cite', 9), _cite('added-cite', 12, 14),
                     [(12, 12, 'SHIFTED', 22), (14, 14, 'SHIFTED', 24)],
                     'a line that gained a cite pairs nothing: each cite keeps the plain test')),
@@ -1066,12 +1116,16 @@ REPINS = collections.OrderedDict([
 ])
 
 
+def _lines(row):
+    return [row] if isinstance(row, str) else list(row or ())
+
+
 def _repin_trees(keys):
     base, tip, last = [], [], []
     for i, key in enumerate(keys):
         was, now = REPINS[key][:2]
-        base += ([was] if was else []) + ['gap %d' % i]
-        (last if key == 'moved' else tip).append(now)
+        base += _lines(was) + ['gap %d' % i]
+        (last if key == 'moved' else tip).extend(_lines(now))
         tip.append('gap %d' % i)
     short = {SHORT: _numbered('short', 8)}
     return (dict(short, **{TARGET: TARGET_BASE, EDGES: EDGES_BASE, REPINNED: base}),
@@ -1208,11 +1262,11 @@ def mutation_receipt():
     results.append(('M5 ...and the gate must report itself dead rather than pass', dead))
 
     def repin(mut, key, keys=None, repo_cls=Repo):
-        MUTATE.add(mut)
+        MUTATE.update(mut.split('+'))
         try:
             return repin_scan(keys, repo_cls)[0].get(key, [])
         finally:
-            MUTATE.discard(mut)
+            MUTATE.difference_update(mut.split('+'))
 
     def repin_exit(mut, keys):
         MUTATE.add(mut)
@@ -1272,6 +1326,17 @@ def mutation_receipt():
                     and kinds(repin('no-tie-sides', 'tie-far')) == {'SHIFTED'}))
     results.append(('M24 drop the tie rule: a cite left on a tied line must be handed its first side as an '
                     'address', addresses(repin('no-tie', 'tie-frozen')) == {6}))
+    results.append(('M25 let rivals pair in file order: a row must pass on the strength of its sibling',
+                    kinds(repin('no-lone-guard', 'deleted-sibling')) == {'RE-PINNED'}
+                    and kinds(repin('no-lone-guard', 'row-id')) == {'RE-PINNED'}))
+    results.append(('M26 drop exact pairing: rows swapped whole over a target swap must read as two repairs',
+                    kinds(repin('no-exact-pairing', 'swap')) == {'RE-PINNED'}))
+    results.append(('M27 drop both: reversed rows with their numbers intact must change verdict',
+                    repin('no-lone-guard+no-exact-pairing', 'reversal') != REPINS['reversal'][2]))
+    results.append(('M28 drop the same-length guard: a hunk that grew must pair its first line',
+                    kinds(repin('no-same-length', 'longer')) == {'RE-PINNED'}))
+    results.append(('M29 pair a base line twice: the new line beside a re-pin must take its number',
+                    len(repin('no-taken', 'taken')) == 2))
 
     allgood = True
     for label, tripped in results:
