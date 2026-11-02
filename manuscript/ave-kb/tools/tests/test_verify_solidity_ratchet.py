@@ -785,8 +785,10 @@ def test_report_says_what_is_joint_what_left_and_what_is_not_gated(fixture_repo,
     ratchet.report(res, "b" * 8, "t" * 8)
     out = capsys.readouterr().out
     assert "restoring it with %s -> %s closes a cycle, so they cannot go back together" % (ratchet.Z, ratchet.M) in out
-    assert "if this branch added an\n    edge on that loop, break it and rerun" in out
-    assert "A base `depends` edge\n    into a claim goes back in the restore once cut" in out
+    assert ("  - Restoring it closes a cycle, alone or with the edges printed: if this branch added an\n"
+            "    edge on that loop, break it and rerun, or add the line below. A base `depends` edge\n"
+            "    into a claim goes back in the restore once cut, so cutting one keeps the loop unless\n"
+            "    it gets a line too.\n") in out
     assert "dropped: the bullet" in out
 
     res = _case(fixture_repo, "remint-no-citers")
