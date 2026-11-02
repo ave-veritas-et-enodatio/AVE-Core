@@ -1153,11 +1153,11 @@ kernel at non-atomic scale.
 $B_c(T) = B_{c0}\sqrt{1-(T/T_c)^2}$ at 0.00\% error is the tightest
 single-instance validation; BH merger ring-down at 1.7\% from GR exact
 is the most direct cross-scale experimental validation.
-- KB TRUTH: manuscript/ave-kb/vol3/claim-quality.md:198 grades the 1.7% as "a category (iv) derived prediction" against "GR exact" — a theory-vs-theory comparison, and the printed clause says "from GR exact" in the same breath as "experimental validation". The experimental leg (LIGO) is retracted at :202. Compare backmatter/12_mathematical_closure.tex:217, which books the same row honestly as "GR exact ($\ome
+- KB TRUTH: manuscript/ave-kb/vol3/claim-quality.md:198 grades the 1.7% as "a category (iv) derived prediction" against "GR exact" — a theory-vs-theory comparison, and the printed clause says "from GR exact" in the same breath as "experimental validation". The experimental leg (LIGO) is retracted at :202. Compare backmatter/12_mathematical_closure.tex:170, which books the same row honestly as "GR exact ($\ome
 
-#### [MEDIUM] [scope-lag] [mechanical] manuscript/backmatter/12_mathematical_closure.tex:133
+#### [MEDIUM] [scope-lag] [mechanical] manuscript/backmatter/12_mathematical_closure.tex:112
 - PRINTED: \item $\nu_{vac} = 2/7 \leftarrow \{A1$ LC mechanism, $K{=}2G$ at $\alpha\}$;\quad $\sin^2\theta_W = 2/9 \leftarrow \{\nu_{vac}\}$.
-- KB TRUTH: Same as the appendix_vacuum row: the DAG forward-edge books ν_vac=2/7 as derived from A1 + K=2G with no import tag, and the companion prose at :93 says "This trace-reversed geometric boundary **forces** the macroscopic vacuum Poisson's ratio to $\nu_{vac} = 2/7$." manuscript/ave-kb/vol1/claim-quality.md:665 — "the substrate does not supply K=2G at either the Cauchy grade (PR #506) or the micropola
+- KB TRUTH: Same as the appendix_vacuum row: the DAG forward-edge books ν_vac=2/7 as derived from A1 + K=2G with no import tag, and the companion prose at :89 says "This trace-reversed geometric boundary **forces** the macroscopic vacuum Poisson's ratio to $\nu_{vac} = 2/7$." manuscript/ave-kb/vol1/claim-quality.md:665 — "the substrate does not supply K=2G at either the Cauchy grade (PR #506) or the micropola
 
 #### [MEDIUM] [stale-value] [mechanical] manuscript/backmatter/12_mathematical_closure.tex:158
 - PRINTED: The same kernel --- identical functional form, no per-scale parameter retuning --- has been empirically matched at \textbf{four widely-separated scales}:
