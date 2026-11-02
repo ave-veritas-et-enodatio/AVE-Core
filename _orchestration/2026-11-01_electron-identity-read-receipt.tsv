@@ -1,3 +1,14 @@
 path	base_sha	wc_l	read_complete	F-C1	F-C2	F-C3	F-C4	F-C5	F-C6	F-C7	F-C8	F-C9	F-C10	F-C11
 manuscript/ave-kb/tools/tests/fixtures/AVE-Sib/manuscript/doc.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	1	Y	none	none	none	none	none	none	none	none	none	none	none
 manuscript/ave-kb/tools/tests/fixtures/texcheck/manuscript/chapters/sample.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	13	Y	none	none	none	none	none	none	none	none	none	none	none
+manuscript/backmatter/01_appendices.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	328	Y	none	none	none	none	none	none	fence-excluded	fence-excluded	unsure	none	none
+manuscript/backmatter/01_appendices_lean.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	59	Y	none	none	none	none	none	none	none	none	none	none	none
+manuscript/backmatter/02_full_derivation_chain.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	1391	Y	none	none	none	none	none	none	none	none	fence-excluded	none	fence-excluded
+manuscript/backmatter/03_geometric_inevitability.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	567	Y	none	none	none	none	none	none	none	none	fence-excluded	none	fence-excluded
+manuscript/backmatter/04_physics_engine_architecture.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	400	Y	none	none	none	none	none	none	none	none	none	none	fence-excluded
+manuscript/backmatter/05_universal_solver_toolchain.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	712	Y	none	none	none	none	none	none	fence-excluded	fence-excluded	none	none	none
+manuscript/backmatter/06_spice_verification_manual.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	418	Y	none	none	none	fence-excluded	none	fence-excluded	none	none	none	none	unsure
+manuscript/backmatter/07_universal_saturation_kernel.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	369	Y	none	none	none	none	none	none	none	none	unsure+fence-excluded	none	unsure+fence-excluded
+manuscript/backmatter/12_mathematical_closure.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	261	Y	none	none	none	none	none	none	none	none	none	none	none
+manuscript/backmatter/appendix_c_derived_numerology.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	128	Y	none	none	none	fence-excluded	unsure	none	none	none	none	none	unsure
+manuscript/backmatter/appendix_vacuum_engineering.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	192	Y	none	none	none	none	none	none	none	none	none	none	none

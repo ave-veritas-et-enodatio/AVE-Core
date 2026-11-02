@@ -107,7 +107,7 @@ Seeded from `_orchestration/2026-08-14_electron-identity-kill-list-ledger.md` §
 | **Fence** | Banner the **lock clause only**. Poincaré Thread B on the same KB page is held out — do not treat LaTeX Poincaré-stress history as this corpse. |
 | **Status** | PENDING-READ |
 
-**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 1 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 0 · unsure — not picked 0.
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 2 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 0 · unsure — not picked 0.
 
 ### F-C2 — K1 lock as live-threat candidate
 
@@ -118,7 +118,7 @@ Seeded from `_orchestration/2026-08-14_electron-identity-kill-list-ledger.md` §
 | **Fence** | Same clause-not-page rule. LaTeX that names Poincaré cohesive stress as the *named hole* is not this corpse. |
 | **Status** | PENDING-READ |
 
-**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 1 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 0 · unsure — not picked 0.
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 2 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 0 · unsure — not picked 0.
 
 ### F-C3 — K5+K1 LOOP GAP doctrine as current routing aid
 
@@ -129,7 +129,7 @@ Seeded from `_orchestration/2026-08-14_electron-identity-kill-list-ledger.md` §
 | **Fence** | Ranks as *historical traveler* may remain. This follow-up hunts ranks / v11+ / remanence offered as **current manufacture path**. |
 | **Status** | PENDING-READ |
 
-**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 1 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 0 · unsure — not picked 0.
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 2 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 0 · unsure — not picked 0.
 
 ### F-C4 — K1+K5 remanence as open route to mass
 
@@ -140,7 +140,10 @@ Seeded from `_orchestration/2026-08-14_electron-identity-kill-list-ledger.md` §
 | **Fence** | Anhysteretic-kernel *fact* (Level-1 has no loop area) is not the corpse. The corpse is remanence as the **live path that holds the electron**. |
 | **Status** | PENDING-READ |
 
-**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 1 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 0 · unsure — not picked 0.
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 2 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 6 · unsure — not picked 0.
+
+- **fence-excluded** · `manuscript/backmatter/06_spice_verification_manual.tex:148` (also :81, :145, :182, :398) · `elastically---the hysteresis loop has zero enclosed area.` · Fence: the anhysteretic fact is not the corpse. Zero enclosed loop area at SPICE frequencies; the memristor is described with no claim that remanence holds the electron.
+- **fence-excluded** · `manuscript/backmatter/appendix_c_derived_numerology.tex:36` · `Converting the localized Kinetic Yield Point into continuous structural strain dictates exactly how Non-Volatile Soliton Kinks (Chapter 8) are permanently packed.` · Permanent hold of a soliton reads like persistence at zero drive, but the hold is geometric packing in a Vol 4 logic element; neither remanence nor the electron is named.
 
 ### F-C5 — K1+K3+K5 manufacture = energize-lock + remanence
 
@@ -151,7 +154,9 @@ Seeded from `_orchestration/2026-08-14_electron-identity-kill-list-ledger.md` §
 | **Fence** | Vol 9 datasheet circuit models that describe *walls / M,Q,J* without selling genesis-cook are not this corpse. |
 | **Status** | PENDING-READ |
 
-**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 1 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 0 · unsure — not picked 0.
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 2 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 0 · unsure — not picked 1.
+
+- **unsure — not picked** · `manuscript/backmatter/appendix_c_derived_numerology.tex:41` · `When the geometry is driven to hold $\phi > \pi/3$, the internal node connections cross the Axiom 4 limit, physically generating the stable topological knot.` · Driving the lattice past the Axiom-4 limit to generate a stable knot resembles energize-then-lock genesis, but the section's object is a Vol 4 Chapter 8 logic kink; electron unnamed. Row text does not settle it. *[lens unsure 2, fence-excluded 1]*
 
 ### F-C6 — K1 remanence as OPEN R10 capability gap
 
@@ -162,7 +167,9 @@ Seeded from `_orchestration/2026-08-14_electron-identity-kill-list-ledger.md` §
 | **Fence** | Do not banner "kernel is anhysteretic" as killed physics. Banner remanence-as-current-hold. |
 | **Status** | PENDING-READ |
 
-**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 1 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 0 · unsure — not picked 0.
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 2 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 5 · unsure — not picked 0.
+
+- **fence-excluded** · `manuscript/backmatter/06_spice_verification_manual.tex:148` (also :81, :145, :182, :398) · `elastically---the hysteresis loop has zero enclosed area.` · Fence: do not banner anhysteretic behaviour. 'Documented but not implemented' names an unbuilt SPICE term, not remanence as the open retention mechanism for the electron.
 
 ### F-C7 — K2+K3 precursor → self-trap build order
 
@@ -173,7 +180,10 @@ Seeded from `_orchestration/2026-08-14_electron-identity-kill-list-ledger.md` §
 | **Fence** | Boundary \(\Gamma=-1\) self-trap (surviving localizer) is **not** this corpse. Hunt **bulk** self-trap / free-precursor seed offered as current. |
 | **Status** | PENDING-READ |
 
-**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 1 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 0 · unsure — not picked 0.
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 2 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 2 · unsure — not picked 0.
+
+- **fence-excluded** · `manuscript/backmatter/01_appendices.tex:80` · `$\Gamma \to -1$\gammaundeclared{} --- the short-circuit / TIR wall that \emph{confines} the electron, not a match.)}` · Boundary Gamma -> -1 TIR wall from dielectric saturation that confines the electron. F-C7 Fence: boundary Gamma=-1 self-trap is the surviving localizer, not bulk self-trap or free-precursor seed.
+- **fence-excluded** · `manuscript/backmatter/05_universal_solver_toolchain.tex:599` · `The electron is an impedance mismatch ($\Gamma=-1$\gammaundeclared{}) that traps a longitudinal wave, bouncing at $E=V(r)$.` · Trap is stated as a Gamma=-1 impedance mismatch, the boundary self-trap the Fence keeps as surviving localizer. No precursor seed or staged build order appears.
 
 ### F-C8 — K1+K2 capability-matrix YAML
 
@@ -184,7 +194,10 @@ Seeded from `_orchestration/2026-08-14_electron-identity-kill-list-ledger.md` §
 | **Fence** | Same homonym as F-C7. LaTeX that copies this YAML prose as current capability is in scope. |
 | **Status** | PENDING-READ |
 
-**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 1 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 0 · unsure — not picked 0.
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 2 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 2 · unsure — not picked 0.
+
+- **fence-excluded** · `manuscript/backmatter/01_appendices.tex:80` · `$\Gamma \to -1$\gammaundeclared{} --- the short-circuit / TIR wall that \emph{confines} the electron, not a match.)}` · F-C8 Fence names the same homonym. This is the boundary Gamma -> -1 wall; the site does not copy the YAML prose and says nothing of a LONGITUDINAL-bulk wall or remanence.
+- **fence-excluded** · `manuscript/backmatter/05_universal_solver_toolchain.tex:599` · `The electron is an impedance mismatch ($\Gamma=-1$\gammaundeclared{}) that traps a longitudinal wave, bouncing at $E=V(r)$.` · The F-C7 homonym fence covers Gamma=-1, but the row also prints 'Acoustic Bulk Modulus Cavity' and a trapped longitudinal wave, echoing the YAML's longitudinal-bulk wall. Row text does not settle which reading holds.
 
 ### F-C9 — K3 (2,3) self-assembly as remaining gate
 
@@ -195,7 +208,13 @@ Seeded from `_orchestration/2026-08-14_electron-identity-kill-list-ledger.md` §
 | **Fence** | Cosmic node-injection is held out. Static Link / tank (2,3) **stands**. Hunt self-assembly as a **live manufacture path**, not the winding as charge. |
 | **Status** | PENDING-READ |
 
-**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 1 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 0 · unsure — not picked 0.
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 2 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 8 · unsure — not picked 2.
+
+- **unsure — not picked** · `manuscript/backmatter/01_appendices.tex:311` · `In a fully emergent physical engine, mass states must generate dynamically from raw local topological configurations; relying upon static hard-coding prevents fluid lattice topology interactions.` · Engine spec says mass states must generate dynamically instead of being spawned; lines 313-319 then read mass off a knot. Row text does not settle whether this is self-assembly as a live path. Not picked. *[lens unsure 2, fence-excluded 1]*
+- **unsure — not picked** · `manuscript/backmatter/07_universal_saturation_kernel.tex:56` · `K4 lattice + soliton formation` · Soliton formation printed as a kernel event could read as particle self-assembly, but no (2,3) or manufacture path is named. Row text does not settle it. *[lens unsure 2, fence-excluded 1]*
+- **fence-excluded** · `manuscript/backmatter/02_full_derivation_chain.tex:827` (also :767) · `latent heat of node generation conceptually balances the holographic thermal` · Latent heat of cosmic node generation in the G/H_infinity argument; no electron or winding is formed. F-C9 Fence: cosmic node-injection is held out.
+- **fence-excluded** · `manuscript/backmatter/03_geometric_inevitability.tex:554` (also :563) · `\textbf{Cosmic} K4 crystallization (TKI strain-snap mechanism` · Same cosmic lattice crystallization; the row's Fence holds out the cosmic item. No (2,3) winding or particle self-assembly is offered here.
+- **fence-excluded** · `manuscript/backmatter/07_universal_saturation_kernel.tex:87` (also :216, :226, :230) · `K4 crystallization seed event` · Same cosmic lattice seed event; the row's Fence holds out the cosmic item. No (2,3) self-assembly is offered.
 
 ### F-C10 — K5 common index still advertises the doctrine
 
@@ -206,7 +225,7 @@ Seeded from `_orchestration/2026-08-14_electron-identity-kill-list-ledger.md` §
 | **Fence** | A LaTeX TOC entry that merely *names* the LOOP GAP leaf is not live-wrong unless it offers ranks as current work. |
 | **Status** | PENDING-READ |
 
-**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 1 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 0 · unsure — not picked 0.
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 2 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 0 · unsure — not picked 0.
 
 ### F-C11 — K3 formation-route still "remains open" on the axiom leaf
 
@@ -217,7 +236,17 @@ Seeded from `_orchestration/2026-08-14_electron-identity-kill-list-ledger.md` §
 | **Fence** | Cosmic node-injection is held out. Charge = winding dictionary and the engine-derived interaction leg are **not** this row. |
 | **Status** | PENDING-READ |
 
-**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 1 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 0 · unsure — not picked 0.
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 2 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 9 · unsure — not picked 5.
+
+- **unsure — not picked** · `manuscript/backmatter/06_spice_verification_manual.tex:112` · `A1 mass core has completed)` · Exceeding V_snap is said to complete an A1 mass core, a drive-to-threshold formation reading in a numerical-guard note. No free precursor named; row text does not settle whether this is the corpse. *[lens unsure 2, fence-excluded 1]*
+- **unsure — not picked** · `manuscript/backmatter/07_universal_saturation_kernel.tex:54` · `Dielectric breakdown $\to$ pair creation` · Saturation leading to pair creation is a formation event printed as canonical, not framed as open. No free precursor is named and K3's pair-production item is flagged, so the row does not settle it. *[lens unsure 2, fence-excluded 1]*
+- **unsure — not picked** · `manuscript/backmatter/07_universal_saturation_kernel.tex:56` · `K4 lattice + soliton formation` · Catalog lists soliton formation as a saturation event at substrate scale, offered as canonical. No free precursor or 'remains open' wording; row text does not settle whether this is the formation-route corpse. *[lens unsure 2, fence-excluded 1]*
+- **unsure — not picked** · `manuscript/backmatter/07_universal_saturation_kernel.tex:168` · `creation as the topological reorganization.` · Body note to the same catalog row: breakdown triggers pair creation as the reorganization, stated as standing. Formation event without a named free precursor; row text does not settle it. *[lens unsure 2, fence-excluded 1]*
+- **unsure — not picked** · `manuscript/backmatter/appendix_c_derived_numerology.tex:41` · `When the geometry is driven to hold $\phi > \pi/3$, the internal node connections cross the Axiom 4 limit, physically generating the stable topological knot.` · Present-tense formation of a stable knot, not framed as open. No free precursor and no electron named; cosmic-injection fence does not apply. Row text does not settle whether this is the corpse. *[lens unsure 2, fence-excluded 1]*
+- **fence-excluded** · `manuscript/backmatter/02_full_derivation_chain.tex:827` (also :767) · `latent heat of node generation conceptually balances the holographic thermal` · Cosmic node generation in the G/H_infinity argument, not a winding from a free precursor. F-C11 Fence: cosmic node-injection is held out.
+- **fence-excluded** · `manuscript/backmatter/03_geometric_inevitability.tex:554` (also :563) · `\textbf{Cosmic} K4 crystallization (TKI strain-snap mechanism` · Cosmological lattice genesis, not electron minting. The row's Fence holds out cosmic node-injection and the tracker scope line holds out cosmological lattice-genesis.
+- **fence-excluded** · `manuscript/backmatter/04_physics_engine_architecture.tex:164` · `utils/ 4 mods: winding extractor, genesis runner, genus, v8 instr.` · Printed inventory names a genesis runner as present tooling; 04:85 scopes the tree as inventory, not physics. Naming a tool may or may not offer genesis as current; row text does not settle it.
+- **fence-excluded** · `manuscript/backmatter/07_universal_saturation_kernel.tex:87` (also :216, :226, :230) · `K4 crystallization seed event` · Cosmic K4 crystallization seed is lattice genesis with no electron minted; the row's Fence holds out the cosmic item and the tracker scope line names cosmological lattice-genesis as the held-out K3 amend.
 
 ---
 
