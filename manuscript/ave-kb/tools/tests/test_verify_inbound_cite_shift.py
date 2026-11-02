@@ -308,6 +308,29 @@ def test_report_confirms_a_repin_and_names_both_numbers():
     assert ":12   [RE-PINNED] -- re-pinned from :9, confirmed" in out
     assert ":13   [SHIFTED] -- re-pinned from :9; base content is now at :12" in out
     assert ":5   [UNCONFIRMED-RE-PIN] -- re-pinned from :10; the base content is gone" in out
+    assert "RETARGETED=0 (advisory)" in out
+
+
+def test_retarget_is_advisory_and_a_miss_onto_a_still_line_is_not():
+    """#915 moved nothing in `trampoline-framework.md` and corrected `:188` to `:192`,
+    a cite wrong at the base: comparing the two lines alone called that rot. But a
+    re-pin whose content DID move must fail even when it lands on a still line, where
+    the plain test passes it."""
+    mod = _load_module()
+    assert mod.repin_scan(["retargeted"]) == ({"retargeted": [(1, 3, "RETARGETED", 0)]}, 0)
+    assert mod.repin_scan(["missed-onto-still"]) == (
+        {"missed-onto-still": [(9, 2, "SHIFTED", 12)]}, 1)
+
+
+def test_a_repin_from_a_blank_line_has_no_content_to_have_moved():
+    """A blank base line reads as `seen` nowhere, so it can only be retargeted."""
+    mod = _load_module()
+    base, tip = ["a", "", "c"], ["x", "a", "", "c"]
+    repo = _Stub(base, tip, [(1, 0, 1, 1)])
+    assert mod.verdict(repo, "B", "T", "t.md", base, tip, 2, 1) == ("UNCONFIRMED-RE-PIN", 0)   # :1 moved
+    still = ["a", "", "c", "d"]
+    repo = _Stub(still, still, [])
+    assert mod.verdict(repo, "B", "T", "t.md", still, still, 2, 3) == ("RETARGETED", 0)
 
 
 def test_report_does_not_invent_an_address():

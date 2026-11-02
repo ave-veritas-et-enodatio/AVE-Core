@@ -105,8 +105,23 @@ recovered and the test is base[old] against tip[new]:
                       `new` is a look-alike.
   EDITED-IN-PLACE     the base content is gone and `new` falls in the hunk that
                       replaced it: the repair of a row that was also rewritten.
-  UNCONFIRMED-RE-PIN  the base content is gone and `new` is not its replacement.
-                      Nothing can confirm this, so it fails the run.
+  RETARGETED          nothing moved under either number: base[new] == tip[new] (or
+                      `new` is past the base end) and the cited line went nowhere
+                      new. No repair, so nothing to confirm: advisory, listed under
+                      -v, and never rot.
+  UNCONFIRMED-RE-PIN  the base content is gone and `new` is neither its replacement
+                      nor a line that kept still. Nothing can confirm this, so it
+                      fails the run.
+
+RETARGETED is the one departure from comparing the two lines, and it is measured.
+On the 150 merges into main up to cbc668e7, base[old] != tip[new] alone raised 19
+reports the plain test never made, every one on #915 and every one correct: its
+hunks in `trampoline-framework.md` are 1->1 at :97, :220 and :713, so `:188` -> `:192`
+moved nothing and corrected a cite already wrong at the base (the mass gap was
+always at :192), and `:73` -> `:169` re-anchored a cite on text the same branch
+added. So a re-pin adds a report to the plain test's only where it demonstrably
+missed: the cited line moved and `new` is not where it went, on a line the plain
+test passes because that line kept still, or `new` is past the end of the file.
 
 The number is recovered by pairing the tip line with the base line it replaced:
 first the same line but for its numbers, anywhere in the file (a re-pin can move
@@ -535,6 +550,11 @@ def verdict(repo, base, tip, target, b, t, held, n):
     if not seen and 'no-landing' not in MUTATE and any(
             a <= held < a + c and s <= n < s + d for a, c, s, d in hunks):
         return 'EDITED-IN-PLACE', 0                        # onto the row that replaced it
+    # Nothing moved under either number, so this is no repair and there is nothing
+    # to confirm: the plain test has no complaint, and the cited line went nowhere.
+    if (not 0 < n <= len(b) or b[n - 1].strip() == tl) and moved_to in (0, held) \
+            and 'no-retarget' not in MUTATE:
+        return 'RETARGETED', 0
     if seen:
         return 'SHIFTED', moved_to
     return ('EDITED-IN-PLACE' if 'no-unconfirmed' in MUTATE else 'UNCONFIRMED-RE-PIN'), 0
@@ -660,6 +680,8 @@ def _arrow(f):
         return pin + ', confirmed: that line at base held this content'
     if f.kind == 'UNCONFIRMED-RE-PIN':
         return pin + '; the base content is gone and this is not the line that replaced it'
+    if f.kind == 'RETARGETED':
+        return pin + '; no repair: nothing moved under this number, so the aim was changed on purpose'
     if f.kind == 'SHIFTED' and not f.moved_to:
         note = 'the diff took this line out; its text survives only at other lines'
     elif f.moved_to:
@@ -677,15 +699,16 @@ def report(res, verbose=False):
     shifted = [f for f in res['pinned'] if f.kind in ROT]
     edited  = [f for f in res['pinned'] if f.kind == 'EDITED-IN-PLACE']
     repins  = [f for f in res['pinned'] if f.kind == 'RE-PINNED']
+    aimed   = [f for f in res['pinned'] if f.kind == 'RETARGETED']
     amb     = res['ambiguous']
     amb_rot = [f for f in amb if f.kind in ROT]
     print(f'[inbound-cites] {base[:8]}..{tip[:8]}  changed-files={len(changed)}'
           f'  cites-found={res["found"]}  addressed-elsewhere={res["elsewhere"]}'
           f'  SHIFTED={len(shifted)} (real rot)  EDITED-IN-PLACE={len(edited)} (advisory)'
-          f'  RE-PINNED={len(repins)} (confirmed repairs)'
+          f'  RE-PINNED={len(repins)} (confirmed repairs)  RETARGETED={len(aimed)} (advisory)'
           f'  AMBIGUOUS-BASENAME={len(amb)} (advisory; {len(amb_rot)} would read SHIFTED)')
 
-    listed = shifted + (edited + repins if verbose else [])
+    listed = shifted + (edited + repins + aimed if verbose else [])
     if res['found'] == 0:
         # An honest zero: liveness was PROVEN before the scan (see liveness()), so
         # "no cite names a changed file" is a finding, not a symptom.
@@ -950,6 +973,14 @@ REPINS = collections.OrderedDict([
                            'a re-pin that misses onto a line that kept still fails: its content moved')),
     ('past-tip-end', (_cite('past-tip-end', 9), _cite('past-tip-end', 99), [(9, 99, 'OUT-OF-RANGE', 0)],
                       'a re-pin past the end of the tip file fails, though the plain test skips it')),
+    ('retargeted', (_cite('retargeted', 1), _cite('retargeted', 3), [(1, 3, 'RETARGETED', 0)],
+                    'a number changed with nothing moved under either is no repair: advisory')),
+    ('retargeted-gone', (_cite('retargeted-gone', 10), _cite('retargeted-gone', 1),
+                         [(10, 1, 'RETARGETED', 0)],
+                         'and so is one away from gone content, onto a line that kept still')),
+    ('retargeted-new', (_cite('retargeted-new', 10), _cite('retargeted-new', 24),
+                        [(10, 24, 'RETARGETED', 0)],
+                        'and so is one onto a line past the base end, which has no plain test')),
     ('dead-at-base', (_cite('dead-at-base', 99), _cite('dead-at-base', 12), [(12, 12, 'SHIFTED', 22)],
                       'a re-pin from a number dead at base keeps the plain test, not silence')),
     ('dead-bare', (_cite('dead-bare', 99, leaf='target.md'), _cite('dead-bare', 12, leaf='target.md'),
@@ -1152,6 +1183,9 @@ def mutation_receipt():
                     addresses(repin('no-confirm', 'frozen', ['frozen'], DiffThatLies)) == {9}))
     results.append(('M19 drop the fallback for a number dead at base: both such re-pins must vanish',
                     not repin('no-dead-fallback', 'dead-at-base') and not repin('no-dead-fallback', 'dead-bare')))
+    results.append(('M20 drop the retarget rule: a deliberate correction must read as rot -- the false '
+                    'positives measured on #915', kinds(repin('no-retarget', 'retargeted')) == {'SHIFTED'}
+                    and kinds(repin('no-retarget', 'retargeted-gone')) == {'UNCONFIRMED-RE-PIN'}))
 
     allgood = True
     for label, tripped in results:
