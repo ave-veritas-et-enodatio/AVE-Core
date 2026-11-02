@@ -891,8 +891,8 @@ There are no fake Euclidean axes. The network operates strictly through 4-port $
 - KB TRUTH: ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md:148 'eigenvalue ($18/49$, $-1.7\%$) is the only surviving zero-free-parameter result' and :113 'at $a_* = 0$ (Schwarzschild) ... recovering the cold eigenvalue $18/49$' — post-Grant-Ruling-B1 the value SURVIVES but is spin-scoped to the cold a*=0 anchor. Vol 5 prints it as an unqualified cross-scale validation anchor.
 - VERIFY NOTE: Disposition. This site does NOT depend on the mid-churn cold-Q derivation, so the gate does not apply. I read the full Ruling B1 block at manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md:60-97 (MERGED, dated 2026-07-21, Grant verbatim '[sic]: "ruling 1 proceed with your rec, ruling 2 walk back now"'). It states at
 
-#### [LOW] [scope-lag] [ruling-needed] manuscript/vol_5_biology/chapters/06_biophysics_pharmacology.tex:477
-- PRINTED: \item Cancer is modelled as impedance decoupling: mutations shift $Z_{\text{cell}}$ ...   [and :478 'Red light therapy is impedance-matched photon absorption at the cytochrome~$c$ oxidase resonance'; :479 'Methylene blue functions as a molecular impedance bridge']
+#### [LOW] [scope-lag] [ruling-needed] manuscript/vol_5_biology/chapters/06_biophysics_pharmacology.tex:479
+- PRINTED: \item Cancer is modelled as impedance decoupling: mutations shift $Z_{\text{cell}}$ ...   [and :480 'Red light therapy is impedance-matched photon absorption at the cytochrome~$c$ oxidase resonance'; :481 'Methylene blue functions as a molecular impedance bridge']
 - KB TRUTH: ave-kb/vol5/claim-quality.md:273 (clm-8zwyl3, solidity 0.10, lowest band) — the Ch. 6 leaves are 'explicitly classified as hypotheses with predictions, not as derived results. The chapter index states: "No resultboxes; all content is hypothesis and prediction."' and :280 'None of these sections constitute derived numerical predictions.' The printed chapter carries no status declaration, and 3 of i
 
 ### vol6 — 19 findings
