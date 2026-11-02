@@ -22,3 +22,13 @@ manuscript/common/translation_particle_physics.tex	cbc668e7219ec8a8b13407da7a7a3
 manuscript/common/translation_protein.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	38	Y	none	none	none	none	none	none	none	none	none	none	none
 manuscript/common/translation_protein_solver.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	38	Y	none	none	none	none	none	none	none	none	none	none	none
 manuscript/common/translation_qm.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	30	Y	none	none	none	none	none	none	none	none	none	none	none
+manuscript/common_equations/eq_axiom_1.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	50	Y	none	none	none	none	none	none	none	none	none	none	none
+manuscript/common_equations/eq_axiom_2.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	37	Y	none	none	none	none	none	none	live-wrong	none	unsure	none	live-wrong+fence-excluded
+manuscript/common_equations/eq_axiom_3.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	111	Y	none	none	none	none	none	none	none	none	none	none	none
+manuscript/common_equations/eq_axiom_4.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	126	Y	none	none	none	none	none	none	unsure+fence-excluded	unsure+fence-excluded	none	none	none
+manuscript/common_equations/eq_axiom_5.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	198	Y	none	none	none	fence-excluded	none	unsure	none	none	none	none	unsure
+manuscript/common_equations/eq_calibration_constants.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	76	Y	fence-excluded	none	none	none	none	none	fence-excluded	fence-excluded	none	none	none
+manuscript/common_equations/eq_gravity_derived.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	86	Y	none	none	none	none	none	none	none	none	none	none	none
+manuscript/common_equations/eq_master_dielectric.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	8	Y	none	none	none	none	none	none	none	none	none	none	none
+manuscript/common_equations/eq_saturation_observables.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	14	Y	none	none	none	none	none	none	none	none	none	none	none
+manuscript/common_equations/eq_universal_operators.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	87	Y	none	none	none	none	none	none	none	none	none	none	none
