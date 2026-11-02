@@ -32,3 +32,6 @@ manuscript/common_equations/eq_gravity_derived.tex	cbc668e7219ec8a8b13407da7a7a3
 manuscript/common_equations/eq_master_dielectric.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	8	Y	none	none	none	none	none	none	none	none	none	none	none
 manuscript/common_equations/eq_saturation_observables.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	14	Y	none	none	none	none	none	none	none	none	none	none	none
 manuscript/common_equations/eq_universal_operators.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	87	Y	none	none	none	none	none	none	none	none	none	none	none
+manuscript/frontmatter/00_foreword.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	247	Y	fence-excluded	fence-excluded	none	none	none	none	unsure+fence-excluded	unsure+fence-excluded	live-wrong+unsure	none	live-wrong+fence-excluded
+manuscript/frontmatter/00_nomenclature.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	38	Y	none	none	none	none	none	none	none	none	none	none	none
+manuscript/frontmatter/00_title.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	31	Y	none	none	none	none	none	none	none	none	none	none	none
