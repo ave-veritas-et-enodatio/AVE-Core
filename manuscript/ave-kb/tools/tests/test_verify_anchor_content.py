@@ -225,6 +225,66 @@ def test_new_cite_ratchet_passes_when_every_added_cite_is_excerpted() -> None:
         assert vac.main(["--root", str(root), "--new-cites", "base"]) == 0
 
 
+def test_new_cite_ratchet_ignores_an_uncommitted_excerpt() -> None:
+    """A committed bare cite stays a violation when the fix never reached a commit."""
+    vac = _load_module()
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td)
+        _ratchet_repo(root)
+        kb = root / "manuscript" / "ave-kb" / "common"
+        (kb / "leaf.md").write_text(
+            "# Leaf\n\n"
+            "pre-existing bare cite: `target.md:10`\n"
+            "added WITHOUT excerpt: `target.md:10`\n"
+        )
+        _git(root, "add", "-A")
+        _git(root, "commit", "-q", "-m", "branch work")
+
+        # The excerpt reaches the disk and the index but no commit, so the tip
+        # CI would see still fails. Staging it also rejects an index reader.
+        (kb / "leaf.md").write_text(
+            "# Leaf\n\n"
+            "pre-existing bare cite: `target.md:10`\n"
+            f"added WITHOUT excerpt: `target.md:10` — `{_ANCHOR}`\n"
+        )
+        _git(root, "add", "-A")
+
+        violations = vac.check_new_cites("base", root)
+        assert len(violations) == 1, violations
+        rel, lineno, cited = violations[0]
+        assert str(rel) == "manuscript/ave-kb/common/leaf.md", rel
+        assert lineno == 4 and cited == "target.md:10", violations
+        assert vac.main(["--root", str(root), "--new-cites", "base"]) == 1
+
+
+def test_new_cite_ratchet_ignores_an_uncommitted_excerpt_removal() -> None:
+    """The inverse: a committed excerpt still counts while its removal is uncommitted."""
+    vac = _load_module()
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td)
+        _ratchet_repo(root)
+        kb = root / "manuscript" / "ave-kb" / "common"
+        (kb / "leaf.md").write_text(
+            "# Leaf\n\n"
+            "pre-existing bare cite: `target.md:10`\n"
+            f"added WITH excerpt: `target.md:10` — `{_ANCHOR}`\n"
+        )
+        _git(root, "add", "-A")
+        _git(root, "commit", "-q", "-m", "branch work")
+
+        # The excerpt leaves the disk and the index but no commit, so the tip
+        # CI would see still passes. Staging it also rejects an index reader.
+        (kb / "leaf.md").write_text(
+            "# Leaf\n\n"
+            "pre-existing bare cite: `target.md:10`\n"
+            "added WITH excerpt: `target.md:10`\n"
+        )
+        _git(root, "add", "-A")
+
+        assert vac.check_new_cites("base", root) == []
+        assert vac.main(["--root", str(root), "--new-cites", "base"]) == 0
+
+
 def test_new_cite_ratchet_scope_predicate() -> None:
     vac = _load_module()
     for load_bearing in ("manuscript/ave-kb/common/leaf.md", "README.md", "AGENTS.md"):
@@ -428,6 +488,8 @@ if __name__ == "__main__":
     test_scan_path_exit_code_is_still_zero()
     test_new_cite_ratchet_flags_only_added_unexcerpted_kb_cites()
     test_new_cite_ratchet_passes_when_every_added_cite_is_excerpted()
+    test_new_cite_ratchet_ignores_an_uncommitted_excerpt()
+    test_new_cite_ratchet_ignores_an_uncommitted_excerpt_removal()
     test_new_cite_ratchet_scope_predicate()
     test_emphasis_quote_excerpts_satisfy_the_ratchet()
     test_emphasis_quote_excerpt_across_a_hard_line_wrap_is_seen()

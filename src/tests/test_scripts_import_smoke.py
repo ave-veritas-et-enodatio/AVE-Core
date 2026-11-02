@@ -89,9 +89,11 @@ _PT_ALIAS_DIR = _SCRIPTS_DIR / "vol_6_periodic_table"
 #   1. ``strict=True`` xfail — if an allowlisted import is *still generated* as a
 #      violation yet somehow resolves, the XPASS hard-fails the suite.
 #   2. ``test_known_broken_allowlist_is_live`` (below) — if an owner lands their
-#      fix, the import stops generating a violation at all (so mechanism 1 never
-#      fires); the liveness guard then hard-fails because the now-dead allowlist
-#      key no longer matches any live violation, forcing its removal.
+#      fix, or the script leaves the walk (for example, moved under
+#      ``src/scripts/_archive/``), the import stops generating a violation at all
+#      (so mechanism 1 never fires); the liveness guard then hard-fails because
+#      the now-dead allowlist key no longer matches any live violation, forcing
+#      its removal.
 # (Mechanism 1 alone is NOT sufficient for the import-fix case — a fixed import
 # simply drops from parametrization with no XPASS; mechanism 2 closes that gap.)
 #
@@ -258,20 +260,23 @@ def test_known_broken_allowlist_is_live() -> None:
     """Every allowlist entry must still correspond to a live violation.
 
     Liveness guard (mechanism 2 above): a strict-xfail entry stops being
-    exercised the moment its underlying import is fixed upstream — the violation
-    is simply no longer generated, so no XPASS fires and the dead entry would
-    otherwise linger untested. This asserts every ``_KNOWN_BROKEN`` key still
-    matches a currently-generated violation; when an owner lands their fix
-    (e.g. the k4_tlm build_scattering_matrix symbol), the corresponding key
-    goes stale and this test hard-fails, forcing its removal. That is what makes
-    'the allowlist cannot silently outlive the bug' actually true. (Demonstrated:
-    merged PR #377 fixed geodynamo, so its key was removed here.)
+    exercised the moment its underlying import is fixed upstream or its script
+    leaves the walk (for example, moved under ``src/scripts/_archive/``) — the
+    violation is simply no longer generated, so no XPASS fires and the dead entry
+    would otherwise linger untested. This asserts every ``_KNOWN_BROKEN`` key
+    still matches a currently-generated violation; when an owner lands their fix
+    (e.g. the k4_tlm build_scattering_matrix symbol) or the script leaves the
+    walk, the corresponding key goes stale and this test hard-fails, forcing its
+    removal. That is what makes 'the allowlist cannot silently outlive the bug'
+    actually true. (Demonstrated: merged PR #377 fixed geodynamo, so its key was
+    removed here.)
     """
     live_labels = {label for label, _ in _VIOLATIONS}
     stale = sorted(key for key in _KNOWN_BROKEN if key not in live_labels)
     assert not stale, (
-        "Allowlisted import(s) no longer generate a violation — their bug was "
-        f"fixed upstream; remove the now-stale _KNOWN_BROKEN entr{'y' if len(stale) == 1 else 'ies'}: "
+        "Allowlisted import(s) no longer generate a violation — the bug was "
+        "fixed upstream, or the script left the walk (for example, moved under "
+        f"src/scripts/_archive/); remove the now-stale _KNOWN_BROKEN entr{'y' if len(stale) == 1 else 'ies'}: "
         + ", ".join(stale)
     )
 
@@ -508,8 +513,9 @@ def test_script_tree_allowlist_is_live() -> None:
     live_labels = {label for label, _ in _TREE_VIOLATIONS}
     stale = sorted(key for key in _SCRIPT_TREE_KNOWN_BROKEN if key not in live_labels)
     assert not stale, (
-        "Allowlisted script-tree import(s) no longer generate a violation — their bug was "
-        f"fixed upstream; remove the now-stale entr{'y' if len(stale) == 1 else 'ies'}: " + ", ".join(stale)
+        "Allowlisted script-tree import(s) no longer generate a violation — the bug was "
+        "fixed upstream, or the script left the walk (for example, moved under "
+        f"src/scripts/_archive/); remove the now-stale entr{'y' if len(stale) == 1 else 'ies'}: " + ", ".join(stale)
     )
 
 
