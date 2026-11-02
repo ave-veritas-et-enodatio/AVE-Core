@@ -12,3 +12,13 @@ manuscript/backmatter/07_universal_saturation_kernel.tex	cbc668e7219ec8a8b13407d
 manuscript/backmatter/12_mathematical_closure.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	261	Y	none	none	none	none	none	none	none	none	none	none	none
 manuscript/backmatter/appendix_c_derived_numerology.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	128	Y	none	none	none	fence-excluded	unsure	none	none	none	none	none	unsure
 manuscript/backmatter/appendix_vacuum_engineering.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	192	Y	none	none	none	none	none	none	none	none	none	none	none
+manuscript/common/appendix_experiments.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	62	Y	none	none	none	none	none	none	none	none	none	none	none
+manuscript/common/translation_circuit.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	28	Y	none	none	none	none	none	none	none	none	none	none	none
+manuscript/common/translation_condensed_matter.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	31	Y	none	none	none	none	none	none	none	none	none	none	none
+manuscript/common/translation_cosmology.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	31	Y	none	none	none	none	none	none	none	none	fence-excluded	none	fence-excluded
+manuscript/common/translation_fluidics.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	29	Y	none	none	none	none	none	none	none	none	none	none	none
+manuscript/common/translation_gravity.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	31	Y	none	none	none	none	none	none	none	none	none	none	none
+manuscript/common/translation_particle_physics.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	34	Y	none	none	none	none	none	none	none	none	none	none	none
+manuscript/common/translation_protein.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	38	Y	none	none	none	none	none	none	none	none	none	none	none
+manuscript/common/translation_protein_solver.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	38	Y	none	none	none	none	none	none	none	none	none	none	none
+manuscript/common/translation_qm.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	30	Y	none	none	none	none	none	none	none	none	none	none	none
