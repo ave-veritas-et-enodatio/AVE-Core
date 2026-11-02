@@ -132,8 +132,12 @@ count, so swapped cites do not read as two repairs. Anything else -- a new line,
 line that gained a cite, a reflowed line, a citer the branch renamed -- has no
 number to recover and keeps the plain test, which can only report it.
 
-The number held at base also decides has-line: that test reads the base tree, and
-a re-pin can run past the base end of the very file it addresses.
+has-line asks a re-pinned cite for both of its numbers: a candidate has to hold the
+number at the base and the new one at the tip. The old number alone would let a
+wrong bare re-pin leave the gate, by keeping a short sibling the new number rules
+out. The new one alone reads the wrong tree, and a re-pin can run past the base end
+of the very file it addresses. A cite that kept its number reads one tree as it
+always did.
 
 WHICH LINE -- the address a SHIFTED report gives
 ------------------------------------------------
@@ -385,8 +389,8 @@ def addressees(m, leaf, src, text, same, has_line, held):
     """(candidate files, how) for the cite matched by `m` -- see the docstring.
 
     Context may only NARROW the set the path text allows, never step outside it.
-    `held` is the number the cite held at base (see number_at_base): has-line reads
-    the base tree, so the tip number of a re-pin can run past a file's base end.
+    `held` is the number the cite held at base (see number_at_base). A re-pin is a
+    claim about two trees, so has-line takes both numbers.
     """
     comps, anchored, sibling = cite_comps(m.group(1))
     if 'address-nothing' in MUTATE:
@@ -411,10 +415,14 @@ def addressees(m, leaf, src, text, same, has_line, held):
 
     # narrowing a: a file without line N is not the addressee
     if len(cands) > 1 and 'no-has-line' not in MUTATE:
-        kept = [p for p in cands if has_line(p, n if 'has-line-at-tip' in MUTATE else held)]
+        was = n if 'has-line-at-tip' in MUTATE else held
+        kept = [p for p in cands if has_line(p, was, was if 'has-line-at-held' in MUTATE else n)]
+        # Past every tip end: no file holds both, and the number at base still narrows.
+        if not kept:
+            kept = [p for p in cands if has_line(p, was, was)]
         # A number dead at base addresses nothing: only the one it holds now can.
         if not kept and 'no-dead-fallback' not in MUTATE:
-            kept = [p for p in cands if has_line(p, n)]
+            kept = [p for p in cands if has_line(p, n, n)]
         if len(kept) < len(cands):
             cands, how = kept, how + ' + has-line'
     # narrowing b: an explicit path earlier on the same line
@@ -607,9 +615,12 @@ def scan(repo, base, tip):
         b = repo.blob(base, path)
         return b if b is not None else repo.blob(tip, path)
 
-    def has_line(path, n):
+    def has_line(path, held, n):                           # `held` at base, `n` at tip
         l = lines_of(path)
-        return l is not None and 0 < n <= len(l)
+        if l is None or not 0 < held <= len(l):
+            return False
+        at_tip = repo.blob(tip, path)
+        return held == n or 0 < n <= len(l if at_tip is None else at_tip)
 
     # candidate citers: any tracked line at TIP mentioning a changed file's leaf
     # name followed (within a few punctuation chars) by :NNN. git grep -I skips
@@ -1014,6 +1025,9 @@ REPINS = collections.OrderedDict([
     ('bare-wrong', (_cite('bare-wrong', 14, leaf='target.md'), _cite('bare-wrong', 25, leaf='target.md'),
                     [(14, 25, 'SHIFTED', 24)],
                     'a wrong bare re-pin past the end of the base file is not dropped silently')),
+    ('bare-narrowed', (_cite('bare-narrowed', 5, leaf='target.md'), _cite('bare-narrowed', 12, leaf='target.md'),
+                       [(5, 12, 'SHIFTED', 8)],
+                       'a wrong bare re-pin only one file can hold at tip stays pinned to it, and gates')),
     ('added-cite', (_cite('added-cite', 9), _cite('added-cite', 12, 14),
                     [(12, 12, 'SHIFTED', 22), (14, 14, 'SHIFTED', 24)],
                     'a line that gained a cite pairs nothing: each cite keeps the plain test')),
@@ -1154,6 +1168,9 @@ def run_gate(out=print):
         say(got.get(key, []) == want, label, f"{key}: {got.get(key, 'not reported')}")
     got, rc = repin_scan(['correct', 'prose', 'moved', 'two', 'blank-right', 'tie-near', 'tie-far', 'untouched'])
     say(rc == 0, 'a branch whose citers carry only correct re-pins passes the run', f'exit {rc}')
+    got, rc = repin_scan(['bare-narrowed'])
+    say(rc == 1, 'a wrong bare re-pin gates: has-line reads it at both numbers, so a short sibling does not '
+        'make it advisory', f'exit {rc}')
     got, _ = repin_scan(['frozen'], repo_cls=DiffThatLies)
     say(got.get('frozen') == [(9, 9, 'SHIFTED', 0)], 'a hunk address is confirmed equal: a diff that '
         'lies yields no address, and the verdict stands', f"{got.get('frozen', 'not reported')}")
@@ -1197,6 +1214,13 @@ def mutation_receipt():
         finally:
             MUTATE.discard(mut)
 
+    def repin_exit(mut, keys):
+        MUTATE.add(mut)
+        try:
+            return repin_scan(keys)[1]
+        finally:
+            MUTATE.discard(mut)
+
     def kinds(rows):
         return {row[2] for row in rows}
 
@@ -1213,8 +1237,10 @@ def mutation_receipt():
                     kinds(repin('no-numberless-pairing', 'moved')) == {'SHIFTED'}))
     results.append(('M10 drop hunk pairing: the re-pin on a reworded line must fail',
                     kinds(repin('no-hunk-pairing', 'prose')) == {'SHIFTED'}))
-    results.append(('M11 read has-line at the tip number: both bare re-pins past the base end must fall silent',
-                    not repin('has-line-at-tip', 'bare-past-end') and not repin('has-line-at-tip', 'bare-wrong')))
+    results.append(('M11 read has-line at one number: at the new one both bare re-pins past the base end must '
+                    'fall silent, and at the old one the wrong bare re-pin must stop gating',
+                    not repin('has-line-at-tip', 'bare-past-end') and not repin('has-line-at-tip', 'bare-wrong')
+                    and repin_exit('has-line-at-held', ['bare-narrowed']) == 0))
     results.append(('M12 take equal text as proof: the re-pin onto a look-alike must pass',
                     kinds(repin('no-diff-check', 'lookalike')) == {'RE-PINNED'}))
     results.append(('M13 drop the unconfirmed verdict: the re-pin away from gone content must stop failing',

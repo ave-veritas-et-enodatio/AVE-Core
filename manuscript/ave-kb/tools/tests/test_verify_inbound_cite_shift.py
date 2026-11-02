@@ -367,6 +367,42 @@ def test_a_correct_repin_exits_0_and_a_look_alike_exits_1_through_main():
     assert _repin_rc(mod, ["tie-off"]) == 1
 
 
+def test_has_line_reads_a_repin_at_both_numbers():
+    """Three ways round, on a short and a long file sharing a name. A re-pin the short
+    file cannot hold at tip gates; one that crossed files stays with the file that held
+    it, so a shift in the short one goes unreported, on purpose: its text names neither."""
+    mod = _load_module()
+    long_, short = "a/main.tex", "b/main.tex"
+    lines = lambda tag, k: ["%s %d" % (tag, i) for i in range(1, k + 1)]
+
+    def scanned(moved, was, now):
+        base = {long_: lines("long", 60), short: lines("short", 20), "c.md": ["bare `main.tex:%d`" % was]}
+        tip = dict(base, **{"c.md": ["bare `main.tex:%d`" % now]})
+        for p in moved:
+            tip[p] = ["new"] * 3 + base[p]
+        with mod.two_trees(base, tip) as (repo, b, t):
+            return mod.scan(repo, b, t)
+
+    res = scanned([long_], 10, 50)                          # wrong: the content went to :13
+    assert [(f.held, f.n, f.kind, f.moved_to) for f in res["pinned"]] == [(10, 50, "SHIFTED", 13)]
+    assert not res["ambiguous"]
+    res = scanned([long_, short], 50, 13)                   # only the long file held :50
+    assert [(f.target, f.kind, f.moved_to) for f in res["pinned"]] == [(long_, "SHIFTED", 53)]
+    res = scanned([short], 50, 13)                          # the long file did not change
+    assert not res["pinned"] and not res["ambiguous"]
+
+
+def test_has_line_falls_back_to_the_base_number_past_every_tip_end():
+    """No file holds :99 at tip. That is an advisory OUT-OF-RANGE, not a vanished cite."""
+    mod = _load_module()
+    assert mod.repin_scan(["past-tip-end"])[0] == {"past-tip-end": [(9, 99, "OUT-OF-RANGE", 0)]}
+    base = {"a/m.md": ["x"] * 30, "b/m.md": ["y"] * 30, "c.md": ["bare `m.md:9`"]}
+    tip = dict(base, **{"a/m.md": ["new"] + base["a/m.md"], "c.md": ["bare `m.md:99`"]})
+    with mod.two_trees(base, tip) as (repo, b, t):
+        res = mod.scan(repo, b, t)
+    assert [(f.held, f.n, f.kind) for f in res["ambiguous"]] == [(9, 99, "OUT-OF-RANGE")]
+
+
 def test_report_does_not_invent_an_address():
     import contextlib
     import io
