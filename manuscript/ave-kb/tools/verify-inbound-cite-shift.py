@@ -96,13 +96,13 @@ against tip[new], run by hand, had to stand in as the evidence.
 When the citer line itself changed on the branch, the number it held at base is
 recovered and the test is base[old] against tip[new]:
 
-  RE-PINNED           base[old] == tip[new], and the diff puts that line nowhere
-                      else. A confirmed repair: counted, listed under -v, never
+  RE-PINNED           base[old] == tip[new], and `new` is where the diff put that
+                      line. A confirmed repair: counted, listed under -v, never
                       rot. The count is the evidence the hand check used to be.
   SHIFTED             the base content lives at another line. The re-pin is wrong
                       and the report gives the right number. Equal text does not
-                      save it: if the diff puts the cited line at another address,
-                      `new` is a look-alike.
+                      save it: unless the diff puts the cited line at `new`, `new`
+                      is a look-alike.
   EDITED-IN-PLACE     the base content is gone and `new` falls in the hunk that
                       replaced it: the repair of a row that was also rewritten.
   RETARGETED          nothing moved under either number: base[new] == tip[new] (or
@@ -149,8 +149,13 @@ verdict itself uses), so a wrong hunk costs the address and never invents one.
 That changes the address and nothing else. SHIFTED against EDITED-IN-PLACE is still
 the reach test: does the text survive anywhere in the file. A line the diff took
 out whose text survives only at other lines therefore stays SHIFTED, says it has no
-address, and does not guess. A look-alike landing exactly on the cited address
-still reads HOLDS: that is the plain test, which has no other line to compare.
+address, and does not guess. A re-pin onto one of those lines reads the same: no
+address is the diff declining to agree, not agreeing. Nor does a blank line get a
+pass for having no text to reach for: a re-pin onto another blank asks the diff
+where the cited one went. A tie is the one case where no address leaves a re-pin
+standing: either tied line is one the diff put there, so both pass and any other
+line fails. A look-alike landing exactly on the cited address still reads HOLDS:
+that is the plain test, which has no other line to compare.
 
 LIVENESS -- a zero has to be earned, and NOT inferred from the run's own yield
 ------------------------------------------------------------------------------
@@ -488,10 +493,11 @@ def _agreeing_run(b, n, t, j):
     return run
 
 
-def address_at_tip(hunks, b, t, n):
-    """Where base line n lives at tip, read off the hunks and CONFIRMED equal. 0 if
-    the diff gives no single address -- the text may survive at a line that is not
-    this one (a repeated `\\begin{itemize}`), and that is not an address."""
+def lines_at_tip(hunks, b, t, n):
+    """The lines base line n can live at, at tip, read off the hunks and CONFIRMED
+    equal. None if the diff took it out for good -- the text may survive at a line
+    that is not this one (a repeated `\\begin{itemize}`), and that is not an address.
+    Two or more if put-back lines tie."""
     shift = 0
     for a, c, s, d in hunks:
         if n < a:
@@ -511,9 +517,15 @@ def address_at_tip(hunks, b, t, n):
     if len(hits) > 1 and 'no-agreeing-run' not in MUTATE:
         runs = [_agreeing_run(b, n, t, j) for j in hits]
         hits = [j for j, r in zip(hits, runs) if r == max(runs)]
-        if len(hits) > 1:
-            return 0
-    return hits[0] if hits else 0
+    return hits
+
+
+def address_at_tip(hunks, b, t, n):
+    """Where base line n lives at tip. 0 if the diff gives no single address."""
+    hits = lines_at_tip(hunks, b, t, n)
+    if 'no-agreeing-run' in MUTATE or 'no-tie' in MUTATE:
+        hits = hits[:1]
+    return hits[0] if len(hits) == 1 else 0
 
 
 def verdict(repo, base, tip, target, b, t, held, n):
@@ -536,13 +548,19 @@ def verdict(repo, base, tip, target, b, t, held, n):
     # test, 1.3% true-positive.
     seen = [j + 1 for j, l in enumerate(t) if l.strip() == bl] if bl else []
     hunks = repo.hunks(base, tip, target)
+    # Blank has no text to reach for, so only a re-pin onto another blank asks the diff.
+    ask = seen or (bl == tl and 'no-blank-address' not in MUTATE)
     if 'first-identical' in MUTATE:
         moved_to = seen[0] if seen else 0
     else:
-        moved_to = address_at_tip(hunks, b, t, held) if seen else 0
+        moved_to = address_at_tip(hunks, b, t, held) if ask else 0
     if bl == tl:
-        # Equal text is thin evidence on a repeated line: the diff has the last word.
-        if moved_to in (0, n) or 'no-diff-check' in MUTATE:
+        # Equal text is thin evidence on a repeated line: the diff has the last word,
+        # and no address is not its word. Either side of a tie is one it put there.
+        put = lines_at_tip(hunks, b, t, held) if ask else []
+        if 'no-tie-sides' in MUTATE:
+            put = [moved_to]
+        if n in put or 'no-diff-check' in MUTATE or ('no-address-agrees' in MUTATE and not moved_to):
             return 'RE-PINNED', n
         return 'SHIFTED', moved_to
     if not repin:
@@ -931,9 +949,26 @@ TARGET_TIP = ['one', ITEMIZE, r'\item a', ENDIZE,                    # :1-4
               'block head', ITEMIZE, 'block tail']                    # :22-24
 PATHED = 'vol_1_foundations/target.md'
 
+# A second target for what the first has no room for. `same` :4 goes to both :6 and
+# :8, a tie, and a third `same` keeps still at the end. The blanks :11 and :13 move.
+EDGES = 'manuscript/vol_1_foundations/edges.md'
+EDGES_BASE = ['swap a', 'x', 'swap b',                                # :1-3
+              'same', 'p', 'q', 'r', 's', 't',                        # :4-9
+              'one', '', 'two', '', 'three',                          # :10-14
+              '  indented', 'same']                                   # :15-16
+EDGES_TIP = ['swap b', 'x', 'swap a',                                 # :1-3
+             'p', 'q', 'same', 'r', 'same', 's', 't',                 # :4-10
+             'inserted', 'one', '', 'two', '', 'three',               # :11-16
+             'indented', 'same']                                      # :17-18
+EDGED = 'vol_1_foundations/edges.md'
+
 
 def _cite(key, *numbers, leaf=PATHED):
     return key + ': ' + ' and '.join('`%s:%d`' % (leaf, n) for n in numbers)
+
+
+def _edge(key, *numbers):
+    return _cite(key, *numbers, leaf=EDGED)
 
 
 #: key -> (citing line at base, citing line at tip, what it must read as
@@ -955,6 +990,20 @@ REPINS = collections.OrderedDict([
                  'two cites swapped on one line fail: the right content, the wrong cite')),
     ('lookalike', (_cite('lookalike', 6), _cite('lookalike', 2), [(6, 2, 'SHIFTED', 9)],
                    'a re-pin onto an identical line elsewhere fails: the diff says :9')),
+    ('lookalike-gone', (_cite('lookalike-gone', 16), _cite('lookalike-gone', 3), [(16, 3, 'SHIFTED', 0)],
+                        'a re-pin onto a look-alike of a line the diff took out fails: no address is no agreement')),
+    ('blank-right', (_edge('blank-right', 11), _edge('blank-right', 13), [(11, 13, 'RE-PINNED', 13)],
+                     'a correct re-pin of a blank line passes: the diff says where it went')),
+    ('blank-wrong', (_edge('blank-wrong', 11), _edge('blank-wrong', 15), [(11, 15, 'SHIFTED', 13)],
+                     'a re-pin onto another blank line fails, with the right number')),
+    ('tie-near', (_edge('tie-near', 4), _edge('tie-near', 6), [(4, 6, 'RE-PINNED', 6)],
+                  'a re-pin onto one side of a tie passes: the diff put the line there')),
+    ('tie-far', (_edge('tie-far', 4), _edge('tie-far', 8), [(4, 8, 'RE-PINNED', 8)],
+                 'and so does one onto the other side: the diff cannot tell them apart')),
+    ('tie-off', (_edge('tie-off', 4), _edge('tie-off', 18), [(4, 18, 'SHIFTED', 0)],
+                 'a re-pin onto a look-alike off the tie fails, and does not guess a side')),
+    ('tie-frozen', (_edge('tie-frozen', 4), _edge('tie-frozen', 4), [(4, 4, 'SHIFTED', 0)],
+                    'a cite left on a tied line is reported with no address')),
     ('rewritten', (_cite('rewritten', 10), _cite('rewritten', 13), [(10, 13, 'EDITED-IN-PLACE', 0)],
                    'a re-pin onto the row that replaced the cited one is advisory')),
     ('gone', (_cite('gone', 10), _cite('gone', 5), [(10, 5, 'UNCONFIRMED-RE-PIN', 0)],
@@ -1011,8 +1060,8 @@ def _repin_trees(keys):
         (last if key == 'moved' else tip).append(now)
         tip.append('gap %d' % i)
     short = {SHORT: _numbered('short', 8)}
-    return (dict(short, **{TARGET: TARGET_BASE, REPINNED: base}),
-            dict(short, **{TARGET: TARGET_TIP, REPINNED: tip + last}))
+    return (dict(short, **{TARGET: TARGET_BASE, EDGES: EDGES_BASE, REPINNED: base}),
+            dict(short, **{TARGET: TARGET_TIP, EDGES: EDGES_TIP, REPINNED: tip + last}))
 
 
 class DiffThatLies(Repo):
@@ -1103,7 +1152,7 @@ def run_gate(out=print):
     got, _ = repin_scan()
     for key, (_, _, want, label) in REPINS.items():
         say(got.get(key, []) == want, label, f"{key}: {got.get(key, 'not reported')}")
-    got, rc = repin_scan(['correct', 'prose', 'moved', 'two', 'untouched'])
+    got, rc = repin_scan(['correct', 'prose', 'moved', 'two', 'blank-right', 'tie-near', 'tie-far', 'untouched'])
     say(rc == 0, 'a branch whose citers carry only correct re-pins passes the run', f'exit {rc}')
     got, _ = repin_scan(['frozen'], repo_cls=DiffThatLies)
     say(got.get('frozen') == [(9, 9, 'SHIFTED', 0)], 'a hunk address is confirmed equal: a diff that '
@@ -1186,6 +1235,17 @@ def mutation_receipt():
     results.append(('M20 drop the retarget rule: a deliberate correction must read as rot -- the false '
                     'positives measured on #915', kinds(repin('no-retarget', 'retargeted')) == {'SHIFTED'}
                     and kinds(repin('no-retarget', 'retargeted-gone')) == {'UNCONFIRMED-RE-PIN'}))
+    results.append(('M21 read no address as agreement: the re-pin onto a look-alike of a deleted line must '
+                    'pass -- the regression this rule closes',
+                    kinds(repin('no-address-agrees', 'lookalike-gone')) == {'RE-PINNED'}))
+    results.append(('M22 stop asking the diff about a blank line: the correct blank re-pin must fail and '
+                    'the wrong one lose its address', kinds(repin('no-blank-address', 'blank-right')) == {'SHIFTED'}
+                    and addresses(repin('no-blank-address', 'blank-wrong')) == {0}))
+    results.append(('M23 ask only for the single address: both sides of a tie must fail -- the false '
+                    'positive a bare `== new` makes', kinds(repin('no-tie-sides', 'tie-near')) == {'SHIFTED'}
+                    and kinds(repin('no-tie-sides', 'tie-far')) == {'SHIFTED'}))
+    results.append(('M24 drop the tie rule: a cite left on a tied line must be handed its first side as an '
+                    'address', addresses(repin('no-tie', 'tie-frozen')) == {6}))
 
     allgood = True
     for label, tripped in results:

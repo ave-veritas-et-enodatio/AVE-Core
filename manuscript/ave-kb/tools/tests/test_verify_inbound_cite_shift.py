@@ -322,8 +322,9 @@ def test_retarget_is_advisory_and_a_miss_onto_a_still_line_is_not():
         {"missed-onto-still": [(9, 2, "SHIFTED", 12)]}, 1)
 
 
-def test_a_repin_from_a_blank_line_has_no_content_to_have_moved():
-    """A blank base line reads as `seen` nowhere, so it can only be retargeted."""
+def test_a_repin_from_a_blank_onto_text_has_nothing_to_compare():
+    """A blank base line has no text to reach for, so onto a line with text the diff
+    is not asked: it falls through to the same two verdicts as gone content."""
     mod = _load_module()
     base, tip = ["a", "", "c"], ["x", "a", "", "c"]
     repo = _Stub(base, tip, [(1, 0, 1, 1)])
@@ -331,6 +332,39 @@ def test_a_repin_from_a_blank_line_has_no_content_to_have_moved():
     still = ["a", "", "c", "d"]
     repo = _Stub(still, still, [])
     assert mod.verdict(repo, "B", "T", "t.md", still, still, 2, 3) == ("RETARGETED", 0)
+
+
+def test_a_repin_of_a_blank_line_onto_a_blank_line_asks_the_diff():
+    mod = _load_module()
+    base, tip = ["a", "", "b", "", "c"], ["x", "a", "", "b", "", "c"]
+    repo = _Stub(base, tip, [(1, 0, 1, 1)])
+    assert mod.verdict(repo, "B", "T", "t.md", base, tip, 2, 3) == ("RE-PINNED", 3)
+    assert mod.verdict(repo, "B", "T", "t.md", base, tip, 2, 5) == ("SHIFTED", 3)
+
+
+def test_a_repin_onto_a_look_alike_of_a_deleted_line_fails_with_no_address():
+    """The regression: the diff took :5 out, so it gave no address, and that read as
+    agreement. main's tool exits 1 here."""
+    mod = _load_module()
+    base, tip = ["a", "dup", "b", "c", "dup", "d"], ["a", "dup", "b", "c", "d"]
+    repo = _Stub(base, tip, [(5, 1, 5, 0)])
+    assert mod.verdict(repo, "B", "T", "t.md", base, tip, 5, 2) == ("SHIFTED", 0)
+
+
+def test_lines_at_tip_keeps_both_sides_of_a_tie_and_the_address_keeps_neither():
+    mod = _load_module()
+    base, tip = ["p", "same", "q"], ["same", "p", "q", "same"]
+    hunks = [(1, 0, 1, 1), (2, 1, 3, 0), (4, 0, 4, 1)]
+    assert mod.lines_at_tip(hunks, base, tip, 2) == [1, 4]
+    assert mod.address_at_tip(hunks, base, tip, 2) == 0
+
+
+def test_a_correct_repin_exits_0_and_a_look_alike_exits_1_through_main():
+    mod = _load_module()
+    assert _repin_rc(mod, ["blank-right", "tie-near", "tie-far"]) == 0
+    assert _repin_rc(mod, ["lookalike-gone"]) == 1
+    assert _repin_rc(mod, ["blank-wrong"]) == 1
+    assert _repin_rc(mod, ["tie-off"]) == 1
 
 
 def test_report_does_not_invent_an_address():
