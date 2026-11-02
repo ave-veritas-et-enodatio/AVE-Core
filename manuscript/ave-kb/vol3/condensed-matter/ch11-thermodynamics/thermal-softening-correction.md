@@ -15,6 +15,6 @@ claims: [clm-uu6dl5]
 
 > **[Resultbox]** *Residual Thermal RMS Correction*
 >
-> $$\delta_{th} = \frac{\nu_{vac}}{\kappa_{cold}} \times \frac{2}{\pi} = \frac{2/7}{8\pi} \times \frac{2}{\pi} = \frac{1}{14\pi^2} \approx 0.00721$$
+> $$\delta_{th} = \frac{\nu_{vac}}{\kappa_{cold}} \times \frac{2}{\pi} = \frac{2/7}{8\pi} \times \frac{2}{\pi} = \frac{1}{14\pi^2} \approx 0.00724$$
 
 ---

@@ -24,7 +24,7 @@ Cross-volume dependencies:
 | Effective DoF $g_*$ | $g_* = 7^3/4 = 85.75$ (lattice geometry, no particle catalog) |
 | Vacuum Heat Capacity | $c_v = (g_*/2) \cdot k_B / \ell_{node}^3 \approx 42.875 \cdot k_B / \ell_{node}^3$ |
 | Baryon Asymmetry | $\eta = 6.08 \times 10^{-10}$; observed $6.1 \times 10^{-10}$; error 0.38% |
-| Thermal Softening Correction | $\delta_{th} = 1/(14\pi^2) \approx 0.00721$; zero-parameter result |
+| Thermal Softening Correction | $\delta_{th} = 1/(14\pi^2) \approx 0.00724$; zero-parameter result |
 | Casimir Effective Temperature | $T_{eff} = T_{ambient} \cdot \sqrt{1 - (f_c/f_{max})^2}$ |
 | Superconducting Impedance Transition | $Z_{eff} \to 0\;\Omega$, $|\Gamma| \to 1$ |
 | Macroscopic Transition Boundary | $S(r) = f_{\text{yield}} \cdot \sqrt{1 - (r_{\text{th}}/r_{\text{crit}})^2}$, $r_{\text{crit}} = \sqrt{2\alpha}$ |
