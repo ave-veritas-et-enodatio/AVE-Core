@@ -150,7 +150,7 @@ that cites `clm-relcnc` for the latter has mis-cited it.
 given observable).** This is a **physical fact per instance**, not an algebraic one:
 it must be established for each claimed instance and it *can fail* (§3 case 2b; the
 SEP boundary of §0(i); and, sector-wide, the open debt of §0(ii)). Substrate-scope for
-the carve at source-law level: Axiom 5's clause **Q** is the reference-fixing clause —
+the carve at source-law level: the source law's clause **Q** is the reference-fixing clause —
 *"the **quiescent reference (Q-point) that makes the potentials defined and clause G's
 elliptic solve well-posed**"* ([`manuscript/common_equations/eq_axiom_5.tex:82-87`](../../common_equations/eq_axiom_5.tex)),
 ruled a gauge choice at R55: *"A ground reference is a gauge choice, not a material
