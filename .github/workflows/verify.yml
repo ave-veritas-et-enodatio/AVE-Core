@@ -379,7 +379,7 @@ jobs:
   # weakest `depends-on` bullet lifts a claim and everything downstream, and no other
   # gate compares solidity across revs: refresh regenerates the index, the verifier
   # finds it fresh, `make verify` stays green, and the cite-shift gate fires only if a
-  # cited line moves. Measured at cbc668e7: of 408 claim-to-claim edges, removing any
+  # cited line moves. Measured at cbc668e7: of 408 `depends` edges into a claim, removing
   # one of 53 moves the citing claim up a band.
   #
   # BACK-TEST, every first-parent commit up to cbc668e7 that changed an existing index:
