@@ -13,7 +13,7 @@ single-sourced to four-regimes.md; boundaries r1/r2/r3 derive ONLY from canonica
 constants (ave.core.constants). No CODATA/SM literal sits in the derivation path
 (the DAG anti-cheat scan src/scripts/vol_1_foundations/verify_universe.py forbids
 smuggled constants). The lab-achievable ratios are stated-in-corpus engineering
-reference magnitudes (02_absolute_maximum_ratings.tex:72), drawn as illustrative
+reference magnitudes (02_absolute_maximum_ratings.tex:75), drawn as illustrative
 deep-Regime-I markers; they feed no threshold.
 
 Run:    python gen_absmax_quarter_arc.py
@@ -41,7 +41,7 @@ R2 = np.sqrt(3.0) / 2.0    # Regime II/III boundary (spin-2 sector): Q=1/S=2  ->
 R3 = 1.0                   # Regime III/IV rupture: S -> 0
 
 # Lab-achievable deep-Regime-I reference ratios (corpus magnitudes,
-# 02_absolute_maximum_ratings.tex:72; illustrative markers, feed no threshold).
+# 02_absolute_maximum_ratings.tex:75; illustrative markers, feed no threshold).
 LAB_MARKERS = [
     (1.0e-8, r"$E/E_S\sim10^{-8}$ (laser foci)"),
     (1.0e-8, r"$B/B_{snap}\sim10^{-8}$ (lab magnets)"),
