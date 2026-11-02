@@ -88,13 +88,15 @@ def test_a_hook_git_dir_cannot_reach_the_fixtures(monkeypatch):
 
 def test_a_real_run_scrubs_trace_output_and_keeps_the_rest_of_git_env(monkeypatch):
     monkeypatch.setenv("GIT_TRACE", "1")
+    monkeypatch.setenv("GIT_TRACE2_EVENT", "1")
     monkeypatch.setenv("GIT_DIR", "/kept/.git")
     env = ratchet.Repo().env
-    assert "GIT_TRACE" not in env and env["GIT_DIR"] == "/kept/.git"
+    assert "GIT_TRACE" not in env and "GIT_TRACE2_EVENT" not in env and env["GIT_DIR"] == "/kept/.git"
 
 
 @pytest.mark.parametrize("stderr, clean", [
-    (b"", True), (b"warning: core.fsyncObjectFiles is deprecated\n", True),
+    (b"", True), (b"warning: core.fsyncObjectFiles is deprecated\n", True), (b"warning: \xff\n", True),
+    (b"warned: nothing\n", False),
     (b"error: unable to read 1234\n", False), (b"warning: x\nfatal: y\n", False),
     (b"Auto packing the repository\n", False), (b"error: a warning: inside\n", False)])
 def test_strict_passes_a_warning_and_nothing_else(monkeypatch, stderr, clean):
@@ -133,6 +135,20 @@ def test_a_probe_that_only_crashes_fails_the_receipt_as_a_2(monkeypatch):
         raise ratchet.GateError("crashed")
 
     monkeypatch.setattr(ratchet, "MUTATIONS", {"no-restore": (("cut-binding",), "crashes")})
+    monkeypatch.setattr(ratchet, "scan", boom)
+    assert ratchet.mutation_receipt() == 2
+
+
+def test_a_crash_on_any_rule_of_the_receipt_is_a_2_not_only_on_the_last(monkeypatch):
+    real = ratchet.scan
+
+    def boom(*args):
+        if "no-restore" in ratchet.MUTATE:
+            raise ratchet.GateError("crashed")
+        return real(*args)
+
+    monkeypatch.setattr(ratchet, "MUTATIONS", {"no-restore": (("cut-binding",), "crashes"),
+                                               "any-rise": (("unchanged",), "breaks nothing")})
     monkeypatch.setattr(ratchet, "scan", boom)
     assert ratchet.mutation_receipt() == 2
 
@@ -258,8 +274,8 @@ def test_a_receipt_can_free_a_partner_and_what_it_carries_still_prints(fixture_r
 
 
 def test_a_claim_a_line_already_names_is_not_printed_again(fixture_repo):
-    assert _case(fixture_repo, "cut-binding")["carried"] == []
-    assert _case(fixture_repo, "receipt")["carried"] == []
+    for name in ("cut-binding", "receipt", "cut-two-binding", "joint-only"):
+        assert _case(fixture_repo, name)["carried"] == []
 
 
 def test_two_routes_name_one_set_and_never_a_bystander(fixture_repo):
@@ -287,7 +303,7 @@ def test_slack_edge_is_not_blamed_for_a_joint_effect(fixture_repo):
 def test_reversed_edge_fails_closed_as_uncomputable(fixture_repo):
     res = _case(fixture_repo, "reversed-edge")
     assert [f["cycle"] for f in res["findings"]] == ["alone"]
-    assert res["stuck"] == 1
+    assert res["stuck"] == [ratchet.CUT]
 
 
 def test_cycle_closed_only_by_two_edges_flags_those_two(fixture_repo):
@@ -303,11 +319,13 @@ def test_two_cycles_blame_their_own_edges_and_a_binding_edge_keeps_its_cause(fix
     assert _flagged(res, "cycle") == {
         (ratchet.X, ratchet.Y): "jointly", (ratchet.Z, ratchet.M): "jointly",
         (ratchet.P, ratchet.Q): "jointly", (ratchet.R, ratchet.S): "jointly", (ratchet.M2, ratchet.W): None}
-    assert res["stuck"] == 2 and res["others"] == []
+    assert len(res["stuck"]) == 2 and res["others"] == []
     ratchet.report(res, "b" * 8, "t" * 8)
     out = capsys.readouterr().out
     assert "%s -x-> %s  UNEXPLAINED\n     holds %s at" % (ratchet.M2, ratchet.W, ratchet.M2) in out
     assert ratchet.NEAR not in out
+    assert "restoring it with %s -> %s closes a cycle" % (ratchet.Z, ratchet.M) in out
+    assert "restoring it with %s -> %s closes a cycle" % (ratchet.R, ratchet.S) in out
 
 
 def test_raised_confidence_is_reported_but_not_gated(fixture_repo, capsys):
@@ -372,27 +390,58 @@ def test_a_remint_that_raises_confidence_clears_the_fire_and_prints_the_new_id(f
 
 def test_remint_of_a_support_counts_the_edge_and_prints_the_lift_as_untested(fixture_repo, capsys):
     res = _case(fixture_repo, "remint-support")
-    # Only claims are put back, so the old support's edge has nothing to bind to.
-    assert len(res["gone"]) == 1 and res["findings"] == [] and res["stuck"] == 1
+    # The old support does not come back with its lifts, so its edge has nothing to bind to.
+    assert len(res["gone"]) == 1 and res["findings"] == [] and res["stuck"] == [(ratchet.SUP1, ratchet.W)]
     assert res["others"] == [ratchet.X]
     assert ratchet.report(res, "b" * 8, "t" * 8) == 0
     out = capsys.readouterr().out
     assert "not tested: %s  do-not-build -> ok-to-build  (0.3 -> 0.9)" % ratchet.X in out
-    assert "removed edges that could not go back: 1" in out
+    assert "left out of the restore: %s -> %s." % (ratchet.SUP1, ratchet.W) in out
 
 
-def test_a_cycle_keeps_back_as_few_edges_as_it_can(fixture_repo):
-    assert _case(fixture_repo, "joint-cycle")["stuck"] == 1
-    assert _case(fixture_repo, "joint-cycle-half-receipted")["stuck"] == 1
+def test_a_support_back_only_for_a_retired_claim_still_counts_as_left_out(fixture_repo, capsys):
+    base = ratchet.graph_spec({ratchet.X: .10, ratchet.W: .30, ratchet.M: .95, ratchet.Z: .99},
+                              [(ratchet.SUP1, ratchet.W), (ratchet.M, ratchet.Z)], {ratchet.SUP1: .90},
+                              [(ratchet.SUP1, ratchet.X), (ratchet.SUP1, ratchet.M)])
+    tip = ratchet.graph_spec({ratchet.X: .10, ratchet.W: .30, ratchet.Z: .99}, sups={ratchet.SUP2: .90},
+                             gives=[(ratchet.SUP2, ratchet.X)])
+    res = _scan(fixture_repo, tip, base_spec=base)[-1]
+    assert (ratchet.SUP1, ratchet.W) in res["stuck"] and res["others"] == [ratchet.X]
+    assert ratchet.report(res, "b" * 8, "t" * 8) == 0
+    assert "not tested: %s" % ratchet.X in capsys.readouterr().out
+
+
+def test_a_cycle_leaves_out_only_the_edges_that_would_close_it(fixture_repo):
+    assert len(_case(fixture_repo, "joint-cycle")["stuck"]) == 1
+    assert len(_case(fixture_repo, "joint-cycle-half-receipted")["stuck"]) == 1
 
 
 @pytest.mark.parametrize("name", ["joint-cycle", "joint-cycle-half-receipted"])
-def test_a_stuck_edge_with_no_rise_above_it_says_nothing_about_rises(fixture_repo, capsys, name):
+def test_an_edge_left_out_is_named_even_with_no_rise(fixture_repo, capsys, name):
     res = _case(fixture_repo, name)
     assert res["stuck"] and res["others"] == []
     ratchet.report(res, "b" * 8, "t" * 8)
     out = capsys.readouterr().out
-    assert "other-band-rises=0 (not gated)" in out and "could not go back" not in out
+    assert "other-band-rises=0 (not gated)" in out
+    assert "left out of the restore: %s -> %s." % res["stuck"][0] in out
+
+
+def test_a_claim_named_at_a_shallow_reading_still_shows_the_band_receipts_carry(fixture_repo, capsys):
+    repo, root = fixture_repo
+    base = ratchet.tree(repo, root, ratchet.SERIES)
+    lines = "\n".join(ratchet.says(*e) for e in ratchet.SERIES["deps"])
+    tip = ratchet.tree(repo, root, ratchet.no_deps(ratchet.SERIES), ratchet.note(lines))
+    res = ratchet.scan(repo, base, tip)
+    # X -> Z alone reads 0.50. The chain through M, receipted, takes X to 0.30.
+    assert res["carried"] == [ratchet.X]
+    assert ratchet.report(res, "b" * 8, "t" * 8) == 0
+    assert "with them back it reads do-not-build (0.3)" in capsys.readouterr().out
+
+
+def test_a_rise_the_tip_never_made_is_not_printed(fixture_repo):
+    res = _case(fixture_repo, "rounding-no-phantom-rise")
+    # The tip reads 0.648, the band of the base's 0.54. Only the restore rounds it to 0.65.
+    assert res["tip"][ratchet.X] == 0.648 and res["after"][ratchet.X] == 0.65 and res["others"] == []
 
 
 def test_only_an_edge_into_a_claim_counts_as_removed(fixture_repo):
@@ -483,6 +532,24 @@ def test_records_split_only_on_a_newline(fixture_repo):
     assert len(ratchet.records(repo, repo.git("write-tree").strip(), ratchet.CLAIMS)) == 2
 
 
+def test_a_latin1_byte_beside_a_receipt_does_not_crash(fixture_repo):
+    repo, root = fixture_repo
+    base = ratchet.tree(repo, root, ratchet.spec())
+    tip = ratchet.tree(repo, root, ratchet.spec(), ratchet.note(ratchet.LINE))
+    Path(root, ratchet.NOTE).write_bytes(ratchet.LINE.encode() + b" caf\xe9\n")
+    repo.git("add", "-A", "-f")
+    assert ratchet.receipts(repo, base, repo.git("write-tree").strip(), ())[0] == {ratchet.CUT: ratchet.NOTE}
+
+
+def test_a_whitespace_line_in_the_index_aborts(fixture_repo):
+    repo, root = fixture_repo
+    Path(root, ratchet.CLAIMS).parent.mkdir(parents=True)
+    Path(root, ratchet.CLAIMS).write_text('{"a": 1}\n   \n', encoding="utf-8")
+    repo.git("add", "-A")
+    with pytest.raises(ratchet.GateError):
+        ratchet.records(repo, repo.git("write-tree").strip(), ratchet.CLAIMS)
+
+
 def test_a_failed_grep_is_not_an_empty_one(fixture_repo):
     repo, _ = fixture_repo
     with pytest.raises(ratchet.GateError):
@@ -490,9 +557,12 @@ def test_a_failed_grep_is_not_an_empty_one(fixture_repo):
 
 
 @pytest.mark.parametrize("name, cause", [
-    ("receipt-numbered", "it does not read `dep-removed: <source> -> <target>: <why>`"),
-    ("receipt-backticked", "it does not read `dep-removed: <source> -> <target>: <why>`"),
-    ("receipt-upper-token", "it does not read `dep-removed: <source> -> <target>: <why>`"),
+    ("receipt-numbered", "it does not read `dep-removed: clm-cite00 -> clm-weak00: <why>`"),
+    ("receipt-backticked", "it does not read `dep-removed: clm-cite00 -> clm-weak00: <why>`"),
+    ("receipt-upper-token", "it does not read `dep-removed: clm-cite00 -> clm-weak00: <why>`"),
+    ("receipt-reversed", "it does not read `dep-removed: clm-cite00 -> clm-weak00: <why>`"),
+    ("receipt-two-on-a-line", "it does not read `dep-removed: clm-xxxxxx -> clm-zzzzzz: <why>`, one edge to a line"),
+    ("receipt-reason-past-cr", "it gives no reason"),
     ("receipt-wrong-root", "it is not under research/"),
     ("receipt-json", "it is not in a .md file"),
     ("receipt-archived", "it is in an _archive/ directory"),
@@ -508,6 +578,15 @@ def test_a_refused_line_says_why(fixture_repo, capsys, name, cause):
     out = capsys.readouterr().out
     path = ratchet.CASES[name]["files"][0][0]
     assert "the line in %s does not count: %s" % (path, cause) in out
+
+
+def test_a_slack_edge_owes_nothing_so_its_refused_line_prints_nothing(fixture_repo, capsys):
+    repo, root = fixture_repo
+    base = ratchet.tree(repo, root, ratchet.spec())
+    tip = ratchet.tree(repo, root, ratchet.spec(deps=ratchet.without((ratchet.CITE, ratchet.SOLID))),
+                       ratchet.note(ratchet.says(ratchet.CITE, ratchet.SOLID), "notes/n.md"))
+    assert ratchet.report(ratchet.scan(repo, base, tip), base, tip) == 0
+    assert "does not count" not in capsys.readouterr().out
 
 
 def test_a_line_that_names_no_removed_edge_prints_nothing(fixture_repo, capsys):
@@ -552,8 +631,8 @@ def test_report_says_what_is_joint_what_left_and_what_is_not_gated(fixture_repo,
     res["findings"][0]["edge"]["context"] = "the bullet"
     ratchet.report(res, "b" * 8, "t" * 8)
     out = capsys.readouterr().out
-    assert "restoring it with other removed edges closes a cycle, so they cannot go back together" in out
-    assert "break the tip path from its\n    target back to its source" in out
+    assert "restoring it with %s -> %s closes a cycle, so they cannot go back together" % (ratchet.Z, ratchet.M) in out
+    assert "break a tip edge on that\n    loop" in out
     assert "dropped: the bullet" in out
 
     res = _case(fixture_repo, "remint-no-citers")
@@ -573,7 +652,7 @@ def test_report_says_what_is_joint_what_left_and_what_is_not_gated(fixture_repo,
     out = capsys.readouterr().out
     assert "not tested: %s  do-not-build -> ok-to-build  (0.3 -> 0.85)" % ratchet.CITE in out
     assert "other-band-rises=2 (not tested)" in out and "not gated" not in out
-    assert "removed edges that could not go back: 1. A rise above is not tested" in out
+    assert "left out of the restore: %s -> %s. What they hold or lift" % ratchet.CUT in out
     assert "restoring it closes a cycle, so its effect cannot be computed" in out
 
 

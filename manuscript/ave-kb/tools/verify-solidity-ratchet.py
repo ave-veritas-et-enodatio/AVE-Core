@@ -23,8 +23,8 @@ its authored lifts and without those edges, so nothing here pairs an old id with
 one. A re-mint or a split owes a receipt whenever the edge binds at that confidence, even
 if the new id keeps the dependency, and so does a deleted leaf. Measured at cbc668e7:
 renaming any one of 73 of the 331 claims fires and owes 1 to 4 receipts, 107 edges in
-all, though ids are stable (INVARIANT-S8) and none left the index across the 113 index
-changes measured.
+all, though ids are stable (INVARIANT-S8) and no claim left the index across the 113
+index changes measured.
 
 THE RECEIPT
 -----------
@@ -39,25 +39,27 @@ counts. No base text line holding the token, in any case, may also hold both ids
 reason, whitespace aside. So an old line moved, quoted, re-indented or left in a one-line
 dump does not count, nor does a fragment of its reason, and a changed word makes a new
 reason. Not seen: a dump that escapes the reason, a line wrapped in two, a binary file.
+Ids match as substrings, which is exact while every id has one length, as all do today.
 The path test keeps the line out of any document the base has. A rename is a new path, so
 it passes and shows in the diff. The gate checks only that a reason is present and new:
 it forces the deletion into the open and leaves judging it to review. The claim's own
 entry cannot carry the line, because that entry is the edit under test and a line there
-folds into its rationale. A refused line that names a removed edge and holds the token is
-reported with why.
+folds into its rationale. A line that holds the token and both ids of an edge still owed,
+in either order, but is no receipt for it, is reported under that edge with why.
 
 WHAT IT DOES NOT GATE
 ---------------------
 Raised confidence, raised support quality or on-point fraction, run experiments, and a
 support added or re-minted under a new id all lift bands too. Those are authored
-judgments, visible where they are written. A rise that survives restoring every removed
-edge that can go back is printed as `not gated`, so a claim that rose both ways shows
-both. An edge that closes a cycle with those already back, or whose source support left
-the tip, cannot go back, since only claims are put back, and a rise then prints as `not
-tested`. A claim the removed edges hold up that no listed edge names, as when receipted
-edges carry it, prints too. Every claim new at the tip is printed, since a re-mint that
-also raises confidence clears the fire. Each branch is judged against its own merge-base,
-so a rise split across two branches is not joined up.
+judgments, visible where they are written. For that report the removed edges go back in
+index order, leaving out any that would close a cycle with those already back and any
+whose source support left the tip. A rise that survives is printed as `not gated`, so a
+claim that rose both ways shows both. With any edge left out it prints as `not tested`,
+and the edges left out are named, since what they hold or lift does not show. A claim the
+removed edges hold lower than any listed line shows, as when receipted edges carry it,
+prints too. Every claim new at the tip is printed, since a re-mint that also raises
+confidence clears the fire. Each branch is judged against its own merge-base, so a rise
+split across two branches is not joined up.
 
 THE SOLVE
 ---------
@@ -104,7 +106,7 @@ RECEIPT_ROOTS = ('research/', '_orchestration/docket-entries/')
 TOKEN = 'dep-removed:'
 
 _ID = r'[a-z]{3}-[a-z0-9]+'
-MENTION = re.compile(r'%s\s*(%s)\s*->\s*(%s)\s*:(.*)' % (TOKEN, _ID, _ID))
+MENTION = re.compile(r'%s\s*(%s)\s*->\s*(%s)\s*:([^\r]*)' % (TOKEN, _ID, _ID))
 RECEIPT = re.compile(r'\s*(?:[-*]\s+)?' + MENTION.pattern)
 
 #: Rules switched OFF by --mutation-receipt. Empty in every real run.
@@ -288,13 +290,14 @@ def held_up(tip, restored):
 
 
 def split_cycles(edges, read):
-    """(edges that restore together, {(source, target): 'alone' or 'jointly'} for the rest).
+    """(edges that restore together, {(source, target): 'alone' or 'jointly'} for the rest,
+    (source, target) -> the other edges of its cycle).
 
     `read` returns None for a set that closes a cycle. Such a set is cut down, edge by
     edge, to the ones that still close it, so an edge with no part in the cycle goes back
     with the others. The loop takes the separate cycles one at a time.
     """
-    free, cycle = [], {}
+    free, cycle, loops = [], {}, {}
     for e in edges:
         if read([e]) is not None:
             free.append(e)
@@ -308,8 +311,9 @@ def split_cycles(edges, read):
                     closing = rest(closing, e)
         if 'joint-cycle-passes' not in MUTATE:
             cycle.update((pair(e), 'jointly') for e in closing)
+            loops.update((pair(e), [pair(o) for o in rest(closing, e)]) for e in closing)
         free = [e for e in free if not any(e is c for c in closing)]
-    return free, cycle
+    return free, cycle, loops
 
 
 def owed(edges, singles, against, read):
@@ -362,10 +366,10 @@ def token_lines(repo, tree):
 
 
 def refusal(path, edge, reason, old, at_base):
-    """Why a line naming `edge` is no receipt for it, or None. No `reason`: it did not parse."""
+    """Why a line naming `edge` is no receipt for it, or None. No `reason`: it is not its line."""
     if reason is None:
-        return ('it does not read `%s <source> -> <target>: <why>` with only indentation or a '
-                '`- ` or `* ` marker before it' % TOKEN)
+        return ('it does not read `%s %s -> %s: <why>`, one edge to a line, with only indentation '
+                'or a `- ` or `* ` marker before it' % (TOKEN, *edge))
     if not (path.startswith(RECEIPT_ROOTS) or 'any-root' in MUTATE):
         return 'it is not under %s' % ' or '.join(RECEIPT_ROOTS)
     if not (path.endswith('.md') or 'any-file' in MUTATE):
@@ -389,9 +393,9 @@ def receipts(repo, base, tip, gone):
     found, refused = {}, {}
     for path, text in token_lines(repo, tip_tree):
         line = MENTION.search(text) if 'token-anywhere' in MUTATE else RECEIPT.match(text)
-        reason = ' '.join(line[3].split()) if line else None
-        named = [line.group(1, 2)] if line else [p for p in map(pair, gone) if p[0] in text and p[1] in text]
-        for edge in named:
+        parsed = line.group(1, 2) if line else None
+        for edge in {parsed} - {None} | {p for p in map(pair, gone) if p[0] in text and p[1] in text}:
+            reason = ' '.join(line[3].split()) if edge == parsed else None
             why = refusal(path, edge, reason, old, at_base)
             if why:
                 refused.setdefault(edge, []).append((path, why))
@@ -432,27 +436,33 @@ def scan(repo, base_rev, tip_rev):
     found, refused = receipts(repo, base_rev, tip_rev, gone) if gone else ({}, {})
     paths = {pair(e): find_receipt(e, found) for e in gone}
     singles = {pair(e): {} if read([e]) is None else against([e]) for e in gone}
-    free, cycle = split_cycles(gone if 'no-residual' in MUTATE else
-                               [e for e in gone if not paths[pair(e)]], read)
+    free, cycle, loops = split_cycles(gone if 'no-residual' in MUTATE else
+                                      [e for e in gone if not paths[pair(e)]], read)
     flagged, jointly, partners = owed(free, singles, against, read)
     listed = {pair(e) for e in flagged} | set(cycle)
-    findings = [{'edge': e, 'cycle': cycle.get(pair(e)), 'holds': singles[pair(e)],
+    findings = [{'edge': e, 'cycle': cycle.get(pair(e)), 'loop': loops.get(pair(e), []),
+                 'holds': singles[pair(e)],
                  'jointly': jointly.get(pair(e), {}), 'receipt': paths[pair(e)],
                  'partners': {c: partners[pair(e), c] for c in jointly.get(pair(e), {})},
                  'refused': refused.get(pair(e), [])}
                 for e in gone if pair(e) in listed or paths[pair(e)]]
-    known, restorable = world.claims.keys() | world.supports.keys(), []
+    known, restorable = world.claims.keys() | tip.supports.keys(), []
     for e in gone:
         if e['source'] in known and read(restorable + [e]) is not None:
             restorable.append(e)
     after = live if 'others-tip' in MUTATE else read(restorable)
-    named = {c for f in findings for c in {**f['holds'], **f['jointly']}}
-    others = [c for c in sorted(tip.claims) if c in base_f and rank(after[c]) > rank(base_f[c])
-              and not ('others-skip-named' in MUTATE and c in named)]
+    shown = {}
+    for f in findings:
+        for c, v in list(f['holds'].items()) + list(f['jointly'].items()):
+            shown[c] = min(shown.get(c, len(BANDS)), rank(v))
+    others = [c for c in sorted(tip.claims) if c in base_f
+              and rank(after[c]) > rank(base_f[c]) and rank(live[c]) > rank(base_f[c])
+              and not ('others-skip-named' in MUTATE and c in shown)]
     return {'gone': gone, 'findings': findings, 'others': others, 'base': base_f, 'tip': live,
-            'after': after, 'carried': sorted(set(held_up(live, after)) - named),
-            'retired': sorted(set(base.claims) - set(tip.claims)),
-            'new': sorted(set(tip.claims) - set(base.claims)), 'stuck': len(gone) - len(restorable)}
+            'after': after, 'retired': sorted(set(base.claims) - set(tip.claims)),
+            'carried': [c for c in sorted(held_up(live, after)) if rank(after[c]) < shown.get(c, len(BANDS))],
+            'new': sorted(set(tip.claims) - set(base.claims)),
+            'stuck': [pair(e) for e in gone if not any(e is r for r in restorable)]}
 
 
 def show(value):
@@ -461,6 +471,10 @@ def show(value):
 
 def reading(value):
     return '%s (%s)' % (lib.derive_build_band(value), show(value))
+
+
+def edges(pairs):
+    return ', '.join('%s -> %s' % p for p in pairs)
 
 
 def report(res, base, tip):
@@ -479,15 +493,14 @@ def report(res, base, tip):
         if f['cycle'] == 'alone':
             print('     restoring it closes a cycle, so its effect cannot be computed')
         elif f['cycle'] == 'jointly':
-            print('     restoring it with other removed edges closes a cycle, so they cannot go '
-                  'back together')
+            print('     restoring it with %s closes a cycle, so they cannot go back together'
+                  % edges(f['loop']))
         for c, restored in sorted(f['holds'].items()):
             print('     holds %s at %s; restored it reads %s' % (
                 name(c), reading(res['tip'][c]), reading(restored)))
         for c, restored in sorted(f['jointly'].items()):
             print('     with %s, holds %s at %s; restored together it reads %s' % (
-                ', '.join('%s -> %s' % o for o in f['partners'][c]), name(c),
-                reading(res['tip'][c]), reading(restored)))
+                edges(f['partners'][c]), name(c), reading(res['tip'][c]), reading(restored)))
         if not f['receipt']:
             for path, why in f['refused']:
                 print('     the line in %s does not count: %s' % (path, why))
@@ -497,9 +510,9 @@ def report(res, base, tip):
         print('\n  %s: %s  %s -> %s  (%s -> %s)' % (
             verb, c, lib.derive_build_band(res['base'][c]), lib.derive_build_band(res['after'][c]),
             show(res['base'][c]), show(res['after'][c])))
-    if res['stuck'] and res['others']:
-        print('\n  removed edges that could not go back: %d. A rise above is not tested, and it '
-              'may be theirs.' % res['stuck'])
+    if res['stuck']:
+        print('\n  left out of the restore: %s. What they hold or lift does not show here.'
+              % edges(res['stuck']))
     for c in res['carried']:
         print('\n  held up by the removed edges: %s at %s; with them back it reads %s' % (
             name(c), reading(res['tip'][c]), reading(res['after'][c])))
@@ -519,8 +532,8 @@ Each UNEXPLAINED edge is one of these:
     written in the rationale changes nothing.
   - Its source or target left the index: the edge cannot come back under that id, even if
     a new id keeps the dependency. Add the line below.
-  - Restoring it closes a cycle, alone or with the edges named: break the tip path from its
-    target back to its source, after which the edge is tested, or add the line below.
+  - Restoring it closes a cycle, alone or with the edges printed: break a tip edge on that
+    loop, after which the edges are tested, or add the line below.
   - The dependency is really gone: add the line below.
 
 The line starts a line of a new Markdown file under %s, committed on this branch, with a
@@ -561,7 +574,7 @@ def main(base, tip, repo=None):
 
 # ------------------------------------------------------------------- fixtures
 #
-# One throwaway repo with hostile grep and colour config. Trees are built with
+# One throwaway repo with hostile grep, colour and ignore config. Trees are built with
 # `git write-tree`: no commit, so no identity, no hooks, no signing.
 #
 #   WEAK 0.30 <- CITE 0.85 -> SOLID 0.90        DOWN 0.85 -> CITE
@@ -627,7 +640,7 @@ def tree(repo, root, s, files=(), stale=None, to=.99, drop=(), blank=(), garble=
     for path, text in list(texts.items()) + list(files):
         Path(root, path).parent.mkdir(parents=True, exist_ok=True)
         Path(root, path).write_text(text, encoding='utf-8')
-    repo.git('add', '-A')
+    repo.git('add', '-A', '-f')
     sha = repo.git('write-tree').strip()
     for path in lose:
         blob = repo.git('rev-parse', '%s:%s' % (sha, path)).strip()
@@ -702,6 +715,8 @@ ROUNDED2 = graph_spec({X: .10, W: .72, Z: .99}, [(X, Z), (SUP1, W), (SUP2, W)], 
 RECEIPT_ORDER = {**masked(.20), 'deps': [(SUP1, W), (X, M), (SUP2, W)]}
 PARALLEL = graph_spec({X: .10, W: .30}, [(SUP1, W), (SUP2, W)], {SUP1: .90, SUP2: .90}, [(SUP1, X), (SUP2, X)])
 LOST_TO_ROUNDING = graph_spec({X: .10}, sups={SUP1: .72}, gives=[(SUP1, X)], fraction=.9)
+PHANTOM_BASE = graph_spec({X: .10, Z: .99}, [(X, Z)], {SUP1: .60}, [(SUP1, X)], fraction=.9)
+PHANTOM_TIP = graph_spec({X: .10, Z: .99}, sups={SUP1: .72}, gives=[(SUP1, X)], fraction=.9)
 AXIOM = 'axm-one000'
 ON_AXIOM = graph_spec({X: .90}, axioms=[(X, AXIOM)])
 RETYPED = graph_spec({X: .90, W: .30}, [(X, W)])
@@ -720,6 +735,7 @@ CASES = {
     'raised-confidence':  case(spec(claims={**CLAIMS_OF, WEAK: .90}), others=RAISED),
     'no-longer-binding':  case(spec(deps=without(CUT), claims={**CLAIMS_OF, CITE: .25})),
     'held-against-fall':  fired(spec(deps=without(CUT), claims={**CLAIMS_OF, WEAK: .10, CITE: .40}), CUT),
+    'held-over-a-fall':   fired(spec(deps=without(CUT), claims={**CLAIMS_OF, WEAK: .10}), CUT),
     'rise-by-two-routes': fired(spec(deps=without(CUT), claims={**CLAIMS_OF, WEAK: .60}), CUT,
                                 base=spec(claims={**CLAIMS_OF, WEAK: .60, CITE: .30}), others={CITE, DOWN}),
     'pending-target':     fired(spec(deps=without(CUT), claims={**CLAIMS_OF, WEAK: None}), CUT,
@@ -739,6 +755,9 @@ CASES = {
     'receipt-renamed-file': case(CUTTING, ((NOTE, 'context\n%s\n' % LINE),),
                                  base_files=note('context', 'research/2025-01-01_old.md'), flagged=[CUT]),
     'receipt-suffix-archive': case(CUTTING, note(LINE, 'research/foo_archive/x.md'), flagged=[CUT]),
+    'receipt-same-name':  case(CUTTING, note(LINE, 'research/sub/2026-01-01_fixture_result.md'),
+                               base_files=note('context'), flagged=[CUT]),
+    'receipt-binary-neighbour': case(CUTTING, note(LINE) + (('data/0bin.md', '\0%s x\n' % TOKEN),), flagged=[CUT]),
     'receipt-support':    case(spec(deps=without(*SUPS)), note('\n'.join(says(*e) for e in SUPS)), flagged=SUPS),
     'receipt-on-slack':   case(spec(deps=without((CITE, SOLID))), note(says(CITE, SOLID)), flagged=[(CITE, SOLID)]),
     'receipt-other-edge': fired(CUTTING, CUT, files=note(says(CITE, SOLID))),
@@ -747,6 +766,7 @@ CASES = {
     'receipt-blank-reason': fired(CUTTING, CUT, files=note('%s %s -> %s:   ' % (TOKEN, CITE, WEAK))),
     'receipt-placeholder': fired(CUTTING, CUT, files=note(says(*CUT, '<why>'))),
     'receipt-placeholder-upper': fired(CUTTING, CUT, files=note(says(*CUT, '<WHY>'))),
+    'receipt-reason-past-cr': fired(CUTTING, CUT, files=((NOTE, '%s %s -> %s:\rthe next line\n' % (TOKEN, *CUT)),)),
     'receipt-invisible-reason': fired(CUTTING, CUT, files=note(says(*CUT, '​'))),
     'receipt-mid-line':   fired(CUTTING, CUT, files=note('as noted, ' + LINE)),
     'receipt-one-word':   fired(CUTTING, CUT, files=note('noted: ' + LINE)),
@@ -756,6 +776,9 @@ CASES = {
     'receipt-double-marker': fired(CUTTING, CUT, files=note('- * ' + LINE)),
     'receipt-backticked': fired(CUTTING, CUT, files=note('%s `%s` -> `%s`: why' % (TOKEN, *CUT))),
     'receipt-bare-arrow': fired(CUTTING, CUT, files=note('%s %s > %s: why' % (TOKEN, *CUT))),
+    'receipt-reversed':   fired(CUTTING, CUT, files=note(says(WEAK, CITE))),
+    'receipt-two-on-a-line': fired(no_deps(TWO_CAPS), (X, W), (X, Z), base=TWO_CAPS,
+                                   files=note('%s; %s' % (says(X, W), says(X, Z)))),
     'receipt-upper-token': fired(CUTTING, CUT, files=note(LINE.replace(TOKEN, TOKEN.upper()))),
     'receipt-prose':      fired(CUTTING, CUT, files=note('%s still rests on %s' % (CITE, WEAK))),
     'receipt-binary':     fired(CUTTING, CUT, files=note('\0\n' + LINE)),
@@ -771,6 +794,8 @@ CASES = {
     'receipt-markdown':   fired(CUTTING, CUT, files=note(LINE, 'research/x.markdown')),
     'receipt-upper-md':   fired(CUTTING, CUT, files=note(LINE, 'research/x.MD')),
     'receipt-old-file':   fired(CUTTING, CUT, base_files=note('context'), files=note('context\n' + LINE)),
+    'receipt-old-unicode-file': fired(CUTTING, CUT, base_files=note('context', 'research/\u00e9.md'),
+                                      files=note('context\n' + LINE, 'research/\u00e9.md')),
     'receipt-moved-in':   fired(CUTTING, CUT, base_files=note(LINE, OLD), files=note(LINE)),
     'receipt-touched':    fired(CUTTING, CUT, base_files=note(LINE, OLD), files=note(LINE + ' ')),
     'receipt-rewrapped':  fired(CUTTING, CUT, base_files=note(LINE, OLD),
@@ -793,6 +818,9 @@ CASES = {
     'receipt-fragment':   fired(CUTTING, CUT, base_files=note(LINE, OLD), files=note(says(*CUT, 'bound'))),
     'receipt-new-reason': case(CUTTING, note(LINE + ', again'), base_files=note(LINE, OLD), flagged=[CUT]),
     'receipt-new-case':   case(CUTTING, note(LINE), base_files=note(LINE.replace('bound', 'BOUND'), OLD), flagged=[CUT]),
+    'receipt-new-case-up': case(CUTTING, note(LINE.replace('bound', 'BOUND')), base_files=note(LINE, OLD), flagged=[CUT]),
+    'receipt-reason-is-a-line': case(CUTTING, note(says(*CUT, says(DOWN, CITE, 'old'))), flagged=[CUT],
+                                     base_files=note(says(DOWN, CITE, 'old'), OLD)),
     'receipt-reason-reused': case(CUTTING, note(LINE), flagged=[CUT], base_files=note(
         '%s\n%s' % (says(CITE, SOLID, 'the bound no longer applies'),
                     says(DOWN, WEAK, 'the bound no longer applies')), OLD)),
@@ -853,11 +881,13 @@ CASES = {
     'slack-rounds-up-receipted': case(no_deps(ROUNDS_UP), note(says(SUP1, W) + '\n' + says(SUP2, W)),
                                       base=ROUNDS_UP, flagged=[(SUP1, W), (SUP2, W)]),
     'restore-raises':     case({**ROUNDS_UP, 'deps': [(SUP1, W), (SUP2, W)]}, base=ROUNDS_UP),
-    # These two pin the library rounding only with deps. Each changes if it rounds every reading.
+    # These pin the library rounding only with deps, as the abort `stale-by-rounding` does. If it
+    # rounds every reading, all of them change except `rounding-no-receipt`, the control.
     'rounding-holds-a-band': fired(no_deps(ROUNDED), (SUP1, W), base=ROUNDED),
     'rounding-slack-receipt': fired(no_deps(ROUNDED2), (X, Z), (SUP1, W), (SUP2, W), base=ROUNDED2,
                                     files=note(says(X, Z))),
     'rounding-no-receipt': case(no_deps(ROUNDED2), base=ROUNDED2),
+    'rounding-no-phantom-rise': case(PHANTOM_TIP, base=PHANTOM_BASE),
 
     'exp-rescue':         case(spec(deps=without(CUT), exps=STRONG), base=spec(exps=STRONG)),
     'exp-unrun':          fired(spec(deps=without(CUT), exps={EXP: ('pending', STRONG[EXP][1])}), CUT,
@@ -887,6 +917,7 @@ ABORTS = {
     'orphan-lift-target': ({}, {'drop': (X,)}, graph_spec({X: .10, W: .30}, sups={SUP1: .90}, gives=[(SUP1, X)],
                                                           fraction='*pending*')),
     'orphan-run-target': ({}, {'drop': (X,)}, graph_spec({X: .10, W: .30}, exps={EXP: ('run', [(X, .90)])})),
+    'orphan-run-source': ({}, {'drop': (EXP,)}, graph_spec({X: .10, W: .30}, exps={EXP: ('pending', [(X, .90)])})),
     'bad-json':      ({}, {'garble': EDGES}),
     'unreadable-base': ({'files': note(LINE + '\nfirst', OLD), 'lose': (OLD,)}, {'files': note(LINE)}, CUTTING),
     'unreadable-base-beside-a-hit': ({'files': note(LINE + '\nsecond', OLD) + note(says(DOWN, CITE), 'notes/hit.md'),
@@ -929,6 +960,8 @@ def run_gate(out=print, only=None):
         repo.git('init', '-q')
         for key, value in HOSTILE:
             repo.git('config', key, value)
+        Path(root, '.git', 'info').mkdir(exist_ok=True)
+        Path(root, '.git', 'info', 'exclude').write_text('*\n', encoding='utf-8')
         for name, run in [(n, run_case) for n in CASES] + [(n, run_abort) for n in ABORTS]:
             if only and name not in only:
                 continue
@@ -1013,7 +1046,7 @@ MUTATIONS = {
     'tip-only':           (('stale-base',), 'reconcile the tip and not the base'),
     'allow-empty':        (('empty-tip', 'empty-base'), 'accept an index with no claims'),
     'allow-orphans':      (('orphan-edge', 'orphan-target', 'orphan-lift', 'orphan-lift-target',
-                            'orphan-run-target'), 'accept an edge whose node is missing'),
+                            'orphan-run-target', 'orphan-run-source'), 'accept an edge whose node is missing'),
     'skip-bad-json':      (('bad-json',), 'drop an unparseable index line'),
 }
 
