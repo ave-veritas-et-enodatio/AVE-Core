@@ -37,3 +37,9 @@ manuscript/frontmatter/00_nomenclature.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad
 manuscript/frontmatter/00_title.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	31	Y	none	none	none	none	none	none	none	none	none	none	none
 manuscript/structure/commands.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	167	Y	none	none	none	none	none	none	none	none	none	none	none
 manuscript/structure/preamble.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	104	Y	none	none	none	none	none	none	none	none	none	none	none
+manuscript/vol_0_engineering_compendium/chapters/01_theoretical_stress_tests.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	86	Y	none	none	none	none	none	none	fence-excluded	fence-excluded	none	none	none
+manuscript/vol_0_engineering_compendium/chapters/02_analytical_summaries.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	192	Y	none	none	none	none	none	none	none	none	none	none	none
+manuscript/vol_0_engineering_compendium/chapters/03_computational_graph.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	105	Y	none	none	none	none	none	none	none	none	none	none	none
+manuscript/vol_0_engineering_compendium/chapters/04_dcve.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	116	Y	none	none	none	none	none	none	none	none	unsure	none	none
+manuscript/vol_0_engineering_compendium/chapters/_manifest.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	16	Y	none	none	none	none	none	none	none	none	none	none	none
+manuscript/vol_0_engineering_compendium/main.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	48	Y	none	none	none	none	none	none	none	none	none	none	none
