@@ -503,7 +503,7 @@ def build_radial_tree_admittance(
     Builds the nodal admittance matrix for a radially expanding Bethe tree.
 
     This solver geometrically evaluates structural continuum breakdown (loop corrections).
-    The Diamond/K4 vacuum lattice corresponds to coordination_z = 4.
+    The Diamond/K4 engine instrument net corresponds to coordination_z = 4 (Axiom-1 substrate is srs z=3; D1).
 
     Args:
         depth: The topological hop distance to the continuum transition.

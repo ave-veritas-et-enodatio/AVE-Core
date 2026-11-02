@@ -25,7 +25,7 @@
 }{%
     \typeout{[xr-hyper] vol_3_macroscopic.aux not found — Vol 3 chapter refs will be unresolved. Run `make vol3` first.}%
 }
-
+\IfFileExists{../../build/aux/vol_2_subatomic.aux}{\externaldocument{../../build/aux/vol_2_subatomic}}{\typeout{[xr-hyper] vol_2_subatomic.aux not found — the Vol 2 forward ref (ch:electroweak_higgs) will be unresolved. Run `make pdf` (two-pass) to resolve it.}}% Vol 2 forward ref (ch:electroweak_higgs). One line, on the former blank :28, so no line below moves -- rationale after \end{document}.
 % =========================================
 % DOCUMENT STRUCTURE
 % =========================================
@@ -61,3 +61,16 @@
 \bibliography{../bibliography}
 
 \end{document}
+% --- Note on the Vol 2 import at :28 (2026-09-19) ---
+% Vol 2 is pulled for ONE forward reference: chapters/05_universal_spatial_tension.tex:39 cites
+% ch:electroweak_higgs ("derived in full in Volume II, Chapter N"), which without the import
+% printed as "??" in every build. Vol 1 compiles BEFORE Vol 2, so the ref resolves on pass 2 of
+% `make pdf` (or whenever a prior build left build/aux/vol_2_subatomic.aux behind); standalone
+% single-pass builds fall through exactly like the Vol 0 / Vol 3 imports above.
+% Measured at ed1c7b4a: no label this volume references is defined in both Vol 2 and Vol 0 / Vol 3,
+% so the import changes how no existing reference resolves (a locally defined label always wins
+% over an imported one; among imports the later \externaldocument wins).
+% Placement: the import sits on the former blank line :28 and this note sits after \end{document}
+% (TeX stops reading there), so every line :29-:63 keeps its number. verify-inbound-cite-shift
+% matches cites by BASENAME and `main.tex` exists nine times in this repo: a multi-line insertion
+% here trips it on cites that actually address papers/2026_birefringence_letter/main.tex.

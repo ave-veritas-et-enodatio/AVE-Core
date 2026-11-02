@@ -237,19 +237,52 @@ def extract_artifact_refs(raw_line: str) -> list[ArtifactRef]:
 # Target index + resolution (path-suffix, mirrors verify-md-links' \kbleaf)
 # ---------------------------------------------------------------------------
 
-def build_target_index(repo_root: Path) -> dict[str, list[tuple[str, ...]]]:
+def _is_nested_checkout(directory: Path) -> bool:
+    """True if `directory` is the root of ANOTHER git checkout: it holds a `.git`
+    entry — a FILE for a `git worktree`, a DIRECTORY for a clone."""
+    return (directory / ".git").exists()
+
+
+def build_target_index(
+    repo_root: Path, excluded: set[Path] | None = None
+) -> dict[str, list[tuple[str, ...]]]:
     """Index repo files by basename -> [relative path-parts].
 
     Backs both bare-name (`foo.py`) and path-suffix (`a/b/foo.py`) resolution.
     Excludes gitignored / generated trees and nested worktrees; INCLUDES
     `_archive` and `.index` (tracked, legitimately citable).
+
+    NESTED CHECKOUTS. The sentence above always SAID nested worktrees were
+    excluded; until 2026-09-21 nothing here did it. Measured on main a5adf0f2:
+    one worktree under `.claude/worktrees/` took this index from 5216 entries to
+    10429, and because resolution is path-SUFFIX, a file deleted on this branch
+    but alive in another branch's worktree still satisfied a stamp — the gate
+    goes quiet exactly when it should fire. A directory below `repo_root` that
+    holds its own `.git` entry is another branch's tree, verified from its own
+    root; git will not track a path component named `.git`, so the rule cannot
+    drop a file that belongs here. Roots dropped are added to `excluded` so the
+    caller REPORTS them. Same rule as
+    research/drivers/r40_quote_claim_strength_number_check.py (rationale there).
     """
     files: dict[str, list[tuple[str, ...]]] = {}
+    nested_of: dict[Path, Path | None] = {repo_root: None}
+
+    def nested_checkout_of(directory: Path) -> Path | None:
+        if directory not in nested_of:
+            outer = nested_checkout_of(directory.parent)
+            nested_of[directory] = outer or (directory if _is_nested_checkout(directory) else None)
+        return nested_of[directory]
+
     for path in repo_root.rglob("*"):
         if not path.is_file():
             continue
         parts = path.relative_to(repo_root).parts
         if any(part in _TARGET_INDEX_SKIP for part in parts):
+            continue
+        nested = nested_checkout_of(path.parent)
+        if nested is not None:
+            if excluded is not None:
+                excluded.add(nested)
             continue
         files.setdefault(parts[-1], []).append(parts)
     return files
@@ -463,9 +496,11 @@ def report(gating: list[Finding], grandfathered: list[Finding], repo_root: Path)
         print(f"{rel(f)}:{f.line}  [{f.stamp}]  FAIL: {f.reason}")
 
 
-def run(repo_root: Path) -> tuple[list[Finding], list[Finding]]:
+def run(
+    repo_root: Path, excluded: set[Path] | None = None
+) -> tuple[list[Finding], list[Finding]]:
     """Scan + split into (gating, grandfathered). Shared by main() and tests."""
-    index = build_target_index(repo_root)
+    index = build_target_index(repo_root, excluded)
     baseline = load_baseline(repo_root)
     findings = scan(repo_root, index)
     gating = [f for f in findings if f.key not in baseline]
@@ -505,11 +540,19 @@ def main(argv: list[str] | None = None) -> int:
               f"failures -> {baseline_path(repo_root).relative_to(repo_root)}", file=sys.stderr)
         return 0
 
-    gating, grandfathered = run(repo_root)
+    excluded: set[Path] = set()
+    gating, grandfathered = run(repo_root, excluded)
     report(gating, grandfathered, repo_root)
 
+    # Reported, never silent: an exclusion nobody can see is a blind spot.
     print(
-        f"\n[verify-provenance-stamps] tokens: {', '.join(STAMP_TOKENS)}\n"
+        f"\n[verify-provenance-stamps] nested checkouts excluded from the target index: "
+        f"{len(excluded)}"
+        + "".join(f"\n[verify-provenance-stamps]   - {p.relative_to(repo_root)}" for p in sorted(excluded)),
+        file=sys.stderr,
+    )
+    print(
+        f"[verify-provenance-stamps] tokens: {', '.join(STAMP_TOKENS)}\n"
         f"[verify-provenance-stamps] gating failures: {len(gating)}  "
         f"grandfathered (legacy baseline): {len(grandfathered)}",
         file=sys.stderr,

@@ -83,7 +83,7 @@ LEGACY_LANE_CHECK_ALIASES = \
 	verify-approach-leak-number-check \
 	verify-approach-leak-v2-number-check
 
-.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks refresh-provenance-baseline framing-audit verify-anchor-content verify-new-cite-excerpts verify-engine-capability-anchors test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup gamma-census $(LEGACY_LANE_CHECK_ALIASES)
+.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-fired-riders verify-inbound-cite-shift verify-inter-repo-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks refresh-provenance-baseline framing-audit verify-anchor-content verify-new-cite-excerpts verify-engine-capability-anchors test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup gamma-census $(LEGACY_LANE_CHECK_ALIASES)
 
 help:
 	@echo "Applied Vacuum Engineering (AVE-Core) Build System"
@@ -400,6 +400,10 @@ verify-approach-leak-number-check:
 verify-approach-leak-v2-number-check:
 	@$(MAKE) --no-print-directory verify-lane-number-checks LANE_CHECK_FILTER=approach_leak_v2_number_check
 
+verify-fired-riders:
+	@echo "[Verify] FIRED prereg riders reached the corpus..."
+	@$(PYTHON) manuscript/ave-kb/tools/verify-fired-riders.py
+
 verify-md-links:
 	@echo "Checking Markdown link integrity + cited-id validity (inter-repo: warn)..."
 	PYTHONPATH=$(KB_TOOLS_DIR) $(PYTHON) $(KB_TOOLS_DIR)/verify-md-links.py --inter-repo warn
@@ -606,13 +610,39 @@ test: test-tools
 	# itself instead of silently eating the whole job budget. NOT on test-engine
 	# (those are legitimately-slow sims; the gate's slowest keeper is now ~50s).
 	$(PYTEST) $(SOURCE_DIR)/tests -m "not engine_sim" -n auto --timeout=180 --timeout-method=thread \
-		--ignore=$(SOURCE_DIR)/tests/test_mass_sector_a1_port.py
+		--ignore=$(SOURCE_DIR)/tests/test_mass_sector_a1_port.py \
+		--ignore=$(SOURCE_DIR)/tests/test_tone_probe_ringdown.py \
+		--ignore=$(SOURCE_DIR)/tests/test_charge_counters.py \
+		--ignore=$(SOURCE_DIR)/tests/test_k4_quaternion_storage.py \
+		--ignore=$(SOURCE_DIR)/tests/test_k4_charge_adapter.py
 	# Serial tail (2026-07-17): the A1-port suite transiently spikes ~340 MB; when
 	# xdist packing lands it late in the schedule it stacks on per-worker memory
 	# accumulation and the 2-core CI runner OOM-kills the worker ("node down",
 	# schedule-dependent so branch CI can red while main greens). A fresh serial
 	# process gives the spike a zero baseline; costs ~15 s.
 	$(PYTEST) $(SOURCE_DIR)/tests/test_mass_sector_a1_port.py --timeout=180 --timeout-method=thread
+	# Serial tail (2026-10-07): the tone-probe ringdown suite peaks at ~379 MB
+	# (TestRecordLengthTable / TestRecordLengthNonstationarityTable build large
+	# Hankel matrices for the 100-period record; SVD workspace spikes ~379 MB per
+	# worker). Under xdist the 2-core CI runner OOM-kills the worker when the
+	# class-scoped fixtures fire concurrently ("node down: Not properly terminated";
+	# broke main since #1062 / 918e1ad9). A fresh serial process gives each spike a
+	# zero baseline. Same pattern as the 2026-07-17 A1-port serial tail.
+	$(PYTEST) $(SOURCE_DIR)/tests/test_tone_probe_ringdown.py --timeout=180 --timeout-method=thread
+	# Serial tail (2026-10-08): the charge-counters suite peaks at ~804 MB serial
+	# (module-scope BCC/dense 96³ fixtures for C-exact, C-link, and alive4 all live
+	# in memory simultaneously; 64³ C-link fixtures add another ~200 MB each).
+	# Under xdist workers share a 2-core budget; fixture stacking OOM-kills the
+	# worker. Same pattern as the 2026-07-17 A1-port and 2026-10-07 tone-probe tails.
+	$(PYTEST) $(SOURCE_DIR)/tests/test_charge_counters.py --timeout=180 --timeout-method=thread
+	# Serial tail (2026-10-08): test_k4_quaternion_storage peaks at ~1140 MB RSS
+	# (measured local; OOM-kills gw1 on 2-core CI runner under xdist — same
+	# pattern as charge_counters). Fresh serial process avoids worker-shared budget.
+	$(PYTEST) $(SOURCE_DIR)/tests/test_k4_quaternion_storage.py -m "not engine_sim" --timeout=180 --timeout-method=thread -v --durations=10
+	# Serial tail (2026-10-09): test_k4_charge_adapter (D2 adapter tests) shares
+	# the K4 field-allocation pattern (32-48³ BCC + c_exact/c_link); runs after
+	# the K4 storage tail to avoid stacking with it under xdist.
+	$(PYTEST) $(SOURCE_DIR)/tests/test_k4_charge_adapter.py -m "not engine_sim" --timeout=180 --timeout-method=thread -v --durations=10
 
 test-engine:
 	@echo "[Test] Running engine-simulation tests (opt-in; slow tier-1/2)..."
@@ -671,17 +701,25 @@ paper:
 	cd $(PAPER_DIR) && latexmk -pdf -jobname=$(PAPER_JOB) main.tex
 	@echo "[Paper] Done: $(PAPER_DIR)/$(PAPER_JOB).pdf"
 
+# EXIT STATUS: each `for` loop below is ONE recipe line, run by /bin/sh with no
+# `-e` (this Makefile sets neither SHELL nor .SHELLFLAGS), so without an explicit
+# `|| exit 1` a failing iteration neither aborts the loop nor fails the line --
+# the line's status is the LAST iteration's. Measured on this recipe with a stub
+# for $(MAKE) (GNU Make 3.81, /bin/sh): before the guard,
+# `make pdf VOLUMES="FAILVOL GOODVOL"` exited 0 and still printed the
+# all-volumes-generated line, while `VOLUMES="GOODVOL FAILVOL"` exited 2. The
+# `|| exit 1` makes the first failing volume fail the target in either order.
 pdf_manuscript:
 	@echo "[Build] Compiling Volumes 0–VI + Vol IX (two-pass for cross-volume xr-hyper resolution)..."
 	@echo "[Build] === Pass 1 (collect aux files) ==="
 	@for dir in $(VOLUMES); do \
-		$(MAKE) --no-print-directory _compile_vol VOL=$$dir; \
+		$(MAKE) --no-print-directory _compile_vol VOL=$$dir || exit 1; \
 	done
 	@echo "[Build] === Pass 2 (resolve cross-volume refs) ==="
 	@for dir in $(VOLUMES); do \
-		$(MAKE) --no-print-directory _compile_vol VOL=$$dir; \
+		$(MAKE) --no-print-directory _compile_vol VOL=$$dir || exit 1; \
 	done
-	@echo "[Build] All 8 volume PDFs generated in $(OUT_DIR)/"
+	@echo "[Build] $(words $(VOLUMES)) volume PDFs generated in $(OUT_DIR)/"
 
 _compile_vol:
 	$(call COMPILE_VOL,$(VOL))
@@ -754,3 +792,14 @@ distclean: clean
 	@echo "[DistClean] Removing ALL build artifacts including PDFs..."
 	rm -rf $(OUT_DIR)
 	@echo "[DistClean] Done."
+
+# Appended at EOF deliberately. This target's first placement inserted 5 lines
+# above Makefile:448 and shifted six corpus cites into this file (+5 each) --
+# caught by this very checker on its own landing PR. One of the six citers is
+# research/2026-08-08_overlap-integral_prereg-FROZEN.md, a FROZEN prereg that
+# must not be rewritten, so re-pinning was not an available fix. The last
+# corpus-cited Makefile line is :474; appending past it shifts nothing.
+CITE_BASE ?= origin/main
+verify-inbound-cite-shift:
+	@echo "[Verify] Inbound cite shift (cites INTO files this branch changed)..."
+	@$(PYTHON) manuscript/ave-kb/tools/verify-inbound-cite-shift.py $$(git merge-base $(CITE_BASE) HEAD) HEAD

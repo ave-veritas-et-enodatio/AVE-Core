@@ -38,8 +38,8 @@ Physics setup (AVE-native, Axiom 1 compliant)
   speed c·√2 because the 4-port pattern forces each lattice step to
   advance by one full cardinal cell (the bond-projection onto x̂ is
   ±1/√3, and the group at the wavefront accumulates these coherently).
-  This is a native feature of Axiom 1 on the diamond lattice and is
-  NOT an SM/QED import.
+  This is a native feature of the diamond K4-TLM (D1: instrument net, not
+  the Axiom-1 srs z=3 substrate) and is NOT an SM/QED import.
 - Port propagation vectors (A→B):
     p_0 = (+1,+1,+1), p_1 = (+1,-1,-1),
     p_2 = (-1,+1,-1), p_3 = (-1,-1,+1).
@@ -65,7 +65,7 @@ component so Σw_n = 0.  For +x̂ the pure T₂ forward pattern is
 No SM/QED leakage
 -----------------
 - No assumption of photon quanta, helicity, or polarization beyond the
-  K4's own T₂ sector (which is native to Axiom 1 port arithmetic).
+  K4's own T₂ sector (native to the diamond K4-TLM port arithmetic).
 - No Planck constant, no second quantization.
 - Amplitude ≪ V_YIELD → Axiom 4 not engaged; purely linear vacuum.
 - ω and λ_eff are visualization choices (λ=10·dx, ω·dx/c=2π/10),

@@ -486,7 +486,7 @@ The LC-cavity standing-wave reframe (above) is the pedagogical PICTURE of what b
 
 **Two K4 scales (clarifying distinction; canonical per Vol 3 Ch 1 §3.2):**
 
-- **Primary K4 unit cell** ($z = 4$ tetrahedral coordination, Axiom 1 microscopic): mechanical eigenmode analyses operate here. The E-irrep soft shear eigenvalue at $K=2G$ evaluates to $(4/3) k_s = 4/21 \approx 0.190$ for the Keating discretization of the continuous Cosserat field. This is the discrete K4 unit cell's intrinsic mechanical quantity.
+- **Engine-K4 diamond unit cell** ($z = 4$ tetrahedral coordination; instrument net, not the srs $z=3$ Axiom-1 carrier — D1 2026-07-03): mechanical eigenmode analyses operate here. The E-irrep soft shear eigenvalue at $K=2G$ evaluates to $(4/3) k_s = 4/21 \approx 0.190$ for the Keating discretization of the continuous Cosserat field. This is the discrete K4 unit cell's intrinsic mechanical quantity.
 - **Amorphous secondary network** ($z_0 \approx 51.25$ effective): the FTG-EMT operates here. $p^* = 8\pi\alpha$ is the bond occupation fraction at $K/G = 2$. This is the canonical AVE substrate operating point.
 
 These are physically connected (primary K4's over-bracing creates the amorphous secondary scaffolding per Vol 3 Ch 1 §3.2) but numerically distinct quantities ($4/21 \neq 8\pi\alpha$; the 3.86% proximity is coincidence between two K4-related small numbers, not an unresolved discrepancy). See [Q-G47 Substrate-Scale Cosserat Closure](q-g47-substrate-scale-cosserat-closure.md) for the full distinction.

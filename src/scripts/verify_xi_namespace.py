@@ -94,13 +94,38 @@ def _skip(path: Path) -> bool:
     return any(tok in name for tok in SKIP_NAME_TOKENS)
 
 
+# NESTED-CHECKOUT EXCLUSION. A directory below REPO that holds its own `.git` entry (a
+# FILE for a `git worktree`, a DIRECTORY for a clone) is another branch's copy of this
+# corpus, verified from ITS root. Measured 2026-09-21 on main a5adf0f2: one worktree
+# nested under `.claude/worktrees/` raised the advisory count from 16 to 36 (every site
+# twice, plus the nested copy of this guard), and both this guard's self-skip and
+# WATCHLIST_LEAVES are anchored at REPO, so a nested copy of an exempt leaf is NOT exempt
+# from the hard check. Git will not track a path component named `.git`, so the rule
+# cannot hide a file that belongs here. Same rule as
+# research/drivers/r40_quote_claim_strength_number_check.py (rationale there).
+_NESTED_CHECKOUT_OF: dict[Path, Path | None] = {REPO: None}
+
+
+def nested_checkout_of(directory: Path) -> Path | None:
+    """Root of the nested checkout that holds `directory`, or None if it is ours."""
+    if directory not in _NESTED_CHECKOUT_OF:
+        outer = nested_checkout_of(directory.parent)
+        _NESTED_CHECKOUT_OF[directory] = outer or (directory if (directory / ".git").exists() else None)
+    return _NESTED_CHECKOUT_OF[directory]
+
+
 def main() -> int:
     hard_violations: list[str] = []  # check (i) — fails the gate
     advisories: list[str] = []  # check (ii) — reported, does NOT fail
     rel_watchlist = {(REPO / p) for p in WATCHLIST_LEAVES}
+    nested_checkouts: set[Path] = set()
 
     for path in REPO.rglob("*"):
         if not path.is_file() or path.suffix not in SCAN_SUFFIXES or _skip(path):
+            continue
+        nested = nested_checkout_of(path.parent)
+        if nested is not None:
+            nested_checkouts.add(nested)
             continue
         # The guard's own source quotes both patterns to document them.
         if path == Path(__file__).resolve():
@@ -133,6 +158,13 @@ def main() -> int:
                         f"FACTOR, not ξ): {lines[j].strip()[:90]}"
                     )
                     break
+
+    # Reported, never silent: an exclusion nobody can see is a blind spot.
+    print(
+        f"ξ namespace guard: {len(nested_checkouts)} nested checkout(s) excluded "
+        "(each is verified from its own root)"
+        + "".join(f"\n  - {p.relative_to(REPO)}" for p in sorted(nested_checkouts))
+    )
 
     if advisories:
         print(

@@ -4,9 +4,7 @@
 
 # AVE program board
 
-Scanned tree **f9b84c39** (2026-09-06) · 468 index records · 331 claims · 15 PRs open
-
-> ⚑ **This board was generated from a tree that is not `origin/main`** (`6b8b49a0`). Every count below describes **f9b84c39**. Regenerate on main before reading these as program state.
+Scanned tree **5619dd56** (2026-09-13) · 468 index records · 331 claims · 20 PRs open
 
 ## The number that frames everything
 
@@ -122,9 +120,9 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## Ruling-token coverage
 
-**44 of 58 docketed ruling numbers have no word-boundary occurrence anywhere in the claims register.**
+**45 of 59 docketed ruling numbers have no word-boundary occurrence anywhere in the claims register.**
 
-R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20, R21, R22, R23, R24, R25, R26, R27, R28, R29, R30, R32, R33, R34, R35, R36, R37, R38, R41, R45, R46, R47, R51, R52, R53, R54, R55, R56, R58
+R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20, R21, R22, R23, R24, R25, R26, R27, R28, R29, R30, R32, R33, R34, R35, R36, R37, R38, R41, R45, R46, R47, R51, R52, R53, R54, R55, R56, R58, R59
 
 > ⚑ **Read this as token coverage, not as physics debt.** It was headlined as "propagation debt" and that was wrong in both directions:
 >
@@ -141,7 +139,12 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 | PR | state | title |
 |---|---|---|
-| #1035 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] docs+ci: manuscript-reconciliation  |
+| #1044 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: Lane A sibling definition |
+| #1040 | unlabelled | [DO-NOT-MERGE] provenance: un-stamp the confinement clause from the 2026-06-30 r |
+| #1039 | unlabelled | [DO-NOT-MERGE][REVIEW: repaired, 52 shifted cites open] docs: epic residue sweep |
+| #1038 | unlabelled | [DO-NOT-MERGE][REVIEW: repaired, 26 shifted cites open] docs: epic Phase C wave  |
+| #1037 | unlabelled | [DO-NOT-MERGE][REVIEW: pending — 1 shifted board cite] docs: epic Phase C wave 1 |
+| #1036 | unlabelled | [DO-NOT-MERGE][REVIEW: BLOCKED by audit — 6 numeric errors minted by the repair] |
 | #1034 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: H1 three-object close + S |
 | #1033 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: ε11 as Q-point; constitut |
 | #1032 | unlabelled | [DO-NOT-MERGE][REVIEW: BLOCKED by blind audit] research: Machian-G boundary audi |
