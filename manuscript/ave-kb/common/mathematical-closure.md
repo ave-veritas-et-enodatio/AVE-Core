@@ -19,7 +19,7 @@ The following verification log was aggregated from the AVE computational validat
 ==========================================================
 AVE UNIVERSAL DIAGNOSTIC & VERIFICATION ENGINE
 Dynamic Output -- Generated from src/ave/core/constants.py
-(constants only; lines tagged [STATIC] below are NOT generated)
+(partly generated; see the scope note below)
 ==========================================================
 
 [SECTOR 1: INITIAL HARDWARE CALIBRATION]
@@ -76,7 +76,7 @@ VERIFICATION COMPLETE: STRICT GEOMETRIC CLOSURE
 ==========================================================
 ```
 
-> **Scope of the "Dynamic Output" label (2026-09-06).** Every value in the block above except the two lines tagged `[STATIC]` is emitted by `src/scripts/vol_2_subatomic/generate_verification_trace.py`, which imports them from `src/ave/core/constants.py` and substitutes them as format placeholders. The two tagged figures — the test-suite tally and the framework-file count — are **literals inside that generator's format string**, not computed by it. Both date from the initial release (2026-04-13) and have never been regenerated. They are **deliberately not refreshed here**: re-minting a new number under a label that promises it is generated would reproduce the defect rather than repair it. Mirror of `manuscript/backmatter/12_mathematical_closure.tex`.
+> **Scope of the "Dynamic Output" label (2026-09-06; inventory corrected 2026-11-01).** The block above is a hand-transcribed snapshot, not verbatim output. `src/scripts/vol_2_subatomic/generate_verification_trace.py` emits most of its rows by substituting values imported from `src/ave/core/constants.py`, with these exceptions. *Not emitted:* the seven Torus Knot Ladder lines, whose source is `src/scripts/vol_2_subatomic/torus_knot_spectrum.py`, and the Macroscopic Baryon Phase Shear row, which only this mirror carries. *Fixed text in that generator's format string:* the two lines tagged `[STATIC]`, the Trace-Reversal row and the three other Sector 5 lines. *Computed in that generator, not imported:* the Poisson Ratio and Weak Mixing Angle rows. *Differs from its current output:* the `I_scalar` row (rounded), the CODATA target row (last digit) and the confinement-force row (comma). The two tagged figures — the test-suite tally and the framework-file count — are **literals inside that generator's format string**, not computed by it. Both date from the initial release (2026-04-13) and have never been regenerated. They are **deliberately not refreshed here**: re-minting a new number under a label that promises it is generated would reproduce the defect rather than repair it. Mirror of `manuscript/backmatter/12_mathematical_closure.tex`.
 
 ## The Directed Acyclic Graph (DAG) Proof
 <!-- claim-quality: clm-ibfyda -->

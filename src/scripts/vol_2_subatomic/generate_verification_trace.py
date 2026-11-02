@@ -5,13 +5,13 @@ This script imports all constants and derived values from the AVE engine
 and prints the verification block that gets embedded in the manuscript.
 Run this whenever the engine changes to keep the manuscript in sync.
 
-NOTE (2026-09-06): two figures in the emitted block are LITERALS in the format
-string below, not computed from the engine -- the test-suite tally and the
-framework-file count. Both date from the initial release (2026-04-13). They are
-tagged [STATIC] in the output so the "Dynamic Output" header does not promise
-more than this script delivers. Do NOT hand-refresh them to a new literal: that
-re-mints a stale value under a generated label. Either compute them here (count
-the files, run the suite) or leave the tag.
+NOTE (2026-09-06, corrected 2026-11-01): the printed block is a hand-transcribed
+snapshot, not this output. Pasting this output over it would drop the Torus Knot
+Ladder rows, which come from torus_knot_spectrum.py. Fixed text in the format
+string: the [STATIC] test-suite tally and framework-file count (2026-04-13), the
+K = 2G row and Sector 5. nu and wma are computed here, not imported. Do NOT
+hand-refresh the [STATIC] figures: that re-mints a stale value under a generated
+label. Either compute them here (count the files, run the suite) or leave the tag.
 """
 
 from ave.core.constants import (
@@ -57,7 +57,7 @@ print(
     """==========================================================
 AVE UNIVERSAL DIAGNOSTIC & VERIFICATION ENGINE
 Dynamic Output — Generated from src/ave/core/constants.py
-(constants only; lines tagged [STATIC] below are NOT generated)
+(partly generated; see the scope note below)
 ==========================================================
 
 [SECTOR 1: INITIAL HARDWARE CALIBRATION]
