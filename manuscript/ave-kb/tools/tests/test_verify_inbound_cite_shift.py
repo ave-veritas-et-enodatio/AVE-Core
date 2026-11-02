@@ -34,6 +34,12 @@ re-pin read SHIFTED with a wrong next number and a wrong one read the same. And
   * the pure functions read hunk headers, zero-length sides and line pairing the
     way the docstring says they do.
 
+And their repairs. A diff that gives no address has not agreed; a blank line asks
+the diff; either side of a tie passes; has-line reads a re-pin at both numbers; a
+pair needs no rival and a line moved whole is nobody's re-pin; a final newline is
+not a line. Two things the REPINS table cannot hold are pinned here: a target with a
+NUL byte, and rows alike but for their digits pairing in order.
+
 Run directly (`python tools/tests/test_verify_inbound_cite_shift.py`) or via pytest.
 """
 
@@ -311,6 +317,20 @@ def test_report_confirms_a_repin_and_names_both_numbers():
     assert "RETARGETED=0 (advisory)" in out
 
 
+def test_report_says_what_a_retarget_is_without_guessing_why():
+    import contextlib
+    import io
+
+    mod = _load_module()
+    buf = io.StringIO()
+    with mod.two_trees(*mod._repin_trees(["retargeted"])) as (repo, base, tip):
+        with contextlib.redirect_stdout(buf):
+            mod.report(mod.scan(repo, base, tip), verbose=True)
+    out = buf.getvalue()
+    assert "[RETARGETED] -- re-pinned from :1; no repair to confirm: this number kept still" in out
+    assert "on purpose" not in out
+
+
 def test_retarget_is_advisory_and_a_miss_onto_a_still_line_is_not():
     """#915 moved nothing in `trampoline-framework.md` and corrected `:188` to `:192`,
     a cite wrong at the base: comparing the two lines alone called that rot. But a
@@ -575,6 +595,18 @@ def test_rows_alike_but_for_their_digits_keep_their_order_in_a_hunk():
     with mod.two_trees(base, tip) as (repo, b, t):
         res = mod.scan(repo, b, t)
     assert [(f.held, f.n, f.kind) for f in res["pinned"]] == [(2, 3, "RE-PINNED"), (4, 5, "RE-PINNED")]
+
+
+def test_a_target_holding_a_nul_byte_is_still_read_as_text():
+    """Without --text git calls the file binary and prints no hunks, so the address
+    of every line in it is lost."""
+    mod = _load_module()
+    base = {"t.md": ["a\0", "b", "c"], "c.md": ["see `t.md:2`"]}
+    tip = {"t.md": ["new", "a\0", "b", "c"], "c.md": ["see `t.md:2`"]}
+    with mod.two_trees(base, tip) as (repo, b, t):
+        assert repo.hunks(b, t, "t.md") == [(1, 0, 1, 1)]
+        res = mod.scan(repo, b, t)
+    assert [(f.kind, f.moved_to) for f in res["pinned"]] == [("SHIFTED", 3)]
 
 
 def test_leaf_cites_skips_a_name_that_merely_ends_in_the_leaf():

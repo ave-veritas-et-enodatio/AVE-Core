@@ -119,9 +119,22 @@ reports the plain test never made, every one on #915 and every one correct: its
 hunks in `trampoline-framework.md` are 1->1 at :97, :220 and :713, so `:188` -> `:192`
 moved nothing and corrected a cite already wrong at the base (the mass gap was
 always at :192), and `:73` -> `:169` re-anchored a cite on text the same branch
-added. So a re-pin adds a report to the plain test's only where it demonstrably
-missed: the cited line moved and `new` is not where it went, on a line the plain
-test passes because that line kept still, or `new` is past the end of the file.
+added. The headline above is narrower than the arm. The arm takes any re-pin whose
+`new` kept still or is past the base end and whose cited line the diff gives no new
+address, so it also takes a cited line the diff deleted, and a `new` past the base
+end that is itself a line that moved. All 19 rows are the narrow case.
+
+A re-pin can still add a report the plain test did not make, by these routes:
+  * SHIFTED: the cited line's text is at tip and `new` is not where the diff put
+    it, whether `new` kept still (the plain test passes it), was rewritten (the
+    plain test reads EDITED-IN-PLACE) or is past the base end (the plain test
+    skips it);
+  * UNCONFIRMED-RE-PIN: the cited line is gone and `new` is a rewritten line other
+    than its replacement, which the plain test reads EDITED-IN-PLACE;
+  * OUT-OF-RANGE: `new` is past the end of both files, which the plain test skips;
+  * has-line at both numbers pins a bare name to one file where the plain test
+    left it AMBIGUOUS-BASENAME, and so can turn an advisory into a gating report.
+On the 150 merges it added none. That is a measurement, not a property.
 
 The number is recovered by pairing the tip line with the base line it replaced:
 first a line the branch moved whole, which holds what it held, so rows reversed
@@ -212,7 +225,11 @@ NOT fire when same-named file B moves -- and the mutation receipt proves that
 control is not vacuous, because under the pre-fix basename-only rule the very
 same fixture DOES fire. REPINS, below, is the same discipline for WHICH NUMBER and
 WHICH LINE: a table of one branch and every way a citer can respond to it, each
-rule of those sections switched off in the receipt and shown to change a row.
+rule of those sections switched off in the receipt and shown to change a row. The
+gate also checks that the rows which should fail the run do: a verdict dropped from
+the gating set must not pass its own self-gate. Two behaviours need a fixture the
+table cannot hold and are pinned in the test file instead: the diff reads a target
+holding a NUL byte as text, and rows alike but for their digits pair in order.
 """
 import collections, contextlib, os, posixpath, re, shutil, subprocess, sys, tempfile
 
@@ -298,15 +315,17 @@ class Repo:
     def hunks(self, base, tip, path):
         """[(a, c, s, d)]: base lines [a, a+c) became tip lines [s, s+d), in file order.
 
-        Plumbing, so no diff.* setting of the caller's can change the answer, and
-        -U0, so a line no hunk names is a line the diff left alone. git writes the
-        start of a zero-length side as the line BEFORE the gap, hence the +1.
+        Plumbing, so no diff.* setting of the caller's can change the answer;
+        -U0, so a line no hunk names is a line the diff left alone; --text, so a
+        stray NUL byte does not make git call the file binary and print no hunks.
+        git writes the start of a zero-length side as the line BEFORE the gap,
+        hence the +1.
         """
         key = (base, tip, path)
         if key not in self._hunks:
             rc, out = self.raw('--literal-pathspecs', 'diff-tree', '-r', '-p', '-U0', '--text',
                                '--no-color', base, tip, '--', path)
-            if rc != 0:
+            if rc != 0 and 'no-diff-errors' not in MUTATE:
                 self.diff_errors.append(path)
             self._hunks[key] = [
                 (int(a) + (c == b'0'), int(c or 1), int(s) + (d == b'0'), int(d or 1))
@@ -551,7 +570,8 @@ def lines_at_tip(hunks, b, t, n):
     else:                                                  # a block move: put back by a hunk
         hits = [j for _, _, s, d in hunks for j in range(s, s + d)]
     if 'no-confirm' not in MUTATE:
-        hits = [j for j in hits if 0 < j <= line_count(t) and t[j - 1].strip() == b[n - 1].strip()]
+        same = (lambda l: l) if 'confirm-raw' in MUTATE else str.strip
+        hits = [j for j in hits if 0 < j <= line_count(t) and same(t[j - 1]) == same(b[n - 1])]
     if len(hits) > 1 and 'no-agreeing-run' not in MUTATE:
         runs = [_agreeing_run(b, n, t, j) for j in hits]
         hits = [j for j, r in zip(hits, runs) if r == max(runs)]
@@ -740,7 +760,8 @@ def _arrow(f):
     if f.kind == 'UNCONFIRMED-RE-PIN':
         return pin + '; the base content is gone and this is not the line that replaced it'
     if f.kind == 'RETARGETED':
-        return pin + '; no repair: nothing moved under this number, so the aim was changed on purpose'
+        return pin + ('; no repair to confirm: this number kept still or is past the base end, and the '
+                      'diff gives the cited line no new address')
     if f.kind == 'SHIFTED' and not f.moved_to:
         note = 'the diff took this line out; its text survives only at other lines'
     elif f.moved_to:
@@ -839,15 +860,20 @@ def liveness(repo, base, tip):
     return dead, len(lines)
 
 
+def scan_errors(res):
+    """The git calls of a scan that failed: any one voids its answer."""
+    return (['`git grep` exited with an error while collecting citers of %r' % leaf
+             for leaf in res['grep_errors']]
+            + ['`git diff-tree` exited with an error on %r' % path for path in res['diff_errors']])
+
+
 def main(base, tip, verbose=False, repo=None):
     repo = repo or Repo()
     dead, n_probes = liveness(repo, base, tip)
     res = None
     if not dead:
         res = scan(repo, base, tip)
-        dead = ['`git grep` exited with an error while collecting citers of %r' % leaf
-                for leaf in res['grep_errors']]
-        dead += ['`git diff-tree` exited with an error on %r' % path for path in res['diff_errors']]
+        dead = scan_errors(res)
     if dead:
         print('[inbound-cites] ABORT: liveness failed -- a clean report here would be false.')
         for why in dead:
@@ -1052,6 +1078,8 @@ REPINS = collections.OrderedDict([
                  'a re-pin onto a look-alike off the tie fails, and does not guess a side')),
     ('tie-frozen', (_edge('tie-frozen', 4), _edge('tie-frozen', 4), [(4, 4, 'SHIFTED', 0)],
                     'a cite left on a tied line is reported with no address')),
+    ('indented', (_edge('indented', 15), _edge('indented', 15), [(15, 15, 'SHIFTED', 17)],
+                  'a line that lost its indent is confirmed after strip, as the verdict compares it')),
     ('rewritten', (_cite('rewritten', 10), _cite('rewritten', 13), [(10, 13, 'EDITED-IN-PLACE', 0)],
                    'a re-pin onto the row that replaced the cited one is advisory')),
     ('gone', (_cite('gone', 10), _cite('gone', 5), [(10, 5, 'UNCONFIRMED-RE-PIN', 0)],
@@ -1157,10 +1185,20 @@ class DiffThatLies(Repo):
         return []
 
 
+class DiffThatFails(Repo):
+    """A `git diff-tree` that exits non-zero: every re-pin would lose its number."""
+
+    def raw(self, *a, stdin=None):
+        if 'diff-tree' in a:
+            return 128, b''
+        return super().raw(*a, stdin=stdin)
+
+
 def repin_scan(keys=None, repo_cls=Repo):
     """Run the REAL scan() over the re-pin fixture.
 
-    Returns ({key: [(held, n, kind, address)]}, exit code)."""
+    Returns ({key: [(held, n, kind, address)]}, exit code), the code as main() would
+    give it once liveness has passed."""
     with two_trees(*_repin_trees(keys or list(REPINS))) as (repo, base, tip):
         repo = repo_cls(cwd=repo.cwd, scrub_env=True)
         res = scan(repo, base, tip)
@@ -1169,7 +1207,7 @@ def repin_scan(keys=None, repo_cls=Repo):
     for f in res['pinned'] + [f for f in res['ambiguous'] if f.kind != 'HOLDS']:
         got[lines[f.lno - 1].split(':')[0]].append((f.held, f.n, f.kind, f.moved_to))
     rot = any(f.kind in ROT for f in res['pinned'])
-    return {k: sorted(v) for k, v in got.items()}, (1 if rot else 0)
+    return {k: sorted(v) for k, v in got.items()}, (2 if scan_errors(res) else 1 if rot else 0)
 
 
 ALL = list(PROBES)
@@ -1239,9 +1277,12 @@ def run_gate(out=print):
         say(got.get(key, []) == want, label, f"{key}: {got.get(key, 'not reported')}")
     got, rc = repin_scan(['correct', 'prose', 'moved', 'two', 'blank-right', 'tie-near', 'tie-far', 'untouched'])
     say(rc == 0, 'a branch whose citers carry only correct re-pins passes the run', f'exit {rc}')
-    got, rc = repin_scan(['bare-narrowed'])
-    say(rc == 1, 'a wrong bare re-pin gates: has-line reads it at both numbers, so a short sibling does not '
-        'make it advisory', f'exit {rc}')
+    for key in ('wrong', 'gone', 'past-tip-end', 'bare-narrowed'):
+        got, rc = repin_scan([key])
+        say(rc == 1, f'the {key} row alone fails the run: {got.get(key, "not reported")} gates', f'exit {rc}')
+    got, rc = repin_scan(['correct'], repo_cls=DiffThatFails)
+    say(rc == 2, 'a `git diff-tree` error voids the run rather than costing every re-pin its number',
+        f'exit {rc}')
     got, _ = repin_scan(['frozen'], repo_cls=DiffThatLies)
     say(got.get('frozen') == [(9, 9, 'SHIFTED', 0)], 'a hunk address is confirmed equal: a diff that '
         'lies yields no address, and the verdict stands', f"{got.get('frozen', 'not reported')}")
@@ -1357,6 +1398,23 @@ def mutation_receipt():
     results.append(('M30 count the final newline as a line: both boundaries must go back to reading off by one',
                     kinds(repin('phantom-line', 'tip-end-plus-one')) == {'RETARGETED'}
                     and kinds(repin('phantom-line', 'base-end-plus-one')) == {'UNCONFIRMED-RE-PIN'}))
+    results.append(('M31 confirm an address byte for byte: the line that lost its indent must lose its address',
+                    addresses(repin('confirm-raw', 'indented')) == {0}))
+    MUTATE.add('no-diff-errors')
+    try:
+        rc = repin_scan(['correct'], DiffThatFails)[1]
+    finally:
+        MUTATE.discard('no-diff-errors')
+    results.append(('M32 stop recording `git diff-tree` errors: the run must give a verdict, and the correct '
+                    're-pin, its number lost, must read as rot', rc == 1))
+    global ROT
+    for kind in ROT:
+        kept, ROT = ROT, tuple(k for k in ROT if k != kind)
+        try:
+            dead = not run_gate(out=lambda line: None)
+        finally:
+            ROT = kept
+        results.append(('M33 take %s out of the gating verdicts: the gate must report itself dead' % kind, dead))
 
     allgood = True
     for label, tripped in results:
