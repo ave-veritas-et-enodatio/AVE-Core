@@ -47,7 +47,7 @@ because its magnitude route was attempted and closed-negative.
 ## GAP 1 — m_e / ℓ_node Nyquist-independence circularity
 
 - **Canonical location:**
-  [`mathematical-closure.md:166`](../manuscript/ave-kb/common/mathematical-closure.md)
+  [`mathematical-closure.md:170`](../manuscript/ave-kb/common/mathematical-closure.md)
   (Outstanding Rigour Gaps row "m_e closure via Nyquist independence");
   back-edge at `:131`; acyclicity verdict at `:136`; cross-ref
   [`full-derivation-chain.md`](../manuscript/ave-kb/common/full-derivation-chain.md)
@@ -86,7 +86,7 @@ because its magnitude route was attempted and closed-negative.
 ## GAP 2 — Flux-tube Gaussian-ansatz radial profile
 
 - **Canonical location:**
-  [`mathematical-closure.md:167`](../manuscript/ave-kb/common/mathematical-closure.md)
+  [`mathematical-closure.md:171`](../manuscript/ave-kb/common/mathematical-closure.md)
   (row "Flux-tube radial profile (Gaussian ansatz)"); inline at
   [`thermal-softening.md:77`](../manuscript/ave-kb/vol2/particle-physics/ch02-baryon-sector/thermal-softening.md)
   (+ `:73–101`).
@@ -118,7 +118,7 @@ because its magnitude route was attempted and closed-negative.
 ## GAP 3 — H_∞ / G Chain B′ (derive G independent of R_H, the cosmological horizon)
 
 - **Canonical location:**
-  [`mathematical-closure.md:168`](../manuscript/ave-kb/common/mathematical-closure.md)
+  [`mathematical-closure.md:172`](../manuscript/ave-kb/common/mathematical-closure.md)
   (row "H_∞ closure: G derivation independent of R_H"); back-edge at `:132`;
   inline at
   [`asymptotic-hubble-constant.md`](../manuscript/ave-kb/vol3/gravity/ch01-gravity-yield/asymptotic-hubble-constant.md)
@@ -161,7 +161,7 @@ because its magnitude route was attempted and closed-negative.
 ## GAP 4 — δ_strain magnitude at T_CMB
 
 - **Canonical location:**
-  [`mathematical-closure.md:165`](../manuscript/ave-kb/common/mathematical-closure.md)
+  [`mathematical-closure.md:169`](../manuscript/ave-kb/common/mathematical-closure.md)
   (row "δ_strain magnitude at T_CMB (route CLOSED NEGATIVE)"); back-edge `:130`
   + `:136`; result doc
   [`research/2026-05-31_FT-1_delta-strain-eta-epsilon_result.md`](../research/2026-05-31_FT-1_delta-strain-eta-epsilon_result.md);

@@ -4,6 +4,14 @@ Auto-generate the verification trace for 12_mathematical_closure.tex.
 This script imports all constants and derived values from the AVE engine
 and prints the verification block that gets embedded in the manuscript.
 Run this whenever the engine changes to keep the manuscript in sync.
+
+NOTE (2026-09-06): two figures in the emitted block are LITERALS in the format
+string below, not computed from the engine -- the test-suite tally and the
+framework-file count. Both date from the initial release (2026-04-13). They are
+tagged [STATIC] in the output so the "Dynamic Output" header does not promise
+more than this script delivers. Do NOT hand-refresh them to a new literal: that
+re-mints a stale value under a generated label. Either compute them here (count
+the files, run the suite) or leave the tag.
 """
 
 from ave.core.constants import (
@@ -49,6 +57,7 @@ print(
     """==========================================================
 AVE UNIVERSAL DIAGNOSTIC & VERIFICATION ENGINE
 Dynamic Output — Generated from src/ave/core/constants.py
+(constants only; lines tagged [STATIC] below are NOT generated)
 ==========================================================
 
 [SECTOR 1: INITIAL HARDWARE CALIBRATION]
@@ -88,11 +97,12 @@ Dynamic Output — Generated from src/ave/core/constants.py
 > 3D Non-Linear FDTD:                   Axiom 4 ε_eff per cell per timestep
 > Linear Mode:                           Available (linear_only=True)
 > Mur ABC:                               1st-Order (6 faces)
-> Total Test Suite:                       62/62 PASSED
+> Total Test Suite:                       62/62 PASSED   [STATIC 2026-04-13]
 
 ==========================================================
 VERIFICATION COMPLETE: STRICT GEOMETRIC CLOSURE
 168/168 framework files — zero Standard Model parameters.
+[STATIC 2026-04-13 -- not generated; see the scope note below]
 ==========================================================
 """.format(
         l_node=L_NODE,

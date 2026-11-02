@@ -21,7 +21,7 @@ The corpus **fused two distinct quantities** and anchored both to a fabricated c
 - `manuscript/ave-kb/vol2/particle-physics/ch02-baryon-sector/thermal-softening.md:99` + `manuscript/vol_2_subatomic/chapters/02_baryon_sector.tex:156` — *"**FEM convergence.** High-resolution 3D finite-element integration of the full Borromean topology … yields V_total=2.0."* **RETIRE** — no such computation exists (V2-closure §3 + the 2026-06-01 `compute_*`-literal engine sweep found `tensors.py::compute_toroidal_halo_volume()` is a hardcoded `return 2.0`).
 
 **Echo claims:**
-- `manuscript/backmatter/12_mathematical_closure.tex:144` + `manuscript/ave-kb/common/mathematical-closure.md:167` (the rigour-gap table) — "V_total=2.0 (FEM-converged to 0.13%) … binding on whatever profile emerges." Reframe: V_total=2 is the forced reactance count (profile-independent); the Gaussian-ansatz gap binds `ρ_threshold`, not V_total.
+- `manuscript/backmatter/12_mathematical_closure.tex:171` + `manuscript/ave-kb/common/mathematical-closure.md:171` (the rigour-gap table) — "V_total=2.0 (FEM-converged to 0.13%) … binding on whatever profile emerges." Reframe: V_total=2 is the forced reactance count (profile-independent); the Gaussian-ansatz gap binds `ρ_threshold`, not V_total.
 - `manuscript/ave-kb/vol2/claim-quality.md:50, :65` — "FEM convergence to V_total=2.0 is binding."
 - `manuscript/ave-kb/vol2/particle-physics/ch02-baryon-sector/thermal-softening.md:77` + `manuscript/vol_2_subatomic/chapters/02_baryon_sector.tex:137` — "V_total=2.0 at FEM convergence remains binding on whatever profile emerges."
 

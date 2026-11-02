@@ -266,7 +266,7 @@ the banner site) is **blank**. Any future consumer of item 1 must re-pin before 
 | vol1 `07_regime_map.tex:19` (B1 tag) | DONE — `b5fc6bee`, **PR #862** |
 | vol2 `09_computational_proof.tex:50` ("sub-3 Å") | DONE — Rule-12 scope note now at `:55-60` |
 | vol6 `circuits/circuit_h1.tex:18` (INVARIANT-N1) | DONE — `36058f25`; both PDFs regenerated |
-| `backmatter/12_mathematical_closure.tex:201` (CRIB-4 superlative) | DONE — `c7657ff9`, PR #859 |
+| `backmatter/12_mathematical_closure.tex:205` (CRIB-4 superlative) | DONE — `c7657ff9`, PR #859 |
 | vol4 status-sync (4 leaves) | DONE — `6d5e0ddc` |
 | dark-TikZ sweep | DONE — **PR #893** (post-close-out, so §6 could not know). Count corrected **23→22** of 29; 8 remain, each with a disclosed carve-out |
 

@@ -28,7 +28,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## What we are waiting on
 
-**48 of 82 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
+**49 of 83 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
 
 *Scope: this is a census of `open-items/`. `_orchestration/2026-07-10_rulings-docket.md` is the **paper timeline** — a dated continuation log, frozen at its 2026-07-21 tail per `docket-entries/README.md`, and the historical record of how each ruling was reached. It is read chronologically, not harvested; anything still live in it belongs here as its own file.*
 
@@ -105,6 +105,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [Over-braced chiral crystal walk — picture-lock applied; signed WALK-GRADE teaching (do not commission Chern / Maxwell–Calladine)](open-items/2026-08-26-overbraced-crystal-audit.md) | OPEN | lane | 2026-08-26 |
 | [Analyze ker Y (DC loop current) and M-eigenmodes as two arms — do not pick; drop Maxwell–Calladine as the knot identity](open-items/2026-08-29-ker-y-vs-m-eigenmode.md) | OPEN | grant | 2026-08-29 |
 | [Phase space = native tank-state chart (Grant-signed sentence); amend def-69f472; characterize coupling to vacuum / matter / light / gravity (or bulk emergence)](open-items/2026-08-29-phase-space-tank-state.md) | OPEN | grant | 2026-08-29 |
+| [Print is ahead of the KB on the 18/49 ringdown — clm-395gps re-band is owed](open-items/2026-09-06-clm-395gps-reband-owed.md) | OPEN | grant | 2026-09-06 |
 | [Sibling-repo debts — AVE-Fusion yield cross-wire + AVE-Bench-FemtoElectrometer stale sites](open-items/2026-07-03-sibling-repo-debts.md) | REGISTERED | unassigned | 2026-07-03 |
 | [The v3 ringdown instrument — the DISCRETE near-wall chain](open-items/2026-08-04-v3-ringdown-instrument.md) | REGISTERED | unassigned | 2026-08-04 |
 | [Hygiene backlog — Bell-arc citation follow-ups, FPR provenance re-grep, auditor-landing queue](open-items/2026-07-03-hygiene-backlog.md) | QUEUED | unassigned | 2026-07-03 |
