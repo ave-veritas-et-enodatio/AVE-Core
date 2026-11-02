@@ -282,7 +282,7 @@ the banner site) is **blank**. Any future consumer of item 1 must re-pin before 
 | **Petermann split** | **RULED 2026-08-03 — and the premise was wrong.** It was never a physics split: `-0.328427` was a **97 ppm instrument artifact** (retardation applied by truncated integer index), repaired analytically. Grant verbatim `[sic]`: *"1, follow your rec"* | `docket-entries/2026-08-03-petermann-amendments.md:9,:15`; leaf `q-g19a-petermann-saliency-closure.md:102` — *"retired as artifact-class"* |
 | **Cite-rot fix (#850)** | **PARTLY DISCHARGED.** `strip_target` is unchanged — but it was **bypassed**, not fixed: a separate parser (`iter_line_cites`, `check_line_cites`) now asserts cited lines exist. **11,168 backticked-bare cites are parsed for the first time.** §6's *"~1,800 remain wholly unchecked"* is superseded. Option (1) still not implemented | `docket-entries/2026-08-05-cite-rot-line-existence.md:3,:26`; `verify-md-links.py:541,:652` |
 | **Rule-12 banner form** | **RULED 2026-08-04 (R7):** *"rendered current-status notes stay; verbatim prior-wording `%` duplication drops (git is the trail)."* | `docket-entries/2026-08-04-rulings-doc-lane-figures-conventions.md:7,:20-22` |
-| **Dedup-completion class** | **RULED 2026-08-04 (R9/R10)** — no veto exercised, lane ratifications stand. ⚠ Live residue: `vol_9/15_falsification_tests.tex:217-218` still prints *"orchestrator-ruled, Grant veto open"* | same file `:25-26`; handoff `:64-65` |
+| **Dedup-completion class** | **RULED 2026-08-04 (R9/R10)** — no veto exercised, lane ratifications stand. ~~⚠ Live residue: `vol_9/15_falsification_tests.tex:217-218` still prints *"orchestrator-ruled, Grant veto open"*~~ **[DISCHARGED — `66db8f04` replaced that comment with the R9/R10 resolution; status edit 2026-11-01]** | same file `:25-26`; handoff `:64-65` |
 | **`07` in-print seam** | **MOOT** — R11 ruled, fired 2026-08-05, seam closed | `07:145`, `:212-214` |
 
 **What survives, and it is larger than the ppm dispute it replaced:** the **factor-2 normalization
@@ -330,7 +330,7 @@ re-fixed inside the window."* The zero is a statement about the tip, not the pat
 | **B** KB-lockstep (4 print sites + 6 KB leaves) | 4 | print + KB together, never apart |
 | **C** no KB home at all | 5 | author a leaf, or strike the claim |
 | **D** needs a Grant ruling | 17 | ruling packet per lane — see the gate correction below |
-| **E** non-text artifact | 4 | figure / generator work, not a `.tex` edit |
+| **E** non-text artifact | 4 | figure / generator work, not a `.tex` edit. One member named 2026-11-01: the block at `backmatter/12_mathematical_closure.tex:62`, `:66` (*"Total Test Suite"*, *"168/168 framework files"*; `:61`, `:65` at `6b8b49a0`), whose repair did edit the `.tex` |
 
 **Volume distribution:** vol5 8 · vol6 7 · vol1 5 (+1 KB leaf) · vol0 4 · vol2 3 · vol3 3 ·
 vol9 2 (+1 mirror) · backmatter 2 · papers 2 · vol4 1.
