@@ -107,7 +107,7 @@ The **FORM** (1−1/(1+ν_vac)) remains derived; only the **VALUE** 2/9 is impor
 | BCS B_c(T) | reproduced, 0.00% (calibrated) | — | A-034 catalog |
 | **A-034 universal-saturation-kernel catalog** | **26 instances** (19 physical + 2 biological + 5 engineered) — *see D2(a) count reconciliation* | 0.62 | `backmatter/07_universal_saturation_kernel.tex` |
 | EW masses / CKM / PMNS | 0.5–5% consistency; forms forced, values echo | 0.60 (PMNS clm-7o8clt) | ch06 leaves |
-| H_∞ | self-consistency **identity** with G (not independent) — see D4 Chain B′ | — | `mathematical-closure.md:168` |
+| H_∞ | self-consistency **identity** with G (not independent) — see D4 Chain B′ | — | `mathematical-closure.md:172` |
 | p_c = 8πα | forced form; **imports α** | — | clm-cmic3e |
 | three-impedance + per-DOF node circuit | predicts *no* new α/m_e (structural) | — | vacuum-circuit arc |
 

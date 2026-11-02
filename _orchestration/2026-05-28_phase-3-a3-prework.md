@@ -173,7 +173,7 @@ Read first (mandatory, all worktree paths):
 4. `manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md:13-16` — canonical cosmic-substrate operating-point $u_0^* \approx 0.187$ + Class E joint-constraint family
 5. `manuscript/ave-kb/vol1/claim-quality.md` clm-009nkt entry — δ_strain canonical claim status
 6. `manuscript/ave-kb/vol1/claim-quality.md` clm-5xon03 entry — Zero-Parameter Closure Status with "fitted scalar" caveat
-7. `manuscript/ave-kb/common/mathematical-closure.md:105` — canonical δ_strain framing (SM-leaked; walk-back scope)
+7. `manuscript/ave-kb/common/mathematical-closure.md:111` — canonical δ_strain framing (SM-leaked; walk-back scope)
 8. `manuscript/ave-kb/common/boundary-observables-m-q-j.md` — Class E joint-constraint structure
 9. `manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md` — Machian-G framework canonical example (companion canonical leaf for the new leaf's neighborhood)
 10. `src/ave/core/constants.py` — DELTA_STRAIN + ALPHA + ALPHA_COLD_INV + T_CMB canonical constants

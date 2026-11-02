@@ -191,7 +191,7 @@ re-grep `rg -n "2\.225"` before acting — the corpus list is broader than the n
   in-file sites — reconcile all three prose comments, leave the `:279` computed def untouched).
 - `foundational-machinery-register.md:307` ("two independent paths … agree to δ_strain=2.225×10⁻⁶" — asserts
   agreement to a precision the number lacks).
-- `mathematical-closure.md:107` (status bullet) and `:165` (gap-table row).
+- `mathematical-closure.md:111` (status bullet) and `:169` (gap-table row).
 - `omega-freeze-cosmic-grain-cascade.md:30`.
 - `divergence-test-substrate-map.md:699`.
 - **+ any others `rg -n "2\.225"` finds** (the board flags `docs/framing_and_presentation.md:117`;
