@@ -165,3 +165,14 @@ manuscript/vol_9_vacuum_datasheet/chapters/19_calibration_parameter_justificatio
 manuscript/vol_9_vacuum_datasheet/chapters/_manifest.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	47	Y	none	none	none	none	none	none	none	none	none	none	none
 manuscript/vol_9_vacuum_datasheet/frontmatter/00_title.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	21	Y	none	none	none	none	none	none	none	none	none	none	none
 manuscript/vol_9_vacuum_datasheet/main.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	69	Y	none	none	none	none	none	none	none	none	none	none	none
+README.md	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	347	Y	none	none	none	none	none	none	unsure	none	none	none	fence-excluded
+_orchestration/README.md	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	205	Y	none	none	none	none	none	none	none	none	none	none	none
+_orchestration/docket-entries/README.md	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	30	Y	none	none	none	none	none	none	none	none	none	none	none
+_orchestration/open-items/README.md	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	99	Y	none	none	none	none	none	none	none	none	none	none	none
+assets/3d_models/kit/README.md	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	215	Y	none	none	none	none	none	none	none	none	none	none	none
+manuscript/ave-kb/README.md	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	150	Y	none	none	none	none	none	none	none	none	none	none	none
+research/drivers/data/p2_scoping/README.md	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	37	Y	none	none	none	none	none	none	none	none	fence-excluded	none	none
+src/ave/viz/README.md	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	68	Y	none	none	none	none	none	none	none	none	none	none	none
+src/tests/data/README.md	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	11	Y	none	none	none	none	none	none	none	none	none	none	none
+templates/lab-notebook/README.md	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	107	Y	none	none	none	none	none	none	none	none	none	none	none
+viz/README.md	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	195	Y	none	none	none	none	none	none	fence-excluded	fence-excluded	fence-excluded	none	none
