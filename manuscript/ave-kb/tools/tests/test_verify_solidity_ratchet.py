@@ -489,6 +489,26 @@ def test_breaking_an_added_edge_frees_a_loop_and_breaking_a_base_edge_does_not(f
     assert len(old["findings"]) == 3
 
 
+def test_a_loop_the_base_closed_through_a_pending_claim_holds_no_edge_the_branch_added(fixture_repo):
+    # The library orders only claims with a reading, so this base solves despite its loop.
+    base = ratchet.graph_spec({ratchet.X: None, ratchet.Y: .90}, [(ratchet.X, ratchet.Y), (ratchet.Y, ratchet.X)])
+    tip = ratchet.graph_spec({ratchet.X: .50, ratchet.Y: .90}, [(ratchet.X, ratchet.Y)])
+    res = _scan(fixture_repo, tip, base_spec=base)[-1]
+    assert set(tip["deps"]) <= set(base["deps"])
+    assert [(ratchet.pair(f["edge"]), f["cycle"]) for f in res["findings"]] == [((ratchet.Y, ratchet.X), "alone")]
+
+
+def test_cutting_a_base_lift_on_a_loop_frees_it_since_only_depends_edges_go_back(fixture_repo):
+    base = ratchet.graph_spec({ratchet.X: .90, ratchet.W: .30}, [(ratchet.X, ratchet.W)], {ratchet.SUP1: .90},
+                              [(ratchet.SUP1, ratchet.W)])
+    kept = ratchet.graph_spec(base["claims"], [(ratchet.SUP1, ratchet.X)], base["sups"], base["gives"])
+    res = _scan(fixture_repo, kept, base_spec=base)[-1]
+    assert [f["cycle"] for f in res["findings"]] == ["alone"]
+    cut = ratchet.graph_spec(base["claims"], [(ratchet.SUP1, ratchet.X)], base["sups"])
+    res = _scan(fixture_repo, cut, base_spec=base)[-1]
+    assert _flagged(res) == {(ratchet.X, ratchet.W): {ratchet.X: 0.30}} and res["stuck"] == []
+
+
 def test_a_claim_named_at_a_shallow_reading_still_shows_the_band_receipts_carry(fixture_repo, capsys):
     repo, root = fixture_repo
     base = ratchet.tree(repo, root, ratchet.SERIES)
@@ -568,6 +588,18 @@ def test_a_line_behind_a_bare_cr_is_not_a_receipt(fixture_repo):
     tip = ratchet.tree(repo, root, ratchet.spec(), ((ratchet.NOTE, "old\r" + ratchet.LINE + "\n"),))
     found, refused = ratchet.receipts(repo, base, tip, [_edge(*ratchet.CUT)])
     assert found == {} and [p for p, _ in refused[ratchet.CUT]] == [ratchet.NOTE]
+
+
+def test_a_bare_cr_before_the_token_is_whitespace_and_a_base_line_runs_past_one(fixture_repo):
+    repo, root = fixture_repo
+    base = ratchet.tree(repo, root, ratchet.spec())
+    tip = ratchet.tree(repo, root, ratchet.spec(), ((ratchet.NOTE, "\r" + ratchet.LINE + "\n"),))
+    assert ratchet.receipts(repo, base, tip, ())[0] == {ratchet.CUT: ratchet.NOTE}
+    old = ratchet.says(*ratchet.CUT, "an old reason")
+    for was, found in ((old, {ratchet.CUT: ratchet.NOTE}), (old + "\rthe bound no longer applies", {})):
+        base = ratchet.tree(repo, root, ratchet.spec(), ratchet.note(was, ratchet.OLD))
+        tip = ratchet.tree(repo, root, ratchet.spec(), ratchet.note(was, ratchet.OLD) + ratchet.note(ratchet.LINE))
+        assert ratchet.receipts(repo, base, tip, [_edge(*ratchet.CUT)])[0] == found
 
 
 def test_a_newline_in_a_path_cannot_pose_as_a_receipt_path(fixture_repo):
@@ -743,7 +775,7 @@ def test_report_says_what_is_joint_what_left_and_what_is_not_gated(fixture_repo,
     ratchet.report(res, "b" * 8, "t" * 8)
     out = capsys.readouterr().out
     assert "restoring it with %s -> %s closes a cycle, so they cannot go back together" % (ratchet.Z, ratchet.M) in out
-    assert "break an edge this branch\n    added on that loop and rerun" in out
+    assert "if this branch added an\n    edge on that loop, break it and rerun" in out
     assert "dropped: the bullet" in out
 
     res = _case(fixture_repo, "remint-no-citers")

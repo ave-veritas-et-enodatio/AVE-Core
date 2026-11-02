@@ -34,11 +34,13 @@ _orchestration/docket-entries/ and outside any _archive/ directory, reading
     dep-removed: <source> -> <target>: <why>
 
 One edge per line, with nothing before `dep-removed:` but indentation or a `- ` or `* `
-marker. A bare CR ends a line, and other separators such as a form feed are text. The
-rule reads lines and not Markdown, so a line in a code fence or a comment counts. No base
-text line holding the token, in any case, may also hold both ids and the reason,
-whitespace aside. So an old line moved, quoted, re-indented or left in a one-line dump
-does not count, nor does a fragment of its reason, and a changed word makes a new reason.
+marker. A bare CR ends the edge and its reason but no other line: before the token it is
+whitespace, and a base line runs on past it. Other separators, such as a form feed, end
+nothing. The rule reads lines and not Markdown, so a line in a code fence or a comment
+counts. No base text line holding the token, in any case, may also hold both ids and the
+reason, whitespace aside. So an old line moved, quoted, re-indented or left in a one-line
+dump does not count, nor does a fragment of its reason, and a changed word makes a new
+reason.
 Not seen: a dump that escapes or re-encodes the reason, a line wrapped in two, a binary
 file. A byte that is not UTF-8 reads as U+FFFD, so two paths or reasons that differ only
 there read as one. Ids match as substrings, which is exact while every claim and support
@@ -538,9 +540,10 @@ Each UNEXPLAINED edge is one of these:
     written in the rationale changes nothing.
   - Its source or target left the index: the edge cannot come back under that id, even if
     a new id keeps the dependency. Add the line below.
-  - Restoring it closes a cycle, alone or with the edges printed: break an edge this branch
-    added on that loop and rerun, or add the line below. An edge the base also has goes
-    back in the restore once cut, so cutting it keeps the loop unless it gets a line too.
+  - Restoring it closes a cycle, alone or with the edges printed: if this branch added an
+    edge on that loop, break it and rerun, or add the line below. A `depends` edge into a
+    claim that the base also has goes back in the restore once cut, so cutting it keeps
+    the loop unless it gets a line too.
   - The dependency is really gone: add the line below.
 
 The line starts a line of a new Markdown file under %s, committed on this branch, with a
