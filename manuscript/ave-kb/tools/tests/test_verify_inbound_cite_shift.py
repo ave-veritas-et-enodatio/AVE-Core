@@ -403,6 +403,14 @@ def test_has_line_falls_back_to_the_base_number_past_every_tip_end():
     assert [(f.held, f.n, f.kind) for f in res["ambiguous"]] == [(9, 99, "OUT-OF-RANGE")]
 
 
+def test_line_count_ignores_only_the_final_newline():
+    mod = _load_module()
+    assert mod.line_count("a\nb\n".split("\n")) == 2
+    assert mod.line_count("a\nb".split("\n")) == 2
+    assert mod.line_count("a\n\n".split("\n")) == 2
+    assert mod.line_count("".split("\n")) == 0
+
+
 def test_report_does_not_invent_an_address():
     import contextlib
     import io

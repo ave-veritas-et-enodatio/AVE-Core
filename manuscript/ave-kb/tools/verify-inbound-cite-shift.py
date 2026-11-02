@@ -233,6 +233,12 @@ ROT = ('SHIFTED', 'OUT-OF-RANGE', 'UNCONFIRMED-RE-PIN')
 MUTATE = set()
 
 
+def line_count(lines):
+    """The lines in a blob. `split('\\n')` leaves a '' after a final newline, and that
+    is no line: a cite of it cites nothing."""
+    return len(lines) - (lines[-1] == '' and 'phantom-line' not in MUTATE)
+
+
 class Repo:
     """A git repo handle plus blob/tree caches.
 
@@ -545,7 +551,7 @@ def lines_at_tip(hunks, b, t, n):
     else:                                                  # a block move: put back by a hunk
         hits = [j for _, _, s, d in hunks for j in range(s, s + d)]
     if 'no-confirm' not in MUTATE:
-        hits = [j for j in hits if 0 < j <= len(t) and t[j - 1].strip() == b[n - 1].strip()]
+        hits = [j for j in hits if 0 < j <= line_count(t) and t[j - 1].strip() == b[n - 1].strip()]
     if len(hits) > 1 and 'no-agreeing-run' not in MUTATE:
         runs = [_agreeing_run(b, n, t, j) for j in hits]
         hits = [j for j, r in zip(hits, runs) if r == max(runs)]
@@ -602,7 +608,7 @@ def verdict(repo, base, tip, target, b, t, held, n):
         return 'EDITED-IN-PLACE', 0                        # onto the row that replaced it
     # Nothing moved under either number, so this is no repair and there is nothing
     # to confirm: the plain test has no complaint, and the cited line went nowhere.
-    if (not 0 < n <= len(b) or b[n - 1].strip() == tl) and moved_to in (0, held) \
+    if (not 0 < n <= line_count(b) or b[n - 1].strip() == tl) and moved_to in (0, held) \
             and 'no-retarget' not in MUTATE:
         return 'RETARGETED', 0
     if seen:
@@ -641,10 +647,10 @@ def scan(repo, base, tip):
 
     def has_line(path, held, n):                           # `held` at base, `n` at tip
         l = lines_of(path)
-        if l is None or not 0 < held <= len(l):
+        if l is None or not 0 < held <= line_count(l):
             return False
         at_tip = repo.blob(tip, path)
-        return held == n or 0 < n <= len(l if at_tip is None else at_tip)
+        return held == n or 0 < n <= line_count(l if at_tip is None else at_tip)
 
     # candidate citers: any tracked line at TIP mentioning a changed file's leaf
     # name followed (within a few punctuation chars) by :NNN. git grep -I skips
@@ -695,10 +701,10 @@ def scan(repo, base, tip):
                         continue
                     res['tested'] += 1
                     was = held                       # dead at base: only the plain test is left
-                    if not 0 < held <= len(b) and 'no-dead-fallback' not in MUTATE:
+                    if not 0 < held <= line_count(b) and 'no-dead-fallback' not in MUTATE:
                         was = n
-                    bl = b[was-1] if 0 < was <= len(b) else None
-                    tl = t[n-1] if 0 < n <= len(t) else None
+                    bl = b[was-1] if 0 < was <= line_count(b) else None
+                    tl = t[n-1] if 0 < n <= line_count(t) else None
                     if bl is None: continue          # never a valid address at base
                     moved_to = 0
                     if tl is None:
@@ -1053,9 +1059,12 @@ REPINS = collections.OrderedDict([
     ('bare-past-end', (_cite('bare-past-end', 14, leaf='target.md'), _cite('bare-past-end', 24, leaf='target.md'),
                        [(14, 24, 'RE-PINNED', 24)],
                        'a bare re-pin past the end of the base file still has its addressee')),
-    ('bare-wrong', (_cite('bare-wrong', 14, leaf='target.md'), _cite('bare-wrong', 25, leaf='target.md'),
-                    [(14, 25, 'SHIFTED', 24)],
+    ('bare-wrong', (_cite('bare-wrong', 14, leaf='target.md'), _cite('bare-wrong', 23, leaf='target.md'),
+                    [(14, 23, 'SHIFTED', 24)],
                     'a wrong bare re-pin past the end of the base file is not dropped silently')),
+    ('bare-past-tip', (_cite('bare-past-tip', 14, leaf='target.md'), _cite('bare-past-tip', 25, leaf='target.md'),
+                       [(14, 25, 'OUT-OF-RANGE', 0)],
+                       'and one past the end of the tip file gates, one line past it: no such line exists')),
     ('bare-narrowed', (_cite('bare-narrowed', 5, leaf='target.md'), _cite('bare-narrowed', 12, leaf='target.md'),
                        [(5, 12, 'SHIFTED', 8)],
                        'a wrong bare re-pin only one file can hold at tip stays pinned to it, and gates')),
@@ -1086,6 +1095,11 @@ REPINS = collections.OrderedDict([
                            'a re-pin that misses onto a line that kept still fails: its content moved')),
     ('past-tip-end', (_cite('past-tip-end', 9), _cite('past-tip-end', 99), [(9, 99, 'OUT-OF-RANGE', 0)],
                       'a re-pin past the end of the tip file fails, though the plain test skips it')),
+    ('tip-end-plus-one', (_cite('tip-end-plus-one', 10), _cite('tip-end-plus-one', 25),
+                          [(10, 25, 'OUT-OF-RANGE', 0)],
+                          'the line after the last is out of range: a final newline is not a line')),
+    ('frozen-past-base', (_cite('frozen-past-base', 23), _cite('frozen-past-base', 23), [],
+                          'a cite one past the base end never had an address, so there is nothing to test')),
     ('retargeted', (_cite('retargeted', 1), _cite('retargeted', 3), [(1, 3, 'RETARGETED', 0)],
                     'a number changed with nothing moved under either is no repair: advisory')),
     ('retargeted-gone', (_cite('retargeted-gone', 10), _cite('retargeted-gone', 1),
@@ -1094,6 +1108,9 @@ REPINS = collections.OrderedDict([
     ('retargeted-new', (_cite('retargeted-new', 10), _cite('retargeted-new', 24),
                         [(10, 24, 'RETARGETED', 0)],
                         'and so is one onto a line past the base end, which has no plain test')),
+    ('base-end-plus-one', (_cite('base-end-plus-one', 10), _cite('base-end-plus-one', 23),
+                           [(10, 23, 'RETARGETED', 0)],
+                           'the first line past the base end reads as the next one does')),
     ('dead-at-base', (_cite('dead-at-base', 99), _cite('dead-at-base', 12), [(12, 12, 'SHIFTED', 22)],
                       'a re-pin from a number dead at base keeps the plain test, not silence')),
     ('dead-bare', (_cite('dead-bare', 99, leaf='target.md'), _cite('dead-bare', 12, leaf='target.md'),
@@ -1337,6 +1354,9 @@ def mutation_receipt():
                     kinds(repin('no-same-length', 'longer')) == {'RE-PINNED'}))
     results.append(('M29 pair a base line twice: the new line beside a re-pin must take its number',
                     len(repin('no-taken', 'taken')) == 2))
+    results.append(('M30 count the final newline as a line: both boundaries must go back to reading off by one',
+                    kinds(repin('phantom-line', 'tip-end-plus-one')) == {'RETARGETED'}
+                    and kinds(repin('phantom-line', 'base-end-plus-one')) == {'UNCONFIRMED-RE-PIN'}))
 
     allgood = True
     for label, tripped in results:
