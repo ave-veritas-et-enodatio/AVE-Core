@@ -103,7 +103,7 @@ manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex	cbc668e7219
 manuscript/vol_4_engineering/chapters/02_vacuum_fluid_dynamics.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	51	Y	none	none	none	none	none	none	none	none	none	none	none
 manuscript/vol_4_engineering/chapters/10_quantum_computing_and_decoherence.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	137	Y	unsure	none	none	none	none	none	none	none	none	none	none
 manuscript/vol_4_engineering/chapters/11_experimental_falsification.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	576	Y	none	none	none	none	none	none	none	none	none	none	fence-excluded
-manuscript/vol_4_engineering/chapters/12_falsifiable_predictions.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	230	Y	none	none	none	none	none	none	unsure	none	none	none	unsure
+manuscript/vol_4_engineering/chapters/12_falsifiable_predictions.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	230	Y	none	none	none	none	unsure	none	unsure	none	none	none	unsure
 manuscript/vol_4_engineering/chapters/13_future_geometries.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	472	Y	none	none	none	none	none	none	none	none	none	none	none
 manuscript/vol_4_engineering/chapters/14_particle_decay_spice.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	171	Y	unsure	none	none	none	none	none	unsure	none	none	none	none
 manuscript/vol_4_engineering/chapters/15_autoresonant_breakdown_spice.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	132	Y	none	none	none	none	none	none	none	none	none	none	unsure
@@ -153,13 +153,13 @@ manuscript/vol_9_vacuum_datasheet/chapters/07_saturation_characteristics.tex	cbc
 manuscript/vol_9_vacuum_datasheet/chapters/08_breakdown_characteristics.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	189	Y	none	none	none	none	none	none	unsure+fence-excluded	fence-excluded	unsure	none	unsure+fence-excluded
 manuscript/vol_9_vacuum_datasheet/chapters/09_mechanical_characteristics.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	446	Y	none	none	none	none	fence-excluded	none	fence-excluded	fence-excluded	none	none	none
 manuscript/vol_9_vacuum_datasheet/chapters/10_magnetic_microrotational_characteristics.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	287	Y	unsure	none	none	none	fence-excluded	none	none	unsure	none	none	none
-manuscript/vol_9_vacuum_datasheet/chapters/11_topological_characteristics.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	241	Y	none	none	none	none	none	none	unsure+Q1	none	none	none	fence-excluded
+manuscript/vol_9_vacuum_datasheet/chapters/11_topological_characteristics.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	241	Y	none	none	none	none	none	none	unsure	none	none	none	fence-excluded
 manuscript/vol_9_vacuum_datasheet/chapters/12_cosmological_characteristics.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	260	Y	none	none	none	none	fence-excluded	none	none	none	none	none	fence-excluded
 manuscript/vol_9_vacuum_datasheet/chapters/13_application_examples.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	351	Y	none	none	none	none	fence-excluded	none	fence-excluded	fence-excluded	none	none	none
 manuscript/vol_9_vacuum_datasheet/chapters/14_phase_diagrams.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	392	Y	unsure	none	none	none	none	none	unsure+fence-excluded	unsure	none	none	unsure+fence-excluded
 manuscript/vol_9_vacuum_datasheet/chapters/15_falsification_tests.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	330	Y	none	none	none	none	none	none	none	none	none	none	fence-excluded
 manuscript/vol_9_vacuum_datasheet/chapters/16_cross_volume_reference.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	357	Y	none	none	none	none	fence-excluded	none	none	none	none	none	fence-excluded
-manuscript/vol_9_vacuum_datasheet/chapters/17_engine_requirements.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	259	Y	live-wrong+unsure	none	unsure	unsure	live-wrong+unsure	none	live-wrong+unsure+Q1+fence-excluded	unsure+fence-excluded	live-wrong+unsure	none	live-wrong+unsure
+manuscript/vol_9_vacuum_datasheet/chapters/17_engine_requirements.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	259	Y	unsure	none	unsure	unsure	live-wrong+unsure	none	live-wrong+unsure+Q1+fence-excluded	unsure+fence-excluded	live-wrong+unsure	none	live-wrong+unsure
 manuscript/vol_9_vacuum_datasheet/chapters/18_experimental_prints.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	227	Y	none	none	none	none	none	none	none	none	none	none	none
 manuscript/vol_9_vacuum_datasheet/chapters/19_calibration_parameter_justification.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	120	Y	none	none	none	none	none	none	none	none	none	none	fence-excluded
 manuscript/vol_9_vacuum_datasheet/chapters/_manifest.tex	cbc668e7219ec8a8b13407da7a7a33ed622ad95b	47	Y	none	none	none	none	none	none	none	none	none	none	none
