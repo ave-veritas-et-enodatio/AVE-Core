@@ -107,7 +107,7 @@ Seeded from `_orchestration/2026-08-14_electron-identity-kill-list-ledger.md` §
 | **Fence** | Banner the **lock clause only**. Poincaré Thread B on the same KB page is held out — do not treat LaTeX Poincaré-stress history as this corpse. |
 | **Status** | PENDING-READ |
 
-**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 12 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 6 · unsure — not picked 23.
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 13 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 6 · unsure — not picked 24.
 
 - **unsure — not picked** · `manuscript/vol_1_foundations/chapters/03_quantum_and_signal_dynamics.tex:200` · `A subatomic particle in this model is a stable, self-sustaining acoustic standing wave trapped inside a spherical $0 \ \Omega$ impedance boundary of its own geometric creation.` · Stated as the current model: motion sustaining its own boundary resembles the lock-is-the-motion clause. The word lock is absent and no Poincare framing is involved, so the corpse match is undecided. *[lens unsure 2, fence-excluded 1]*
 - **unsure — not picked** · `manuscript/vol_1_foundations/chapters/03_quantum_and_signal_dynamics.tex:218` · `Maintaining this structural lock requires sustained threshold energy (the $43.65$ keV structural yield limit derived in Volume III, Chapter 1).` · Current definition of what holds the electron: a lock needing sustained energy. The line calls it geometric and structural, not motion or three-part, and no banner names it dead. Row does not settle it. *[lens unsure 2, fence-excluded 1]*
@@ -130,6 +130,7 @@ Seeded from `_orchestration/2026-08-14_electron-identity-kill-list-ledger.md` §
 - **unsure — not picked** · `manuscript/vol_4_engineering/chapters/14_particle_decay_spice.tex:44` · `Because it doesn't break the local vacuum elasticity, it can ring forever (infinite half-life).` · Electron stability is printed as sub-yield LC ringing, not named dead. K1 kills reactive LC-binding, but the row quotes 'the lock is the MOTION'. Ledger leaves topology vs sub-yield stability unpicked. *[lens unsure 2, fence-excluded 1]*
 - **unsure — not picked** · `manuscript/vol_4_engineering/chapters/14_particle_decay_spice.tex:121` · `The knot rings without losing energy.` · Same claim as line 44, in the SPICE behaviour list. The tank model is offered as why the knot persists; the row text does not settle whether this is the dynamic lock. *[lens unsure 2, fence-excluded 1]*
 - **unsure — not picked** · `manuscript/vol_4_engineering/chapters/14_particle_decay_spice.tex:128` · `The simulated LC knot rings infinitely without decay.` · Figure-caption repeat, describing the stable electron panel as endless LC ringing. No lock term and no dead marker, so the row text does not settle it. *[lens unsure 2, fence-excluded 1]*
+- **unsure — not picked** · `manuscript/vol_6_periodic_table/chapters/03_hydrogen.tex:85` · `It is a highly localized, deterministic knot that physically bites its own topological tail in phase every single orbit. It is a mathematically perfect LC standing wave in the continuous substrate medium.` · Phase closure on the atomic orbit, printed as what the electron is. Not explicitly an interior lock, but adjacent to K1 reactive LC-binding. Row text does not settle whether orbit-scale closure is the corpse. *[lens unsure 3]*
 - **fence-excluded** · `manuscript/common_equations/eq_calibration_constants.tex:75` · `which is why the mass channel binds without the $S \to 0$ runaway firing.` · Printed current claim of why the mass channel binds. No lock, motion or remanence wording, and the T_2 cage is boundary form, so row text does not settle whether this is K1 binding.
 - **fence-excluded** · `manuscript/frontmatter/00_foreword.tex:16` · `the Poincar\'e stress required to stabilize the charge` · Fence: LaTeX Poincare-stress history is not this corpse. The site lists it as a historical difficulty of the electromagnetic-mass program; no dynamical-lock clause appears in these documents.
 - **fence-excluded** · `manuscript/vol_2_subatomic/chapters/01_topological_matter.tex:103` · ```The ``rest mass is contained reactance'' framing here``` · Contained reactance stays a live framing. K1 lists reactive LC-binding and :36 moves rest mass off the inductive store, but the row text names only the dynamic lock.
@@ -146,7 +147,7 @@ Seeded from `_orchestration/2026-08-14_electron-identity-kill-list-ledger.md` §
 | **Fence** | Same clause-not-page rule. LaTeX that names Poincaré cohesive stress as the *named hole* is not this corpse. |
 | **Status** | PENDING-READ |
 
-**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 12 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 1 · unsure — not picked 1.
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 13 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 1 · unsure — not picked 1.
 
 - **unsure — not picked** · `manuscript/vol_1_foundations/chapters/05_universal_spatial_tension.tex:18` · `localized structural loops must store reactive energy to remain stable` · Same sentence as the F-C1 record. Reactive storage is the stability condition, but stated flat, with no live-threat column or HYPOTHESIS grade. Row does not settle it. *[lens unsure 2, fence-excluded 1]*
 - **fence-excluded** · `manuscript/frontmatter/00_foreword.tex:16` · `the Poincar\'e stress required to stabilize the charge` · Fence: same clause-not-page rule; Poincare stress named as a hole is not this corpse. No lock candidate or live-threat column at the site.
@@ -160,7 +161,7 @@ Seeded from `_orchestration/2026-08-14_electron-identity-kill-list-ledger.md` §
 | **Fence** | Ranks as *historical traveler* may remain. This follow-up hunts ranks / v11+ / remanence offered as **current manufacture path**. |
 | **Status** | PENDING-READ |
 
-**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 12 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 1 · unsure — not picked 0.
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 13 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 1 · unsure — not picked 0.
 
 - **fence-excluded** · `manuscript/vol_2_subatomic/chapters/01_topological_matter.tex:109` · `for any field; the v14` · A v14 electron seed is given in present tense under Engine implementation, with no superseded marker. It is a receipt, not a stated manufacture path, and the row hunts v11+ only as a current path.
 
@@ -173,7 +174,7 @@ Seeded from `_orchestration/2026-08-14_electron-identity-kill-list-ledger.md` §
 | **Fence** | Anhysteretic-kernel *fact* (Level-1 has no loop area) is not the corpse. The corpse is remanence as the **live path that holds the electron**. |
 | **Status** | PENDING-READ |
 
-**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 12 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 20 · unsure — not picked 0.
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 13 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 20 · unsure — not picked 0.
 
 - **fence-excluded** · `manuscript/backmatter/06_spice_verification_manual.tex:148` (also :81, :145, :182, :398) · `elastically---the hysteresis loop has zero enclosed area.` · Fence: the anhysteretic fact is not the corpse. Zero enclosed loop area at SPICE frequencies; the memristor is described with no claim that remanence holds the electron.
 - **fence-excluded** · `manuscript/backmatter/appendix_c_derived_numerology.tex:36` · `Converting the localized Kinetic Yield Point into continuous structural strain dictates exactly how Non-Volatile Soliton Kinks (Chapter 8) are permanently packed.` · Permanent hold of a soliton reads like persistence at zero drive, but the hold is geometric packing in a Vol 4 logic element; neither remanence nor the electron is named.
@@ -192,7 +193,7 @@ Seeded from `_orchestration/2026-08-14_electron-identity-kill-list-ledger.md` §
 | **Fence** | Vol 9 datasheet circuit models that describe *walls / M,Q,J* without selling genesis-cook are not this corpse. |
 | **Status** | PENDING-READ |
 
-**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 12 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 1 · unsure — not picked 2.
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 13 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 1 · unsure — not picked 2.
 
 - **unsure — not picked** · `manuscript/backmatter/appendix_c_derived_numerology.tex:41` · `When the geometry is driven to hold $\phi > \pi/3$, the internal node connections cross the Axiom 4 limit, physically generating the stable topological knot.` · Driving the lattice past the Axiom-4 limit to generate a stable knot resembles energize-then-lock genesis, but the section's object is a Vol 4 Chapter 8 logic kink; electron unnamed. Row text does not settle it. *[lens unsure 2, fence-excluded 1]*
 - **unsure — not picked** · `manuscript/vol_2_subatomic/chapters/01_topological_matter.tex:259` · `establishing the physical derivation of confined point-particles via continuum wave-crashing.` · The caption sells a genesis route, so the Vol 9 datasheet fence does not clear it, but energize-lock, remanence and v11 are all absent. The row text does not settle it. *[lens unsure 2, fence-excluded 1]*
@@ -207,7 +208,7 @@ Seeded from `_orchestration/2026-08-14_electron-identity-kill-list-ledger.md` §
 | **Fence** | Do not banner "kernel is anhysteretic" as killed physics. Banner remanence-as-current-hold. |
 | **Status** | PENDING-READ |
 
-**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 12 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 17 · unsure — not picked 2.
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 13 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 17 · unsure — not picked 2.
 
 - **unsure — not picked** · `manuscript/common_equations/eq_axiom_5.tex:167` *(comment, not printed)* · `genesis-written flux likewise persists with no drive, preserved by the derived` · Same electret comment: a retention statement, credited to the conservation leg rather than a constitutive loop, with no engine gap named. Comment-only and not settled by the row text. *[lens unsure 2, fence-excluded 1]*
 - **unsure — not picked** · `manuscript/vol_1_foundations/chapters/06_universal_operators.tex:121` · `\textbf{retained-set sense only} (the retention row as written); the` · Retention is licensed past V_snap beside an 'open yield fork'. That fork is the friction sense, not a named engine retention gap; row does not settle it. *[lens unsure 2, fence-excluded 1]*
@@ -225,7 +226,7 @@ Seeded from `_orchestration/2026-08-14_electron-identity-kill-list-ledger.md` §
 | **Fence** | Boundary \(\Gamma=-1\) self-trap (surviving localizer) is **not** this corpse. Hunt **bulk** self-trap / free-precursor seed offered as current. |
 | **Status** | PENDING-READ |
 
-**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 12 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 2 · Q1 0 · Q2 0 · fence-excluded 69 · unsure — not picked 17.
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 13 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 2 · Q1 0 · Q2 0 · fence-excluded 69 · unsure — not picked 18.
 
 - **live-wrong** · `manuscript/common_equations/eq_axiom_2.tex:33` · `the formation-route (genesis of a winding from a free precursor) remains open.` · Fence hunts free-precursor seed offered as current, and this frames free-precursor formation as open. No self-trap or staged build order appears, so the row text does not settle it. *[lens live-wrong 2, unsure 1]*
 - **live-wrong** · `manuscript/vol_2_subatomic/chapters/01_topological_matter.tex:259` · `A spatial solver demonstrating how a propagating Transverse EM Wave winds into a stationary Spin-1 helical loop when encountering extreme localised network impedance ($Z \to Z_{crit}$).` · A free EM wave winding into a stationary loop is a free-precursor seed offered as simulation-established, with no banner. The Fence clears only the boundary Gamma=-1 self-trap, not this construction path. *[lens live-wrong 3]*
@@ -246,6 +247,7 @@ Seeded from `_orchestration/2026-08-14_electron-identity-kill-list-ledger.md` §
 - **unsure — not picked** · `manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex:576` · `The K4 lattice + bound-state solitons ARE the substrate's self-consistent` · Solitons are placed at 'the saturation boundary' as a self-consistent configuration. It is unclear whether that is the fenced boundary self-trap or a bulk state. No build order is stated. *[lens unsure 3]*
 - **unsure — not picked** · `manuscript/vol_4_engineering/chapters/12_falsifiable_predictions.tex:95` · `To successfully synthesise matter, one must utilise an \textbf{Autoresonant Regenerative Feedback Loop}.` · Fence says hunt free-precursor seed offered as current; a CW laser drive is offered as the matter route. No self-trap or staged growth is stated, and this is rupture, so the row text does not settle it. *[lens unsure 3]*
 - **unsure — not picked** · `manuscript/vol_4_engineering/chapters/14_particle_decay_spice.tex:44` · `generates a localized geometric standing wave` · Electron's own tension is printed as producing its localization, with no boundary named on this line. Fence separates boundary from bulk self-trap; line does not say which. No seed or staged growth. *[lens unsure 2, fence-excluded 1]*
+- **unsure — not picked** · `manuscript/vol_6_periodic_table/chapters/01_computational.tex:38` · `Electrons are natively modeled as captive \textit{Displacement Currents} (or purely capacitive sub-harmonic phase-shifts) trapped in the far-field radiating from the heavy inductive nuclear core.` · Electron printed as a wave trapped in bulk far-field, no wall named. Trapped by the nucleus, so not clearly self-trap; no staged-growth path; boundary fence does not cover it. Row text does not settle. *[lens unsure 3]*
 - **fence-excluded** · `manuscript/backmatter/01_appendices.tex:80` · `$\Gamma \to -1$\gammaundeclared{} --- the short-circuit / TIR wall that \emph{confines} the electron, not a match.)}` · Boundary Gamma -> -1 TIR wall from dielectric saturation that confines the electron. F-C7 Fence: boundary Gamma=-1 self-trap is the surviving localizer, not bulk self-trap or free-precursor seed.
 - **fence-excluded** · `manuscript/backmatter/05_universal_solver_toolchain.tex:599` · `The electron is an impedance mismatch ($\Gamma=-1$\gammaundeclared{}) that traps a longitudinal wave, bouncing at $E=V(r)$.` · Trap is stated as a Gamma=-1 impedance mismatch, the boundary self-trap the Fence keeps as surviving localizer. No precursor seed or staged build order appears.
 - **fence-excluded** · `manuscript/common_equations/eq_axiom_4.tex:55` · `The confining $\Gamma = -1$\gammaundeclared{} wall is the transverse Cosserat ($T_2$) self-trap at $V_{yield}$` · Fence: boundary Gamma = -1 self-trap is the surviving localizer, not this corpse. This is the V_yield wall form, not bulk self-trap or free-precursor seed.
@@ -288,7 +290,7 @@ Seeded from `_orchestration/2026-08-14_electron-identity-kill-list-ledger.md` §
 | **Fence** | Same homonym as F-C7. LaTeX that copies this YAML prose as current capability is in scope. |
 | **Status** | PENDING-READ |
 
-**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 12 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 44 · unsure — not picked 9.
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 13 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 44 · unsure — not picked 9.
 
 - **unsure — not picked** · `manuscript/common_equations/eq_axiom_4.tex:42` · `Wave packet confined (mass)` · Mass as confinement at saturation resembles rest mass = self-trapped bulk. No longitudinal wall or copied YAML prose, and :55 puts the mass core sub-saturated. Row text does not settle it. *[lens unsure 2, fence-excluded 1]*
 - **unsure — not picked** · `manuscript/frontmatter/00_foreword.tex:10` · `proposed as the carrier of rest mass ($m_e c^2$ as trapped longitudinal compression energy)` · Close to rest mass = self-trapped longitudinal-bulk wall, minus self and wall. Stamp reads DEMOTED, NEEDS RE-DERIVATION, not dead, so it is neither named dead nor plainly offered as current. *[lens unsure 2, fence-excluded 1]*
@@ -334,7 +336,7 @@ Seeded from `_orchestration/2026-08-14_electron-identity-kill-list-ledger.md` §
 | **Fence** | Cosmic node-injection is held out. Static Link / tank (2,3) **stands**. Hunt self-assembly as a **live manufacture path**, not the winding as charge. |
 | **Status** | PENDING-READ |
 
-**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 12 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 1 · Q1 0 · Q2 0 · fence-excluded 27 · unsure — not picked 14.
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 13 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 1 · Q1 0 · Q2 0 · fence-excluded 27 · unsure — not picked 14.
 
 - **live-wrong** · `manuscript/frontmatter/00_foreword.tex:16` · `Whether the electron self-assembles in this form is an open question examined in the volumes; here it is stated as a model, not a result.` · Frames electron self-assembly as an open question examined in the volumes. Not named dead, so the ambiguity default applies. Fence holds the static winding, not self-assembly as a live path. *[lens live-wrong 3]*
 - **unsure — not picked** · `manuscript/backmatter/01_appendices.tex:311` · `In a fully emergent physical engine, mass states must generate dynamically from raw local topological configurations; relying upon static hard-coding prevents fluid lattice topology interactions.` · Engine spec says mass states must generate dynamically instead of being spawned; lines 313-319 then read mass off a knot. Row text does not settle whether this is self-assembly as a live path. Not picked. *[lens unsure 2, fence-excluded 1]*
@@ -369,7 +371,7 @@ Seeded from `_orchestration/2026-08-14_electron-identity-kill-list-ledger.md` §
 | **Fence** | A LaTeX TOC entry that merely *names* the LOOP GAP leaf is not live-wrong unless it offers ranks as current work. |
 | **Status** | PENDING-READ |
 
-**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 12 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 0 · unsure — not picked 0.
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 13 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 0 · Q1 0 · Q2 0 · fence-excluded 0 · unsure — not picked 0.
 
 ### F-C11 — K3 formation-route still "remains open" on the axiom leaf
 
@@ -380,7 +382,7 @@ Seeded from `_orchestration/2026-08-14_electron-identity-kill-list-ledger.md` §
 | **Fence** | Cosmic node-injection is held out. Charge = winding dictionary and the engine-derived interaction leg are **not** this row. |
 | **Status** | PENDING-READ |
 
-**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 12 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 4 · Q1 0 · Q2 0 · fence-excluded 47 · unsure — not picked 28.
+**Hits (combined pass 2026-11-01, base `cbc668e7`; in progress, 13 of 15 document groups recorded; this row is not discharged).** Sites: live-wrong 4 · Q1 0 · Q2 0 · fence-excluded 47 · unsure — not picked 28.
 
 - **live-wrong** · `manuscript/common_equations/eq_axiom_2.tex:33` · `the formation-route (genesis of a winding from a free precursor) remains open.` · Verbatim the corpse inside the printed Axiom 2 resultbox: free-precursor winding genesis framed as open, no banner at the site. The Fence clears the dictionary and interaction leg, not this clause. *[lens live-wrong 3]*
 - **live-wrong** · `manuscript/frontmatter/00_foreword.tex:16` · `Whether the electron self-assembles in this form is an open question examined in the volumes; here it is stated as a model, not a result.` · Leaves formation open, matching remains open, but names no free precursor, so the row's parenthetical route is not explicit here. The plain self-assembly reading is carried under F-C9. *[lens live-wrong 2, unsure 1]*
