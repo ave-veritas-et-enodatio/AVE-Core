@@ -131,7 +131,7 @@ EDIT_CLASSES = ("GRADE-BEARING", "GAUSS-PIN", "PURE-REFERENCE")
 REASONS = {
     "GENERATED": "generated index; its source line is a fifth-axiom negation",
     "R40-NOTE": "dated R40 note, left as it stands; read through the R55 alias",
-    "BARRED-1068": "engine file fenced while #1068 is open",
+    "BARRED-1068": "engine file under the grid-fix fence; the line also sits in a dated R40 note, so it stays whether or not #1068 closes",
     "HOMONYM-EXCLUDED": "a different object from the source law",
     "PHASE-1": "R55 Phase-1 site, not long tail",
     "TOKEN-AS-SUBJECT": "the line's subject is the old name; the alias and guards rely on it",
