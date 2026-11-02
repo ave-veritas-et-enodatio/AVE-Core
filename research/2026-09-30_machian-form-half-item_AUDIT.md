@@ -94,7 +94,7 @@ So the item's "promote it as physics" and its `:160` charge are overstated for w
 
 1. Scope `:26` to the documentary arm, name the physics half as its own sub-decision, and state that the Γ-cell fill waits on it.
 2. Restore the §6 caveat at `:84-91` with the regime `βl ≪ 1` declared. Make "strictly" and "only a short can" conditional.
-3. Replace "promote it as physics" with the real defects: the Γ cell, channel "all", and the missing qualifier in translation-circuit. Drop or qualify the `:160` charge.
+3. Replace "promote it as physics" with the real defects: the Γ cell, channel "all", and the missing qualifier in translation-circuit. Qualify the `:160` charge: `wall-taxonomy.md:16` addresses row 7 but says "neither", which is not one of `:160`'s phase-state values, and `op14-cosmic-horizon-profile.md:20` calls the same surface saturated. Route that conflict alongside the physics half.
 4. Fix "`wall-taxonomy.md §10.3`": the leaf has §10, §10.1 and §10.2. The quote is `:431`, item 3 of the §10 ruling, and that ruling is scoped to yielded surfaces.
 5. State the 55.74 inputs (H₀ = 67.36, `Ω_Λ = 1/1.4605`), and add the `H∞ ∝ G` line with the `hubble-tension.md:37` cite.
 6. Name the docket rows, reconcile 36–3393× with 190–7600×, scope "every number reproduced" to arithmetic, and cross-reference the docket instead of presenting a fresh fork.

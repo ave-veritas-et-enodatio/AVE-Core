@@ -34,7 +34,7 @@
 **What the record settles, and what it does not.**
 - It settles the register choice: slope-1 over the slope-2 index (`:881-882`).
 - It does not settle that the code is slope-1. That attribution sits inside the paraphrased sentence, and the algebra above contradicts it.
-- It cannot show whether Grant's own words carried the code attribution. No verbatim is on file: Ruling 1 labels itself a paraphrase, while the block header at `:834` says "verbatim-faithful".
+- It cannot show whether Grant's own words carried the code attribution. No verbatim is on file: Ruling 1 labels itself a paraphrase, while the block header at `:835` says "verbatim-faithful".
 - It does not fix the functional form past first order, since "slope-1" fixes only the linear coefficient.
 - It does not say which side is the defect: the code, or the `= √S` bridge in `temporal-spatial-lattice-decomposition.md`.
 
@@ -85,10 +85,10 @@ Driver copy with line 30 changed only, `SIGMA = 1.8` to each value. Default koma
 
 σ = 1.8 reproduces the prereg table digit for digit. σ = 2.2 was an extra run beyond the brief's two.
 
-- **Survives:** `f ~ 0.6` sits about 3.1 to 3.2× above the komar-weight supremum at all four FAM-A members.
-- **Does not transfer:** the turnover at λ ≈ 8, "fails for λ ≳ 12" (σ = 2.6 converges at 12 and 16) and the ceiling "`ε₁₁ ≤ 0.783`" (converged maxima reach 0.857). These are σ = 1.8 figures stated at prereg `:384-386` as if they were engine properties.
+- **Survives:** `f ~ 0.6` sits about 3.1 to 3.2× above the komar-weight maximum over the ten-point grid at default `outer_mix` at all four FAM-A members, and 0.6 stayed unreached at every λ probed. That is a grid maximum, not a supremum, and the table's "sup" means the same. Repair-pass re-run at `8b53eaa2`: σ = 1.8, λ = 10 at default settings converges at f = 0.19611. Under `outer_mix = 0.3`, with the control σ = 1.8, λ = 8 unchanged at 0.18587, each row's first unconverged λ converges, at f = 0.19932, 0.19985, 0.19875 and 0.19686. So the ratio is about 3.0.
+- **Does not transfer:** the turnover at λ ≈ 8, "fails for λ ≳ 12" (σ = 2.6 converges at 12 and 16) and the ceiling "`ε₁₁ ≤ 0.783`" (converged maxima reach 0.857). These are σ = 1.8 figures stated at prereg `:384-386` as if they were engine properties. They are also default-Picard limits, so they do not hold at σ = 1.8 either: under `outer_mix = 0.3` it converges at λ = 12, 14 and 16 with max A 0.917, 0.949 and 0.969, and f turns over near λ = 12 (0.19985, 0.19968, 0.19724).
 - **Weight dependence, an extra probe with one more line changed:** under `source_mode="ponderomotive"` at σ = 1.8, f = 0.1955, 0.2288, 0.2427 at λ = 8, 12, 16, all converged, with no turnover. The PR's own FAM-B row at λ = 8 (f 0.1955, max A 0.822) already breaks the band at prereg `:386`.
-- **Not tested:** N ≠ 24, `g_self` ≠ 1, other profiles, λ > 24. "ANY amplitude" is a ten-point grid ending at 24.
+- **Not tested:** N ≠ 24, `g_self` ≠ 1, other profiles, λ > 24. The table also holds `outer_mix` at its default and skips intermediate λ; the repair-pass runs above are point probes of both, not a sweep. "ANY amplitude" is a ten-point grid ending at 24.
 
 ---
 
@@ -115,4 +115,4 @@ The PR's NOTE 2 flags Z1 as an identity (F-1), which this audit confirms. It dep
 ## §8. Grant question, for a later sitting, routed nowhere
 
 The clock you confirmed falls off in a straight line going into the well; the code's clock is a bowl, flat in a planet's orbit and curling down only near yield.
-Which shape is the engine's clock, and is the `A` inside it the strain or its square root (#1033's clock-as-`S(A)` reading, frozen prereg `:75` on its branch; the archive tag does not exist yet)?
+Which shape is the engine's clock, and is the `A` inside it the strain or its square root (#1033's clock-as-`S(A)` reading, frozen prereg `:75` on its branch and at `archive/research/2026-08-28-qpoint-constitutive`)?

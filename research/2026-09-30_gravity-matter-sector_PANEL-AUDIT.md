@@ -31,7 +31,7 @@
 
 **Precedence applied, K4 > K5 > K3 > {K0, K1, K2}.**
 1. **K4 does not fire.** Q1 is held. With Q1 AMBIGUOUS the test is whether Q2 or Mercury is not held on any arm under test. Both are held on all three arms (§2).
-2. **K5 fires, on two independent clauses.** Q0 is CONFLICTING and held. Separately, a computed control parameter puts Mercury outside Regime I: `g_N/a_0` = 3.69e8, Regime IV by `domain-catalog.md:132`. The Cassini clause does not fire: Cassini (light) is CONSISTENT.
+2. **K5 fires, on two independent clauses.** Q0 is CONFLICTING and held. Separately, a computed control parameter puts Mercury outside Regime I: `g_N/a_0` = 3.69e8 on `A0_LATTICE` = cH∞/2π = 1.0719e-10 m/s² (`src/ave/regime_3_saturated/galactic_rotation.py:56`), Regime IV by `domain-catalog.md:132`. The catalog's own `a_0 ≈ 1.2e-10` (`:127`) gives 3.30e8 and the same regime. The Cassini clause does not fire: Cassini (light) is CONSISTENT.
 3. K5 outranks K3 and {K0, K1, K2}, so the K bin is K5. §3 states the conditional bins, as the brief requires.
 
 **Precedence applied, S5 > S3 > the rest.** Q4 is not held, so S5. ARITH = HOLDS, so S3 would not fire in any case. The SN-PRED bins are candidates on two channels, not a verdict on an assigned channel.
@@ -80,8 +80,8 @@ The workflow drops REFUTED findings from its return. Both are recovered from the
 |---|---|---|---|---|
 | A | none named, "II (Yield)" | No ruler computes II. On the Vol 1 Ch.4 ladder Δφ/α is rung I, at most 3.08e-5 on either mapping tried. The row may be a domain tag. | Canon writes no altered index | **K2** |
 | B | A_gm | 8.03e-40, Regime I. Reads the spin sector only. | None | **K2** |
-| C | ε11 / ΔS | ε11 = 1.785e-7 (2.247e-7 at perihelion), ΔS = 1.59e-14, Regime I | None. Its kernel enters at O(U²). | **K2** |
-| D | g_N/a_0 | 3.69e8 (range 2.5e8 to 5.9e8), Regime IV | Gates drag, not the index | **K2** |
+| C | ε11 / ΔS | ε11 = 1.785e-7 (2.247e-7 at perihelion), ΔS = 1.59e-14, Regime I | Not on any arm as frozen: `scalar`'s Lagrangian carries no S. If canon's clock kernel were placed on the orbiting body, it would enter at O(U²) and move β only (§11, "What remains live"). | **K2** |
+| D | g_N/a_0 | 3.69e8 (range 2.5e8 to 5.9e8) on `A0_LATTICE`, 3.30e8 (2.3e8 to 5.2e8) on the catalog's 1.2e-10 (§1), Regime IV | Gates drag, not the index | **K2** |
 | E | τ/τ_yield | Not computable: canon gives no τ(r) | None written | **K2** |
 
 **Why K2 in every row.** Q1 is AMBIGUOUS, and at least one quoted arm is EXCLUDED: `scalar`, on both Mercury and LLR.
@@ -94,7 +94,7 @@ The workflow drops REFUTED findings from its return. Both are recovered from the
 - K1 needs Q1 FIXED. It is unreachable on the held Q1.
 - K0 needs every quoted arm CONSISTENT. `scalar` blocks it.
 - `ntns` moves to CONSISTENT if the arm is redefined to Ch 2's pair: `manuscript/vol_3_macroscopic/chapters/02_general_relativity_and_gravity.tex:157` prints a clock with `b2 = 1/2` in an isotropic chart. That site labels itself "a consistency recovery", the pair drops `n_s`, and its companion index is scoped to electromagnetic waves.
-
+- K2's only EXCLUDED witness is `scalar`, so conditional K2 rests on M4 (§11) and with it on the Gordon `g_ij = δ_ij`, the spatial sector canon defers (`claim-quality-closure-roadmap.md:205`; sketch `:80`). That sector alone does not clear the arm. Hold the written `g₀₀` (β = 3/2) and free γ: Mercury's 5σ window on §5's ±0.04 is γ in [1.243, 1.257], LLR's is [2.997, 3.002], and they do not overlap. Re-run by the launching session in the repair pass.
 ---
 
 ## §4. Q2: derivations per arm
@@ -117,7 +117,7 @@ The working is `research/2026-05-17_hulse-taylor-substrate-native-derivation-ske
 
 1. **`:60` to `:63` drops a factor of 1/2.** `:60` is `L_z²/(2m r²(1 + φ/c²))`. Its expansion is `−L_z²φ/(2m c²r²)` (launching-session sympy; panel too). `:63` prints `−L_z²φ/(m c²r²)`, and likewise on the φ² term. That slip produces `:73`, "coefficient **1** in both". The correct coefficient is k/2: 1/2 at the AVE k = 1, 3/2 at the GR k = 3.
 2. **`:76` discards a term of the same order as the result.** It says the 1/r² term "Does NOT introduce precession by itself". A `D/r²` term gives `dφ = −2πD/L²`, here `−πμ/ℓ_p`. With that term kept, the sketch's own V_eff gives 5π, F = 5/6.
-3. **The relay.** The leaf's printed V_eff returns 6π only if read as a Newtonian radial potential with the 1/r² term dropped. So 6π needs both steps. Run exactly, the sketch's Lagrangian gives 1/6.
+3. **The relay.** The leaf's printed V_eff returns 6π only if read as a Newtonian radial potential with the 1/r² term dropped. So 6π needs both steps. Run exactly, the sketch's Lagrangian gives 1/6. The working also marks what it left out: sketch `:80`, on the spatial-metric contribution, says "This is the load-bearing computation that's been deferred for rigor pass." So the leaf's "CLOSED" exceeds its source on that count too.
 4. **A further category slip in canon.** The leaf's "substrate-native gives 3 exactly" attaches Item 5's result, coefficient 1 on `L²/r³`, to the "3" in `V_tidal`, a different term. `V_tidal`'s correction is purely 1/r², which `:76` says cannot precess.
 
 **Departure from both PRs.** Neither names this slip. #1028 says "I could not reproduce the numerals $1/2$ and $3/2$"; both numerals reproduce, as k/2. #1029 says "I am not asserting that canon's arithmetic at that step is wrong"; at sketch `:63` it is. Their chart-mismatch diagnosis stays true and is not the whole of it.
@@ -126,7 +126,7 @@ The working is `research/2026-05-17_hulse-taylor-substrate-native-derivation-ske
 
 The print box is a conditional, not a derivation: F(1,1) = 1 is arithmetic, and nothing shows the pair yields β = γ = 1.
 
-Canon writes a first-order temporal map only (`eq_gravity_derived.tex:65`, `:67`, `:68`), no map from `n_s` to `g_ij`, none to #1029's knobs for matter, and no `b2` bound to this arm. The box's pointer to "Vol~3 Ch~1--Ch~2" is also dead in print: those chapters carry no temporal/spatial pair, and `eq_gravity_derived.tex` is `\input` only at `20_white_dwarf_predictions.tex:188`.
+Canon writes a first-order temporal map only (`eq_gravity_derived.tex:65`, `:67`, `:68`), no map from `n_s` to `g_ij`, none to #1029's knobs for matter, and no `b2` bound to this arm. **Addendum, repair pass 2026-11-01:** a sentence here called the box's pointer to `Vol~3 Ch~1--Ch~2` dead in print. It is struck: the grep behind it could not see an `\input`. Ch 1 carries nothing under the box's label `(n_t, n_s)`. Ch 2 prints that pair through `02_general_relativity_and_gravity.tex:279`, at `translation_gravity.tex:18`, the metric row, with a temporal map and no map from `n_s` to `g_ij`, so FAILED stands on the sentence above. §3's Ch 2 clock and index are a different object and carry neither label. `eq_gravity_derived.tex` is `\input` only at `20_white_dwarf_predictions.tex:188`.
 
 Reader completions give F = 0, 3, 6, 19/6, 1/6, 7/6, 5/6, 2/3 and 1, and nothing canon writes selects among them. Using the defined 9/7 value gives γ = 9/2, 8 or 9 by map; reaching γ = 1 needs the unwritten `g_ij = n_s^(2/9)`, or dropping `n_s`. **Scoring any of these would mint a verdict from a map canon never wrote**, so they are characterization only and the Q3 bins are UNTESTABLE.
 
@@ -134,7 +134,7 @@ Reader completions give F = 0, 3, 6, 19/6, 1/6, 7/6, 5/6, 2/3 and 1, and nothing
 
 ### §4.4 `adopted-gr`
 
-`tex 14:71` is honest about this arm: "adopted as a static potential", "not an independent AVE derivation". γ and β are inputs, and no route derives them. F = k/3 exactly in the printed coefficient, and k is taken from GR.
+`tex 14:71` is honest about this arm: "adopted as a static potential", "not an independent AVE derivation". γ and β are inputs, and no route derives them. F = k/3 exactly in the printed coefficient, and k is taken from GR. **Competing bin, carried from the run.** FAILED was this bin's strongest rival: if Q2's "Re-derive γ_matter, β" binds an arm defined with inputs, the derivation half of this arm is empty. Its verifier rejected FAILED for three reasons. (1) G1a §8 fixed γ and β as inputs before data, so the arm owes no derivation of them and FAILED would penalise it for its own definition. (2) On the print's own Newtonian host the routes agree on F, which is all the print asserts, and that host is silent on γ and β. (3) FAILED would reach the conditional K bin through an input-defined arm; this reason argues from consequences, not from Q2's text. No K or S moves on either bin: `scalar` still supplies K2, and K5 and S5 read neither. The criterion finding is §12 item 8.
 
 **New coverage neither PR has.** `V_tidal` is not the Schwarzschild 1/r³ term. Its correction is 1/r², the ratio to the Schwarzschild term varies around the orbit (2.5 to 3.75 on the test orbit), and F = 1 holds only on a Newtonian host: in relativistic kinematics the same potential gives F = 7/6 or 5/6. So "redundant re-statement" overclaims.
 
@@ -144,19 +144,19 @@ Reader completions give F = 0, 3, 6, 19/6, 1/6, 7/6, 5/6, 2/3 and 1, and nothing
 
 | Observable | Arm | Predicted | Observed | Distance | Bin |
 |---|---|---|---|---|---|
-| Mercury | `scalar` | 7.163 ″/cy | 42.98 ± 0.04 | −35.82 ″/cy, −895σ | EXCLUDED |
+| Mercury | `scalar` | 7.163 ″/cy | 42.98 ± 0.04: a computed GR coefficient with an unsourced σ | −35.82 ″/cy, about 6 times low | EXCLUDED |
 | LLR η | `scalar` | 3 | (4.4 ± 4.5)e-4 | 6.67e3 σ | EXCLUDED |
-| Mercury | `adopted-gr` | 42.981 ″/cy | 42.98 ± 0.04 | +0.016σ | CONSISTENT |
+| Mercury | `adopted-gr` | 42.981 ″/cy | 42.98 ± 0.04: as above | +0.016σ | CONSISTENT |
 | LLR η | `adopted-gr` | 0 | (4.4 ± 4.5)e-4 | 0.98σ | CONSISTENT |
 | Mercury, LLR η | `ntns` | none | | | UNTESTABLE |
 | Cassini γ | light, arm-independent | γ_light = 1 | 1 + (2.1 ± 2.3)e-5 | 0.91σ | CONSISTENT |
+| Mercury, sourced value | `scalar`; `adopted-gr` | 7.163; 42.981 ″/cy | 43, "known to about 0.1 percent" (Will, gr-qc/0510072, relaying Shapiro 1990) | −833σ; −0.45σ, reading "about 0.1 percent" as a 1σ of 0.043, which is an assumption | EXCLUDED; CONSISTENT. Bins unchanged. |
+- EXCLUDED means more than 5 σ_obs, an engineering choice fixed before this stage. No matter-sector γ was compared with Cassini, and no published β was scored.
 
-EXCLUDED means more than 5 σ_obs, an engineering choice fixed before this stage. No matter-sector γ was compared with Cassini, and no published β was scored.
-
-**Sources.** Will 2014, Living Rev. Relativ. 17:4 (arXiv:1403.7377), eqs. 65-67. Williams, Turyshev & Boggs 2012 (arXiv:1203.2150). Viswanathan et al., INPOP17a (arXiv:1710.09167). Bertotti, Iess & Tortora 2003, Nature 425, 374, via Will. IAU 2015 nominal GM_sun, from memory and matching #1029's value to 10 digits.
+**Sources.** Will, Living Rev. Relativ. 9:3 (arXiv:gr-qc/0510072), for the sourced row. Will 2014, Living Rev. Relativ. 17:4 (arXiv:1403.7377), eqs. 65-67. Williams, Turyshev & Boggs 2012 (arXiv:1203.2150). Viswanathan et al., INPOP17a (arXiv:1710.09167). Bertotti, Iess & Tortora 2003, Nature 425, 374, via Will. IAU 2015 nominal GM_sun, from memory and matching #1029's value to 10 digits.
 
 **Caveats that travel with these bins.**
-- **The ±0.04 has no primary source** in any paper the panel read; #1028 says the same (U3). The bin does not depend on it: exclusion is lost only if σ_obs exceeds 7.16 ″/cy. The "895σ" figure does depend on it.
+- **The ±0.04 has no primary source** in any paper the panel read; #1028 says the same (U3). The bin does not depend on it: exclusion is lost only if σ_obs exceeds 7.16 ″/cy. The "895σ" figure, this table's headline before the repair pass, does depend on it.
 - **42.98 is a computed coefficient at F = 1** (Will eq. 65). So "42.98 against 42.98" on `adopted-gr` is largely GR against GR, and the usable datum is the roughly 0.1% residual.
 - **η = 3 is a formula read under the frozen rule, not a derived Nordtvedt effect for AVE composites.** The arm supplies a one-source test-body metric, and eq. 66's preferred-frame terms are ones canon cannot compute. `ζ1 = 9/2` would null it algebraically, but that is a target-tuned conservation-law violation canon never computes, and the frozen formula excludes the term. The engine's `test_nordtvedt_eta.py` is a different object, self-graded as install-class.
 - **`adopted-gr`'s CONSISTENT bins are evidentially empty.** The gate consumes its own defining identity: on F = 1, η = 7(γ − 1).
@@ -258,7 +258,7 @@ All five held. Findings 2 to 5 CONFIRMED at MAJOR; finding 1 DOWNGRADED from CRI
 4. **"Independent of the Galactic mass model" is false, and "by canon's own rule" overstates a Q4 that is not held.** See §6. The second limb is weaker: `:264` does call the point open.
 5. **Agreement of the two routes is not independent confirmation.** #1029's route gets `(1,1,1)` by projecting onto the Gordon mass shell, and `c_eff² = A/B`, `Ω² = A M²` make the two routes one identity for any (A, B). #1028 `:67`'s "sharing no assumptions" and #1029's "no metric anywhere" overstate, and `:62` and `:67` contradict each other on exactly the axis G1a holds as AMBIGUOUS. `OUT["gordon_forces_a1_eq_b1"] = True` is a literal that cannot fail. F = 1/6 stands as a conditional; what is void is the claim of independent confirmation.
 
-**R61's "The kill stands against canon as written"** sits under "If the audit confirms it". The bins do not give K1, so this record does not use that wording.
+**R61's "The kill stands against canon as written"** is printed in the indicative at decision line 2. This record reads it as depending on the sentence before it, "The audit decides what canon as written fixes.", and on R61 §2, "A gravity walk-back, if the audit supports one, is a separate later ruling." The bins do not give K1, so this record does not use that wording. The reading is this record's own and is flagged for the orchestrator.
 
 ---
 
@@ -267,10 +267,10 @@ All five held. Findings 2 to 5 CONFIRMED at MAJOR; finding 1 DOWNGRADED from CRI
 **Symmetric standard.** GR gets β = γ = 1 from a field equation solved for `g₀₀` and `g_ij`. Here `γ = 0` is read off an imported form under an asserted assignment, and canon lists the spatial sector as open work (`claim-quality-closure-roadmap.md:205`). Neither F = 1 nor F = 1/6 meets GR's bar. The fair wording for the scalar arm is "follows from canon's Lagrangian as written", not "genuine forward derivation". The bar is still the one canon's own claim invites, and the same instruments return GR's value as the control.
 
 **Both-ways seduction: readings of the negative, tested with the same force.**
-- **Wrong regime.** No regime reading supplies a planetary index (§3). `g_N/a_0` Regime IV is the benign direction, a labelling consequence of that ruler and not rupture physics at Mercury.
+- **Wrong regime.** No regime reading supplies a planetary index (§3). On `g_N/a_0` canon writes only a drag consequence: zero at r ≫ 1 (`domain-catalog.md:132`), applied at the solar system through the ruled total-local-field keying (`oort-cloud-saturation-boundary.md:38`, `:40`). Whether that Regime IV label carries rupture or an index effect at Mercury is not written.
 - **Wrong carrier.** The J2 needed is 2.8e-4 against (2.2 ± 0.1)e-7. No matter-sector γ met Cassini. `n_spatial` as the neutrino index flips the SN sign and still exceeds.
 - **Wrong coordinate.** `g_ij = δ_ij` is already isotropic and the apsidal angle is invariant. Normalization does bite elsewhere: #1029 `:171`'s F = 1/3 for `a1 = b1 = 2` is not Kepler-normalised. Kepler-normalised it is 1/6.
-- **What remains live.** The negative stands on the assignment M4, that matter moves on the Gordon metric. No route tests M4. Regime I also does not mean no kernel at β order: `δS/U² = 49/2` at every radius, so "no saturation kernel enters" (#1028) and "`S → 1`" (#1029) are order-of-magnitude statements applied to an order-in-U quantity. This qualifies "β = 3/2 exactly" and does not rescue the arm.
+- **What remains live.** The negative stands on the assignment M4, that matter moves on the Gordon metric. No route tests M4. Regime I also does not mean no kernel at β order: `δS/U² = 49/2` at every radius, so "no saturation kernel enters" (#1028) and "`S → 1`" (#1029) are order-of-magnitude statements applied to an order-in-U quantity. This qualifies "β = 3/2 exactly" and does not rescue the arm. Canon prints that kernel on a clock only as a static surface redshift (`20_white_dwarf_predictions.tex:96`, `:103`, `:113`, `:117`; `clm-at7x0y`, solidity 0.52, input only), and no arm as frozen carries it. Conditional on placing it on an orbiting body's clock at unit weight, the β shift depends on the form: −49/2 for rate `√A · S` (`:103`), +49/2 for the kernel factor of `:96` read as a rate, −49/4 for a `√S` clock (the engine form, x44 AUDIT `:26`). On `scalar` those give β = −23, 26, −43/4 and F = 25/3, −8, 17/4, each EXCLUDED. This record does not decide whether S(ε11) sits on a bound orbiting body's clock, or in which form.
 
 **Classification of every agreement.** No agreement here is AVE-distinct, and SM/GR predicts each one with the same inputs. In the skill's classes:
 
@@ -297,12 +297,12 @@ All five held. Findings 2 to 5 CONFIRMED at MAJOR; finding 1 DOWNGRADED from CRI
 5. **Q4 has no AMBIGUOUS bin** (G1a §6). REFUTED is not held either way.
 6. **`REGIME[Mercury, τ/τ_yield]` is not a regime label.** It is the honest report of a ruler canon never defined. Scoped: "sub-yield on every proxy" holds for a stress in Pa against 1.04e22 Pa. If τ/τ_yield is identified with `g_N/a_0`, which canon never writes, the printed past-yield is reproduced at 3.69e8 and Reading E collapses into Reading D. That leaves 1.04e22 Pa unable to be the threshold of that transition.
 7. **Δφ/α is not a fifth Q0 ruler.** It characterizes G1a FLAG 1.
-
+8. **Q2's "Re-derive γ_matter, β" is ill-posed for an arm defined with inputs.** Q2 covers "each arm under test" with no carve-out, and G1a §8's note, "γ and β are inputs", narrowed it for `adopted-gr`. On `ntns`, FAILED tests a derivation the print box claims ("derivable directly"). The same box calls `V_tidal` "not an independent AVE derivation", so `adopted-gr` has no such claim to fail. The bin stays as verified, scoped to F arithmetic, unless the orchestrator's review decides otherwise. The competing FAILED is in §4.4.
+9. **Q3's "primary observational values, with sources" was not met for Mercury.** No carrier-clean primary value with a stated σ was obtained. 42.98 is a computed coefficient, its ±0.04 is unsourced, the sourced 43 is a review relaying a rough figure, and the tighter fits the panel saw (Will 2014; Park et al. 2017, by search listing only) fold in Cassini's γ, which the frozen carriers keep out. The bin does not need the σ: `scalar` stays EXCLUDED unless σ_obs exceeds about 7.16 ″/cy.
 ---
-
 ## §13. Addenda to the G1a record
 
-G1a stays byte-frozen at `9c131d02`. Its corrections are recorded here.
+G1a's frozen text is at `9c131d02`. Its corrections are recorded here. The file has one later edit, the marked post-freeze cite on its Reading D row (`:38`).
 
 1. **§2, Reading D.** "Canon does not print "Regime IV" for planets" needs "on this ruler". `flyby-anomaly-sagnac-operator.md:34` prints "Earth-as-rotor is in Regime IV, not Regime I.", on a different unnamed mass-saturation ruler, scoped to the vacuum within R_earth. This adds to CONFLICTING.
 2. **§8, arm `scalar`.** The arm also needs the Lagrangian at `claim-quality-closure-roadmap.md:205`: F = 1/6 depends on `b2 = 1` from it, and `a1 = 1` alone does not fix F.
@@ -329,7 +329,7 @@ G1a stays byte-frozen at `9c131d02`. Its corrections are recorded here.
 **4. Candidate readings.**
 - **A, ε11 strain:** the row is wrong; Mercury sits about six orders below the first knee.
 - **B, domain tag:** the row means "needs GR-level physics", and it is not an amplitude statement.
-- **C, `g_N/a_0`:** Mercury is past onset, but that ruler gates drag and does not touch the index.
+- **C, `g_N/a_0`:** Mercury is past onset. Canon writes only a drag consequence on this ruler, and does not write whether that label carries rupture or an index effect at Mercury.
 - **D, a ruler canon has not written:** the row needs one before it can be read.
 
 Every candidate leaves the conditional bin at K2 unless it comes with a first-order index canon does not now write.
