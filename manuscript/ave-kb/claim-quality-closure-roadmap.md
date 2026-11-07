@@ -864,3 +864,5 @@ Updates that should NOT be made here:
 - Session-by-session execution details (those land in dated analysis docs per L5 schema)
 
 **Cross-cutting invariants** (per `manuscript/ave-kb/CLAUDE.md`): this doc uses the substrate for substrate (INVARIANT-N1), $\ell_{\text{node}}$ script ell (INVARIANT-N2), Scheme A axiom numbering (INVARIANT-S2). No conflicts.
+
+Note (2026-11-01): the 2026-05-17 AVE-PONDER sweep entry's "Borromean T(3,2) Torus Knot" is a misnomer; T(3,2) is the trefoil, a one-component torus knot, and Borromean rings are a 3-component link.

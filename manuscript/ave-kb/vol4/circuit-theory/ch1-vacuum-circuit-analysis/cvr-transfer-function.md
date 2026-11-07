@@ -38,7 +38,7 @@ $$
 \;=\; -\frac{\alpha\,\omega_0}{2} \pm j\,\omega_d \;}
 $$
 
-**The real part $-\alpha\omega_0/2$ is the radiative linewidth** — the pole sits a distance $\alpha/2$ (in units of $\omega_0$) to the left of the $j\omega$ axis, and that distance is exactly the per-cycle energy leak $1/Q = \alpha$ through the TIR boundary ([theorem-3-1-q-factor.md](theorem-3-1-q-factor.md):81, "only a fraction $1/Q=\alpha$ of the stored energy leaks per cycle"). The computed value matches to machine precision: `pole_real/ω₀ = −0.00364868 = −α/2` (`cvr_ee_sweep_metrics.json`).
+**The real part $-\alpha\omega_0/2$ is the radiative linewidth** — the pole sits a distance $\alpha/2$ (in units of $\omega_0$) to the left of the $j\omega$ axis, and that distance is exactly the per-cycle energy leak $1/Q = \alpha$ through the TIR boundary ([theorem-3-1-q-factor.md](theorem-3-1-q-factor.md):85, *"only a fraction $1/Q = \alpha \approx 0.0073$ of the stored energy leaks per cycle"*). The computed value matches to machine precision: `pole_real/ω₀ = −0.00364868 = −α/2` (`cvr_ee_sweep_metrics.json`).
 
 | Quantity | Substrate-native form | Value | Provenance |
 |---|---|---|---|
@@ -68,7 +68,7 @@ Re-runnable: `PYTHONPATH=$PWD/src python src/scripts/vol_9_device/cvr_ee_sweep/c
 
 ## §5 — Discrimination (ave-discrimination-check)
 
-- **CONSISTENCY (not AVE-distinct):** the $Q=1/\alpha$ peak is $\alpha$ in its original Sommerfeld coupling-strength meaning ([theorem-3-1-q-factor.md](theorem-3-1-q-factor.md):81) re-expressed as a Bode peak — a re-expression, not a new prediction. The 2nd-order roll-off is generic resonator physics.
+- **CONSISTENCY (not AVE-distinct):** the $Q=1/\alpha$ peak is $\alpha$ in its original Sommerfeld coupling-strength meaning ([theorem-3-1-q-factor.md](theorem-3-1-q-factor.md):85, *"this IS $\alpha$ in its original Sommerfeld meaning"*) re-expressed as a Bode peak — a re-expression, not a new prediction. The 2nd-order roll-off is generic resonator physics.
 - **The AVE-distinct content lives in the orthogonal leaves:** $|\Gamma|^2=1-\alpha$ in [cvr-reflection-smith.md](cvr-reflection-smith.md) (the mass-wall's radiative leak), and the parity-odd $S_{LR}\ne S_{RL}^*$ in [window-blind-bounding-plane.md](../../../common/window-blind-bounding-plane.md) (the charge-"3" winding). This scalar $H(s)$ is all-DERIVED consistency.
 
 ## §6 — Honest-status flags (carry verbatim per `ave-evidence-framing-discipline`)
