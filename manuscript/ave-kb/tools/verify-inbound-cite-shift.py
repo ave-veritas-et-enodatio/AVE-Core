@@ -91,14 +91,17 @@ trusted, every run proves four things, none of them read off its own yield:
   * every object read was READ   git grep reports an unreadable blob ONLY on stderr
                                  and still exits 0 or 1, its lines simply absent;
                                  `cat-file --batch` answers `missing`, exactly as for
-                                 a path the tree does not hold; diff and ls-tree exit
-                                 non-zero on an unreadable subtree. Read naively, each
-                                 is a citer or a changed file that is not there;
+                                 a path the tree does not hold, or -- for a blob big
+                                 enough to stream -- sends part of it and exits 128;
+                                 diff and ls-tree exit non-zero on an unreadable
+                                 subtree. Read naively, each is a citer or a changed
+                                 file that is not there, or a shorter one. The run
+                                 works from the repo top level: from a subdirectory
+                                 git grep and ls-tree see only that subtree;
   * THE SELF-GATE holds          the --selftest fixtures, driven through this same
                                  scan() and git binary: a planted shifted cite IS
                                  reported, a cite to a same-named sibling is NOT, and
-                                 a lost citer blob, changed-file blob or subtree
-                                 ABORTS.
+                                 each damaged object in LOST ABORTS.
 Any failure aborts with exit 2 instead of printing a zero.
 
 Until 2026-09-19 liveness WAS inferred from yield: "changed files but ZERO cites
@@ -152,20 +155,27 @@ class GateError(RuntimeError):
     past this point would be false."""
 
 
+#: stderr is where git grep reports an unreadable blob (see scan()), so nothing else may
+#: write there: trace2 can be switched on from git CONFIG as well as the environment
+#: (`[trace2] normalTarget = 2` reaches the fixtures too) and the environment overrides
+#: config; a translated git would spell `warning:` some other way.
+QUIET = {'GIT_TRACE2': '0', 'GIT_TRACE2_EVENT': '0', 'GIT_TRACE2_PERF': '0', 'LC_ALL': 'C'}
+
+
 class Repo:
     """A git repo handle plus blob/tree caches.
 
-    The real run uses the cwd and the caller's environment minus GIT_TRACE*, which
-    writes to stderr -- where git grep reports an unreadable blob (see scan()). The
-    self-test fixtures use a throwaway directory with every GIT_* variable scrubbed: a
-    fixture built while a git hook has GIT_DIR / GIT_INDEX_FILE exported would
-    otherwise write into the REAL repo.
+    The real run uses the cwd and the caller's environment minus GIT_TRACE* (env-only
+    tracing, to stderr), plus QUIET. The self-test fixtures use a throwaway directory
+    with every GIT_* variable scrubbed: a fixture built while a git hook has GIT_DIR /
+    GIT_INDEX_FILE exported would otherwise write into the REAL repo.
     """
 
     def __init__(self, cwd=None, scrub_env=False):
         scrub = 'GIT_' if scrub_env else 'GIT_TRACE'
         self.cwd = cwd
         self.env = {k: v for k, v in os.environ.items() if not k.startswith(scrub)}
+        self.env.update(QUIET)
         self._blob, self._tree = {}, {}
 
     def raw(self, *a, stdin=None):
@@ -207,13 +217,23 @@ class Repo:
         if not paths:
             return
         req = ''.join('%s:%s\n' % (rev, p) for p in paths).encode('utf-8')
-        raw, i = self.raw('cat-file', '--batch', stdin=req)[1], 0
+        rc, raw = self.raw('cat-file', '--batch', stdin=req)
+        # A blob too big to inflate in one go is STREAMED: git prints its full-size
+        # header, then part of the body, then dies (`fatal: unable to stream`, exit 128).
+        # Kept, the part reads as a shorter file and every cite past it as "never valid".
+        if rc != 0 and 'short-read-ok' not in MUTATE:
+            raise GateError('`git cat-file --batch` exited %d reading %s: %s'
+                            % (rc, rev, self.err or 'no stderr'))
+        i = 0
         for p in paths:
             j = raw.find(b'\n', i)
             head = raw[i:j].split() if j >= 0 else []
             lines = None
             if len(head) == 3 and head[2].isdigit():       # <sha> <type> <size>
                 size = int(head[2])
+                if raw[j + 1 + size:j + 2 + size] != b'\n' and 'short-read-ok' not in MUTATE:
+                    raise GateError('%s:%s: `git cat-file --batch` announced %d bytes and sent '
+                                    '%d' % (rev, p, size, len(raw) - j - 1))
                 if head[1] == b'blob':
                     lines = raw[j + 1:j + 1 + size].decode('utf-8', 'replace').split('\n')
                 i = j + 1 + size + 1
@@ -361,7 +381,7 @@ Finding = collections.namedtuple('Finding', 'src lno target n kind was now moved
 
 
 def scan(repo, base, tip):
-    changed = [p for p in repo.checked('diff', '--name-only', '-z', base, tip).split('\0') if p]
+    changed = [p for p in repo.checked('diff', '--name-only', '-z', base, tip, '--').split('\0') if p]
     by_leaf = collections.defaultdict(list)
     for c in changed:
         by_leaf[c.rsplit('/', 1)[-1]].append(c)
@@ -581,7 +601,10 @@ def guarded(mode):
 
 @guarded
 def main(base, tip, verbose=False, repo=None):
-    repo = repo or Repo()
+    if repo is None:
+        # From a subdirectory git grep searches only that subtree and ls-tree lists
+        # paths relative to it: a clean that read a fraction of the corpus.
+        repo = Repo(cwd=Repo().checked('rev-parse', '--show-toplevel').strip())
     dead, n_probes = liveness(repo, base, tip)
     res = None
     if not dead:
@@ -598,7 +621,7 @@ def main(base, tip, verbose=False, repo=None):
             print('  ' + why)
         return 2
     print('[inbound-cites] liveness OK — both revs resolve, every object read, self-gate %d/%d '
-          '(a planted shifted cite fires; a cite to a same-named sibling does not; a lost blob '
+          '(a planted shifted cite fires; a cite to a same-named sibling does not; a damaged object '
           'aborts).' % (n_probes, n_probes))
     return report(res, verbose)
 
@@ -615,6 +638,7 @@ THIRD = 'manuscript/vol_2_subatomic/main.tex'
 UNIQUE = 'src/unique_mod.py'
 CITERS = 'docs/citers.md'
 NOTES = 'manuscript/vol_1_foundations/notes.md'        # a citer BESIDE B
+LONG = 'manuscript/vol_1_foundations/tables.tex'       # big enough that git STREAMS it
 
 #: probe key -> (citing file, citing text). Every cite targets a line that exists.
 PROBES = collections.OrderedDict([
@@ -635,6 +659,7 @@ PROBES = collections.OrderedDict([
     ('link-target-B',   (NOTES, 'link form, target beside the citer: [frontmatter](main.tex):11')),
     ('link-text-B',     (NOTES, 'link form, cite inside the text: [`main.tex:12`](./main.tex)')),
     ('beside-B-bare',   (NOTES, 'a bare `main.tex:3` from beside B is STILL ambiguous -- no same-directory rule')),
+    ('long-file',       (CITERS, 'a long file, cited near its end: `tables.tex:290`')),
 ])
 
 
@@ -646,7 +671,8 @@ def _files(keys, moved=()):
     """Fixture tree. `moved` files get three lines inserted at the top, so every
     line below keeps its content at a NEW address -- the definition of SHIFTED."""
     files = {B: _numbered('vol1', 14), A: _numbered('letter', 40),
-             THIRD: _numbered('vol2', 14), UNIQUE: _numbered('code', 20)}
+             THIRD: _numbered('vol2', 14), UNIQUE: _numbered('code', 20),
+             LONG: _numbered('table row of a long file', 300)}
     for p in moved:
         files[p] = ['inserted %d' % i for i in (1, 2, 3)] + files[p]
     for citer in (CITERS, NOTES):
@@ -669,7 +695,8 @@ def _write_tree(repo, root, files):
         os.makedirs(os.path.dirname(full), exist_ok=True)
         with open(full, 'w', encoding='utf-8') as fh:
             fh.write('\n'.join(lines) + '\n')
-    repo.sh('add', '-A', '-f', '.')
+    if repo.raw('add', '-A', '-f', '.')[0] != 0:
+        raise FixtureError('`git add` failed in %s: %s' % (root, repo.err or 'no output'))
     rc, out = repo.raw('write-tree')
     tree = out.decode('ascii', 'replace').strip()
     if rc != 0 or not re.fullmatch(r'[0-9a-f]{40,64}', tree):
@@ -678,11 +705,12 @@ def _write_tree(repo, root, files):
 
 
 @contextlib.contextmanager
-def fixture_repo(keys, moved, lose=()):
+def fixture_repo(keys, moved, damage=()):
     """A throwaway repo holding a base tree and a tip tree: yields (repo, base, tip).
 
-    `lose`: ('base' | 'tip', path) pairs whose object -- blob or subtree -- is deleted
-    from the object store after both trees are written, so the trees still name it."""
+    `damage`: ('base' | 'tip', path, 'delete' | 'truncate') -- after both trees are
+    written, that object (blob or subtree) is deleted from the object store, or its
+    loose file cut to half, so the trees still name it."""
     root = tempfile.mkdtemp(prefix='inbound-cite-selftest-')
     try:
         repo = Repo(cwd=root, scrub_env=True)
@@ -690,12 +718,24 @@ def fixture_repo(keys, moved, lose=()):
             raise FixtureError('`git init` failed in %s: %s' % (root, repo.err or 'no output'))
         base = _write_tree(repo, root, _files(keys))
         tip = _write_tree(repo, root, _files(keys, moved))
-        for side, path in lose:
-            oid = repo.sh('rev-parse', '%s:%s' % (base if side == 'base' else tip, path)).strip()
+        for side, path, how in damage:
+            rc, out = repo.raw('rev-parse', '--verify', '--quiet',
+                               '%s:%s' % (base if side == 'base' else tip, path))
+            oid = out.decode('ascii', 'replace').strip()
+            if rc != 0 or not re.fullmatch(r'[0-9a-f]{40,64}', oid):
+                raise FixtureError('no object for %s:%s to damage: %s' % (side, path, repo.err or oid))
+            loose = os.path.join(root, '.git', 'objects', oid[:2], oid[2:])
             try:
-                os.remove(os.path.join(root, '.git', 'objects', oid[:2], oid[2:]))
+                if how == 'delete':
+                    os.remove(loose)
+                else:
+                    with open(loose, 'rb') as fh:
+                        data = fh.read()
+                    os.chmod(loose, 0o644)
+                    with open(loose, 'wb') as fh:
+                        fh.write(data[:len(data) // 2])
             except OSError as exc:
-                raise FixtureError('could not delete the object for %s:%s: %s' % (side, path, exc))
+                raise FixtureError('could not %s the object for %s:%s: %s' % (how, side, path, exc))
         yield repo, base, tip
     finally:
         shutil.rmtree(root, ignore_errors=True)
@@ -722,31 +762,52 @@ B_PINNED = {'explicit-B', 'no-manuscript-B', 'abbreviated-B', 'repo-root-B', 'ab
 A_PINNED = {'explicit-A', 'elided-A', 'bare-has-line-A'}
 AMBIG = {'bare-ambiguous', 'beside-B-bare'}
 
-#: object lost -> (which tree, path, how git reports it, the rule that turns it into an abort)
+Lost = collections.namedtuple('Lost', 'side path damage keys moved how rule false_clean')
+
+#: An object git cannot read, and what the run must do about it. Each fixture plants
+#: `keys`, moves `moved` (exit 1 with every object present), then damages `side:path`.
+#: `how` is how git reports it; `rule` the MUTATE key that turns the report into an
+#: abort; `false_clean` what the run prints with that rule switched off. The citer
+#: case comes twice because git grep's exit code is no signal: alone the lost file
+#: makes it exit 1 ("no match"), beside any other match -- the usual case in a real
+#: corpus -- exit 0.
 LOST = collections.OrderedDict([
-    ('citer blob',        ('tip', CITERS, 'git grep says so only on stderr, and exits 1 as for no match',
-                           'grep-stderr-ok')),
-    ('changed-file blob', ('base', B, '`cat-file --batch` answers `missing`, as for a path the tree '
-                                      'does not hold', 'missing-is-absent')),
-    ('subtree',           ('tip', 'manuscript', '`git diff` exits 128 with nothing on stdout -- '
-                                                '"no changed files"', 'unchecked-git')),
+    ('citer blob (the only match)', Lost('tip', CITERS, 'delete', ['explicit-B'], [B],
+        'git grep says so only on stderr, and exits 1 as for no match',
+        'grep-stderr-ok', 'exit 0, cites-found=0')),
+    ('citer blob (beside a match)', Lost('tip', CITERS, 'delete', ['explicit-B', 'beside-B-bare'], [B],
+        'git grep says so only on stderr, and exits 0 for the other match',
+        'grep-stderr-ok', 'exit 0, cites-found=1')),
+    ('changed-file blob (deleted)', Lost('base', B, 'delete', ['explicit-B'], [B],
+        '`cat-file --batch` answers `missing`, as for a path the tree does not hold',
+        'missing-is-absent', 'exit 0, cites-found=0')),
+    ('changed-file blob (cut short)', Lost('base', LONG, 'truncate', ['long-file'], [LONG],
+        '`cat-file --batch` prints the full-size header, part of the body, then exits 128',
+        'short-read-ok', 'exit 0, cites-found=1')),
+    ('subtree (deleted)', Lost('tip', 'manuscript', 'delete', ['explicit-B'], [B],
+        '`git diff` exits 128 with nothing on stdout -- "no changed files"',
+        'unchecked-git', 'exit 0, cites-found=0')),
 ])
-#: the can-it-fire fixture with every object present reads `exit 1, cites-found=1`; with
-#: an object lost and its rule switched off, every LOST case falls back to this.
-FALSE_CLEAN = 'exit 0, cites-found=0'
 
 
-def lost_object_verdict(name):
-    """What scan() makes of the can-it-fire fixture (one explicit-path cite to B, B
-    moved) once LOST[name]'s object is gone: 'ABORT', or the verdict it reached."""
-    side, path = LOST[name][:2]
-    with fixture_repo(['explicit-B'], [B], lose=[(side, path)]) as (repo, base, tip):
+def lost_object_verdict(name, damaged=True):
+    """What scan() makes of LOST[name]'s fixture once its object is damaged: 'ABORT' when
+    the abort names the damaged path or object id, or else the verdict reached. An
+    abort for any other reason (stray stderr, say) proves nothing about the loss.
+    `damaged=False` runs the same fixture whole: the control, which must exit 1."""
+    c = LOST[name]
+    side, path = c.side, c.path
+    res, why = None, ''
+    damage = [(side, path, c.damage)] if damaged else []
+    with fixture_repo(c.keys, c.moved, damage=damage) as (repo, base, tip):
+        oid = repo.sh('rev-parse', '%s:%s' % (base if side == 'base' else tip, path)).strip()
         try:
             res = scan(repo, base, tip)
-        except GateError:
-            return 'ABORT'
-    if res['grep_errors']:
-        return 'ABORT'
+            why = ' | '.join(e[1] for e in res['grep_errors'])
+        except GateError as exc:
+            why = str(exc)
+    if why:
+        return 'ABORT' if (path in why or (oid and oid in why)) else 'ABORT, but not naming it: ' + why[:150]
     return 'exit %d, cites-found=%d' % (1 if any(f.kind in ROT for f in res['pinned']) else 0,
                                         res['found'])
 
@@ -806,9 +867,9 @@ def run_gate(out=print):
         f'{sorted(rot(pinned))}, exit {rc}')
 
     # --- an object that cannot be read aborts the run; it is never a file that is not there
-    for name, (_, _, how, _) in LOST.items():
+    for name, c in LOST.items():
         v = lost_object_verdict(name)
-        say(v == 'ABORT', f'a lost {name} aborts the run instead of reading as absent ({how})', v)
+        say(v == 'ABORT', f'a damaged {name} aborts the run ({c.how})', v)
     return ok
 
 
@@ -842,14 +903,16 @@ def mutation_receipt():
     finally:
         MUTATE.discard('address-nothing')
     results.append(('M5 ...and the gate must report itself dead rather than pass', dead))
-    for k, (name, (_, _, _, mut)) in enumerate(LOST.items(), 6):
-        MUTATE.add(mut)
+    for k, (name, c) in enumerate(LOST.items(), 6):
+        MUTATE.add(c.rule)
         try:
             v = lost_object_verdict(name)
         finally:
-            MUTATE.discard(mut)
-        results.append((f'M{k} read a lost {name} as absent ({mut}): the run must print the false '
-                        f'clean the abort exists to prevent -- got {v}', v == FALSE_CLEAN))
+            MUTATE.discard(c.rule)
+        whole = lost_object_verdict(name, damaged=False)
+        results.append((f'M{k} read a damaged {name} as if whole or absent ({c.rule}): the run must print the false '
+                        f'clean the abort exists to prevent, {c.false_clean} -- got {v}; the fixture whole '
+                        f'must fire -- got {whole}', v == c.false_clean and whole.startswith('exit 1,')))
 
     allgood = True
     for label, tripped in results:

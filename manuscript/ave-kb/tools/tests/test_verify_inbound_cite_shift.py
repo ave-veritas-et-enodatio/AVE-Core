@@ -23,10 +23,12 @@ Asserts:
     control now tests directly -- an unresolvable rev, an erroring `git grep`,
     a dead self-gate;
   * exit 2, never 1, when no verdict was reached (2026-11-07): a crash in any mode,
-    a usage error, and a lost citer blob, changed-file blob or subtree -- each of
-    which git reports out of band, and each of which the pre-fix tool read as an
-    absent file and printed a clean zero. Plus the fix's own edges: an added or
-    deleted file, a gitlink, and GIT_TRACE are still not aborts.
+    a usage error, and a citer blob, changed-file blob or subtree git cannot read
+    (deleted, or cut short mid-stream) -- each reported out of band, each read by
+    the pre-fix tool as an absent or shorter file, ending in a clean zero; and a
+    run from a subdirectory, which read only that subtree. Plus the fix's own
+    edges: an added or deleted file, a gitlink, and git tracing from env or config
+    are still not aborts.
 
 Run directly (`python tools/tests/test_verify_inbound_cite_shift.py`) or via pytest.
 """
@@ -73,6 +75,14 @@ def test_gate_can_fire_and_negative_controls_hold():
     assert any("can-it-fire" in l for l in lines)
     assert any("negative control" in l for l in lines)
     assert all("[PASS]" in l for l in lines), "\n".join(lines)
+    # the damaged-object probes are part of every run's liveness: pin them, so that
+    # dropping one (or the loop) is a test failure and not a quieter self-gate
+    assert sorted(mod.LOST) == sorted([
+        "citer blob (the only match)", "citer blob (beside a match)",
+        "changed-file blob (deleted)", "changed-file blob (cut short)", "subtree (deleted)"])
+    for name in mod.LOST:
+        assert any(l.lstrip().startswith("[PASS] a damaged %s aborts" % name) for l in lines), name
+    assert len(lines) == 10 + len(mod.LOST)
 
 
 def test_mutation_receipt_holds():
@@ -204,64 +214,104 @@ def _git_free_env(**extra):
     return env
 
 
-def _lose(repo, rev, path):
-    """Delete the object `rev:path` names (blob or subtree) after the tree is written,
-    as the solidity ratchet's `unreadable-base` fixture does. Independent of the tool's
-    own fixture `lose=` so these tests fail on the pre-fix tool for the right reason."""
+def _damage(repo, rev, path, how="delete"):
+    """Delete the object `rev:path` names (blob or subtree), or cut its loose file to half,
+    after the tree is written -- as the solidity ratchet's `unreadable-base` fixture does.
+    Independent of the tool's own fixture `damage=`, so these tests fail on the pre-fix
+    tool for the behavioural reason, not on a missing helper."""
     import os
     oid = repo.sh("rev-parse", "%s:%s" % (rev, path)).strip()
-    os.remove(os.path.join(repo.cwd, ".git", "objects", oid[:2], oid[2:]))
+    loose = os.path.join(repo.cwd, ".git", "objects", oid[:2], oid[2:])
+    if how == "delete":
+        os.remove(loose)
+        return
+    with open(loose, "rb") as fh:
+        data = fh.read()
+    os.chmod(loose, 0o644)
+    with open(loose, "wb") as fh:
+        fh.write(data[:len(data) // 2])
 
 
-def _main_out(mod, keys, moved, lose=()):
+def _main_out(mod, keys, moved, damage=()):
     import contextlib
     import io
 
     buf = io.StringIO()
     with mod.fixture_repo(keys, moved) as (repo, b, t):
-        for side, path in lose:
-            _lose(repo, b if side == "base" else t, path)
+        for side, path, how in damage:
+            _damage(repo, b if side == "base" else t, path, how)
         with contextlib.redirect_stdout(buf):
             rc = mod.main(b, t, repo=repo)
     return rc, buf.getvalue()
 
 
+def _two_trees(base_files, tip_files, gitlinks=None):
+    """A throwaway repo with the given trees; gitlinks = {path: (base oid, tip oid)}."""
+    import contextlib
+
+    mod = _load_module()
+
+    @contextlib.contextmanager
+    def ctx():
+        with mod.fixture_repo([], []) as (repo, _, _t):
+            trees = []
+            for k, files in enumerate((base_files, tip_files)):
+                tree = mod._write_tree(repo, repo.cwd, files)
+                if gitlinks:
+                    for path, oids in gitlinks.items():
+                        repo.raw("update-index", "--add", "--cacheinfo", "160000,%s,%s" % (oids[k], path))
+                    tree = repo.sh("write-tree").strip()
+                trees.append(tree)
+            yield mod, repo, trees[0], trees[1]
+    return ctx()
+
+
 def test_main_exit_2_on_a_crash_inside_scan():
+    """A ValueError -- the type the colour-config crash raises -- in the REAL scan; the
+    self-gate's fixture scans run untouched first."""
+    import contextlib
+    import io
+
     mod = _load_module()
     real = mod.scan
+    with mod.fixture_repo(["explicit-B"], [mod.B]) as (repo, b, t):
+        def crash(r, *a, **k):
+            if r is repo:
+                raise ValueError("forced crash inside scan()")
+            return real(r, *a, **k)
 
-    def crash(*a, **k):
-        raise RuntimeError("forced crash inside scan()")
-
-    mod.scan = crash
-    try:
-        rc, out = _main_out(mod, mod.ALL, [mod.B])
-    finally:
-        mod.scan = real
-    assert rc == 2
-    assert "the gate crashed (RuntimeError: forced crash inside scan())" in out
+        buf = io.StringIO()
+        mod.scan = crash
+        try:
+            with contextlib.redirect_stdout(buf):
+                rc = mod.main(b, t, repo=repo)
+        finally:
+            mod.scan = real
+    assert rc == 2, buf.getvalue()
+    assert "the gate crashed (ValueError: forced crash inside scan())" in buf.getvalue()
 
 
 def test_cli_exit_2_on_a_crash():
-    """The process exit code, through the tool's own __main__: the real repo's `git diff`
-    raises (fixtures run with a tmp cwd, the real run with cwd=None)."""
+    """The process exit code, through the tool's own __main__: `git diff` raises in the
+    repo under test only (the self-gate's fixtures are other directories)."""
     driver = (
-        "import runpy, subprocess, sys\n"
+        "import os, runpy, subprocess, sys\n"
         "real = subprocess.run\n"
+        "target = os.path.realpath(os.environ['CRASH_IN'])\n"
         "def fake(args, *a, **kw):\n"
-        "    if kw.get('cwd') is None and args[1:2] == ('diff',):\n"
-        "        raise RuntimeError('forced crash inside scan()')\n"
+        "    if args[1:2] == ('diff',) and os.path.realpath(kw.get('cwd') or '') == target:\n"
+        "        raise ValueError('forced crash inside scan()')\n"
         "    return real(args, *a, **kw)\n"
         "subprocess.run = fake\n"
         "sys.argv = sys.argv[1:]\n"
         "runpy.run_path(sys.argv[0], run_name='__main__')\n"
     )
     mod = _load_module()
-    with mod.fixture_repo(["explicit-B"], [mod.B]) as (repo, b, t):
+    with _two_trees({"docs/c.md": ["x"]}, {"docs/c.md": ["y"]}) as (_, repo, b, t):
         r = subprocess.run([sys.executable, "-c", driver, str(_TOOL), b, t], capture_output=True,
-                           text=True, cwd=repo.cwd, env=_git_free_env())
+                           text=True, cwd=repo.cwd, env=_git_free_env(CRASH_IN=repo.cwd))
     assert r.returncode == 2, r.stdout + r.stderr
-    assert "the gate crashed (RuntimeError" in r.stdout
+    assert "the gate crashed (ValueError" in r.stdout
 
 
 def test_cli_usage_exits_2():
@@ -269,6 +319,17 @@ def test_cli_usage_exits_2():
     r = subprocess.run([sys.executable, str(_TOOL), "HEAD"], capture_output=True, text=True)
     assert r.returncode == 2, r.stdout + r.stderr
     assert "usage:" in r.stderr
+
+
+def test_cli_from_a_subdirectory_reads_the_whole_repo():
+    """From a subdirectory git grep searches only that subtree: the pre-fix run, started
+    in docs/, found the shifted cite's citer nowhere and exited 0."""
+    mod = _load_module()
+    with mod.fixture_repo(["explicit-B"], [mod.B]) as (repo, b, t):
+        rcs = [subprocess.run([sys.executable, str(_TOOL), b, t], capture_output=True, text=True,
+                              cwd=cwd, env=_git_free_env()).returncode
+               for cwd in (repo.cwd, repo.cwd + "/manuscript")]
+    assert rcs == [1, 1], rcs
 
 
 def test_selftest_and_receipt_exit_2_when_the_fixture_cannot_be_built():
@@ -293,53 +354,55 @@ def test_selftest_and_receipt_exit_2_when_the_fixture_cannot_be_built():
 
 
 def test_main_exit_2_when_a_citer_blob_cannot_be_read():
-    """git grep reports the lost blob only on stderr and exits 1 ("no match")."""
+    """git grep reports the lost blob only on stderr -- and its exit code says nothing:
+    1 ("no match") when the lost file was the only match, 0 beside any other match."""
     mod = _load_module()
-    assert _main_out(mod, ["explicit-B"], [mod.B])[0] == 1          # the control: it fires
-    rc, out = _main_out(mod, ["explicit-B"], [mod.B], lose=[("tip", mod.CITERS)])
-    assert rc == 2, out
-    assert "unable to read" in out and "clean —" not in out
+    for keys in (["explicit-B"], ["explicit-B", "beside-B-bare"]):
+        assert _main_out(mod, keys, [mod.B])[0] == 1                 # the control: it fires
+        rc, out = _main_out(mod, keys, [mod.B], damage=[("tip", mod.CITERS, "delete")])
+        assert rc == 2, (keys, out)
+        assert "unable to read" in out and mod.CITERS in out and "clean —" not in out
 
 
 def test_main_exit_2_when_a_changed_files_blob_cannot_be_read():
     """`cat-file --batch` answers `missing` for it, exactly as for a path not in the tree."""
     mod = _load_module()
-    rc, out = _main_out(mod, ["explicit-B"], [mod.B], lose=[("base", mod.B)])
+    rc, out = _main_out(mod, ["explicit-B"], [mod.B], damage=[("base", mod.B, "delete")])
     assert rc == 2, out
     assert "is a blob in that tree" in out and mod.B in out and "clean —" not in out
+
+
+def test_main_exit_2_when_a_changed_files_blob_is_cut_short():
+    """A blob big enough to stream: cat-file prints its full-size header, part of the body,
+    then exits 128. The pre-fix run kept the part, read the cited line as never valid at
+    base, and printed a clean."""
+    import contextlib
+    import io
+
+    rows = ["row %d of a long table" % i for i in range(1, 301)]
+    cite = {"docs/c.md": ["see `big.txt:290`"]}
+    for cut in (False, True):
+        with _two_trees(dict(cite, **{"big.txt": rows}),
+                        dict(cite, **{"big.txt": ["new"] + rows})) as (mod, repo, b, t):
+            if cut:
+                _damage(repo, b, "big.txt", "truncate")
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                rc = mod.main(b, t, repo=repo)
+        assert rc == (2 if cut else 1), buf.getvalue()
+    assert "clean —" not in buf.getvalue()
 
 
 def test_main_exit_2_when_a_subtree_cannot_be_read():
     """`git diff` exits 128 with an empty stdout -- read naively, "no changed files"."""
     mod = _load_module()
-    rc, out = _main_out(mod, ["explicit-B"], [mod.B], lose=[("tip", "manuscript")])
+    rc, out = _main_out(mod, ["explicit-B"], [mod.B], damage=[("tip", "manuscript", "delete")])
     assert rc == 2, out
     assert "exited 128" in out and "no changed files" not in out
 
 
 # The fix must not turn ordinary absence into an abort. These pass on the pre-fix tool
 # too; they guard the fix's own edges.
-
-def _two_trees(base_files, tip_files, gitlinks=None):
-    """A throwaway repo with the given trees; gitlinks = {path: (base oid, tip oid)}."""
-    import contextlib
-
-    mod = _load_module()
-
-    @contextlib.contextmanager
-    def ctx():
-        with mod.fixture_repo([], []) as (repo, _, _t):
-            trees = []
-            for k, files in enumerate((base_files, tip_files)):
-                tree = mod._write_tree(repo, repo.cwd, files)
-                if gitlinks:
-                    for path, oids in gitlinks.items():
-                        repo.raw("update-index", "--add", "--cacheinfo", "160000,%s,%s" % (oids[k], path))
-                    tree = repo.sh("write-tree").strip()
-                trees.append(tree)
-            yield mod, repo, trees[0], trees[1]
-    return ctx()
-
 
 def test_a_file_the_tree_does_not_hold_is_absent_not_unreadable():
     """Added and deleted files answer `missing` from cat-file -- and are really absent."""
@@ -364,22 +427,31 @@ def test_a_gitlink_is_absent_not_unreadable():
         assert mod.main(b, t, repo=repo) == 0
 
 
-def test_git_trace_does_not_abort_a_real_run():
-    """GIT_TRACE writes to stderr, now read as a grep error: the real run scrubs it."""
+def test_git_tracing_does_not_abort_a_run():
+    """Tracing writes to stderr, which is now read as a grep error. GIT_TRACE* is env-only
+    and scrubbed; trace2 can come from git CONFIG too -- `~/.gitconfig` reaches the
+    self-gate's fixtures as well as the real run -- and is switched off by env."""
     import os
+    import tempfile
 
     mod = _load_module()
     saved = dict(os.environ)
-    with mod.fixture_repo(["explicit-B"], [mod.B]) as (fixture, b, t):
-        try:
+    home = tempfile.mkdtemp(prefix="inbound-cite-home-")
+    try:
+        with open(os.path.join(home, ".gitconfig"), "w") as fh:
+            fh.write("[trace2]\n\tnormalTarget = 2\n\tperfTarget = 2\n")
+        with mod.fixture_repo(["explicit-B"], [mod.B]) as (fixture, b, t):
             os.environ.clear()
-            os.environ.update(_git_free_env(GIT_TRACE="1"))
+            os.environ.update(_git_free_env(HOME=home, GIT_TRACE="1", GIT_TRACE2="1",
+                                            GIT_TRACE_PERFORMANCE="1"))
+            os.environ.pop("XDG_CONFIG_HOME", None)
             repo = mod.Repo(cwd=fixture.cwd)                   # the real-run constructor
-        finally:
-            os.environ.clear()
-            os.environ.update(saved)
-        assert "GIT_TRACE" not in (repo.env or {})
-        assert mod.main(b, t, repo=repo) == 1
+            assert mod.main(b, t, repo=repo) == 1
+    finally:
+        os.environ.clear()
+        os.environ.update(saved)
+        import shutil
+        shutil.rmtree(home, ignore_errors=True)
 
 
 def test_report_names_the_rule_behind_every_verdict():
@@ -511,7 +583,7 @@ if __name__ == "__main__":
             try:
                 fn()
                 print("PASS", name)
-            except AssertionError as exc:
+            except Exception as exc:          # a crash is a failure too, not the end of the run
                 failed += 1
                 print("FAIL", name, exc)
     sys.exit(1 if failed else 0)
