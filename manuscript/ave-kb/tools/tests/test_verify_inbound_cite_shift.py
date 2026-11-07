@@ -365,11 +365,15 @@ def test_cli_without_a_work_tree_and_with_odd_paths():
 
 
 def test_cli_outside_a_repo_cannot_start():
+    import shutil
     import tempfile
 
     cwd = tempfile.mkdtemp(prefix="inbound-cite-norepo-")
-    r = subprocess.run([sys.executable, str(_TOOL), "HEAD~1", "HEAD"], capture_output=True, text=True,
-                       cwd=cwd, env=_git_free_env(GIT_CEILING_DIRECTORIES=cwd))
+    try:
+        r = subprocess.run([sys.executable, str(_TOOL), "HEAD~1", "HEAD"], capture_output=True,
+                           text=True, cwd=cwd, env=_git_free_env(GIT_CEILING_DIRECTORIES=cwd))
+    finally:
+        shutil.rmtree(cwd, ignore_errors=True)
     assert r.returncode == 2, r.stdout + r.stderr
     assert "cannot start" in r.stdout and "crashed" not in r.stdout
 
