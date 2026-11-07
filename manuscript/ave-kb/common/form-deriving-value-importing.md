@@ -60,7 +60,7 @@ from topology alone is a strong, falsifiable claim and is **untouched** by this
 finding. What it closes is the *stronger* aspiration that the substrate also
 **selects the numerical values** of its own calibration constants.
 
-## The calibration inputs — 3 dimensionful constants + 5 axioms *(count 4→5, R44 2026-08-10: Axiom 5 Substrate DC Bias joined the set; its coupling 𝒜_g is DERIVE-FIRST and is in NO register, so the DIMENSIONFUL count is unmoved at 3)*
+## The calibration inputs — 3 dimensionful constants + the four axioms + the source law *(R44 2026-08-10, count 4→5: the Substrate DC Bias joined the set as an axiom; R55 2026-08-24 re-graded it to a source law and superseded that count; R46 derive-first: its coupling 𝒜_g is DERIVE-FIRST and is in NO register, so the DIMENSIONFUL count is unmoved at 3)*
 
 The substrate is specified by the **four foundational axioms** (substrate
 topology, topo-kinematic isomorphism, minimum-reflection, universal saturation

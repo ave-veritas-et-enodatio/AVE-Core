@@ -386,4 +386,4 @@ inbound depends edges). **Heading stays `##`, minting no spurious invariant node
 > DC Bias and nothing else.** The engine's use is the stale token and is routed for
 > rename/disambiguation.
 
-*Confirmed by: `eq_axiom_5.tex`; the Axiom-5 entry in `common/axiom-register.md`; rulings R43/R44 (ratification + reconciliation) and R45/R46/R47 (phase doctrine, name + symbol + derive-first, tracking spec).*
+*Confirmed by: `eq_axiom_5.tex`; the source-law entry in `common/axiom-register.md`; rulings R43/R44 (ratification + reconciliation) and R45/R46/R47 (phase doctrine, name + symbol + derive-first, tracking spec).*
