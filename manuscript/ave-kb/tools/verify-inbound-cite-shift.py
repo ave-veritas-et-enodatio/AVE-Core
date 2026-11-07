@@ -599,12 +599,29 @@ def guarded(mode):
     return run
 
 
+def top_level_repo():
+    """The real run's Repo, at the top level of the work tree. From a subdirectory git
+    grep searches only that subtree and ls-tree lists paths relative to it: a clean
+    that read a fraction of the corpus. A bare repo (or a cwd inside .git/) has no
+    work tree and no subtree to miss, so it stays where it is."""
+    here = Repo()
+    if here.checked('rev-parse', '--is-inside-work-tree').strip() != 'true':
+        return here
+    top = Repo(cwd=here.checked('rev-parse', '--show-toplevel').rstrip('\n'))
+    for k in ('GIT_DIR', 'GIT_WORK_TREE', 'GIT_COMMON_DIR'):  # relative to where we were
+        if k in top.env:
+            top.env[k] = os.path.abspath(top.env[k])
+    return top
+
+
 @guarded
 def main(base, tip, verbose=False, repo=None):
     if repo is None:
-        # From a subdirectory git grep searches only that subtree and ls-tree lists
-        # paths relative to it: a clean that read a fraction of the corpus.
-        repo = Repo(cwd=Repo().checked('rev-parse', '--show-toplevel').strip())
+        try:
+            repo = top_level_repo()
+        except GateError as exc:
+            print('[inbound-cites] ABORT: cannot start -- not in a repository git can read: %s' % exc)
+            return 2
     dead, n_probes = liveness(repo, base, tip)
     res = None
     if not dead:
@@ -782,7 +799,7 @@ LOST = collections.OrderedDict([
         '`cat-file --batch` answers `missing`, as for a path the tree does not hold',
         'missing-is-absent', 'exit 0, cites-found=0')),
     ('changed-file blob (cut short)', Lost('base', LONG, 'truncate', ['long-file'], [LONG],
-        '`cat-file --batch` prints the full-size header, part of the body, then exits 128',
+        '`cat-file --batch` prints the full-size header, then dies with none or part of the body sent (exit 128)',
         'short-read-ok', 'exit 0, cites-found=1')),
     ('subtree (deleted)', Lost('tip', 'manuscript', 'delete', ['explicit-B'], [B],
         '`git diff` exits 128 with nothing on stdout -- "no changed files"',
@@ -807,7 +824,10 @@ def lost_object_verdict(name, damaged=True):
         except GateError as exc:
             why = str(exc)
     if why:
-        return 'ABORT' if (path in why or (oid and oid in why)) else 'ABORT, but not naming it: ' + why[:150]
+        # `<tree>:<path>` or the object id -- not the bare path, which for a subtree
+        # (`manuscript`) is a substring of every file beneath it
+        named = '%s:%s' % (base if side == 'base' else tip, path) in why or (oid and oid in why)
+        return 'ABORT' if named else 'ABORT, but not naming it: ' + why[:150]
     return 'exit %d, cites-found=%d' % (1 if any(f.kind in ROT for f in res['pinned']) else 0,
                                         res['found'])
 

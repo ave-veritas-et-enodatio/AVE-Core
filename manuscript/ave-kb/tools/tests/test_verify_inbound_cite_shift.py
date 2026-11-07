@@ -77,12 +77,12 @@ def test_gate_can_fire_and_negative_controls_hold():
     assert all("[PASS]" in l for l in lines), "\n".join(lines)
     # the damaged-object probes are part of every run's liveness: pin them, so that
     # dropping one (or the loop) is a test failure and not a quieter self-gate
-    assert sorted(mod.LOST) == sorted([
-        "citer blob (the only match)", "citer blob (beside a match)",
-        "changed-file blob (deleted)", "changed-file blob (cut short)", "subtree (deleted)"])
-    for name in mod.LOST:
+    damaged = ["citer blob (the only match)", "citer blob (beside a match)",
+               "changed-file blob (deleted)", "changed-file blob (cut short)", "subtree (deleted)"]
+    for name in damaged:
         assert any(l.lstrip().startswith("[PASS] a damaged %s aborts" % name) for l in lines), name
-    assert len(lines) == 10 + len(mod.LOST)
+    assert len(lines) == 10 + len(damaged)
+    assert sorted(mod.LOST) == sorted(damaged)
 
 
 def test_mutation_receipt_holds():
@@ -332,6 +332,48 @@ def test_cli_from_a_subdirectory_reads_the_whole_repo():
     assert rcs == [1, 1], rcs
 
 
+def test_cli_without_a_work_tree_and_with_odd_paths():
+    """Moving to the top level is for a work tree only. A bare repo and a cwd inside .git/
+    have no subtree to miss and no top level to move to; a relative GIT_DIR/GIT_WORK_TREE
+    must survive the move; a top level whose name ends in a space must too. Each exits 1,
+    like the run at the root."""
+    import shutil
+    import tempfile
+
+    mod = _load_module()
+    env = _git_free_env()
+
+    def rc(cwd, **extra):
+        return subprocess.run([sys.executable, str(_TOOL), b, t], capture_output=True, text=True,
+                              cwd=cwd, env=dict(env, **extra)).returncode
+
+    scratch = tempfile.mkdtemp(prefix="inbound-cite-odd-")
+    try:
+        with mod.fixture_repo(["explicit-B"], [mod.B]) as (repo, b, t):
+            bare = scratch + "/bare.git"
+            subprocess.run(["git", "init", "-q", "--bare", bare], env=env, check=True)
+            shutil.rmtree(bare + "/objects")
+            shutil.copytree(repo.cwd + "/.git/objects", bare + "/objects")
+            spaced = scratch + "/repo "
+            shutil.copytree(repo.cwd, spaced, symlinks=True)
+            got = {"root": rc(repo.cwd), "bare repo": rc(bare), "cwd inside .git": rc(repo.cwd + "/.git"),
+                   "relative GIT_DIR from docs/": rc(repo.cwd + "/docs", GIT_DIR="../.git", GIT_WORK_TREE=".."),
+                   "top level ending in a space": rc(spaced + "/docs")}
+    finally:
+        shutil.rmtree(scratch, ignore_errors=True)
+    assert got == {k: 1 for k in got}, got
+
+
+def test_cli_outside_a_repo_cannot_start():
+    import tempfile
+
+    cwd = tempfile.mkdtemp(prefix="inbound-cite-norepo-")
+    r = subprocess.run([sys.executable, str(_TOOL), "HEAD~1", "HEAD"], capture_output=True, text=True,
+                       cwd=cwd, env=_git_free_env(GIT_CEILING_DIRECTORIES=cwd))
+    assert r.returncode == 2, r.stdout + r.stderr
+    assert "cannot start" in r.stdout and "crashed" not in r.stdout
+
+
 def test_selftest_and_receipt_exit_2_when_the_fixture_cannot_be_built():
     """Exit 1 from these modes means "the gate is broken"; an environment that cannot
     build the throwaway repo has proved nothing about the gate either way."""
@@ -393,6 +435,54 @@ def test_main_exit_2_when_a_changed_files_blob_is_cut_short():
     assert "clean —" not in buf.getvalue()
 
 
+def _fake_catfile(mod, rc, reply):
+    """A Repo whose `cat-file --batch` answers `reply` with exit `rc`, and whose tree
+    lists `f.txt` as a blob."""
+    class Fake(mod.Repo):
+        def raw(self, *a, stdin=None):
+            if a[:1] == ("cat-file",):
+                self.err = "fatal: unable to stream" if rc else ""
+                return rc, reply
+            return 0, b""
+
+        def tree(self, rev):
+            return {"f.txt": "blob"}
+    return Fake(cwd="/nonexistent")
+
+
+def test_load_rejects_each_kind_of_short_read_on_its_own():
+    """The exit-code check and the body-length check each stand alone: a git that sent
+    the whole body and still failed, or exited 0 with the body cut short, is not read."""
+    mod = _load_module()
+    body = b"line 1\nline 2\n"
+    whole = b"%s blob %d\n%s\n" % (b"a" * 40, len(body), body)
+    assert _fake_catfile(mod, 0, whole).blob("t", "f.txt") == ["line 1", "line 2", ""]   # control
+    for rc, reply in ((128, whole), (0, whole[:-6]), (0, whole[:whole.index(b"\n") + 1])):
+        try:
+            got = _fake_catfile(mod, rc, reply).blob("t", "f.txt")
+        except mod.GateError:
+            continue
+        raise AssertionError("rc=%d reply=%r was read as %r" % (rc, reply, got))
+
+
+def test_an_abort_that_does_not_name_the_damaged_object_proves_nothing():
+    """The self-gate's damaged-object probes count an abort only when it names the
+    damaged `<tree>:<path>` or object id. Not the bare path: `manuscript` (the subtree
+    probe) is a substring of every fixture file beneath it."""
+    mod = _load_module()
+    real = mod.scan
+
+    def unrelated(*a, **k):
+        raise mod.GateError("an unrelated fault while reading manuscript/vol_2_subatomic/main.tex")
+
+    mod.scan = unrelated
+    try:
+        got = {name: mod.lost_object_verdict(name) for name in mod.LOST}
+    finally:
+        mod.scan = real
+    assert all(v.startswith("ABORT, but not naming it") for v in got.values()), got
+
+
 def test_main_exit_2_when_a_subtree_cannot_be_read():
     """`git diff` exits 128 with an empty stdout -- read naively, "no changed files"."""
     mod = _load_module()
@@ -441,10 +531,10 @@ def test_git_tracing_does_not_abort_a_run():
         with open(os.path.join(home, ".gitconfig"), "w") as fh:
             fh.write("[trace2]\n\tnormalTarget = 2\n\tperfTarget = 2\n")
         with mod.fixture_repo(["explicit-B"], [mod.B]) as (fixture, b, t):
-            os.environ.clear()
-            os.environ.update(_git_free_env(HOME=home, GIT_TRACE="1", GIT_TRACE2="1",
-                                            GIT_TRACE_PERFORMANCE="1"))
-            os.environ.pop("XDG_CONFIG_HOME", None)
+            env = _git_free_env(HOME=home, GIT_TRACE="1", GIT_TRACE2="1", GIT_TRACE_PERFORMANCE="1")
+            env.pop("XDG_CONFIG_HOME", None)
+            os.environ.clear()                                 # built BEFORE the clear: PATH kept
+            os.environ.update(env)
             repo = mod.Repo(cwd=fixture.cwd)                   # the real-run constructor
             assert mod.main(b, t, repo=repo) == 1
     finally:
