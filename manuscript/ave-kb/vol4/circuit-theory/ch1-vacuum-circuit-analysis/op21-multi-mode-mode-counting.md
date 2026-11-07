@@ -202,7 +202,7 @@ The substrate Op21 multi-mode form derives the three-Λ assembly end-to-end from
 
 ## §5 — Op21 dual-identification (Op21-foundational + Bardeen BCS conjectured-specialization)
 
-The [`common/operators.md:61`](../../../common/operators.md) Op21 row primary formula is $Q \sim 1/\ln(Z_1/Z_0)$ (the Vol 1 Ch 6 §1.21 canonical-source formula at [`manuscript/vol_1_foundations/chapters/06_universal_operators.tex:349`](../../../../../manuscript/vol_1_foundations/chapters/06_universal_operators.tex)). The canonical-source operator name is **"Quality Factor Phase Transition"** — naming the substrate phase-transition mechanism, NOT "Bardeen mapping" (which is a KB-level annotation in `operators.md:61`).
+The [`common/operators.md:61`](../../../common/operators.md) Op21 row primary formula is $Q \sim 1/\ln(Z_1/Z_0)$ (the Vol 1 Ch 6 §1.21 canonical-source formula at [`manuscript/vol_1_foundations/chapters/06_universal_operators.tex:399`](../../../../../manuscript/vol_1_foundations/chapters/06_universal_operators.tex)). The canonical-source operator name is **"Quality Factor Phase Transition"** — naming the substrate phase-transition mechanism, NOT "Bardeen mapping" (which is a KB-level annotation in `operators.md:61`).
 
 **The substrate-foundational Op21 form is $Q = \ell$ per Nyquist-cell-resolved confined mode at the $\Gamma = -1$ saturation/TIR boundary** (§§1-4 above). Cross-scale canonical fires at four distinct substrate scales, with two distinct channel-multiplicity modes (single-channel vs substrate-orthogonal-channel; per §1 table):
 
