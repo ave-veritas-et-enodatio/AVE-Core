@@ -2,7 +2,7 @@
 
 ### ENTRY 2026-11-06-ruling-r63-review-pass-recs
 
-*(Number provisional: R63 is the next free ruling number. R61 is the last on `origin/main` `f88f49e9`, and open PR #1075 carries R62 in `2026-10-29-ruling-gridfix-option-a.md`. No docket fragment on main or on any open-PR branch carries R63. The Orchestrator confirms the number at merge.)*
+*(Number provisional: R63 is the next free ruling number. R61 is the last on `origin/main` `ae9d35876`, and open PR #1075 carries R62 in `2026-10-29-ruling-gridfix-option-a.md`. No docket fragment on main or on any open-PR branch carries R63. The Orchestrator confirms the number at merge.)*
 
 **Grant, verbatim (the ruling, 2026-11-06, in the orchestrator session, answering the recommendations below). This fragment is its docket record. No primary artifact by Grant exists in the repo at the time of writing; a comment by Grant on the PR that lands this file, quoting the ruling, would make this record self-verifying:**
 - *"I agree with your recs, let's implement/merge away"*
@@ -25,21 +25,25 @@ The same message said of #1076 (verbatim): "Its title still says DO-NOT-MERGE un
 ## §1 — THE RULING (R63)
 
 1. **#1074, third VN-F4 leaf.** The VN-F4 cite fix `cvr_model.py:161` → `:170` extends to a third KB leaf, `manuscript/ave-kb/vol9/ch3-pin-port-configuration/device-circuit-models.md:207`. This widens R61 §2's "in two KB leaves" for this one cite. The edit is one token.
-2. **#1079, RETARGETED.** The inbound-cite checker keeps RETARGETED in its narrow form only. A re-pin past the base end counts as retargeted only when it lands on text the diff added, and the content the cite held at base is seen and has not moved. A re-pin away from a base line whose content is gone, or onto a line that matches content the diff removed elsewhere, is not retargeted and stays reported. The past-end boundary counts lines without the trailing-newline phantom.
+2. **#1079, RETARGETED.** The inbound-cite checker keeps RETARGETED in its narrow form only: the two shapes the #915 evidence shows, and no more.
+   - **Past the base end:** a re-pin is retargeted only when it lands inside text the diff added, on a line that is not content put back from a removed base line.
+   - **Within the base range:** a re-pin is retargeted only when the cited base content is seen and did not move, so it is still at the line the cite held.
+   - Any other re-pin stays reported. A re-pin within the base range whose cited content is gone is reported as unconfirmed, not retargeted. The past-end boundary counts lines without the trailing-newline phantom.
 3. **#1078, contested votes.** A 2–1 vote toward fence-excluded is contested, and a contested record stays `unsure — not picked`. The records decided that way move to unsure. The quoted recommendation's 33 records and 156 sites were measured at the reviewed head `194f815a`, and repairs since then have moved records. R63 fixes the rule, not the counts: the pass reports the counts it measures after the move.
 4. **#1039, R3 wording.** "Printed-precision agreement" is rejected as the R3 replacement wording on #1039, since the printed digits differ at the fifth decimal (about 60 ppm). The ppm strikes stand, and no number or precision claim is substituted.
 5. **Merging.** The Orchestrator may merge a PR once it is CLEARED for merge. No PR merges on the strength of this entry alone.
 
 ## §2 — What R63 does NOT rule
 
-- **#1038:** whether "the flip is in scope, propagate it to :198 and :217" are Grant's words, and which K=2G record stands, `_orchestration/2026-08-02_manuscript-reconciliation-board.md:46-55` or the PR's AWAITING GRANT section. The recommendation above says so, and Grant's answer does not reach it. Also not ruled: extending the card's edit to `vol3/claim-quality.md:202`, the vocabulary edits that wait on W5, and who retargets the gating row in `gamma_census_adjacency_number_check.py`.
+- **#1038:** whether "the flip is in scope, propagate it to :198 and :217" are Grant's words, and which K=2G record stands, `_orchestration/2026-08-02_manuscript-reconciliation-board.md:46-55` or the PR's AWAITING GRANT section. The recommendation above says so, and Grant's answer does not reach it. No docket receipt exists for that quote. Also not ruled: extending the card's edit to `vol3/claim-quality.md:202`, whether the card discloses the import, the rider propagation at the leaf's `:24-25` and `ch15:273`, the vocabulary edits that wait on W5, and who retargets the gating row in `gamma_census_adjacency_number_check.py`.
 - **The reach of item 4:** whether the same call reaches leaf `q-g19a:14` or `06_electroweak_and_higgs.tex:536-537`, `:702-703`. Item 4 rules on #1039's R3 lines only.
-- **The preservation fence:** whether the 2026-08-03 ppm strike reaches lines inside Rule-12 preserved spans (nine R3 lines on #1039), whether the leaf-head banner at `form-deriving-value-importing.md:11` fences `:63` (#1073), and whether R43 dated notes stand like R40 notes. Item 4 does not decide the nine lines inside preserved spans.
+- **The preservation fence:** whether the 2026-08-03 ppm strike reaches lines inside Rule-12 preserved spans (nine R3 lines on #1039), whether the leaf-head banner at `form-deriving-value-importing.md:11` fences `:63` (#1073), and whether R43 dated notes stand like R40 notes (so whether #1073's edits at `session/axiom-homologation.md:847-848` stand, get a caveat or revert). Item 4 does not decide the nine lines inside preserved spans, or whether they are restored with the strike carried in an end-of-file ledger.
 - **#1039:** whether to wire the generator instead of retiring the "Dynamic Output" label.
 - **#1073:** whether the R48 correction applies at `form-deriving-value-importing.md:63`, and whether the four-axioms sites gain "+ the source law".
 - **#1078's other questions:** `00_foreword.tex:112` against `vol_1/04:103`, the F-C7 clause order, the reach of F-C5, A1 cage self-formation as a K3 route, the three-reader read, `17_engine_requirements.tex:157`, whether §0 reaches `:153`, whether a bulk-channel Γ=−1 wall counts as the F-C7 and F-C8 corpse, and the pass's own three questions.
-- **#1072's physics flags:** whether S(ε11) sits on a bound orbiting body's clock, `r_s` against `r_h`, row 7's phase-state, the reading of "The kill stands", and the optional cross-scale table. The K5 stuck-point stays open.
+- **#1072's physics flags:** whether S(ε11) sits on a bound orbiting body's clock, `r_s` against `r_h`, row 7's phase-state, the reading of "The kill stands", the optional cross-scale table, and which completeness test applies to the scalar arm's deferred spatial sector. The K5 stuck-point stays open.
 - **#1037:** whether `vol_5/06` is Class A, and whether `translation-circuit.md:784` and `:459` are rewritten.
 - **#1071:** whether the true Class A set is re-derived, whether the digit edit widens to the four `7.21e-3` sites, and whether `02_organic_circuitry.tex:734` follows the category flip.
 - **#1054:** `manuscript/ave-kb/README.md:24`.
 - No claim, grade, band or physics number moves on the strength of this entry.
+- This list holds the open questions known when it was written. It does not rule that nothing else is open.
