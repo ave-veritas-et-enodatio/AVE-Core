@@ -84,13 +84,21 @@ rule 1 already has it.
 LIVENESS -- a zero has to be earned, and NOT inferred from the run's own yield
 ------------------------------------------------------------------------------
 A checker that finds nothing reports a clean it did not earn. Before any zero is
-trusted, every run proves three things, none of them read off its own yield:
+trusted, every run proves four things, none of them read off its own yield:
 
   * both revs resolve to a tree  (on a bad rev every git call returns nothing);
   * no `git grep` exited > 1     (1 = "no match" is an answer; an error is not);
+  * every object read was READ   git grep reports an unreadable blob ONLY on stderr
+                                 and still exits 0 or 1, its lines simply absent;
+                                 `cat-file --batch` answers `missing`, exactly as for
+                                 a path the tree does not hold; diff and ls-tree exit
+                                 non-zero on an unreadable subtree. Read naively, each
+                                 is a citer or a changed file that is not there;
   * THE SELF-GATE holds          the --selftest fixtures, driven through this same
                                  scan() and git binary: a planted shifted cite IS
-                                 reported, a cite to a same-named sibling is NOT.
+                                 reported, a cite to a same-named sibling is NOT, and
+                                 a lost citer blob, changed-file blob or subtree
+                                 ABORTS.
 Any failure aborts with exit 2 instead of printing a zero.
 
 Until 2026-09-19 liveness WAS inferred from yield: "changed files but ZERO cites
@@ -108,7 +116,9 @@ EXIT CODES
 ----------
   0  no pinned cite moved (the advisory buckets may still be non-empty)
   1  a cite PINNED to a changed file is SHIFTED or OUT-OF-RANGE
-  2  liveness failed -- no verdict was reached
+  2  no verdict was reached: liveness failed, an object could not be read, the
+     arguments were wrong, or the gate crashed. Every mode runs under guarded(): an
+     uncaught traceback exits 1, which is the verdict "a pinned cite moved".
 
 SELF-TESTS
 ----------
@@ -120,7 +130,7 @@ NOT fire when same-named file B moves -- and the mutation receipt proves that
 control is not vacuous, because under the pre-fix basename-only rule the very
 same fixture DOES fire.
 """
-import collections, contextlib, os, posixpath, re, shutil, subprocess, sys, tempfile
+import collections, contextlib, os, posixpath, re, shutil, subprocess, sys, tempfile, traceback
 
 THIS_REPO = 'AVE-Core'
 SIBLING_REPO = re.compile(r'^(?:AVE-[A-Za-z0-9]+|Applied-Vacuum-Engineering)$')
@@ -137,19 +147,25 @@ ROT = ('SHIFTED', 'OUT-OF-RANGE')
 MUTATE = set()
 
 
+class GateError(RuntimeError):
+    """The machinery failed -- an object it needed could not be read. A clean report
+    past this point would be false."""
+
+
 class Repo:
     """A git repo handle plus blob/tree caches.
 
-    The real run uses the cwd and the caller's environment. The self-test fixtures
-    use a throwaway directory with every GIT_* variable scrubbed: a fixture built
-    while a git hook has GIT_DIR / GIT_INDEX_FILE exported would otherwise write
-    into the REAL repo.
+    The real run uses the cwd and the caller's environment minus GIT_TRACE*, which
+    writes to stderr -- where git grep reports an unreadable blob (see scan()). The
+    self-test fixtures use a throwaway directory with every GIT_* variable scrubbed: a
+    fixture built while a git hook has GIT_DIR / GIT_INDEX_FILE exported would
+    otherwise write into the REAL repo.
     """
 
     def __init__(self, cwd=None, scrub_env=False):
-        self.cwd, self.env = cwd, None
-        if scrub_env:
-            self.env = {k: v for k, v in os.environ.items() if not k.startswith('GIT_')}
+        scrub = 'GIT_' if scrub_env else 'GIT_TRACE'
+        self.cwd = cwd
+        self.env = {k: v for k, v in os.environ.items() if not k.startswith(scrub)}
         self._blob, self._tree = {}, {}
 
     def raw(self, *a, stdin=None):
@@ -161,10 +177,23 @@ class Repo:
     def sh(self, *a):
         return self.raw(*a)[1].decode('utf-8', 'replace')
 
+    def checked(self, *a):
+        """stdout of a git call that must succeed. An unreadable subtree makes diff and
+        ls-tree exit non-zero with nothing on stdout: read naively, "no changed files"."""
+        rc, out = self.raw(*a)
+        if rc != 0 and 'unchecked-git' not in MUTATE:
+            raise GateError('`git %s` exited %d: %s' % (' '.join(a), rc, self.err or 'no stderr'))
+        return out.decode('utf-8', 'replace')
+
     def tree(self, rev):
+        """{path: object type} for every entry of `rev`, in ls-tree order."""
         if rev not in self._tree:
-            out = self.sh('ls-tree', '-r', '-z', '--name-only', rev)
-            self._tree[rev] = [p for p in out.split('\0') if p]
+            types = {}
+            for row in self.checked('ls-tree', '-r', '-z', rev).split('\0'):
+                meta, tab, path = row.partition('\t')     # <mode> SP <type> SP <oid> TAB <path>
+                if tab:
+                    types[path] = meta.split(' ')[1]
+            self._tree[rev] = types
         return self._tree[rev]
 
     def blob(self, rev, path):
@@ -190,6 +219,14 @@ class Repo:
                 i = j + 1 + size + 1
             else:                                          # `<name> missing`, or truncated
                 i = j + 1 if j >= 0 else len(raw)
+            # `missing` is also the answer for a blob the tree HOLDS but the object
+            # store cannot produce -- read as "no such file", every cite to it is
+            # skipped and the run reports a clean it did not earn. Only the tree can
+            # tell the two apart. (A gitlink is `commit`, never readable here: absent.)
+            if lines is None and self.tree(rev).get(p) == 'blob' and 'missing-is-absent' not in MUTATE:
+                reply = b' '.join(head).decode('utf-8', 'replace') or 'no reply'
+                raise GateError('%s:%s is a blob in that tree, but `git cat-file --batch` cannot '
+                                'read it (%s)' % (rev, p, reply))
             self._blob[(rev, p)] = lines
 
 
@@ -324,7 +361,7 @@ Finding = collections.namedtuple('Finding', 'src lno target n kind was now moved
 
 
 def scan(repo, base, tip):
-    changed = [p for p in repo.sh('diff', '--name-only', '-z', base, tip).split('\0') if p]
+    changed = [p for p in repo.checked('diff', '--name-only', '-z', base, tip).split('\0') if p]
     by_leaf = collections.defaultdict(list)
     for c in changed:
         by_leaf[c.rsplit('/', 1)[-1]].append(c)
@@ -359,11 +396,17 @@ def scan(repo, base, tip):
     # LITERAL, so `[...\]]` demanded a literal ']' before the colon and the stage
     # silently under-collected -- it missed a citer I had already proved by hand.
     # One engine does the finding, one does the precision. Never two.
+    # An unreadable blob is reported ONLY on stderr (`error: ... unable to read`) while
+    # grep exits 0 or 1 with that file's lines missing from stdout: a citer never found.
+    # So anything on stderr but a `warning:` is an error too.
     cand = collections.defaultdict(list)
     for leaf in by_leaf:
         rc, out = repo.raw('grep', '-nIF', leaf, tip, '--')
-        if rc > 1:                                         # 1 is "no match"; >1 is a failure
-            res['grep_errors'].append(leaf)
+        noise = [l for l in repo.err.splitlines() if not l.startswith('warning:')]
+        if 'grep-stderr-ok' in MUTATE:
+            noise = []
+        if rc > 1 or noise:                                # 1 is "no match"; >1 is a failure
+            res['grep_errors'].append((leaf, 'exit %d%s' % (rc, ': ' + noise[0] if noise else '')))
         for line in out.decode('utf-8', 'replace').split('\n'):
             if not line.strip(): continue
             parts = line.split(':', 3)
@@ -522,22 +565,41 @@ def liveness(repo, base, tip):
     return dead, len(lines)
 
 
+def guarded(mode):
+    """Make any crash in `mode` an exit 2. An uncaught traceback exits 1, and 1 is the
+    verdict "a pinned cite moved" -- a gate that could not run must never say that."""
+    def run(*args, **kwargs):
+        try:
+            return mode(*args, **kwargs)
+        except Exception as exc:
+            traceback.print_exc()
+            print('[inbound-cites] ABORT: the gate crashed (%s: %s) -- no verdict was reached.'
+                  % (type(exc).__name__, exc))
+            return 2
+    return run
+
+
+@guarded
 def main(base, tip, verbose=False, repo=None):
     repo = repo or Repo()
     dead, n_probes = liveness(repo, base, tip)
     res = None
     if not dead:
-        res = scan(repo, base, tip)
-        dead = ['`git grep` exited with an error while collecting citers of %r' % leaf
-                for leaf in res['grep_errors']]
+        try:
+            res = scan(repo, base, tip)
+        except GateError as exc:
+            dead = [str(exc)]
+        else:
+            dead = ['`git grep` failed while collecting citers of %r (%s)' % err
+                    for err in res['grep_errors']]
     if dead:
         print('[inbound-cites] ABORT: liveness failed -- a clean report here would be false.')
         for why in dead:
             print('  ' + why)
         return 2
-    print('[inbound-cites] liveness OK — both revs resolve, no grep error, self-gate %d/%d '
-          '(a planted shifted cite fires; a cite to a same-named sibling does not).'
-          % (n_probes, n_probes))
+    print('[inbound-cites] liveness OK — both revs resolve, every object read, self-gate %d/%d '
+          '(a planted shifted cite fires; a cite to a same-named sibling does not; a lost blob '
+          'aborts).' % (n_probes, n_probes))
     return report(res, verbose)
 
 
@@ -616,15 +678,25 @@ def _write_tree(repo, root, files):
 
 
 @contextlib.contextmanager
-def fixture_repo(keys, moved):
-    """A throwaway repo holding a base tree and a tip tree: yields (repo, base, tip)."""
+def fixture_repo(keys, moved, lose=()):
+    """A throwaway repo holding a base tree and a tip tree: yields (repo, base, tip).
+
+    `lose`: ('base' | 'tip', path) pairs whose object -- blob or subtree -- is deleted
+    from the object store after both trees are written, so the trees still name it."""
     root = tempfile.mkdtemp(prefix='inbound-cite-selftest-')
     try:
         repo = Repo(cwd=root, scrub_env=True)
         if repo.raw('init', '-q')[0] != 0:
             raise FixtureError('`git init` failed in %s: %s' % (root, repo.err or 'no output'))
         base = _write_tree(repo, root, _files(keys))
-        yield repo, base, _write_tree(repo, root, _files(keys, moved))
+        tip = _write_tree(repo, root, _files(keys, moved))
+        for side, path in lose:
+            oid = repo.sh('rev-parse', '%s:%s' % (base if side == 'base' else tip, path)).strip()
+            try:
+                os.remove(os.path.join(root, '.git', 'objects', oid[:2], oid[2:]))
+            except OSError as exc:
+                raise FixtureError('could not delete the object for %s:%s: %s' % (side, path, exc))
+        yield repo, base, tip
     finally:
         shutil.rmtree(root, ignore_errors=True)
 
@@ -649,6 +721,34 @@ B_PINNED = {'explicit-B', 'no-manuscript-B', 'abbreviated-B', 'repo-root-B', 'ab
             'same-line-B', 'link-target-B', 'link-text-B'}
 A_PINNED = {'explicit-A', 'elided-A', 'bare-has-line-A'}
 AMBIG = {'bare-ambiguous', 'beside-B-bare'}
+
+#: object lost -> (which tree, path, how git reports it, the rule that turns it into an abort)
+LOST = collections.OrderedDict([
+    ('citer blob',        ('tip', CITERS, 'git grep says so only on stderr, and exits 1 as for no match',
+                           'grep-stderr-ok')),
+    ('changed-file blob', ('base', B, '`cat-file --batch` answers `missing`, as for a path the tree '
+                                      'does not hold', 'missing-is-absent')),
+    ('subtree',           ('tip', 'manuscript', '`git diff` exits 128 with nothing on stdout -- '
+                                                '"no changed files"', 'unchecked-git')),
+])
+#: the can-it-fire fixture with every object present reads `exit 1, cites-found=1`; with
+#: an object lost and its rule switched off, every LOST case falls back to this.
+FALSE_CLEAN = 'exit 0, cites-found=0'
+
+
+def lost_object_verdict(name):
+    """What scan() makes of the can-it-fire fixture (one explicit-path cite to B, B
+    moved) once LOST[name]'s object is gone: 'ABORT', or the verdict it reached."""
+    side, path = LOST[name][:2]
+    with fixture_repo(['explicit-B'], [B], lose=[(side, path)]) as (repo, base, tip):
+        try:
+            res = scan(repo, base, tip)
+        except GateError:
+            return 'ABORT'
+    if res['grep_errors']:
+        return 'ABORT'
+    return 'exit %d, cites-found=%d' % (1 if any(f.kind in ROT for f in res['pinned']) else 0,
+                                        res['found'])
 
 
 def run_gate(out=print):
@@ -704,9 +804,15 @@ def run_gate(out=print):
     pinned, amb, rc, _ = fixture_scan(ALL, moved=[UNIQUE])
     say(rot(pinned) == {'unique'} and not amb, 'a bare cite of a UNIQUE basename still fires on the name alone',
         f'{sorted(rot(pinned))}, exit {rc}')
+
+    # --- an object that cannot be read aborts the run; it is never a file that is not there
+    for name, (_, _, how, _) in LOST.items():
+        v = lost_object_verdict(name)
+        say(v == 'ABORT', f'a lost {name} aborts the run instead of reading as absent ({how})', v)
     return ok
 
 
+@guarded
 def mutation_receipt():
     print('[inbound-cites] MUTATION RECEIPT -- each rule, switched off, must change the verdict')
     results = []
@@ -736,6 +842,14 @@ def mutation_receipt():
     finally:
         MUTATE.discard('address-nothing')
     results.append(('M5 ...and the gate must report itself dead rather than pass', dead))
+    for k, (name, (_, _, _, mut)) in enumerate(LOST.items(), 6):
+        MUTATE.add(mut)
+        try:
+            v = lost_object_verdict(name)
+        finally:
+            MUTATE.discard(mut)
+        results.append((f'M{k} read a lost {name} as absent ({mut}): the run must print the false '
+                        f'clean the abort exists to prevent -- got {v}', v == FALSE_CLEAN))
 
     allgood = True
     for label, tripped in results:
@@ -749,6 +863,7 @@ def mutation_receipt():
     return 0
 
 
+@guarded
 def selftest():
     print('[inbound-cites] SELF-TEST -- can-it-fire + negative controls (throwaway repo, real git)')
     if not run_gate():
@@ -765,5 +880,9 @@ if __name__ == '__main__':
         sys.exit(mutation_receipt())
     args = [a for a in sys.argv[1:] if a != '-v']
     if len(args) != 2:
-        sys.exit('usage: verify-inbound-cite-shift.py <base> <tip> [-v] | --selftest | --mutation-receipt')
+        # 2, not sys.exit(<str>)'s 1: an empty `$(git merge-base ...)` in the Makefile
+        # leaves one argument, and that is a gate that could not run, not a verdict.
+        print('usage: verify-inbound-cite-shift.py <base> <tip> [-v] | --selftest | --mutation-receipt',
+              file=sys.stderr)
+        sys.exit(2)
     sys.exit(main(args[0], args[1], '-v' in sys.argv))

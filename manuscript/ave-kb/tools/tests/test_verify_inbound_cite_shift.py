@@ -21,7 +21,12 @@ Asserts:
     0 on a changed file that nobody cites (the honest zero the yield-inferred
     liveness control used to call a broken finder), and 2 on each failure the
     control now tests directly -- an unresolvable rev, an erroring `git grep`,
-    a dead self-gate.
+    a dead self-gate;
+  * exit 2, never 1, when no verdict was reached (2026-11-07): a crash in any mode,
+    a usage error, and a lost citer blob, changed-file blob or subtree -- each of
+    which git reports out of band, and each of which the pre-fix tool read as an
+    absent file and printed a clean zero. Plus the fix's own edges: an added or
+    deleted file, a gitlink, and GIT_TRACE are still not aborts.
 
 Run directly (`python tools/tests/test_verify_inbound_cite_shift.py`) or via pytest.
 """
@@ -181,6 +186,200 @@ def test_main_exit_2_names_the_environment_when_the_fixture_cannot_be_built():
     assert rc == 2
     assert "could not be BUILT" in buf.getvalue() and "Read-only file system" in buf.getvalue()
     assert "cannot fire" not in buf.getvalue()
+
+
+# ------------------------------------- exit 2, never 1, when no verdict was reached
+#
+# Exit 1 is the verdict "a pinned cite moved". Until 2026-11-07 two routes reached it
+# without any verdict: an uncaught exception (Python exits 1 on a traceback) and an
+# object git could not read, which every call read as an empty answer -- a citer
+# never found, a changed file skipped, "no changed files" -- and the run printed a
+# clean zero. Each test below fails at f88f49e9.
+
+def _git_free_env(**extra):
+    """os.environ minus GIT_*: a hook exporting GIT_DIR must not aim a test at the real repo."""
+    import os
+    env = {k: v for k, v in os.environ.items() if not k.startswith("GIT_")}
+    env.update(extra)
+    return env
+
+
+def _lose(repo, rev, path):
+    """Delete the object `rev:path` names (blob or subtree) after the tree is written,
+    as the solidity ratchet's `unreadable-base` fixture does. Independent of the tool's
+    own fixture `lose=` so these tests fail on the pre-fix tool for the right reason."""
+    import os
+    oid = repo.sh("rev-parse", "%s:%s" % (rev, path)).strip()
+    os.remove(os.path.join(repo.cwd, ".git", "objects", oid[:2], oid[2:]))
+
+
+def _main_out(mod, keys, moved, lose=()):
+    import contextlib
+    import io
+
+    buf = io.StringIO()
+    with mod.fixture_repo(keys, moved) as (repo, b, t):
+        for side, path in lose:
+            _lose(repo, b if side == "base" else t, path)
+        with contextlib.redirect_stdout(buf):
+            rc = mod.main(b, t, repo=repo)
+    return rc, buf.getvalue()
+
+
+def test_main_exit_2_on_a_crash_inside_scan():
+    mod = _load_module()
+    real = mod.scan
+
+    def crash(*a, **k):
+        raise RuntimeError("forced crash inside scan()")
+
+    mod.scan = crash
+    try:
+        rc, out = _main_out(mod, mod.ALL, [mod.B])
+    finally:
+        mod.scan = real
+    assert rc == 2
+    assert "the gate crashed (RuntimeError: forced crash inside scan())" in out
+
+
+def test_cli_exit_2_on_a_crash():
+    """The process exit code, through the tool's own __main__: the real repo's `git diff`
+    raises (fixtures run with a tmp cwd, the real run with cwd=None)."""
+    driver = (
+        "import runpy, subprocess, sys\n"
+        "real = subprocess.run\n"
+        "def fake(args, *a, **kw):\n"
+        "    if kw.get('cwd') is None and args[1:2] == ('diff',):\n"
+        "        raise RuntimeError('forced crash inside scan()')\n"
+        "    return real(args, *a, **kw)\n"
+        "subprocess.run = fake\n"
+        "sys.argv = sys.argv[1:]\n"
+        "runpy.run_path(sys.argv[0], run_name='__main__')\n"
+    )
+    mod = _load_module()
+    with mod.fixture_repo(["explicit-B"], [mod.B]) as (repo, b, t):
+        r = subprocess.run([sys.executable, "-c", driver, str(_TOOL), b, t], capture_output=True,
+                           text=True, cwd=repo.cwd, env=_git_free_env())
+    assert r.returncode == 2, r.stdout + r.stderr
+    assert "the gate crashed (RuntimeError" in r.stdout
+
+
+def test_cli_usage_exits_2():
+    """An empty `$(git merge-base ...)` in the Makefile leaves ONE argument."""
+    r = subprocess.run([sys.executable, str(_TOOL), "HEAD"], capture_output=True, text=True)
+    assert r.returncode == 2, r.stdout + r.stderr
+    assert "usage:" in r.stderr
+
+
+def test_selftest_and_receipt_exit_2_when_the_fixture_cannot_be_built():
+    """Exit 1 from these modes means "the gate is broken"; an environment that cannot
+    build the throwaway repo has proved nothing about the gate either way."""
+    mod = _load_module()
+    real = mod.Repo.raw
+
+    def no_init(self, *a, stdin=None):
+        if a and a[0] == "init":
+            self.err = "fatal: cannot mkdir: Read-only file system"
+            return 128, b""
+        return real(self, *a, stdin=stdin)
+
+    mod.Repo.raw = no_init
+    try:
+        assert mod.selftest() == 2
+        assert mod.mutation_receipt() == 2
+    finally:
+        mod.Repo.raw = real
+    assert not mod.MUTATE, "a mutation leaked out of the receipt"
+
+
+def test_main_exit_2_when_a_citer_blob_cannot_be_read():
+    """git grep reports the lost blob only on stderr and exits 1 ("no match")."""
+    mod = _load_module()
+    assert _main_out(mod, ["explicit-B"], [mod.B])[0] == 1          # the control: it fires
+    rc, out = _main_out(mod, ["explicit-B"], [mod.B], lose=[("tip", mod.CITERS)])
+    assert rc == 2, out
+    assert "unable to read" in out and "clean —" not in out
+
+
+def test_main_exit_2_when_a_changed_files_blob_cannot_be_read():
+    """`cat-file --batch` answers `missing` for it, exactly as for a path not in the tree."""
+    mod = _load_module()
+    rc, out = _main_out(mod, ["explicit-B"], [mod.B], lose=[("base", mod.B)])
+    assert rc == 2, out
+    assert "is a blob in that tree" in out and mod.B in out and "clean —" not in out
+
+
+def test_main_exit_2_when_a_subtree_cannot_be_read():
+    """`git diff` exits 128 with an empty stdout -- read naively, "no changed files"."""
+    mod = _load_module()
+    rc, out = _main_out(mod, ["explicit-B"], [mod.B], lose=[("tip", "manuscript")])
+    assert rc == 2, out
+    assert "exited 128" in out and "no changed files" not in out
+
+
+# The fix must not turn ordinary absence into an abort. These pass on the pre-fix tool
+# too; they guard the fix's own edges.
+
+def _two_trees(base_files, tip_files, gitlinks=None):
+    """A throwaway repo with the given trees; gitlinks = {path: (base oid, tip oid)}."""
+    import contextlib
+
+    mod = _load_module()
+
+    @contextlib.contextmanager
+    def ctx():
+        with mod.fixture_repo([], []) as (repo, _, _t):
+            trees = []
+            for k, files in enumerate((base_files, tip_files)):
+                tree = mod._write_tree(repo, repo.cwd, files)
+                if gitlinks:
+                    for path, oids in gitlinks.items():
+                        repo.raw("update-index", "--add", "--cacheinfo", "160000,%s,%s" % (oids[k], path))
+                    tree = repo.sh("write-tree").strip()
+                trees.append(tree)
+            yield mod, repo, trees[0], trees[1]
+    return ctx()
+
+
+def test_a_file_the_tree_does_not_hold_is_absent_not_unreadable():
+    """Added and deleted files answer `missing` from cat-file -- and are really absent."""
+    old = ["old %d" % i for i in range(1, 9)]
+    base = {"docs/gone.md": old, "a/same.md": old, "docs/cites.md": ["see `gone.md:3` and `same.md:2`"]}
+    tip = {"a/same.md": ["new"] + old, "b/same.md": old, "docs/cites.md": base["docs/cites.md"]}
+    with _two_trees(base, tip) as (mod, repo, b, t):
+        res = mod.scan(repo, b, t)
+        assert mod.main(b, t, repo=repo) == 0
+    assert not res["grep_errors"]
+    # gone.md has no tip and b/same.md no base: neither is "found"; a/same.md is, and the
+    # bare name it shares with the added b/same.md makes it advisory
+    assert res["found"] == 1 and [f.target for f in res["ambiguous"]] == ["a/same.md"]
+
+
+def test_a_gitlink_is_absent_not_unreadable():
+    """A submodule pointer is `commit` in the tree; its object is never in this repo."""
+    one, two = "1" * 40, "2" * 40
+    files = {"docs/cites.md": ["the pin is at `vendor/sub:3`"]}
+    with _two_trees(files, files, gitlinks={"vendor/sub": (one, two)}) as (mod, repo, b, t):
+        assert "vendor/sub" in repo.sh("diff", "--name-only", b, t)
+        assert mod.main(b, t, repo=repo) == 0
+
+
+def test_git_trace_does_not_abort_a_real_run():
+    """GIT_TRACE writes to stderr, now read as a grep error: the real run scrubs it."""
+    import os
+
+    mod = _load_module()
+    saved = dict(os.environ)
+    with mod.fixture_repo(["explicit-B"], [mod.B]) as (fixture, b, t):
+        try:
+            os.environ.clear()
+            os.environ.update(_git_free_env(GIT_TRACE="1"))
+            repo = mod.Repo(cwd=fixture.cwd)                   # the real-run constructor
+        finally:
+            os.environ.clear()
+            os.environ.update(saved)
+        assert "GIT_TRACE" not in (repo.env or {})
+        assert mod.main(b, t, repo=repo) == 1
 
 
 def test_report_names_the_rule_behind_every_verdict():
