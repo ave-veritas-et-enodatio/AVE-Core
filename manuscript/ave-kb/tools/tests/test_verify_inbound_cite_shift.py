@@ -327,7 +327,7 @@ def test_report_says_what_a_retarget_is_without_guessing_why():
         with contextlib.redirect_stdout(buf):
             mod.report(mod.scan(repo, base, tip), verbose=True)
     out = buf.getvalue()
-    assert "[RETARGETED] -- re-pinned from :1; no repair to confirm: the cited line stayed put" in out
+    assert "[RETARGETED] -- re-pinned from :1; no repair to confirm: the cited line stayed put, and" in out
     assert "on purpose" not in out
 
 
