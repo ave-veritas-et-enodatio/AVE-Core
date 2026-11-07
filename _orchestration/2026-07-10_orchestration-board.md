@@ -189,7 +189,7 @@ That line describes only the **satellite's own pre-PR review** (2 findings). It 
 **Prose sites (verified this session; `rg -n "2\.225"`):**
 - `src/ave/core/constants.py:178-179` (the prose sentence; the number is at `:179` — note the board task said `:178`, off by one; the sentence opens at `:178`). The same file also carries `:263` and `:275` prose "2.225".
 - `manuscript/ave-kb/common/foundational-machinery-register.md:307` — *"two independent paths (LC-tank + multipole) agree to δ_strain=2.225×10⁻⁶"* (asserts agreement to a precision the number lacks).
-- `manuscript/ave-kb/common/mathematical-closure.md:107` (the δ_strain status bullet) and `:165` (the gap-table row).
+- `manuscript/ave-kb/common/mathematical-closure.md:111` (the δ_strain status bullet) and `:169` (the gap-table row).
 - `manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md:30`.
 - `manuscript/ave-kb/common/divergence-test-substrate-map.md:699`.
 - **Others the corpus grep finds (not in the task's named list):** `docs/framing_and_presentation.md:117`; `manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md:207`; the canonical leaf `manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md:90` (cited by `research/2026-07-10_collapse-target-registry.md:623`); several Vol-9 datasheet `.tex` sites (`06/09/10/13/14/19` chapters); and multiple `research/` prereg/result docs.
