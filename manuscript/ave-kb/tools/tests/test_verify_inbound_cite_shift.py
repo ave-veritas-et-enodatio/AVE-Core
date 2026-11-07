@@ -327,7 +327,7 @@ def test_report_says_what_a_retarget_is_without_guessing_why():
         with contextlib.redirect_stdout(buf):
             mod.report(mod.scan(repo, base, tip), verbose=True)
     out = buf.getvalue()
-    assert "[RETARGETED] -- re-pinned from :1; no repair to confirm: this number kept still" in out
+    assert "[RETARGETED] -- re-pinned from :1; no repair to confirm: the cited line stayed put" in out
     assert "on purpose" not in out
 
 
@@ -344,14 +344,15 @@ def test_retarget_is_advisory_and_a_miss_onto_a_still_line_is_not():
 
 def test_a_repin_from_a_blank_onto_text_has_nothing_to_compare():
     """A blank base line has no text to reach for, so onto a line with text the diff
-    is not asked: it falls through to the same two verdicts as gone content."""
+    is not asked and the cited line is never seen to stay put. That is gone content:
+    onto a moved line or a still one alike, nothing confirms it."""
     mod = _load_module()
     base, tip = ["a", "", "c"], ["x", "a", "", "c"]
     repo = _Stub(base, tip, [(1, 0, 1, 1)])
     assert mod.verdict(repo, "B", "T", "t.md", base, tip, 2, 1) == ("UNCONFIRMED-RE-PIN", 0)   # :1 moved
     still = ["a", "", "c", "d"]
     repo = _Stub(still, still, [])
-    assert mod.verdict(repo, "B", "T", "t.md", still, still, 2, 3) == ("RETARGETED", 0)
+    assert mod.verdict(repo, "B", "T", "t.md", still, still, 2, 3) == ("UNCONFIRMED-RE-PIN", 0)
 
 
 def test_a_repin_of_a_blank_line_onto_a_blank_line_asks_the_diff():

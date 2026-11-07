@@ -105,13 +105,13 @@ recovered and the test is base[old] against tip[new]:
                       is a look-alike.
   EDITED-IN-PLACE     the base content is gone and `new` falls in the hunk that
                       replaced it: the repair of a row that was also rewritten.
-  RETARGETED          nothing moved under either number: base[new] == tip[new] (or
-                      `new` is past the base end) and the cited line went nowhere
-                      new. No repair, so nothing to confirm: advisory, listed under
-                      -v, and never rot.
-  UNCONFIRMED-RE-PIN  the base content is gone and `new` is neither its replacement
-                      nor a line that kept still. Nothing can confirm this, so it
-                      fails the run.
+  RETARGETED          a retarget, not a repair, so there is nothing to confirm:
+                      the cited line stayed at its own number and `new` kept still
+                      (base[new] == tip[new]), or `new` is text the branch added
+                      past the base end. Advisory, listed under -v, never rot.
+  UNCONFIRMED-RE-PIN  the base content is gone, and `new` is neither its
+                      replacement nor text the branch added past the base end.
+                      Nothing can confirm this, so it fails the run.
 
 RETARGETED is the one departure from comparing the two lines, and it is measured.
 On the 150 merges into main up to cbc668e7, base[old] != tip[new] alone raised 19
@@ -119,18 +119,22 @@ reports the plain test never made, every one on #915 and every one correct: its
 hunks in `trampoline-framework.md` are 1->1 at :97, :220 and :713, so `:188` -> `:192`
 moved nothing and corrected a cite already wrong at the base (the mass gap was
 always at :192), and `:73` -> `:169` re-anchored a cite on text the same branch
-added. The headline above is narrower than the arm. The arm takes any re-pin whose
-`new` kept still or is past the base end and whose cited line the diff gives no new
-address, so it also takes a cited line the diff deleted, and a `new` past the base
-end that is itself a line that moved. All 19 rows are the narrow case.
+added. The rule takes those two shapes and no more (R63, #1080). Added text means a
+line inside a tip-side hunk whose text no base-side removed line had: a line past
+the base end that the diff left alone, or that a block move carried there, was in
+the file before. So a re-pin away from a line the diff deleted onto a line that
+kept still, or onto a line past the base end that moved there, is no retarget, and
+fails like any other re-pin nothing can confirm.
 
 A re-pin can still add a report the plain test did not make, by these routes:
   * SHIFTED: the cited line's text is at tip and `new` is not where the diff put
     it, whether `new` kept still (the plain test passes it), was rewritten (the
     plain test reads EDITED-IN-PLACE) or is past the base end (the plain test
     skips it);
-  * UNCONFIRMED-RE-PIN: the cited line is gone and `new` is a rewritten line other
-    than its replacement, which the plain test reads EDITED-IN-PLACE;
+  * UNCONFIRMED-RE-PIN: the cited line is gone and `new` is neither its
+    replacement nor added text: a rewritten line (the plain test reads
+    EDITED-IN-PLACE), a line that kept still (it passes) or a line past the base
+    end that moved there (it skips);
   * OUT-OF-RANGE: `new` is past the end of both files, which the plain test skips;
   * has-line at both numbers pins a bare name to one file where the plain test
     left it AMBIGUOUS-BASENAME, and so can turn an advisory into a gating report.
@@ -626,10 +630,17 @@ def verdict(repo, base, tip, target, b, t, held, n):
     if not seen and 'no-landing' not in MUTATE and any(
             a <= held < a + c and s <= n < s + d for a, c, s, d in hunks):
         return 'EDITED-IN-PLACE', 0                        # onto the row that replaced it
-    # Nothing moved under either number, so this is no repair and there is nothing
-    # to confirm: the plain test has no complaint, and the cited line went nowhere.
-    if (not 0 < n <= line_count(b) or b[n - 1].strip() == tl) and moved_to in (0, held) \
-            and 'no-retarget' not in MUTATE:
+    # A retarget, not a repair, so there is nothing to confirm: the cited line stayed
+    # at its own number and `new` kept still, or `new` is text the branch added past
+    # the base end. Nothing else: those are the two shapes behind the rule.
+    past_end = not 0 < n <= line_count(b)
+    still = not past_end and b[n - 1].strip() == tl
+    stayed = moved_to == held or ('retarget-unseen' in MUTATE and not moved_to)
+    added = past_end and moved_to in (0, held) and (
+        'retarget-outside-hunk' in MUTATE or any(s <= n < s + d for _, _, s, d in hunks)) and (
+        'retarget-moved-text' in MUTATE or tl not in {b[i - 1].strip() for a, c, _, _ in hunks
+                                                      for i in range(a, a + c)})
+    if ((still and stayed) or added) and 'no-retarget' not in MUTATE:
         return 'RETARGETED', 0
     if seen:
         return 'SHIFTED', moved_to
@@ -760,8 +771,8 @@ def _arrow(f):
     if f.kind == 'UNCONFIRMED-RE-PIN':
         return pin + '; the base content is gone and this is not the line that replaced it'
     if f.kind == 'RETARGETED':
-        return pin + ('; no repair to confirm: this number kept still or is past the base end, and the '
-                      'diff gives the cited line no new address')
+        return pin + ('; no repair to confirm: the cited line stayed put and this one kept still, or this '
+                      'is text the branch added past the base end')
     if f.kind == 'SHIFTED' and not f.moved_to:
         note = 'the diff took this line out; its text survives only at other lines'
     elif f.moved_to:
@@ -1017,7 +1028,8 @@ TARGET_TIP = ['one', ITEMIZE, r'\item a', ENDIZE,                    # :1-4
 PATHED = 'vol_1_foundations/target.md'
 
 # A second target for what the first has no room for. `same` :4 goes to both :6 and
-# :8, a tie, and a third `same` keeps still at the end. The blanks :11 and :13 move.
+# :8, a tie, and a third `same` keeps still at the end. The blanks :11 and :13 move,
+# `one` is rewritten, and :17, one past the 16-line base, is text the branch added.
 EDGES = 'manuscript/vol_1_foundations/edges.md'
 EDGES_BASE = ['swap a', 'x', 'swap b',                                # :1-3
               'same', 'p', 'q', 'r', 's', 't',                        # :4-9
@@ -1025,9 +1037,16 @@ EDGES_BASE = ['swap a', 'x', 'swap b',                                # :1-3
               '  indented', 'same']                                   # :15-16
 EDGES_TIP = ['swap b', 'x', 'swap a',                                 # :1-3
              'p', 'q', 'same', 'r', 'same', 's', 't',                 # :4-10
-             'inserted', 'one', '', 'two', '', 'three',               # :11-16
-             'indented', 'same']                                      # :17-18
+             'inserted', 'one REWRITTEN', '', 'two', '', 'three',     # :11-16
+             'added', 'indented', 'same']                             # :17-19
 EDGED = 'vol_1_foundations/edges.md'
+
+# A third: two lines in at the top push `g4` past the 4-line base end, where the diff
+# leaves it alone, and `g2` is rewritten.
+GROWN = 'manuscript/vol_1_foundations/grown.md'
+GROWN_BASE = ['g1', 'g2', 'g3', 'g4']
+GROWN_TIP = ['new 1', 'new 2', 'g1', 'g2 REWRITTEN', 'g3', 'g4']
+GROWED = 'vol_1_foundations/grown.md'
 
 
 def _cite(key, *numbers, leaf=PATHED):
@@ -1074,11 +1093,11 @@ REPINS = collections.OrderedDict([
                   'a re-pin onto one side of a tie passes: the diff put the line there')),
     ('tie-far', (_edge('tie-far', 4), _edge('tie-far', 8), [(4, 8, 'RE-PINNED', 8)],
                  'and so does one onto the other side: the diff cannot tell them apart')),
-    ('tie-off', (_edge('tie-off', 4), _edge('tie-off', 18), [(4, 18, 'SHIFTED', 0)],
+    ('tie-off', (_edge('tie-off', 4), _edge('tie-off', 19), [(4, 19, 'SHIFTED', 0)],
                  'a re-pin onto a look-alike off the tie fails, and does not guess a side')),
     ('tie-frozen', (_edge('tie-frozen', 4), _edge('tie-frozen', 4), [(4, 4, 'SHIFTED', 0)],
                     'a cite left on a tied line is reported with no address')),
-    ('indented', (_edge('indented', 15), _edge('indented', 15), [(15, 15, 'SHIFTED', 17)],
+    ('indented', (_edge('indented', 15), _edge('indented', 15), [(15, 15, 'SHIFTED', 18)],
                   'a line that lost its indent is confirmed after strip, as the verdict compares it')),
     ('rewritten', (_cite('rewritten', 10), _cite('rewritten', 13), [(10, 13, 'EDITED-IN-PLACE', 0)],
                    'a re-pin onto the row that replaced the cited one is advisory')),
@@ -1125,20 +1144,29 @@ REPINS = collections.OrderedDict([
                       'a re-pin past the end of the tip file fails, though the plain test skips it')),
     ('tip-end-plus-one', (_cite('tip-end-plus-one', 10), _cite('tip-end-plus-one', 25),
                           [(10, 25, 'OUT-OF-RANGE', 0)],
-                          'the line after the last is out of range: a final newline is not a line')),
+                          ':25, one past the 24-line tip, is out of range: a final newline is not a line')),
     ('frozen-past-base', (_cite('frozen-past-base', 23), _cite('frozen-past-base', 23), [],
                           'a cite one past the base end never had an address, so there is nothing to test')),
     ('retargeted', (_cite('retargeted', 1), _cite('retargeted', 3), [(1, 3, 'RETARGETED', 0)],
-                    'a number changed with nothing moved under either is no repair: advisory')),
+                    'the cited line stayed put and the new one kept still: no repair, so advisory')),
+    ('base-end-plus-one', (_edge('base-end-plus-one', 10), _edge('base-end-plus-one', 17),
+                           [(10, 17, 'RETARGETED', 0)],
+                           ':17, one past the 16-line base, is text the branch added: a re-pin there from '
+                           'gone content is a retarget, the #915 glossary shape')),
     ('retargeted-gone', (_cite('retargeted-gone', 10), _cite('retargeted-gone', 1),
-                         [(10, 1, 'RETARGETED', 0)],
-                         'and so is one away from gone content, onto a line that kept still')),
+                         [(10, 1, 'UNCONFIRMED-RE-PIN', 0)],
+                         'a re-pin away from gone content onto a line that kept still is no retarget, and fails')),
     ('retargeted-new', (_cite('retargeted-new', 10), _cite('retargeted-new', 24),
-                        [(10, 24, 'RETARGETED', 0)],
-                        'and so is one onto a line past the base end, which has no plain test')),
-    ('base-end-plus-one', (_cite('base-end-plus-one', 10), _cite('base-end-plus-one', 23),
-                           [(10, 23, 'RETARGETED', 0)],
-                           'the first line past the base end reads as the next one does')),
+                        [(10, 24, 'UNCONFIRMED-RE-PIN', 0)],
+                        'nor is one past the base end onto a line a block move carried there')),
+    ('moved-past-end', (_cite('moved-past-end', 2, leaf=GROWED), _cite('moved-past-end', 6, leaf=GROWED),
+                        [(2, 6, 'UNCONFIRMED-RE-PIN', 0)],
+                        'nor one past the base end onto a line the diff left alone: it was in the file before')),
+    ('taken-out-onto-still', (_cite('taken-out-onto-still', 16), _cite('taken-out-onto-still', 1),
+                              [(16, 1, 'SHIFTED', 0)],
+                              'a re-pin away from a line the diff took out, onto a line that kept still, fails')),
+    ('tie-onto-still', (_edge('tie-onto-still', 4), _edge('tie-onto-still', 2), [(4, 2, 'SHIFTED', 0)],
+                        'and so does tied content re-pinned onto a line that kept still: the cited line moved')),
     ('dead-at-base', (_cite('dead-at-base', 99), _cite('dead-at-base', 12), [(12, 12, 'SHIFTED', 22)],
                       'a re-pin from a number dead at base keeps the plain test, not silence')),
     ('dead-bare', (_cite('dead-bare', 99, leaf='target.md'), _cite('dead-bare', 12, leaf='target.md'),
@@ -1173,8 +1201,8 @@ def _repin_trees(keys):
         (last if key == 'moved' else tip).extend(_lines(now))
         tip.append('gap %d' % i)
     short = {SHORT: _numbered('short', 8)}
-    return (dict(short, **{TARGET: TARGET_BASE, EDGES: EDGES_BASE, REPINNED: base}),
-            dict(short, **{TARGET: TARGET_TIP, EDGES: EDGES_TIP, REPINNED: tip + last}))
+    return (dict(short, **{TARGET: TARGET_BASE, EDGES: EDGES_BASE, GROWN: GROWN_BASE, REPINNED: base}),
+            dict(short, **{TARGET: TARGET_TIP, EDGES: EDGES_TIP, GROWN: GROWN_TIP, REPINNED: tip + last}))
 
 
 class DiffThatLies(Repo):
@@ -1370,9 +1398,9 @@ def mutation_receipt():
                     addresses(repin('no-confirm', 'frozen', ['frozen'], DiffThatLies)) == {9}))
     results.append(('M19 drop the fallback for a number dead at base: both such re-pins must vanish',
                     not repin('no-dead-fallback', 'dead-at-base') and not repin('no-dead-fallback', 'dead-bare')))
-    results.append(('M20 drop the retarget rule: a deliberate correction must read as rot -- the false '
-                    'positives measured on #915', kinds(repin('no-retarget', 'retargeted')) == {'SHIFTED'}
-                    and kinds(repin('no-retarget', 'retargeted-gone')) == {'UNCONFIRMED-RE-PIN'}))
+    results.append(('M20 drop the retarget rule: both #915 shapes must read as rot -- the false positives '
+                    'measured there', kinds(repin('no-retarget', 'retargeted')) == {'SHIFTED'}
+                    and kinds(repin('no-retarget', 'base-end-plus-one')) == {'UNCONFIRMED-RE-PIN'}))
     results.append(('M21 read no address as agreement: the re-pin onto a look-alike of a deleted line must '
                     'pass -- the regression this rule closes',
                     kinds(repin('no-address-agrees', 'lookalike-gone')) == {'RE-PINNED'}))
@@ -1395,8 +1423,8 @@ def mutation_receipt():
                     kinds(repin('no-same-length', 'longer')) == {'RE-PINNED'}))
     results.append(('M29 pair a base line twice: the new line beside a re-pin must take its number',
                     len(repin('no-taken', 'taken')) == 2))
-    results.append(('M30 count the final newline as a line: both boundaries must go back to reading off by one',
-                    kinds(repin('phantom-line', 'tip-end-plus-one')) == {'RETARGETED'}
+    results.append(('M30 count the final newline as a line: :25 must stop being out of range, and :17 must '
+                    'stop being past the base end', kinds(repin('phantom-line', 'tip-end-plus-one')) == {'UNCONFIRMED-RE-PIN'}
                     and kinds(repin('phantom-line', 'base-end-plus-one')) == {'UNCONFIRMED-RE-PIN'}))
     results.append(('M31 confirm an address byte for byte: the line that lost its indent must lose its address',
                     addresses(repin('confirm-raw', 'indented')) == {0}))
@@ -1415,6 +1443,14 @@ def mutation_receipt():
         finally:
             ROT = kept
         results.append(('M33 take %s out of the gating verdicts: the gate must report itself dead' % kind, dead))
+    results.append(('M34 let a retarget start from a line that did not stay put: gone content, a deleted '
+                    'line and tied content re-pinned onto a still line must all read RETARGETED',
+                    all(kinds(repin('retarget-unseen', key)) == {'RETARGETED'}
+                        for key in ('retargeted-gone', 'taken-out-onto-still', 'tie-onto-still'))))
+    results.append(('M35 take any text past the base end as added: the line a block move carried there '
+                    'must read RETARGETED', kinds(repin('retarget-moved-text', 'retargeted-new')) == {'RETARGETED'}))
+    results.append(('M36 take a line outside every hunk as added: the line pushed past the base end must read '
+                    'RETARGETED', kinds(repin('retarget-outside-hunk', 'moved-past-end')) == {'RETARGETED'}))
 
     allgood = True
     for label, tripped in results:
