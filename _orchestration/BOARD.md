@@ -4,7 +4,7 @@
 
 # AVE program board
 
-Scanned tree **5619dd56** (2026-09-13) · 468 index records · 331 claims · 20 PRs open
+Scanned tree **cbc668e7** (2026-10-13) · 468 index records · 331 claims · 28 PRs open
 
 ## The number that frames everything
 
@@ -119,9 +119,9 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## Ruling-token coverage
 
-**45 of 59 docketed ruling numbers have no word-boundary occurrence anywhere in the claims register.**
+**47 of 61 docketed ruling numbers have no word-boundary occurrence anywhere in the claims register.**
 
-R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20, R21, R22, R23, R24, R25, R26, R27, R28, R29, R30, R32, R33, R34, R35, R36, R37, R38, R41, R45, R46, R47, R51, R52, R53, R54, R55, R56, R58, R59
+R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20, R21, R22, R23, R24, R25, R26, R27, R28, R29, R30, R32, R33, R34, R35, R36, R37, R38, R41, R45, R46, R47, R51, R52, R53, R54, R55, R56, R58, R59, R60, R61
 
 > ⚑ **Read this as token coverage, not as physics debt.** It was headlined as "propagation debt" and that was wrong in both directions:
 >
@@ -138,13 +138,21 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 | PR | state | title |
 |---|---|---|
-| #1044 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: Lane A sibling definition |
+| #1074 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] orchestration: wave-1 park residue  |
+| #1073 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] R55 Phase-2: core wording sweep, fo |
+| #1072 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] audit: gravity wave 1 — #1028/#1029 |
+| #1071 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] docs: manuscript reconciliation — r |
+| #1070 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] infra: new-cite ratchet reads HEAD; |
+| #1069 | unlabelled | [DO-NOT-MERGE][REVIEW: re-audit of repairs in flight] infra: solidity ratchet ga |
+| #1068 | unlabelled | feat(topological): grid-fix engine flags (T-STAB2', op10_b, softplus floor, diag |
+| #1058 | unlabelled | [DO NOT MERGE — review/fix in flight] viz(two-slits): scored double-slit video o |
+| #1057 | unlabelled | Document Cloud Agent setup for the AVE engine |
+| #1054 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] README/CLAUDE.md: α is a calibratio |
 | #1040 | unlabelled | [DO-NOT-MERGE] provenance: un-stamp the confinement clause from the 2026-06-30 r |
-| #1039 | unlabelled | [DO-NOT-MERGE][REVIEW: repaired, 52 shifted cites open] docs: epic residue sweep |
-| #1038 | unlabelled | [DO-NOT-MERGE][REVIEW: repaired, 26 shifted cites open] docs: epic Phase C wave  |
-| #1037 | unlabelled | [DO-NOT-MERGE][REVIEW: pending — 1 shifted board cite] docs: epic Phase C wave 1 |
+| #1039 | unlabelled | [DO-NOT-MERGE][REVIEW: merged up, 9 of 59 cites re-pinned, 50 frozen or logged,  |
+| #1038 | unlabelled | [DO-NOT-MERGE][REVIEW: 4 of 28 cites re-pinned, 24 frozen, W5 awaits Grant, awai |
+| #1037 | unlabelled | [DO-NOT-MERGE][REVIEW: 0 of 2 cites re-pinned, 2 frozen, awaits review] docs: ep |
 | #1036 | unlabelled | [DO-NOT-MERGE][REVIEW: BLOCKED by audit — 6 numeric errors minted by the repair] |
-| #1034 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: H1 three-object close + S |
 | #1033 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: ε11 as Q-point; constitut |
 | #1032 | unlabelled | [DO-NOT-MERGE][REVIEW: BLOCKED by blind audit] research: Machian-G boundary audi |
 | #1031 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: FROZEN prereg — X44 unblo |
