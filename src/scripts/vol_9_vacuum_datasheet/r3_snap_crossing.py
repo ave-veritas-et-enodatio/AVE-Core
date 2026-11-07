@@ -7,7 +7,7 @@ FROZEN PRE-REG: research/2026-07-16_r3-snap-crossing_prereg_FROZEN.md
 THE QUESTION (hardware-ratings-map §2 R3, UNRUN): the corpus maps pair
 production to vacuum-avalanche breakdown — past-snap overflow RECTIFIES AC->DC
 winding into the T2 Cosserat register (FPB past-snap-overflow walk; Miller row;
-02_absolute_maximum_ratings.tex:85 "blocked longitudinal KE shatters sideways
+02_absolute_maximum_ratings.tex:88 "blocked longitudinal KE shatters sideways
 into two contra-rotating Beltrami vortices").
 
 SECTOR HEADER: DRIVE = E-sector (longitudinal scalar V, the "3"/V-sector, NOT a

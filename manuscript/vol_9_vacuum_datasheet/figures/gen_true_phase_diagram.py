@@ -3,7 +3,7 @@
 
 Axes:   thermal occupation T (vertical, log)  x  bulk dilatation rho_bar (horizontal).
 Phases: SOLID (K4-Cosserat crystal)  /  MELT (pre-bond state; gloss pre-geodesic - R9 rename 2026-08-06)  /  CAVITATED (candidate).
-Lines:  melt line  T_melt = m_e c^2 / k_B          (CANONICAL; 02_absolute_maximum_ratings.tex:38,60)
+Lines:  melt line  T_melt = m_e c^2 / k_B          (CANONICAL; 02_absolute_maximum_ratings.tex:38,63)
         cavitation line  rho_bar_cav = -1/phi      (CANDIDATE, CONTESTED; cavitation_flow.py:62-64)
 Excit.: the Regime I->IV excitation r=A/A_c is a THIRD coordinate, orthogonal to BOTH
         plotted axes (driving r at a point raises neither bath-T nor rho_bar). It is drawn

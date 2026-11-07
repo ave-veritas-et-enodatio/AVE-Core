@@ -609,11 +609,31 @@ class TestCalibrationRole:
         body = "- This is not novel, it is a consistency check."
         assert "CONSISTENCY_CLASS" in {mk.signal for mk, _ in scan_provenance(body)}
 
-    def test_live_corpus_suppression_set_is_exactly_the_two_true_cases(self) -> None:
+    def test_live_corpus_suppression_set_is_exactly_the_one_true_case(self) -> None:
         # The census-level statement of the same contract, run against the real
-        # registers: across all live claim cards, the ONLY matches the guards
-        # discard are the two regression cases above. Any third suppression is
-        # a new false negative and must be adjudicated, not absorbed silently.
+        # registers: across all live claim cards, the ONLY match the guards
+        # discard is the enumeration regression case above. Any SECOND
+        # suppression is a new false negative and must be adjudicated, not
+        # absorbed silently. The contract is unchanged and still binding.
+        #
+        # CENSUS UPDATED 2026-09-07, DOWNSTREAM OF A RULING — this is NOT a
+        # fixture loosened to make a branch pass. Grant ruled on 2026-09-07 that
+        # the clm-395gps category flip (category-(iv) derived prediction ->
+        # consistency check) is IN SCOPE. The negation at vol3/claim-quality.md:199
+        # that this census recorded is still there, as quoted prior wording, but
+        # the flip put an affirmative match ahead of it and this loop stops at the
+        # first unsuppressed match, so the census is a set of one. The guards did
+        # not change. Both directions were re-verified when this line was edited: the
+        # census passes at the ruled state, and still FAILS when a second
+        # suppression is introduced.
+        #
+        # STALE-PROVENANCE FLAG (not repaired here, out of scope): the fixture
+        # in test_negated_marker_does_not_fire above still holds as a unit test
+        # of the negation guard, but its comment's "Live text from
+        # vol3/claim-quality.md clm-395gps" provenance is now VACATED — that
+        # sentence survives only as a quote at :199. Same for the example cite on
+        # the CONSISTENCY_DENIED marker at
+        # src/scripts/predictions_manifest_validator.py:1153.
         import re as _re
 
         from scripts.predictions_manifest_validator import (  # noqa: PLC0415
@@ -630,7 +650,6 @@ class TestCalibrationRole:
                         continue
                     break
         assert suppressed == {
-            ("clm-395gps", "CONSISTENCY_CLASS"),  # vol3/claim-quality.md:199, negation
             ("clm-xhdai6", "CONSISTENCY_CLASS"),  # vol2/claim-quality.md:903, enumeration
         }, f"guard suppression set drifted: {sorted(suppressed)}"
 
