@@ -211,3 +211,12 @@ not a mint).
    Strain-on-\(I\) vs TKI (`def-1mpanl`) is the collision.
 4. **H2 constitutive-slot pick** — `clm-acdc07` gravity \(=S(A)\) vs Op19
    linear-in-\(\varepsilon_{11}\). This close does not pick.
+
+---
+
+**Dated surface note, 2026-11-01 (R61).** On the fence line above beginning `**Bond \(L,C\leftrightarrow\mu,\varepsilon\) graded map is unlicensed**`, which cites `[branch:#1033]`:
+
+- #1033 is parked at `archive/research/2026-08-28-qpoint-constitutive` (R61).
+- #1033's own amendment A4 channel-scoped this fence: on the T2/EM channel L = μ0 and C = ε0 is canon Class A. `manuscript/ave-kb/common/translation-tables/translation-circuit.md` §10.1, verbatim:
+  - `| $L = \mu_0$ (per the $\xi_{topo}$ identity, mass↔inductance) | series line inductance / inertia | **A** identity (§1) |`
+  - `| $C = \varepsilon_0$ (compliance↔capacitance) | shunt line capacitance / compliance | **A** identity (§1) |`
