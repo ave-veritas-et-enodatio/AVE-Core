@@ -1023,8 +1023,9 @@ def test_a_tie_at_the_end_of_a_file_counts_no_phantom_neighbour():
     nothing. Counted, it forged a tie in A, where only :2 has a real neighbour; broke the
     true ties in B, C and D; and turned a correct re-pin into a fail and a wrong one into
     a pass. The start of a file, with no '' before line 1, was always read right (A
-    mirrored). Two real lines still agree at the end: the last line of a file with no
-    final newline, and a real blank line."""
+    mirrored). Real lines still agree: the last line of a file with no final newline, and
+    two real blanks -- mid-file (E) or as the last line of both files (F), where only the
+    phantom after them is discounted."""
     mod = _load_module()
     for key, base, tip, n, put, addr in (
             ("A", ["a", "w", "X"], ["w ", "X ", "c", "d", "X\t"], 3, [2], 2),    # only :2 has a neighbour
@@ -1032,7 +1033,8 @@ def test_a_tie_at_the_end_of_a_file_counts_no_phantom_neighbour():
             ("B", ["a", "b", "X"], ["X ", "c", "d", "e", "X\t"], 3, [1, 5], 0),   # neither has one
             ("C", ["a", "X"], ["X ", "", "c", "X\t", "d"], 2, [1, 4], 0),         # base '' vs a real blank
             ("D", ["a", "X", ""], ["X ", "c", "X\t"], 2, [1, 3], 0),             # a real blank vs tip ''
-            ("E", ["a", "", "X", "q"], ["X ", "r", "", "X\t", "s"], 3, [4], 4)):  # two real blanks agree
+            ("E", ["a", "", "X", "q"], ["X ", "r", "", "X\t", "s"], 3, [4], 4),   # two real blanks agree
+            ("F", ["p", "X", ""], ["X ", "c", "X\t", ""], 2, [3], 3)):           # two real last-line blanks
         with mod.two_trees({"f.md": base}, {"f.md": tip}) as (repo, b, t):
             B, T, H = repo.blob(b, "f.md"), repo.blob(t, "f.md"), repo.hunks(b, t, "f.md")
         assert (mod.lines_at_tip(H, B, T, n), mod.address_at_tip(H, B, T, n)) == (put, addr), key
@@ -1049,7 +1051,8 @@ def test_a_tie_at_the_end_of_a_file_counts_no_phantom_neighbour():
         assert (mod.lines_at_tip(H, B, T, 1), mod.address_at_tip(H, B, T, 1)) == ([1], 1), (B, T, H)
     for base, tip, was, now, want in (
             (["a", "w", "X"], ["w ", "X ", "c", "d", "X\t"], 3, 5, [("SHIFTED", 2)]),   # a wrong re-pin
-            (["a", "b", "X"], ["X ", "c", "d", "e", "X\t"], 3, 1, [("RE-PINNED", 1)])):  # one side of a tie
+            (["a", "b", "X"], ["X ", "c", "d", "e", "X\t"], 3, 1, [("RE-PINNED", 1)]),   # one side of a tie
+            (["p", "X", ""], ["X ", "c", "X\t", ""], 2, 1, [("SHIFTED", 3)])):          # F, a wrong re-pin
         res, rc = _scan_and_exit(mod, {"docs/c.md": ["see `f.md:%d`" % was], "f.md": base},
                                  {"docs/c.md": ["see `f.md:%d`" % now], "f.md": tip})
         got = [(f.kind, f.moved_to) for f in res["pinned"]]
