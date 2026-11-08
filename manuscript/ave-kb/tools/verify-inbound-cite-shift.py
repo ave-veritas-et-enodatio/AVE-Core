@@ -1485,13 +1485,14 @@ def _context_trees():
 def diff_context_verdict(inject=True):
     """The wrong re-pin of _context_trees(), with GIT_DIFF_OPTS=--unified=3 forced into
     git's environment past the scrub: 'ABORT' when the context lines it adds to `-U0`
-    void the run, else the verdict reached. `inject=False` is the control."""
+    void the run through a diff error on docs/t.md -- any other abort proves nothing
+    about the belt -- else the verdict reached. `inject=False` is the control."""
     with two_trees(*_context_trees()) as (repo, base, tip):
         if inject:
             repo.env['GIT_DIFF_OPTS'] = '--unified=3'
         res = scan(repo, base, tip)
     if scan_errors(res):
-        return 'ABORT'
+        return 'ABORT' if 'docs/t.md' in res['diff_errors'] else 'ABORT, but not on docs/t.md: %s' % scan_errors(res)
     return 'exit %d' % (1 if any(f.kind in ROT for f in res['pinned']) else 0)
 
 def run_gate(out=print):

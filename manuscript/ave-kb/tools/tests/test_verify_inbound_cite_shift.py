@@ -624,8 +624,63 @@ def test_a_diff_with_context_lines_voids_the_run():
     mod.MUTATE.add("diff-context-ok")
     try:
         assert mod.diff_context_verdict() == "exit 0"                   # what the belt prevents
+        # ...and an abort for another reason (a stray grep error) is not the belt firing
+        real = mod.Repo.raw
+
+        def stray(self, *a, stdin=None):
+            rc, out = real(self, *a, stdin=stdin)
+            if a[:1] == ("grep",):
+                self.err = "error: something unrelated"
+            return rc, out
+
+        mod.Repo.raw = stray
+        try:
+            assert mod.diff_context_verdict().startswith("ABORT, but not on docs/t.md")
+        finally:
+            mod.Repo.raw = real
     finally:
         mod.MUTATE.discard("diff-context-ok")
+
+
+def test_the_self_gate_runs_its_object_probes_rather_than_printing_them():
+    """A probe's [PASS] line is only worth the probe behind it: if a damaged-object or
+    context-lines probe stops aborting, run_gate() must fail, not print the same line."""
+    mod = _load_module()
+    for name in ("lost_object_verdict", "diff_context_verdict"):
+        real = getattr(mod, name)
+        setattr(mod, name, lambda *a, **k: "exit 0, cites-found=0")
+        try:
+            lines = []
+            assert not mod.run_gate(out=lines.append), name
+            assert any("[FAIL]" in l for l in lines), name
+        finally:
+            setattr(mod, name, real)
+
+
+def test_a_file_without_a_final_newline_is_no_context_line():
+    """`\\ No newline at end of file` is part of healthy -U0 output; only a line that starts
+    with a space is context. A cited last line rewritten in a file with no final newline
+    reads EDITED-IN-PLACE (advisory, exit 0), never a diff error."""
+    import os
+
+    mod = _load_module()
+    with mod.two_trees({}, {}) as (repo, _, _t):
+        trees = []
+        for last in (b"row 5", b"row 5, rewritten"):
+            os.makedirs(os.path.join(repo.cwd, "docs"), exist_ok=True)
+            with open(os.path.join(repo.cwd, "docs", "t.md"), "wb") as fh:
+                fh.write(b"row 1\nrow 2\nrow 3\nrow 4\n" + last)       # no final newline
+            with open(os.path.join(repo.cwd, "docs", "c.md"), "wb") as fh:
+                fh.write(b"see `docs/t.md:5`\n")
+            repo.raw("add", "-A", "-f", ".")
+            trees.append(repo.sh("write-tree").strip())
+        b, t = trees
+        diff = repo.sh("diff-tree", "-p", "-U0", b, t, "--", "docs/t.md")
+        assert "No newline at end of file" in diff                     # the case is real
+        res = mod.scan(repo, b, t)
+    assert not res["diff_errors"], res["diff_errors"]
+    assert not mod.scan_errors(res)
+    assert [f.kind for f in res["pinned"]] == ["EDITED-IN-PLACE"]       # advisory: exit 0
 
 
 def test_main_exit_2_when_git_diff_tree_errors():
