@@ -50,7 +50,7 @@ Topological characterization:
 | $(n, 1)$ | 1 | 0 | $n$ | $n - 2$ | Unknot — same as $(1, n)$ by symmetry |
 | $(2, 2)$ | 2 | 2 | 4 | 0 | Composite link, NOT a single knot |
 | **$(2, 3)$** | **1** | **3** | **6** | **1** | **Trefoil — smallest non-trivial knot** |
-| $(3, 2)$ | 1 | 3 | 6 | 1 | Trefoil mirror — same knot type |
+| $(3, 2)$ | 1 | 3 | 6 | 1 | Same knot type and same hand as $(2,3)$: $T(p,q)\cong T(q,p)$. |
 | $(2, 5)$ | 1 | 5 | 10 | 3 | Cinquefoil $(2, 5)$ |
 | $(3, 4)$ | 1 | 8 | 12 | 5 | $(3, 4)$ torus knot |
 | $(3, 5)$ | 1 | 10 | 15 | 7 | $(3, 5)$ torus knot |

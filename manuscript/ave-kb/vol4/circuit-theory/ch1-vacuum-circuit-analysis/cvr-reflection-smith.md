@@ -38,7 +38,7 @@ On the Smith chart the locus runs straight along the real axis from the centre (
 > $$\boxed{\; |\Gamma|^2 = 1 - \alpha \;\approx\; 0.99270, \qquad |\Gamma| = \sqrt{1-\alpha} \approx 0.99635 \;}$$
 >
 > The electron's reflective boundary is a **high-but-not-perfect** short. Only a fraction $1/Q=\alpha$ of the
-> stored energy leaks per cycle through the TIR boundary ([theorem-3-1-q-factor.md](theorem-3-1-q-factor.md):81),
+> stored energy leaks per cycle through the TIR boundary ([theorem-3-1-q-factor.md](theorem-3-1-q-factor.md):85, *"of the stored energy leaks per cycle through the TIR boundary"*),
 > so the reflected power is $1-\alpha$ and $|\Gamma|$ sits just **inside** the unit circle. **The hair by which
 > $\Gamma$ falls short of $|\Gamma|=1$ IS $\alpha$** — the fine-structure constant read directly off the Smith
 > chart as the radiative gap to the unit circle. Equivalently, the wall sits at a residual amplitude $A_\star$
