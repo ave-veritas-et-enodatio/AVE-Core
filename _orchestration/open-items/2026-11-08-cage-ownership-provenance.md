@@ -1,6 +1,6 @@
 ---
 id: cage-ownership-provenance
-title: "Cage ownership resolved by Grant 2026-11-08 — two walls at two energies, neither record wrong; propagate the carve and strike one misattribution"
+title: "Cage ownership — Grant 2026-11-08 ruled two walls, then HELD BY T2; a second amplitude-level collision found while recording it is still his, and may require amending the ruling"
 status: OPEN
 owner: grant
 opened: 2026-11-08
@@ -150,6 +150,88 @@ untouched.
 word he wants. He ruled the mass is **held by** the $T_2$ wall; *"sits inside"*
 and *"nesting"* are stronger spatial words for the same relationship. The physics
 is ruled; the noun is not. **Do not pick it for him.**
+
+## SECOND COLLISION, found while recording the ruling — amplitude, not ownership
+
+**This one is not wording.** Verifying "held by T2" against the leaves turned up a
+live corpus split on **what strain the A1 port actually rides at**, and one side of
+it carries a ratified sector-attribution. Found 2026-11-08 by reading the leaves
+after the ruling; it was not known when the first half of this row was written.
+
+**Side A1-IS-SUB-SATURATED** — agrees with Grant 2026-11-08, and carries his own
+2026-06-30 banner:
+
+- `nonlinear-vacuum-capacitance.md:18`, under **Grade-fork RESOLVED = T2 (Grant
+  2026-06-30)** — *"a standing electron's A1 mass core operates at strain
+  $A=V_{yield}/V_{snap}=\sqrt\alpha\approx0.085$ — deeply **sub-saturated**
+  ($S(\sqrt\alpha)=\sqrt{1-\alpha}\approx0.996$), which is *why* it binds (the
+  $S\to0$ varactor runaway never fires on the mass channel)."*
+- `nonlinear-vacuum-capacitance.md:40` — the table row at $\sqrt\alpha\approx0.085$:
+  *"$V_{yield}$ = T2 self-trap wall; electron A1-core operating point"*.
+- `vocabulary-register.md:757` (def-vyvsn1's own flag) — same consequence, *"which
+  is why the mass channel does not run away."*
+
+**Side A1-RIDES-AT-SATURATION** — three sites, one inheriting from the next:
+
+- `cvr-dc-operating-point.md:49` — *"The electron's reflective wall
+  ($|\Gamma|^2=1-\alpha$ …) sits at a residual $A_\star$ where
+  $\sqrt{S_\star}\approx\alpha/4$ — i.e. **essentially at saturation**
+  ($A_\star\to1$) with a tiny non-zero residual impedance that IS the radiative
+  leak."*
+- `cvr-dc-operating-point.md:51` — the **★ Keying disambiguation (KEEP-BOTH;
+  ruling 2026-07-06/07, PR #562/#558; propagated 2026-07-13)** banner on that
+  sentence: *"the $A_\star\to1$ saturation of the divergent varactor is the
+  **$V_{snap}$ (longitudinal-$A_1$) wall**, NOT the transverse-$T_2$ '$V_{yield}$
+  yield onset' the sentence also names ($A_\star=V/V_{snap}$, not $V/V_{yield}$)…
+  the conflated wording is preserved KEEP-BOTH."*
+- `node-up-small-large-signal.md:358-359`, a Resultbox — *"The **MASS port** (A1
+  dilatation $\to Z_{\mathrm{bulk}}$, mechanical) is biased to $A\to1$ (the
+  $V_{snap}$ rail, $Z_{bulk}\to0$, $\Gamma=-1$ cage); the **CHARGE port** … is
+  biased to $V_{yield}$ (the self-trap onset)."* And `:375-376` names
+  `cvr-dc-operating-point.md:43-45` as the canonical home of that bias step — so
+  node-up **inherits** the $A\to1$, it does not assert it independently.
+
+**The two numbers do not reconcile as "two frames of one mode."**
+$\sqrt{S_\star}=\alpha/4 \Rightarrow S_\star=\alpha^2/16 \Rightarrow
+A_\star=\sqrt{1-\alpha^4/256}\approx 1-\alpha^4/512$ — saturation to four powers of
+$\alpha$. Against $A=\sqrt\alpha=0.0854$, $S=0.996$. **node-up:358 is the strongest
+statement in the corpus of exactly the thing the 2026-11-08 ruling ruled against:
+it puts $Z_{bulk}\to0$ and the $\Gamma=-1$ cage on the A1 port at its own rail,
+which is A1 self-confinement.**
+
+**What the 07-06/07 ruling does and does not cover — do not overstate this.** Its
+job was **normalization**: which scale $A_\star$ is measured against. It ratifies
+that *that* saturation event belongs to the **A1/$V_{snap}$** sector. It does
+**not** re-derive the claim that the electron *sits* there — that is body prose
+older than the banner, which the banner explicitly **preserves** rather than
+re-establishes. So this is a ratified sector-attribution sitting on an
+un-re-derived amplitude claim, **not** a head-on ruling-vs-ruling conflict.
+
+**Two candidate reconciliations. Neither is recorded anywhere in the corpus.**
+
+1. **CORE vs WALL (a spatial profile).** The A1 strain runs from $\sqrt\alpha$ in
+   the core to $\approx1$ at the reflective surface, and the two sides are each
+   right about a different *place*. If this is the answer then **part of the
+   2026-11-08 ruling needs amending**: the A1 wall is **not** "unengaged, 11.7×
+   up" — it is engaged, at the surface — and node-up:358's only defect is calling
+   a wall location a *port bias*.
+2. **$A_\star$ IS BACK-DERIVED, NOT A BIAS.** $\sqrt{S_\star}\approx\alpha/4$ is
+   reverse-engineered from the reflectivity target $|\Gamma|^2=1-\alpha$ (itself
+   an $\alpha$-echo), making it a fitted residual impedance rather than an
+   independent statement that the A1 port rides at its rail. If this is the answer
+   then held-by-T2 stands unamended and `cvr-dc-operating-point.md:49` plus
+   `node-up:358-359` both need rewording.
+
+**GRANT'S, and bigger than the nesting noun.** It decides whether the 2026-11-08
+ruling is complete or needs an amendment, and it is an amplitude question, which is
+his call and not a lane's.
+
+**MUST-NOT, until he rules:** do not touch `node-up-small-large-signal.md:358-359`,
+`cvr-dc-operating-point.md:49`, or its `:51` KEEP-BOTH banner. Do not "harmonize"
+$A_\star$ and $\sqrt\alpha$ by picking one. Do not treat the $S^{0.25}$ exponent
+defect flagged at `cvr-dc-operating-point.md:40-45` as part of this — it is a
+separate surfaced-not-fixed physics-review item and it moves $\Gamma$ magnitudes,
+so it may interact, but it is not this collision.
 
 ## Why it matters beyond bookkeeping
 
