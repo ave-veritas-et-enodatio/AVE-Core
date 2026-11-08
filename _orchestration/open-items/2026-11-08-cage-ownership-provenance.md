@@ -260,7 +260,7 @@ derived)."*
   file #260's diff never touched. **Note: Grant authored it — say so.**
 - Repair stale pins: `nonlinear-vacuum-capacitance.md:16`→`:18`;
   `resonant-lc-solitons.md:127`/`:136`→`:131`/`:141`.
-- Fix `src/ave/topological/graded_vacuum_network.py:425,:514` — the
+- Fix `src/ave/solvers/graded_vacuum_network.py:425,:514` — the
   `best is None` branch bypasses the `core_frac` gate and returns `ok=True` for
   a fully port-localized mode.
 - `def-cf1srf`'s root cite is mis-attributed: it grounds *"the $\Gamma=-1$ TIR
@@ -278,6 +278,10 @@ derived)."*
   grade), and a prior lane's headline number — *"A=√α: core_frac 0.0000,
   Q 6.704"* — **does not reproduce**: it is an artifact of the shift-invert guess
   passing through the selection bug above. Do not let it reach Grant as evidence.
+- **The second collision has its own must-nots** — see that section. In short:
+  do not touch `node-up-small-large-signal.md:358-359`,
+  `cvr-dc-operating-point.md:49`, or its `:51` KEEP-BOTH banner, and do not
+  harmonize $A_\star$ with $\sqrt\alpha$ by picking one.
 - **A prior challenge to this exact fork was already withdrawn once**, on
   2026-08-24, on the stated ground *"That premise is inverted against SOLID
   canon"* + *"def-vyvsn1 (SOLID)"* (`four-regimes.md:62-89`). Deferring to the
@@ -289,6 +293,18 @@ Re-verified at `7bbf3c5e` (2026-11-07): the five files above have **zero
 commits** across 181 of `main` since the 2026-09-06 analysis pin
 `6b8b49a0`. The collision is live exactly as recorded and nothing here has
 drifted.
+
+**The second collision's three leaves, verified separately at `origin/main`
+= `73e324b5a` (2026-11-08)** — they are not among the five above and were
+not covered by that check. Last touch on `main`:
+`node-up-small-large-signal.md` `8f75ca5e9` (2026-08-12),
+`cvr-dc-operating-point.md` `8f268747e` (2026-08-20),
+`nonlinear-vacuum-capacitance.md` `1edd6c582` (2026-07-02). All three predate
+the 2026-11-08 ruling by months, so every clause quoted from them is current
+`main` state, not a stale read. The $A_\star$ arithmetic was recomputed rather
+than copied: $\sqrt{S_\star}=\alpha/4 \Rightarrow 1-A_\star =
+5.5386\times10^{-12}$ against $\alpha^4/512 = 5.5385\times10^{-12}$, and
+$S(\sqrt\alpha)=\sqrt{1-\alpha}=0.99634$.
 
 Fuller context, including the discriminator set and the blast radius in both
 directions, is in a handoff brief in the private channel repo
