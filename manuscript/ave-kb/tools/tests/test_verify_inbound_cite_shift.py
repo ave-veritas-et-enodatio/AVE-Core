@@ -524,7 +524,9 @@ def test_a_cite_past_the_last_line_was_never_valid_at_base():
             (15, rows + ["row 15, new"], []),                           # the line exists only at tip
             (14, rows + ["row 15, new"], []),                           # control: the last line holds
             (14, rows[1:], [("OUT-OF-RANGE", "row 14", "")]),           # control: ...and can move
-            (14, ["new"] + rows, [("SHIFTED", "row 14", "row 13")])):
+            (14, ["new"] + rows, [("SHIFTED", "row 14", "row 13")]),
+            (14, rows[:-1], [("OUT-OF-RANGE", "row 14", "")])):         # the last line deleted
+                                                                        # (was EDITED-IN-PLACE, exit 0)
         cite = {"docs/c.md": ["see `f.txt:%d`" % n]}
         res, rc = _scan_and_exit(dict(cite, **{"f.txt": rows}), dict(cite, **{"f.txt": tip_rows}))
         got = [(f.kind, f.was, f.now) for f in res["pinned"]]
@@ -544,9 +546,12 @@ def test_has_line_drops_a_file_one_line_too_short():
 
 def test_line_count_is_git_greps():
     """The lines `load()` returns are the lines `git grep -n` numbers, the numbering every
-    citer's `:NNN` was read off: empty file, no final newline, a trailing blank line, CRLF."""
+    citer's `:NNN` was read off: empty file, no final newline, a trailing blank line, CRLF.
+    Only `\\n` ends a line for git: a lone `\\r`, VT, FF, NEL and U+2028 do not, though
+    `str.splitlines()` splits on each (a tracked file holds a VT today)."""
     mod = _load_module()
-    bodies = [b"", b"\n", b"a", b"a\n", b"a\nb", b"a\n\n", b"a\r\nb\r\n"]
+    bodies = [b"", b"\n", b"a", b"a\n", b"a\nb", b"a\n\n", b"a\r\nb\r\n",
+              b"a\rb\n", b"a\x0bb\n", b"a\x0cb\n", "a\x85b\n".encode(), "a b\n".encode()]
     with mod.fixture_repo([], []) as (repo, _, _t):
         rows = []
         for k, body in enumerate(bodies):
