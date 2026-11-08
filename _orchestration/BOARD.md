@@ -4,7 +4,7 @@
 
 # AVE program board
 
-Scanned tree **5619dd56** (2026-09-13) · 468 index records · 331 claims · 20 PRs open
+Scanned tree **6c1c86960** (2026-11-07) · 468 index records · 331 claims · 22 PRs open
 
 ## The number that frames everything
 
@@ -28,7 +28,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## What we are waiting on
 
-**48 of 82 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
+**48 of 84 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
 
 *Scope: this is a census of `open-items/`. `_orchestration/2026-07-10_rulings-docket.md` is the **paper timeline** — a dated continuation log, frozen at its 2026-07-21 tail per `docket-entries/README.md`, and the historical record of how each ruling was reached. It is read chronologically, not harvested; anything still live in it belongs here as its own file.*
 
@@ -105,6 +105,8 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [Over-braced chiral crystal walk — picture-lock applied; signed WALK-GRADE teaching (do not commission Chern / Maxwell–Calladine)](open-items/2026-08-26-overbraced-crystal-audit.md) | OPEN | lane | 2026-08-26 |
 | [Analyze ker Y (DC loop current) and M-eigenmodes as two arms — do not pick; drop Maxwell–Calladine as the knot identity](open-items/2026-08-29-ker-y-vs-m-eigenmode.md) | OPEN | grant | 2026-08-29 |
 | [Phase space = native tank-state chart (Grant-signed sentence); amend def-69f472; characterize coupling to vacuum / matter / light / gravity (or bulk emergence)](open-items/2026-08-29-phase-space-tank-state.md) | OPEN | grant | 2026-08-29 |
+| [R61 park residue, constitutive arc: checker-tier questions, the C4 question, and the #1033 resume point](open-items/2026-09-30-constitutive-arc-residue.md) | OPEN | lane | 2026-11-01 |
+| [R61 park residue, wall arc: evidence for the A1-vs-T2 wall question, polish residue, and the items that die with the parks](open-items/2026-09-30-wall-arc-residue.md) | OPEN | lane | 2026-11-01 |
 | [Sibling-repo debts — AVE-Fusion yield cross-wire + AVE-Bench-FemtoElectrometer stale sites](open-items/2026-07-03-sibling-repo-debts.md) | REGISTERED | unassigned | 2026-07-03 |
 | [The v3 ringdown instrument — the DISCRETE near-wall chain](open-items/2026-08-04-v3-ringdown-instrument.md) | REGISTERED | unassigned | 2026-08-04 |
 | [Hygiene backlog — Bell-arc citation follow-ups, FPR provenance re-grep, auditor-landing queue](open-items/2026-07-03-hygiene-backlog.md) | QUEUED | unassigned | 2026-07-03 |
@@ -119,9 +121,9 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## Ruling-token coverage
 
-**45 of 59 docketed ruling numbers have no word-boundary occurrence anywhere in the claims register.**
+**48 of 62 docketed ruling numbers have no word-boundary occurrence anywhere in the claims register.**
 
-R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20, R21, R22, R23, R24, R25, R26, R27, R28, R29, R30, R32, R33, R34, R35, R36, R37, R38, R41, R45, R46, R47, R51, R52, R53, R54, R55, R56, R58, R59
+R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20, R21, R22, R23, R24, R25, R26, R27, R28, R29, R30, R32, R33, R34, R35, R36, R37, R38, R41, R45, R46, R47, R51, R52, R53, R54, R55, R56, R58, R59, R60, R61, R63
 
 > ⚑ **Read this as token coverage, not as physics debt.** It was headlined as "propagation debt" and that was wrong in both directions:
 >
@@ -138,26 +140,28 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 
 | PR | state | title |
 |---|---|---|
-| #1044 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: Lane A sibling definition |
+| #1082 | unlabelled | [DO-NOT-MERGE] fix(kb): cite-shift gate counts lines as git grep does; reach-tes |
+| #1081 | unlabelled | [CLEARED for merge at ad19aec83] fix(kb): cite-shift gate exits 2 when it reache |
+| #1077 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] kb: repair three stale theorem cite |
+| #1076 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] chore: regenerate BOARD at cbc668e7 |
+| #1075 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] orchestration: docket receipt for t |
+| #1073 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] R55 Phase-2: core wording sweep, fo |
+| #1070 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] infra: new-cite ratchet reads HEAD; |
+| #1068 | unlabelled | feat(topological): grid-fix engine flags (T-STAB2', op10_b, softplus floor, diag |
+| #1058 | unlabelled | [DO NOT MERGE — review/fix in flight] viz(two-slits): scored double-slit video o |
+| #1057 | unlabelled | Document Cloud Agent setup for the AVE engine |
+| #1054 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] README/CLAUDE.md: α is a calibratio |
 | #1040 | unlabelled | [DO-NOT-MERGE] provenance: un-stamp the confinement clause from the 2026-06-30 r |
-| #1039 | unlabelled | [DO-NOT-MERGE][REVIEW: repaired, 52 shifted cites open] docs: epic residue sweep |
-| #1038 | unlabelled | [DO-NOT-MERGE][REVIEW: repaired, 26 shifted cites open] docs: epic Phase C wave  |
-| #1037 | unlabelled | [DO-NOT-MERGE][REVIEW: pending — 1 shifted board cite] docs: epic Phase C wave 1 |
+| #1039 | unlabelled | [DO-NOT-MERGE][REVIEW: merged up, 9 of 59 cites re-pinned, 50 frozen or logged,  |
+| #1038 | unlabelled | [DO-NOT-MERGE][REVIEW: 4 of 28 cites re-pinned, 24 frozen, W5 awaits Grant, awai |
+| #1037 | unlabelled | [DO-NOT-MERGE][REVIEW: 0 of 4 cites re-pinned, 4 frozen, awaits re-audit] docs:  |
 | #1036 | unlabelled | [DO-NOT-MERGE][REVIEW: BLOCKED by audit — 6 numeric errors minted by the repair] |
-| #1034 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: H1 three-object close + S |
-| #1033 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: ε11 as Q-point; constitut |
 | #1032 | unlabelled | [DO-NOT-MERGE][REVIEW: BLOCKED by blind audit] research: Machian-G boundary audi |
 | #1031 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: FROZEN prereg — X44 unblo |
 | #1030 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: where GR is validated on  |
 | #1029 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: the two-knob gravity repa |
 | #1028 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: PPN tensor derivation — m |
-| #1027 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: the cold-vacuum phase-spa |
-| #1026 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] infra: Rule-12 append-only GATE (fr |
-| #1025 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: the virtual-neutral bound |
-| #1024 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] engine: BUILD-EO1-T2X — tone-solve  |
-| #1023 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: FROZEN prereg — virtual n |
 | #1022 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: the autonomous-HB lens au |
-| #1021 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] research: the wall-first reframe +  |
 
 <!-- /volatile -->
 

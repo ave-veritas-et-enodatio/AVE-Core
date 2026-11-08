@@ -17,7 +17,7 @@ The baryon sector derives baryonic matter from the $6^3_2$ Borromean linkage top
 | Topological Scaling Ansatz | $F_{confinement} \approx 3(m_p/m_e)\alpha^{-1}T_{EM} \approx 160{,}024$ N |
 | Saturated Faddeev-Skyrme Proton Energy | $E_{proton} = \min_n \int d^3x \left[ \frac{1}{2}(\partial_\mu n)^2 + \frac{1}{4}\kappa_{FS}^2 \frac{(\partial_\mu n \times \partial_\nu n)^2}{\sqrt{1 - (\Delta\phi/\alpha)^2}} \right]$ |
 | Faddeev-Skyrme Coupling Constant | $\kappa_{FS}^{(cold)} = p_c/\alpha = 8\pi$ |
-| Thermal Lattice Softening | $\kappa_{FS} = 8\pi(1 - 1/(14\pi^2))$; $\delta_{th} = 1/(14\pi^2) \approx 0.00721$ |
+| Thermal Lattice Softening | $\kappa_{FS} = 8\pi(1 - 1/(14\pi^2))$; $\delta_{th} = 1/(14\pi^2) \approx 0.00724$ |
 | Orthogonal Flux Tube Mutual Coupling | $M/L = \exp(-\ln 2 / 2) = 1/\sqrt{2}$ (exactly) |
 | Self-Consistent Mass Eigenvalue | $x_{core} = \mathcal{I}_{scalar} + (\mathcal{V}_{total} \cdot p_c) \cdot x_{core}$; $x_{core} \approx 1835.12$ |
 | Baryon Mass Eigenvalue | $x = 1835.12 + 1.0 = 1836.12$; within $0.002\%$ of CODATA |
