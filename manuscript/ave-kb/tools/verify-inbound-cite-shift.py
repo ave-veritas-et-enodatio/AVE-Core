@@ -207,11 +207,14 @@ trusted, every run proves five things, none of them read off its own yield:
                                  a non-ASCII path without -z, reads a leaf named `-...`
                                  as an option without -e and one holding `[` as a
                                  pattern without -F, under submodule.recurse reads
-                                 a checked-out submodule's files as citers here, and
+                                 an active submodule's files as citers here, and
                                  under `diff.default.binary` skips every file as binary.
                                  All are pinned, and the grep reads the tip's TREE, for
                                  which git consults no gitattributes: a text file they
-                                 declare binary is still read. A row that does not parse
+                                 declare binary is still read. A citer path is decoded
+                                 one string per byte path, so a byte that is not UTF-8
+                                 cannot make it pass for another file, and a text line
+                                 holding a NUL reads whole. A row that does not parse
                                  is an error, never a skipped citer;
   * every object read was READ   git grep reports an unreadable blob ONLY on stderr
                                  and still exits 0 or 1, its lines simply absent;
@@ -293,7 +296,7 @@ class GateError(RuntimeError):
     past this point would be false."""
 
 
-#: stderr is where git grep reports an unreadable blob (see scan()), so nothing else may
+#: stderr is where git grep reports an unreadable blob (see citer_lines()), so nothing else may
 #: write there: trace2 can be switched on from git CONFIG as well as the environment
 #: (`[trace2] normalTarget = 2` reaches the fixtures too) and the environment overrides
 #: config; a translated git would spell `warning:` some other way.
@@ -744,27 +747,38 @@ Finding = collections.namedtuple('Finding', 'src lno target n kind was now moved
 
 #: One `git grep -z -n` row: `<rev>:<path>` NUL `<line number>` NUL `<text>` LF. The path is
 #: read up to its NUL, since it may hold `:` or a newline; the text up to its newline, since a
-#: text line can hold a NUL past the bytes git sniffs for binary.
+#: text line can hold a NUL past the bytes git sniffs for binary. GREP_ROW_NUL_FREE, whose text
+#: stops at a NUL, is MUTATE grep-text-no-nul's.
 GREP_ROW = re.compile(rb'([^\0]*)\0([0-9]+)\0([^\n]*)\n')
+GREP_ROW_NUL_FREE = re.compile(rb'([^\0]*)\0([0-9]+)\0([^\0\n]*)\n')
 
 
 def citer_lines(repo, leaf, rev):
     """([(path, line number, text)] for each text line of `rev` holding `leaf`, error or None).
 
     Every option that shapes a row is on the command line, because git config sets it
-    otherwise: `color.ui` / `color.grep = always` wraps each field in ANSI codes (`int()` of
-    the line number raised) and `grep.column` adds a field that reads as part of the text --
-    so --no-color --no-column, and -n explicit (`grep.lineNumber` defaults to false, and
+    otherwise: `color.ui` / `color.grep = always` wraps the path and the line number in ANSI
+    codes (`int()` of the line number raised: exit 2) and the leaf inside the text (no cite
+    matched it: with only the match slot coloured, a clean exit 0), and `grep.column` adds a
+    field that reads as part of the text -- so --no-color --no-column, and -n explicit
+    (`grep.lineNumber` defaults to false, and
     without -n a row has no line number). -F: the leaf is a fixed string -- as a pattern,
     `notes[1].md` is a bracket expression that misses its own name (a false clean); and
     `grep.patternType` yields to -F. `grep.fullName` has nothing to do at the top level.
     -z: the path comes back as its bytes. Without it a non-ASCII path is C-quoted
     (`"docs/caf\\303\\251.md"`, a path no file has, so a link resolved against it pins
-    nothing) and a path holding `:` is split at it. -e: a leaf such as `-notes.md` is the
+    nothing) and a path holding `:` is split at it. The path is decoded with surrogateescape,
+    one string per byte path: with 'replace', two paths that differ in a byte that is not UTF-8
+    read as one, so a citer could pass for a DIFFERENT changed file -- scan()'s self-cite skip
+    then dropped a real cite (a false clean), and a link resolved from its directory landed in
+    another (a false fire). KNOWN GAP: a changed path that is not UTF-8 is still read by its
+    'replace' name, which finds no blob (the run aborts) or a file really named so.
+    -e: a leaf such as `-notes.md` is the
     pattern, not an option (git exits 129), and a leaf that is a whole option, such as
     `-q`, does not silently change the search (a false clean). --no-recurse-submodules:
-    `submodule.recurse = true` sends grep into every active checked-out submodule, whose
-    own files then read as citers in THIS repo (a false SHIFTED). A row that does not parse
+    `submodule.recurse = true` sends grep into every active submodule whose repository is
+    present (checked out, or kept in .git/modules), whose own files then read as citers in
+    THIS repo (a false SHIFTED). A row that does not parse
     is an error, never a row to skip: skipped, it is a citer never found.
 
     `rev` must be a TREE ID (grep_rev()). git echoes the rev back as each row's prefix, and on
@@ -804,6 +818,8 @@ def citer_lines(repo, leaf, rev):
     if rc not in (0, 1) or noise:
         err = 'exit %d%s' % (rc, ': ' + noise[0] if noise else '')
     rows, at, prefix = [], 0, (rev + ':').encode('utf-8')
+    row = GREP_ROW_NUL_FREE if 'grep-text-no-nul' in MUTATE else GREP_ROW
+    lossy = 'replace' if 'grep-path-lossy' in MUTATE else 'surrogateescape'
     if 'grep-no-z' in MUTATE:                              # the pre-fix split, made strict
         for line in out.split(b'\n'):
             parts = line.split(b':', 3)
@@ -814,10 +830,10 @@ def citer_lines(repo, leaf, rev):
                 err = err or 'unparseable row: %r' % line[:100]
         return rows, err
     while at < len(out):
-        m = GREP_ROW.match(out, at)
+        m = row.match(out, at)
         if not m or not m.group(1).startswith(prefix):
             return rows, err or 'unparseable row at byte %d: %r' % (at, out[at:at + 100])
-        rows.append((m.group(1)[len(prefix):].decode('utf-8', 'replace'), int(m.group(2)),
+        rows.append((m.group(1)[len(prefix):].decode('utf-8', lossy), int(m.group(2)),
                      m.group(3).decode('utf-8', 'replace')))
         at = m.end()
     return rows, err
@@ -935,9 +951,16 @@ def scan(repo, base, tip):
 
 def _shown(path):
     """A path as the report prints it: a control character (a newline, an ESC) as its escape,
-    so no path can start a report line of its own or restyle the log. Before -z, git C-quoted
-    a citer path; read whole, it is the path's own bytes."""
-    return ''.join(c if c.isprintable() else c.encode('unicode_escape').decode('ascii') for c in path)
+    so no path can start a report line of its own or restyle the log, and a byte that is not
+    UTF-8 (surrogateescape, see citer_lines()) as `\\xNN`. Before -z, git C-quoted a citer
+    path; read whole, it is the path's own bytes."""
+    def one(c):
+        if c.isprintable():
+            return c
+        if '\udc80' <= c <= '\udcff':
+            return '\\x%02x' % (ord(c) - 0xdc00)
+        return c.encode('unicode_escape').decode('ascii')
+    return ''.join(one(c) for c in path)
 
 
 def _show(f):
@@ -1125,11 +1148,12 @@ def main(base, tip, verbose=False, repo=None):
 #
 # One throwaway repo, three files named main.tex (B, A, and a third that never
 # changes), one unique basename, two citing files. Trees are built with
-# `git write-tree`; the two probes that need a commit (a checked-out submodule, a
-# commit tip) use `git commit-tree` under FIXTURE_IDENTITY, unsigned: no user
-# identity, no signing. `init --template=` copies in no template, but a hook set by
-# core.hooksPath still runs, and one that rejects a ref update aborts the self-gate
-# (exit 2, quoting git).
+# `git write-tree` (a tree holding a path that is not UTF-8 goes straight to the
+# object store, _object_tree: APFS cannot name it); the two probes that need a
+# commit (a checked-out submodule, a commit tip) use `git commit-tree` under
+# FIXTURE_IDENTITY, unsigned: no user identity, no signing. `init --template=`
+# copies in no template, but a hook set by core.hooksPath still runs, and one that
+# rejects a ref update aborts the self-gate (exit 2, quoting git).
 
 B = 'manuscript/vol_1_foundations/main.tex'            # the short volume main
 A = 'papers/letter/main.tex'                           # the long same-named sibling
@@ -1149,18 +1173,28 @@ CITER_FILES = (CITERS, NOTES, COLON, ACCENT, BINARY)
 #: Every fixture repo carries it, so every self-gate verdict is reached under it -- the
 #: colour and the column probe each with the other's trigger benign. (`diff.default.binary`,
 #: which hides every file from -I, is set by its own probe alone: in every fixture it would
-#: also turn each plain `git diff` a test runs into `Binary files ... differ`.)
+#: also turn each plain `git diff` a test runs into `Binary files ... differ`.) So a test that
+#: runs git porcelain in a fixture repo and parses what it prints pins its own output flags.
 #: color.grep outranks color.ui, so a `color.grep = never` in ~/.gitconfig would otherwise
-#: disarm the colour, and so would a `[color "grep"] filename = normal` (and the other slots)
-#: -- so the slot colours are set too, to git's defaults; core.quotePath=true is git's
-#: default, set so a user's `false` cannot hide the quoting; grep.lineNumber=false likewise,
-#: so a user's `true` cannot hide a missing -n. submodule.recurse bites only
-#: where a submodule is checked out (GREP). The repo's own config is read last and wins.
+#: disarm the colour; and `normal` in a slot that wraps a field (filename, lineNumber, match)
+#: changes what the colour probe reads with its pin off (all three together disarm it) -- so
+#: the slot colours are set too, to git's defaults. core.quotePath=true is git's default, set
+#: so a user's `false` cannot hide the quoting; grep.lineNumber=false likewise, so a user's
+#: `true` cannot hide a missing -n. submodule.recurse bites wherever an active submodule's
+#: repository is present -- checked out, or kept in .git/modules -- which in the fixtures is
+#: GREP's submodule probe alone. The repo's own config is read after the system and global
+#: files, so it wins over both; only a worktree config, -c or GIT_CONFIG_* is read after it,
+#: and the fixtures scrub GIT_* and init with --template=, which keeps out a template's
+#: config.worktree. One key shapes no row: core.precomposeUnicode=true, what `git init`
+#: writes on macOS when no config sets it. A global `false` on a filesystem that stores
+#: names in NFD (HFS+) would put the NFD bytes of a non-ASCII fixture path in the tree, and
+#: the 'citer path not ASCII' probe, which expects the NFC name it wrote, would fail every
+#: run. Off macOS git ignores it.
 HOSTILE = (('color.ui', 'always'), ('color.grep', 'always'), ('color.grep.filename', 'magenta'),
            ('color.grep.lineNumber', 'green'), ('color.grep.column', 'green'),
            ('color.grep.separator', 'cyan'), ('color.grep.match', 'bold red'),
            ('grep.column', 'true'), ('grep.lineNumber', 'false'), ('core.quotePath', 'true'),
-           ('submodule.recurse', 'true'))
+           ('submodule.recurse', 'true'), ('core.precomposeUnicode', 'true'))
 #: commit-tree under this identity needs no user identity (and --no-gpg-sign signs nothing)
 FIXTURE_IDENTITY = dict(GIT_AUTHOR_NAME='fixture', GIT_AUTHOR_EMAIL='fixture@invalid',
                         GIT_COMMITTER_NAME='fixture', GIT_COMMITTER_EMAIL='fixture@invalid',
@@ -1247,6 +1281,45 @@ def _write_tree(repo, root, files):
     return tree
 
 
+def _not_utf8(files):
+    """True when a path of `files` is not UTF-8 (a str holding surrogateescape)."""
+    try:
+        for path in files:
+            path.encode('utf-8')
+    except UnicodeEncodeError:
+        return True
+    return False
+
+
+def _object_tree(repo, files):
+    """The tree of `files`, written straight to the object store through a scratch index:
+    a path that is not UTF-8 cannot be a file name on every filesystem (APFS refuses one).
+    hash-object reads stdin with no path, so no filter or line-ending rule applies."""
+    entries = []
+    for path, lines in files.items():
+        rc, out = repo.raw('hash-object', '-w', '--stdin',
+                           stdin=('\n'.join(lines) + '\n').encode('utf-8', 'surrogateescape'))
+        oid = out.decode('ascii', 'replace').strip()
+        if rc != 0 or not re.fullmatch(r'[0-9a-f]{40,64}', oid):
+            raise FixtureError('`git hash-object` failed in %s: %s' % (repo.cwd, repo.err or 'no output'))
+        entries.append(b'100644 %s\t%s\0' % (oid.encode('ascii'), path.encode('utf-8', 'surrogateescape')))
+    index = os.path.join(repo.cwd, '.git', 'object-tree-index')
+    if os.path.exists(index):
+        os.remove(index)
+    repo.env['GIT_INDEX_FILE'] = index
+    try:
+        rc, out = repo.raw('update-index', '-z', '--index-info', stdin=b''.join(entries))
+        if rc == 0:
+            rc, out = repo.raw('write-tree')
+    finally:
+        del repo.env['GIT_INDEX_FILE']
+    tree = out.decode('ascii', 'replace').strip()
+    if rc != 0 or not re.fullmatch(r'[0-9a-f]{40,64}', tree):
+        raise FixtureError('could not write a tree to the object store in %s: %s'
+                           % (repo.cwd, repo.err or 'no output'))
+    return tree
+
+
 def config_text(config):
     """(key, value) pairs as git config file text: `a.b` -> [a] b, `a.b.c` -> [a "b"] c. The
     value and subsection are quoted, so `#`, `;`, a leading space, `"` or `\\` survive. A
@@ -1313,7 +1386,10 @@ def two_trees(base_files, tip_files, damage=(), config=HOSTILE, submodule=False,
     that ends without a newline (the config written here would run on from its last line),
     not a hook. `submodule`: the tip also holds a checked-out submodule (_add_submodule).
     `attributes`: a line for .git/info/attributes, and the tip becomes a COMMIT of its tree,
-    so that a grep of the tip as named would look the attributes up (citer_lines())."""
+    so that a grep of the tip as named would look the attributes up (citer_lines()). A tree
+    with a path that is not UTF-8 is written straight to the object store (_object_tree).
+    `config` is HOSTILE by default, so a test that runs git porcelain in the repo and parses
+    what it prints must pin its own output flags (--no-color, -n, --no-column)."""
     root = tempfile.mkdtemp(prefix='inbound-cite-selftest-')
     try:
         repo = Repo(cwd=root, scrub_env=True)
@@ -1328,8 +1404,8 @@ def two_trees(base_files, tip_files, damage=(), config=HOSTILE, submodule=False,
                     fh.write(attributes + '\n')
         except OSError as exc:
             raise FixtureError('could not write the fixture config in %s: %s' % (root, exc))
-        base = _write_tree(repo, root, base_files)
-        tip = _write_tree(repo, root, tip_files)
+        base, tip = (_object_tree(repo, files) if _not_utf8(files) else _write_tree(repo, root, files)
+                     for files in (base_files, tip_files))
         if submodule:
             tip = _add_submodule(repo, root, tip)
         if attributes:
@@ -1724,25 +1800,58 @@ def diff_context_verdict(inject=True):
     return 'exit %d' % (1 if any(f.kind in ROT for f in res['pinned']) else 0)
 
 def _with(*benign):
-    """HOSTILE with some keys set benign, to isolate one trigger whatever ~/.gitconfig holds."""
+    """HOSTILE with some keys set benign, to isolate one trigger whatever the global or system
+    config holds."""
     config = dict(HOSTILE)
     config.update(benign)
     return tuple(config.items())
 
 
-Odd = collections.namedtuple('Odd', 'keys moved config how rule unpinned submodule attributes',
-                             defaults=(False, None))
+Odd = collections.namedtuple('Odd', 'keys moved config how rule unpinned submodule attributes trees',
+                             defaults=(False, None, None))
 
-#: A citer row that git grep shapes, or hides, from config, attributes or the path itself.
-#: Each fixture plants `keys` and moves `moved`; the run must read every text citer row back
-#: as the fixture wrote it and exit 1 (GREP_WANT). `how` is what git does when the call
-#: leaves it to git; `rule` the MUTATE key that leaves it there; `unpinned` the verdict with
-#: that one rule off and every other pin kept -- how a call without that pin reads this
-#: trigger alone. (The pre-fix tool pinned none of them, and crashed on the colour codes of
-#: some of these fixtures before it reached their own trigger.)
+#: a changed file in a directory named U+FFFD itself (valid UTF-8), and a citer in a directory
+#: named by the byte 0xFF (not UTF-8: a str holding surrogateescape), which 'replace' reads as
+#: the very same name
+LOSSY_TARGET = 'docs/\ufffd/main.tex'
+LOSSY_CITER = 'docs/\udcff/main.tex'
+
+
+def _lossy_trees():
+    """LOSSY_CITER's line 4 links to LOSSY_TARGET:5, which moves to :8: one line from the
+    citing line, inside scan()'s self-cite window (|4 - 5| < 3)."""
+    cites = ['citer line %d' % i for i in range(1, 12)]
+    cites[3] = 'see [main.tex:5](../\ufffd/main.tex)'
+    files = {LOSSY_TARGET: _numbered('vol1', 14), LOSSY_CITER: cites}
+    tip = dict(files)
+    tip[LOSSY_TARGET] = ['inserted %d' % i for i in (1, 2, 3)] + files[LOSSY_TARGET]
+    return files, tip
+
+
+def _nul_trees():
+    """CITERS opens with a line longer than the 8000 bytes git sniffs for binary, then cites
+    B on a line that holds a NUL: text to git, and its row carries the NUL."""
+    files = {B: _numbered('vol1', 14),
+             CITERS: ['padding, no cite here. ' * 360,              # 8280 bytes, no NUL
+                      'a NUL \0 inside the text: `manuscript/vol_1_foundations/main.tex:5`']}
+    tip = dict(files)
+    tip[B] = ['inserted %d' % i for i in (1, 2, 3)] + files[B]
+    return files, tip
+
+
+#: A citer row that git grep shapes, or hides, from config, attributes or the path itself --
+#: or that a looser parse would misread. Each fixture plants `keys` and moves `moved` (or is
+#: `trees()`, base and tip files, where a probe needs files of its own); the run must read
+#: every text citer row back as the fixture wrote it and exit 1 (GREP_WANT). `how` is what
+#: goes wrong without the rule; `rule` the MUTATE key that switches it off; `unpinned` the
+#: verdict with that one rule off and every other kept -- how a call without it reads this
+#: trigger alone. A verdict includes what the reader read back: the column case changes its
+#: verdict by misreading the text, though its exit code and report stay the same. (The
+#: pre-fix tool pinned none of them, and crashed on the colour codes of some of these
+#: fixtures before it reached their own trigger.)
 GREP = collections.OrderedDict([
     ('colour config', Odd(['explicit-B'], [B], _with(('grep.column', 'false')),
-        '`color.ui` / `color.grep = always` wraps each field in ANSI codes',
+        '`color.ui` / `color.grep = always` wraps the path, the line number and the leaf in ANSI codes',
         'grep-config-unpinned', 'ABORT: unparseable row')),
     ('column config', Odd(['explicit-B'], [B], _with(('color.ui', 'never'), ('color.grep', 'never')),
         '`grep.column = true` adds a field, read as the start of the text',
@@ -1772,6 +1881,13 @@ GREP = collections.OrderedDict([
     ('line-number config', Odd(['explicit-B'], [B], HOSTILE,
         "`grep.lineNumber = false`, git's own default, prints a row with no line number",
         'grep-no-n', 'ABORT: unparseable row')),
+    ('citer path not UTF-8', Odd([], [LOSSY_TARGET], HOSTILE,
+        "decoded with 'replace', the path reads as the changed file's (its directory named U+FFFD), "
+        'and the self-cite skip drops the cite', 'grep-path-lossy',
+        'exit 0, SHIFTED=0, AMBIGUOUS=0, path misread', trees=_lossy_trees)),
+    ('citer line holding a NUL', Odd([], [B], HOSTILE,
+        'a parse that stops the text at a NUL finds no newline after it', 'grep-text-no-nul',
+        'ABORT: unparseable row', trees=_nul_trees)),
 ])
 GREP_WANT = 'exit 1, SHIFTED=1, AMBIGUOUS=0'
 
@@ -1784,9 +1900,9 @@ def grep_case_verdict(name):
     is ABORT, never a skip."""
     c = GREP[name]
     misread = None
-    written = _files(c.keys, c.moved)
-    with fixture_repo(c.keys, c.moved, config=c.config, submodule=c.submodule,
-                      attributes=c.attributes) as (repo, base, tip):
+    base_files, written = c.trees() if c.trees else (_files(c.keys), _files(c.keys, c.moved))
+    with two_trees(base_files, written, config=c.config, submodule=c.submodule,
+                   attributes=c.attributes) as (repo, base, tip):
         res = scan(repo, base, tip)
         for leaf in sorted({p.rsplit('/', 1)[-1] for p in c.moved}):
             read = citer_lines(repo, leaf, grep_rev(repo, tip))[0]
@@ -1889,7 +2005,7 @@ def run_gate(out=print):
     # --- every citer row is read whole, whatever git config or the path itself would make of it
     for name, c in GREP.items():
         v = grep_case_verdict(name)
-        say(v == GREP_WANT, f'a {name}: every citer row read whole, the cite fires (left to git, {c.how})', v)
+        say(v == GREP_WANT, f'a {name}: every citer row read whole, the cite fires (without its rule: {c.how})', v)
     return ok
 
 
@@ -2065,8 +2181,9 @@ def mutation_receipt():
         finally:
             MUTATE.discard(c.rule)
         whole = grep_case_verdict(name)
-        results.append((f'M{k} leave the citer grep to git for a {name} ({c.rule}): with only that pin off the run '
-                        f'must read {c.unpinned} -- got {v}; pinned it must read whole and fire -- got {whole}',
+        results.append((f'M{k} read the citer rows of a {name} with one rule off ({c.rule}): with only that rule '
+                        f'off the run must read {c.unpinned} -- got {v}; with it on they must read whole and fire '
+                        f'-- got {whole}',
                         v == c.unpinned and whole == GREP_WANT))
 
     allgood = True

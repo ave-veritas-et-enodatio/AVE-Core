@@ -30,8 +30,10 @@ Asserts:
     edges: an added or deleted file, a gitlink, and git tracing from env or config
     are still not aborts;
   * the citer `git grep` reads every row whole (2026-11-08): under `color.ui` /
-    `color.grep = always` (pre-fix: `int()` of a colour-wrapped line number raised,
-    exit 2), `grep.column` (pre-fix: every text read as `<col>:<text>`) and
+    `color.grep = always` (pre-fix: with git's default slot colours, `int()` of a
+    colour-wrapped line number raised, exit 2; with only the match slot coloured, each
+    leaf came back wrapped, no cite matched, and the run printed a clean exit 0),
+    `grep.column` (pre-fix: every text read as `<col>:<text>`) and
     `diff.default.binary` (pre-fix: every file skipped as binary, exit 0), from a citer
     path holding `:` (exit 2) or a non-ASCII byte (C-quoted, so its link pinned nothing:
     exit 0 where the ASCII control exits 1; and #1079's re-pin of such a citer was never
@@ -39,8 +41,10 @@ Asserts:
     `-notes.md`, a silent exit 0 for a whole option such as `-q`), past a checked-out
     submodule under `submodule.recurse` (its own files read as citers: a false SHIFTED,
     exit 1), for a citer that gitattributes declare binary (pre-fix: skipped, exit 0)
-    and for a tip named by a ref git echoes in another form; a row that does not parse
-    aborts (pre-fix: skipped, exit 0); and a user's init.templateDir reaches no fixture;
+    and for a tip named by a ref git echoes in another form; a citer path that is not
+    UTF-8 never passes for another file's (decoded with 'replace' it did, and the
+    self-cite skip dropped the cite: exit 0); a row that does not parse aborts
+    (pre-fix: skipped, exit 0); and a user's init.templateDir reaches no fixture;
 
 And the 2026-11-01 rules. Re-pinning stale cites on #1037-#1039 showed the checker
 could not confirm a repair: it tested base[new] against tip[new], so a correct
@@ -117,7 +121,8 @@ def test_gate_can_fire_and_negative_controls_hold():
     grep = ["colour config", "column config", "citer path holding a colon", "citer path not ASCII",
             "changed file named -x", "checked-out submodule", "citer declared binary",
             "diff.default.binary config", "binary file naming the leaf",
-            "changed file named like a pattern", "line-number config"]
+            "changed file named like a pattern", "line-number config", "citer path not UTF-8",
+            "citer line holding a NUL"]
     for name in grep:
         assert any(l.lstrip().startswith("[PASS] a %s: every citer row read whole" % name) for l in lines), name
     # and the whole gate: 10 original probes, one per REPINS row plus #1079's 7 re-pin
@@ -145,16 +150,19 @@ def test_mutation_receipt_holds():
     # one row per citer-grep case, each with its rule off (grep-config-unpinned drops two flags,
     # one per case it serves; grep-no-z also brings back the pre-fix split)
     for rule in ("grep-config-unpinned", "grep-no-z", "grep-no-e", "grep-recurses", "grep-commit",
-                 "grep-binary-config", "grep-binary", "grep-no-F", "grep-no-n"):
-        assert "(%s): with only that pin off the run must read" % rule in buf.getvalue(), rule
+                 "grep-binary-config", "grep-binary", "grep-no-F", "grep-no-n", "grep-path-lossy",
+                 "grep-text-no-nul"):
+        assert "(%s): with only that rule off the run must read" % rule in buf.getvalue(), rule
 
 
 def test_the_default_fixture_repo_carries_the_hostile_config():
     """Every self-gate verdict is reached under it, not only the GREP probes' (the colour and
-    the column probe each set the other's trigger benign, to isolate their own)."""
+    the column probe each set the other's trigger benign, to isolate their own). Read as git
+    resolves each key, not from the repo's own file alone: a worktree config copied in from a
+    template would outrank that file."""
     mod = _load_module()
     with mod.fixture_repo(["explicit-B"], [mod.B]) as (repo, _, _t):
-        got = {key: repo.sh("config", "--local", key).strip() for key, _v in mod.HOSTILE}
+        got = {key: repo.sh("config", key).strip() for key, _v in mod.HOSTILE}
     assert got == dict(mod.HOSTILE)
     assert {"color.ui": "always", "color.grep": "always", "grep.column": "true"}.items() <= got.items()
 
@@ -818,8 +826,10 @@ def test_citer_grep_reads_through_hostile_grep_and_colour_config():
     files = {"docs/vol/main.tex": _VOL, "docs/citers.md": [line]}
     home = tempfile.mkdtemp(prefix="inbound-cite-home-")
     try:
+        # (`grep.lineNumber = false` is git's own default: as the only config it changes nothing.
+        # HOSTILE's entry is pinned by test_every_grep_rule_holds_under_a_hostile_global_config.)
         for key, value in (("color.ui", "always"), ("color.grep", "always"), ("grep.column", "true"),
-                           ("grep.lineNumber", "false"), ("diff.default.binary", "true")):
+                           ("diff.default.binary", "true")):
             with _two_trees(files, _shifted(files, "docs/vol/main.tex")) as (mod, repo, b, t):
                 repo.env.update(HOME=home, XDG_CONFIG_HOME=home, GIT_CONFIG_NOSYSTEM="1")
                 keep = _bare_minimum_config(repo)
@@ -922,7 +932,7 @@ def test_a_checked_out_submodule_is_not_read_as_citers():
         modules = '[submodule "sibling"]\n\tpath = sibling\n\turl = ./sibling\n'
         with open(os.path.join(repo.cwd, ".gitmodules"), "w") as fh:
             fh.write(modules)
-        assert sub.raw("init", "-q")[0] == 0 and sub.raw("add", "-A", "-f")[0] == 0
+        assert sub.raw("init", "-q", "--template=")[0] == 0 and sub.raw("add", "-A", "-f")[0] == 0
         commit = sub.sh("commit-tree", "--no-gpg-sign", "-m", "s", sub.sh("write-tree").strip()).strip()
         blob = repo.raw("hash-object", "-w", "--stdin", stdin=modules.encode())[1].decode().strip()
         for args in (("config", "submodule.sibling.url", "./sibling"), ("config", "submodule.sibling.active", "true"),
@@ -975,7 +985,9 @@ def test_an_unparseable_grep_row_aborts_and_is_never_skipped():
 
             rc, out, _ = _run_seeing_texts(mod, Garbled(cwd=fixture.cwd, scrub_env=True), b, t)
             assert rc == 2, (reply, out)
-            assert "unparseable row" in out and "clean —" not in out, (reply, out)
+            # the scan's own abort, not the self-gate's, whose [FAIL] lines read "unparseable row" too
+            assert "`git grep` failed while collecting citers of 'main.tex' (unparseable row" in out, (reply, out)
+            assert "self-gate FAILED" not in out and "clean —" not in out, (reply, out)
 
 
 def test_a_citer_declared_binary_is_still_read():
@@ -1140,6 +1152,72 @@ def test_a_citer_path_cannot_forge_a_report_line():
     assert rc == 1 and seen == [(citer, line)], (rc, seen, out)
     assert "\x1b" not in out and "\n  clean \u2014 nothing moved" not in out, out
     assert "  docs/x\\n  clean \u2014 nothing moved\\x1b[8m.md:1  ->  docs/vol/main.tex:5   [SHIFTED]" in out, out
+
+
+def _object_trees(base_files, tip_files):
+    """Like _two_trees, but each tree goes straight to the object store (update-index
+    --index-info), so a path may hold any bytes: APFS cannot name a file whose path is not
+    UTF-8. Paths and contents are bytes. Independent of the tool's own builder, so a test
+    that uses it fails on a tool without the fix for the behavioural reason."""
+    import contextlib
+    import os
+
+    mod = _load_module()
+
+    def tree(repo, files):
+        index = os.path.join(repo.cwd, ".git", "test-object-index")
+        if os.path.exists(index):
+            os.remove(index)
+        entries = b""
+        for name, data in files.items():
+            rc, oid = repo.raw("hash-object", "-w", "--stdin", stdin=data)
+            assert rc == 0, repo.err
+            entries += b"100644 %s\t%s\0" % (oid.strip(), name)
+        env = dict(repo.env, GIT_INDEX_FILE=index)
+        subprocess.run(["git", "update-index", "-z", "--index-info"], input=entries, cwd=repo.cwd,
+                       env=env, check=True)
+        return subprocess.run(["git", "write-tree"], cwd=repo.cwd, env=env, check=True,
+                              capture_output=True).stdout.decode("ascii").strip()
+
+    @contextlib.contextmanager
+    def ctx():
+        with mod.fixture_repo([], []) as (repo, _, _t):
+            yield mod, repo, tree(repo, base_files), tree(repo, tip_files)
+    return ctx()
+
+
+def test_a_citer_path_that_is_not_utf8_never_passes_for_another_file():
+    """Read with -z, a citer path is its own bytes. Decoded with 'replace', a citer in
+    directory 0xFF read as `docs/\ufffd/...`: the name of a changed file in directory 0xFE
+    (which the run cannot read, so it must abort: exit 2) or in a directory really named
+    U+FFFD (readable: exit 1, by the link). scan()'s self-cite skip then dropped the cite one
+    line from it, and both runs printed a clean exit 0. And a relative link from that
+    directory landed in the U+FFFD one: a false SHIFTED. Fails at 2d4f8eab7."""
+    vol = b"".join(b"vol line %d\n" % i for i in range(1, 15))
+    moved = b"inserted 1\ninserted 2\ninserted 3\n" + vol
+    for t_dir, want in ((b"\xfe", 2), (b"\xef\xbf\xbd", 1)):
+        rows = [b"c%d" % i for i in range(1, 12)]
+        rows[3] = b"see [main.tex:5](../%s/main.tex)" % t_dir
+        target = b"docs/%s/main.tex" % t_dir
+        files = {target: vol, b"docs/\xff/main.tex": b"\n".join(rows) + b"\n"}
+        tip = dict(files)
+        tip[target] = moved
+        with _object_trees(files, tip) as (mod, repo, b, t):
+            rc, out, seen = _run_seeing_texts(mod, repo, b, t)
+        assert rc == want and "clean \u2014" not in out, (t_dir, rc, out)
+        if want == 1:
+            assert seen == [("docs/\udcff/main.tex", "see [main.tex:5](../\ufffd/main.tex)")], seen
+            assert "pinned by: link target" in out and "  docs/\\xff/main.tex:4  ->  " in out, out
+    # A link to its own directory's main.tex -- there is none -- names nobody: it must not land
+    # in the directory named U+FFFD. The bare name is shared, so the cite is advisory.
+    target = b"docs/\xef\xbf\xbd/main.tex"
+    files = {target: vol, b"papers/main.tex": b"".join(b"letter line %d\n" % i for i in range(1, 41)),
+             b"docs/\xff/notes.md": b"see [main.tex:5](main.tex)\n"}
+    tip = dict(files)
+    tip[target] = moved
+    with _object_trees(files, tip) as (mod, repo, b, t):
+        rc, out, seen = _run_seeing_texts(mod, repo, b, t)
+    assert rc == 0 and "[SHIFTED]" not in out and "AMBIGUOUS-BASENAME, 2 candidates" in out, out
 
 
 # ------------------------------------------------------------- the report and the CLI
