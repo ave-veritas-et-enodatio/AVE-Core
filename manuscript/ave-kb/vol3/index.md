@@ -35,7 +35,7 @@ Macroscopic phenomena derived from the substrate LC vacuum network: gravity, gen
 | Two Impedance Families | Closed-shell alpha cores ($Z \approx 1.37$, $Q = 2.0$) vs. open-shell halo ($Z \sim 0.37$--$0.46$, $Q = 3$--$16$) [CM](./condensed-matter/ch10-material-properties/per-element-impedance-table.md) |
 | Effective DoF $g_*$ | $g_* = 7^3/4 = 85.75$ [CM](./condensed-matter/ch11-thermodynamics/effective-dof-g-star.md) |
 | Baryon Asymmetry | $\eta = 6.08 \times 10^{-10}$; error 0.38% [CM](./condensed-matter/ch11-thermodynamics/baryon-asymmetry.md) |
-| Thermal Softening Correction | $\delta_{th} = 1/(14\pi^2) \approx 0.00721$ [CM](./condensed-matter/ch11-thermodynamics/thermal-softening-correction.md) |
+| Thermal Softening Correction | $\delta_{th} = 1/(14\pi^2) \approx 0.00724$ [CM](./condensed-matter/ch11-thermodynamics/thermal-softening-correction.md) |
 | Neutrino MSW Matter Potential | $V_{CC} = \sqrt{2}\, G_F\, n_e$ [AP](./applied-physics/ch07-stellar-interiors/neutrino-msw-matter-potential.md) |
 | Ideal Gas Law as LC Balance | $U \cdot V = N \cdot k_B \cdot \overline{T_{jitter}}$ [AP](./applied-physics/ch12-ideal-gas-law/lc-energy-balance-equation.md) |
 | Seismic Reflection Coefficient (Moho) | $\Gamma_{\text{Moho}} \approx 0.29$ [AP](./applied-physics/ch13-geophysics/seismic-reflection-coefficient-moho.md) |

@@ -20,18 +20,41 @@ Asserts:
   * main()'s exit codes: 1 on a pinned shift, 0 on the replayed false positive,
     0 on a changed file that nobody cites (the honest zero the yield-inferred
     liveness control used to call a broken finder), and 2 on each failure the
-    control now tests directly -- an unresolvable rev, an erroring `git grep`,
-    a dead self-gate;
+    control now tests directly -- an unresolvable rev, an erroring `git grep` or
+    `git diff-tree`, a dead self-gate;
   * exit 2, never 1, when no verdict was reached (2026-11-07): a crash in any mode,
     a usage error, and a citer blob, changed-file blob or subtree git cannot read
     (deleted, or cut short mid-stream) -- each reported out of band, each read by
     the pre-fix tool as an absent or shorter file, ending in a clean zero; and a
     run from a subdirectory, which read only that subtree. Plus the fix's own
     edges: an added or deleted file, a gitlink, and git tracing from env or config
-    are still not aborts;
-  * a file has exactly the lines `git grep -n` numbers (2026-11-08): no phantom line
-    N+1 after a final newline, so a cite past the last line was never valid at base,
-    and has-line narrowing drops a file one line too short.
+    are still not aborts.
+
+And the 2026-11-01 rules. Re-pinning stale cites on #1037-#1039 showed the checker
+could not confirm a repair: it tested base[new] against tip[new], so a correct
+re-pin read SHIFTED with a wrong next number and a wrong one read the same. And
+`moved_to` took the first identical line in the file, so a `\\begin{itemize}` at
+:717 reported :6 when it had gone to :719. Asserts:
+  * a correct re-pin passes, a wrong one still fails, a repeated line maps to
+    where it went -- directly, through the gate, and through main()'s exit codes;
+  * every row of the tool's own REPINS table holds;
+  * the pure functions read hunk headers, zero-length sides and line pairing the
+    way the docstring says they do.
+
+And their repairs. A diff that gives no address has not agreed; a blank line asks
+the diff; either side of a tie passes; has-line reads a re-pin at both numbers; a
+pair needs no rival and a line moved whole is nobody's re-pin; a final newline is
+not a line. Two things the REPINS table cannot hold are pinned here: a target with a
+NUL byte, and rows alike but for their digits pairing in order.
+
+And the line count end to end (2026-11-08). Line N is the Nth line as `git grep -n`
+numbers it: `line_count()` of a blob as `load()` reads it is checked against git
+itself, including the breaks `str.splitlines()` sees and git does not; a plain cite
+past the last line was never valid at base, whichever way the tip moves, and a re-pin
+from it keeps the plain test; has-line drops a file one line too short, at the number
+a cite held and at the number a re-pin moved it to; and the '' after a final newline
+is no neighbour when put-back lines tie at the end of a file, and no landing for a diff
+that lies.
 
 Run directly (`python tools/tests/test_verify_inbound_cite_shift.py`) or via pytest.
 """
@@ -81,17 +104,33 @@ def test_gate_can_fire_and_negative_controls_hold():
     # the damaged-object probes are part of every run's liveness: pin them, so that
     # dropping one (or the loop) is a test failure and not a quieter self-gate
     damaged = ["citer blob (the only match)", "citer blob (beside a match)",
-               "changed-file blob (deleted)", "changed-file blob (cut short)", "subtree (deleted)"]
+               "changed-file blob (deleted)", "changed-file blob (cut short)",
+               "re-pinning citer blob (deleted)", "subtree (deleted)"]
     for name in damaged:
         assert any(l.lstrip().startswith("[PASS] a damaged %s aborts" % name) for l in lines), name
-    assert len(lines) == 10 + len(damaged)
+    assert sum(l.lstrip().startswith("[PASS] a damaged ") for l in lines) == len(damaged)
+    # and the whole gate: 10 original probes, one per REPINS row plus #1079's 7 re-pin
+    # checks, the damaged objects, and the -U0 context-lines probe -- so dropping ANY
+    # probe, from either side of the #1079 merge, fails here (78 at the merge)
+    assert len(lines) == 10 + len(mod.REPINS) + 7 + len(damaged) + 1, len(lines)
+    assert any(l.lstrip().startswith("[PASS] a `-U0` diff that comes back with context lines") for l in lines)
     assert sorted(mod.LOST) == sorted(damaged)
 
 
 def test_mutation_receipt_holds():
+    import contextlib
+    import io
+
     mod = _load_module()
-    assert mod.mutation_receipt() == 0
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        assert mod.mutation_receipt() == 0
     assert not mod.MUTATE, "a mutation leaked out of the receipt"
+    # Every row present, under its own number. Merging #1079 interleaved #1081's rows
+    # into M6-M39 without a conflict marker; a dropped or renumbered row must fail here.
+    rows = re.findall(r"\[(OK|BROKEN)\] M(\d+) ", buf.getvalue())
+    assert {int(n) for _, n in rows} == set(range(1, 47)), sorted({int(n) for _, n in rows})
+    assert all(status == "OK" for status, _ in rows)
 
 
 def test_explicit_path_to_sibling_does_not_fire_but_a_real_shift_does():
@@ -463,13 +502,26 @@ def test_load_rejects_each_kind_of_short_read_on_its_own():
     mod = _load_module()
     body = b"line 1\nline 2\n"
     whole = b"%s blob %d\n%s\n" % (b"a" * 40, len(body), body)
-    assert _fake_catfile(mod, 0, whole).blob("t", "f.txt") == ["line 1", "line 2"]   # control
+    assert _fake_catfile(mod, 0, whole).blob("t", "f.txt") == ["line 1", "line 2", ""]   # control
     for rc, reply in ((128, whole), (0, whole[:-6]), (0, whole[:whole.index(b"\n") + 1])):
         try:
             got = _fake_catfile(mod, rc, reply).blob("t", "f.txt")
         except mod.GateError:
             continue
         raise AssertionError("rc=%d reply=%r was read as %r" % (rc, reply, got))
+
+
+def test_each_damaged_object_fixture_gives_its_verdict_whole():
+    """The control under every LOST row, pinned as literals: the fixture must reach this
+    verdict with every object present, or the abort it shows when damaged proves
+    nothing. The re-pin row's control is a PASS: its false verdict, with the rule off,
+    is a false SHIFTED."""
+    mod = _load_module()
+    want = {"citer blob (the only match)": "exit 1", "citer blob (beside a match)": "exit 1",
+            "changed-file blob (deleted)": "exit 1", "changed-file blob (cut short)": "exit 1",
+            "re-pinning citer blob (deleted)": "exit 0", "subtree (deleted)": "exit 1"}
+    got = {name: mod.lost_object_verdict(name, damaged=False).split(",")[0] for name in mod.LOST}
+    assert got == want, got
 
 
 def test_an_abort_that_does_not_name_the_damaged_object_proves_nothing():
@@ -496,78 +548,6 @@ def test_main_exit_2_when_a_subtree_cannot_be_read():
     rc, out = _main_out(mod, ["explicit-B"], [mod.B], damage=[("tip", "manuscript", "delete")])
     assert rc == 2, out
     assert "exited 128" in out and "no changed files" not in out
-
-
-# ----------------------------------------- line N+1 of an N-line file (2026-11-08)
-#
-# split('\n') on a file ending in a newline leaves a '' after the last line, so every
-# N-line file "had" a line N+1. A cite to it, dead at base, passed the never-valid-at-
-# base test: a tip one line shorter exited 1 on it with empty was/now lines (review A6
-# on #1081), a longer tip made it EDITED-IN-PLACE. The same phantom line kept a file
-# one line too short alive through has-line narrowing. Each test below fails at ad19aec8.
-
-def _scan_and_exit(base, tip):
-    import contextlib
-    import io
-
-    with _two_trees(base, tip) as (mod, repo, b, t):
-        res = mod.scan(repo, b, t)
-        with contextlib.redirect_stdout(io.StringIO()):
-            rc = mod.main(b, t, repo=repo)
-    return res, rc
-
-
-def test_a_cite_past_the_last_line_was_never_valid_at_base():
-    rows = ["row %d" % i for i in range(1, 15)]                        # 14 lines
-    for n, tip_rows, want in (
-            (15, rows[1:], []),                                         # the review's repro
-            (15, rows + ["row 15, new"], []),                           # the line exists only at tip
-            (14, rows + ["row 15, new"], []),                           # control: the last line holds
-            (14, rows[1:], [("OUT-OF-RANGE", "row 14", "")]),           # control: ...and can move
-            (14, ["new"] + rows, [("SHIFTED", "row 14", "row 13")]),
-            (14, rows[:-1], [("OUT-OF-RANGE", "row 14", "")])):         # the last line deleted
-                                                                        # (was EDITED-IN-PLACE, exit 0)
-        cite = {"docs/c.md": ["see `f.txt:%d`" % n]}
-        res, rc = _scan_and_exit(dict(cite, **{"f.txt": rows}), dict(cite, **{"f.txt": tip_rows}))
-        got = [(f.kind, f.was, f.now) for f in res["pinned"]]
-        assert res["found"] == 1 and got == want and rc == (1 if want else 0), (n, len(tip_rows), got, rc)
-
-
-def test_has_line_drops_a_file_one_line_too_short():
-    """A bare `g.md:15` with a/g.md 14 lines long and b/g.md 40: only b/g.md has line 15."""
-    short, long_ = ["short %d" % i for i in range(1, 15)], ["long %d" % i for i in range(1, 41)]
-    base = {"docs/c.md": ["see `g.md:15`"], "a/g.md": short, "b/g.md": long_}
-    res, rc = _scan_and_exit(base, dict(base, **{"b/g.md": ["inserted"] + long_}))
-    assert [(f.target, f.kind, f.how) for f in res["pinned"]] == [
-        ("b/g.md", "SHIFTED", "bare basename + has-line")] and not res["ambiguous"] and rc == 1
-    res, rc = _scan_and_exit(base, dict(base, **{"a/g.md": short[1:]}))
-    assert res["elsewhere"] == 1 and not res["pinned"] and not res["ambiguous"] and rc == 0
-
-
-def test_line_count_is_git_greps():
-    """The lines `load()` returns are the lines `git grep -n` numbers, the numbering every
-    citer's `:NNN` was read off: empty file, no final newline, a trailing blank line, CRLF.
-    Only `\\n` ends a line for git: a lone `\\r`, VT, FF, NEL and U+2028 do not, though
-    `str.splitlines()` splits on each (a tracked file holds a VT today)."""
-    mod = _load_module()
-    bodies = [b"", b"\n", b"a", b"a\n", b"a\nb", b"a\n\n", b"a\r\nb\r\n",
-              b"a\rb\n", b"a\x0bb\n", b"a\x0cb\n", "a\x85b\n".encode(), "a b\n".encode()]
-    with mod.fixture_repo([], []) as (repo, _, _t):
-        rows = []
-        for k, body in enumerate(bodies):
-            rc, out = repo.raw("hash-object", "-w", "--stdin", stdin=body)
-            assert rc == 0, repo.err
-            rows.append("100644 blob %s\tf%d" % (out.decode().strip(), k))
-        rc, out = repo.raw("mktree", stdin=("\n".join(rows) + "\n").encode())
-        assert rc == 0, repo.err
-        tree = out.decode().strip()
-        for k, body in enumerate(bodies):
-            rc, out = repo.raw("grep", "-c", "-e", "", tree, "--", "f%d" % k)
-            assert rc in (0, 1), repo.err
-            want = int(out.decode().rsplit(":", 1)[1]) if out.strip() else 0
-            got = repo.blob(tree, "f%d" % k)
-            assert len(got) == want, (body, got, want)
-    assert _fake_catfile(mod, 0, b"%s blob 0\n\n" % (b"a" * 40)).blob("t", "f.txt") == []
 
 
 # The fix must not turn ordinary absence into an abort. These pass on the pre-fix tool
@@ -623,6 +603,108 @@ def test_git_tracing_does_not_abort_a_run():
         shutil.rmtree(home, ignore_errors=True)
 
 
+def test_git_diff_opts_does_not_reach_the_real_run():
+    """GIT_DIFF_OPTS=--unified=N overrides even plumbing's -U0. Through #1079's re-pin
+    check, a hunk widened by context lines let a WRONG re-pin "land on the row that
+    replaced it" and the run exited 0. The real run scrubs the variable."""
+    import os
+
+    mod = _load_module()
+    saved = dict(os.environ)
+    with mod.two_trees(*mod._context_trees()) as (fixture, b, t):
+        try:
+            env = _git_free_env(GIT_DIFF_OPTS="--unified=3")
+            os.environ.clear()
+            os.environ.update(env)
+            repo = mod.Repo(cwd=fixture.cwd)                   # the real-run constructor
+        finally:
+            os.environ.clear()
+            os.environ.update(saved)
+        assert "GIT_DIFF_OPTS" not in repo.env
+        assert mod.main(b, t, repo=repo) == 1
+
+
+def test_a_diff_with_context_lines_voids_the_run():
+    """The belt behind the scrub: a -U0 diff that comes back with context lines, from
+    any source, is a `git diff-tree` error, not a smaller set of changes."""
+    mod = _load_module()
+    assert mod.diff_context_verdict(inject=False) == "exit 1"         # the wrong re-pin fails
+    assert mod.diff_context_verdict() == "ABORT"
+    mod.MUTATE.add("diff-context-ok")
+    try:
+        assert mod.diff_context_verdict() == "exit 0"                   # what the belt prevents
+        # ...and an abort for another reason (a stray grep error) is not the belt firing
+        real = mod.Repo.raw
+
+        def stray(self, *a, stdin=None):
+            rc, out = real(self, *a, stdin=stdin)
+            if a[:1] == ("grep",):
+                self.err = "error: something unrelated"
+            return rc, out
+
+        mod.Repo.raw = stray
+        try:
+            assert mod.diff_context_verdict().startswith("ABORT, but not on docs/t.md")
+        finally:
+            mod.Repo.raw = real
+    finally:
+        mod.MUTATE.discard("diff-context-ok")
+
+
+def test_the_self_gate_runs_its_object_probes_rather_than_printing_them():
+    """A probe's [PASS] line is only worth the probe behind it: if a damaged-object or
+    context-lines probe stops aborting, run_gate() must fail, not print the same line."""
+    mod = _load_module()
+    for name in ("lost_object_verdict", "diff_context_verdict"):
+        real = getattr(mod, name)
+        setattr(mod, name, lambda *a, **k: "exit 0, cites-found=0")
+        try:
+            lines = []
+            assert not mod.run_gate(out=lines.append), name
+            assert any("[FAIL]" in l for l in lines), name
+        finally:
+            setattr(mod, name, real)
+
+
+def test_a_file_without_a_final_newline_is_no_context_line():
+    """`\\ No newline at end of file` is part of healthy -U0 output; only a line that starts
+    with a space is context. A cited last line rewritten in a file with no final newline
+    reads EDITED-IN-PLACE (advisory, exit 0), never a diff error."""
+    import os
+
+    mod = _load_module()
+    with mod.two_trees({}, {}) as (repo, _, _t):
+        trees = []
+        for last in (b"row 5", b"row 5, rewritten"):
+            os.makedirs(os.path.join(repo.cwd, "docs"), exist_ok=True)
+            with open(os.path.join(repo.cwd, "docs", "t.md"), "wb") as fh:
+                fh.write(b"row 1\nrow 2\nrow 3\nrow 4\n" + last)       # no final newline
+            with open(os.path.join(repo.cwd, "docs", "c.md"), "wb") as fh:
+                fh.write(b"see `docs/t.md:5`\n")
+            repo.raw("add", "-A", "-f", ".")
+            trees.append(repo.sh("write-tree").strip())
+        b, t = trees
+        diff = repo.sh("diff-tree", "-p", "-U0", b, t, "--", "docs/t.md")
+        assert "No newline at end of file" in diff                     # the case is real
+        res = mod.scan(repo, b, t)
+    assert not res["diff_errors"], res["diff_errors"]
+    assert not mod.scan_errors(res)
+    assert [f.kind for f in res["pinned"]] == ["EDITED-IN-PLACE"]       # advisory: exit 0
+
+
+def test_main_exit_2_when_git_diff_tree_errors():
+    mod = _load_module()
+
+    class DiffFails(mod.Repo):
+        def raw(self, *a, stdin=None):
+            if "diff-tree" in a:
+                return 128, b""
+            return super().raw(*a, stdin=stdin)
+
+    # without the return-code check every re-pin quietly loses its base number
+    assert _main_rc(mod, mod.ALL, [mod.B], repo_cls=DiffFails) == 2
+
+
 def test_report_names_the_rule_behind_every_verdict():
     """A disputed report has to be arguable: each one says which rule produced it."""
     import contextlib
@@ -645,6 +727,527 @@ def test_cli_selftest_exit_code():
     r = subprocess.run([sys.executable, str(_TOOL), "--selftest"], capture_output=True, text=True)
     assert r.returncode == 0, r.stdout + r.stderr
     assert "SELF-TEST OK" in r.stdout
+
+
+# ------------------------------------------------------- which number, which line
+
+def _repin_rc(mod, keys):
+    with mod.two_trees(*mod._repin_trees(keys)) as (repo, base, tip):
+        return mod.main(base, tip, repo=repo)
+
+
+def test_correct_repin_passes():
+    """The defect as measured: the citer moved from :old to :new with its target and
+    still read SHIFTED, because base[new] was tested instead of base[old]."""
+    mod = _load_module()
+    got, rc = mod.repin_scan(["correct"])
+    assert got == {"correct": [(9, 12, "RE-PINNED", 12)]} and rc == 0
+
+
+def test_correct_repin_reads_shifted_without_the_rule():
+    mod = _load_module()
+    mod.MUTATE.add("no-repin")
+    try:
+        got, rc = mod.repin_scan(["correct"])
+    finally:
+        mod.MUTATE.discard("no-repin")
+    assert got["correct"][0][2] == "SHIFTED" and rc == 1
+
+
+def test_wrong_repin_still_fails_and_names_the_right_number():
+    mod = _load_module()
+    got, rc = mod.repin_scan(["wrong"])
+    assert got == {"wrong": [(9, 13, "SHIFTED", 12)]} and rc == 1
+
+
+def test_repin_onto_an_identical_line_still_fails():
+    """Equal text is not proof on a repeated line: base[6] and tip[2] are both
+    `\\begin{itemize}`, but the diff says the cited one went to :9."""
+    mod = _load_module()
+    assert mod.repin_scan(["lookalike"])[0] == {"lookalike": [(6, 2, "SHIFTED", 9)]}
+
+
+def test_repeated_line_maps_to_where_it_went():
+    mod = _load_module()
+    assert mod.TARGET_BASE[7] == mod.TARGET_TIP[3] == mod.TARGET_TIP[10] == mod.ENDIZE
+    assert mod.repin_scan(["repeated"])[0] == {"repeated": [(8, 8, "SHIFTED", 11)]}
+    mod.MUTATE.add("first-identical")
+    try:
+        assert mod.repin_scan(["repeated"])[0] == {"repeated": [(8, 8, "SHIFTED", 4)]}
+    finally:
+        mod.MUTATE.discard("first-identical")
+
+
+def test_every_row_of_the_fixture_table():
+    mod = _load_module()
+    got, rc = mod.repin_scan()
+    assert rc == 1
+    for key, row in mod.REPINS.items():
+        assert got.get(key, []) == row[2], key
+
+
+def test_only_correct_repins_pass_the_run_and_one_wrong_one_fails_it():
+    mod = _load_module()
+    assert _repin_rc(mod, ["correct", "prose", "moved", "two", "untouched"]) == 0
+    assert _repin_rc(mod, ["correct", "prose", "moved", "two", "untouched", "wrong"]) == 1
+
+
+def test_report_confirms_a_repin_and_names_both_numbers():
+    import contextlib
+    import io
+
+    mod = _load_module()
+    buf = io.StringIO()
+    with mod.two_trees(*mod._repin_trees(["correct", "wrong", "gone"])) as (repo, base, tip):
+        with contextlib.redirect_stdout(buf):
+            mod.report(mod.scan(repo, base, tip), verbose=True)
+    out = buf.getvalue()
+    assert "RE-PINNED=1 (confirmed repairs)" in out and "SHIFTED=2 (real rot)" in out
+    assert ":12   [RE-PINNED] -- re-pinned from :9, confirmed" in out
+    assert ":13   [SHIFTED] -- re-pinned from :9; base content is now at :12" in out
+    assert ":5   [UNCONFIRMED-RE-PIN] -- re-pinned from :10; the base content is gone" in out
+    assert "RETARGETED=0 (advisory)" in out
+
+
+def test_report_says_what_a_retarget_is_without_guessing_why():
+    import contextlib
+    import io
+
+    mod = _load_module()
+    buf = io.StringIO()
+    with mod.two_trees(*mod._repin_trees(["retargeted"])) as (repo, base, tip):
+        with contextlib.redirect_stdout(buf):
+            mod.report(mod.scan(repo, base, tip), verbose=True)
+    out = buf.getvalue()
+    assert "[RETARGETED] -- re-pinned from :1; no repair to confirm: the cited line stayed put and" in out
+    assert "on purpose" not in out
+
+
+def test_retarget_is_advisory_and_a_miss_onto_a_still_line_is_not():
+    """#915 moved nothing in `trampoline-framework.md` and corrected `:188` to `:192`,
+    a cite wrong at the base: comparing the two lines alone called that rot. But a
+    re-pin whose content DID move must fail even when it lands on a still line, where
+    the plain test passes it."""
+    mod = _load_module()
+    assert mod.repin_scan(["retargeted"]) == ({"retargeted": [(1, 3, "RETARGETED", 0)]}, 0)
+    assert mod.repin_scan(["missed-onto-still"]) == (
+        {"missed-onto-still": [(9, 2, "SHIFTED", 12)]}, 1)
+
+
+def test_a_repin_from_a_blank_onto_text_has_nothing_to_compare():
+    """A blank base line has no text to reach for, so onto a line with text the diff
+    is not asked and the cited line is never seen to stay put. That is gone content:
+    onto a moved line or a still one alike, nothing confirms it."""
+    mod = _load_module()
+    base, tip = ["a", "", "c"], ["x", "a", "", "c"]
+    repo = _Stub(base, tip, [(1, 0, 1, 1)])
+    assert mod.verdict(repo, "B", "T", "t.md", base, tip, 2, 1) == ("UNCONFIRMED-RE-PIN", 0)   # :1 moved
+    still = ["a", "", "c", "d"]
+    repo = _Stub(still, still, [])
+    assert mod.verdict(repo, "B", "T", "t.md", still, still, 2, 3) == ("UNCONFIRMED-RE-PIN", 0)
+
+
+def test_report_does_not_call_a_blank_cited_line_gone():
+    """A blank line can still be there: it is unconfirmable, not gone."""
+    mod = _load_module()
+    blank = mod.Finding("a.md", 1, "b.md", 3, "UNCONFIRMED-RE-PIN", "", "c", 0, ("b.md",), "path", 2)
+    assert "gone" not in mod._arrow(blank) and "blank" in mod._arrow(blank)
+    text = blank._replace(was="old text")
+    assert "the base content is gone" in mod._arrow(text)
+
+
+def test_a_repin_of_a_blank_line_onto_a_blank_line_asks_the_diff():
+    mod = _load_module()
+    base, tip = ["a", "", "b", "", "c"], ["x", "a", "", "b", "", "c"]
+    repo = _Stub(base, tip, [(1, 0, 1, 1)])
+    assert mod.verdict(repo, "B", "T", "t.md", base, tip, 2, 3) == ("RE-PINNED", 3)
+    assert mod.verdict(repo, "B", "T", "t.md", base, tip, 2, 5) == ("SHIFTED", 3)
+
+
+def test_a_repin_onto_a_look_alike_of_a_deleted_line_fails_with_no_address():
+    """The regression: the diff took :5 out, so it gave no address, and that read as
+    agreement. main's tool exits 1 here."""
+    mod = _load_module()
+    base, tip = ["a", "dup", "b", "c", "dup", "d"], ["a", "dup", "b", "c", "d"]
+    repo = _Stub(base, tip, [(5, 1, 5, 0)])
+    assert mod.verdict(repo, "B", "T", "t.md", base, tip, 5, 2) == ("SHIFTED", 0)
+
+
+def test_lines_at_tip_keeps_both_sides_of_a_tie_and_the_address_keeps_neither():
+    mod = _load_module()
+    base, tip = ["p", "same", "q"], ["same", "p", "q", "same"]
+    hunks = [(1, 0, 1, 1), (2, 1, 3, 0), (4, 0, 4, 1)]
+    assert mod.lines_at_tip(hunks, base, tip, 2) == [1, 4]
+    assert mod.address_at_tip(hunks, base, tip, 2) == 0
+
+
+def test_a_correct_repin_exits_0_and_a_look_alike_exits_1_through_main():
+    mod = _load_module()
+    assert _repin_rc(mod, ["blank-right", "tie-near", "tie-far"]) == 0
+    assert _repin_rc(mod, ["lookalike-gone"]) == 1
+    assert _repin_rc(mod, ["blank-wrong"]) == 1
+    assert _repin_rc(mod, ["tie-off"]) == 1
+
+
+def test_has_line_reads_a_repin_at_both_numbers():
+    """Three ways round, on a short and a long file sharing a name. A re-pin the short
+    file cannot hold at tip gates; one that crossed files stays with the file that held
+    it, so a shift in the short one goes unreported, on purpose: its text names neither."""
+    mod = _load_module()
+    long_, short = "a/main.tex", "b/main.tex"
+    lines = lambda tag, k: ["%s %d" % (tag, i) for i in range(1, k + 1)]
+
+    def scanned(moved, was, now):
+        base = {long_: lines("long", 60), short: lines("short", 20), "c.md": ["bare `main.tex:%d`" % was]}
+        tip = dict(base, **{"c.md": ["bare `main.tex:%d`" % now]})
+        for p in moved:
+            tip[p] = ["new"] * 3 + base[p]
+        with mod.two_trees(base, tip) as (repo, b, t):
+            return mod.scan(repo, b, t)
+
+    res = scanned([long_], 10, 50)                          # wrong: the content went to :13
+    assert [(f.held, f.n, f.kind, f.moved_to) for f in res["pinned"]] == [(10, 50, "SHIFTED", 13)]
+    assert not res["ambiguous"]
+    res = scanned([long_, short], 50, 13)                   # only the long file held :50
+    assert [(f.target, f.kind, f.moved_to) for f in res["pinned"]] == [(long_, "SHIFTED", 53)]
+    res = scanned([short], 50, 13)                          # the long file did not change
+    assert not res["pinned"] and not res["ambiguous"]
+
+
+def test_has_line_falls_back_to_the_base_number_past_every_tip_end():
+    """No file holds :99 at tip. That is an advisory OUT-OF-RANGE, not a vanished cite."""
+    mod = _load_module()
+    assert mod.repin_scan(["past-tip-end"])[0] == {"past-tip-end": [(9, 99, "OUT-OF-RANGE", 0)]}
+    base = {"a/m.md": ["x"] * 30, "b/m.md": ["y"] * 30, "c.md": ["bare `m.md:9`"]}
+    tip = dict(base, **{"a/m.md": ["new"] + base["a/m.md"], "c.md": ["bare `m.md:99`"]})
+    with mod.two_trees(base, tip) as (repo, b, t):
+        res = mod.scan(repo, b, t)
+    assert [(f.held, f.n, f.kind) for f in res["ambiguous"]] == [(9, 99, "OUT-OF-RANGE")]
+
+
+def test_line_count_ignores_only_the_final_newline():
+    mod = _load_module()
+    assert mod.line_count("a\nb\n".split("\n")) == 2
+    assert mod.line_count("a\nb".split("\n")) == 2
+    assert mod.line_count("a\n\n".split("\n")) == 2
+    assert mod.line_count("".split("\n")) == 0
+
+
+def test_line_count_of_a_loaded_blob_is_git_greps():
+    """`line_count()` of a blob as `load()` reads it is the count `git grep -c ''` gives,
+    the numbering every citer's `:NNN` was read off: an empty file, no final newline, a
+    trailing blank line, CRLF. Only `\\n` ends a line for git: a lone `\\r`, VT, FF, NEL
+    and U+2028 do not, though `str.splitlines()` splits on each (a tracked file holds a
+    VT today). The pure test above cannot see `load()`: a second trim of the final ''
+    there, or a splitlines(), fails here."""
+    mod = _load_module()
+    bodies = [b"", b"\n", b"a", b"a\n", b"a\nb", b"a\n\n", b"a\r\nb\r\n",
+              b"a\rb\n", b"a\x0bb\n", b"a\x0cb\n", "a\x85b\n".encode(), "a\u2028b\n".encode()]
+    with mod.fixture_repo([], []) as (repo, _, _t):
+        rows = []
+        for k, body in enumerate(bodies):
+            rc, out = repo.raw("hash-object", "-w", "--stdin", stdin=body)
+            assert rc == 0, repo.err
+            rows.append("100644 blob %s\tf%d" % (out.decode().strip(), k))
+        rc, out = repo.raw("mktree", stdin=("\n".join(rows) + "\n").encode())
+        assert rc == 0, repo.err
+        tree = out.decode().strip()
+        for k, body in enumerate(bodies):
+            rc, out = repo.raw("grep", "-c", "-e", "", tree, "--", "f%d" % k)
+            assert rc in (0, 1), repo.err
+            want = int(out.decode().rsplit(":", 1)[1]) if out.strip() else 0
+            got = repo.blob(tree, "f%d" % k)
+            assert mod.line_count(got) == want, (body, got, want)
+
+
+def _scan_and_exit(mod, base, tip):
+    """scan(), and the exit code main() gives it once liveness has passed (repin_scan's rule)."""
+    import contextlib
+    import io
+
+    with mod.two_trees(base, tip) as (repo, b, t):
+        res = mod.scan(repo, b, t)
+    with contextlib.redirect_stdout(io.StringIO()):
+        rc = 2 if mod.scan_errors(res) else mod.report(res)
+    return res, rc
+
+
+def test_a_plain_cite_past_the_last_line_was_never_valid_at_base():
+    """A cite that kept its number, at the end of a 14-line file. :15 never existed, so
+    nothing moved under it whichever way the tip changes; :14 can move, run off the end
+    of a shorter tip, or lose its line outright."""
+    mod = _load_module()
+    rows = ["row %d" % i for i in range(1, 15)]                        # 14 lines
+    for n, tip_rows, want in (
+            (15, rows[1:], []),                                         # tip one line shorter
+            (15, rows + ["row 15, new"], []),                           # the line exists only at tip
+            (14, rows + ["row 15, new"], []),                           # control: the last line holds
+            (14, rows[1:], [("OUT-OF-RANGE", "row 14", "")]),           # ...runs off a shorter tip
+            (14, ["new"] + rows, [("SHIFTED", "row 14", "row 13")]),    # ...moves
+            (14, rows[:-1], [("OUT-OF-RANGE", "row 14", "")])):         # ...is deleted
+        cite = {"docs/c.md": ["see `f.txt:%d`" % n]}
+        res, rc = _scan_and_exit(mod, dict(cite, **{"f.txt": rows}), dict(cite, **{"f.txt": tip_rows}))
+        got = [(f.kind, f.was, f.now) for f in res["pinned"]]
+        assert res["found"] == 1 and got == want and rc == (1 if want else 0), (n, len(tip_rows), got, rc)
+    # A re-pin FROM :15 holds a number dead at base, so it keeps the plain test at its new one.
+    for tip_rows, want in ((["new"] + rows, [("SHIFTED", "row 3", "row 2", 4)]),
+                           (rows[:9] + ["row 10, edited"] + rows[10:], [])):
+        res, rc = _scan_and_exit(mod, {"docs/c.md": ["see `f.txt:15`"], "f.txt": rows},
+                                 {"docs/c.md": ["see `f.txt:3`"], "f.txt": tip_rows})
+        got = [(f.kind, f.was, f.now, f.moved_to) for f in res["pinned"]]
+        assert res["tested"] == 1 and got == want and rc == (1 if want else 0), (got, rc)
+
+
+def test_has_line_drops_a_file_one_line_too_short():
+    """A bare `g.md:15` with a/g.md 14 lines long and b/g.md 40: only b/g.md has line 15,
+    whether the cite held :15 at base or a re-pin moved it there."""
+    mod = _load_module()
+    short, long_ = ["short %d" % i for i in range(1, 15)], ["long %d" % i for i in range(1, 41)]
+    base = {"docs/c.md": ["see `g.md:15`"], "a/g.md": short, "b/g.md": long_}
+    res, rc = _scan_and_exit(mod, base, dict(base, **{"b/g.md": ["inserted"] + long_}))
+    assert [(f.target, f.kind, f.how) for f in res["pinned"]] == [
+        ("b/g.md", "SHIFTED", "bare basename + has-line")] and not res["ambiguous"] and rc == 1
+    res, rc = _scan_and_exit(mod, base, dict(base, **{"a/g.md": short[1:]}))
+    assert res["elsewhere"] == 1 and not res["pinned"] and not res["ambiguous"] and rc == 0
+    # A bare re-pin onto :15 asks each file for :15 at tip: a/g.md, still 14 lines, has none.
+    res, rc = _scan_and_exit(mod, dict(base, **{"docs/c.md": ["see `g.md:10`"]}),
+                             dict(base, **{"docs/c.md": ["see `g.md:15`"], "b/g.md": ["inserted"] + long_}))
+    assert [(f.target, f.held, f.n, f.kind, f.moved_to) for f in res["pinned"]] == [
+        ("b/g.md", 10, 15, "SHIFTED", 11)] and not res["ambiguous"] and rc == 1
+
+
+def test_a_tie_at_the_end_of_a_file_counts_no_phantom_neighbour():
+    """The cited base line sits at or next to the end of its file; the diff takes it out
+    and puts it back at two tip lines (they differ from it only in whitespace, which git
+    sees and strip() does not). The '' after a final newline is no line, so it agrees with
+    nothing. Counted, it forged a tie in A, where only :2 has a real neighbour; broke the
+    true ties in B, C and D; and turned a correct re-pin into a fail and a wrong one into
+    a pass. The start of a file, with no '' before line 1, was always read right (A
+    mirrored). Two real lines still agree at the end: the last line of a file with no
+    final newline, and a real blank line."""
+    mod = _load_module()
+    for key, base, tip, n, put, addr in (
+            ("A", ["a", "w", "X"], ["w ", "X ", "c", "d", "X\t"], 3, [2], 2),    # only :2 has a neighbour
+            ("A mirrored", ["X", "w", "a"], ["X\t", "d", "c", "X ", "w "], 1, [4], 4),
+            ("B", ["a", "b", "X"], ["X ", "c", "d", "e", "X\t"], 3, [1, 5], 0),   # neither has one
+            ("C", ["a", "X"], ["X ", "", "c", "X\t", "d"], 2, [1, 4], 0),         # base '' vs a real blank
+            ("D", ["a", "X", ""], ["X ", "c", "X\t"], 2, [1, 3], 0),             # a real blank vs tip ''
+            ("E", ["a", "", "X", "q"], ["X ", "r", "", "X\t", "s"], 3, [4], 4)):  # two real blanks agree
+        with mod.two_trees({"f.md": base}, {"f.md": tip}) as (repo, b, t):
+            B, T, H = repo.blob(b, "f.md"), repo.blob(t, "f.md"), repo.hunks(b, t, "f.md")
+        assert (mod.lines_at_tip(H, B, T, n), mod.address_at_tip(H, B, T, n)) == (put, addr), key
+    # No final newline: the real last line `z` is a neighbour like any other.
+    with mod.fixture_repo([], []) as (repo, _, _t):
+        trees = []
+        for body in (b"X\nz", b"X \nz\nX\t\nq"):
+            rc, out = repo.raw("hash-object", "-w", "--stdin", stdin=body)
+            assert rc == 0, repo.err
+            rc, out = repo.raw("mktree", stdin=("100644 blob %s\tf.md\n" % out.decode().strip()).encode())
+            assert rc == 0, repo.err
+            trees.append(out.decode().strip())
+        B, T, H = repo.blob(trees[0], "f.md"), repo.blob(trees[1], "f.md"), repo.hunks(trees[0], trees[1], "f.md")
+        assert (mod.lines_at_tip(H, B, T, 1), mod.address_at_tip(H, B, T, 1)) == ([1], 1), (B, T, H)
+    for base, tip, was, now, want in (
+            (["a", "w", "X"], ["w ", "X ", "c", "d", "X\t"], 3, 5, [("SHIFTED", 2)]),   # a wrong re-pin
+            (["a", "b", "X"], ["X ", "c", "d", "e", "X\t"], 3, 1, [("RE-PINNED", 1)])):  # one side of a tie
+        res, rc = _scan_and_exit(mod, {"docs/c.md": ["see `f.md:%d`" % was], "f.md": base},
+                                 {"docs/c.md": ["see `f.md:%d`" % now], "f.md": tip})
+        got = [(f.kind, f.moved_to) for f in res["pinned"]]
+        assert got == want and rc == (1 if want[0][0] == "SHIFTED" else 0), (was, now, got, rc)
+
+
+def test_a_diff_that_lies_cannot_land_a_line_on_the_phantom():
+    """A wrong hunk costs the address and never invents one: the confirm step reads the
+    tip's lines, and the '' after its final newline is not one. Base `x y <blank>` (3
+    lines), tip `x y` (2); a diff that reports no change aligns the blank :3 with the tip's
+    '' -- equal text, no line."""
+    mod = _load_module()
+    base, tip = "x\ny\n\n".split("\n"), "x\ny\n".split("\n")
+    assert mod.lines_at_tip([], base, tip, 3) == [] and mod.address_at_tip([], base, tip, 3) == 0
+
+
+def test_report_does_not_invent_an_address():
+    import contextlib
+    import io
+
+    mod = _load_module()
+    buf = io.StringIO()
+    with mod.two_trees(*mod._repin_trees(["taken-out"])) as (repo, base, tip):
+        with contextlib.redirect_stdout(buf):
+            mod.report(mod.scan(repo, base, tip))
+    assert "the diff took this line out" in buf.getvalue()
+    assert "is now at" not in buf.getvalue()
+
+
+def test_report_leaves_nothing_dangling_on_a_plain_out_of_range():
+    mod = _load_module()
+    f = mod.Finding("a.md", 1, "b.md", 9, "OUT-OF-RANGE", "x", "", 0, ("b.md",), "path", 9)
+    assert mod._arrow(f) == ""
+
+
+def test_repins_are_listed_only_under_verbose():
+    import contextlib
+    import io
+
+    mod = _load_module()
+    with mod.two_trees(*mod._repin_trees(["correct"])) as (repo, base, tip):
+        res = mod.scan(repo, base, tip)
+    plain, verbose = io.StringIO(), io.StringIO()
+    with contextlib.redirect_stdout(plain):
+        assert mod.report(res) == 0
+    with contextlib.redirect_stdout(verbose):
+        assert mod.report(res, verbose=True) == 0
+    assert "re-pinned from" not in plain.getvalue() and "clean" in plain.getvalue()
+    assert "re-pinned from :9" in verbose.getvalue()
+
+
+class _Stub:
+    """The two Repo calls the pairing reads, over literal blobs and hunks."""
+
+    def __init__(self, base, tip, hunks):
+        self.lines, self._hunks = {"B": base, "T": tip}, hunks
+
+    def blob(self, rev, path):
+        return self.lines[rev]
+
+    def hunks(self, base, tip, path):
+        return self._hunks
+
+
+def test_hunk_headers_including_zero_length_sides():
+    mod = _load_module()
+    files = ({"a.md": ["1", "2", "3", "4"]}, {"a.md": ["1", "x", "2", "4", "5"]})
+    with mod.two_trees(*files) as (repo, base, tip):
+        hunks = repo.hunks(base, tip, "a.md")
+        assert hunks == [(2, 0, 2, 1), (3, 1, 4, 0), (5, 0, 5, 1)]
+        assert hunks == repo.hunks(base, tip, "a.md") and not repo.diff_errors
+
+
+def test_hunks_of_a_path_with_pathspec_magic():
+    mod = _load_module()
+    path = "docs/[draft]*.md"
+    with mod.two_trees({path: ["a"], "docs/dx.md": ["b"]}, {path: ["c"], "docs/dx.md": ["d", "e"]}) as (repo, b, t):
+        assert repo.hunks(b, t, path) == [(1, 1, 1, 1)]
+
+
+def test_address_reads_the_shift_off_the_hunks():
+    mod = _load_module()
+    base, tip = ["a", "b", "c"], ["x", "y", "a", "b", "c"]
+    hunks = [(1, 0, 1, 2)]
+    assert mod.address_at_tip(hunks, base, tip, 1) == 3
+    assert mod.address_at_tip(hunks, base, tip, 3) == 5
+
+
+def test_address_of_a_line_above_every_hunk_is_itself():
+    mod = _load_module()
+    assert mod.address_at_tip([(3, 0, 3, 1)], ["a", "b", "c"], ["a", "b", "x", "c"], 2) == 2
+
+
+def test_address_is_zero_when_the_line_is_gone_and_not_put_back():
+    mod = _load_module()
+    assert mod.address_at_tip([(2, 1, 2, 0)], ["a", "b", "c"], ["a", "c"], 2) == 0
+
+
+def test_address_gives_up_when_two_put_back_lines_cannot_be_told_apart():
+    mod = _load_module()
+    base, tip = ["p", "same", "q"], ["same", "p", "q", "same"]
+    assert mod.address_at_tip([(1, 0, 1, 1), (2, 1, 3, 0), (4, 0, 4, 1)], base, tip, 2) == 0
+
+
+def test_address_confirms_equal_after_strip_as_the_verdict_does():
+    mod = _load_module()
+    assert mod.address_at_tip([(1, 2, 1, 2)], ["  a", "b"], ["x", "a"], 1) == 2
+
+
+def test_number_is_recovered_only_from_a_line_the_branch_rewrote():
+    mod = _load_module()
+    cites = mod.leaf_cites("see `a.md:9`", "a.md")
+    assert mod.number_at_base("see `a.md:5`", "a.md", 0, cites) == 5
+    assert mod.number_at_base(None, "a.md", 0, cites) == 9
+
+
+def test_number_is_not_recovered_from_a_line_with_a_different_count():
+    mod = _load_module()
+    cites = mod.leaf_cites("`a.md:9` and `a.md:12`", "a.md")
+    assert mod.number_at_base("`a.md:5`", "a.md", 1, cites) == 12
+
+
+def test_pairing_is_computed_once_per_citer():
+    mod = _load_module()
+    calls = []
+    real = mod.rewritten_lines
+
+    def counted(repo, base, tip, src):
+        calls.append(src)
+        return real(repo, base, tip, src)
+
+    mod.rewritten_lines = counted
+    try:
+        mod.repin_scan()
+    finally:
+        mod.rewritten_lines = real
+    assert calls == [mod.REPINNED]
+
+
+def test_a_new_line_in_a_longer_hunk_recovers_nothing():
+    mod = _load_module()
+    base, tip = ["unrelated"], ["first `a.md:5`", "second `a.md:6`"]
+    assert mod.rewritten_lines(_Stub(base, tip, [(1, 1, 1, 2)]), "B", "T", "src.md") == {}
+
+
+def test_numberless_pairing_survives_a_longer_hunk():
+    mod = _load_module()
+    base, tip = ["see `a.md:5`"], ["a new line", "see `a.md:9`"]
+    assert mod.rewritten_lines(_Stub(base, tip, [(1, 1, 1, 2)]), "B", "T", "src.md") == {2: 1}
+
+
+def test_a_line_moved_whole_pairs_with_itself_before_any_lookalike():
+    mod = _load_module()
+    base, tip = ["see `a.md:1`", "x", "see `a.md:2`"], ["see `a.md:2`", "x", "see `a.md:1`"]
+    pairs = mod.rewritten_lines(_Stub(base, tip, [(1, 1, 1, 1), (3, 1, 3, 1)]), "B", "T", "s.md")
+    assert pairs == {1: 3, 3: 1}
+
+
+def test_a_lone_pair_needs_no_rival_on_the_tip_side_either():
+    """A new row beside a re-pinned one: which replaced the base row is a guess."""
+    mod = _load_module()
+    base, tip = ["see `a.md:5`"], ["see `a.md:7`", "see `a.md:9`"]
+    assert mod.rewritten_lines(_Stub(base, tip, [(1, 1, 1, 2)]), "B", "T", "s.md") == {}
+
+
+def test_rows_alike_but_for_their_digits_keep_their_order_in_a_hunk():
+    """Two near-identical rows, both re-pinned. Numberless pairing refuses them, so the
+    hunk has to give the k-th new row the k-th old one. On #1039 the four re-pins into
+    `mathematical-closure.md` are this shape."""
+    mod = _load_module()
+    base = {"t.md": ["t%d" % i for i in range(1, 9)], "c.md": ["see `t.md:2`", "gap", "see `t.md:4`"]}
+    tip = {"t.md": ["new"] + base["t.md"], "c.md": ["see `t.md:3`", "gap", "see `t.md:5`"]}
+    with mod.two_trees(base, tip) as (repo, b, t):
+        res = mod.scan(repo, b, t)
+    assert [(f.lno, f.held, f.n, f.kind) for f in res["pinned"]] == [
+        (1, 2, 3, "RE-PINNED"), (3, 4, 5, "RE-PINNED")]
+    base["c.md"], tip["c.md"] = ["see `t.md:2`", "see `t.md:4`"], ["see `t.md:3`", "see `t.md:5`"]
+    with mod.two_trees(base, tip) as (repo, b, t):
+        res = mod.scan(repo, b, t)
+    assert [(f.held, f.n, f.kind) for f in res["pinned"]] == [(2, 3, "RE-PINNED"), (4, 5, "RE-PINNED")]
+
+
+def test_a_target_holding_a_nul_byte_is_still_read_as_text():
+    """Without --text git calls the file binary and prints no hunks, so the address
+    of every line in it is lost."""
+    mod = _load_module()
+    base = {"t.md": ["a\0", "b", "c"], "c.md": ["see `t.md:2`"]}
+    tip = {"t.md": ["new", "a\0", "b", "c"], "c.md": ["see `t.md:2`"]}
+    with mod.two_trees(base, tip) as (repo, b, t):
+        assert repo.hunks(b, t, "t.md") == [(1, 0, 1, 1)]
+        res = mod.scan(repo, b, t)
+    assert [(f.kind, f.moved_to) for f in res["pinned"]] == [("SHIFTED", 3)]
+
+
+def test_leaf_cites_skips_a_name_that_merely_ends_in_the_leaf():
+    mod = _load_module()
+    cites = mod.leaf_cites("`universal-operators.md:3` then `common/operators.md:4`", "operators.md")
+    assert [int(m.group(2)) for m in cites] == [4]
 
 
 # ------------------------------------------------- the pure addressing functions

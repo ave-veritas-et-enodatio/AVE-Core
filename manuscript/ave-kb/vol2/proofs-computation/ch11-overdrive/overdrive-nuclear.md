@@ -33,6 +33,6 @@ The engine predicts:
 
 - **Binding energy:** The summed $\sum K/d_{ij}$ converges to the empirical nuclear binding energy (CODATA) with $< 0.01\%$ error for light nuclei ($A \leq 28$), and sub-percent accuracy through the actinides.
 - **Geometry:** Dense-packed crystalline lattice with inter-nucleon separations converging to $d_{intra} = d_p \sqrt{8} \approx 2.38$ fm (tetrahedral edge from the proton charge radius $d_p \approx 0.84$ fm).
-- **Computation time:** Seconds on a single core, versus months on a supercomputer for Lattice QCD at comparable accuracy.
+- **Computation time:** Seconds on a single core, versus months on a supercomputer for Lattice QCD. The comparison is methodological (scaling, free parameters), not a head-to-head accuracy benchmark.
 
 ---
