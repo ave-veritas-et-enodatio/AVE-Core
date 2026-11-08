@@ -34,7 +34,9 @@ Asserts:
     exit 2), `grep.column` (pre-fix: every text read as `<col>:<text>`), from a citer
     path holding `:` (exit 2) or a non-ASCII byte (C-quoted, so its link pinned nothing:
     exit 0 where the ASCII control exits 1), for a changed file named `-...` (git read
-    it as an option, exit 2); and a row that does not parse aborts (pre-fix: skipped,
+    it as an option, exit 2), past a checked-out submodule under `submodule.recurse`
+    (its own files read as citers: a false SHIFTED, exit 1), and for a tip named by a ref
+    git echoes in another form; and a row that does not parse aborts (pre-fix: skipped,
     exit 0).
 
 And the 2026-11-01 rules. Re-pinning stale cites on #1037-#1039 showed the checker
@@ -109,7 +111,7 @@ def test_gate_can_fire_and_negative_controls_hold():
     assert sum(l.lstrip().startswith("[PASS] a damaged ") for l in lines) == len(damaged)
     assert any(l.lstrip().startswith("[PASS] a `-U0` diff that comes back with context lines") for l in lines)
     grep = ["colour config", "column config", "citer path holding a colon", "citer path not ASCII",
-            "changed file named -x"]
+            "changed file named -x", "checked-out submodule"]
     for name in grep:
         assert any(l.lstrip().startswith("[PASS] a %s: every citer row read whole" % name) for l in lines), name
     # and the whole gate: 10 original probes, one per REPINS row plus #1079's 7 re-pin
@@ -135,7 +137,7 @@ def test_mutation_receipt_holds():
     assert {int(n) for _, n in rows} == set(range(1, 47 + len(mod.GREP))), sorted({int(n) for _, n in rows})
     assert all(status == "OK" for status, _ in rows)
     # one row per citer-grep case, each switching off its own pin
-    for rule in ("grep-config-unpinned", "grep-no-z", "grep-no-e"):
+    for rule in ("grep-config-unpinned", "grep-no-z", "grep-no-e", "grep-recurses"):
         assert "(%s): the run must fall back to the pre-fix verdict" % rule in buf.getvalue(), rule
 
 
@@ -797,33 +799,39 @@ def test_citer_grep_reads_through_hostile_grep_and_colour_config():
 
 
 def test_citer_grep_under_hostile_global_config():
-    """`~/.gitconfig` reaches the real run AND the self-gate's fixtures: pre-fix, both the
-    run and `--selftest` exited 2 for a user with `color.ui = always`."""
+    """Pre-fix, a user with `color.ui = always` in ~/.gitconfig (or GIT_CONFIG_* env) could
+    run neither the gate nor --selftest: both exited 2. The repo under test carries NO config
+    of its own, so ~/.gitconfig or the env is all git sees. The self-gate's fixtures now carry
+    HOSTILE in their own config, which outranks ~/.gitconfig -- what --selftest shows here is
+    that it runs at all; the column and colour READING is test_..._hostile_grep_and_colour_config."""
     import os
     import shutil
     import tempfile
 
-    mod = _load_module()
+    line = "vol frontmatter, `docs/vol/main.tex:5`"
+    files = {"docs/vol/main.tex": _VOL, "docs/citers.md": [line]}
     home = tempfile.mkdtemp(prefix="inbound-cite-home-")
     try:
         with open(os.path.join(home, ".gitconfig"), "w") as fh:
             fh.write("[color]\n\tui = always\n[grep]\n\tcolumn = true\n\tlineNumber = false\n")
-        env = _git_free_env(HOME=home)
-        env.pop("XDG_CONFIG_HOME", None)
+        env = _git_free_env(HOME=home, XDG_CONFIG_HOME=home, GIT_CONFIG_NOSYSTEM="1")
         selftest = subprocess.run([sys.executable, str(_TOOL), "--selftest"], capture_output=True,
                                   text=True, env=env)
-        with mod.fixture_repo(["explicit-B"], [mod.B]) as (repo, b, t):
+        with _two_trees(files, _shifted(files, "docs/vol/main.tex")) as (mod, repo, b, t):
+            with open(os.path.join(repo.cwd, ".git", "config"), "w") as fh:
+                fh.write("[core]\n\trepositoryformatversion = 0\n\tbare = false\n")
             run = subprocess.run([sys.executable, str(_TOOL), b, t], capture_output=True, text=True,
                                  cwd=repo.cwd, env=env)
             env_cfg = subprocess.run(
                 [sys.executable, str(_TOOL), b, t], capture_output=True, text=True, cwd=repo.cwd,
-                env=_git_free_env(GIT_CONFIG_COUNT="1", GIT_CONFIG_KEY_0="color.ui",
-                                  GIT_CONFIG_VALUE_0="always"))
+                env=_git_free_env(HOME=home + "/none", XDG_CONFIG_HOME=home + "/none",
+                                  GIT_CONFIG_NOSYSTEM="1", GIT_CONFIG_COUNT="1",
+                                  GIT_CONFIG_KEY_0="color.ui", GIT_CONFIG_VALUE_0="always"))
     finally:
         shutil.rmtree(home, ignore_errors=True)
     assert selftest.returncode == 0, selftest.stdout + selftest.stderr
-    assert run.returncode == 1, run.stdout + run.stderr
-    assert env_cfg.returncode == 1, env_cfg.stdout + env_cfg.stderr
+    assert run.returncode == 1 and "[SHIFTED]" in run.stdout, run.stdout + run.stderr
+    assert env_cfg.returncode == 1 and "[SHIFTED]" in env_cfg.stdout, env_cfg.stdout + env_cfg.stderr
 
 
 def test_citer_path_holding_a_colon_is_read():
@@ -858,6 +866,51 @@ def test_changed_file_whose_name_starts_with_a_dash():
         with _two_trees(files, _shifted(files, "docs/" + leaf)) as (mod, repo, b, t):
             rc, out, _ = _run_seeing_texts(mod, repo, b, t)
         assert rc == 1 and "[SHIFTED]" in out, (leaf, out)
+
+
+def test_a_checked_out_submodule_is_not_read_as_citers():
+    """`submodule.recurse = true` sends git grep into a checked-out submodule; pre-fix its own
+    notes.md, citing its own `docs/vol/main.tex:5`, read as a citer HERE: a false SHIFTED,
+    exit 1, though no file of this repo cites the changed file. Built without `git commit` or
+    `git submodule add`, so no identity, hooks or signing config is needed."""
+    import os
+
+    files = {"docs/vol/main.tex": _VOL, "README.md": ["readme"]}
+    with _two_trees(files, _shifted(files, "docs/vol/main.tex")) as (mod, repo, b, t):
+        sub = mod.Repo(cwd=os.path.join(repo.cwd, "sibling"), scrub_env=True)
+        sub.env.update(GIT_AUTHOR_NAME="t", GIT_AUTHOR_EMAIL="t@invalid", GIT_COMMITTER_NAME="t",
+                       GIT_COMMITTER_EMAIL="t@invalid")
+        os.makedirs(sub.cwd)
+        with open(os.path.join(sub.cwd, "notes.md"), "w") as fh:
+            fh.write("its own `docs/vol/main.tex:5` says so\n")
+        modules = '[submodule "sibling"]\n\tpath = sibling\n\turl = ./sibling\n'
+        with open(os.path.join(repo.cwd, ".gitmodules"), "w") as fh:
+            fh.write(modules)
+        assert sub.raw("init", "-q")[0] == 0 and sub.raw("add", "-A")[0] == 0
+        commit = sub.sh("commit-tree", "--no-gpg-sign", "-m", "s", sub.sh("write-tree").strip()).strip()
+        blob = repo.raw("hash-object", "-w", "--stdin", stdin=modules.encode())[1].decode().strip()
+        for args in (("config", "submodule.sibling.url", "./sibling"), ("config", "submodule.recurse", "true"),
+                     ("read-tree", "--no-recurse-submodules", t),
+                     ("update-index", "--add", "--cacheinfo", "100644,%s,.gitmodules" % blob,
+                      "--cacheinfo", "160000,%s,sibling" % commit)):
+            assert repo.raw(*args)[0] == 0, (args, repo.err)
+        tip = repo.sh("write-tree").strip()
+        assert "sibling/notes.md" in repo.sh("grep", "--recurse-submodules", "-F", "-e", "main.tex", tip, "--")
+        rc, out, seen = _run_seeing_texts(mod, repo, b, tip)
+    assert rc == 0 and not seen and "sibling/notes.md" not in out, (rc, seen, out)
+
+
+def test_tip_named_by_a_ref_git_echoes_in_another_form():
+    """git grep prefixes each row with the rev as it ECHOES it, and on macOS
+    (core.precomposeUnicode) a ref typed in NFD comes back in NFC: c8c63be19's prefix check
+    then aborted (exit 2) where ad19aec83 exited 1. Rows are now read against the tip's tree
+    ID. Where git echoes the name as typed (Linux), this passes either way."""
+    nfd = "café"
+    files = {"docs/vol/main.tex": _VOL, "docs/citers.md": ["see `docs/vol/main.tex:5`"]}
+    with _two_trees(files, _shifted(files, "docs/vol/main.tex")) as (mod, repo, b, t):
+        assert repo.raw("update-ref", "refs/tags/" + nfd, t)[0] == 0, repo.err
+        rc, out, _ = _run_seeing_texts(mod, repo, b, nfd)
+    assert rc == 1 and "[SHIFTED]" in out, out
 
 
 def test_an_unparseable_grep_row_aborts_and_is_never_skipped():

@@ -204,9 +204,12 @@ trusted, every run proves five things, none of them read off its own yield:
                                  which would silently cost every re-pin its number);
   * every citer row reads whole  git grep takes a row's shape from git config (colour
                                  codes, a column field) unless the call pins it, C-quotes
-                                 a non-ASCII path without -z, and reads a leaf named
-                                 `-...` as an option without -e. All are pinned; a row that
-                                 does not parse is an error, never a skipped citer;
+                                 a non-ASCII path without -z, reads a leaf named `-...`
+                                 as an option without -e, and under submodule.recurse
+                                 reads a checked-out submodule's files as citers here.
+                                 All are pinned; a row that does not parse is an error,
+                                 never a skipped citer. (-I still skips a text file that
+                                 gitattributes declare binary: see citer_lines());
   * every object read was READ   git grep reports an unreadable blob ONLY on stderr
                                  and still exits 0 or 1, its lines simply absent;
                                  `cat-file --batch` answers `missing`, exactly as for
@@ -752,11 +755,21 @@ def citer_lines(repo, leaf, rev):
     -z: the path comes back as its bytes. Without it a non-ASCII path is C-quoted
     (`"docs/caf\\303\\251.md"`, a path no file has, so a link resolved against it pins
     nothing) and a path holding `:` is split at it. -e: a leaf such as `-notes.md` is the
-    pattern, not an option (git exits 129). A row that does not parse is an error, never a
-    row to skip: skipped, it is a citer never found.
+    pattern, not an option (git exits 129). --no-recurse-submodules: `submodule.recurse =
+    true` sends grep into every checked-out submodule, whose own files then read as citers
+    in THIS repo (a false SHIFTED). A row that does not parse is an error, never a row to
+    skip: skipped, it is a citer never found.
+
+    `rev` should be a tree or commit ID: git echoes the rev back as each row's prefix, and on
+    macOS (core.precomposeUnicode) a ref typed in NFD comes back in NFC.
+
+    -I skips binary files, by content AND by gitattributes (`binary`, `-diff`, or `diff=<x>`
+    with `diff.<x>.binary`): a citer in a text file declared binary is never read, and git
+    says nothing. KNOWN GAP, not closed here: AVE-Core declares no text file binary.
     """
     pins = () if 'grep-config-unpinned' in MUTATE else ('--no-color', '--no-column')
     pins += () if 'grep-no-z' in MUTATE else ('-z',)
+    pins += () if 'grep-recurses' in MUTATE else ('--no-recurse-submodules',)
     pattern = (leaf,) if 'grep-no-e' in MUTATE else ('-e', leaf)
     rc, out = repo.raw('grep', '-I', '-n', *pins, '-F', *pattern, rev, '--')
     # An unreadable blob is reported ONLY on stderr (`error: ... unable to read`) while grep
@@ -828,9 +841,11 @@ def scan(repo, base, tip):
     # LITERAL, so `[...\]]` demanded a literal ']' before the colon and the stage
     # silently under-collected -- it missed a citer I had already proved by hand.
     # One engine does the finding, one does the precision. Never two.
+    # The tip's tree ID, not its name: see citer_lines().
+    tip_tree = repo.checked('rev-parse', '--verify', '--quiet', tip + '^{tree}').strip()
     cand = collections.defaultdict(list)
     for leaf in by_leaf:
-        rows, err = citer_lines(repo, leaf, tip)
+        rows, err = citer_lines(repo, leaf, tip_tree)
         if err:
             res['grep_errors'].append((leaf, err))
         for src, lno, text in rows:
@@ -1090,10 +1105,17 @@ CITER_FILES = (CITERS, NOTES, COLON, ACCENT)
 #: Config that reshapes a `git grep` row when the call leaves it to config (citer_lines()).
 #: Every fixture repo carries it, so every self-gate verdict is reached under it.
 #: color.grep outranks color.ui, so a `color.grep = never` in ~/.gitconfig would otherwise
-#: disarm the colour; core.quotePath=true is git's default, set so a user's `false` cannot
-#: hide the quoting.
-HOSTILE = (('color.ui', 'always'), ('color.grep', 'always'), ('grep.column', 'true'),
-           ('grep.lineNumber', 'false'), ('core.quotePath', 'true'))
+#: disarm the colour, and so would a `[color "grep"] filename = normal` (and the other slots)
+#: -- so the slot colours are set too, to git's defaults; core.quotePath=true is git's
+#: default, set so a user's `false` cannot hide the quoting. submodule.recurse bites only
+#: where a submodule is checked out (GREP). The repo's own config is read last and wins.
+HOSTILE = (('color.ui', 'always'), ('color.grep', 'always'), ('color.grep.filename', 'magenta'),
+           ('color.grep.lineNumber', 'green'), ('color.grep.column', 'green'),
+           ('color.grep.separator', 'cyan'), ('color.grep.match', 'bold red'),
+           ('grep.column', 'true'), ('grep.lineNumber', 'false'), ('core.quotePath', 'true'),
+           ('submodule.recurse', 'true'))
+SUBMODULE = 'sibling'
+SUBMODULE_CITE = 'its own cite, in a checked-out submodule: `manuscript/vol_1_foundations/main.tex:5`'
 
 #: probe key -> (citing file, citing text). Every cite targets a line that exists.
 PROBES = collections.OrderedDict([
@@ -1170,15 +1192,61 @@ def _write_tree(repo, root, files):
     return tree
 
 
+def config_text(config):
+    """(key, value) pairs as git config file text: `a.b` -> [a] b, `a.b.c` -> [a "b"] c."""
+    out = []
+    for key, value in config:
+        section, _, name = key.rpartition('.')
+        head, _, sub = section.partition('.')
+        out.append('[%s%s]\n\t%s = %s\n' % (head, ' "%s"' % sub if sub else '', name, value))
+    return ''.join(out)
+
+
+def _add_submodule(repo, root, tip):
+    """`tip` plus a checked-out submodule at SUBMODULE whose own notes.md cites B by path:
+    a gitlink, a .gitmodules naming it, and the URL in config that makes it active. Built
+    with write-tree and commit-tree under a fixed identity, unsigned: no hooks, no keys."""
+    def run(r, *a, stdin=None):
+        rc, out = r.raw(*a, stdin=stdin)
+        if rc != 0:
+            raise FixtureError('`git %s` failed in %s: %s' % (' '.join(a), r.cwd, r.err or 'no output'))
+        return out.decode('ascii', 'replace').strip()
+
+    sub = Repo(cwd=os.path.join(root, SUBMODULE), scrub_env=True)
+    sub.env.update(GIT_AUTHOR_NAME='fixture', GIT_AUTHOR_EMAIL='fixture@invalid',
+                   GIT_COMMITTER_NAME='fixture', GIT_COMMITTER_EMAIL='fixture@invalid',
+                   GIT_AUTHOR_DATE='2000-01-01T00:00:00Z', GIT_COMMITTER_DATE='2000-01-01T00:00:00Z')
+    modules = '[submodule "%s"]\n\tpath = %s\n\turl = ./%s\n' % ((SUBMODULE,) * 3)
+    try:
+        os.makedirs(sub.cwd)
+        with open(os.path.join(sub.cwd, 'notes.md'), 'w', encoding='utf-8') as fh:
+            fh.write(SUBMODULE_CITE + '\n')
+        with open(os.path.join(root, '.gitmodules'), 'w', encoding='utf-8') as fh:
+            fh.write(modules)
+        with open(os.path.join(root, '.git', 'config'), 'a', encoding='utf-8') as fh:
+            fh.write('[submodule "%s"]\n\turl = ./%s\n' % (SUBMODULE, SUBMODULE))
+    except OSError as exc:
+        raise FixtureError('could not write the submodule fixture in %s: %s' % (root, exc))
+    run(sub, 'init', '-q')
+    run(sub, 'add', '-A')
+    commit = run(sub, 'commit-tree', '--no-gpg-sign', '-m', 'fixture', run(sub, 'write-tree'))
+    blob = run(repo, 'hash-object', '-w', '--stdin', stdin=modules.encode('utf-8'))
+    run(repo, 'read-tree', '--no-recurse-submodules', tip)
+    run(repo, 'update-index', '--add', '--cacheinfo', '100644,%s,.gitmodules' % blob,
+        '--cacheinfo', '160000,%s,%s' % (commit, SUBMODULE))
+    return run(repo, 'write-tree')
+
+
 @contextlib.contextmanager
-def two_trees(base_files, tip_files, damage=(), config=HOSTILE):
+def two_trees(base_files, tip_files, damage=(), config=HOSTILE, submodule=False):
     """A throwaway repo holding a base tree and a tip tree: yields (repo, base, tip).
 
     `damage`: ('base' | 'tip', path, 'delete' | 'truncate') -- after both trees are
     written, that object (blob or subtree) is deleted from the object store, or its
     loose file cut to half, so the trees still name it. `config`: (key, value) pairs
     written to the repo's own config, which outranks ~/.gitconfig (appended in one write,
-    not one `git config` process per key: the self-gate builds ~20 of these per run)."""
+    not one `git config` process per key: the self-gate builds ~20 of these per run).
+    `submodule`: the tip also holds a checked-out submodule (_add_submodule)."""
     root = tempfile.mkdtemp(prefix='inbound-cite-selftest-')
     try:
         repo = Repo(cwd=root, scrub_env=True)
@@ -1186,11 +1254,13 @@ def two_trees(base_files, tip_files, damage=(), config=HOSTILE):
             raise FixtureError('`git init` failed in %s: %s' % (root, repo.err or 'no output'))
         try:
             with open(os.path.join(root, '.git', 'config'), 'a', encoding='utf-8') as fh:
-                fh.write(''.join('[%s]\n\t%s = %s\n' % (*key.split('.'), value) for key, value in config))
+                fh.write(config_text(config))
         except OSError as exc:
             raise FixtureError('could not write the fixture config in %s: %s' % (root, exc))
         base = _write_tree(repo, root, base_files)
         tip = _write_tree(repo, root, tip_files)
+        if submodule:
+            tip = _add_submodule(repo, root, tip)
         for side, path, how in damage:
             rc, out = repo.raw('rev-parse', '--verify', '--quiet',
                                '%s:%s' % (base if side == 'base' else tip, path))
@@ -1214,8 +1284,8 @@ def two_trees(base_files, tip_files, damage=(), config=HOSTILE):
         shutil.rmtree(root, ignore_errors=True)
 
 
-def fixture_repo(keys, moved, config=HOSTILE):
-    return two_trees(_files(keys), _files(keys, moved), config=config)
+def fixture_repo(keys, moved, config=HOSTILE, submodule=False):
+    return two_trees(_files(keys), _files(keys, moved), config=config, submodule=submodule)
 
 
 def fixture_scan(keys, moved):
@@ -1582,7 +1652,7 @@ def _with(*benign):
     return tuple(config.items())
 
 
-Odd = collections.namedtuple('Odd', 'keys moved config how rule pre_fix')
+Odd = collections.namedtuple('Odd', 'keys moved config how rule pre_fix submodule', defaults=(False,))
 
 #: A citer row that git grep shapes from config or from the path itself. Each fixture plants
 #: `keys` and moves `moved`; the run must read every citer row back as the fixture wrote it
@@ -1603,6 +1673,9 @@ GREP = collections.OrderedDict([
         'grep-no-z', 'exit 0, SHIFTED=0, AMBIGUOUS=1, path misread')),
     ('changed file named -x', Odd(['dash-leaf'], [DASH], HOSTILE,
         'git reads the leaf as an option', 'grep-no-e', 'ABORT: exit 129')),
+    ('checked-out submodule', Odd(['explicit-B'], [B], HOSTILE,
+        "`submodule.recurse = true` reads the submodule's own files as citers here",
+        'grep-recurses', 'exit 1, SHIFTED=2, AMBIGUOUS=0, path misread', True)),
 ])
 GREP_WANT = 'exit 1, SHIFTED=1, AMBIGUOUS=0'
 
@@ -1614,7 +1687,7 @@ def grep_case_verdict(name):
     c = GREP[name]
     misread = None
     written = _files(c.keys, c.moved)
-    with fixture_repo(c.keys, c.moved, config=c.config) as (repo, base, tip):
+    with fixture_repo(c.keys, c.moved, config=c.config, submodule=c.submodule) as (repo, base, tip):
         res = scan(repo, base, tip)
         for leaf in sorted({p.rsplit('/', 1)[-1] for p in c.moved}):
             read = citer_lines(repo, leaf, tip)[0]
