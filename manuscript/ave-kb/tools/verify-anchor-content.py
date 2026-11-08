@@ -630,16 +630,24 @@ def added_lines_by_file(base_ref: str, repo_root: Path) -> dict[Path, set[int]]:
 def check_new_cites(base_ref: str, repo_root: Path) -> list[tuple[Path, int, str]]:
     """Every ADDED load-bearing line-cite that carries no adjacent excerpt.
 
-    Returns (repo-relative path, line, cite-as-written) triples.
+    Returns (repo-relative path, line, cite-as-written) triples. Content comes
+    from the HEAD blob, the same committed state the added line-set describes,
+    so an uncommitted edit to a citing file cannot change the answer.
     """
     violations: list[tuple[Path, int, str]] = []
     for rel, added in sorted(added_lines_by_file(base_ref, repo_root).items()):
         if not is_load_bearing_source(rel):
             continue
-        path = repo_root / rel
-        if not path.is_file():
-            continue
-        lines = strip_fenced(path.read_text(encoding="utf-8", errors="replace")).splitlines()
+        proc = subprocess.run(
+            ["git", "show", f"HEAD:{rel.as_posix()}"],
+            cwd=repo_root,
+            capture_output=True,
+            encoding="utf-8",
+            errors="replace",
+        )
+        if proc.returncode != 0:
+            raise RuntimeError(f"git show HEAD:{rel.as_posix()} failed: {proc.stderr.strip()}")
+        lines = strip_fenced(proc.stdout).splitlines()
         for lineno in sorted(added):
             if lineno > len(lines):
                 continue
