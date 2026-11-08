@@ -4,7 +4,7 @@
 
 # AVE program board
 
-Scanned tree **6c1c86960** (2026-11-07) · 468 index records · 331 claims · 22 PRs open
+Scanned tree **73e324b5a** (2026-11-07) · 468 index records · 331 claims · 20 PRs open
 
 ## The number that frames everything
 
@@ -28,7 +28,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 
 ## What we are waiting on
 
-**48 of 84 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
+**49 of 85 open items are owned by Grant.** Nothing fires on those without his word — including the PARKED ones, which need an explicit word to unpark.
 
 *Scope: this is a census of `open-items/`. `_orchestration/2026-07-10_rulings-docket.md` is the **paper timeline** — a dated continuation log, frozen at its 2026-07-21 tail per `docket-entries/README.md`, and the historical record of how each ruling was reached. It is read chronologically, not harvested; anything still live in it belongs here as its own file.*
 
@@ -107,6 +107,7 @@ Every solidity score in this corpus is a **derivation** score. Nothing has been 
 | [Phase space = native tank-state chart (Grant-signed sentence); amend def-69f472; characterize coupling to vacuum / matter / light / gravity (or bulk emergence)](open-items/2026-08-29-phase-space-tank-state.md) | OPEN | grant | 2026-08-29 |
 | [R61 park residue, constitutive arc: checker-tier questions, the C4 question, and the #1033 resume point](open-items/2026-09-30-constitutive-arc-residue.md) | OPEN | lane | 2026-11-01 |
 | [R61 park residue, wall arc: evidence for the A1-vs-T2 wall question, polish residue, and the items that die with the parks](open-items/2026-09-30-wall-arc-residue.md) | OPEN | lane | 2026-11-01 |
+| [Cage ownership resolved by Grant 2026-11-08 — two walls at two energies, neither record wrong; propagate the carve and strike one misattribution](open-items/2026-11-08-cage-ownership-provenance.md) | OPEN | grant | 2026-11-08 |
 | [Sibling-repo debts — AVE-Fusion yield cross-wire + AVE-Bench-FemtoElectrometer stale sites](open-items/2026-07-03-sibling-repo-debts.md) | REGISTERED | unassigned | 2026-07-03 |
 | [The v3 ringdown instrument — the DISCRETE near-wall chain](open-items/2026-08-04-v3-ringdown-instrument.md) | REGISTERED | unassigned | 2026-08-04 |
 | [Hygiene backlog — Bell-arc citation follow-ups, FPR provenance re-grep, auditor-landing queue](open-items/2026-07-03-hygiene-backlog.md) | QUEUED | unassigned | 2026-07-03 |
@@ -141,9 +142,8 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 | PR | state | title |
 |---|---|---|
 | #1082 | unlabelled | [DO-NOT-MERGE] fix(kb): cite-shift gate counts lines as git grep does; reach-tes |
-| #1081 | unlabelled | [CLEARED for merge at ad19aec83] fix(kb): cite-shift gate exits 2 when it reache |
+| #1081 | unlabelled | [DO-NOT-MERGE] fix(kb): cite-shift gate exits 2 when it reaches no verdict (cras |
 | #1077 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] kb: repair three stale theorem cite |
-| #1076 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] chore: regenerate BOARD at cbc668e7 |
 | #1075 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] orchestration: docket receipt for t |
 | #1073 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] R55 Phase-2: core wording sweep, fo |
 | #1070 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] infra: new-cite ratchet reads HEAD; |
@@ -151,7 +151,6 @@ Scan surface: `claims.jsonl` plus 9 `claim-quality.md` leaves (test fixtures exc
 | #1058 | unlabelled | [DO NOT MERGE — review/fix in flight] viz(two-slits): scored double-slit video o |
 | #1057 | unlabelled | Document Cloud Agent setup for the AVE engine |
 | #1054 | pending-review | [DO-NOT-MERGE][REVIEW: pending-orchestrator] README/CLAUDE.md: α is a calibratio |
-| #1040 | unlabelled | [DO-NOT-MERGE] provenance: un-stamp the confinement clause from the 2026-06-30 r |
 | #1039 | unlabelled | [DO-NOT-MERGE][REVIEW: merged up, 9 of 59 cites re-pinned, 50 frozen or logged,  |
 | #1038 | unlabelled | [DO-NOT-MERGE][REVIEW: 4 of 28 cites re-pinned, 24 frozen, W5 awaits Grant, awai |
 | #1037 | unlabelled | [DO-NOT-MERGE][REVIEW: 0 of 4 cites re-pinned, 4 frozen, awaits re-audit] docs:  |
