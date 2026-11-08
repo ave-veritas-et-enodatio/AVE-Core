@@ -1193,19 +1193,26 @@ def _write_tree(repo, root, files):
 
 
 def config_text(config):
-    """(key, value) pairs as git config file text: `a.b` -> [a] b, `a.b.c` -> [a "b"] c."""
+    """(key, value) pairs as git config file text: `a.b` -> [a] b, `a.b.c` -> [a "b"] c. The
+    value and subsection are quoted, so `#`, `;`, a leading space, `"` or `\\` survive."""
+    def quoted(s):
+        return '"%s"' % s.replace('\\', '\\\\').replace('"', '\\"')
     out = []
     for key, value in config:
         section, _, name = key.rpartition('.')
         head, _, sub = section.partition('.')
-        out.append('[%s%s]\n\t%s = %s\n' % (head, ' "%s"' % sub if sub else '', name, value))
+        if not head or not name:
+            raise FixtureError('not a `section.key` config name: %r' % key)
+        out.append('[%s%s]\n\t%s = %s\n' % (head, ' ' + quoted(sub) if sub else '', name, quoted(value)))
     return ''.join(out)
 
 
 def _add_submodule(repo, root, tip):
     """`tip` plus a checked-out submodule at SUBMODULE whose own notes.md cites B by path:
-    a gitlink, a .gitmodules naming it, and the URL in config that makes it active. Built
-    with write-tree and commit-tree under a fixed identity, unsigned: no hooks, no keys."""
+    a gitlink, a .gitmodules naming it, and `active = true` in config (it outranks a global
+    `submodule.active` pathspec that leaves it out). Built with write-tree and commit-tree
+    under a fixed identity, unsigned: no hooks, no keys. `add -f`: a global excludesFile
+    must not keep notes.md out and leave the probe nothing to recurse into."""
     def run(r, *a, stdin=None):
         rc, out = r.raw(*a, stdin=stdin)
         if rc != 0:
@@ -1224,11 +1231,12 @@ def _add_submodule(repo, root, tip):
         with open(os.path.join(root, '.gitmodules'), 'w', encoding='utf-8') as fh:
             fh.write(modules)
         with open(os.path.join(root, '.git', 'config'), 'a', encoding='utf-8') as fh:
-            fh.write('[submodule "%s"]\n\turl = ./%s\n' % (SUBMODULE, SUBMODULE))
+            fh.write(config_text([('submodule.%s.url' % SUBMODULE, './' + SUBMODULE),
+                                  ('submodule.%s.active' % SUBMODULE, 'true')]))
     except OSError as exc:
         raise FixtureError('could not write the submodule fixture in %s: %s' % (root, exc))
     run(sub, 'init', '-q')
-    run(sub, 'add', '-A')
+    run(sub, 'add', '-A', '-f')
     commit = run(sub, 'commit-tree', '--no-gpg-sign', '-m', 'fixture', run(sub, 'write-tree'))
     blob = run(repo, 'hash-object', '-w', '--stdin', stdin=modules.encode('utf-8'))
     run(repo, 'read-tree', '--no-recurse-submodules', tip)

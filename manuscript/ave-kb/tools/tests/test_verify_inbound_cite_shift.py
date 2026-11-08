@@ -886,10 +886,11 @@ def test_a_checked_out_submodule_is_not_read_as_citers():
         modules = '[submodule "sibling"]\n\tpath = sibling\n\turl = ./sibling\n'
         with open(os.path.join(repo.cwd, ".gitmodules"), "w") as fh:
             fh.write(modules)
-        assert sub.raw("init", "-q")[0] == 0 and sub.raw("add", "-A")[0] == 0
+        assert sub.raw("init", "-q")[0] == 0 and sub.raw("add", "-A", "-f")[0] == 0
         commit = sub.sh("commit-tree", "--no-gpg-sign", "-m", "s", sub.sh("write-tree").strip()).strip()
         blob = repo.raw("hash-object", "-w", "--stdin", stdin=modules.encode())[1].decode().strip()
-        for args in (("config", "submodule.sibling.url", "./sibling"), ("config", "submodule.recurse", "true"),
+        for args in (("config", "submodule.sibling.url", "./sibling"), ("config", "submodule.sibling.active", "true"),
+                     ("config", "submodule.recurse", "true"),
                      ("read-tree", "--no-recurse-submodules", t),
                      ("update-index", "--add", "--cacheinfo", "100644,%s,.gitmodules" % blob,
                       "--cacheinfo", "160000,%s,sibling" % commit)):
@@ -904,11 +905,16 @@ def test_tip_named_by_a_ref_git_echoes_in_another_form():
     """git grep prefixes each row with the rev as it ECHOES it, and on macOS
     (core.precomposeUnicode) a ref typed in NFD comes back in NFC: c8c63be19's prefix check
     then aborted (exit 2) where ad19aec83 exited 1. Rows are now read against the tip's tree
-    ID. Where git echoes the name as typed (Linux), this passes either way."""
-    nfd = "café"
+    ID. Where git echoes the name as typed (Linux), this passes either way. Where the NFD
+    name does not resolve at all -- rev-parse does not precompose, so only a loose ref file
+    on a normalization-blind filesystem answers it; packed refs or reftable do not -- the
+    case cannot arise, and is skipped: both tools exit 2 there, naming the rev."""
+    nfd = "cafe\u0301"
     files = {"docs/vol/main.tex": _VOL, "docs/citers.md": ["see `docs/vol/main.tex:5`"]}
     with _two_trees(files, _shifted(files, "docs/vol/main.tex")) as (mod, repo, b, t):
         assert repo.raw("update-ref", "refs/tags/" + nfd, t)[0] == 0, repo.err
+        if repo.raw("rev-parse", "--verify", "--quiet", nfd + "^{tree}")[0] != 0:
+            return
         rc, out, _ = _run_seeing_texts(mod, repo, b, nfd)
     assert rc == 1 and "[SHIFTED]" in out, out
 
