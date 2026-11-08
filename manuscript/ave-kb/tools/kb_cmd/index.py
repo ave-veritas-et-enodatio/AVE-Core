@@ -574,7 +574,7 @@ class Index:
 
     @property
     def stats(self) -> dict[str, int]:
-        """Counts useful for ``ave-kb stats``-style introspection."""
+        """Counts useful for ``kb_cmd stats``-style introspection."""
         invariants = sum(1 for n in self._framework if n.node_type == "invariant")
         axioms = sum(1 for n in self._framework if n.node_type == "axiom")
         return {

@@ -83,7 +83,7 @@ If the CLI errors, fix the invocation (or report it) — do **not** bypass it by
 
 **`*pending*` means unassessed, not weak.** Claim-quality assessment is an in-progress sweep — currently only vol1 and common are evaluated, so most claims carry `confidence: *pending*` and therefore `solidity: *pending*`. Pending propagates: a claim that depends on a pending claim is itself pending, regardless of its own confidence. When a result's claim is pending, say so plainly — the result may well be sound, but its quality is *unassessed*; flag the uncertainty rather than implying solidity.
 
-**Assisting derivations.** When the user builds or checks a derivation, trace the solidity of the chain it rests on (`ave-kb deps`) and surface the **weakest link** explicitly — e.g. "this passes through `clm-5xon03` at solidity 0.28, *do not build on, rework needed* — that is the load-bearing weak point." A derivation is only as solid as its lowest-solidity dependency.
+**Assisting derivations.** When the user builds or checks a derivation, trace the solidity of the chain it rests on (`kb_cmd deps`) and surface the **weakest link** explicitly — e.g. "this passes through `clm-5xon03` at solidity 0.28, *do not build on, rework needed* — that is the load-bearing weak point." A derivation is only as solid as its lowest-solidity dependency.
 
 You surface and reason about claim quality; you do not re-score claims or edit claim-quality content (see *What You Are Not*).
 

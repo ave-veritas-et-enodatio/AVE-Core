@@ -188,7 +188,7 @@ Each entry in a `claim-quality.md` file carries a stable ID of the form `clm-` p
 
 **Query index.** The claim graph is also materialized as JSONL under `manuscript/ave-kb/.index/` (claim nodes, dependency edges, citations, subtree aggregates) and queryable via the `kb_cmd` CLI — run `PYTHONPATH=manuscript/ave-kb/tools python -m kb_cmd <command>` from the repo root (commands: `show`, `deps`/`-i`, `solidity-below`, `weak-points`, `gated-on`, `cited-by`, `subtree`, `stats`; `--json` for machine output). Faster and more precise than grep for dependency, solidity, and citation questions, and the `solidity` values are tool-computed — query through the CLI rather than hand-reading the JSONL. See `manuscript/ave-kb/.index/SCHEMA.md`.
 
-*Confirmed by: spec at `mad-review/kb-metadata-spine-spec.md`; live pipeline tools at `manuscript/ave-kb/tools/{refresh-kb-metadata,check-claim-quality}.py` (one-shot migration tools retired to `tools/archival/`); CI gate via `make verify-kb-metadata`.*
+*Confirmed by: spec at `mad-review/kb-metadata-spine-spec.md`; live pipeline tools at `manuscript/ave-kb/tools/{refresh-kb-metadata,verify-kb-metadata}.py` (one-shot migration tools retired to `tools/archival/`); CI gate via `make verify-kb-metadata`.*
 
 ### INVARIANT-S9: Experiment DAG-id propagation (`exp-`)
 

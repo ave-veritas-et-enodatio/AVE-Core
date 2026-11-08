@@ -24,7 +24,7 @@ Superconductivity, macroscopic material properties, and thermodynamics derived f
 | Two Impedance Families | Closed-shell alpha cores ($Z \approx 1.37$, $Q = 2.0$) vs. open-shell halo ($Z \sim 0.37$--$0.46$, $Q = 3$--$16$) [Ch.10](./ch10-material-properties/per-element-impedance-table.md) |
 | Effective DoF $g_*$ | $g_* = 7^3/4 = 85.75$ [Ch.11](./ch11-thermodynamics/effective-dof-g-star.md) |
 | Baryon Asymmetry | $\eta = 6.08 \times 10^{-10}$; error 0.38% [Ch.11](./ch11-thermodynamics/baryon-asymmetry.md) |
-| Thermal Softening Correction | $\delta_{th} = 1/(14\pi^2) \approx 0.00721$; zero-parameter result [Ch.11](./ch11-thermodynamics/thermal-softening-correction.md) |
+| Thermal Softening Correction | $\delta_{th} = 1/(14\pi^2) \approx 0.00724$; zero-parameter result [Ch.11](./ch11-thermodynamics/thermal-softening-correction.md) |
 | Casimir Effective Temperature | $T_{eff} = T_{ambient} \cdot \sqrt{1 - (f_c/f_{max})^2}$ [Ch.11](./ch11-thermodynamics/casimir-effective-temperature.md) |
 | Phase Transition Classification | All transitions map to impedance matching events in the LC lattice [Ch.11](./ch11-thermodynamics/phase-transition-classification.md) |
 

@@ -18,7 +18,7 @@ Each claim entry carries a `### Quality` section — an H3 nested under the clai
 - depends-on:
   - <id> — Other Entry Title (solidity 0.X)
   - [...]
-- solidity: 0.X (build-status phrase) [= <confidence> × <min-dep-solidity>]
+- solidity: 0.X (build-status phrase) [= min(<confidence>, <min-dep-solidity>)]
 - rationale: one-sentence statement of why
 - strengthen-by:
   - [specific derivation, proof, simulation run, or experimental validation that would raise confidence or close a dependency]

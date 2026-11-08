@@ -51,7 +51,7 @@ For every numeric constant appearing in a `.tex` file, verify it matches `consta
 | cos(θ_W) | √(7/9) | `A_CKM` |
 | α_s | α^(3/7) ≈ 0.1214 | `ALPHA_S` |
 | κ_FS (cold) | 8π ≈ 25.133 | `KAPPA_FS_COLD` |
-| δ_th | 1/(14π²) ≈ 0.00721 | `DELTA_THERMAL` |
+| δ_th | 1/(14π²) ≈ 0.00724 | `DELTA_THERMAL` |
 | M_W | ≈ 80,940 MeV | `M_W_MEV` |
 | M_Z | ≈ 91,760 MeV | `M_Z_MEV` |
 | M_H | ≈ 124,417 MeV | `M_HIGGS_MEV` |
