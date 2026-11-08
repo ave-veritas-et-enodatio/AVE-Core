@@ -215,8 +215,9 @@ trusted, every run proves four things, none of them read off its own yield:
   * THE SELF-GATE holds          the --selftest fixtures, driven through this same
                                  scan() and git binary: a planted shifted cite IS
                                  reported, a cite to a same-named sibling is NOT, a
-                                 correct re-pin passes, a wrong one fires, and each
-                                 damaged object in LOST ABORTS.
+                                 correct re-pin passes, a wrong one fires, each
+                                 damaged object in LOST ABORTS, and a `-U0` diff that
+                                 comes back with context lines voids the run.
 Any failure aborts with exit 2 instead of printing a zero.
 
 Until 2026-09-19 liveness WAS inferred from yield: "changed files but ZERO cites
@@ -295,13 +296,14 @@ class Repo:
     """A git repo handle plus blob/tree caches.
 
     The real run uses the cwd and the caller's environment minus GIT_TRACE* (env-only
-    tracing, to stderr), plus QUIET. The self-test fixtures use a throwaway directory
+    tracing, to stderr) and GIT_DIFF_OPTS (`--unified=N` there overrides even plumbing's
+    `-U0`, see hunks()), plus QUIET. The self-test fixtures use a throwaway directory
     with every GIT_* variable scrubbed: a fixture built while a git hook has GIT_DIR /
     GIT_INDEX_FILE exported would otherwise write into the REAL repo.
     """
 
     def __init__(self, cwd=None, scrub_env=False):
-        scrub = 'GIT_' if scrub_env else 'GIT_TRACE'
+        scrub = 'GIT_' if scrub_env else ('GIT_TRACE', 'GIT_DIFF_OPTS')
         self.cwd = cwd
         self.env = {k: v for k, v in os.environ.items() if not k.startswith(scrub)}
         self.env.update(QUIET)
@@ -393,6 +395,11 @@ class Repo:
             rc, out = self.raw('--literal-pathspecs', 'diff-tree', '-r', '-p', '-U0', '--text',
                                '--no-color', base, tip, '--', path)
             if rc != 0 and 'no-diff-errors' not in MUTATE:
+                self.diff_errors.append(path)
+            # A context line has no place in -U0 output. GIT_DIFF_OPTS=--unified=N puts
+            # them there anyway, and a hunk widened by them swallows the rows around
+            # the change: a wrong re-pin then "lands on the row that replaced it".
+            elif any(line.startswith(b' ') for line in out.split(b'\n')) and 'diff-context-ok' not in MUTATE:
                 self.diff_errors.append(path)
             self._hunks[key] = [
                 (int(a) + (c == b'0'), int(c or 1), int(s) + (d == b'0'), int(d or 1))
@@ -1127,8 +1134,8 @@ def two_trees(base_files, tip_files, damage=()):
         shutil.rmtree(root, ignore_errors=True)
 
 
-def fixture_repo(keys, moved, damage=()):
-    return two_trees(_files(keys), _files(keys, moved), damage)
+def fixture_repo(keys, moved):
+    return two_trees(_files(keys), _files(keys, moved))
 
 
 def fixture_scan(keys, moved):
@@ -1465,6 +1472,28 @@ def lost_object_verdict(name, damaged=True):
                                         res['found'])
 
 
+
+def _context_trees():
+    """docs/t.md has row 10 rewritten in place, and docs/c.md re-pins its `:10` cite to
+    `:12`: a WRONG re-pin, which the run must fail (UNCONFIRMED-RE-PIN)."""
+    rows = ['row %d' % i for i in range(1, 21)]
+    tip_rows = rows[:9] + ['row 10, rewritten in place'] + rows[10:]
+    return ({'docs/t.md': rows, 'docs/c.md': ['see `docs/t.md:10`']},
+            {'docs/t.md': tip_rows, 'docs/c.md': ['see `docs/t.md:12`']})
+
+
+def diff_context_verdict(inject=True):
+    """The wrong re-pin of _context_trees(), with GIT_DIFF_OPTS=--unified=3 forced into
+    git's environment past the scrub: 'ABORT' when the context lines it adds to `-U0`
+    void the run, else the verdict reached. `inject=False` is the control."""
+    with two_trees(*_context_trees()) as (repo, base, tip):
+        if inject:
+            repo.env['GIT_DIFF_OPTS'] = '--unified=3'
+        res = scan(repo, base, tip)
+    if scan_errors(res):
+        return 'ABORT'
+    return 'exit %d' % (1 if any(f.kind in ROT for f in res['pinned']) else 0)
+
 def run_gate(out=print):
     ok = True
 
@@ -1539,6 +1568,9 @@ def run_gate(out=print):
     for name, c in LOST.items():
         v = lost_object_verdict(name)
         say(v == 'ABORT', f'a damaged {name} aborts the run ({c.how})', v)
+    v = diff_context_verdict()
+    say(v == 'ABORT', 'a `-U0` diff that comes back with context lines (GIT_DIFF_OPTS) voids the run '
+        'instead of passing a wrong re-pin', v)
     return ok
 
 
@@ -1698,6 +1730,15 @@ def mutation_receipt():
                         f'verdict the abort exists to prevent, {c.false_verdict} -- got {v}; the fixture whole '
                         f'must exit {c.whole} -- got {whole}',
                         v == c.false_verdict and whole.startswith('exit %d,' % c.whole)))
+    MUTATE.add('diff-context-ok')
+    try:
+        v = diff_context_verdict()
+    finally:
+        MUTATE.discard('diff-context-ok')
+    whole = diff_context_verdict(inject=False)
+    results.append((f'M{40 + len(LOST)} read a `-U0` diff with context lines as if clean (diff-context-ok): the '
+                    f'wrong re-pin must pass, exit 0 -- got {v}; without GIT_DIFF_OPTS it must fail, exit 1 -- '
+                    f'got {whole}', v == 'exit 0' and whole == 'exit 1'))
 
     allgood = True
     for label, tripped in results:

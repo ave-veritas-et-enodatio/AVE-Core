@@ -100,13 +100,28 @@ def test_gate_can_fire_and_negative_controls_hold():
     for name in damaged:
         assert any(l.lstrip().startswith("[PASS] a damaged %s aborts" % name) for l in lines), name
     assert sum(l.lstrip().startswith("[PASS] a damaged ") for l in lines) == len(damaged)
+    # and the whole gate: 10 original probes, one per REPINS row plus #1079's 7 re-pin
+    # checks, the damaged objects, and the -U0 context-lines probe -- so dropping ANY
+    # probe, from either side of the #1079 merge, fails here (78 at the merge)
+    assert len(lines) == 10 + len(mod.REPINS) + 7 + len(damaged) + 1, len(lines)
+    assert any(l.lstrip().startswith("[PASS] a `-U0` diff that comes back with context lines") for l in lines)
     assert sorted(mod.LOST) == sorted(damaged)
 
 
 def test_mutation_receipt_holds():
+    import contextlib
+    import io
+
     mod = _load_module()
-    assert mod.mutation_receipt() == 0
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        assert mod.mutation_receipt() == 0
     assert not mod.MUTATE, "a mutation leaked out of the receipt"
+    # Every row present, under its own number. Merging #1079 interleaved #1081's rows
+    # into M6-M39 without a conflict marker; a dropped or renumbered row must fail here.
+    rows = re.findall(r"\[(OK|BROKEN)\] M(\d+) ", buf.getvalue())
+    assert {int(n) for _, n in rows} == set(range(1, 47)), sorted({int(n) for _, n in rows})
+    assert all(status == "OK" for status, _ in rows)
 
 
 def test_explicit_path_to_sibling_does_not_fire_but_a_real_shift_does():
@@ -487,6 +502,19 @@ def test_load_rejects_each_kind_of_short_read_on_its_own():
         raise AssertionError("rc=%d reply=%r was read as %r" % (rc, reply, got))
 
 
+def test_each_damaged_object_fixture_gives_its_verdict_whole():
+    """The control under every LOST row, pinned as literals: the fixture must reach this
+    verdict with every object present, or the abort it shows when damaged proves
+    nothing. The re-pin row's control is a PASS: its false verdict, with the rule off,
+    is a false SHIFTED."""
+    mod = _load_module()
+    want = {"citer blob (the only match)": "exit 1", "citer blob (beside a match)": "exit 1",
+            "changed-file blob (deleted)": "exit 1", "changed-file blob (cut short)": "exit 1",
+            "re-pinning citer blob (deleted)": "exit 0", "subtree (deleted)": "exit 1"}
+    got = {name: mod.lost_object_verdict(name, damaged=False).split(",")[0] for name in mod.LOST}
+    assert got == want, got
+
+
 def test_an_abort_that_does_not_name_the_damaged_object_proves_nothing():
     """The self-gate's damaged-object probes count an abort only when it names the
     damaged `<tree>:<path>` or object id. Not the bare path: `manuscript` (the subtree
@@ -564,6 +592,40 @@ def test_git_tracing_does_not_abort_a_run():
         os.environ.update(saved)
         import shutil
         shutil.rmtree(home, ignore_errors=True)
+
+
+def test_git_diff_opts_does_not_reach_the_real_run():
+    """GIT_DIFF_OPTS=--unified=N overrides even plumbing's -U0. Through #1079's re-pin
+    check, a hunk widened by context lines let a WRONG re-pin "land on the row that
+    replaced it" and the run exited 0. The real run scrubs the variable."""
+    import os
+
+    mod = _load_module()
+    saved = dict(os.environ)
+    with mod.two_trees(*mod._context_trees()) as (fixture, b, t):
+        try:
+            env = _git_free_env(GIT_DIFF_OPTS="--unified=3")
+            os.environ.clear()
+            os.environ.update(env)
+            repo = mod.Repo(cwd=fixture.cwd)                   # the real-run constructor
+        finally:
+            os.environ.clear()
+            os.environ.update(saved)
+        assert "GIT_DIFF_OPTS" not in repo.env
+        assert mod.main(b, t, repo=repo) == 1
+
+
+def test_a_diff_with_context_lines_voids_the_run():
+    """The belt behind the scrub: a -U0 diff that comes back with context lines, from
+    any source, is a `git diff-tree` error, not a smaller set of changes."""
+    mod = _load_module()
+    assert mod.diff_context_verdict(inject=False) == "exit 1"         # the wrong re-pin fails
+    assert mod.diff_context_verdict() == "ABORT"
+    mod.MUTATE.add("diff-context-ok")
+    try:
+        assert mod.diff_context_verdict() == "exit 0"                   # what the belt prevents
+    finally:
+        mod.MUTATE.discard("diff-context-ok")
 
 
 def test_main_exit_2_when_git_diff_tree_errors():
