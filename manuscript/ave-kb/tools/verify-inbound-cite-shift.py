@@ -108,11 +108,12 @@ recovered and the test is base[old] against tip[new]:
   RETARGETED          a retarget, not a repair, so there is nothing to confirm:
                       the cited line stayed at its own number and `new` kept still
                       (base[new] == tip[new]), or `new` is text the branch added
-                      past the base end and the cited content went to no other
-                      line. Advisory, listed under -v, never rot.
-  UNCONFIRMED-RE-PIN  the base content is gone, and `new` is neither its
-                      replacement nor text the branch added past the base end.
-                      Nothing can confirm this, so it fails the run.
+                      past the base end and the cited content stayed put or is
+                      gone. A blank cited line never retargets: it cannot be seen
+                      to stay put. Advisory, listed under -v, never rot.
+  UNCONFIRMED-RE-PIN  the base content is gone, or the cited line is blank, and
+                      `new` is neither its replacement nor a retarget. Nothing can
+                      confirm this, so it fails the run.
 
 RETARGETED is the one departure from comparing the two lines, and it is measured.
 On the 150 merges into main up to cbc668e7, base[old] != tip[new] alone raised 19
@@ -124,19 +125,22 @@ added. R63 (#1080) keeps those two shapes and no more. Within the base range, th
 cited line has to stay at its own number and `new` has to keep still. Past the base
 end, `new` has to be text the branch added -- a line inside a tip-side hunk whose
 text no base-side removed line had -- and the cited content must not have moved to
-another line; it may be gone, as the glossary's :73 is. A line past the base end
-that the diff left alone, or that a block move carried there, was in the file
-before. A re-pin that fits neither shape gets one of the other verdicts.
+another line: it stayed put, or it is gone, its text surviving nowhere at tip, as
+the glossary's :73 is. Content put back at two tied lines has moved, and a line the
+diff took out whose text survives elsewhere is not gone, so neither retargets. A
+blank cited line never retargets: it cannot be seen to stay put. A line past the
+base end that the diff left alone, or that a block move carried there, was in the
+file before. A re-pin that fits neither shape gets one of the other verdicts.
 
 A re-pin can still add a report the plain test did not make, by these routes:
   * SHIFTED: the cited line's text is at tip and `new` is not where the diff put
     it, whether `new` kept still (the plain test passes it), was rewritten (the
     plain test reads EDITED-IN-PLACE) or is past the base end (the plain test
     skips it);
-  * UNCONFIRMED-RE-PIN: the cited line is gone and `new` is neither its
-    replacement nor added text: a rewritten line (the plain test reads
+  * UNCONFIRMED-RE-PIN: the cited line is gone or blank and `new` is neither its
+    replacement nor a retarget: a rewritten line (the plain test reads
     EDITED-IN-PLACE), a line that kept still (it passes) or a line past the base
-    end that moved there (it skips);
+    end (it skips) that moved there or, for a blank cited line, was added;
   * OUT-OF-RANGE: `new` is past the end of both files, which the plain test skips;
   * has-line at both numbers pins a bare name to one file where the plain test
     left it AMBIGUOUS-BASENAME, and so can turn an advisory into a gating report.
@@ -634,12 +638,18 @@ def verdict(repo, base, tip, target, b, t, held, n):
         return 'EDITED-IN-PLACE', 0                        # onto the row that replaced it
     # A retarget, not a repair, so there is nothing to confirm (R63, #1080). Within the
     # base range: the cited line stayed at its own number and `new` kept still. Past
-    # the base end: `new` is text the branch added, and the cited content went to no
-    # other line -- it may be gone. Nothing else retargets.
+    # the base end: `new` is text the branch added, and the cited content stayed put
+    # or is gone -- its text survives nowhere at tip. A tie has moved, and a blank line
+    # cannot be seen either way. Nothing else retargets.
     past_end = not 0 < n <= line_count(b)
     still = not past_end and b[n - 1].strip() == tl
     stayed = moved_to == held or ('retarget-unseen' in MUTATE and not moved_to)
-    added = past_end and (moved_to in (0, held) or 'retarget-moved-content' in MUTATE) and (
+    went_nowhere = moved_to == held or (bool(bl) and not seen)
+    if 'blank-retargets' in MUTATE:
+        went_nowhere = moved_to == held or not seen
+    if 'retarget-no-address' in MUTATE:
+        went_nowhere = moved_to in (0, held)
+    added = past_end and (went_nowhere or 'retarget-moved-content' in MUTATE) and (
         'retarget-outside-hunk' in MUTATE or any(s <= n < s + d for _, _, s, d in hunks)) and (
         'retarget-moved-text' in MUTATE or tl not in {b[i - 1].strip() for a, c, _, _ in hunks
                                                       for i in range(a, a + c)})
@@ -771,6 +781,8 @@ def _arrow(f):
     pin = f' -- re-pinned from :{f.held}' if f.held != f.n else ''
     if f.kind == 'RE-PINNED':
         return pin + ', confirmed: that line at base held this content'
+    if f.kind == 'UNCONFIRMED-RE-PIN' and not f.was.strip():
+        return pin + '; a blank cited line cannot be seen to stay put, so nothing confirms this re-pin'
     if f.kind == 'UNCONFIRMED-RE-PIN':
         return pin + '; the base content is gone and this is not the line that replaced it'
     if f.kind == 'RETARGETED':
@@ -1044,11 +1056,12 @@ EDGES_TIP = ['swap b', 'x', 'swap a',                                 # :1-3
              'added', 'indented', 'same']                             # :17-19
 EDGED = 'vol_1_foundations/edges.md'
 
-# A third: two lines in after `g1`, which stays put, push `g4` past the 4-line base
-# end, where the diff leaves it alone.
+# A third: two lines in after `g1`, which stays put, push `g3` past the 5-line base
+# end, where the diff leaves it alone. The last `dup` is taken out, its text still at
+# :4, and `added g` replaces it past the base end.
 GROWN = 'manuscript/vol_1_foundations/grown.md'
-GROWN_BASE = ['g1', 'g2', 'g3', 'g4']
-GROWN_TIP = ['g1', 'new 1', 'new 2', 'g2', 'g3', 'g4']
+GROWN_BASE = ['g1', 'dup', 'g2', 'g3', 'dup']
+GROWN_TIP = ['g1', 'new 1', 'new 2', 'dup', 'g2', 'g3', 'added g']
 GROWED = 'vol_1_foundations/grown.md'
 
 
@@ -1170,6 +1183,14 @@ REPINS = collections.OrderedDict([
     ('moved-past-end', (_cite('moved-past-end', 1, leaf=GROWED), _cite('moved-past-end', 6, leaf=GROWED),
                         [(1, 6, 'SHIFTED', 1)],
                         'nor one past the base end onto a line the diff left alone: it was in the file before')),
+    ('tie-onto-added', (_edge('tie-onto-added', 4), _edge('tie-onto-added', 17), [(4, 17, 'SHIFTED', 0)],
+                        'nor one onto added text from content put back at two tied lines: it moved')),
+    ('taken-out-onto-added', (_cite('taken-out-onto-added', 5, leaf=GROWED),
+                              _cite('taken-out-onto-added', 7, leaf=GROWED), [(5, 7, 'SHIFTED', 0)],
+                              'nor from a line the diff took out whose text survives elsewhere: it is not gone')),
+    ('blank-onto-added', (_edge('blank-onto-added', 11), _edge('blank-onto-added', 17),
+                          [(11, 17, 'UNCONFIRMED-RE-PIN', 0)],
+                          'nor from a blank cited line: it cannot be seen to stay put')),
     ('taken-out-onto-still', (_cite('taken-out-onto-still', 16), _cite('taken-out-onto-still', 1),
                               [(16, 1, 'SHIFTED', 0)],
                               'a re-pin away from a line the diff took out, onto a line that kept still, fails')),
@@ -1462,6 +1483,12 @@ def mutation_receipt():
                     'RETARGETED', kinds(repin('retarget-outside-hunk', 'moved-past-end')) == {'RETARGETED'}))
     results.append(('M37 let content that moved to another line retarget onto added text: the wrong re-pin '
                     'must read RETARGETED', kinds(repin('retarget-moved-content', 'moved-onto-added')) == {'RETARGETED'}))
+    results.append(('M38 read no single address as "did not move" past the base end: a tie and a taken-out '
+                    'look-alike must both read RETARGETED',
+                    kinds(repin('retarget-no-address', 'tie-onto-added')) == {'RETARGETED'}
+                    and kinds(repin('retarget-no-address', 'taken-out-onto-added')) == {'RETARGETED'}))
+    results.append(('M39 count a blank cited line as gone: its re-pin onto added text must read RETARGETED',
+                    kinds(repin('blank-retargets', 'blank-onto-added')) == {'RETARGETED'}))
 
     allgood = True
     for label, tripped in results:

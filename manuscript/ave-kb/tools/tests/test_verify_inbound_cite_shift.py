@@ -355,6 +355,15 @@ def test_a_repin_from_a_blank_onto_text_has_nothing_to_compare():
     assert mod.verdict(repo, "B", "T", "t.md", still, still, 2, 3) == ("UNCONFIRMED-RE-PIN", 0)
 
 
+def test_report_does_not_call_a_blank_cited_line_gone():
+    """A blank line can still be there: it is unconfirmable, not gone."""
+    mod = _load_module()
+    blank = mod.Finding("a.md", 1, "b.md", 3, "UNCONFIRMED-RE-PIN", "", "c", 0, ("b.md",), "path", 2)
+    assert "gone" not in mod._arrow(blank) and "blank" in mod._arrow(blank)
+    text = blank._replace(was="old text")
+    assert "the base content is gone" in mod._arrow(text)
+
+
 def test_a_repin_of_a_blank_line_onto_a_blank_line_asks_the_diff():
     mod = _load_module()
     base, tip = ["a", "", "b", "", "c"], ["x", "a", "", "b", "", "c"]
