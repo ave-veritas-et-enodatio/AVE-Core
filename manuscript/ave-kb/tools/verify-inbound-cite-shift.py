@@ -235,7 +235,13 @@ class Repo:
                     raise GateError('%s:%s: `git cat-file --batch` announced %d bytes and sent '
                                     '%d' % (rev, p, size, len(raw) - j - 1))
                 if head[1] == b'blob':
+                    # Line N is the Nth line as git grep -n numbers it. split('\n') leaves
+                    # a '' after a final newline: kept, every N-line file "had" a line
+                    # N+1, a cite to it passed the never-valid-at-base test and the
+                    # has-line narrowing, and a tip one line shorter exited 1 on it.
                     lines = raw[j + 1:j + 1 + size].decode('utf-8', 'replace').split('\n')
+                    if lines[-1] == '':
+                        lines.pop()
                 i = j + 1 + size + 1
             else:                                          # `<name> missing`, or truncated
                 i = j + 1 if j >= 0 else len(raw)

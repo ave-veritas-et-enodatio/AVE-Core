@@ -28,7 +28,10 @@ Asserts:
     the pre-fix tool as an absent or shorter file, ending in a clean zero; and a
     run from a subdirectory, which read only that subtree. Plus the fix's own
     edges: an added or deleted file, a gitlink, and git tracing from env or config
-    are still not aborts.
+    are still not aborts;
+  * a file has exactly the lines `git grep -n` numbers (2026-11-08): no phantom line
+    N+1 after a final newline, so a cite past the last line was never valid at base,
+    and has-line narrowing drops a file one line too short.
 
 Run directly (`python tools/tests/test_verify_inbound_cite_shift.py`) or via pytest.
 """
@@ -460,7 +463,7 @@ def test_load_rejects_each_kind_of_short_read_on_its_own():
     mod = _load_module()
     body = b"line 1\nline 2\n"
     whole = b"%s blob %d\n%s\n" % (b"a" * 40, len(body), body)
-    assert _fake_catfile(mod, 0, whole).blob("t", "f.txt") == ["line 1", "line 2", ""]   # control
+    assert _fake_catfile(mod, 0, whole).blob("t", "f.txt") == ["line 1", "line 2"]   # control
     for rc, reply in ((128, whole), (0, whole[:-6]), (0, whole[:whole.index(b"\n") + 1])):
         try:
             got = _fake_catfile(mod, rc, reply).blob("t", "f.txt")
@@ -493,6 +496,73 @@ def test_main_exit_2_when_a_subtree_cannot_be_read():
     rc, out = _main_out(mod, ["explicit-B"], [mod.B], damage=[("tip", "manuscript", "delete")])
     assert rc == 2, out
     assert "exited 128" in out and "no changed files" not in out
+
+
+# ----------------------------------------- line N+1 of an N-line file (2026-11-08)
+#
+# split('\n') on a file ending in a newline leaves a '' after the last line, so every
+# N-line file "had" a line N+1. A cite to it, dead at base, passed the never-valid-at-
+# base test: a tip one line shorter exited 1 on it with empty was/now lines (review A6
+# on #1081), a longer tip made it EDITED-IN-PLACE. The same phantom line kept a file
+# one line too short alive through has-line narrowing. Each test below fails at ad19aec8.
+
+def _scan_and_exit(base, tip):
+    import contextlib
+    import io
+
+    with _two_trees(base, tip) as (mod, repo, b, t):
+        res = mod.scan(repo, b, t)
+        with contextlib.redirect_stdout(io.StringIO()):
+            rc = mod.main(b, t, repo=repo)
+    return res, rc
+
+
+def test_a_cite_past_the_last_line_was_never_valid_at_base():
+    rows = ["row %d" % i for i in range(1, 15)]                        # 14 lines
+    for n, tip_rows, want in (
+            (15, rows[1:], []),                                         # the review's repro
+            (15, rows + ["row 15, new"], []),                           # the line exists only at tip
+            (14, rows + ["row 15, new"], []),                           # control: the last line holds
+            (14, rows[1:], [("OUT-OF-RANGE", "row 14", "")]),           # control: ...and can move
+            (14, ["new"] + rows, [("SHIFTED", "row 14", "row 13")])):
+        cite = {"docs/c.md": ["see `f.txt:%d`" % n]}
+        res, rc = _scan_and_exit(dict(cite, **{"f.txt": rows}), dict(cite, **{"f.txt": tip_rows}))
+        got = [(f.kind, f.was, f.now) for f in res["pinned"]]
+        assert res["found"] == 1 and got == want and rc == (1 if want else 0), (n, len(tip_rows), got, rc)
+
+
+def test_has_line_drops_a_file_one_line_too_short():
+    """A bare `g.md:15` with a/g.md 14 lines long and b/g.md 40: only b/g.md has line 15."""
+    short, long_ = ["short %d" % i for i in range(1, 15)], ["long %d" % i for i in range(1, 41)]
+    base = {"docs/c.md": ["see `g.md:15`"], "a/g.md": short, "b/g.md": long_}
+    res, rc = _scan_and_exit(base, dict(base, **{"b/g.md": ["inserted"] + long_}))
+    assert [(f.target, f.kind, f.how) for f in res["pinned"]] == [
+        ("b/g.md", "SHIFTED", "bare basename + has-line")] and not res["ambiguous"] and rc == 1
+    res, rc = _scan_and_exit(base, dict(base, **{"a/g.md": short[1:]}))
+    assert res["elsewhere"] == 1 and not res["pinned"] and not res["ambiguous"] and rc == 0
+
+
+def test_line_count_is_git_greps():
+    """The lines `load()` returns are the lines `git grep -n` numbers, the numbering every
+    citer's `:NNN` was read off: empty file, no final newline, a trailing blank line, CRLF."""
+    mod = _load_module()
+    bodies = [b"", b"\n", b"a", b"a\n", b"a\nb", b"a\n\n", b"a\r\nb\r\n"]
+    with mod.fixture_repo([], []) as (repo, _, _t):
+        rows = []
+        for k, body in enumerate(bodies):
+            rc, out = repo.raw("hash-object", "-w", "--stdin", stdin=body)
+            assert rc == 0, repo.err
+            rows.append("100644 blob %s\tf%d" % (out.decode().strip(), k))
+        rc, out = repo.raw("mktree", stdin=("\n".join(rows) + "\n").encode())
+        assert rc == 0, repo.err
+        tree = out.decode().strip()
+        for k, body in enumerate(bodies):
+            rc, out = repo.raw("grep", "-c", "-e", "", tree, "--", "f%d" % k)
+            assert rc in (0, 1), repo.err
+            want = int(out.decode().rsplit(":", 1)[1]) if out.strip() else 0
+            got = repo.blob(tree, "f%d" % k)
+            assert len(got) == want, (body, got, want)
+    assert _fake_catfile(mod, 0, b"%s blob 0\n\n" % (b"a" * 40)).blob("t", "f.txt") == []
 
 
 # The fix must not turn ordinary absence into an abort. These pass on the pre-fix tool
