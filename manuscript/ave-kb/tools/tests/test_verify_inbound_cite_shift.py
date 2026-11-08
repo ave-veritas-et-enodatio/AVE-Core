@@ -21,7 +21,14 @@ Asserts:
     0 on a changed file that nobody cites (the honest zero the yield-inferred
     liveness control used to call a broken finder), and 2 on each failure the
     control now tests directly -- an unresolvable rev, an erroring `git grep` or
-    `git diff-tree`, a dead self-gate.
+    `git diff-tree`, a dead self-gate;
+  * exit 2, never 1, when no verdict was reached (2026-11-07): a crash in any mode,
+    a usage error, and a citer blob, changed-file blob or subtree git cannot read
+    (deleted, or cut short mid-stream) -- each reported out of band, each read by
+    the pre-fix tool as an absent or shorter file, ending in a clean zero; and a
+    run from a subdirectory, which read only that subtree. Plus the fix's own
+    edges: an added or deleted file, a gitlink, and git tracing from env or config
+    are still not aborts.
 
 And the 2026-11-01 rules. Re-pinning stale cites on #1037-#1039 showed the checker
 could not confirm a repair: it tested base[new] against tip[new], so a correct
@@ -85,12 +92,36 @@ def test_gate_can_fire_and_negative_controls_hold():
     assert any("can-it-fire" in l for l in lines)
     assert any("negative control" in l for l in lines)
     assert all("[PASS]" in l for l in lines), "\n".join(lines)
+    # the damaged-object probes are part of every run's liveness: pin them, so that
+    # dropping one (or the loop) is a test failure and not a quieter self-gate
+    damaged = ["citer blob (the only match)", "citer blob (beside a match)",
+               "changed-file blob (deleted)", "changed-file blob (cut short)",
+               "re-pinning citer blob (deleted)", "subtree (deleted)"]
+    for name in damaged:
+        assert any(l.lstrip().startswith("[PASS] a damaged %s aborts" % name) for l in lines), name
+    assert sum(l.lstrip().startswith("[PASS] a damaged ") for l in lines) == len(damaged)
+    # and the whole gate: 10 original probes, one per REPINS row plus #1079's 7 re-pin
+    # checks, the damaged objects, and the -U0 context-lines probe -- so dropping ANY
+    # probe, from either side of the #1079 merge, fails here (78 at the merge)
+    assert len(lines) == 10 + len(mod.REPINS) + 7 + len(damaged) + 1, len(lines)
+    assert any(l.lstrip().startswith("[PASS] a `-U0` diff that comes back with context lines") for l in lines)
+    assert sorted(mod.LOST) == sorted(damaged)
 
 
 def test_mutation_receipt_holds():
+    import contextlib
+    import io
+
     mod = _load_module()
-    assert mod.mutation_receipt() == 0
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        assert mod.mutation_receipt() == 0
     assert not mod.MUTATE, "a mutation leaked out of the receipt"
+    # Every row present, under its own number. Merging #1079 interleaved #1081's rows
+    # into M6-M39 without a conflict marker; a dropped or renumbered row must fail here.
+    rows = re.findall(r"\[(OK|BROKEN)\] M(\d+) ", buf.getvalue())
+    assert {int(n) for _, n in rows} == set(range(1, 47)), sorted({int(n) for _, n in rows})
+    assert all(status == "OK" for status, _ in rows)
 
 
 def test_explicit_path_to_sibling_does_not_fire_but_a_real_shift_does():
@@ -198,6 +229,458 @@ def test_main_exit_2_names_the_environment_when_the_fixture_cannot_be_built():
     assert rc == 2
     assert "could not be BUILT" in buf.getvalue() and "Read-only file system" in buf.getvalue()
     assert "cannot fire" not in buf.getvalue()
+
+
+# ------------------------------------- exit 2, never 1, when no verdict was reached
+#
+# Exit 1 is the verdict "a pinned cite moved". Until 2026-11-07 two routes reached it
+# without any verdict: an uncaught exception (Python exits 1 on a traceback) and an
+# object git could not read, which every call read as an empty answer -- a citer
+# never found, a changed file skipped, "no changed files" -- and the run printed a
+# clean zero. Each test below fails at f88f49e9.
+
+def _git_free_env(**extra):
+    """os.environ minus GIT_*: a hook exporting GIT_DIR must not aim a test at the real repo."""
+    import os
+    env = {k: v for k, v in os.environ.items() if not k.startswith("GIT_")}
+    env.update(extra)
+    return env
+
+
+def _damage(repo, rev, path, how="delete"):
+    """Delete the object `rev:path` names (blob or subtree), or cut its loose file to half,
+    after the tree is written -- as the solidity ratchet's `unreadable-base` fixture does.
+    Independent of the tool's own fixture `damage=`, so these tests fail on the pre-fix
+    tool for the behavioural reason, not on a missing helper."""
+    import os
+    oid = repo.sh("rev-parse", "%s:%s" % (rev, path)).strip()
+    loose = os.path.join(repo.cwd, ".git", "objects", oid[:2], oid[2:])
+    if how == "delete":
+        os.remove(loose)
+        return
+    with open(loose, "rb") as fh:
+        data = fh.read()
+    os.chmod(loose, 0o644)
+    with open(loose, "wb") as fh:
+        fh.write(data[:len(data) // 2])
+
+
+def _main_out(mod, keys, moved, damage=()):
+    import contextlib
+    import io
+
+    buf = io.StringIO()
+    with mod.fixture_repo(keys, moved) as (repo, b, t):
+        for side, path, how in damage:
+            _damage(repo, b if side == "base" else t, path, how)
+        with contextlib.redirect_stdout(buf):
+            rc = mod.main(b, t, repo=repo)
+    return rc, buf.getvalue()
+
+
+def _two_trees(base_files, tip_files, gitlinks=None):
+    """A throwaway repo with the given trees; gitlinks = {path: (base oid, tip oid)}."""
+    import contextlib
+
+    mod = _load_module()
+
+    @contextlib.contextmanager
+    def ctx():
+        with mod.fixture_repo([], []) as (repo, _, _t):
+            trees = []
+            for k, files in enumerate((base_files, tip_files)):
+                tree = mod._write_tree(repo, repo.cwd, files)
+                if gitlinks:
+                    for path, oids in gitlinks.items():
+                        repo.raw("update-index", "--add", "--cacheinfo", "160000,%s,%s" % (oids[k], path))
+                    tree = repo.sh("write-tree").strip()
+                trees.append(tree)
+            yield mod, repo, trees[0], trees[1]
+    return ctx()
+
+
+def test_main_exit_2_on_a_crash_inside_scan():
+    """A ValueError -- the type the colour-config crash raises -- in the REAL scan; the
+    self-gate's fixture scans run untouched first."""
+    import contextlib
+    import io
+
+    mod = _load_module()
+    real = mod.scan
+    with mod.fixture_repo(["explicit-B"], [mod.B]) as (repo, b, t):
+        def crash(r, *a, **k):
+            if r is repo:
+                raise ValueError("forced crash inside scan()")
+            return real(r, *a, **k)
+
+        buf = io.StringIO()
+        mod.scan = crash
+        try:
+            with contextlib.redirect_stdout(buf):
+                rc = mod.main(b, t, repo=repo)
+        finally:
+            mod.scan = real
+    assert rc == 2, buf.getvalue()
+    assert "the gate crashed (ValueError: forced crash inside scan())" in buf.getvalue()
+
+
+def test_cli_exit_2_on_a_crash():
+    """The process exit code, through the tool's own __main__: `git diff` raises in the
+    repo under test only (the self-gate's fixtures are other directories)."""
+    driver = (
+        "import os, runpy, subprocess, sys\n"
+        "real = subprocess.run\n"
+        "target = os.path.realpath(os.environ['CRASH_IN'])\n"
+        "def fake(args, *a, **kw):\n"
+        "    if args[1:2] == ('diff',) and os.path.realpath(kw.get('cwd') or '') == target:\n"
+        "        raise ValueError('forced crash inside scan()')\n"
+        "    return real(args, *a, **kw)\n"
+        "subprocess.run = fake\n"
+        "sys.argv = sys.argv[1:]\n"
+        "runpy.run_path(sys.argv[0], run_name='__main__')\n"
+    )
+    mod = _load_module()
+    with _two_trees({"docs/c.md": ["x"]}, {"docs/c.md": ["y"]}) as (_, repo, b, t):
+        r = subprocess.run([sys.executable, "-c", driver, str(_TOOL), b, t], capture_output=True,
+                           text=True, cwd=repo.cwd, env=_git_free_env(CRASH_IN=repo.cwd))
+    assert r.returncode == 2, r.stdout + r.stderr
+    assert "the gate crashed (ValueError" in r.stdout
+
+
+def test_cli_usage_exits_2():
+    """An empty `$(git merge-base ...)` in the Makefile leaves ONE argument."""
+    r = subprocess.run([sys.executable, str(_TOOL), "HEAD"], capture_output=True, text=True)
+    assert r.returncode == 2, r.stdout + r.stderr
+    assert "usage:" in r.stderr
+
+
+def test_cli_from_a_subdirectory_reads_the_whole_repo():
+    """From a subdirectory git grep searches only that subtree: the pre-fix run, started
+    in docs/, found the shifted cite's citer nowhere and exited 0."""
+    mod = _load_module()
+    with mod.fixture_repo(["explicit-B"], [mod.B]) as (repo, b, t):
+        rcs = [subprocess.run([sys.executable, str(_TOOL), b, t], capture_output=True, text=True,
+                              cwd=cwd, env=_git_free_env()).returncode
+               for cwd in (repo.cwd, repo.cwd + "/manuscript")]
+    assert rcs == [1, 1], rcs
+
+
+def test_cli_without_a_work_tree_and_with_odd_paths():
+    """Moving to the top level is for a work tree only. A bare repo and a cwd inside .git/
+    have no subtree to miss and no top level to move to; a relative GIT_DIR/GIT_WORK_TREE
+    must survive the move; a top level whose name ends in a space must too. Each exits 1,
+    like the run at the root."""
+    import shutil
+    import tempfile
+
+    mod = _load_module()
+    env = _git_free_env()
+
+    def rc(cwd, **extra):
+        return subprocess.run([sys.executable, str(_TOOL), b, t], capture_output=True, text=True,
+                              cwd=cwd, env=dict(env, **extra)).returncode
+
+    scratch = tempfile.mkdtemp(prefix="inbound-cite-odd-")
+    try:
+        with mod.fixture_repo(["explicit-B"], [mod.B]) as (repo, b, t):
+            bare = scratch + "/bare.git"
+            subprocess.run(["git", "init", "-q", "--bare", bare], env=env, check=True)
+            shutil.rmtree(bare + "/objects")
+            shutil.copytree(repo.cwd + "/.git/objects", bare + "/objects")
+            spaced = scratch + "/repo "
+            shutil.copytree(repo.cwd, spaced, symlinks=True)
+            got = {"root": rc(repo.cwd), "bare repo": rc(bare), "cwd inside .git": rc(repo.cwd + "/.git"),
+                   "relative GIT_DIR from docs/": rc(repo.cwd + "/docs", GIT_DIR="../.git", GIT_WORK_TREE=".."),
+                   "top level ending in a space": rc(spaced + "/docs")}
+    finally:
+        shutil.rmtree(scratch, ignore_errors=True)
+    assert got == {k: 1 for k in got}, got
+
+
+def test_cli_outside_a_repo_cannot_start():
+    import shutil
+    import tempfile
+
+    cwd = tempfile.mkdtemp(prefix="inbound-cite-norepo-")
+    try:
+        r = subprocess.run([sys.executable, str(_TOOL), "HEAD~1", "HEAD"], capture_output=True,
+                           text=True, cwd=cwd, env=_git_free_env(GIT_CEILING_DIRECTORIES=cwd))
+    finally:
+        shutil.rmtree(cwd, ignore_errors=True)
+    assert r.returncode == 2, r.stdout + r.stderr
+    assert "cannot start" in r.stdout and "crashed" not in r.stdout
+
+
+def test_selftest_and_receipt_exit_2_when_the_fixture_cannot_be_built():
+    """Exit 1 from these modes means "the gate is broken"; an environment that cannot
+    build the throwaway repo has proved nothing about the gate either way."""
+    mod = _load_module()
+    real = mod.Repo.raw
+
+    def no_init(self, *a, stdin=None):
+        if a and a[0] == "init":
+            self.err = "fatal: cannot mkdir: Read-only file system"
+            return 128, b""
+        return real(self, *a, stdin=stdin)
+
+    mod.Repo.raw = no_init
+    try:
+        assert mod.selftest() == 2
+        assert mod.mutation_receipt() == 2
+    finally:
+        mod.Repo.raw = real
+    assert not mod.MUTATE, "a mutation leaked out of the receipt"
+
+
+def test_main_exit_2_when_a_citer_blob_cannot_be_read():
+    """git grep reports the lost blob only on stderr -- and its exit code says nothing:
+    1 ("no match") when the lost file was the only match, 0 beside any other match."""
+    mod = _load_module()
+    for keys in (["explicit-B"], ["explicit-B", "beside-B-bare"]):
+        assert _main_out(mod, keys, [mod.B])[0] == 1                 # the control: it fires
+        rc, out = _main_out(mod, keys, [mod.B], damage=[("tip", mod.CITERS, "delete")])
+        assert rc == 2, (keys, out)
+        assert "unable to read" in out and mod.CITERS in out and "clean —" not in out
+
+
+def test_main_exit_2_when_a_changed_files_blob_cannot_be_read():
+    """`cat-file --batch` answers `missing` for it, exactly as for a path not in the tree."""
+    mod = _load_module()
+    rc, out = _main_out(mod, ["explicit-B"], [mod.B], damage=[("base", mod.B, "delete")])
+    assert rc == 2, out
+    assert "is a blob in that tree" in out and mod.B in out and "clean —" not in out
+
+
+def test_main_exit_2_when_a_changed_files_blob_is_cut_short():
+    """A blob big enough to stream: cat-file prints its full-size header, part of the body,
+    then exits 128. The pre-fix run kept the part, read the cited line as never valid at
+    base, and printed a clean."""
+    import contextlib
+    import io
+
+    rows = ["row %d of a long table" % i for i in range(1, 301)]
+    cite = {"docs/c.md": ["see `big.txt:290`"]}
+    for cut in (False, True):
+        with _two_trees(dict(cite, **{"big.txt": rows}),
+                        dict(cite, **{"big.txt": ["new"] + rows})) as (mod, repo, b, t):
+            if cut:
+                _damage(repo, b, "big.txt", "truncate")
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                rc = mod.main(b, t, repo=repo)
+        assert rc == (2 if cut else 1), buf.getvalue()
+    assert "clean —" not in buf.getvalue()
+
+
+def _fake_catfile(mod, rc, reply):
+    """A Repo whose `cat-file --batch` answers `reply` with exit `rc`, and whose tree
+    lists `f.txt` as a blob."""
+    class Fake(mod.Repo):
+        def raw(self, *a, stdin=None):
+            if a[:1] == ("cat-file",):
+                self.err = "fatal: unable to stream" if rc else ""
+                return rc, reply
+            return 0, b""
+
+        def tree(self, rev):
+            return {"f.txt": "blob"}
+    return Fake(cwd="/nonexistent")
+
+
+def test_load_rejects_each_kind_of_short_read_on_its_own():
+    """The exit-code check and the body-length check each stand alone: a git that sent
+    the whole body and still failed, or exited 0 with the body cut short, is not read."""
+    mod = _load_module()
+    body = b"line 1\nline 2\n"
+    whole = b"%s blob %d\n%s\n" % (b"a" * 40, len(body), body)
+    assert _fake_catfile(mod, 0, whole).blob("t", "f.txt") == ["line 1", "line 2", ""]   # control
+    for rc, reply in ((128, whole), (0, whole[:-6]), (0, whole[:whole.index(b"\n") + 1])):
+        try:
+            got = _fake_catfile(mod, rc, reply).blob("t", "f.txt")
+        except mod.GateError:
+            continue
+        raise AssertionError("rc=%d reply=%r was read as %r" % (rc, reply, got))
+
+
+def test_each_damaged_object_fixture_gives_its_verdict_whole():
+    """The control under every LOST row, pinned as literals: the fixture must reach this
+    verdict with every object present, or the abort it shows when damaged proves
+    nothing. The re-pin row's control is a PASS: its false verdict, with the rule off,
+    is a false SHIFTED."""
+    mod = _load_module()
+    want = {"citer blob (the only match)": "exit 1", "citer blob (beside a match)": "exit 1",
+            "changed-file blob (deleted)": "exit 1", "changed-file blob (cut short)": "exit 1",
+            "re-pinning citer blob (deleted)": "exit 0", "subtree (deleted)": "exit 1"}
+    got = {name: mod.lost_object_verdict(name, damaged=False).split(",")[0] for name in mod.LOST}
+    assert got == want, got
+
+
+def test_an_abort_that_does_not_name_the_damaged_object_proves_nothing():
+    """The self-gate's damaged-object probes count an abort only when it names the
+    damaged `<tree>:<path>` or object id. Not the bare path: `manuscript` (the subtree
+    probe) is a substring of every fixture file beneath it."""
+    mod = _load_module()
+    real = mod.scan
+
+    def unrelated(*a, **k):
+        raise mod.GateError("an unrelated fault while reading manuscript/vol_2_subatomic/main.tex")
+
+    mod.scan = unrelated
+    try:
+        got = {name: mod.lost_object_verdict(name) for name in mod.LOST}
+    finally:
+        mod.scan = real
+    assert all(v.startswith("ABORT, but not naming it") for v in got.values()), got
+
+
+def test_main_exit_2_when_a_subtree_cannot_be_read():
+    """`git diff` exits 128 with an empty stdout -- read naively, "no changed files"."""
+    mod = _load_module()
+    rc, out = _main_out(mod, ["explicit-B"], [mod.B], damage=[("tip", "manuscript", "delete")])
+    assert rc == 2, out
+    assert "exited 128" in out and "no changed files" not in out
+
+
+# The fix must not turn ordinary absence into an abort. These pass on the pre-fix tool
+# too; they guard the fix's own edges.
+
+def test_a_file_the_tree_does_not_hold_is_absent_not_unreadable():
+    """Added and deleted files answer `missing` from cat-file -- and are really absent."""
+    old = ["old %d" % i for i in range(1, 9)]
+    base = {"docs/gone.md": old, "a/same.md": old, "docs/cites.md": ["see `gone.md:3` and `same.md:2`"]}
+    tip = {"a/same.md": ["new"] + old, "b/same.md": old, "docs/cites.md": base["docs/cites.md"]}
+    with _two_trees(base, tip) as (mod, repo, b, t):
+        res = mod.scan(repo, b, t)
+        assert mod.main(b, t, repo=repo) == 0
+    assert not res["grep_errors"]
+    # gone.md has no tip and b/same.md no base: neither is "found"; a/same.md is, and the
+    # bare name it shares with the added b/same.md makes it advisory
+    assert res["found"] == 1 and [f.target for f in res["ambiguous"]] == ["a/same.md"]
+
+
+def test_a_gitlink_is_absent_not_unreadable():
+    """A submodule pointer is `commit` in the tree; its object is never in this repo."""
+    one, two = "1" * 40, "2" * 40
+    files = {"docs/cites.md": ["the pin is at `vendor/sub:3`"]}
+    with _two_trees(files, files, gitlinks={"vendor/sub": (one, two)}) as (mod, repo, b, t):
+        assert "vendor/sub" in repo.sh("diff", "--name-only", b, t)
+        assert mod.main(b, t, repo=repo) == 0
+
+
+def test_git_tracing_does_not_abort_a_run():
+    """Tracing writes to stderr, which is now read as a grep error. GIT_TRACE* is env-only
+    and scrubbed; trace2 can come from git CONFIG too -- `~/.gitconfig` reaches the
+    self-gate's fixtures as well as the real run -- and is switched off by env."""
+    import os
+    import tempfile
+
+    mod = _load_module()
+    saved = dict(os.environ)
+    home = tempfile.mkdtemp(prefix="inbound-cite-home-")
+    try:
+        with open(os.path.join(home, ".gitconfig"), "w") as fh:
+            fh.write("[trace2]\n\tnormalTarget = 2\n\tperfTarget = 2\n")
+        with mod.fixture_repo(["explicit-B"], [mod.B]) as (fixture, b, t):
+            env = _git_free_env(HOME=home, GIT_TRACE="1", GIT_TRACE2="1", GIT_TRACE_PERFORMANCE="1")
+            env.pop("XDG_CONFIG_HOME", None)
+            os.environ.clear()                                 # built BEFORE the clear: PATH kept
+            os.environ.update(env)
+            repo = mod.Repo(cwd=fixture.cwd)                   # the real-run constructor
+            assert mod.main(b, t, repo=repo) == 1
+    finally:
+        os.environ.clear()
+        os.environ.update(saved)
+        import shutil
+        shutil.rmtree(home, ignore_errors=True)
+
+
+def test_git_diff_opts_does_not_reach_the_real_run():
+    """GIT_DIFF_OPTS=--unified=N overrides even plumbing's -U0. Through #1079's re-pin
+    check, a hunk widened by context lines let a WRONG re-pin "land on the row that
+    replaced it" and the run exited 0. The real run scrubs the variable."""
+    import os
+
+    mod = _load_module()
+    saved = dict(os.environ)
+    with mod.two_trees(*mod._context_trees()) as (fixture, b, t):
+        try:
+            env = _git_free_env(GIT_DIFF_OPTS="--unified=3")
+            os.environ.clear()
+            os.environ.update(env)
+            repo = mod.Repo(cwd=fixture.cwd)                   # the real-run constructor
+        finally:
+            os.environ.clear()
+            os.environ.update(saved)
+        assert "GIT_DIFF_OPTS" not in repo.env
+        assert mod.main(b, t, repo=repo) == 1
+
+
+def test_a_diff_with_context_lines_voids_the_run():
+    """The belt behind the scrub: a -U0 diff that comes back with context lines, from
+    any source, is a `git diff-tree` error, not a smaller set of changes."""
+    mod = _load_module()
+    assert mod.diff_context_verdict(inject=False) == "exit 1"         # the wrong re-pin fails
+    assert mod.diff_context_verdict() == "ABORT"
+    mod.MUTATE.add("diff-context-ok")
+    try:
+        assert mod.diff_context_verdict() == "exit 0"                   # what the belt prevents
+        # ...and an abort for another reason (a stray grep error) is not the belt firing
+        real = mod.Repo.raw
+
+        def stray(self, *a, stdin=None):
+            rc, out = real(self, *a, stdin=stdin)
+            if a[:1] == ("grep",):
+                self.err = "error: something unrelated"
+            return rc, out
+
+        mod.Repo.raw = stray
+        try:
+            assert mod.diff_context_verdict().startswith("ABORT, but not on docs/t.md")
+        finally:
+            mod.Repo.raw = real
+    finally:
+        mod.MUTATE.discard("diff-context-ok")
+
+
+def test_the_self_gate_runs_its_object_probes_rather_than_printing_them():
+    """A probe's [PASS] line is only worth the probe behind it: if a damaged-object or
+    context-lines probe stops aborting, run_gate() must fail, not print the same line."""
+    mod = _load_module()
+    for name in ("lost_object_verdict", "diff_context_verdict"):
+        real = getattr(mod, name)
+        setattr(mod, name, lambda *a, **k: "exit 0, cites-found=0")
+        try:
+            lines = []
+            assert not mod.run_gate(out=lines.append), name
+            assert any("[FAIL]" in l for l in lines), name
+        finally:
+            setattr(mod, name, real)
+
+
+def test_a_file_without_a_final_newline_is_no_context_line():
+    """`\\ No newline at end of file` is part of healthy -U0 output; only a line that starts
+    with a space is context. A cited last line rewritten in a file with no final newline
+    reads EDITED-IN-PLACE (advisory, exit 0), never a diff error."""
+    import os
+
+    mod = _load_module()
+    with mod.two_trees({}, {}) as (repo, _, _t):
+        trees = []
+        for last in (b"row 5", b"row 5, rewritten"):
+            os.makedirs(os.path.join(repo.cwd, "docs"), exist_ok=True)
+            with open(os.path.join(repo.cwd, "docs", "t.md"), "wb") as fh:
+                fh.write(b"row 1\nrow 2\nrow 3\nrow 4\n" + last)       # no final newline
+            with open(os.path.join(repo.cwd, "docs", "c.md"), "wb") as fh:
+                fh.write(b"see `docs/t.md:5`\n")
+            repo.raw("add", "-A", "-f", ".")
+            trees.append(repo.sh("write-tree").strip())
+        b, t = trees
+        diff = repo.sh("diff-tree", "-p", "-U0", b, t, "--", "docs/t.md")
+        assert "No newline at end of file" in diff                     # the case is real
+        res = mod.scan(repo, b, t)
+    assert not res["diff_errors"], res["diff_errors"]
+    assert not mod.scan_errors(res)
+    assert [f.kind for f in res["pinned"]] == ["EDITED-IN-PLACE"]       # advisory: exit 0
 
 
 def test_main_exit_2_when_git_diff_tree_errors():
@@ -730,7 +1213,7 @@ if __name__ == "__main__":
             try:
                 fn()
                 print("PASS", name)
-            except AssertionError as exc:
+            except Exception as exc:          # a crash is a failure too, not the end of the run
                 failed += 1
                 print("FAIL", name, exc)
     sys.exit(1 if failed else 0)
