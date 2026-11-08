@@ -380,7 +380,7 @@ derive-first "𝒜_g enters NO register"** — the derive-first gate is discharg
   this one records that there **is no value to classify yet**: 𝒜_g is ratified as
   real, coherent across consumers, and **unvalued**.
 - **definition_uniqueness (1)** — ONE definition, ratified: the bias-coupling area
-  in Axiom 5's clause G, $\mathbf{u}_0 = -\mathcal{A}_g\nabla\varepsilon_{11}$,
+  in the source law's clause G, $\mathbf{u}_0 = -\mathcal{A}_g\nabla\varepsilon_{11}$,
   $[\mathrm{m}^2]$. **𝒜_g is NOT a falloff** — the $1/r$ bias profile and the
   $1/r^2$ bound response are free geometry from the elliptic solve. 𝒜_g is the
   **scale converter**: metres of displacement per unit bias slope.
@@ -461,5 +461,5 @@ derive-first "𝒜_g enters NO register"** — the derive-first gate is discharg
 > Stated as an observation with its routing, not as a finding.
 
 **Cross-refs:** [`eq_axiom_5.tex`](../../common_equations/eq_axiom_5.tex) clause G ·
-the Axiom-5 entry in [`axiom-register.md`](axiom-register.md) · the bias-propagation
-lane brief (Axiom 5's standing debt).
+the source-law entry in [`axiom-register.md`](axiom-register.md) · the bias-propagation
+lane brief (the source law's standing debt).

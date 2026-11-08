@@ -96,7 +96,7 @@ rule — all open, listed in §5.
 - **Longitudinal sector**: $\nabla\!\cdot\!\mathbf{A}$ is gauge (def-l0ngdu). The
   "$\nabla\!\cdot\!\mathbf{u}$ propagates" half is the **R40-B2a phantom verbatim**
   (🔴 DEMOTED 2026-08-11, `substrate-native-terminology.md:144`) — what survives is
-  **physical-and-bound ≠ deleted**, re-posed on the Axiom-5 clause-G bound response. The A1
+  **physical-and-bound ≠ deleted**, re-posed on the source-law clause-G bound response. The A1
   compression scalar is physical and never framed in QED-vector terms; no longitudinal photon.
 
 ## §5 — Gap ledger (six-lane corpus pull, 2026-08-23; negative results are search-derived — items 5 and 8 are the corpus-registered opens)
@@ -110,7 +110,7 @@ rule — all open, listed in §5.
 4. Path integral, Wick rotation, gauge-fixing/ghosts, QFT S-matrix — zero substrate
    interpretation (every KB "S-matrix" is the EE port-scattering object).
 5. Time-dependent U(1) invariance — only the residual time-independent family is derived;
-   the Gauss-constraint completion rides Axiom-5 FORK-1, OPEN.
+   the Gauss-constraint completion rides the source law's FORK-1, OPEN.
 6. Regularization-scheme correspondence (lattice cutoff ↔ dim-reg) — none.
 7. Higher-order QED coefficients ($\alpha^3$+ of $a_e$; $\alpha^5$ Lamb pieces) — explicit
    non-claims; the corpus has no generator for them.
