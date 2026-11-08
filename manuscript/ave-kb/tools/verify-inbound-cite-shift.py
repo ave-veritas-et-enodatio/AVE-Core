@@ -196,12 +196,17 @@ that is the plain test, which has no other line to compare.
 LIVENESS -- a zero has to be earned, and NOT inferred from the run's own yield
 ------------------------------------------------------------------------------
 A checker that finds nothing reports a clean it did not earn. Before any zero is
-trusted, every run proves four things, none of them read off its own yield:
+trusted, every run proves five things, none of them read off its own yield:
 
   * both revs resolve to a tree  (on a bad rev every git call returns nothing);
   * no git call failed           (`git grep` exiting 1 = "no match" is an answer,
                                  > 1 is an error; so is any `git diff-tree` error,
                                  which would silently cost every re-pin its number);
+  * every citer row reads whole  git grep takes a row's shape from git config (colour
+                                 codes, a column field) unless the call pins it, C-quotes
+                                 a non-ASCII path without -z, and reads a leaf named
+                                 `-...` as an option without -e. All are pinned; a row that
+                                 does not parse is an error, never a skipped citer;
   * every object read was READ   git grep reports an unreadable blob ONLY on stderr
                                  and still exits 0 or 1, its lines simply absent;
                                  `cat-file --batch` answers `missing`, exactly as for
@@ -216,8 +221,10 @@ trusted, every run proves four things, none of them read off its own yield:
                                  scan() and git binary: a planted shifted cite IS
                                  reported, a cite to a same-named sibling is NOT, a
                                  correct re-pin passes, a wrong one fires, each
-                                 damaged object in LOST ABORTS, and a `-U0` diff that
-                                 comes back with context lines voids the run.
+                                 damaged object in LOST ABORTS, a `-U0` diff that
+                                 comes back with context lines voids the run, and
+                                 each citer row in GREP reads whole -- every fixture
+                                 repo carries the HOSTILE grep and colour config.
 Any failure aborts with exit 2 instead of printing a zero.
 
 Until 2026-09-19 liveness WAS inferred from yield: "changed files but ZERO cites
@@ -728,6 +735,58 @@ def verdict(repo, base, tip, target, b, t, held, n):
 
 Finding = collections.namedtuple('Finding', 'src lno target n kind was now moved_to cands how held')
 
+#: One `git grep -z -n` row: `<rev>:<path>` NUL `<line number>` NUL `<text>` LF. The path is
+#: read up to its NUL, since it may hold `:` or a newline; the text up to its newline, since a
+#: text line can hold a NUL past the bytes git sniffs for binary.
+GREP_ROW = re.compile(rb'([^\0]*)\0([0-9]+)\0([^\n]*)\n')
+
+
+def citer_lines(repo, leaf, rev):
+    """([(path, line number, text)] for each text line of `rev` holding `leaf`, error or None).
+
+    Every option that shapes a row is on the command line, because git config sets it
+    otherwise: `color.ui` / `color.grep = always` wraps each field in ANSI codes (`int()` of
+    the line number raised) and `grep.column` adds a field that reads as part of the text --
+    so --no-color --no-column, and -n explicit, which `grep.lineNumber` cannot turn off.
+    `grep.patternType` yields to -F; `grep.fullName` has nothing to do at the top level.
+    -z: the path comes back as its bytes. Without it a non-ASCII path is C-quoted
+    (`"docs/caf\\303\\251.md"`, a path no file has, so a link resolved against it pins
+    nothing) and a path holding `:` is split at it. -e: a leaf such as `-notes.md` is the
+    pattern, not an option (git exits 129). A row that does not parse is an error, never a
+    row to skip: skipped, it is a citer never found.
+    """
+    pins = () if 'grep-config-unpinned' in MUTATE else ('--no-color', '--no-column')
+    pins += () if 'grep-no-z' in MUTATE else ('-z',)
+    pattern = (leaf,) if 'grep-no-e' in MUTATE else ('-e', leaf)
+    rc, out = repo.raw('grep', '-I', '-n', *pins, '-F', *pattern, rev, '--')
+    # An unreadable blob is reported ONLY on stderr (`error: ... unable to read`) while grep
+    # exits 0 or 1 with that file's lines missing from stdout: a citer never found. So
+    # anything on stderr but a `warning:` is an error too.
+    noise = [l for l in repo.err.splitlines() if not l.startswith('warning:')]
+    if 'grep-stderr-ok' in MUTATE:
+        noise = []
+    err = None
+    if rc > 1 or noise:                                    # 1 is "no match"; >1 is a failure
+        err = 'exit %d%s' % (rc, ': ' + noise[0] if noise else '')
+    rows, at, prefix = [], 0, (rev + ':').encode('utf-8')
+    if 'grep-no-z' in MUTATE:                              # the pre-fix reading
+        for line in out.split(b'\n'):
+            parts = line.split(b':', 3)
+            if len(parts) == 4 and parts[2].isdigit():
+                rows.append((parts[1].decode('utf-8', 'replace'), int(parts[2]),
+                             parts[3].decode('utf-8', 'replace')))
+            elif line.strip():
+                err = err or 'unparseable row: %r' % line[:100]
+        return rows, err
+    while at < len(out):
+        m = GREP_ROW.match(out, at)
+        if not m or not m.group(1).startswith(prefix):
+            return rows, err or 'unparseable row at byte %d: %r' % (at, out[at:at + 100])
+        rows.append((m.group(1)[len(prefix):].decode('utf-8', 'replace'), int(m.group(2)),
+                     m.group(3).decode('utf-8', 'replace')))
+        at = m.end()
+    return rows, err
+
 
 def scan(repo, base, tip):
     changed = [p for p in repo.checked('diff', '--name-only', '-z', base, tip, '--').split('\0') if p]
@@ -761,31 +820,21 @@ def scan(repo, base, tip):
         return held == n or 0 < n <= line_count(l if at_tip is None else at_tip)
 
     # candidate citers: any tracked line at TIP mentioning a changed file's leaf
-    # name followed (within a few punctuation chars) by :NNN. git grep -I skips
-    # binaries. Deliberately over-broad; resolved targets are validated after.
+    # name followed (within a few punctuation chars) by :NNN. Deliberately
+    # over-broad; resolved targets are validated after.
     # NOTE: candidate collection uses git grep with a FIXED STRING (-F), never a
     # regex. An earlier version passed an ERE to git grep and a near-identical
     # pattern to Python's re: inside a POSIX bracket expression a backslash is
     # LITERAL, so `[...\]]` demanded a literal ']' before the colon and the stage
     # silently under-collected -- it missed a citer I had already proved by hand.
     # One engine does the finding, one does the precision. Never two.
-    # An unreadable blob is reported ONLY on stderr (`error: ... unable to read`) while
-    # grep exits 0 or 1 with that file's lines missing from stdout: a citer never found.
-    # So anything on stderr but a `warning:` is an error too.
     cand = collections.defaultdict(list)
     for leaf in by_leaf:
-        rc, out = repo.raw('grep', '-nIF', leaf, tip, '--')
-        noise = [l for l in repo.err.splitlines() if not l.startswith('warning:')]
-        if 'grep-stderr-ok' in MUTATE:
-            noise = []
-        if rc > 1 or noise:                                # 1 is "no match"; >1 is a failure
-            res['grep_errors'].append((leaf, 'exit %d%s' % (rc, ': ' + noise[0] if noise else '')))
-        for line in out.decode('utf-8', 'replace').split('\n'):
-            if not line.strip(): continue
-            parts = line.split(':', 3)
-            if len(parts) < 4: continue
-            _, src, lno, text = parts[0], parts[1], parts[2], parts[3]
-            cand[src].append((int(lno), text, leaf))
+        rows, err = citer_lines(repo, leaf, tip)
+        if err:
+            res['grep_errors'].append((leaf, err))
+        for src, lno, text in rows:
+            cand[src].append((lno, text, leaf))
 
     for src, rows in cand.items():
         for lno, text, leaf in rows:
@@ -1015,7 +1064,8 @@ def main(base, tip, verbose=False, repo=None):
         return 2
     print('[inbound-cites] liveness OK — both revs resolve, every object read, no grep or diff error, '
           'self-gate %d/%d (a planted shifted cite fires; a cite to a same-named sibling does not; a '
-          'correct re-pin passes; a wrong one fires; a damaged object aborts).' % (n_probes, n_probes))
+          'correct re-pin passes; a wrong one fires; a damaged object aborts; every citer row reads '
+          'whole under hostile grep config).' % (n_probes, n_probes))
     return report(res, verbose)
 
 
@@ -1032,6 +1082,18 @@ UNIQUE = 'src/unique_mod.py'
 CITERS = 'docs/citers.md'
 NOTES = 'manuscript/vol_1_foundations/notes.md'        # a citer BESIDE B
 LONG = 'manuscript/vol_1_foundations/tables.tex'       # big enough that git STREAMS it
+COLON = 'docs/a:b.md'                                  # a citer whose path holds a colon
+ACCENT = 'manuscript/vol_1_foundations/not\u00e9s.md'  # a citer beside B, name not ASCII
+DASH = 'src/-dash_mod.py'                              # a changed file named like an option
+CITER_FILES = (CITERS, NOTES, COLON, ACCENT)
+
+#: Config that reshapes a `git grep` row when the call leaves it to config (citer_lines()).
+#: Every fixture repo carries it, so every self-gate verdict is reached under it.
+#: color.grep outranks color.ui, so a `color.grep = never` in ~/.gitconfig would otherwise
+#: disarm the colour; core.quotePath=true is git's default, set so a user's `false` cannot
+#: hide the quoting.
+HOSTILE = (('color.ui', 'always'), ('color.grep', 'always'), ('grep.column', 'true'),
+           ('grep.lineNumber', 'false'), ('core.quotePath', 'true'))
 
 #: probe key -> (citing file, citing text). Every cite targets a line that exists.
 PROBES = collections.OrderedDict([
@@ -1055,6 +1117,15 @@ PROBES = collections.OrderedDict([
     ('long-file',       (CITERS, 'a long file, cited near its end: `tables.tex:290`')),
 ])
 
+#: The citer reader's probes (GREP, below). Not in ALL: the addressing checks are unchanged.
+GREP_PROBES = collections.OrderedDict([
+    ('colon-citer-B',   (COLON, 'from a citer whose path holds a colon: '
+                                '`manuscript/vol_1_foundations/main.tex:5`')),
+    ('accent-link-B',   (ACCENT, 'link form, from a citer whose name is not ASCII: [frontmatter](main.tex):11')),
+    ('dash-leaf',       (CITERS, 'a file whose name starts with a dash: `src/-dash_mod.py:10`')),
+])
+CITES = collections.OrderedDict(list(PROBES.items()) + list(GREP_PROBES.items()))
+
 
 def _numbered(tag, k):
     return ['%s line %d' % (tag, i) for i in range(1, k + 1)]
@@ -1065,11 +1136,13 @@ def _files(keys, moved=()):
     line below keeps its content at a NEW address -- the definition of SHIFTED."""
     files = {B: _numbered('vol1', 14), A: _numbered('letter', 40),
              THIRD: _numbered('vol2', 14), UNIQUE: _numbered('code', 20),
-             LONG: _numbered('table row of a long file', 300)}
+             LONG: _numbered('table row of a long file', 300), DASH: _numbered('dash', 20)}
     for p in moved:
         files[p] = ['inserted %d' % i for i in (1, 2, 3)] + files[p]
-    for citer in (CITERS, NOTES):
-        files[citer] = [PROBES[k][1] for k in keys if PROBES[k][0] == citer] or ['(no cites)']
+    for citer in CITER_FILES:
+        lines = [CITES[k][1] for k in keys if CITES[k][0] == citer]
+        if lines or citer in (CITERS, NOTES):
+            files[citer] = lines or ['(no cites)']
     return files
 
 
@@ -1098,17 +1171,24 @@ def _write_tree(repo, root, files):
 
 
 @contextlib.contextmanager
-def two_trees(base_files, tip_files, damage=()):
+def two_trees(base_files, tip_files, damage=(), config=HOSTILE):
     """A throwaway repo holding a base tree and a tip tree: yields (repo, base, tip).
 
     `damage`: ('base' | 'tip', path, 'delete' | 'truncate') -- after both trees are
     written, that object (blob or subtree) is deleted from the object store, or its
-    loose file cut to half, so the trees still name it."""
+    loose file cut to half, so the trees still name it. `config`: (key, value) pairs
+    written to the repo's own config, which outranks ~/.gitconfig (appended in one write,
+    not one `git config` process per key: the self-gate builds ~20 of these per run)."""
     root = tempfile.mkdtemp(prefix='inbound-cite-selftest-')
     try:
         repo = Repo(cwd=root, scrub_env=True)
         if repo.raw('init', '-q')[0] != 0:
             raise FixtureError('`git init` failed in %s: %s' % (root, repo.err or 'no output'))
+        try:
+            with open(os.path.join(root, '.git', 'config'), 'a', encoding='utf-8') as fh:
+                fh.write(''.join('[%s]\n\t%s = %s\n' % (*key.split('.'), value) for key, value in config))
+        except OSError as exc:
+            raise FixtureError('could not write the fixture config in %s: %s' % (root, exc))
         base = _write_tree(repo, root, base_files)
         tip = _write_tree(repo, root, tip_files)
         for side, path, how in damage:
@@ -1134,8 +1214,8 @@ def two_trees(base_files, tip_files, damage=()):
         shutil.rmtree(root, ignore_errors=True)
 
 
-def fixture_repo(keys, moved):
-    return two_trees(_files(keys), _files(keys, moved))
+def fixture_repo(keys, moved, config=HOSTILE):
+    return two_trees(_files(keys), _files(keys, moved), config=config)
 
 
 def fixture_scan(keys, moved):
@@ -1145,8 +1225,8 @@ def fixture_scan(keys, moved):
     with fixture_repo(keys, moved) as (repo, base, tip):
         res = scan(repo, base, tip)
     where = {}
-    for citer in (CITERS, NOTES):
-        for i, k in enumerate([k for k in keys if PROBES[k][0] == citer], 1):
+    for citer in CITER_FILES:
+        for i, k in enumerate([k for k in keys if CITES[k][0] == citer], 1):
             where[(citer, i)] = k
     pinned = {where[(f.src, f.lno)]: f.kind for f in res['pinned']}
     amb = {where[(f.src, f.lno)]: f.kind for f in res['ambiguous']}
@@ -1495,6 +1575,63 @@ def diff_context_verdict(inject=True):
         return 'ABORT' if 'docs/t.md' in res['diff_errors'] else 'ABORT, but not on docs/t.md: %s' % scan_errors(res)
     return 'exit %d' % (1 if any(f.kind in ROT for f in res['pinned']) else 0)
 
+def _with(*benign):
+    """HOSTILE with some keys set benign, to isolate one trigger whatever ~/.gitconfig holds."""
+    config = dict(HOSTILE)
+    config.update(benign)
+    return tuple(config.items())
+
+
+Odd = collections.namedtuple('Odd', 'keys moved config how rule pre_fix')
+
+#: A citer row that git grep shapes from config or from the path itself. Each fixture plants
+#: `keys` and moves `moved`; the run must read every citer row back as the fixture wrote it
+#: and exit 1 (GREP_WANT). `how` is what git does when the call leaves it to git; `rule` the
+#: MUTATE key that leaves it there; `pre_fix` the verdict with that rule off -- the pre-fix
+#: tool's, except that where it crashed (exit 2 since #1081) this reads ABORT.
+GREP = collections.OrderedDict([
+    ('colour config', Odd(['explicit-B'], [B], _with(('grep.column', 'false')),
+        '`color.ui` / `color.grep = always` wraps each field in ANSI codes',
+        'grep-config-unpinned', 'ABORT: unparseable row')),
+    ('column config', Odd(['explicit-B'], [B], _with(('color.ui', 'never'), ('color.grep', 'never')),
+        '`grep.column = true` adds a field, read as the start of the text',
+        'grep-config-unpinned', 'exit 1, SHIFTED=1, AMBIGUOUS=0, text misread')),
+    ('citer path holding a colon', Odd(['colon-citer-B'], [B], HOSTILE,
+        'the path is split at its colon', 'grep-no-z', 'ABORT: unparseable row')),
+    ('citer path not ASCII', Odd(['accent-link-B'], [B], HOSTILE,
+        'the path comes back C-quoted, and the link resolved against it pins nothing',
+        'grep-no-z', 'exit 0, SHIFTED=0, AMBIGUOUS=1, path misread')),
+    ('changed file named -x', Odd(['dash-leaf'], [DASH], HOSTILE,
+        'git reads the leaf as an option', 'grep-no-e', 'ABORT: exit 129')),
+])
+GREP_WANT = 'exit 1, SHIFTED=1, AMBIGUOUS=0'
+
+
+def grep_case_verdict(name):
+    """What scan() makes of GREP[name]'s fixture: 'ABORT: <cause>' when a citer grep failed,
+    else the exit code and counts -- plus `<field> misread` when a row citer_lines() read
+    back is not the line the fixture wrote. An unparseable row is ABORT, never a skip."""
+    c = GREP[name]
+    misread = None
+    written = _files(c.keys, c.moved)
+    with fixture_repo(c.keys, c.moved, config=c.config) as (repo, base, tip):
+        res = scan(repo, base, tip)
+        for leaf in sorted({p.rsplit('/', 1)[-1] for p in c.moved}):
+            read = citer_lines(repo, leaf, tip)[0]
+            want = [(p, i, l) for p, ls in written.items() for i, l in enumerate(ls, 1) if leaf in l]
+            for field, n in (('path', 1), ('line', 2), ('text', 3)):
+                if sorted(r[:n] for r in read) != sorted(w[:n] for w in want):
+                    misread = misread or field
+                    break
+    if res['grep_errors']:
+        e = res['grep_errors'][0][1]
+        return 'ABORT: ' + ('unparseable row' if e.startswith('unparseable') else e.split(':', 1)[0])
+    pinned = [f for f in res['pinned'] if f.kind in ROT]
+    amb = [f for f in res['ambiguous'] if f.kind in ROT]
+    return 'exit %d, SHIFTED=%d, AMBIGUOUS=%d%s' % (1 if pinned else 0, len(pinned), len(amb),
+                                                    ', %s misread' % misread if misread else '')
+
+
 def run_gate(out=print):
     ok = True
 
@@ -1572,6 +1709,11 @@ def run_gate(out=print):
     v = diff_context_verdict()
     say(v == 'ABORT', 'a `-U0` diff that comes back with context lines (GIT_DIFF_OPTS) voids the run '
         'instead of passing a wrong re-pin', v)
+
+    # --- every citer row is read whole, whatever git config or the path itself would make of it
+    for name, c in GREP.items():
+        v = grep_case_verdict(name)
+        say(v == GREP_WANT, f'a {name}: every citer row read whole, the cite fires (left to git, {c.how})', v)
     return ok
 
 
@@ -1740,6 +1882,16 @@ def mutation_receipt():
     results.append((f'M{40 + len(LOST)} read a `-U0` diff with context lines as if clean (diff-context-ok): the '
                     f'wrong re-pin must pass, exit 0 -- got {v}; without GIT_DIFF_OPTS it must fail, exit 1 -- '
                     f'got {whole}', v == 'exit 0' and whole == 'exit 1'))
+    for k, (name, c) in enumerate(GREP.items(), 41 + len(LOST)):
+        MUTATE.add(c.rule)
+        try:
+            v = grep_case_verdict(name)
+        finally:
+            MUTATE.discard(c.rule)
+        whole = grep_case_verdict(name)
+        results.append((f'M{k} leave the citer grep to git for a {name} ({c.rule}): the run must fall back to the '
+                        f'pre-fix verdict, {c.pre_fix} -- got {v}; pinned it must read whole and fire -- got {whole}',
+                        v == c.pre_fix and whole == GREP_WANT))
 
     allgood = True
     for label, tripped in results:

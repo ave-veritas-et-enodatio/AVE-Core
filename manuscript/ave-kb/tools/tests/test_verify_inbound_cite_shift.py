@@ -28,7 +28,14 @@ Asserts:
     the pre-fix tool as an absent or shorter file, ending in a clean zero; and a
     run from a subdirectory, which read only that subtree. Plus the fix's own
     edges: an added or deleted file, a gitlink, and git tracing from env or config
-    are still not aborts.
+    are still not aborts;
+  * the citer `git grep` reads every row whole (2026-11-08): under `color.ui` /
+    `color.grep = always` (pre-fix: `int()` of a colour-wrapped line number raised,
+    exit 2), `grep.column` (pre-fix: every text read as `<col>:<text>`), from a citer
+    path holding `:` (exit 2) or a non-ASCII byte (C-quoted, so its link pinned nothing:
+    exit 0 where the ASCII control exits 1), for a changed file named `-...` (git read
+    it as an option, exit 2); and a row that does not parse aborts (pre-fix: skipped,
+    exit 0).
 
 And the 2026-11-01 rules. Re-pinning stale cites on #1037-#1039 showed the checker
 could not confirm a repair: it tested base[new] against tip[new], so a correct
@@ -100,12 +107,17 @@ def test_gate_can_fire_and_negative_controls_hold():
     for name in damaged:
         assert any(l.lstrip().startswith("[PASS] a damaged %s aborts" % name) for l in lines), name
     assert sum(l.lstrip().startswith("[PASS] a damaged ") for l in lines) == len(damaged)
-    # and the whole gate: 10 original probes, one per REPINS row plus #1079's 7 re-pin
-    # checks, the damaged objects, and the -U0 context-lines probe -- so dropping ANY
-    # probe, from either side of the #1079 merge, fails here (78 at the merge)
-    assert len(lines) == 10 + len(mod.REPINS) + 7 + len(damaged) + 1, len(lines)
     assert any(l.lstrip().startswith("[PASS] a `-U0` diff that comes back with context lines") for l in lines)
+    grep = ["colour config", "column config", "citer path holding a colon", "citer path not ASCII",
+            "changed file named -x"]
+    for name in grep:
+        assert any(l.lstrip().startswith("[PASS] a %s: every citer row read whole" % name) for l in lines), name
+    # and the whole gate: 10 original probes, one per REPINS row plus #1079's 7 re-pin
+    # checks, the damaged objects, the -U0 context-lines probe, and the citer-grep cases --
+    # so dropping ANY probe, from any of the merged branches, fails here
+    assert len(lines) == 10 + len(mod.REPINS) + 7 + len(damaged) + 1 + len(grep), len(lines)
     assert sorted(mod.LOST) == sorted(damaged)
+    assert sorted(mod.GREP) == sorted(grep)
 
 
 def test_mutation_receipt_holds():
@@ -115,13 +127,25 @@ def test_mutation_receipt_holds():
     mod = _load_module()
     buf = io.StringIO()
     with contextlib.redirect_stdout(buf):
-        assert mod.mutation_receipt() == 0
+        assert mod.mutation_receipt() == 0, buf.getvalue()
     assert not mod.MUTATE, "a mutation leaked out of the receipt"
     # Every row present, under its own number. Merging #1079 interleaved #1081's rows
     # into M6-M39 without a conflict marker; a dropped or renumbered row must fail here.
     rows = re.findall(r"\[(OK|BROKEN)\] M(\d+) ", buf.getvalue())
-    assert {int(n) for _, n in rows} == set(range(1, 47)), sorted({int(n) for _, n in rows})
+    assert {int(n) for _, n in rows} == set(range(1, 47 + len(mod.GREP))), sorted({int(n) for _, n in rows})
     assert all(status == "OK" for status, _ in rows)
+    # one row per citer-grep case, each switching off its own pin
+    for rule in ("grep-config-unpinned", "grep-no-z", "grep-no-e"):
+        assert "(%s): the run must fall back to the pre-fix verdict" % rule in buf.getvalue(), rule
+
+
+def test_every_fixture_repo_carries_the_hostile_grep_config():
+    """Every self-gate verdict is reached under it, not only the GREP probes'."""
+    mod = _load_module()
+    with mod.fixture_repo(["explicit-B"], [mod.B]) as (repo, _, _t):
+        got = {key: repo.sh("config", "--local", key).strip() for key, _v in mod.HOSTILE}
+    assert got == dict(mod.HOSTILE)
+    assert {"color.ui": "always", "color.grep": "always", "grep.column": "true"}.items() <= got.items()
 
 
 def test_explicit_path_to_sibling_does_not_fire_but_a_real_shift_does():
@@ -694,6 +718,167 @@ def test_main_exit_2_when_git_diff_tree_errors():
 
     # without the return-code check every re-pin quietly loses its base number
     assert _main_rc(mod, mod.ALL, [mod.B], repo_cls=DiffFails) == 2
+
+
+# ------------------------------------------- the citer `git grep` reads every row whole
+#
+# Each test below fails at ad19aec83 (the #1081 head this was cut from), for the
+# behavioural reason: it builds its own trees and sets its own config, so it needs no
+# helper the pre-fix tool lacks.
+
+_VOL = ["vol line %d" % i for i in range(1, 15)]
+_LONG_MAIN = ["letter line %d" % i for i in range(1, 41)]
+
+
+def _shifted(files, path):
+    out = dict(files)
+    out[path] = ["inserted 1", "inserted 2", "inserted 3"] + files[path]
+    return out
+
+
+def _run_seeing_texts(mod, repo, b, t):
+    """main()'s exit code and stdout, plus every (citer, text) the scan of `repo` -- not the
+    self-gate's fixture scans before it -- read a cite from."""
+    import contextlib
+    import io
+
+    seen, real_scan, real_addr = [], mod.scan, mod.addressees
+
+    def spy(m, leaf, src, text, *a):
+        seen.append((src, text))
+        return real_addr(m, leaf, src, text, *a)
+
+    def scan(r, *a, **k):
+        if r is not repo:
+            return real_scan(r, *a, **k)
+        mod.addressees = spy
+        try:
+            return real_scan(r, *a, **k)
+        finally:
+            mod.addressees = real_addr
+
+    buf = io.StringIO()
+    mod.scan = scan
+    try:
+        with contextlib.redirect_stdout(buf):
+            rc = mod.main(b, t, repo=repo)
+    finally:
+        mod.scan = real_scan
+    return rc, buf.getvalue(), seen
+
+
+def test_citer_grep_reads_through_hostile_grep_and_colour_config():
+    """One key at a time, as the ONLY config git sees: an empty HOME, no system config, and a
+    repo config rewritten to the bare minimum (so `color.ui` is not outranked by a
+    `color.grep` from anywhere). Pre-fix: colour wrapped the line number in ANSI codes and
+    `int()` raised (exit 2); `grep.column` prefixed every text with `<col>:`."""
+    import os
+    import shutil
+    import tempfile
+
+    line = "vol frontmatter, `docs/vol/main.tex:5`"
+    files = {"docs/vol/main.tex": _VOL, "docs/citers.md": [line]}
+    home = tempfile.mkdtemp(prefix="inbound-cite-home-")
+    try:
+        for key, value in (("color.ui", "always"), ("color.grep", "always"), ("grep.column", "true"),
+                           ("grep.lineNumber", "false")):
+            with _two_trees(files, _shifted(files, "docs/vol/main.tex")) as (mod, repo, b, t):
+                repo.env.update(HOME=home, XDG_CONFIG_HOME=home, GIT_CONFIG_NOSYSTEM="1")
+                with open(os.path.join(repo.cwd, ".git", "config"), "w") as fh:
+                    fh.write("[core]\n\trepositoryformatversion = 0\n\tbare = false\n")
+                assert repo.raw("config", key, value)[0] == 0
+                assert repo.sh("config", "--list").split() == [
+                    "core.repositoryformatversion=0", "core.bare=false", "%s=%s" % (key.lower(), value)]
+                rc, out, seen = _run_seeing_texts(mod, repo, b, t)
+            assert rc == 1, (key, out)
+            assert seen == [("docs/citers.md", line)], (key, seen)
+    finally:
+        shutil.rmtree(home, ignore_errors=True)
+
+
+def test_citer_grep_under_hostile_global_config():
+    """`~/.gitconfig` reaches the real run AND the self-gate's fixtures: pre-fix, both the
+    run and `--selftest` exited 2 for a user with `color.ui = always`."""
+    import os
+    import shutil
+    import tempfile
+
+    mod = _load_module()
+    home = tempfile.mkdtemp(prefix="inbound-cite-home-")
+    try:
+        with open(os.path.join(home, ".gitconfig"), "w") as fh:
+            fh.write("[color]\n\tui = always\n[grep]\n\tcolumn = true\n\tlineNumber = false\n")
+        env = _git_free_env(HOME=home)
+        env.pop("XDG_CONFIG_HOME", None)
+        selftest = subprocess.run([sys.executable, str(_TOOL), "--selftest"], capture_output=True,
+                                  text=True, env=env)
+        with mod.fixture_repo(["explicit-B"], [mod.B]) as (repo, b, t):
+            run = subprocess.run([sys.executable, str(_TOOL), b, t], capture_output=True, text=True,
+                                 cwd=repo.cwd, env=env)
+            env_cfg = subprocess.run(
+                [sys.executable, str(_TOOL), b, t], capture_output=True, text=True, cwd=repo.cwd,
+                env=_git_free_env(GIT_CONFIG_COUNT="1", GIT_CONFIG_KEY_0="color.ui",
+                                  GIT_CONFIG_VALUE_0="always"))
+    finally:
+        shutil.rmtree(home, ignore_errors=True)
+    assert selftest.returncode == 0, selftest.stdout + selftest.stderr
+    assert run.returncode == 1, run.stdout + run.stderr
+    assert env_cfg.returncode == 1, env_cfg.stdout + env_cfg.stderr
+
+
+def test_citer_path_holding_a_colon_is_read():
+    """Pre-fix: `split(':', 3)` cut `docs/a:b.md` at its colon and `int('b.md')` raised."""
+    line = "see `docs/vol/main.tex:5`"
+    for citer, want in (("docs/ab.md", 1), ("docs/a:b.md", 1)):
+        files = {"docs/vol/main.tex": _VOL, citer: [line]}
+        with _two_trees(files, _shifted(files, "docs/vol/main.tex")) as (mod, repo, b, t):
+            rc, out, seen = _run_seeing_texts(mod, repo, b, t)
+        assert rc == want and seen == [(citer, line)], (citer, rc, seen, out)
+
+
+def test_non_ascii_citer_path_keeps_its_link_pin():
+    """A link resolves against the CITING file's directory. Pre-fix the non-ASCII citer came
+    back C-quoted (`"docs/vol/not\\303\\251s.md"`), the link resolved to no file, and the cite
+    fell to an ambiguous bare name: exit 0 where the ASCII control exits 1."""
+    link = "frontmatter: [the abstract](main.tex):11"
+    for citer in ("docs/vol/notes.md", "docs/vol/not\u00e9s.md"):
+        files = {"docs/vol/main.tex": _VOL, "papers/main.tex": _LONG_MAIN, citer: [link]}
+        with _two_trees(files, _shifted(files, "docs/vol/main.tex")) as (mod, repo, b, t):
+            assert repo.raw("config", "core.quotePath", "true")[0] == 0     # git's default
+            rc, out, seen = _run_seeing_texts(mod, repo, b, t)
+        assert rc == 1 and "pinned by: link target" in out, (citer, out)
+        assert seen == [(citer, link)], seen
+
+
+def test_changed_file_whose_name_starts_with_a_dash():
+    """Pre-fix `git grep -nIF -notes.md` read the leaf as options: exit 129, gate exit 2."""
+    rows = ["row %d" % i for i in range(1, 15)]
+    for leaf in ("notes.md", "-notes.md"):
+        files = {"docs/" + leaf: rows, "docs/c.md": ["see `docs/%s:5`" % leaf]}
+        with _two_trees(files, _shifted(files, "docs/" + leaf)) as (mod, repo, b, t):
+            rc, out, _ = _run_seeing_texts(mod, repo, b, t)
+        assert rc == 1 and "[SHIFTED]" in out, (leaf, out)
+
+
+def test_an_unparseable_grep_row_aborts_and_is_never_skipped():
+    """Pre-fix a row that did not split into four fields was skipped: a citer never found,
+    and the run printed a clean zero."""
+    mod = _load_module()
+    with mod.fixture_repo(["explicit-B"], [mod.B]) as (fixture, b, t):
+        good = b"%s:docs/citers.md\x001\x00see `manuscript/vol_1_foundations/main.tex:5`\n" % t.encode()
+        for reply in (b"not a grep row\n",                         # no field separators at all
+                      good.replace(t.encode(), b"other-rev"),      # another rev's row
+                      good + good[:len(good) // 2]):                 # a whole row, then a cut one
+            class Garbled(mod.Repo):
+                def raw(self, *a, stdin=None):
+                    if a and a[0] == "grep":
+                        self.err = ""
+                        return 0, reply
+                    return super().raw(*a, stdin=stdin)
+
+            rc, out, _ = _run_seeing_texts(mod, Garbled(cwd=fixture.cwd, scrub_env=True), b, t)
+            assert rc == 2, (reply, out)
+            assert "unparseable row" in out and "clean —" not in out, (reply, out)
 
 
 def test_report_names_the_rule_behind_every_verdict():
