@@ -116,14 +116,40 @@ do not stamp it SOLID on this row's authority alone.
 **What this closes:** the adjudication. There is no longer a fork to pick. What
 remains is propagation and one real defect.
 
-**What it does NOT close — still open, and the only question left for Grant:**
-the nesting language. `resonant-lc-solitons.md:140` says the A1 mass *"sits
-inside"* the T2 boundary; `:145`, four lines down in the same resultbox, says
-*"two orthogonal self-confining sectors … **NOT a nesting**."* Under two-walls
-both sentences can be true — the mass rests against the lower wall without being
-*nested in* a structure the other sector owns — but the two words still
-contradict on the page and one of them needs rewording. **Wording is Grant's;
-the two-walls picture does not settle which word goes.**
+**RULED TOO, 2026-11-08 (Grant): HELD BY T2.** At the operating point the A1 mass
+is **not** self-confined — it is held by the transverse-$T_2$/charge self-trap
+boundary at $V_{yield}$. `resonant-lc-solitons.md:140` is therefore correct as
+written, including *"which is **why** it binds"*.
+
+**Two clauses are now false, and one of them is not in this file.**
+
+- `resonant-lc-solitons.md:145` — *"two orthogonal **self-confining** sectors
+  (A1-mass + Cosserat-charge), **NOT a nesting**"*. A1 is not self-confining at
+  $A=\sqrt\alpha$; its own wall is $11.7\times$ up and unengaged.
+- `node-up-small-large-signal.md`, the orthogonal-grades block — *"the electron's
+  two-natured structure is **two orthogonal self-confining sectors** (A1-mass +
+  Cosserat-charge), **NOT** a charge-holds-mass nesting."* **"Held by T2" IS a
+  charge-holds-mass nesting**, so that clause does not survive the ruling.
+
+**The carve that keeps the rest of that block — apply it, do not delete the
+block.** Its *argument* is narrower than its *conclusion*. The argument is
+*"the **EM $\mu$-sector (Meissner)** has **no handle on the dilatation (mass)
+port**"*, and the reading it forbids is specifically *"the $(2,3)$ micro-rotation
+**Meissner**-confines the A1 mass"*. That **survives**, because the $T_2$
+self-trap wall is **mechanical** ($Z_{shear}\to0$), not the EM $\mu$-sector —
+and the same block says the two are *"bridged by a transducer, NOT a
+$\mu$-on-$Z_{shear}$ direct wire."*
+
+So: **charge-holds-mass via the mechanical self-trap is RULED TRUE;
+Meissner-confines-mass stays forbidden/falsified.** What needs rewording is only
+the broad clauses that collapse those two into one prohibition. The narrow
+Meissner verdict, PR#260's mass=A1, and $A1\perp T2$ at the DOF level all stand
+untouched.
+
+**Still Grant's, and the last thing on this row:** whether *"nesting"* is the
+word he wants. He ruled the mass is **held by** the $T_2$ wall; *"sits inside"*
+and *"nesting"* are stronger spatial words for the same relationship. The physics
+is ruled; the noun is not. **Do not pick it for him.**
 
 ## Why it matters beyond bookkeeping
 
