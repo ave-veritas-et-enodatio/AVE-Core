@@ -367,6 +367,11 @@ class Repo:
                     raise GateError('%s:%s: `git cat-file --batch` announced %d bytes and sent '
                                     '%d' % (rev, p, size, len(raw) - j - 1))
                 if head[1] == b'blob':
+                    # split('\n'), not splitlines(): line N is the Nth line as git grep -n
+                    # numbers it, and only '\n' ends one -- a lone '\r', VT, FF, NEL or
+                    # U+2028 does not. The '' after a final newline stays; line_count()
+                    # discounts it. Trimming it here as well would count a file whose last
+                    # line is blank one line short, and fail on a 0-byte blob.
                     lines = raw[j + 1:j + 1 + size].decode('utf-8', 'replace').split('\n')
                 i = j + 1 + size + 1
             else:                                          # `<name> missing`, or truncated
@@ -615,11 +620,12 @@ def number_at_base(baseline, leaf, k, cites):
 
 
 def _agreeing_run(b, n, t, j):
-    """How many lines around base line n and tip line j agree."""
-    run = 0
+    """How many lines around base line n and tip line j agree. Bounded by line_count():
+    the '' after a final newline is no line, so two last lines do not agree below."""
+    run, nb, nt = 0, line_count(b), line_count(t)
     for step in (-1, 1):
         i, k = n - 1 + step, j - 1 + step
-        while 0 <= i < len(b) and 0 <= k < len(t) and b[i].strip() == t[k].strip():
+        while 0 <= i < nb and 0 <= k < nt and b[i].strip() == t[k].strip():
             run, i, k = run + 1, i + step, k + step
     return run
 
