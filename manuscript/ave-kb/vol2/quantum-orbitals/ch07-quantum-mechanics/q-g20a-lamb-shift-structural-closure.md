@@ -15,12 +15,12 @@ The 2S–2P hydrogen Lamb shift ($+1057.85$ MHz measured) is the QED canonical d
 |---|---|---|---|---|
 | Self-energy | $+1010$ MHz | Finite-size electron $T_{EM}\,\ell_{\text{node}} = m_e c^2$ (Vol 2 Ch 1) | $\approx +1010$ MHz (QED-imported magnitude) | Finite-size geometric integral gives the Bethe-log FORM; corrected AVE log $\approx 4.92$ vs QED $2.81$ ($1.75\times$). Magnitude is QED-imported (consistency), not an AVE numerical output — see header |
 | Vacuum polarization | $-27$ MHz | Q-G20f $\Pi(q^2)$ closed | $\approx -27$ MHz | Matches QED at observable scales |
-| Anomalous moment | $+68$ MHz | Q-G19α $a_e$ matched at 50 ppm (postulate-conditional; see note) | $\approx +68$ MHz | AVE inherits QED $a_e$ structurally |
+| Anomalous moment | $+68$ MHz | Q-G19α $a_e$ matched to printed precision (postulate-conditional; ppm label struck 2026-08-03; see note) | $\approx +68$ MHz | AVE inherits QED $a_e$ structurally |
 | **Total (leading order)** | **$+1057.85$ MHz** | (sum) | $\approx +1051$ MHz | **$0.65\%$ off, but the total lands right only because the dominant self-energy term is QED-imported — consistency/structural-class, NOT a clean AVE precision prediction (see header)** |
 
 The remaining $\sim 7$ MHz to measurement comes from higher-order QED corrections (Bethe logarithm at $\alpha^5$, recoil, nuclear size) — explicitly outside the leading-order scope.
 
-> **Honesty note (Q-G19α two-stage framing):** the "$a_e$ matched at 50 ppm" input above is the Q-G19α **Stage 2** result, which is **conditional on the $n_q$-additivity postulate** (the corpus's "single remaining intuitive step," not derived). The Q-G19α **parameter-free** result (symmetric Route B forward, no postulate, no fit) is $C_2 = -0.3416$, **+4.0% off PDG**. The anomalous-moment contribution to the Lamb shift inherits this postulate-conditionality; only the leading-order Schwinger $a_e = \alpha/(2\pi)$ piece is unconditional. See [Q-G19α Petermann saliency closure](../../particle-physics/ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md).
+> **Honesty note (Q-G19α two-stage framing):** the "$a_e$ matched to printed precision" input above **[ppm label struck 2026-08-03 per Grant ruling; no ppm number substituted]** is the Q-G19α **Stage 2** result, which is **conditional on the $n_q$-additivity postulate** (the corpus's "single remaining intuitive step," not derived). The Q-G19α **parameter-free** result (symmetric Route B forward, no postulate, no fit) is $C_2 = -0.3416$, **+4.0% off PDG**. The anomalous-moment contribution to the Lamb shift inherits this postulate-conditionality; only the leading-order Schwinger $a_e = \alpha/(2\pi)$ piece is unconditional. See [Q-G19α Petermann saliency closure](../../particle-physics/ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md).
 
 ## The three contributions in AVE language
 
@@ -50,7 +50,7 @@ where the logarithm runs from $\alpha m_e c$ to $1/\ell_{\text{node}} = m_e c$, 
 
 **QED mechanism:** the electron's $g$-factor deviation from $g = 2$ enters the Dirac–Coulomb spin-orbit Hamiltonian. For $2S_{1/2}$ (which has the Darwin term contribution at $r = 0$), the anomalous moment shifts the energy.
 
-**AVE mechanism:** $a_e$ from [Q-G19α Petermann coefficient closure](../../particle-physics/ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md) — leading order matched via Schwinger $\alpha/(2\pi)$ (unconditional); second-order matched at 50 ppm via Route B + saliency, but the 50 ppm figure is **postulate-conditional on $n_q$-additivity** (the parameter-free symmetric Route B forward is $+4.0\%$ off PDG). AVE inherits QED's $a_e$ structurally.
+**AVE mechanism:** $a_e$ from [Q-G19α Petermann coefficient closure](../../particle-physics/ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md) — leading order matched via Schwinger $\alpha/(2\pi)$ (unconditional); second-order matched to printed precision via Route B + saliency **[ppm label struck 2026-08-03 per Grant ruling; no ppm number substituted]**, but that Stage-2 figure is **postulate-conditional on $n_q$-additivity** (the parameter-free symmetric Route B forward is $+4.0\%$ off PDG). AVE inherits QED's $a_e$ structurally.
 
 ## Status
 
@@ -63,7 +63,7 @@ where the logarithm runs from $\alpha m_e c$ to $1/\ell_{\text{node}} = m_e c$, 
 ## Cross-references
 
 - **Composing closures:**
-  - [Q-G19α Petermann (50 ppm, postulate-conditional; +4.0% parameter-free)](../../particle-physics/ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md) — anomalous moment input
+  - [Q-G19α Petermann (printed-precision, postulate-conditional; +4.0% parameter-free)](../../particle-physics/ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md) — anomalous moment input
   - [Q-G20f Vacuum Polarization](../../particle-physics/ch06-electroweak-higgs/q-g20f-vacuum-polarization.md) — vacuum-polarization input
   - [Electron Unknot (Vol 2 Ch 1)](../../particle-physics/ch01-topological-matter/electron-unknot.md) — finite-size self-energy input
 - **Canonical manuscript anchors:**

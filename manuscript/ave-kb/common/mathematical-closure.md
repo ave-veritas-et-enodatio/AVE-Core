@@ -19,6 +19,7 @@ The following verification log was aggregated from the AVE computational validat
 ==========================================================
 AVE UNIVERSAL DIAGNOSTIC & VERIFICATION ENGINE
 Dynamic Output -- Generated from src/ave/core/constants.py
+(partly generated; see the scope note below)
 ==========================================================
 
 [SECTOR 1: INITIAL HARDWARE CALIBRATION]
@@ -66,13 +67,16 @@ Dynamic Output -- Generated from src/ave/core/constants.py
 > 3D Non-Linear FDTD:                   Axiom 4 eps_eff per cell per timestep
 > Linear Mode:                           Available (linear_only=True)
 > Mur ABC:                               1st-Order (6 faces)
-> Total Test Suite:                       62/62 PASSED
+> Total Test Suite:                       62/62 PASSED   [STATIC 2026-04-13]
 
 ==========================================================
 VERIFICATION COMPLETE: STRICT GEOMETRIC CLOSURE
 168/168 framework files -- zero Standard Model parameters.
+[STATIC 2026-04-13 -- not generated; see the scope note below]
 ==========================================================
 ```
+
+> **Scope of the "Dynamic Output" label (2026-09-06; inventory corrected 2026-11-01).** The block above is a hand-transcribed snapshot, not verbatim output. `src/scripts/vol_2_subatomic/generate_verification_trace.py` emits most of its rows by substituting values imported from `src/ave/core/constants.py`, with these exceptions. *Not emitted:* the seven Torus Knot Ladder lines, whose source is `src/scripts/vol_2_subatomic/torus_knot_spectrum.py`, and the Macroscopic Baryon Phase Shear row, which only this mirror carries. *Fixed text in that generator's format string:* the two lines tagged `[STATIC]`, the Trace-Reversal row and the three other Sector 5 lines. *Computed in that generator, not imported:* the Poisson Ratio and Weak Mixing Angle rows. *Differs from its current output:* the `I_scalar` row (rounded), the CODATA target row (last digit) and the confinement-force row (comma). The two tagged figures — the test-suite tally and the framework-file count — are **literals inside that generator's format string**, not computed by it. Both date from the initial release (2026-04-13) and have never been regenerated. They are **deliberately not refreshed here**: re-minting a new number under a label that promises it is generated would reproduce the defect rather than repair it. Mirror of `manuscript/backmatter/12_mathematical_closure.tex`.
 
 ## The Directed Acyclic Graph (DAG) Proof
 <!-- claim-quality: clm-ibfyda -->
@@ -154,7 +158,7 @@ Beyond the internal DAG closure documented above, **Axiom 4's universal saturati
 
 **Canonical synthesis:** [trampoline-framework.md §7.5](trampoline-framework.md).
 
-These anchors are produced by the same code path (`src/ave/axioms/scale_invariant.py` + `src/ave/regime_3_saturated/*.py`) — the engine literally evaluates one $S(A)$ function across all 26 instances. The "168/168 framework files" closure above and the **3 validated** ~~4~~ empirical anchors here (the solar-flare instance being a forward prediction pending live NOAA validation) together establish that AVE's Axiom 4 is **both internally closed AND externally calibrated** without parameter tuning.
+These anchors are produced by the same code path (`src/ave/axioms/scale_invariant.py` + `src/ave/regime_3_saturated/*.py`) — the engine literally evaluates one $S(A)$ function across all 26 instances. The "168/168 framework files" closure above (a dated static snapshot — see the scope note under the block) and the **3 validated** ~~4~~ empirical anchors here (the solar-flare instance being a forward prediction pending live NOAA validation) together establish that AVE's Axiom 4 is **both internally closed AND externally calibrated** without parameter tuning.
 
 ## Outstanding Rigour Gaps
 
