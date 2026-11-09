@@ -47,6 +47,15 @@ pair needs no rival and a line moved whole is nobody's re-pin; a final newline i
 not a line. Two things the REPINS table cannot hold are pinned here: a target with a
 NUL byte, and rows alike but for their digits pairing in order.
 
+And the line count end to end (2026-11-08). Line N is the Nth line as `git grep -n`
+numbers it: `line_count()` of a blob as `load()` reads it is checked against git
+itself, including the breaks `str.splitlines()` sees and git does not; a plain cite
+past the last line was never valid at base, whichever way the tip moves, and a re-pin
+from it keeps the plain test; has-line drops a file one line too short, at the number
+a cite held and at the number a re-pin moved it to; and the '' after a final newline
+is no neighbour when put-back lines tie at the end of a file, and no landing for a diff
+that lies.
+
 Run directly (`python tools/tests/test_verify_inbound_cite_shift.py`) or via pytest.
 """
 
@@ -922,6 +931,146 @@ def test_line_count_ignores_only_the_final_newline():
     assert mod.line_count("a\nb".split("\n")) == 2
     assert mod.line_count("a\n\n".split("\n")) == 2
     assert mod.line_count("".split("\n")) == 0
+
+
+def test_line_count_of_a_loaded_blob_is_git_greps():
+    """`line_count()` of a blob as `load()` reads it is the count `git grep -c ''` gives,
+    the numbering every citer's `:NNN` was read off: an empty file, no final newline, a
+    trailing blank line, a whitespace-only last line with no final newline (a line, not
+    the phantom), CRLF. Only `\\n` ends a line for git: a lone `\\r`, VT, FF, NEL and
+    U+2028 do not, though `str.splitlines()` splits on each (a tracked file holds a VT
+    today). The pure test above cannot see `load()`: a second trim of the final '' there,
+    or a splitlines(), fails here."""
+    mod = _load_module()
+    bodies = [b"", b"\n", b"a", b"a\n", b"a\nb", b"a\n\n", b"a\n ", b"a\n\t", b"a\r\nb\r\n",
+              b"a\rb\n", b"a\x0bb\n", b"a\x0cb\n", "a\x85b\n".encode(), "a\u2028b\n".encode()]
+    with mod.fixture_repo([], []) as (repo, _, _t):
+        rows = []
+        for k, body in enumerate(bodies):
+            rc, out = repo.raw("hash-object", "-w", "--stdin", stdin=body)
+            assert rc == 0, repo.err
+            rows.append("100644 blob %s\tf%d" % (out.decode().strip(), k))
+        rc, out = repo.raw("mktree", stdin=("\n".join(rows) + "\n").encode())
+        assert rc == 0, repo.err
+        tree = out.decode().strip()
+        for k, body in enumerate(bodies):
+            rc, out = repo.raw("grep", "-c", "-e", "", tree, "--", "f%d" % k)
+            assert rc in (0, 1), repo.err
+            want = int(out.decode().rsplit(":", 1)[1]) if out.strip() else 0
+            got = repo.blob(tree, "f%d" % k)
+            assert mod.line_count(got) == want, (body, got, want)
+
+
+def _scan_and_exit(mod, base, tip):
+    """scan(), and the exit code main() gives it once liveness has passed (repin_scan's rule)."""
+    import contextlib
+    import io
+
+    with mod.two_trees(base, tip) as (repo, b, t):
+        res = mod.scan(repo, b, t)
+    with contextlib.redirect_stdout(io.StringIO()):
+        rc = 2 if mod.scan_errors(res) else mod.report(res)
+    return res, rc
+
+
+def test_a_plain_cite_past_the_last_line_was_never_valid_at_base():
+    """A cite that kept its number, at the end of a 14-line file. :15 never existed, so
+    nothing moved under it whichever way the tip changes; :14 can move, run off the end
+    of a shorter tip, or lose its line outright."""
+    mod = _load_module()
+    rows = ["row %d" % i for i in range(1, 15)]                        # 14 lines
+    for n, tip_rows, want in (
+            (15, rows[1:], []),                                         # tip one line shorter
+            (15, rows + ["row 15, new"], []),                           # the line exists only at tip
+            (14, rows + ["row 15, new"], []),                           # control: the last line holds
+            (14, rows[1:], [("OUT-OF-RANGE", "row 14", "")]),           # ...runs off a shorter tip
+            (14, ["new"] + rows, [("SHIFTED", "row 14", "row 13")]),    # ...moves
+            (14, rows[:-1], [("OUT-OF-RANGE", "row 14", "")])):         # ...is deleted
+        cite = {"docs/c.md": ["see `f.txt:%d`" % n]}
+        res, rc = _scan_and_exit(mod, dict(cite, **{"f.txt": rows}), dict(cite, **{"f.txt": tip_rows}))
+        got = [(f.kind, f.was, f.now) for f in res["pinned"]]
+        assert res["found"] == 1 and got == want and rc == (1 if want else 0), (n, len(tip_rows), got, rc)
+    # A re-pin FROM :15 holds a number dead at base, so it keeps the plain test at its new one.
+    for tip_rows, want in ((["new"] + rows, [("SHIFTED", "row 3", "row 2", 4)]),
+                           (rows[:9] + ["row 10, edited"] + rows[10:], [])):
+        res, rc = _scan_and_exit(mod, {"docs/c.md": ["see `f.txt:15`"], "f.txt": rows},
+                                 {"docs/c.md": ["see `f.txt:3`"], "f.txt": tip_rows})
+        got = [(f.kind, f.was, f.now, f.moved_to) for f in res["pinned"]]
+        assert res["tested"] == 1 and got == want and rc == (1 if want else 0), (got, rc)
+
+
+def test_has_line_drops_a_file_one_line_too_short():
+    """A bare `g.md:15` with a/g.md 14 lines long and b/g.md 40: only b/g.md has line 15,
+    whether the cite held :15 at base or a re-pin moved it there."""
+    mod = _load_module()
+    short, long_ = ["short %d" % i for i in range(1, 15)], ["long %d" % i for i in range(1, 41)]
+    base = {"docs/c.md": ["see `g.md:15`"], "a/g.md": short, "b/g.md": long_}
+    res, rc = _scan_and_exit(mod, base, dict(base, **{"b/g.md": ["inserted"] + long_}))
+    assert [(f.target, f.kind, f.how) for f in res["pinned"]] == [
+        ("b/g.md", "SHIFTED", "bare basename + has-line")] and not res["ambiguous"] and rc == 1
+    res, rc = _scan_and_exit(mod, base, dict(base, **{"a/g.md": short[1:]}))
+    assert res["elsewhere"] == 1 and not res["pinned"] and not res["ambiguous"] and rc == 0
+    # A bare re-pin onto :15 asks each file for :15 at tip: a/g.md, still 14 lines, has none.
+    res, rc = _scan_and_exit(mod, dict(base, **{"docs/c.md": ["see `g.md:10`"]}),
+                             dict(base, **{"docs/c.md": ["see `g.md:15`"], "b/g.md": ["inserted"] + long_}))
+    assert [(f.target, f.held, f.n, f.kind, f.moved_to) for f in res["pinned"]] == [
+        ("b/g.md", 10, 15, "SHIFTED", 11)] and not res["ambiguous"] and rc == 1
+
+
+def test_a_tie_at_the_end_of_a_file_counts_no_phantom_neighbour():
+    """The cited base line sits at or next to the end of its file; the diff takes it out
+    and puts it back at two tip lines (they differ from it only in whitespace, which git
+    sees and strip() does not). The '' after a final newline is no line, so it agrees with
+    nothing. Counted, it forged a tie in A, where only :2 has a real neighbour; broke the
+    true ties in B, C and D; and turned a correct re-pin into a fail and a wrong one into
+    a pass. The start of a file, with no '' before line 1, was always read right (A
+    mirrored). Real lines still agree: the last line of a file with no final newline, and
+    two real blanks -- mid-file (E) or as the last line of both files (F), where only the
+    phantom after them is discounted."""
+    mod = _load_module()
+    for key, base, tip, n, put, addr in (
+            ("A", ["a", "w", "X"], ["w ", "X ", "c", "d", "X\t"], 3, [2], 2),    # only :2 has a neighbour
+            ("A mirrored", ["X", "w", "a"], ["X\t", "d", "c", "X ", "w "], 1, [4], 4),
+            ("B", ["a", "b", "X"], ["X ", "c", "d", "e", "X\t"], 3, [1, 5], 0),   # neither has one
+            ("C", ["a", "X"], ["X ", "", "c", "X\t", "d"], 2, [1, 4], 0),         # base '' vs a real blank
+            ("D", ["a", "X", ""], ["X ", "c", "X\t"], 2, [1, 3], 0),             # a real blank vs tip ''
+            ("E", ["a", "", "X", "q"], ["X ", "r", "", "X\t", "s"], 3, [4], 4),   # two real blanks agree
+            ("F", ["p", "X", ""], ["X ", "c", "X\t", ""], 2, [3], 3)):           # two real last-line blanks
+        with mod.two_trees({"f.md": base}, {"f.md": tip}) as (repo, b, t):
+            B, T, H = repo.blob(b, "f.md"), repo.blob(t, "f.md"), repo.hunks(b, t, "f.md")
+        assert (mod.lines_at_tip(H, B, T, n), mod.address_at_tip(H, B, T, n)) == (put, addr), key
+    # No final newline: the real last line `z` is a neighbour like any other -- the base's
+    # (its partner sits mid-tip), then the last line of both files.
+    with mod.fixture_repo([], []) as (repo, _, _t):
+        for base, tip, n, put, addr in ((b"X\nz", b"X \nz\nX\t\nq", 1, [1], 1),
+                                        (b"a\nX\nz", b"X \nc\nX\t\nz", 2, [3], 3)):
+            trees = []
+            for body in (base, tip):
+                rc, out = repo.raw("hash-object", "-w", "--stdin", stdin=body)
+                assert rc == 0, repo.err
+                rc, out = repo.raw("mktree", stdin=("100644 blob %s\tf.md\n" % out.decode().strip()).encode())
+                assert rc == 0, repo.err
+                trees.append(out.decode().strip())
+            B, T, H = repo.blob(trees[0], "f.md"), repo.blob(trees[1], "f.md"), repo.hunks(trees[0], trees[1], "f.md")
+            assert (mod.lines_at_tip(H, B, T, n), mod.address_at_tip(H, B, T, n)) == (put, addr), (B, T, H)
+    for base, tip, was, now, want in (
+            (["a", "w", "X"], ["w ", "X ", "c", "d", "X\t"], 3, 5, [("SHIFTED", 2)]),   # a wrong re-pin
+            (["a", "b", "X"], ["X ", "c", "d", "e", "X\t"], 3, 1, [("RE-PINNED", 1)]),   # one side of a tie
+            (["p", "X", ""], ["X ", "c", "X\t", ""], 2, 1, [("SHIFTED", 3)])):          # F, a wrong re-pin
+        res, rc = _scan_and_exit(mod, {"docs/c.md": ["see `f.md:%d`" % was], "f.md": base},
+                                 {"docs/c.md": ["see `f.md:%d`" % now], "f.md": tip})
+        got = [(f.kind, f.moved_to) for f in res["pinned"]]
+        assert got == want and rc == (1 if want[0][0] == "SHIFTED" else 0), (was, now, got, rc)
+
+
+def test_a_diff_that_lies_cannot_land_a_line_on_the_phantom():
+    """A wrong hunk costs the address and never invents one: the confirm step reads the
+    tip's lines, and the '' after its final newline is not one. Base `x y <blank>` (3
+    lines), tip `x y` (2); a diff that reports no change aligns the blank :3 with the tip's
+    '' -- equal text, no line."""
+    mod = _load_module()
+    base, tip = "x\ny\n\n".split("\n"), "x\ny\n".split("\n")
+    assert mod.lines_at_tip([], base, tip, 3) == [] and mod.address_at_tip([], base, tip, 3) == 0
 
 
 def test_report_does_not_invent_an_address():
