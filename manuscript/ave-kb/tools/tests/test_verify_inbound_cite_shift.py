@@ -936,12 +936,13 @@ def test_line_count_ignores_only_the_final_newline():
 def test_line_count_of_a_loaded_blob_is_git_greps():
     """`line_count()` of a blob as `load()` reads it is the count `git grep -c ''` gives,
     the numbering every citer's `:NNN` was read off: an empty file, no final newline, a
-    trailing blank line, CRLF. Only `\\n` ends a line for git: a lone `\\r`, VT, FF, NEL
-    and U+2028 do not, though `str.splitlines()` splits on each (a tracked file holds a
-    VT today). The pure test above cannot see `load()`: a second trim of the final ''
-    there, or a splitlines(), fails here."""
+    trailing blank line, a whitespace-only last line with no final newline (a line, not
+    the phantom), CRLF. Only `\\n` ends a line for git: a lone `\\r`, VT, FF, NEL and
+    U+2028 do not, though `str.splitlines()` splits on each (a tracked file holds a VT
+    today). The pure test above cannot see `load()`: a second trim of the final '' there,
+    or a splitlines(), fails here."""
     mod = _load_module()
-    bodies = [b"", b"\n", b"a", b"a\n", b"a\nb", b"a\n\n", b"a\r\nb\r\n",
+    bodies = [b"", b"\n", b"a", b"a\n", b"a\nb", b"a\n\n", b"a\n ", b"a\n\t", b"a\r\nb\r\n",
               b"a\rb\n", b"a\x0bb\n", b"a\x0cb\n", "a\x85b\n".encode(), "a\u2028b\n".encode()]
     with mod.fixture_repo([], []) as (repo, _, _t):
         rows = []
@@ -1038,17 +1039,20 @@ def test_a_tie_at_the_end_of_a_file_counts_no_phantom_neighbour():
         with mod.two_trees({"f.md": base}, {"f.md": tip}) as (repo, b, t):
             B, T, H = repo.blob(b, "f.md"), repo.blob(t, "f.md"), repo.hunks(b, t, "f.md")
         assert (mod.lines_at_tip(H, B, T, n), mod.address_at_tip(H, B, T, n)) == (put, addr), key
-    # No final newline: the real last line `z` is a neighbour like any other.
+    # No final newline: the real last line `z` is a neighbour like any other -- the base's
+    # (its partner sits mid-tip), then the last line of both files.
     with mod.fixture_repo([], []) as (repo, _, _t):
-        trees = []
-        for body in (b"X\nz", b"X \nz\nX\t\nq"):
-            rc, out = repo.raw("hash-object", "-w", "--stdin", stdin=body)
-            assert rc == 0, repo.err
-            rc, out = repo.raw("mktree", stdin=("100644 blob %s\tf.md\n" % out.decode().strip()).encode())
-            assert rc == 0, repo.err
-            trees.append(out.decode().strip())
-        B, T, H = repo.blob(trees[0], "f.md"), repo.blob(trees[1], "f.md"), repo.hunks(trees[0], trees[1], "f.md")
-        assert (mod.lines_at_tip(H, B, T, 1), mod.address_at_tip(H, B, T, 1)) == ([1], 1), (B, T, H)
+        for base, tip, n, put, addr in ((b"X\nz", b"X \nz\nX\t\nq", 1, [1], 1),
+                                        (b"a\nX\nz", b"X \nc\nX\t\nz", 2, [3], 3)):
+            trees = []
+            for body in (base, tip):
+                rc, out = repo.raw("hash-object", "-w", "--stdin", stdin=body)
+                assert rc == 0, repo.err
+                rc, out = repo.raw("mktree", stdin=("100644 blob %s\tf.md\n" % out.decode().strip()).encode())
+                assert rc == 0, repo.err
+                trees.append(out.decode().strip())
+            B, T, H = repo.blob(trees[0], "f.md"), repo.blob(trees[1], "f.md"), repo.hunks(trees[0], trees[1], "f.md")
+            assert (mod.lines_at_tip(H, B, T, n), mod.address_at_tip(H, B, T, n)) == (put, addr), (B, T, H)
     for base, tip, was, now, want in (
             (["a", "w", "X"], ["w ", "X ", "c", "d", "X\t"], 3, 5, [("SHIFTED", 2)]),   # a wrong re-pin
             (["a", "b", "X"], ["X ", "c", "d", "e", "X\t"], 3, 1, [("RE-PINNED", 1)]),   # one side of a tie
