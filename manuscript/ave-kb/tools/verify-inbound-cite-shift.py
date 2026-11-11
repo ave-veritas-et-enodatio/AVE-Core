@@ -196,17 +196,45 @@ that is the plain test, which has no other line to compare.
 LIVENESS -- a zero has to be earned, and NOT inferred from the run's own yield
 ------------------------------------------------------------------------------
 A checker that finds nothing reports a clean it did not earn. Before any zero is
-trusted, every run proves four things, none of them read off its own yield:
+trusted, every run proves five things, none of them read off its own yield:
 
-  * both revs resolve to a tree  (on a bad rev every git call returns nothing);
+  * both revs resolve to a tree  (on a bad rev every git call returns nothing), each
+                                 to ONE object, read once and handed to every git call
+                                 by its ID: by name each call resolved it anew, so a ref
+                                 that moved mid-run -- or a name typed in NFD, which git
+                                 on macOS recomposes for some calls and not others --
+                                 gave the changed list one commit and the citer grep or
+                                 the diff another;
   * no git call failed           (`git grep` exiting 1 = "no match" is an answer,
                                  > 1 is an error; so is any `git diff-tree` error,
                                  which would silently cost every re-pin its number);
+  * every citer row reads whole  git grep takes a row's shape from git config (colour
+                                 codes, a column field) unless the call pins it, C-quotes
+                                 a non-ASCII path without -z, reads a leaf named `-...`
+                                 as an option without -e and one holding `[` as a
+                                 pattern without -F, under submodule.recurse reads
+                                 an active submodule's files as citers here, and
+                                 under `diff.default.binary` skips every file as binary.
+                                 All are pinned, and the grep reads the tip's TREE, for
+                                 which git consults no gitattributes: a text file they
+                                 declare binary is still read. Every path git returns,
+                                 every citer text and every blob is decoded one string
+                                 per byte path, so a byte that is not UTF-8 cannot make
+                                 one file or line pass for another, and a cut-off
+                                 character counts as one character, as 'replace'
+                                 counted it; a blob is asked for by its object ID, never
+                                 by a name git reads to the end of a line; and a path --
+                                 the leaf the citer grep looks for, the file `git
+                                 diff-tree` reads -- is handed to git as its own bytes,
+                                 not recomposed by macOS. A text line holding a NUL
+                                 reads whole. A row that does not parse is an error,
+                                 never a skipped citer;
   * every object read was READ   git grep reports an unreadable blob ONLY on stderr
                                  and still exits 0 or 1, its lines simply absent;
-                                 `cat-file --batch` answers `missing`, exactly as for
-                                 a path the tree does not hold, or -- for a blob big
-                                 enough to stream -- sends part of it and exits 128;
+                                 `cat-file --batch` answers `missing` for a blob the
+                                 tree holds and the object store cannot produce, as it
+                                 would for a file that is not there, or -- for a blob
+                                 big enough to stream -- sends part of it and exits 128;
                                  diff and ls-tree exit non-zero on an unreadable
                                  subtree. Read naively, each is a citer or a changed
                                  file that is not there, or a shorter one. The run
@@ -216,8 +244,15 @@ trusted, every run proves four things, none of them read off its own yield:
                                  scan() and git binary: a planted shifted cite IS
                                  reported, a cite to a same-named sibling is NOT, a
                                  correct re-pin passes, a wrong one fires, each
-                                 damaged object in LOST ABORTS, and a `-U0` diff that
-                                 comes back with context lines voids the run.
+                                 damaged object in LOST ABORTS, a `-U0` diff that
+                                 comes back with context lines voids the run, and
+                                 each citer row in GREP reads whole, a name in NFD
+                                 through git as macOS runs it (Recomposing) on every
+                                 platform, and this Python reads every shape of
+                                 ill-formed byte as 'replace' did. Every fixture
+                                 repo carries the HOSTILE config (the colour and
+                                 the column probe each set the other's trigger
+                                 benign).
 Any failure aborts with exit 2 instead of printing a zero.
 
 Until 2026-09-19 liveness WAS inferred from yield: "changed files but ZERO cites
@@ -236,8 +271,10 @@ EXIT CODES
   0  no pinned cite moved (the advisory buckets may still be non-empty)
   1  a cite PINNED to a changed file is SHIFTED, OUT-OF-RANGE or UNCONFIRMED-RE-PIN
   2  no verdict was reached: liveness failed, an object could not be read, the
-     arguments were wrong, or the gate crashed. Every mode runs under guarded(): an
-     uncaught traceback exits 1, which is the verdict "a pinned cite moved".
+     arguments were wrong, the Python is older than 3.11 (BAD_UNIT's atomic group;
+     refused before anything is compiled), or the gate crashed. Every mode runs under
+     guarded(): an uncaught traceback exits 1, which is the verdict "a pinned cite
+     moved".
 
 SELF-TESTS
 ----------
@@ -255,16 +292,36 @@ the gating set must not pass its own self-gate. Two behaviours need a fixture th
 table cannot hold and are pinned in the test file instead: the diff reads a target
 holding a NUL byte as text, and rows alike but for their digits pair in order.
 """
-import collections, contextlib, os, posixpath, re, shutil, subprocess, sys, tempfile, traceback
+import collections, contextlib, os, posixpath, re, shutil, subprocess, sys, tempfile, traceback, unicodedata
+
+if sys.version_info < (3, 11):
+    # BAD_UNIT's atomic group is new in 3.11. Compiled below on an older Python it raises, and
+    # an uncaught exception exits 1 -- the verdict "a pinned cite moved".
+    print('[inbound-cites] ABORT: needs Python 3.11 or later, this is %d.%d -- no verdict was '
+          'reached.' % sys.version_info[:2])
+    sys.exit(2)
 
 THIS_REPO = 'AVE-Core'
 SIBLING_REPO = re.compile(r'^(?:AVE-[A-Za-z0-9]+|Applied-Vacuum-Engineering)$')
 
 PATH_CHARS = r'[A-Za-z0-9_./\\-]*'
-PAT_TMPL = r'(' + PATH_CHARS + r'%s)[^A-Za-z0-9\s]{0,3}:(\d+)'
+#: One character of citer text as 'replace' read it. The text is decoded with surrogateescape
+#: (citer_lines()): one surrogate per byte that is not UTF-8, where 'replace' made one U+FFFD of
+#: each maximal subpart of an ill-formed sequence -- the longest start of a well-formed
+#: character, or else one byte -- so a cut-off multi-byte character (the bytes e2 80) was ONE,
+#: and four lone 0xFF bytes were four. A bound on characters counts in those units and admits
+#: the cites 'replace' admitted; atomic (Python 3.11), so a run that fails to match is never
+#: re-split every way. MUTATE gap-per-byte and link-per-byte count each byte, as
+#: surrogateescape alone does.
+BAD_UNIT = (r'(?>\udce0[\udca0-\udcbf]|\udced[\udc80-\udc9f]|[\udce1-\udcec\udcee\udcef][\udc80-\udcbf]'
+            r'|\udcf0[\udc90-\udcbf][\udc80-\udcbf]?|\udcf4[\udc80-\udc8f][\udc80-\udcbf]?'
+            r'|[\udcf1-\udcf3][\udc80-\udcbf]{1,2}|[\udc80-\udcff])')
+PAT_TMPL = r'(' + PATH_CHARS + r'%s)(?:' + BAD_UNIT + r'|[^A-Za-z0-9\s\udc80-\udcff]){0,3}:(\d+)'
+PAT_TMPL_PER_BYTE = r'(' + PATH_CHARS + r'%s)[^A-Za-z0-9\s]{0,3}:(\d+)'
 # `[leaf.md:NN](target)`: from the end of the cite to the link target that closes
 # the link TEXT the cite sits in.
-LINK_TAIL = re.compile(r'[^\[\]]{0,120}\]\(([^)\s]+)\)')
+LINK_TAIL = re.compile(r'(?:' + BAD_UNIT + r'|[^\[\]\udc80-\udcff]){0,120}\]\(([^)\s]+)\)')
+LINK_TAIL_PER_BYTE = re.compile(r'[^\[\]]{0,120}\]\(([^)\s]+)\)')
 # A hunk header. Only the header is read: the lines themselves come from the blobs.
 HUNK = re.compile(rb'^@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@', re.M)
 
@@ -279,7 +336,7 @@ class GateError(RuntimeError):
     past this point would be false."""
 
 
-#: stderr is where git grep reports an unreadable blob (see scan()), so nothing else may
+#: stderr is where git grep reports an unreadable blob (see citer_lines()), so nothing else may
 #: write there: trace2 can be switched on from git CONFIG as well as the environment
 #: (`[trace2] normalTarget = 2` reaches the fixtures too) and the environment overrides
 #: config; a translated git would spell `warning:` some other way.
@@ -307,7 +364,7 @@ class Repo:
         self.cwd = cwd
         self.env = {k: v for k, v in os.environ.items() if not k.startswith(scrub)}
         self.env.update(QUIET)
-        self._blob, self._tree, self._hunks = {}, {}, {}
+        self._blob, self._tree, self._oids, self._hunks = {}, {}, {}, {}
         self.diff_errors = []
 
     def raw(self, *a, stdin=None):
@@ -321,21 +378,28 @@ class Repo:
 
     def checked(self, *a):
         """stdout of a git call that must succeed. An unreadable subtree makes diff and
-        ls-tree exit non-zero with nothing on stdout: read naively, "no changed files"."""
+        ls-tree exit non-zero with nothing on stdout: read naively, "no changed files".
+
+        Decoded with surrogateescape, one string per byte path, as citer_lines() decodes a
+        citer: the changed files (`diff --name-only -z`) and the tree (`ls-tree -r -z`) key
+        every lookup the scan makes. With 'replace' (MUTATE paths-lossy) a changed path that
+        is not UTF-8 is not the citer path git grep returns for the same file -- its re-pin
+        is never read -- and it is the name of any file whose own name holds U+FFFD there."""
         rc, out = self.raw(*a)
         if rc != 0 and 'unchecked-git' not in MUTATE:
-            raise GateError('`git %s` exited %d: %s' % (' '.join(a), rc, self.err or 'no stderr'))
-        return out.decode('utf-8', 'replace')
+            raise GateError('`git %s` exited %d: %s' % (_shown(' '.join(a)), rc, self.err or 'no stderr'))
+        return out.decode('utf-8', 'replace' if 'paths-lossy' in MUTATE else 'surrogateescape')
 
     def tree(self, rev):
-        """{path: object type} for every entry of `rev`, in ls-tree order."""
+        """{path: object type} for every entry of `rev`, in ls-tree order; load() reads the
+        object IDs it records alongside."""
         if rev not in self._tree:
-            types = {}
+            types, oids = {}, {}
             for row in self.checked('ls-tree', '-r', '-z', rev).split('\0'):
                 meta, tab, path = row.partition('\t')     # <mode> SP <type> SP <oid> TAB <path>
                 if tab:
-                    types[path] = meta.split(' ')[1]
-            self._tree[rev] = types
+                    _mode, types[path], oids[path] = meta.split(' ')
+            self._tree[rev], self._oids[rev] = types, oids
         return self._tree[rev]
 
     def blob(self, rev, path):
@@ -344,20 +408,45 @@ class Repo:
         return self._blob[(rev, path)]
 
     def load(self, rev, paths):
-        """Read many blobs in ONE git process (129 files are named index.md)."""
+        """Read many blobs in ONE git process (129 files are named index.md).
+
+        Each blob is asked for by the object ID its tree gives it, never as `<rev>:<path>`:
+        git reads such a request to the end of its line, so a path holding a newline asks
+        for a file named by its first line (and then for one named by the rest), and a path
+        ending in a carriage return for the file without it -- another file's lines, or a
+        `missing` that aborts. A path the tree does not hold as a blob (absent, or a
+        gitlink) is not asked for: it is absent. MUTATE load-by-name asks by name, as the
+        pre-fix tool did. A path asked for is recorded only once its answer is read, so a
+        read that fails part-way leaves the rest unread, never absent.
+
+        A blob is decoded as the paths and the citer text are, with surrogateescape: with
+        'replace' (MUTATE blob-lossy), a changed citer's base line does not hold the leaf of
+        a changed file whose name is not UTF-8, so its re-pin's number is never recovered
+        (a wrong re-pin onto a line that kept still reads clean), and two lines that differ
+        only in such a byte compare equal."""
         paths = [p for p in paths if (rev, p) not in self._blob]
         if not paths:
             return
-        req = ''.join('%s:%s\n' % (rev, p) for p in paths).encode('utf-8')
+        held = self.tree(rev)
+        if 'load-by-name' in MUTATE:
+            asked = paths
+            req = ''.join('%s:%s\n' % (rev, p) for p in asked).encode('utf-8', 'surrogateescape')
+        else:
+            asked = [p for p in paths if held.get(p) == 'blob']
+            req = ''.join('%s\n' % self._oids[rev][p] for p in asked).encode('ascii')
+        for p in set(paths).difference(asked):
+            self._blob[(rev, p)] = None                    # absent: never asked for
+        if not asked:
+            return
         rc, raw = self.raw('cat-file', '--batch', stdin=req)
         # A blob too big to inflate in one go is STREAMED: git prints its full-size
         # header, then part of the body, then dies (`fatal: unable to stream`, exit 128).
         # Kept, the part reads as a shorter file and every cite past it as "never valid".
         if rc != 0 and 'short-read-ok' not in MUTATE:
             raise GateError('`git cat-file --batch` exited %d reading %s: %s'
-                            % (rc, rev, self.err or 'no stderr'))
+                            % (rc, _shown(rev), self.err or 'no stderr'))
         i = 0
-        for p in paths:
+        for p in asked:
             j = raw.find(b'\n', i)
             head = raw[i:j].split() if j >= 0 else []
             lines = None
@@ -365,20 +454,20 @@ class Repo:
                 size = int(head[2])
                 if raw[j + 1 + size:j + 2 + size] != b'\n' and 'short-read-ok' not in MUTATE:
                     raise GateError('%s:%s: `git cat-file --batch` announced %d bytes and sent '
-                                    '%d' % (rev, p, size, len(raw) - j - 1))
+                                    '%d' % (_shown(rev), _shown(p), size, len(raw) - j - 1))
                 if head[1] == b'blob':
-                    lines = raw[j + 1:j + 1 + size].decode('utf-8', 'replace').split('\n')
+                    lines = raw[j + 1:j + 1 + size].decode(
+                        'utf-8', 'replace' if 'blob-lossy' in MUTATE else 'surrogateescape').split('\n')
                 i = j + 1 + size + 1
-            else:                                          # `<name> missing`, or truncated
+            else:                                          # `<object> missing`, or truncated
                 i = j + 1 if j >= 0 else len(raw)
-            # `missing` is also the answer for a blob the tree HOLDS but the object
-            # store cannot produce -- read as "no such file", every cite to it is
-            # skipped and the run reports a clean it did not earn. Only the tree can
-            # tell the two apart. (A gitlink is `commit`, never readable here: absent.)
-            if lines is None and self.tree(rev).get(p) == 'blob' and 'missing-is-absent' not in MUTATE:
+            # `missing` for a blob the tree HOLDS means the object store cannot produce
+            # it -- read as "no such file", every cite to it is skipped and the run
+            # reports a clean it did not earn.
+            if lines is None and held.get(p) == 'blob' and 'missing-is-absent' not in MUTATE:
                 reply = b' '.join(head).decode('utf-8', 'replace') or 'no reply'
                 raise GateError('%s:%s is a blob in that tree, but `git cat-file --batch` cannot '
-                                'read it (%s)' % (rev, p, reply))
+                                'read it (%s)' % (_shown(rev), _shown(p), _shown(reply)))
             self._blob[(rev, p)] = lines
 
     def hunks(self, base, tip, path):
@@ -389,11 +478,25 @@ class Repo:
         stray NUL byte does not make git call the file binary and print no hunks.
         git writes the start of a zero-length side as the line BEFORE the gap,
         hence the +1.
+
+        `-c core.precomposeUnicode=false`: the path is an argument, and git on macOS
+        recomposes a decomposed (NFD) sequence in an argument. A path stored in NFD then
+        matches no entry, the diff is empty and exits 0, and a re-pin loses its number -- a
+        wrong one reads clean. git compiles that recomposition only for macOS, so MUTATE
+        diff-precomposed both drops the pin and hands git the path in NFC, which for the
+        probe's path (an e and a combining acute) is what git on macOS makes of it. NFC is
+        not git's rule for every path: git leaves a path that is not UTF-8 as it is, and
+        does not replace a character NFC replaces by another (U+212B). scan() hands this
+        diff object IDs, never a rev name, so the pin touches the path alone.
         """
         key = (base, tip, path)
         if key not in self._hunks:
-            rc, out = self.raw('--literal-pathspecs', 'diff-tree', '-r', '-p', '-U0', '--text',
-                               '--no-color', base, tip, '--', path)
+            if 'diff-precomposed' in MUTATE:
+                pin, spec = (), unicodedata.normalize('NFC', path)
+            else:
+                pin, spec = ('-c', 'core.precomposeUnicode=false'), path
+            rc, out = self.raw(*pin, '--literal-pathspecs', 'diff-tree', '-r', '-p', '-U0', '--text',
+                               '--no-color', base, tip, '--', spec)
             if rc != 0 and 'no-diff-errors' not in MUTATE:
                 self.diff_errors.append(path)
             # A context line has no place in -U0 output. GIT_DIFF_OPTS=--unified=N puts
@@ -510,7 +613,7 @@ def addressees(m, leaf, src, text, same, has_line, held):
     if text[max(0, m.start(1) - 2):m.start(1)] == '](' and text[m.end(1):m.end(1) + 1] == ')':
         target = m.group(1)
     elif text.rfind('[', 0, m.start(1)) > text.rfind(']', 0, m.start(1)):
-        tail = LINK_TAIL.match(text, m.end())
+        tail = (LINK_TAIL_PER_BYTE if 'link-per-byte' in MUTATE else LINK_TAIL).match(text, m.end())
         if tail and tail.group(1).split('#', 1)[0].rsplit('/', 1)[-1] == leaf:
             target = tail.group(1)
     if target:
@@ -546,7 +649,8 @@ def addressees(m, leaf, src, text, same, has_line, held):
 def leaf_cites(text, leaf):
     """The line-cites of `leaf` on one line of text. A name that merely ENDS in the
     leaf (`universal-operators.md` while `operators.md` changed) is not one of them."""
-    return [m for m in re.finditer(PAT_TMPL % re.escape(leaf), text)
+    tmpl = PAT_TMPL_PER_BYTE if 'gap-per-byte' in MUTATE else PAT_TMPL
+    return [m for m in re.finditer(tmpl % re.escape(leaf), text)
             if cite_comps(m.group(1))[0][-1] == leaf]
 
 
@@ -728,8 +832,178 @@ def verdict(repo, base, tip, target, b, t, held, n):
 
 Finding = collections.namedtuple('Finding', 'src lno target n kind was now moved_to cands how held')
 
+#: One `git grep -z -n` row: `<rev>:<path>` NUL `<line number>` NUL `<text>` LF. The path is
+#: read up to its NUL, since it may hold `:` or a newline; the text up to its newline, since a
+#: text line can hold a NUL past the bytes git sniffs for binary. GREP_ROW_NUL_FREE, whose text
+#: stops at a NUL, is MUTATE grep-text-no-nul's.
+GREP_ROW = re.compile(rb'([^\0]*)\0([0-9]+)\0([^\n]*)\n')
+GREP_ROW_NUL_FREE = re.compile(rb'([^\0]*)\0([0-9]+)\0([^\0\n]*)\n')
+
+
+def citer_lines(repo, leaf, rev):
+    """([(path, line number, text)] for each text line of `rev` holding `leaf`, error or None).
+
+    Every option that shapes a row is on the command line, because git config sets it
+    otherwise: `color.ui` / `color.grep = always` wraps the path and the line number in ANSI
+    codes (`int()` of the line number raised: exit 2) and the leaf inside the text (no cite
+    matched it: with only the match slot coloured, set in the environment or in the scanned
+    repo's own config, a clean exit 0 -- from global or system config the self-gate's
+    fixtures saw it too, and the run exited 2), and `grep.column` adds a
+    field that reads as part of the text -- so --no-color --no-column, and -n explicit
+    (`grep.lineNumber` defaults to false, and
+    without -n a row has no line number). -F: the leaf is a fixed string -- as a pattern,
+    `notes[1].md` is a bracket expression that misses its own name (a false clean); and
+    `grep.patternType` yields to -F. `grep.fullName` has nothing to do at the top level.
+    -z: the path comes back as its bytes. Without it a non-ASCII path is C-quoted
+    (`"docs/caf\\303\\251.md"`, a path no file has, so a link resolved against it pins
+    nothing) and a path holding `:` is split at it. The path and the text are decoded with
+    surrogateescape, one string per byte path, as Repo.checked() decodes the changed files and
+    the tree they are looked up in: with 'replace', two paths that differ in a byte that is not
+    UTF-8 read as one, so a citer could pass for a DIFFERENT changed file -- scan()'s self-cite
+    skip then dropped a real cite (a false clean) -- and a link resolved from its directory, or
+    a link whose own text holds that byte, landed on another file (a false fire). The same path
+    decoded two ways would also miss itself: a changed citer whose re-pin is never read.
+    -e: a leaf such as `-notes.md` is the
+    pattern, not an option (git exits 129), and a leaf that is a whole option, such as
+    `-q`, does not silently change the search (a false clean). `-c core.precomposeUnicode=false`:
+    the leaf is an argument, and git on macOS recomposes one in NFD (hunks()), so a changed
+    file named in NFD was looked for in NFC, which no cite of it holds -- a clean that read
+    none of them. MUTATE grep-precomposed drops the pin and hands git the leaf in NFC, as git
+    on macOS makes of the probe's leaf. --no-recurse-submodules:
+    `submodule.recurse = true` sends grep into every active submodule whose repository is
+    present (checked out, or kept in .git/modules), whose own files then read as citers in
+    THIS repo (a false SHIFTED). A row that does not parse
+    is an error, never a row to skip: skipped, it is a citer never found.
+
+    `rev` must be a TREE ID (grep_rev()). git echoes the rev back as each row's prefix, and on
+    macOS (core.precomposeUnicode) a ref typed in NFD comes back in NFC. And git looks
+    gitattributes up for binary-ness only when it greps a COMMIT (builtin/grep.c: grep_tree()
+    is passed `check_attr = obj->type == OBJ_COMMIT`), never a tree -- so a text file that
+    any attribute source declares `binary`, `-diff` or `diff=<x>` with `diff.<x>.binary` (in
+    the tree, info/attributes, core.attributesFile) is read here, where a commit grep would
+    skip it and say nothing.
+
+    -I skips a binary file, which for a tree means a NUL in its first 8000 bytes and nothing
+    else: git falls back to the `default` diff driver, and `-c diff.default.binary=auto` pins
+    that driver to the content test, so `diff.default.binary = true` in any config cannot
+    make every file binary (a false clean). -I itself is load-bearing: without it git prints
+    `Binary file <rev>:<path> matches` for a binary file holding the leaf, a row no strict
+    parse reads. KNOWN GAP, the mirror of the attribute rule: a file with a NUL in its first
+    8000 bytes is skipped even where gitattributes declare it text (`diff`). AVE-Core has none.
+    """
+    pins = () if 'grep-config-unpinned' in MUTATE else ('--no-color', '--no-column')
+    pins += () if 'grep-no-z' in MUTATE else ('-z',)
+    pins += () if 'grep-recurses' in MUTATE else ('--no-recurse-submodules',)
+    binary = () if 'grep-binary' in MUTATE else ('-I',)
+    driver = () if 'grep-binary-config' in MUTATE else ('-c', 'diff.default.binary=auto')
+    number = () if 'grep-no-n' in MUTATE else ('-n',)
+    fixed = () if 'grep-no-F' in MUTATE else ('-F',)
+    if 'grep-precomposed' in MUTATE:
+        exact, leaf = (), unicodedata.normalize('NFC', leaf)
+    else:
+        exact = ('-c', 'core.precomposeUnicode=false')
+    pattern = (leaf,) if 'grep-no-e' in MUTATE else ('-e', leaf)
+    rc, out = repo.raw(*exact, *driver, 'grep', *binary, *number, *pins, *fixed, *pattern, rev, '--')
+    # An unreadable blob is reported ONLY on stderr (`error: ... unable to read`) while grep
+    # exits 0 or 1 with that file's lines missing from stdout: a citer never found. So
+    # anything on stderr but a `warning:` is an error too.
+    noise = [l for l in repo.err.splitlines() if not l.startswith('warning:')]
+    if 'grep-stderr-ok' in MUTATE:
+        noise = []
+    err = None
+    # 1 is "no match"; anything else is a failure -- a grep killed by a signal returns
+    # NEGATIVE here, and `rc > 1` read that as a clean zero.
+    if rc not in (0, 1) or noise:
+        err = 'exit %d%s' % (rc, ': ' + noise[0] if noise else '')
+    rows, at, prefix = [], 0, (rev + ':').encode('utf-8')
+    row = GREP_ROW_NUL_FREE if 'grep-text-no-nul' in MUTATE else GREP_ROW
+    lossy = 'replace' if 'grep-path-lossy' in MUTATE else 'surrogateescape'
+    lossy_text = 'replace' if 'grep-text-lossy' in MUTATE else 'surrogateescape'
+    if 'grep-no-z' in MUTATE:                              # the pre-fix split, made strict
+        for line in out.split(b'\n'):
+            parts = line.split(b':', 3)
+            if len(parts) == 4 and parts[2].isdigit():
+                rows.append((parts[1].decode('utf-8', 'replace'), int(parts[2]),
+                             parts[3].decode('utf-8', 'replace')))
+            elif line.strip():
+                err = err or 'unparseable row: %r' % line[:100]
+        return rows, err
+    while at < len(out):
+        m = row.match(out, at)
+        if not m or not m.group(1).startswith(prefix):
+            return rows, err or 'unparseable row at byte %d: %r' % (at, out[at:at + 100])
+        rows.append((m.group(1)[len(prefix):].decode('utf-8', lossy), int(m.group(2)),
+                     m.group(3).decode('utf-8', lossy_text)))
+        at = m.end()
+    return rows, err
+
+
+def grep_rev(repo, tip, tree=None):
+    """The rev citer_lines() reads for `tip`: its tree ID (see there for why), read here unless
+    the caller holds it already (`tree`: scan() reads it when it checks the tip). MUTATE
+    grep-commit hands it the tip as named, as the pre-fix tool did."""
+    if 'grep-commit' in MUTATE:
+        return tip
+    return tree or repo.checked('rev-parse', '--verify', '--quiet', tip + '^{tree}').strip()
+
+
+def resolve(repo, rev, which='rev'):
+    """The one object `rev` names. scan() reads each rev name ONCE, here, and hands
+    every git call its ID; nothing else reads the name. By name, each call resolved it anew: a
+    ref that moved mid-run (a fetch, a push) gave the changed list one commit and the citer grep
+    or the diff another, a false clean; and on macOS a name typed in NFD meant its NFC twin to
+    the calls that recompose it (core.precomposeUnicode) and itself to those that do not --
+    which calls those are depends on where the key is set. So a name that is not ASCII is read
+    both ways, recomposed and as typed: one that means two objects is refused, and one that
+    resolves only one way means that object. An ASCII name has nothing to recompose and is read
+    once. `^{}` peels a tag and keeps a commit a commit: the report header names the commit,
+    and MUTATE grep-commit hands the citer grep the commit, as the pre-fix tool did (grep_rev()
+    itself peels the tip to its tree). A `:/<text>` or `<rev>:<path>` name takes the suffix into
+    its pattern or its path and is refused, as 7f71bc71d's `^{tree}` refused it: read as typed,
+    a `<rev>:<dir>` would scan that subtree as the repository and print a clean. A name no
+    reading resolves is refused with what git was asked and git's own first line on it (an
+    ambiguous short ID, say) -- or, where git exits 0 but prints no one object ID (a negated
+    `^<rev>` prints `^<oid>`), with what it printed. MUTATE revs-as-typed hands every call the name,
+    as the pre-fix tool did."""
+    read, said = {}, ''
+    for recompose in ('false',) if rev.isascii() else ('true', 'false'):
+        rc, out = repo.raw('-c', 'core.precomposeUnicode=' + recompose, 'rev-parse', '--verify',
+                           rev + '^{}')
+        oid = out.decode('ascii', 'replace').strip()
+        if rc == 0 and re.fullmatch(r'[0-9a-f]{40,64}', oid):
+            read[recompose] = oid
+        elif not said:                                     # git's reason; or, exit 0, what it printed
+            said = (repo.err.splitlines() or ['printed `%s`, not one object ID' % oid.splitlines()[0]
+                                              if oid else 'no output'])[0]
+    if not read:
+        raise GateError('%s rev `%s` does not name one object git can read as `%s^{}` (git: %s)%s'
+                        % (which, _shown(rev), _shown(rev), _shown(said),
+                           ' -- a `:/<text>` or `<rev>:<path>` name takes `^{}` into its text: name '
+                           'the commit by its ID' if ':' in rev else ''))
+    if len(set(read.values())) > 1:
+        raise GateError('%s rev `%s` names two objects: %s read recomposed, as git on macOS reads it, '
+                        'and %s as typed (or it moved between the two reads) -- name the one meant '
+                        'by its ID' % (which, _shown(rev), read['true'], read['false']))
+    return next(iter(read.values()))
+
+
+def tree_of(repo, which, name, rev):
+    """The tree that `rev`, the ID resolve() read for `name`, names. A rev that names neither a
+    commit nor a tree is refused: every git call on it would return nothing (a blob passed as both
+    revs printed `no changed files`, a clean exit 0)."""
+    rc, out = repo.raw('rev-parse', '--verify', '--quiet', rev + '^{tree}')
+    if rc != 0:
+        raise GateError('%s rev `%s` names neither a commit nor a tree -- every git call on it '
+                        'would return nothing' % (which, _shown(name)))
+    return out.decode('ascii', 'replace').strip()
+
 
 def scan(repo, base, tip):
+    named = (base, tip)
+    if 'revs-as-typed' not in MUTATE:                      # each rev name read once: see resolve()
+        base, tip = resolve(repo, base, 'base'), resolve(repo, tip, 'tip')
+    # the tip's tree is the citer grep's rev
+    trees = [tree_of(repo, which, name, rev) for which, name, rev in zip(('base', 'tip'), named, (base, tip))]
     changed = [p for p in repo.checked('diff', '--name-only', '-z', base, tip, '--').split('\0') if p]
     rewrites = dict.fromkeys(changed)                      # only these citers can hold a re-pin
     by_leaf = collections.defaultdict(list)
@@ -761,31 +1035,23 @@ def scan(repo, base, tip):
         return held == n or 0 < n <= line_count(l if at_tip is None else at_tip)
 
     # candidate citers: any tracked line at TIP mentioning a changed file's leaf
-    # name followed (within a few punctuation chars) by :NNN. git grep -I skips
-    # binaries. Deliberately over-broad; resolved targets are validated after.
+    # name followed (within a few punctuation chars) by :NNN. Deliberately
+    # over-broad; resolved targets are validated after.
     # NOTE: candidate collection uses git grep with a FIXED STRING (-F), never a
     # regex. An earlier version passed an ERE to git grep and a near-identical
     # pattern to Python's re: inside a POSIX bracket expression a backslash is
     # LITERAL, so `[...\]]` demanded a literal ']' before the colon and the stage
     # silently under-collected -- it missed a citer I had already proved by hand.
     # One engine does the finding, one does the precision. Never two.
-    # An unreadable blob is reported ONLY on stderr (`error: ... unable to read`) while
-    # grep exits 0 or 1 with that file's lines missing from stdout: a citer never found.
-    # So anything on stderr but a `warning:` is an error too.
+    # The tip's tree ID, not the tip as named: see citer_lines().
+    tip_tree = grep_rev(repo, tip, trees[1])
     cand = collections.defaultdict(list)
     for leaf in by_leaf:
-        rc, out = repo.raw('grep', '-nIF', leaf, tip, '--')
-        noise = [l for l in repo.err.splitlines() if not l.startswith('warning:')]
-        if 'grep-stderr-ok' in MUTATE:
-            noise = []
-        if rc > 1 or noise:                                # 1 is "no match"; >1 is a failure
-            res['grep_errors'].append((leaf, 'exit %d%s' % (rc, ': ' + noise[0] if noise else '')))
-        for line in out.decode('utf-8', 'replace').split('\n'):
-            if not line.strip(): continue
-            parts = line.split(':', 3)
-            if len(parts) < 4: continue
-            _, src, lno, text = parts[0], parts[1], parts[2], parts[3]
-            cand[src].append((int(lno), text, leaf))
+        rows, err = citer_lines(repo, leaf, tip_tree)
+        if err:
+            res['grep_errors'].append((leaf, err))
+        for src, lno, text in rows:
+            cand[src].append((lno, text, leaf))
 
     for src, rows in cand.items():
         for lno, text, leaf in rows:
@@ -839,11 +1105,49 @@ def scan(repo, base, tip):
     return res
 
 
+def _shown(path):
+    """A path as the report prints it: in ASCII, one printed form per path, so two paths that
+    look alike on screen -- one name in NFC and in NFD, a Latin `a` and a Cyrillic one -- print
+    apart. Printable ASCII prints as itself and a backslash as `\\\\`, so a name that holds the
+    text of an escape prints as its own; a byte that is not UTF-8 (surrogateescape, see
+    citer_lines()) as `\\xNN`, NN 80-ff; a control below U+0080 as its escape (`\\n`, `\\x1b`),
+    so no path can start a report line of its own or restyle the log; U+0080-U+00FF as
+    `\\u00NN`, never `\\xNN`; and any other character as `\\uNNNN`, or `\\UNNNNNNNN` above
+    U+FFFF. Before -z, git C-quoted a citer path; read whole, it is the path's own bytes."""
+    def one(c):
+        if c == '\\':
+            return '\\\\'
+        if ' ' <= c <= '~':
+            return c
+        if '\udc80' <= c <= '\udcff':
+            return '\\x%02x' % (ord(c) - 0xdc00)
+        if '\x80' <= c <= '\xff':
+            return '\\u%04x' % ord(c)
+        return c.encode('unicode_escape').decode('ascii')
+    return ''.join(one(c) for c in path)
+
+
+def _text(line, escaped):
+    """A cited line as the report prints it: a byte that is not UTF-8 (a blob is decoded with
+    surrogateescape, see Repo.load()) as `\\xNN`. Printed raw, a strict UTF-8 stdout cannot
+    encode it, and the report crashed: exit 2 where the verdict was reached. `escaped` (_show()
+    sets it when either line of the pair holds such a byte, and says so on a line of its own
+    under the pair) prints a backslash as `\\\\` too, so a line holding the text `\\xe9` prints
+    apart from one holding the byte -- in that pair, and in a pair holding no such byte, which
+    prints its backslashes as they are, LaTeX included, and no such line."""
+    if escaped:
+        line = line.replace('\\', '\\\\')
+    return line.encode('utf-8', 'surrogateescape').decode('utf-8', 'backslashreplace')
+
+
 def _show(f):
     b_, t_ = f.was.strip(), f.now.strip()
     mark = '  [differs beyond col 105]' if b_[:105] == t_[:105] else ''
-    print(f'     was: {b_[:105]}{mark}')
-    print(f'     now: {t_[:105]}{mark}')
+    escaped = re.search('[\udc80-\udcff]', b_[:105] + t_[:105]) is not None
+    print(f'     was: {_text(b_[:105], escaped)}{mark}')
+    print(f'     now: {_text(t_[:105], escaped)}{mark}')
+    if escaped:
+        print('          (escaped: \\xNN is a byte that is not UTF-8, \\\\ is one backslash)')
 
 
 def _arrow(f):
@@ -869,8 +1173,8 @@ def _arrow(f):
 
 def report(res, verbose=False):
     base, tip, changed = res['base'], res['tip'], res['changed']
-    if not changed:
-        print('no changed files'); return 0
+    if not changed:                                        # the objects read, as below
+        print(f'[inbound-cites] {base[:8]}..{tip[:8]}  no changed files'); return 0
 
     shifted = [f for f in res['pinned'] if f.kind in ROT]
     edited  = [f for f in res['pinned'] if f.kind == 'EDITED-IN-PLACE']
@@ -895,7 +1199,7 @@ def report(res, verbose=False):
     else:
         print()
     for f in listed:
-        print(f'  {f.src}:{f.lno}  ->  {f.target}:{f.n}   [{f.kind}]{_arrow(f)}')
+        print(f'  {_shown(f.src)}:{f.lno}  ->  {_shown(f.target)}:{f.n}   [{f.kind}]{_arrow(f)}')
         print(f'     pinned by: {f.how}')              # the rule to argue with, if this is wrong
         _show(f)
         print()
@@ -911,17 +1215,17 @@ def report(res, verbose=False):
         leaf = f.target.rsplit('/', 1)[-1]
         others = [c for c in f.cands if c != f.target]
         more = f' (+{len(others) - 3} more)' if len(others) > 3 else ''
-        print(f'  {f.src}:{f.lno}  ->  {leaf}:{f.n}   [AMBIGUOUS-BASENAME, {len(f.cands)} candidates'
+        print(f'  {_shown(f.src)}:{f.lno}  ->  {_shown(leaf)}:{f.n}   [AMBIGUOUS-BASENAME, {len(f.cands)} candidates'
               f' after: {f.how}]')
-        print(f'     if it means {f.target}: {f.kind}{_arrow(f)}')
-        print(f'     it could equally mean: {", ".join(others[:3])}{more}')
+        print(f'     if it means {_shown(f.target)}: {f.kind}{_arrow(f)}')
+        print(f'     it could equally mean: {", ".join(_shown(c) for c in others[:3])}{more}')
         if f.kind != 'HOLDS':
             _show(f)
         print()
     return 1 if shifted else 0
 
 
-def liveness(repo, base, tip):
+def liveness():
     """(reasons this run could NOT be trusted to report a zero, probes run). No
     reasons means alive.
 
@@ -930,21 +1234,18 @@ def liveness(repo, base, tip):
     checker that resolves nothing reports a clean it did not earn -- but "this
     branch's files are cited by nobody" is a true and common state, so yield is
     not evidence either way (see the docstring: 15 false aborts in 30 merges).
-    The named failure modes are each tested directly instead: a bad rev, an
-    erroring grep (scan() records those), and a bad pattern or a dead decider --
-    which is what the self-gate is for. Measured precedent for the last one: an
-    earlier build of this very script passed an ERE to `git grep` and a
+    The named failure modes are each tested directly instead: a bad rev and an
+    erroring grep (scan() raises on the first and records the second; it alone
+    reads the revs, once, so nothing here can vouch for an object the scan does
+    not read), and a bad pattern or a dead decider -- which is what the self-gate
+    is for. Measured precedent for the last one: an earlier build of this very
+    script passed an ERE to `git grep` and a
     near-identical pattern to Python's `re`. Inside a POSIX bracket expression a
     backslash is LITERAL, so the git-grep arm silently under-collected and the
     script reported 3 moved cites where there were 79. One engine finds, one
     engine decides -- never two.
     """
-    dead = []
-    for name, rev in (('base', base), ('tip', tip)):
-        if repo.raw('rev-parse', '--verify', '--quiet', rev + '^{tree}')[0] != 0:
-            dead.append('%s rev %r does not resolve to a tree -- every git call on it '
-                        'returns nothing' % (name, rev))
-    lines = []
+    dead, lines = [], []
     try:
         if not run_gate(out=lines.append):
             dead.append('the self-gate FAILED -- this build cannot fire, or fires on a cite it must not:')
@@ -999,7 +1300,7 @@ def main(base, tip, verbose=False, repo=None):
         except GateError as exc:
             print('[inbound-cites] ABORT: cannot start -- not in a repository git can read: %s' % exc)
             return 2
-    dead, n_probes = liveness(repo, base, tip)
+    dead, n_probes = liveness()
     res = None
     if not dead:
         try:
@@ -1008,14 +1309,24 @@ def main(base, tip, verbose=False, repo=None):
             dead = [str(exc)]
         else:
             dead = scan_errors(res)
+    else:                                                  # no scan: a bad rev is named all the same
+        bad = []
+        for which, rev in (('base', base), ('tip', tip)):
+            try:
+                tree_of(repo, which, rev, resolve(repo, rev, which))
+            except GateError as exc:
+                bad.append(str(exc))
+        dead = bad + dead
     if dead:
         print('[inbound-cites] ABORT: liveness failed -- a clean report here would be false.')
         for why in dead:
             print('  ' + why)
         return 2
-    print('[inbound-cites] liveness OK — both revs resolve, every object read, no grep or diff error, '
-          'self-gate %d/%d (a planted shifted cite fires; a cite to a same-named sibling does not; a '
-          'correct re-pin passes; a wrong one fires; a damaged object aborts).' % (n_probes, n_probes))
+    print('[inbound-cites] liveness OK — both revs resolve, each read once as one object, every object '
+          'read, no grep or diff error, self-gate %d/%d (a planted shifted cite fires; a cite to a '
+          'same-named sibling does not; a correct re-pin passes; a wrong one fires; a damaged object '
+          'aborts; every citer row reads whole under hostile grep config; every path and line is read '
+          'as its own bytes).' % (n_probes, n_probes))
     return report(res, verbose)
 
 
@@ -1023,7 +1334,12 @@ def main(base, tip, verbose=False, repo=None):
 #
 # One throwaway repo, three files named main.tex (B, A, and a third that never
 # changes), one unique basename, two citing files. Trees are built with
-# `git write-tree`: no commit, so no identity, no hooks, no signing.
+# `git write-tree` (a tree holding a name or a line that some filesystem would not write as
+# its own bytes, see _store_only(), goes straight to the object store, _object_tree); the two
+# probes that need a commit (a checked-out submodule, a commit tip) use `git commit-tree` under
+# FIXTURE_IDENTITY, unsigned: no user identity, no signing. `init --template=`
+# copies in no template, but a hook set by core.hooksPath still runs, and one that
+# rejects a ref update aborts the self-gate (exit 2, quoting git).
 
 B = 'manuscript/vol_1_foundations/main.tex'            # the short volume main
 A = 'papers/letter/main.tex'                           # the long same-named sibling
@@ -1032,6 +1348,51 @@ UNIQUE = 'src/unique_mod.py'
 CITERS = 'docs/citers.md'
 NOTES = 'manuscript/vol_1_foundations/notes.md'        # a citer BESIDE B
 LONG = 'manuscript/vol_1_foundations/tables.tex'       # big enough that git STREAMS it
+COLON = 'docs/a:b.md'                                  # a citer whose path holds a colon
+ACCENT = 'manuscript/vol_1_foundations/not\u00e9s.md'  # a citer beside B, name not ASCII
+DASH = 'src/-dash_mod.py'                              # a changed file named like an option
+BRACKET = 'src/notes[1].md'                            # a changed file named like a pattern
+BINARY = 'assets/fig.pdf'                              # a binary file that names B's leaf
+CITER_FILES = (CITERS, NOTES, COLON, ACCENT, BINARY)
+
+#: Config that reshapes a `git grep` row when the call leaves it to config (citer_lines()).
+#: Every fixture repo carries it, so every self-gate verdict is reached under it -- the
+#: colour and the column probe each with the other's trigger benign. (`diff.default.binary`,
+#: which hides every file from -I, is set by its own probe alone: in every fixture it would
+#: also turn each plain `git diff` a test runs into `Binary files ... differ`.) So a test that
+#: runs git porcelain in a fixture repo and parses what it prints pins its own output flags.
+#: color.grep outranks color.ui, so a `color.grep = never` in ~/.gitconfig would otherwise
+#: disarm the colour; and `normal` in a slot that wraps a field (filename, lineNumber, match)
+#: changes what the colour probe reads with its pin off (all three together disarm it) -- so
+#: the slot colours are set too, to git's defaults. core.quotePath=true is git's default, set
+#: so a user's `false` cannot hide the quoting; grep.lineNumber=false likewise, so a user's
+#: `true` cannot hide a missing -n. submodule.recurse bites wherever an active submodule's
+#: repository is present -- checked out, or kept in .git/modules -- which in the fixtures is
+#: GREP's submodule probe alone. The repo's own config is read after the system and global
+#: files, so it wins over both; only a worktree config, -c or GIT_CONFIG_* is read after it,
+#: and the fixtures scrub GIT_* and init with --template=, which keeps out a template's
+#: config.worktree. Two keys shape no row. grep.patternType=basic: the real call's -F
+#: outranks it, but MUTATE grep-no-F drops -F, and a user's `fixed` would then keep the
+#: bracket probe's leaf literal and hide the missing -F (`basic` also outranks
+#: grep.extendedRegexp). core.precomposeUnicode=true, what `git init` writes on macOS when
+#: no config sets it: under a global `false`, on a filesystem that stores names in NFD
+#: (HFS+), `git add` records the NFD bytes of a non-ASCII name. No self-gate verdict depends
+#: on it -- every fixture tree with a non-ASCII path is built in the object store
+#: (_store_only) -- but a test that builds one with _write_tree() does. Off macOS git
+#: ignores it.
+HOSTILE = (('color.ui', 'always'), ('color.grep', 'always'), ('color.grep.filename', 'magenta'),
+           ('color.grep.lineNumber', 'green'), ('color.grep.column', 'green'),
+           ('color.grep.separator', 'cyan'), ('color.grep.match', 'bold red'),
+           ('grep.column', 'true'), ('grep.lineNumber', 'false'), ('core.quotePath', 'true'),
+           ('submodule.recurse', 'true'), ('grep.patternType', 'basic'),
+           ('core.precomposeUnicode', 'true'))
+#: commit-tree under this identity needs no user identity (and --no-gpg-sign signs nothing)
+FIXTURE_IDENTITY = dict(GIT_AUTHOR_NAME='fixture', GIT_AUTHOR_EMAIL='fixture@invalid',
+                        GIT_COMMITTER_NAME='fixture', GIT_COMMITTER_EMAIL='fixture@invalid',
+                        GIT_AUTHOR_DATE='2000-01-01T00:00:00Z',
+                        GIT_COMMITTER_DATE='2000-01-01T00:00:00Z')
+SUBMODULE = 'sibling'
+SUBMODULE_CITE = 'its own cite, in a checked-out submodule: `manuscript/vol_1_foundations/main.tex:5`'
 
 #: probe key -> (citing file, citing text). Every cite targets a line that exists.
 PROBES = collections.OrderedDict([
@@ -1055,6 +1416,17 @@ PROBES = collections.OrderedDict([
     ('long-file',       (CITERS, 'a long file, cited near its end: `tables.tex:290`')),
 ])
 
+#: The citer reader's probes (GREP, below). Not in ALL: the addressing checks are unchanged.
+GREP_PROBES = collections.OrderedDict([
+    ('colon-citer-B',   (COLON, 'from a citer whose path holds a colon: '
+                                '`manuscript/vol_1_foundations/main.tex:5`')),
+    ('accent-link-B',   (ACCENT, 'link form, from a citer whose name is not ASCII: [frontmatter](main.tex):11')),
+    ('dash-leaf',       (CITERS, 'a file whose name starts with a dash: `src/-dash_mod.py:10`')),
+    ('bracket-leaf',    (CITERS, 'a file whose name holds a bracket: `src/notes[1].md:10`')),
+    ('binary-B',        (BINARY, '%PDF-1.4\0\0 /Title (manuscript/vol_1_foundations/main.tex:5) \0')),
+])
+CITES = collections.OrderedDict(list(PROBES.items()) + list(GREP_PROBES.items()))
+
 
 def _numbered(tag, k):
     return ['%s line %d' % (tag, i) for i in range(1, k + 1)]
@@ -1065,11 +1437,14 @@ def _files(keys, moved=()):
     line below keeps its content at a NEW address -- the definition of SHIFTED."""
     files = {B: _numbered('vol1', 14), A: _numbered('letter', 40),
              THIRD: _numbered('vol2', 14), UNIQUE: _numbered('code', 20),
-             LONG: _numbered('table row of a long file', 300)}
+             LONG: _numbered('table row of a long file', 300), DASH: _numbered('dash', 20),
+             BRACKET: _numbered('bracket', 20)}
     for p in moved:
         files[p] = ['inserted %d' % i for i in (1, 2, 3)] + files[p]
-    for citer in (CITERS, NOTES):
-        files[citer] = [PROBES[k][1] for k in keys if PROBES[k][0] == citer] or ['(no cites)']
+    for citer in CITER_FILES:
+        lines = [CITES[k][1] for k in keys if CITES[k][0] == citer]
+        if lines or citer in (CITERS, NOTES):
+            files[citer] = lines or ['(no cites)']
     return files
 
 
@@ -1097,20 +1472,158 @@ def _write_tree(repo, root, files):
     return tree
 
 
+def _store_only(files):
+    """True when some filesystem would not write the fixture through a work tree as its own
+    bytes: a path with anything but printable ASCII or with one of `:*?<>|"\\`, or a line
+    holding a byte that is not UTF-8. Its tree then goes straight to the object store
+    (_object_tree), where its bytes are the bytes the fixture wrote on every filesystem. Most
+    filesystems write most such names; the routing is by the worst one. Written through a work
+    tree, a name that is not UTF-8 is refused (APFS); a non-ASCII one can come back in NFD (HFS+, or Linux's
+    hfsplus driver, with no recomposition off macOS), and macOS `git add` recomposes one in
+    NFD; Linux's vfat driver refuses a control character and each of those eight; and a text
+    file is written as UTF-8, which a byte that is not UTF-8 is not."""
+    return (any(not ' ' <= c <= '~' or c in ':*?<>|"\\' for path in files for c in path)
+            or any(re.search(r'[\udc80-\udcff]', '\n'.join(lines)) for lines in files.values()))
+
+
+def _object_tree(repo, files):
+    """The tree of `files`, written straight to the object store (see _store_only()): each blob
+    with hash-object, which reads stdin with no path, so no filter or line-ending rule applies,
+    and each directory with `git mktree`, deepest first. No index is involved, so no index
+    setting can change the tree -- core.splitIndex with feature.manyFiles or index.skipHash
+    empties a scratch index's tree on git 2.40 and later -- and the tree is read back: one that
+    does not hold exactly the fixture's files is refused."""
+    def run(*a, stdin=None):
+        rc, out = repo.raw(*a, stdin=stdin)
+        oid = out.decode('ascii', 'replace').strip()
+        if rc != 0 or not re.fullmatch(r'[0-9a-f]{40,64}', oid):
+            raise FixtureError('`git %s` failed in %s: %s' % (a[0], repo.cwd, repo.err or 'no output'))
+        return oid.encode('ascii')
+
+    blobs = {path.encode('utf-8', 'surrogateescape'):
+             run('hash-object', '-w', '--stdin', stdin=('\n'.join(lines) + '\n').encode('utf-8', 'surrogateescape'))
+             for path, lines in files.items()}
+
+    def tree(prefix):
+        rows, dirs = [], set()
+        for path, oid in blobs.items():
+            if path.startswith(prefix):
+                name, slash, _ = path[len(prefix):].partition(b'/')
+                if slash:
+                    dirs.add(name)
+                else:
+                    rows.append(b'100644 blob %s\t%s\0' % (oid, name))
+        rows += [b'040000 tree %s\t%s\0' % (tree(prefix + name + b'/'), name) for name in sorted(dirs)]
+        return run('mktree', '-z', stdin=b''.join(rows))
+
+    root = tree(b'')
+    rc, out = repo.raw('ls-tree', '-r', '-z', root.decode('ascii'))
+    held = {}
+    for row in out.split(b'\0'):
+        meta, tab, path = row.partition(b'\t')
+        if tab:
+            held[path] = meta.split(b' ')[-1]
+    if rc != 0 or held != blobs:
+        raise FixtureError("the tree written to the object store in %s holds %d of the fixture's %d files"
+                           % (repo.cwd, len(set(held.items()) & set(blobs.items())), len(blobs)))
+    return root.decode('ascii')
+
+
+def config_text(config):
+    """(key, value) pairs as git config file text: `a.b` -> [a] b, `a.b.c` -> [a "b"] c. The
+    value and subsection are quoted, so `#`, `;`, a leading space, `"` or `\\` survive. A
+    name whose section or key is empty is refused."""
+    def quoted(s):
+        return '"%s"' % s.replace('\\', '\\\\').replace('"', '\\"')
+    out = []
+    for key, value in config:
+        section, _, name = key.rpartition('.')
+        head, _, sub = section.partition('.')
+        if not head or not name:
+            raise FixtureError('not a `section.key` config name: %r' % key)
+        out.append('[%s%s]\n\t%s = %s\n' % (head, ' ' + quoted(sub) if sub else '', name, quoted(value)))
+    return ''.join(out)
+
+
+def _add_submodule(repo, root, tip):
+    """`tip` plus a checked-out submodule at SUBMODULE whose own notes.md cites B by path:
+    a gitlink, a .gitmodules naming it, and `active = true` in config (it outranks a global
+    `submodule.active` pathspec that leaves it out). Built with write-tree and commit-tree
+    under FIXTURE_IDENTITY, unsigned: it needs no user identity and signs nothing. `add -f`:
+    a global excludesFile must not keep notes.md out and leave the probe nothing to recurse
+    into. `init --template=`: no template config, hooks or excludes reach the sub-repo."""
+    def run(r, *a, stdin=None):
+        rc, out = r.raw(*a, stdin=stdin)
+        if rc != 0:
+            raise FixtureError('`git %s` failed in %s: %s' % (' '.join(a), r.cwd, r.err or 'no output'))
+        return out.decode('ascii', 'replace').strip()
+
+    sub = Repo(cwd=os.path.join(root, SUBMODULE), scrub_env=True)
+    sub.env.update(FIXTURE_IDENTITY)
+    modules = '[submodule "%s"]\n\tpath = %s\n\turl = ./%s\n' % ((SUBMODULE,) * 3)
+    try:
+        os.makedirs(sub.cwd)
+        with open(os.path.join(sub.cwd, 'notes.md'), 'w', encoding='utf-8') as fh:
+            fh.write(SUBMODULE_CITE + '\n')
+        with open(os.path.join(root, '.gitmodules'), 'w', encoding='utf-8') as fh:
+            fh.write(modules)
+        with open(os.path.join(root, '.git', 'config'), 'a', encoding='utf-8') as fh:
+            fh.write(config_text([('submodule.%s.url' % SUBMODULE, './' + SUBMODULE),
+                                  ('submodule.%s.active' % SUBMODULE, 'true')]))
+    except OSError as exc:
+        raise FixtureError('could not write the submodule fixture in %s: %s' % (root, exc))
+    run(sub, 'init', '-q', '--template=')
+    run(sub, 'add', '-A', '-f')
+    commit = run(sub, 'commit-tree', '--no-gpg-sign', '-m', 'fixture', run(sub, 'write-tree'))
+    blob = run(repo, 'hash-object', '-w', '--stdin', stdin=modules.encode('utf-8'))
+    run(repo, 'read-tree', '--no-recurse-submodules', tip)
+    run(repo, 'update-index', '--add', '--cacheinfo', '100644,%s,.gitmodules' % blob,
+        '--cacheinfo', '160000,%s,%s' % (commit, SUBMODULE))
+    return run(repo, 'write-tree')
+
+
 @contextlib.contextmanager
-def two_trees(base_files, tip_files, damage=()):
+def two_trees(base_files, tip_files, damage=(), config=HOSTILE, submodule=False, attributes=None):
     """A throwaway repo holding a base tree and a tip tree: yields (repo, base, tip).
 
     `damage`: ('base' | 'tip', path, 'delete' | 'truncate') -- after both trees are
     written, that object (blob or subtree) is deleted from the object store, or its
-    loose file cut to half, so the trees still name it."""
+    loose file cut to half, so the trees still name it. `config`: (key, value) pairs
+    written to the repo's own config, which outranks ~/.gitconfig (appended in one write,
+    not one `git config` process per key: the self-gate builds dozens of these per run).
+    `init --template=`: a user's init.templateDir copies nothing in -- not a config file
+    that ends without a newline (the config written here would run on from its last line),
+    not a hook. `submodule`: the tip also holds a checked-out submodule (_add_submodule).
+    `attributes`: a line for .git/info/attributes, and the tip becomes a COMMIT of its tree,
+    so that a grep of the tip as named would look the attributes up (citer_lines()). A tree
+    that some filesystem would not write as its own bytes is written straight to the object
+    store (_store_only, _object_tree).
+    `config` is HOSTILE by default, so a test that runs git porcelain in the repo and parses
+    what it prints must pin its own output flags (--no-color, -n, --no-column)."""
     root = tempfile.mkdtemp(prefix='inbound-cite-selftest-')
     try:
         repo = Repo(cwd=root, scrub_env=True)
-        if repo.raw('init', '-q')[0] != 0:
+        if repo.raw('init', '-q', '--template=')[0] != 0:
             raise FixtureError('`git init` failed in %s: %s' % (root, repo.err or 'no output'))
-        base = _write_tree(repo, root, base_files)
-        tip = _write_tree(repo, root, tip_files)
+        try:
+            with open(os.path.join(root, '.git', 'config'), 'a', encoding='utf-8') as fh:
+                fh.write(config_text(config))
+            if attributes:
+                os.makedirs(os.path.join(root, '.git', 'info'), exist_ok=True)
+                with open(os.path.join(root, '.git', 'info', 'attributes'), 'w', encoding='utf-8') as fh:
+                    fh.write(attributes + '\n')
+        except OSError as exc:
+            raise FixtureError('could not write the fixture config in %s: %s' % (root, exc))
+        base, tip = (_object_tree(repo, files) if _store_only(files) else _write_tree(repo, root, files)
+                     for files in (base_files, tip_files))
+        if submodule:
+            tip = _add_submodule(repo, root, tip)
+        if attributes:
+            repo.env.update(FIXTURE_IDENTITY)
+            rc, out = repo.raw('commit-tree', '--no-gpg-sign', '-m', 'fixture', tip)
+            tip = out.decode('ascii', 'replace').strip()
+            if rc != 0 or not re.fullmatch(r'[0-9a-f]{40,64}', tip):
+                raise FixtureError('`git commit-tree` failed in %s: %s' % (root, repo.err or 'no output'))
         for side, path, how in damage:
             rc, out = repo.raw('rev-parse', '--verify', '--quiet',
                                '%s:%s' % (base if side == 'base' else tip, path))
@@ -1134,8 +1647,9 @@ def two_trees(base_files, tip_files, damage=()):
         shutil.rmtree(root, ignore_errors=True)
 
 
-def fixture_repo(keys, moved):
-    return two_trees(_files(keys), _files(keys, moved))
+def fixture_repo(keys, moved, config=HOSTILE, submodule=False, attributes=None):
+    return two_trees(_files(keys), _files(keys, moved), config=config, submodule=submodule,
+                     attributes=attributes)
 
 
 def fixture_scan(keys, moved):
@@ -1145,8 +1659,8 @@ def fixture_scan(keys, moved):
     with fixture_repo(keys, moved) as (repo, base, tip):
         res = scan(repo, base, tip)
     where = {}
-    for citer in (CITERS, NOTES):
-        for i, k in enumerate([k for k in keys if PROBES[k][0] == citer], 1):
+    for citer in CITER_FILES:
+        for i, k in enumerate([k for k in keys if CITES[k][0] == citer], 1):
             where[(citer, i)] = k
     pinned = {where[(f.src, f.lno)]: f.kind for f in res['pinned']}
     amb = {where[(f.src, f.lno)]: f.kind for f in res['ambiguous']}
@@ -1495,6 +2009,403 @@ def diff_context_verdict(inject=True):
         return 'ABORT' if 'docs/t.md' in res['diff_errors'] else 'ABORT, but not on docs/t.md: %s' % scan_errors(res)
     return 'exit %d' % (1 if any(f.kind in ROT for f in res['pinned']) else 0)
 
+def _with(*benign):
+    """HOSTILE with some keys set benign, to isolate one trigger whatever the global or system
+    config holds."""
+    config = dict(HOSTILE)
+    config.update(benign)
+    return tuple(config.items())
+
+
+Odd = collections.namedtuple('Odd', 'keys moved config how rule unpinned submodule attributes trees moving',
+                             defaults=(False, None, None, False))
+
+#: a changed file in a directory named U+FFFD itself (valid UTF-8), and a citer in a directory
+#: named by the byte 0xFF (not UTF-8: a str holding surrogateescape), which 'replace' reads as
+#: the very same name
+LOSSY_TARGET = 'docs/\ufffd/main.tex'
+LOSSY_CITER = 'docs/\udcff/main.tex'
+
+
+def _lossy_trees():
+    """LOSSY_CITER's line 4 links to LOSSY_TARGET:5, which moves to :8: one line from the
+    citing line, inside scan()'s self-cite window (|4 - 5| < 3)."""
+    cites = ['citer line %d' % i for i in range(1, 12)]
+    cites[3] = 'see [main.tex:5](../\ufffd/main.tex)'
+    files = {LOSSY_TARGET: _numbered('vol1', 14), LOSSY_CITER: cites}
+    tip = dict(files)
+    tip[LOSSY_TARGET] = ['inserted %d' % i for i in (1, 2, 3)] + files[LOSSY_TARGET]
+    return files, tip
+
+
+def _nul_trees():
+    """CITERS opens with a line longer than the 8000 bytes git sniffs for binary, then cites
+    B on a line that holds a NUL: text to git, and its row carries the NUL."""
+    files = {B: _numbered('vol1', 14),
+             CITERS: ['padding, no cite here. ' * 360,              # 8280 bytes, no NUL
+                      'a NUL \0 inside the text: `manuscript/vol_1_foundations/main.tex:5`']}
+    tip = dict(files)
+    tip[B] = ['inserted %d' % i for i in (1, 2, 3)] + files[B]
+    return files, tip
+
+
+VOL = 'docs/vol/main.tex'
+#: a changed citer whose name ends in a carriage return, beside the file named without it
+CR_CITER = 'docs/n.md\r'
+#: changed citers named by the byte 0xFF (not UTF-8) and in NFD (an e and a combining acute)
+FF_CITER = 'docs/\udcff/c.md'
+NFD_CITER = 'docs/e\u0301/c.md'
+#: a file that keeps still in a directory named by the byte 0xFF, beside LOSSY_TARGET's
+FF_FILE = 'docs/\udcff/main.tex'
+#: changed files whose own names hold the byte 0xFF, and an e and a combining acute (NFD)
+FF_LEAF = 'docs/vol/m\udcffn.tex'
+NFD_LEAF = 'docs/vol/cafe\u0301.tex'
+
+
+def _cr_trees():
+    """CR_CITER re-pins its cite of VOL WRONGLY, :9 -> :13 (three lines go in at the top, so
+    :9's content is at :12). Beside it, docs/n.md cites A:10, and A never moves: asked for as
+    `<rev>:docs/n.md<CR>`, git strips the CR and reads docs/n.md, whose 10 then 'confirms'
+    the re-pin (:10's content is at :13)."""
+    vol = _numbered('vol', 14)
+    files = {VOL: vol, CR_CITER: ['see `docs/vol/main.tex:9`'],
+             'docs/n.md': ['see `papers/letter/main.tex:10`'], A: _numbered('letter', 40)}
+    tip = dict(files)
+    tip[VOL] = ['inserted %d' % i for i in (1, 2, 3)] + vol
+    tip[CR_CITER] = ['see `docs/vol/main.tex:13`']
+    return files, tip
+
+
+def _still_repin_trees(citer, target=VOL):
+    """`citer` re-pins its cite of `target` WRONGLY onto a line that keeps still, :9 -> :2: three
+    lines go in above :5, so :9's content is at :12 and :2 holds what it held. Read without
+    the re-pin's base number, the cite holds."""
+    vol = _numbered('vol', 14)
+    files = {target: vol, citer: ['see `%s:9`' % target]}
+    tip = {target: vol[:4] + ['inserted %d' % i for i in (1, 2, 3)] + vol[4:],
+           citer: ['see `%s:2`' % target]}
+    return files, tip
+
+
+def _ff_link_trees():
+    """docs/links.md links one cite into the directory named by the byte 0xFF, whose main.tex
+    keeps still, and one into the directory named U+FFFD, whose main.tex moves: one SHIFTED."""
+    files = {LOSSY_TARGET: _numbered('vol1', 14), FF_FILE: _numbered('vol1', 14),
+             'docs/links.md': ['see [main.tex:5](\udcff/main.tex)', 'and [main.tex:5](\ufffd/main.tex)']}
+    tip = dict(files)
+    tip[LOSSY_TARGET] = ['inserted %d' % i for i in (1, 2, 3)] + files[LOSSY_TARGET]
+    return files, tip
+
+
+def _shift_trees(target, text=None):
+    """docs/c.md holds `text` (by default a plain cite of `target`:5), and three lines go in at
+    the top of `target`: one SHIFTED."""
+    vol = _numbered('vol', 14)
+    files = {target: vol, 'docs/c.md': [text or 'see `%s:5`' % target]}
+    tip = dict(files)
+    tip[target] = ['inserted %d' % i for i in (1, 2, 3)] + vol
+    return files, tip
+
+
+def _cut_link_trees():
+    """docs/c/c.md links a cite of main.tex:5 to ../x/main.tex, which moves, past link text that
+    holds 70 cut-off characters, 140 bytes: 71 characters as 'replace' read them, inside the 120
+    a link may span. docs/y/main.tex, the same name, keeps still beside it."""
+    vol = _numbered('vol', 14)
+    files = {'docs/x/main.tex': vol, 'docs/y/main.tex': vol,
+             'docs/c/c.md': ['see [main.tex:5 ' + '\udce2\udc80' * 70 + '](../x/main.tex)']}
+    tip = dict(files)
+    tip['docs/x/main.tex'] = ['inserted %d' % i for i in (1, 2, 3)] + vol
+    return files, tip
+
+
+def _moving_trees():
+    """The moving-ref probe's fixture, built so that each read scan() makes of either rev runs: B
+    moves under an explicit cite (the changed list, the tree listing, B's blob and diff, the
+    citer grep); a bare cite only the Letter is long enough for (each same-named file's
+    has-line test reads the tip, and docs/added/main.tex, which only the tip holds, is read
+    from the tip alone); and docs/repin.md, which changed, re-pins its cite of B correctly (its
+    own diff). One SHIFTED, the explicit cite."""
+    keys = ['explicit-B', 'bare-has-line-A']
+    files, tip = _files(keys), _files(keys, [B])
+    files['docs/repin.md'] = ['see `%s:9`' % B]
+    tip['docs/repin.md'] = ['see `%s:12`' % B]
+    tip['docs/added/main.tex'] = _numbered('added', 5)
+    return files, tip
+
+
+def _pinned(a):
+    """(pin, k) for a git call's arguments `a`: what its own `-c` options set
+    core.precomposeUnicode to, read as git reads them -- the key in any case, the value in git's
+    boolean spellings, the last one winning -- or None; and the index of the command, before
+    which every argument is git's own option (after it, `grep -c` counts)."""
+    pin, k = None, 0
+    while k < len(a) and isinstance(a[k], str) and a[k].startswith('-'):
+        if a[k] in ('-c', '-C') and k + 1 < len(a):
+            key, eq, value = a[k + 1].partition('=') if a[k] == '-c' else ('', '', '')
+            if key.lower() == 'core.precomposeunicode':
+                value = value.lower()
+                pin = not eq or value in ('true', 'yes', 'on') or (value.lstrip('-').isdigit() and int(value) != 0)
+            k += 2
+        else:
+            k += 1
+    return pin, k
+
+
+def _composed(arg):
+    """`arg` as a model of how git on macOS recomposes an argument (iconv, from UTF-8-MAC): NFC,
+    except that a character NFC would change on its own is kept, as git keeps U+212B, U+2126,
+    U+212A, U+F900 and U+0958. Apple's conversion is not NFC, so the model is checked only where
+    it was checked against git 2.39.5 and 2.53.0: those five, a letter with combining accents,
+    Hangul jamo (the test file's emulation table)."""
+    parts, run = [], ''
+    for c in arg:
+        if unicodedata.normalize('NFC', c) == c:
+            run += c
+        else:
+            parts += [unicodedata.normalize('NFC', run), c]
+            run = ''
+    return ''.join(parts) + unicodedata.normalize('NFC', run)
+
+
+class Recomposing(Repo):
+    """A fixture repo whose git calls see their arguments as git on macOS sees them with
+    core.precomposeUnicode set where every command reads it before its arguments (~/.gitconfig):
+    each command's arguments recomposed as git recomposes them (_composed()), unless the call's
+    own `-c` options turn the key off (_pinned()). Set in the repo's own config -- HOSTILE's
+    place, and `git init`'s on macOS -- the key reaches rev-parse only after its arguments, so
+    there git recomposes less than this, never more: a pin dropped from any call is caught. git
+    compiles the recomposition only for macOS, so a probe of a name in NFD -- the citer grep's
+    leaf, `git diff-tree`'s path -- is armed only through this where git never recomposes
+    (Linux, CI): drop a pin and the probe fails there too. An argument that is not UTF-8 is left
+    as it is, as git leaves it, and stdin is never recomposed."""
+
+    @classmethod
+    def over(cls, repo):
+        recomposing = cls(cwd=repo.cwd, scrub_env=True)
+        recomposing.env = dict(repo.env)
+        return recomposing
+
+    def raw(self, *a, stdin=None):
+        pin, k = _pinned(a)
+        if pin is not False:
+            a = a[:k] + tuple(_composed(x) if isinstance(x, str) and not re.search('[\udc80-\udcff]', x)
+                              else x for x in a[k:])
+        return super().raw(*a, stdin=stdin)
+
+
+class RefThatMoves(Recomposing):
+    """A fixture repo whose base and tip are named by refs, and whose tip ref moves back to the
+    base -- a fetch or a push, mid-run -- just before the scan's first git call that is not
+    `rev-parse`. Any call that names either ref, in its arguments or on its stdin, other than
+    resolve()'s own read of each before the move (one `rev-parse ... <ref>^{}` apiece: the refs
+    are ASCII), sets `read_by_name`: it read a rev that need not be the one scanned, whether or
+    not its answer changed. A second read of a ref before the move, and a name resolved again
+    after it, are such reads too."""
+    BASE, TIP = 'refs/fixture/base', 'refs/fixture/tip'
+    to = None
+    read_by_name = False
+
+    @classmethod
+    def over(cls, repo, base, tip):
+        mover = cls(cwd=repo.cwd, scrub_env=True)
+        mover.env = dict(repo.env)
+        mover.move(cls.BASE, base)
+        mover.move(cls.TIP, tip)
+        mover.to, mover.resolved = base, set()
+        return mover, cls.BASE, cls.TIP
+
+    def move(self, ref, to):
+        if super().raw('-c', 'core.hooksPath=/dev/null', 'update-ref', ref, to)[0] != 0:
+            raise FixtureError('`git update-ref` failed in %s: %s' % (self.cwd, self.err or 'no output'))
+
+    def raw(self, *a, stdin=None):
+        if self.to and 'rev-parse' not in a:
+            to, self.to = self.to, None
+            self.move(self.TIP, to)
+        refs = (self.BASE, self.TIP)
+        own = (self.to is not None and 'rev-parse' in a and a[-1] in tuple(r + '^{}' for r in refs)
+               and a[-1] not in self.resolved)
+        if own:
+            self.resolved.add(a[-1])
+        elif any(any(isinstance(x, str) and r in x for x in a) or r.encode() in (stdin or b'') for r in refs):
+            self.read_by_name = True
+        return super().raw(*a, stdin=stdin)
+
+
+#: A citer row that git grep shapes, or hides, from config, attributes or the path itself --
+#: or that a looser parse would misread -- a citer, file or line that a path or text git frames,
+#: decodes or recomposes would read as another, and a tip each git call would read anew. Each
+#: fixture plants `keys` and moves `moved` (or is `trees()`, base and tip files, where a probe
+#: needs files of its own; `moving`: the base and tip are refs and the tip's moves,
+#: RefThatMoves, and a git call that reads either by name is part of the verdict); the run must
+#: read every text citer row back as the fixture wrote it and exit 1 (GREP_WANT). `how` is
+#: what goes wrong without the rule; `rule` the MUTATE key that switches it off; `unpinned`
+#: the verdict with that one rule off and every other kept -- how a call without it reads
+#: this trigger alone. A verdict includes what the reader read back: the column case changes
+#: its verdict by misreading the text, though its exit code and report stay the same. (The
+#: pre-fix tool, `git grep -nIF <leaf> <tip> --`, already had -n, -I and -F but none of the
+#: other rules, and on most of these fixtures it crashed on HOSTILE's colour codes before it
+#: reached their own trigger.) Each runs through Recomposing, git as macOS runs it, so the
+#: probes of a name in NFD are armed on every platform.
+GREP = collections.OrderedDict([
+    ('colour config', Odd(['explicit-B'], [B], _with(('grep.column', 'false')),
+        '`color.ui` / `color.grep = always` wraps the path, the line number and the leaf in ANSI codes',
+        'grep-config-unpinned', 'ABORT: unparseable row')),
+    ('column config', Odd(['explicit-B'], [B], _with(('color.ui', 'never'), ('color.grep', 'never')),
+        '`grep.column = true` adds a field, read as the start of the text',
+        'grep-config-unpinned', 'exit 1, SHIFTED=1, AMBIGUOUS=0, text misread')),
+    ('citer path holding a colon', Odd(['colon-citer-B'], [B], HOSTILE,
+        'the path is split at its colon', 'grep-no-z', 'ABORT: unparseable row')),
+    ('citer path not ASCII', Odd(['accent-link-B'], [B], HOSTILE,
+        'the path comes back C-quoted, and the link resolved against it pins nothing',
+        'grep-no-z', 'exit 0, SHIFTED=0, AMBIGUOUS=1, path misread')),
+    ('changed file named -x', Odd(['dash-leaf'], [DASH], HOSTILE,
+        'git reads the leaf as an option', 'grep-no-e', 'ABORT: exit 129')),
+    ('checked-out submodule', Odd(['explicit-B'], [B], HOSTILE,
+        "`submodule.recurse = true` reads the submodule's own files as citers here",
+        'grep-recurses', 'exit 1, SHIFTED=2, AMBIGUOUS=0, path misread', True)),
+    ('citer declared binary', Odd(['explicit-B'], [B], HOSTILE,
+        'grepping a COMMIT, git looks gitattributes up, and -I skips the citer they declare binary',
+        'grep-commit', 'exit 0, SHIFTED=0, AMBIGUOUS=0, citer not read', False, CITERS + ' binary')),
+    ('diff.default.binary config', Odd(['explicit-B'], [B], _with(('diff.default.binary', 'true')),
+        '`diff.default.binary = true` makes every file binary, and -I skips them all',
+        'grep-binary-config', 'exit 0, SHIFTED=0, AMBIGUOUS=0, citer not read')),
+    ('binary file naming the leaf', Odd(['explicit-B', 'binary-B'], [B], HOSTILE,
+        'without -I, git prints `Binary file <rev>:<path> matches`, a row no strict parse reads',
+        'grep-binary', 'ABORT: unparseable row')),
+    ('changed file named like a pattern', Odd(['bracket-leaf'], [BRACKET], HOSTILE,
+        'without -F the leaf is a pattern, whose `[1]` matches a `1` and not its own name',
+        'grep-no-F', 'exit 0, SHIFTED=0, AMBIGUOUS=0, citer not read')),
+    ('line-number config', Odd(['explicit-B'], [B], HOSTILE,
+        "`grep.lineNumber = false`, git's own default, prints a row with no line number",
+        'grep-no-n', 'ABORT: unparseable row')),
+    ('citer path not UTF-8', Odd([], [LOSSY_TARGET], HOSTILE,
+        "decoded with 'replace', the path reads as the changed file's (its directory named U+FFFD), "
+        'and the self-cite skip drops the cite', 'grep-path-lossy',
+        'exit 0, SHIFTED=0, AMBIGUOUS=0, path misread', trees=_lossy_trees)),
+    ('citer line holding a NUL', Odd([], [B], HOSTILE,
+        'a parse that stops the text at a NUL finds no newline after it', 'grep-text-no-nul',
+        'ABORT: unparseable row', trees=_nul_trees)),
+    ('changed citer named with a CR', Odd([], [VOL], HOSTILE,
+        'asked for as `<rev>:<path>`, git strips the carriage return and reads the file beside it, '
+        "whose number 'confirms' the wrong re-pin", 'load-by-name',
+        'exit 0, SHIFTED=0, AMBIGUOUS=0', trees=_cr_trees)),
+    ('changed citer not UTF-8', Odd([], [VOL], HOSTILE,
+        "decoded with 'replace', the changed path is not the citer path git grep returns, so the "
+        're-pin is never read and the wrong one holds', 'paths-lossy',
+        'exit 0, SHIFTED=0, AMBIGUOUS=0', trees=lambda: _still_repin_trees(FF_CITER))),
+    ('citer link not UTF-8', Odd([], [LOSSY_TARGET], HOSTILE,
+        "decoded with 'replace', a link into the directory named by the byte 0xFF lands in the one "
+        'named U+FFFD', 'grep-text-lossy',
+        'exit 1, SHIFTED=2, AMBIGUOUS=0, text misread', trees=_ff_link_trees)),
+    ('changed citer named in NFD', Odd([], [VOL], HOSTILE,
+        'git on macOS recomposes the path argument of `git diff-tree` to NFC, the diff comes back '
+        'empty, and the re-pin loses its number', 'diff-precomposed',
+        'exit 0, SHIFTED=0, AMBIGUOUS=0', trees=lambda: _still_repin_trees(NFD_CITER))),
+    ('changed file named not UTF-8', Odd([], [FF_LEAF], HOSTILE,
+        "a blob decoded with 'replace' does not hold the leaf of a file whose name is not UTF-8, so "
+        "the re-pin's base number is never found and the wrong one holds", 'blob-lossy',
+        'exit 0, SHIFTED=0, AMBIGUOUS=0', trees=lambda: _still_repin_trees('docs/c.md', FF_LEAF))),
+    ('cite gap holding a cut-off character', Odd([], [VOL], HOSTILE,
+        'counted byte by byte, two cut-off characters between the path and its `:NN` exceed the '
+        'three a cite allows, and the cite is never collected', 'gap-per-byte',
+        'exit 0, SHIFTED=0, AMBIGUOUS=0',
+        trees=lambda: _shift_trees(VOL, 'see docs/vol/main.tex\udce2\udc80\udce2\udc80:5'))),
+    ('link text holding cut-off characters', Odd([], ['docs/x/main.tex'], HOSTILE,
+        'counted byte by byte, the link text runs past the 120 characters a link may span, and the '
+        'cite falls to its shared bare name', 'link-per-byte',
+        'exit 0, SHIFTED=0, AMBIGUOUS=1', trees=_cut_link_trees)),
+    ('changed file named in NFD', Odd([], [NFD_LEAF], HOSTILE,
+        'git on macOS recomposes the leaf the citer grep looks for to NFC, which no cite of the file '
+        'holds', 'grep-precomposed',
+        'exit 0, SHIFTED=0, AMBIGUOUS=0, citer not read', trees=lambda: _shift_trees(NFD_LEAF))),
+    ('tip named by a ref that moves', Odd(['explicit-B', 'bare-has-line-A'], [B], HOSTILE,
+        'every git call reads the revs anew by name, so a ref that moves mid-run hands the scan '
+        'another commit -- here the tip moves back to the base, and the changed list comes back '
+        'empty (on macOS, so can a name typed in NFD)', 'revs-as-typed',
+        'exit 0, SHIFTED=0, AMBIGUOUS=0, text misread, a rev read by name', trees=_moving_trees,
+        moving=True)),
+])
+GREP_WANT = 'exit 1, SHIFTED=1, AMBIGUOUS=0'
+
+
+def grep_case_verdict(name):
+    """What scan() makes of GREP[name]'s fixture: 'ABORT: <cause>' when a citer grep failed,
+    else the exit code and counts -- plus `<field> misread` when a row citer_lines() read
+    back is not the line the fixture wrote, or `citer not read` when it read none, and `a rev
+    read by name` when a git call of the scan read the base or a moving tip by its name. A file
+    with a NUL in its first 8000 bytes is binary: no row of it is wanted. An unparseable row
+    is ABORT, never a skip."""
+    c = GREP[name]
+    misread = None
+    base_files, written = c.trees() if c.trees else (_files(c.keys), _files(c.keys, c.moved))
+    with two_trees(base_files, written, config=c.config, submodule=c.submodule,
+                   attributes=c.attributes) as (repo, base, tip):
+        if c.moving:
+            repo, base, tip = RefThatMoves.over(repo, base, tip)
+        else:
+            repo = Recomposing.over(repo)
+        res = scan(repo, base, tip)
+        by_name = getattr(repo, 'read_by_name', False)
+        for leaf in sorted({p.rsplit('/', 1)[-1] for p in c.moved}):
+            read = citer_lines(repo, leaf, grep_rev(repo, res['tip']))[0]
+            want = [(p, i, l) for p, ls in written.items() if '\0' not in '\n'.join(ls)[:8000]
+                    for i, l in enumerate(ls, 1) if leaf in l]
+            if want and not read:
+                misread = misread or 'citer not read'
+                continue
+            for field, n in (('path', 1), ('line', 2), ('text', 3)):
+                if sorted(r[:n] for r in read) != sorted(w[:n] for w in want):
+                    misread = misread or field + ' misread'
+                    break
+    if res['grep_errors']:
+        e = res['grep_errors'][0][1]
+        return 'ABORT: ' + ('unparseable row' if e.startswith('unparseable') else e.split(':', 1)[0])
+    pinned = [f for f in res['pinned'] if f.kind in ROT]
+    amb = [f for f in res['ambiguous'] if f.kind in ROT]
+    return 'exit %d, SHIFTED=%d, AMBIGUOUS=%d%s%s' % (1 if pinned else 0, len(pinned), len(amb),
+                                                      ', ' + misread if misread else '',
+                                                      ', a rev read by name' if by_name else '')
+
+
+#: The shapes an ill-formed sequence takes, as 'replace' reads them. One U+FFFD each: a lone
+#: continuation byte, a byte no character starts with, a lead byte alone, and a character cut
+#: off at each length each of BAD_UNIT's alternatives takes (e0 a0, ed 80, e2 80; f0 90, f0 90
+#: 80; f4 80, f4 80 80; f1 80, f1 80 80). Two each: a lead byte before the continuation byte just
+#: outside its second byte's range (e0 9f, ed a0, f0 8f, f4 90), and a byte no character starts
+#: with before a continuation byte (c0 80, f5 80).
+CUT_OFF = (b'\x80', b'\xff', b'\xc2', b'\xe0\xa0', b'\xed\x80', b'\xe2\x80', b'\xf0\x90', b'\xf0\x90\x80',
+           b'\xf4\x80', b'\xf4\x80\x80', b'\xf1\x80', b'\xf1\x80\x80',
+           b'\xe0\x9f', b'\xed\xa0', b'\xf0\x8f', b'\xf4\x90', b'\xc0\x80', b'\xf5\x80')
+
+
+def bad_unit_verdict():
+    """'as replace' when this Python's `re` reads each shape in CUT_OFF as the characters
+    'replace' made of it -- one, or two -- at the bounds of a cite's gap (three characters fit,
+    four do not) and of a link's text (120 fit, 121 do not), else the first shape and bound it
+    misreads. BAD_UNIT is an atomic group, new in Python 3.11. The matching fixes CPython made
+    after 3.11.0 (gh-100061, gh-106052, in 3.11.5) were to possessive quantifiers, which BAD_UNIT
+    does not use, and no CPython is known to misread it; but a `re` that did would collect or drop
+    cites beside such bytes without a word, so every run asks -- of every alternative at each
+    length it takes, and of the bytes either side of each range.
+    First it asks whether the group holds at all: a `re` that backtracked into it would split
+    e2 80 to match a second 80, and on the 121-character link below it would re-split every
+    run of such bytes every way and never finish, where this exits 2 at once."""
+    if re.fullmatch(BAD_UNIT + r'\udc80', '\udce2\udc80'):
+        return 'BAD_UNIT is not atomic here: e2 80 was split to match a second 80'
+    for raw in CUT_OFF:
+        u, units = raw.decode('utf-8', 'surrogateescape'), len(raw.decode('utf-8', 'replace'))
+        for n, fits in ((3 // units, True), (3 // units + 1, False)):
+            if bool(re.search(PAT_TMPL % re.escape('main.tex'), 'see docs/main.tex' + u * n + ':5')) != fits:
+                return 'a cite gap of %d x %s %s' % (n, raw.hex(), 'dropped' if fits else 'collected')
+        for n, fits in ((120 // units, True), (120 // units + 1, False)):
+            linked = LINK_TAIL.match('[main.tex:5' + u * n + '](x/main.tex)', len('[main.tex:5')) is not None
+            if linked != fits:
+                return 'a link text of %d x %s %s' % (n, raw.hex(), 'not read' if fits else 'read')
+    return 'as replace'
+
+
 def run_gate(out=print):
     ok = True
 
@@ -1572,6 +2483,16 @@ def run_gate(out=print):
     v = diff_context_verdict()
     say(v == 'ABORT', 'a `-U0` diff that comes back with context lines (GIT_DIFF_OPTS) voids the run '
         'instead of passing a wrong re-pin', v)
+
+    # --- this Python reads ill-formed bytes as 'replace' did (BAD_UNIT is atomic)
+    v = bad_unit_verdict()
+    say(v == 'as replace', "this Python's re reads each shape of ill-formed byte as 'replace' did, as "
+        "one character or two: three fit a cite's gap and 120 a link's text, four and 121 do not", v)
+
+    # --- every citer row is read whole, whatever git config or the path itself would make of it
+    for name, c in GREP.items():
+        v = grep_case_verdict(name)
+        say(v == GREP_WANT, f'a {name}: every citer row read whole, the cite fires (without its rule: {c.how})', v)
     return ok
 
 
@@ -1740,6 +2661,17 @@ def mutation_receipt():
     results.append((f'M{40 + len(LOST)} read a `-U0` diff with context lines as if clean (diff-context-ok): the '
                     f'wrong re-pin must pass, exit 0 -- got {v}; without GIT_DIFF_OPTS it must fail, exit 1 -- '
                     f'got {whole}', v == 'exit 0' and whole == 'exit 1'))
+    for k, (name, c) in enumerate(GREP.items(), 41 + len(LOST)):
+        MUTATE.add(c.rule)
+        try:
+            v = grep_case_verdict(name)
+        finally:
+            MUTATE.discard(c.rule)
+        whole = grep_case_verdict(name)
+        results.append((f'M{k} read the citer rows of a {name} with one rule off ({c.rule}): with only that rule '
+                        f'off the run must read {c.unpinned} -- got {v}; with it on they must read whole and fire '
+                        f'-- got {whole}',
+                        v == c.unpinned and whole == GREP_WANT))
 
     allgood = True
     for label, tripped in results:

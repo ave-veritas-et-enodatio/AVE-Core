@@ -28,7 +28,63 @@ Asserts:
     the pre-fix tool as an absent or shorter file, ending in a clean zero; and a
     run from a subdirectory, which read only that subtree. Plus the fix's own
     edges: an added or deleted file, a gitlink, and git tracing from env or config
-    are still not aborts.
+    are still not aborts;
+  * the citer `git grep` reads every row whole (2026-11-08): under `color.ui` /
+    `color.grep = always` (pre-fix: with git's default slot colours, `int()` of a
+    colour-wrapped line number raised, exit 2; with only the match slot coloured, set in
+    the environment or the scanned repo's own config, each leaf came back wrapped, no cite
+    matched, and the run printed a clean exit 0 -- from global or system config the
+    self-gate saw it too and the run exited 2), `grep.column` (pre-fix: every text read as
+    `<col>:<text>`) and `diff.default.binary` in the environment or the repo's own config
+    (pre-fix: every file skipped as binary, exit 0), from a citer
+    path holding `:` (exit 2) or a non-ASCII byte (C-quoted, so its link pinned nothing:
+    exit 0 where the ASCII control exits 1; and #1079's re-pin of such a citer was never
+    recognised), for a changed file named `-...` (git read it as options: exit 2 for
+    `-notes.md`, a silent exit 0 for a whole option such as `-q`), past a checked-out
+    submodule under `submodule.recurse` (its own files read as citers: a false SHIFTED,
+    exit 1), for a citer that gitattributes declare binary (pre-fix: skipped, exit 0)
+    and for a tip named by a ref git echoes in another form; a row that does not parse
+    aborts (pre-fix: skipped, exit 0); and a user's init.templateDir reaches no fixture;
+  * every path is read as its own bytes (2026-11-09): a citer path, a changed path and a
+    link that are not UTF-8 never pass for another file's (decoded with 'replace' they
+    did: the self-cite skip dropped a cite, a re-pin went unread, a link landed on the
+    wrong file); a changed citer named with a carriage return or a newline is read, not
+    the file named without it (asked for as `<rev>:<path>`, git read that one: a wrong
+    re-pin passed); a file whose name holds a newline, absent at base, aborts nothing; a
+    changed citer named in NFD keeps its re-pin on macOS; and the report prints each
+    path in one form of its own;
+  * each rev is read once, and every line as its own bytes (2026-11-10): a tip named by a
+    ref that moves mid-run, or by a name that means two commits on macOS (one recomposed,
+    one as typed), never hands the changed list one commit and the diff another (a clean
+    exit 0); a changed file whose name is not UTF-8 keeps its re-pins, and a cited line
+    holding such a byte compares as its own bytes; a cut-off character counts as one, as
+    'replace' counted it (byte by byte, a cite or a link was dropped); a changed file named
+    in NFD is looked for as its own bytes on macOS (in NFC, a clean that read none of its
+    cites); the report prints every path in ASCII, so paths that look alike print apart;
+    and the self-gate's object-store trees hold their files whatever the index config;
+  * and their round-7 repairs (2026-11-10): main() reads each rev name once, in the scan
+    alone (liveness read it too), and the moving-ref probe notes every call that reads the
+    base or the tip by name; a rev git cannot resolve is refused with git's own reason, and a
+    run with no changed files names the objects it read; a SHIFTED pair prints a byte that is
+    not UTF-8 apart from the text of its escape; a Python older than 3.11 is refused with exit
+    2, not the exit 1 of an uncaught exception; a cut-off run counts as 'replace' counted it
+    at both bounds, and one that backtracks fails its test instead of hanging it; and the
+    object-store fixture refuses a tree that does not hold its files;
+  * and their round-8 repairs (2026-11-11): a `:/<text>` or `<rev>:<path>` rev is refused with
+    what git was asked (read as typed, a subtree would scan as the repository), and a negated rev
+    with what git printed; a rev name that
+    is not ASCII is read twice, each reading with its own `-c`, and the two-commit name is
+    refused with the key in the repo's own config
+    and in ~/.gitconfig, through a git that recomposes as each place makes it (and on macOS the
+    real git), and both emulations are checked against what git on macOS does; a blob rev is
+    refused, and a failed self-gate still names a bad rev; the
+    moving-ref probe allows one read of each ref, before the move only; the NFD probes are
+    armed by the emulation wherever git never recomposes; the self-gate's cut-off check asks
+    about every alternative of BAD_UNIT at each length and the bytes either side of each range,
+    exits 2 at once on a group that is not atomic, and its verdict -- like the GREP loop's --
+    fails the self-gate; a pair printed escaped says so; the older-Python test refuses an atomic
+    group as 3.10 does, and the timing test fails on one that is not atomic instead of hanging;
+    and the ambiguous-prefix test holds whatever core.disambiguate says;
 
 And the 2026-11-01 rules. Re-pinning stale cites on #1037-#1039 showed the checker
 could not confirm a repair: it tested base[new] against tip[new], so a correct
@@ -54,6 +110,7 @@ import importlib.util
 import re
 import subprocess
 import sys
+import unittest
 from pathlib import Path
 
 _TOOL = Path(__file__).resolve().parent.parent / "verify-inbound-cite-shift.py"
@@ -100,12 +157,25 @@ def test_gate_can_fire_and_negative_controls_hold():
     for name in damaged:
         assert any(l.lstrip().startswith("[PASS] a damaged %s aborts" % name) for l in lines), name
     assert sum(l.lstrip().startswith("[PASS] a damaged ") for l in lines) == len(damaged)
-    # and the whole gate: 10 original probes, one per REPINS row plus #1079's 7 re-pin
-    # checks, the damaged objects, and the -U0 context-lines probe -- so dropping ANY
-    # probe, from either side of the #1079 merge, fails here (78 at the merge)
-    assert len(lines) == 10 + len(mod.REPINS) + 7 + len(damaged) + 1, len(lines)
     assert any(l.lstrip().startswith("[PASS] a `-U0` diff that comes back with context lines") for l in lines)
+    grep = ["colour config", "column config", "citer path holding a colon", "citer path not ASCII",
+            "changed file named -x", "checked-out submodule", "citer declared binary",
+            "diff.default.binary config", "binary file naming the leaf",
+            "changed file named like a pattern", "line-number config", "citer path not UTF-8",
+            "citer line holding a NUL", "changed citer named with a CR", "changed citer not UTF-8",
+            "citer link not UTF-8", "changed citer named in NFD", "changed file named not UTF-8",
+            "cite gap holding a cut-off character", "link text holding cut-off characters",
+            "changed file named in NFD", "tip named by a ref that moves"]
+    for name in grep:
+        assert any(l.lstrip().startswith("[PASS] a %s: every citer row read whole" % name) for l in lines), name
+    assert any(l.lstrip().startswith("[PASS] this Python's re reads each shape of ill-formed byte as 'replace' did")
+               for l in lines)
+    # and the whole gate: 10 original probes, one per REPINS row plus #1079's 7 re-pin
+    # checks, the damaged objects, the -U0 context-lines probe, the cut-off check, and the
+    # citer-grep cases -- so dropping ANY probe, from any of the merged branches, fails here
+    assert len(lines) == 10 + len(mod.REPINS) + 7 + len(damaged) + 1 + 1 + len(grep), len(lines)
     assert sorted(mod.LOST) == sorted(damaged)
+    assert sorted(mod.GREP) == sorted(grep)
 
 
 def test_mutation_receipt_holds():
@@ -115,13 +185,48 @@ def test_mutation_receipt_holds():
     mod = _load_module()
     buf = io.StringIO()
     with contextlib.redirect_stdout(buf):
-        assert mod.mutation_receipt() == 0
+        assert mod.mutation_receipt() == 0, buf.getvalue()
     assert not mod.MUTATE, "a mutation leaked out of the receipt"
     # Every row present, under its own number. Merging #1079 interleaved #1081's rows
     # into M6-M39 without a conflict marker; a dropped or renumbered row must fail here.
     rows = re.findall(r"\[(OK|BROKEN)\] M(\d+) ", buf.getvalue())
-    assert {int(n) for _, n in rows} == set(range(1, 47)), sorted({int(n) for _, n in rows})
+    assert {int(n) for _, n in rows} == set(range(1, 47 + len(mod.GREP))), sorted({int(n) for _, n in rows})
     assert all(status == "OK" for status, _ in rows)
+    # one row per citer-grep case, each with its rule off (grep-config-unpinned drops two flags,
+    # one per case it serves; grep-no-z also brings back the pre-fix split)
+    for rule in ("grep-config-unpinned", "grep-no-z", "grep-no-e", "grep-recurses", "grep-commit",
+                 "grep-binary-config", "grep-binary", "grep-no-F", "grep-no-n", "grep-path-lossy",
+                 "grep-text-no-nul", "load-by-name", "paths-lossy", "grep-text-lossy", "diff-precomposed",
+                 "blob-lossy", "gap-per-byte", "link-per-byte", "grep-precomposed", "revs-as-typed"):
+        assert "(%s): with only that rule off the run must read" % rule in buf.getvalue(), rule
+    # ...and by case: two rules serve two cases each, so a receipt that ran one of those cases
+    # twice and the other never would pass the rule check. Each case's whole row, once.
+    for name, c in mod.GREP.items():
+        row = ("read the citer rows of a %s with one rule off (%s): with only that rule off the run must "
+               "read %s -- got %s; with it on they must read whole and fire -- got %s"
+               % (name, c.rule, c.unpinned, c.unpinned, mod.GREP_WANT))
+        assert buf.getvalue().count(row) == 1, name
+
+
+def test_the_default_fixture_repo_carries_the_hostile_config():
+    """Every self-gate verdict is reached under it, not only the GREP probes' (the colour and
+    the column probe each set the other's trigger benign, to isolate their own). Read as git
+    resolves each key, not from the repo's own file alone: a worktree config copied in from a
+    template would outrank that file."""
+    mod = _load_module()
+    with mod.fixture_repo(["explicit-B"], [mod.B]) as (repo, _, _t):
+        got = {key: repo.sh("config", key).strip() for key, _v in mod.HOSTILE}
+    assert got == dict(mod.HOSTILE)
+    # By name, not read off HOSTILE itself: a dropped entry must fail here, on every platform
+    # (core.precomposeUnicode does nothing off macOS;
+    # test_git_add_in_a_fixture_keeps_a_non_ascii_name_as_written holds what it does there).
+    assert sorted(dict(mod.HOSTILE)) == sorted([
+        "color.ui", "color.grep", "color.grep.filename", "color.grep.lineNumber", "color.grep.column",
+        "color.grep.separator", "color.grep.match", "grep.column", "grep.lineNumber", "core.quotePath",
+        "submodule.recurse", "grep.patternType", "core.precomposeUnicode"])
+    assert {"color.ui": "always", "color.grep": "always", "grep.column": "true", "grep.lineNumber": "false",
+            "core.quotePath": "true", "submodule.recurse": "true", "grep.patternType": "basic",
+            "core.precomposeUnicode": "true"}.items() <= got.items()
 
 
 def test_explicit_path_to_sibling_does_not_fire_but_a_real_shift_does():
@@ -187,12 +292,21 @@ def test_main_exit_2_when_git_grep_errors():
 
     class GrepFails(mod.Repo):
         def raw(self, *a, stdin=None):
-            if a and a[0] == "grep":
+            if "grep" in a[:5]:
                 return 128, b""
             return super().raw(*a, stdin=stdin)
 
     # without the return-code check this reads as a clean zero
     assert _main_rc(mod, mod.ALL, [mod.B], repo_cls=GrepFails) == 2
+
+    class GrepKilled(mod.Repo):                     # a signal: subprocess returns it NEGATIVE
+        def raw(self, *a, stdin=None):
+            if "grep" in a[:5]:
+                self.err = ""
+                return -9, b""
+            return super().raw(*a, stdin=stdin)
+
+    assert _main_rc(mod, mod.ALL, [mod.B], repo_cls=GrepKilled) == 2
 
 
 def test_main_exit_2_when_the_gate_is_dead():
@@ -474,7 +588,7 @@ def test_main_exit_2_when_a_changed_files_blob_is_cut_short():
 
 def _fake_catfile(mod, rc, reply):
     """A Repo whose `cat-file --batch` answers `reply` with exit `rc`, and whose tree
-    lists `f.txt` as a blob."""
+    lists `f.txt` as a blob (with the object ID load() asks for it by)."""
     class Fake(mod.Repo):
         def raw(self, *a, stdin=None):
             if a[:1] == ("cat-file",):
@@ -483,6 +597,7 @@ def _fake_catfile(mod, rc, reply):
             return 0, b""
 
         def tree(self, rev):
+            self._oids[rev] = {"f.txt": "a" * 40}
             return {"f.txt": "blob"}
     return Fake(cwd="/nonexistent")
 
@@ -629,7 +744,7 @@ def test_a_diff_with_context_lines_voids_the_run():
 
         def stray(self, *a, stdin=None):
             rc, out = real(self, *a, stdin=stdin)
-            if a[:1] == ("grep",):
+            if "grep" in a[:5]:
                 self.err = "error: something unrelated"
             return rc, out
 
@@ -643,16 +758,26 @@ def test_a_diff_with_context_lines_voids_the_run():
 
 
 def test_the_self_gate_runs_its_object_probes_rather_than_printing_them():
-    """A probe's [PASS] line is only worth the probe behind it: if a damaged-object or
-    context-lines probe stops aborting, run_gate() must fail, not print the same line."""
+    """A probe's [PASS] line is only worth the probe behind it: if a damaged-object probe or the
+    context-lines probe stops aborting, a GREP probe stops firing, or the cut-off check finds this
+    Python's `re` misreading BAD_UNIT, run_gate() must fail, not print the same line. (6a236a5d4
+    passed with the cut-off check's verdict ignored, and with the GREP loop's.) Each probe of a
+    loop must print its own [FAIL]: a loop that ran one probe and printed [PASS] for the rest
+    passed a check for any [FAIL] at all."""
     mod = _load_module()
-    for name in ("lost_object_verdict", "diff_context_verdict"):
+    for name, bad, labels in (
+            ("lost_object_verdict", "exit 0, cites-found=0", ["a damaged %s aborts the run" % n for n in mod.LOST]),
+            ("diff_context_verdict", "exit 0, cites-found=0", ["a `-U0` diff that comes back with context lines"]),
+            ("bad_unit_verdict", "a cite gap of 3 x 80 dropped", ["this Python's re reads each shape of ill-formed byte"]),
+            ("grep_case_verdict", "exit 0, SHIFTED=0, AMBIGUOUS=0", ["a %s: every citer row read whole" % n for n in mod.GREP])):
         real = getattr(mod, name)
-        setattr(mod, name, lambda *a, **k: "exit 0, cites-found=0")
+        setattr(mod, name, lambda *a, bad=bad, **k: bad)
         try:
             lines = []
             assert not mod.run_gate(out=lines.append), name
-            assert any("[FAIL]" in l for l in lines), name
+            failed = [l.strip() for l in lines if "[FAIL]" in l]
+            for label in labels:                          # each probe of a loop, not just one of them
+                assert any(l.startswith("[FAIL] " + label) for l in failed), (name, label)
         finally:
             setattr(mod, name, real)
 
@@ -695,6 +820,1506 @@ def test_main_exit_2_when_git_diff_tree_errors():
     # without the return-code check every re-pin quietly loses its base number
     assert _main_rc(mod, mod.ALL, [mod.B], repo_cls=DiffFails) == 2
 
+
+# ------------------------------------------- the citer `git grep` reads every row whole
+#
+# Each test below fails, for the behavioural reason, on a gate without the fix it guards:
+# #1081's head 7f71bc71d, unless its docstring names a later commit or a platform. Most
+# build their own trees and config. Some use this gate's own tables or helpers and so cannot
+# run on a gate older than those, where they fail for want of the helper: each of those names
+# the commit that brought the helper in and the first where it fails for its own reason.
+
+_VOL = ["vol line %d" % i for i in range(1, 15)]
+_LONG_MAIN = ["letter line %d" % i for i in range(1, 41)]
+
+
+def _shifted(files, path):
+    out = dict(files)
+    out[path] = ["inserted 1", "inserted 2", "inserted 3"] + files[path]
+    return out
+
+
+def _recomposing(mod, repo, placement="global"):
+    """`repo` as git on macOS runs it with core.precomposeUnicode set: each command's arguments
+    recomposed -- NFC, but a character NFC would change on its own (U+212B, say) kept, as git
+    keeps it: a model, checked against git in
+    test_the_recomposing_emulations_read_a_name_as_git_on_macos_does -- unless the call's own
+    `-c` options turn the key off (the key in any case, git's
+    boolean spellings, the last one winning); an argument that is not UTF-8, and stdin, left as
+    they are. `placement` is where the key is set: "global" (~/.gitconfig), which every command
+    reads before its arguments; or "repo" (the repo's own config, macOS's default), which
+    rev-parse reads only after them, so there only a `-c` that turns the key on recomposes
+    rev-parse's arguments. git compiles the recomposition only for macOS, so a test of a name in
+    NFD run through this is armed on every platform, Linux CI included. Independent of the
+    tool's own Recomposing, so such a test fails on a tool without a pin for the behavioural
+    reason."""
+    import unicodedata
+
+    def composed(arg):
+        parts, run = [], ""
+        for c in arg:
+            if unicodedata.normalize("NFC", c) == c:
+                run += c
+            else:
+                parts += [unicodedata.normalize("NFC", run), c]
+                run = ""
+        return "".join(parts) + unicodedata.normalize("NFC", run)
+
+    class Recomposing(mod.Repo):
+        def raw(self, *a, stdin=None):
+            pin, k = None, 0
+            while k < len(a) and isinstance(a[k], str) and a[k].startswith("-"):
+                if a[k] in ("-c", "-C"):
+                    if a[k] == "-c":
+                        key, eq, value = a[k + 1].partition("=")
+                        if key.lower() == "core.precomposeunicode":
+                            value = value.lower()
+                            pin = not eq or value in ("true", "yes", "on") or (
+                                value.lstrip("-").isdigit() and int(value) != 0)
+                    k += 2
+                else:
+                    k += 1
+            if pin if pin is not None else (placement == "global" or a[k:k + 1] != ("rev-parse",)):
+                a = a[:k] + tuple(composed(x) if isinstance(x, str) and not re.search("[\udc80-\udcff]", x)
+                                  else x for x in a[k:])
+            return super().raw(*a, stdin=stdin)
+
+    recomposing = Recomposing(cwd=repo.cwd, scrub_env=True)
+    recomposing.env = dict(repo.env)
+    return recomposing
+
+
+def _run_seeing_texts(mod, repo, b, t):
+    """main()'s exit code and stdout, plus every (citer, text) the scan of `repo` -- not the
+    self-gate's fixture scans before it -- read a cite from."""
+    import contextlib
+    import io
+
+    seen, real_scan, real_addr = [], mod.scan, mod.addressees
+
+    def spy(m, leaf, src, text, *a):
+        seen.append((src, text))
+        return real_addr(m, leaf, src, text, *a)
+
+    def scan(r, *a, **k):
+        if r is not repo:
+            return real_scan(r, *a, **k)
+        mod.addressees = spy
+        try:
+            return real_scan(r, *a, **k)
+        finally:
+            mod.addressees = real_addr
+
+    buf = io.StringIO()
+    mod.scan = scan
+    try:
+        with contextlib.redirect_stdout(buf):
+            rc = mod.main(b, t, repo=repo)
+    finally:
+        mod.scan = real_scan
+    return rc, buf.getvalue(), seen
+
+
+def _bare_minimum_config(repo):
+    """Rewrite the repo's own config to what git needs to read the repo -- its format
+    version and extensions (a SHA-256 repo cannot lose `objectformat`) -- and return what
+    `config --list` shows then."""
+    import os
+
+    version = repo.sh("config", "--local", "core.repositoryformatversion").strip() or "0"
+    ext = [l.split(" ", 1) for l in repo.sh("config", "--local", "--get-regexp", r"^extensions\.").splitlines()]
+    text = "[core]\n\trepositoryformatversion = %s\n\tbare = false\n" % version
+    keep = ["core.repositoryformatversion=" + version, "core.bare=false"]
+    for key, value in ext:
+        text += "[extensions]\n\t%s = %s\n" % (key.split(".", 1)[1], value)
+        keep.append("%s=%s" % (key, value))
+    with open(os.path.join(repo.cwd, ".git", "config"), "w") as fh:
+        fh.write(text)
+    return keep
+
+
+def test_citer_grep_reads_through_hostile_grep_and_colour_config():
+    """One key at a time, as the ONLY config git sees: an empty HOME, no system config, and a
+    repo config rewritten to the bare minimum (so `color.ui` is not outranked by a
+    `color.grep` from anywhere). Pre-fix: colour wrapped the line number in ANSI codes and
+    `int()` raised (exit 2); `grep.column` prefixed every text with `<col>:`; and
+    `diff.default.binary` made -I skip every file, the citer too (exit 0)."""
+    import shutil
+    import tempfile
+
+    line = "vol frontmatter, `docs/vol/main.tex:5`"
+    files = {"docs/vol/main.tex": _VOL, "docs/citers.md": [line]}
+    home = tempfile.mkdtemp(prefix="inbound-cite-home-")
+    try:
+        # (`grep.lineNumber = false` is git's own default: as the only config it changes nothing.
+        # HOSTILE's entry is pinned by test_every_grep_rule_holds_under_a_hostile_global_config.)
+        for key, value in (("color.ui", "always"), ("color.grep", "always"), ("grep.column", "true"),
+                           ("diff.default.binary", "true")):
+            with _two_trees(files, _shifted(files, "docs/vol/main.tex")) as (mod, repo, b, t):
+                repo.env.update(HOME=home, XDG_CONFIG_HOME=home, GIT_CONFIG_NOSYSTEM="1")
+                keep = _bare_minimum_config(repo)
+                assert repo.raw("config", key, value)[0] == 0
+                assert repo.sh("config", "--list").split() == keep + ["%s=%s" % (key.lower(), value)]
+                rc, out, seen = _run_seeing_texts(mod, repo, b, t)
+            assert rc == 1, (key, out)
+            assert seen == [("docs/citers.md", line)], (key, seen)
+    finally:
+        shutil.rmtree(home, ignore_errors=True)
+
+
+def test_citer_grep_under_hostile_global_config():
+    """Pre-fix, `color.ui = always` in ~/.gitconfig broke both the gate and --selftest (exit 2);
+    in GIT_CONFIG_* env alone it broke the gate run while --selftest passed, because the
+    fixtures scrub every GIT_* variable. The repo under test keeps only its format version
+    (and extensions), so ~/.gitconfig or the env is all git sees. The self-gate's fixtures now carry
+    HOSTILE in their own config, which outranks ~/.gitconfig -- what --selftest shows here is
+    that it runs at all; the column and colour READING is test_..._hostile_grep_and_colour_config."""
+    import os
+    import shutil
+    import tempfile
+
+    line = "vol frontmatter, `docs/vol/main.tex:5`"
+    files = {"docs/vol/main.tex": _VOL, "docs/citers.md": [line]}
+    home = tempfile.mkdtemp(prefix="inbound-cite-home-")
+    try:
+        # (no `grep.lineNumber = false`: it is git's own default, and HOSTILE's entry is pinned by
+        # test_every_grep_rule_holds_under_a_hostile_global_config)
+        with open(os.path.join(home, ".gitconfig"), "w") as fh:
+            fh.write("[color]\n\tui = always\n[grep]\n\tcolumn = true\n")
+        env = _git_free_env(HOME=home, XDG_CONFIG_HOME=home, GIT_CONFIG_NOSYSTEM="1")
+        selftest = subprocess.run([sys.executable, str(_TOOL), "--selftest"], capture_output=True,
+                                  text=True, env=env)
+        with _two_trees(files, _shifted(files, "docs/vol/main.tex")) as (mod, repo, b, t):
+            _bare_minimum_config(repo)
+            run = subprocess.run([sys.executable, str(_TOOL), b, t], capture_output=True, text=True,
+                                 cwd=repo.cwd, env=env)
+            env_cfg = subprocess.run(
+                [sys.executable, str(_TOOL), b, t], capture_output=True, text=True, cwd=repo.cwd,
+                env=_git_free_env(HOME=home + "/none", XDG_CONFIG_HOME=home + "/none",
+                                  GIT_CONFIG_NOSYSTEM="1", GIT_CONFIG_COUNT="1",
+                                  GIT_CONFIG_KEY_0="color.ui", GIT_CONFIG_VALUE_0="always"))
+    finally:
+        shutil.rmtree(home, ignore_errors=True)
+    assert selftest.returncode == 0, selftest.stdout + selftest.stderr
+    assert run.returncode == 1 and "[SHIFTED]" in run.stdout, run.stdout + run.stderr
+    assert env_cfg.returncode == 1 and "[SHIFTED]" in env_cfg.stdout, env_cfg.stdout + env_cfg.stderr
+
+
+def test_citer_path_holding_a_colon_is_read():
+    """Pre-fix: `split(':', 3)` cut `docs/a:b.md` at its colon and `int('b.md')` raised."""
+    line = "see `docs/vol/main.tex:5`"
+    for citer, want in (("docs/ab.md", 1), ("docs/a:b.md", 1)):
+        files = {"docs/vol/main.tex": _VOL, citer: [line]}
+        with _two_trees(files, _shifted(files, "docs/vol/main.tex")) as (mod, repo, b, t):
+            rc, out, seen = _run_seeing_texts(mod, repo, b, t)
+        assert rc == want and seen == [(citer, line)], (citer, rc, seen, out)
+
+
+def test_non_ascii_citer_path_keeps_its_link_pin():
+    """A link resolves against the CITING file's directory. Pre-fix the non-ASCII citer came
+    back C-quoted (`"docs/vol/not\\303\\251s.md"`), the link resolved to no file, and the cite
+    fell to an ambiguous bare name: exit 0 where the ASCII control exits 1."""
+    link = "frontmatter: [the abstract](main.tex):11"
+    for citer in ("docs/vol/notes.md", "docs/vol/not\u00e9s.md"):
+        files = {"docs/vol/main.tex": _VOL, "papers/main.tex": _LONG_MAIN, citer: [link]}
+        with _two_trees(files, _shifted(files, "docs/vol/main.tex")) as (mod, repo, b, t):
+            assert repo.raw("config", "core.quotePath", "true")[0] == 0     # git's default
+            rc, out, seen = _run_seeing_texts(mod, repo, b, t)
+        assert rc == 1 and "pinned by: link target" in out, (citer, out)
+        assert seen == [(citer, link)], seen
+
+
+def test_changed_file_whose_name_starts_with_a_dash():
+    """Pre-fix `git grep -nIF -notes.md` read the leaf as options: exit 129, gate exit 2. (A leaf
+    that is a whole option, such as `-q`, was worse: git took it as --quiet and printed
+    nothing, a clean exit 0.)"""
+    rows = ["row %d" % i for i in range(1, 15)]
+    for leaf in ("notes.md", "-notes.md", "-q"):
+        files = {"docs/" + leaf: rows, "docs/c.md": ["see `docs/%s:5`" % leaf]}
+        with _two_trees(files, _shifted(files, "docs/" + leaf)) as (mod, repo, b, t):
+            rc, out, _ = _run_seeing_texts(mod, repo, b, t)
+        assert rc == 1 and "[SHIFTED]" in out, (leaf, out)
+
+
+def test_a_checked_out_submodule_is_not_read_as_citers():
+    """`submodule.recurse = true` sends git grep into a checked-out submodule; pre-fix its own
+    notes.md, citing its own `docs/vol/main.tex:5`, read as a citer HERE: a false SHIFTED,
+    exit 1, though no file of this repo cites the changed file. Built with commit-tree under a
+    fixed identity, unsigned -- no `git commit`, no `git submodule add`."""
+    import os
+
+    files = {"docs/vol/main.tex": _VOL, "README.md": ["readme"]}
+    with _two_trees(files, _shifted(files, "docs/vol/main.tex")) as (mod, repo, b, t):
+        sub = mod.Repo(cwd=os.path.join(repo.cwd, "sibling"), scrub_env=True)
+        sub.env.update(GIT_AUTHOR_NAME="t", GIT_AUTHOR_EMAIL="t@invalid", GIT_COMMITTER_NAME="t",
+                       GIT_COMMITTER_EMAIL="t@invalid")
+        os.makedirs(sub.cwd)
+        with open(os.path.join(sub.cwd, "notes.md"), "w") as fh:
+            fh.write("its own `docs/vol/main.tex:5` says so\n")
+        modules = '[submodule "sibling"]\n\tpath = sibling\n\turl = ./sibling\n'
+        with open(os.path.join(repo.cwd, ".gitmodules"), "w") as fh:
+            fh.write(modules)
+        assert sub.raw("init", "-q", "--template=")[0] == 0 and sub.raw("add", "-A", "-f")[0] == 0
+        commit = sub.sh("commit-tree", "--no-gpg-sign", "-m", "s", sub.sh("write-tree").strip()).strip()
+        blob = repo.raw("hash-object", "-w", "--stdin", stdin=modules.encode())[1].decode().strip()
+        for args in (("config", "submodule.sibling.url", "./sibling"), ("config", "submodule.sibling.active", "true"),
+                     ("config", "submodule.recurse", "true"),
+                     ("read-tree", "--no-recurse-submodules", t),
+                     ("update-index", "--add", "--cacheinfo", "100644,%s,.gitmodules" % blob,
+                      "--cacheinfo", "160000,%s,sibling" % commit)):
+            assert repo.raw(*args)[0] == 0, (args, repo.err)
+        tip = repo.sh("write-tree").strip()
+        assert "sibling/notes.md" in repo.sh("grep", "--recurse-submodules", "-F", "-e", "main.tex", tip, "--")
+        rc, out, seen = _run_seeing_texts(mod, repo, b, tip)
+    assert rc == 0 and not seen and "sibling/notes.md" not in out, (rc, seen, out)
+
+
+def test_tip_named_by_a_ref_git_echoes_in_another_form():
+    """git grep prefixes each row with the rev as it ECHOES it, and on macOS
+    (core.precomposeUnicode) a ref typed in NFD comes back in NFC: b6417a9db's prefix check
+    (c8c63be19 before the rebase) then aborted (exit 2) where 7f71bc71d exits 1 -- this guards
+    that regression, so with the files ref backend it passes at 7f71bc71d and fails at b6417a9db
+    on macOS. Rows are now read against the tip's tree ID, and every git call is handed the one
+    object resolve() reads the name as, so no call reads the name again. Where git echoes the
+    name as typed (Linux), this passes either way. Under reftable with core.precomposeUnicode
+    set in ~/.gitconfig, 28d2a1ad8, 239a44a74 and 7f71bc71d aborted here (exit 2): one call read
+    the NFD name as typed (28d2a1ad8: the pinned `git diff-tree`; 239a44a74 and 7f71bc71d: the
+    cat-file request), and no ref holds it so. Skipped if the name resolves neither recomposed
+    nor as typed."""
+    nfd = "cafe\u0301"
+    files = {"docs/vol/main.tex": _VOL, "docs/citers.md": ["see `docs/vol/main.tex:5`"]}
+    with _two_trees(files, _shifted(files, "docs/vol/main.tex")) as (mod, repo, b, t):
+        assert repo.raw("-c", "core.hooksPath=/dev/null", "update-ref", "refs/tags/" + nfd, t)[0] == 0, repo.err
+        if all(repo.raw("-c", "core.precomposeUnicode=" + v, "rev-parse", "--verify", "--quiet",
+                        nfd + "^{tree}")[0] != 0 for v in ("true", "false")):
+            raise unittest.SkipTest("the NFD ref name resolves neither way here")
+        rc, out, _ = _run_seeing_texts(mod, repo, b, nfd)
+    assert rc == 1 and "[SHIFTED]" in out, out
+
+
+def test_a_tip_name_that_means_two_commits_is_refused():
+    """Two refs whose names differ only in normalization, one in NFC and one in NFD, can coexist
+    packed, and on macOS a tip typed in NFD then means one commit to the git calls that
+    recompose it and the other to those that do not -- which calls, depending on where
+    core.precomposeUnicode is set: in the repo's own config (macOS's default) rev-parse reads
+    the name as typed and every other command recomposes it; in ~/.gitconfig every command
+    recomposes it. On real macOS 28d2a1ad8 read the changed list from one and the citer grep
+    from the other: in the default config a clean exit 0 where the NFC tip exits 1. The name is
+    read both ways and refused, exit 2, with the key in either place. A name typed in NFD for a
+    packed ref stored in NFC alone means that ref, and the run reaches its verdict, where
+    28d2a1ad8 aborted (exit 2): its liveness read the name as typed, or its pinned `git
+    diff-tree` did. Each arm runs through a git that recomposes as macOS does with the key in
+    that place (_recomposing), so it is armed on every platform -- a resolve() whose recomposed
+    reading leans on the config instead of its own `-c` passes the ~/.gitconfig arm and fails
+    the repo-config arm -- and on macOS through the real git too. The self-gate is stubbed.
+    Fails at 28d2a1ad8 and 239a44a74, and on that mutant of this head: each reads the twin typed
+    in NFD, with the key in the repo's config, as the NFD ref alone, and prints a clean exit 0."""
+    import os
+    import shutil
+    import tempfile
+
+    nfc, nfd = "refs/tags/rel-caf\u00e9", "refs/tags/rel-cafe\u0301"
+    off = ("-c", "core.precomposeUnicode=false", "-c", "core.hooksPath=/dev/null")
+    plain = {"docs/vol/main.tex": _VOL}
+    files = dict(plain, **{"docs/citers.md": ["see `docs/vol/main.tex:5`"]})
+    gits = [("emulated", _recomposing)]
+    if sys.platform == "darwin":
+        gits.append(("real", lambda mod, repo, placement: repo))
+    home = tempfile.mkdtemp(prefix="inbound-cite-home-")
+    saved = dict(os.environ)
+    try:
+        for config, placement in (("", "repo"), ("[core]\n\tprecomposeUnicode = true\n", "global")):
+            with open(os.path.join(home, ".gitconfig"), "w") as fh:
+                fh.write(config)
+            os.environ.update(HOME=home, XDG_CONFIG_HOME=home)
+            for how, git in gits:
+                arm = (how, placement)
+                with _two_trees(files, _shifted(files, "docs/vol/main.tex")) as (mod, repo, b, t):
+                    mod.run_gate = lambda out=print: True
+                    other = mod._write_tree(repo, repo.cwd, plain)    # no citer: its grep finds nothing
+                    for args in (("update-ref", nfc, t), ("pack-refs", "--all"), ("update-ref", nfd, other),
+                                 ("pack-refs", "--all")):
+                        assert repo.raw(*off, *args)[0] == 0, (args, repo.err)
+                    rc, out, _ = _run_seeing_texts(mod, git(mod, repo, placement), b, nfd)
+                    assert rc == 2 and "names two objects" in out, (arm, rc, out)
+                    rc, out, _ = _run_seeing_texts(mod, git(mod, repo, placement), b, nfc)
+                    assert rc == 1 and "[SHIFTED]" in out, (arm, rc, out)
+                with _two_trees(files, _shifted(files, "docs/vol/main.tex")) as (mod, repo, b, t):
+                    mod.run_gate = lambda out=print: True
+                    for args in (("update-ref", nfc, t), ("pack-refs", "--all")):
+                        assert repo.raw(*off, *args)[0] == 0, (args, repo.err)
+                    rc, out, _ = _run_seeing_texts(mod, git(mod, repo, placement), b, nfd)
+                    assert rc == 1 and "[SHIFTED]" in out, (arm, rc, out)
+    finally:
+        os.environ.clear()
+        os.environ.update(saved)
+        shutil.rmtree(home, ignore_errors=True)
+
+
+def test_the_recomposing_emulations_read_a_name_as_git_on_macos_does():
+    """Both emulations of git's argument recomposition -- the gate's Recomposing, which the GREP
+    probes run through, and this file's _recomposing -- against what git 2.39.5 and 2.53.0 on
+    macOS do (and on macOS, the real git as well): a pin read as git reads it (the key in any
+    case, `no`, the last `-c` winning); a character git keeps though NFC would change it (U+212B);
+    Hangul jamo composed; and rev-parse's arguments recomposed with the key in ~/.gitconfig but
+    not with it in the repo's own config alone. Each row reads a packed ref by another spelling:
+    found when the call recomposed it. 6a236a5d4's emulations missed rows 2 to 5 (and, in this
+    file's, row 8). The gate's models ~/.gitconfig, so it skips row 8."""
+    import os
+    import shutil
+    import tempfile
+
+    q, e_acute, e_nfd = "refs/t/q", chr(0xE9), "e" + chr(0x301)
+    rows = [  # stored, typed, the call's own -c, the key's place, found
+        (q + e_acute, q + e_nfd, ("-c", "core.precomposeUnicode=false"), "repo", False),
+        (q + e_acute, q + e_nfd, ("-c", "core.precomposeunicode=false"), "repo", False),
+        (q + e_acute, q + e_nfd, ("-c", "core.precomposeUnicode=no"), "repo", False),
+        (q + e_acute, q + e_nfd, ("-c", "core.precomposeUnicode=false", "-c", "core.precomposeUnicode=true"), "repo", True),
+        (q + chr(0xC5), q + chr(0x212B), ("-c", "core.precomposeUnicode=true"), "repo", False),
+        (q + chr(0xAC00), q + chr(0x1100) + chr(0x1161), ("-c", "core.precomposeUnicode=true"), "repo", True),
+        (q + e_acute, q + e_nfd, (), "global", True),
+        (q + e_acute, q + e_nfd, (), "repo", False),
+    ]
+    home = tempfile.mkdtemp(prefix="inbound-cite-home-")
+    try:
+        with _two_trees({"docs/a.md": ["a"]}, {"docs/a.md": ["b"]}) as (mod, repo, b, t):
+            for stored in sorted({row[0] for row in rows}):
+                assert repo.raw("-c", "core.precomposeUnicode=false", "-c", "core.hooksPath=/dev/null",
+                                "update-ref", stored, t)[0] == 0, repo.err
+            assert repo.raw("-c", "core.precomposeUnicode=false", "pack-refs", "--all")[0] == 0, repo.err
+            for k, (stored, typed, pins, placement, found) in enumerate(rows, 1):
+                with open(os.path.join(home, ".gitconfig"), "w") as fh:
+                    fh.write("[core]\n\tprecomposeUnicode = true\n" if placement == "global" else "")
+                gits = [("this file's", _recomposing(mod, repo, placement))]
+                if placement == "global" or pins:
+                    gits.append(("the gate's", mod.Recomposing.over(repo)))
+                if sys.platform == "darwin":
+                    gits.append(("the real git", repo))
+                for how, git in gits:
+                    git.env.update(HOME=home, XDG_CONFIG_HOME=home)
+                    got = git.raw(*pins, "rev-parse", "--verify", "--quiet", typed)[0] == 0
+                    assert got == found, (k, how, ascii(typed), pins, placement)
+    finally:
+        shutil.rmtree(home, ignore_errors=True)
+
+
+def test_main_reads_each_rev_name_once():
+    """main() reads each rev name once -- in scan()'s resolve(), one reading for an ASCII name
+    -- and hands every other git call the object it read. e6f690dd7 also resolved both names in
+    liveness(), with the self-gate (15-25 s) between that read and the scan's: a ref that moved
+    in between was vouched for as one object and scanned as another. The self-gate is stubbed
+    here, both revs are named by refs, and every git call of the run that names either is
+    recorded. Fails at e6f690dd7 (four readings of each name: two in liveness(), two in scan()),
+    and on a scan that reads the base name a second time (6a236a5d4's version recorded the tip
+    alone)."""
+    files = {"docs/vol/main.tex": _VOL, "docs/citers.md": ["see `docs/vol/main.tex:5`"]}
+    refs = ("refs/fixture/counted-base", "refs/fixture/counted-tip")
+    with _two_trees(files, _shifted(files, "docs/vol/main.tex")) as (mod, repo, b, t):
+        for ref, oid in zip(refs, (b, t)):
+            assert repo.raw("-c", "core.hooksPath=/dev/null", "update-ref", ref, oid)[0] == 0, repo.err
+        named = []
+
+        class Recording(mod.Repo):
+            def raw(self, *a, stdin=None):
+                if any(any(isinstance(x, str) and r in x for x in a) or r.encode() in (stdin or b"") for r in refs):
+                    named.append(a)
+                return super().raw(*a, stdin=stdin)
+
+        recording = Recording(cwd=repo.cwd, scrub_env=True)
+        recording.env = dict(repo.env)
+        mod.run_gate = lambda out=print: True
+        rc, out, _ = _run_seeing_texts(mod, recording, *refs)
+    assert rc == 1 and "[SHIFTED]" in out, out
+    assert named == [("-c", "core.precomposeUnicode=false", "rev-parse", "--verify", ref + "^{}") for ref in refs], named
+
+
+def test_a_rev_name_that_is_not_ascii_is_read_recomposed_and_as_typed():
+    """resolve() reads a name that is not ASCII twice, each reading carrying its own `-c`: with
+    core.precomposeUnicode=true, recomposed, and with =false, as typed. A recomposed reading that
+    leaned on the config instead would read the name as typed wherever the key sits in the
+    repo's own config -- macOS's default, which rev-parse reads only after its arguments -- and
+    a name meaning two objects would pass as one. Every git call of the run that names the ref is
+    recorded, the self-gate stubbed. Fails at e6f690dd7 (four readings: liveness's two as well),
+    and on a resolve() whose recomposed reading carries no `-c`."""
+    files = {"docs/vol/main.tex": _VOL, "docs/citers.md": ["see `docs/vol/main.tex:5`"]}
+    ref = "refs/fixture/cafe\u0301"
+    off = ("-c", "core.precomposeUnicode=false", "-c", "core.hooksPath=/dev/null")
+    with _two_trees(files, _shifted(files, "docs/vol/main.tex")) as (mod, repo, b, t):
+        for args in (("update-ref", ref, t), ("pack-refs", "--all")):
+            assert repo.raw(*off, *args)[0] == 0, (args, repo.err)
+        named = []
+
+        class Recording(mod.Repo):
+            def raw(self, *a, stdin=None):
+                if any(isinstance(x, str) and ref in x for x in a) or ref.encode() in (stdin or b""):
+                    named.append(a)
+                return super().raw(*a, stdin=stdin)
+
+        recording = Recording(cwd=repo.cwd, scrub_env=True)
+        recording.env = dict(repo.env)
+        mod.run_gate = lambda out=print: True
+        rc, out, _ = _run_seeing_texts(mod, recording, b, ref)
+    assert rc == 1 and "[SHIFTED]" in out, out
+    assert named == [("-c", "core.precomposeUnicode=" + v, "rev-parse", "--verify", ref + "^{}")
+                     for v in ("true", "false")], named
+
+
+def test_a_rev_named_by_a_message_search_or_a_path_is_refused_with_what_git_was_asked():
+    """resolve() reads `<rev>^{}`, and a `:/<text>` or `<rev>:<path>` name takes that suffix into
+    its pattern or its path: the run is refused, exit 2, as 7f71bc71d's `^{tree}` refused it.
+    Read as typed, a `<rev>:<dir>` would scan that subtree as the repository and print a clean
+    exit 0 (a round-8 draft did). The refusal says what git was asked: 6a236a5d4 said such a
+    name named no object git can read, which git's own `rev-parse` belies. Here the tip is named
+    by its commit's message and by a directory of that commit. The self-gate is stubbed. Fails
+    at 6a236a5d4 (the reason), and on a resolve() that reads the name as typed (a verdict)."""
+    files = {"docs/vol/main.tex": _VOL, "docs/citers.md": ["see `docs/vol/main.tex:5`"]}
+    with _two_trees(files, _shifted(files, "docs/vol/main.tex")) as (mod, repo, b, t):
+        ident = ("-c", "user.name=fixture", "-c", "user.email=fixture@invalid", "-c", "core.hooksPath=/dev/null")
+        rc, out = repo.raw(*ident, "commit-tree", "--no-gpg-sign", "-m", "the fixture tip, by message", t)
+        assert rc == 0, repo.err
+        commit = out.decode().strip()
+        assert repo.raw(*ident, "update-ref", "refs/fixture/searched", commit)[0] == 0, repo.err
+        mod.run_gate = lambda out=print: True
+        for tip in (":/the fixture tip, by message", commit + ":docs"):
+            rc, out, _ = _run_seeing_texts(mod, repo, b, tip)
+            assert rc == 2 and "tip rev `%s` does not name one object git can read as `%s^{}`" % (tip, tip) in out, (
+                tip, rc, out)
+            assert "takes `^{}` into its text" in out, out
+
+
+def test_a_rev_that_names_a_blob_is_refused():
+    """scan() refuses a base or tip that names neither a commit nor a tree: every git call on a
+    blob returns nothing, and a blob passed as both revs printed `no changed files`, a clean
+    exit 0 (a blob tip after a tree base reached git diff's usage text). Each rev is checked,
+    and named. The self-gate is stubbed. Nothing pinned the check in 6a236a5d4: this fails with
+    it removed, and with the base alone checked."""
+    files = {"docs/vol/main.tex": _VOL, "docs/citers.md": ["see `docs/vol/main.tex:5`"]}
+    with _two_trees(files, _shifted(files, "docs/vol/main.tex")) as (mod, repo, b, t):
+        rc, blob = repo.raw("hash-object", "-w", "--stdin", stdin=b"a blob, not a tree\n")
+        assert rc == 0, repo.err
+        blob = blob.decode().strip()
+        mod.run_gate = lambda out=print: True
+        for base, tip, which in ((blob, blob, "base"), (b, blob, "tip")):
+            rc, out, _ = _run_seeing_texts(mod, repo, base, tip)
+            assert rc == 2 and "%s rev `%s` names neither a commit nor a tree" % (which, blob) in out, (which, out)
+
+
+def test_a_negated_rev_is_refused_with_what_git_printed():
+    """`git rev-parse --verify ^<rev>^{}` exits 0 and prints `^<oid>`, a negated rev, with nothing
+    on stderr. resolve() refused such a name -- rightly: it names no one object -- saying `git: no
+    output`, which was false (7f71bc71d and e6f690dd7 refused it too). The refusal now quotes
+    what git printed. The self-gate is stubbed. Fails at 6a236a5d4."""
+    files = {"docs/vol/main.tex": _VOL, "docs/citers.md": ["see `docs/vol/main.tex:5`"]}
+    with _two_trees(files, _shifted(files, "docs/vol/main.tex")) as (mod, repo, b, t):
+        mod.run_gate = lambda out=print: True
+        rc, out, _ = _run_seeing_texts(mod, repo, b, "^" + t)
+    assert rc == 2 and "no output" not in out and "(git: printed `^%s`, not one object ID)" % t in out, out
+
+
+def test_a_failed_self_gate_still_names_a_bad_rev():
+    """liveness() no longer reads the revs, so with the self-gate failing the scan never ran
+    and a bad base or tip went unnamed, where 7f71bc71d and e6f690dd7 named both. main() now
+    names it ahead of the self-gate's failures -- a name git cannot read, and one that names
+    neither a commit nor a tree (a blob) -- between backquotes: an empty name, or one ending in a
+    space, printed as nothing at all. Fails at 6a236a5d4, and on a main() that only resolves the
+    names (the blob goes unnamed)."""
+    files = {"docs/vol/main.tex": _VOL, "docs/citers.md": ["see `docs/vol/main.tex:5`"]}
+    with _two_trees(files, _shifted(files, "docs/vol/main.tex")) as (mod, repo, b, t):
+        rc, blob = repo.raw("hash-object", "-w", "--stdin", stdin=b"a blob, not a tree\n")
+        assert rc == 0, repo.err
+        blob = blob.decode().strip()
+        mod.run_gate = lambda out=print: out("  [FAIL] a stubbed probe") and False
+        for tip, why in (("", "does not name one object"), (blob, "names neither a commit nor a tree")):
+            rc, out, _ = _run_seeing_texts(mod, repo, b, tip)
+            assert rc == 2 and "self-gate FAILED" in out and "tip rev `%s` %s" % (tip, why) in out, out
+            assert out.index("tip rev `") < out.index("self-gate FAILED"), out
+
+
+def test_the_moving_ref_probe_notes_a_rev_read_by_name_whose_answer_is_right():
+    """The moving-ref probe puts in its verdict every git call that names the base ref or the tip
+    ref, other than resolve()'s own read before the move. Here resolve() hands the base back as
+    it was typed: the
+    base ref never moves, so every answer the scan gets is right, and only that note tells the
+    verdict from GREP_WANT. Without the note this mutant passes the self-gate, as did each
+    one-call mutant reading the base by name. Fails at e6f690dd7, whose probe notes nothing."""
+    mod = _load_module()
+    real = mod.resolve
+    mod.resolve = lambda repo, rev, *which: rev if which == ("base",) else real(repo, rev, *which)
+    v = mod.grep_case_verdict("tip named by a ref that moves")
+    assert v == "exit 1, SHIFTED=1, AMBIGUOUS=0, a rev read by name", v
+    # the base resolved twice before the move: both answers right, the second read noted (6a236a5d4
+    # exempted every read of either ref before the move, and passed this)
+    mod.resolve = lambda repo, rev, *which: [real(repo, rev, *which) for _ in range(1 + (which == ("base",)))][-1]
+    v = mod.grep_case_verdict("tip named by a ref that moves")
+    assert v == "exit 1, SHIFTED=1, AMBIGUOUS=0, a rev read by name", v
+    mod.resolve = real
+    assert mod.grep_case_verdict("tip named by a ref that moves") == mod.GREP_WANT
+
+
+def test_the_moving_ref_probe_exempts_one_read_of_each_ref_and_only_before_the_move():
+    """RefThatMoves exempts resolve()'s own read of each ref -- one apiece, before the move --
+    and notes every other call that names either. Read directly here: for each ref, one read
+    before the move passes and a second is noted; and, on a second probe, whose first call that
+    is not rev-parse moves the tip at once, each ref's first read after the move is noted. Fails
+    on a probe that exempts every read of a ref before the move (6a236a5d4's rule), and on one
+    that exempts a first read after the move, of either ref."""
+    mod = _load_module()
+    with mod.fixture_repo([], []) as (repo, base, tip):
+        def probe():
+            mover, b_ref, t_ref = mod.RefThatMoves.over(repo, base, tip)
+            return mover, (b_ref, t_ref), lambda ref: mover.raw(
+                "-c", "core.precomposeUnicode=false", "rev-parse", "--verify", ref + "^{}")
+
+        mover, refs, read = probe()
+        for ref in refs:
+            mover.read_by_name = False
+            assert read(ref)[0] == 0 and not mover.read_by_name, ref
+            assert read(ref)[0] == 0 and mover.read_by_name, ("a second read before the move", ref)
+        mover, refs, read = probe()
+        assert mover.raw("diff", "--name-only", "-z", base, tip, "--")[0] == 0 and not mover.read_by_name
+        for ref in refs:
+            mover.read_by_name = False
+            assert read(ref)[0] == 0 and mover.read_by_name, ("a first read after the move", ref)
+
+
+def test_a_run_with_no_changed_files_names_the_objects_it_read():
+    """The report's header names the two objects the scan read, the empty case included: a tip
+    whose ref moved back to the base before the scan read it is visible as such. e6f690dd7
+    printed a bare `no changed files`. Fails at e6f690dd7."""
+    files = {"docs/vol/main.tex": _VOL, "docs/citers.md": ["see `docs/vol/main.tex:5`"]}
+    with _two_trees(files, _shifted(files, "docs/vol/main.tex")) as (mod, repo, b, t):
+        mod.run_gate = lambda out=print: True
+        rc, out, _ = _run_seeing_texts(mod, repo, b, b)
+    assert rc == 0 and "[inbound-cites] %s..%s  no changed files" % (b[:8], b[:8]) in out, out
+
+
+def test_a_rev_git_cannot_resolve_is_refused_with_git_s_reason():
+    """A base or tip that no reading resolves is refused (exit 2) with git's own first line on
+    it. e6f690dd7 said an ambiguous short ID "does not resolve to a tree", where `git rev-parse
+    <id>^{tree}` resolves it; 28d2a1ad8 and 7f71bc71d quoted git's error from the first call
+    that failed. Here a four-character prefix names the tip's tree and a blob; the fixture's own
+    config sets core.disambiguate=none, so a hint in ~/.gitconfig cannot pick one of them. Fails
+    at e6f690dd7."""
+    import hashlib
+
+    files = {"docs/vol/main.tex": _VOL, "docs/citers.md": ["see `docs/vol/main.tex:5`"]}
+    with _two_trees(files, _shifted(files, "docs/vol/main.tex")) as (mod, repo, b, t):
+        fmt = repo.sh("rev-parse", "--show-object-format").strip() or "sha1"
+        prefix, n = t[:4], 0
+        while not hashlib.new(fmt, b"blob %d\0%d\n" % (len(b"%d\n" % n), n)).hexdigest().startswith(prefix):
+            n += 1
+        rc, oid = repo.raw("hash-object", "-w", "--stdin", stdin=b"%d\n" % n)
+        assert rc == 0 and oid.decode().startswith(prefix), (repo.err, oid, prefix)
+        assert repo.raw("config", "core.disambiguate", "none")[0] == 0, repo.err
+        mod.run_gate = lambda out=print: True
+        rc, out, _ = _run_seeing_texts(mod, repo, b, prefix)
+    assert rc == 2 and "is ambiguous" in out and "does not resolve" not in out, out
+
+
+def test_an_unparseable_grep_row_aborts_and_is_never_skipped():
+    """Pre-fix a row that did not split into four fields was skipped: a citer never found,
+    and the run printed a clean zero."""
+    mod = _load_module()
+    with mod.fixture_repo(["explicit-B"], [mod.B]) as (fixture, b, t):
+        good = b"%s:docs/citers.md\x001\x00see `manuscript/vol_1_foundations/main.tex:5`\n" % t.encode()
+        for reply in (b"not a grep row\n",                         # no field separators at all
+                      good.replace(t.encode(), b"other-rev"),      # another rev's row
+                      good + good[:len(good) // 2],                # a whole row, then a cut one
+                      good + good[:-1]):                           # ...one that lost only its LF
+            class Garbled(mod.Repo):
+                def raw(self, *a, stdin=None):
+                    if "grep" in a[:5]:
+                        self.err = ""
+                        return 0, reply
+                    return super().raw(*a, stdin=stdin)
+
+            rc, out, _ = _run_seeing_texts(mod, Garbled(cwd=fixture.cwd, scrub_env=True), b, t)
+            assert rc == 2, (reply, out)
+            # the scan's own abort, not the self-gate's, whose [FAIL] lines read "unparseable row" too
+            assert "`git grep` failed while collecting citers of 'main.tex' (unparseable row" in out, (reply, out)
+            assert "self-gate FAILED" not in out and "clean —" not in out, (reply, out)
+
+
+def test_a_citer_declared_binary_is_still_read():
+    """git looks gitattributes up for binary-ness only when it greps a COMMIT. The pre-fix gate
+    grepped the tip as named -- in CI, a commit -- so a text citer that any attribute source
+    declared binary was skipped and the run printed a clean zero. The gate greps the tip's
+    tree. Each case first proves that a grep of the commit really skips the citer."""
+    import os
+
+    line = "see `docs/vol/main.tex:5`"
+    files = {"docs/vol/main.tex": _VOL, "docs/citers.md": [line]}
+    for where, text in ((".gitattributes", "docs/citers.md binary"), (".gitattributes", "*.md -diff"),
+                        ("info/attributes", "docs/citers.md binary"), ("core.attributesFile", "*.md -diff")):
+        base, tip = dict(files), _shifted(files, "docs/vol/main.tex")
+        if where == ".gitattributes":
+            base[where] = tip[where] = [text]
+        with _two_trees(base, tip) as (mod, repo, b, t):
+            if where != ".gitattributes":
+                attrs = os.path.join(repo.cwd, ".git", "info" if where == "info/attributes" else "", "attributes")
+                os.makedirs(os.path.dirname(attrs), exist_ok=True)
+                with open(attrs, "w") as fh:
+                    fh.write(text + "\n")
+                if where == "core.attributesFile":
+                    assert repo.raw("config", "core.attributesFile", attrs)[0] == 0
+            repo.env.update(GIT_AUTHOR_NAME="t", GIT_AUTHOR_EMAIL="t@invalid", GIT_COMMITTER_NAME="t",
+                            GIT_COMMITTER_EMAIL="t@invalid")
+            commit = repo.sh("commit-tree", "--no-gpg-sign", "-m", "tip", t).strip()
+            listed = {rev: repo.sh("-c", "diff.default.binary=auto", "grep", "-I", "-l", "--no-color",
+                                   "-F", "-e", "main.tex", rev, "--") for rev in (commit, t)}
+            assert "docs/citers.md" not in listed[commit], (where, listed)      # the case is armed
+            assert "docs/citers.md" in listed[t], (where, listed)
+            res = mod.scan(repo, b, commit)
+        assert not mod.scan_errors(res), (where, mod.scan_errors(res))
+        assert [(f.src, f.kind) for f in res["pinned"]] == [("docs/citers.md", "SHIFTED")], (where, res["pinned"])
+
+
+def test_a_correct_repin_in_a_citer_whose_path_git_would_quote_passes():
+    """#1079 recognises a re-pin only in a citer the branch changed, keyed by the path
+    `diff -z` prints, unquoted. Before -z the citer grep handed back `docs/\u00e9/c.md`
+    C-quoted, never matched it, and read a correct re-pin as SHIFTED (exit 1); a citer at
+    `docs/a:b.md` crashed the split (exit 2). Fails at #1081's head, 7f71bc71d."""
+    for citer in ("docs/e/c.md", "docs/\u00e9/c.md", "docs/a:b.md"):
+        files = {"docs/vol/main.tex": _VOL, citer: ["see `docs/vol/main.tex:5`"]}
+        tip = _shifted(files, "docs/vol/main.tex")
+        tip[citer] = ["see `docs/vol/main.tex:8`"]                     # the cite follows its line
+        with _two_trees(files, tip) as (mod, repo, b, t):
+            rc, out, seen = _run_seeing_texts(mod, repo, b, t)
+        assert rc == 0 and "[SHIFTED]" not in out, (citer, rc, out)
+        assert (citer, "see `docs/vol/main.tex:8`") in seen, (citer, seen)
+
+
+def test_every_grep_rule_holds_under_a_hostile_global_config():
+    """The GREP receipt rows, on a machine whose ~/.gitconfig sets the grep slot colours to
+    `normal`, `color.grep = never`, `grep.column = false`, `grep.lineNumber = true`,
+    `grep.patternType = fixed`, `diff.default.binary = true`, `core.quotePath = false`,
+    `core.precomposeUnicode = false`, an excludesFile listing notes.md and a
+    `submodule.active` pathspec that leaves the fixture's submodule out. With its pin off each
+    case must still read its unpinned verdict, and with it on read whole. Without the
+    fixtures' slot colours, `grep.lineNumber = false`, `grep.patternType = basic`,
+    `core.quotePath = true`, `add -f` or `active = true`, rows go BROKEN on such a machine
+    (test_the_default_fixture_repo_carries_the_hostile_config pins each HOSTILE key by name;
+    only this test shows what they do, and nothing else pins `add -f` or `active = true`).
+    (`core.precomposeUnicode = false` changes no row: every fixture tree with a non-ASCII path
+    is built in the object store; the next test holds what the fixtures' `true` does.) Needs
+    Odd.unpinned, from 2d4f8eab7; checked against copies of this gate with one fixture fix
+    reverted."""
+    import os
+    import shutil
+    import tempfile
+
+    mod = _load_module()
+    home = tempfile.mkdtemp(prefix="inbound-cite-home-")
+    saved = dict(os.environ)
+    try:
+        with open(os.path.join(home, "excludes"), "w") as fh:
+            fh.write("notes.md\n")
+        with open(os.path.join(home, ".gitconfig"), "w") as fh:
+            fh.write('[color]\n\tgrep = never\n[color "grep"]\n\tfilename = normal\n\tlineNumber = normal\n'
+                     '\tcolumn = normal\n\tseparator = normal\n\tmatch = normal\n[grep]\n\tcolumn = false\n'
+                     '\tlineNumber = true\n\tpatternType = fixed\n'
+                     '[diff "default"]\n\tbinary = true\n'
+                     '[core]\n\tquotePath = false\n\tprecomposeUnicode = false\n\texcludesFile = %s\n'
+                     '[submodule]\n\tactive = docs\n\trecurse = false\n' % os.path.join(home, "excludes"))
+        os.environ.update(HOME=home, XDG_CONFIG_HOME=home)
+        for name, c in mod.GREP.items():
+            mod.MUTATE.add(c.rule)
+            try:
+                v = mod.grep_case_verdict(name)
+            finally:
+                mod.MUTATE.discard(c.rule)
+            assert v == c.unpinned, (name, v)
+            assert mod.grep_case_verdict(name) == mod.GREP_WANT, name
+    finally:
+        os.environ.clear()
+        os.environ.update(saved)
+        shutil.rmtree(home, ignore_errors=True)
+
+
+def test_git_add_in_a_fixture_keeps_a_non_ascii_name_as_written():
+    """macOS only. Under a global `core.precomposeUnicode = false`, on a filesystem that stores
+    names in NFD (HFS+; here each file is written under its NFD name, as HFS+ would store it),
+    `git add` records the NFD bytes of a non-ASCII name. The fixtures' own `true` (HOSTILE)
+    makes it record the NFC name the test wrote, which every test that builds a tree with
+    _write_tree() relies on. Shown without the entry first, so this cannot pass vacuously.
+    Round 4 added the entry when the self-gate's own non-ASCII probe depended on it, with no
+    test; that probe's tree is now built in the object store. Needs HOSTILE and
+    two_trees(config=), from b6417a9db; fails there and through 2d4f8eab7, where both arms record
+    the NFD name, and passes from 239a44a74."""
+    import builtins
+    import os
+    import shutil
+    import tempfile
+    import unicodedata
+
+    if sys.platform != "darwin":
+        raise unittest.SkipTest("git recomposes names only on macOS")
+    mod = _load_module()
+    name = "docs/not\u00e9s.md"
+    without = tuple(kv for kv in mod.HOSTILE if kv[0] != "core.precomposeUnicode")
+    got = {}
+    saved = dict(os.environ)
+    home = tempfile.mkdtemp(prefix="inbound-cite-home-")
+    try:
+        with open(os.path.join(home, ".gitconfig"), "w") as fh:
+            fh.write("[core]\n\tprecomposeUnicode = false\n")
+        os.environ.update(HOME=home, XDG_CONFIG_HOME=home)
+        mod.open = lambda p, *a, **k: builtins.open(unicodedata.normalize("NFD", p), *a, **k)
+        for label, config in (("without", without), ("with", mod.HOSTILE)):
+            with mod.two_trees({"a.md": ["a"]}, {"a.md": ["a"]}, config=config) as (repo, _b, _t):
+                tree = mod._write_tree(repo, repo.cwd, {name: ["x"]})
+                got[label] = repo.raw("ls-tree", "-r", "-z", "--name-only", tree)[1]
+    finally:
+        os.environ.clear()
+        os.environ.update(saved)
+        shutil.rmtree(home, ignore_errors=True)
+    assert got["without"] == unicodedata.normalize("NFD", name).encode() + b"\0", got    # armed
+    assert got["with"] == name.encode() + b"\0", got
+
+
+def test_config_text_survives_a_round_trip_through_git():
+    """config_text() writes values and subsections git reads back unchanged -- `#`, `;`, a
+    leading space, `"` and a backslash included -- and refuses a name whose section or key
+    is empty. Fails at 8f529d35f (21382a0f9 before the rebase), whose config_text did not
+    quote."""
+    import os
+    import shutil
+    import tempfile
+
+    mod = _load_module()
+    pairs = [("a.b", "#x"), ("a.c", ";y"), ("a.d", " lead"), ("a.e", 'q"q'), ("a.f", "b\\b"),
+             ('s.sub"q.k', "v")]
+    d = tempfile.mkdtemp(prefix="inbound-cite-cfg-")
+    try:
+        cfg = os.path.join(d, "config")
+        with open(cfg, "w", encoding="utf-8") as fh:
+            fh.write(mod.config_text(pairs))
+        for key, value in pairs:
+            r = subprocess.run(["git", "config", "--file", cfg, "--get", key], capture_output=True, text=True)
+            assert r.returncode == 0 and r.stdout == value + "\n", (key, r.stdout, r.stderr)
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+    for bad in ("nodot", ".key", "section."):
+        try:
+            mod.config_text([(bad, "v")])
+        except mod.FixtureError:
+            continue
+        raise AssertionError("config_text accepted %r" % bad)
+
+
+def test_a_template_config_without_a_final_newline_reaches_no_fixture():
+    """init.templateDir copies its config into every `git init`, and the fixture config was
+    appended to it: a template config ending without a newline ran on into the first
+    appended line (`ui = auto[color]`), and every fixture -- so every run -- died, exit 2.
+    The fixtures init with --template=. Needs HOSTILE, from b6417a9db (c8c63be19 before the
+    rebase), and fails there: it added the append. The submodule's own `git init` is the next
+    test's."""
+    import os
+    import shutil
+    import tempfile
+
+    mod = _load_module()
+    home = tempfile.mkdtemp(prefix="inbound-cite-home-")
+    saved = dict(os.environ)
+    try:
+        tpl = os.path.join(home, "template")
+        os.makedirs(tpl)
+        with open(os.path.join(tpl, "config"), "w") as fh:
+            # [core] first: `git init` edits its keys in place, so the tail stays unrepaired
+            fh.write("[core]\n\tbare = false\n[color]\n\tui = auto")        # no final newline
+        with open(os.path.join(home, ".gitconfig"), "w") as fh:
+            fh.write("[init]\n\ttemplateDir = %s\n" % tpl)
+        os.environ.update(HOME=home, XDG_CONFIG_HOME=home)
+        with mod.fixture_repo(["explicit-B"], [mod.B]) as (repo, b, t):
+            res = mod.scan(repo, b, t)
+            colour = repo.sh("config", "--local", "color.ui").strip()
+    finally:
+        os.environ.clear()
+        os.environ.update(saved)
+        shutil.rmtree(home, ignore_errors=True)
+    assert colour == "always", colour
+    assert not mod.scan_errors(res) and [f.kind for f in res["pinned"]] == ["SHIFTED"], res["pinned"]
+
+
+def test_a_template_reaches_neither_fixture_init():
+    """Both `git init`s a fixture runs -- its own and its submodule's -- take --template=. A
+    template's config that is a symlink is copied as one, and `git init` then writes its
+    [core] block through it, into the user's own file. Fails with --template= taken off
+    either init: off the submodule's, nothing else notices (the submodule's config is never
+    appended to). Needs fixture_repo(submodule=), from 8f529d35f; fails at 8f529d35f and
+    8d0e14416, and passes from 2d4f8eab7."""
+    import os
+    import shutil
+    import tempfile
+
+    mod = _load_module()
+    home = tempfile.mkdtemp(prefix="inbound-cite-home-")
+    saved = dict(os.environ)
+    try:
+        tpl = os.path.join(home, "template")
+        os.makedirs(tpl)
+        real = os.path.join(home, "my-config")
+        with open(real, "w") as fh:
+            fh.write("[user]\n\tname = me\n")
+        os.symlink(real, os.path.join(tpl, "config"))
+        with open(os.path.join(home, ".gitconfig"), "w") as fh:
+            fh.write("[init]\n\ttemplateDir = %s\n" % tpl)
+        before = (open(real).read(), os.stat(real).st_mode)
+        os.environ.update(HOME=home, XDG_CONFIG_HOME=home)
+        with mod.fixture_repo(["explicit-B"], [mod.B], submodule=True) as (repo, b, t):
+            res = mod.scan(repo, b, t)
+        after = (open(real).read(), os.stat(real).st_mode)
+    finally:
+        os.environ.clear()
+        os.environ.update(saved)
+        shutil.rmtree(home, ignore_errors=True)
+    assert after == before, after
+    assert not mod.scan_errors(res) and [f.kind for f in res["pinned"]] == ["SHIFTED"], res["pinned"]
+
+
+def test_a_citer_path_cannot_forge_a_report_line():
+    """Read with -z, a citer path comes back as its own bytes, a newline or an ESC included,
+    where before -z git C-quoted it. Printed raw, `docs/x<LF>  clean ...` forged a report
+    line and an ESC restyled the log; the report prints each control character as its escape.
+    Fails at b6417a9db (c8c63be19 before the rebase); at 7f71bc71d git C-quoted the path. The
+    em dash prints as `\\u2014`, as every path prints in ASCII, so this fails at 239a44a74 and
+    28d2a1ad8 too, which printed it as itself."""
+    line = "see `docs/vol/main.tex:5`"
+    citer = "docs/x\n  clean \u2014 nothing moved\x1b[8m.md"
+    files = {"docs/vol/main.tex": _VOL, citer: [line]}
+    with _two_trees(files, _shifted(files, "docs/vol/main.tex")) as (mod, repo, b, t):
+        rc, out, seen = _run_seeing_texts(mod, repo, b, t)
+    assert rc == 1 and seen == [(citer, line)], (rc, seen, out)
+    assert "\x1b" not in out and "\n  clean \u2014 nothing moved" not in out, out
+    assert "  docs/x\\n  clean \\u2014 nothing moved\\x1b[8m.md:1  ->  docs/vol/main.tex:5   [SHIFTED]" in out, out
+
+
+def _object_trees(base_files, tip_files):
+    """Like _two_trees, but each tree goes straight to the object store (update-index
+    --index-info), so a path may hold any bytes: APFS cannot name a file whose path is not
+    UTF-8. Paths and contents are bytes. Independent of the tool's own builder, so a test
+    that uses it fails on a tool without the fix for the behavioural reason."""
+    import contextlib
+    import os
+
+    mod = _load_module()
+
+    def tree(repo, files):
+        index = os.path.join(repo.cwd, ".git", "test-object-index")
+        if os.path.exists(index):
+            os.remove(index)
+        entries = b""
+        for name, data in files.items():
+            rc, oid = repo.raw("hash-object", "-w", "--stdin", stdin=data)
+            assert rc == 0, repo.err
+            entries += b"100644 %s\t%s\0" % (oid.strip(), name)
+        env = dict(repo.env, GIT_INDEX_FILE=index)
+        subprocess.run(["git", "update-index", "-z", "--index-info"], input=entries, cwd=repo.cwd,
+                       env=env, check=True)
+        return subprocess.run(["git", "write-tree"], cwd=repo.cwd, env=env, check=True,
+                              capture_output=True).stdout.decode("ascii").strip()
+
+    @contextlib.contextmanager
+    def ctx():
+        with mod.fixture_repo([], []) as (repo, _, _t):
+            yield mod, repo, tree(repo, base_files), tree(repo, tip_files)
+    return ctx()
+
+
+def test_a_citer_path_that_is_not_utf8_never_passes_for_another_file():
+    """Every path is decoded one string per byte path. Decoded with 'replace', a citer in
+    directory 0xFF read as `docs/\ufffd/...`: the name of a changed file in directory 0xFE
+    or in a directory really named U+FFFD, and the mirror -- a citer really named U+FFFD --
+    was the name of a changed file in directory 0xFF. scan()'s self-cite skip then dropped
+    the cite one line from it, and the run printed a clean exit 0 (from a 0xFE directory,
+    whose blob the 'replace' name could not reach, it aborted). And a relative link from
+    that directory landed in the U+FFFD one: a false SHIFTED. Each cite here, a link one line
+    from its target's name, must fire, and print each path in a form of its own. Fails at
+    2d4f8eab7 (every case: the three links read clean, exit 0, and the link to its own directory
+    reads a false SHIFTED, exit 1), at 239a44a74 and 7f71bc71d (the 0xFE target, which aborts,
+    and the mirror, which reads clean), and at 28d2a1ad8 (U+FFFD printed as itself, not in
+    ASCII)."""
+    vol = b"".join(b"vol line %d\n" % i for i in range(1, 15))
+    moved = b"inserted 1\ninserted 2\ninserted 3\n" + vol
+    for c_dir, t_dir, shown in ((b"\xff", b"\xfe", ("docs/\\xff/main.tex", "docs/\\xfe/main.tex")),
+                                (b"\xff", b"\xef\xbf\xbd", ("docs/\\xff/main.tex", "docs/\\ufffd/main.tex")),
+                                (b"\xef\xbf\xbd", b"\xff", ("docs/\\ufffd/main.tex", "docs/\\xff/main.tex"))):
+        rows = [b"c%d" % i for i in range(1, 12)]
+        rows[3] = b"see [main.tex:5](../%s/main.tex)" % t_dir
+        target = b"docs/%s/main.tex" % t_dir
+        citer = b"docs/%s/main.tex" % c_dir
+        files = {target: vol, citer: b"\n".join(rows) + b"\n"}
+        tip = dict(files)
+        tip[target] = moved
+        with _object_trees(files, tip) as (mod, repo, b, t):
+            rc, out, seen = _run_seeing_texts(mod, repo, b, t)
+        dec = lambda raw: raw.decode("utf-8", "surrogateescape")
+        assert rc == 1 and "clean \u2014" not in out, (c_dir, t_dir, rc, out)
+        assert seen == [(dec(citer), "see [main.tex:5](../%s/main.tex)" % dec(t_dir))], seen
+        assert "pinned by: link target" in out, out
+        assert "  %s:4  ->  %s:5   [SHIFTED]" % shown in out, out
+    # A link to its own directory's main.tex -- there is none -- names nobody: it must not land
+    # in the directory named U+FFFD. The bare name is shared, so the cite is advisory.
+    target = b"docs/\xef\xbf\xbd/main.tex"
+    files = {target: vol, b"papers/main.tex": b"".join(b"letter line %d\n" % i for i in range(1, 41)),
+             b"docs/\xff/notes.md": b"see [main.tex:5](main.tex)\n"}
+    tip = dict(files)
+    tip[target] = moved
+    with _object_trees(files, tip) as (mod, repo, b, t):
+        rc, out, seen = _run_seeing_texts(mod, repo, b, t)
+    assert rc == 0 and "[SHIFTED]" not in out and "AMBIGUOUS-BASENAME, 2 candidates" in out, out
+
+
+def _blob(rows):
+    return b"".join(r + b"\n" for r in rows)
+
+
+_VOL_B = [b"vol line %d" % i for i in range(1, 15)]
+_TOP_B = [b"inserted 1", b"inserted 2", b"inserted 3"] + _VOL_B
+_LETTER_B = [b"letter line %d" % i for i in range(1, 41)]
+
+
+def test_a_changed_citer_is_read_by_its_own_bytes():
+    """#1079 reads a changed citer's re-pin from the citer's own base blob. Asked for as
+    `<rev>:<path>`, a citer named `n.md<CR>` read `n.md` (git strips the CR) and one named
+    `n.md<LF>x` read `n.md` too (git ends a request at its LF): the number found there
+    'confirmed' a wrong re-pin -- exit 0 -- and with no `n.md` beside it the run aborted.
+    A citer whose path is not UTF-8 was keyed by one decoding and read by another: its re-pin
+    was never read, so a correct one read SHIFTED. And on macOS a citer named in NFD lost its
+    re-pin to `git diff-tree`, which recomposed the path to NFC. Each must read as the ASCII
+    control does: the wrong re-pin fires (from :9, whose content is now at :12), the correct
+    one passes, and a cite the citer left alone fires. Each runs through a git that recomposes
+    as macOS does (_recomposing), so the NFD case is armed on every platform. Fails at 239a44a74
+    (CR, LF, 0xFF and NFD), and at 7f71bc71d, where git C-quoted these citers and no re-pin of
+    theirs was read."""
+    cite = lambda n: b"see `docs/vol/main.tex:%d`" % n
+    twin = {b"docs/n.md": _blob([b"see `papers/main.tex:10`"]), b"papers/main.tex": _blob(_LETTER_B)}
+    for citer in (b"docs/m.md", b"docs/n.md\r", b"docs/n.md\nx", b"docs/\xff/c.md", b"docs/e\xcc\x81/c.md"):
+        for was, now, others, want, note in (
+                (9, 13, twin, 1, "[SHIFTED] -- re-pinned from :9; base content is now at :12"),
+                (9, 12, twin, 0, None),
+                (5, 5, {}, 1, "[SHIFTED] -- base content is now at :8")):
+            files = {**others, b"docs/vol/main.tex": _blob(_VOL_B), citer: _blob([cite(was), b"other"])}
+            tip = {**files, b"docs/vol/main.tex": _blob(_TOP_B), citer: _blob([cite(now), b"other EDITED"])}
+            with _object_trees(files, tip) as (mod, repo, b, t):
+                rc, out, _ = _run_seeing_texts(mod, _recomposing(mod, repo), b, t)
+            assert rc == want and "ABORT" not in out, (citer, was, now, rc, out)
+            assert note is None or note in out, (citer, was, now, out)
+
+
+def test_a_name_holding_a_newline_never_shifts_another_files_read():
+    """Asked for as `<rev>:<path>`, a name holding a newline was two requests -- git reads one to
+    the end of its line -- and each answered `missing`. A file the tip holds under such a name
+    read `missing` itself (`docs/a<LF>b/main.tex`, read alone, as it sorts first), and one absent
+    at base shifted every blob asked for after it in the same batch onto the answer meant for the
+    one before (`docs/z<LF>b/main.tex`, batched ahead of papers/main.tex): the first that is
+    really there aborted the run. Blobs are now asked for by object ID, and only those the tree
+    holds. Fails at 7f71bc71d and at 239a44a74 (exit 2); the name with a space is the control.
+    The batch is read directly too, so the shift stays pinned whatever order scan() reads in."""
+    for added in (b"docs/a b/main.tex", b"docs/a\nb/main.tex", b"docs/z\nb/main.tex"):
+        files = {b"docs/vol/main.tex": _blob(_VOL_B), b"papers/main.tex": _blob(_LETTER_B),
+                 b"docs/c.md": _blob([b"see `docs/vol/main.tex:5`"])}
+        tip = {**files, b"docs/vol/main.tex": _blob(_TOP_B), added: _blob([b"new"])}
+        with _object_trees(files, tip) as (mod, repo, b, t):
+            rc, out, _ = _run_seeing_texts(mod, repo, b, t)
+        assert rc == 1 and "[SHIFTED]" in out, (added, out)
+    files = {b"papers/main.tex": _blob(_LETTER_B)}
+    with _object_trees(files, {**files, b"docs/a\nb/main.tex": _blob([b"new"])}) as (mod, repo, b, t):
+        repo.load(b, ["docs/a\nb/main.tex", "papers/main.tex"])
+        assert repo.blob(b, "docs/a\nb/main.tex") is None
+        assert repo.blob(b, "papers/main.tex") == ["letter line %d" % i for i in range(1, 41)] + [""]
+
+
+def test_a_link_whose_text_is_not_utf8_lands_on_its_own_file():
+    """A link is resolved from the text of the citing line. Decoded with 'replace', a link into
+    the directory named by the byte 0xFF named the directory really named U+FFFD: when that
+    file moved, a false SHIFTED (exit 1) for a cite of a file that never changed. Fails at
+    239a44a74 and at 7f71bc71d; the link into the U+FFFD directory is the control."""
+    for link, want in ((b"\xff/main.tex", 0), (b"\xef\xbf\xbd/main.tex", 1)):
+        files = {b"docs/\xef\xbf\xbd/main.tex": _blob(_VOL_B), b"docs/\xff/main.tex": _blob(_VOL_B),
+                 b"docs/c.md": _blob([b"see [main.tex:5](%s)" % link])}
+        tip = {**files, b"docs/\xef\xbf\xbd/main.tex": _blob(_TOP_B)}
+        with _object_trees(files, tip) as (mod, repo, b, t):
+            rc, out, _ = _run_seeing_texts(mod, repo, b, t)
+        assert rc == want, (link, out)
+        assert ("pinned by: link target" if want else "addressed-elsewhere=1") in out, (link, out)
+
+
+def test_the_report_prints_each_path_in_a_form_of_its_own():
+    """Distinct citers print distinct report lines, in ASCII, so two that look alike on screen
+    print apart. A byte that is not UTF-8 printed as `\\xNN`, which is also how a C1 control
+    character (U+0080-U+009F) printed, and what a name holding the text `\\xNN` printed as; an
+    LF, and a name holding a backslash and an `n`, both printed `\\n` (239a44a74: 2 distinct
+    lines of the first 5). A name in NFC and the same name in NFD, or with a Latin `a` and with
+    a Cyrillic one, printed as the same text (28d2a1ad8). Each prints as written here."""
+    citers = {b"docs/\x85.md": "docs/\\x85.md",
+              b"docs/\xc2\x85.md": "docs/\\u0085.md",
+              b"docs/\\x85.md": "docs/\\\\x85.md",
+              b"docs/x\n.md": "docs/x\\n.md",
+              b"docs/x\\n.md": "docs/x\\\\n.md",
+              b"docs/caf\xc3\xa9.md": "docs/caf\\u00e9.md",
+              b"docs/cafe\xcc\x81.md": "docs/cafe\\u0301.md",
+              b"docs/p\xd0\xb0per.md": "docs/p\\u0430per.md",
+              b"docs/paper.md": "docs/paper.md"}
+    files = {b"docs/vol/main.tex": _blob(_VOL_B), **{c: _blob([b"see `docs/vol/main.tex:5`"]) for c in citers}}
+    tip = {**files, b"docs/vol/main.tex": _blob(_TOP_B)}
+    with _object_trees(files, tip) as (mod, repo, b, t):
+        rc, out, seen = _run_seeing_texts(mod, repo, b, t)
+    rows = [l for l in out.splitlines() if "  ->  docs/vol/main.tex:5   [SHIFTED]" in l]
+    assert rc == 1 and len(seen) == len(citers) and all(r.isascii() for r in rows), (rows, out)
+    assert sorted(rows) == sorted("  %s:1  ->  docs/vol/main.tex:5   [SHIFTED] -- base content is now at :8"
+                                  % shown for shown in citers.values()), rows
+
+
+def test_a_changed_file_named_not_utf8_keeps_its_repins():
+    """A changed citer's re-pin is read from its base line, where the cite's leaf -- here the name
+    of a file holding the byte 0xFF -- is looked for. Decoded with 'replace', the base line did
+    not hold the leaf as the paths decode it, and the number was never recovered: a correct
+    re-pin read SHIFTED (exit 1) and a wrong one onto a line that kept still read clean (exit
+    0). Each must read as the ASCII control does. An ASCII leaf lost its re-pin the same way when
+    another cite on the line had a cut-off character in its gap. Fails at 28d2a1ad8; at 239a44a74
+    and 7f71bc71d the 0xFF cite was never collected (exit 0 for both re-pins)."""
+    moved = _VOL_B[:4] + [b"inserted 1", b"inserted 2", b"inserted 3"] + _VOL_B[4:]   # :9 -> :12, :2 stays
+    for target, also in ((b"docs/mn.tex", b""), (b"docs/m\xffn.tex", b""),
+                         (b"docs/vol.md", b" and docs/vol.md\xe2\x82\xe2\x82:1")):
+        for now, want, note in ((12, 0, "RE-PINNED=1 "),
+                                (2, 1, "[SHIFTED] -- re-pinned from :9; base content is now at :12")):
+            cite = lambda n: b"see `%s:%d`%s" % (target, n, also)
+            files = {target: _blob(_VOL_B), b"docs/c.md": _blob([cite(9), b"other"])}
+            tip = {target: _blob(moved), b"docs/c.md": _blob([cite(now), b"other EDITED"])}
+            with _object_trees(files, tip) as (mod, repo, b, t):
+                rc, out, _ = _run_seeing_texts(mod, repo, b, t)
+            assert rc == want and note in out and "ABORT" not in out, (target, now, rc, out)
+
+
+def test_a_cited_line_is_compared_as_its_own_bytes():
+    """Decoded with 'replace', two lines that differ only in a byte that is not UTF-8 read as one:
+    the cited line `caf<E9>` moved four lines down, `caf<E8>` took its address, and the cite held
+    -- a clean exit 0. Blobs are decoded with surrogateescape, as the paths are, and the report
+    prints such a byte as `\\xNN`: printed raw, a strict UTF-8 stdout cannot encode it and the
+    report crashed (exit 2). Fails at 28d2a1ad8, 239a44a74 and 7f71bc71d (exit 0)."""
+    base = [b"line 1", b"line 2", b"line 3", b"line 4", b"caf\xe9"] + _VOL_B[5:]
+    tip = [b"inserted 1", b"inserted 2", b"inserted 3", b"line 1", b"caf\xe8", b"line 2", b"line 3",
+           b"line 4", b"caf\xe9"] + _VOL_B[5:]
+    files = {b"docs/vol/main.tex": _blob(base), b"docs/c.md": _blob([b"see `docs/vol/main.tex:5`"])}
+    with _object_trees(files, {**files, b"docs/vol/main.tex": _blob(tip)}) as (mod, repo, b, t):
+        rc, out, _ = _run_seeing_texts(mod, repo, b, t)
+        cli = subprocess.run([sys.executable, str(_TOOL), b, t], capture_output=True, cwd=repo.cwd,
+                             env=_git_free_env(PYTHONIOENCODING="utf-8"))
+    assert rc == 1 and "[SHIFTED] -- base content is now at :9" in out, out
+    text = cli.stdout.decode("utf-8")
+    assert cli.returncode == 1 and "was: caf\\xe9" in text and "now: caf\\xe8" in text, text + cli.stderr.decode()
+
+
+def test_a_line_holding_the_text_of_a_byte_escape_prints_apart_from_the_byte():
+    """A SHIFTED row prints the cited line as it was and as it is now, a byte that is not UTF-8
+    as `\\xNN`. A pair in which either line holds such a byte prints a backslash as `\\\\` too,
+    and says so on a line of its own under the pair, so the byte 0xE9 and the four characters
+    `\\xe9` print apart -- in the pair, whichever line holds the byte, and from a pair of two
+    texts (`\\xe9` was, `\\\\xe9` now), which prints its backslashes as they are, as a pair of
+    LaTeX lines does. Fails at e6f690dd7 (both lines print `caf\\xe9`), at 6a236a5d4 (the pair
+    of two texts prints as the pair holding the byte does), and with the escaping keyed on the
+    line that was alone (the pair whose byte is now prints two identical lines)."""
+    note = "(escaped: \\xNN is a byte that is not UTF-8, \\\\ is one backslash)"
+    for was, now, shown, escaped in (
+            (b"caf\xe9", b"caf\\xe9", ("caf\\xe9", "caf\\\\xe9"), True),      # the byte was; its escape's text now
+            (b"caf\\xe9", b"caf\xe9", ("caf\\\\xe9", "caf\\xe9"), True),      # the other way round
+            (b"caf\\xe9", b"caf\\\\xe9", ("caf\\xe9", "caf\\\\xe9"), False)):  # two texts, no byte
+        base = [b"line 1", b"line 2", b"line 3", b"line 4", was] + _VOL_B[5:]
+        tip = [b"inserted 1", b"inserted 2", b"inserted 3", b"line 1", now, b"line 2", b"line 3",
+               b"line 4", was] + _VOL_B[5:]
+        files = {b"docs/vol/main.tex": _blob(base), b"docs/c.md": _blob([b"see `docs/vol/main.tex:5`"])}
+        with _object_trees(files, {**files, b"docs/vol/main.tex": _blob(tip)}) as (mod, repo, b, t):
+            rc, out, _ = _run_seeing_texts(mod, repo, b, t)
+        assert rc == 1 and "was: %s\n" % shown[0] in out and "now: %s\n" % shown[1] in out, out
+        assert (note in out) == escaped, (was, now, out)
+    base = [b"line 1", b"\\label{x}", b"line 3", b"line 4", b"\\section{a}"] + _VOL_B[5:]
+    files = {b"docs/vol/main.tex": _blob(base), b"docs/c.md": _blob([b"see `docs/vol/main.tex:5`"])}
+    tip = _blob([b"inserted 1", b"inserted 2", b"inserted 3"] + base)
+    with _object_trees(files, {**files, b"docs/vol/main.tex": tip}) as (mod, repo, b, t):
+        rc, out, _ = _run_seeing_texts(mod, repo, b, t)
+    assert rc == 1 and "was: \\section{a}\n" in out and "now: \\label{x}\n" in out and "(escaped:" not in out, out
+
+
+def test_a_cut_off_character_counts_as_one_in_a_cite_and_a_link():
+    """Decoded with 'replace', a cut-off multi-byte character (the bytes e2 80) was one U+FFFD;
+    with surrogateescape it is two characters, one per byte. A cite allows three characters
+    between its path and its `:NN`, and a link's text may run 120 past its cite, so counted byte
+    by byte two such characters dropped a plain cite (a clean exit 0), and seventy dropped a
+    link to its shared bare name (advisory, exit 0). Each must read as 'replace' read it, as
+    239a44a74 did. Fails at 28d2a1ad8."""
+    cut = b"\xe2\x80"
+    files = {b"docs/vol/main.tex": _blob(_VOL_B), b"docs/c.md": _blob([b"see docs/vol/main.tex" + cut * 2 + b":5"])}
+    with _object_trees(files, {**files, b"docs/vol/main.tex": _blob(_TOP_B)}) as (mod, repo, b, t):
+        rc, out, _ = _run_seeing_texts(mod, repo, b, t)
+    assert rc == 1 and "[SHIFTED]" in out, out
+    files = {b"docs/x/main.tex": _blob(_VOL_B), b"docs/y/main.tex": _blob(_VOL_B),
+             b"docs/c/c.md": _blob([b"see [main.tex:5 " + cut * 70 + b"](../x/main.tex)"])}
+    with _object_trees(files, {**files, b"docs/x/main.tex": _blob(_TOP_B)}) as (mod, repo, b, t):
+        rc, out, _ = _run_seeing_texts(mod, repo, b, t)
+    assert rc == 1 and "pinned by: link target" in out, out
+
+
+def test_a_cut_off_run_counts_as_replace_counts_it():
+    """BAD_UNIT reads a run of bytes that are not UTF-8 in the units 'replace' makes of it, one
+    U+FFFD per maximal subpart of an ill-formed sequence (the longest start of a well-formed
+    character, or else one byte): every string of up to four bytes drawn from the bytes at the
+    edges of UTF-8's ranges counts the same both ways. So three lone 0xFF bytes (or three cut-off
+    characters) fit a cite's gap and four do not, and 120 fit a link's text and 121 do not: a
+    run counted as one unit would fit either, and cut-off characters counted byte by byte would
+    fit neither. And a long run that fails to match does not backtrack (the group is atomic):
+    run in a child process, first, it must finish within 30 s, where a BAD_UNIT that is not
+    atomic re-splits the run every way and never finishes (in 6a236a5d4's order the 121-unit
+    link bound ran first, in this process, and hung). Needs BAD_UNIT, new in round 6."""
+    import itertools
+
+    mod = _load_module()
+    unit = re.compile(r"(?:%s|[^\udc80-\udcff])" % mod.BAD_UNIT, re.S)
+    edges = [0x41, 0x80, 0x8f, 0x90, 0x9f, 0xa0, 0xbf, 0xc0, 0xc2, 0xdf, 0xe0, 0xe1, 0xec, 0xed, 0xee,
+             0xef, 0xf0, 0xf1, 0xf3, 0xf4, 0xf5, 0xff]
+    for n in range(1, 5):
+        for seq in itertools.product(edges, repeat=n):
+            raw = bytes(seq)
+            assert len(unit.findall(raw.decode("utf-8", "surrogateescape"))) == len(raw.decode("utf-8", "replace")), raw
+    child = ("import importlib.util, sys\n"
+             "spec = importlib.util.spec_from_file_location('gate', sys.argv[1])\n"
+             "mod = importlib.util.module_from_spec(spec)\n"
+             "spec.loader.exec_module(mod)\n"
+             "run = '[main.tex:5 ' + '\\udcf1\\udc80' * 4000\n"
+             "assert mod.LINK_TAIL.match(run, len('[main.tex:5')) is None\n"
+             "assert not mod.leaf_cites('main.tex' + '\\udcf1\\udc80' * 4000 + ':5', 'main.tex')\n")
+    try:
+        r = subprocess.run([sys.executable, "-c", child, str(_TOOL)], capture_output=True, timeout=30,
+                           env=_git_free_env())
+    except subprocess.TimeoutExpired:
+        raise AssertionError("a cut-off run that fails to match still backtracks after 30 s")
+    assert r.returncode == 0, r.stderr.decode("utf-8", "replace")
+    for gap, collected in ((b"\xff" * 3, True), (b"\xe2\x80" * 3, True), (b"\xff" * 4, False),
+                           (b"\xe2\x80" * 4, False)):
+        line = (b"see docs/vol/main.tex" + gap + b":5").decode("utf-8", "surrogateescape")
+        assert bool(mod.leaf_cites(line, "main.tex")) == collected, gap
+    for char in ("\udcff", "\udce2\udc80"):
+        for n, linked in ((120, True), (121, False)):
+            text = "[main.tex:5" + char * n + "](../x/main.tex)"
+            assert (mod.LINK_TAIL.match(text, len("[main.tex:5")) is not None) == linked, (ascii(char), n)
+
+
+def test_the_self_gate_asks_this_python_to_read_a_cut_off_character_as_one():
+    """Every run asks this Python's `re` to read every shape of ill-formed byte as 'replace' did,
+    at the bounds of a cite's gap and of a link's text (bad_unit_verdict()): BAD_UNIT is an
+    atomic group, new in 3.11 (CPython's later matching fixes, gh-100061 and gh-106052, were to
+    possessive quantifiers, which it does not use). Here the patterns are swapped for ones that count
+    otherwise -- byte by byte in the gap, a whole run as one in the link -- and the check names
+    the first bound each misreads; and for one whose group is not atomic, which the check names
+    at once, in a child given 30 s, where 6a236a5d4's check backtracked through its 121-character
+    link for good. New in round 7."""
+    mod = _load_module()
+    assert mod.bad_unit_verdict() == "as replace"
+    real = mod.PAT_TMPL, mod.LINK_TAIL
+    mod.PAT_TMPL = mod.PAT_TMPL_PER_BYTE
+    assert mod.bad_unit_verdict() == "a cite gap of 3 x e0a0 dropped", mod.bad_unit_verdict()
+    mod.PAT_TMPL, mod.LINK_TAIL = real[0], mod.LINK_TAIL_PER_BYTE
+    assert mod.bad_unit_verdict() == "a link text of 120 x e0a0 not read", mod.bad_unit_verdict()
+    mod.PAT_TMPL, mod.LINK_TAIL = real[0], re.compile(r"(?:[\udc80-\udcff]+|[^\[\]\udc80-\udcff]){0,120}\]\(([^)\s]+)\)")
+    assert mod.bad_unit_verdict() == "a link text of 121 x 80 read", mod.bad_unit_verdict()
+    child = ("import importlib.util, re, sys\n"
+             "spec = importlib.util.spec_from_file_location('gate', sys.argv[1])\n"
+             "mod = importlib.util.module_from_spec(spec)\n"
+             "spec.loader.exec_module(mod)\n"
+             "loose = mod.BAD_UNIT.replace('(?>', '(?:', 1)\n"
+             "mod.PAT_TMPL = mod.PAT_TMPL.replace(mod.BAD_UNIT, loose)\n"
+             "mod.LINK_TAIL = re.compile(mod.LINK_TAIL.pattern.replace(mod.BAD_UNIT, loose))\n"
+             "mod.BAD_UNIT = loose\n"
+             "print(mod.bad_unit_verdict())\n")
+    try:
+        r = subprocess.run([sys.executable, "-c", child, str(_TOOL)], capture_output=True, timeout=30,
+                           env=_git_free_env())
+    except subprocess.TimeoutExpired:
+        raise AssertionError("the cut-off check still runs its long link on a BAD_UNIT that is not atomic")
+    assert r.stdout.strip() == b"BAD_UNIT is not atomic here: e2 80 was split to match a second 80", (
+        r.stdout, r.stderr[-400:])
+
+
+def test_the_cut_off_check_catches_every_one_edit_misreading_of_bad_unit():
+    """bad_unit_verdict() asks this Python's `re` about every alternative of BAD_UNIT at each
+    length it takes, and about the bytes either side of each range. So a `re` that misread any
+    one part of it fails the self-gate -- each of these 24 one-edit mutants of BAD_UNIT: an
+    alternative dropped (7), a quantifier read lazily or as one length (7), a second byte's range
+    or a lead's class widened by a byte (8), an alternative for a two-byte lead with its
+    continuation, the catch-all tried first. 6a236a5d4 asked about five shapes, which entered
+    three of the seven alternatives: 19 of the 24 passed it."""
+    mod = _load_module()
+    bad, pat, link = mod.BAD_UNIT, mod.PAT_TMPL, mod.LINK_TAIL.pattern
+    assert bad.startswith("(?>") and bad.endswith(")") and bad in pat and bad in link, bad
+    alts = bad[3:-1].split("|")
+    assert len(alts) == 7, alts
+    edits = [alts[:k] + alts[k + 1:] for k in range(7)]
+    for k in (3, 4):                                      # f0 / f4, cut off after two or three bytes
+        edits += [alts[:k] + [alts[k] + "?"] + alts[k + 1:], alts[:k] + [alts[k][:-1]] + alts[k + 1:]]
+    edits += [alts[:5] + [alts[5] + "?"] + alts[6:]]
+    edits += [alts[:5] + [alts[5].replace("{1,2}", q)] + alts[6:] for q in ("{1}", "{2}")]
+    for k, old, new in ((0, r"[\udca0-", r"[\udc80-"), (1, r"-\udc9f]", r"-\udcbf]"),
+                        (2, r"[\udce1-", r"[\udce0-"),
+                        (2, r"[\udce1-\udcec\udcee\udcef]", r"[\udce1-\udcef]"),
+                        (3, r"[\udc90-", r"[\udc80-"), (4, r"-\udc8f]", r"-\udcbf]"),
+                        (5, r"[\udcf1-", r"[\udcf0-"), (5, r"-\udcf3]", r"-\udcf5]")):
+        assert alts[k].count(old) == 1, (k, old)
+        edits.append(alts[:k] + [alts[k].replace(old, new)] + alts[k + 1:])
+    edits.append(alts[:6] + [r"[\udcc0-\udcdf][\udc80-\udcbf]"] + alts[6:])
+    edits.append(alts[6:] + alts[:6])
+    assert len(edits) == 24 and mod.bad_unit_verdict() == "as replace"
+    for edit in edits:
+        mutant = "(?>" + "|".join(edit) + ")"
+        mod.PAT_TMPL, mod.LINK_TAIL = pat.replace(bad, mutant), re.compile(link.replace(bad, mutant))
+        assert mod.bad_unit_verdict() != "as replace", ascii(mutant)
+
+
+def test_an_object_store_tree_that_does_not_hold_its_files_is_refused():
+    """_object_tree() reads its tree back and refuses one that does not hold exactly the
+    fixture's files: a builder that loses a file -- as a scratch index did under the split-index
+    config on git 2.40 and later -- is a FixtureError, which ends the run at exit 2, never a
+    fixture that quietly tests less. The first `git mktree` call is handed one row fewer than
+    _object_tree() wrote, and then two rows whose blob IDs are swapped: the same names, the wrong
+    contents. A check of the names alone passes the second. Needs the mktree builder, new in
+    round 6 (e6f690dd7)."""
+    mod = _load_module()
+
+    def lose(rows):
+        return rows[1:]
+
+    def swap(rows):
+        (m0, t0, n0), (m1, t1, n1) = (r.partition(b"\t") for r in rows[:2])
+        oid = lambda m: m.rsplit(b" ", 1)[1]
+        return [m0.replace(oid(m0), oid(m1)) + t0 + n0, m1.replace(oid(m1), oid(m0)) + t1 + n1] + rows[2:]
+
+    with mod.fixture_repo([], []) as (repo, _, _t):
+        for how, held in ((lose, 1), (swap, 0)):
+            class Lossy(mod.Repo):
+                done = False
+
+                def raw(self, *a, stdin=None):
+                    if "mktree" in a and not self.done:
+                        self.done = True
+                        stdin = b"".join(r + b"\0" for r in how([r for r in stdin.split(b"\0") if r]))
+                    return super().raw(*a, stdin=stdin)
+
+            lossy = Lossy(cwd=repo.cwd, scrub_env=True)
+            lossy.env = dict(repo.env)
+            try:
+                mod._object_tree(lossy, {"docs/a:1.md": ["a"], "docs/b:2.md": ["b"]})
+            except mod.FixtureError as exc:
+                assert "holds %d of the fixture's 2 files" % held in str(exc), (how.__name__, exc)
+            else:
+                raise AssertionError("%s: a tree that does not hold the fixture was taken for it" % how.__name__)
+
+
+def test_an_older_python_is_refused_with_exit_2():
+    """BAD_UNIT's atomic group is new in Python 3.11: compiled on 3.10 it raised at import, before
+    guarded() could catch it, and the uncaught exception exited 1 -- the verdict "a pinned cite
+    moved". With no venv found, the Makefile falls back to `python3` on PATH, which on macOS is
+    3.9. The gate refuses an older Python with exit 2 before anything else runs. Here 3.11 poses
+    as 3.10: sys.version_info says so, and `re` refuses an atomic group as 3.10's does, so a
+    guard placed after BAD_UNIT's first compile exits 1 here as it would on 3.10. The module must
+    also parse in 3.8's grammar (ast's feature_version, which checks what it can): syntax new in
+    3.9 to 3.11 would stop an older Python before the guard ran. A real python3.8 to 3.10 on
+    PATH, if there is one, is run as well. Fails at e6f690dd7 (the self-gate runs and passes,
+    exit 0), and with the guard moved below the patterns or into the __main__ block (exit 1;
+    6a236a5d4's version of this test passed both)."""
+    import ast
+    import shutil
+
+    child = ("import re, runpy, sys\n"
+             "sys.version_info = (3, 10, 14, 'final', 0)\n"
+             "compiled = re._compile\n"
+             "def older(pattern, flags):\n"
+             "    if isinstance(pattern, str) and '(?>' in pattern:\n"
+             "        raise re.error('unknown extension ?>')\n"
+             "    return compiled(pattern, flags)\n"
+             "re._compile = older\n"
+             "sys.argv = [sys.argv[1], '--selftest']\n"
+             "runpy.run_path(sys.argv[0], run_name='__main__')\n")
+    r = subprocess.run([sys.executable, "-c", child, str(_TOOL)], capture_output=True, timeout=600,
+                       env=_git_free_env())
+    assert r.returncode == 2 and b"needs Python 3.11 or later, this is 3.10" in r.stdout, (
+        r.returncode, r.stdout[-400:], r.stderr[-400:])
+    ast.parse(_TOOL.read_text(encoding="utf-8"), feature_version=(3, 8))
+    for name in ("python3.10", "python3.9", "python3.8", "/usr/bin/python3"):
+        py = shutil.which(name)
+        v = py and subprocess.run([py, "-c", "import sys; print('%d.%d' % sys.version_info[:2])"],
+                                  capture_output=True, timeout=60, env=_git_free_env())
+        if not v or v.returncode != 0 or tuple(int(x) for x in v.stdout.decode().split(".")) >= (3, 11):
+            continue
+        r = subprocess.run([py, str(_TOOL), "--selftest"], capture_output=True, timeout=600, env=_git_free_env())
+        assert r.returncode == 2 and b"needs Python 3.11 or later, this is " + v.stdout.strip() in r.stdout, (
+            py, r.returncode, r.stdout[-400:], r.stderr[-400:])
+
+
+def test_the_nfd_probes_are_armed_where_git_never_recomposes():
+    """The GREP probes run through Recomposing, git as macOS runs it, so dropping the citer grep's
+    or hunks()' precompose pin fails the self-gate on every platform -- on Linux CI only because
+    of it, as git compiles its recomposition only for macOS. Each pin is dropped here in a copy
+    of the gate's source, with nothing handed git in NFC (the MUTATE keys do that, and so arm
+    their probes without Recomposing): its NFD probe must change verdict. On Linux this fails on
+    a grep_case_verdict() that runs the scan on the plain repo, which 6a236a5d4's tests let
+    pass."""
+    import tempfile
+
+    src = _TOOL.read_text(encoding="utf-8")
+    for probe, old, new in (
+            ("changed file named in NFD", "        exact = ('-c', 'core.precomposeUnicode=false')\n", "        exact = ()\n"),
+            ("changed citer named in NFD", "                pin, spec = ('-c', 'core.precomposeUnicode=false'), path\n",
+             "                pin, spec = (), path\n")):
+        assert src.count(old) == 1, old
+        with tempfile.TemporaryDirectory(prefix="inbound-cite-unpinned-") as d:
+            copy = Path(d) / "unpinned.py"
+            copy.write_text(src.replace(old, new), encoding="utf-8")
+            spec = importlib.util.spec_from_file_location("inbound_cite_unpinned", copy)
+            mod = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(mod)
+            assert mod.grep_case_verdict(probe) != mod.GREP_WANT, probe
+
+
+def test_a_changed_file_named_in_nfd_is_looked_for_as_its_own_bytes():
+    """git on macOS recomposes an argument in NFD, the citer grep's leaf included: a changed file
+    named in NFD was looked for in NFC, which no cite of it holds, and the run printed a clean
+    exit 0 that read none of its cites. The grep is pinned against recomposition. Run through
+    a git that recomposes as macOS does (_recomposing), so it is armed on every platform. Fails
+    at 28d2a1ad8."""
+    target = b"docs/vol/cafe\xcc\x81.tex"
+    files = {target: _blob(_VOL_B), b"docs/c.md": _blob([b"see `%s:5`" % target])}
+    with _object_trees(files, {**files, target: _blob(_TOP_B)}) as (mod, repo, b, t):
+        rc, out, seen = _run_seeing_texts(mod, _recomposing(mod, repo), b, t)
+    assert rc == 1 and "[SHIFTED]" in out and len(seen) == 1, (rc, seen, out)
+
+
+def test_two_files_named_alike_but_for_a_byte_not_utf8_stay_two():
+    """A bare cite of main.tex names two files: one in directory 0xFF, which moves, and one in
+    directory 0xFE, which keeps still. Decoded with 'replace', both were `docs/<U+FFFD>/main.tex`:
+    asked for by that name, git found neither and the run aborted (exit 2), and read as one
+    candidate the bare cite would have gated. Each is its own candidate: the cite is AMBIGUOUS,
+    advisory, exit 0. Fails at 239a44a74 and at 7f71bc71d (exit 2)."""
+    files = {b"docs/\xff/main.tex": _blob(_VOL_B), b"docs/\xfe/main.tex": _blob(_VOL_B),
+             b"c.md": _blob([b"a bare `main.tex:5` names two files"])}
+    with _object_trees(files, {**files, b"docs/\xff/main.tex": _blob(_TOP_B)}) as (mod, repo, b, t):
+        rc, out, _ = _run_seeing_texts(mod, repo, b, t)
+    assert rc == 0 and "AMBIGUOUS-BASENAME, 2 candidates" in out and "ABORT" not in out, out
+
+
+def test_a_work_tree_under_a_directory_not_utf8_is_found():
+    """top_level_repo() takes the run's working directory from `rev-parse --show-toplevel`,
+    decoded by Repo.checked() one string per byte path. Decoded with 'replace', it named a
+    directory that does not exist, and the first git call raised: every run from such a work
+    tree crashed (exit 2). Skipped where the filesystem refuses the name (APFS); it runs, and
+    passes, on Linux CI. Fails at 239a44a74 and 7f71bc71d by reading the code: no filesystem
+    the review could reach takes the name."""
+    import os
+    import shutil
+    import tempfile
+
+    mod = _load_module()
+    tmp = tempfile.mkdtemp(prefix="inbound-cite-dir-")
+    top = os.path.join(os.fsencode(tmp), b"\xff")
+    saved, here = dict(os.environ), os.getcwd()
+    try:
+        try:
+            os.mkdir(top)
+        except OSError:
+            raise unittest.SkipTest("this filesystem refuses a name that is not UTF-8")
+        subprocess.run(["git", "init", "-q", "--template="], cwd=top, env=_git_free_env(), check=True)
+        os.mkdir(os.path.join(top, b"sub"))
+        for key in [k for k in os.environ if k.startswith("GIT_")]:
+            del os.environ[key]
+        os.chdir(os.path.join(top, b"sub"))
+        repo = mod.top_level_repo()
+        assert repo.checked("rev-parse", "--is-inside-work-tree").strip() == "true"
+        assert os.path.realpath(os.fsencode(repo.cwd)) == os.path.realpath(top), repo.cwd
+    finally:
+        os.chdir(here)
+        os.environ.clear()
+        os.environ.update(saved)
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
+def test_a_read_that_fails_part_way_leaves_the_rest_unread_not_absent():
+    """load() records a path only once its answer is read. 28d2a1ad8 recorded every path asked
+    for as absent before the read, so after a GateError a Repo used again read a blob its tree
+    holds as absent. No shipped caller reuses one; this pins the rule for any that would."""
+    mod = _load_module()
+    with mod.fixture_repo(["explicit-B"], [mod.B]) as (fixture, b, t):
+        class FailsOnce(mod.Repo):
+            failed = False
+
+            def raw(self, *a, stdin=None):
+                if "cat-file" in a and not self.failed:
+                    self.failed, self.err = True, "fatal: unable to stream"
+                    return 128, b""
+                return super().raw(*a, stdin=stdin)
+
+        repo = FailsOnce(cwd=fixture.cwd, scrub_env=True)
+        try:
+            repo.load(b, [mod.A, mod.B])
+        except mod.GateError:
+            pass
+        else:
+            raise AssertionError("the failed read did not abort")
+        assert repo.blob(b, mod.B) == ["vol1 line %d" % i for i in range(1, 15)] + [""]
+
+
+def test_a_fixture_some_filesystem_would_not_write_as_its_bytes_goes_to_the_object_store():
+    """_store_only routes a fixture to the object store when some filesystem's work tree would
+    not hold it as written: a name that is not printable ASCII (a byte that is not UTF-8, a
+    non-ASCII character, a control character), a name holding any of `:*?<>|"\\`, which Linux's
+    vfat driver refuses, and a line holding a byte that is not UTF-8, which a text file written
+    as UTF-8 cannot. Needs _store_only, from 28d2a1ad8, and fails there (the vfat characters but
+    the colon, and the line)."""
+    mod = _load_module()
+    for path in ("docs/\udcff/c.md", "docs/not\u00e9s.md", "docs/n.md\r", "docs/a\nb.md", "docs/\x1b.md",
+                 "docs/a:b.md", "docs/a*b.md", "docs/a?b.md", "docs/a<b.md", "docs/a>b.md", "docs/a|b.md",
+                 'docs/a"b.md', "docs/a\\b.md"):
+        assert mod._store_only({"docs/plain.md": ["x"], path: ["x"]}), ascii(path)
+    assert mod._store_only({"docs/plain.md": ["a cut-off \udce2\udc80 character"]})
+    assert not mod._store_only({"docs/plain.md": ["caf\u00e9"], "src/notes[1].md": ["x"],
+                                "src/-dash_mod.py": ["x"], "a b/c.md": ["x"]})
+
+
+def test_an_object_store_tree_holds_its_files_whatever_the_index_config():
+    """`core.splitIndex = true` with `feature.manyFiles = true` in ~/.gitconfig makes a scratch
+    index's `write-tree` return the EMPTY tree, exit 0, on git 2.40 and later. _object_tree builds
+    with `git mktree`, which no index setting reaches, and reads its tree back. Skipped where the
+    trigger leaves a scratch index's tree alone (git before 2.40). Needs _object_tree, from
+    239a44a74, and fails there and at 28d2a1ad8, whose builder used a scratch index and took the
+    empty tree."""
+    import os
+    import shutil
+    import tempfile
+
+    mod = _load_module()
+    saved = dict(os.environ)
+    home = tempfile.mkdtemp(prefix="inbound-cite-home-")
+    try:
+        with open(os.path.join(home, ".gitconfig"), "w") as fh:
+            fh.write("[core]\n\tsplitIndex = true\n[feature]\n\tmanyFiles = true\n")
+        os.environ.update(HOME=home, XDG_CONFIG_HOME=home)
+        with mod.fixture_repo([], []) as (repo, _b, _t):
+            empty = repo.raw("mktree", stdin=b"")[1].strip()
+            oid = repo.raw("hash-object", "-w", "--stdin", stdin=b"a\n")[1].strip()
+            env = dict(repo.env, GIT_INDEX_FILE=os.path.join(repo.cwd, ".git", "arm-index"))
+            subprocess.run(["git", "update-index", "-z", "--index-info"], input=b"100644 %s\tdocs/a.md\0" % oid,
+                           cwd=repo.cwd, env=env, check=True)
+            armed = subprocess.run(["git", "write-tree"], cwd=repo.cwd, env=env, check=True,
+                                   capture_output=True).stdout.strip()
+            if armed != empty:
+                raise unittest.SkipTest("a scratch index keeps its tree under this git")
+            tree = mod._object_tree(repo, {"docs/a.md": ["a"], "docs/\udcff/b.md": ["b"]})
+            listed = repo.raw("ls-tree", "-r", "-z", "--name-only", tree)[1]
+    finally:
+        os.environ.clear()
+        os.environ.update(saved)
+        shutil.rmtree(home, ignore_errors=True)
+    assert listed == b"docs/a.md\0docs/\xff/b.md\0", listed
+
+
+# ------------------------------------------------------------- the report and the CLI
 
 def test_report_names_the_rule_behind_every_verdict():
     """A disputed report has to be arguable: each one says which rule produced it."""
@@ -1213,6 +2838,8 @@ if __name__ == "__main__":
             try:
                 fn()
                 print("PASS", name)
+            except unittest.SkipTest as exc:
+                print("SKIP", name, exc)
             except Exception as exc:          # a crash is a failure too, not the end of the run
                 failed += 1
                 print("FAIL", name, exc)
