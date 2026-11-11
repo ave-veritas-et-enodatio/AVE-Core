@@ -248,10 +248,11 @@ trusted, every run proves five things, none of them read off its own yield:
                                  comes back with context lines voids the run, and
                                  each citer row in GREP reads whole, a name in NFD
                                  through git as macOS runs it (Recomposing) on every
-                                 platform, and this Python reads a cut-off character
-                                 as 'replace' did. Every fixture repo carries the
-                                 HOSTILE config (the colour and the column probe each
-                                 set the other's trigger benign).
+                                 platform, and this Python reads every shape of
+                                 ill-formed byte as 'replace' did. Every fixture
+                                 repo carries the HOSTILE config (the colour and
+                                 the column probe each set the other's trigger
+                                 benign).
 Any failure aborts with exit 2 instead of printing a zero.
 
 Until 2026-09-19 liveness WAS inferred from yield: "changed files but ZERO cites
@@ -937,12 +938,13 @@ def citer_lines(repo, leaf, rev):
     return rows, err
 
 
-def grep_rev(repo, tip):
-    """The rev citer_lines() reads for `tip`: its tree ID (see there for why). MUTATE
+def grep_rev(repo, tip, tree=None):
+    """The rev citer_lines() reads for `tip`: its tree ID (see there for why), read here unless
+    the caller holds it already (`tree`: scan() reads it when it checks the tip). MUTATE
     grep-commit hands it the tip as named, as the pre-fix tool did."""
     if 'grep-commit' in MUTATE:
         return tip
-    return repo.checked('rev-parse', '--verify', '--quiet', tip + '^{tree}').strip()
+    return tree or repo.checked('rev-parse', '--verify', '--quiet', tip + '^{tree}').strip()
 
 
 def resolve(repo, rev, which='rev'):
@@ -956,8 +958,13 @@ def resolve(repo, rev, which='rev'):
     resolves only one way means that object. An ASCII name has nothing to recompose and is read
     once. `^{}` peels a tag and keeps a commit a commit: the report header names the commit,
     and MUTATE grep-commit hands the citer grep the commit, as the pre-fix tool did (grep_rev()
-    itself peels the tip to its tree). A name no reading resolves is refused with git's own first line on it (an ambiguous short
-    ID, say). MUTATE revs-as-typed hands every call the name, as the pre-fix tool did."""
+    itself peels the tip to its tree). A `:/<text>` or `<rev>:<path>` name takes the suffix into
+    its pattern or its path and is refused, as 7f71bc71d's `^{tree}` refused it: read as typed,
+    a `<rev>:<dir>` would scan that subtree as the repository and print a clean. A name no
+    reading resolves is refused with what git was asked and git's own first line on it (an
+    ambiguous short ID, say) -- or, where git exits 0 but prints no one object ID (a negated
+    `^<rev>` prints `^<oid>`), with what it printed. MUTATE revs-as-typed hands every call the name,
+    as the pre-fix tool did."""
     read, said = {}, ''
     for recompose in ('false',) if rev.isascii() else ('true', 'false'):
         rc, out = repo.raw('-c', 'core.precomposeUnicode=' + recompose, 'rev-parse', '--verify',
@@ -965,26 +972,38 @@ def resolve(repo, rev, which='rev'):
         oid = out.decode('ascii', 'replace').strip()
         if rc == 0 and re.fullmatch(r'[0-9a-f]{40,64}', oid):
             read[recompose] = oid
-        else:
-            said = said or (repo.err.splitlines() or ['no output'])[0]
+        elif not said:                                     # git's reason; or, exit 0, what it printed
+            said = (repo.err.splitlines() or ['printed `%s`, not one object ID' % oid.splitlines()[0]
+                                              if oid else 'no output'])[0]
     if not read:
-        raise GateError('%s rev %s does not name an object git can read (git: %s)'
-                        % (which, _shown(rev), _shown(said)))
+        raise GateError('%s rev `%s` does not name one object git can read as `%s^{}` (git: %s)%s'
+                        % (which, _shown(rev), _shown(rev), _shown(said),
+                           ' -- a `:/<text>` or `<rev>:<path>` name takes `^{}` into its text: name '
+                           'the commit by its ID' if ':' in rev else ''))
     if len(set(read.values())) > 1:
-        raise GateError('%s rev %s names two objects: %s read recomposed, as git on macOS reads it, '
+        raise GateError('%s rev `%s` names two objects: %s read recomposed, as git on macOS reads it, '
                         'and %s as typed (or it moved between the two reads) -- name the one meant '
                         'by its ID' % (which, _shown(rev), read['true'], read['false']))
     return next(iter(read.values()))
+
+
+def tree_of(repo, which, name, rev):
+    """The tree that `rev`, the ID resolve() read for `name`, names. A rev that names neither a
+    commit nor a tree is refused: every git call on it would return nothing (a blob passed as both
+    revs printed `no changed files`, a clean exit 0)."""
+    rc, out = repo.raw('rev-parse', '--verify', '--quiet', rev + '^{tree}')
+    if rc != 0:
+        raise GateError('%s rev `%s` names neither a commit nor a tree -- every git call on it '
+                        'would return nothing' % (which, _shown(name)))
+    return out.decode('ascii', 'replace').strip()
 
 
 def scan(repo, base, tip):
     named = (base, tip)
     if 'revs-as-typed' not in MUTATE:                      # each rev name read once: see resolve()
         base, tip = resolve(repo, base, 'base'), resolve(repo, tip, 'tip')
-    for which, name, rev in zip(('base', 'tip'), named, (base, tip)):
-        if repo.raw('rev-parse', '--verify', '--quiet', rev + '^{tree}')[0] != 0:
-            raise GateError('%s rev %s names neither a commit nor a tree -- every git call on it '
-                            'would return nothing' % (which, _shown(name)))
+    # the tip's tree is the citer grep's rev
+    trees = [tree_of(repo, which, name, rev) for which, name, rev in zip(('base', 'tip'), named, (base, tip))]
     changed = [p for p in repo.checked('diff', '--name-only', '-z', base, tip, '--').split('\0') if p]
     rewrites = dict.fromkeys(changed)                      # only these citers can hold a re-pin
     by_leaf = collections.defaultdict(list)
@@ -1025,7 +1044,7 @@ def scan(repo, base, tip):
     # silently under-collected -- it missed a citer I had already proved by hand.
     # One engine does the finding, one does the precision. Never two.
     # The tip's tree ID, not the tip as named: see citer_lines().
-    tip_tree = grep_rev(repo, tip)
+    tip_tree = grep_rev(repo, tip, trees[1])
     cand = collections.defaultdict(list)
     for leaf in by_leaf:
         rows, err = citer_lines(repo, leaf, tip_tree)
@@ -1112,9 +1131,10 @@ def _text(line, escaped):
     """A cited line as the report prints it: a byte that is not UTF-8 (a blob is decoded with
     surrogateescape, see Repo.load()) as `\\xNN`. Printed raw, a strict UTF-8 stdout cannot
     encode it, and the report crashed: exit 2 where the verdict was reached. `escaped` (_show()
-    sets it when either line of the pair holds such a byte) prints a backslash as `\\\\` too,
-    so a line holding the text `\\xe9` prints apart from one holding the byte; a pair without
-    one prints its backslashes as they are, LaTeX included."""
+    sets it when either line of the pair holds such a byte, and says so on a line of its own
+    under the pair) prints a backslash as `\\\\` too, so a line holding the text `\\xe9` prints
+    apart from one holding the byte -- in that pair, and in a pair holding no such byte, which
+    prints its backslashes as they are, LaTeX included, and no such line."""
     if escaped:
         line = line.replace('\\', '\\\\')
     return line.encode('utf-8', 'surrogateescape').decode('utf-8', 'backslashreplace')
@@ -1126,6 +1146,8 @@ def _show(f):
     escaped = re.search('[\udc80-\udcff]', b_[:105] + t_[:105]) is not None
     print(f'     was: {_text(b_[:105], escaped)}{mark}')
     print(f'     now: {_text(t_[:105], escaped)}{mark}')
+    if escaped:
+        print('          (escaped: \\xNN is a byte that is not UTF-8, \\\\ is one backslash)')
 
 
 def _arrow(f):
@@ -1287,6 +1309,14 @@ def main(base, tip, verbose=False, repo=None):
             dead = [str(exc)]
         else:
             dead = scan_errors(res)
+    else:                                                  # no scan: a bad rev is named all the same
+        bad = []
+        for which, rev in (('base', base), ('tip', tip)):
+            try:
+                tree_of(repo, which, rev, resolve(repo, rev, which))
+            except GateError as exc:
+                bad.append(str(exc))
+        dead = bad + dead
     if dead:
         print('[inbound-cites] ABORT: liveness failed -- a clean report here would be false.')
         for why in dead:
@@ -1566,8 +1596,8 @@ def two_trees(base_files, tip_files, damage=(), config=HOSTILE, submodule=False,
     not a hook. `submodule`: the tip also holds a checked-out submodule (_add_submodule).
     `attributes`: a line for .git/info/attributes, and the tip becomes a COMMIT of its tree,
     so that a grep of the tip as named would look the attributes up (citer_lines()). A tree
-    that no filesystem writes as its own bytes is written straight to the object store
-    (_store_only, _object_tree).
+    that some filesystem would not write as its own bytes is written straight to the object
+    store (_store_only, _object_tree).
     `config` is HOSTILE by default, so a test that runs git porcelain in the repo and parses
     what it prints must pin its own output flags (--no-color, -n, --no-column)."""
     root = tempfile.mkdtemp(prefix='inbound-cite-selftest-')
@@ -2104,17 +2134,51 @@ def _moving_trees():
     return files, tip
 
 
+def _pinned(a):
+    """(pin, k) for a git call's arguments `a`: what its own `-c` options set
+    core.precomposeUnicode to, read as git reads them -- the key in any case, the value in git's
+    boolean spellings, the last one winning -- or None; and the index of the command, before
+    which every argument is git's own option (after it, `grep -c` counts)."""
+    pin, k = None, 0
+    while k < len(a) and isinstance(a[k], str) and a[k].startswith('-'):
+        if a[k] in ('-c', '-C') and k + 1 < len(a):
+            key, eq, value = a[k + 1].partition('=') if a[k] == '-c' else ('', '', '')
+            if key.lower() == 'core.precomposeunicode':
+                value = value.lower()
+                pin = not eq or value in ('true', 'yes', 'on') or (value.lstrip('-').isdigit() and int(value) != 0)
+            k += 2
+        else:
+            k += 1
+    return pin, k
+
+
+def _composed(arg):
+    """`arg` as a model of how git on macOS recomposes an argument (iconv, from UTF-8-MAC): NFC,
+    except that a character NFC would change on its own is kept, as git keeps U+212B, U+2126,
+    U+212A, U+F900 and U+0958. Apple's conversion is not NFC, so the model is checked only where
+    it was checked against git 2.39.5 and 2.53.0: those five, a letter with combining accents,
+    Hangul jamo (the test file's emulation table)."""
+    parts, run = [], ''
+    for c in arg:
+        if unicodedata.normalize('NFC', c) == c:
+            run += c
+        else:
+            parts += [unicodedata.normalize('NFC', run), c]
+            run = ''
+    return ''.join(parts) + unicodedata.normalize('NFC', run)
+
+
 class Recomposing(Repo):
     """A fixture repo whose git calls see their arguments as git on macOS sees them with
-    core.precomposeUnicode set where every command reads it, in ~/.gitconfig: recomposed to NFC,
-    unless the call pins `core.precomposeUnicode=false`. (HOSTILE sets it in the repo's own
-    config, which rev-parse reads too late for its arguments; every rev-parse here that is handed
-    a name in NFD carries its own `-c`.) git compiles that recomposition only for macOS, so a
-    probe of a name in NFD -- the citer grep's leaf, `git diff-tree`'s path, a rev typed in
-    NFD -- is armed only through this where git never recomposes (Linux, CI): drop a pin and
-    the probe fails there too. NFC is what git makes of those names (a letter and a combining
-    accent); an argument that is not UTF-8 is left as it is, as git leaves it, and stdin is
-    never recomposed."""
+    core.precomposeUnicode set where every command reads it before its arguments (~/.gitconfig):
+    each command's arguments recomposed as git recomposes them (_composed()), unless the call's
+    own `-c` options turn the key off (_pinned()). Set in the repo's own config -- HOSTILE's
+    place, and `git init`'s on macOS -- the key reaches rev-parse only after its arguments, so
+    there git recomposes less than this, never more: a pin dropped from any call is caught. git
+    compiles the recomposition only for macOS, so a probe of a name in NFD -- the citer grep's
+    leaf, `git diff-tree`'s path -- is armed only through this where git never recomposes
+    (Linux, CI): drop a pin and the probe fails there too. An argument that is not UTF-8 is left
+    as it is, as git leaves it, and stdin is never recomposed."""
 
     @classmethod
     def over(cls, repo):
@@ -2123,9 +2187,10 @@ class Recomposing(Repo):
         return recomposing
 
     def raw(self, *a, stdin=None):
-        if 'core.precomposeUnicode=false' not in a:
-            a = tuple(unicodedata.normalize('NFC', x)
-                      if isinstance(x, str) and not re.search('[\udc80-\udcff]', x) else x for x in a)
+        pin, k = _pinned(a)
+        if pin is not False:
+            a = a[:k] + tuple(_composed(x) if isinstance(x, str) and not re.search('[\udc80-\udcff]', x)
+                              else x for x in a[k:])
         return super().raw(*a, stdin=stdin)
 
 
@@ -2133,9 +2198,10 @@ class RefThatMoves(Recomposing):
     """A fixture repo whose base and tip are named by refs, and whose tip ref moves back to the
     base -- a fetch or a push, mid-run -- just before the scan's first git call that is not
     `rev-parse`. Any call that names either ref, in its arguments or on its stdin, other than
-    resolve()'s own reads before the move (`rev-parse ... <ref>^{}`), sets `read_by_name`: it
-    read a rev that need not be the one scanned, whether or not its answer changed. A name
-    resolved again after the move is such a read too."""
+    resolve()'s own read of each before the move (one `rev-parse ... <ref>^{}` apiece: the refs
+    are ASCII), sets `read_by_name`: it read a rev that need not be the one scanned, whether or
+    not its answer changed. A second read of a ref before the move, and a name resolved again
+    after it, are such reads too."""
     BASE, TIP = 'refs/fixture/base', 'refs/fixture/tip'
     to = None
     read_by_name = False
@@ -2146,7 +2212,7 @@ class RefThatMoves(Recomposing):
         mover.env = dict(repo.env)
         mover.move(cls.BASE, base)
         mover.move(cls.TIP, tip)
-        mover.to = base
+        mover.to, mover.resolved = base, set()
         return mover, cls.BASE, cls.TIP
 
     def move(self, ref, to):
@@ -2158,9 +2224,11 @@ class RefThatMoves(Recomposing):
             to, self.to = self.to, None
             self.move(self.TIP, to)
         refs = (self.BASE, self.TIP)
-        own = self.to is not None and 'rev-parse' in a and a[-1] in tuple(r + '^{}' for r in refs)
-        if not own and any(any(isinstance(x, str) and r in x for x in a) or r.encode() in (stdin or b'')
-                           for r in refs):
+        own = (self.to is not None and 'rev-parse' in a and a[-1] in tuple(r + '^{}' for r in refs)
+               and a[-1] not in self.resolved)
+        if own:
+            self.resolved.add(a[-1])
+        elif any(any(isinstance(x, str) and r in x for x in a) or r.encode() in (stdin or b'') for r in refs):
             self.read_by_name = True
         return super().raw(*a, stdin=stdin)
 
@@ -2301,24 +2369,37 @@ def grep_case_verdict(name):
                                                       ', a rev read by name' if by_name else '')
 
 
-#: One maximal subpart of each shape an ill-formed sequence takes, each one U+FFFD as 'replace'
-#: reads it: a lone continuation byte, a byte no character starts with, a lead byte alone, and a
-#: character cut off after two and after three of its bytes.
-CUT_OFF = (b'\x80', b'\xff', b'\xc2', b'\xe2\x80', b'\xf0\x90\x80')
+#: The shapes an ill-formed sequence takes, as 'replace' reads them. One U+FFFD each: a lone
+#: continuation byte, a byte no character starts with, a lead byte alone, and a character cut
+#: off at each length each of BAD_UNIT's alternatives takes (e0 a0, ed 80, e2 80; f0 90, f0 90
+#: 80; f4 80, f4 80 80; f1 80, f1 80 80). Two each: a lead byte before the continuation byte just
+#: outside its second byte's range (e0 9f, ed a0, f0 8f, f4 90), and a byte no character starts
+#: with before a continuation byte (c0 80, f5 80).
+CUT_OFF = (b'\x80', b'\xff', b'\xc2', b'\xe0\xa0', b'\xed\x80', b'\xe2\x80', b'\xf0\x90', b'\xf0\x90\x80',
+           b'\xf4\x80', b'\xf4\x80\x80', b'\xf1\x80', b'\xf1\x80\x80',
+           b'\xe0\x9f', b'\xed\xa0', b'\xf0\x8f', b'\xf4\x90', b'\xc0\x80', b'\xf5\x80')
 
 
 def bad_unit_verdict():
-    """'as replace' when this Python's `re` reads each shape in CUT_OFF as one character at the
-    bounds of a cite's gap (three fit, four do not) and of a link's text (120 fit, 121 do not),
-    else the first shape and bound it misreads. BAD_UNIT is an atomic group, and CPython fixed
-    atomic-group matching after 3.11.0 (gh-100061, gh-106052): a `re` that misread it would
-    collect or drop cites beside such bytes without a word, so every run asks."""
+    """'as replace' when this Python's `re` reads each shape in CUT_OFF as the characters
+    'replace' made of it -- one, or two -- at the bounds of a cite's gap (three characters fit,
+    four do not) and of a link's text (120 fit, 121 do not), else the first shape and bound it
+    misreads. BAD_UNIT is an atomic group, new in Python 3.11. The matching fixes CPython made
+    after 3.11.0 (gh-100061, gh-106052, in 3.11.5) were to possessive quantifiers, which BAD_UNIT
+    does not use, and no CPython is known to misread it; but a `re` that did would collect or drop
+    cites beside such bytes without a word, so every run asks -- of every alternative at each
+    length it takes, and of the bytes either side of each range.
+    First it asks whether the group holds at all: a `re` that backtracked into it would split
+    e2 80 to match a second 80, and on the 121-character link below it would re-split every
+    run of such bytes every way and never finish, where this exits 2 at once."""
+    if re.fullmatch(BAD_UNIT + r'\udc80', '\udce2\udc80'):
+        return 'BAD_UNIT is not atomic here: e2 80 was split to match a second 80'
     for raw in CUT_OFF:
-        u = raw.decode('utf-8', 'surrogateescape')
-        for n, fits in ((3, True), (4, False)):
+        u, units = raw.decode('utf-8', 'surrogateescape'), len(raw.decode('utf-8', 'replace'))
+        for n, fits in ((3 // units, True), (3 // units + 1, False)):
             if bool(re.search(PAT_TMPL % re.escape('main.tex'), 'see docs/main.tex' + u * n + ':5')) != fits:
                 return 'a cite gap of %d x %s %s' % (n, raw.hex(), 'dropped' if fits else 'collected')
-        for n, fits in ((120, True), (121, False)):
+        for n, fits in ((120 // units, True), (120 // units + 1, False)):
             linked = LINK_TAIL.match('[main.tex:5' + u * n + '](x/main.tex)', len('[main.tex:5')) is not None
             if linked != fits:
                 return 'a link text of %d x %s %s' % (n, raw.hex(), 'not read' if fits else 'read')
@@ -2403,10 +2484,10 @@ def run_gate(out=print):
     say(v == 'ABORT', 'a `-U0` diff that comes back with context lines (GIT_DIFF_OPTS) voids the run '
         'instead of passing a wrong re-pin', v)
 
-    # --- this Python reads a cut-off character as one, as 'replace' did (BAD_UNIT is atomic)
+    # --- this Python reads ill-formed bytes as 'replace' did (BAD_UNIT is atomic)
     v = bad_unit_verdict()
-    say(v == 'as replace', "this Python's re reads a cut-off character as one, as 'replace' did: "
-        'three fit a cite\'s gap and 120 a link\'s text, four and 121 do not', v)
+    say(v == 'as replace', "this Python's re reads each shape of ill-formed byte as 'replace' did, as "
+        "one character or two: three fit a cite's gap and 120 a link's text, four and 121 do not", v)
 
     # --- every citer row is read whole, whatever git config or the path itself would make of it
     for name, c in GREP.items():
