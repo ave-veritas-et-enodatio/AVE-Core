@@ -176,11 +176,11 @@ class TestCosseratAlignment:
         return CosseratField3D(nx=8, ny=8, nz=8, dx=1.0)
 
     def test_omega_yield_default(self, cos):
-        """omega_yield = π per Cosserat docstring + cosserat_field_3d.py:753."""
+        """omega_yield = π per Cosserat docstring + cosserat_field_3d.py:1134."""
         assert abs(cos.omega_yield - np.pi) < 1e-12
 
     def test_epsilon_yield_default(self, cos):
-        """epsilon_yield = 1.0 per cosserat_field_3d.py:754."""
+        """epsilon_yield = 1.0 per cosserat_field_3d.py:1135."""
         assert abs(cos.epsilon_yield - 1.0) < 1e-12
 
     def test_field_shapes(self, cos):

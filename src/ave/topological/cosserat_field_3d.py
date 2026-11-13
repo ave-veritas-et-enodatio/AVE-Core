@@ -46,11 +46,17 @@ A-034 cross-refs: `manuscript/backmatter/07_universal_saturation_kernel.tex`
 |T|=12 universality + ξ_K1, ξ_K2 namespace).
 """
 
+import math
+
 import jax
 
 jax.config.update("jax_enable_x64", True)
 
 import jax.numpy as jnp  # noqa: E402
+
+# δ_R constant for the readout floor — same as _READOUT_DELTA_R in grid_fix_flags.py
+# (ADD-4 §2; keeps S ≥ sqrt(1e-10) ≈ 1e-5 at the lower clip)
+_CF_READOUT_DELTA_R: float = 1e-10
 import numpy as np  # noqa: E402
 
 from ave.core.constants import ALPHA, V_SNAP  # noqa: E402
@@ -695,6 +701,33 @@ def _reflection_density_asymmetric(
     return gamma_sq
 
 
+def _readout_floor(
+    A2: jnp.ndarray,
+    w: float,
+    delta_R: float = 1e-10,
+) -> jnp.ndarray:
+    """Softplus impedance readout floor for one channel.
+
+    S = sqrt( max( S_w(A2_c), δ_R ) )
+    where A2_c = max(A2, 0) and S_w(A) = w·log1p(exp((1−A)/w)).
+
+    δ_R = 1e-10 (same constant for both channels); keeps S ≥ 1e-5 analogous
+    to the hard-clip regime where S ≥ sqrt(1e-10) ≈ 1e-5.
+
+    KNOWN ANSWER: at A2 = 1, S² = S_w(1) = w·ln2. At A2 = 0, S ≈ 1.
+
+    Called from _update_saturation_kernels when readout_floor_form="softplus_equivariant"
+    with identical (w, delta_R) for both channels (NT-1 equivariance).
+    ADD-4 §2. Spec sha1: 26324f84de66.
+
+    READ-ONLY: this result is NOT fed back to energy or step dynamics.
+    use_impedance_boundary = False (default, cf:978) keeps it read-only.
+    """
+    A2_c = jnp.maximum(A2, 0.0)                        # lower clip unchanged (ADD-4 note L)
+    S_sq = w * jnp.log1p(jnp.exp((1.0 - A2_c) / w))   # S_w(A2_c)
+    return jnp.sqrt(jnp.maximum(S_sq, delta_R))
+
+
 def _update_saturation_kernels(
     u: jnp.ndarray,
     omega: jnp.ndarray,
@@ -704,6 +737,9 @@ def _update_saturation_kernels(
     omega_yield: float,
     epsilon_yield: float,
     kappa_chiral: float = KAPPA_CHIRAL_ELECTRON,
+    readout_floor_form: str = "hard",
+    readout_w: float | None = None,
+    readout_delta_R: float = _CF_READOUT_DELTA_R,
 ) -> tuple[jnp.ndarray, jnp.ndarray]:
     """Return (S_μ, S_ε) per-site saturation kernels for asymmetric form.
 
@@ -714,7 +750,28 @@ def _update_saturation_kernels(
     (single source of truth for (S_μ, S_ε) across observer / coupling / test).
 
     Returns S_μ, S_ε each shape (nx, ny, nz), clipped to (δ, 1].
+
+    Parameters
+    ----------
+    readout_floor_form : str
+        "hard" (default, bit-identical to all existing callers): hard clip at
+        [0, 1-1e-10] then S = sqrt(1-A).
+        "softplus_equivariant": softplus floor per ADD-4 §2. S = _readout_floor(A2, w, δ_R).
+        The same (readout_w, readout_delta_R) are used for BOTH channels (NT-1).
+        READ-ONLY: does not feed energy or step (ADD-4 §3; use_impedance_boundary=False).
+    readout_w : float
+        Width parameter w for softplus floor (ADD-4 §2). Must equal the energy w
+        (ADD-4 §6; w_readout == w_energy). Only used when readout_floor_form="softplus_equivariant".
+    readout_delta_R : float
+        Lower floor on S² = 1e-10 (ADD-4 §2, δ_R). Same constant both channels.
+        Only used when readout_floor_form="softplus_equivariant".
     """
+    if readout_floor_form == "softplus_equivariant" and readout_w is None:
+        raise ValueError(
+            "_update_saturation_kernels: readout_w must be explicitly set when "
+            "readout_floor_form='softplus_equivariant' (no silent default; "
+            "ADD-4 §6: w_readout must equal w_energy). Pass readout_w=cfg.floor_w."
+        )
     eps = _compute_strain(u, omega, dx)
     eps_T = jnp.swapaxes(eps, -1, -2)
     eps_sym = 0.5 * (eps + eps_T)
@@ -730,11 +787,16 @@ def _update_saturation_kernels(
     A2_mu = (1.0 + kappa_chiral * h_local) * A2_mu_base
     A2_eps = (1.0 - kappa_chiral * h_local) * A2_eps_base
 
-    A2_mu_c = jnp.clip(A2_mu, 0.0, 1.0 - 1e-10)
-    A2_eps_c = jnp.clip(A2_eps, 0.0, 1.0 - 1e-10)
-
-    S_mu = jnp.sqrt(1.0 - A2_mu_c)
-    S_eps = jnp.sqrt(1.0 - A2_eps_c)
+    if readout_floor_form == "softplus_equivariant":
+        # ADD-4 §2: equivariant softplus floor; same (w, δ_R) for BOTH channels (NT-1)
+        S_mu = _readout_floor(A2_mu, readout_w, readout_delta_R)
+        S_eps = _readout_floor(A2_eps, readout_w, readout_delta_R)
+    else:
+        # Default "hard": bit-identical to all existing callers
+        A2_mu_c = jnp.clip(A2_mu, 0.0, 1.0 - 1e-10)
+        A2_eps_c = jnp.clip(A2_eps, 0.0, 1.0 - 1e-10)
+        S_mu = jnp.sqrt(1.0 - A2_mu_c)
+        S_eps = jnp.sqrt(1.0 - A2_eps_c)
     return S_mu, S_eps
 
 
@@ -982,6 +1044,7 @@ class CosseratField3D:
         impedance_cfl_safety: float = 0.4,
         reflection_form: str = "grad", k_refl: float = 1.0,
         reflection_delta: float = 1e-3, rotation_storage: str = "omega",
+        grid_fix_cfg=None,
     ):
         self.nx = nx
         self.ny = ny
@@ -1016,6 +1079,34 @@ class CosseratField3D:
             pml_region = d < self.pml_thickness
             attenuation = 1.0 - ((self.pml_thickness - d[pml_region]) / self.pml_thickness) ** 2
             self.cos_pml_mask[pml_region, 0] = np.maximum(0.0, attenuation)
+
+        # grid_fix_cfg: optional GridFixCfg enabling engine flags (B2–B4).
+        self.grid_fix_cfg = grid_fix_cfg
+
+        # dt-invariant sponge (FLAG 4; ADD-3 §3.1, REV-1 §R.3)
+        # use_sponge=False (default) → cos_pml_mask behavior, bit-identical.
+        # use_sponge=True  → per half-kick factor exp(-σ(d)·dt/2), dt-invariant.
+        # σ_max = 3·c_L·ln(1/R_t)/T; c_L = √(10/3); R_t = 1e-3.
+        self.use_sponge: bool = (
+            grid_fix_cfg.use_sponge if grid_fix_cfg is not None else False
+        )
+        if self.pml_thickness > 0:
+            _T = float(self.pml_thickness)
+            _c_L = math.sqrt(10.0 / 3.0)
+            _R_t = 1e-3
+            self.sponge_sigma_max: float = 3.0 * _c_L * math.log(1.0 / _R_t) / _T
+            _d_sponge = np.minimum(np.minimum(
+                np.minimum(i, nx - 1 - i),
+                np.minimum(j, ny - 1 - j)),
+                np.minimum(k, nz - 1 - k)).astype(np.float64)
+            self._sponge_sigma_d: np.ndarray = np.where(
+                _d_sponge < _T,
+                self.sponge_sigma_max * ((_T - _d_sponge) / _T) ** 2,
+                0.0,
+            )
+        else:
+            self.sponge_sigma_max = 0.0
+            self._sponge_sigma_d = np.zeros((nx, ny, nz), dtype=np.float64)
 
         # State is numpy for easy mutation; converted to jnp at each energy /
         # gradient call. The conversion overhead is small relative to the
@@ -2037,6 +2128,15 @@ class CosseratField3D:
         u_j = jnp.asarray(self.u)
         w_j = jnp.asarray(self.omega)
         V_sq = jnp.zeros((self.nx, self.ny, self.nz), dtype=u_j.dtype)
+        # B3: when grid_fix_cfg has use_floor and floor_target=="iii", pass the
+        # softplus readout floor to _update_saturation_kernels (ADD-4 §2).
+        # Flags off → "hard" (bit-identical to all existing callers).
+        cfg = self.grid_fix_cfg
+        _floor_form = "hard"
+        _floor_w = None
+        if (cfg is not None and cfg.use_floor and cfg.floor_target == "iii"):
+            _floor_form = "softplus_equivariant"
+            _floor_w = cfg.floor_w
         S_mu, S_eps = _update_saturation_kernels(
             u_j,
             w_j,
@@ -2046,6 +2146,9 @@ class CosseratField3D:
             self.omega_yield,
             self.epsilon_yield,
             KAPPA_CHIRAL_ELECTRON,
+            readout_floor_form=_floor_form,
+            readout_w=_floor_w,
+            readout_delta_R=_CF_READOUT_DELTA_R,
         )
         Z_eff = jnp.sqrt(S_mu / jnp.maximum(S_eps, 1e-12))  # Z₀ = 1
         gamma = (Z_eff - 1.0) / (Z_eff + 1.0)
@@ -2776,7 +2879,7 @@ from ave.topological.k4_quaternion import (  # noqa: E402,F401
 # Attach the K4 class methods (formerly inline; byte-identical behavior).
 for _k4_method in (
     "_zero_outside_alive_k4", "_zero_velocities_outside_alive_k4",
-    "kinetic_energy_k4", "total_energy_k4", "step_k4",
+    "kinetic_energy_k4", "total_energy_k4", "_val_and_grad_step", "step_k4",
 ):
     setattr(CosseratField3D, _k4_method, getattr(K4Mixin, _k4_method))
 del _k4_method
