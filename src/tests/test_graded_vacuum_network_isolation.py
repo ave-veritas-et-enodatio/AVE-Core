@@ -207,3 +207,59 @@ def test_saturation_kernel_both_exponents_alpha_free():
         S = saturation_kernel(A, exponent=p, S_min=1e-3)
         assert S.min() >= 1e-3 - 1e-12 and S.max() <= 1.0 + 1e-12
         assert np.all(np.diff(S) <= 1e-12), "kernel not monotone decreasing in A"
+
+
+def test_mode_selection_never_returns_a_mode_off_the_core():
+    """Every candidate must clear the core_frac gate, the first one included. Before the
+    fix, the first positive-frequency mode was taken unconditionally (`best is None or ...`),
+    so a mode with no weight on the core could be returned with ok=True."""
+    from ave.solvers.graded_vacuum_network import _select_bound_mode, em_loss_port_mask
+
+    N = 12
+    cfg = IsolationConfig(N=N, sigma=2.0, port_thickness=2)
+    port = em_loss_port_mask(N, port_thickness=2).reshape(-1)
+    flat = lambda ijk: np.ravel_multi_index(ijk, (N, N, N))
+    core, bulk, edge = flat((6, 6, 8)), flat((6, 9, 9)), flat((6, 6, 11))
+    assert not port[core] and not port[bulk] and port[edge]
+
+    def modes(*weights):
+        vecs = np.zeros((N**3, len(weights)), dtype=complex)
+        for m, w in enumerate(weights):
+            for site, frac in w.items():
+                vecs[site, m] = np.sqrt(frac)
+        return np.ones(len(weights), dtype=complex), vecs
+
+    # first mode sits in the bulk (core 0, port 0, loc 0) and outscores a real core mode
+    omega, vecs = modes({bulk: 1.0}, {core: 0.3, edge: 0.4, bulk: 0.3})
+    best = _select_bound_mode(omega, vecs, cfg, port)
+    assert best["idx"] == 1 and best["core_frac"] > 0.05
+
+    # every mode on the port shell: nothing is localised, so nothing is returned
+    omega, vecs = modes({edge: 1.0}, {edge: 1.0})
+    assert _select_bound_mode(omega, vecs, cfg, port) is None
+
+
+def test_dense_solve_never_returns_a_mode_off_the_core(monkeypatch):
+    """The same gate on the dense path (solve_isolation_Q has its own selection loop).
+    The eigensolve is replaced by synthetic eigenpairs so no physics is solved."""
+    from ave.solvers.graded_vacuum_network import solve_isolation_Q
+
+    N = 8
+    cfg = IsolationConfig(N=N, sigma=1.0, port_thickness=1)
+    flat = lambda ijk: np.ravel_multi_index(ijk, (N, N, N))
+    core, bulk, edge = flat((4, 4, 5)), flat((4, 6, 6)), flat((4, 4, 7))
+
+    def fake_eig(*weights):
+        vecs = np.zeros((N**3, len(weights)), dtype=complex)
+        for m, w in enumerate(weights):
+            for site, frac in w.items():
+                vecs[site, m] = np.sqrt(frac)
+        return lambda H: (np.ones(len(weights), dtype=complex), vecs)
+
+    monkeypatch.setattr(np.linalg, "eig", fake_eig({bulk: 1.0}, {core: 0.3, edge: 0.4, bulk: 0.3}))
+    r = solve_isolation_Q(cfg)
+    assert r["ok"] and r["core_frac"] > 0.05
+
+    monkeypatch.setattr(np.linalg, "eig", fake_eig({edge: 1.0}, {edge: 1.0}))
+    assert solve_isolation_Q(cfg)["ok"] is False
+
