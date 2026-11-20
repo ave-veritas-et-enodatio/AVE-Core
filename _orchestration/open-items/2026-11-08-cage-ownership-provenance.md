@@ -314,15 +314,3 @@ the 2026-11-08 ruling by months, so every clause quoted from them is current
 than copied: $\sqrt{S_\star}=\alpha/4 \Rightarrow 1-A_\star =
 5.5386\times10^{-12}$ against $\alpha^4/512 = 5.5385\times10^{-12}$, and
 $S(\sqrt\alpha)=\sqrt{1-\alpha}=0.99634$.
-
-Fuller context, including the discriminator set and the blast radius in both
-directions, is in a handoff brief in the private channel repo
-(`Grant-L/the-electron-plumber`,
-`_orchestration/2026-09-06_confinement-wall-sector-fork.md`). **This row is
-self-contained on every AVE-Core fact it states** — nothing above requires that
-brief to verify.
-
-**History:** surfaced 2026-09-06 by episode-001 research into whether AVE pays
-Poincaré's cohesion debt. A first attempt landed as content PR #1040, which was
-the wrong artifact from the wrong session and is **CLOSED 2026-11-08** — see its
-closing comment. This row is what should have been written then.
