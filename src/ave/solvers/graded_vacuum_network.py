@@ -422,7 +422,7 @@ def _select_bound_mode(omega, vecs, cfg, port):
         core_frac = float(v[core_mask].sum())
         port_frac = float(v[port_mask].sum())
         loc = core_frac - port_frac
-        if best is None or (loc > best["loc"] and core_frac > 0.05):
+        if core_frac > 0.05 and (best is None or loc > best["loc"]):
             best = {"idx": idx, "omega": complex(w), "loc": loc,
                     "core_frac": core_frac, "port_frac": port_frac}
     return best
@@ -511,7 +511,7 @@ def solve_isolation_Q(cfg: IsolationConfig) -> dict:
         port_frac = float(v[port_mask].sum())
         # localisation score: energy on the core, away from the port boundary.
         loc = core_frac - port_frac
-        if best is None or (loc > best["loc"] and core_frac > 0.05):
+        if core_frac > 0.05 and (best is None or loc > best["loc"]):
             best = {
                 "idx": idx,
                 "omega": complex(w),
@@ -520,7 +520,7 @@ def solve_isolation_Q(cfg: IsolationConfig) -> dict:
                 "port_frac": port_frac,
             }
 
-    if best is None:  # pragma: no cover -- degenerate solve
+    if best is None:  # no mode clears the core_frac gate
         return {"ok": False, "reason": "no localised bound mode found"}
 
     w = best["omega"]

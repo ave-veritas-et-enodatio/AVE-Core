@@ -192,3 +192,9 @@ speed**. Corpus text quoted below is reproduced from the banked audit and is
 scope verification and batch-1 execution records in `_orchestration/` · this batch's record
 `_orchestration/2026-08-12_r40-sweep-batch2a.md`.
 
+
+---
+
+## Surface note on `:106` (2026-11-20)
+
+The `:106` note ("MAGNETIC-BRANCH = SIGN-SELECTOR, NOT CAGE-MECHANISM") was authored and committed under Grant's own name (`5d83b67c`, `Grant-L`, with a Claude co-author trailer), two days after PR #260 merged (`04bda99b`), and #260's diff does not touch this file. The note itself is not edited.
