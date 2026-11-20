@@ -5,7 +5,7 @@ status: OPEN
 owner: grant
 opened: 2026-11-08
 source: manuscript/ave-kb/common/vocabulary-register.md
-anchor: 'the single-electron confining $\Gamma=-1$ TIR cavity self-creates here'
+anchor: 'single-electron confining $\Gamma=-1$ TIR'
 ---
 
 **Tracking row only. Nothing here adjudicates physics.** It records a collision,
@@ -66,8 +66,11 @@ and this is what makes it his call and not a lane's:**
 - **2026-06-17, `5d83b67c`** — author **and** committer `Grant-L`, directly.
   Subject: *"Rule-12 demote stale 'confinement via magnetic branch' prose
   (PR#260 B3-DEGENERATE)."* This is the commit that put the A1-mass-cage
-  sentence into `master-equation.md:106`. Every other commit in the chain is
-  authored `AVE Vol6 D2 Implementer`. **It is not in PR #260's diff** —
+  sentence into `master-equation.md:106`. The other commits in this record are
+  authored `AVE Vol6 D2 Implementer`, except `ee2dc5a9`, which is also
+  `Grant-L`: the confining-cavity clause was first written in Grant's name
+  too. Both `Grant-L` commits carry a Claude co-author trailer. **It is not in
+  PR #260's diff** —
   `git show --stat 04bda99b` is 7 files and `master-equation.md` is not among
   them.
 - **2026-07-01 01:17:57, `2ff5ff41`** — `resonant-lc-solitons.md:140` gains
@@ -258,8 +261,14 @@ derived)."*
 - Add a dated **surface note** (never a rewrite) at `master-equation.md:106`
   recording that the sentence post-dates #260's merge by two days and is in a
   file #260's diff never touched. **Note: Grant authored it — say so.**
-- Repair stale pins: `nonlinear-vacuum-capacitance.md:16`→`:18`;
-  `resonant-lc-solitons.md:127`/`:136`→`:131`/`:141`.
+- Repair stale pins. `hollow-vortex-binding.md:22,:188` cite
+  `resonant-lc-solitons.md:127,:134,:136`; that file moved four lines down
+  after the pin was written (`c80689c3`), so they are now `:131,:138,:140`.
+  `resonant-lc-solitons.md:138` carries seven self-pins written before the
+  same shift (`:120,:124,:127,:129` → `:124,:128,:131,:133`); the `:127`
+  inside `:141` is behind the must-not below and stays.
+  `nonlinear-vacuum-capacitance.md:16` is **not** stale: it still names the
+  A1 sentence keyed on $V_{snap}$, as it did when written.
 - Fix `src/ave/solvers/graded_vacuum_network.py:425,:514` — the
   `best is None` branch bypasses the `core_frac` gate and returns `ok=True` for
   a fully port-localized mode.
